@@ -202,6 +202,27 @@
             font-size: 13px;
             border: 1px solid #e0e0e0;
         }
+        
+        /* Debug mode styles for visual feedback */
+        body.debug-mode * {
+            outline: 1px dashed rgba(255, 0, 0, 0.2);
+        }
+        
+        body.debug-mode .layer {
+            position: relative;
+        }
+        
+        body.debug-mode .layer::before {
+            content: attr(class);
+            position: absolute;
+            top: -20px;
+            left: 0;
+            font-size: 10px;
+            color: red;
+            background: white;
+            padding: 2px 5px;
+            border: 1px solid red;
+        }
     </style>
 </head>
 <body>
@@ -364,7 +385,45 @@
         </div>
     </div>
     
+    <!-- Visual Feedback Helper -->
+    <div id="debug-info" style="position: fixed; bottom: 10px; right: 10px; background: #f0f0f0; border: 1px solid #e0e0e0; padding: 10px; font-size: 12px; font-family: monospace; display: none;">
+        <div>Viewport: <span id="viewport-size"></span></div>
+        <div>Screen: <span id="screen-size"></span></div>
+        <div>User Agent: <span id="user-agent" style="font-size: 10px;"></span></div>
+        <button onclick="toggleDebug()" style="margin-top: 5px; padding: 2px 8px; font-size: 11px;">Hide Debug</button>
+    </div>
+    
     <script>
+        // Visual feedback helper for AI development
+        let debugMode = false;
+        
+        function updateDebugInfo() {
+            document.getElementById('viewport-size').textContent = `${window.innerWidth}x${window.innerHeight}`;
+            document.getElementById('screen-size').textContent = `${screen.width}x${screen.height}`;
+            document.getElementById('user-agent').textContent = navigator.userAgent.substring(0, 50) + '...';
+        }
+        
+        function toggleDebug() {
+            debugMode = !debugMode;
+            document.getElementById('debug-info').style.display = debugMode ? 'block' : 'none';
+            document.body.classList.toggle('debug-mode', debugMode);
+            if (debugMode) updateDebugInfo();
+        }
+        
+        // Show debug info with Ctrl+Shift+D
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.shiftKey && e.key === 'D') {
+                toggleDebug();
+            }
+        });
+        
+        window.addEventListener('resize', updateDebugInfo);
+        
+        // Log errors for screenshot feedback
+        window.addEventListener('error', (e) => {
+            console.error('UI Error:', e.message, 'at', e.filename, ':', e.lineno);
+        });
+        
         const componentDetails = {
             'frontend': {
                 title: 'Web Application',

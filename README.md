@@ -16,6 +16,7 @@ This repository contains a complete system design implementation guide that brid
 
 - [**View Interactive Architecture Diagram**](index.html)
 - [**Read Full Implementation Guide**](#table-of-contents)
+- [**AI Visual Feedback Guide**](AI_VISUAL_FEEDBACK.md) - For iterative development with AI assistance
 
 ## 🛠️ Technology Stack
 
@@ -49,6 +50,7 @@ This repository contains a complete system design implementation guide that brid
 DStudio/
 ├── index.html              # Interactive architecture visualization
 ├── README.md               # This file (also the implementation guide)
+├── AI_VISUAL_FEEDBACK.md   # Guide for AI-assisted visual development
 ├── kubernetes/             # Kubernetes configurations
 │   └── namespace.yaml      # Namespace and resource quotas
 ├── terraform/              # Infrastructure as Code
