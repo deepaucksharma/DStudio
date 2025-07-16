@@ -34,6 +34,7 @@ graph LR
 ```
 
 ---
+
 ## EXPANDED FRONT MATTER (Pages i-iv)
 
 ### Pages i-ii: COVER, COPYRIGHT & CREDITS
@@ -137,6 +138,7 @@ graph TD
 <div class="icon-item"><span>🧮</span><strong>Calculate:</strong> Numerical example</div>
 <div class="icon-item"><span>🔗</span><strong>Cross-Link:</strong> Related concept elsewhere</div>
 </div>
+
 !!! success "Learning Commitment"
     Each page promises ONE core insight you'll use within 30 days
 
@@ -173,6 +175,7 @@ In fiber: ~200,000 km/s (2/3 of c due to refractive index)
 
 !!! danger "Fundamental Insight"
     No engineering can overcome physics
+
 <div class="failure-vignette">
 
 **Failure Vignette: The Tokyo Checkout Disaster**
@@ -204,6 +207,7 @@ Mars (best case):   4 min     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓�
 ```
 
 </div>
+
 <div class="decision-box">
 
 **🎯 Decision Box: Cache vs Replica**
@@ -236,6 +240,7 @@ END
     traceroute google.com | tail -5
     # Calculate: actual_latency / theoretical_minimum
     ```
+
 <div class="truth-box">
 
 **Counter-Intuitive Truth** 💡
@@ -281,6 +286,7 @@ Adding more servers can INCREASE latency if it adds more hops. The fastest distr
     ```
     MARGIN: [___] ms (must be > 0!)
     ```
+
 #### Real-World Budgets by Industry
 
 | Industry | Budget | Reason |
@@ -313,6 +319,7 @@ Adding more servers can INCREASE latency if it adds more hops. The fastest distr
     1. Pre-warm GPU containers (-200ms cold start)
     2. Regional processing (-50ms physics tax)
     3. Optimistic UI (-1600ms perceived!)
+
 !!! warning "Budget Violation Patterns"
     1. **Death by Thousand Cuts**: Each service "only" adds 5ms
     2. **Retry Multiplication**: 3 retries × 100ms = 300ms gone
@@ -368,6 +375,7 @@ Corollary: Infinite scaling is a lie sold by cloud vendors
 
 !!! quote "The Thermodynamics Angle"
     Just as energy cannot be created or destroyed, computational capacity cannot be materialized from nothing. It can only be moved (migration), transformed (optimization), or purchased (scaling).
+
 <div class="failure-vignette">
 
 **Failure Vignette: Black Friday Database Meltdown**
@@ -418,6 +426,7 @@ graph LR
     style B fill:#FFF3E0,stroke:#FF9800
     style C fill:#FFEBEE,stroke:#F44336
 ```
+
 <div class="decision-box">
 
 **🎯 Decision Tree: Scale-Up vs Scale-Out**
@@ -460,6 +469,7 @@ START: Need more capacity
     Efficiency: 0.8 (25% coordination cost)
     Effective: 100 × 0.7 × 0.8 = 56 cores actual work
     ```
+
 ??? tip "🔧 Try This: Find Your Breaking Point"
     ```bash
     # Local capacity test (DO NOT RUN IN PROD!)
@@ -495,6 +505,7 @@ START: Need more capacity
 Running at 100% capacity means you're already over capacity. Systems need breathing room for spikes, garbage collection, and maintenance. Target 60-70% steady-state.
 
 </div>
+
 ---
 
 ### Page 4: Saturation Graph & Little's Law Primer
@@ -544,6 +555,7 @@ Response Time
 ```
 
 </div>
+
 #### Why The Cliff Exists (First Principles)
 
 === "At Different Utilizations"
@@ -595,6 +607,7 @@ Solution: Surge pricing reduces λ (demand)
 ```
 
 </div>
+
 #### Practical Applications Table
 
 | Component | Safe Utilization | Danger Zone | Action at Danger |
@@ -633,6 +646,7 @@ Solution: Surge pricing reduces λ (demand)
     plt.grid(True, alpha=0.3)
     plt.show()
     ```
+
 #### Queue Taxonomy
 
 !!! info "Queue Disciplines Compared"

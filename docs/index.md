@@ -24,7 +24,7 @@
 
     Choose a customized path based on your role and experience level
 
-- :material-lightbulb:{ .lg .middle } **[Key Concepts →](#-what-youll-learn)**
+- :material-lightbulb:{ .lg .middle } **[Key Concepts →](#what-youll-learn)**
 
     ---
 
@@ -118,7 +118,7 @@ The compendium covers:
 
 </div>
 
-## 📚 What You'll Learn
+## 📚 What You'll Learn {#what-youll-learn}
 
 <div class="axiom-box animate-fadeIn">
 
