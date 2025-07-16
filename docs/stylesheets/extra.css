@@ -1,0 +1,150 @@
+/* Enhanced styling for The Compendium of Distributed Systems */
+
+/* Custom color scheme */
+:root {
+  --md-primary-fg-color: #673AB7;
+  --md-primary-fg-color--light: #7E57C2;
+  --md-primary-fg-color--dark: #5E35B1;
+  --md-accent-fg-color: #FFC107;
+  --axiom-bg: #F3E5F5;
+  --axiom-border: #9C27B0;
+  --decision-bg: #E8F5E9;
+  --decision-border: #4CAF50;
+  --failure-bg: #FFEBEE;
+  --failure-border: #F44336;
+}
+
+[data-md-color-scheme="slate"] {
+  --axiom-bg: #1A0E2E;
+  --axiom-border: #7B1FA2;
+  --decision-bg: #0D2818;
+  --decision-border: #2E7D32;
+  --failure-bg: #2D0A0A;
+  --failure-border: #C62828;
+}
+
+/* Hero section styling */
+.md-content h1:first-of-type {
+  font-size: 2.5rem;
+  font-weight: 800;
+  background: linear-gradient(45deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+}
+/* Axiom boxes */
+.axiom-box {
+  background-color: var(--axiom-bg);
+  border-left: 4px solid var(--axiom-border);
+  padding: 1rem 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Decision boxes */
+.decision-box {
+  background-color: var(--decision-bg);
+  border: 2px solid var(--decision-border);
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Failure vignettes */
+.failure-vignette {
+  background-color: var(--failure-bg);
+  border-left: 4px solid var(--failure-border);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 8px;
+  position: relative;
+}
+
+.failure-vignette::before {
+  content: '🎬';
+  position: absolute;
+  top: -0.5rem;
+  left: 1rem;
+  font-size: 2rem;
+  background: var(--md-default-bg-color);
+  padding: 0 0.5rem;
+}
+/* Icon legend styling */
+.icon-legend {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+
+.icon-item {
+  display: flex;
+  align-items: center;
+  padding: 0.5rem;
+  border-radius: 4px;
+  transition: background-color 0.2s;
+}
+
+.icon-item:hover {
+  background-color: rgba(103, 58, 183, 0.1);
+}
+
+.icon-item > span:first-child {
+  font-size: 1.5rem;
+  margin-right: 0.75rem;
+}
+
+/* Latency ladder visualization */
+.latency-ladder {
+  background: linear-gradient(to right, #E3F2FD 0%, #FFEBEE 100%);
+  padding: 1.5rem;
+  border-radius: 8px;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Metro map styling */
+.metro-map {
+  background-color: #F5F5F5;
+  padding: 2rem;
+  border-radius: 12px;
+  overflow-x: auto;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .metro-map {
+  background-color: #1E1E1E;
+}
+
+/* Enhanced code blocks */
+.language-bash::before {
+  content: 'TERMINAL';
+  display: block;
+  background: #000;
+  color: #0F0;
+  padding: 0.25rem 0.5rem;
+  font-size: 0.7rem;
+  margin: -0.5rem -0.5rem 0.5rem;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* Counter-intuitive truth boxes */
+.truth-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin: 2rem 0;
+  position: relative;
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+}
+
+.truth-box::before {
+  content: '💡';
+  position: absolute;
+  top: -0.75rem;
+  right: 1rem;
+  font-size: 2.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
