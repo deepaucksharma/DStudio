@@ -9,7 +9,6 @@ edit_uri: edit/main/docs/
 
 theme:
   name: material
-  custom_dir: overrides
   palette:
     # Palette toggle for light mode
     - scheme: default
