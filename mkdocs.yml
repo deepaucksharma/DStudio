@@ -1,10 +1,10 @@
 site_name: The Compendium of Distributed Systems
 site_description: A first-principles approach to understanding distributed systems
 site_author: Deepak
-site_url: https://yourusername.github.io/sysDesignContent/
+site_url: https://deepaucksharma.github.io/DStudio/
 
-repo_name: yourusername/sysDesignContent
-repo_url: https://github.com/yourusername/sysDesignContent
+repo_name: deepaucksharma/DStudio
+repo_url: https://github.com/deepaucksharma/DStudio
 edit_uri: edit/main/docs/
 
 theme:
@@ -92,7 +92,7 @@ nav:
 extra:
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/yourusername
+      link: https://github.com/deepaucksharma
     - icon: fontawesome/brands/linkedin
       link: https://linkedin.com/in/yourusername
   analytics:

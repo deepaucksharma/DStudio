@@ -4,7 +4,7 @@ A first-principles approach to understanding distributed systems, deriving patte
 
 ## 🌐 Live Documentation
 
-Visit the live documentation: [https://yourusername.github.io/sysDesignContent/](https://yourusername.github.io/sysDesignContent/)
+Visit the live documentation: [https://deepaucksharma.github.io/DStudio/](https://deepaucksharma.github.io/DStudio/)
 
 ## 🎯 Philosophy
 
@@ -32,8 +32,8 @@ sysDesignContent/
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/yourusername/sysDesignContent.git
-   cd sysDesignContent
+   git clone https://github.com/deepaucksharma/DStudio.git
+   cd DStudio
    ```
 
 2. **Install dependencies**:
