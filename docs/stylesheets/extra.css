@@ -1,150 +1,784 @@
-/* Enhanced styling for The Compendium of Distributed Systems */
+/* Modern Design System for The Compendium */
 
-/* Custom color scheme */
+/* ===================================
+   1. CSS Variables & Design Tokens
+   =================================== */
 :root {
-  --md-primary-fg-color: #673AB7;
-  --md-primary-fg-color--light: #7E57C2;
-  --md-primary-fg-color--dark: #5E35B1;
-  --md-accent-fg-color: #FFC107;
-  --axiom-bg: #F3E5F5;
-  --axiom-border: #9C27B0;
-  --decision-bg: #E8F5E9;
-  --decision-border: #4CAF50;
-  --failure-bg: #FFEBEE;
-  --failure-border: #F44336;
+  /* Modern Color Palette */
+  --primary-color: #5448C8;
+  --primary-light: #6B5DD3;
+  --primary-dark: #4339B5;
+  --accent-color: #00BCD4;
+  --accent-light: #26C6DA;
+  --accent-dark: #00ACC1;
+  
+  /* Semantic Colors */
+  --success-color: #10B981;
+  --warning-color: #F59E0B;
+  --error-color: #EF4444;
+  --info-color: #3B82F6;
+  
+  /* Neutral Colors */
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-200: #E5E7EB;
+  --gray-300: #D1D5DB;
+  --gray-400: #9CA3AF;
+  --gray-500: #6B7280;
+  --gray-600: #4B5563;
+  --gray-700: #374151;
+  --gray-800: #1F2937;
+  --gray-900: #111827;
+  
+  /* Typography Scale */
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+  --font-size-5xl: 3rem;
+  --font-size-6xl: 4rem;
+  
+  /* Spacing System (8px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-full: 9999px;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 250ms ease-in-out;
+  --transition-slow: 350ms ease-in-out;
+  
+  /* Z-index Scale */
+  --z-base: 0;
+  --z-dropdown: 1000;
+  --z-sticky: 1100;
+  --z-modal: 1200;
+  --z-popover: 1300;
+  --z-tooltip: 1400;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  --gray-50: #111827;
+  --gray-100: #1F2937;
+  --gray-200: #374151;
+  --gray-300: #4B5563;
+  --gray-400: #6B7280;
+  --gray-500: #9CA3AF;
+  --gray-600: #D1D5DB;
+  --gray-700: #E5E7EB;
+  --gray-800: #F3F4F6;
+  --gray-900: #F9FAFB;
+}
+
+/* ===================================
+   2. Material Theme Overrides
+   =================================== */
+[data-md-color-scheme="default"] {
+  --md-primary-fg-color: var(--primary-color);
+  --md-primary-fg-color--light: var(--primary-light);
+  --md-primary-fg-color--dark: var(--primary-dark);
+  --md-accent-fg-color: var(--accent-color);
+  --md-accent-fg-color--light: var(--accent-light);
+  --md-accent-fg-color--dark: var(--accent-dark);
 }
 
 [data-md-color-scheme="slate"] {
-  --axiom-bg: #1A0E2E;
-  --axiom-border: #7B1FA2;
-  --decision-bg: #0D2818;
-  --decision-border: #2E7D32;
-  --failure-bg: #2D0A0A;
-  --failure-border: #C62828;
+  --md-primary-fg-color: var(--primary-light);
+  --md-primary-fg-color--light: #7E6FDE;
+  --md-primary-fg-color--dark: var(--primary-color);
+  --md-accent-fg-color: var(--accent-light);
+  --md-accent-fg-color--light: #4DD0E1;
+  --md-accent-fg-color--dark: var(--accent-color);
 }
 
-/* Hero section styling */
-.md-content h1:first-of-type {
-  font-size: 2.5rem;
+/* ===================================
+   3. Typography Enhancements
+   =================================== */
+.md-typeset {
+  font-size: var(--font-size-base);
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+}
+
+.md-typeset h1 {
+  font-size: var(--font-size-4xl);
   font-weight: 800;
-  background: linear-gradient(45deg, var(--md-primary-fg-color), var(--md-accent-fg-color));
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-top: 0;
+  margin-bottom: var(--space-6);
+  color: var(--gray-900);
+}
+
+.md-typeset h2 {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  margin-top: var(--space-12);
+  margin-bottom: var(--space-4);
+  color: var(--gray-800);
+}
+
+.md-typeset h3 {
+  font-size: var(--font-size-2xl);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: var(--space-8);
+  margin-bottom: var(--space-3);
+  color: var(--gray-800);
+}
+
+.md-typeset h4 {
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  line-height: 1.4;
+  margin-top: var(--space-6);
+  margin-bottom: var(--space-2);
+  color: var(--gray-700);
+}
+
+/* Hero Section Typography */
+.md-content h1:first-of-type {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--accent-color) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  margin-bottom: 2rem;
+  background-clip: text;
+  text-fill-color: transparent;
+  text-align: center;
+  margin-bottom: var(--space-8);
+  line-height: 1.1;
 }
-/* Axiom boxes */
+
+/* Paragraph improvements */
+.md-typeset p {
+  margin-bottom: var(--space-4);
+  color: var(--gray-700);
+}
+
+.md-typeset p:last-child {
+  margin-bottom: 0;
+}
+
+/* Lead paragraph style */
+.md-typeset > p:first-of-type {
+  font-size: var(--font-size-lg);
+  line-height: 1.6;
+  color: var(--gray-600);
+  font-weight: 400;
+}
+
+/* ===================================
+   4. Content Width & Layout
+   =================================== */
+.md-content {
+  max-width: 72ch;
+  margin: 0 auto;
+  padding: var(--space-6) var(--space-4);
+}
+
+@media screen and (min-width: 768px) {
+  .md-content {
+    padding: var(--space-8) var(--space-6);
+  }
+}
+
+/* ===================================
+   5. Custom Components
+   =================================== */
+
+/* Modern Card Base */
+.card-base {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-6) 0;
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.card-base:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+[data-md-color-scheme="slate"] .card-base {
+  background: var(--gray-800);
+  border-color: var(--gray-700);
+}
+
+/* Axiom Box */
 .axiom-box {
-  background-color: var(--axiom-bg);
-  border-left: 4px solid var(--axiom-border);
-  padding: 1rem 1.5rem;
-  margin: 1.5rem 0;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background: linear-gradient(135deg, rgba(84, 72, 200, 0.05) 0%, rgba(84, 72, 200, 0.02) 100%);
+  border-left: 4px solid var(--primary-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
+  position: relative;
+  overflow: hidden;
 }
 
-/* Decision boxes */
+.axiom-box::before {
+  content: "⚡";
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: var(--font-size-2xl);
+  opacity: 0.1;
+}
+
+.axiom-box h3 {
+  color: var(--primary-color);
+  margin-top: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+.axiom-box ol {
+  margin: var(--space-4) 0 0 0;
+  padding-left: var(--space-6);
+}
+
+.axiom-box li {
+  margin-bottom: var(--space-3);
+  color: var(--gray-700);
+  line-height: 1.6;
+}
+
+.axiom-box li strong {
+  color: var(--primary-dark);
+  font-weight: 600;
+}
+
+/* Decision Box */
 .decision-box {
-  background-color: var(--decision-bg);
-  border: 2px solid var(--decision-border);
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-  border-radius: 8px;
-  font-family: 'JetBrains Mono', monospace;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(16, 185, 129, 0.02) 100%);
+  border-left: 4px solid var(--success-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
+  position: relative;
 }
 
-/* Failure vignettes */
+.decision-box::before {
+  content: "🎯";
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: var(--font-size-2xl);
+  opacity: 0.2;
+}
+
+.decision-box h3 {
+  color: var(--success-color);
+  margin-top: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+/* Failure Vignette */
 .failure-vignette {
-  background-color: var(--failure-bg);
-  border-left: 4px solid var(--failure-border);
-  padding: 1.5rem;
-  margin: 2rem 0;
-  border-radius: 8px;
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.05) 0%, rgba(239, 68, 68, 0.02) 100%);
+  border-left: 4px solid var(--error-color);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
   position: relative;
 }
 
 .failure-vignette::before {
-  content: '🎬';
+  content: "⚠️";
   position: absolute;
-  top: -0.5rem;
-  left: 1rem;
-  font-size: 2rem;
-  background: var(--md-default-bg-color);
-  padding: 0 0.5rem;
-}
-/* Icon legend styling */
-.icon-legend {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 1.5rem 0;
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: var(--font-size-2xl);
+  opacity: 0.2;
 }
 
-.icon-item {
-  display: flex;
-  align-items: center;
-  padding: 0.5rem;
-  border-radius: 4px;
-  transition: background-color 0.2s;
+.failure-vignette h3 {
+  color: var(--error-color);
+  margin-top: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
 }
 
-.icon-item:hover {
-  background-color: rgba(103, 58, 183, 0.1);
-}
-
-.icon-item > span:first-child {
-  font-size: 1.5rem;
-  margin-right: 0.75rem;
-}
-
-/* Latency ladder visualization */
-.latency-ladder {
-  background: linear-gradient(to right, #E3F2FD 0%, #FFEBEE 100%);
-  padding: 1.5rem;
-  border-radius: 8px;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* Metro map styling */
-.metro-map {
-  background-color: #F5F5F5;
-  padding: 2rem;
-  border-radius: 12px;
-  overflow-x: auto;
-  margin: 2rem 0;
-}
-
-[data-md-color-scheme="slate"] .metro-map {
-  background-color: #1E1E1E;
-}
-
-/* Enhanced code blocks */
-.language-bash::before {
-  content: 'TERMINAL';
-  display: block;
-  background: #000;
-  color: #0F0;
-  padding: 0.25rem 0.5rem;
-  font-size: 0.7rem;
-  margin: -0.5rem -0.5rem 0.5rem;
-  font-family: 'JetBrains Mono', monospace;
-}
-
-/* Counter-intuitive truth boxes */
+/* Truth Box */
 .truth-box {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  margin: 2rem 0;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(59, 130, 246, 0.03) 100%);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-8) 0;
+  backdrop-filter: blur(10px);
   position: relative;
-  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+  overflow: hidden;
 }
 
 .truth-box::before {
-  content: '💡';
+  content: "💡";
   position: absolute;
-  top: -0.75rem;
-  right: 1rem;
-  font-size: 2.5rem;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  top: var(--space-4);
+  right: var(--space-4);
+  font-size: var(--font-size-2xl);
+  opacity: 0.15;
+}
+
+.truth-box h3 {
+  color: var(--info-color);
+  margin-top: 0;
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+}
+
+/* ===================================
+   6. Code Blocks Enhancement
+   =================================== */
+.md-typeset pre {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  margin: var(--space-6) 0;
+  background: var(--gray-900) !important;
+  border: 1px solid var(--gray-800);
+}
+
+.md-typeset code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.875em;
+  font-weight: 400;
+}
+
+/* Inline code */
+.md-typeset :not(pre) > code {
+  background: var(--gray-100);
+  color: var(--primary-dark);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm);
+  font-weight: 500;
+  border: 1px solid var(--gray-200);
+}
+
+[data-md-color-scheme="slate"] .md-typeset :not(pre) > code {
+  background: var(--gray-800);
+  color: var(--accent-light);
+  border-color: var(--gray-700);
+}
+
+/* Terminal-style code blocks */
+pre.terminal {
+  background: #1a1a1a !important;
+  color: #00ff00;
+  padding: var(--space-6);
+  position: relative;
+  overflow-x: auto;
+}
+
+pre.terminal::before {
+  content: "$ ";
+  color: #00ff00;
+  font-weight: bold;
+}
+
+/* ===================================
+   7. Tables
+   =================================== */
+.md-typeset table {
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--gray-200);
+  margin: var(--space-6) 0;
+}
+
+.md-typeset table th {
+  background: var(--gray-100);
+  font-weight: 600;
+  color: var(--gray-800);
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.md-typeset table td {
+  padding: var(--space-3) var(--space-4);
+  border-top: 1px solid var(--gray-200);
+}
+
+.md-typeset table tr:hover {
+  background: var(--gray-50);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table {
+  border-color: var(--gray-700);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table th {
+  background: var(--gray-800);
+  color: var(--gray-200);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table td {
+  border-color: var(--gray-700);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table tr:hover {
+  background: var(--gray-800);
+}
+
+/* ===================================
+   8. Navigation Enhancements
+   =================================== */
+.md-nav__link {
+  transition: all var(--transition-fast);
+  border-radius: var(--radius-md);
+  padding: var(--space-2) var(--space-3);
+  margin: 0 -var(--space-3);
+}
+
+.md-nav__link:hover {
+  background: var(--gray-100);
+  color: var(--primary-color);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  background: var(--gray-800);
+}
+
+.md-nav__link--active {
+  background: var(--primary-color);
+  color: white !important;
+  font-weight: 600;
+}
+
+/* TOC improvements */
+.md-nav--secondary .md-nav__link {
+  font-size: var(--font-size-sm);
+}
+
+.md-nav--secondary .md-nav__link--active {
+  background: transparent;
+  color: var(--primary-color) !important;
+  border-left: 3px solid var(--primary-color);
+  padding-left: var(--space-3);
+  margin-left: -3px;
+}
+
+/* ===================================
+   9. Buttons & Interactive Elements
+   =================================== */
+.md-button {
+  background: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: var(--radius-md);
+  padding: var(--space-3) var(--space-6);
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  transition: all var(--transition-base);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+}
+
+.md-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+
+.md-button:active {
+  transform: translateY(0);
+  box-shadow: var(--shadow-sm);
+}
+
+.md-button--secondary {
+  background: var(--gray-200);
+  color: var(--gray-800);
+}
+
+.md-button--secondary:hover {
+  background: var(--gray-300);
+}
+
+/* ===================================
+   10. Cards Grid
+   =================================== */
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+.grid.cards > * {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  transition: all var(--transition-base);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.grid.cards > *:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--primary-color);
+}
+
+[data-md-color-scheme="slate"] .grid.cards > * {
+  background: var(--gray-800);
+  border-color: var(--gray-700);
+}
+
+[data-md-color-scheme="slate"] .grid.cards > *:hover {
+  border-color: var(--accent-color);
+}
+
+/* ===================================
+   11. Admonitions (Custom)
+   =================================== */
+.md-typeset .admonition {
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+  border: 1px solid;
+  padding: 0;
+  margin: var(--space-6) 0;
+  overflow: hidden;
+}
+
+.md-typeset .admonition-title {
+  padding: var(--space-3) var(--space-4);
+  font-weight: 600;
+  font-size: var(--font-size-base);
+  margin: 0;
+}
+
+.md-typeset .admonition > *:not(.admonition-title) {
+  padding: 0 var(--space-4) var(--space-4);
+}
+
+/* Success admonition */
+.md-typeset .admonition.success {
+  border-color: var(--success-color);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.md-typeset .admonition.success .admonition-title {
+  background: var(--success-color);
+  color: white;
+}
+
+/* Quote admonition */
+.md-typeset .admonition.quote {
+  border-color: var(--info-color);
+  background: rgba(59, 130, 246, 0.05);
+}
+
+.md-typeset .admonition.quote .admonition-title {
+  background: var(--info-color);
+  color: white;
+}
+
+/* ===================================
+   12. Progress Indicators
+   =================================== */
+.progress-bar {
+  width: 100%;
+  height: 8px;
+  background: var(--gray-200);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  margin: var(--space-4) 0;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  border-radius: var(--radius-full);
+  transition: width var(--transition-slow);
+}
+
+/* ===================================
+   13. Animation Classes
+   =================================== */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to { transform: translateX(0); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s ease-out;
+}
+
+.animate-slideIn {
+  animation: slideIn 0.3s ease-out;
+}
+
+.animate-pulse {
+  animation: pulse 2s infinite;
+}
+
+/* ===================================
+   14. Responsive Design
+   =================================== */
+@media screen and (max-width: 768px) {
+  :root {
+    --font-size-base: 0.9375rem;
+  }
+  
+  .md-typeset h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .md-typeset h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  .md-typeset h3 {
+    font-size: var(--font-size-xl);
+  }
+  
+  .grid.cards {
+    grid-template-columns: 1fr;
+  }
+  
+  .axiom-box, .decision-box, .failure-vignette, .truth-box {
+    padding: var(--space-4);
+  }
+}
+
+/* ===================================
+   15. Print Styles
+   =================================== */
+@media print {
+  .md-sidebar, .md-header, .md-footer {
+    display: none;
+  }
+  
+  .md-content {
+    max-width: 100%;
+  }
+  
+  .axiom-box, .decision-box, .failure-vignette {
+    break-inside: avoid;
+    box-shadow: none;
+    border: 2px solid;
+  }
+}
+
+/* ===================================
+   16. Accessibility
+   =================================== */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* High contrast mode */
+@media (prefers-contrast: high) {
+  .axiom-box, .decision-box, .failure-vignette {
+    border-width: 2px;
+  }
+  
+  .md-typeset :not(pre) > code {
+    border-width: 2px;
+  }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* ===================================
+   17. Custom Scrollbar
+   =================================== */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--gray-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-400);
+  border-radius: var(--radius-full);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
+}
+
+[data-md-color-scheme="slate"] ::-webkit-scrollbar-track {
+  background: var(--gray-800);
+}
+
+[data-md-color-scheme="slate"] ::-webkit-scrollbar-thumb {
+  background: var(--gray-600);
+}
+
+[data-md-color-scheme="slate"] ::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
 }

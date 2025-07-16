@@ -12,33 +12,42 @@ theme:
   palette:
     # Palette toggle for light mode
     - scheme: default
-      primary: deep purple
-      accent: amber
+      primary: indigo
+      accent: cyan
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
     - scheme: slate
-      primary: deep purple
-      accent: amber
+      primary: indigo
+      accent: cyan
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
   features:
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.path
     - navigation.top
     - navigation.footer
+    - navigation.indexes
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
     - search.highlight
     - search.share
     - search.suggest
     - content.code.copy
     - content.code.annotate
     - content.tabs.link
+    - content.tooltips
     - toc.follow
     - toc.integrate
+    - announce.dismiss
+    - header.autohide
   icon:
     repo: fontawesome/brands/github
   font:
