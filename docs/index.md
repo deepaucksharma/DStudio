@@ -47,76 +47,6 @@ This project takes a unique approach to teaching distributed systems:
 - **Failures as Teachers**: Real production disasters illuminate principles
 - **Derive, Don't Memorize**: Every pattern emerges from fundamental constraints
 
-## 🏗️ Project Structure
-
-```
-DStudio/
-├── docs/                    # Documentation source files
-│   ├── distributed-systems-book.md  # Main content
-│   ├── index.md            # Homepage
-│   └── stylesheets/        # Custom styling
-│       └── extra.css       # Visual enhancements
-├── mkdocs.yml              # MkDocs configuration
-└── requirements.txt        # Python dependencies
-```
-
-## 🚀 Local Development
-
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/deepaucksharma/DStudio.git
-   cd DStudio
-   ```
-
-2. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-3. **Run locally**:
-   ```bash
-   mkdocs serve
-   ```
-   Visit `http://127.0.0.1:8000` to see your changes live.
-
-## 📖 Content Overview
-
-The compendium covers:
-
-- **8 Fundamental Axioms**: Core constraints that govern all distributed systems
-- **Decision Frameworks**: Quantitative tools for architectural choices
-- **Failure Vignettes**: Learn from real production disasters
-- **Interactive Exercises**: Hands-on learning in under 5 minutes
-
-## 🎓 Who Is This For?
-
-<div class="grid cards" markdown>
-
-- :material-school:{ .lg .middle } **New Graduates**
-
-    ---
-    
-    Build a solid foundation with physics-based mental models that will serve you throughout your career
-
-- :material-code-tags:{ .lg .middle } **Senior Engineers**
-
-    ---
-    
-    Deepen your understanding and learn to articulate trade-offs with mathematical precision
-
-- :material-account-group:{ .lg .middle } **Engineering Managers**
-
-    ---
-    
-    Make better architectural decisions and communicate effectively with your team
-
-- :material-rocket-launch:{ .lg .middle } **Startup Founders**
-
-    ---
-    
-    Avoid common pitfalls and build systems that can scale with your business
-
-</div>
 
 ## 📚 What You'll Learn {#what-youll-learn}
 
@@ -222,13 +152,6 @@ Sometimes the best distributed system is the one that isn't distributed. Before 
 
 </div>
 
-## 🤝 Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## 📄 License
-
-This work is licensed under CC-BY-NC with "Derivative Works Encouraged" clause.
 
 ---
 

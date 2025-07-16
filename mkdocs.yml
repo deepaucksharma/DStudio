@@ -96,7 +96,8 @@ markdown_extensions:
 nav:
   - Home: index.md
   - The Compendium:
-    - distributed-systems-book.md
+    - Part I - Axioms: distributed-systems-book.md
+    - Part II - Pillars: part2-foundational-pillars.md
 
 extra:
   social:
