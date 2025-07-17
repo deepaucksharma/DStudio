@@ -95,9 +95,78 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - The Compendium:
-    - Part I - Axioms: distributed-systems-book.md
-    - Part II - Pillars: part2-foundational-pillars.md
+  - Introduction:
+    - Overview: introduction/index.md
+    - Philosophy: introduction/philosophy.md
+    - Preface: introduction/preface.md
+    - Learning Roadmap: introduction/roadmap.md
+  - Part I - The 8 Axioms:
+    - Overview: part1-axioms/index.md
+    - Axiom 1 - Latency:
+      - Core Concepts: part1-axioms/axiom-1-latency/index.md
+      - Examples: part1-axioms/axiom-1-latency/examples.md
+      - Exercises: part1-axioms/axiom-1-latency/exercises.md
+    - Axiom 2 - Capacity:
+      - Core Concepts: part1-axioms/axiom-2-capacity/index.md
+      - Examples: part1-axioms/axiom-2-capacity/examples.md
+      - Exercises: part1-axioms/axiom-2-capacity/exercises.md
+    - Axiom 3 - Partial Failure:
+      - Core Concepts: part1-axioms/axiom-3-failure/index.md
+      - Examples: part1-axioms/axiom-3-failure/examples.md
+      - Exercises: part1-axioms/axiom-3-failure/exercises.md
+    - Axiom 4 - Concurrency:
+      - Core Concepts: part1-axioms/axiom-4-concurrency/index.md
+      - Examples: part1-axioms/axiom-4-concurrency/examples.md
+      - Exercises: part1-axioms/axiom-4-concurrency/exercises.md
+    - Axiom 5 - Coordination:
+      - Core Concepts: part1-axioms/axiom-5-coordination/index.md
+      - Examples: part1-axioms/axiom-5-coordination/examples.md
+      - Exercises: part1-axioms/axiom-5-coordination/exercises.md
+    - Axiom 6 - Observability:
+      - Core Concepts: part1-axioms/axiom-6-observability/index.md
+      - Examples: part1-axioms/axiom-6-observability/examples.md
+      - Exercises: part1-axioms/axiom-6-observability/exercises.md
+    - Axiom 7 - Human Interface:
+      - Core Concepts: part1-axioms/axiom-7-human-interface/index.md
+      - Examples: part1-axioms/axiom-7-human-interface/examples.md
+      - Exercises: part1-axioms/axiom-7-human-interface/exercises.md
+    - Axiom 8 - Economics:
+      - Core Concepts: part1-axioms/axiom-8-economics/index.md
+      - Examples: part1-axioms/axiom-8-economics/examples.md
+      - Exercises: part1-axioms/axiom-8-economics/exercises.md
+  - Part II - Foundational Pillars:
+    - Overview: part2-pillars/index.md
+    - Pillar 1 - Distribution of Work:
+      - Core Concepts: part2-pillars/pillar-1-work/index.md
+      - Examples: part2-pillars/pillar-1-work/examples.md
+      - Exercises: part2-pillars/pillar-1-work/exercises.md
+    - Pillar 2 - Distribution of State:
+      - Core Concepts: part2-pillars/pillar-2-state/index.md
+      - Examples: part2-pillars/pillar-2-state/examples.md
+      - Exercises: part2-pillars/pillar-2-state/exercises.md
+    - Pillar 3 - Distribution of Truth:
+      - Core Concepts: part2-pillars/pillar-3-truth/index.md
+      - Examples: part2-pillars/pillar-3-truth/examples.md
+      - Exercises: part2-pillars/pillar-3-truth/exercises.md
+    - Pillar 4 - Distribution of Control:
+      - Core Concepts: part2-pillars/pillar-4-control/index.md
+      - Examples: part2-pillars/pillar-4-control/examples.md
+      - Exercises: part2-pillars/pillar-4-control/exercises.md
+    - Pillar 5 - Distribution of Intelligence:
+      - Core Concepts: part2-pillars/pillar-5-intelligence/index.md
+      - Examples: part2-pillars/pillar-5-intelligence/examples.md
+      - Exercises: part2-pillars/pillar-5-intelligence/exercises.md
+  - Tools:
+    - Overview: tools/index.md
+    - Latency Calculator: tools/latency-calculator.md
+    - Capacity Planner: tools/capacity-planner.md
+  - Reference:
+    - Overview: reference/index.md
+    - Glossary: reference/glossary.md
+    - Cheat Sheets: reference/cheat-sheets.md
+  - Legacy Content:
+    - Original Book: distributed-systems-book.md
+    - Original Pillars: part2-foundational-pillars.md
 
 extra:
   social:

@@ -8,6 +8,8 @@
 
 <div class="metro-map">
 
+**Learning Paths**
+
 ```mermaid
 graph TD
     Start[START] --> NewGrad[NEW GRAD LINE]
@@ -76,7 +78,7 @@ graph TD
    - Implement a distributed counter
 
 4. **Week 4: Case Studies**
-   - [Real-world failures](../references/failure-catalog.md)
+   - [Real-world failures](../part1-axioms/axiom-3-failure/examples.md)
    - Apply learnings to your current system
    - Present findings to team
 
@@ -114,7 +116,6 @@ graph TD
 4. **Week 4: Quantitative Tools**
    - [Latency calculator](../tools/latency-calculator.md)
    - [Capacity planner](../tools/capacity-planner.md)
-   - [Cost estimator](../tools/cost-estimator.md)
 
 ### Skills You'll Gain
 - ✅ Derive novel solutions

@@ -12,13 +12,7 @@
 
 <div class="grid cards" markdown>
 
-- :material-book-open-page-variant:{ .lg .middle } **[Start Reading →](distributed-systems-book.md)**
-
-    ---
-
-    Dive into the complete compendium and begin your journey from first principles
-
-- :material-map:{ .lg .middle } **[Learning Paths →](distributed-systems-book.md#page-iv-reader-road-map)**
+- :material-map:{ .lg .middle } **[Learning Paths →](introduction/roadmap.md)**
 
     ---
 
@@ -104,7 +98,7 @@ This project takes a unique approach to teaching distributed systems:
 - **Derive, Don't Memorize**: Every pattern emerges from fundamental constraints
 
 
-## 📚 What You'll Learn {#what-youll-learn}
+## 📚 What You'll Learn
 
 <div class="axiom-box animate-fadeIn">
 
@@ -212,7 +206,7 @@ Sometimes the best distributed system is the one that isn't distributed. Before 
 ---
 
 <div style="text-align: center; margin: 3rem 0;">
-    <a href="distributed-systems-book.md" class="md-button md-button--primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
+    <a href="introduction/index.md" class="md-button md-button--primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
         Begin Your Journey →
     </a>
 </div>

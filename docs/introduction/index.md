@@ -3,6 +3,13 @@
 !!! abstract "Welcome to The Compendium"
     A revolutionary approach to understanding distributed systems through first principles rather than memorizing patterns.
 
+!!! tip "Quick Navigation"
+    [Philosophy →](philosophy.md) |
+    [Preface →](preface.md) |
+    [Learning Roadmap →](roadmap.md) |
+    [Axioms →](../part1-axioms/index.md) |
+    [Pillars →](../part2-pillars/index.md)
+
 ## What Makes This Different?
 
 This isn't another distributed systems book that starts with Kafka, Kubernetes, or consensus algorithms. Instead, we begin with the fundamental constraints that govern all distributed systems:
@@ -81,11 +88,3 @@ By the end of this journey, you'll understand:
 - When to use which patterns (and why)
 - How to make quantitative trade-offs
 - Why some "best practices" are actually worst practices
-
-## Navigation
-
-!!! tip "Next Steps"
-    
-    **Recommended**: Start with [Core Philosophy](philosophy.md) →
-    
-    **Quick Jump**: [Part I: The 8 Axioms](../part1-axioms/index.md) | [Part II: The 5 Pillars](../part2-pillars/index.md)

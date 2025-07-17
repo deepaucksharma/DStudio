@@ -3,6 +3,11 @@
 !!! abstract "Foundation of Everything"
     These eight axioms are the irreducible constraints that govern all distributed systems. Every pattern, every failure, every architectural decision traces back to these fundamental laws.
 
+!!! tip "Quick Navigation"
+    [← Introduction](../introduction/index.md) |
+    [Axiom 1 →](axiom-1-latency/index.md) |
+    [Pillars →](../part2-pillars/index.md)
+
 ## Overview
 
 <div class="axiom-overview">
@@ -225,13 +230,3 @@ Human   .           .     .    Concurrency
 6. **Observability**: Can't see everything
 7. **Human**: People in the loop
 8. **Economics**: Everything has a price
-
-## Navigation
-
-!!! tip "Start Your Journey"
-    
-    **Recommended**: Begin with [Axiom 1: Latency](axiom-1-latency/index.md) →
-    
-    **Quick Reference**: [Axiom Summary](summary.md) | [Decision Trees](../references/decision-trees.md)
-    
-    **Next Level**: [Part II: The 5 Pillars](../part2-pillars/index.md)
