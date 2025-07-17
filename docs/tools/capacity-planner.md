@@ -38,7 +38,7 @@
     <small>Recommended: 70% for latency-sensitive, 85% for throughput</small>
   </div>
 
-  <button type="button" class="md-button md-button--primary calculate-btn">Calculate</button>
+  <button type="button" class="md-button md-button--primary calculate-btn" onclick="capacityPlanner.calculateCapacity()">Calculate</button>
 </form>
 
 <div id="capacity-visualization" class="visualization-container"></div>
@@ -47,10 +47,6 @@
 </div>
 
 <!-- Enhanced Capacity Planner loads from external JS file -->
-
-<script style="display:none;">
-// Legacy script disabled - using enhanced version
-function calculateCapacity() {
     const arrivalRate = parseFloat(document.getElementById('arrival-rate').value);
     const serviceTimeMs = parseFloat(document.getElementById('service-time').value);
     const servers = parseInt(document.getElementById('servers').value);

@@ -255,129 +255,82 @@ class LatencyCalculator {
     const speedOfLightTime = (data.distance / data.SPEED_OF_LIGHT) * 1000;
     const efficiency = (speedOfLightTime / data.totalLatency) * 100;
     
-    resultsDiv.innerHTML = `
-      <div class="results-grid">
-        <div class="result-card">
-          <h4>📊 Latency Breakdown</h4>
-          <div class="latency-bars">
-            <div class="latency-bar">
-              <div class="bar-label">
-                <span>Propagation</span>
-                <span>${data.propagationDelay.toFixed(2)}ms</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: ${(data.propagationDelay/data.totalLatency*100)}%; background: #5B5FC7;"></div>
-              </div>
-            </div>
-            <div class="latency-bar">
-              <div class="bar-label">
-                <span>Processing</span>
-                <span>${data.processingDelay.toFixed(2)}ms</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: ${(data.processingDelay/data.totalLatency*100)}%; background: #10B981;"></div>
-              </div>
-            </div>
-            <div class="latency-bar">
-              <div class="bar-label">
-                <span>Serialization</span>
-                <span>${data.serializationDelay.toFixed(2)}ms</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: ${(data.serializationDelay/data.totalLatency*100)}%; background: #F59E0B;"></div>
-              </div>
-            </div>
-            <div class="latency-bar">
-              <div class="bar-label">
-                <span>Queueing</span>
-                <span>${data.queueingDelay.toFixed(2)}ms</span>
-              </div>
-              <div class="bar-track">
-                <div class="bar-fill" style="width: ${(data.queueingDelay/data.totalLatency*100)}%; background: #EF4444;"></div>
-              </div>
-            </div>
-          </div>
-          <div class="total-latency">
-            <strong>One-Way Latency:</strong> ${data.totalLatency.toFixed(2)}ms<br>
-            <strong>Round-Trip Time:</strong> ${(data.totalLatency * 2).toFixed(2)}ms
-          </div>
-        </div>
-        
-        <div class="result-card">
-          <h4>💡 Insights & Optimization</h4>
-          <div class="insights">
-            <div class="insight-item">
-              <span class="insight-icon">⚡</span>
-              <div>
-                <strong>Efficiency Score: ${efficiency.toFixed(1)}%</strong><br>
-                <small>vs. theoretical minimum (${speedOfLightTime.toFixed(2)}ms)</small>
-              </div>
-            </div>
-            <div class="insight-item">
-              <span class="insight-icon">${data.propagationDelay > data.processingDelay ? '🌍' : '🖥️'}</span>
-              <div>
-                <strong>${data.propagationDelay > data.processingDelay ? 'Distance-bound' : 'Processing-bound'}</strong><br>
-                <small>${data.propagationDelay > data.processingDelay ? 
-                  'Consider edge locations or CDN' : 
-                  'Optimize network devices and routing'}</small>
-              </div>
-            </div>
-            <div class="insight-item">
-              <span class="insight-icon">📈</span>
-              <div>
-                <strong>Improvement Potential</strong><br>
-                <small>${this.getOptimizationTips(data)}</small>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      
-      <div class="comparison-section">
-        <h4>🌐 Real-World Context</h4>
-        <div class="comparison-grid">
-          ${this.getLatencyComparisons(data.totalLatency)}
-        </div>
-      </div>
-    `;
+    // Update insights
+    const insightsList = document.getElementById('insights-list');
+    if (insightsList) {
+      const insights = this.generateInsights(data, efficiency);
+      insightsList.innerHTML = insights.map(insight => `<li>${insight}</li>`).join('');
+    }
+    
+    // Update comparison bars
+    const comparisonBars = document.getElementById('comparison-bars');
+    if (comparisonBars) {
+      comparisonBars.innerHTML = this.generateComparisonBars(data.totalLatency);
+    }
   }
   
-  getOptimizationTips(data) {
-    const tips = [];
+  generateInsights(data, efficiency) {
+    const insights = [];
     
-    if (data.propagationDelay / data.totalLatency > 0.7) {
-      tips.push('Deploy closer to users');
+    // Efficiency insight
+    if (efficiency > 80) {
+      insights.push(`Excellent efficiency at ${efficiency.toFixed(1)}% of theoretical minimum`);
+    } else if (efficiency > 60) {
+      insights.push(`Good efficiency at ${efficiency.toFixed(1)}% of theoretical minimum`);
+    } else {
+      insights.push(`Efficiency is ${efficiency.toFixed(1)}% - significant overhead present`);
+    }
+    
+    // Dominant factor insight
+    const components = [
+      { name: 'propagation', value: data.propagationDelay },
+      { name: 'processing', value: data.processingDelay },
+      { name: 'serialization', value: data.serializationDelay },
+      { name: 'queueing', value: data.queueingDelay }
+    ];
+    const dominant = components.reduce((a, b) => a.value > b.value ? a : b);
+    insights.push(`${dominant.name.charAt(0).toUpperCase() + dominant.name.slice(1)} delay is the dominant factor (${(dominant.value/data.totalLatency*100).toFixed(1)}%)`);
+    
+    // Optimization suggestions
+    if (data.propagationDelay / data.totalLatency > 0.6) {
+      insights.push('Consider edge deployment or CDN to reduce distance');
     }
     if (data.processingDelay > 5) {
-      tips.push('Reduce network hops');
+      insights.push('Network device overhead is significant - consider optimizing routing');
     }
-    if (data.queueingDelay > 10) {
-      tips.push('Upgrade network capacity');
+    if (data.queueingDelay / data.totalLatency > 0.2) {
+      insights.push('High queueing delay suggests network congestion');
     }
     
-    return tips.join(', ') || 'System is well-optimized';
+    return insights;
   }
   
-  getLatencyComparisons(latency) {
+  generateComparisonBars(latency) {
     const comparisons = [
-      { name: 'Human reaction', time: 250, icon: '👤' },
-      { name: 'Blink of eye', time: 300, icon: '👁️' },
-      { name: 'Google search', time: 100, icon: '🔍' },
-      { name: 'Video frame @60fps', time: 16.67, icon: '🎬' },
-      { name: 'CPU cache hit', time: 0.001, icon: '💾' }
+      { name: 'Human reaction time', value: 250 },
+      { name: 'Google search', value: 100 },
+      { name: '60fps frame time', value: 16.67 },
+      { name: 'SSD read', value: 0.1 }
     ];
     
-    return comparisons.map(comp => `
-      <div class="comparison-item ${latency < comp.time ? 'faster' : 'slower'}">
-        <span class="comparison-icon">${comp.icon}</span>
-        <span class="comparison-name">${comp.name}</span>
-        <span class="comparison-time">${comp.time}ms</span>
-        <span class="comparison-factor">${latency < comp.time ? 
-          `${(comp.time / latency).toFixed(1)}x faster` : 
-          `${(latency / comp.time).toFixed(1)}x slower`}</span>
-      </div>
-    `).join('');
+    return comparisons.map(comp => {
+      const percentage = Math.min((latency / comp.value) * 100, 100);
+      const isFaster = latency < comp.value;
+      
+      return `
+        <div class="comparison-bar">
+          <div class="comparison-label">
+            <span>${comp.name}</span>
+            <span>${isFaster ? `${(comp.value/latency).toFixed(1)}x slower` : `${(latency/comp.value).toFixed(1)}x faster`}</span>
+          </div>
+          <div class="bar-track">
+            <div class="bar-fill" style="width: ${percentage}%"></div>
+          </div>
+        </div>
+      `;
+    }).join('');
   }
+  
   
   addTooltips() {
     const tooltips = {
