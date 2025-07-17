@@ -1,0 +1,136 @@
+/* Journey Map Styles */
+#journey-map-container {
+  margin: 3rem 0;
+  padding: 2rem;
+  background: var(--ds-bg-secondary);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+.journey-legend {
+  display: flex;
+  gap: 2rem;
+  margin-bottom: 2rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--ds-text-secondary);
+}
+
+.legend-dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+}
+
+.legend-dot.axiom {
+  background: linear-gradient(135deg, #5B5FC7 0%, #818CF8 100%);
+}
+
+.legend-dot.pillar {
+  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+}
+
+.legend-dot.tool {
+  background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+}
+
+#journey-map {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto 2rem;
+  cursor: grab;
+}
+
+#journey-map:active {
+  cursor: grabbing;
+}
+
+.node {
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.node-circle {
+  transition: all 0.3s ease;
+}
+
+.node-icon {
+  pointer-events: none;
+  user-select: none;
+  fill: white;
+}
+
+.node-label {
+  pointer-events: none;
+  user-select: none;
+}
+
+.edge-line {
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.journey-details {
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  border: 1px solid var(--ds-border-color);
+}
+
+.journey-details h3 {
+  margin-top: 0;
+  font-size: 1.5rem;
+  color: var(--ds-text-primary);
+}
+
+.journey-details p {
+  color: var(--ds-text-secondary);
+  margin: 1rem 0;
+}
+
+.journey-link {
+  display: inline-block;
+  margin-top: 1rem;
+  padding: 0.75rem 2rem;
+  background: linear-gradient(135deg, #5B5FC7 0%, #818CF8 100%);
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.journey-link:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 16px rgba(91, 95, 199, 0.3);
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  #journey-map-container {
+    padding: 1rem;
+  }
+  
+  .journey-legend {
+    font-size: 0.8rem;
+    gap: 1rem;
+  }
+  
+  .journey-details {
+    padding: 1rem;
+  }
+  
+  #journey-map {
+    height: 400px;
+    overflow-x: auto;
+    overflow-y: hidden;
+  }
+}

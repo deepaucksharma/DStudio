@@ -11,14 +11,16 @@ theme:
   name: material
   palette:
     # Palette toggle for light mode
-    - scheme: default
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
       primary: indigo
       accent: cyan
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
     # Palette toggle for dark mode
-    - scheme: slate
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
       primary: indigo
       accent: cyan
       toggle:
@@ -166,6 +168,13 @@ nav:
     - Overview: part4-case-study/index.md
     - Chapter 1 - MVP: part4-case-study/chapter1-mvp.md
     - Chapter 2 - Multi-City: part4-case-study/chapter2-multi-city.md
+  - Part V - Capstone Project:
+    - Overview: part5-capstone/index.md
+    - Project Setup: part5-capstone/setup.md
+  - Part VI - Advanced Topics:
+    - Overview: part6-advanced/index.md
+    - Serverless & Edge: part6-advanced/serverless.md
+    - ML Systems: part6-advanced/ml-systems.md
   - Tools:
     - Overview: tools/index.md
     - Latency Calculator: tools/latency-calculator.md
@@ -176,6 +185,8 @@ nav:
     - Cheat Sheets: reference/cheat-sheets.md
     - Recipe Cards: reference/recipe-cards.md
     - Security Considerations: reference/security-considerations.md
+    - Recovery-Oriented Computing: reference/recovery-oriented.md
+    - Mental Models: reference/mental-models.md
   - Legacy Content:
     - Original Book: distributed-systems-book.md
     - Original Pillars: part2-foundational-pillars.md
@@ -192,3 +203,8 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/journey-map.css
+
+extra_javascript:
+  - javascripts/hero-animation.js
+  - javascripts/journey-map.js
