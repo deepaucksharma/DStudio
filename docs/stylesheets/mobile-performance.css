@@ -6,24 +6,22 @@
   .reading-progress,
   .command-palette-backdrop,
   .mobile-learn-menu {
-    backdrop-filter: none !important;
-    -webkit-backdrop-filter: none !important;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
   }
   
   /* Simplify reading progress bar */
   .reading-progress {
-    background: rgba(255, 255, 255, 0.95) !important;
-    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1) !important;
+    background: rgba(255, 255, 255, 0.95);
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
   }
   
-  /* Disable animations on scroll */
+  /* Simplify animations on scroll */
   .axiom-box,
   .concept-card,
   .failure-vignette,
   .decision-box {
-    animation: none !important;
-    opacity: 1 !important;
-    transform: none !important;
+    animation-duration: 0.2s;
   }
   
   /* Use transform for better performance */
@@ -34,9 +32,11 @@
     transform: translateZ(0);
   }
   
-  /* Reduce shadow complexity */
-  * {
-    box-shadow: none !important;
+  /* Reduce shadow complexity for performance */
+  .axiom-box,
+  .concept-card,
+  .failure-vignette {
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
   .card,
@@ -45,9 +45,13 @@
     border: 1px solid rgba(0, 0, 0, 0.1);
   }
   
-  /* Disable hover effects */
-  *:hover {
-    transform: none !important;
+  /* Disable transform hover effects on mobile */
+  .card:hover,
+  .axiom-box:hover,
+  .concept-card:hover,
+  .failure-vignette:hover,
+  .route-btn:hover {
+    transform: none;
   }
   
   /* Optimize images */
@@ -57,16 +61,16 @@
   
   /* Reduce font weights for faster rendering */
   body {
-    font-weight: 400 !important;
+    font-weight: 400;
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-weight: 600 !important;
+    font-weight: 600;
   }
   
   /* Disable parallax effects */
   [data-parallax] {
-    transform: none !important;
+    transform: none;
   }
 }
 

@@ -73,7 +73,7 @@ class NetworkVisualization {
       const packetY = from.y + (to.y - from.y) * conn.progress;
       
       this.ctx.beginPath();
-      this.ctx.fillStyle = '#00BCD4';
+      this.ctx.fillStyle = '#26C6DA';
       this.ctx.arc(packetX, packetY, 2, 0, Math.PI * 2);
       this.ctx.fill();
     });

@@ -180,6 +180,7 @@ nav:
     - Overview: tools/index.md
     - Latency Calculator: tools/latency-calculator.md
     - Capacity Planner: tools/capacity-planner.md
+    - Failure Calculator: tools/failure-calculator.md
     - Consistency Visualizer: tools/consistency-visualizer.md
     - CAP Theorem Explorer: tools/cap-explorer.md
   - Reference:
@@ -238,3 +239,4 @@ extra_javascript:
   - javascripts/toc-scroll-spy.js
   - javascripts/mobile-navigation.js
   - javascripts/mobile-touch-optimizations.js
+  - javascripts/failure-calculator.js
