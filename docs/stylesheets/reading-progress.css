@@ -4,17 +4,32 @@
   bottom: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  background: var(--ds-bg-primary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 999;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.08);
   opacity: 0;
   transform: translateY(100%);
-  transition: all 0.3s ease;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-top: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .reading-progress.visible {
   opacity: 1;
   transform: translateY(0);
+  animation: slideInUp 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .reading-progress.scrolling-down {
@@ -27,8 +42,8 @@
 
 .reading-progress-bar {
   position: relative;
-  height: 4px;
-  background: var(--ds-bg-secondary);
+  height: 3px;
+  background: rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
 
@@ -38,17 +53,17 @@
   left: 0;
   height: 100%;
   width: 0%;
-  background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  background: linear-gradient(90deg, #5448C8 0%, #26C6DA 100%);
   transition: width 0.2s ease;
-  box-shadow: 0 0 10px rgba(84, 72, 200, 0.5);
+  box-shadow: 0 0 20px rgba(84, 72, 200, 0.4);
 }
 
 .reading-progress-info {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.5rem 1rem;
-  background: var(--ds-bg-primary);
+  padding: 0.75rem 1.5rem;
+  background: transparent;
 }
 
 .progress-stats {
@@ -59,9 +74,10 @@
 }
 
 .progress-percentage {
-  font-weight: 600;
-  color: var(--primary-color);
-  min-width: 3ch;
+  font-weight: 700;
+  color: #5448C8;
+  min-width: 4ch;
+  font-size: 0.9rem;
 }
 
 .progress-separator {
@@ -70,7 +86,8 @@
 }
 
 .time-remaining {
-  color: var(--ds-text-secondary);
+  color: rgba(0, 0, 0, 0.6);
+  font-weight: 500;
 }
 
 .progress-toggle {
@@ -94,7 +111,14 @@
 }
 
 .reading-progress.minimized .reading-progress-bar {
-  height: 3px;
+  height: 2px;
+}
+
+.reading-progress.minimized {
+  background: transparent;
+  backdrop-filter: none;
+  box-shadow: none;
+  border-top: none;
 }
 
 .reading-progress.minimized.scrolling-down {
@@ -146,8 +170,9 @@
 
 /* Dark mode adjustments */
 [data-md-color-scheme="slate"] .reading-progress {
-  background: var(--md-default-bg-color);
-  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+  background: rgba(30, 30, 30, 0.85);
+  box-shadow: 0 -2px 20px rgba(0, 0, 0, 0.2);
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 [data-md-color-scheme="slate"] .reading-progress-bar {

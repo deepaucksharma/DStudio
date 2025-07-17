@@ -63,10 +63,10 @@ class ReadingProgress {
       this.progressText.textContent = `${Math.round(progress)}%`;
       
       // Show/hide based on scroll
-      if (scrollTop > 100 && !this.isVisible) {
+      if (scrollTop > 50 && !this.isVisible) {
         this.progressContainer.classList.add('visible');
         this.isVisible = true;
-      } else if (scrollTop <= 100 && this.isVisible) {
+      } else if (scrollTop <= 50 && this.isVisible) {
         this.progressContainer.classList.remove('visible');
         this.isVisible = false;
       }
@@ -151,9 +151,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const path = window.location.pathname;
   const isHomePage = path === '/' || path === '/index.html';
   const isToolsPage = path.includes('/tools/');
-  const isShortPage = document.querySelector('.md-content')?.textContent?.length < 1000;
+  const isShortPage = document.querySelector('.md-content')?.textContent?.length < 500;
   
-  if (!isHomePage && !isToolsPage && !isShortPage) {
+  if (!isHomePage && !isShortPage) {
     new ReadingProgress();
   }
 });

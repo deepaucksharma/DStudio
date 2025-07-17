@@ -215,6 +215,7 @@ extra_css:
   - stylesheets/toc-enhanced.css
   - stylesheets/quick-navigation.css
   - stylesheets/mobile-navigation.css
+  - stylesheets/mobile-touch-optimizations.css
 
 extra_javascript:
   - javascripts/hero-animation.js
@@ -233,3 +234,4 @@ extra_javascript:
   - javascripts/breadcrumbs.js
   - javascripts/toc-scroll-spy.js
   - javascripts/mobile-navigation.js
+  - javascripts/mobile-touch-optimizations.js
