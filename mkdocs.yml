@@ -214,6 +214,7 @@ extra_css:
   - stylesheets/reading-progress.css
   - stylesheets/toc-enhanced.css
   - stylesheets/quick-navigation.css
+  - stylesheets/mobile-navigation.css
 
 extra_javascript:
   - javascripts/hero-animation.js
@@ -231,3 +232,4 @@ extra_javascript:
   - javascripts/breadcrumb-progress.js
   - javascripts/breadcrumbs.js
   - javascripts/toc-scroll-spy.js
+  - javascripts/mobile-navigation.js
