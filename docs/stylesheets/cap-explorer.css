@@ -1,0 +1,332 @@
+/* CAP Theorem Explorer Styles */
+#cap-explorer {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: var(--ds-bg-secondary);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+.cap-triangle-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 3rem;
+  padding: 2rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+}
+
+.cap-triangle {
+  max-width: 100%;
+  height: auto;
+}
+
+.cap-label {
+  font-size: 14px;
+  font-weight: 600;
+  fill: var(--ds-text-primary);
+}
+
+.cap-vertex-label {
+  font-size: 20px;
+  font-weight: bold;
+  fill: white;
+}
+
+.cap-selection-label {
+  font-size: 16px;
+  font-weight: 600;
+  fill: var(--primary-color);
+  display: none;
+}
+
+.cap-description {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.cap-description h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-color);
+}
+
+.cap-description p {
+  margin: 0;
+  color: var(--ds-text-secondary);
+}
+
+/* Scenario Panel */
+.cap-scenario-panel {
+  margin-bottom: 2rem;
+  padding: 2rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+}
+
+.cap-scenario-panel h3 {
+  margin: 0 0 1.5rem 0;
+  color: var(--primary-color);
+}
+
+.scenario-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.scenario-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  background: var(--ds-bg-secondary);
+  border: 2px solid transparent;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scenario-btn:hover {
+  border-color: var(--primary-color);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.scenario-icon {
+  font-size: 1.5rem;
+}
+
+.scenario-visualization {
+  background: var(--ds-bg-secondary);
+  border-radius: 12px;
+  padding: 1rem;
+  overflow: hidden;
+}
+
+.scenario-visualization canvas {
+  display: block;
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* Results Panel */
+.cap-results-panel {
+  margin-bottom: 2rem;
+}
+
+.cap-results-panel h3 {
+  margin: 0 0 1.5rem 0;
+  color: var(--primary-color);
+  font-size: 1.5rem;
+}
+
+.cap-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.metric-card {
+  display: flex;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.metric-icon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+.metric-content {
+  flex: 1;
+}
+
+.metric-content h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--ds-text-primary);
+  font-size: 1.1rem;
+}
+
+.metric-value {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 0.5rem;
+}
+
+.metric-description {
+  font-size: 0.9rem;
+  color: var(--ds-text-secondary);
+  line-height: 1.4;
+}
+
+/* Trade-offs Panel */
+.trade-offs-panel,
+.implementation-notes {
+  padding: 2rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+  margin-bottom: 2rem;
+}
+
+.trade-offs-panel h4,
+.implementation-notes h4 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+}
+
+.trade-offs-content ul,
+.implementation-content ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.trade-offs-content li,
+.implementation-content li {
+  margin-bottom: 0.5rem;
+  line-height: 1.6;
+}
+
+.trade-offs-content > ul > li > strong {
+  color: var(--ds-text-primary);
+}
+
+/* Implementation Strategy */
+.implementation-strategy h5 {
+  margin: 1.5rem 0 1rem 0;
+  color: var(--ds-text-primary);
+}
+
+.implementation-strategy pre {
+  margin: 1rem 0;
+  padding: 1rem;
+  background: var(--ds-bg-secondary);
+  border-radius: 8px;
+  overflow-x: auto;
+}
+
+.implementation-strategy code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.9rem;
+  line-height: 1.5;
+}
+
+/* Examples Panel */
+.cap-examples-panel {
+  padding: 2rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+}
+
+.cap-examples-panel h3 {
+  margin: 0 0 1.5rem 0;
+  color: var(--primary-color);
+}
+
+.examples-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+}
+
+.example-card {
+  padding: 1.5rem;
+  background: var(--ds-bg-secondary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+  transition: all 0.3s ease;
+}
+
+.example-card:hover:not(.placeholder) {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+  border-color: var(--primary-color);
+}
+
+.example-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--primary-color);
+  font-size: 1.1rem;
+}
+
+.example-desc {
+  margin: 0 0 0.75rem 0;
+  color: var(--ds-text-secondary);
+  font-size: 0.95rem;
+}
+
+.example-use {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--ds-text-secondary);
+}
+
+.example-use strong {
+  color: var(--ds-text-primary);
+}
+
+.example-card.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  text-align: center;
+  color: var(--ds-text-secondary);
+}
+
+/* Dark mode support */
+[data-md-color-scheme="slate"] {
+  .cap-triangle-container,
+  .cap-scenario-panel,
+  .metric-card,
+  .trade-offs-panel,
+  .implementation-notes,
+  .cap-examples-panel {
+    background: var(--ds-bg-primary);
+    border-color: var(--ds-border-color);
+  }
+  
+  .scenario-btn,
+  .scenario-visualization,
+  .example-card,
+  .implementation-strategy pre {
+    background: var(--ds-bg-secondary);
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .cap-triangle {
+    width: 100%;
+    height: auto;
+  }
+  
+  .scenario-buttons {
+    grid-template-columns: 1fr;
+  }
+  
+  .cap-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .examples-grid {
+    grid-template-columns: 1fr;
+  }
+}

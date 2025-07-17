@@ -5,6 +5,7 @@
   background: var(--ds-bg-secondary);
   border-radius: 16px;
   box-shadow: var(--shadow-lg);
+  position: relative;
 }
 
 .journey-legend {
@@ -133,4 +134,151 @@
     overflow-x: auto;
     overflow-y: hidden;
   }
+}
+
+/* Enhanced Journey Map Controls */
+.journey-controls {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  display: flex;
+  gap: 0.5rem;
+  background: var(--ds-bg-primary);
+  border-radius: 8px;
+  padding: 0.5rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+}
+
+.journey-control-btn {
+  width: 36px;
+  height: 36px;
+  border: none;
+  background: var(--ds-bg-secondary);
+  color: var(--ds-text-secondary);
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.journey-control-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-1px);
+}
+
+.journey-control-btn:active {
+  transform: translateY(0);
+}
+
+.journey-control-btn:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+/* Fullscreen mode */
+#journey-map-container:fullscreen {
+  background: var(--ds-bg-primary);
+  padding: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+#journey-map-container:fullscreen #journey-map {
+  height: 70vh;
+  max-height: none;
+}
+
+#journey-map-container:fullscreen .journey-details {
+  max-width: 800px;
+  margin: 2rem auto 0;
+}
+
+/* Enhanced node focus states */
+.node:focus {
+  outline: none;
+}
+
+.node:focus .node-circle {
+  stroke: var(--primary-color);
+  stroke-width: 5;
+}
+
+/* Connected nodes list */
+.journey-connections {
+  margin: 1rem 0;
+  text-align: left;
+}
+
+.journey-connections h4 {
+  font-size: 0.9rem;
+  color: var(--ds-text-secondary);
+  margin-bottom: 0.5rem;
+}
+
+.journey-connections ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.journey-connections li {
+  background: var(--ds-bg-secondary);
+  padding: 0.25rem 0.75rem;
+  border-radius: 16px;
+  font-size: 0.85rem;
+}
+
+.journey-connections a {
+  color: var(--ds-text-primary);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.journey-connections a:hover {
+  color: var(--primary-color);
+}
+
+/* Screen reader only content */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Pan cursor */
+#journey-map svg {
+  cursor: grab;
+}
+
+#journey-map svg:active {
+  cursor: grabbing;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .journey-controls {
+  background: var(--ds-bg-secondary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-md-color-scheme="slate"] .journey-control-btn {
+  background: var(--ds-bg-primary);
+}
+
+[data-md-color-scheme="slate"] .journey-control-btn:hover {
+  background: var(--primary-color);
 }

@@ -25,6 +25,9 @@
       <a href="introduction/" class="hero-button primary">Begin Your Journey</a>
       <a href="#interactive-journey-map" class="hero-button secondary">Explore Concepts</a>
     </div>
+    <a href="#interactive-journey-map" class="scroll-hint">
+      <span class="scroll-text">↓ Journey Map</span>
+    </a>
   </div>
 </div>
 

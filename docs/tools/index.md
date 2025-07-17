@@ -6,7 +6,8 @@
 !!! tip "Quick Navigation"
     [← Home](../index.md) |
     [Latency Calculator →](latency-calculator.md) |
-    [Capacity Planner →](capacity-planner.md)
+    [Capacity Planner →](capacity-planner.md) |
+    [Consistency Visualizer →](consistency-visualizer.md)
 
 ## Available Tools
 
@@ -21,6 +22,18 @@
     <h3>📊 Capacity Planner</h3>
     <p>Plan system capacity using Little's Law and queueing theory. Visualize saturation curves.</p>
     <a href="capacity-planner/" class="md-button md-button--primary">Plan Capacity</a>
+  </div>
+
+  <div class="card">
+    <h3>🔄 Consistency Visualizer</h3>
+    <p>Explore consistency models and CAP theorem trade-offs with interactive simulations.</p>
+    <a href="consistency-visualizer/" class="md-button md-button--primary">Visualize Consistency</a>
+  </div>
+
+  <div class="card">
+    <h3>🔺 CAP Theorem Explorer</h3>
+    <p>Understand CAP theorem trade-offs through interactive scenarios and real examples.</p>
+    <a href="cap-explorer/" class="md-button md-button--primary">Explore CAP</a>
   </div>
 
   <div class="card">

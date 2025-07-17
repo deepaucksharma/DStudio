@@ -51,6 +51,22 @@ In fiber: ~200,000 km/s (2/3 of c due to refractive index)
 
 ## The Physics Foundation
 
+```mermaid
+graph TB
+    subgraph "Speed of Light in Different Media"
+        A[Light in Vacuum<br/>299,792 km/s] 
+        B[Fiber Optic Cable<br/>~200,000 km/s<br/>66% of c]
+        C[Copper Wire<br/>~200,000 km/s<br/>Electromagnetic wave]
+        
+        A -->|"Refractive Index<br/>n ≈ 1.5"| B
+        A -->|"Electromagnetic<br/>Propagation"| C
+    end
+    
+    style A fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    style B fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+```
+
 | Medium | Speed | Note |
 |--------|-------|------|
 | Light in vacuum | 299,792 km/s | Theoretical maximum |
@@ -75,6 +91,28 @@ Mars (best case):   4 min     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓�
 ```
 
 </div>
+
+```mermaid
+graph LR
+    subgraph "Geographic Network Topology"
+        R1[Server Rack<br/>0.5ms]
+        DC[Data Center<br/>1-2ms]
+        REG[Region<br/>10ms]
+        CONT[Cross-Continent<br/>100ms]
+        GLOB[Opposite Globe<br/>200ms+]
+        
+        R1 <-->|"Same Rack<br/>~1m"| DC
+        DC <-->|"Same Region<br/>~100km"| REG
+        REG <-->|"Continental<br/>~3000km"| CONT
+        CONT <-->|"Global<br/>~20000km"| GLOB
+    end
+    
+    style R1 fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style DC fill:#dcedc8,stroke:#689f38,stroke-width:2px
+    style REG fill:#fff9c4,stroke:#fbc02d,stroke-width:2px
+    style CONT fill:#ffe0b2,stroke:#f57c00,stroke-width:2px
+    style GLOB fill:#ffccbc,stroke:#d84315,stroke-width:2px
+```
 
 ## Why This Matters
 

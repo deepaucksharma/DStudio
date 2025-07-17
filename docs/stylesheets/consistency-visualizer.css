@@ -1,0 +1,240 @@
+/* Consistency Visualizer Styles */
+#consistency-visualizer {
+  margin: 2rem 0;
+  padding: 2rem;
+  background: var(--ds-bg-secondary);
+  border-radius: 16px;
+  box-shadow: var(--shadow-lg);
+}
+
+.consistency-controls {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--ds-border-color);
+}
+
+.control-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.control-group label {
+  font-weight: 600;
+  color: var(--ds-text-primary);
+  font-size: 0.9rem;
+}
+
+.consistency-select {
+  padding: 0.75rem;
+  background: var(--ds-bg-primary);
+  border: 1px solid var(--ds-border-color);
+  border-radius: 8px;
+  color: var(--ds-text-primary);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.speed-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  background: var(--ds-bg-primary);
+  border-radius: 3px;
+  outline: none;
+}
+
+.speed-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.speed-slider::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: var(--primary-color);
+  border-radius: 50%;
+  cursor: pointer;
+  border: none;
+}
+
+.control-btn {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.control-btn.primary {
+  background: var(--primary-color);
+  color: white;
+}
+
+.control-btn.primary:hover {
+  background: var(--primary-light);
+  transform: translateY(-2px);
+}
+
+.control-btn:not(.primary) {
+  background: var(--ds-bg-primary);
+  color: var(--ds-text-primary);
+  border: 1px solid var(--ds-border-color);
+}
+
+.control-btn:not(.primary):hover {
+  border-color: var(--primary-color);
+}
+
+.scenario-buttons {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-top: 1rem;
+}
+
+.scenario-btn {
+  padding: 0.5rem 1rem;
+  background: var(--ds-bg-primary);
+  border: 2px solid var(--primary-color);
+  border-radius: 8px;
+  color: var(--primary-color);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.scenario-btn:hover {
+  background: var(--primary-color);
+  color: white;
+  transform: translateY(-2px);
+}
+
+.consistency-canvas-container {
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid var(--ds-border-color);
+}
+
+.consistency-canvas-container canvas {
+  display: block;
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.consistency-results {
+  display: grid;
+  gap: 2rem;
+}
+
+.consistency-results h4 {
+  margin: 0 0 1rem 0;
+  color: var(--primary-color);
+  font-size: 1.25rem;
+}
+
+.consistency-results h5 {
+  margin: 0 0 1rem 0;
+  color: var(--ds-text-primary);
+}
+
+.state-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  padding: 1.5rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+}
+
+.state-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  text-align: center;
+}
+
+.state-label {
+  font-size: 0.875rem;
+  color: var(--ds-text-secondary);
+}
+
+.state-value {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--primary-color);
+}
+
+.trade-offs {
+  padding: 1.5rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+}
+
+.trade-off-bar {
+  margin-bottom: 1rem;
+}
+
+.trade-off-bar span {
+  display: block;
+  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--ds-text-secondary);
+}
+
+.bar-track {
+  height: 10px;
+  background: var(--ds-bg-secondary);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.bar-fill {
+  height: 100%;
+  border-radius: 5px;
+  transition: width 0.5s ease;
+}
+
+.consistency-bar {
+  background: linear-gradient(90deg, #3B82F6 0%, #2563EB 100%);
+}
+
+.availability-bar {
+  background: linear-gradient(90deg, #10B981 0%, #059669 100%);
+}
+
+.partition-bar {
+  background: linear-gradient(90deg, #F59E0B 0%, #D97706 100%);
+}
+
+.insights {
+  padding: 1.5rem;
+  background: var(--ds-bg-primary);
+  border-radius: 12px;
+  border: 1px solid var(--ds-border-color);
+}
+
+.insights ul {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+
+.insights li {
+  margin-bottom: 0.75rem;
+  color: var(--ds-text-secondary);
+  line-height: 1.6;
+}

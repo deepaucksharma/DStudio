@@ -1,0 +1,178 @@
+/* Enhanced Reading Progress Bar */
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: var(--ds-bg-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: all 0.3s ease;
+}
+
+.reading-progress.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reading-progress.scrolling-down {
+  transform: translateY(-90%);
+}
+
+.reading-progress.scrolling-down:hover {
+  transform: translateY(0);
+}
+
+.reading-progress-bar {
+  position: relative;
+  height: 4px;
+  background: var(--ds-bg-secondary);
+  overflow: hidden;
+}
+
+.reading-progress-fill {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, var(--primary-color) 0%, var(--accent-color) 100%);
+  transition: width 0.2s ease;
+  box-shadow: 0 0 10px rgba(84, 72, 200, 0.5);
+}
+
+.reading-progress-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5rem 1rem;
+  background: var(--ds-bg-primary);
+}
+
+.progress-stats {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+.progress-percentage {
+  font-weight: 600;
+  color: var(--primary-color);
+  min-width: 3ch;
+}
+
+.progress-separator {
+  color: var(--ds-text-secondary);
+  opacity: 0.5;
+}
+
+.time-remaining {
+  color: var(--ds-text-secondary);
+}
+
+.progress-toggle {
+  background: none;
+  border: none;
+  padding: 0.25rem;
+  cursor: pointer;
+  color: var(--ds-text-secondary);
+  transition: all 0.2s ease;
+  border-radius: 4px;
+}
+
+.progress-toggle:hover {
+  color: var(--primary-color);
+  background: rgba(84, 72, 200, 0.1);
+}
+
+/* Minimized state */
+.reading-progress.minimized .reading-progress-info {
+  display: none;
+}
+
+.reading-progress.minimized .reading-progress-bar {
+  height: 3px;
+}
+
+.reading-progress.minimized.scrolling-down {
+  transform: translateY(0);
+}
+
+/* Achievement animation */
+@keyframes progressComplete {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.reading-progress-fill[style*="width: 100%"] {
+  animation: progressComplete 0.5s ease;
+  background: linear-gradient(90deg, #10B981 0%, #3B82F6 100%);
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .reading-progress {
+    top: auto;
+    bottom: 0;
+    transform: translateY(100%);
+  }
+  
+  .reading-progress.visible {
+    transform: translateY(0);
+  }
+  
+  .reading-progress.scrolling-down {
+    transform: translateY(calc(100% - 4px));
+  }
+  
+  .reading-progress-info {
+    padding: 0.4rem 0.75rem;
+  }
+  
+  .progress-stats {
+    font-size: 0.8rem;
+  }
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .reading-progress {
+  background: var(--md-default-bg-color);
+  box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.3);
+}
+
+[data-md-color-scheme="slate"] .reading-progress-bar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+[data-md-color-scheme="slate"] .reading-progress-fill {
+  box-shadow: 0 0 15px rgba(84, 72, 200, 0.7);
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .reading-progress,
+  .reading-progress-fill {
+    transition: none;
+  }
+  
+  .reading-progress-fill[style*="width: 100%"] {
+    animation: none;
+  }
+}
+
+/* Print styles */
+@media print {
+  .reading-progress {
+    display: none;
+  }
+}

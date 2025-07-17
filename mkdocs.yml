@@ -180,6 +180,8 @@ nav:
     - Overview: tools/index.md
     - Latency Calculator: tools/latency-calculator.md
     - Capacity Planner: tools/capacity-planner.md
+    - Consistency Visualizer: tools/consistency-visualizer.md
+    - CAP Theorem Explorer: tools/cap-explorer.md
   - Reference:
     - Overview: reference/index.md
     - Glossary: reference/glossary.md
@@ -205,12 +207,27 @@ extra:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/journey-map.css
+  - stylesheets/consistency-visualizer.css
+  - stylesheets/mobile-responsive.css
+  - stylesheets/cap-explorer.css
+  - stylesheets/tooltips-help.css
+  - stylesheets/reading-progress.css
+  - stylesheets/toc-enhanced.css
+  - stylesheets/quick-navigation.css
 
 extra_javascript:
   - javascripts/hero-animation.js
-  - javascripts/journey-map.js
+  - javascripts/journey-map-enhanced.js
   - javascripts/progressive-disclosure.js
   - javascripts/latency-calculator.js
   - javascripts/capacity-planner.js
+  - javascripts/consistency-visualizer.js
+  - javascripts/cap-explorer.js
+  - javascripts/tooltips-help.js
   - javascripts/reading-progress.js
   - javascripts/inline-calculators.js
+  - javascripts/nav-improvements.js
+  - javascripts/animation-performance.js
+  - javascripts/breadcrumb-progress.js
+  - javascripts/breadcrumbs.js
+  - javascripts/toc-scroll-spy.js

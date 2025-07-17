@@ -7,7 +7,7 @@
   --primary-color: #5448C8;
   --primary-light: #6B5DD3;
   --primary-dark: #4339B5;
-  --accent-color: #00BCD4;
+  --accent-color: #26C6DA; /* Improved contrast from #00BCD4 */
   --accent-light: #26C6DA;
   --success-color: #10B981;
   --warning-color: #F59E0B;
@@ -58,6 +58,87 @@
   --decision-border: #34D399;
   --failure-bg: rgba(248, 113, 113, 0.1);
   --failure-border: #F87171;
+}
+
+/* Navigation Bar Improvements */
+.md-header {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* Reduce header height for more content visibility */
+.md-header__inner {
+  height: 3.5rem; /* Reduced from 4rem (64px to 56px) */
+}
+
+.md-header__button {
+  height: 3.5rem;
+  width: 3.5rem;
+}
+
+.md-header__title {
+  height: 3.5rem;
+  line-height: 3.5rem;
+}
+
+/* Side Navigation Improvements */
+.md-sidebar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--ds-border-color) transparent;
+}
+
+.md-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+
+.md-sidebar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.md-sidebar::-webkit-scrollbar-thumb {
+  background: var(--ds-border-color);
+  border-radius: 3px;
+}
+
+/* Improve side nav spacing and readability */
+.md-nav__item {
+  line-height: 1.5em; /* Increased from default */
+  padding: 0.2rem 0;  /* Added vertical padding */
+}
+
+.md-nav__link {
+  font-size: 0.875rem; /* Slightly larger than 14px */
+  padding: 0.6rem 1rem; /* More comfortable click target */
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.md-nav__link:hover {
+  background-color: var(--ds-bg-secondary);
+}
+
+/* Fix long title wrapping */
+.md-nav__link {
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Ensure active item is always visible */
+.md-nav__link--active {
+  background-color: var(--ds-bg-secondary);
+  font-weight: 600;
+  position: relative;
+}
+
+.md-nav__link--active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background-color: var(--primary-color);
+  border-radius: 0 3px 3px 0;
 }
 
 /* ===================================
@@ -746,6 +827,85 @@
     text-align: center;
 }
 
+/* Breadcrumb Navigation */
+.breadcrumb-nav {
+    margin-bottom: 2rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--ds-border-color);
+}
+
+.breadcrumb-list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    font-size: 0.9rem;
+}
+
+.breadcrumb-item {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+}
+
+.breadcrumb-link {
+    color: var(--ds-text-secondary);
+    text-decoration: none;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
+
+.breadcrumb-link:hover {
+    color: var(--primary-color);
+    background: rgba(84, 72, 200, 0.1);
+}
+
+.breadcrumb-separator {
+    margin: 0 0.25rem;
+    color: var(--ds-text-secondary);
+    opacity: 0.5;
+}
+
+.breadcrumb-item.active {
+    color: var(--ds-text-primary);
+    font-weight: 500;
+}
+
+.breadcrumb-text {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Mobile breadcrumbs */
+@media (max-width: 768px) {
+    .breadcrumb-nav {
+        margin-bottom: 1rem;
+        padding: 0.5rem 0;
+    }
+    
+    .breadcrumb-list {
+        font-size: 0.85rem;
+    }
+    
+    .breadcrumb-link,
+    .breadcrumb-text {
+        padding: 0.25rem;
+    }
+    
+    /* Show only last 2 items on mobile */
+    .breadcrumb-item:not(:nth-last-child(-n+2)):not(:first-child) {
+        display: none;
+    }
+    
+    .breadcrumb-item:nth-last-child(2)::before {
+        content: "...";
+        margin: 0 0.5rem;
+        color: var(--ds-text-secondary);
+    }
+}
+
 /* Strategy Cards */
 .strategy-cards {
     margin: 2rem 0;
@@ -1196,7 +1356,8 @@
    =================================== */
 .hero-container {
   position: relative;
-  min-height: 600px;
+  min-height: 450px; /* Reduced by 25% from 600px */
+  max-height: 500px; /* Cap maximum height */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1237,8 +1398,8 @@
 }
 
 .highlight {
-  color: #00BCD4;
-  -webkit-text-fill-color: #00BCD4;
+  color: var(--accent-color);
+  -webkit-text-fill-color: var(--accent-color);
 }
 
 .hero-subtitle {
@@ -1252,7 +1413,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(20px); /* Reduced from 30px */
   }
   to {
     opacity: 1;
@@ -1290,7 +1451,7 @@
   display: block;
   font-size: 3rem;
   font-weight: 800;
-  color: #00BCD4;
+  color: var(--accent-color);
   margin-bottom: 0.5rem;
 }
 
@@ -1338,6 +1499,28 @@
 .hero-button.secondary:hover {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.5);
+}
+
+/* Scroll Hint */
+.scroll-hint {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  color: rgba(255, 255, 255, 0.8);
+  text-decoration: none;
+  font-size: 0.9rem;
+  animation: bounceDown 2s infinite;
+  transition: opacity 0.3s ease;
+}
+
+.scroll-hint:hover {
+  opacity: 0.8;
+}
+
+@keyframes bounceDown {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
 }
 
 /* Responsive design */
@@ -2210,7 +2393,7 @@
   top: 0;
   left: 0;
   height: 3px;
-  background: linear-gradient(90deg, #5B5FC7 0%, #00BCD4 100%);
+  background: linear-gradient(90deg, #5B5FC7 0%, var(--accent-color) 100%);
   transition: width 0.3s ease;
 }
 
@@ -2327,4 +2510,134 @@
 .downtime-output {
   color: #EF4444;
   font-weight: 600;
+}
+
+/* Improved color contrast for links in code blocks */
+.md-typeset pre code a,
+.md-typeset code a {
+  color: var(--accent-color) !important;
+  text-decoration: underline;
+}
+
+[data-md-color-scheme="slate"] .md-typeset pre code a,
+[data-md-color-scheme="slate"] .md-typeset code a {
+  color: #80DEEA !important; /* Lighter cyan for dark mode */
+}
+
+/* Search Overlay Improvements */
+.search-modal-open {
+  overflow: hidden !important;
+}
+
+.search-modal-open .md-search__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+}
+
+.search-modal-open .md-search__inner {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 90%;
+  max-width: 800px;
+  max-height: 80vh;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  z-index: 1000;
+}
+
+.search-modal-open .md-search__scrollwrap {
+  overflow-y: auto;
+  flex: 1;
+}
+
+/* Empty state for search */
+.md-search__output:empty::after {
+  content: "Start typing to search...";
+  display: block;
+  padding: 2rem;
+  text-align: center;
+  color: var(--ds-text-secondary);
+  font-style: italic;
+}
+
+.md-search-result__meta:empty::after {
+  content: "No results found. Try different keywords.";
+  display: block;
+  padding: 2rem;
+  text-align: center;
+  color: var(--ds-text-secondary);
+}
+
+/* Coming Soon Banner */
+.coming-soon-banner {
+  background: linear-gradient(135deg, #5B5FC7 0%, #818CF8 100%);
+  color: white;
+  padding: 3rem 2rem;
+  border-radius: 16px;
+  text-align: center;
+  margin: 2rem 0;
+  box-shadow: var(--shadow-lg);
+}
+
+.coming-soon-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.coming-soon-banner h2 {
+  color: white;
+  margin: 0 0 0.5rem 0;
+  font-size: 2rem;
+}
+
+.coming-soon-banner p {
+  color: rgba(255, 255, 255, 0.9);
+  font-size: 1.1rem;
+  margin: 0;
+}
+
+.preview-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.preview-card {
+  background: var(--ds-bg-primary);
+  border: 1px solid var(--ds-border-color);
+  border-radius: 12px;
+  padding: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.preview-card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-color);
+}
+
+.preview-card h4 {
+  margin: 0 0 0.5rem 0;
+  color: var(--ds-text-primary);
+}
+
+.preview-card p {
+  margin: 0;
+  color: var(--ds-text-secondary);
+  font-size: 0.95rem;
 }

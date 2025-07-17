@@ -108,6 +108,39 @@ Architecture:
 - Synchronous replication
 
 The Cascading Failure:
+
+```mermaid
+sequenceDiagram
+    participant U as User (Sydney)
+    participant S as Sydney DB
+    participant SG as Singapore DB
+    participant F as Frankfurt DB
+    participant V as Virginia DB
+    participant SP as São Paulo DB
+    
+    U->>S: Post Tweet
+    Note over S: Start sync replication
+    
+    par Replication
+        S->>SG: Replicate (90ms)
+        and
+        S->>F: Replicate (280ms)
+        and
+        S->>V: Replicate (200ms)
+        and
+        S->>SP: Replicate (320ms)
+    end
+    
+    Note over S: Wait for all ACKs
+    SG-->>S: ACK
+    V-->>S: ACK
+    F-->>S: ACK
+    SP-->>S: ACK (slowest)
+    
+    S-->>U: Confirm post (320ms+)
+    Note over U: User frustrated!<br/>Clicks again...
+```
+
 1. User posts in Sydney
 2. Must replicate to all regions before confirming
 3. Latencies:
@@ -158,6 +191,30 @@ Lesson: Synchronous global operations violate physics
 ### Web Applications
 
 #### The 100ms Budget Breakdown
+
+```mermaid
+gantt
+    title Web Request Latency Budget (100ms target)
+    dateFormat X
+    axisFormat %L
+    
+    section Network
+    DNS Lookup       :dns, 0, 20
+    TCP Handshake    :tcp, 20, 30
+    TLS Negotiation  :tls, 50, 40
+    HTTP Request     :req, 90, 30
+    
+    section Server
+    Processing       :active, proc, 120, 30
+    
+    section Response
+    HTTP Response    :resp, 150, 30
+    Browser Render   :render, 180, 20
+    
+    section Budget
+    100ms Target     :crit, milestone, 100, 0
+```
+
 ```
 User clicks (0ms)
 ├─ Browser processing (5ms)
@@ -176,6 +233,34 @@ At 30ms RTT: 120-150ms gone before your code runs!
 ### Video Streaming
 
 #### Why Netflix Works
+
+```mermaid
+graph TB
+    subgraph "Traditional Streaming"
+        U1[User<br/>New York] -->|100ms| CS[Central Server<br/>California]
+        U2[User<br/>London] -->|150ms| CS
+        U3[User<br/>Tokyo] -->|120ms| CS
+        CS -->|Video Stream| U1
+        CS -->|Video Stream| U2
+        CS -->|Video Stream| U3
+    end
+    
+    subgraph "Netflix CDN Architecture"
+        UN1[User<br/>New York] -->|5ms| E1[Edge Cache<br/>New York]
+        UN2[User<br/>London] -->|3ms| E2[Edge Cache<br/>London]
+        UN3[User<br/>Tokyo] -->|4ms| E3[Edge Cache<br/>Tokyo]
+        
+        E1 -.->|Cache Miss<br/>Only| O[Origin<br/>California]
+        E2 -.->|~5% of<br/>requests| O
+        E3 -.->|Rare| O
+    end
+    
+    style CS fill:#ffccbc,stroke:#d84315,stroke-width:2px
+    style E1 fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style E2 fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style E3 fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+```
+
 ```
 Traditional: User → Server → Video
 Latency: 100ms+ per chunk = buffering
@@ -224,6 +309,32 @@ Solution: Regional game servers
 ## Common Patterns & Solutions
 
 ### Pattern 1: Cache Hierarchy
+
+```mermaid
+flowchart TD
+    U[User Request] --> BC{Browser<br/>Cache?}
+    BC -->|Hit<br/>0ms| R1[Return Content]
+    BC -->|Miss| CDN{CDN Edge<br/>Cache?}
+    CDN -->|Hit<br/>5ms| R2[Return Content]
+    CDN -->|Miss| RC{Regional<br/>Cache?}
+    RC -->|Hit<br/>20ms| R3[Return Content]
+    RC -->|Miss| O[Origin Server<br/>100ms+]
+    O --> R4[Return Content]
+    
+    R1 -.->|Cache Headers| BC
+    R2 -.->|Update| BC
+    R3 -.->|Update| CDN
+    R3 -.->|Update| BC
+    R4 -.->|Update| RC
+    R4 -.->|Update| CDN
+    R4 -.->|Update| BC
+    
+    style BC fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style CDN fill:#e1f5fe,stroke:#03a9f4,stroke-width:2px
+    style RC fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+    style O fill:#ffebee,stroke:#f44336,stroke-width:2px
+```
+
 ```
 Browser Cache (0ms)
     ↓ miss
