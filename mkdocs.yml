@@ -104,6 +104,7 @@ nav:
     - Prerequisites Check: introduction/prerequisites.md
     - Learning Paths: introduction/roadmap.md
     - How to Use This Guide: introduction/how-to-use.md
+    - Component Examples: introduction/component-examples.md
   - Part I - The 8 Axioms:
     - Overview: part1-axioms/index.md
     - Axiom 1 - Latency:
@@ -208,3 +209,8 @@ extra_css:
 extra_javascript:
   - javascripts/hero-animation.js
   - javascripts/journey-map.js
+  - javascripts/progressive-disclosure.js
+  - javascripts/latency-calculator.js
+  - javascripts/capacity-planner.js
+  - javascripts/reading-progress.js
+  - javascripts/inline-calculators.js

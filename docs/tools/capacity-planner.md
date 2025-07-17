@@ -38,15 +38,18 @@
     <small>Recommended: 70% for latency-sensitive, 85% for throughput</small>
   </div>
 
-  <button type="button" onclick="calculateCapacity()" class="md-button md-button--primary">Calculate</button>
+  <button type="button" class="md-button md-button--primary calculate-btn">Calculate</button>
 </form>
 
-<div id="capacity-results" class="results-container"></div>
+<div id="capacity-visualization" class="visualization-container"></div>
 
-<canvas id="saturation-chart" width="600" height="400" style="display:none;"></canvas>
+<div id="capacity-results" class="results-container"></div>
 </div>
 
-<script>
+<!-- Enhanced Capacity Planner loads from external JS file -->
+
+<script style="display:none;">
+// Legacy script disabled - using enhanced version
 function calculateCapacity() {
     const arrivalRate = parseFloat(document.getElementById('arrival-rate').value);
     const serviceTimeMs = parseFloat(document.getElementById('service-time').value);
@@ -219,8 +222,7 @@ function drawSaturationCurve(baseServiceTime, currentUtil) {
     ctx.fillText('Response Time vs Utilization (Saturation Curve)', padding, 25);
 }
 
-// Calculate on load
-window.onload = calculateCapacity;
+// Legacy script disabled
 </script>
 
 ## Capacity Planning Fundamentals

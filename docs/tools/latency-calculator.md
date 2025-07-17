@@ -1,170 +1,74 @@
 # Latency Calculator
 
-!!! info "Calculate Network Latencies"
-    This tool helps you estimate end-to-end latencies based on physical distance, network topology, and processing overhead.
+!!! info "Interactive Tool"
+    Use this calculator to understand how distance, network hops, and data size affect latency in distributed systems.
 
-!!! tip "Quick Navigation"
-    [← Tools Home](index.md) |
-    [Capacity Planner →](capacity-planner.md) |
-    [Reference →](../reference/index.md)
-
-## Interactive Calculator
-
-!!! tip "How to Use"
-    1. Select two cities or enter a custom distance
-    2. Choose your network medium (fiber is most common)
-    3. Adjust network complexity (hops and devices)
-    4. Click Calculate to see the breakdown
-
-<div class="calculator-container">
-<h3>🌍 Global Latency Estimator</h3>
-
-<!-- Quick City Selector -->
-<div class="city-selector">
-  <h4>Quick Routes</h4>
-  <div class="route-buttons">
-    <button onclick="setRoute(4100, 'NYC ↔ SF')" class="route-btn">NYC ↔ SF</button>
-    <button onclick="setRoute(5600, 'NYC ↔ London')" class="route-btn">NYC ↔ London</button>
-    <button onclick="setRoute(9900, 'SF ↔ Tokyo')" class="route-btn">SF ↔ Tokyo</button>
-    <button onclick="setRoute(10800, 'London ↔ Singapore')" class="route-btn">London ↔ Singapore</button>
-    <button onclick="setRoute(12000, 'Sydney ↔ LA')" class="route-btn">Sydney ↔ LA</button>
-  </div>
-</div>
-
-<form id="latency-calc">
-  <div class="form-group">
-    <label for="distance">Distance (km):</label>
-    <input type="number" id="distance" name="distance" value="4100" min="1" max="20000">
-    <small>NYC to SF: 4100km, NYC to London: 5600km, Earth circumference: 40,075km</small>
-  </div>
-
-  <div class="form-group">
-    <label for="medium">Medium:</label>
-    <select id="medium" name="medium">
-      <option value="fiber" selected>Fiber Optic (0.67c)</option>
-      <option value="copper">Copper (0.66c)</option>
-      <option value="wireless">Wireless (1.0c)</option>
-    </select>
-  </div>
-
-  <div class="form-group">
-    <label for="hops">Network Hops:</label>
-    <input type="number" id="hops" name="hops" value="15" min="1" max="50">
-    <small>Typical: Local 1-5, Regional 5-15, Global 15-30</small>
-  </div>
-
-  <div class="form-group">
-    <label>Network Devices:</label>
-    <div class="device-inputs">
-      <label>Routers: <input type="number" name="routers" value="10" min="0" max="50"></label>
-      <label>Switches: <input type="number" name="switches" value="5" min="0" max="50"></label>
-      <label>Firewalls: <input type="number" name="firewalls" value="2" min="0" max="10"></label>
-      <label>Load Balancers: <input type="number" name="lbs" value="2" min="0" max="10"></label>
+<div id="latency-calculator" class="interactive-tool">
+  <div class="tool-inputs">
+    <div class="input-group">
+      <label for="distance">Distance (km)</label>
+      <input type="number" id="distance" value="1000" min="0" max="20000">
+      <small>Geographic distance between nodes</small>
+    </div>
+    
+    <div class="input-group">
+      <label for="hops">Network Hops</label>
+      <input type="number" id="hops" value="5" min="1" max="50">
+      <small>Number of routers/switches</small>
+    </div>
+    
+    <div class="input-group">
+      <label for="processing">Processing Time (ms)</label>
+      <input type="number" id="processing" value="2" min="0" max="100" step="0.1">
+      <small>Per-hop processing delay</small>
+    </div>
+    
+    <div class="input-group">
+      <label for="bandwidth">Bandwidth (Mbps)</label>
+      <input type="number" id="bandwidth" value="1000" min="1" max="100000">
+      <small>Link bandwidth</small>
+    </div>
+    
+    <div class="input-group">
+      <label for="payload">Payload Size (KB)</label>
+      <input type="number" id="payload" value="1" min="0.1" max="1000" step="0.1">
+      <small>Data size to transfer</small>
     </div>
   </div>
-
-  <button type="button" onclick="calculateLatency()" class="md-button md-button--primary">Calculate</button>
-</form>
-
-<div id="results" class="results-container"></div>
+  
+  <div class="tool-visualization">
+    <canvas id="latency-viz"></canvas>
+  </div>
+  
+  <div class="tool-results">
+    <h3>Results</h3>
+    <div class="result-grid">
+      <div class="result-item">
+        <span class="result-label">Propagation Delay</span>
+        <span class="result-value" id="prop-delay">0 ms</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Processing Delay</span>
+        <span class="result-value" id="proc-delay">0 ms</span>
+      </div>
+      <div class="result-item">
+        <span class="result-label">Transmission Delay</span>
+        <span class="result-value" id="trans-delay">0 ms</span>
+      </div>
+      <div class="result-item highlight">
+        <span class="result-label">Total Latency</span>
+        <span class="result-value" id="total-delay">0 ms</span>
+      </div>
+    </div>
+    
+    <div class="result-insights">
+      <h4>💡 Insights</h4>
+      <ul id="insights-list">
+        <!-- Dynamically populated -->
+      </ul>
+    </div>
+  </div>
 </div>
-
-<script>
-function setRoute(distance, routeName) {
-    document.getElementById('distance').value = distance;
-    calculateLatency();
-    
-    // Update display to show selected route
-    const resultsDiv = document.getElementById('results');
-    if (resultsDiv.innerHTML) {
-        resultsDiv.innerHTML = `<h4>Route: ${routeName}</h4>` + resultsDiv.innerHTML;
-    }
-}
-
-function calculateLatency() {
-    const distance = parseFloat(document.getElementById('distance').value);
-    const medium = document.getElementById('medium').value;
-    const hops = parseInt(document.getElementById('hops').value);
-    
-    // Speed of light and medium factors
-    const SPEED_OF_LIGHT = 299792; // km/s
-    const mediumFactors = {
-        'fiber': 0.67,
-        'copper': 0.66,
-        'wireless': 1.0
-    };
-    
-    // Device processing times (ms)
-    const deviceOverhead = {
-        'routers': 0.1,
-        'switches': 0.01,
-        'firewalls': 0.5,
-        'lbs': 0.2
-    };
-    
-    // Calculate propagation delay
-    const effectiveSpeed = SPEED_OF_LIGHT * mediumFactors[medium];
-    const propagationDelay = (distance / effectiveSpeed) * 1000; // ms
-    
-    // Calculate processing delay
-    let processingDelay = 0;
-    for (const [device, overhead] of Object.entries(deviceOverhead)) {
-        const count = parseInt(document.querySelector(`input[name="${device}"]`).value);
-        processingDelay += count * overhead;
-    }
-    
-    // Serialization delay (simplified)
-    const serializationDelay = hops * 0.1; // 100μs per hop
-    
-    // Total latency
-    const totalLatency = propagationDelay + processingDelay + serializationDelay;
-    
-    // Display results
-    const resultsDiv = document.getElementById('results');
-    resultsDiv.innerHTML = `
-        <h4>Latency Breakdown</h4>
-        <table>
-            <tr>
-                <td>Propagation Delay:</td>
-                <td>${propagationDelay.toFixed(2)} ms</td>
-                <td>${(propagationDelay/totalLatency*100).toFixed(1)}%</td>
-            </tr>
-            <tr>
-                <td>Processing Delay:</td>
-                <td>${processingDelay.toFixed(2)} ms</td>
-                <td>${(processingDelay/totalLatency*100).toFixed(1)}%</td>
-            </tr>
-            <tr>
-                <td>Serialization Delay:</td>
-                <td>${serializationDelay.toFixed(2)} ms</td>
-                <td>${(serializationDelay/totalLatency*100).toFixed(1)}%</td>
-            </tr>
-            <tr class="total-row">
-                <td><strong>Total One-Way Latency:</strong></td>
-                <td><strong>${totalLatency.toFixed(2)} ms</strong></td>
-                <td>100%</td>
-            </tr>
-            <tr class="total-row">
-                <td><strong>Round-Trip Time (RTT):</strong></td>
-                <td><strong>${(totalLatency * 2).toFixed(2)} ms</strong></td>
-                <td>-</td>
-            </tr>
-        </table>
-        
-        <div class="insight-box">
-            <h5>💡 Insights</h5>
-            <ul>
-                <li>Theoretical minimum (speed of light): ${(distance/SPEED_OF_LIGHT*1000).toFixed(2)} ms</li>
-                <li>Your latency is ${(totalLatency/(distance/SPEED_OF_LIGHT*1000)).toFixed(1)}x the theoretical minimum</li>
-                <li>${propagationDelay > processingDelay ? 'Propagation delay dominates - consider edge locations' : 'Processing delay dominates - optimize network path'}</li>
-            </ul>
-        </div>
-    `;
-}
-
-// Calculate on page load
-window.onload = calculateLatency;
-</script>
 
 ## Common Latency Scenarios
 

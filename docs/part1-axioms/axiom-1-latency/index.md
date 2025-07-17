@@ -15,12 +15,21 @@
 
 ## Why Should I Care?
 
-!!! question "Real Impact on Your Systems"
-    - **User Experience**: 53% of mobile users abandon sites that take >3 seconds to load
-    - **Revenue**: Amazon loses $1.6B per year for each second of load time
-    - **SEO**: Google uses page speed as a ranking factor
-    - **Architecture**: You can't put all your servers in one location and serve global users
-    - **Cost**: Ignoring physics leads to expensive band-aid solutions
+<div class="key-takeaway">
+  <div class="key-takeaway-header">
+    <span class="key-takeaway-icon">💡</span>
+    <h3 class="key-takeaway-title">The Billion Dollar Millisecond</h3>
+  </div>
+  <div class="key-takeaway-content">
+    <ul>
+      <li><strong>User Experience</strong>: 53% of mobile users abandon sites that take >3 seconds to load</li>
+      <li><strong>Revenue</strong>: Amazon loses $1.6B per year for each second of load time</li>
+      <li><strong>SEO</strong>: Google uses page speed as a ranking factor</li>
+      <li><strong>Architecture</strong>: You can't put all your servers in one location and serve global users</li>
+      <li><strong>Cost</strong>: Ignoring physics leads to expensive band-aid solutions</li>
+    </ul>
+  </div>
+</div>
 
 ## Core Concept
 
@@ -34,6 +43,10 @@ Minimum Bound: distance / speed_of_light
 In fiber: ~200,000 km/s (2/3 of c due to refractive index)
 ```
 
+</div>
+
+<div class="content-break">
+  <span class="content-break-icon">🌍</span>
 </div>
 
 ## The Physics Foundation
@@ -77,9 +90,26 @@ Mars (best case):   4 min     ▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓�
 
 ### Business Impact
 
-- **Amazon**: Every 100ms latency → 1% sales loss
-- **Google**: 500ms delay → 20% traffic drop
-- **Financial Trading**: 1ms advantage → millions in profit
+<div class="concept-cards">
+  <div class="concept-card">
+    <div class="concept-card-icon">🛒</div>
+    <h4 class="concept-card-title">Amazon</h4>
+    <p class="concept-card-description">Every 100ms of latency costs 1% in sales</p>
+    <div class="concept-card-formula">100ms = -1% revenue</div>
+  </div>
+  <div class="concept-card">
+    <div class="concept-card-icon">🔍</div>
+    <h4 class="concept-card-title">Google</h4>
+    <p class="concept-card-description">Half-second delay causes 20% traffic drop</p>
+    <div class="concept-card-formula">500ms = -20% traffic</div>
+  </div>
+  <div class="concept-card">
+    <div class="concept-card-icon">💹</div>
+    <h4 class="concept-card-title">Financial Trading</h4>
+    <p class="concept-card-description">1ms advantage translates to millions in profit</p>
+    <div class="concept-card-formula">1ms = $$$</div>
+  </div>
+</div>
 
 ## Latency Mathematics
 
@@ -112,6 +142,10 @@ print(f"NYC ↔ London: {minimum_latency_ms(NYC_to_London):.1f}ms minimum")
 # Output: NYC ↔ London: 27.9ms minimum
 ```
 
+Try it yourself with this interactive calculator:
+
+<div data-calculator-type="latency"></div>
+
 ## Caching: The Latency Workaround
 
 Since we can't make light faster, we move data closer:
@@ -139,19 +173,73 @@ START: Is latency a problem?
 
 </div>
 
+<div class="section-divider">
+  <h2 class="section-divider-title">Debunking Myths</h2>
+  <p class="section-divider-subtitle">What won't save you from physics</p>
+</div>
+
 ## Common Misconceptions
 
-### ❌ "5G/6G will eliminate latency"
-**Reality**: Wireless adds latency, doesn't reduce speed of light
+<div class="progressive-disclosure warning">
+  <div class="disclosure-header">
+    <div class="disclosure-title">
+      <span class="disclosure-icon">❌</span>
+      <span class="disclosure-text">"5G/6G will eliminate latency"</span>
+    </div>
+    <span class="disclosure-arrow">▼</span>
+  </div>
+  <div class="disclosure-content">
+    <div class="disclosure-inner">
+      <p><strong>Reality</strong>: Wireless technologies actually ADD latency compared to fiber:</p>
+      <ul>
+        <li>Radio waves travel at speed of light, same as fiber</li>
+        <li>Additional protocol overhead for wireless communication</li>
+        <li>Contention and interference add variability</li>
+        <li>5G reduces processing latency, not propagation delay</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-### ❌ "Quantum networking will be instant"
-**Reality**: Information still can't exceed c
+<div class="progressive-disclosure warning">
+  <div class="disclosure-header">
+    <div class="disclosure-title">
+      <span class="disclosure-icon">❌</span>
+      <span class="disclosure-text">"Quantum networking will be instant"</span>
+    </div>
+    <span class="disclosure-arrow">▼</span>
+  </div>
+  <div class="disclosure-content">
+    <div class="disclosure-inner">
+      <p><strong>Reality</strong>: Quantum entanglement doesn't enable faster-than-light communication:</p>
+      <ul>
+        <li>No information can be transmitted via entanglement alone</li>
+        <li>Classical channel still needed, limited by c</li>
+        <li>Quantum advantage is in security, not speed</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
-### ❌ "Better servers reduce network latency"
-**Reality**: Processing ≠ propagation delay
-
-### ❌ "Parallel requests eliminate latency"
-**Reality**: Critical path still bound by physics
+<div class="progressive-disclosure warning">
+  <div class="disclosure-header">
+    <div class="disclosure-title">
+      <span class="disclosure-icon">❌</span>
+      <span class="disclosure-text">"Better servers reduce network latency"</span>
+    </div>
+    <span class="disclosure-arrow">▼</span>
+  </div>
+  <div class="disclosure-content">
+    <div class="disclosure-inner">
+      <p><strong>Reality</strong>: Server performance and network latency are independent:</p>
+      <ul>
+        <li>Processing time ≠ propagation delay</li>
+        <li>Faster servers help with computation, not distance</li>
+        <li>Network latency is purely physics-based</li>
+      </ul>
+    </div>
+  </div>
+</div>
 
 ## Design Patterns
 
@@ -241,15 +329,26 @@ When nodes are far apart, achieving consensus takes longer. This forces trade-of
 
 </div>
 
-## Key Takeaways
+<div class="section-divider">
+  <h2 class="section-divider-title">Key Takeaways</h2>
+  <p class="section-divider-subtitle">Remember these fundamentals</p>
+</div>
 
-!!! success "Remember"
-    
-    1. **Physics sets the floor** - You can approach but never beat light speed
-    2. **Distance equals delay** - Geography matters in system design
-    3. **Cache or suffer** - Move data close to users
-    4. **Measure percentiles** - Averages hide the pain
-    5. **Design for physics** - Work with constraints, not against them
+<div class="key-takeaway success">
+  <div class="key-takeaway-header">
+    <span class="key-takeaway-icon">🎯</span>
+    <h3 class="key-takeaway-title">The Five Laws of Latency</h3>
+  </div>
+  <div class="key-takeaway-content">
+    <ol>
+      <li><strong>Physics sets the floor</strong> - You can approach but never beat light speed</li>
+      <li><strong>Distance equals delay</strong> - Geography matters in system design</li>
+      <li><strong>Cache or suffer</strong> - Move data close to users</li>
+      <li><strong>Measure percentiles</strong> - Averages hide the pain</li>
+      <li><strong>Design for physics</strong> - Work with constraints, not against them</li>
+    </ol>
+  </div>
+</div>
 
 ## Navigation
 
