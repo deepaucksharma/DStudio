@@ -18,17 +18,27 @@ mkdocs serve
 # Build static site
 mkdocs build
 
-# Deploy to GitHub Pages
+# Deploy to GitHub Pages (only from main branch)
 mkdocs gh-deploy
+
+# Clean build artifacts
+rm -rf site/
 ```
 
 ## Architecture & Key Files
 
 ### Core Structure
-- `mkdocs.yml` - Main configuration defining site structure, theme, and plugins
-- `docs/` - All documentation content
-  - `index.md` - Homepage with navigation cards and philosophy
-  - `distributed-systems-book.md` - Main content (comprehensive guide with 8 axioms)
+- `mkdocs.yml` - Main configuration (186 lines) defining site structure, theme, plugins, and navigation
+- `requirements.txt` - Python dependencies for MkDocs and plugins
+- `.github/workflows/deploy.yml` - GitHub Actions workflow for automatic deployment to GitHub Pages
+- `docs/` - All documentation content organized hierarchically:
+  - `index.md` - Homepage with navigation cards, journey map, and philosophy
+  - `distributed-systems-book.md` - Legacy comprehensive guide (migrating to modular structure)
+  - `introduction/` - Getting started guides and learning paths
+  - `part1-axioms/` - 8 fundamental axioms (Latency, Capacity, Failure, Concurrency, Coordination, Observability, Human Interface, Economics)
+  - `part2-pillars/` - 5 foundational pillars (Work, State, Truth, Control, Intelligence)
+  - `reference/` - Glossary, cheat sheets, recipe cards, security considerations
+  - `tools/` - Interactive calculators (latency, capacity planning)
   - `stylesheets/extra.css` - Extensive custom styling (784 lines)
 
 ### Content Philosophy
@@ -44,6 +54,8 @@ The site uses custom-styled components defined in `extra.css`:
 - `.decision-box` - Green-themed boxes for decision frameworks
 - `.failure-vignette` - Red-themed boxes for failure stories
 - `.truth-box` - Blue-themed boxes for insights
+- `.journey-container` - Interactive journey map on homepage
+- `.grid.cards` - Navigation card layout
 
 ### Design System
 - Primary color: Indigo (#5448C8)
@@ -51,24 +63,66 @@ The site uses custom-styled components defined in `extra.css`:
 - Typography: Inter for body, JetBrains Mono for code
 - 8px grid system for spacing
 - Responsive design with mobile considerations
+- Dark mode support with slate color scheme
 
 ## Important Configuration
 
-The site is configured for GitHub Pages deployment:
+### GitHub Pages Deployment
 - Repository: `deepaucksharma/DStudio`
 - Main branch: `main`
-- GitHub Actions workflow at `.github/workflows/deploy.yml`
+- GitHub Actions automatically builds and deploys on push to main
+- Site URL: https://deepaucksharma.github.io/DStudio/
 
-## Development Notes
+### MkDocs Configuration
+- Theme: Material for MkDocs v9.4.0+
+- Key plugins:
+  - `mermaid2` - For diagram rendering
+  - `search` - Full-text search functionality
+- Markdown extensions:
+  - `pymdownx` suite for enhanced markdown (tabs, admonitions, superfences)
+  - `mermaid` custom fence for diagrams
+  - Code highlighting with line numbers
+  - Emoji support via twemoji
 
-When modifying content:
-1. Mermaid diagrams are supported via `mkdocs-mermaid2-plugin`
-2. Use pymdown-extensions for enhanced markdown (tabs, admonitions, etc.)
-3. Custom CSS classes are available for special content boxes
-4. Material theme features enabled: navigation.instant, content.code.copy, etc.
+## Development Workflow
 
-When updating styles:
-1. CSS variables are defined for consistent theming
-2. Dark mode is fully supported with slate color scheme
-3. Accessibility features are included (focus states, high contrast)
-4. Print styles are defined for PDF generation
+### Local Development
+1. Install dependencies: `pip install -r requirements.txt`
+2. Start dev server: `mkdocs serve`
+3. Make changes (auto-reload enabled)
+4. View at http://127.0.0.1:8000
+
+### Adding Content
+1. New axiom/pillar pages go in respective directories with `index.md`, `examples.md`, `exercises.md`
+2. Update navigation in `mkdocs.yml`
+3. Use established visual components (axiom-box, decision-box, etc.)
+4. Follow existing markdown patterns for consistency
+
+### Deployment
+- Push to main branch triggers automatic deployment
+- Manual deploy: `mkdocs gh-deploy` (requires permissions)
+- Build artifacts in `site/` directory (gitignored)
+
+## Content Guidelines
+
+### When Writing Documentation
+1. Use Mermaid diagrams for complex concepts
+2. Include practical examples with each theoretical concept
+3. Add failure stories to illustrate real-world implications
+4. Use appropriate visual component boxes for different content types
+5. Keep the physics-first approach - derive patterns from constraints
+
+### Code Examples
+- Use language-specific syntax highlighting
+- Include both correct and incorrect approaches
+- Show trade-offs explicitly
+- Reference specific axioms/pillars when applicable
+
+## Project Roadmap (from IMPROVEMENTS.md)
+
+Key planned enhancements:
+1. **Security Pillar**: Add 6th pillar for distributed systems security
+2. **Interactive Tools**: Expand beyond calculators to simulators
+3. **End-to-End Case Study**: Ride-sharing app applying all concepts
+4. **Granular Navigation**: Break up monolithic pages into smaller sections
+5. **Learning Reinforcement**: Quizzes, flashcards, capstone project

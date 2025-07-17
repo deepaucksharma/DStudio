@@ -158,6 +158,14 @@ nav:
       - Core Concepts: part2-pillars/pillar-5-intelligence/index.md
       - Examples: part2-pillars/pillar-5-intelligence/examples.md
       - Exercises: part2-pillars/pillar-5-intelligence/exercises.md
+    - Pillar 6 - Distribution of Trust:
+      - Core Concepts: part2-pillars/pillar-6-trust/index.md
+      - Examples: part2-pillars/pillar-6-trust/examples.md
+      - Exercises: part2-pillars/pillar-6-trust/exercises.md
+  - Part IV - Case Study:
+    - Overview: part4-case-study/index.md
+    - Chapter 1 - MVP: part4-case-study/chapter1-mvp.md
+    - Chapter 2 - Multi-City: part4-case-study/chapter2-multi-city.md
   - Tools:
     - Overview: tools/index.md
     - Latency Calculator: tools/latency-calculator.md

@@ -90,4 +90,62 @@ This document outlines a strategic roadmap to evolve the DStudio Compendium from
         *   **Solution:** Embed simplified versions of the calculators directly on the relevant axiom/pillar pages. For example, the Latency Axiom page should have a mini-calculator right below the explanation of propagation delay.
     *   **Create a "Mental Models" Reference Page:**
         *   **Problem:** The text uses many powerful mental models, but they are scattered.
-        *   **Solution:** Create a dedicated page in the Reference section that lists and explains all the key mental models used (e.g., "Systems as Organisms," "The CAP Trilemma," "The Control Plane/Data Plane Split"). This will become a high-value, frequently referenced page.
+        *   **Solution:** Create a dedicated page in the Reference section that lists and explains all the key mental models used (e.g., "Systems as Organisms," "The CAP Trilemma," "The Control Plane/Data Plane Split"). This will become a high-value, frequently referenced page.---
+
+## 4. UX Enhancement Plan: From Documentation to Interactive Experience
+
+*   **Goal:** Address the "Interactivity Gap" identified in the UX review, transforming the site from a static, documentation-like experience into an engaging, interactive learning platform.
+
+### 4.1. High-Priority UX Enhancements (Next Sprint)
+
+1.  **Implement the Interactive Journey Map:**
+    *   **Problem:** The homepage promises an interactive map, but the current implementation is static.
+    *   **Solution:** Replace the static D3.js visualization on  with a fully interactive one. Use a library like  or a dedicated mind-map component.
+        *   **Features:**
+            *   Nodes for each Axiom and Pillar should be clickable, linking directly to the relevant page.
+            *   Show dependencies and relationships between concepts visually.
+            *   Add hover-over tooltips with brief descriptions for each node.
+            *   Integrate with the progress tracking system (see below) to visually mark completed sections.
+
+2.  **Introduce a Learning Progress System:**
+    *   **Problem:** Users have no way to track their progress, which harms long-term engagement.
+    *   **Solution:** Implement a simple, client-side progress tracking system using .
+        *   Add a "Mark as Complete" checkbox at the end of each major page (Axioms, Pillars).
+        *   Store completion status in .
+        *   Visually update the navigation sidebar and the interactive journey map with a checkmark or a different color for completed sections.
+        *   Display a progress bar in the header or sidebar showing .
+
+3.  **Add a Dark Mode Toggle:**
+    *   **Problem:** The site lacks a dark mode, a highly requested feature for technical audiences who often work in low-light environments.
+    *   **Solution:** Leverage the built-in Material for MkDocs theme capabilities to implement a dark/light mode switcher. This is a low-effort, high-impact improvement.
+
+### 4.2. Medium-Priority UX Enhancements (Next Quarter)
+
+1.  **Enhance Content Interactivity:**
+    *   **Problem:** The content is largely static text and images.
+    *   **Solution:**
+        *   **Inline Code Playgrounds:** For exercises in Python, Go, etc., embed an interactive code editor (e.g., CodeMirror, Monaco) with a "Run" button that executes the code serverlessly (e.g., using Pyodide for Python) or against a sandboxed backend.
+        *   **Interactive Simulations:** For concepts like consensus or load balancing, create simple JavaScript-based simulations that allow users to manipulate parameters and see the outcome. For example, a load balancer simulation could let users choose different algorithms (Round Robin, Least Connections) and watch how requests are distributed.
+        *   **Collapsible Sections:** For dense sections like mathematical proofs or long code solutions, use collapsible  blocks to hide them by default, allowing users to progressively disclose complexity.
+
+2.  **Improve Navigational Cues:**
+    *   **Problem:** Users can get lost in deep content sections.
+    *   **Solution:**
+        *   **Add Breadcrumbs:** Implement breadcrumb navigation at the top of each page to show the user's current location in the site hierarchy (e.g., ).
+        *   **Sticky Sidebar:** Ensure the left-hand navigation sidebar remains visible as the user scrolls, providing constant context.
+
+### 4.3. Low-Priority UX Enhancements (Future Roadmap)
+
+1.  **Introduce Personalization:**
+    *   **Problem:** The experience is the same for all users.
+    *   **Solution:** Move beyond the static roadmap to a simple, optional user account system.
+        *   Allow users to save their progress across devices.
+        *   Enable bookmarking of pages or sections.
+        *   Allow users to create custom learning paths by selecting and ordering topics.
+
+2.  **Build Community Features:**
+    *   **Problem:** Learning is often a social activity, but the site is a solo experience.
+    *   **Solution:**
+        *   **Section-Specific Discussions:** Add a comments/discussion section at the bottom of each page (e.g., using a tool like Giscus or Utterances, which leverages GitHub Issues/Discussions).
+        *   **Q&A System:** Create a dedicated Q&A page where users can ask questions and the community can answer, building a valuable, searchable knowledge base.
+

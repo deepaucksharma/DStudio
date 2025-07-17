@@ -230,3 +230,25 @@ Human   .           .     .    Concurrency
 6. **Observability**: Can't see everything
 7. **Human**: People in the loop
 8. **Economics**: Everything has a price
+
+## From Axioms to Pillars
+
+<div class="connection-box">
+
+The 8 axioms are constraints. The 6 pillars are solutions.
+
+When axioms combine, they create recurring problems that demand systematic solutions. These solutions crystallize into the foundational pillars of distributed system design:
+
+| Axioms | → | Pillar | Why |
+|--------|---|--------|-----|
+| Latency + Capacity | → | **Distribution of Work** | Need to spread load geographically |
+| Capacity + Failure + Latency | → | **Distribution of State** | Data must be replicated and partitioned |
+| Coordination + Concurrency + Failure | → | **Distribution of Truth** | Systems must agree despite failures |
+| Human Interface + Observability | → | **Distribution of Control** | Humans need to manage complexity |
+| All axioms + feedback loops | → | **Distribution of Intelligence** | Systems must self-adapt |
+| All axioms + zero trust | → | **Distribution of Trust** | Security can't rely on perimeters |
+
+</div>
+
+!!! tip "Ready for Solutions?"
+    Now that you understand the fundamental constraints, explore how they combine into actionable patterns in [Part II: Foundational Pillars](../part2-pillars/index.md) →

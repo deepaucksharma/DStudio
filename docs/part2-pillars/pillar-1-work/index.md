@@ -14,6 +14,22 @@
 !!! target "Learning Objective"
     Master the art of spreading computation without spreading complexity.
 
+## Why This Pillar Exists
+
+<div class="axiom-connection">
+
+**From Axioms to Architecture**
+
+This pillar emerges from the collision of fundamental constraints:
+
+- **[Axiom 1: Latency](../../part1-axioms/axiom-1-latency/index.md)** → Users are globally distributed, but physics limits speed
+- **[Axiom 2: Capacity](../../part1-axioms/axiom-2-capacity/index.md)** → Single machines have finite processing power
+- **[Axiom 3: Failure](../../part1-axioms/axiom-3-failure/index.md)** → Individual components will fail
+
+When you can't make one machine fast enough (capacity), can't serve global users from one location (latency), and can't rely on any single component (failure), you must distribute the work.
+
+</div>
+
 ## Core Concept
 
 <div class="axiom-box">

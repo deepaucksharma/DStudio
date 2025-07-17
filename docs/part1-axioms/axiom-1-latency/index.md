@@ -224,6 +224,23 @@ curl -w "@curl-format.txt" -o /dev/null -s https://example.com
 - **[Axiom 5: Coordination](../axiom-5-coordination/index.md)**: Consensus requires multiple round trips
 - **[Work Distribution](../../part2-pillars/pillar-1-work/index.md)**: Routing affects latency
 
+## How This Axiom Leads to Pillars
+
+<div class="connection-box">
+
+The latency constraint directly drives several architectural patterns:
+
+**→ [Distribution of Work](../../part2-pillars/pillar-1-work/index.md)**  
+Because you can't beat physics, you must bring computation closer to users through edge computing, CDNs, and geographic load balancing.
+
+**→ [Distribution of State](../../part2-pillars/pillar-2-state/index.md)**  
+Since data access is limited by distance, you need caching layers, read replicas, and geographic data distribution.
+
+**→ [Distribution of Truth](../../part2-pillars/pillar-3-truth/index.md)**  
+When nodes are far apart, achieving consensus takes longer. This forces trade-offs between consistency and responsiveness.
+
+</div>
+
 ## Key Takeaways
 
 !!! success "Remember"

@@ -13,10 +13,16 @@
 
 Having established the 8 fundamental axioms that govern all distributed systems, Part II shows how these constraints combine to create the foundational pillars of distributed system design.
 
+!!! info "The Axiom-Pillar Connection"
+    **Axioms** describe what you *can't* change (constraints).  
+    **Pillars** describe what you *must* build (solutions).
+    
+    Every pillar emerges naturally when you apply first-principles thinking to combinations of axioms.
+
 <div class="pillar-overview">
 
 ```
-The 5 Pillars of Distribution:
+The 6 Pillars of Distribution:
 
 1. Distribution of Work
    How to spread computation
@@ -37,11 +43,15 @@ The 5 Pillars of Distribution:
 5. Distribution of Intelligence
    How to make systems adaptive
    (Emerges from: All axioms + feedback loops)
+
+6. Distribution of Trust
+   How to secure distributed systems
+   (Emerges from: All axioms + zero trust principles)
 ```
 
 </div>
 
-## Why These Five Pillars?
+## Why These Six Pillars?
 
 <div class="axiom-box">
 
@@ -52,6 +62,7 @@ Every distributed system problem falls into one of these categories:
 - **Consistency issues** → Truth distribution  
 - **Operational issues** → Control distribution
 - **Evolution issues** → Intelligence distribution
+- **Security issues** → Trust distribution
 
 These aren't arbitrary categories—they're the natural solutions that emerge when you apply first-principles thinking to the fundamental constraints.
 
@@ -70,6 +81,8 @@ These aren't arbitrary categories—they're the natural solutions that emerge wh
              ↙   ↘
    Distribution    Distribution
    of Control      of Intelligence
+        ↓               ↓
+    Distribution of Trust
 ```
 
 Each pillar builds on the previous ones:
@@ -77,6 +90,7 @@ Each pillar builds on the previous ones:
 - **State** requires work distribution
 - **Truth** requires state consistency
 - **Control** and **Intelligence** orchestrate everything
+- **Trust** secures all the other distributions
 
 </div>
 
@@ -93,11 +107,13 @@ Each pillar builds on the previous ones:
 1. Jump to [Distribution of Truth](pillar-3-truth/index.md) - The hard problems
 2. Explore [Distribution of Control](pillar-4-control/index.md) - Operational excellence
 3. Master [Distribution of Intelligence](pillar-5-intelligence/index.md) - Self-healing systems
+4. Secure with [Distribution of Trust](pillar-6-trust/index.md) - Zero trust architecture
 
 ### 📊 For Engineering Managers
 1. Focus on [Distribution of Control](pillar-4-control/index.md) - Team operations
 2. Understand [Distribution of Intelligence](pillar-5-intelligence/index.md) - Automation
-3. Review cost implications across all pillars
+3. Prioritize [Distribution of Trust](pillar-6-trust/index.md) - Security governance
+4. Review cost implications across all pillars
 
 </div>
 
@@ -110,6 +126,7 @@ Each pillar builds on the previous ones:
 | **Truth** | Distributed consensus | Paxos, Raft, CRDT | Byzantine failures, Deadlocks |
 | **Control** | System management | Orchestration, GitOps | Configuration drift, Alert fatigue |
 | **Intelligence** | Adaptive behavior | ML ops, Feedback loops | Feedback instability, Model drift |
+| **Trust** | Security at scale | Zero Trust, mTLS, Policy engines | Breaches, Privilege escalation |
 
 ## How to Use This Section
 
@@ -140,7 +157,7 @@ Each pillar follows the same structure:
 
 **The Universal Pattern 💡**
 
-All five pillars follow the same meta-pattern:
+All six pillars follow the same meta-pattern:
 1. **Partition** the problem space (divide)
 2. **Process** independently (conquer)
 3. **Coordinate** when necessary (reconcile)
@@ -203,6 +220,9 @@ Discover how to manage complexity at scale.
 
 ### [→ Pillar 5: Distribution of Intelligence](pillar-5-intelligence/index.md)
 Explore how systems can adapt and self-heal.
+
+### [→ Pillar 6: Distribution of Trust](pillar-6-trust/index.md)
+Implement security at scale with zero trust principles.
 
 </div>
 
