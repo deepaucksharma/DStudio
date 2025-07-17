@@ -95,11 +95,13 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Introduction:
-    - Overview: introduction/index.md
-    - Philosophy: introduction/philosophy.md
-    - Preface: introduction/preface.md
-    - Learning Roadmap: introduction/roadmap.md
+  - Getting Started:
+    - Welcome: introduction/index.md
+    - Preface - Why Another Book?: introduction/preface.md
+    - Our Philosophy: introduction/philosophy.md
+    - Prerequisites Check: introduction/prerequisites.md
+    - Learning Paths: introduction/roadmap.md
+    - How to Use This Guide: introduction/how-to-use.md
   - Part I - The 8 Axioms:
     - Overview: part1-axioms/index.md
     - Axiom 1 - Latency:
@@ -164,6 +166,8 @@ nav:
     - Overview: reference/index.md
     - Glossary: reference/glossary.md
     - Cheat Sheets: reference/cheat-sheets.md
+    - Recipe Cards: reference/recipe-cards.md
+    - Security Considerations: reference/security-considerations.md
   - Legacy Content:
     - Original Book: distributed-systems-book.md
     - Original Pillars: part2-foundational-pillars.md

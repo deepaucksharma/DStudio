@@ -129,6 +129,17 @@ graph TD
 !!! target "Learning Objective"
     Internalize that latency is physics, not engineering.
 
+!!! info "Prerequisites"
+    - Basic understanding of computer networks
+    - Familiarity with client-server architecture
+    - No physics background required - we'll explain what you need
+
+!!! question "Why Should I Care?"
+    - Your users will abandon your app if it takes >3 seconds to load
+    - You literally cannot make NYC to Tokyo faster than 150ms round trip
+    - Understanding latency helps you place services and data correctly
+    - Real money impact: Amazon loses 1% sales per 100ms latency
+
 #### Core Content Structure
 
 <div class="axiom-box">
@@ -145,11 +156,17 @@ In fiber: ~200,000 km/s (2/3 of c due to refractive index)
 
 **The Physics Foundation:**
 
-| Medium | Speed | Note |
-|--------|-------|------|
-| Light in vacuum | 299,792 km/s | Theoretical maximum |
-| Fiber optic cable | ~200,000 km/s | Refractive index slowdown |
-| Copper wire | ~200,000 km/s | Electromagnetic wave |
+!!! tldr "Quick Understanding"
+    Light speed in fiber = 200,000 km/s. NYC to London = 5,600 km. Minimum latency = 28ms one-way, 56ms round trip. You can't make it faster.
+
+??? info "Detailed Physics"
+    | Medium | Speed | Note |
+    |--------|-------|------|
+    | Light in vacuum | 299,792 km/s | Theoretical maximum |
+    | Fiber optic cable | ~200,000 km/s | Refractive index slowdown |
+    | Copper wire | ~200,000 km/s | Electromagnetic wave |
+    
+    **Why fiber is slower**: Refractive index of glass ≈ 1.5, so speed = c/n = 299,792/1.5 ≈ 200,000 km/s
 
 !!! danger "Fundamental Insight"
     No engineering can overcome physics
@@ -495,20 +512,28 @@ Running at 100% capacity means you're already over capacity. Systems need breath
 
 **Little's Law - The Universal Queue Equation:**
 
-```
-L = λ × W
+!!! tldr "Simple Version"
+    **Items in system = Arrival rate × Time in system**
+    
+    Example: 100 requests/second arriving, each takes 0.2 seconds → 20 requests in system at any time
 
-Where:
-L = Average number of items in system
-λ = Average arrival rate
-W = Average time in system
-
-This law is ALWAYS true for stable systems, regardless of:
-- Distribution of arrivals
-- Service time variance  
-- Number of servers
-- Queue discipline
-```
+??? math "Mathematical Details"
+    ```
+    L = λ × W
+    
+    Where:
+    L = Average number of items in system
+    λ = Average arrival rate
+    W = Average time in system
+    
+    This law is ALWAYS true for stable systems, regardless of:
+    - Distribution of arrivals
+    - Service time variance  
+    - Number of servers
+    - Queue discipline
+    ```
+    
+    **Proof sketch**: Count items entering and leaving over time T. In steady state, arrivals = departures.
 
 </div>
 

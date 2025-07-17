@@ -13,6 +13,15 @@
 !!! target "Learning Objective"
     Internalize that latency is physics, not engineering. You can optimize but never eliminate the speed of light constraint.
 
+## Why Should I Care?
+
+!!! question "Real Impact on Your Systems"
+    - **User Experience**: 53% of mobile users abandon sites that take >3 seconds to load
+    - **Revenue**: Amazon loses $1.6B per year for each second of load time
+    - **SEO**: Google uses page speed as a ranking factor
+    - **Architecture**: You can't put all your servers in one location and serve global users
+    - **Cost**: Ignoring physics leads to expensive band-aid solutions
+
 ## Core Concept
 
 <div class="axiom-box">

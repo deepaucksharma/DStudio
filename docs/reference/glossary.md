@@ -36,7 +36,7 @@
 : Basically Available, Soft state, Eventually consistent - alternative to ACID for distributed systems
 
 **Byzantine Failure**
-: A node behaving arbitrarily or maliciously, sending different information to different nodes
+: A node behaving arbitrarily or maliciously, sending different information to different nodes. Named after Byzantine Generals Problem where generals must coordinate attack but some may be traitors. Requires 3f+1 nodes to tolerate f Byzantine nodes
 
 **Byzantine Fault Tolerance (BFT)**
 : Ability to function correctly even when some nodes exhibit Byzantine failures
@@ -68,7 +68,7 @@
 : Distributed hashing scheme that minimizes remapping when nodes are added/removed
 
 **CRDT**
-: Conflict-free Replicated Data Type - data structures that can be replicated and merged without coordination
+: Conflict-free Replicated Data Type - data structures that can be replicated and merged without coordination. Examples include G-Counter (grow-only counter), PN-Counter (increment/decrement), OR-Set (observed-remove set). Enables eventual consistency without conflicts
 
 ### D
 
@@ -172,7 +172,7 @@
 : Strongest consistency model where operations appear instantaneous
 
 **Little's Law**
-: L = λW (items in system = arrival rate × time in system)
+: L = λW (items in system = arrival rate × time in system). Fundamental queueing theory result that applies to all stable systems regardless of arrival/service distributions. Example: 100 req/s arriving, 200ms avg response time = 20 requests in system on average
 
 **Load Balancer**
 : Distributes incoming requests across multiple servers
@@ -202,11 +202,17 @@
 **MTTR**
 : Mean Time To Repair - average time to restore service after failure
 
+**M/M/1 Queue**
+: Queueing model with Markovian (exponential) arrivals, Markovian service times, and 1 server. At utilization ρ, average wait time = ρ/(1-ρ) × service time. Shows why systems cliff at high utilization
+
 **Multi-Master**
 : Replication topology where multiple nodes can accept writes
 
 **Mutex**
 : Mutual exclusion lock preventing concurrent access to shared resources
+
+**MVCC (Multi-Version Concurrency Control)**
+: Technique where database maintains multiple versions of data to allow readers to see consistent snapshots without blocking writers. Used in PostgreSQL, Oracle
 
 ### N
 
@@ -233,10 +239,13 @@
 : Extension of CAP theorem adding latency/consistency tradeoff
 
 **Paxos**
-: Consensus protocol for reaching agreement in distributed systems
+: Consensus protocol for reaching agreement in distributed systems. Guarantees safety (no two nodes decide differently) but not liveness (may not terminate). Complex to understand but mathematically proven. Used in systems like Google's Chubby
 
 **Pessimistic Concurrency Control**
 : Locks resources before use to prevent conflicts
+
+**PBFT (Practical Byzantine Fault Tolerance)**
+: Consensus algorithm tolerating Byzantine failures. Requires 3f+1 nodes to tolerate f Byzantine nodes. More complex than crash-fault protocols like Raft but handles malicious nodes. Uses three phases: pre-prepare, prepare, commit
 
 **Pub/Sub**
 : Publish-Subscribe messaging pattern
@@ -255,7 +264,7 @@
 : Bug occurring when timing of events affects program correctness
 
 **Raft**
-: Consensus algorithm designed to be understandable
+: Consensus algorithm designed to be understandable alternative to Paxos. Uses leader election, log replication, and safety mechanisms. Breaks consensus into three subproblems: leader election, log replication, and safety. Used in etcd, Consul
 
 **Read Replica**
 : Database copy that handles read queries to reduce load
@@ -333,7 +342,7 @@
 : Marker indicating deleted data in eventually consistent systems
 
 **Two-Phase Commit (2PC)**
-: Protocol ensuring all nodes commit or abort distributed transaction
+: Protocol ensuring all nodes commit or abort distributed transaction. Works in two phases: 1) Voting phase where coordinator asks all participants if they can commit, 2) Commit phase where coordinator tells all to commit or abort based on votes. Main drawback: blocks if coordinator fails
 
 ### U
 

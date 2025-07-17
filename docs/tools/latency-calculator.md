@@ -10,8 +10,26 @@
 
 ## Interactive Calculator
 
+!!! tip "How to Use"
+    1. Select two cities or enter a custom distance
+    2. Choose your network medium (fiber is most common)
+    3. Adjust network complexity (hops and devices)
+    4. Click Calculate to see the breakdown
+
 <div class="calculator-container">
 <h3>🌍 Global Latency Estimator</h3>
+
+<!-- Quick City Selector -->
+<div class="city-selector">
+  <h4>Quick Routes</h4>
+  <div class="route-buttons">
+    <button onclick="setRoute(4100, 'NYC ↔ SF')" class="route-btn">NYC ↔ SF</button>
+    <button onclick="setRoute(5600, 'NYC ↔ London')" class="route-btn">NYC ↔ London</button>
+    <button onclick="setRoute(9900, 'SF ↔ Tokyo')" class="route-btn">SF ↔ Tokyo</button>
+    <button onclick="setRoute(10800, 'London ↔ Singapore')" class="route-btn">London ↔ Singapore</button>
+    <button onclick="setRoute(12000, 'Sydney ↔ LA')" class="route-btn">Sydney ↔ LA</button>
+  </div>
+</div>
 
 <form id="latency-calc">
   <div class="form-group">
@@ -52,6 +70,17 @@
 </div>
 
 <script>
+function setRoute(distance, routeName) {
+    document.getElementById('distance').value = distance;
+    calculateLatency();
+    
+    // Update display to show selected route
+    const resultsDiv = document.getElementById('results');
+    if (resultsDiv.innerHTML) {
+        resultsDiv.innerHTML = `<h4>Route: ${routeName}</h4>` + resultsDiv.innerHTML;
+    }
+}
+
 function calculateLatency() {
     const distance = parseFloat(document.getElementById('distance').value);
     const medium = document.getElementById('medium').value;
