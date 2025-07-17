@@ -4,40 +4,55 @@
     Use this calculator to understand how distance, network hops, and data size affect latency in distributed systems.
 
 <div id="latency-calculator" class="interactive-tool">
-  <div class="tool-inputs">
-    <div class="input-group">
-      <label for="distance">Distance (km)</label>
-      <input type="number" id="distance" value="1000" min="0" max="20000">
-      <small>Geographic distance between nodes</small>
+  <form id="latency-calc">
+    <div class="tool-inputs">
+      <div class="form-group">
+        <label>Quick Routes:</label>
+        <div class="route-presets">
+          <button type="button" class="route-btn" data-distance="4129" data-route="NYC ↔ SF">NYC ↔ SF</button>
+          <button type="button" class="route-btn" data-distance="5567" data-route="NYC ↔ London">NYC ↔ London</button>
+          <button type="button" class="route-btn" data-distance="8280" data-route="SF ↔ Tokyo">SF ↔ Tokyo</button>
+          <button type="button" class="route-btn" data-distance="16983" data-route="London ↔ Sydney">London ↔ Sydney</button>
+        </div>
+        <div id="selected-route" class="selected-route"></div>
+      </div>
+      
+      <div class="input-group">
+        <label for="distance">Distance (km)</label>
+        <input type="number" id="distance" value="1000" min="0" max="20000">
+        <small>Geographic distance between nodes</small>
+      </div>
+      
+      <div class="input-group">
+        <label for="medium">Network Medium</label>
+        <select id="medium" class="medium-select">
+          <option value="fiber">Fiber Optic Cable</option>
+          <option value="copper">Copper Wire</option>
+          <option value="wireless">Wireless</option>
+        </select>
+        <small>Physical transmission medium</small>
+      </div>
+      
+      <div class="input-group">
+        <label for="hops">Network Hops</label>
+        <input type="number" id="hops" value="5" min="1" max="50">
+        <small>Number of routers/switches</small>
+      </div>
+      
+      <div class="input-group">
+        <label>Network Devices</label>
+        <div class="device-inputs">
+          <label><input type="number" name="routers" value="3" min="0" max="20"> Routers</label>
+          <label><input type="number" name="switches" value="2" min="0" max="20"> Switches</label>
+          <label><input type="number" name="firewalls" value="1" min="0" max="10"> Firewalls</label>
+          <label><input type="number" name="lbs" value="1" min="0" max="10"> Load Balancers</label>
+        </div>
+      </div>
     </div>
-    
-    <div class="input-group">
-      <label for="hops">Network Hops</label>
-      <input type="number" id="hops" value="5" min="1" max="50">
-      <small>Number of routers/switches</small>
-    </div>
-    
-    <div class="input-group">
-      <label for="processing">Processing Time (ms)</label>
-      <input type="number" id="processing" value="2" min="0" max="100" step="0.1">
-      <small>Per-hop processing delay</small>
-    </div>
-    
-    <div class="input-group">
-      <label for="bandwidth">Bandwidth (Mbps)</label>
-      <input type="number" id="bandwidth" value="1000" min="1" max="100000">
-      <small>Link bandwidth</small>
-    </div>
-    
-    <div class="input-group">
-      <label for="payload">Payload Size (KB)</label>
-      <input type="number" id="payload" value="1" min="0.1" max="1000" step="0.1">
-      <small>Data size to transfer</small>
-    </div>
-  </div>
+  </form>
   
-  <div class="tool-visualization">
-    <canvas id="latency-viz"></canvas>
+  <div id="latency-visualization" class="tool-visualization">
+    <!-- Canvas will be created here by JavaScript -->
   </div>
   
   <div class="tool-results">
@@ -52,12 +67,12 @@
         <span class="result-value" id="proc-delay">0 ms</span>
       </div>
       <div class="result-item">
-        <span class="result-label">Transmission Delay</span>
-        <span class="result-value" id="trans-delay">0 ms</span>
+        <span class="result-label">Serialization Delay</span>
+        <span class="result-value" id="serial-delay">0 ms</span>
       </div>
       <div class="result-item highlight">
-        <span class="result-label">Total Latency</span>
-        <span class="result-value" id="total-delay">0 ms</span>
+        <span class="result-label">Total RTT</span>
+        <span class="result-value" id="total-rtt">0 ms</span>
       </div>
     </div>
     
@@ -66,6 +81,13 @@
       <ul id="insights-list">
         <!-- Dynamically populated -->
       </ul>
+    </div>
+    
+    <div class="comparison-chart">
+      <h4>Real-World Comparison</h4>
+      <div id="comparison-bars">
+        <!-- Dynamically populated -->
+      </div>
     </div>
   </div>
 </div>

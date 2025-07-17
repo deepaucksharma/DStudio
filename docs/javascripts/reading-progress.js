@@ -50,6 +50,7 @@ class ReadingProgress {
   
   attachScrollListener() {
     let ticking = false;
+    let rafId = null;
     
     const updateProgress = () => {
       const windowHeight = window.innerHeight;
@@ -103,12 +104,23 @@ class ReadingProgress {
       ticking = false;
     };
     
-    window.addEventListener('scroll', () => {
+    // Throttled scroll handler for better mobile performance
+    let scrollTimeout;
+    const handleScroll = () => {
       if (!ticking) {
-        requestAnimationFrame(updateProgress);
+        if (rafId) cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(updateProgress);
         ticking = true;
       }
-    });
+      
+      // Clear existing timeout
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        ticking = false;
+      }, 100);
+    };
+    
+    window.addEventListener('scroll', handleScroll, { passive: true });
     
     // Initial update
     updateProgress();

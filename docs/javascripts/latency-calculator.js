@@ -246,8 +246,11 @@ class LatencyCalculator {
   }
   
   displayResults(data) {
-    const resultsDiv = document.getElementById('results');
-    if (!resultsDiv) return;
+    // Update the result values in the existing HTML structure
+    document.getElementById('prop-delay').textContent = `${data.propagationDelay.toFixed(2)} ms`;
+    document.getElementById('proc-delay').textContent = `${data.processingDelay.toFixed(2)} ms`;
+    document.getElementById('serial-delay').textContent = `${data.serializationDelay.toFixed(2)} ms`;
+    document.getElementById('total-rtt').textContent = `${(data.totalLatency * 2).toFixed(2)} ms`;
     
     const speedOfLightTime = (data.distance / data.SPEED_OF_LIGHT) * 1000;
     const efficiency = (speedOfLightTime / data.totalLatency) * 100;

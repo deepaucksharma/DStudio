@@ -120,6 +120,18 @@ class NetworkVisualization {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', () => {
+  // Skip animation on mobile devices for performance
+  const isMobile = window.innerWidth <= 768 || ('ontouchstart' in window);
+  
+  if (isMobile) {
+    // Hide animation container on mobile
+    const container = document.querySelector('.hero-animation');
+    if (container) {
+      container.style.display = 'none';
+    }
+    return;
+  }
+  
   const canvas = document.getElementById('network-visualization');
   if (canvas) {
     new NetworkVisualization(canvas);

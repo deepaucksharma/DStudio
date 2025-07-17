@@ -209,6 +209,7 @@ extra_css:
   - stylesheets/journey-map.css
   - stylesheets/consistency-visualizer.css
   - stylesheets/mobile-responsive.css
+  - stylesheets/mobile-performance.css
   - stylesheets/cap-explorer.css
   - stylesheets/tooltips-help.css
   - stylesheets/reading-progress.css
@@ -216,8 +217,10 @@ extra_css:
   - stylesheets/quick-navigation.css
   - stylesheets/mobile-navigation.css
   - stylesheets/mobile-touch-optimizations.css
+  - stylesheets/tools.css
 
 extra_javascript:
+  - javascripts/performance-optimizations.js
   - javascripts/hero-animation.js
   - javascripts/journey-map-enhanced.js
   - javascripts/progressive-disclosure.js
