@@ -4,26 +4,24 @@
    1. CSS Variables
    =================================== */
 :root {
+  /* Simplified color palette - flat design */
   --primary-color: #5448C8;
-  --primary-light: #6B5DD3;
-  --primary-dark: #4339B5;
-  --accent-color: #26C6DA; /* Improved contrast from #00BCD4 */
-  --accent-light: #26C6DA;
+  --accent-color: #333333;
   --success-color: #10B981;
-  --warning-color: #F59E0B;
   --error-color: #EF4444;
-  --info-color: #3B82F6;
-  --gray-50: #F9FAFB;
-  --gray-100: #F3F4F6;
-  --gray-200: #E5E7EB;
-  --gray-300: #D1D5DB;
-  --gray-600: #4B5563;
-  --gray-700: #374151;
-  --gray-800: #1F2937;
-  --gray-900: #111827;
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --gray-50: #FAFAFA;
+  --gray-100: #F5F5F5;
+  --gray-200: #E5E5E5;
+  --gray-300: #D4D4D4;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+  
+  /* No shadows for flat design */
+  --shadow-sm: none;
+  --shadow-md: none;
+  --shadow-lg: none;
   
   /* Theme-aware variables */
   --ds-bg-primary: #ffffff;
@@ -33,36 +31,37 @@
   --ds-border-color: #E5E7EB;
   --ds-shadow-color: rgba(0, 0, 0, 0.1);
   
-  /* Component specific */
-  --axiom-bg: rgba(84, 72, 200, 0.05);
-  --axiom-border: #5448C8;
-  --decision-bg: rgba(16, 185, 129, 0.05);
-  --decision-border: #10B981;
-  --failure-bg: rgba(239, 68, 68, 0.05);
-  --failure-border: #EF4444;
+  /* Simplified component colors */
+  --axiom-bg: #F5F5F5;
+  --axiom-border: #E5E5E5;
+  --decision-bg: #F5F5F5;
+  --decision-border: #E5E5E5;
+  --failure-bg: #F5F5F5;
+  --failure-border: #E5E5E5;
 }
 
 [data-md-color-scheme="slate"] {
-  /* Dark mode colors */
-  --ds-bg-primary: #1a1a2e;
-  --ds-bg-secondary: #16213e;
-  --ds-text-primary: #F9FAFB;
-  --ds-text-secondary: #D1D5DB;
-  --ds-border-color: #374151;
-  --ds-shadow-color: rgba(0, 0, 0, 0.3);
+  /* Dark mode colors - flat design */
+  --ds-bg-primary: #1a1a1a;
+  --ds-bg-secondary: #262626;
+  --ds-text-primary: #F5F5F5;
+  --ds-text-secondary: #A3A3A3;
+  --ds-border-color: #404040;
+  --ds-shadow-color: transparent;
   
-  /* Component specific */
-  --axiom-bg: rgba(129, 140, 248, 0.1);
-  --axiom-border: #818CF8;
-  --decision-bg: rgba(52, 211, 153, 0.1);
-  --decision-border: #34D399;
-  --failure-bg: rgba(248, 113, 113, 0.1);
-  --failure-border: #F87171;
+  /* Simplified component colors */
+  --axiom-bg: #262626;
+  --axiom-border: #404040;
+  --decision-bg: #262626;
+  --decision-border: #404040;
+  --failure-bg: #262626;
+  --failure-border: #404040;
 }
 
-/* Navigation Bar Improvements */
+/* Navigation Bar - Flat Design */
 .md-header {
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+  border-bottom: 1px solid var(--ds-border-color);
   z-index: 1000;
 }
 
@@ -181,28 +180,20 @@
 /* Axiom Box */
 .axiom-box {
   background: var(--axiom-bg);
-  border-left: 4px solid var(--axiom-border);
-  border-radius: 0.5rem;
+  border: 1px solid var(--axiom-border);
+  border-radius: 0;
   padding: 1.5rem;
   margin: 2rem 0;
   position: relative;
   overflow: hidden;
 }
 
-.axiom-box::before {
-  content: "⚡";
-  position: absolute;
-  top: 1rem;
-  right: 1rem;
-  font-size: 1.5rem;
-  opacity: 0.1;
-}
 
 .axiom-box h3 {
-  color: var(--primary-color) !important;
+  color: var(--gray-900) !important;
   margin-top: 0 !important;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .axiom-box ol {
@@ -217,7 +208,7 @@
 }
 
 .axiom-box li strong {
-  color: var(--axiom-border);
+  color: var(--gray-900);
   font-weight: 600;
 }
 
@@ -241,10 +232,10 @@
 }
 
 .decision-box h3, .decision-box strong:first-child {
-  color: var(--success-color) !important;
+  color: var(--gray-900) !important;
   margin-top: 0 !important;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   display: block;
   margin-bottom: 1rem;
 }
@@ -269,10 +260,10 @@
 }
 
 .failure-vignette h3, .failure-vignette strong:first-child {
-  color: var(--error-color) !important;
+  color: var(--gray-900) !important;
   margin-top: 0 !important;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   display: block;
   margin-bottom: 1rem;
 }
@@ -298,10 +289,10 @@
 }
 
 .truth-box h3, .truth-box strong:first-child {
-  color: var(--info-color) !important;
+  color: var(--gray-900) !important;
   margin-top: 0 !important;
   font-size: 1.25rem;
-  font-weight: 700;
+  font-weight: 600;
   display: block;
   margin-bottom: 1rem;
 }
@@ -428,9 +419,9 @@
    7. Tables Enhancement
    =================================== */
 .md-typeset table {
-  border-radius: 0.5rem;
+  border-radius: 0;
   overflow: hidden;
-  box-shadow: var(--shadow-sm);
+  box-shadow: none;
   border: 1px solid var(--gray-200);
   margin: 1.5rem 0;
 }
@@ -794,6 +785,168 @@
 
 [data-md-color-scheme="slate"] .animation-box {
     background: rgba(33, 150, 243, 0.1);
+}
+
+/* ===================================
+   Navigation Simplification
+   =================================== */
+
+/* Hide redundant Quick Navigation sections */
+.admonition.tip:has(> .admonition-title:contains("Quick Navigation")) {
+  display: none;
+}
+
+/* Simplify buttons - flat design */
+.md-button {
+  border-radius: 0;
+  font-weight: 600;
+  padding: 0.75rem 1.5rem;
+  transition: none;
+  text-transform: none;
+  letter-spacing: 0;
+  box-shadow: none !important;
+  background: var(--gray-100);
+  color: var(--gray-900);
+  border: 1px solid var(--gray-300);
+}
+
+.md-button:hover {
+  background: var(--gray-200);
+  border-color: var(--gray-400);
+  transform: none;
+}
+
+.md-button--primary {
+  background: var(--primary-color);
+  border: 1px solid var(--primary-color);
+  color: white;
+}
+
+.md-button--primary:hover {
+  background: var(--gray-700);
+  border-color: var(--gray-700);
+}
+
+/* Reduce visual noise in admonitions */
+.admonition {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid var(--gray-300);
+}
+
+.admonition-title {
+  background: var(--gray-100) !important;
+  color: var(--gray-900) !important;
+  border-bottom: 1px solid var(--gray-300);
+}
+
+/* Simplify code blocks */
+.highlight {
+  border-radius: 0 !important;
+}
+
+/* Clean up tabs */
+.tabbed-labels {
+  border-radius: 0;
+  box-shadow: none;
+}
+
+.tabbed-labels label {
+  border-radius: 0;
+  transition: none;
+}
+
+/* Simplify search */
+.md-search__form {
+  border-radius: 0;
+}
+
+.md-search__input {
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid var(--gray-300);
+}
+
+/* Clean up footer */
+.md-footer {
+  box-shadow: none;
+  border-top: 1px solid var(--gray-300);
+}
+
+/* ===================================
+   Remove all animations for cleaner design
+   =================================== */
+* {
+  animation: none !important;
+  transition: none !important;
+}
+
+/* ===================================
+   Consistent Tool Styling
+   =================================== */
+.tool-container {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-300);
+  border-radius: 0;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+.tool-input {
+  border: 1px solid var(--gray-300);
+  border-radius: 0;
+  padding: 0.75rem;
+  font-size: 1rem;
+  width: 100%;
+  background: white;
+}
+
+.tool-input:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+  border-color: var(--primary-color);
+}
+
+.tool-button {
+  background: var(--primary-color);
+  color: white;
+  border: 1px solid var(--primary-color);
+  border-radius: 0;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.tool-button:hover {
+  background: var(--gray-700);
+  border-color: var(--gray-700);
+}
+
+.tool-result {
+  background: white;
+  border: 1px solid var(--gray-300);
+  border-radius: 0;
+  padding: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+/* Simplify form elements */
+input[type="text"],
+input[type="number"],
+select,
+textarea {
+  border-radius: 0;
+  border: 1px solid var(--gray-300);
+  box-shadow: none;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+  box-shadow: none;
 }
 
 /* Decision Flow */
@@ -1356,21 +1509,20 @@
    =================================== */
 .hero-container {
   position: relative;
-  min-height: 450px; /* Reduced by 25% from 600px */
-  max-height: 500px; /* Cap maximum height */
+  min-height: 300px;
+  max-height: 350px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-  border-radius: 16px;
+  background: var(--gray-100);
+  border-radius: 0;
+  border: 1px solid var(--gray-300);
   margin: 2rem 0;
 }
 
 .hero-animation {
-  position: absolute;
-  inset: 0;
-  opacity: 0.3;
+  display: none; /* Hide animations for cleaner design */
 }
 
 #network-visualization {
@@ -1387,19 +1539,17 @@
 }
 
 .hero-title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
-  font-weight: 900;
-  line-height: 1.1;
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 600;
+  line-height: 1.2;
   margin-bottom: 1rem;
-  background: linear-gradient(135deg, #fff 0%, #818CF8 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: fadeInUp 0.8s ease-out;
+  color: var(--gray-900);
+  animation: none;
 }
 
 .highlight {
-  color: var(--accent-color);
-  -webkit-text-fill-color: var(--accent-color);
+  color: var(--gray-900);
+  font-weight: 700;
 }
 
 .hero-subtitle {

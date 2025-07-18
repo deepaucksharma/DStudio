@@ -83,11 +83,11 @@ class ReadingProgress {
         const remainingTime = Math.ceil(totalTime * (1 - readPercentage));
         
         if (progress >= 100) {
-          this.timeText.textContent = 'Complete! 🎉';
+          this.timeText.textContent = 'Complete';
         } else if (remainingTime > 0) {
-          this.timeText.textContent = `~${remainingTime} min left`;
+          this.timeText.textContent = `${remainingTime} min left`;
         } else {
-          this.timeText.textContent = 'Almost done!';
+          this.timeText.textContent = 'Almost done';
         }
       }
       

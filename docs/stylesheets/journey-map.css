@@ -3,8 +3,9 @@
   margin: 3rem 0;
   padding: 2rem;
   background: var(--ds-bg-secondary);
-  border-radius: 16px;
-  box-shadow: var(--shadow-lg);
+  border-radius: 0;
+  box-shadow: none;
+  border: 1px solid var(--ds-border-color);
   position: relative;
 }
 
@@ -31,15 +32,15 @@
 }
 
 .legend-dot.axiom {
-  background: linear-gradient(135deg, #5B5FC7 0%, #818CF8 100%);
+  background: var(--primary-color);
 }
 
 .legend-dot.pillar {
-  background: linear-gradient(135deg, #10B981 0%, #34D399 100%);
+  background: var(--success-color);
 }
 
 .legend-dot.tool {
-  background: linear-gradient(135deg, #F59E0B 0%, #FCD34D 100%);
+  background: var(--gray-600);
 }
 
 #journey-map {
@@ -55,11 +56,10 @@
 
 .node {
   cursor: pointer;
-  transition: all 0.3s ease;
 }
 
 .node-circle {
-  transition: all 0.3s ease;
+  transition: none;
 }
 
 .node-icon {
@@ -74,13 +74,13 @@
 }
 
 .edge-line {
-  transition: all 0.3s ease;
+  transition: none;
   pointer-events: none;
 }
 
 .journey-details {
   background: var(--ds-bg-primary);
-  border-radius: 12px;
+  border-radius: 0;
   padding: 2rem;
   text-align: center;
   border: 1px solid var(--ds-border-color);
@@ -101,17 +101,16 @@
   display: inline-block;
   margin-top: 1rem;
   padding: 0.75rem 2rem;
-  background: linear-gradient(135deg, #5B5FC7 0%, #818CF8 100%);
+  background: var(--primary-color);
   color: white;
   text-decoration: none;
-  border-radius: 8px;
+  border-radius: 0;
   font-weight: 600;
-  transition: all 0.3s ease;
+  transition: none;
 }
 
 .journey-link:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(91, 95, 199, 0.3);
+  background: var(--gray-700);
 }
 
 /* Responsive design */
@@ -144,35 +143,32 @@
   display: flex;
   gap: 0.5rem;
   background: var(--ds-bg-primary);
-  border-radius: 8px;
+  border-radius: 0;
   padding: 0.5rem;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: none;
+  border: 1px solid var(--ds-border-color);
   z-index: 10;
 }
 
 .journey-control-btn {
   width: 36px;
   height: 36px;
-  border: none;
+  border: 1px solid var(--ds-border-color);
   background: var(--ds-bg-secondary);
   color: var(--ds-text-secondary);
-  border-radius: 6px;
+  border-radius: 0;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: none;
 }
 
 .journey-control-btn:hover {
-  background: var(--primary-color);
+  background: var(--gray-700);
   color: white;
-  transform: translateY(-1px);
 }
 
-.journey-control-btn:active {
-  transform: translateY(0);
-}
 
 .journey-control-btn:focus {
   outline: 2px solid var(--primary-color);
@@ -233,14 +229,14 @@
 .journey-connections li {
   background: var(--ds-bg-secondary);
   padding: 0.25rem 0.75rem;
-  border-radius: 16px;
+  border-radius: 0;
+  border: 1px solid var(--ds-border-color);
   font-size: 0.85rem;
 }
 
 .journey-connections a {
   color: var(--ds-text-primary);
   text-decoration: none;
-  transition: color 0.2s ease;
 }
 
 .journey-connections a:hover {
@@ -260,7 +256,7 @@
 /* Dark mode adjustments */
 [data-md-color-scheme="slate"] .journey-controls {
   background: var(--ds-bg-secondary);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  box-shadow: none;
 }
 
 [data-md-color-scheme="slate"] .journey-control-btn {

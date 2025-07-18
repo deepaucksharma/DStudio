@@ -597,5 +597,5 @@ Google's approach focuses on balancing reliability with velocity:
 Ready to implement recovery-oriented patterns?
 
 - Review [Axiom 3: Partial Failure](../part1-axioms/axiom-3-failure/index.md)
-- Explore [Chaos Engineering Tools](tools.md#chaos-engineering)
+- Explore [Interactive Tools](../tools/index.md)
 - Read the [SRE Book](https://sre.google/sre-book/table-of-contents/) by Google

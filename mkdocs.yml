@@ -31,25 +31,12 @@ theme:
     - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
-    - navigation.path
     - navigation.top
-    - navigation.footer
-    - navigation.indexes
     - navigation.instant
-    - navigation.instant.prefetch
-    - navigation.instant.progress
-    - navigation.tracking
     - search.highlight
-    - search.share
     - search.suggest
     - content.code.copy
-    - content.code.annotate
-    - content.tabs.link
-    - content.tooltips
     - toc.follow
-    - toc.integrate
-    - announce.dismiss
-    - header.autohide
   icon:
     repo: fontawesome/brands/github
   font:
@@ -165,6 +152,8 @@ nav:
       - Core Concepts: part2-pillars/pillar-6-trust/index.md
       - Examples: part2-pillars/pillar-6-trust/examples.md
       - Exercises: part2-pillars/pillar-6-trust/exercises.md
+  - Part III - Common Patterns:
+    - Overview: part3-patterns/index.md
   - Part IV - Case Study:
     - Overview: part4-case-study/index.md
     - Chapter 1 - MVP: part4-case-study/chapter1-mvp.md
@@ -183,6 +172,7 @@ nav:
     - Failure Calculator: tools/failure-calculator.md
     - Consistency Visualizer: tools/consistency-visualizer.md
     - CAP Theorem Explorer: tools/cap-explorer.md
+    - Coordination Cost: tools/coordination-cost.md
   - Reference:
     - Overview: reference/index.md
     - Glossary: reference/glossary.md
@@ -191,6 +181,9 @@ nav:
     - Security Considerations: reference/security-considerations.md
     - Recovery-Oriented Computing: reference/recovery-oriented.md
     - Mental Models: reference/mental-models.md
+    - Formulas: reference/formulas.md
+    - Patterns Reference: reference/patterns-reference.md
+    - Network Optimization: reference/network-optimization.md
   - Legacy Content:
     - Original Book: distributed-systems-book.md
     - Original Pillars: part2-foundational-pillars.md
@@ -207,37 +200,36 @@ extra:
 
 extra_css:
   - stylesheets/extra.css
+  - stylesheets/mobile.css
   - stylesheets/journey-map.css
   - stylesheets/consistency-visualizer.css
-  - stylesheets/mobile-responsive.css
-  - stylesheets/mobile-performance.css
   - stylesheets/cap-explorer.css
   - stylesheets/tooltips-help.css
   - stylesheets/reading-progress.css
   - stylesheets/toc-enhanced.css
   - stylesheets/quick-navigation.css
-  - stylesheets/mobile-navigation.css
-  - stylesheets/mobile-touch-optimizations.css
   - stylesheets/tools.css
 
 extra_javascript:
-  - javascripts/performance-optimizations.js
-  - javascripts/hero-animation.js
-  - javascripts/journey-map-enhanced.js
-  - javascripts/progressive-disclosure.js
-  - javascripts/latency-calculator.js
-  - javascripts/capacity-planner.js
-  - javascripts/consistency-visualizer.js
-  - javascripts/cap-explorer.js
-  - javascripts/tooltips-help.js
-  - javascripts/reading-progress.js
-  - javascripts/inline-calculators.js
-  - javascripts/nav-improvements.js
-  - javascripts/animation-performance.js
-  - javascripts/breadcrumb-progress.js
-  - javascripts/breadcrumbs.js
-  - javascripts/toc-scroll-spy.js
-  - javascripts/mobile-navigation.js
-  - javascripts/mobile-touch-optimizations.js
-  - javascripts/failure-calculator.js
-  - javascripts/coordination-cost.js
+  # Core functionality
+  - javascripts/core/performance-optimizations.js
+  - javascripts/core/nav-improvements.js
+  - javascripts/core/mobile-optimizations.js
+  - javascripts/core/inline-calculators.js
+  
+  # UI Components
+  - javascripts/components/hero-animation.js
+  - javascripts/components/journey-map-enhanced.js
+  - javascripts/components/progressive-disclosure.js
+  - javascripts/components/tooltips-help.js
+  - javascripts/components/reading-progress.js
+  - javascripts/components/breadcrumb-navigation.js
+  - javascripts/components/toc-scroll-spy.js
+  
+  # Interactive Tools
+  - javascripts/tools/latency-calculator.js
+  - javascripts/tools/capacity-planner.js
+  - javascripts/tools/consistency-visualizer.js
+  - javascripts/tools/cap-explorer.js
+  - javascripts/tools/failure-calculator.js
+  - javascripts/tools/coordination-cost.js
