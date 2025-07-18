@@ -184,6 +184,11 @@ nav:
     - Formulas: reference/formulas.md
     - Patterns Reference: reference/patterns-reference.md
     - Network Optimization: reference/network-optimization.md
+    - User Preferences: reference/preferences.md
+  - Examples:
+    - Simple Visualizations: examples/simple-visualizations.md
+    - Advanced Visualizations: examples/visualizations.md
+    - Design System Showcase: examples/design-showcase.md
   - Legacy Content:
     - Original Book: distributed-systems-book.md
     - Original Pillars: part2-foundational-pillars.md
@@ -207,6 +212,7 @@ extra_javascript:
   - javascripts/core/nav-improvements.js
   - javascripts/core/mobile-optimizations.js
   - javascripts/core/inline-calculators.js
+  - javascripts/core/preferences.js
   
   # UI Components
   - javascripts/components/hero-animation.js
@@ -215,6 +221,7 @@ extra_javascript:
   - javascripts/components/reading-progress.js
   - javascripts/components/breadcrumb-navigation.js
   - javascripts/components/toc-scroll-spy.js
+  - javascripts/components/visualization-engine-simple.js
   
   # Interactive Tools
   - javascripts/tools/latency-calculator.js

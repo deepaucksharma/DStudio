@@ -1,0 +1,412 @@
+/* ================================================
+   DStudio Design System
+   ================================================
+   Main entry point - imports all design system modules
+   ================================================ */
+
+/* Design tokens - foundation of the system */
+@import url("design-system/00-tokens.css");
+
+/* CSS reset for consistent baseline */
+@import url("design-system/01-reset.css");
+
+/* Typography system */
+@import url("design-system/02-typography.css");
+
+/* Layout and grid system */
+@import url("design-system/03-layout.css");
+
+/* UI components */
+@import url("design-system/04-components.css");
+
+/* Utility classes */
+@import url("design-system/05-utilities.css");
+
+/* ================================================
+   Custom Overrides for MkDocs Material Theme
+   ================================================ */
+
+/* Header adjustments */
+.md-header {
+  background: var(--surface-primary);
+  color: var(--text-primary);
+  box-shadow: none;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.md-header__title {
+  font-weight: var(--font-semibold);
+}
+
+/* Navigation adjustments */
+.md-nav__link {
+  color: var(--text-secondary);
+  transition: var(--transition-colors);
+}
+
+.md-nav__link:hover {
+  color: var(--text-primary);
+}
+
+.md-nav__link--active {
+  color: var(--primary-600);
+  font-weight: var(--font-medium);
+}
+
+/* Sidebar adjustments */
+.md-sidebar {
+  background: var(--surface-secondary);
+}
+
+.md-sidebar__scrollwrap {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-400) var(--surface-secondary);
+}
+
+/* Content adjustments */
+.md-content {
+  color: var(--text-primary);
+}
+
+.md-typeset {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+}
+
+.md-typeset h1 {
+  font-size: var(--text-4xl);
+  font-weight: var(--font-light);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-4);
+}
+
+.md-typeset h2 {
+  font-size: var(--text-3xl);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.md-typeset h3 {
+  font-size: var(--text-2xl);
+  font-weight: var(--font-medium);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+  margin-bottom: var(--space-3);
+}
+
+.md-typeset h4 {
+  font-size: var(--text-xl);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-snug);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.md-typeset h5 {
+  font-size: var(--text-lg);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+.md-typeset h6 {
+  font-size: var(--text-base);
+  font-weight: var(--font-bold);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  margin-bottom: var(--space-2);
+}
+
+/* Link styles */
+.md-typeset a {
+  color: var(--text-link);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+.md-typeset a:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+/* Code blocks */
+.md-typeset code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface-secondary);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-base);
+  color: var(--text-primary);
+}
+
+.md-typeset pre {
+  background: var(--surface-secondary);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+}
+
+/* Tables */
+.md-typeset table {
+  border-collapse: collapse;
+  border: 1px solid var(--border-subtle);
+}
+
+.md-typeset table th {
+  background: var(--surface-secondary);
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-3);
+  font-weight: var(--font-semibold);
+  text-align: left;
+}
+
+.md-typeset table td {
+  border: 1px solid var(--border-subtle);
+  padding: var(--space-3);
+}
+
+/* Admonitions / Callouts */
+.md-typeset .admonition,
+.md-typeset details {
+  border-radius: var(--radius-base);
+  border-left: 4px solid;
+  box-shadow: none;
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  border-left-color: var(--info-500);
+  background: rgba(var(--info-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.abstract,
+.md-typeset details.abstract,
+.md-typeset .admonition.summary,
+.md-typeset details.summary,
+.md-typeset .admonition.tldr,
+.md-typeset details.tldr {
+  border-left-color: var(--primary-500);
+  background: rgba(var(--primary-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.info,
+.md-typeset details.info,
+.md-typeset .admonition.todo,
+.md-typeset details.todo {
+  border-left-color: var(--info-500);
+  background: rgba(var(--info-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset details.tip,
+.md-typeset .admonition.hint,
+.md-typeset details.hint,
+.md-typeset .admonition.important,
+.md-typeset details.important {
+  border-left-color: var(--success-500);
+  background: rgba(var(--success-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.success,
+.md-typeset details.success,
+.md-typeset .admonition.check,
+.md-typeset details.check,
+.md-typeset .admonition.done,
+.md-typeset details.done {
+  border-left-color: var(--success-500);
+  background: rgba(var(--success-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.question,
+.md-typeset details.question,
+.md-typeset .admonition.help,
+.md-typeset details.help,
+.md-typeset .admonition.faq,
+.md-typeset details.faq {
+  border-left-color: var(--info-500);
+  background: rgba(var(--info-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning,
+.md-typeset .admonition.caution,
+.md-typeset details.caution,
+.md-typeset .admonition.attention,
+.md-typeset details.attention {
+  border-left-color: var(--warning-500);
+  background: rgba(var(--warning-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.failure,
+.md-typeset details.failure,
+.md-typeset .admonition.fail,
+.md-typeset details.fail,
+.md-typeset .admonition.missing,
+.md-typeset details.missing {
+  border-left-color: var(--error-500);
+  background: rgba(var(--error-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger,
+.md-typeset .admonition.error,
+.md-typeset details.error {
+  border-left-color: var(--error-500);
+  background: rgba(var(--error-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.bug,
+.md-typeset details.bug {
+  border-left-color: var(--error-500);
+  background: rgba(var(--error-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.example,
+.md-typeset details.example {
+  border-left-color: var(--primary-500);
+  background: rgba(var(--primary-500-rgb), 0.1);
+}
+
+.md-typeset .admonition.quote,
+.md-typeset details.quote,
+.md-typeset .admonition.cite,
+.md-typeset details.cite {
+  border-left-color: var(--gray-500);
+  background: var(--surface-secondary);
+}
+
+/* Footer */
+.md-footer {
+  background: var(--surface-primary);
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.md-footer-meta {
+  background: var(--surface-primary);
+}
+
+/* Search */
+.md-search__input {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+.md-search__input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.md-search__input:focus {
+  border-color: var(--primary-500);
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  .md-header {
+    background: var(--surface-primary);
+    border-bottom-color: var(--border-subtle);
+  }
+  
+  .md-sidebar {
+    background: var(--surface-secondary);
+  }
+  
+  .md-footer {
+    background: var(--surface-primary);
+    border-top-color: var(--border-subtle);
+  }
+  
+  .md-search__input {
+    background: var(--surface-secondary);
+    border-color: var(--border-default);
+    color: var(--text-primary);
+  }
+}
+
+/* ================================================
+   Custom Components for DStudio
+   ================================================ */
+
+/* Homepage Hero */
+.hero-section {
+  background: linear-gradient(135deg, var(--primary-50), var(--primary-100));
+  padding: var(--space-10) 0;
+  text-align: center;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+[data-md-color-scheme="slate"] .hero-section {
+  background: linear-gradient(135deg, var(--gray-800), var(--gray-900));
+}
+
+/* Journey Map Container */
+.journey-container {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  margin: var(--space-6) 0;
+}
+
+/* Custom callout boxes */
+.axiom-box {
+  background: rgba(var(--primary-500-rgb), 0.1);
+  border-left: 4px solid var(--primary-500);
+  border-radius: var(--radius-base);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.decision-box {
+  background: rgba(var(--success-500-rgb), 0.1);
+  border-left: 4px solid var(--success-500);
+  border-radius: var(--radius-base);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.failure-vignette {
+  background: rgba(var(--error-500-rgb), 0.1);
+  border-left: 4px solid var(--error-500);
+  border-radius: var(--radius-base);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.truth-box {
+  background: rgba(var(--info-500-rgb), 0.1);
+  border-left: 4px solid var(--info-500);
+  border-radius: var(--radius-base);
+  padding: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+/* Grid cards */
+.grid.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-4) 0;
+}
+
+.grid.cards > .card {
+  background: var(--surface-primary);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: var(--space-4);
+  transition: var(--transition-default);
+  text-decoration: none;
+  color: var(--text-primary);
+}
+
+.grid.cards > .card:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-300);
+}
