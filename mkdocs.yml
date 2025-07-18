@@ -204,7 +204,7 @@ extra:
     property: G-XXXXXXXXXX
 
 extra_css:
-  - stylesheets/main.css
+  - stylesheets/visual-fixes.css
 
 extra_javascript:
   # Core functionality
