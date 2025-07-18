@@ -26,7 +26,6 @@ class MobileTouchOptimizations {
     // Find all interactive elements
     const interactiveSelectors = [
       'a', 'button', 'input', 'select', 'textarea',
-      '[role="button"]', '[tabindex]:not([tabindex="-1"])',
       '.md-nav__link', '.md-tabs__link', '.md-search__input',
       '.concept-card', '.journey-card', '.tool-button'
     ];
@@ -77,7 +76,6 @@ class MobileTouchOptimizations {
     // Create invisible touch target expander
     const expander = document.createElement('span');
     expander.className = 'touch-expander';
-    expander.setAttribute('aria-hidden', 'true');
     
     // Position expander
     element.style.position = 'relative';
@@ -93,7 +91,7 @@ class MobileTouchOptimizations {
   addTouchFeedback() {
     // Visual feedback for touch interactions
     document.addEventListener('touchstart', (e) => {
-      const target = e.target.closest('a, button, [role="button"], .touchable');
+      const target = e.target.closest('a, button, .touchable');
       if (target) {
         target.classList.add('touch-active');
         target.setAttribute('data-touch-start', Date.now());
@@ -130,7 +128,7 @@ class MobileTouchOptimizations {
     let lastTap = 0;
     
     document.addEventListener('touchend', (e) => {
-      const target = e.target.closest('button, a, [role="button"]');
+      const target = e.target.closest('button, a');
       if (!target) return;
       
       const currentTime = Date.now();

@@ -244,7 +244,6 @@ class TOCScrollSpy {
       </svg>
       <span>Contents</span>
     `;
-    tocToggle.setAttribute('aria-label', 'Toggle table of contents');
     
     // Add to page
     document.body.appendChild(tocToggle);
@@ -269,7 +268,6 @@ class TOCScrollSpy {
     const isOpen = document.body.classList.contains('mobile-toc-open');
     
     if (isOpen) {
-      // Focus first link for accessibility
       setTimeout(() => {
         const firstLink = this.toc.querySelector('a');
         if (firstLink) firstLink.focus();

@@ -15,16 +15,8 @@ document.addEventListener('DOMContentLoaded', () => {
         header.classList.toggle('active');
         content.classList.toggle('active');
         
-        // Update ARIA attributes for accessibility
-        header.setAttribute('aria-expanded', !isActive);
-        content.setAttribute('aria-hidden', isActive);
       });
       
-      // Set initial ARIA attributes
-      header.setAttribute('role', 'button');
-      header.setAttribute('aria-expanded', 'false');
-      header.setAttribute('tabindex', '0');
-      content.setAttribute('aria-hidden', 'true');
       
       // Add keyboard support
       header.addEventListener('keydown', (e) => {

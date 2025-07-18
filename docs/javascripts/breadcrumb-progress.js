@@ -94,8 +94,6 @@ class BreadcrumbProgress {
   createProgressBar(pathInfo) {
     const progressBar = document.createElement('div');
     progressBar.className = 'breadcrumb-progress-container';
-    progressBar.setAttribute('role', 'navigation');
-    progressBar.setAttribute('aria-label', 'Learning path progress');
     
     progressBar.innerHTML = `
       <div class="breadcrumb-progress-header">
@@ -131,9 +129,7 @@ class BreadcrumbProgress {
         <div class="breadcrumb-step-marker ${isActive ? 'active' : ''} ${isCompleted ? 'completed' : ''}"
              style="left: ${position}%"
              data-step-index="${index}"
-             role="button"
-             aria-label="Go to ${step.label}"
-             tabindex="0">
+>
           <span class="step-marker-dot"></span>
         </div>
       `;

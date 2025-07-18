@@ -139,7 +139,7 @@ class QuickNavigation {
       <div class="command-palette-modal">
         <div class="command-palette-header">
           <input type="text" class="command-palette-input" placeholder="Type a command or search..." />
-          <button class="command-palette-close" aria-label="Close">×</button>
+          <button class="command-palette-close">×</button>
         </div>
         <div class="command-palette-results"></div>
         <div class="command-palette-footer">

@@ -31,8 +31,6 @@ class MobileNavigation {
     // Create bottom navigation container
     const bottomNav = document.createElement('nav');
     bottomNav.className = 'mobile-bottom-nav';
-    bottomNav.setAttribute('role', 'navigation');
-    bottomNav.setAttribute('aria-label', 'Mobile navigation');
     
     // Define navigation items
     const navItems = [
@@ -93,7 +91,7 @@ class MobileNavigation {
       <div class="mobile-menu-panel">
         <div class="mobile-menu-header">
           <h3>Learn</h3>
-          <button class="mobile-menu-close" aria-label="Close menu">×</button>
+          <button class="mobile-menu-close">×</button>
         </div>
         <div class="mobile-menu-content">
           <a href="/part1-axioms/" class="mobile-menu-item">
@@ -253,7 +251,7 @@ class MobileNavigation {
     const minSize = 44; // iOS Human Interface Guidelines
     
     const interactiveElements = document.querySelectorAll(
-      'a, button, input, select, textarea, [role="button"], [tabindex]'
+      'a, button, input, select, textarea'
     );
     
     interactiveElements.forEach(element => {

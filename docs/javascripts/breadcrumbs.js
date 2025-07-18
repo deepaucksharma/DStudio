@@ -70,7 +70,6 @@ class BreadcrumbNav {
   createBreadcrumbContainer() {
     const container = document.createElement('nav');
     container.className = 'breadcrumb-nav';
-    container.setAttribute('aria-label', 'Breadcrumb');
     return container;
   }
   
@@ -92,7 +91,7 @@ class BreadcrumbNav {
       
       if (isLast) {
         breadcrumbHTML += `
-          <li class="breadcrumb-item active" aria-current="page">
+          <li class="breadcrumb-item active">
             <span class="breadcrumb-text">${crumb.name}</span>
           </li>
         `;
@@ -100,7 +99,7 @@ class BreadcrumbNav {
         breadcrumbHTML += `
           <li class="breadcrumb-item">
             <a href="${crumb.path}" class="breadcrumb-link">${crumb.name}</a>
-            <span class="breadcrumb-separator" aria-hidden="true">›</span>
+            <span class="breadcrumb-separator">›</span>
           </li>
         `;
       }

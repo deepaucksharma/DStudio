@@ -240,3 +240,4 @@ extra_javascript:
   - javascripts/mobile-navigation.js
   - javascripts/mobile-touch-optimizations.js
   - javascripts/failure-calculator.js
+  - javascripts/coordination-cost.js

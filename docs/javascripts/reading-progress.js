@@ -22,7 +22,7 @@ class ReadingProgress {
           <span class="progress-separator">•</span>
           <span class="time-remaining">Calculating...</span>
         </div>
-        <button class="progress-toggle" aria-label="Toggle progress bar" title="Toggle progress bar">
+        <button class="progress-toggle" title="Toggle progress bar">
           <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 4.5a.5.5 0 0 1 .5.5v3.5H12a.5.5 0 0 1 0 1H8.5V13a.5.5 0 0 1-1 0V9.5H4a.5.5 0 0 1 0-1h3.5V5a.5.5 0 0 1 .5-.5z"/>
           </svg>

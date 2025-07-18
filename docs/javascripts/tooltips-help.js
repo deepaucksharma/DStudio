@@ -42,7 +42,6 @@ class TooltipsHelp {
         <line x1="12" y1="17" x2="12.01" y2="17"></line>
       </svg>
     `;
-    helpButton.setAttribute('aria-label', 'Help');
     helpButton.setAttribute('title', 'Help (F1)');
     
     helpButton.addEventListener('click', () => this.toggleHelp());
@@ -56,7 +55,7 @@ class TooltipsHelp {
     panel.innerHTML = `
       <div class="help-panel-header">
         <h3>Help & Documentation</h3>
-        <button class="help-close" aria-label="Close help">×</button>
+        <button class="help-close">×</button>
       </div>
       
       <div class="help-panel-content">
@@ -336,7 +335,7 @@ class TooltipsHelp {
     
     sortedTerms.forEach(term => {
       const regex = new RegExp(`\\b(${term})\\b`, 'gi');
-      result = result.replace(regex, '<span class="tooltip-term" tabindex="0">$1</span>');
+      result = result.replace(regex, '<span class="tooltip-term">$1</span>');
     });
     
     return result;

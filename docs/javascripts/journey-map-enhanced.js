@@ -116,23 +116,23 @@ class EnhancedJourneyMap {
   
   createControls() {
     const controls = `
-      <div class="journey-controls" role="toolbar" aria-label="Journey map controls">
-        <button class="journey-control-btn zoom-in" aria-label="Zoom in" title="Zoom in (Plus key)">
+      <div class="journey-controls">
+        <button class="journey-control-btn zoom-in" title="Zoom in (Plus key)">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path d="M10 5v5m-5 0h10m5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"/>
           </svg>
         </button>
-        <button class="journey-control-btn zoom-out" aria-label="Zoom out" title="Zoom out (Minus key)">
+        <button class="journey-control-btn zoom-out" title="Zoom out (Minus key)">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path d="M5 10h10m5 0a9 9 0 11-18 0 9 9 0 0118 0z" stroke="currentColor" stroke-width="2" fill="none"/>
           </svg>
         </button>
-        <button class="journey-control-btn zoom-reset" aria-label="Reset zoom" title="Reset zoom (0 key)">
+        <button class="journey-control-btn zoom-reset" title="Reset zoom (0 key)">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path d="M4 4v6h6M16 16v-6h-6" stroke="currentColor" stroke-width="2" fill="none"/>
           </svg>
         </button>
-        <button class="journey-control-btn fullscreen" aria-label="Toggle fullscreen" title="Toggle fullscreen (F key)">
+        <button class="journey-control-btn fullscreen" title="Toggle fullscreen (F key)">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor">
             <path d="M3 7V3h4M17 7V3h-4M3 13v4h4m10-4v4h-4" stroke="currentColor" stroke-width="2" fill="none"/>
           </svg>
@@ -146,7 +146,7 @@ class EnhancedJourneyMap {
     const width = 900;
     const height = 920;
     
-    let svg = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet" role="img" aria-label="Interactive journey map of distributed systems concepts">`;
+    let svg = `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="xMidYMid meet">`;
     
     // Add gradient definitions
     svg += `
@@ -219,10 +219,7 @@ class EnhancedJourneyMap {
         <g class="node" 
            data-node-id="${node.id}" 
            transform="translate(${node.x}, ${node.y})"
-           tabindex="0"
-           role="button"
-           aria-label="${node.label}: ${node.description}"
-           aria-describedby="node-${node.id}-desc">
+>
           <circle 
             r="45" 
             fill="${fillUrl}"
@@ -236,7 +233,6 @@ class EnhancedJourneyMap {
             text-anchor="middle" 
             font-size="28"
             class="node-icon"
-            aria-hidden="true"
           >${node.icon}</text>
           <text 
             y="65" 
@@ -441,8 +437,6 @@ class EnhancedJourneyMap {
     // Highlight connected nodes
     this.highlightConnections(node.id);
     
-    // Announce selection for screen readers
-    this.announceSelection(node);
   }
   
   getConnectedNodes(nodeId) {
@@ -480,18 +474,6 @@ class EnhancedJourneyMap {
     });
   }
   
-  announceSelection(node) {
-    const announcement = document.createElement('div');
-    announcement.setAttribute('role', 'status');
-    announcement.setAttribute('aria-live', 'polite');
-    announcement.className = 'sr-only';
-    announcement.textContent = `Selected ${node.label}. ${node.description}`;
-    document.body.appendChild(announcement);
-    
-    setTimeout(() => {
-      document.body.removeChild(announcement);
-    }, 1000);
-  }
   
   animateEntrance() {
     const nodes = this.container.querySelectorAll('.node');
