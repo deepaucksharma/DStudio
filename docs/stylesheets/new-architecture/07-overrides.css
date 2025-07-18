@@ -1,0 +1,429 @@
+/* ============================================
+   07. OVERRIDES
+   ============================================
+   MkDocs Material theme overrides
+   These styles override specific Material theme defaults
+   ============================================ */
+
+/* ========== Header Overrides ========== */
+.md-header {
+  background-color: var(--color-neutral-0);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+[data-md-color-scheme="slate"] .md-header {
+  background-color: var(--color-neutral-900);
+}
+
+.md-header__title {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+}
+
+/* ========== Navigation Overrides ========== */
+/* Primary navigation */
+.md-nav__title {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-base);
+  padding: var(--space-3) var(--space-4);
+}
+
+.md-nav__item {
+  padding: 0;
+}
+
+.md-nav__link {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-fast);
+  font-size: var(--font-size-base);
+}
+
+.md-nav__link:hover {
+  background-color: var(--color-neutral-100);
+}
+
+.md-nav__link--active {
+  background-color: var(--color-brand-primary);
+  color: var(--color-neutral-0);
+  font-weight: var(--font-weight-medium);
+}
+
+[data-md-color-scheme="slate"] .md-nav__link:hover {
+  background-color: var(--color-neutral-800);
+}
+
+/* Sidebar */
+.md-sidebar {
+  width: 280px;
+}
+
+.md-sidebar__scrollwrap {
+  padding: var(--space-4);
+}
+
+/* Table of contents */
+.md-nav--secondary .md-nav__link {
+  font-size: var(--font-size-sm);
+  padding: var(--space-1) var(--space-3);
+}
+
+/* ========== Search Overrides ========== */
+.md-search__form {
+  border-radius: var(--radius-md);
+  background-color: var(--color-neutral-100);
+}
+
+[data-md-color-scheme="slate"] .md-search__form {
+  background-color: var(--color-neutral-800);
+}
+
+.md-search__input {
+  font-size: var(--font-size-base);
+  padding: var(--space-3) var(--space-4);
+}
+
+.md-search__input::placeholder {
+  font-size: var(--font-size-base);
+}
+
+/* ========== Footer Overrides ========== */
+.md-footer {
+  background-color: var(--color-neutral-900);
+  color: var(--color-neutral-100);
+}
+
+.md-footer__title {
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-lg);
+}
+
+.md-footer__link {
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+
+.md-footer__link:hover {
+  background-color: var(--color-neutral-800);
+}
+
+/* ========== Content Overrides ========== */
+/* Fix heading anchors */
+.md-typeset h1 .headerlink,
+.md-typeset h2 .headerlink,
+.md-typeset h3 .headerlink,
+.md-typeset h4 .headerlink,
+.md-typeset h5 .headerlink,
+.md-typeset h6 .headerlink {
+  margin-left: var(--space-2);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
+}
+
+.md-typeset h1:hover .headerlink,
+.md-typeset h2:hover .headerlink,
+.md-typeset h3:hover .headerlink,
+.md-typeset h4:hover .headerlink,
+.md-typeset h5:hover .headerlink,
+.md-typeset h6:hover .headerlink {
+  opacity: 0.7;
+}
+
+/* Code blocks */
+.md-typeset code {
+  font-family: var(--font-family-mono);
+  font-size: 0.85em;
+  padding: 0.1em 0.3em;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-neutral-100);
+}
+
+[data-md-color-scheme="slate"] .md-typeset code {
+  background-color: var(--color-neutral-800);
+}
+
+.md-typeset pre {
+  border-radius: var(--radius-md);
+  margin: var(--space-4) 0;
+}
+
+.md-typeset pre code {
+  font-size: var(--font-size-sm);
+  line-height: var(--line-height-relaxed);
+  padding: var(--space-4);
+}
+
+/* Tables */
+.md-typeset table {
+  font-size: var(--font-size-base);
+  margin: var(--space-6) 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.md-typeset table th {
+  background-color: var(--color-neutral-100);
+  font-weight: var(--font-weight-semibold);
+  padding: var(--space-3) var(--space-4);
+}
+
+[data-md-color-scheme="slate"] .md-typeset table th {
+  background-color: var(--color-neutral-800);
+}
+
+.md-typeset table td {
+  padding: var(--space-3) var(--space-4);
+}
+
+/* Lists */
+.md-typeset ul,
+.md-typeset ol {
+  margin: var(--space-4) 0;
+}
+
+.md-typeset li {
+  margin: var(--space-2) 0;
+  line-height: var(--line-height-relaxed);
+}
+
+/* Blockquotes */
+.md-typeset blockquote {
+  border-left: 4px solid var(--color-brand-primary);
+  padding-left: var(--space-4);
+  margin: var(--space-6) 0;
+  font-style: italic;
+  color: var(--color-neutral-700);
+}
+
+[data-md-color-scheme="slate"] .md-typeset blockquote {
+  color: var(--color-neutral-300);
+}
+
+/* ========== Tabs Overrides ========== */
+.md-typeset .tabbed-labels {
+  border-bottom: 2px solid var(--color-neutral-200);
+  margin-bottom: 0;
+}
+
+.md-typeset .tabbed-labels label {
+  font-weight: var(--font-weight-medium);
+  padding: var(--space-2) var(--space-4);
+  margin-bottom: -2px;
+  border-bottom: 2px solid transparent;
+  transition: all var(--transition-fast);
+}
+
+.md-typeset .tabbed-labels label:hover {
+  color: var(--color-brand-primary);
+}
+
+.md-typeset .tabbed-labels label[tabindex="0"] {
+  color: var(--color-brand-primary);
+  border-bottom-color: var(--color-brand-primary);
+}
+
+/* ========== Admonition Overrides ========== */
+.md-typeset .admonition {
+  font-size: var(--font-size-base);
+}
+
+.md-typeset .admonition.note {
+  border-left: 4px solid var(--color-info);
+}
+
+.md-typeset .admonition.abstract,
+.md-typeset .admonition.summary,
+.md-typeset .admonition.tldr {
+  border-left: 4px solid var(--color-brand-secondary);
+}
+
+.md-typeset .admonition.info {
+  border-left: 4px solid var(--color-info);
+}
+
+.md-typeset .admonition.tip,
+.md-typeset .admonition.hint,
+.md-typeset .admonition.important {
+  border-left: 4px solid var(--color-success);
+}
+
+.md-typeset .admonition.success,
+.md-typeset .admonition.check,
+.md-typeset .admonition.done {
+  border-left: 4px solid var(--color-success);
+}
+
+.md-typeset .admonition.question,
+.md-typeset .admonition.help,
+.md-typeset .admonition.faq {
+  border-left: 4px solid var(--color-brand-secondary);
+}
+
+.md-typeset .admonition.warning,
+.md-typeset .admonition.caution,
+.md-typeset .admonition.attention {
+  border-left: 4px solid var(--color-warning);
+}
+
+.md-typeset .admonition.failure,
+.md-typeset .admonition.fail,
+.md-typeset .admonition.missing {
+  border-left: 4px solid var(--color-error);
+}
+
+.md-typeset .admonition.danger,
+.md-typeset .admonition.error {
+  border-left: 4px solid var(--color-error);
+}
+
+.md-typeset .admonition.bug {
+  border-left: 4px solid var(--color-error);
+}
+
+.md-typeset .admonition.example {
+  border-left: 4px solid var(--color-brand-primary);
+}
+
+.md-typeset .admonition.quote,
+.md-typeset .admonition.cite {
+  border-left: 4px solid var(--color-neutral-500);
+}
+
+/* ========== Icon Overrides ========== */
+.md-typeset .twemoji,
+.md-typeset .icon {
+  height: 1.125em;
+  vertical-align: text-bottom;
+}
+
+/* ========== Task List Overrides ========== */
+.md-typeset .task-list-item {
+  list-style-type: none;
+  margin-left: calc(var(--space-6) * -1);
+}
+
+.md-typeset .task-list-item input[type="checkbox"] {
+  margin-right: var(--space-2);
+}
+
+/* ========== Details/Summary Overrides ========== */
+.md-typeset details {
+  border: 1px solid var(--color-neutral-300);
+  border-radius: var(--radius-md);
+  padding: 0;
+  margin: var(--space-4) 0;
+}
+
+.md-typeset details summary {
+  padding: var(--space-3) var(--space-4);
+  background-color: var(--color-neutral-50);
+  cursor: pointer;
+  font-weight: var(--font-weight-medium);
+}
+
+[data-md-color-scheme="slate"] .md-typeset details summary {
+  background-color: var(--color-neutral-800);
+}
+
+.md-typeset details[open] summary {
+  border-bottom: 1px solid var(--color-neutral-300);
+}
+
+/* ========== Mermaid Diagram Overrides ========== */
+.mermaid {
+  text-align: center;
+  margin: var(--space-6) 0;
+}
+
+/* ========== Scrollbar Overrides ========== */
+/* Webkit browsers */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-400);
+  border-radius: var(--radius-full);
+  border: 2px solid var(--color-neutral-100);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-neutral-500);
+}
+
+[data-md-color-scheme="slate"] ::-webkit-scrollbar-track {
+  background: var(--color-neutral-900);
+}
+
+[data-md-color-scheme="slate"] ::-webkit-scrollbar-thumb {
+  background: var(--color-neutral-600);
+  border-color: var(--color-neutral-900);
+}
+
+/* Firefox */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-neutral-400) var(--color-neutral-100);
+}
+
+[data-md-color-scheme="slate"] * {
+  scrollbar-color: var(--color-neutral-600) var(--color-neutral-900);
+}
+
+/* ========== Mobile Overrides ========== */
+@media (max-width: 768px) {
+  /* Reduce header height on mobile */
+  .md-header {
+    height: 56px;
+  }
+  
+  /* Adjust content padding */
+  .md-content__inner {
+    padding: var(--space-4) var(--space-3);
+  }
+  
+  /* Smaller headings on mobile */
+  .md-typeset h1 {
+    font-size: var(--font-size-3xl);
+  }
+  
+  .md-typeset h2 {
+    font-size: var(--font-size-2xl);
+  }
+  
+  /* Stack navigation cards */
+  .nav-cards {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ========== High Contrast Mode ========== */
+@media (prefers-contrast: high) {
+  .md-nav__link--active {
+    outline: 2px solid var(--color-brand-primary);
+    outline-offset: 2px;
+  }
+  
+  .md-typeset a:focus {
+    outline: 2px solid var(--color-brand-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* ========== Reduced Motion ========== */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

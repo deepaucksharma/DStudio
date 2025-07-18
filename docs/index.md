@@ -102,46 +102,54 @@ This project takes a unique approach to teaching distributed systems:
 
 ### The Eight Fundamental Axioms
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1.5rem;">
+<div class="axiom-grid">
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">⚡ Latency</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">Speed of light is non-negotiable</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">⚡</h4>
+<div class="axiom-item__title">Latency</div>
+<p class="axiom-item__description">Speed of light is non-negotiable</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">📦 Finite Capacity</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">Every resource has a breaking point</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">📦</h4>
+<div class="axiom-item__title">Finite Capacity</div>
+<p class="axiom-item__description">Every resource has a breaking point</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">💥 Failure</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">Components will fail; plan accordingly</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">💥</h4>
+<div class="axiom-item__title">Failure</div>
+<p class="axiom-item__description">Components will fail; plan accordingly</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">⚖️ Consistency</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">You can't have your cake and eat it too</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">⚖️</h4>
+<div class="axiom-item__title">Consistency</div>
+<p class="axiom-item__description">You can't have your cake and eat it too</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">⏰ Time</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">There is no "now" in distributed systems</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">⏰</h4>
+<div class="axiom-item__title">Time</div>
+<p class="axiom-item__description">There is no "now" in distributed systems</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">🔄 Ordering</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">Events happen, but in what order?</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">🔄</h4>
+<div class="axiom-item__title">Ordering</div>
+<p class="axiom-item__description">Events happen, but in what order?</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">🧩 Knowledge</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">Partial information is the only information</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">🧩</h4>
+<div class="axiom-item__title">Knowledge</div>
+<p class="axiom-item__description">Partial information is the only information</p>
 </div>
 
-<div>
-<h4 style="color: var(--primary-color); margin: 0;">📈 Growth</h4>
-<p style="margin: 0.5rem 0; font-size: 0.9rem;">Systems evolve or die</p>
+<div class="axiom-item">
+<h4 class="axiom-item__icon">📈</h4>
+<div class="axiom-item__title">Growth</div>
+<p class="axiom-item__description">Systems evolve or die</p>
 </div>
 
 </div>
@@ -171,10 +179,10 @@ This project takes a unique approach to teaching distributed systems:
 
 ### Why does adding more servers sometimes make your system slower?
 
-<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 1.5rem;">
+<div class="grid grid--2">
 
 <div>
-<h4 style="margin: 0 0 0.5rem 0;">📊 The Math</h4>
+<h4>📊 The Math</h4>
 
 - 2 servers = 1 connection
 - 5 servers = 10 connections  
@@ -186,7 +194,7 @@ This project takes a unique approach to teaching distributed systems:
 </div>
 
 <div>
-<h4 style="margin: 0 0 0.5rem 0;">💡 The Lesson</h4>
+<h4>💡 The Lesson</h4>
 
 Sometimes the best distributed system is the one that isn't distributed. Before adding complexity:
 
@@ -203,13 +211,13 @@ Sometimes the best distributed system is the one that isn't distributed. Before 
 
 ---
 
-<div style="text-align: center; margin: 3rem 0;">
-    <a href="introduction/index.md" class="md-button md-button--primary" style="font-size: 1.1rem; padding: 0.8rem 2rem;">
+<div class="text-center my-6">
+    <a href="introduction/index.md" class="btn btn--primary btn--lg">
         Begin Your Journey →
     </a>
 </div>
 
-<div style="text-align: center; color: var(--md-default-fg-color--light); font-size: 0.9rem; margin-top: 2rem;">
+<div class="text-center text-neutral-600 text-sm mt-6">
     Built with ❤️ using <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>
 </div>
 

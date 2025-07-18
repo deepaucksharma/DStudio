@@ -199,16 +199,7 @@ extra:
     property: G-XXXXXXXXXX
 
 extra_css:
-  - stylesheets/extra.css
-  - stylesheets/mobile.css
-  - stylesheets/journey-map.css
-  - stylesheets/consistency-visualizer.css
-  - stylesheets/cap-explorer.css
-  - stylesheets/reading-progress.css
-  - stylesheets/toc-enhanced.css
-  - stylesheets/quick-navigation.css
-  - stylesheets/tools.css
-  - stylesheets/fixes.css
+  - stylesheets/main.css
 
 extra_javascript:
   # Core functionality
