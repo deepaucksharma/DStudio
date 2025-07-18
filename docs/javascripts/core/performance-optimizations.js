@@ -232,7 +232,6 @@ class PerformanceOptimizer {
   deferNonCriticalJS() {
     // List of non-critical scripts that can be deferred
     const nonCriticalScripts = [
-      'tooltips-help.js',
       'consistency-visualizer.js',
       'cap-explorer.js',
       'capacity-planner.js'

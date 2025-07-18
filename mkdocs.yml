@@ -204,7 +204,6 @@ extra_css:
   - stylesheets/journey-map.css
   - stylesheets/consistency-visualizer.css
   - stylesheets/cap-explorer.css
-  - stylesheets/tooltips-help.css
   - stylesheets/reading-progress.css
   - stylesheets/toc-enhanced.css
   - stylesheets/quick-navigation.css
@@ -222,7 +221,6 @@ extra_javascript:
   - javascripts/components/hero-animation.js
   - javascripts/components/journey-map-enhanced.js
   - javascripts/components/progressive-disclosure.js
-  - javascripts/components/tooltips-help.js
   - javascripts/components/reading-progress.js
   - javascripts/components/breadcrumb-navigation.js
   - javascripts/components/toc-scroll-spy.js
