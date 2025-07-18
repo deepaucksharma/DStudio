@@ -1,0 +1,63 @@
+/* ================================================
+   Light Theme Variables
+   ================================================ */
+
+:root {
+  /* Surface colors */
+  --surface-ground:     var(--gray-50);
+  --surface-primary:    #FFFFFF;
+  --surface-secondary:  var(--gray-50);
+  --surface-tertiary:   var(--gray-100);
+  --surface-overlay:    rgba(0, 0, 0, 0.04);
+  --surface-scrim:      rgba(0, 0, 0, 0.32);
+
+  /* Text colors */
+  --text-primary:       var(--gray-900);
+  --text-secondary:     var(--gray-700);
+  --text-tertiary:      var(--gray-600);
+  --text-disabled:      var(--gray-400);
+  --text-inverse:       #FFFFFF;
+  --text-link:          var(--primary-600);
+  --text-link-hover:    var(--primary-700);
+
+  /* Border colors */
+  --border-subtle:      var(--gray-200);
+  --border-default:     var(--gray-300);
+  --border-strong:      var(--gray-400);
+  --border-inverse:     var(--gray-800);
+
+  /* State colors */
+  --state-hover:        var(--surface-overlay);
+  --state-active:       var(--primary-100);
+  --state-selected:     var(--primary-50);
+  --state-focus:        var(--primary-500);
+  --state-disabled:     var(--gray-200);
+
+  /* Feedback colors */
+  --state-success:      var(--success-500);
+  --state-warning:      var(--warning-500);
+  --state-error:        var(--error-500);
+  --state-info:         var(--info-500);
+
+  /* Component-specific tokens */
+  --button-primary-bg:       var(--primary-600);
+  --button-primary-hover:    var(--primary-700);
+  --button-primary-active:   var(--primary-800);
+  --button-primary-text:     #FFFFFF;
+
+  --button-secondary-bg:     transparent;
+  --button-secondary-hover:  var(--surface-secondary);
+  --button-secondary-active: var(--surface-tertiary);
+  --button-secondary-text:   var(--text-primary);
+  --button-secondary-border: var(--border-default);
+
+  --input-bg:             var(--surface-primary);
+  --input-border:         var(--border-default);
+  --input-focus-border:   var(--primary-500);
+  --input-text:           var(--text-primary);
+  --input-placeholder:    var(--text-tertiary);
+
+  --card-bg:              var(--surface-primary);
+  --card-border:          var(--border-subtle);
+  --card-shadow:          var(--shadow-sm);
+}

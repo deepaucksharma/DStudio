@@ -4,8 +4,8 @@
    Extends the design system for specific needs
    ================================================ */
 
-/* Import the new design system */
-@import url("design-system.css");
+/* Import the new design system with proper architecture */
+@import url("design-system/main.css");
 
 /* ================================================
    Homepage Hero Section

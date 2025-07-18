@@ -1,0 +1,205 @@
+/* ================================================
+   Global Base Styles
+   ================================================ */
+
+/* Root element setup */
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Body defaults */
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--text-base);
+  font-weight: var(--font-normal);
+  line-height: var(--leading-normal);
+  color: var(--text-primary);
+  background-color: var(--surface-ground);
+  min-height: 100vh;
+}
+
+/* Focus styles */
+*:focus-visible {
+  outline: 2px solid var(--state-focus);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+/* Selection styles */
+::selection {
+  background: var(--primary-200);
+  color: var(--text-primary);
+}
+
+::-moz-selection {
+  background: var(--primary-200);
+  color: var(--text-primary);
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-400);
+  border-radius: var(--radius-full);
+  border: 3px solid var(--surface-secondary);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-500);
+}
+
+/* Firefox scrollbar */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--gray-400) var(--surface-secondary);
+}
+
+/* Typography defaults */
+h1, h2, h3, h4, h5, h6 {
+  margin: 0;
+  font-weight: var(--font-normal);
+  line-height: var(--leading-tight);
+  color: var(--text-primary);
+}
+
+p {
+  margin: 0 0 var(--space-4) 0;
+  line-height: var(--leading-relaxed);
+}
+
+/* Link defaults */
+a {
+  color: var(--text-link);
+  text-decoration: none;
+  transition: var(--transition-colors);
+}
+
+a:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+/* List defaults */
+ul, ol {
+  margin: 0 0 var(--space-4) 0;
+  padding-left: var(--space-6);
+}
+
+li {
+  line-height: var(--leading-relaxed);
+  margin-bottom: var(--space-2);
+}
+
+/* Code defaults */
+code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--surface-secondary);
+  padding: 0.125em 0.375em;
+  border-radius: var(--radius-base);
+  color: var(--text-primary);
+}
+
+pre {
+  margin: 0 0 var(--space-4) 0;
+  padding: var(--space-4);
+  background: var(--surface-secondary);
+  border-radius: var(--radius-lg);
+  overflow-x: auto;
+  line-height: var(--leading-normal);
+}
+
+pre code {
+  background: transparent;
+  padding: 0;
+  font-size: 0.875rem;
+}
+
+/* Image defaults */
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Table defaults */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0 0 var(--space-4) 0;
+}
+
+th, td {
+  text-align: left;
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+th {
+  font-weight: var(--font-semibold);
+  background: var(--surface-secondary);
+}
+
+/* Form defaults */
+input,
+textarea,
+select {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+}
+
+button {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  color: inherit;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+}
+
+/* Utility classes */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Print styles */
+@media print {
+  body {
+    color: #000;
+    background: #fff;
+  }
+  
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  
+  .no-print {
+    display: none !important;
+  }
+}

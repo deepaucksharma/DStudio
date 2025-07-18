@@ -1,0 +1,63 @@
+/* ================================================
+   Dark Theme Variables
+   ================================================ */
+
+[data-md-color-scheme="slate"] {
+  /* Surface colors */
+  --surface-ground:     var(--gray-950);
+  --surface-primary:    var(--gray-900);
+  --surface-secondary:  var(--gray-800);
+  --surface-tertiary:   var(--gray-700);
+  --surface-overlay:    rgba(255, 255, 255, 0.08);
+  --surface-scrim:      rgba(0, 0, 0, 0.75);
+
+  /* Text colors */
+  --text-primary:       var(--gray-50);
+  --text-secondary:     var(--gray-300);
+  --text-tertiary:      var(--gray-400);
+  --text-disabled:      var(--gray-600);
+  --text-inverse:       var(--gray-900);
+  --text-link:          var(--primary-400);
+  --text-link-hover:    var(--primary-300);
+
+  /* Border colors */
+  --border-subtle:      var(--gray-700);
+  --border-default:     var(--gray-600);
+  --border-strong:      var(--gray-500);
+  --border-inverse:     var(--gray-200);
+
+  /* State colors */
+  --state-hover:        var(--surface-overlay);
+  --state-active:       rgba(var(--primary-500-rgb), 0.16);
+  --state-selected:     rgba(var(--primary-500-rgb), 0.12);
+  --state-focus:        var(--primary-400);
+  --state-disabled:     var(--gray-700);
+
+  /* Component-specific tokens */
+  --button-primary-bg:       var(--primary-500);
+  --button-primary-hover:    var(--primary-400);
+  --button-primary-active:   var(--primary-300);
+  --button-primary-text:     #FFFFFF;
+
+  --button-secondary-bg:     transparent;
+  --button-secondary-hover:  var(--surface-overlay);
+  --button-secondary-active: var(--surface-tertiary);
+  --button-secondary-text:   var(--text-primary);
+  --button-secondary-border: var(--border-default);
+
+  --input-bg:             var(--surface-secondary);
+  --input-border:         var(--border-default);
+  --input-focus-border:   var(--primary-400);
+  --input-text:           var(--text-primary);
+  --input-placeholder:    var(--text-tertiary);
+
+  --card-bg:              var(--surface-secondary);
+  --card-border:          var(--border-subtle);
+  --card-shadow:          var(--shadow-sm);
+
+  /* Shadow adjustments for dark mode */
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.2);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -2px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.3), 0 4px 6px -4px rgba(0, 0, 0, 0.3);
+}
