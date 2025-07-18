@@ -209,6 +209,7 @@ extra_css:
   - stylesheets/toc-enhanced.css
   - stylesheets/quick-navigation.css
   - stylesheets/tools.css
+  - stylesheets/fixes.css
 
 extra_javascript:
   # Core functionality

@@ -1,0 +1,182 @@
+/* ===================================
+   Critical Layout Fixes
+   =================================== */
+
+/* Fix main content area spacing */
+.md-main {
+  margin-top: 0;
+}
+
+.md-main__inner {
+  margin-top: 0;
+  padding-top: 0;
+}
+
+.md-container {
+  padding-top: 0;
+}
+
+/* Fix content area */
+.md-content {
+  margin-top: 0;
+  padding: 1rem 0;
+}
+
+.md-content__inner {
+  padding: 0 1rem;
+  margin: 0 auto;
+  max-width: 100%;
+}
+
+/* Fix breadcrumb positioning */
+.breadcrumbs {
+  position: sticky;
+  top: 3.5rem;
+  z-index: 100;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--gray-200);
+  padding: 0.5rem 1rem;
+  margin: 0;
+}
+
+/* Ensure content doesn't hide behind sticky elements */
+.md-content > :first-child {
+  margin-top: 0;
+}
+
+/* Fix sidebar positioning */
+.md-sidebar {
+  top: 3.5rem;
+  height: calc(100vh - 3.5rem);
+}
+
+.md-sidebar--primary {
+  position: sticky;
+}
+
+/* Typography fixes */
+.md-typeset h1:first-child {
+  margin-top: 0;
+}
+
+/* Axiom page specific fixes */
+.axioms-path {
+  margin-top: 0;
+}
+
+/* Fix admonition spacing */
+.admonition {
+  margin: 1rem 0;
+}
+
+.admonition.tip {
+  background: var(--gray-50);
+  border: 1px solid var(--gray-200);
+}
+
+/* Foundation of Everything box fix */
+.admonition.info {
+  margin-top: 0;
+  margin-bottom: 1rem;
+}
+
+/* Quick Navigation - properly hide */
+.admonition.tip .admonition-title:contains("Quick Navigation") {
+  display: none;
+}
+
+/* Better way to hide Quick Navigation */
+.admonition.tip:has(.admonition-title:contains("Quick Navigation")) {
+  display: none !important;
+}
+
+/* Table of contents spacing */
+.md-nav--secondary {
+  margin-top: 1rem;
+}
+
+/* Fix excessive margins in lists */
+.md-typeset ol, .md-typeset ul {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.md-typeset li {
+  margin-bottom: 0.25rem;
+}
+
+/* Compact navigation */
+.md-nav__item {
+  padding: 0;
+}
+
+.md-nav__link {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.875rem;
+}
+
+/* Fix code block spacing */
+.md-typeset pre {
+  margin: 1rem 0;
+}
+
+/* Reading progress bar positioning */
+.reading-progress {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--gray-200);
+  z-index: 1000;
+}
+
+.reading-progress.visible {
+  opacity: 1;
+}
+
+/* Reduce hero height further */
+.hero-container {
+  min-height: 150px;
+  max-height: 200px;
+  margin: 0.5rem 0;
+}
+
+/* Fix page padding */
+.md-grid {
+  max-width: 100%;
+}
+
+/* Ensure axiom boxes don't have excessive spacing */
+.axiom-box + .axiom-box,
+.decision-box + .decision-box,
+.failure-vignette + .failure-vignette {
+  margin-top: 0.75rem;
+}
+
+/* Fix the overview boxes */
+.grid.cards {
+  margin: 1rem 0;
+  gap: 0.75rem;
+}
+
+.grid.cards > * {
+  padding: 0.75rem;
+}
+
+/* Fix hidden quick navigation more specifically */
+.admonition.tip {
+  display: block;
+}
+
+.admonition.tip:has(.admonition-title:contains("Quick")) {
+  display: none !important;
+}
+
+/* Foundation box specific styling */
+.admonition.info .admonition-title {
+  background: var(--primary-color);
+  color: white;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+}
