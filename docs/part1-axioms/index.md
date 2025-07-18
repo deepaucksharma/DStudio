@@ -4,9 +4,52 @@
     These eight axioms are the irreducible constraints that govern all distributed systems. Every pattern, every failure, every architectural decision traces back to these fundamental laws.
 
 !!! tip "Quick Navigation"
-    [← Introduction](../introduction/index.md) |
+    [← Zeroth Principles](../introduction/zeroth-principles.md) |
     [Axiom 1 →](axiom-1-latency/index.md) |
     [Pillars →](../part2-pillars/index.md)
+
+## The Deductive Origin of Axioms
+
+<div class="axiom-box">
+
+### From Metaphysics to System Laws
+
+The eight axioms are not arbitrary—they are necessary consequences of three metaphysical truths:
+
+```mermaid
+graph TD
+    subgraph "Zeroth Principles"
+        Z1["Existence is Physical<br/>(Axiom Zero-A)"]
+        Z2["Time is Asymmetric<br/>(Axiom Zero-B)"]
+        Z3["Knowledge is Incomplete<br/>(Axiom Zero-C)"]
+    end
+    
+    subgraph "The Eight Axioms"
+        A1["1. Latency<br/>(Speed of Light)"]
+        A2["2. Capacity<br/>(Finite Resources)"]
+        A3["3. Failure<br/>(Entropy)"]
+        A4["4. Concurrency<br/>(No Global Time)"]
+        A5["5. Coordination<br/>(Agreement Cost)"]
+        A6["6. Observability<br/>(Partial Knowledge)"]
+        A7["7. Human Interface<br/>(Cognitive Limits)"]
+        A8["8. Economics<br/>(Resource Scarcity)"]
+    end
+    
+    Z2 -->|"Finite speed of causality"| A1
+    Z1 -->|"Finite matter/energy"| A2
+    Z2 -->|"Entropy increases"| A3
+    Z2 & Z3 -->|"No universal now"| A4
+    Z3 -->|"Incomplete views"| A5
+    Z3 -->|"Imperfect observation"| A6
+    Z1 & Z3 -->|"Humans are physical"| A7
+    Z1 -->|"Scarcity exists"| A8
+    
+    style Z1 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style Z2 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style Z3 fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+```
+
+</div>
 
 ## Overview
 

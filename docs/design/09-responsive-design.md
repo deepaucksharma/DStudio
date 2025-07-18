@@ -775,3 +775,306 @@ Desktops:
 - [ ] Orientation changes handled
 - [ ] Zoom functionality not broken
 - [ ] Print styles included
+
+## Lessons Learned from Implementation
+
+### Mobile-First Approach Success
+
+Our implementation validated the mobile-first philosophy:
+
+```css
+/* Base styles for mobile */
+.hero {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+/* Enhance for larger screens */
+@media (min-width: 768px) {
+  .hero {
+    padding: 6rem 4rem;
+  }
+}
+```
+
+**Benefits:**
+- Simpler base CSS
+- Progressive enhancement natural
+- Better performance on mobile
+- Easier to maintain
+
+### Fluid Typography Implementation
+
+#### 1. Clamp() for Responsive Text
+```css
+/* Successful fluid typography */
+.hero h1 {
+  font-size: clamp(2.5rem, 2rem + 2.5vw, 3.5rem);
+}
+
+.hero p {
+  font-size: clamp(1.125rem, 1rem + 0.5vw, 1.5rem);
+}
+```
+
+**Why it works:**
+- Smooth scaling between breakpoints
+- No jarring jumps at breakpoints
+- Respects user preferences
+- Reduces media queries
+
+#### 2. Minimum Font Sizes
+```css
+/* Maintaining readability */
+.md-typeset p {
+  font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  /*               ^^^^ Never smaller than 16px */
+}
+```
+
+**Key insight**: Never go below 16px for body text to maintain readability and prevent zoom on iOS.
+
+### Responsive Grid Patterns
+
+#### 1. Auto-Fill Grid Success
+```css
+/* Axiom grid that works everywhere */
+.axiom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+}
+```
+
+**Benefits:**
+- No media queries needed
+- Automatically responsive
+- No orphaned items
+- Consistent spacing
+
+#### 2. Mobile Stack Pattern
+```css
+/* Hero stats grid */
+.hero .stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+@media (max-width: 768px) {
+  .hero .stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+```
+
+### Critical Mobile Optimizations
+
+#### 1. Full-Width Mobile Components
+```css
+/* Edge-to-edge hero on mobile */
+@media (max-width: 768px) {
+  .hero {
+    margin: var(--space-md) calc(-1 * var(--space-md)) var(--space-xl);
+    border-radius: 0;
+  }
+}
+```
+
+**Purpose**: Creates immersive mobile experience by extending components edge-to-edge.
+
+#### 2. Touch-Friendly Interactions
+```css
+/* Implemented touch targets */
+.hero-actions .md-button {
+  padding: 0.75rem 2rem;
+  min-height: 44px;
+  font-size: 1.1rem;
+}
+
+@media (max-width: 768px) {
+  .hero-actions {
+    flex-direction: column;
+  }
+  
+  .hero-actions .md-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+```
+
+### Responsive Spacing Strategy
+
+#### 1. Dynamic Padding
+```css
+/* Content padding that scales */
+.md-content {
+  padding: var(--space-xl) var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .md-content {
+    padding: var(--space-lg) var(--space-md);
+  }
+}
+```
+
+**Rationale**: Smaller screens need tighter padding to maximize content area.
+
+#### 2. Responsive Margins
+```css
+/* Component margins adjust */
+.axiom-box,
+.decision-box {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  .axiom-box,
+  .decision-box {
+    margin: var(--space-lg) 0;
+    padding: var(--space-md);
+  }
+}
+```
+
+### Table Responsiveness Solutions
+
+#### 1. Horizontal Scroll Pattern
+```css
+/* Simple table solution */
+@media (max-width: 768px) {
+  .md-typeset table {
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+  }
+}
+```
+
+**Why this works:**
+- Preserves table structure
+- Allows horizontal scrolling
+- Clear visual affordance
+- Better than reformatting
+
+### Common Responsive Pitfalls Avoided
+
+1. **Fixed Font Sizes**: Always use relative units or clamp()
+2. **Breakpoint Proliferation**: Stick to major breakpoints
+3. **Desktop-First Mindset**: Mobile-first prevents overrides
+4. **Forgetting Landscape**: Test mobile landscape orientation
+5. **Ignoring Touch**: Ensure 44px minimum touch targets
+
+### Performance Optimizations
+
+#### 1. Efficient Media Queries
+```css
+/* Group related styles */
+@media (max-width: 768px) {
+  /* All mobile styles together */
+  .hero { /* ... */ }
+  .axiom-grid { /* ... */ }
+  .hero-actions { /* ... */ }
+}
+```
+
+#### 2. CSS Custom Properties for Responsiveness
+```css
+/* Define responsive values once */
+:root {
+  --content-padding: var(--space-lg);
+}
+
+@media (max-width: 768px) {
+  :root {
+    --content-padding: var(--space-md);
+  }
+}
+
+/* Use everywhere */
+.content {
+  padding: var(--content-padding);
+}
+```
+
+### Testing Insights from Implementation
+
+#### Key Breakpoints That Matter
+1. **375px**: iPhone SE (smallest common device)
+2. **768px**: Tablet portrait / Mobile landscape
+3. **1024px**: Desktop threshold
+4. **1200px**: Content max-width
+
+#### Visual Testing Discoveries
+- Font size issues most visible on real devices
+- Spacing problems apparent in landscape mode
+- Touch target size critical for usability
+- Performance varies greatly by device
+
+### Responsive Patterns That Work
+
+#### 1. Hero Section Pattern
+```css
+/* Mobile base */
+.hero {
+  padding: 4rem 2rem;
+  border-radius: 1rem;
+  margin: 2rem 0;
+}
+
+/* Tablet enhancement */
+@media (min-width: 768px) {
+  .hero {
+    padding: 6rem 4rem;
+  }
+}
+
+/* Mobile full-width */
+@media (max-width: 768px) {
+  .hero {
+    margin-left: -1rem;
+    margin-right: -1rem;
+    border-radius: 0;
+  }
+}
+```
+
+#### 2. Button Group Pattern
+```css
+/* Flexible button layout */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+/* Stack on mobile */
+@media (max-width: 768px) {
+  .hero-actions {
+    flex-direction: column;
+  }
+  
+  .hero-actions > * {
+    width: 100%;
+  }
+}
+```
+
+### Future Responsive Considerations
+
+1. **Container Queries**: Would solve component-level responsiveness
+2. **Preference Queries**: Respect reduced motion, contrast preferences
+3. **Logical Properties**: Better internationalization support
+4. **Variable Fonts**: Responsive typography axis
+
+### Key Takeaways
+
+1. **Mobile-First is Non-Negotiable**: Start small, enhance up
+2. **Fluid Everything**: Typography, spacing, layouts
+3. **Test Real Devices**: Simulators miss critical issues
+4. **Performance Matters More on Mobile**: Every kb counts
+5. **Accessibility and Responsiveness Go Hand-in-Hand**: They're not separate concerns

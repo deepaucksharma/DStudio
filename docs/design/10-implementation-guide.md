@@ -630,3 +630,269 @@ lazyComponents.forEach(el => componentObserver.observe(el));
 - [ ] Optimize performance
 - [ ] Train team
 - [ ] Monitor adoption
+
+## Lessons Learned from Implementation
+
+### Layered CSS Architecture Success
+
+Our implementation revealed the effectiveness of a layered approach when working with existing design systems:
+
+#### 1. Enhancement Layer Strategy
+```css
+/* visual-fixes.css - Layer on top of existing system */
+
+/* High specificity for targeted overrides */
+.md-typeset h1 {
+  font-size: clamp(var(--text-3xl), 1.75rem + 1.25vw, var(--text-4xl)) !important;
+  font-weight: 700 !important;
+  line-height: var(--leading-tight) !important;
+}
+
+/* Component-specific fixes */
+.hero {
+  background: linear-gradient(135deg, #5448C8 0%, #00BCD4 100%) !important;
+  padding: 4rem 2rem !important;
+  border-radius: 1rem !important;
+}
+```
+
+**Key Benefits:**
+- Non-destructive to existing system
+- Easy to rollback changes
+- Clear separation of concerns
+- Gradual migration path
+
+#### 2. CSS Custom Properties First
+```css
+/* Define all values as tokens */
+:root {
+  /* Spacing Scale */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 4rem;
+  
+  /* Use everywhere */
+  --content-padding: var(--space-xl) var(--space-lg);
+}
+```
+
+**Why This Works:**
+- Single source of truth
+- Easy theme switching
+- Responsive adjustments simple
+- Better developer experience
+
+### Implementation Best Practices
+
+#### 1. Start with Visual Audit
+```javascript
+// Use browser automation for comprehensive testing
+const visualAudit = async (page) => {
+  const issues = [];
+  
+  // Check font sizes
+  const headings = await page.$$eval('h1, h2, h3', elements => 
+    elements.map(el => ({
+      tag: el.tagName,
+      fontSize: window.getComputedStyle(el).fontSize,
+      lineHeight: window.getComputedStyle(el).lineHeight
+    }))
+  );
+  
+  // Identify oversized text
+  headings.forEach(h => {
+    if (parseInt(h.fontSize) > 48) {
+      issues.push(`${h.tag} font size too large: ${h.fontSize}`);
+    }
+  });
+  
+  return issues;
+};
+```
+
+#### 2. Progressive Enhancement Approach
+```css
+/* Base mobile styles */
+.component {
+  padding: var(--space-md);
+  font-size: var(--text-base);
+}
+
+/* Enhance for larger screens */
+@media (min-width: 768px) {
+  .component {
+    padding: var(--space-lg);
+  }
+}
+
+/* Add capabilities for modern browsers */
+@supports (display: grid) {
+  .component {
+    display: grid;
+    gap: var(--space-md);
+  }
+}
+```
+
+### Common Implementation Challenges
+
+#### 1. Specificity Wars
+**Problem**: Existing styles with high specificity
+**Solution**: Use targeted selectors with !important sparingly
+```css
+/* Be specific but maintainable */
+.md-typeset .hero h1 {
+  /* Specific enough to override */
+}
+```
+
+#### 2. Dark Mode Complexity
+**Problem**: Simple inversion doesn't work
+**Solution**: Separate color tokens for each theme
+```css
+/* Light mode */
+:root {
+  --text-primary: #111827;
+  --bg-primary: #FFFFFF;
+}
+
+/* Dark mode needs different values */
+[data-md-color-scheme="slate"] {
+  --text-primary: #F9FAFB;
+  --bg-primary: #0F172A;
+}
+```
+
+#### 3. Component Coupling
+**Problem**: Components depend on global styles
+**Solution**: Self-contained component styles
+```css
+.hero {
+  /* All styles contained within component */
+  --hero-bg: linear-gradient(135deg, #5448C8 0%, #00BCD4 100%);
+  --hero-padding: 4rem 2rem;
+  
+  background: var(--hero-bg);
+  padding: var(--hero-padding);
+}
+```
+
+### Performance Optimization Strategies
+
+#### 1. Critical CSS Extraction
+```html
+<!-- Inline only critical styles -->
+<style>
+  /* Above-the-fold styles only */
+  :root {
+    --space-md: 1rem;
+    --text-base: 1rem;
+  }
+  
+  .hero {
+    padding: 4rem 2rem;
+    background: #5448C8;
+  }
+</style>
+
+<!-- Load full styles async -->
+<link rel="preload" href="visual-fixes.css" as="style">
+<link rel="stylesheet" href="visual-fixes.css" media="print" onload="this.media='all'">
+```
+
+#### 2. Reduce Redundancy
+```css
+/* Before: Repetitive */
+.box-1 { margin: 24px 0; padding: 16px; }
+.box-2 { margin: 24px 0; padding: 16px; }
+.box-3 { margin: 24px 0; padding: 16px; }
+
+/* After: Token-based */
+.box {
+  margin: var(--space-lg) 0;
+  padding: var(--space-md);
+}
+```
+
+### Testing Strategy That Works
+
+#### 1. Visual Regression Testing
+```javascript
+// Playwright test example
+test('hero section visual consistency', async ({ page }) => {
+  await page.goto('/');
+  
+  // Check computed styles
+  const heroStyles = await page.$eval('.hero', el => {
+    const styles = window.getComputedStyle(el);
+    return {
+      padding: styles.padding,
+      fontSize: styles.fontSize,
+      background: styles.background
+    };
+  });
+  
+  expect(heroStyles.padding).toBe('64px 32px');
+  expect(heroStyles.fontSize).toBe('16px');
+});
+```
+
+#### 2. Cross-Browser Testing Matrix
+- Chrome/Edge (Blink)
+- Firefox (Gecko)
+- Safari (WebKit)
+- Mobile Safari (iOS)
+- Chrome Mobile (Android)
+
+### Recommended Implementation Workflow
+
+1. **Audit Current State**
+   - Visual testing with browser automation
+   - Document all issues found
+   - Prioritize by user impact
+
+2. **Create Enhancement Layer**
+   - Single CSS file for all fixes
+   - Use CSS custom properties
+   - High specificity where needed
+
+3. **Test Thoroughly**
+   - Visual regression tests
+   - Cross-browser testing
+   - Mobile device testing
+   - Dark mode validation
+
+4. **Deploy Incrementally**
+   - Start with non-critical pages
+   - Monitor performance metrics
+   - Gather user feedback
+   - Iterate based on results
+
+5. **Document Everything**
+   - Comment complex overrides
+   - Maintain change log
+   - Create migration guide
+   - Update team knowledge base
+
+### Key Takeaways
+
+1. **Layered Architecture Works**: Enhancement layers allow gradual migration
+2. **CSS Custom Properties Essential**: Provide flexibility and maintainability
+3. **Visual Testing Critical**: Catches issues static analysis misses
+4. **Mobile-First Non-Negotiable**: Easier to enhance than restrict
+5. **Performance Monitoring Required**: Measure impact of changes
+6. **Documentation Prevents Regression**: Future developers need context
+
+### Migration Path Forward
+
+1. **Phase 1**: Apply visual fixes layer (current approach)
+2. **Phase 2**: Refactor component styles to use tokens
+3. **Phase 3**: Consolidate redundant styles
+4. **Phase 4**: Implement full design system
+5. **Phase 5**: Remove enhancement layer
+
+This phased approach minimizes risk while providing immediate value to users.

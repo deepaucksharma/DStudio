@@ -87,6 +87,7 @@ nav:
   - Getting Started:
     - Welcome: introduction/index.md
     - Preface - Why Another Book?: introduction/preface.md
+    - The Zeroth Principles: introduction/zeroth-principles.md
     - Our Philosophy: introduction/philosophy.md
     - Prerequisites Check: introduction/prerequisites.md
     - Learning Paths: introduction/roadmap.md

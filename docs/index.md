@@ -9,16 +9,16 @@
     <p class="hero-subtitle">Derive patterns from physics, not memorization</p>
     <div class="hero-stats">
       <div class="stat-item">
+        <span class="stat-number">3</span>
+        <span class="stat-label">Metaphysical Truths</span>
+      </div>
+      <div class="stat-item">
         <span class="stat-number">8</span>
         <span class="stat-label">Fundamental Axioms</span>
       </div>
       <div class="stat-item">
         <span class="stat-number">6</span>
         <span class="stat-label">Core Pillars</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">50+</span>
-        <span class="stat-label">Real-World Cases</span>
       </div>
     </div>
     <div class="hero-cta">
@@ -37,23 +37,23 @@
 
 <div class="grid cards" markdown>
 
+- :material-atom:{ .lg .middle } **[Zeroth Principles →](introduction/zeroth-principles.md)**
+
+    ---
+
+    Begin with the three metaphysical truths that govern all systems
+
+- :material-lightbulb:{ .lg .middle } **[The Deductive Method →](introduction/philosophy.md)**
+
+    ---
+
+    Learn to derive solutions from first principles, not memorize patterns
+
 - :material-map:{ .lg .middle } **[Learning Paths →](introduction/roadmap.md)**
 
     ---
 
-    Choose a customized path based on your role and experience level
-
-- :material-lightbulb:{ .lg .middle } **[Key Concepts →](#what-youll-learn)**
-
-    ---
-
-    Explore the 8 fundamental axioms that govern all distributed systems
-
-- :material-github:{ .lg .middle } **[Contribute →](https://github.com/deepaucksharma/DStudio)**
-
-    ---
-
-    Join our community and help improve this resource
+    Choose a customized journey based on your role and experience
 
 </div>
 
@@ -86,15 +86,56 @@
 </div>
 
 
-## 🎯 Our Philosophy
+## 🎯 Our Philosophy: The Principia Method
 
-This project takes a unique approach to teaching distributed systems:
+This project takes a revolutionary approach to teaching distributed systems through pure deductive reasoning:
 
-- **Physics First**: We start with the speed of light, not with Kafka
-- **Math Over Mythology**: Quantitative trade-offs replace "best practices"
-- **Failures as Teachers**: Real production disasters illuminate principles
-- **Derive, Don't Memorize**: Every pattern emerges from fundamental constraints
+<div class="truth-box">
 
+### The Deductive Chain
+```
+Metaphysical Truths (What Reality IS)
+         ↓
+Physical Constraints (What This MEANS)
+         ↓
+System Axioms (What This FORCES)
+         ↓
+Engineering Patterns (What We BUILD)
+         ↓
+Operational Wisdom (How We RUN)
+```
+
+</div>
+
+- **Metaphysics First**: We start with three fundamental truths about reality
+- **Physics Over Preferences**: The speed of light, not design patterns
+- **Math Over Mythology**: Every solution is mathematically necessary
+- **Derive Everything**: No memorization—only logical deduction
+
+
+## 🧭 The Complete Intellectual Journey
+
+<div class="decision-box">
+
+### From Metaphysics to Mastery
+
+```mermaid
+graph LR
+    A[Zeroth Principles<br/>3 Truths] --> B[First Principles<br/>8 Axioms]
+    B --> C[Second Principles<br/>Abstract Models]
+    C --> D[Third Principles<br/>Engineering Patterns]
+    D --> E[Fourth Principles<br/>Operational Philosophy]
+    E --> F[Mastery<br/>Adaptive Systems]
+    
+    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
+    style B fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    style D fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style E fill:#ffebee,stroke:#d32f2f,stroke-width:2px
+    style F fill:#fce4ec,stroke:#c2185b,stroke-width:3px
+```
+
+</div>
 
 ## 📚 What You'll Learn
 

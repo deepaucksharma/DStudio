@@ -211,6 +211,68 @@ All spacing based on 8px increments:
 - Automated tooling where possible
 - Clear communication timeline
 
+## Lessons Learned from Implementation
+
+### CSS Architecture Insights
+Based on our comprehensive visual testing and fixes, key learnings include:
+
+#### 1. Layered CSS Approach
+- **Base layer**: Existing design system remains intact
+- **Enhancement layer**: Targeted fixes with high specificity
+- **Custom properties**: Essential for maintainable theming
+- **Modular structure**: Easier to debug and maintain
+
+#### 2. Typography Best Practices
+- **Fluid typography**: Using `clamp()` for responsive scaling
+- **CSS custom properties**: For consistent type scales
+- **Line height ratios**: Different for headings vs body text
+- **Dark mode considerations**: Separate color values for each theme
+
+#### 3. Spacing System Success
+- **8px base unit**: Proven effective across all components
+- **Named spacing tokens**: Better than arbitrary values
+- **Consistent application**: Creates visual rhythm
+- **Mobile adjustments**: Reduced spacing on small screens
+
+#### 4. Component Styling Patterns
+- **Box shadows**: Subtle depth improves hierarchy
+- **Border radius consistency**: Using tokens not magic numbers
+- **Hover states**: Transform + shadow creates engagement
+- **Focus states**: Critical for accessibility
+
+#### 5. Common Issues Addressed
+- **Font sizes too large**: Especially in hero sections
+- **Inconsistent spacing**: Between sections and components
+- **Poor dark mode contrast**: Required careful color adjustments
+- **Mobile responsiveness**: Needed specific breakpoint handling
+
+### Implementation Recommendations
+
+#### CSS Organization
+```css
+/* Recommended structure */
+:root {
+  /* Design tokens first */
+  --space-unit: 8px;
+  --text-base: 1rem;
+  /* Build scales from tokens */
+  --space-sm: calc(var(--space-unit) * 1);
+  --text-lg: calc(var(--text-base) * 1.125);
+}
+```
+
+#### Testing Strategy
+1. **Visual regression testing**: Screenshot comparisons
+2. **Cross-browser testing**: Especially for CSS features
+3. **Dark mode testing**: Separate pass for theme switching
+4. **Mobile testing**: Real device testing preferred
+
+#### Performance Optimizations
+- **CSS custom properties**: Reduce repetition
+- **Efficient selectors**: Avoid deep nesting
+- **Media query organization**: Mobile-first approach
+- **Critical CSS**: Inline above-the-fold styles
+
 ## Success Metrics
 
 ### Quantitative

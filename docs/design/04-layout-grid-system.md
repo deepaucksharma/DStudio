@@ -764,3 +764,259 @@ All spacing derived from base unit of 8px:
 - [ ] Verify overflow behavior
 - [ ] Check z-index stacking
 - [ ] Test print layouts
+
+## Lessons Learned from Implementation
+
+### 8px Grid System Success
+
+Our implementation proved the effectiveness of the 8px grid system:
+
+```css
+/* Successful spacing scale */
+:root {
+  --space-xs: 0.25rem;   /* 4px - fine adjustments */
+  --space-sm: 0.5rem;    /* 8px - tight spacing */
+  --space-md: 1rem;      /* 16px - default spacing */
+  --space-lg: 1.5rem;    /* 24px - comfortable spacing */
+  --space-xl: 2rem;      /* 32px - section spacing */
+  --space-2xl: 3rem;     /* 48px - major sections */
+  --space-3xl: 4rem;     /* 64px - hero sections */
+}
+```
+
+**Key Benefits:**
+- Visual consistency across all components
+- Easy mental model for developers
+- Reduced decision fatigue
+- Improved visual rhythm
+
+### Content Width Optimization
+
+Discovered optimal content widths through testing:
+
+```css
+/* Content container that works */
+.md-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: var(--space-xl) var(--space-lg);
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+  .md-content {
+    padding: var(--space-lg) var(--space-md);
+  }
+}
+```
+
+**Findings:**
+- 1200px max-width prevents overly long lines
+- Centered content improves reading experience
+- Dynamic padding maintains edge breathing room
+- Mobile needs tighter padding
+
+### Grid Layout Patterns
+
+#### 1. Flexible Card Grids
+```css
+/* Axiom grid implementation */
+.axiom-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1rem;
+  margin: 1.5rem 0;
+}
+```
+
+**Why it works:**
+- `auto-fill` creates responsive layouts without media queries
+- `minmax()` ensures cards don't get too small or too large
+- Consistent gap creates visual cohesion
+- No orphaned cards on any screen size
+
+#### 2. Hero Section Layout
+```css
+/* Hero stats grid */
+.hero .stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  max-width: 600px;
+  margin: 2rem auto;
+}
+
+/* Mobile adaptation */
+@media (max-width: 768px) {
+  .hero .stats {
+    grid-template-columns: 1fr;
+    gap: var(--space-md);
+  }
+}
+```
+
+### Spacing Consistency Issues Fixed
+
+#### 1. Heading Margins
+**Problem**: Inconsistent spacing between content sections
+**Solution**: Systematic margin application
+```css
+h1 { margin-bottom: var(--space-lg); }
+h2 { 
+  margin-top: var(--space-2xl); 
+  margin-bottom: var(--space-md); 
+}
+h3 { 
+  margin-top: var(--space-xl); 
+  margin-bottom: var(--space-sm); 
+}
+
+/* Reduce space after headings before paragraphs */
+h1 + p, h2 + p, h3 + p {
+  margin-top: var(--space-sm);
+}
+```
+
+#### 2. Component Spacing
+**Problem**: Random margins on components
+**Solution**: Consistent spacing tokens
+```css
+.axiom-box,
+.decision-box,
+.failure-vignette,
+.truth-box {
+  margin: var(--space-xl) 0;
+  padding: var(--space-lg);
+}
+```
+
+### Mobile Layout Adaptations
+
+#### 1. Full-Width Components on Mobile
+```css
+/* Hero section mobile optimization */
+@media (max-width: 768px) {
+  .hero {
+    margin: var(--space-md) calc(-1 * var(--space-md)) var(--space-xl);
+    border-radius: 0;
+  }
+}
+```
+
+**Purpose:**
+- Negative margins create edge-to-edge layout
+- Removes border-radius for true full-width
+- Maintains vertical spacing rhythm
+
+#### 2. Stack Layouts on Mobile
+```css
+/* Desktop: side-by-side, Mobile: stacked */
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+  .hero-actions {
+    flex-direction: column;
+    width: 100%;
+  }
+  
+  .hero-actions .md-button {
+    width: 100%;
+    justify-content: center;
+  }
+}
+```
+
+### Common Layout Pitfalls Avoided
+
+1. **Avoid fixed widths**: Use max-width instead
+2. **Don't forget horizontal padding**: Essential on mobile
+3. **Use rems for spacing**: Respects user preferences
+4. **Test overflow**: Especially for tables and code blocks
+5. **Consider RTL**: Use logical properties where possible
+
+### Performance Optimizations
+
+#### 1. Efficient Selectors
+```css
+/* High-specificity targeting for overrides */
+.md-typeset h1 { /* specific enough to override */ }
+
+/* Avoid deep nesting */
+/* Bad: .container .content .section .heading h1 */
+/* Good: .md-typeset h1 */
+```
+
+#### 2. Layout Containment
+```css
+/* Prevent layout recalculation cascade */
+.hero {
+  contain: layout;
+}
+```
+
+### Recommended Layout Patterns
+
+#### 1. Article Layout
+```css
+article {
+  max-width: 65ch; /* Optimal reading width */
+  margin: 0 auto;
+  padding: 0 var(--space-lg);
+}
+```
+
+#### 2. Dashboard Grid
+```css
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--space-lg);
+}
+```
+
+#### 3. Sidebar Layout
+```css
+.layout-with-sidebar {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: var(--space-xl);
+}
+
+@media (max-width: 1024px) {
+  .layout-with-sidebar {
+    grid-template-columns: 1fr;
+  }
+}
+```
+
+### Testing Insights
+
+#### Visual Testing Results
+- Grid alignment issues visible at 1024px breakpoint
+- Spacing inconsistencies most apparent in list views
+- Mobile layouts need explicit testing at 375px (iPhone SE)
+- Print layouts require separate spacing considerations
+
+#### Cross-Browser Findings
+- Safari needs `-webkit-` prefix for some grid features
+- Firefox handles subgrid differently
+- Chrome's grid inspector invaluable for debugging
+
+### Future Considerations
+
+1. **Container Queries**: Would eliminate many media queries
+2. **Subgrid Support**: Better nested grid alignment
+3. **Logical Properties**: Improved internationalization
+4. **CSS Grid Level 3**: Native masonry layouts
+
+### Key Takeaways
+
+1. **Consistency is King**: Use spacing tokens religiously
+2. **Mobile-First Works**: Easier to enhance than restrict
+3. **Test Early and Often**: Visual testing catches issues CSS linting misses
+4. **Document Decisions**: Future you will thank current you
+5. **Performance Matters**: Layout shifts frustrate users

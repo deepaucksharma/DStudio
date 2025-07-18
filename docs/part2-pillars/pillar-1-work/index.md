@@ -14,6 +14,27 @@
 !!! target "Learning Objective"
     Master the art of spreading computation without spreading complexity.
 
+## Deductive Origin: The Mathematical Necessity
+
+<div class="axiom-box">
+
+### From Axioms to Inevitable Architecture
+
+**The Logical Chain**:
+
+1. **Given**: Axiom 2 (Finite Capacity) - Every component has limits
+2. **Given**: User demand can exceed any single component's capacity
+3. **Therefore**: Must either (a) reject requests or (b) add components
+4. **Given**: Axiom 3 (Failure) - Components fail independently
+5. **Therefore**: Need multiple components for availability
+6. **Given**: Multiple components exist
+7. **Therefore**: Must distribute work among them
+8. **QED**: Work distribution is logically necessary
+
+**The Calculus of Work**: This isn't a design pattern—it's a mathematical theorem. Given finite capacity and the requirement for availability, work distribution is the only solution that doesn't violate the axioms.
+
+</div>
+
 ## Why This Pillar Exists
 
 <div class="axiom-connection">
@@ -44,6 +65,13 @@ considering:
 - Required resources
 - Failure domains
 ```
+
+**Push vs Pull: A Deductive Analysis**
+
+This fundamental duality emerges from information theory:
+- **Push**: Client decides based on incomplete knowledge
+- **Pull**: Worker decides based on complete self-knowledge
+- **Theorem**: Pull systems are provably more stable under variable load
 
 </div>
 

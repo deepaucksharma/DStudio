@@ -496,3 +496,187 @@ body {
 - [ ] Cross-browser testing
 - [ ] Performance benchmarking
 - [ ] Documentation update
+
+## Lessons Learned from Implementation
+
+### Typography Challenges and Solutions
+
+#### 1. Fluid Typography Success
+Our implementation of `clamp()` for responsive typography proved highly effective:
+
+```css
+/* Successful fluid type scale */
+.md-typeset h1 {
+  font-size: clamp(var(--text-3xl), 1.75rem + 1.25vw, var(--text-4xl));
+}
+```
+
+**Key Benefits:**
+- Smooth scaling between breakpoints
+- No jarring size jumps
+- Reduced media queries
+- Better performance
+
+#### 2. Line Height Optimization
+Different content types need different line heights:
+
+```css
+/* Optimized line heights */
+:root {
+  --leading-tight: 1.2;    /* Headings */
+  --leading-normal: 1.5;   /* UI elements */
+  --leading-relaxed: 1.7;  /* Body text */
+}
+```
+
+**Findings:**
+- Headings need tighter leading for visual impact
+- Body text benefits from relaxed leading
+- Code blocks work best with normal leading
+
+#### 3. Font Weight Hierarchy
+Discovered that traditional bold isn't always best:
+
+```css
+/* Refined weight system */
+h1 { font-weight: 700; }  /* Bold for emphasis */
+h2 { font-weight: 600; }  /* Semi-bold for hierarchy */
+h3 { font-weight: 600; }  /* Consistent sub-headings */
+h4 { font-weight: 600; }  /* Maintains readability */
+```
+
+#### 4. Dark Mode Typography
+Text needs different treatment in dark mode:
+
+```css
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] {
+  /* Slightly reduce contrast for comfort */
+  --text-primary: #F9FAFB;    /* Not pure white */
+  --text-secondary: #E5E7EB;  /* Softer secondary */
+}
+```
+
+### Common Typography Issues Fixed
+
+#### 1. Oversized Hero Text
+**Problem**: Hero sections had 60px+ text that dominated the page
+**Solution**: Capped maximum sizes with fluid scaling
+```css
+font-size: clamp(2.5rem, 2rem + 2.5vw, 3.5rem);
+```
+
+#### 2. Inconsistent Spacing
+**Problem**: Random margins between text elements
+**Solution**: Systematic spacing based on text size
+```css
+h1 { margin-bottom: var(--space-lg); }
+h2 { margin-top: var(--space-2xl); margin-bottom: var(--space-md); }
+p { margin-bottom: var(--space-md); }
+```
+
+#### 3. Poor Mobile Readability
+**Problem**: Text too small on mobile devices
+**Solution**: Minimum sizes in clamp() functions
+```css
+font-size: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+/*               ^^^^ Never smaller than 16px */
+```
+
+### Typography Best Practices
+
+#### 1. CSS Custom Properties Usage
+```css
+/* Define once, use everywhere */
+:root {
+  --text-base: 1rem;
+  --text-scale-ratio: 1.25;
+  --text-lg: calc(var(--text-base) * var(--text-scale-ratio));
+}
+```
+
+#### 2. Consistent Letter Spacing
+```css
+/* Subtle adjustments for better readability */
+h1, h2, h3 {
+  letter-spacing: -0.02em; /* Tighten large text */
+}
+
+.uppercase {
+  letter-spacing: 0.05em; /* Loosen uppercase */
+}
+```
+
+#### 3. Optimal Line Lengths
+```css
+/* Constrain content width for readability */
+.md-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+article {
+  max-width: 65ch; /* Optimal reading length */
+}
+```
+
+### Performance Considerations
+
+#### 1. System Font Benefits
+- Zero download time
+- Native rendering optimization
+- Consistent with OS
+- Reduced layout shift
+
+#### 2. Font Loading Strategy
+```css
+/* Avoid invisible text during font load */
+font-display: swap;
+
+/* Fallback stack matches metrics */
+font-family: -apple-system, BlinkMacSystemFont, 
+             "Segoe UI", Roboto, sans-serif;
+```
+
+### Testing Insights
+
+#### Visual Hierarchy Testing
+- Users scan headings first
+- Clear size differences improve navigation
+- Consistent spacing creates rhythm
+- Weight variations add emphasis without size changes
+
+#### Accessibility Findings
+- 16px minimum for body text
+- 1.5x line height minimum for readability
+- High contrast essential for all text sizes
+- Focus indicators must be visible
+
+### Recommended Typography Patterns
+
+```css
+/* Article typography */
+.article {
+  font-size: var(--text-base);
+  line-height: var(--leading-relaxed);
+  max-width: 65ch;
+}
+
+.article h2 {
+  margin-top: var(--space-2xl);
+  margin-bottom: var(--space-md);
+}
+
+.article h2 + p {
+  /* Reduce space after headings */
+  margin-top: var(--space-sm);
+}
+
+/* UI typography */
+.button {
+  font-size: var(--text-base);
+  font-weight: var(--font-semibold);
+  line-height: var(--leading-normal);
+  letter-spacing: 0.01em;
+}
+```

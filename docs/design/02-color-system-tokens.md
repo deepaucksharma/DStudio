@@ -400,3 +400,112 @@ describe('Color Contrast', () => {
 - Personalized color schemes
 - A/B testing integration
 - Performance monitoring
+
+## Lessons Learned from Implementation
+
+### Real-World Color Challenges
+
+#### 1. Dark Mode Complexity
+Our testing revealed that simple color inversion doesn't work:
+- **Background colors**: Need careful adjustment, not just inversion
+- **Shadow effects**: Must be rethought for dark surfaces
+- **Contrast ratios**: Different requirements for dark vs light
+- **Brand colors**: May need adjustment for dark backgrounds
+
+#### 2. Gradient Considerations
+```css
+/* Light mode gradient */
+.hero {
+  background: linear-gradient(135deg, #5448C8 0%, #00BCD4 100%);
+}
+
+/* Dark mode needs adjusted colors */
+[data-md-color-scheme="slate"] .hero {
+  background: linear-gradient(135deg, #6B5ED6 0%, #00D9F5 100%);
+}
+```
+
+#### 3. Transparency Best Practices
+```css
+/* Use RGB values for flexible transparency */
+:root {
+  --primary-rgb: 84, 72, 200;
+  --success-rgb: 16, 185, 129;
+}
+
+/* Apply with rgba() */
+.box {
+  background: rgba(var(--primary-rgb), 0.05);
+}
+```
+
+#### 4. Component-Specific Colors
+Different components need different color treatments:
+- **Admonitions**: Light tints with strong borders
+- **Code blocks**: Dark backgrounds even in light mode
+- **Tables**: Alternating row colors for readability
+- **Buttons**: Clear hover and active states
+
+### Practical Implementation Tips
+
+#### 1. CSS Custom Properties Organization
+```css
+:root {
+  /* Base colors first */
+  --gray-50: #FAFAFA;
+  
+  /* Semantic mappings */
+  --text-primary: var(--gray-900);
+  
+  /* Component-specific */
+  --button-primary-bg: var(--primary-600);
+}
+```
+
+#### 2. Color Testing Checklist
+- [ ] WCAG AAA contrast for body text
+- [ ] WCAG AA for large text and UI components
+- [ ] Dark mode contrast validation
+- [ ] Color blind simulation testing
+- [ ] Print stylesheet considerations
+
+#### 3. Performance Optimizations
+- Avoid excessive CSS custom property lookups
+- Group color changes in media queries
+- Use native CSS color functions when possible
+
+### Common Pitfalls Avoided
+
+1. **Over-reliance on transparency**: Can cause readability issues
+2. **Insufficient dark mode testing**: Many edge cases discovered
+3. **Ignoring hover states**: Critical for user feedback
+4. **Hard-coded colors**: Always use tokens
+
+### Recommended Color Combinations
+
+#### High Contrast Pairs
+```css
+/* Text on backgrounds */
+--high-contrast-pairs: {
+  /* Light mode */
+  text: var(--gray-900);
+  background: var(--gray-50);
+  
+  /* Dark mode */
+  text: var(--gray-50);
+  background: var(--gray-900);
+}
+```
+
+#### Semantic Color Usage
+```css
+/* Status indicators */
+.status-success { color: var(--success-700); }
+.status-warning { color: var(--warning-700); }
+.status-error { color: var(--error-700); }
+
+/* Backgrounds */
+.bg-success { background: var(--success-50); }
+.bg-warning { background: var(--warning-50); }
+.bg-error { background: var(--error-50); }
+```
