@@ -1,19 +1,23 @@
 // Advanced Visualization Engine for Interactive Diagrams
 
-import * as d3 from 'd3';
-import mermaid from 'mermaid';
+(function() {
+  'use strict';
 
 class VisualizationEngine {
   constructor() {
     this.visualizations = new Map();
+    
+    // Get colors from CSS custom properties
+    const rootStyles = getComputedStyle(document.documentElement);
+    
     this.config = {
       colors: {
-        primary: '#5448C8',
-        secondary: '#00BCD4',
-        success: '#4CAF50',
-        warning: '#FF9800',
-        danger: '#F44336',
-        neutral: '#9E9E9E'
+        primary: rootStyles.getPropertyValue('--primary-600').trim() || '#3F51B5',
+        secondary: rootStyles.getPropertyValue('--info-500').trim() || '#2196F3',
+        success: rootStyles.getPropertyValue('--success-500').trim() || '#4CAF50',
+        warning: rootStyles.getPropertyValue('--warning-500').trim() || '#FF9800',
+        danger: rootStyles.getPropertyValue('--error-500').trim() || '#F44336',
+        neutral: rootStyles.getPropertyValue('--gray-500').trim() || '#9E9E9E'
       },
       animations: {
         duration: 300,
@@ -811,4 +815,4 @@ const vizStyles = `
 
 document.head.insertAdjacentHTML('beforeend', vizStyles);
 
-export default VisualizationEngine;
+})();
