@@ -1,8 +1,78 @@
 /* ============================================
    VISUAL FIXES FOR EXISTING DESIGN SYSTEM
    ============================================
-   Targeted fixes for specific visual issues
+   Comprehensive fixes for visual issues across
+   all pages based on thorough testing
    ============================================ */
+
+/* ========== CSS Custom Properties ========== */
+:root {
+  /* Spacing Scale - Base 8px */
+  --space-xs: 0.25rem;   /* 4px */
+  --space-sm: 0.5rem;    /* 8px */
+  --space-md: 1rem;      /* 16px */
+  --space-lg: 1.5rem;    /* 24px */
+  --space-xl: 2rem;      /* 32px */
+  --space-2xl: 3rem;     /* 48px */
+  --space-3xl: 4rem;     /* 64px */
+  
+  /* Typography Scale */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-lg: 1.125rem;   /* 18px */
+  --text-xl: 1.25rem;    /* 20px */
+  --text-2xl: 1.5rem;    /* 24px */
+  --text-3xl: 2rem;      /* 32px */
+  --text-4xl: 2.5rem;    /* 40px */
+  
+  /* Line Heights */
+  --leading-tight: 1.2;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.7;
+  
+  /* Shadows */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1);
+  
+  /* Border Radius */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+}
+
+/* ========== Global Fixes ========== */
+/* Fix content width and spacing */
+.md-content {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+  padding: var(--space-xl) var(--space-lg) !important;
+}
+
+/* Fix main content area spacing */
+.md-main__inner {
+  padding-top: 0 !important;
+}
+
+/* Better article spacing */
+article {
+  margin-top: var(--space-xl) !important;
+}
+
+/* ========== Typography System ========== */
+/* Base typography improvements */
+.md-typeset {
+  font-size: var(--text-base) !important;
+  line-height: var(--leading-relaxed) !important;
+  color: #374151 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset {
+  color: #E5E7EB !important;
+}
 
 /* ========== Hero Section Fixes ========== */
 .hero {
@@ -213,51 +283,94 @@
 
 /* ========== Typography Fixes ========== */
 .md-typeset h1 {
-  font-size: clamp(2rem, 1.75rem + 1.25vw, 2.5rem) !important;
+  font-size: clamp(var(--text-3xl), 1.75rem + 1.25vw, var(--text-4xl)) !important;
   font-weight: 700 !important;
-  line-height: 1.2 !important;
-  margin-bottom: 1.5rem !important;
+  line-height: var(--leading-tight) !important;
+  margin-top: 0 !important;
+  margin-bottom: var(--space-lg) !important;
   color: #111827 !important;
+  letter-spacing: -0.02em !important;
 }
 
 .md-typeset h2 {
-  font-size: clamp(1.5rem, 1.35rem + 0.75vw, 2rem) !important;
+  font-size: clamp(var(--text-2xl), 1.35rem + 0.75vw, var(--text-3xl)) !important;
   font-weight: 600 !important;
-  line-height: 1.3 !important;
-  margin-top: 2.5rem !important;
-  margin-bottom: 1rem !important;
+  line-height: var(--leading-tight) !important;
+  margin-top: var(--space-2xl) !important;
+  margin-bottom: var(--space-md) !important;
   color: #1F2937 !important;
-  padding-bottom: 0.5rem !important;
+  padding-bottom: var(--space-sm) !important;
   border-bottom: 2px solid #E5E7EB !important;
 }
 
 .md-typeset h3 {
-  font-size: clamp(1.25rem, 1.15rem + 0.5vw, 1.5rem) !important;
+  font-size: clamp(var(--text-xl), 1.15rem + 0.5vw, var(--text-2xl)) !important;
   font-weight: 600 !important;
-  line-height: 1.4 !important;
-  margin-top: 2rem !important;
-  margin-bottom: 0.75rem !important;
+  line-height: var(--leading-normal) !important;
+  margin-top: var(--space-xl) !important;
+  margin-bottom: var(--space-sm) !important;
   color: #374151 !important;
 }
 
-.md-typeset p {
-  font-size: 1.0625rem !important;
-  line-height: 1.7 !important;
-  margin-bottom: 1.25rem !important;
+.md-typeset h4 {
+  font-size: var(--text-lg) !important;
+  font-weight: 600 !important;
+  line-height: var(--leading-normal) !important;
+  margin-top: var(--space-lg) !important;
+  margin-bottom: var(--space-sm) !important;
   color: #4B5563 !important;
+}
+
+.md-typeset p {
+  font-size: var(--text-base) !important;
+  line-height: var(--leading-relaxed) !important;
+  margin-bottom: var(--space-md) !important;
+  color: #4B5563 !important;
+}
+
+/* Better paragraph spacing after headings */
+.md-typeset h1 + p,
+.md-typeset h2 + p,
+.md-typeset h3 + p {
+  margin-top: var(--space-sm) !important;
+}
+
+/* Dark mode typography */
+[data-md-color-scheme="slate"] .md-typeset h1 {
+  color: #F9FAFB !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h2 {
+  color: #F3F4F6 !important;
+  border-bottom-color: #4B5563 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h3 {
+  color: #E5E7EB !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset h4 {
+  color: #D1D5DB !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset p {
+  color: #D1D5DB !important;
 }
 
 /* ========== Content Box Components ========== */
 .axiom-box,
 .decision-box,
 .failure-vignette,
-.truth-box {
-  padding: 1.5rem !important;
-  border-radius: 0.75rem !important;
-  margin: 2rem 0 !important;
+.truth-box,
+.md-typeset .admonition,
+.md-typeset details {
+  padding: var(--space-lg) !important;
+  border-radius: var(--radius-lg) !important;
+  margin: var(--space-xl) 0 !important;
   border: 2px solid !important;
   position: relative !important;
   background-color: transparent !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 .axiom-box {
@@ -280,42 +393,113 @@
   border-color: #3B82F6 !important;
 }
 
-/* Box icons */
-.axiom-box::before,
-.decision-box::before,
-.failure-vignette::before,
-.truth-box::before {
-  position: absolute !important;
-  top: 1rem !important;
-  right: 1rem !important;
-  font-size: 1.5rem !important;
-  opacity: 0.3 !important;
+/* Admonition styles */
+.md-typeset .admonition,
+.md-typeset details {
+  border-left: 4px solid !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.md-typeset .admonition.note,
+.md-typeset details.note {
+  background: rgba(59, 130, 246, 0.05) !important;
+  border-left-color: #3B82F6 !important;
+  border-color: #DBEAFE !important;
+}
+
+.md-typeset .admonition.warning,
+.md-typeset details.warning {
+  background: rgba(251, 191, 36, 0.05) !important;
+  border-left-color: #F59E0B !important;
+  border-color: #FEF3C7 !important;
+}
+
+.md-typeset .admonition.danger,
+.md-typeset details.danger {
+  background: rgba(239, 68, 68, 0.05) !important;
+  border-left-color: #EF4444 !important;
+  border-color: #FEE2E2 !important;
+}
+
+/* Dark mode adjustments */
+[data-md-color-scheme="slate"] .axiom-box {
+  background: rgba(84, 72, 200, 0.1) !important;
+}
+
+[data-md-color-scheme="slate"] .decision-box {
+  background: rgba(16, 185, 129, 0.1) !important;
+}
+
+[data-md-color-scheme="slate"] .failure-vignette {
+  background: rgba(239, 68, 68, 0.1) !important;
+}
+
+[data-md-color-scheme="slate"] .truth-box {
+  background: rgba(59, 130, 246, 0.1) !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset .admonition,
+[data-md-color-scheme="slate"] .md-typeset details {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-color: #374151 !important;
 }
 
 /* ========== Tables ========== */
 .md-typeset table {
-  margin: 2rem 0 !important;
-  border-radius: 0.5rem !important;
+  margin: var(--space-xl) 0 !important;
+  border-radius: var(--radius-lg) !important;
   overflow: hidden !important;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1) !important;
+  box-shadow: var(--shadow-md) !important;
+  border: 1px solid #E5E7EB !important;
+  width: 100% !important;
 }
 
 .md-typeset table th {
   background: #F3F4F6 !important;
   font-weight: 600 !important;
-  padding: 0.75rem 1rem !important;
+  padding: var(--space-md) !important;
   text-align: left !important;
   color: #1F2937 !important;
   border-bottom: 2px solid #E5E7EB !important;
+  font-size: var(--text-sm) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.05em !important;
 }
 
 .md-typeset table td {
-  padding: 0.75rem 1rem !important;
+  padding: var(--space-md) !important;
   border-bottom: 1px solid #E5E7EB !important;
+  font-size: var(--text-base) !important;
+  color: #4B5563 !important;
 }
 
 .md-typeset table tr:last-child td {
   border-bottom: none !important;
+}
+
+.md-typeset table tr:hover {
+  background: #F9FAFB !important;
+}
+
+/* Dark mode tables */
+[data-md-color-scheme="slate"] .md-typeset table {
+  border-color: #374151 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table th {
+  background: #374151 !important;
+  color: #F3F4F6 !important;
+  border-bottom-color: #4B5563 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table td {
+  border-bottom-color: #374151 !important;
+  color: #D1D5DB !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset table tr:hover {
+  background: #1F2937 !important;
 }
 
 /* ========== Dark Mode Adjustments ========== */
@@ -362,29 +546,38 @@
 
 /* ========== Mobile Responsiveness ========== */
 @media (max-width: 768px) {
+  /* Adjust content padding on mobile */
+  .md-content {
+    padding: var(--space-lg) var(--space-md) !important;
+  }
+  
+  /* Hero section mobile */
   .hero {
-    padding: 3rem 1.5rem !important;
-    margin: 1rem -1rem 2rem !important;
+    padding: var(--space-2xl) var(--space-lg) !important;
+    margin: var(--space-md) calc(-1 * var(--space-md)) var(--space-xl) !important;
     border-radius: 0 !important;
   }
   
   .hero h1 {
-    font-size: 2rem !important;
+    font-size: var(--text-3xl) !important;
   }
   
   .hero p {
-    font-size: 1.125rem !important;
+    font-size: var(--text-lg) !important;
   }
   
   .hero .stats {
     grid-template-columns: 1fr !important;
-    gap: 1rem !important;
+    gap: var(--space-md) !important;
   }
   
+  /* Axiom grid mobile */
   .axiom-grid {
     grid-template-columns: 1fr !important;
+    gap: var(--space-md) !important;
   }
   
+  /* Hero actions mobile */
   .hero-actions {
     flex-direction: column !important;
     width: 100% !important;
@@ -393,6 +586,39 @@
   .hero-actions .md-button {
     width: 100% !important;
     justify-content: center !important;
+  }
+  
+  /* Typography adjustments for mobile */
+  .md-typeset h1 {
+    font-size: var(--text-3xl) !important;
+  }
+  
+  .md-typeset h2 {
+    font-size: var(--text-2xl) !important;
+    margin-top: var(--space-xl) !important;
+  }
+  
+  .md-typeset h3 {
+    font-size: var(--text-xl) !important;
+    margin-top: var(--space-lg) !important;
+  }
+  
+  /* Table scroll on mobile */
+  .md-typeset table {
+    display: block !important;
+    overflow-x: auto !important;
+    white-space: nowrap !important;
+  }
+  
+  /* Content boxes on mobile */
+  .axiom-box,
+  .decision-box,
+  .failure-vignette,
+  .truth-box,
+  .md-typeset .admonition,
+  .md-typeset details {
+    margin: var(--space-lg) 0 !important;
+    padding: var(--space-md) !important;
   }
 }
 
@@ -411,18 +637,21 @@ html {
 /* Code blocks */
 .md-typeset pre {
   background: #1F2937 !important;
-  border-radius: 0.5rem !important;
-  padding: 1rem !important;
+  border-radius: var(--radius-md) !important;
+  padding: var(--space-lg) !important;
   overflow-x: auto !important;
-  margin: 1.5rem 0 !important;
+  margin: var(--space-xl) 0 !important;
+  box-shadow: var(--shadow-md) !important;
+  border: 1px solid #374151 !important;
 }
 
 .md-typeset code {
   background: #F3F4F6 !important;
-  padding: 0.125rem 0.375rem !important;
-  border-radius: 0.25rem !important;
+  padding: var(--space-xs) 0.375rem !important;
+  border-radius: var(--radius-sm) !important;
   font-size: 0.875em !important;
   color: #DC2626 !important;
+  font-weight: 500 !important;
 }
 
 [data-md-color-scheme="slate"] .md-typeset code {
@@ -430,16 +659,30 @@ html {
   color: #F87171 !important;
 }
 
+/* Pre code blocks should not have inline code styling */
+.md-typeset pre code {
+  background: transparent !important;
+  padding: 0 !important;
+  color: #E5E7EB !important;
+  font-weight: normal !important;
+}
+
 /* Lists */
 .md-typeset ul,
 .md-typeset ol {
-  margin: 1.25rem 0 !important;
-  padding-left: 1.75rem !important;
+  margin: var(--space-lg) 0 !important;
+  padding-left: var(--space-xl) !important;
 }
 
 .md-typeset li {
-  margin: 0.5rem 0 !important;
-  line-height: 1.7 !important;
+  margin: var(--space-sm) 0 !important;
+  line-height: var(--leading-relaxed) !important;
+}
+
+/* Nested lists */
+.md-typeset li ul,
+.md-typeset li ol {
+  margin: var(--space-sm) 0 !important;
 }
 
 /* Links */
@@ -448,26 +691,128 @@ html {
   text-decoration: none !important;
   font-weight: 500 !important;
   transition: all 0.2s ease !important;
+  border-bottom: 1px solid transparent !important;
 }
 
 .md-typeset a:hover {
   color: #00BCD4 !important;
-  text-decoration: underline !important;
+  border-bottom-color: #00BCD4 !important;
+}
+
+/* Dark mode links */
+[data-md-color-scheme="slate"] .md-typeset a {
+  color: #818CF8 !important;
+}
+
+[data-md-color-scheme="slate"] .md-typeset a:hover {
+  color: #00D9F5 !important;
+  border-bottom-color: #00D9F5 !important;
 }
 
 /* Blockquotes */
 .md-typeset blockquote {
   border-left: 4px solid #5448C8 !important;
-  padding-left: 1.5rem !important;
-  margin: 2rem 0 !important;
+  padding-left: var(--space-lg) !important;
+  margin: var(--space-xl) 0 !important;
   font-style: italic !important;
   color: #6B7280 !important;
   background: #F9FAFB !important;
-  padding: 1.5rem !important;
-  border-radius: 0.5rem !important;
+  padding: var(--space-lg) !important;
+  border-radius: var(--radius-md) !important;
+  box-shadow: var(--shadow-sm) !important;
 }
 
 [data-md-color-scheme="slate"] .md-typeset blockquote {
   background: #1F2937 !important;
   color: #D1D5DB !important;
+  border-left-color: #818CF8 !important;
+}
+
+/* ========== Grid Cards ========== */
+.grid.cards {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+  gap: var(--space-lg) !important;
+  margin: var(--space-xl) 0 !important;
+}
+
+.grid.cards > li {
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.grid.cards .card {
+  height: 100% !important;
+  padding: var(--space-lg) !important;
+  background: #FFFFFF !important;
+  border: 1px solid #E5E7EB !important;
+  border-radius: var(--radius-lg) !important;
+  box-shadow: var(--shadow-sm) !important;
+  transition: all 0.3s ease !important;
+}
+
+.grid.cards .card:hover {
+  transform: translateY(-2px) !important;
+  box-shadow: var(--shadow-lg) !important;
+  border-color: #5448C8 !important;
+}
+
+[data-md-color-scheme="slate"] .grid.cards .card {
+  background: #1F2937 !important;
+  border-color: #374151 !important;
+}
+
+[data-md-color-scheme="slate"] .grid.cards .card:hover {
+  border-color: #818CF8 !important;
+}
+
+/* ========== Buttons ========== */
+.md-button {
+  padding: var(--space-sm) var(--space-lg) !important;
+  border-radius: var(--radius-md) !important;
+  font-weight: 600 !important;
+  font-size: var(--text-base) !important;
+  text-transform: none !important;
+  transition: all 0.3s ease !important;
+  box-shadow: var(--shadow-sm) !important;
+}
+
+.md-button:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+.md-button--primary {
+  background: #5448C8 !important;
+  color: #FFFFFF !important;
+}
+
+.md-button--primary:hover {
+  background: #4338CA !important;
+}
+
+/* ========== Search ========== */
+.md-search__input {
+  background: #FFFFFF !important;
+  border: 2px solid #E5E7EB !important;
+  border-radius: var(--radius-md) !important;
+  padding: var(--space-sm) var(--space-md) !important;
+  font-size: var(--text-base) !important;
+}
+
+.md-search__input:focus {
+  border-color: #5448C8 !important;
+  box-shadow: 0 0 0 3px rgba(84, 72, 200, 0.1) !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input {
+  background: #1F2937 !important;
+  border-color: #374151 !important;
+  color: #F3F4F6 !important;
+}
+
+[data-md-color-scheme="slate"] .md-search__input:focus {
+  border-color: #818CF8 !important;
+  box-shadow: 0 0 0 3px rgba(129, 140, 248, 0.1) !important;
 }
