@@ -579,3 +579,95 @@ Human: "Why is latency high?"
 AI: "Database queries from the new feature.
      Query time increased 10x after deploy.
      Should I show you the slow queries?"
+
+Human: "Yes, and recommend fixes"
+AI: "Top query: SELECT * without index.
+     Adding index would reduce time 100x.
+     Want me to generate the migration?"
+
+Natural collaboration, not replacement
+```
+</div>
+
+### The Human-Centric Design Principles
+
+<div class="principles-summary">
+<h3>🎯 10 Commandments of Human-System Design</h3>
+
+1. **Make the right thing easy, wrong thing hard**
+2. **Show state clearly, changes obviously**
+3. **Confirm destructive actions proportionally**
+4. **Design for tired humans at 3 AM**
+5. **Automate toil, augment decisions**
+6. **Group related, separate dangerous**
+7. **Progressive disclosure, not information dump**
+8. **Context always visible**
+9. **Errors should be recoverable**
+10. **Learn from every incident**
+</div>
+
+## Summary: Key Insights by Level
+
+### 🌱 Beginner
+1. **Humans have limits - design for them**
+2. **Bad UI causes disasters**
+3. **Meaningful names prevent errors**
+
+### 🌿 Intermediate
+1. **Humans ARE part of the system**
+2. **Swiss cheese model - layer defenses**
+3. **Cognitive load management critical**
+
+### 🌳 Advanced
+1. **Progressive disclosure manages complexity**
+2. **Confirmation proportional to impact**
+3. **Runbooks that actually work**
+
+### 🌲 Expert
+1. **NASA principles apply to ops**
+2. **Toil measurement drives automation**
+3. **Context prevents confusion**
+
+### 🌴 Master
+1. **Future is augmented, not replaced**
+2. **AI as partner, not overlord**
+3. **Design for human+machine symbiosis**
+
+## Quick Reference Card
+
+<div class="reference-card">
+<h3>📋 Human Factors Checklist</h3>
+
+**For Every Interface**:
+```
+☐ Can tired person use safely?
+☐ Destructive actions protected?
+☐ State clearly visible?
+☐ Context always shown?
+☐ Errors recoverable?
+```
+
+**For Every Procedure**:
+```
+☐ Documented in runbook?
+☐ Automated if possible?
+☐ Tested regularly?
+☐ Updated from incidents?
+☐ Metrics on toil time?
+```
+
+**For Every Incident**:
+```
+☐ Human factors analyzed?
+☐ UI improvements identified?
+☐ Automation opportunities?
+☐ Training needs?
+☐ Process updates?
+```
+</div>
+
+---
+
+**Next**: [Axiom 8: Economics →](../axiom8-economics/)
+
+*"The best interface is no interface. The best process is no process. But until then, design for humans."*

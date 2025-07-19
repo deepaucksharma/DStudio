@@ -351,92 +351,83 @@ word_counts = job.run(documents, num_workers=10)
 
 Every distributed system pays a coordination tax:
 
-```python
-def measure_coordination_overhead(num_workers, task_size_ms):
-    # Fixed costs
-    NETWORK_RTT_MS = 1  # Same datacenter
-    SERIALIZATION_MS = 0.1
-    SCHEDULING_MS = 0.5
-    
-    # Per-worker coordination
-    coordination_ms = (NETWORK_RTT_MS + SERIALIZATION_MS) * 2  # Send + receive
-    
-    # Total overhead
-    total_overhead = num_workers * coordination_ms + SCHEDULING_MS
-    
-    # Efficiency
-    useful_work = task_size_ms * num_workers
-    total_time = useful_work + total_overhead
-    efficiency = useful_work / total_time
-    
-    return {
-        'overhead_ms': total_overhead,
-        'efficiency': efficiency,
-        'break_even_task_size': total_overhead  # Task must be this big to be worth distributing
-    }
+<div class="coordination-tax">
+<h4>💰 Coordination Cost Breakdown</h4>
 
-# Example: Is it worth distributing?
-for task_size in [1, 10, 100, 1000]:  # milliseconds
-    for workers in [10, 100, 1000]:
-        result = measure_coordination_overhead(workers, task_size)
-        print(f"Task: {task_size}ms, Workers: {workers}")
-        print(f"  Efficiency: {result['efficiency']:.1%}")
-        print(f"  Break-even: {result['break_even_task_size']:.1f}ms")
 ```
+Total Time = Useful Work + Coordination Overhead
+
+Coordination Overhead:
+├─ Network RTT: 1ms (send task + receive result)
+├─ Serialization: 0.1ms (encode/decode data)  
+├─ Scheduling: 0.5ms (decide which worker)
+└─ Per-worker cost: 2.2ms × number of workers
+```
+
+**Efficiency Analysis**:
+
+| Task Size | 10 Workers | 100 Workers | 1000 Workers |
+|-----------|------------|-------------|---------------|
+| **1ms** | 4% efficient | 0.4% efficient | 0.04% efficient |
+| **10ms** | 31% efficient | 4% efficient | 0.4% efficient |
+| **100ms** | 82% efficient | 31% efficient | 4% efficient |
+| **1000ms** | 98% efficient | 82% efficient | 31% efficient |
+
+**Key Insight**: 
+```
+Break-even Task Size = Coordination Overhead
+- Small tasks: coordination costs dominate
+- Large tasks: parallel benefits win
+- Sweet spot: 100x coordination overhead
+```
+
+**Visual Break-Even Analysis**:
+```
+Not Worth Distributing     |     Worth Distributing
+                          |
+Task: 1ms                 |     Task: 100ms
+Overhead: 22ms            |     Overhead: 22ms
+Efficiency: 4%            |     Efficiency: 82%
+```
+</div>
 
 ### Load Balancing Strategies
 
-#### Least Connections with Actual Implementation
+<div class="load-balancing-strategies">
+<h4>⚖️ Load Balancing Decision Matrix</h4>
 
-```python
-class LeastConnectionsBalancer:
-    def __init__(self, servers):
-        self.servers = {}
-        for server in servers:
-            self.servers[server] = {
-                'active_connections': 0,
-                'total_requests': 0,
-                'total_time': 0,
-                'failures': 0
-            }
-        self.lock = threading.Lock()
-    
-    def get_server(self):
-        with self.lock:
-            # Find server with least active connections
-            server = min(
-                self.servers.keys(),
-                key=lambda s: self.servers[s]['active_connections']
-            )
-            
-            self.servers[server]['active_connections'] += 1
-            self.servers[server]['total_requests'] += 1
-            
-            return server
-    
-    def release_server(self, server, duration_ms, failed=False):
-        with self.lock:
-            self.servers[server]['active_connections'] -= 1
-            self.servers[server]['total_time'] += duration_ms
-            if failed:
-                self.servers[server]['failures'] += 1
-    
-    def get_stats(self):
-        stats = {}
-        with self.lock:
-            for server, data in self.servers.items():
-                avg_time = (
-                    data['total_time'] / data['total_requests']
-                    if data['total_requests'] > 0 else 0
-                )
-                stats[server] = {
-                    'active': data['active_connections'],
-                    'total': data['total_requests'],
-                    'avg_time_ms': avg_time,
-                    'error_rate': data['failures'] / max(data['total_requests'], 1)
-                }
-        return stats
+| Strategy | When to Use | Pros | Cons |
+|----------|-------------|------|------|
+| **Round Robin** | Identical servers | Simple, fair | Ignores load |
+| **Least Connections** | Mixed workloads | Adapts to load | Tracking overhead |
+| **Weighted Round Robin** | Different capacities | Handles heterogeneity | Static weights |
+| **Response Time** | Latency-sensitive | Best performance | Complex tracking |
+
+**Least Connections Algorithm**:
 ```
+Server Selection Process:
+1. Count active connections per server
+2. Choose server with minimum count
+3. Track connection lifecycle
+4. Update counts on completion
+
+Example State:
+Server A: 3 active connections  ← Choose this
+Server B: 7 active connections
+Server C: 5 active connections
+```
+
+**Load Balancer Metrics Dashboard**:
+```
+┌─────────────┬──────────┬─────────────┬─────────────┐
+│   Server    │  Active  │  Avg Time   │ Error Rate  │
+├─────────────┼──────────┼─────────────┼─────────────┤
+│  Server A   │    3     │    45ms     │    0.1%     │
+│  Server B   │    7     │    67ms     │    0.3%     │
+│  Server C   │    5     │    52ms     │    0.2%     │
+└─────────────┴──────────┴─────────────┴─────────────┘
+```
+</div>
 
 ---
 
@@ -457,12 +448,20 @@ C(N) = Capacity/throughput with N processors
 β = Coherency coefficient (coordination)
 ```
 
-This predicts the point where adding workers makes things worse:
+**Visual Scalability Analysis**:
 
-```python
-def universal_scalability_law(N, alpha, beta):
-    """Calculate relative capacity using USL"""
-    return N / (1 + alpha * (N - 1) + beta * N * (N - 1))
+<div class="scalability-analysis">
+<h4>📊 USL Scalability Predictions</h4>
+
+| Workers (N) | Linear Ideal | Contention Only (α=0.1) | With Coordination (β=0.01) |
+|-------------|--------------|-------------------------|----------------------------|
+| 1 | 1.0x | 1.0x | 1.0x |
+| 10 | 10.0x | 5.3x | 4.1x |
+| 50 | 50.0x | 9.1x | 3.8x |
+| 100 | 100.0x | 9.9x | 2.5x |
+| 500 | 500.0x | 10.0x | 0.8x ⚠️ |
+
+**Key Insight**: System performance peaks then degrades!</div>
 
 def find_optimal_workers(alpha, beta):
     """Find N that maximizes capacity"""

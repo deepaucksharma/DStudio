@@ -206,86 +206,81 @@ Choose A+P: Social media (availability > consistency)
 
 ### State Replication Strategies
 
-#### 1. Primary-Replica (Master-Slave)
-```python
-class PrimaryReplicaDB:
-    def __init__(self):
-        self.primary = DatabaseNode("primary")
-        self.replicas = [DatabaseNode(f"replica-{i}") for i in range(3)]
-        
-    def write(self, key, value):
-        # All writes go through primary
-        self.primary.write(key, value)
-        
-        # Asynchronously replicate to replicas
-        for replica in self.replicas:
-            # Fire and forget (eventual consistency)
-            self.async_replicate(replica, key, value)
-            
-    def read(self, key, consistency="eventual"):
-        if consistency == "strong":
-            # Read from primary (guaranteed latest)
-            return self.primary.read(key)
-        else:
-            # Read from any replica (might be stale)
-            replica = random.choice(self.replicas)
-            return replica.read(key)
+<div class="replication-strategies">
+<h4>🔄 Replication Pattern Comparison</h4>
+
+| Pattern | Write Flow | Read Flow | Pros | Cons |
+|---------|------------|-----------|------|------|
+| **Primary-Replica** | Primary → Replicas | Primary (strong) or Replica (eventual) | Simple, consistent | Single point of failure |
+| **Multi-Primary** | Any Node → Others | Any Node | High availability | Complex conflicts |
+| **Chain Replication** | Head → Middle → Tail | Tail only | Strong consistency | Sequential bottleneck |
+
+**Primary-Replica Architecture**:
+```
+Client Write  ──→  [PRIMARY]  ──→  [Replica 1]
+                       │      ──→  [Replica 2]  
+                       │      ──→  [Replica 3]
+                       ↓
+Client Read ←────  [Any Node]
+(Strong: Primary, Eventual: Any Replica)
 ```
 
-#### 2. Multi-Primary (Master-Master)
-```python
-class MultiPrimaryDB:
-    def __init__(self):
-        self.nodes = [DatabaseNode(f"primary-{i}") for i in range(3)]
-        
-    def write(self, key, value, node_id=None):
-        # Can write to any node
-        node = self.nodes[node_id] if node_id else random.choice(self.nodes)
-        timestamp = time.time()
-        
-        # Write locally first
-        node.write(key, (value, timestamp, node.id))
-        
-        # Replicate to other nodes
-        for other in self.nodes:
-            if other != node:
-                self.async_replicate(other, key, value, timestamp, node.id)
-                
-    def handle_conflict(self, key, values):
-        # Last-Write-Wins (LWW) conflict resolution
-        return max(values, key=lambda v: v[1])  # Latest timestamp wins
+**Multi-Primary Architecture**:
 ```
+Client 1 ──→ [Primary A] ←─── Sync ───→ [Primary B] ←── Client 2
+               │                           │
+               ├── Replica A1              ├── Replica B1
+               └── Replica A2              └── Replica B2
+
+Conflict Resolution: Last-Write-Wins by timestamp
+```
+
+**Replication Trade-offs**:
+- **Consistency**: How "fresh" is the data?
+- **Availability**: Can I read/write during failures?
+- **Partition Tolerance**: Does it work with network splits?
+- **Performance**: How fast are reads/writes?
+</div>
 
 ### Consistency Models Explained
 
-```python
-# 1. Strong Consistency
-# "Like a single database"
-def strong_consistency_read(key):
-    acquire_global_lock(key)
-    value = read_from_primary(key)
-    release_global_lock(key)
-    return value  # Always returns latest value
+<div class="consistency-models">
+<h4>🎯 Consistency Model Spectrum</h4>
 
-# 2. Eventual Consistency  
-# "Like social media likes"
-def eventual_consistency_read(key):
-    return read_from_nearest_replica(key)  # Might be stale
+| Model | Guarantee | Example Use Case | Trade-off |
+|-------|-----------|------------------|-----------|
+| **Strong** | Always see latest value | Banking transactions | Slow but correct |
+| **Causal** | See your writes + cause-effect order | Chat/comments | Moderate speed |
+| **Read-Your-Writes** | See your own changes | Email drafts | Fast for user |
+| **Eventual** | Will be consistent "eventually" | Social media likes | Fastest |
 
-# 3. Causal Consistency
-# "Like chat messages"
-def causal_consistency_read(key, session):
-    # Ensures you see your own writes and causally related writes
-    min_version = session.last_write_version
-    return read_with_min_version(key, min_version)
-
-# 4. Read-Your-Writes Consistency
-# "Like email drafts"
-def read_your_writes(key, session):
-    if key in session.recent_writes:
-        return session.recent_writes[key]
-    return read_from_replica(key)
+**Consistency Visualization**:
 ```
+Strong Consistency:
+User writes "Hello" → All users immediately see "Hello"
+├─ Global lock required
+├─ Slow but accurate
+└─ Use: Financial systems
+
+Eventual Consistency:
+User writes "Hello" → Some users see old value temporarily
+├─ No coordination needed
+├─ Fast but briefly inconsistent  
+└─ Use: Social media, caching
+
+Causal Consistency:
+Alice: "What's for lunch?" → Bob: "Pizza!" → Carol sees both in order
+├─ Preserves cause-effect relationships
+├─ Moderate coordination
+└─ Use: Collaborative tools
+```
+
+**Real-World Examples**:
+- **Banking**: Strong (never show wrong balance)
+- **Social Media**: Eventual (like counts can lag)
+- **Email**: Read-your-writes (see your sent emails)
+- **Git**: Causal (commits preserve ordering)
+</div>
 
 ---
 
