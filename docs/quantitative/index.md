@@ -82,13 +82,73 @@ Cache hit rates, replication costs, and availability targets should drive design
 | USL | C(N) = N/(1 + α(N-1) + βN(N-1)) | Coordination limits scaling |
 | Availability | A = 1 - Πᵢ(1-aᵢ) | Parallel redundancy multiplies nines |
 
-## Prerequisites
+## Prerequisites & Getting Started
 
-- Basic algebra
-- Elementary probability
-- Willingness to measure real systems
-- Healthy skepticism of vendor claims
+### 📚 Mathematical Background
+
+#### Required (can learn as you go):
+- Basic algebra and arithmetic
+- Elementary statistics (mean, median, percentiles)
+- Simple probability concepts
+- Graph reading and interpretation
+
+#### Helpful but not required:
+- Calculus for advanced optimization
+- Linear algebra for complex modeling
+- Statistics for A/B testing
+- Engineering economics
+
+### 🔧 Tools & Skills
+
+#### Essential Skills:
+- **Measurement mindset** - "In God we trust, everyone else brings data"
+- **Healthy skepticism** - Question vendor claims and marketing numbers
+- **Approximation ability** - Back-of-envelope calculations
+- **Order of magnitude thinking** - Is it 10ms or 100ms?
+
+#### Recommended Tools:
+- **Calculator/Spreadsheet** - For basic calculations
+- **Python/R** - For complex modeling (optional)
+- **Monitoring tools** - To gather real system data
+- **Load testing tools** - To validate mathematical predictions
+
+### 🌱 Learning Path
+
+#### Week 1: Foundations
+1. [Latency Ladder](latency-ladder.md) - Understand basic operation costs
+2. [Little's Law](littles-law.md) - Master the universal equation
+3. [Interactive Calculators](calculator-latency.md) - Practice with real scenarios
+
+#### Week 2: Scaling
+1. [Queueing Theory](queueing-models.md) - Predict system saturation
+2. [Amdahl's Law](amdahl-gustafson.md) - Understand parallelization limits
+3. [Practice Problems](problem-set.md) - Solve 10 basic problems
+
+#### Week 3: Advanced
+1. [Universal Scalability Law](universal-scalability.md) - Model real scaling
+2. [Availability Math](availability-math.md) - Design reliable systems
+3. [Case Studies](case-studies-quant.md) - See math in practice
+
+#### Week 4: Application
+1. [Capacity Planning](capacity-planning.md) - Size real systems
+2. [Cache Economics](cache-economics.md) - Optimize cost/performance
+3. [Model Validation](model-validation.md) - Test your predictions
+
+### ⚡ Quick Start Guide
+
+#### For Immediate Impact:
+1. **Use the latency ladder** - Understand your operation costs
+2. **Apply Little's Law** - Size thread pools and queues correctly
+3. **Check utilization** - Keep below 80% to avoid exponential slowdown
+4. **Calculate availability** - Design redundancy mathematically
+
+#### Common Mistakes to Avoid:
+- **Linear thinking** - Systems don't scale linearly
+- **Average obsession** - Percentiles matter more than averages
+- **Vendor benchmarks** - Always validate with your workload
+- **Ignoring physics** - Speed of light sets absolute limits
+- **Over-optimization** - Optimize the bottleneck, not everything
 
 ## Next Steps
 
-After mastering the quantitative toolkit, Part V explores the human and operational factors that make or break distributed systems in production.
+After mastering the quantitative toolkit, Part V explores the human and operational factors that make or break distributed systems in production. Remember: math gives you the bounds, humans operate within them.
