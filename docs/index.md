@@ -1,264 +1,240 @@
 # The Compendium of Distributed Systems
 
-<div class="hero-container">
-  <div class="hero-animation">
-    <canvas id="network-visualization"></canvas>
+<div class="hero-section">
+  <h2>Learn Distributed Systems from First Principles</h2>
+  <p class="hero-quote">"All distributed systems behavior emerges from physical and mathematical constraints"</p>
+</div>
+
+## Welcome
+
+This compendium teaches distributed systems from the ground up, starting with fundamental physics and mathematics rather than jumping straight into technologies. We derive patterns from constraints, not fashion.
+
+## Quick Start Paths
+
+{{ grid(columns=4, gap='lg') }}
+
+{{ card(type='feature', title='New Graduate', content='Start with fundamentals and build up systematically', link='/front-matter/roadmap/#new-graduate-line') }}
+
+{{ card(type='feature', title='Senior Engineer', content='Deep dive into all axioms and advanced patterns', link='/front-matter/roadmap/#senior-ic-line') }}
+
+{{ card(type='feature', title='Manager', content='Focus on trade-offs and decision frameworks', link='/front-matter/roadmap/#engineering-manager-line') }}
+
+{{ card(type='feature', title='Express Route', content='Solve your immediate problem', link='/front-matter/roadmap/#express-route') }}
+
+{{ endgrid() }}
+
+## The Foundation: Eight Axioms
+
+Everything in distributed systems emerges from these eight fundamental constraints:
+
+{{ grid(columns=2, gap='md') }}
+
+{{ card(title='1. Latency', content='Information cannot travel faster than light', link='/part1-axioms/axiom1-latency/') }}
+
+{{ card(title='2. Finite Capacity', content='Every resource has limits', link='/part1-axioms/axiom2-capacity/') }}
+
+{{ card(title='3. Failure', content='Components will fail, networks will partition', link='/part1-axioms/axiom3-failure/') }}
+
+{{ card(title='4. Concurrency', content='Multiple things happen at once', link='/part1-axioms/axiom4-concurrency/') }}
+
+{{ card(title='5. Coordination', content='Agreement requires communication', link='/part1-axioms/axiom5-coordination/') }}
+
+{{ card(title='6. Observability', content='You cannot debug what you cannot see', link='/part1-axioms/axiom6-observability/') }}
+
+{{ card(title='7. Human Interface', content='Systems must be operable by humans under stress', link='/part1-axioms/axiom7-human/') }}
+
+{{ card(title='8. Economics', content='Every decision has a cost', link='/part1-axioms/axiom8-economics/') }}
+
+{{ endgrid() }}
+
+## Why This Approach?
+
+<div class="approach-comparison">
+  <div class="traditional">
+    <h3>❌ Traditional Approach</h3>
+    <ul>
+      <li>Here's MapReduce</li>
+      <li>Here's Paxos</li>
+      <li>Here's Consistent Hashing</li>
+      <li><em>"But when do I use each?"</em></li>
+    </ul>
   </div>
-  <div class="hero-content">
-    <h1 class="hero-title">Master Distributed Systems from <span class="highlight">First Principles</span></h1>
-    <p class="hero-subtitle">Derive patterns from physics, not memorization</p>
-    <div class="hero-stats">
-      <div class="stat-item">
-        <span class="stat-number">3</span>
-        <span class="stat-label">Metaphysical Truths</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">8</span>
-        <span class="stat-label">Fundamental Axioms</span>
-      </div>
-      <div class="stat-item">
-        <span class="stat-number">6</span>
-        <span class="stat-label">Core Pillars</span>
-      </div>
-    </div>
-    <div class="hero-cta">
-      <a href="introduction/" class="hero-button primary">Begin Your Journey</a>
-      <a href="#interactive-journey-map" class="hero-button secondary">Explore Concepts</a>
-    </div>
-    <a href="#interactive-journey-map" class="scroll-hint">
-      <span class="scroll-text">↓ Journey Map</span>
-    </a>
+  
+  <div class="our-approach">
+    <h3>✅ Our Approach</h3>
+    <ul>
+      <li>Light has finite speed</li>
+      <li>Therefore: coordination is expensive</li>
+      <li>Therefore: minimize coordination</li>
+      <li>Options derived from physics</li>
+    </ul>
   </div>
+</div>
+
+## What You'll Learn
+
+- **Derive patterns** from first principles, not memorize them
+- **Quantify trade-offs** with actual calculations
+- **Predict failures** before they happen
+- **Design systems** that work with physics, not against it
+
+## Interactive Tools
+
+<div class="tools-preview">
+  <a href="/tools/latency-calculator/" class="tool-card">
+    <span class="tool-icon">⏱️</span>
+    <span class="tool-name">Latency Calculator</span>
+  </a>
+  
+  <a href="/tools/capacity-planner/" class="tool-card">
+    <span class="tool-icon">📊</span>
+    <span class="tool-name">Capacity Planner</span>
+  </a>
+  
+  <a href="/tools/failure-simulator/" class="tool-card">
+    <span class="tool-icon">💥</span>
+    <span class="tool-name">Failure Simulator</span>
+  </a>
+  
+  <a href="/tools/cost-calculator/" class="tool-card">
+    <span class="tool-icon">💰</span>
+    <span class="tool-name">Cost Calculator</span>
+  </a>
+</div>
+
+## Start Your Journey
+
+<div class="cta-section">
+  <a href="/front-matter/preface/" class="cta-button primary">
+    Read the Preface
+  </a>
+  
+  <a href="/part1-axioms/" class="cta-button secondary">
+    Jump to Axioms
+  </a>
+  
+  <a href="/patterns/decision-tree/" class="cta-button secondary">
+    Decision Tree
+  </a>
 </div>
 
 ---
 
-## 🚀 Quick Navigation
-
-<div class="grid cards" markdown>
-
-- :material-atom:{ .lg .middle } **[Zeroth Principles →](introduction/zeroth-principles.md)**
-
-    ---
-
-    Begin with the three metaphysical truths that govern all systems
-
-- :material-lightbulb:{ .lg .middle } **[The Deductive Method →](introduction/philosophy.md)**
-
-    ---
-
-    Learn to derive solutions from first principles, not memorize patterns
-
-- :material-map:{ .lg .middle } **[Learning Paths →](introduction/roadmap.md)**
-
-    ---
-
-    Choose a customized journey based on your role and experience
-
+<div class="footer-quote">
+  <p><em>"In distributed systems, the impossible becomes merely difficult, and the difficult becomes a career."</em></p>
 </div>
 
-## 🗺️ Interactive Journey Map {#interactive-journey-map}
+<style>
+.hero-section {
+  text-align: center;
+  padding: 3rem 0;
+  margin-bottom: 2rem;
+}
 
-<div id="journey-map-container">
-    <div class="journey-legend">
-        <div class="legend-item">
-            <span class="legend-dot axiom"></span>
-            <span>Core Axiom</span>
-        </div>
-        <div class="legend-item">
-            <span class="legend-dot pillar"></span>
-            <span>Foundational Pillar</span>
-        </div>
-        <div class="legend-item">
-            <span class="legend-dot tool"></span>
-            <span>Interactive Tool</span>
-        </div>
-    </div>
-    
-    <div id="journey-map" class="journey-map">
-        <!-- SVG will be injected here by JavaScript -->
-    </div>
-    
-    <div class="journey-details" id="journey-details">
-        <h3>Click any node to explore</h3>
-        <p>Navigate through axioms, pillars, and tools to build your understanding.</p>
-    </div>
-</div>
+.hero-quote {
+  font-size: 1.3rem;
+  color: var(--md-default-fg-color--light);
+  font-style: italic;
+}
 
+.approach-comparison {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin: 2rem 0;
+}
 
-## 🎯 Our Philosophy: The Principia Method
+.traditional, .our-approach {
+  padding: 1.5rem;
+  border-radius: 8px;
+  border: 2px solid;
+}
 
-This project takes a revolutionary approach to teaching distributed systems through pure deductive reasoning:
+.traditional {
+  background: #fef2f2;
+  border-color: #ef4444;
+}
 
-<div class="truth-box">
+.our-approach {
+  background: #f0fdf4;
+  border-color: #10b981;
+}
 
-### The Deductive Chain
-```
-Metaphysical Truths (What Reality IS)
-         ↓
-Physical Constraints (What This MEANS)
-         ↓
-System Axioms (What This FORCES)
-         ↓
-Engineering Patterns (What We BUILD)
-         ↓
-Operational Wisdom (How We RUN)
-```
+[data-md-color-scheme="slate"] .traditional {
+  background: #2a1a1a;
+  border-color: #dc2626;
+}
 
-</div>
+[data-md-color-scheme="slate"] .our-approach {
+  background: #1a2f23;
+  border-color: #059669;
+}
 
-- **Metaphysics First**: We start with three fundamental truths about reality
-- **Physics Over Preferences**: The speed of light, not design patterns
-- **Math Over Mythology**: Every solution is mathematically necessary
-- **Derive Everything**: No memorization—only logical deduction
+.tools-preview {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
 
+.tool-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  background: var(--md-code-bg-color);
+  border-radius: 8px;
+  text-decoration: none;
+  color: var(--md-default-fg-color);
+  transition: all 0.2s ease;
+  border: 1px solid var(--md-default-fg-color--lightest);
+}
 
-## 🧭 The Complete Intellectual Journey
+.tool-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
 
-<div class="decision-box">
+.tool-icon {
+  font-size: 2rem;
+}
 
-### From Metaphysics to Mastery
+.cta-section {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 3rem 0;
+}
 
-```mermaid
-graph LR
-    A[Zeroth Principles<br/>3 Truths] --> B[First Principles<br/>8 Axioms]
-    B --> C[Second Principles<br/>Abstract Models]
-    C --> D[Third Principles<br/>Engineering Patterns]
-    D --> E[Fourth Principles<br/>Operational Philosophy]
-    E --> F[Mastery<br/>Adaptive Systems]
-    
-    style A fill:#e3f2fd,stroke:#1976d2,stroke-width:3px
-    style B fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
-    style C fill:#fff3e0,stroke:#f57c00,stroke-width:2px
-    style D fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
-    style E fill:#ffebee,stroke:#d32f2f,stroke-width:2px
-    style F fill:#fce4ec,stroke:#c2185b,stroke-width:3px
-```
+.cta-button {
+  padding: 1rem 2rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
 
-</div>
+.cta-button.primary {
+  background: var(--md-primary-fg-color);
+  color: white;
+}
 
-## 📚 What You'll Learn
+.cta-button.secondary {
+  background: transparent;
+  color: var(--md-primary-fg-color);
+  border: 2px solid var(--md-primary-fg-color);
+}
 
-<div class="axiom-box animate-fadeIn">
+.cta-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
 
-### The Eight Fundamental Axioms
-
-<div class="axiom-grid">
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">⚡</h4>
-<div class="axiom-item__title">Latency</div>
-<p class="axiom-item__description">Speed of light is non-negotiable</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">📦</h4>
-<div class="axiom-item__title">Finite Capacity</div>
-<p class="axiom-item__description">Every resource has a breaking point</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">💥</h4>
-<div class="axiom-item__title">Failure</div>
-<p class="axiom-item__description">Components will fail; plan accordingly</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">⚖️</h4>
-<div class="axiom-item__title">Consistency</div>
-<p class="axiom-item__description">You can't have your cake and eat it too</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">⏰</h4>
-<div class="axiom-item__title">Time</div>
-<p class="axiom-item__description">There is no "now" in distributed systems</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">🔄</h4>
-<div class="axiom-item__title">Ordering</div>
-<p class="axiom-item__description">Events happen, but in what order?</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">🧩</h4>
-<div class="axiom-item__title">Knowledge</div>
-<p class="axiom-item__description">Partial information is the only information</p>
-</div>
-
-<div class="axiom-item">
-<h4 class="axiom-item__icon">📈</h4>
-<div class="axiom-item__title">Growth</div>
-<p class="axiom-item__description">Systems evolve or die</p>
-</div>
-
-</div>
-
-</div>
-
-## 🛠️ Key Features
-
-- **🎬 Real Failure Stories**: Learn from anonymized production disasters
-- **🧮 Quantitative Tools**: Make decisions with math, not gut feelings
-- **🔧 Hands-On Exercises**: Try concepts in under 5 minutes
-- **💡 Counter-Intuitive Truths**: Challenge your assumptions
-- **🎯 Decision Frameworks**: Know when to use which pattern
-
-## 🌟 Why This Approach?
-
-| Traditional Learning | Our Approach |
-|---------------------|--------------|
-| Memorize patterns | Derive patterns from physics |
-| "Best practices" | Context-dependent trade-offs |
-| Tool-specific knowledge | Timeless principles |
-| Academic theory OR practice | Theory THROUGH practice |
-
-## 🚦 Quick Start: Your First Insight
-
-<div class="truth-box">
-
-### Why does adding more servers sometimes make your system slower?
-
-<div class="grid grid--2">
-
-<div>
-<h4>📊 The Math</h4>
-
-- 2 servers = 1 connection
-- 5 servers = 10 connections  
-- 10 servers = 45 connections
-- n servers = n(n-1)/2 connections
-
-**Coordination cost**: O(n²)  
-**Capacity growth**: O(n)
-</div>
-
-<div>
-<h4>💡 The Lesson</h4>
-
-Sometimes the best distributed system is the one that isn't distributed. Before adding complexity:
-
-1. **Optimize** what you have
-2. **Measure** actual bottlenecks
-3. **Calculate** coordination overhead
-4. **Consider** vertical scaling first
-</div>
-
-</div>
-
-</div>
-
-
----
-
-<div class="text-center my-6">
-    <a href="introduction/index.md" class="btn btn--primary btn--lg">
-        Begin Your Journey →
-    </a>
-</div>
-
-<div class="text-center text-neutral-600 text-sm mt-6">
-    Built with ❤️ using <a href="https://squidfunk.github.io/mkdocs-material/">Material for MkDocs</a>
-</div>
-
+.footer-quote {
+  text-align: center;
+  padding: 2rem;
+  font-size: 1.1rem;
+  color: var(--md-default-fg-color--light);
+}
+</style>

@@ -1,60 +1,95 @@
 site_name: The Compendium of Distributed Systems
-site_description: A first-principles approach to understanding distributed systems
-site_author: Deepak
 site_url: https://deepaucksharma.github.io/DStudio/
+site_description: Learn distributed systems from first principles through physics and mathematics
 
+# Repository
 repo_name: deepaucksharma/DStudio
 repo_url: https://github.com/deepaucksharma/DStudio
 edit_uri: edit/main/docs/
 
+# Theme Configuration
 theme:
   name: material
+  
+  features:
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.indexes
+    - toc.follow
+    - toc.integrate
+    - search.suggest
+    - search.highlight
+    - search.share
+    - content.code.copy
+    - content.code.annotate
+    
   palette:
-    # Palette toggle for light mode
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
       accent: cyan
       toggle:
-        icon: material/brightness-7
+        icon: material/weather-sunny
         name: Switch to dark mode
-    # Palette toggle for dark mode
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: indigo
       accent: cyan
       toggle:
-        icon: material/brightness-4
-        name: Switch to light mode
-  features:
-    - navigation.tabs
-    - navigation.tabs.sticky
-    - navigation.sections
-    - navigation.expand
-    - navigation.top
-    - navigation.instant
-    - search.highlight
-    - search.suggest
-    - content.code.copy
-    - toc.follow
-  icon:
-    repo: fontawesome/brands/github
+        icon: material/weather-night
+        name: Switch to auto
+        
   font:
     text: Inter
     code: JetBrains Mono
 
+# Plugins
 plugins:
   - search:
-      separator: '[\s\-\.]+'
-  - mermaid2
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+  - macros:
+      module_name: docs/macros
 
+# Markdown Extensions
 markdown_extensions:
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - toc:
+      permalink: true
+      toc_depth: 4
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
   - pymdownx.inlinehilite
-  - pymdownx.snippets
+  - pymdownx.keys
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
   - pymdownx.superfences:
       custom_fences:
         - name: mermaid
@@ -62,172 +97,105 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
   - pymdownx.tabbed:
       alternate_style: true
-  - admonition
-  - pymdownx.details
-  - pymdownx.keys
-  - pymdownx.mark
+      combine_header_slug: true
+  - pymdownx.tasklist:
+      custom_checkbox: true
   - pymdownx.tilde
-  - pymdownx.critic
-  - pymdownx.caret
-  - pymdownx.smartsymbols
-  - pymdownx.emoji:
-      emoji_index: !!python/name:materialx.emoji.twemoji
-      emoji_generator: !!python/name:materialx.emoji.to_svg
-  - attr_list
-  - def_list
-  - footnotes
-  - md_in_html
-  - tables
-  - toc:
-      permalink: ⚡
-      toc_depth: 3
 
-nav:
-  - Home: index.md
-  - Getting Started:
-    - Welcome: introduction/index.md
-    - Preface - Why Another Book?: introduction/preface.md
-    - The Zeroth Principles: introduction/zeroth-principles.md
-    - Our Philosophy: introduction/philosophy.md
-    - Prerequisites Check: introduction/prerequisites.md
-    - Learning Paths: introduction/roadmap.md
-    - How to Use This Guide: introduction/how-to-use.md
-    - Component Examples: introduction/component-examples.md
-  - Part I - The 8 Axioms:
-    - Overview: part1-axioms/index.md
-    - Axiom 1 - Latency:
-      - Core Concepts: part1-axioms/axiom-1-latency/index.md
-      - Examples: part1-axioms/axiom-1-latency/examples.md
-      - Exercises: part1-axioms/axiom-1-latency/exercises.md
-    - Axiom 2 - Capacity:
-      - Core Concepts: part1-axioms/axiom-2-capacity/index.md
-      - Examples: part1-axioms/axiom-2-capacity/examples.md
-      - Exercises: part1-axioms/axiom-2-capacity/exercises.md
-    - Axiom 3 - Partial Failure:
-      - Core Concepts: part1-axioms/axiom-3-failure/index.md
-      - Examples: part1-axioms/axiom-3-failure/examples.md
-      - Exercises: part1-axioms/axiom-3-failure/exercises.md
-    - Axiom 4 - Concurrency:
-      - Core Concepts: part1-axioms/axiom-4-concurrency/index.md
-      - Examples: part1-axioms/axiom-4-concurrency/examples.md
-      - Exercises: part1-axioms/axiom-4-concurrency/exercises.md
-    - Axiom 5 - Coordination:
-      - Core Concepts: part1-axioms/axiom-5-coordination/index.md
-      - Examples: part1-axioms/axiom-5-coordination/examples.md
-      - Exercises: part1-axioms/axiom-5-coordination/exercises.md
-    - Axiom 6 - Observability:
-      - Core Concepts: part1-axioms/axiom-6-observability/index.md
-      - Examples: part1-axioms/axiom-6-observability/examples.md
-      - Exercises: part1-axioms/axiom-6-observability/exercises.md
-    - Axiom 7 - Human Interface:
-      - Core Concepts: part1-axioms/axiom-7-human-interface/index.md
-      - Examples: part1-axioms/axiom-7-human-interface/examples.md
-      - Exercises: part1-axioms/axiom-7-human-interface/exercises.md
-    - Axiom 8 - Economics:
-      - Core Concepts: part1-axioms/axiom-8-economics/index.md
-      - Examples: part1-axioms/axiom-8-economics/examples.md
-      - Exercises: part1-axioms/axiom-8-economics/exercises.md
-  - Part II - Foundational Pillars:
-    - Overview: part2-pillars/index.md
-    - Pillar 1 - Distribution of Work:
-      - Core Concepts: part2-pillars/pillar-1-work/index.md
-      - Examples: part2-pillars/pillar-1-work/examples.md
-      - Exercises: part2-pillars/pillar-1-work/exercises.md
-    - Pillar 2 - Distribution of State:
-      - Core Concepts: part2-pillars/pillar-2-state/index.md
-      - Examples: part2-pillars/pillar-2-state/examples.md
-      - Exercises: part2-pillars/pillar-2-state/exercises.md
-    - Pillar 3 - Distribution of Truth:
-      - Core Concepts: part2-pillars/pillar-3-truth/index.md
-      - Examples: part2-pillars/pillar-3-truth/examples.md
-      - Exercises: part2-pillars/pillar-3-truth/exercises.md
-    - Pillar 4 - Distribution of Control:
-      - Core Concepts: part2-pillars/pillar-4-control/index.md
-      - Examples: part2-pillars/pillar-4-control/examples.md
-      - Exercises: part2-pillars/pillar-4-control/exercises.md
-    - Pillar 5 - Distribution of Intelligence:
-      - Core Concepts: part2-pillars/pillar-5-intelligence/index.md
-      - Examples: part2-pillars/pillar-5-intelligence/examples.md
-      - Exercises: part2-pillars/pillar-5-intelligence/exercises.md
-    - Pillar 6 - Distribution of Trust:
-      - Core Concepts: part2-pillars/pillar-6-trust/index.md
-      - Examples: part2-pillars/pillar-6-trust/examples.md
-      - Exercises: part2-pillars/pillar-6-trust/exercises.md
-  - Part III - Common Patterns:
-    - Overview: part3-patterns/index.md
-  - Part IV - Case Study:
-    - Overview: part4-case-study/index.md
-    - Chapter 1 - MVP: part4-case-study/chapter1-mvp.md
-    - Chapter 2 - Multi-City: part4-case-study/chapter2-multi-city.md
-  - Part V - Capstone Project:
-    - Overview: part5-capstone/index.md
-    - Project Setup: part5-capstone/setup.md
-  - Part VI - Advanced Topics:
-    - Overview: part6-advanced/index.md
-    - Serverless & Edge: part6-advanced/serverless.md
-    - ML Systems: part6-advanced/ml-systems.md
-  - Tools:
-    - Overview: tools/index.md
-    - Latency Calculator: tools/latency-calculator.md
-    - Capacity Planner: tools/capacity-planner.md
-    - Failure Calculator: tools/failure-calculator.md
-    - Consistency Visualizer: tools/consistency-visualizer.md
-    - CAP Theorem Explorer: tools/cap-explorer.md
-    - Coordination Cost: tools/coordination-cost.md
-  - Reference:
-    - Overview: reference/index.md
-    - Glossary: reference/glossary.md
-    - Cheat Sheets: reference/cheat-sheets.md
-    - Recipe Cards: reference/recipe-cards.md
-    - Security Considerations: reference/security-considerations.md
-    - Recovery-Oriented Computing: reference/recovery-oriented.md
-    - Mental Models: reference/mental-models.md
-    - Formulas: reference/formulas.md
-    - Patterns Reference: reference/patterns-reference.md
-    - Network Optimization: reference/network-optimization.md
-    - User Preferences: reference/preferences.md
-  - Examples:
-    - Simple Visualizations: examples/simple-visualizations.md
-    - Advanced Visualizations: examples/visualizations.md
-    - Design System Showcase: examples/design-showcase.md
-  - Legacy Content:
-    - Original Book: distributed-systems-book.md
-    - Original Pillars: part2-foundational-pillars.md
+# Extra CSS
+extra_css:
+  - stylesheets/extra.css
+  - stylesheets/modular.css
+  - stylesheets/axioms.css
 
+# Extra JavaScript
+extra_javascript:
+  - https://unpkg.com/mermaid@10.6.0/dist/mermaid.min.js
+  - javascripts/mermaid-init.js
+
+# Extra Configuration
 extra:
+  generator: false
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/deepaucksharma
-    - icon: fontawesome/brands/linkedin
-      link: https://linkedin.com/in/yourusername
-  analytics:
-    provider: google
-    property: G-XXXXXXXXXX
-
-extra_css:
-  - stylesheets/visual-fixes.css
-
-extra_javascript:
-  # Core functionality
-  - javascripts/core/performance-optimizations.js
-  - javascripts/core/nav-improvements.js
-  - javascripts/core/mobile-optimizations.js
-  - javascripts/core/inline-calculators.js
-  - javascripts/core/preferences.js
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/deepaucksharma
   
-  # UI Components
-  - javascripts/components/hero-animation.js
-  - javascripts/components/journey-map-enhanced.js
-  - javascripts/components/progressive-disclosure.js
-  - javascripts/components/reading-progress.js
-  - javascripts/components/breadcrumb-navigation.js
-  - javascripts/components/toc-scroll-spy.js
-  - javascripts/components/visualization-engine-simple.js
+  # Build date for copyright
+  build_date: !ENV [BUILD_DATE, "2024"]
+
+# Complete Navigation - Including All Existing Content
+nav:
+  - Home: index.md
   
-  # Interactive Tools
-  - javascripts/tools/latency-calculator.js
-  - javascripts/tools/capacity-planner.js
-  - javascripts/tools/consistency-visualizer.js
-  - javascripts/tools/cap-explorer.js
-  - javascripts/tools/failure-calculator.js
-  - javascripts/tools/coordination-cost.js
+  - Front Matter:
+    - Cover: front-matter/index.md
+    - Copyright & Credits: front-matter/copyright.md
+    - Preface: front-matter/preface.md
+    - Reader Roadmap: front-matter/roadmap.md
+  
+  - "Part I: Axioms":
+    - Overview: part1-axioms/index.md
+    - "Axiom 1: Latency":
+      - Overview: part1-axioms/axiom1-latency/index.md
+      - Examples: part1-axioms/axiom1-latency/examples.md
+      - Exercises: part1-axioms/axiom1-latency/exercises.md
+    - "Axiom 2: Capacity":
+      - Overview: part1-axioms/axiom2-capacity/index.md
+      - Examples: part1-axioms/axiom2-capacity/examples.md
+      - Exercises: part1-axioms/axiom2-capacity/exercises.md
+    - "Axiom 3: Failure":
+      - Overview: part1-axioms/axiom3-failure/index.md
+      - Examples: part1-axioms/axiom3-failure/examples.md
+      - Exercises: part1-axioms/axiom3-failure/exercises.md
+    - "Axiom 4: Concurrency":
+      - Overview: part1-axioms/axiom4-concurrency/index.md
+      - Examples: part1-axioms/axiom4-concurrency/examples.md
+      - Exercises: part1-axioms/axiom4-concurrency/exercises.md
+    - "Axiom 5: Coordination":
+      - Overview: part1-axioms/axiom5-coordination/index.md
+      - Examples: part1-axioms/axiom5-coordination/examples.md
+      - Exercises: part1-axioms/axiom5-coordination/exercises.md
+    - "Axiom 6: Observability":
+      - Overview: part1-axioms/axiom6-observability/index.md
+      - Examples: part1-axioms/axiom6-observability/examples.md
+      - Exercises: part1-axioms/axiom6-observability/exercises.md
+    - "Axiom 7: Human Interface":
+      - Overview: part1-axioms/axiom7-human/index.md
+      - Examples: part1-axioms/axiom7-human/examples.md
+      - Exercises: part1-axioms/axiom7-human/exercises.md
+    - "Axiom 8: Economics":
+      - Overview: part1-axioms/axiom8-economics/index.md
+      - Examples: part1-axioms/axiom8-economics/examples.md
+      - Exercises: part1-axioms/axiom8-economics/exercises.md
+    - Synthesis:
+      - Summary: part1-axioms/synthesis.md
+      - Quiz: part1-axioms/quiz.md
+  
+  - "Part II: Pillars":
+    - Overview: part2-pillars/index.md
+    - "Pillar 1: Work":
+      - Overview: part2-pillars/work/index.md
+    - "Pillar 2: State": 
+      - Overview: part2-pillars/state/index.md
+    - "Pillar 3: Truth":
+      - Overview: part2-pillars/truth/index.md
+    - "Pillar 4: Control":
+      - Overview: part2-pillars/control/index.md
+    - "Pillar 5: Intelligence":
+      - Overview: part2-pillars/intelligence/index.md
+  
+  - Patterns:
+    - patterns/index.md
+  
+  - Tools:
+    - tools/index.md
+  
+  - Case Studies:
+    - case-studies/index.md
+  
+  - Reference:
+    - reference/index.md
+  
+  - About: about.md

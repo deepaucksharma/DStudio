@@ -1,0 +1,367 @@
+/* ============================================
+   AXIOMS & FIRST PRINCIPLES STYLING
+   ============================================ */
+
+/* Axiom Header */
+.axiom-header {
+  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.learning-objective {
+  font-size: 1.2rem;
+  line-height: 1.6;
+}
+
+/* Definition Box */
+.definition-box {
+  background: var(--md-code-bg-color);
+  border-left: 4px solid var(--md-primary-fg-color);
+  padding: 1.5rem;
+  margin: 2rem 0;
+  border-radius: 4px;
+  font-family: var(--md-code-font-family);
+}
+
+.definition-box strong {
+  color: var(--md-primary-fg-color);
+  font-size: 1.1rem;
+}
+
+/* Failure Vignette */
+.failure-vignette {
+  background: #fff5f5;
+  border: 2px solid #ff6b6b;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .failure-vignette {
+  background: #2a1f1f;
+  border-color: #c92a2a;
+}
+
+.failure-vignette h3 {
+  color: #c92a2a;
+  margin-top: 0;
+}
+
+/* Decision Box */
+.decision-box {
+  background: #f0fdf4;
+  border: 2px solid #10b981;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .decision-box {
+  background: #1a2f23;
+  border-color: #059669;
+}
+
+.decision-box h3 {
+  color: #059669;
+  margin-top: 0;
+}
+
+.decision-box pre {
+  background: rgba(0, 0, 0, 0.05);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* Try This Box */
+.try-this {
+  background: #fef3c7;
+  border: 2px solid #f59e0b;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .try-this {
+  background: #2a2517;
+  border-color: #d97706;
+}
+
+.try-this h3 {
+  color: #d97706;
+  margin-top: 0;
+}
+
+/* Insight Box */
+.insight-box {
+  background: #ede9fe;
+  border: 2px solid #7c3aed;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  position: relative;
+}
+
+[data-md-color-scheme="slate"] .insight-box {
+  background: #1e1a2e;
+  border-color: #6d28d9;
+}
+
+.insight-box h3 {
+  color: #6d28d9;
+  margin-top: 0;
+}
+
+.insight-box::before {
+  content: '💡';
+  position: absolute;
+  top: -12px;
+  left: 20px;
+  background: var(--md-default-bg-color);
+  padding: 0 8px;
+  font-size: 24px;
+}
+
+/* Example Box */
+.example-box {
+  background: #f0f9ff;
+  border: 2px solid #0284c7;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .example-box {
+  background: #1a202e;
+  border-color: #0369a1;
+}
+
+.example-box h3 {
+  color: #0369a1;
+  margin-top: 0;
+}
+
+/* Worksheet */
+.worksheet {
+  background: #fafafa;
+  border: 1px dashed #666;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  font-family: var(--md-code-font-family);
+}
+
+[data-md-color-scheme="slate"] .worksheet {
+  background: #1a1a1a;
+}
+
+.worksheet code {
+  background: transparent;
+  padding: 0;
+}
+
+/* Anti-patterns Box */
+.antipatterns {
+  background: #fef2f2;
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .antipatterns {
+  background: #2a1a1a;
+  border-color: #dc2626;
+}
+
+.antipatterns h3 {
+  color: #dc2626;
+  margin-top: 0;
+}
+
+/* Measure This Box */
+.measure-this {
+  background: #f3f4f6;
+  border: 2px solid #6b7280;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .measure-this {
+  background: #1f2937;
+  border-color: #4b5563;
+}
+
+.measure-this h3 {
+  color: #4b5563;
+  margin-top: 0;
+}
+
+/* Cross Links */
+.cross-links {
+  background: #fdf4ff;
+  border: 2px solid #a855f7;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .cross-links {
+  background: #1a1a2e;
+  border-color: #9333ea;
+}
+
+.cross-links h3 {
+  color: #9333ea;
+  margin-top: 0;
+}
+
+/* Reference Card */
+.reference-card {
+  background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+[data-md-color-scheme="slate"] .reference-card {
+  background: linear-gradient(to bottom, #1f2937, #111827);
+  border-color: #374151;
+}
+
+/* Pattern Box */
+.pattern-box {
+  background: #ecfdf5;
+  border: 2px solid #10b981;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .pattern-box {
+  background: #1a2f26;
+  border-color: #059669;
+}
+
+/* Formula Box */
+.formula-box {
+  background: #fefce8;
+  border: 2px solid #facc15;
+  border-radius: 8px;
+  padding: 1.5rem;
+  margin: 2rem 0;
+  font-family: var(--md-code-font-family);
+}
+
+[data-md-color-scheme="slate"] .formula-box {
+  background: #2a2a1a;
+  border-color: #eab308;
+}
+
+/* Limits Table */
+.limits-table table {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.limits-table th {
+  background: var(--md-primary-fg-color);
+  color: white;
+  padding: 0.75rem;
+  text-align: left;
+}
+
+.limits-table td {
+  padding: 0.75rem;
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+}
+
+/* Axiom Grid */
+.axiom-grid .c-card--axiom {
+  background: #7e57c2;
+  color: white;
+  border: none;
+  transition: all 0.3s ease;
+}
+
+.axiom-grid .c-card--axiom:hover {
+  background: #6a4ca5;
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(126, 87, 194, 0.3);
+}
+
+.axiom-grid .c-card--axiom .c-card__title {
+  color: white;
+  font-size: 1.3rem;
+}
+
+.axiom-grid .c-card--axiom .c-card__body {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Metro Map */
+.metro-map {
+  background: #f9fafb;
+  border-radius: 8px;
+  padding: 2rem;
+  margin: 2rem 0;
+}
+
+[data-md-color-scheme="slate"] .metro-map {
+  background: #1f2937;
+}
+
+.learning-paths {
+  width: 100%;
+  height: auto;
+}
+
+.path-newgrad { stroke: #10b981; stroke-width: 4; fill: none; }
+.path-senior { stroke: #3b82f6; stroke-width: 4; fill: none; }
+.path-manager { stroke: #f97316; stroke-width: 4; fill: none; }
+.path-express { stroke: #ef4444; stroke-width: 4; fill: none; }
+
+/* Start Buttons */
+.start-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  margin: 2rem 0;
+}
+
+/* Cover Visual */
+.cover-visual {
+  text-align: center;
+  margin: 3rem 0;
+}
+
+.prism-metaphor {
+  display: inline-block;
+  position: relative;
+}
+
+.spectrum {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.axiom-color {
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  font-weight: 600;
+  color: white;
+}
+
+.axiom-color.latency { background: #e91e63; }
+.axiom-color.capacity { background: #ff5722; }
+.axiom-color.failure { background: #ff9800; }
+.axiom-color.concurrency { background: #ffc107; }
+.axiom-color.coordination { background: #8bc34a; }
+.axiom-color.observability { background: #00bcd4; }
+.axiom-color.human { background: #3f51b5; }
+.axiom-color.economics { background: #9c27b0; }
