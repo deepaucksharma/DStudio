@@ -204,8 +204,8 @@ def get_user_data(user_id):
 
 - → [Caching Hierarchies](../../patterns/caching): Implementation patterns
 - → [Geo-Replication](../../patterns/geo-replication): Multi-region strategies
-- → [Axiom 5: Coordination](../axiom5-coordination/index.md): Why consensus is slow
-- → [Axiom 8: Economics](../axiom8-economics/index.md): Dollar cost of milliseconds
+- → [Axiom 5: Coordination](../axiom5-coordination/): Why consensus is slow
+- → [Axiom 8: Economics](../axiom8-economics/): Dollar cost of milliseconds
 </div>
 
 ## Summary: Key Takeaways
@@ -238,6 +238,6 @@ def get_user_data(user_id):
 
 ---
 
-**Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/index.md)
+**Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/)
 
 *"You can't fight physics, but you can design around it."*

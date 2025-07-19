@@ -264,12 +264,12 @@ Engineer Time Spent
 
 ## Cross-References
 
-- → [Axiom 6: Observability](../axiom6-observability/index.md): What humans need to see
-- → [Axiom 8: Economics](../axiom8-economics/index.md): Cost of human errors
-<!-- - → [Runbook Patterns](../../patterns/runbooks): Operational excellence -->
+- → [Axiom 6: Observability](../axiom6-observability/): What humans need to see
+- → [Axiom 8: Economics](../axiom8-economics/): Cost of human errors
+- → [Runbooks & Playbooks](../../human-factors/runbooks-playbooks): Operational excellence
 
 ---
 
-**Next**: [Axiom 8: Economics →](../axiom8-economics/index.md)
+**Next**: [Axiom 8: Economics →](../axiom8-economics/)
 
 *"The best system is one that requires no human intervention, but the most resilient system is one that degrades gracefully when humans must intervene."*

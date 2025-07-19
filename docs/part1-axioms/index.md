@@ -92,7 +92,7 @@ Axioms don't exist in isolation. They interact and compound:
 
 Ready to understand why your distributed system behaves the way it does?
 
-[**→ Begin with Axiom 1: Latency**](axiom1-latency/index.md)
+[**→ Begin with Axiom 1: Latency**](axiom1-latency/)
 
 ---
 

@@ -1,0 +1,364 @@
+# Edge Computing/IoT Patterns
+
+**Computing at the speed of physics**
+
+## THE PROBLEM
+
+```
+Centralized cloud has physics limits:
+- Camera → Cloud → Decision = 100ms+ latency
+- Self-driving car at 60mph = 8.8 feet blind
+- 1000 IoT devices × 1KB/sec = 1MB/sec upstream
+- Remote oil rig satellite link = $10/MB
+
+When milliseconds = meters, edge matters
+```
+
+## THE SOLUTION
+
+```
+Push compute to the edge:
+
+Device     Edge Node    Regional DC    Cloud
+ [ML]  →   [Cache]  →  [Process]  →  [Store]
+  ↓          ↓            ↓            ↓
+<1ms       <10ms        <50ms        <200ms
+```
+
+## Edge Architecture Patterns
+
+```
+1. FOG COMPUTING (3-tier)
+   Device → Fog → Cloud
+   
+2. MOBILE EDGE COMPUTING
+   Phone → Cell Tower → Regional
+   
+3. CLOUDLETS
+   Device → Mini-DC → Cloud
+   
+4. HIERARCHICAL PROCESSING
+   Sense → Filter → Aggregate → Analyze
+```
+
+## IMPLEMENTATION
+
+```python
+# Edge node implementation
+class EdgeNode:
+    def __init__(self, node_id, location):
+        self.node_id = node_id
+        self.location = location
+        self.local_cache = LRUCache(capacity=1000)
+        self.ml_models = {}
+        self.device_registry = {}
+        
+    def process_locally(self, data):
+        """Process data at edge when possible"""
+        
+        # 1. Check if we can handle locally
+        if self.can_process_locally(data):
+            result = self.run_edge_inference(data)
+            
+            # Only send summary to cloud
+            self.send_summary_to_cloud({
+                'node_id': self.node_id,
+                'timestamp': time.time(),
+                'result': result.summary,
+                'confidence': result.confidence
+            })
+            
+            return result
+            
+        # 2. Forward to cloud if needed
+        return self.forward_to_cloud(data)
+    
+    def run_edge_inference(self, data):
+        """Run ML model at edge"""
+        model_name = self.select_model(data.type)
+        
+        if model_name not in self.ml_models:
+            # Download model from cloud
+            self.ml_models[model_name] = self.download_model(model_name)
+            
+        model = self.ml_models[model_name]
+        
+        # Quantized inference for edge
+        with torch.no_grad():
+            # Convert to INT8 for edge efficiency
+            quantized_input = self.quantize(data.tensor)
+            prediction = model(quantized_input)
+            
+        return EdgeResult(
+            prediction=prediction,
+            latency_ms=0.5,
+            processed_at='edge'
+        )
+
+# Hierarchical data processing
+class HierarchicalProcessor:
+    def __init__(self):
+        self.levels = {
+            'sensor': SensorLevel(),      # Raw data
+            'edge': EdgeLevel(),          # Filter/compress
+            'fog': FogLevel(),           # Aggregate
+            'cloud': CloudLevel()        # Deep analysis
+        }
+        
+    def process_iot_stream(self, sensor_data):
+        """Process through hierarchy"""
+        
+        # Level 1: Sensor (immediate response)
+        if sensor_data.is_critical():
+            self.levels['sensor'].immediate_action(sensor_data)
+            
+        # Level 2: Edge (filter noise)
+        filtered = self.levels['edge'].filter_data(sensor_data)
+        if not filtered.is_significant():
+            return  # Drop insignificant data
+            
+        # Level 3: Fog (aggregate)
+        aggregated = self.levels['fog'].aggregate(filtered)
+        
+        # Level 4: Cloud (deep analysis)
+        if aggregated.requires_analysis():
+            self.levels['cloud'].analyze(aggregated)
+
+# Edge-specific data structures
+class EdgeDataManager:
+    def __init__(self, storage_limit_mb=100):
+        self.storage_limit = storage_limit_mb * 1024 * 1024
+        self.data_tiers = {
+            'hot': CircularBuffer(size=1000),      # Recent data
+            'warm': CompressedStore(size=10000),   # Compressed
+            'cold': None  # Uploaded to cloud
+        }
+        
+    def ingest(self, data):
+        """Smart data tiering at edge"""
+        
+        # Hot tier: Keep recent raw data
+        self.data_tiers['hot'].append(data)
+        
+        # Warm tier: Compress older data
+        if self.data_tiers['hot'].is_full():
+            old_data = self.data_tiers['hot'].evict_oldest()
+            compressed = self.compress(old_data)
+            self.data_tiers['warm'].store(compressed)
+            
+        # Cold tier: Upload to cloud
+        if self.get_storage_used() > self.storage_limit * 0.8:
+            self.upload_cold_data()
+            
+    def query(self, time_range):
+        """Query across tiers"""
+        results = []
+        
+        # Check hot tier first
+        hot_results = self.data_tiers['hot'].query(time_range)
+        results.extend(hot_results)
+        
+        # Check warm tier if needed
+        if not time_range.satisfied_by(hot_results):
+            warm_results = self.data_tiers['warm'].query(time_range)
+            results.extend(self.decompress(warm_results))
+            
+        # Fetch from cloud if needed
+        if not time_range.satisfied_by(results):
+            cold_results = self.fetch_from_cloud(time_range)
+            results.extend(cold_results)
+            
+        return results
+
+# Edge ML optimization
+class EdgeMLOptimizer:
+    @staticmethod
+    def prepare_model_for_edge(cloud_model):
+        """Optimize model for edge deployment"""
+        
+        # 1. Quantization (FP32 → INT8)
+        quantized = torch.quantization.quantize_dynamic(
+            cloud_model,
+            {nn.Linear, nn.Conv2d},
+            dtype=torch.qint8
+        )
+        
+        # 2. Pruning (remove small weights)
+        pruned = prune_model(quantized, sparsity=0.5)
+        
+        # 3. Knowledge distillation
+        edge_model = create_student_model(
+            teacher=cloud_model,
+            compression_ratio=0.1
+        )
+        
+        # 4. Compile for edge hardware
+        if has_edge_accelerator():
+            edge_model = compile_for_accelerator(edge_model)
+            
+        return EdgeModel(
+            model=edge_model,
+            size_mb=get_model_size(edge_model),
+            latency_ms=benchmark_latency(edge_model)
+        )
+
+# Edge-cloud synchronization
+class EdgeCloudSync:
+    def __init__(self, edge_node, cloud_endpoint):
+        self.edge_node = edge_node
+        self.cloud = cloud_endpoint
+        self.sync_queue = PriorityQueue()
+        self.bandwidth_monitor = BandwidthMonitor()
+        
+    async def sync_with_backpressure(self):
+        """Adaptive sync based on bandwidth"""
+        
+        while True:
+            # Monitor available bandwidth
+            bandwidth_kbps = self.bandwidth_monitor.get_current()
+            
+            # Adjust sync strategy
+            if bandwidth_kbps < 100:
+                # Low bandwidth: Only critical data
+                await self.sync_critical_only()
+            elif bandwidth_kbps < 1000:
+                # Medium bandwidth: Batched updates
+                await self.sync_batched()
+            else:
+                # Good bandwidth: Full sync
+                await self.sync_full()
+                
+            await asyncio.sleep(self.calculate_sync_interval())
+    
+    async def sync_critical_only(self):
+        """Only sync critical alerts"""
+        critical_data = self.sync_queue.get_priority('critical')
+        if critical_data:
+            await self.cloud.send(critical_data, priority='high')
+            
+    async def sync_batched(self):
+        """Batch and compress updates"""
+        batch = []
+        batch_size = 0
+        max_batch_size = 1024 * 100  # 100KB
+        
+        while not self.sync_queue.empty() and batch_size < max_batch_size:
+            item = self.sync_queue.get()
+            batch.append(item)
+            batch_size += len(item)
+            
+        if batch:
+            compressed = compress(batch)
+            await self.cloud.send(compressed)
+
+# Edge orchestration
+class EdgeOrchestrator:
+    def __init__(self):
+        self.nodes = {}
+        self.workloads = {}
+        
+    def deploy_workload(self, workload):
+        """Deploy workload to optimal edge node"""
+        
+        # Find best node based on:
+        # - Proximity to data source
+        # - Available compute resources
+        # - Network latency
+        # - Power availability
+        
+        scores = {}
+        for node_id, node in self.nodes.items():
+            score = self.calculate_placement_score(workload, node)
+            scores[node_id] = score
+            
+        best_node = max(scores, key=scores.get)
+        
+        # Deploy with resource limits
+        deployment = EdgeDeployment(
+            workload=workload,
+            node=self.nodes[best_node],
+            resources={
+                'cpu_shares': 100,  # Limited CPU
+                'memory_mb': 50,    # Limited RAM
+                'storage_mb': 10    # Limited storage
+            }
+        )
+        
+        return deployment.deploy()
+```
+
+## Edge-Specific Patterns
+
+```python
+# Store-and-forward for intermittent connectivity
+class StoreAndForward:
+    def __init__(self, storage_path):
+        self.storage = PersistentQueue(storage_path)
+        self.connection_monitor = ConnectionMonitor()
+        
+    async def send(self, data):
+        # Always store first
+        self.storage.put(data)
+        
+        # Try to forward if connected
+        if self.connection_monitor.is_connected():
+            await self.forward_stored_data()
+        else:
+            # Will retry when connection restored
+            self.connection_monitor.on_connected(self.forward_stored_data)
+            
+    async def forward_stored_data(self):
+        """Forward all stored data when connected"""
+        while not self.storage.empty():
+            data = self.storage.get()
+            try:
+                await self.cloud.send(data)
+                self.storage.commit()  # Remove from queue
+            except Exception:
+                self.storage.rollback()  # Keep in queue
+                break
+
+# Edge federation
+class EdgeFederation:
+    """Collaborate across edge nodes"""
+    
+    def __init__(self, node_id):
+        self.node_id = node_id
+        self.peers = {}
+        
+    async def federated_learning(self, local_model):
+        """Train model across edge nodes"""
+        
+        # 1. Train on local data
+        local_update = self.train_local(local_model)
+        
+        # 2. Share with peers
+        peer_updates = await self.exchange_updates(local_update)
+        
+        # 3. Aggregate updates
+        global_update = self.federated_average([local_update] + peer_updates)
+        
+        # 4. Apply to local model
+        self.apply_update(local_model, global_update)
+        
+        return local_model
+```
+
+## ✓ CHOOSE THIS WHEN:
+• Ultra-low latency required (<10ms)
+• Bandwidth is limited/expensive
+• Privacy/data sovereignty matters
+• Intermittent connectivity
+• Real-time decision making
+
+## ⚠️ BEWARE OF:
+• Limited compute at edge
+• Hardware heterogeneity
+• Security of edge nodes
+• Update/maintenance complexity
+• Cost of edge infrastructure
+
+## REAL EXAMPLES
+• **Tesla**: Autopilot edge inference
+• **AWS Wavelength**: 5G edge computing
+• **Azure IoT Edge**: Factory automation

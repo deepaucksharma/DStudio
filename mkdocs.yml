@@ -129,12 +129,6 @@ extra:
 nav:
   - Home: index.md
   
-  - Front Matter:
-    - Cover: front-matter/index.md
-    - Copyright & Credits: front-matter/copyright.md
-    - Preface: front-matter/preface.md
-    - Reader Roadmap: front-matter/roadmap.md
-  
   - "Part I: Axioms":
     - Overview: part1-axioms/index.md
     - "Axiom 1: Latency":
@@ -185,9 +179,75 @@ nav:
       - Overview: part2-pillars/control/index.md
     - "Pillar 5: Intelligence":
       - Overview: part2-pillars/intelligence/index.md
+    - "Analysis Tools":
+      - "CAST vs SPACE Models": part2-pillars/models-comparison.md
+      - "When Models Collide": part2-pillars/models-collide.md
+      - "Pattern Matrix": part2-pillars/pattern-matrix.md
+      - "Trade-off Calculus": part2-pillars/tradeoff-calculus.md
+      - "Decision Tree": part2-pillars/decision-tree.md
+    - "Exercises & Reflection":
+      - "Pillar Checkpoint": part2-pillars/pillar-checkpoint.md
+      - "Failure Recap": part2-pillars/failure-recap.md
+      - "Reflection Journal": part2-pillars/reflection-journal.md
+    - "Pattern Preview":
+      - "Pattern Catalog Intro": part2-pillars/pattern-catalog-intro.md
+      - "Pattern Legend": part2-pillars/pattern-legend.md
+      - "Pillars ↔ Patterns Map": part2-pillars/pillars-patterns-map.md
+      - "Transition to Part III": part2-pillars/transition-part3.md
   
-  - Patterns:
-    - patterns/index.md
+  - "Part III: Patterns":
+    - Overview: patterns/index.md
+    - "Core Patterns":
+      - "Queues & Streaming": patterns/queues-streaming.md
+      - "CQRS": patterns/cqrs.md
+      - "Event-Driven Architecture": patterns/event-driven.md
+      - "Event Sourcing": patterns/event-sourcing.md
+      - "Saga Pattern": patterns/saga.md
+      - "Service Mesh": patterns/service-mesh.md
+      - "GraphQL Federation": patterns/graphql-federation.md
+      - "Serverless/FaaS": patterns/serverless-faas.md
+    - "Resilience Patterns":
+      - "Circuit Breaker": patterns/circuit-breaker.md
+      - "Retry & Backoff": patterns/retry-backoff.md
+      - "Bulkhead": patterns/bulkhead.md
+      - "Edge Computing": patterns/edge-computing.md
+    - "Data Patterns":
+      - "CDC (Change Data Capture)": patterns/cdc.md
+      - "Tunable Consistency": patterns/tunable-consistency.md
+      - "Sharding": patterns/sharding.md
+      - "Caching Strategies": patterns/caching-strategies.md
+      - "Geo-Replication": patterns/geo-replication.md
+    - "Operational Patterns":
+      - "Observability": patterns/observability.md
+      - "FinOps": patterns/finops.md
+    - "Pattern Quiz": patterns/pattern-quiz.md
+  
+  - "Part IV: Quantitative Toolkit":
+    - Overview: quantitative/index.md
+    - "Latency & Performance":
+      - "Latency Ladder": quantitative/latency-ladder.md
+      - "Little's Law": quantitative/littles-law.md
+      - "Queueing Theory": quantitative/queueing-models.md
+    - "Scaling Laws":
+      - "Amdahl & Gustafson Laws": quantitative/amdahl-gustafson.md
+      - "Universal Scalability Law": quantitative/universal-scalability.md
+    - "Economics & Planning":
+      - "Coordination Costs": quantitative/coordination-costs.md
+      - "Cache Economics": quantitative/cache-economics.md
+      - "Availability Math": quantitative/availability-math.md
+      - "Capacity Planning": quantitative/capacity-planning.md
+    - "Problem Set": quantitative/problem-set.md
+  
+  - "Part V: Human Factors":
+    - Overview: human-factors/index.md
+    - "Production Excellence":
+      - "Consistency Tuning": human-factors/consistency-tuning.md
+      - "Chaos Engineering": human-factors/chaos-engineering.md
+      - "Observability Stacks": human-factors/observability-stacks.md
+    - "Operational Practices":
+      - "SRE Practices": human-factors/sre-practices.md
+      - "Org-Structure Physics": human-factors/org-structure.md
+      - "Runbooks & Playbooks": human-factors/runbooks-playbooks.md
   
   - Tools:
     - tools/index.md
@@ -195,7 +255,3 @@ nav:
   - Case Studies:
     - case-studies/index.md
   
-  - Reference:
-    - reference/index.md
-  
-  - About: about.md

@@ -308,12 +308,12 @@ Utilization targets:
 
 ## Cross-References
 
-- → [Axiom 2: Capacity](../axiom2-capacity/index.md): What to observe for saturation
-- → [Axiom 7: Human Interface](../axiom7-human/index.md): Making observability usable
-<!-- - → [Monitoring Patterns](../../patterns/monitoring): Implementation strategies -->
+- → [Axiom 2: Capacity](../axiom2-capacity/): What to observe for saturation
+- → [Axiom 7: Human Interface](../axiom7-human/): Making observability usable
+- → [Observability](../../patterns/observability): Implementation strategies and patterns
 
 ---
 
-**Next**: [Axiom 7: Human Interface →](../axiom7-human/index.md)
+**Next**: [Axiom 7: Human Interface →](../axiom7-human/)
 
 *"You can observe a lot by watching." - Yogi Berra*

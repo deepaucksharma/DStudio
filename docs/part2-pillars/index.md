@@ -1,10 +1,22 @@
 # Part II: Foundational Pillars
 
+**Learning Objective**: Understand how axioms combine to create fundamental architectural patterns.
+
 ## Why Pillars?
 
 The axioms teach us *what* constrains distributed systems. The pillars teach us *how* to work within those constraints.
 
 Think of it this way: if axioms are Newton's laws of motion, then pillars are aerospace engineering. Physics constrains what's possible; engineering shows us how to achieve it.
+
+## The Emergence Principle
+
+```
+Axioms = Constraints (what you cannot change)
+Pillars = Patterns (how you work within constraints)
+
+Just as chemistry emerges from physics, and biology from chemistry,
+distributed system patterns emerge from fundamental constraints.
+```
 
 ### From Constraints to Capabilities
 
@@ -30,11 +42,91 @@ But within these constraints, we can build remarkable systems. The five pillars 
 
 </div>
 
+## The Three Core + Two Extension Model
+
+```
+                    AXIOMS (Constraints)
+                           ↓
+    ┌────────────────────────────────────────────┐
+    │            CORE PILLARS                     │
+    │                                             │
+    │  Work         State          Truth         │
+    │  Distribution Distribution   Distribution  │
+    │     ↑            ↑              ↑          │
+    │  Capacity    Capacity      Coordination   │
+    │  Latency     Latency       Concurrency    │
+    │              Failure       Partial Fail    │
+    └────────────────────────────────────────────┘
+                           ↓
+    ┌────────────────────────────────────────────┐
+    │         EXTENSION PILLARS                   │
+    │                                             │
+    │     Control           Intelligence         │
+    │     Distribution      Distribution         │
+    │         ↑                   ↑              │
+    │    Human Interface    All Axioms +        │
+    │    Observability      Feedback Loops       │
+    └────────────────────────────────────────────┘
+```
+
+### Why These Five?
+
+**Coverage Analysis**:
+```
+System Aspect               Covered By Pillar
+-------------               -----------------
+Request handling           → Work Distribution
+Data persistence          → State Distribution  
+Consistency               → Truth Distribution
+Operations                → Control Distribution
+Adaptation                → Intelligence Distribution
+
+Completeness check: ✓ All aspects covered
+Minimality check: ✓ No redundant pillars
+Orthogonality check: ✓ Pillars independent
+```
+
+**Historical Evolution**:
+```
+1960s: Mainframes (no distribution needed)
+1970s: Client-server (Work distribution emerges)
+1980s: Databases (State distribution emerges)
+1990s: Internet (Truth distribution critical)
+2000s: Web-scale (Control distribution needed)
+2010s: Cloud (All pillars mature)
+2020s: AI/Edge (Intelligence distribution emerges)
+```
+
 ### The Emergence Property
 
 Here's something beautiful: when you master these five pillars, something emerges that's greater than their sum. You develop *systems intuition*—the ability to see how changes ripple through complex architectures, to predict where bottlenecks will form, to design for failures you haven't seen yet.
 
 This intuition is what separates senior engineers from junior ones. It's what lets you walk into a room full of smart people arguing about architecture and quietly suggest the solution that makes everyone say "oh, obviously."
+
+### The Pillar Interaction Model
+
+```
+Work × State = Stateless vs Stateful services
+Work × Truth = Consistency models for compute
+State × Truth = CAP theorem territory
+Control × All = Orchestration patterns
+Intelligence × All = Self-healing systems
+```
+
+### Mental Model: The Distributed Systems House
+
+```
+     Intelligence (Roof - Protects/Adapts)
+           /                    \
+    Control                    Control
+    (Walls)                    (Walls)
+      |                          |
+Work--+--------State--------+---Work
+      |                     |
+      |        Truth        |
+      |      (Foundation)   |
+      +---------------------+
+```
 
 ### How Pillars Build on Axioms
 
@@ -64,31 +156,31 @@ By the end, you'll understand not just *what* each pillar does, but *why* it wor
 
 <div class="grid cards" markdown>
 
-- :material-cog: **[Work](work/index.md)**
+- :material-cog: **[Work](work/)**
 
     ---
     
     Decomposing computation across space and time
 
-- :material-database: **[State](state/index.md)**
+- :material-database: **[State](state/)**
 
     ---
     
     Managing data consistency and replication
 
-- :material-check-decagram: **[Truth](truth/index.md)**
+- :material-check-decagram: **[Truth](truth/)**
 
     ---
     
     Establishing consensus and ordering
 
-- :material-tune: **[Control](control/index.md)**
+- :material-tune: **[Control](control/)**
 
     ---
     
     Coordinating system behavior
 
-- :material-brain: **[Intelligence](intelligence/index.md)**
+- :material-brain: **[Intelligence](intelligence/)**
 
     ---
     

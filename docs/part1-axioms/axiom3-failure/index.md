@@ -160,12 +160,12 @@ Retry budget:     3 × 3s = 9s < 10s ✓
 
 ## Cross-References
 
-- → [Axiom 2: Capacity](../axiom2-capacity/index.md): How capacity limits trigger failures
-<!-- - → [Circuit Breakers](../../patterns/circuit-breaker): Preventing cascade failures -->
-- → [Axiom 4: Concurrency](../axiom4-concurrency/index.md): Race conditions in failure scenarios
+- → [Axiom 2: Capacity](../axiom2-capacity/): How capacity limits trigger failures
+- → [Circuit Breakers](../../patterns/circuit-breaker): Preventing cascade failures
+- → [Axiom 4: Concurrency](../axiom4-concurrency/): Race conditions in failure scenarios
 
 ---
 
-**Next**: [Axiom 4: Concurrency →](../axiom4-concurrency/index.md)
+**Next**: [Axiom 4: Concurrency →](../axiom4-concurrency/)
 
 *"In distributed systems, partial failure is the only kind of failure."*

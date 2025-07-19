@@ -1,10 +1,23 @@
-# Pillar 1: Work
+# Pillar 1: Distribution of Work
+
+**Learning Objective**: Master the art of spreading computation without spreading complexity.
 
 ## The Central Question
 
 How do you break computation into pieces that can run on different machines while minimizing latency and maximizing throughput?
 
 This isn't just about "microservices" or "functions"—it's about the fundamental physics of distributed computation.
+
+## First Principle of Work Distribution
+
+```
+Work should flow to where it can be processed most efficiently,
+considering:
+- Physical location (latency)
+- Available capacity
+- Required resources
+- Failure domains
+```
 
 ## The Work Decomposition Matrix
 

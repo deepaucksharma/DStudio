@@ -161,12 +161,13 @@ Comparing vectors:
 
 ## Cross-References
 
-- → [Axiom 3: Partial Failure](../axiom3-failure/index.md): Concurrent failures
-- → [Axiom 5: Coordination](../axiom5-coordination/index.md): Cost of preventing races
-<!-- - → [ACID Properties](../../patterns/acid): Consistency guarantees -->
+- → [Axiom 3: Partial Failure](../axiom3-failure/): Concurrent failures
+- → [Axiom 5: Coordination](../axiom5-coordination/): Cost of preventing races
+- → [Event Sourcing](../../patterns/event-sourcing): Ordering and consistency patterns
+- → [CQRS](../../patterns/cqrs): Handling concurrent reads and writes
 
 ---
 
-**Next**: [Axiom 5: Coordination →](../axiom5-coordination/index.md)
+**Next**: [Axiom 5: Coordination →](../axiom5-coordination/)
 
 *"Concurrency is not parallelism; it's dealing with lots of things at once, not doing lots of things at once."*

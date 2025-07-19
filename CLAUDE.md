@@ -33,10 +33,12 @@ rm -rf site/
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for automatic deployment to GitHub Pages
 - `docs/` - All documentation content organized hierarchically:
   - `index.md` - Homepage with navigation cards, journey map, and philosophy
-  - `distributed-systems-book.md` - Legacy comprehensive guide (migrating to modular structure)
   - `introduction/` - Getting started guides and learning paths
   - `part1-axioms/` - 8 fundamental axioms (Latency, Capacity, Failure, Concurrency, Coordination, Observability, Human Interface, Economics)
   - `part2-pillars/` - 5 foundational pillars (Work, State, Truth, Control, Intelligence)
+  - `patterns/` - Modern architectural patterns (21 patterns including CQRS, Event Sourcing, Service Mesh, etc.)
+  - `quantitative/` - Mathematical toolkit (Little's Law, Queueing Theory, Scaling Laws, etc.)
+  - `human-factors/` - Operational excellence (SRE, Chaos Engineering, Observability, etc.)
   - `reference/` - Glossary, cheat sheets, recipe cards, security considerations
   - `tools/` - Interactive calculators (latency, capacity planning)
   - `stylesheets/extra.css` - Extensive custom styling (784 lines)

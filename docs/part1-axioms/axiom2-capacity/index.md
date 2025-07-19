@@ -261,7 +261,7 @@ for attempt in range(5):
 <div class="cross-links">
 <h3>🔗 Related Concepts</h3>
 
-- → [Axiom 3: Failure](../axiom3-failure/index.md): What happens at capacity
+- → [Axiom 3: Failure](../axiom3-failure/): What happens at capacity
 - → [Load Balancing Patterns](../../patterns/load-balancing): Distributing load
 - → [Admission Control](../../patterns/admission-control): Rejecting gracefully
 - → [Circuit Breakers](../../patterns/circuit-breaker): Preventing cascade
@@ -297,6 +297,6 @@ for attempt in range(5):
 
 ---
 
-**Next**: [Axiom 3: Failure →](../axiom3-failure/index.md)
+**Next**: [Axiom 3: Failure →](../axiom3-failure/)
 
 *"The question is not IF you'll hit capacity limits, but WHEN."*

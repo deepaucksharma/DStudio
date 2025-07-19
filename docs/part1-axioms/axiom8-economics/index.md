@@ -244,12 +244,12 @@ Single AZ           No HA                No for critical
 
 ## Cross-References
 
-- → [Axiom 1: Latency](../axiom1-latency/index.md): Time is money
-- → [Axiom 5: Coordination](../axiom5-coordination/index.md): Hidden coordination costs
-<!-- - → [FinOps Patterns](../../patterns/finops): Cost optimization strategies -->
+- → [Axiom 1: Latency](../axiom1-latency/): Time is money
+- → [Axiom 5: Coordination](../axiom5-coordination/): Hidden coordination costs
+- → [FinOps Patterns](../../patterns/finops): Cost optimization strategies
 
 ---
 
-**Next**: [Synthesis: Bringing It All Together →](../synthesis.md)
+**Next**: [Synthesis: Bringing It All Together →](../synthesis/)
 
 *"The most expensive outage is the one you didn't prevent because the prevention seemed too expensive."*

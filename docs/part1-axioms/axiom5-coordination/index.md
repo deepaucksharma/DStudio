@@ -172,12 +172,13 @@ Byzantine consensus             O(N²) messages                25 × 50ms = 1250
 
 ## Cross-References
 
-- → [Axiom 1: Latency](../axiom1-latency/index.md): Physical limits on coordination
-- → [Axiom 4: Concurrency](../axiom4-concurrency/index.md): Why coordination is needed
-<!-- - → [Consensus Protocols](../../patterns/consensus): Implementation patterns -->
+- → [Axiom 1: Latency](../axiom1-latency/): Physical limits on coordination
+- → [Axiom 4: Concurrency](../axiom4-concurrency/): Why coordination is needed
+- → [Saga Pattern](../../patterns/saga): Distributed transaction coordination
+- → [Event-Driven Architecture](../../patterns/event-driven): Coordination through events
 
 ---
 
-**Next**: [Axiom 6: Observability →](../axiom6-observability/index.md)
+**Next**: [Axiom 6: Observability →](../axiom6-observability/)
 
 *"The cost of coordination is the tax you pay for distributed systems."*
