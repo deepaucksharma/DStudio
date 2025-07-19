@@ -11,21 +11,21 @@ Before we discuss any patterns, algorithms, or architectures, we must understand
 <div class="axiom-grid">
 {{ grid(columns=2, gap='lg') }}
 
-{{ card(type='axiom', title='Axiom 1: Latency', content='Information cannot travel faster than light. This creates fundamental delays in all distributed communication.', link='axiom1-latency/index.md') }}
+{{ card(type='axiom', title='Axiom 1: Latency', content='Information cannot travel faster than light. This creates fundamental delays in all distributed communication.', link='axiom1-latency/') }}
 
-{{ card(type='axiom', title='Axiom 2: Finite Capacity', content='Every resource has limits. No amount of engineering can create infinite compute, storage, or bandwidth.', link='axiom2-capacity/index.md') }}
+{{ card(type='axiom', title='Axiom 2: Finite Capacity', content='Every resource has limits. No amount of engineering can create infinite compute, storage, or bandwidth.', link='axiom2-capacity/') }}
 
-{{ card(type='axiom', title='Axiom 3: Failure', content='Components will fail. Networks will partition. Messages will be lost. Failure is not a bug—it is a feature.', link='axiom3-failure/index.md') }}
+{{ card(type='axiom', title='Axiom 3: Failure', content='Components will fail. Networks will partition. Messages will be lost. Failure is not a bug—it is a feature.', link='axiom3-failure/') }}
 
-{{ card(type='axiom', title='Axiom 4: Concurrency', content='Multiple things happen at once. Without global time, ordering becomes a fundamental challenge.', link='axiom4-concurrency/index.md') }}
+{{ card(type='axiom', title='Axiom 4: Concurrency', content='Multiple things happen at once. Without global time, ordering becomes a fundamental challenge.', link='axiom4-concurrency/') }}
 
-{{ card(type='axiom', title='Axiom 5: Coordination', content='Agreement requires communication. Communication requires time. Time costs latency and availability.', link='axiom5-coordination/index.md') }}
+{{ card(type='axiom', title='Axiom 5: Coordination', content='Agreement requires communication. Communication requires time. Time costs latency and availability.', link='axiom5-coordination/') }}
 
-{{ card(type='axiom', title='Axiom 6: Observability', content='You cannot debug what you cannot see. But observation changes the system being observed.', link='axiom6-observability/index.md') }}
+{{ card(type='axiom', title='Axiom 6: Observability', content='You cannot debug what you cannot see. But observation changes the system being observed.', link='axiom6-observability/') }}
 
-{{ card(type='axiom', title='Axiom 7: Human Interface', content='Systems must be operable by humans under stress. Cognitive load is a finite resource.', link='axiom7-human/index.md') }}
+{{ card(type='axiom', title='Axiom 7: Human Interface', content='Systems must be operable by humans under stress. Cognitive load is a finite resource.', link='axiom7-human/') }}
 
-{{ card(type='axiom', title='Axiom 8: Economics', content='Every decision has a cost. Resources, time, and complexity must be balanced against value.', link='axiom8-economics/index.md') }}
+{{ card(type='axiom', title='Axiom 8: Economics', content='Every decision has a cost. Resources, time, and complexity must be balanced against value.', link='axiom8-economics/') }}
 
 {{ endgrid() }}
 </div>
