@@ -22,6 +22,40 @@ Imagine a massive library with millions of books. How do you organize the catalo
 
 That's distributed state in a nutshell!
 
+---
+
+## 📋 Questions This Pillar Answers
+
+<div class="questions-box">
+
+### Fundamental Questions
+- **How do I split data across multiple machines safely?**
+- **What happens when machines have different versions of data?**
+- **How do I handle concurrent updates to the same data?**
+- **When should I use eventual vs strong consistency?**
+
+### Design Questions  
+- **Should I partition by user, time, or geography?**
+- **How do I handle cross-partition queries?**
+- **What's the right replication factor for my data?**
+- **How do I migrate data when resharding?**
+
+### Operational Questions
+- **How do I detect and fix split-brain scenarios?**
+- **What do I do when replicas diverge?**
+- **How do I backup distributed state?**
+- **How do I handle hot partitions?**
+
+### Performance Questions
+- **Why are my cross-region queries so slow?**
+- **How do I minimize replication lag?**
+- **What's the optimal partition size?**
+- **How do I cache distributed state effectively?**
+
+</div>
+
+---
+
 ### Your First Distributed State Problem
 
 ```python
@@ -109,6 +143,67 @@ Types of distributed state challenges:
 3. **Split Brain** 🧠: "We have two masters now??"
 4. **Phantom Writes** 👤: "Where did that come from?"
 5. **Cascading Failures** 🌊: "One node down, all nodes down"
+
+### Concept Map: State Distribution
+
+```mermaid
+graph TB
+    subgraph "State Distribution Pillar"
+        Core[State Distribution<br/>Core Concept]
+        
+        Core --> Partition[Partitioning<br/>Strategies]
+        Core --> Replication[Replication<br/>Models]
+        Core --> Consistency[Consistency<br/>Guarantees]
+        Core --> Coordination[State<br/>Coordination]
+        
+        %% Partitioning branch
+        Partition --> Range[Range Partitioning<br/>Ordered splits]
+        Partition --> Hash[Hash Partitioning<br/>Even distribution]
+        Partition --> Geo[Geographic Partitioning<br/>Location-based]
+        Partition --> Custom[Custom Partitioning<br/>Domain-specific]
+        
+        %% Replication branch
+        Replication --> Primary[Primary-Replica<br/>Leader-based]
+        Replication --> MultiMaster[Multi-Master<br/>Peer-to-peer]
+        Replication --> Chain[Chain Replication<br/>Ordered]
+        Replication --> Quorum[Quorum-Based<br/>Voting]
+        
+        %% Consistency branch
+        Consistency --> Strong[Strong Consistency<br/>Linearizable]
+        Consistency --> Eventual[Eventual Consistency<br/>Convergent]
+        Consistency --> Causal[Causal Consistency<br/>Order preserving]
+        Consistency --> Session[Session Consistency<br/>Client-centric]
+        
+        %% Coordination branch
+        Coordination --> 2PC[Two-Phase Commit<br/>Atomic]
+        Coordination --> Paxos[Paxos/Raft<br/>Consensus]
+        Coordination --> CRDT[CRDTs<br/>Conflict-free]
+        Coordination --> Vector[Vector Clocks<br/>Causality tracking]
+        
+        %% Key relationships
+        Hash -.-> Eventual
+        Range -.-> Strong
+        Primary -.-> Strong
+        MultiMaster -.-> CRDT
+        Quorum -.-> Paxos
+        
+        %% Axiom connections
+        Axiom1[Axiom 1: Latency] --> Geo
+        Axiom2[Axiom 2: Capacity] --> Partition
+        Axiom3[Axiom 3: Failure] --> Replication
+        Axiom5[Axiom 5: Coordination] --> Consistency
+        CAP[CAP Theorem] --> Consistency
+    end
+    
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+    style Axiom1 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom2 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style CAP fill:#ffe1e1,stroke:#333,stroke-width:2px
+```
+
+This concept map illustrates how state distribution branches into four major decision areas, each influenced by fundamental axioms and the CAP theorem. The dotted lines show common implementation patterns.
 
 ### Simple Mental Models
 
@@ -203,6 +298,40 @@ you're really choosing between C and A:
 Choose C+P: Bank systems (correctness > availability)
 Choose A+P: Social media (availability > consistency)
 ```
+
+### State Distribution Decision Framework
+
+<div class="decision-framework">
+<h4>🎯 Partitioning Strategy Selection</h4>
+
+| Strategy | Use When | Avoid When | Example |
+|----------|----------|------------|---------|
+| **By User ID** | • User data isolated<br>• No cross-user queries<br>• Predictable growth | • Need global analytics<br>• Users interact heavily<br>• Uneven user sizes | Social media profiles |
+| **By Time** | • Time-series data<br>• Archive old data<br>• Write once, read many | • Need to update old data<br>• Cross-time queries<br>• Random access patterns | Log storage |
+| **By Geography** | • Data locality matters<br>• Regional compliance<br>• Low-latency reads | • Global consistency needed<br>• Users travel frequently<br>• Cross-region operations | CDN, local services |
+| **By Hash** | • Even distribution<br>• No natural partition key<br>• Uniform access | • Range queries needed<br>• Data locality important<br>• Ordered access | Key-value stores |
+| **By Feature** | • Separate concerns<br>• Different SLAs<br>• Independent scaling | • Features share data<br>• Complex joins needed<br>• Tight coupling | Microservices |
+
+<h4>🔧 Consistency Model Selection</h4>
+
+| Use Case | Model | Why | Trade-offs |
+|----------|-------|-----|------------|
+| **Financial Transactions** | Strong | Money must be accurate | Higher latency, lower availability |
+| **Shopping Cart** | Read-Your-Writes | Users see their changes | May not see others' changes immediately |
+| **Social Media Feed** | Eventual | Speed > perfect accuracy | Temporary inconsistencies OK |
+| **Collaborative Editing** | Causal | Preserve edit ordering | More complex than eventual |
+| **Inventory Management** | Bounded Staleness | Recent enough is OK | Balance accuracy vs speed |
+
+<h4>🚨 Anti-Pattern Detection</h4>
+
+| Anti-Pattern | Symptoms | Solution |
+|--------------|----------|----------|
+| **Distributed Monolith** | • Every query hits all shards<br>• Can't scale independently<br>• Cascading failures | Redesign partition strategy |
+| **Hot Partition** | • One shard overloaded<br>• Others idle<br>• Uneven distribution | Add partition key randomization |
+| **Cross-Shard Transactions** | • Complex 2PC everywhere<br>• High failure rate<br>• Slow operations | Denormalize or rethink boundaries |
+| **Cache Inconsistency** | • Stale data served<br>• Users see old values<br>• Cache never invalidated | Implement proper invalidation |
+
+</div>
 
 ### State Replication Strategies
 

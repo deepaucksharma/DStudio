@@ -1,8 +1,38 @@
 # Circuit Breaker Pattern
 
+<div class="navigation-header">
+<div class="breadcrumb">
+[Home](/) → [Part III: Patterns](/patterns/) → **Circuit Breaker**
+</div>
+
+<div class="pattern-nav">
+**Related**: [Retry & Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/) • [All Patterns](/patterns/)
+</div>
+</div>
+
 **Fail fast, recover gracefully - The electrical metaphor that saves systems**
 
 > *"Like a house circuit breaker that trips to prevent fires, software circuit breakers trip to prevent cascade failures."*
+
+<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>
+
+**🔬 Primary Axioms Addressed**:
+- [Axiom 1: Latency](/part1-axioms/axiom1-latency/) - Fail fast when latency exceeds budgets
+- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Prevent cascade failures from spreading
+
+**🔧 Solves These Problems**:
+- Cascade failures bringing down entire systems
+- Resource exhaustion from retry storms
+- Poor user experience during service degradation
+- Debugging distributed failure scenarios
+
+**🤝 Works Best With**:
+- [Retry & Backoff](/patterns/retry-backoff/) - Complements circuit breaking
+- [Bulkhead](/patterns/bulkhead/) - Isolates failure domains
+- [Timeout Pattern](/patterns/timeout/) - Sets failure detection bounds
+- [Health Check API](/patterns/health-check/) - Enables recovery detection
+</div>
 
 ---
 
@@ -507,6 +537,81 @@ circuit_breaker:
     metrics_enabled: true
     alerts_enabled: true
 ```
+
+---
+
+<div class="navigation-footer">
+<div class="pattern-implementation">
+<h3>🛠️ Implementation Resources</h3>
+
+**📝 Code Examples**:
+- [Python Implementation](/patterns/circuit-breaker/#python-implementation) - Production-ready circuit breaker
+- [Java/Hystrix Example](/patterns/circuit-breaker/#hystrix-example) - Netflix's battle-tested approach
+- [Go Implementation](/patterns/circuit-breaker/#go-implementation) - High-performance breaker
+- [Configuration Templates](/patterns/circuit-breaker/#configuration) - Ready-to-use configs
+
+**🧪 Testing & Validation**:
+- [Chaos Engineering Tests](/patterns/circuit-breaker/#chaos-tests) - Validate failure scenarios
+- [Load Testing](/patterns/circuit-breaker/#load-tests) - Verify threshold settings
+- [Monitoring Setup](/patterns/circuit-breaker/#monitoring) - Essential metrics and alerts
+
+**📚 Deep Dive**:
+- [Mathematical Analysis](/quantitative/reliability-math/) - Calculate optimal thresholds
+- [Failure Mode Analysis](/part1-axioms/axiom3-failure/examples/) - Understanding failure patterns
+</div>
+
+<div class="real-world-usage">
+<h3>🏢 See It In Production</h3>
+
+**📊 Case Studies**:
+- [Netflix Hystrix](/case-studies/#netflix-hystrix) - Pioneering circuit breaker implementation
+- [AWS Lambda](/case-studies/#aws-lambda) - Serverless circuit breaking
+- [Spotify Backend](/case-studies/#spotify-backend) - Music streaming resilience
+- [Uber Microservices](/case-studies/#uber-microservices) - High-scale service protection
+
+**🎯 Common Scenarios**:
+- **Database Overload**: Protect DB from query storms
+- **External API Failures**: Graceful degradation for third-party services
+- **Microservice Cascades**: Prevent service-to-service failure propagation
+- **Resource Exhaustion**: Stop requests when resources are depleted
+</div>
+
+<div class="pattern-relationships">
+<h3>🔗 Related Patterns & Concepts</h3>
+
+**🤝 Complementary Patterns**:
+- [Retry & Backoff](/patterns/retry-backoff/) - Use together for robust error handling
+- [Bulkhead](/patterns/bulkhead/) - Isolate different failure domains
+- [Timeout](/patterns/timeout/) - Set clear failure detection boundaries
+- [Health Check](/patterns/health-check/) - Enable automatic recovery detection
+
+**⚖️ Alternative Approaches**:
+- [Rate Limiting](/patterns/rate-limiting/) - Prevent overload vs. failing fast
+- [Load Shedding](/patterns/load-shedding/) - Drop requests vs. circuit breaking
+- [Graceful Degradation](/patterns/graceful-degradation/) - Reduced functionality vs. hard failures
+
+**🧠 Foundational Concepts**:
+- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Why circuit breakers are necessary
+- [Coordination Pillar](/part2-pillars/coordination/) - How circuit breakers aid coordination
+- [Reliability Engineering](/human-factors/sre-practices/) - Operational considerations
+</div>
+
+<div class="next-steps">
+<h3>📚 Continue Learning</h3>
+
+**🎯 Immediate Next Steps**:
+1. **Implement**: Start with [basic implementation](/patterns/circuit-breaker/#implementation)
+2. **Test**: Try [chaos engineering exercise](/patterns/circuit-breaker/#chaos-tests)
+3. **Monitor**: Set up [essential metrics](/patterns/circuit-breaker/#monitoring)
+
+**🚀 Recommended Path**:
+- **Next Pattern**: [Retry & Backoff](/patterns/retry-backoff/) - Perfect complement to circuit breaking
+- **Deep Dive**: [Failure Analysis](/part1-axioms/axiom3-failure/) - Understand the underlying axiom
+- **Apply**: [Netflix Case Study](/case-studies/#netflix) - See large-scale implementation
+
+**🎓 Mastery Check**: Can you explain when circuit breakers make things worse? [Advanced scenarios →](/patterns/circuit-breaker/#anti-patterns)
+</div>
+</div>
 
 ---
 

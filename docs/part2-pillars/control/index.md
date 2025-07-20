@@ -93,6 +93,38 @@ Try this temperature control simulation:
 
 ---
 
+## 📋 Questions This Pillar Answers
+
+<div class="questions-box">
+
+### Fundamental Questions
+- **How do I make my system operable by humans?**
+- **What level of automation is appropriate?**
+- **How do I balance automation with human oversight?**
+- **When should operators intervene vs let systems self-heal?**
+
+### Design Questions
+- **What controls do operators actually need?**
+- **How do I design effective circuit breakers?**
+- **Should I use push-button deploys or GitOps?**
+- **How do I implement gradual rollouts safely?**
+
+### Operational Questions
+- **How do I know when something needs human intervention?**
+- **What's the right escalation path for incidents?**
+- **How do I prevent automation from making things worse?**
+- **When should I disable automated recovery?**
+
+### Performance Questions
+- **How fast can operators understand system state?**
+- **What's the MTTR impact of better controls?**
+- **How do I measure operator cognitive load?**
+- **What's the cost of manual vs automated operations?**
+
+</div>
+
+---
+
 ## Level 2: Foundation (Understand Why) 🌿
 
 ### Core Principle: The Control Paradox
@@ -348,6 +380,67 @@ Control dimensions:
 ```
 </div>
 
+### Concept Map: Distribution of Control
+
+```mermaid
+graph TB
+    subgraph "Control Distribution Pillar"
+        Core[Distribution of Control<br/>Core Concept]
+        
+        Core --> Human[Human-System<br/>Interface]
+        Core --> Auto[Automation<br/>Strategies]
+        Core --> Deploy[Deployment<br/>Control]
+        Core --> Observe[Observability<br/>& Feedback]
+        
+        %% Human interface branch
+        Human --> Cognitive[Cognitive Load<br/>Management]
+        Human --> Emergency[Emergency<br/>Controls]
+        Human --> Runbooks[Runbooks &<br/>Playbooks]
+        Human --> Escalation[Escalation<br/>Paths]
+        
+        %% Automation branch
+        Auto --> Reactive[Reactive<br/>Automation]
+        Auto --> Proactive[Proactive<br/>Automation]
+        Auto --> Adaptive[Adaptive<br/>Systems]
+        Auto --> Limits[Automation<br/>Boundaries]
+        
+        %% Deployment branch
+        Deploy --> BlueGreen[Blue-Green<br/>Instant switch]
+        Deploy --> Canary[Canary<br/>Gradual rollout]
+        Deploy --> Feature[Feature Flags<br/>Fine control]
+        Deploy --> GitOps[GitOps<br/>Declarative]
+        
+        %% Observability branch
+        Observe --> Metrics[Metrics<br/>Aggregated]
+        Observe --> Logs[Logs<br/>Events]
+        Observe --> Traces[Traces<br/>Request flow]
+        Observe --> Alerts[Alerting<br/>Actionable]
+        
+        %% Key relationships
+        Emergency -.-> BlueGreen
+        Cognitive -.-> Alerts
+        Adaptive -.-> Metrics
+        Runbooks -.-> Reactive
+        Feature -.-> Proactive
+        
+        %% Axiom connections
+        Axiom3[Axiom 3: Failure] --> Emergency
+        Axiom6[Axiom 6: Observability] --> Observe
+        Axiom7[Axiom 7: Human Interface] --> Human
+        Axiom8[Axiom 8: Economics] --> Auto
+        Ironies[Ironies of Automation] --> Cognitive
+    end
+    
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom6 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom7 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom8 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Ironies fill:#ffe1e1,stroke:#333,stroke-width:2px
+```
+
+This concept map illustrates how control distribution balances human oversight with automation, deployment strategies, and observability. The "Ironies of Automation" remind us that more automation often requires more sophisticated human control.
+
 ### Observability: The Eyes of Control
 
 <div class="observability-pillars">
@@ -395,6 +488,41 @@ Frontend (5ms)
           └→ Payment Gateway (timeout)
               └→ Retry Logic (3x)
 ```
+</div>
+
+### Control System Decision Framework
+
+<div class="decision-framework">
+<h4>🎯 Automation Level Selection</h4>
+
+| System Type | Full Auto | Human-in-Loop | Manual | Why |
+|-------------|-----------|---------------|---------|-----|
+| **Scaling** | ✅ Predictable load | ⚠️ Cost sensitive | ❌ Never | Machines react faster |
+| **Deployments** | ⚠️ After validation | ✅ Most systems | ⚠️ Critical changes | Balance speed vs safety |
+| **Incident Response** | ⚠️ Known issues | ✅ Complex failures | ⚠️ Novel problems | Humans handle unknowns |
+| **Security Response** | ✅ DDoS mitigation | ✅ Suspicious activity | ❌ Never | Speed crucial |
+| **Cost Optimization** | ⚠️ Within bounds | ✅ Major changes | ❌ Never | Prevent bill shock |
+
+<h4>🔧 Control Pattern Selection</h4>
+
+| Pattern | Use When | Avoid When | Example |
+|---------|----------|------------|---------|
+| **Circuit Breaker** | • Protect dependencies<br>• Fail fast needed<br>• Cascading risk | • Intermittent issues OK<br>• No fallback available<br>• Stateless operations | Payment gateway |
+| **Bulkhead** | • Isolate failures<br>• Multi-tenant systems<br>• Resource pools | • Shared nothing arch<br>• Single purpose system<br>• Low traffic | Thread pools |
+| **Rate Limiting** | • Public APIs<br>• Prevent abuse<br>• Resource protection | • Internal services<br>• Trusted clients<br>• Batch processing | API gateway |
+| **Backpressure** | • Queue buildup risk<br>• Producer > consumer<br>• Memory sensitive | • Unlimited resources<br>• Loss acceptable<br>• Real-time systems | Stream processing |
+| **Adaptive Control** | • Variable load<br>• Learning patterns<br>• Cost optimization | • Predictable systems<br>• Strict SLAs<br>• Simple requirements | Auto-scaling |
+
+<h4>🚨 Observability Strategy</h4>
+
+| Need | Metrics | Logs | Traces | Profiles |
+|------|---------|------|--------|----------|
+| **System Health** | ✅ Primary | ⚠️ Support | ❌ Overkill | ❌ N/A |
+| **Error Investigation** | ⚠️ Detection | ✅ Primary | ✅ Complex cases | ⚠️ If performance |
+| **Performance Issues** | ✅ Detection | ⚠️ Context | ✅ User journey | ✅ Deep dive |
+| **Capacity Planning** | ✅ Primary | ❌ Not needed | ❌ Not needed | ⚠️ Optimization |
+| **Security Incidents** | ✅ Anomalies | ✅ Forensics | ✅ Attack path | ❌ N/A |
+
 </div>
 
 ### Alert Design Philosophy

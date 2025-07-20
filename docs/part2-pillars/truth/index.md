@@ -87,6 +87,38 @@ Why? Multiple paths prevent single points of failure
 
 ---
 
+## 📋 Questions This Pillar Answers
+
+<div class="questions-box">
+
+### Fundamental Questions
+- **How can multiple nodes agree without a central authority?**
+- **What happens when nodes have conflicting versions of truth?**
+- **Why can't I have both consistency and availability?**
+- **How do I know which timestamp to trust?**
+
+### Design Questions
+- **When should I use consensus vs eventual consistency?**
+- **How many nodes need to agree for "truth"?**
+- **Should I use vector clocks or hybrid logical clocks?**
+- **How do I handle network partitions gracefully?**
+
+### Operational Questions
+- **How do I detect when nodes disagree?**
+- **What do I do during a split-brain scenario?**
+- **How do I reconcile conflicting updates?**
+- **When can I safely ignore minority partitions?**
+
+### Performance Questions
+- **Why does consensus slow down with more nodes?**
+- **How do I minimize consensus latency?**
+- **What's the cost of stronger consistency?**
+- **Can I have regional consistency with global eventual consistency?**
+
+</div>
+
+---
+
 ## Level 2: Foundation (Understand Why) 🌿
 
 ### Core Principle: Truth is Agreement
@@ -240,6 +272,68 @@ All real algorithms "cheat":
 | **Tendermint** | Slow | f < n/3 Byzantine | Complex | Cosmos |
 | **Avalanche** | Fast | Probabilistic | Moderate | AVAX |
 </div>
+
+### Concept Map: Distribution of Truth
+
+```mermaid
+graph TB
+    subgraph "Truth Distribution Pillar"
+        Core[Distribution of Truth<br/>Core Concept]
+        
+        Core --> Consensus[Consensus<br/>Protocols]
+        Core --> Time[Time &<br/>Ordering]
+        Core --> Conflict[Conflict<br/>Resolution]
+        Core --> Trust[Trust<br/>Models]
+        
+        %% Consensus branch
+        Consensus --> CFT[Crash Fault Tolerant<br/>Honest failures]
+        Consensus --> BFT[Byzantine Fault Tolerant<br/>Malicious failures]
+        CFT --> Paxos[Paxos<br/>Original]
+        CFT --> Raft[Raft<br/>Understandable]
+        BFT --> PBFT[PBFT<br/>Traditional]
+        BFT --> Blockchain[Blockchain<br/>Probabilistic]
+        
+        %% Time branch
+        Time --> Physical[Physical Clocks<br/>Wall time]
+        Time --> Logical[Logical Clocks<br/>Lamport]
+        Time --> Vector[Vector Clocks<br/>Causality]
+        Time --> Hybrid[Hybrid Logical<br/>Best of both]
+        
+        %% Conflict branch
+        Conflict --> LWW[Last Write Wins<br/>Simple]
+        Conflict --> MVCC[Multi-Version<br/>Keep all]
+        Conflict --> CRDTs[CRDTs<br/>Automatic]
+        Conflict --> Custom[Application<br/>Specific]
+        
+        %% Trust branch
+        Trust --> Central[Centralized<br/>Single authority]
+        Trust --> Federation[Federated<br/>Known parties]
+        Trust --> Decentralized[Decentralized<br/>No authority]
+        Trust --> Zero[Zero Trust<br/>Verify always]
+        
+        %% Key relationships
+        Raft -.-> Central
+        Blockchain -.-> Decentralized
+        Vector -.-> CRDTs
+        PBFT -.-> Federation
+        
+        %% Axiom connections
+        Axiom3[Axiom 3: Failure] --> BFT
+        Axiom4[Axiom 4: Concurrency] --> Time
+        Axiom5[Axiom 5: Coordination] --> Consensus
+        FLP[FLP Impossibility] --> Consensus
+        CAP[CAP Theorem] --> Trust
+    end
+    
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom4 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style FLP fill:#ffe1e1,stroke:#333,stroke-width:2px
+    style CAP fill:#ffe1e1,stroke:#333,stroke-width:2px
+```
+
+This concept map shows how distributed truth branches into consensus mechanisms, time ordering, conflict resolution, and trust models. Each is constrained by fundamental theorems and axioms.
 
 ### Understanding Raft: The Understandable Consensus
 

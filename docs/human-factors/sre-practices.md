@@ -236,7 +236,7 @@ labels:
   severity: page
   service: api
 annotations:
-  summary: "High 5xx error rate on {{ $labels.instance }}"
+  summary: "High 5xx error rate on {{'{{ $labels.instance }}'}}"
   impact: "Users experiencing failures"
   dashboard: "https://grafana/d/api-errors"
   runbook: "https://wiki/runbooks/high-error-rate"

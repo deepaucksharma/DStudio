@@ -128,6 +128,9 @@ extra:
 # Complete Navigation - Including All Existing Content
 nav:
   - Home: index.md
+  - Introduction: 
+    - Overview: introduction/index.md
+    - Philosophy: introduction/philosophy.md
   
   - "Part I: Axioms":
     - Overview: part1-axioms/index.md
@@ -217,6 +220,10 @@ nav:
       - "Sharding": patterns/sharding.md
       - "Caching Strategies": patterns/caching-strategies.md
       - "Geo-Replication": patterns/geo-replication.md
+    - "Coordination Patterns":
+      - "Leader Election": patterns/leader-election.md
+      - "Idempotent Receiver": patterns/idempotent-receiver.md
+      - "Outbox": patterns/outbox.md
     - "Operational Patterns":
       - "Observability": patterns/observability.md
       - "FinOps": patterns/finops.md
@@ -254,4 +261,11 @@ nav:
   
   - Case Studies:
     - case-studies/index.md
+  
+  - Reference:
+    - Overview: reference/index.md
+    - Glossary: reference/glossary.md
+    - Cheat Sheets: reference/cheat-sheets.md
+    - Recipe Cards: reference/recipe-cards.md
+    - Security: reference/security.md
   

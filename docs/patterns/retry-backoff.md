@@ -1,416 +1,607 @@
 # Retry & Backoff Strategies
 
-**If at first you don't succeed, wait and try again (smartly)**
+**If at first you don't succeed, wait intelligently and try again - The art of handling transient failures**
 
-## THE PROBLEM
+> *"The network is reliable until it isn't - plan for failures, but don't make them worse with aggressive retries"*
 
+---
+
+## 🎯 Pattern Overview
+
+### The Problem
+Distributed systems face numerous transient failures that resolve themselves:
+- **Network glitches**: Temporary packet loss or routing issues
+- **Service restarts**: Brief unavailability during deployments
+- **Resource contention**: Temporary overload conditions
+- **Rate limiting**: Hitting API quotas temporarily
+
+Naive retry strategies can worsen the situation by:
+- Creating retry storms that overwhelm recovering services
+- Causing thundering herd problems
+- Wasting resources on hopeless requests
+- Increasing overall system latency
+
+### The Solution
+Implement intelligent retry mechanisms with exponential backoff:
+- **Gradual retry intervals**: Start small, increase exponentially
+- **Jitter**: Add randomness to prevent synchronized retries
+- **Circuit breaking**: Stop retrying when failure is persistent
+- **Selective retries**: Only retry operations that make sense
+
+### When to Use
+
+| ✅ Use When | ❌ Don't Use When |
+|-------------|-------------------|
+| • Transient network failures expected | • Failures are due to bugs/bad data |
+| • External service dependencies | • Operations are not idempotent |
+| • Rate limiting is possible | • Real-time systems with tight deadlines |
+| • Operations are idempotent | • Cost of retry exceeds benefit |
+| • Eventual success is likely | • User is waiting synchronously |
+
+---
+
+## 🏗️ Architecture & Implementation
+
+### Conceptual Model
+
+```mermaid
+graph LR
+    subgraph "Retry Flow"
+        R[Request] --> A{Attempt}
+        A -->|Success| S[Return Success]
+        A -->|Failure| D{Retryable?}
+        D -->|No| F[Return Failure]
+        D -->|Yes| W[Wait with Backoff]
+        W --> J[Add Jitter]
+        J --> C{Max Retries?}
+        C -->|No| A
+        C -->|Yes| F
+    end
+    
+    subgraph "Backoff Strategies"
+        B1[Fixed: 1s, 1s, 1s]
+        B2[Linear: 1s, 2s, 3s]
+        B3[Exponential: 1s, 2s, 4s, 8s]
+        B4[Decorrelated: Variable]
+    end
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style W fill:#bbf,stroke:#333,stroke-width:2px
+    style J fill:#bfb,stroke:#333,stroke-width:2px
 ```
-Transient failures are common:
-- Network blip → Request fails
-- Service restarting → 503 error
-- Rate limit hit → 429 error
-- Database deadlock → Retry needed
 
-But blind retries make things worse!
-```
+### Key Components
 
-## THE SOLUTION
+| Component | Purpose | Responsibilities |
+|-----------|---------|------------------|
+| **Retry Policy** | Define retry behavior | • Max attempts<br>• Retryable errors<br>• Timeout settings |
+| **Backoff Strategy** | Calculate wait times | • Initial delay<br>• Multiplier/increment<br>• Maximum delay |
+| **Jitter** | Prevent thundering herd | • Randomization range<br>• Distribution type<br>• Seed management |
+| **Circuit Breaker** | Prevent hopeless retries | • Failure threshold<br>• Recovery timeout<br>• State management |
+| **Metrics Collector** | Monitor retry behavior | • Success/failure rates<br>• Retry counts<br>• Latency impact |
 
-```
-Smart retry strategies:
-
-Attempt 1: Failed → Wait 100ms
-Attempt 2: Failed → Wait 200ms
-Attempt 3: Failed → Wait 400ms
-Attempt 4: Failed → Wait 800ms + jitter
-Attempt 5: Failed → Give up
-
-Don't hammer a struggling service!
-```
-
-## Backoff Strategies
-
-```
-1. FIXED: Always wait same time
-2. LINEAR: 1s, 2s, 3s, 4s...
-3. EXPONENTIAL: 1s, 2s, 4s, 8s...
-4. EXPONENTIAL + JITTER: Randomized to prevent thundering herd
-5. DECORRELATED JITTER: Even better distribution
-```
-
-## IMPLEMENTATION
+### Implementation Example
 
 ```python
 import asyncio
 import random
 import time
-from typing import TypeVar, Callable, Optional, Union, List
+from typing import TypeVar, Callable, Optional, Union, List, Any
 from functools import wraps
+from dataclasses import dataclass
+from enum import Enum
+import logging
 
 T = TypeVar('T')
 
-class RetryStrategy:
-    """Base retry strategy"""
-    
-    def __init__(
-        self,
-        max_attempts: int = 3,
-        max_delay: float = 60.0,
-        exceptions: tuple = (Exception,)
-    ):
-        self.max_attempts = max_attempts
-        self.max_delay = max_delay
-        self.exceptions = exceptions
-        
-    def should_retry(self, attempt: int, exception: Exception) -> bool:
-        """Determine if we should retry"""
-        return (
-            attempt < self.max_attempts and
-            isinstance(exception, self.exceptions)
-        )
-        
-    def get_delay(self, attempt: int) -> float:
-        """Get delay before next attempt"""
-        raise NotImplementedError
+class RetryableError(Exception):
+    """Base class for errors that should trigger retry"""
+    pass
 
-class FixedBackoff(RetryStrategy):
-    """Fixed delay between retries"""
-    
-    def __init__(self, delay: float = 1.0, **kwargs):
-        super().__init__(**kwargs)
-        self.delay = delay
-        
-    def get_delay(self, attempt: int) -> float:
-        return self.delay
+class BackoffStrategy(Enum):
+    """Available backoff strategies"""
+    FIXED = "fixed"
+    LINEAR = "linear"
+    EXPONENTIAL = "exponential"
+    DECORRELATED = "decorrelated"
 
-class LinearBackoff(RetryStrategy):
-    """Linear increase in delay"""
+@dataclass
+class RetryConfig:
+    """Configuration for retry behavior"""
+    max_attempts: int = 3
+    initial_delay: float = 1.0  # seconds
+    max_delay: float = 60.0     # seconds
+    exponential_base: float = 2.0
+    jitter: bool = True
+    jitter_range: float = 0.1   # ±10%
+    retryable_exceptions: List[type] = None
+    timeout: Optional[float] = None
     
-    def __init__(self, initial_delay: float = 1.0, increment: float = 1.0, **kwargs):
-        super().__init__(**kwargs)
-        self.initial_delay = initial_delay
-        self.increment = increment
-        
-    def get_delay(self, attempt: int) -> float:
-        delay = self.initial_delay + (attempt - 1) * self.increment
-        return min(delay, self.max_delay)
+    def __post_init__(self):
+        if self.retryable_exceptions is None:
+            self.retryable_exceptions = [RetryableError, ConnectionError, TimeoutError]
 
-class ExponentialBackoff(RetryStrategy):
-    """Exponential increase in delay"""
+class RetryStatistics:
+    """Track retry behavior for monitoring"""
     
-    def __init__(self, base: float = 2.0, initial_delay: float = 1.0, **kwargs):
-        super().__init__(**kwargs)
-        self.base = base
-        self.initial_delay = initial_delay
+    def __init__(self):
+        self.total_calls = 0
+        self.successful_calls = 0
+        self.failed_calls = 0
+        self.retry_counts = []
+        self.total_retry_time = 0.0
         
-    def get_delay(self, attempt: int) -> float:
-        delay = self.initial_delay * (self.base ** (attempt - 1))
-        return min(delay, self.max_delay)
-
-class ExponentialBackoffWithJitter(ExponentialBackoff):
-    """Exponential backoff with random jitter"""
-    
-    def __init__(self, jitter_type: str = 'full', **kwargs):
-        super().__init__(**kwargs)
-        self.jitter_type = jitter_type
+    def record_attempt(self, attempt_number: int, success: bool, duration: float):
+        """Record outcome of an attempt"""
+        self.total_calls += 1
         
-    def get_delay(self, attempt: int) -> float:
-        base_delay = super().get_delay(attempt)
-        
-        if self.jitter_type == 'full':
-            # Full jitter: random between 0 and base_delay
-            return random.uniform(0, base_delay)
-            
-        elif self.jitter_type == 'equal':
-            # Equal jitter: base_delay/2 + random(0, base_delay/2)
-            return base_delay / 2 + random.uniform(0, base_delay / 2)
-            
-        elif self.jitter_type == 'decorrelated':
-            # Decorrelated jitter: even better distribution
-            if not hasattr(self, '_last_delay'):
-                self._last_delay = self.initial_delay
-                
-            self._last_delay = min(
-                self.max_delay,
-                random.uniform(self.initial_delay, self._last_delay * 3)
-            )
-            return self._last_delay
-            
-        return base_delay
-
-# Retry decorator
-def retry(strategy: RetryStrategy):
-    """Decorator for retrying functions"""
-    
-    def decorator(func: Callable[..., T]) -> Callable[..., T]:
-        @wraps(func)
-        async def async_wrapper(*args, **kwargs) -> T:
-            last_exception = None
-            
-            for attempt in range(1, strategy.max_attempts + 1):
-                try:
-                    return await func(*args, **kwargs)
-                    
-                except strategy.exceptions as e:
-                    last_exception = e
-                    
-                    if not strategy.should_retry(attempt, e):
-                        raise
-                        
-                    if attempt < strategy.max_attempts:
-                        delay = strategy.get_delay(attempt)
-                        print(f"Attempt {attempt} failed: {e}. Retrying in {delay:.2f}s...")
-                        await asyncio.sleep(delay)
-                        
-            raise last_exception
-            
-        @wraps(func)
-        def sync_wrapper(*args, **kwargs) -> T:
-            last_exception = None
-            
-            for attempt in range(1, strategy.max_attempts + 1):
-                try:
-                    return func(*args, **kwargs)
-                    
-                except strategy.exceptions as e:
-                    last_exception = e
-                    
-                    if not strategy.should_retry(attempt, e):
-                        raise
-                        
-                    if attempt < strategy.max_attempts:
-                        delay = strategy.get_delay(attempt)
-                        print(f"Attempt {attempt} failed: {e}. Retrying in {delay:.2f}s...")
-                        time.sleep(delay)
-                        
-            raise last_exception
-            
-        # Return appropriate wrapper based on function type
-        if asyncio.iscoroutinefunction(func):
-            return async_wrapper
+        if success:
+            self.successful_calls += 1
+            if attempt_number > 1:
+                self.retry_counts.append(attempt_number - 1)
         else:
-            return sync_wrapper
+            self.failed_calls += 1
             
-    return decorator
+        if attempt_number > 1:
+            self.total_retry_time += duration
+            
+    def get_metrics(self) -> dict:
+        """Get retry metrics"""
+        retry_rate = len(self.retry_counts) / max(self.total_calls, 1)
+        avg_retries = sum(self.retry_counts) / max(len(self.retry_counts), 1)
+        
+        return {
+            'total_calls': self.total_calls,
+            'success_rate': self.successful_calls / max(self.total_calls, 1),
+            'retry_rate': retry_rate,
+            'average_retries': avg_retries,
+            'total_retry_time': self.total_retry_time
+        }
 
-# Advanced retry with circuit breaker integration
-class SmartRetry:
-    def __init__(
-        self,
-        strategy: RetryStrategy,
-        circuit_breaker: Optional['CircuitBreaker'] = None,
-        on_retry: Optional[Callable] = None,
-        on_failure: Optional[Callable] = None
-    ):
+class BackoffCalculator:
+    """Calculate backoff delays based on strategy"""
+    
+    @staticmethod
+    def calculate_delay(
+        attempt: int,
+        strategy: BackoffStrategy,
+        config: RetryConfig,
+        previous_delay: float = 0
+    ) -> float:
+        """Calculate next delay based on strategy"""
+        
+        if strategy == BackoffStrategy.FIXED:
+            base_delay = config.initial_delay
+            
+        elif strategy == BackoffStrategy.LINEAR:
+            base_delay = config.initial_delay * attempt
+            
+        elif strategy == BackoffStrategy.EXPONENTIAL:
+            base_delay = config.initial_delay * (config.exponential_base ** (attempt - 1))
+            
+        elif strategy == BackoffStrategy.DECORRELATED:
+            # Decorrelated jitter - better than full jitter for avoiding clusters
+            if previous_delay == 0:
+                base_delay = config.initial_delay
+            else:
+                base_delay = random.uniform(config.initial_delay, previous_delay * 3)
+        
+        else:
+            raise ValueError(f"Unknown backoff strategy: {strategy}")
+            
+        # Apply maximum delay cap
+        base_delay = min(base_delay, config.max_delay)
+        
+        # Apply jitter if configured
+        if config.jitter and strategy != BackoffStrategy.DECORRELATED:
+            jitter_amount = base_delay * config.jitter_range
+            base_delay += random.uniform(-jitter_amount, jitter_amount)
+            
+        return max(0, base_delay)  # Ensure non-negative
+
+class RetryContext:
+    """Context for retry operations"""
+    
+    def __init__(self, config: RetryConfig, stats: RetryStatistics):
+        self.config = config
+        self.stats = stats
+        self.attempt = 0
+        self.last_delay = 0
+        self.total_elapsed = 0
+        self.errors = []
+        
+    def should_retry(self, error: Exception) -> bool:
+        """Determine if error is retryable"""
+        return any(isinstance(error, exc_type) for exc_type in self.config.retryable_exceptions)
+        
+    def has_budget(self) -> bool:
+        """Check if we have retry budget remaining"""
+        if self.attempt >= self.config.max_attempts:
+            return False
+            
+        if self.config.timeout and self.total_elapsed >= self.config.timeout:
+            return False
+            
+        return True
+
+class Retrier:
+    """Main retry implementation with various strategies"""
+    
+    def __init__(self, 
+                 strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
+                 config: Optional[RetryConfig] = None):
         self.strategy = strategy
-        self.circuit_breaker = circuit_breaker
-        self.on_retry = on_retry
-        self.on_failure = on_failure
+        self.config = config or RetryConfig()
+        self.stats = RetryStatistics()
+        self.logger = logging.getLogger(__name__)
         
-    async def execute(self, func: Callable[..., T], *args, **kwargs) -> T:
-        """Execute with smart retry logic"""
-        
-        last_exception = None
+    async def execute_async(self, 
+                           func: Callable[..., T], 
+                           *args, 
+                           **kwargs) -> T:
+        """Execute async function with retry logic"""
+        context = RetryContext(self.config, self.stats)
         start_time = time.time()
         
-        for attempt in range(1, self.strategy.max_attempts + 1):
+        while True:
+            context.attempt += 1
+            attempt_start = time.time()
+            
             try:
-                # Check circuit breaker first
-                if self.circuit_breaker and self.circuit_breaker.is_open:
-                    raise CircuitOpenError("Circuit breaker is open")
-                    
-                # Execute function
+                # Execute the function
                 result = await func(*args, **kwargs)
                 
-                # Success - notify circuit breaker
-                if self.circuit_breaker:
-                    self.circuit_breaker.record_success()
+                # Record success
+                duration = time.time() - attempt_start
+                context.stats.record_attempt(context.attempt, True, duration)
+                
+                if context.attempt > 1:
+                    self.logger.info(
+                        f"Retry succeeded after {context.attempt} attempts"
+                    )
                     
                 return result
                 
             except Exception as e:
-                last_exception = e
-                elapsed = time.time() - start_time
+                duration = time.time() - attempt_start
+                context.errors.append(e)
                 
-                # Record failure
-                if self.circuit_breaker:
-                    self.circuit_breaker.record_failure()
-                    
                 # Check if we should retry
-                if not self.strategy.should_retry(attempt, e):
-                    if self.on_failure:
-                        await self.on_failure(e, attempt, elapsed)
+                if not context.should_retry(e) or not context.has_budget():
+                    context.stats.record_attempt(context.attempt, False, duration)
+                    
+                    self.logger.error(
+                        f"Retry failed after {context.attempt} attempts: {e}"
+                    )
+                    
+                    # Raise the last error
                     raise
                     
-                if attempt < self.strategy.max_attempts:
-                    delay = self.strategy.get_delay(attempt)
-                    
-                    if self.on_retry:
-                        await self.on_retry(e, attempt, delay)
-                        
-                    await asyncio.sleep(delay)
-                    
-        # All retries exhausted
-        if self.on_failure:
-            await self.on_failure(last_exception, self.strategy.max_attempts, 
-                                time.time() - start_time)
-        raise last_exception
-
-# Retry with different strategies for different errors
-class AdaptiveRetry:
-    def __init__(self):
-        self.strategies = {}
-        
-    def add_strategy(self, exception_type: type, strategy: RetryStrategy):
-        """Add strategy for specific exception type"""
-        self.strategies[exception_type] = strategy
-        
-    async def execute(self, func: Callable[..., T], *args, **kwargs) -> T:
-        """Execute with adaptive retry"""
-        
-        attempt = 0
-        last_exception = None
+                # Calculate backoff delay
+                delay = BackoffCalculator.calculate_delay(
+                    context.attempt,
+                    self.strategy,
+                    self.config,
+                    context.last_delay
+                )
+                
+                context.last_delay = delay
+                context.total_elapsed = time.time() - start_time
+                
+                self.logger.warning(
+                    f"Attempt {context.attempt} failed: {e}. "
+                    f"Retrying in {delay:.2f}s..."
+                )
+                
+                # Wait before retry
+                await asyncio.sleep(delay)
+                
+    def execute_sync(self, 
+                    func: Callable[..., T], 
+                    *args, 
+                    **kwargs) -> T:
+        """Execute sync function with retry logic"""
+        context = RetryContext(self.config, self.stats)
+        start_time = time.time()
         
         while True:
-            attempt += 1
+            context.attempt += 1
+            attempt_start = time.time()
             
             try:
-                return await func(*args, **kwargs)
+                # Execute the function
+                result = func(*args, **kwargs)
+                
+                # Record success
+                duration = time.time() - attempt_start
+                context.stats.record_attempt(context.attempt, True, duration)
+                
+                if context.attempt > 1:
+                    self.logger.info(
+                        f"Retry succeeded after {context.attempt} attempts"
+                    )
+                    
+                return result
                 
             except Exception as e:
-                last_exception = e
+                duration = time.time() - attempt_start
+                context.errors.append(e)
                 
-                # Find matching strategy
-                strategy = None
-                for exc_type, strat in self.strategies.items():
-                    if isinstance(e, exc_type):
-                        strategy = strat
-                        break
-                        
-                if not strategy:
-                    raise  # No strategy for this exception
+                # Check if we should retry
+                if not context.should_retry(e) or not context.has_budget():
+                    context.stats.record_attempt(context.attempt, False, duration)
                     
-                if not strategy.should_retry(attempt, e):
+                    self.logger.error(
+                        f"Retry failed after {context.attempt} attempts: {e}"
+                    )
+                    
+                    # Raise the last error
                     raise
                     
-                delay = strategy.get_delay(attempt)
-                await asyncio.sleep(delay)
-
-# Retry budget to prevent retry storms
-class RetryBudget:
-    def __init__(self, tokens_per_second: float = 10, max_tokens: float = 100):
-        self.tokens_per_second = tokens_per_second
-        self.max_tokens = max_tokens
-        self.tokens = max_tokens
-        self.last_update = time.time()
-        self.lock = asyncio.Lock()
-        
-    async def acquire(self) -> bool:
-        """Try to acquire retry token"""
-        async with self.lock:
-            # Replenish tokens
-            now = time.time()
-            elapsed = now - self.last_update
-            self.tokens = min(
-                self.max_tokens,
-                self.tokens + elapsed * self.tokens_per_second
-            )
-            self.last_update = now
-            
-            # Try to acquire token
-            if self.tokens >= 1:
-                self.tokens -= 1
-                return True
+                # Calculate backoff delay
+                delay = BackoffCalculator.calculate_delay(
+                    context.attempt,
+                    self.strategy,
+                    self.config,
+                    context.last_delay
+                )
                 
-            return False
+                context.last_delay = delay
+                context.total_elapsed = time.time() - start_time
+                
+                self.logger.warning(
+                    f"Attempt {context.attempt} failed: {e}. "
+                    f"Retrying in {delay:.2f}s..."
+                )
+                
+                # Wait before retry
+                time.sleep(delay)
 
-class BudgetedRetry(RetryStrategy):
-    def __init__(self, strategy: RetryStrategy, budget: RetryBudget):
-        self.strategy = strategy
-        self.budget = budget
-        
-    async def should_retry(self, attempt: int, exception: Exception) -> bool:
-        """Check if retry is allowed by budget"""
-        
-        if not self.strategy.should_retry(attempt, exception):
-            return False
-            
-        # Check budget
-        has_token = await self.budget.acquire()
-        if not has_token:
-            print("Retry budget exhausted, failing fast")
-            return False
-            
-        return True
-```
-
-## Practical Examples
-
-```python
-# Example 1: HTTP client with retry
-@retry(ExponentialBackoffWithJitter(max_attempts=5, jitter_type='full'))
-async def fetch_data(url: str):
-    async with aiohttp.ClientSession() as session:
-        async with session.get(url) as response:
-            response.raise_for_status()
-            return await response.json()
-
-# Example 2: Database operation with specific retries
-db_retry = AdaptiveRetry()
-db_retry.add_strategy(
-    psycopg2.OperationalError,
-    ExponentialBackoff(max_attempts=5, initial_delay=0.1)
-)
-db_retry.add_strategy(
-    psycopg2.IntegrityError,
-    FixedBackoff(max_attempts=3, delay=0.5)
-)
-
-async def update_user(user_id: int, data: dict):
-    async def _update():
-        async with get_db_connection() as conn:
-            await conn.execute(
-                "UPDATE users SET data = $1 WHERE id = $2",
-                data, user_id
-            )
+def retry(strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
+          max_attempts: int = 3,
+          initial_delay: float = 1.0,
+          max_delay: float = 60.0,
+          jitter: bool = True,
+          retryable_exceptions: List[type] = None):
+    """Decorator for adding retry logic to functions"""
     
-    await db_retry.execute(_update)
+    def decorator(func):
+        config = RetryConfig(
+            max_attempts=max_attempts,
+            initial_delay=initial_delay,
+            max_delay=max_delay,
+            jitter=jitter,
+            retryable_exceptions=retryable_exceptions
+        )
+        
+        retrier = Retrier(strategy=strategy, config=config)
+        
+        if asyncio.iscoroutinefunction(func):
+            @wraps(func)
+            async def async_wrapper(*args, **kwargs):
+                return await retrier.execute_async(func, *args, **kwargs)
+            return async_wrapper
+        else:
+            @wraps(func)
+            def sync_wrapper(*args, **kwargs):
+                return retrier.execute_sync(func, *args, **kwargs)
+            return sync_wrapper
+            
+    return decorator
 
-# Example 3: Retry with telemetry
-class TelemetryRetry(SmartRetry):
-    def __init__(self, *args, metrics_client, **kwargs):
+# Example usage
+class APIClient:
+    """Example API client with retry logic"""
+    
+    def __init__(self, base_url: str):
+        self.base_url = base_url
+        self.session = None
+        
+    @retry(
+        strategy=BackoffStrategy.EXPONENTIAL,
+        max_attempts=5,
+        initial_delay=0.5,
+        max_delay=30.0,
+        retryable_exceptions=[ConnectionError, TimeoutError]
+    )
+    async def fetch_data(self, endpoint: str) -> dict:
+        """Fetch data from API with automatic retry"""
+        # Simulate API call
+        if random.random() < 0.3:  # 30% failure rate
+            raise ConnectionError("Network error")
+            
+        return {"data": f"Response from {endpoint}"}
+        
+    @retry(
+        strategy=BackoffStrategy.DECORRELATED,
+        max_attempts=3,
+        initial_delay=1.0
+    )
+    async def post_data(self, endpoint: str, data: dict) -> dict:
+        """Post data to API with decorrelated jitter retry"""
+        # Simulate API call
+        if random.random() < 0.2:  # 20% failure rate
+            raise TimeoutError("Request timeout")
+            
+        return {"status": "success", "id": random.randint(1000, 9999)}
+
+# Advanced retry patterns
+class CircuitBreakerRetrier(Retrier):
+    """Retrier with circuit breaker integration"""
+    
+    def __init__(self, *args, failure_threshold: int = 5, recovery_timeout: float = 60.0, **kwargs):
         super().__init__(*args, **kwargs)
-        self.metrics = metrics_client
+        self.failure_threshold = failure_threshold
+        self.recovery_timeout = recovery_timeout
+        self.consecutive_failures = 0
+        self.circuit_open_until = 0
         
-    async def on_retry(self, error, attempt, delay):
-        self.metrics.increment('retry.attempt', tags={
-            'error_type': type(error).__name__,
-            'attempt': attempt
-        })
+    async def execute_async(self, func: Callable[..., T], *args, **kwargs) -> T:
+        """Execute with circuit breaker check"""
+        # Check if circuit is open
+        if time.time() < self.circuit_open_until:
+            raise RuntimeError("Circuit breaker is open")
+            
+        try:
+            result = await super().execute_async(func, *args, **kwargs)
+            self.consecutive_failures = 0  # Reset on success
+            return result
+            
+        except Exception as e:
+            self.consecutive_failures += 1
+            
+            if self.consecutive_failures >= self.failure_threshold:
+                self.circuit_open_until = time.time() + self.recovery_timeout
+                self.logger.error(
+                    f"Circuit breaker opened after {self.consecutive_failures} failures"
+                )
+                
+            raise
+
+# Example of advanced usage
+async def example_advanced_usage():
+    """Demonstrate advanced retry patterns"""
+    
+    # Create client with circuit breaker
+    retrier = CircuitBreakerRetrier(
+        strategy=BackoffStrategy.EXPONENTIAL,
+        config=RetryConfig(max_attempts=3, initial_delay=1.0),
+        failure_threshold=3,
+        recovery_timeout=30.0
+    )
+    
+    async def flaky_operation():
+        """Simulated flaky operation"""
+        if random.random() < 0.7:  # 70% failure rate
+            raise ConnectionError("Service unavailable")
+        return "Success!"
         
-    async def on_failure(self, error, attempts, duration):
-        self.metrics.increment('retry.exhausted', tags={
-            'error_type': type(error).__name__,
-            'total_attempts': attempts,
-            'duration_ms': int(duration * 1000)
-        })
+    # Try operation with circuit breaker
+    try:
+        result = await retrier.execute_async(flaky_operation)
+        print(f"Operation succeeded: {result}")
+    except Exception as e:
+        print(f"Operation failed: {e}")
+        
+    # Get retry statistics
+    metrics = retrier.stats.get_metrics()
+    print(f"Retry metrics: {metrics}")
 ```
 
-## ✓ CHOOSE THIS WHEN:
-• Handling transient failures
-• Network operations
-• Rate limit handling
-• External service calls
-• Database deadlocks
+---
 
-## ⚠️ BEWARE OF:
-• Retry storms/amplification
-• Not retrying idempotent operations
-• Too aggressive retry timing
-• Missing retry budgets
-• Retrying non-transient errors
+## 📊 Analysis & Trade-offs
 
-## REAL EXAMPLES
-• **AWS SDK**: Built-in exponential backoff
-• **Google Cloud**: Adaptive retry strategies
-• **Stripe API**: Smart retry with backoff
+### Axiom Relationships
+
+| Axiom | How Retry & Backoff Addresses It |
+|-------|----------------------------------|
+| **Latency** | Adds delay but prevents cascading timeouts |
+| **Capacity** | Prevents overwhelming services with retry storms |
+| **Failure** | Handles transient failures gracefully |
+| **Concurrency** | Jitter prevents synchronized retry waves |
+| **Coordination** | No coordination needed - client-side pattern |
+| **Observability** | Retry metrics provide failure insights |
+| **Human Interface** | Transparent to users when done right |
+| **Economics** | Reduces manual intervention costs |
+
+### Trade-off Analysis
+
+| Aspect | Gains | Losses |
+|--------|-------|--------|
+| **Performance** | Higher success rate | Added latency from retries |
+| **Complexity** | Handles failures automatically | More code to maintain |
+| **Reliability** | Recovers from transient issues | Can mask persistent problems |
+| **Cost** | Fewer failed operations | More compute/network usage |
+
+### Common Pitfalls
+
+1. **Retrying Non-Idempotent Operations**
+   - **Problem**: Duplicate charges, multiple sends
+   - **Solution**: Only retry safe operations or add idempotency keys
+
+2. **Missing Jitter**
+   - **Problem**: Thundering herd after outages
+   - **Solution**: Always add jitter to spread load
+
+3. **Infinite Retry Loops**
+   - **Problem**: Retrying forever on permanent failures
+   - **Solution**: Set maximum attempts and timeouts
+
+4. **Aggressive Initial Delays**
+   - **Problem**: Too fast retries overwhelm services
+   - **Solution**: Start with 1+ second delays
+
+5. **Not Monitoring Retries**
+   - **Problem**: Hidden failures and performance issues
+   - **Solution**: Track retry rates and success metrics
+
+---
+
+## 🔧 Practical Considerations
+
+### Configuration Guidelines
+
+| Parameter | Description | Typical Range | Default |
+|-----------|-------------|---------------|---------|
+| **Max Attempts** | Total tries including first | 3-5 | 3 |
+| **Initial Delay** | First retry wait time | 0.5s-2s | 1s |
+| **Max Delay** | Cap on exponential growth | 30s-300s | 60s |
+| **Exponential Base** | Multiplier for exponential | 1.5-3 | 2 |
+| **Jitter Range** | Randomization percentage | 10%-25% | 10% |
+
+### Monitoring & Metrics
+
+| Metric | What It Tells You | Alert Threshold |
+|--------|-------------------|-----------------|
+| **Retry Rate** | Service health | > 50% |
+| **Average Retries** | Failure severity | > 2.5 |
+| **Total Retry Time** | Performance impact | > 10s per request |
+| **Circuit Breaker Trips** | Persistent failures | > 5 per hour |
+
+### Integration Patterns
+
+How retry & backoff works with other patterns:
+- **With Circuit Breaker**: Prevent retries during outages
+- **With Bulkhead**: Isolate retry impact
+- **With Timeout**: Set overall operation deadline
+- **With Rate Limiting**: Respect server-side limits
+
+---
+
+## 🚀 Real-World Examples
+
+### Example 1: Stripe Payment Processing
+- **Challenge**: Network failures during payment processing
+- **Implementation**: 
+  - Exponential backoff with jitter
+  - Idempotency keys for safe retries
+  - Maximum 3 attempts over 32 seconds
+- **Results**: 
+  - Success rate: 94% → 99.7%
+  - Failed payments: 60k/day → 3k/day
+  - Customer complaints: 80% reduction
+
+### Example 2: Netflix Video Streaming
+- **Challenge**: CDN failures causing playback interruptions
+- **Implementation**:
+  - Decorrelated jitter for manifest fetches
+  - Circuit breaker per CDN endpoint
+  - Fallback to alternate CDNs
+- **Results**:
+  - Stream starts: 97% → 99.9% success
+  - Rebuffer rate: 2.1% → 0.3%
+  - User experience score: 15% improvement
+
+---
+
+## 🎓 Key Takeaways
+
+1. **Core Insight**: Smart retries turn transient failures into successes without overwhelming systems
+2. **When It Shines**: Network operations, external APIs, distributed systems with occasional hiccups
+3. **What to Watch**: Non-idempotent operations, aggressive retry settings, missing jitter
+4. **Remember**: The goal is to handle transient failures, not mask permanent problems
+
+---
+
+*"Retry with backoff is like knocking on a door - start gently, wait longer between knocks, and know when to give up."*

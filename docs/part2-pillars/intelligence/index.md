@@ -98,6 +98,38 @@ Play this pattern recognition game:
 
 ---
 
+## 📋 Questions This Pillar Answers
+
+<div class="questions-box">
+
+### Fundamental Questions
+- **How do I make my system learn from its operations?**
+- **What patterns should my system detect automatically?**
+- **When is ML/AI worth the complexity?**
+- **How do I prevent learning systems from going wrong?**
+
+### Design Questions
+- **Where should intelligence live in my architecture?**
+- **How do I balance reactive vs predictive behavior?**
+- **Should I use centralized or federated learning?**
+- **How do I design effective feedback loops?**
+
+### Operational Questions
+- **How do I debug learned behaviors?**
+- **When should I override automated decisions?**
+- **How do I detect model drift in production?**
+- **What metrics show if intelligence is helping?**
+
+### Performance Questions
+- **What's the latency cost of intelligent decisions?**
+- **How do I scale inference across regions?**
+- **When does caching predictions make sense?**
+- **How do I measure the ROI of intelligence features?**
+
+</div>
+
+---
+
 ## Level 2: Foundation (Understand Why) 🌿
 
 ### Core Principle: Intelligence Emerges from Feedback
@@ -224,6 +256,66 @@ Total impact: $1 trillion temporary loss
 | **Evaluation Metrics** | Measure success | Accuracy, Precision |
 | **Deployment Pipeline** | Productionize models | A/B testing framework |
 </div>
+
+### Concept Map: Distribution of Intelligence
+
+```mermaid
+graph TB
+    subgraph "Intelligence Distribution Pillar"
+        Core[Distribution of Intelligence<br/>Core Concept]
+        
+        Core --> Learning[Learning<br/>Paradigms]
+        Core --> Architecture[Intelligence<br/>Architecture]
+        Core --> Feedback[Feedback<br/>Loops]
+        Core --> Governance[Intelligence<br/>Governance]
+        
+        %% Learning branch
+        Learning --> Supervised[Supervised<br/>Labeled data]
+        Learning --> Unsupervised[Unsupervised<br/>Pattern finding]
+        Learning --> Reinforcement[Reinforcement<br/>Reward-based]
+        Learning --> Federated[Federated<br/>Privacy-preserving]
+        
+        %% Architecture branch
+        Architecture --> Centralized[Centralized ML<br/>Single model]
+        Architecture --> Edge[Edge Intelligence<br/>Local inference]
+        Architecture --> Hybrid[Hybrid<br/>Edge + Cloud]
+        Architecture --> Swarm[Swarm Intelligence<br/>Emergent behavior]
+        
+        %% Feedback branch
+        Feedback --> Implicit[Implicit Feedback<br/>User behavior]
+        Feedback --> Explicit[Explicit Feedback<br/>Ratings/Labels]
+        Feedback --> Continuous[Continuous Learning<br/>Online updates]
+        Feedback --> Batch[Batch Learning<br/>Periodic retraining]
+        
+        %% Governance branch
+        Governance --> Explainability[Explainability<br/>Why decisions?]
+        Governance --> Fairness[Fairness<br/>Bias detection]
+        Governance --> Privacy[Privacy<br/>Data protection]
+        Governance --> Safety[Safety<br/>Bounded behavior]
+        
+        %% Key relationships
+        Federated -.-> Privacy
+        Edge -.-> Continuous
+        Reinforcement -.-> Safety
+        Swarm -.-> Unsupervised
+        
+        %% Axiom connections
+        Axiom1[Axiom 1: Latency] --> Edge
+        Axiom2[Axiom 2: Capacity] --> Architecture
+        Axiom6[Axiom 6: Observability] --> Explainability
+        Axiom7[Axiom 7: Human Interface] --> Governance
+        Axiom8[Axiom 8: Economics] --> Feedback
+    end
+    
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+    style Axiom1 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom2 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom6 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom7 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom8 fill:#e1e1ff,stroke:#333,stroke-width:2px
+```
+
+This concept map shows how distributed intelligence encompasses learning paradigms, architectural choices, feedback mechanisms, and governance requirements. Each aspect must balance performance, privacy, and practical constraints.
 
 ---
 
@@ -380,6 +472,41 @@ Combine multiple detectors:
 ├─ Rule-based checks
 └─ Vote or weighted average
 ```
+</div>
+
+### Intelligence System Decision Framework
+
+<div class="decision-framework">
+<h4>🎯 When to Add Intelligence</h4>
+
+| Problem Type | Use ML/AI | Use Rules | Use Heuristics | Why |
+|--------------|-----------|-----------|----------------|-----|
+| **Pattern Recognition** | ✅ Complex patterns | ❌ Too rigid | ⚠️ Simple patterns | ML excels at finding hidden patterns |
+| **Personalization** | ✅ Individual level | ⚠️ Segments only | ❌ Too generic | ML scales to millions of users |
+| **Anomaly Detection** | ✅ Unknown unknowns | ⚠️ Known patterns | ❌ Too many false positives | ML adapts to new anomalies |
+| **Optimization** | ✅ Multi-objective | ⚠️ Single metric | ✅ Good enough | ML handles complex trade-offs |
+| **Forecasting** | ✅ Complex seasonality | ⚠️ Simple trends | ✅ Short-term only | ML captures non-linear patterns |
+
+<h4>🔧 Intelligence Architecture Patterns</h4>
+
+| Pattern | Use When | Avoid When | Example |
+|---------|----------|------------|---------|
+| **Online Learning** | • Concept drift<br>• Real-time adaptation<br>• Continuous improvement | • Stable patterns<br>• Need explainability<br>• Limited compute | Fraud detection |
+| **Federated Learning** | • Privacy critical<br>• Edge devices<br>• Data sovereignty | • Need central data<br>• Simple models<br>• Real-time updates | Mobile keyboards |
+| **Ensemble Models** | • High accuracy needed<br>• Reduce variance<br>• Different perspectives | • Latency sensitive<br>• Resource constrained<br>• Need interpretability | Risk scoring |
+| **Transfer Learning** | • Limited training data<br>• Similar domains<br>• Quick deployment | • Unique problem<br>• Abundant data<br>• Domain mismatch | Image classification |
+| **Reinforcement Learning** | • Sequential decisions<br>• Clear rewards<br>• Can simulate | • One-shot decisions<br>• Unclear objectives<br>• Safety critical | Game AI, routing |
+
+<h4>🚨 Intelligence Anti-Patterns</h4>
+
+| Anti-Pattern | Signs | Better Approach |
+|--------------|-------|-----------------|
+| **ML for Everything** | • Simple if-then suffices<br>• No data to train<br>• Interpretability required | Start with rules, add ML where needed |
+| **Black Box Production** | • Can't explain decisions<br>• No debugging ability<br>• Regulatory issues | Use interpretable models or LIME/SHAP |
+| **Accuracy Obsession** | • 99% → 99.1% at 10x cost<br>• Ignoring latency<br>• Model too complex | Consider business value vs cost |
+| **Static Models** | • Performance degrading<br>• World has changed<br>• No monitoring | Implement drift detection and retraining |
+| **Data Leakage** | • Too-good-to-be-true results<br>• Fails in production<br>• Future data in training | Strict train/test splits, temporal validation |
+
 </div>
 
 ### A/B Testing at Scale

@@ -33,6 +33,38 @@ You're solving the same fundamental problem: how to split work efficiently acros
 
 ---
 
+## 📋 Questions This Pillar Answers
+
+<div class="questions-box">
+
+### Fundamental Questions
+- **How do I know if my workload can be parallelized?**
+- **What's the optimal number of workers for my system?**
+- **When does adding more workers make things worse?**
+- **How do I prevent one slow task from blocking everything?**
+
+### Design Questions
+- **Should I use a push or pull model for work distribution?**
+- **How do I handle heterogeneous worker capabilities?**
+- **What's the right batch size for my operations?**
+- **How do I implement fair scheduling with priorities?**
+
+### Operational Questions
+- **How do I detect and handle worker failures?**
+- **What metrics should I monitor for work distribution?**
+- **How do I prevent queue explosion under load?**
+- **When should I implement work stealing?**
+
+### Performance Questions
+- **Why isn't my system scaling linearly with workers?**
+- **How do I minimize coordination overhead?**
+- **What's causing my P99 latency spikes?**
+- **How do I balance latency vs throughput?**
+
+</div>
+
+---
+
 ## 🟡 Foundation: Understanding Work Distribution (15 min read)
 
 ### The Central Question
@@ -60,6 +92,87 @@ Time            Sync/Async           Consistency vs Throughput
 Data            Shared/Partitioned   Simplicity vs Scale
 Control         Centralized/P2P      Coordination vs Resilience
 ```
+
+### Concept Map: Work Distribution
+
+```mermaid
+graph TB
+    subgraph "Work Distribution Pillar"
+        Core[Work Distribution<br/>Core Concept]
+        
+        Core --> Decomp[Work Decomposition]
+        Core --> Coord[Coordination Models]
+        Core --> Sched[Scheduling Strategies]
+        Core --> Scale[Scaling Patterns]
+        
+        %% Decomposition branch
+        Decomp --> DataPar[Data Parallelism<br/>Same operation, different data]
+        Decomp --> TaskPar[Task Parallelism<br/>Different operations]
+        Decomp --> Pipeline[Pipeline Parallelism<br/>Sequential stages]
+        
+        %% Coordination branch
+        Coord --> MasterWorker[Master-Worker<br/>Centralized control]
+        Coord --> P2P[Peer-to-Peer<br/>Decentralized]
+        Coord --> WorkSteal[Work Stealing<br/>Dynamic balancing]
+        
+        %% Scheduling branch
+        Sched --> Static[Static Assignment<br/>Pre-determined]
+        Sched --> Dynamic[Dynamic Assignment<br/>Runtime decisions]
+        Sched --> Adaptive[Adaptive Scheduling<br/>Learning-based]
+        
+        %% Scaling branch
+        Scale --> Horizontal[Horizontal Scaling<br/>Add more workers]
+        Scale --> Vertical[Vertical Scaling<br/>Bigger workers]
+        Scale --> Elastic[Elastic Scaling<br/>Auto-adjust]
+        
+        %% Key relationships
+        DataPar -.-> Static
+        TaskPar -.-> Dynamic
+        Pipeline -.-> MasterWorker
+        WorkSteal -.-> Adaptive
+        
+        %% Axiom connections
+        Axiom1[Axiom 1: Latency] --> Coord
+        Axiom2[Axiom 2: Capacity] --> Scale
+        Axiom3[Axiom 3: Failure] --> WorkSteal
+        Axiom4[Axiom 4: Concurrency] --> Decomp
+        Axiom5[Axiom 5: Coordination] --> Sched
+    end
+    
+    style Core fill:#f9f,stroke:#333,stroke-width:4px
+    style Axiom1 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom2 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom4 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Axiom5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+```
+
+This concept map shows how work distribution connects fundamental axioms to practical implementation patterns. Each branch represents a key decision area, with dotted lines showing common associations between concepts.
+
+### Work Distribution Decision Framework
+
+<div class="decision-framework">
+<h4>🎯 When to Distribute Work</h4>
+
+| Scenario | Distribute | Keep Centralized | Key Factors |
+|----------|------------|------------------|-------------|
+| **CPU-bound tasks** | ✅ If parallelizable | ❌ If sequential dependencies | Amdahl's Law applies |
+| **I/O-bound tasks** | ✅ Always beneficial | ❌ If coordination > I/O time | Async/await patterns |
+| **Large datasets** | ✅ If partitionable | ❌ If requires global view | Data locality matters |
+| **Real-time processing** | ✅ If latency critical | ❌ If consistency critical | SLA requirements |
+| **Batch processing** | ✅ If large batches | ❌ If small/quick batches | Overhead vs benefit |
+
+<h4>🔧 Distribution Pattern Selection</h4>
+
+| Pattern | Use When | Avoid When | Example Use Case |
+|---------|----------|------------|------------------|
+| **Master-Worker** | • Simple work units<br>• Central coordination OK<br>• Workers are stateless | • Master becomes bottleneck<br>• Need peer coordination<br>• Fault tolerance critical | Image processing pipeline |
+| **Work Stealing** | • Uneven work distribution<br>• Dynamic load<br>• Workers have queues | • Work units tiny<br>• Strict ordering required<br>• Network overhead high | Game engine tasks |
+| **MapReduce** | • Data parallelism<br>• Aggregation needed<br>• Batch processing | • Real-time requirements<br>• Small datasets<br>• Complex dependencies | Log analysis |
+| **Pipeline** | • Sequential stages<br>• Different processing rates<br>• Stream processing | • Stages tightly coupled<br>• Need random access<br>• Variable stage times | Video encoding |
+| **Scatter-Gather** | • Parallel queries<br>• Result aggregation<br>• Read-heavy | • Write operations<br>• Partial results bad<br>• Tight deadlines | Search engines |
+
+</div>
 
 ### Simple Example: Processing User Uploads
 
