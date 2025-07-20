@@ -1,15 +1,5 @@
 # Graceful Degradation Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Graceful Degradation**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Load Shedding](/patterns/load-shedding/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Maintaining partial functionality when systems fail**
 
 > *"It's better to limp than to fall—systems should degrade, not collapse."*

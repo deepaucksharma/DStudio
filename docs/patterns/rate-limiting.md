@@ -1,15 +1,5 @@
 # Rate Limiting Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Rate Limiting**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Load Shedding](/patterns/load-shedding/) • [Circuit Breaker](/patterns/circuit-breaker/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Controlling request flow to protect system resources**
 
 > *"Speed limits exist not to slow you down, but to keep everyone safe."*

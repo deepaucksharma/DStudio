@@ -13,12 +13,6 @@ toc: true
 
 # Case Studies: Axioms in Action
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → **Case Studies**
-</div>
-</div>
-
 Learn how the 8 axioms and 5 pillars apply to real-world systems through detailed analysis of production architectures and their trade-offs.
 
 <div class="case-study-guide">

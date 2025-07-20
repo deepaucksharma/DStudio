@@ -1,15 +1,5 @@
 # Idempotent Receiver Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Idempotent Receiver**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Outbox Pattern](/patterns/outbox/) • [Message Queue](/patterns/message-queue/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Process each message exactly once - Even when messages arrive multiple times**
 
 > *"In distributed systems, messages will be duplicated. Design for it, don't fight it."*

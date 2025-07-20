@@ -1,11 +1,5 @@
 # Axiom 3: Partial Failure
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: In distributed systems, failure is partial, not binary.
-  </div>
-</div>
-
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

@@ -23,16 +23,6 @@ axioms_demonstrated:
 
 # 🎵 Spotify's Music Recommendation Engine
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Case Studies](/case-studies/) → **Spotify Recommendations**
-</div>
-
-<div class="case-study-nav">
-**Previous**: [← Amazon DynamoDB](/case-studies/amazon-dynamo/) • **Next**: [PayPal Payments →](/case-studies/paypal-payments/) • [All Case Studies](/case-studies/)
-</div>
-</div>
-
 **The Challenge**: Personalize music for 500M users with ML at scale
 
 <div class="case-study">

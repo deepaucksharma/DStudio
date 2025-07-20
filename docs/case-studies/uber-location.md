@@ -23,16 +23,6 @@ axioms_demonstrated:
 
 # 🚗 Uber's Real-Time Location System
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Case Studies](/case-studies/) → **Uber Location System**
-</div>
-
-<div class="case-study-nav">
-**Next**: [Amazon DynamoDB →](/case-studies/amazon-dynamo/) • [All Case Studies](/case-studies/)
-</div>
-</div>
-
 **The Challenge**: Track millions of drivers and riders globally with sub-second updates
 
 <div class="case-study">

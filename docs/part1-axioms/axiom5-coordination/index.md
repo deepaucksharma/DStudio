@@ -1,11 +1,5 @@
 # Axiom 5: Cost of Coordination
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: Coordination is expensive in time, money, and complexity.
-  </div>
-</div>
-
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

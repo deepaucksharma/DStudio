@@ -1,11 +1,5 @@
 # Axiom 6: Observability
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: You can't debug what you can't see; distributed systems multiply blindness.
-  </div>
-</div>
-
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

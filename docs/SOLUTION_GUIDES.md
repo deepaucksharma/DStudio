@@ -297,7 +297,6 @@ class DistributedLockManager:
                             lock_info.expires_at = None
                             self._grant_to_next_waiter(lock_info, lock_name)
 
-
 # Example usage and test
 def test_distributed_lock_manager():
     import threading
@@ -699,7 +698,6 @@ class RaftNode:
         self.network_partition.clear()
         print(f"Node {self.node_id} partition healed")
 
-
 # Test Raft implementation
 def test_raft_cluster():
     # Create 5-node cluster
@@ -1033,7 +1031,6 @@ class CacheCoherenceController:
         
         print("Cache coherence verified: OK")
         return True
-
 
 # Test the cache coherence implementation
 def test_cache_coherence():

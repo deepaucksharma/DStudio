@@ -1,11 +1,5 @@
 # Axiom 4: Concurrency
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: Concurrent operations create states that don't exist in sequential execution.
-  </div>
-</div>
-
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

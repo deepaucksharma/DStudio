@@ -27,16 +27,6 @@ axioms_demonstrated:
 
 # 🛒 Amazon's DynamoDB: Building a Database That Never Goes Down
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Case Studies](/case-studies/) → **Amazon DynamoDB**
-</div>
-
-<div class="case-study-nav">
-**Previous**: [← Uber Location](/case-studies/uber-location/) • **Next**: [Spotify Recommendations →](/case-studies/spotify-recommendations/) • [All Case Studies](/case-studies/)
-</div>
-</div>
-
 **The Challenge**: Build a database that never goes down during Black Friday
 
 <div class="case-study">

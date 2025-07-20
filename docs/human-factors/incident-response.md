@@ -1,11 +1,5 @@
 # Incident Response
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Human Factors](/human-factors/) → **Incident Response**
-</div>
-</div>
-
 **Coordinated action when systems fail**
 
 > *"The best incident response is like a well-rehearsed fire drill—everyone knows their role."*

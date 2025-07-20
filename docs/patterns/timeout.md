@@ -1,15 +1,5 @@
 # Timeout Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Timeout**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Retry & Backoff](/patterns/retry-backoff/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Protecting systems from indefinite waits**
 
 > *"A system that waits forever is a system that fails forever."*

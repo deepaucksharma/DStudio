@@ -1,15 +1,5 @@
 # Distributed Lock Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Distributed Lock**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Leader Election](/patterns/leader-election/) • [Consensus](/patterns/consensus/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Mutual exclusion across distributed nodes**
 
 > *"In a distributed system, acquiring a lock is easy—it's the releasing that's hard."*

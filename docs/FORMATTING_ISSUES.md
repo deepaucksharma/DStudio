@@ -2,7 +2,6 @@
 
 Found 71 issues in 61 files:
 
-
 ## Ascii Art (10 issues)
 
 - **FORMATTING_ISSUES.md** (line 8): Possible ASCII art found: - **tools/index.md** (line 177): Possible ASCII ar...
@@ -45,7 +44,6 @@ Found 71 issues in 61 files:
 - ... and 32 more
 
 ## Files Needing Updates
-
 
 ### Pattern Files Needing New Template (19):
 - part2-pillars/pillars-patterns-map.md

@@ -1,15 +1,5 @@
 # Leader Election Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Leader Election**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Distributed Lock](/patterns/distributed-lock/) • [Consensus](/patterns/consensus/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Coordinate distributed decisions through democratic consensus - One leader to rule them all**
 
 > *"In a distributed system, everyone thinks they should be the leader. Leader election ensures only one actually is."*

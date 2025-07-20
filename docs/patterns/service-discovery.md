@@ -1,15 +1,5 @@
 # Service Discovery Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Service Discovery**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Load Balancing](/patterns/load-balancing/) • [Health Check](/patterns/health-check/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Finding services in a dynamic distributed system**
 
 > *"In a world where services come and go, discovery is not a luxury—it's a necessity."*

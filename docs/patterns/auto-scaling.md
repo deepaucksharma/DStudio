@@ -1,15 +1,5 @@
 # Auto-scaling Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Auto-scaling**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Load Balancing](/patterns/load-balancing/) • [Capacity Planning](/quantitative/capacity-planning/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Dynamic resource allocation based on demand**
 
 > *"The best infrastructure is invisible—it grows when needed, shrinks when not."*

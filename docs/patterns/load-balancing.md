@@ -1,15 +1,5 @@
 # Load Balancing Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Load Balancing**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Auto-scaling](/patterns/auto-scaling/) • [Health Check](/patterns/health-check/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Distributing work across multiple resources**
 
 > *"Many hands make light work—if coordinated properly."*

@@ -1,11 +1,5 @@
 # Axiom 7: Human-System Interface
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: Humans are part of the distributed system, not observers of it.
-  </div>
-</div>
-
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

@@ -1,11 +1,5 @@
 # Blameless Postmortems
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Human Factors](/human-factors/) → **Blameless Postmortems**
-</div>
-</div>
-
 **Learning from failures without finger-pointing**
 
 > *"We seek to understand not who failed, but how the system allowed failure to occur."*

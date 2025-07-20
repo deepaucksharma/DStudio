@@ -1,32 +1,13 @@
 # Axiom 1: Latency (Speed of Light)
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part I: Axioms](/part1-axioms/) → **Axiom 1: Latency**
-</div>
+> **Learning Objective**: Internalize that latency is physics, not engineering. You cannot patch the speed of light.
 
-<div class="axiom-nav">
-**Next**: [Axiom 2: Capacity](/part1-axioms/axiom2-capacity/) • **Overview**: [All Axioms](/part1-axioms/)
-</div>
-</div>
+## Quick Links
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: Internalize that latency is physics, not engineering. You cannot patch the speed of light.
-  </div>
-</div>
-
-<div class="quick-nav">
-<h3>🔗 Related Content</h3>
-
-**🧭 Navigation**: [Examples](/part1-axioms/axiom1-latency/examples/) • [Exercises](/part1-axioms/axiom1-latency/exercises/) • [Tools](/tools/#latency-calculator)
-
-**🔧 Patterns**: [Circuit Breaker](/patterns/circuit-breaker/) • [Caching Strategies](/patterns/caching-strategies/) • [Edge Computing](/patterns/edge-computing/)
-
-**📊 Case Studies**: [Uber's Real-Time Location](/case-studies/#uber-location) • [Spotify Recommendations](/case-studies/#spotify-recommendations)
-
-**📈 Quantitative**: [Latency Budget Analysis](/quantitative/latency-ladder/) • [Queueing Theory](/quantitative/queueing-models/)
-</div>
+- **Navigation**: [Examples](examples.md) • [Exercises](exercises.md)
+- **Related Patterns**: [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md) • [Edge Computing](../../patterns/edge-computing.md)
+- **Case Studies**: [Uber's Real-Time Location](../../case-studies/uber-location.md) • [Spotify Recommendations](../../case-studies/spotify-recommendations.md)
+- **Quantitative**: [Latency Budget Analysis](../../quantitative/latency-ladder.md) • [Queueing Theory](../../quantitative/queueing-models.md)
 
 ---
 
@@ -785,7 +766,6 @@ class KVNode:
             return self.data[key][1]
         return None
 
-
 # Example usage
 async def demo_physics_aware_kv():
     # Define regions (major AWS regions)
@@ -856,7 +836,6 @@ async def demo_physics_aware_kv():
     
     value = await smart_get("product:789", 100)
     print(f"   ✓ Adapted to meet 100ms budget")
-
 
 # Run the demo
 if __name__ == "__main__":

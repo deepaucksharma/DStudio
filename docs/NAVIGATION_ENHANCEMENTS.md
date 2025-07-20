@@ -45,17 +45,6 @@ Each pillar should link to:
 ### Quick Navigation Boxes
 
 ```markdown
-<div class="quick-nav">
-<h3>🔗 Related Content</h3>
-
-**Axioms**: [Latency](/part1-axioms/axiom1-latency/) • [Capacity](/part1-axioms/axiom2-capacity/) • [Failure](/part1-axioms/axiom3-failure/)
-
-**Patterns**: [Circuit Breaker](/patterns/circuit-breaker/) • [Retry & Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/)
-
-**Case Studies**: [Netflix Resilience](/case-studies/#netflix) • [AWS Auto-scaling](/case-studies/#aws)
-
-**Tools**: [Availability Calculator](/tools/#availability) • [Latency Budget](/tools/#latency)
-</div>
 ```
 
 ### Concept Maps
@@ -135,16 +124,6 @@ graph TD
 ### For Axiom Pages
 
 ```markdown
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Axioms](/part1-axioms/) → **Axiom X: Name**
-</div>
-
-<div class="axiom-nav">
-**Previous**: [Axiom X-1](/part1-axioms/axiomX-1/) • **Next**: [Axiom X+1](/part1-axioms/axiomX+1/)
-</div>
-</div>
-
 <!-- Content here -->
 
 <div class="navigation-footer">

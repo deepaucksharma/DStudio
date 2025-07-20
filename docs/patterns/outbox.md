@@ -1,15 +1,5 @@
 # Outbox Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Outbox Pattern**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Saga Pattern](/patterns/saga/) • [Event Sourcing](/patterns/event-sourcing/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Reliable message publishing with transactional guarantees - Never lose an event again**
 
 > *"The database transaction commits, but the message fails to send. Now what? The Outbox pattern ensures both happen or neither does."*

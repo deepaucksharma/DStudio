@@ -1,11 +1,5 @@
 # Axiom 8: Economic Gradient
 
-<div class="axiom-header">
-  <div class="learning-objective">
-    <strong>Learning Objective</strong>: Every technical decision is an economic decision in disguise.
-  </div>
-</div>
-
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

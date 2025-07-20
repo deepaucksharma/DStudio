@@ -30,16 +30,6 @@ weight: 10
 
 # Circuit Breaker Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Circuit Breaker**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Retry & Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Fail fast, recover gracefully - The electrical metaphor that saves systems**
 
 > *"Like a house circuit breaker that trips to prevent fires, software circuit breakers trip to prevent cascade failures."*

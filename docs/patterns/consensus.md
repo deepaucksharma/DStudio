@@ -28,16 +28,6 @@ weight: 50
 
 # Consensus Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Consensus**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Leader Election](/patterns/leader-election/) • [Distributed Lock](/patterns/distributed-lock/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Agreement in a world of unreliable networks and failing nodes**
 
 > *"Consensus is impossibly hard in theory, merely very hard in practice."*

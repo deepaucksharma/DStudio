@@ -1,15 +1,5 @@
 # Load Shedding Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Load Shedding**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Rate Limiting](/patterns/rate-limiting/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Gracefully dropping load to maintain system stability**
 
 > *"When the boat is sinking, throw the cargo overboard—but choose wisely what to throw."*

@@ -1,15 +1,5 @@
 # Health Check Pattern
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Part III: Patterns](/patterns/) → **Health Check**
-</div>
-
-<div class="pattern-nav">
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Service Discovery](/patterns/service-discovery/) • [All Patterns](/patterns/)
-</div>
-</div>
-
 **Monitoring service health for reliable systems**
 
 > *"A system that doesn't know it's sick can't heal itself."*

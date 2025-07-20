@@ -1,15 +1,5 @@
 # Case Studies: Axioms in Action
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → **Case Studies**
-</div>
-
-<div class="case-study-nav">
-**Quick Access**: [Uber](#uber-location) • [Amazon DynamoDB](#amazon-dynamo) • [Spotify](#spotify-recommendations) • [PayPal](#paypal-payments) • [Fortnite](#fortnite-game) • [SpaceX](#spacex-control)
-</div>
-</div>
-
 Learn how the 8 axioms and 5 pillars apply to real-world systems through detailed analysis of production architectures and their trade-offs.
 
 <div class="case-study-guide">

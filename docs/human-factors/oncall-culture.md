@@ -1,11 +1,5 @@
 # On-Call Culture
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Human Factors](/human-factors/) → **On-Call Culture**
-</div>
-</div>
-
 **Building sustainable and effective on-call practices**
 
 > *"On-call should be a responsibility, not a punishment."*

@@ -23,16 +23,6 @@ axioms_demonstrated:
 
 # 🏦 PayPal's Payment Processing System
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Case Studies](/case-studies/) → **PayPal Payments**
-</div>
-
-<div class="case-study-nav">
-**Previous**: [← Spotify Recommendations](/case-studies/spotify-recommendations/) • **Next**: [Fortnite Game State →](/case-studies/fortnite-game/) • [All Case Studies](/case-studies/)
-</div>
-</div>
-
 **The Challenge**: Process billions in payments with zero data loss
 
 <div class="case-study">

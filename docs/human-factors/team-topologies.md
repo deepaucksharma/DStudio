@@ -1,11 +1,5 @@
 # Team Topologies for Distributed Systems
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Human Factors](/human-factors/) → **Team Topologies**
-</div>
-</div>
-
 **Organizing teams for effective distributed systems development**
 
 > *"Conway's Law is not a suggestion—it's a force of nature. Design your teams to match your desired architecture."*

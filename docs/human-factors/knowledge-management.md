@@ -1,11 +1,5 @@
 # Knowledge Management in Distributed Systems
 
-<div class="navigation-header">
-<div class="breadcrumb">
-[Home](/) → [Human Factors](/human-factors/) → **Knowledge Management**
-</div>
-</div>
-
 **Capturing, sharing, and evolving system knowledge**
 
 > *"The half-life of knowledge in distributed systems is measured in months—without active management, expertise evaporates."*
