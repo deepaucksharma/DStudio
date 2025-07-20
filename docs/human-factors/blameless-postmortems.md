@@ -191,21 +191,6 @@ We found: "Config validation was manual, no automated checks for common errors"
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Concepts</h3>
-
-**🤝 Related Topics**:
-- [Incident Response](/human-factors/incident-response/) - Managing active incidents
-- [SRE Practices](/human-factors/sre-practices/) - Reliability engineering
-- [Knowledge Management](/human-factors/knowledge-management/) - Capturing learnings
-
-**🧠 Foundational Concepts**:
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Why failures happen
-- [Axiom 7: Human Interface](/part1-axioms/axiom7-human-interface/) - Human factors
-</div>
-</div>
-
 ---
 
 *"Every incident is a gift of learning wrapped in the paper of failure."*

@@ -837,21 +837,6 @@ class OptimalServiceDiscovery:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Load Balancing](/patterns/load-balancing/) - Use discovered services
-- [Health Check](/patterns/health-check/) - Validate service health
-- [Circuit Breaker](/patterns/circuit-breaker/) - Handle failures
-
-**🧠 Foundational Concepts**:
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Services come and go
-- [Axiom 5: Coordination](/part1-axioms/axiom5-coordination/) - Registry coordination
-</div>
-</div>
-
 ---
 
 *"In distributed systems, finding a service is half the battle—the other half is finding it healthy."*

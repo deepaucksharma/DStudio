@@ -844,21 +844,6 @@ class AdaptiveDegradation:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Circuit Breaker](/patterns/circuit-breaker/) - Trigger degradation
-- [Load Shedding](/patterns/load-shedding/) - Complementary strategy
-- [Caching](/patterns/caching-strategies/) - Enable degraded modes
-
-**🧠 Foundational Concepts**:
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Partial failures
-- [Human Interface](/part1-axioms/axiom7-human-interface/) - User experience
-</div>
-</div>
-
 ---
 
 *"The mark of a robust system is not that it never fails, but how gracefully it fails."*

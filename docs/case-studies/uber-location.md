@@ -331,14 +331,6 @@ Each transition is an atomic operation with strict ordering guarantees.
 
 ---
 
-<div class="navigation-footer">
-<div class="case-study-nav">
-**Next Case Study**: [Amazon DynamoDB →](/case-studies/amazon-dynamo/)
-
-**Return to**: [All Case Studies](/case-studies/) • [Home](/)
-</div>
-</div>
-
 ---
 
 *"At Uber's scale, the speed of light becomes a real constraint in system design."*

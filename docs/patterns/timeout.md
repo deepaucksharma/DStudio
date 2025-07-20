@@ -450,21 +450,6 @@ class OptimalTimeoutCalculator:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Circuit Breaker](/patterns/circuit-breaker/) - Timeouts trigger circuit opening
-- [Retry & Backoff](/patterns/retry-backoff/) - Retry after timeout
-- [Bulkhead](/patterns/bulkhead/) - Isolate timeout impacts
-
-**🧠 Foundational Concepts**:
-- [Axiom 1: Latency](/part1-axioms/axiom1-latency/) - Why timeouts matter
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Timeout as failure detection
-</div>
-</div>
-
 ---
 
 *"The absence of a timeout is the presence of a bug."*

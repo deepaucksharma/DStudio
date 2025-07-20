@@ -491,15 +491,6 @@ Decision: Quorum with hinted handoff
 
 ---
 
-<div class="navigation-footer">
-<div class="case-study-nav">
-**Previous**: [← Uber's Location System](/case-studies/uber-location/)
-**Next**: [Spotify's Recommendation Engine →](/case-studies/spotify-recommendations/)
-
-**Return to**: [All Case Studies](/case-studies/) • [Home](/)
-</div>
-</div>
-
 ---
 
 *"DynamoDB proves that with the right architecture, you can have your cake (availability) and eat it too (consistency when needed)."*

@@ -814,21 +814,6 @@ class OptimalAutoScaler:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Load Balancing](/patterns/load-balancing/) - Distribute to instances
-- [Health Check](/patterns/health-check/) - Verify instance readiness
-- [Circuit Breaker](/patterns/circuit-breaker/) - Handle scaling delays
-
-**🧠 Foundational Concepts**:
-- [Axiom 2: Capacity](/part1-axioms/axiom2-capacity/) - Resource limits
-- [Economics Axiom](/part1-axioms/axiom8-economics/) - Cost optimization
-</div>
-</div>
-
 ---
 
 *"The best scaling is the scaling you don't notice."*

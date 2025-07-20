@@ -1179,49 +1179,6 @@ class GeographicLoadBalancer:
 
 ---
 
-<div class="navigation-footer">
-<div class="related-content">
-<h3>🔗 This Axiom in Action</h3>
-
-**🔧 Patterns That Address Latency**:
-- [Circuit Breaker](/patterns/circuit-breaker/) - Fail fast when latency exceeds budgets
-- [Caching Strategies](/patterns/caching-strategies/) - Store data closer to users
-- [Edge Computing](/patterns/edge-computing/) - Compute closer to users
-- [Retry & Backoff](/patterns/retry-backoff/) - Handle variable latency gracefully
-
-**📊 Real-World Applications**:
-- [Uber's Location System](/case-studies/#uber-location) - <500ms global dispatch requirement
-- [Spotify's Recommendations](/case-studies/#spotify-recommendations) - <100ms ML inference
-- [Fortnite's Game State](/case-studies/#fortnite-game) - <50ms state synchronization
-- [SpaceX Mission Control](/case-studies/#spacex-control) - <10ms abort decisions
-
-**🛠️ Hands-On Practice**:
-- [Speed of Light Calculator](/part1-axioms/axiom1-latency/exercises/#speed-calculator) - Calculate theoretical minimums
-- [Latency Budget Exercise](/part1-axioms/axiom1-latency/exercises/#budget-analysis) - Plan realistic budgets
-- [Network Simulation](/part1-axioms/axiom1-latency/exercises/#network-sim) - Experience latency effects
-
-**📈 Quantitative Analysis**:
-- [Latency Ladder](/quantitative/latency-ladder/) - Human perception thresholds
-- [Queueing Theory](/quantitative/queueing-models/) - Latency under load
-- [Little's Law](/quantitative/littles-law/) - Relationship to throughput
-</div>
-
-<div class="learning-progress">
-<h3>📚 Continue Your Journey</h3>
-
-**Next Up**: [Axiom 2: Capacity](/part1-axioms/axiom2-capacity/) - Resources are finite and constrained
-
-**Learning Path Progress**: [████████░░░░░░░░░░] 1/8 Axioms Complete
-
-**Alternative Paths**:
-- 🚀 **Jump to Patterns**: Start with [Circuit Breaker](/patterns/circuit-breaker/) for practical application
-- 🔬 **Deep Dive Math**: Explore [Queueing Theory](/quantitative/queueing-models/) for latency modeling
-- 🏢 **See It Applied**: Read [Case Studies](/case-studies/) for real-world examples
-
-**Mastery Check**: Can you explain why geographic distribution requires different consistency models? [Test your understanding →](/part1-axioms/axiom1-latency/exercises/)
-</div>
-</div>
-
 ---
 
 **Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/index.md)

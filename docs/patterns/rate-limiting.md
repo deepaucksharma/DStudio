@@ -727,21 +727,6 @@ class OptimalRateLimiter:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Load Shedding](/patterns/load-shedding/) - Drop requests when overwhelmed
-- [Circuit Breaker](/patterns/circuit-breaker/) - Fail fast on errors
-- [Bulkhead](/patterns/bulkhead/) - Isolate resources
-
-**🧠 Foundational Concepts**:
-- [Axiom 2: Capacity](/part1-axioms/axiom2-capacity/) - Why limits exist
-- [Control Pillar](/part2-pillars/control/) - System control theory
-</div>
-</div>
-
 ---
 
 *"Rate limiting is not about saying no, it's about saying yes sustainably."*

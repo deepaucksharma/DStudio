@@ -742,21 +742,6 @@ class OptimalHealthChecker:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Circuit Breaker](/patterns/circuit-breaker/) - Use health to control circuits
-- [Service Discovery](/patterns/service-discovery/) - Register based on health
-- [Load Balancing](/patterns/load-balancing/) - Route based on health
-
-**🧠 Foundational Concepts**:
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Health detects failures
-- [Axiom 6: Observability](/part1-axioms/axiom6-observability/) - Health as observability
-</div>
-</div>
-
 ---
 
 *"The best time to check health is before you get sick."*

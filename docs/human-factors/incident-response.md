@@ -327,21 +327,6 @@ class IncidentMetrics:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Concepts</h3>
-
-**🤝 Related Topics**:
-- [Blameless Postmortems](/human-factors/blameless-postmortems/) - Learning from incidents
-- [On-Call Culture](/human-factors/oncall-culture/) - Sustainable on-call practices
-- [SRE Practices](/human-factors/sre-practices/) - Reliability engineering
-
-**🧠 Foundational Concepts**:
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Understanding failure
-- [Axiom 6: Observability](/part1-axioms/axiom6-observability/) - Detection and monitoring
-</div>
-</div>
-
 ---
 
 *"Smooth seas never made a skilled sailor—incidents make experienced engineers."*

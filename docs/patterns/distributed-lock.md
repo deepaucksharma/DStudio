@@ -638,21 +638,6 @@ class OptimalDistributedLock:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Leader Election](/patterns/leader-election/) - Special case of locking
-- [Fencing Tokens](/patterns/fencing/) - Ensuring lock safety
-- [Consensus](/patterns/consensus/) - Underlying mechanism
-
-**🧠 Foundational Concepts**:
-- [Axiom 4: Concurrency](/part1-axioms/axiom4-concurrency/) - Why locks exist
-- [Axiom 5: Coordination](/part1-axioms/axiom5-coordination/) - Distributed agreement
-</div>
-</div>
-
 ---
 
 *"A distributed lock is a promise that's hard to keep and harder to break safely."*

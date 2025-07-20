@@ -368,21 +368,6 @@ class OnCallSurvey:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Concepts</h3>
-
-**🤝 Related Topics**:
-- [Incident Response](/human-factors/incident-response/) - Handling incidents effectively
-- [SRE Practices](/human-factors/sre-practices/) - Reliability engineering culture
-- [Team Topologies](/human-factors/team-topologies/) - Team organization
-
-**🧠 Foundational Concepts**:
-- [Axiom 7: Human Interface](/part1-axioms/axiom7-human-interface/) - Human factors in systems
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Why we need on-call
-</div>
-</div>
-
 ---
 
 *"The best on-call rotation is one where engineers volunteer for extra shifts."*

@@ -504,21 +504,6 @@ knowledge_tools:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Concepts</h3>
-
-**🤝 Related Topics**:
-- [Team Topologies](/human-factors/team-topologies/) - Knowledge across teams
-- [Blameless Postmortems](/human-factors/blameless-postmortems/) - Learning from failures
-- [Chaos Engineering](/human-factors/chaos-engineering/) - Discovering unknown unknowns
-
-**🧠 Foundational Concepts**:
-- [Axiom 6: Observability](/part1-axioms/axiom6-observability/) - Making knowledge visible
-- [Intelligence Pillar](/part2-pillars/intelligence/) - System learning
-</div>
-</div>
-
 ---
 
 *"The graveyard of distributed systems is littered with teams who knew what to do—once."*

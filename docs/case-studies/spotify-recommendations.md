@@ -414,15 +414,6 @@ Detection:
 
 ---
 
-<div class="navigation-footer">
-<div class="case-study-nav">
-**Previous**: [← Amazon DynamoDB](/case-studies/amazon-dynamo/)
-**Next**: [PayPal Payment Processing →](/case-studies/paypal-payments/)
-
-**Return to**: [All Case Studies](/case-studies/) • [Home](/)
-</div>
-</div>
-
 ---
 
 *"At Spotify's scale, every user is unique, but patterns in human behavior create the foundation for personalization."*

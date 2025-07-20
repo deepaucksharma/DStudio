@@ -838,21 +838,6 @@ class OptimalConsensus:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Leader Election](/patterns/leader-election/) - Choosing coordinator
-- [Distributed Lock](/patterns/distributed-lock/) - Using consensus
-- [Event Sourcing](/patterns/event-sourcing/) - Consensus on event order
-
-**🧠 Foundational Concepts**:
-- [Axiom 5: Coordination](/part1-axioms/axiom5-coordination/) - Why consensus is hard
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Handling failures
-</div>
-</div>
-
 ---
 
 *"In distributed systems, consensus is the art of getting everyone to agree when no one trusts anyone completely."*

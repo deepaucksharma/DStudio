@@ -411,21 +411,6 @@ Search Team (owns search functionality)
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Concepts</h3>
-
-**🤝 Related Topics**:
-- [On-Call Culture](/human-factors/oncall-culture/) - Team operational responsibilities
-- [Knowledge Management](/human-factors/knowledge-management/) - Sharing across teams
-- [SRE Practices](/human-factors/sre-practices/) - Operational excellence
-
-**🧠 Foundational Concepts**:
-- [Axiom 7: Human Interface](/part1-axioms/axiom7-human-interface/) - Human factors
-- [Control Pillar](/part2-pillars/control/) - System organization
-</div>
-</div>
-
 ---
 
 *"Show me your org chart and I'll show you your architecture—it's Conway's Law in action."*

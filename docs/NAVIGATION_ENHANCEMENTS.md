@@ -126,24 +126,6 @@ graph TD
 ```markdown
 <!-- Content here -->
 
-<div class="navigation-footer">
-<div class="related-content">
-<h3>🔗 This Axiom in Action</h3>
-
-**Patterns**: Links to patterns that address this axiom
-**Case Studies**: Real examples demonstrating the axiom
-**Exercises**: Hands-on practice with the concepts
-**Quantitative**: Mathematical tools for analysis
-</div>
-
-<div class="learning-progress">
-<h3>📚 Continue Learning</h3>
-
-**Next Recommended**: Based on learning path
-**Alternative Paths**: Different learning sequences
-**Deep Dive**: Advanced topics related to this axiom
-</div>
-</div>
 ```
 
 ### For Pattern Pages

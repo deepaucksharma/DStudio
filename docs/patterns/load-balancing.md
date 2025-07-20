@@ -909,21 +909,6 @@ class OptimalLoadBalancer:
 
 ---
 
-<div class="navigation-footer">
-<div class="pattern-relationships">
-<h3>🔗 Related Patterns & Concepts</h3>
-
-**🤝 Complementary Patterns**:
-- [Health Check](/patterns/health-check/) - Ensure routing to healthy instances
-- [Auto-scaling](/patterns/auto-scaling/) - Balance dynamic pools
-- [Circuit Breaker](/patterns/circuit-breaker/) - Avoid failed instances
-
-**🧠 Foundational Concepts**:
-- [Axiom 2: Capacity](/part1-axioms/axiom2-capacity/) - Distribute load
-- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Handle failures
-</div>
-</div>
-
 ---
 
 *"Perfect balance is not the goal—effective distribution is."*

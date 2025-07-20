@@ -199,20 +199,6 @@ Learn how the 8 axioms and 5 pillars apply to real-world systems through detaile
 
 ---
 
-<div class="navigation-footer">
-<div class="next-steps">
-<h3>📚 Continue Your Journey</h3>
-
-**🎯 Pick a case study** that matches your current work or interests
-
-**🔍 Deep dive** into the architectural decisions and trade-offs
-
-**🧪 Try implementing** simplified versions of the patterns you learn
-
-**📝 Take notes** on what would work (or not) in your systems
-</div>
-</div>
-
 ---
 
 *"The best architects learn from others' production experiences. These case studies represent decades of collective wisdom."*

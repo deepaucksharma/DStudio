@@ -510,15 +510,6 @@ class PaymentFailureHandler:
 
 ---
 
-<div class="navigation-footer">
-<div class="case-study-nav">
-**Previous**: [← Spotify's Recommendation Engine](/case-studies/spotify-recommendations/)
-**Next**: [Fortnite's Real-Time Game State →](/case-studies/fortnite-game/)
-
-**Return to**: [All Case Studies](/case-studies/) • [Home](/)
-</div>
-</div>
-
 ---
 
 *"In payment processing, 'good enough' isn't good enough. Every penny matters, every transaction counts."*
