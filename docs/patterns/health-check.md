@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Health Check Pattern**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Health Check Pattern**
 
 # Health Check Pattern
 

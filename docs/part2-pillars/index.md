@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **Part II: Foundational Pillars**
+[Home](../index.md) → [Part II: Pillars](index.md) → **Part II: Foundational Pillars**
 
 # Part II: Foundational Pillars
 

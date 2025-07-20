@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Tunable Consistency**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Tunable Consistency**
 
 # Tunable Consistency
 

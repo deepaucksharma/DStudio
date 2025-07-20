@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → [Intelligence](/part2-pillars/intelligence/) → **Intelligence & Learning Exercises**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [Intelligence](/part2-pillars/intelligence/) → **Intelligence & Learning Exercises**
 
 # Intelligence & Learning Exercises
 

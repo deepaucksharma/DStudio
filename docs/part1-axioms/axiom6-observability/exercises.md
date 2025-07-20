@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](/part1-axioms/axiom6-observability/) → **Observability Exercises**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 6](/part1-axioms/axiom6-observability/) → **Observability Exercises**
 
 # Observability Exercises
 

@@ -123,7 +123,7 @@ extra:
       link: https://twitter.com/deepaucksharma
   
   # Build date for copyright
-  build_date: !ENV [BUILD_DATE, "2024"]
+  build_date: "2025"
 
 # Complete Navigation - Including All Existing Content
 nav:
@@ -174,14 +174,24 @@ nav:
     - Overview: part2-pillars/index.md
     - "Pillar 1: Work":
       - Overview: part2-pillars/work/index.md
+      - Examples: part2-pillars/work/examples.md
+      - Exercises: part2-pillars/work/exercises.md
     - "Pillar 2: State": 
       - Overview: part2-pillars/state/index.md
+      - Examples: part2-pillars/state/examples.md
+      - Exercises: part2-pillars/state/exercises.md
     - "Pillar 3: Truth":
       - Overview: part2-pillars/truth/index.md
+      - Examples: part2-pillars/truth/examples.md
+      - Exercises: part2-pillars/truth/exercises.md
     - "Pillar 4: Control":
       - Overview: part2-pillars/control/index.md
+      - Examples: part2-pillars/control/examples.md
+      - Exercises: part2-pillars/control/exercises.md
     - "Pillar 5: Intelligence":
       - Overview: part2-pillars/intelligence/index.md
+      - Examples: part2-pillars/intelligence/examples.md
+      - Exercises: part2-pillars/intelligence/exercises.md
     - "Analysis Tools":
       - "CAST vs SPACE Models": part2-pillars/models-comparison.md
       - "When Models Collide": part2-pillars/models-collide.md
@@ -214,6 +224,9 @@ nav:
       - "Retry & Backoff": patterns/retry-backoff.md
       - "Bulkhead": patterns/bulkhead.md
       - "Edge Computing": patterns/edge-computing.md
+      - "Graceful Degradation": patterns/graceful-degradation.md
+      - "Health Check": patterns/health-check.md
+      - "Timeout": patterns/timeout.md
     - "Data Patterns":
       - "CDC (Change Data Capture)": patterns/cdc.md
       - "Tunable Consistency": patterns/tunable-consistency.md
@@ -222,9 +235,16 @@ nav:
       - "Geo-Replication": patterns/geo-replication.md
     - "Coordination Patterns":
       - "Leader Election": patterns/leader-election.md
+      - "Consensus": patterns/consensus.md
+      - "Distributed Lock": patterns/distributed-lock.md
       - "Idempotent Receiver": patterns/idempotent-receiver.md
       - "Outbox": patterns/outbox.md
     - "Operational Patterns":
+      - "Auto Scaling": patterns/auto-scaling.md
+      - "Load Balancing": patterns/load-balancing.md
+      - "Load Shedding": patterns/load-shedding.md
+      - "Rate Limiting": patterns/rate-limiting.md
+      - "Service Discovery": patterns/service-discovery.md
       - "Observability": patterns/observability.md
       - "FinOps": patterns/finops.md
     - "Pattern Quiz": patterns/pattern-quiz.md
@@ -255,12 +275,23 @@ nav:
       - "SRE Practices": human-factors/sre-practices.md
       - "Org-Structure Physics": human-factors/org-structure.md
       - "Runbooks & Playbooks": human-factors/runbooks-playbooks.md
+    - "Team Organization":
+      - "Team Topologies": human-factors/team-topologies.md
+      - "Knowledge Management": human-factors/knowledge-management.md
+      - "On-Call Culture": human-factors/oncall-culture.md
+    - "Incident Management":
+      - "Incident Response": human-factors/incident-response.md
+      - "Blameless Postmortems": human-factors/blameless-postmortems.md
   
   - Tools:
     - tools/index.md
   
   - Case Studies:
-    - case-studies/index.md
+    - Overview: case-studies/index.md
+    - "Amazon DynamoDB": case-studies/amazon-dynamo.md
+    - "PayPal Payments": case-studies/paypal-payments.md
+    - "Spotify Recommendations": case-studies/spotify-recommendations.md
+    - "Uber Location Services": case-studies/uber-location.md
   
   - Reference:
     - Overview: reference/index.md

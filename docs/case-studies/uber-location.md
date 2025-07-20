@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Case Studies](/case-studies/) → **Uber's Real-Time Location System**
+[Home](../index.md) → [Case Studies](index.md) → **Uber's Real-Time Location System**
 
 # 🚗 Uber's Real-Time Location System
 

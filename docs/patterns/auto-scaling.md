@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Auto-scaling Pattern**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Auto-scaling Pattern**
 
 # Auto-scaling Pattern
 

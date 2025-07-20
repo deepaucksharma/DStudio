@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **CQRS (Command Query Responsibility Segregation)**
+[Home](../index.md) → [Part III: Patterns](index.md) → **CQRS (Command Query Responsibility Segregation)**
 
 # CQRS (Command Query Responsibility Segregation)
 

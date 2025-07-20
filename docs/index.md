@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → **The Compendium of Distributed Systems**
+[Home](index.md) → **The Compendium of Distributed Systems**
 
 # The Compendium of Distributed Systems
 
@@ -31,7 +31,7 @@ graph TD
     style F fill:#c8e6c9
 ```
 
-<a href="/part1-axioms/" class="path-cta">Start Foundation Path →</a>
+<a href="part1-axioms/index.md" class="path-cta">Start Foundation Path →</a>
 
 **Your Journey:**
 ```mermaid
@@ -46,7 +46,7 @@ graph TD
     style F fill:#c8e6c9
 ```
 
-<a href="/part2-pillars/" class="path-cta">Advance Your Skills →</a>
+<a href="part2-pillars/index.md" class="path-cta">Advance Your Skills →</a>
 
 **Your Journey:**
 ```mermaid
@@ -61,7 +61,7 @@ graph TD
     style F fill:#c8e6c9
 ```
 
-<a href="/human-factors/" class="path-cta">Lead Technical Teams →</a>
+<a href="human-factors/index.md" class="path-cta">Lead Technical Teams →</a>
 
 **Your Journey:**
 ```mermaid
@@ -75,7 +75,7 @@ graph TD
     style E fill:#c8e6c9
 ```
 
-<a href="/patterns/" class="path-cta">Find Solutions Now →</a>
+<a href="patterns/index.md" class="path-cta">Find Solutions Now →</a>
 
 ---
 
@@ -83,42 +83,42 @@ graph TD
 
 ### Part I: The Eight Fundamental Axioms
 *Physics and mathematics that constrain all distributed systems*
-- [Latency](/part1-axioms/axiom1-latency/) - Speed of light limits
-- [Capacity](/part1-axioms/axiom2-capacity/) - Finite resources
-- [Failure](/part1-axioms/axiom3-failure/) - Components break
-- [Concurrency](/part1-axioms/axiom4-concurrency/) - Race conditions
-- [Coordination](/part1-axioms/axiom5-coordination/) - Agreement costs
-- [Observability](/part1-axioms/axiom6-observability/) - Limited visibility
-- [Human Interface](/part1-axioms/axiom7-human/) - Cognitive limits
-- [Economics](/part1-axioms/axiom8-economics/) - Everything has a cost
+- [Latency](part1-axioms/axiom1-latency/index.md) - Speed of light limits
+- [Capacity](part1-axioms/axiom2-capacity/index.md) - Finite resources
+- [Failure](part1-axioms/axiom3-failure/index.md) - Components break
+- [Concurrency](part1-axioms/axiom4-concurrency/index.md) - Race conditions
+- [Coordination](part1-axioms/axiom5-coordination/index.md) - Agreement costs
+- [Observability](part1-axioms/axiom6-observability/index.md) - Limited visibility
+- [Human Interface](part1-axioms/axiom7-human/index.md) - Cognitive limits
+- [Economics](part1-axioms/axiom8-economics/index.md) - Everything has a cost
 
 ### Part II: The Five Foundational Pillars
 *How axioms combine to create system architectures*
-- [Work Distribution](/part2-pillars/work/) - Spreading computation
-- [State Distribution](/part2-pillars/state/) - Managing data
-- [Truth Distribution](/part2-pillars/truth/) - Achieving consistency
-- [Control Distribution](/part2-pillars/control/) - Operational management
-- [Intelligence Distribution](/part2-pillars/intelligence/) - Adaptive systems
+- [Work Distribution](part2-pillars/work/index.md) - Spreading computation
+- [State Distribution](part2-pillars/state/index.md) - Managing data
+- [Truth Distribution](part2-pillars/truth/index.md) - Achieving consistency
+- [Control Distribution](part2-pillars/control/index.md) - Operational management
+- [Intelligence Distribution](part2-pillars/intelligence/index.md) - Adaptive systems
 
 ### Part III: Modern Pattern Catalog
 *Battle-tested solutions derived from first principles*
-- [Core Patterns](/patterns/#core-patterns) - CQRS, Event Sourcing, Saga
-- [Resilience Patterns](/patterns/#resilience-patterns) - Circuit Breaker, Retry, Timeout
-- [Data Patterns](/patterns/#data-patterns) - Sharding, Caching, CDC
-- [Coordination Patterns](/patterns/#coordination-patterns) - Leader Election, Distributed Lock
-- [Operational Patterns](/patterns/#operational-patterns) - Service Mesh, Auto-scaling
+- [Core Patterns](patterns/index.md#core-patterns) - CQRS, Event Sourcing, Saga
+- [Resilience Patterns](patterns/index.md#resilience-patterns) - Circuit Breaker, Retry, Timeout
+- [Data Patterns](patterns/index.md#data-patterns) - Sharding, Caching, CDC
+- [Coordination Patterns](patterns/index.md#coordination-patterns) - Leader Election, Distributed Lock
+- [Operational Patterns](patterns/index.md#operational-patterns) - Service Mesh, Auto-scaling
 
 ### Part IV: Quantitative Toolkit
 *Mathematics and economics for system design*
-- [Latency & Performance](/quantitative/#latency--performance) - Little's Law, Queueing Theory
-- [Scaling Laws](/quantitative/#scaling-laws) - Amdahl's Law, Universal Scalability
-- [Economics & Planning](/quantitative/#economics--planning) - Capacity Planning, Cost Models
+- [Latency & Performance](quantitative/index.md#latency--performance) - Little's Law, Queueing Theory
+- [Scaling Laws](quantitative/index.md#scaling-laws) - Amdahl's Law, Universal Scalability
+- [Economics & Planning](quantitative/index.md#economics--planning) - Capacity Planning, Cost Models
 
 ### Part V: Human Factors
 *The people side of distributed systems*
-- [Production Excellence](/human-factors/#production-excellence) - SRE, Chaos Engineering
-- [Operational Practices](/human-factors/#operational-practices) - Runbooks, Incident Response
-- [Team & Organization](/human-factors/#key-concepts) - Conway's Law, Team Topologies
+- [Production Excellence](human-factors/index.md#production-excellence) - SRE, Chaos Engineering
+- [Operational Practices](human-factors/index.md#operational-practices) - Runbooks, Incident Response
+- [Team & Organization](human-factors/index.md#key-concepts) - Conway's Law, Team Topologies
 
 ---
 
@@ -126,15 +126,15 @@ graph TD
 
 ### 📊 Latency Calculator
 Calculate theoretical and practical latencies for your architecture
-[**→ Launch Calculator**](/tools/#latency-calculator)
+[**→ Launch Calculator**](tools/index.md#latency-calculator)
 
 ### 📦 Capacity Planner
 Right-size your infrastructure based on load patterns
-[**→ Plan Capacity**](/tools/#capacity-planner)
+[**→ Plan Capacity**](tools/index.md#capacity-planner)
 
 ### 🎯 Pattern Selector
 Find the right pattern for your specific constraints
-[**→ Select Patterns**](/tools/#pattern-selector)
+[**→ Select Patterns**](tools/index.md#pattern-selector)
 
 ---
 
@@ -143,17 +143,17 @@ Find the right pattern for your specific constraints
 ### Uber: Real-Time Location at Scale
 **Challenge**: Track 40M concurrent users with <100ms latency  
 **Solution**: H3 hexagonal grid system + edge computing  
-[**→ Read Case Study**](/case-studies/uber-location/)
+[**→ Read Case Study**](case-studies/uber-location.md)
 
 ### Amazon DynamoDB: Eventually Consistent by Design
 **Challenge**: 99.999% availability for global e-commerce  
 **Solution**: Masterless architecture + vector clocks  
-[**→ Read Case Study**](/case-studies/amazon-dynamo/)
+[**→ Read Case Study**](case-studies/amazon-dynamo.md)
 
 ### Spotify: ML-Powered Recommendations
 **Challenge**: 5B personalized recommendations daily  
 **Solution**: Hybrid online/offline processing pipeline  
-[**→ Read Case Study**](/case-studies/spotify-recommendations/)
+[**→ Read Case Study**](case-studies/spotify-recommendations.md)
 
 ---
 
@@ -178,16 +178,16 @@ Make decisions based on math, not opinions. Every trade-off can be quantified, m
 **Choose your path based on your experience:**
 
 ### 🌱 New to Distributed Systems?
-Begin with [Introduction](/introduction/) → [Axioms](/part1-axioms/) → [Basic Patterns](/patterns/)
+Begin with [Introduction](introduction/index.md) → [Axioms](part1-axioms/index.md) → [Basic Patterns](patterns/index.md)
 
 ### 🌳 Experienced Engineer?
-Jump to [Patterns](/patterns/) or [Case Studies](/case-studies/) for practical applications
+Jump to [Patterns](patterns/index.md) or [Case Studies](case-studies/index.md) for practical applications
 
 ### 🌲 Technical Leader?
-Focus on [Human Factors](/human-factors/) and [Quantitative Analysis](/quantitative/)
+Focus on [Human Factors](human-factors/index.md) and [Quantitative Analysis](quantitative/index.md)
 
 ### ⚡ Just Need a Quick Answer?
-Check [Reference](/reference/) for definitions, formulas, and quick guides
+Check [Reference](reference/index.md) for definitions, formulas, and quick guides
 
 ---
 

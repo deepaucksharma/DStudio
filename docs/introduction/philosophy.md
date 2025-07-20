@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Introduction](/introduction/) → **The Philosophy: Learning from First Principles**
+[Home](../index.md) → [Introduction](index.md) → **The Philosophy: Learning from First Principles**
 
 # The Philosophy: Learning from First Principles
 

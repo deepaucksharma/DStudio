@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Reference](/reference/) → **Reference Materials**
+[Home](../index.md) → [Reference](index.md) → **Reference Materials**
 
 # Reference Materials
 

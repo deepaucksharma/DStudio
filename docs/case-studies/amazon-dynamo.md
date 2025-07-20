@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Case Studies](/case-studies/) → **Amazon's DynamoDB: Building a Database That Never Goes Down**
+[Home](../index.md) → [Case Studies](index.md) → **Amazon's DynamoDB: Building a Database That Never Goes Down**
 
 # 🛒 Amazon's DynamoDB: Building a Database That Never Goes Down
 

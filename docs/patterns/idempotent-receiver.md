@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Idempotent Receiver Pattern**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Idempotent Receiver Pattern**
 
 # Idempotent Receiver Pattern
 

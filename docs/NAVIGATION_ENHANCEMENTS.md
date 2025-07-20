@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → **Navigation Enhancements for The Compendium**
+[Home](index.md) → **Navigation Enhancements for The Compendium**
 
 # Navigation Enhancements for The Compendium
 

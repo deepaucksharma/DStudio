@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part V: Human Factors](/human-factors/) → **Consistency Tuning in Production**
+[Home](../index.md) → [Part V: Human Factors](index.md) → **Consistency Tuning in Production**
 
 # Consistency Tuning in Production
 

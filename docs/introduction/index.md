@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Introduction](/introduction/) → **Welcome to Distributed Systems**
+[Home](../index.md) → [Introduction](index.md) → **Welcome to Distributed Systems**
 
 # Welcome to Distributed Systems
 

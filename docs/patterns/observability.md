@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Observability Patterns**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Observability Patterns**
 
 # Observability Patterns
 

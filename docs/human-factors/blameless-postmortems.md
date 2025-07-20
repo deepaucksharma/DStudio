@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part V: Human Factors](/human-factors/) → **Blameless Postmortems**
+[Home](../index.md) → [Part V: Human Factors](index.md) → **Blameless Postmortems**
 
 # Blameless Postmortems
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → **Capstone Project Framework**
+[Home](../index.md) → **Capstone Project Framework**
 
 # Capstone Project Framework
 

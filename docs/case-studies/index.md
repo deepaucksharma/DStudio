@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Case Studies](/case-studies/) → **Case Studies: Axioms in Action**
+[Home](../index.md) → [Case Studies](index.md) → **Case Studies: Axioms in Action**
 
 # Case Studies: Axioms in Action
 

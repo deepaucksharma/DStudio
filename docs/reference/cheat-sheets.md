@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Reference](/reference/) → **Distributed Systems Cheat Sheets**
+[Home](../index.md) → [Reference](index.md) → **Distributed Systems Cheat Sheets**
 
 # Distributed Systems Cheat Sheets
 

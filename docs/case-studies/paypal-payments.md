@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Case Studies](/case-studies/) → **PayPal's Payment Processing System**
+[Home](../index.md) → [Case Studies](index.md) → **PayPal's Payment Processing System**
 
 # 🏦 PayPal's Payment Processing System
 

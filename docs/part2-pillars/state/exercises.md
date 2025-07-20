@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → [State](/part2-pillars/state/) → **State Management Exercises**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [State](/part2-pillars/state/) → **State Management Exercises**
 
 # State Management Exercises
 

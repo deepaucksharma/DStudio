@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → [State](/part2-pillars/state/) → **Pillar 2: Distribution of State**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [State](/part2-pillars/state/) → **Pillar 2: Distribution of State**
 
 # Pillar 2: Distribution of State
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Axiom 2: Finite Capacity**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 2](index.md) → **Axiom 2: Finite Capacity**
 
 # Axiom 2: Finite Capacity
 

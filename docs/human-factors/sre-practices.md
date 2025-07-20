@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part V: Human Factors](/human-factors/) → **SRE Practices**
+[Home](../index.md) → [Part V: Human Factors](index.md) → **SRE Practices**
 
 # SRE Practices
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → **Immutable Laws Quiz**
+[Home](../index.md) → [Part I: Axioms](index.md) → **Immutable Laws Quiz**
 
 # Immutable Laws Quiz
 

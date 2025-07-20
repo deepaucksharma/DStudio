@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Saga (Distributed Transactions)**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Saga (Distributed Transactions)**
 
 # Saga (Distributed Transactions)
 

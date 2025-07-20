@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **GraphQL Federation**
+[Home](../index.md) → [Part III: Patterns](index.md) → **GraphQL Federation**
 
 # GraphQL Federation
 

@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **FinOps Patterns**
+[Home](../index.md) → [Part III: Patterns](index.md) → **FinOps Patterns**
 
 # FinOps Patterns
 

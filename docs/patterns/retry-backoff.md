@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Retry & Backoff Strategies**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Retry & Backoff Strategies**
 
 # Retry & Backoff Strategies
 

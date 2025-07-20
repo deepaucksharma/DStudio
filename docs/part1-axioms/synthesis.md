@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → **Axioms Synthesis**
+[Home](../index.md) → [Part I: Axioms](index.md) → **Axioms Synthesis**
 
 # Axioms Synthesis
 

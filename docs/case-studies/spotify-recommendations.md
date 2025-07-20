@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Case Studies](/case-studies/) → **Spotify's Music Recommendation Engine**
+[Home](../index.md) → [Case Studies](index.md) → **Spotify's Music Recommendation Engine**
 
 # 🎵 Spotify's Music Recommendation Engine
 

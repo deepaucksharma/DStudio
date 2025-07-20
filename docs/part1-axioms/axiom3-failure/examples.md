@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](index.md) → **Partial Failure Examples**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 3](index.md) → **Partial Failure Examples**
 
 # Partial Failure Examples
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → **Formatting Consistency Report**
+[Home](index.md) → **Formatting Consistency Report**
 
 # Formatting Consistency Report
 

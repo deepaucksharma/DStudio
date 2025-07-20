@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Geo-Replication Patterns**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Geo-Replication Patterns**
 
 # Geo-Replication Patterns
 

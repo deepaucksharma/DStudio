@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part III: Patterns](/patterns/) → **Part III: Modern Architectural Patterns**
+[Home](../index.md) → [Part III: Patterns](index.md) → **Part III: Modern Architectural Patterns**
 
 # Part III: Modern Architectural Patterns
 

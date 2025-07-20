@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Reference](/reference/) → **Security Considerations in Distributed Systems**
+[Home](../index.md) → [Reference](index.md) → **Security Considerations in Distributed Systems**
 
 # Security Considerations in Distributed Systems
 
