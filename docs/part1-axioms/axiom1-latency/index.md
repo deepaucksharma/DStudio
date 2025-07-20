@@ -165,6 +165,24 @@ Light—and therefore information—has a speed limit:
 - **In fiber optic cable**: ~200,000 km/s (due to refractive index ~1.5)
 - **In copper wire**: ~200,000 km/s (electromagnetic wave)
 
+```mermaid
+graph LR
+    A[Speed of Light<br/>299,792 km/s] --> B[Fiber Optic<br/>~200,000 km/s]
+    B --> C[Practical Latency<br/>3-4x theoretical]
+    
+    subgraph "Real-World Factors"
+        D[Cable Routing]
+        E[Router Delays]
+        F[Protocol Overhead]
+        G[Congestion]
+    end
+    
+    C --> D
+    C --> E
+    C --> F
+    C --> G
+```
+
 !!! info "Industry Reality Check"
     **Google's Measurements**: Real-world fiber latency is 3-4x theoretical minimum due to:
     - Non-straight cable paths (following geography)
@@ -176,7 +194,7 @@ Light—and therefore information—has a speed limit:
 
 ### The Latency Ladder
 
-Understanding latency starts with knowing the fundamental delays at each scale:
+Understanding latency starts with knowing the fundamental delays at each scale¹:
 
 ```yaml
 Same rack:          0.5 ms    ████
@@ -187,6 +205,41 @@ Opposite globe:     200+ ms   ████████████████�
 Geosync satellite:  500+ ms   ████████████████████████████████████████████████████████████████████████████████████████████████████████████
 Mars (best case):   4 min     ∞ (off the chart)
 ```
+
+### Visual: Global Latency Map
+
+```mermaid
+graph TB
+    subgraph "Latency by Distance"
+        A[Same Building<br/>0.5ms] --> B[Same City<br/>1-2ms]
+        B --> C[Same State<br/>10ms]
+        C --> D[Same Coast<br/>20-30ms]
+        D --> E[Cross-Country<br/>40-60ms]
+        E --> F[Cross-Ocean<br/>80-150ms]
+        F --> G[Opposite Globe<br/>200-300ms]
+    end
+    
+    style A fill:#90EE90
+    style B fill:#90EE90
+    style C fill:#FFFFE0
+    style D fill:#FFFFE0
+    style E fill:#FFE4B5
+    style F fill:#FFA07A
+    style G fill:#FF6347
+```
+
+### Quantitative Examples: Real Routes
+
+| Route | Distance | Theoretical Min | Typical RTT | Google's Data² |
+|-------|----------|----------------|-------------|---------------|
+| NYC → Boston | 306 km | 1.5 ms | 4-6 ms | 5 ms |
+| NYC → SF | 4,130 km | 20.7 ms | 65-85 ms | 72 ms |
+| NYC → London | 5,570 km | 27.9 ms | 70-90 ms | 76 ms |
+| NYC → Tokyo | 10,850 km | 54.3 ms | 160-200 ms | 188 ms |
+| NYC → Sydney | 15,990 km | 80.0 ms | 250-300 ms | 278 ms |
+
+¹ [Latency Numbers Every Programmer Should Know](https://colin-scott.github.io/personal/volatile/latency.html)
+² [Google Cloud Network Performance](https://cloud.google.com/network-intelligence-center/docs/performance-dashboard/concepts/metrics)
 
 ### Simple Example: Webpage Loading
 

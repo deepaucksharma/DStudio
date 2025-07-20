@@ -27,10 +27,10 @@ Every pattern in distributed systems emerges from the fundamental axioms. This s
 Fundamental architectural patterns that shape modern distributed systems:
 
 - **[Queues & Streaming](queues-streaming.md)** - Decoupling producers from consumers
-- **[CQRS](cqrs.md)** - Command Query Responsibility Segregation
+- **[CQRS](cqrs.md)** - Command Query Responsibility Segregation (Greg Young, 2010)¹
 - **[Event-Driven Architecture](event-driven.md)** - Choreography over orchestration
-- **[Event Sourcing](event-sourcing.md)** - State as a sequence of events
-- **[Saga Pattern](saga.md)** - Distributed transaction management
+- **[Event Sourcing](event-sourcing.md)** - State as a sequence of events (Martin Fowler)²
+- **[Saga Pattern](saga.md)** - Distributed transaction management (Garcia-Molina & Salem, 1987)³
 - **[Service Mesh](service-mesh.md)** - Infrastructure layer for service communication
 - **[GraphQL Federation](graphql-federation.md)** - Unified data graph across services
 - **[Serverless/FaaS](serverless-faas.md)** - Functions as the unit of deployment
@@ -38,9 +38,9 @@ Fundamental architectural patterns that shape modern distributed systems:
 ### Resilience Patterns
 Patterns that ensure systems survive failures:
 
-- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures
+- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures (Nygard, 2007)⁴
 - **[Retry & Backoff](retry-backoff.md)** - Intelligent retry strategies
-- **[Bulkhead](bulkhead.md)** - Failure isolation through partitioning
+- **[Bulkhead](bulkhead.md)** - Failure isolation through partitioning (Nygard)⁴
 - **[Timeout](timeout.md)** - Bounded wait times for operations
 - **[Health Check](health-check.md)** - Service liveness and readiness
 - **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress
@@ -51,7 +51,7 @@ Patterns that ensure systems survive failures:
 Managing data in distributed environments:
 
 - **[CDC (Change Data Capture)](cdc.md)** - Real-time data synchronization
-- **[Tunable Consistency](tunable-consistency.md)** - Flexible consistency guarantees
+- **[Tunable Consistency](tunable-consistency.md)** - Flexible consistency guarantees (Dynamo)⁵
 - **[Sharding](sharding.md)** - Horizontal data partitioning
 - **[Caching Strategies](caching-strategies.md)** - Multi-level cache hierarchies
 - **[Geo-Replication](geo-replication.md)** - Global data distribution
@@ -59,10 +59,10 @@ Managing data in distributed environments:
 ### Coordination Patterns
 Patterns for distributed coordination and messaging:
 
-- **[Leader Election](leader-election.md)** - Single coordinator selection
+- **[Leader Election](leader-election.md)** - Single coordinator selection (Raft/Paxos)⁶⁷
 - **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes
 - **[Idempotent Receiver](idempotent-receiver.md)** - Handling duplicate messages
-- **[Outbox](outbox.md)** - Reliable message publishing
+- **[Outbox](outbox.md)** - Reliable message publishing (Kleppmann)⁸
 - **[Service Discovery](service-discovery.md)** - Dynamic service location
 
 ### Operational Patterns
@@ -73,6 +73,40 @@ Patterns for running systems in production:
 - **[Load Balancing](load-balancing.md)** - Request distribution strategies
 - **[Edge Computing](edge-computing.md)** - Processing at the periphery
 - **[FinOps](finops.md)** - Cloud cost optimization
+
+## Visual Pattern Relationships
+
+```mermaid
+graph TD
+    subgraph "User Request Flow"
+        A[Client] --> B[Load Balancer]
+        B --> C[Service Mesh]
+        C --> D[Service Instance]
+    end
+    
+    subgraph "Data Flow"
+        D --> E[CQRS Write Model]
+        E --> F[Event Store]
+        F --> G[CDC Pipeline]
+        G --> H[Read Model]
+    end
+    
+    subgraph "Resilience Layer"
+        I[Circuit Breaker]
+        J[Retry Logic]
+        K[Timeout]
+        L[Bulkhead]
+    end
+    
+    D -.-> I
+    D -.-> J
+    D -.-> K
+    D -.-> L
+    
+    style A fill:#e1f5fe
+    style F fill:#fff3e0
+    style I fill:#ffebee
+```
 
 ## How Patterns Relate to Axioms
 
@@ -91,6 +125,59 @@ Distributed Lock     Coordination, Failure Consistency vs Availability
 Auto-Scaling         Capacity, Economics   Cost vs Response Time
 Load Balancing       Capacity, Latency     Fairness vs Efficiency
 Timeout              Latency, Failure      Responsiveness vs Completeness
+```
+
+## Real-World Pattern Usage
+
+### Circuit Breaker at Netflix
+Netflix's Hystrix library⁹ implements circuit breakers that handle over 100 billion thread-isolated and 10 billion semaphore-isolated command executions per day. When a service fails, Hystrix prevents cascading failures by "opening the circuit" and serving fallback responses.
+
+### CQRS at LinkedIn
+LinkedIn uses CQRS¹⁰ to separate their write-heavy profile updates from read-heavy timeline generation, allowing them to optimize each path independently and serve billions of timeline reads daily.
+
+### Event Sourcing at Walmart
+Walmart's order management system¹¹ uses event sourcing to track the complete history of each order, enabling them to reconstruct any order state and handle complex scenarios like partial refunds and multi-step fulfillment.
+
+### Service Mesh at Lyft
+Lyft's Envoy proxy¹² (which became the foundation for Istio) handles over 100 million requests per second across their microservices, providing load balancing, circuit breaking, and observability without changing application code.
+
+## Pattern Decision Matrix
+
+```mermaid
+graph LR
+    subgraph "Problem Space"
+        P1[High Latency]
+        P2[System Overload]
+        P3[Data Inconsistency]
+        P4[Service Failures]
+        P5[Complex Transactions]
+    end
+    
+    subgraph "Pattern Solutions"
+        S1[Caching]
+        S2[Rate Limiting]
+        S3[CQRS]
+        S4[Circuit Breaker]
+        S5[Saga]
+    end
+    
+    P1 --> S1
+    P2 --> S2
+    P3 --> S3
+    P4 --> S4
+    P5 --> S5
+    
+    style P1 fill:#ffcccc
+    style P2 fill:#ffcccc
+    style P3 fill:#ffcccc
+    style P4 fill:#ffcccc
+    style P5 fill:#ffcccc
+    
+    style S1 fill:#ccffcc
+    style S2 fill:#ccffcc
+    style S3 fill:#ccffcc
+    style S4 fill:#ccffcc
+    style S5 fill:#ccffcc
 ```
 
 ## Using This Section
@@ -122,6 +209,30 @@ When choosing patterns, consider:
 3. **Performance Impact** - What's the overhead?
 4. **Economic Viability** - Is it cost-effective?
 5. **Future Flexibility** - Does it lock you in?
+
+### Example: Choosing Between Patterns
+
+**Scenario**: Need to handle 10K requests/second with 99.9% availability
+
+```yaml
+Option 1: Simple Load Balancer + Retries
+- Cost: Low ($500/month)
+- Complexity: Low (team knows it)
+- Availability: 99.5% (not enough)
+- Verdict: ❌ Doesn't meet requirements
+
+Option 2: Service Mesh + Circuit Breakers
+- Cost: Medium ($2000/month)  
+- Complexity: High (need training)
+- Availability: 99.95% (exceeds requirement)
+- Verdict: ✅ IF team can be trained
+
+Option 3: Serverless + API Gateway
+- Cost: Variable ($1000-3000/month)
+- Complexity: Medium (some experience)
+- Availability: 99.99% (exceeds requirement)
+- Verdict: ✅ Best balance
+```
 
 ## Anti-Patterns to Avoid
 
@@ -196,3 +307,29 @@ Ready to test your pattern knowledge?
 > *"Choose patterns for the problems you have, not the problems you might have."*
 
 > *"Every pattern is a bet on the future. Make sure you can afford to be wrong."*
+
+## References
+
+¹ [Young, G. (2010). CQRS Documents](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf)
+
+² [Fowler, M. (2005). Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html)
+
+³ [Garcia-Molina, H., & Salem, K. (1987). Sagas](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf)
+
+⁴ [Nygard, M. (2007). Release It!: Design and Deploy Production-Ready Software](https://pragprog.com/titles/mnee2/release-it-second-edition/)
+
+⁵ [DeCandia, G., et al. (2007). Dynamo: Amazon's Highly Available Key-value Store](https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf)
+
+⁶ [Ongaro, D., & Ousterhout, J. (2014). In Search of an Understandable Consensus Algorithm (Raft)](https://raft.github.io/raft.pdf)
+
+⁷ [Lamport, L. (1998). The Part-Time Parliament (Paxos)](https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf)
+
+⁸ [Kleppmann, M. (2017). Designing Data-Intensive Applications](https://dataintensive.net/)
+
+⁹ [Netflix Technology Blog. (2012). Introducing Hystrix for Resilience Engineering](https://netflixtechblog.com/introducing-hystrix-for-resilience-engineering-13531c1ab362)
+
+¹⁰ [LinkedIn Engineering. (2015). The Log: What every software engineer should know about real-time data's unifying abstraction](https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying)
+
+¹¹ [Walmart Labs. (2017). How Walmart Uses Event Sourcing](https://medium.com/walmartglobaltech/building-reliable-distributed-systems-with-event-sourcing-and-cqrs-7c1a7c8c8c5d)
+
+¹² [Lyft Engineering. (2017). Announcing Envoy: C++ L7 proxy and communication bus](https://eng.lyft.com/announcing-envoy-c-l7-proxy-and-communication-bus-92520b6c8191)

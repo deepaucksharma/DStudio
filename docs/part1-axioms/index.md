@@ -39,43 +39,140 @@ Before we discuss any patterns, algorithms, or architectures, we must understand
 
 ### Axiom 1: Latency (Speed of Light)
 **Information cannot travel faster than the speed of light**  
-Physics sets hard limits on communication speed. Every network hop adds unavoidable delay. This constraint shapes everything from data center placement to user experience design.  
-[**→ Deep Dive into Latency**](axiom1-latency/index.md)
+Physics sets hard limits on communication speed. Every network hop adds unavoidable delay. This constraint shapes everything from data center placement to user experience design.
+
+!!! info "Quantitative Reality"
+    - **Speed of light in fiber**: ~200,000 km/s (31% slower than vacuum)
+    - **NYC ↔ London**: Minimum 28ms RTT (physics limit)
+    - **Within datacenter**: 0.5ms RTT typical
+    - **Same rack**: 0.05ms RTT
+    
+    Remember: [Latency Numbers Every Programmer Should Know](https://colin-scott.github.io/personal/volatile/latency.html)
+
+[**→ Deep Dive into Latency**](axiom1-latency/index.md) | [**→ Try Latency Exercises**](axiom1-latency/exercises.md)
 
 ### Axiom 2: Finite Capacity  
 **Every system has resource limits**  
-CPU, memory, disk, and network bandwidth are finite. Capacity constraints create bottlenecks, force trade-offs, and drive architectural decisions.  
-[**→ Master Capacity Management**](axiom2-capacity/index.md)
+CPU, memory, disk, and network bandwidth are finite. Capacity constraints create bottlenecks, force trade-offs, and drive architectural decisions.
+
+!!! info "Fundamental Laws"
+    **Little's Law**: L = λW
+    - L = Average number of requests in system
+    - λ = Average arrival rate
+    - W = Average time in system
+    
+    This means: To handle 2x throughput, you must either:
+    - Allow 2x more requests to queue, OR
+    - Halve the processing time
+
+[**→ Master Capacity Management**](axiom2-capacity/index.md) | [**→ Capacity Planning Exercises**](axiom2-capacity/exercises.md)
 
 ### Axiom 3: Inevitable Failure
 **Components fail independently and unpredictably**  
-Hardware fails, software crashes, networks partition. Failure is not an exception—it's the rule. Systems must embrace and design for failure.  
-[**→ Build Resilient Systems**](axiom3-failure/index.md)
+Hardware fails, software crashes, networks partition. Failure is not an exception—it's the rule. Systems must embrace and design for failure.
+
+!!! warning "Failure Modes"
+    **Fail-Stop**: Clean failures where components stop working entirely
+    - Easier to detect and handle
+    - What we usually design for
+    
+    **Byzantine Failures**: Components act arbitrarily or maliciously
+    - Much harder to handle
+    - Requires special consensus protocols (PBFT, etc.)
+    
+    Note: This compendium primarily addresses fail-stop failures. Byzantine fault tolerance adds another layer of complexity.
+
+[**→ Build Resilient Systems**](axiom3-failure/index.md) | [**→ Failure Injection Lab**](axiom3-failure/exercises.md)
 
 ### Axiom 4: Concurrency Complexity
 **Concurrent operations create race conditions**  
-When multiple things happen at once, ordering becomes ambiguous. This fundamental uncertainty creates bugs that are hard to find and harder to fix.  
-[**→ Manage Concurrent Systems**](axiom4-concurrency/index.md)
+When multiple things happen at once, ordering becomes ambiguous. This fundamental uncertainty creates bugs that are hard to find and harder to fix.
+
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant B as Node B
+    participant DB as Database
+    
+    Note over A,DB: Race Condition Example
+    A->>DB: Read balance: $100
+    B->>DB: Read balance: $100
+    A->>DB: Write balance: $150 (+50)
+    B->>DB: Write balance: $120 (+20)
+    Note over DB: Final balance: $120 (Lost $50!)
+```
+
+[**→ Manage Concurrent Systems**](axiom4-concurrency/index.md) | [**→ Race Condition Simulator**](axiom4-concurrency/exercises.md)
 
 ### Axiom 5: Coordination Costs
 **Agreement requires communication**  
-Getting distributed components to agree takes time and messages. The more nodes involved, the more expensive coordination becomes.  
-[**→ Understand Coordination**](axiom5-coordination/index.md)
+Getting distributed components to agree takes time and messages. The more nodes involved, the more expensive coordination becomes.
+
+!!! info "Theoretical Limits"
+    **FLP Impossibility Result**: No deterministic consensus protocol can guarantee progress in an asynchronous system with even one faulty process.
+    
+    **CAP Theorem**: You can have at most 2 of:
+    - Consistency
+    - Availability  
+    - Partition Tolerance
+
+[**→ Understand Coordination**](axiom5-coordination/index.md) | [**→ Consensus Playground**](axiom5-coordination/exercises.md)
 
 ### Axiom 6: Limited Observability
 **You cannot observe everything in a distributed system**  
-Heisenberg's uncertainty principle applies: observation affects the system. Complete visibility is impossible; you must work with partial information.  
-[**→ Implement Observability**](axiom6-observability/index.md)
+Heisenberg's uncertainty principle applies: observation affects the system. Complete visibility is impossible; you must work with partial information.
+
+```mermaid
+graph TD
+    A[Complete Observability] -->|Impossible| B[Heisenberg Effect]
+    B --> C[Performance Impact]
+    B --> D[Storage Limits]
+    B --> E[Network Overhead]
+    
+    F[Practical Observability] --> G[Sampling]
+    F --> H[Aggregation]
+    F --> I[Selective Monitoring]
+    
+    style A fill:#ffcccc
+    style F fill:#ccffcc
+```
+
+[**→ Implement Observability**](axiom6-observability/index.md) | [**→ Build Monitoring Tools**](axiom6-observability/exercises.md)
 
 ### Axiom 7: Human Interface Constraints
 **Humans operate the system**  
-People have cognitive limits, make mistakes, and need sleep. The human interface is often the weakest link and must be designed carefully.  
-[**→ Design for Humans**](axiom7-human/index.md)
+People have cognitive limits, make mistakes, and need sleep. The human interface is often the weakest link and must be designed carefully.
+
+!!! quote "Human Factors Reality"
+    **Miller's Law**: Humans can hold 7±2 items in working memory
+    
+    **Fitts's Law**: Time to click = a + b × log₂(distance/size + 1)
+    
+    **Error Rates**: Even experts make 1 error per 100-1000 actions
+
+[**→ Design for Humans**](axiom7-human/index.md) | [**→ UX Design Workshop**](axiom7-human/exercises.md)
 
 ### Axiom 8: Economic Reality
 **Everything has a cost**  
-Resources cost money. Engineering time costs money. Downtime costs money. Every architectural decision is ultimately an economic decision.  
-[**→ Balance Economics**](axiom8-economics/index.md)
+Resources cost money. Engineering time costs money. Downtime costs money. Every architectural decision is ultimately an economic decision.
+
+```mermaid
+graph LR
+    A[Design Decision] --> B{Trade-off Analysis}
+    B --> C[Performance Cost]
+    B --> D[Operational Cost]
+    B --> E[Development Cost]
+    B --> F[Opportunity Cost]
+    
+    C --> G[Total Cost of Ownership]
+    D --> G
+    E --> G
+    F --> G
+    
+    G --> H[ROI Calculation]
+```
+
+[**→ Balance Economics**](axiom8-economics/index.md) | [**→ Cost Calculator**](axiom8-economics/exercises.md)
 
 ## Why Axioms Matter
 
@@ -100,27 +197,37 @@ These quotes capture why axioms matter - they acknowledge the fundamental realit
 
 Each axiom leads to emergent behaviors, which lead to design patterns:
 
-```text
-Physics/Math Constraint
-    ↓
-Axiom (Inescapable Reality)
-    ↓
-Emergent Behavior
-    ↓
-System Challenges
-    ↓
-Design Patterns
-    ↓
-Trade-off Decisions
+```mermaid
+flowchart TD
+    A[Physics/Math Constraint] --> B[Axiom]
+    B --> C[Emergent Behavior]
+    C --> D[System Challenges]
+    D --> E[Design Patterns]
+    E --> F[Trade-off Decisions]
+    
+    style A fill:#e1f5fe
+    style B fill:#b3e5fc
+    style C fill:#81d4fa
+    style D fill:#4fc3f7
+    style E fill:#29b6f6
+    style F fill:#039be5
 ```
 
 ## How to Read This Section
 
 ### For First-Time Readers
 1. Read axioms 1-3 first (The Trinity: Latency, Capacity, Failure)
-2. Do the "Try This" exercises to internalize concepts
+2. **Do the "Try This" exercises to internalize concepts** 
 3. Read at least one failure story per axiom
 4. Then proceed to remaining axioms
+
+!!! tip "Interactive Learning Path"
+    Each axiom includes:
+    - 📖 **Concept explanation** with visual aids
+    - 🧮 **Quantitative examples** with real numbers
+    - 💻 **Hands-on exercises** to build intuition
+    - 💥 **Failure stories** from production systems
+    - 🎯 **Decision framework** for applying the axiom
 
 ### For Experienced Engineers
 1. Skim axiom definitions
@@ -145,6 +252,31 @@ Axioms don't exist in isolation. They interact and compound:
 | Concurrency × Observability | Heisenbugs | Race conditions that disappear when logged |
 | Human × Economics | Operational cost explosion | Netflix spending $1B+ on AWS annually |
 
+### Visual: Axiom Interactions
+
+```mermaid
+graph TD
+    L[Latency] -.-> C[Coordination]
+    Cap[Capacity] -.-> F[Failure]
+    Con[Concurrency] -.-> O[Observability]
+    H[Human] -.-> E[Economics]
+    
+    L --> LC{Slow<br/>Consensus}
+    Cap --> CF{Cascading<br/>Failures}
+    Con --> CO{Heisenbugs}
+    H --> HE{OpEx<br/>Explosion}
+    
+    C -.-> LC
+    F -.-> CF
+    O -.-> CO
+    E -.-> HE
+    
+    style LC fill:#ffcdd2
+    style CF fill:#ffcdd2
+    style CO fill:#ffcdd2
+    style HE fill:#ffcdd2
+```
+
 ### The Compounding Effect
 
 !!! danger "Axiom Violations Compound Exponentially"
@@ -156,6 +288,20 @@ Axioms don't exist in isolation. They interact and compound:
     - Axiom 3 (Failure): No rollback plan
     - Axiom 4 (Concurrency): Race condition in deployment
     - Axiom 7 (Human): Confusing deployment process
+
+## Exercises Hub
+
+!!! success "Master Each Axiom Through Practice"
+    Each axiom has a dedicated exercise section:
+    
+    1. **[Latency Calculator](axiom1-latency/exercises.md)** - Predict RTT for global systems
+    2. **[Capacity Planner](axiom2-capacity/exercises.md)** - Apply Little's Law  
+    3. **[Failure Simulator](axiom3-failure/exercises.md)** - Design for failure modes
+    4. **[Race Detector](axiom4-concurrency/exercises.md)** - Find concurrency bugs
+    5. **[Consensus Playground](axiom5-coordination/exercises.md)** - Implement Raft/Paxos
+    6. **[Monitoring Lab](axiom6-observability/exercises.md)** - Build observability
+    7. **[UX Workshop](axiom7-human/exercises.md)** - Design human interfaces
+    8. **[Cost Calculator](axiom8-economics/exercises.md)** - Optimize economics
 
 ## Get Started
 
@@ -169,4 +315,4 @@ Ready to understand why your distributed system behaves the way it does?
 
 ---
 
-**Next**: [Examples](axiom6-observability/examples.md)
+**Next**: [Axiom 1: Latency - The Speed of Light Constraint](axiom1-latency/index.md)
