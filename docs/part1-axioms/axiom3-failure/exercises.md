@@ -7,7 +7,8 @@ type: axiom
 difficulty: beginner
 reading_time: 5 min
 prerequisites: []
-status: complete
+status: stub
+completion_percentage: 14
 last_updated: 2025-07-20
 ---
 

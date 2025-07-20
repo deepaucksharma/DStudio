@@ -5,7 +5,8 @@ type: general
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
-status: complete
+status: stub
+completion_percentage: 28
 last_updated: 2025-07-20
 ---
 

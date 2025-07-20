@@ -1,11 +1,6 @@
 ---
 title: Outbox Pattern
-description: "This leads to:
-- Data inconsistency between services
-- Lost domain events
-- Ghost events causing invalid state
-- Complex recovery procedures
-- Manu..."
+description: "Reliable event publishing pattern - ensures database changes and event publishing happen atomically"
 type: pattern
 difficulty: intermediate
 reading_time: 10 min

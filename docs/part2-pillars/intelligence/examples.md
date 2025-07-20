@@ -1,11 +1,6 @@
 ---
 title: Intelligence & Learning Examples
-description: "class IntelligentScheduler:
-    def __init__(self):
-        self.predictor = BorgResourcePredictor()
-        self.placement_history = []
-
- ..."
+description: "Real-world examples of intelligent and adaptive systems in distributed computing"
 type: pillar
 difficulty: beginner
 reading_time: 15 min

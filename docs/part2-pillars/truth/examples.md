@@ -1,11 +1,6 @@
 ---
 title: Truth & Consensus Examples
-description: "class SpannerTransaction:
-    def __init__(self, truetime):
-        self.truetime = truetime
-        self.commit_timestamp = None
-
-    def ..."
+description: "Real-world examples and case studies demonstrating the concepts in practice"
 type: pillar
 difficulty: advanced
 reading_time: 20 min

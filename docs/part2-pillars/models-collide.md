@@ -1,7 +1,6 @@
 ---
 title: When Models Collide
-description: "Conflict: Can't have all four!
-```"
+description: "Exploring conflicts between different distributed system models and approaches"
 type: pillar
 difficulty: intermediate
 reading_time: 5 min

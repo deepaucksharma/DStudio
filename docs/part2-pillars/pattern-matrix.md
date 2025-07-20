@@ -1,12 +1,6 @@
 ---
 title: Pattern Interconnection Matrix v2
-description: "Legend:
-+++ Strongly improves axiom constraint
-++  Moderately improves
-+   Slightly improves
-+/- Context dependent
--   Slightly worsens
---  Moder..."
+description: "Matrix view of patterns and their relationships in distributed systems"
 type: pillar
 difficulty: intermediate
 reading_time: 5 min

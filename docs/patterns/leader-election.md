@@ -1,10 +1,6 @@
 ---
 title: Leader Election Pattern
-description: "Without coordination:
-- Multiple nodes make conflicting decisions
-- Resources get double-allocated
-- Work gets duplicated or missed
-- Split-brain s..."
+description: "Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios"
 type: pattern
 difficulty: advanced
 reading_time: 10 min

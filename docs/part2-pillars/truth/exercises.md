@@ -1,11 +1,6 @@
 ---
 title: Truth & Consensus Exercises
-description: "class DistributedSystem:
-    def __init__(self, num_nodes):
-        self.nodes = {}
-        # TODO: Initialize nodes with Lamport clocks
-
- ..."
+description: "Hands-on exercises to build understanding through practical application"
 type: pillar
 difficulty: advanced
 reading_time: 25 min

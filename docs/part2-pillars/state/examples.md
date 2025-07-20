@@ -1,8 +1,6 @@
 ---
 title: State Management Examples
-description: "2007: Dynamo paper
-├── Problem: Availability during failures
-└── Solution: Eventual consistency + vector clocks"
+description: "Real-world examples of state management patterns in distributed systems including Dynamo, Spanner, and modern approaches"
 type: pillar
 difficulty: intermediate
 reading_time: 25 min

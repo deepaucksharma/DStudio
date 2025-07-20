@@ -1,9 +1,6 @@
 ---
 title: Observability Stacks
-description: "Metrics: What is broken
-Logs: Why it's broken
-Traces: Where it's broken
-```"
+description: "Building comprehensive observability with metrics, logs, and traces to understand distributed system behavior"
 type: human-factors
 difficulty: beginner
 reading_time: 25 min

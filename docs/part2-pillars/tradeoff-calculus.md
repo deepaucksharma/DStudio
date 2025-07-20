@@ -1,12 +1,6 @@
 ---
 title: Trade-off Calculus Radar
-description: "platform.add_pattern('caching', {
-    'latency': +3,
-    'capacity': +2,
-    'availability': +1,
-    'complexity': -1,
-    'cost': +2,
-    'securit..."
+description: "Framework for analyzing and making architectural trade-offs in distributed systems"
 type: pillar
 difficulty: beginner
 reading_time: 5 min

@@ -1,10 +1,6 @@
 ---
 title: Decision Tree Walk-Through
-description: "Mitigation:
-- Read models for complex queries
-- Archival strategy for old events
-- Clear SLAs on consistency windows
-```"
+description: "Interactive decision tree walkthrough for choosing distributed architectures based on requirements and constraints"
 type: pillar
 difficulty: intermediate
 reading_time: 10 min

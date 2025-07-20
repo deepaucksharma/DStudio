@@ -1,9 +1,6 @@
 ---
 title: Failure-Vignette Recap Boxes
-description: "┌─────────────────────────────────────┐
-│ STATE DISTRIBUTION FAILURE          │
-│ "The Hot Shard"                     │
-│ Celebrity user overloads ..."
+description: "Analysis of failure modes and patterns across distributed systems"
 type: pillar
 difficulty: intermediate
 reading_time: 5 min

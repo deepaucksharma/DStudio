@@ -1,9 +1,6 @@
 ---
 title: Idempotent Receiver Pattern
-description: "Most reliable systems use at-least-once delivery, which means:
-- Network retries cause duplicate messages
-- Failover scenarios resend messages
-- Qu..."
+description: "Handle duplicate messages safely by ensuring operations can be applied multiple times without changing the result"
 type: pattern
 difficulty: intermediate
 reading_time: 10 min

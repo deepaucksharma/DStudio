@@ -1,6 +1,6 @@
 ---
 title: Availability Math & Nines
-description: "Understanding availability percentages and their real impact:"
+description: "Understanding availability percentages and their real impact on system uptime and downtime calculations"
 type: quantitative
 difficulty: beginner
 reading_time: 45 min

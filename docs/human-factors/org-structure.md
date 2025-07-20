@@ -1,7 +1,6 @@
 ---
 title: Org-Structure Physics
-description: ""Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."
-- Melvin Co..."
+description: "How Conway's Law shapes system architecture - understanding the relationship between organizational and technical structures"
 type: human-factors
 difficulty: beginner
 reading_time: 60 min

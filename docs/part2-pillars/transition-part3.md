@@ -8,7 +8,8 @@ type: pillar
 difficulty: beginner
 reading_time: 5 min
 prerequisites: []
-status: complete
+status: stub
+completion_percentage: 25
 last_updated: 2025-07-20
 ---
 

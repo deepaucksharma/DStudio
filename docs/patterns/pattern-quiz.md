@@ -1,7 +1,6 @@
 ---
 title: Pattern Catalog Quiz
-description: "1. Match pattern to problem: Each pattern solves specific distributed systems challenges
-2. Understand trade-offs: Every pattern has costs and comp..."
+description: "Interactive quiz to test your understanding of distributed system patterns and their appropriate use cases"
 type: pattern
 difficulty: intermediate
 reading_time: 5 min

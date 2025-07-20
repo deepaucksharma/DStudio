@@ -1,10 +1,6 @@
 ---
 title: Work Distribution Examples
-description: "After (2020):
-┌─────────┐ ┌─────────┐ ┌──────────┐
-│  User   │ │Playlist │ │ Payment  │
-│ Service │ │ Service │ │ Service  │
-└─────────┘ └─────────..."
+description: "Real-world examples and case studies demonstrating the concepts in practice"
 type: pillar
 difficulty: intermediate
 reading_time: 30 min

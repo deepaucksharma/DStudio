@@ -1,6 +1,6 @@
 ---
 title: Amdahl & Gustafson Laws
-description: "The speedup of a program using multiple processors is limited by the sequential portion:"
+description: "Laws governing parallel computing speedup - understanding the limits of parallelization and scalability"
 type: quantitative
 difficulty: intermediate
 reading_time: 40 min

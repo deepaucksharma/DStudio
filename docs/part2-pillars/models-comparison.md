@@ -1,9 +1,6 @@
 ---
 title: CAST vs SPACE Models
-description: "Availability
-├─ Best effort: May fail under load
-├─ Highly available: 99.9%+ uptime
-└─ Fault tolerant: Continues despite failures"
+description: "Comparative analysis of different distributed system models and architectures"
 type: pillar
 difficulty: intermediate
 reading_time: 15 min

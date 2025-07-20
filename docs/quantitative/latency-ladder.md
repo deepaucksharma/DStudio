@@ -1,6 +1,6 @@
 ---
 title: Latency Ladder 2025
-description: "Understanding latency is crucial for system design. Here's how long common operations take, with human-scale analogies:"
+description: "Updated latency numbers for common operations - understanding how long things take in modern systems"
 type: quantitative
 difficulty: beginner
 reading_time: 20 min

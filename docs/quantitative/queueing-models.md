@@ -1,9 +1,6 @@
 ---
 title: Queueing Models (M/M/1)
-description: "M/M/1 notation means:
-- Markovian (exponential) arrivals
-- Markovian (exponential) service times
-- 1 server"
+description: "Mathematical models for understanding system behavior under load - M/M/1 notation for Markovian arrivals, Markovian service times, 1 server"
 type: quantitative
 difficulty: beginner
 reading_time: 45 min
