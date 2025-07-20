@@ -44,4 +44,4 @@ Given various scenarios, choose the most cost-effective coordination protocol.
 
 **Previous**: [Examples](examples.md) | **Next**: [Axiom 6](../axiom6-*)
 
-**Related**: [Consensus](/patterns/consensus/) • [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/)
+**Related**: [Consensus](../../patterns/consensus.md) • [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md)

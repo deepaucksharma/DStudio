@@ -1,6 +1,6 @@
 ---
 title: "Pillar 2: Distribution of State"
-description: Imagine a massive library with millions of books. How do you organize the catalog?
+description: "How to manage and distribute state across multiple nodes while maintaining consistency and availability"
 type: pillar
 difficulty: advanced
 reading_time: 45 min

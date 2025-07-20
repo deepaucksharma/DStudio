@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](/part1-axioms/axiom2-capacity/) → **Capacity Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](index.md) → **Capacity Examples**
 
 # Capacity Examples
 
@@ -42,4 +42,4 @@ Example code for handling capacity limits gracefully.
 
 **Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Auto Scaling](/patterns/auto-scaling/) • [Load Balancing](/patterns/load-balancing/) • [Sharding](/patterns/sharding/)
+**Related**: [Auto Scaling](../../patterns/auto-scaling.md) • [Load Balancing](../../patterns/load-balancing.md) • [Sharding](../../patterns/sharding.md)

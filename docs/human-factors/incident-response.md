@@ -1,6 +1,6 @@
 ---
 title: Incident Response
-description: Incident response is the organized approach to addressing and managing the aftermath of a security breach or system failure. The goal is to handle ...
+description: "Organized approach to addressing system failures and security breaches with clear procedures for crisis management"
 type: human-factors
 difficulty: beginner
 reading_time: 25 min

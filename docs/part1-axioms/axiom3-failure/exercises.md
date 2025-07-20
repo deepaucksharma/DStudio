@@ -12,7 +12,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](/part1-axioms/axiom3-failure/) → **Partial Failure Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](index.md) → **Partial Failure Exercises**
 
 # Partial Failure Exercises
 
@@ -39,4 +39,4 @@ Design a timeout hierarchy for a multi-tier application.
 
 **Previous**: [Examples](examples.md) | **Next**: [Axiom 4](../axiom4-*)
 
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Retry Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/)
+**Related**: [Circuit Breaker](../../patterns/circuit-breaker.md) • [Retry Backoff](../../patterns/retry-backoff.md) • [Bulkhead](../../patterns/bulkhead.md)

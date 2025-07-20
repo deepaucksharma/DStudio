@@ -1,12 +1,11 @@
 ---
 title: Change Data Capture (CDC)
-description: How to stream changes reliably?
-```text
+description: "Stream database changes reliably to other systems in real-time"
 type: pattern
 difficulty: intermediate
 reading_time: 10 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "data"
 status: complete
 last_updated: 2025-07-20
 ---

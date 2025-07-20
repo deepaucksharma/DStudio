@@ -596,7 +596,7 @@ class OptimalDistributedLock:
 
 **Previous**: [← CQRS (Command Query Responsibility Segregation)](cqrs.md) | **Next**: [Edge Computing/IoT Patterns →](edge-computing.md)
 
-**Related**: [Leader Election](/patterns/leader-election/) • [Consensus](/patterns/consensus/)
+**Related**: [Leader Election](leader-election.md) • [Consensus](consensus.md)
 ## 🌟 Real Examples
 
 ### Production Implementations

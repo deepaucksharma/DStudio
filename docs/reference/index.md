@@ -40,18 +40,18 @@ Your comprehensive reference for distributed systems concepts, terms, and practi
 - [CAP Theorem](glossary.md#cap-theorem) - Choose any two: Consistency, Availability, Partition tolerance
 - [Eventually Consistent](glossary.md#eventually-consistent) - System reaches consistency given no new updates
 - [Vector Clock](glossary.md#vector-clock) - Logical clock for tracking causality
-- [Circuit Breaker](glossary.md#circuit-breaker) - Pattern to prevent cascade failures
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Pattern to prevent cascade failures
 - [Saga Pattern](glossary.md#saga-pattern) - Distributed transaction coordination
 
 ### Essential Calculations
 - [Little's Law](cheat-sheets.md#littles-law) - L = λW (queue length formula)
 - [Availability Math](cheat-sheets.md#availability-math) - Calculate system uptime
-- [Latency Budget](cheat-sheets.md#latency-budget-planning) - Plan response time allocation
-- [Capacity Planning](cheat-sheets.md#capacity-planning-formulas) - Size systems for load
+- [Latency Budget](../part1-axioms/axiom1-latency/index.md) - Plan response time allocation
+- [Capacity Planning](../part1-axioms/axiom2-capacity/index.md) - Size systems for load
 
 ### Common Procedures
-- [Implementing Circuit Breaker](recipe-cards.md#recipe-implementing-circuit-breaker) - Step-by-step pattern implementation
-- [Debugging Distributed Failures](recipe-cards.md#recipe-debugging-distributed-system-failures) - Systematic troubleshooting
+- [Implementing Circuit Breaker](../patterns/circuit-breaker.md) - Step-by-step pattern implementation
+- [Debugging Distributed Failures](../part1-axioms/axiom3-failure/index.md) - Systematic troubleshooting
 - [Performance Tuning](recipe-cards.md#recipe-performance-investigation) - Optimize distributed systems
 - [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack) - Essential observability
 

@@ -284,7 +284,7 @@ def upgrade_item_added_v1_to_v2(event):
 
 **Previous**: [← Event-Driven Architecture](event-driven.md) | **Next**: [FinOps Patterns →](finops.md)
 
-**Related**: [Cqrs](/patterns/cqrs/) • [Saga](/patterns/saga/) • [Event Driven](/patterns/event-driven/)
+**Related**: [Cqrs](cqrs.md) • [Saga](saga.md) • [Event Driven](event-driven.md)
 ## ✅ When to Use
 
 ### Ideal Scenarios

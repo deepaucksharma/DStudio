@@ -1,6 +1,6 @@
 ---
 title: "Part IV: Quantitative Toolkit"
-description: While patterns emerge from axioms and pillars, making informed decisions requires quantitative tools. This toolkit provides the mathematical founda...
+description: "Mathematical foundations and quantitative tools for analyzing distributed systems performance and capacity"
 type: quantitative
 difficulty: beginner
 reading_time: 5 min

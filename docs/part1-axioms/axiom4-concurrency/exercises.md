@@ -44,4 +44,4 @@ Build a simple vector clock system to track causality.
 
 **Previous**: [Examples](examples.md) | **Next**: [Axiom 5](../axiom5-*)
 
-**Related**: [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/) • [Saga](/patterns/saga/)
+**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md)

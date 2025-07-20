@@ -1,8 +1,12 @@
 ---
 title: "Pillar 1: Distribution of Work"
-description: "
-</div>
-
+description: "How to efficiently distribute and coordinate work across multiple nodes in distributed systems"
+type: pillar
+difficulty: intermediate
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
 
 ## 🟢 Intuition: The Restaurant Kitchen Problem (5 min read)

@@ -1,12 +1,11 @@
 ---
 title: Geo-Replication Patterns
-description: Physics wins every time
-```text
+description: "Replicate data across geographical regions for global availability and disaster recovery"
 type: pattern
 difficulty: advanced
-reading_time: 10 min
+reading_time: 25 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "data"
 status: complete
 last_updated: 2025-07-20
 ---

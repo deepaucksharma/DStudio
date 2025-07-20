@@ -1,7 +1,6 @@
 ---
 title: Caching Strategies
-description: But 80% of requests are for same data!
-```text
+description: "Optimize performance by storing frequently accessed data in fast storage layers"
 type: pattern
 difficulty: beginner
 reading_time: 10 min

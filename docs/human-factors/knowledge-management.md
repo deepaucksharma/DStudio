@@ -1,8 +1,6 @@
 ---
 title: Knowledge Management in Distributed Systems
-description: "In distributed systems, knowledge is distributed too. Critical information lives in:
-- Engineers' heads (tribal knowledge)
-- Scattered documentatio..."
+description: "Managing distributed knowledge across teams, systems, and documentation to prevent information silos and tribal knowledge"
 type: human-factors
 difficulty: intermediate
 reading_time: 25 min
@@ -130,8 +128,8 @@ Negative:
 - Storage requirements grow
 
 ## References
-- [Event Sourcing Pattern](/patterns/event-sourcing/)
-- [CQRS Pattern](/patterns/cqrs/)
+- [Event Sourcing Pattern](../patterns/event-sourcing.md)
+- [CQRS Pattern](../patterns/cqrs.md)
 ```
 
 ### 2. Living Documentation

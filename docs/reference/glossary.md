@@ -117,7 +117,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Key Features**: Eventually consistent, consistent hashing, automatic scaling
 
-**Case Study**: [Amazon's Dynamo Database](../case-studies/index.md#amazon-dynamo)
+**Case Study**: [Amazon's Dynamo Database](../case-studies/amazon-dynamo.md)
 
 ## E
 

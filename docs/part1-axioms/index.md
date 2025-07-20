@@ -129,4 +129,4 @@ Ready to understand why your distributed system behaves the way it does?
 
 ---
 
-**Next**: [Examples](examples.md)
+**Next**: [Examples](axiom6-observability/examples.md)

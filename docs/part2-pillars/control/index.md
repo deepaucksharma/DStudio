@@ -1,8 +1,12 @@
 ---
 title: "Pillar 4: Distribution of Control"
-description: "
-</div>
-
+description: "How to manage automated systems while maintaining human oversight, emergency controls, and meaningful alerting"
+type: pillar
+difficulty: intermediate
+reading_time: 45 min
+prerequisites: ["axiom3-failure", "axiom6-observability", "axiom7-human"]
+status: complete
+last_updated: 2025-07-20
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

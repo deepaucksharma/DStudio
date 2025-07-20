@@ -1,12 +1,11 @@
 ---
 title: Observability Patterns
-description: Flying blind in production = Pain
-```text
+description: "Implement comprehensive monitoring, logging, and tracing to understand system behavior in production"
 type: pattern
-difficulty: beginner
-reading_time: 10 min
+difficulty: intermediate
+reading_time: 20 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "operations"
 status: complete
 last_updated: 2025-07-20
 ---

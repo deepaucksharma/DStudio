@@ -1,6 +1,6 @@
 ---
 title: Welcome to Distributed Systems
-description: Welcome to The Compendium of Distributed Systems - a comprehensive guide that teaches distributed systems from first principles. Unlike traditional...
+description: "Welcome to The Compendium of Distributed Systems - a comprehensive guide that teaches distributed systems from first principles"
 type: introduction
 difficulty: intermediate
 reading_time: 10 min

@@ -1,12 +1,11 @@
 ---
 title: Sharding (Data Partitioning)
-description: Vertical scaling hits physics
-```text
+description: "Horizontally partition data across multiple databases to improve scalability and performance"
 type: pattern
-difficulty: intermediate
-reading_time: 10 min
+difficulty: advanced
+reading_time: 30 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "data"
 status: complete
 last_updated: 2025-07-20
 ---
@@ -389,7 +388,7 @@ class GeoSharding:
 
 **Previous**: [← Service Mesh](service-mesh.md) | **Next**: [Timeout Pattern →](timeout.md)
 
-**Related**: [Consistent Hashing](/patterns/consistent-hashing/) • [Geo Replication](/patterns/geo-replication/)
+**Related**: [Consistent Hashing](/patterns/consistent-hashing/) • [Geo Replication](geo-replication.md)
 ---
 
 ## ✅ When to Use

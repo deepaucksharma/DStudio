@@ -1,12 +1,11 @@
 ---
 title: Edge Computing/IoT Patterns
-description: When milliseconds = meters, edge matters
-```text
+description: "Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter"
 type: pattern
-difficulty: beginner
-reading_time: 10 min
+difficulty: intermediate
+reading_time: 15 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "infrastructure"
 status: complete
 last_updated: 2025-07-20
 ---

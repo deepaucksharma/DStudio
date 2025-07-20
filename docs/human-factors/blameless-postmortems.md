@@ -1,6 +1,6 @@
 ---
 title: Blameless Postmortems
-description: A blameless postmortem is a structured review of an incident that focuses on understanding systemic issues rather than assigning individual blame. ...
+description: "A structured review of incidents focusing on systemic issues rather than individual blame, designed to prevent future failures"
 type: human-factors
 difficulty: beginner
 reading_time: 10 min

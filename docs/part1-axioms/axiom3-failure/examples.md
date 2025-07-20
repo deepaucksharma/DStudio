@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](/part1-axioms/axiom3-failure/) → **Partial Failure Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](index.md) → **Partial Failure Examples**
 
 # Partial Failure Examples
 
@@ -42,4 +42,4 @@ Implementing effective health checks that detect partial failures.
 
 **Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Retry Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/)
+**Related**: [Circuit Breaker](../../patterns/circuit-breaker.md) • [Retry Backoff](../../patterns/retry-backoff.md) • [Bulkhead](../../patterns/bulkhead.md)

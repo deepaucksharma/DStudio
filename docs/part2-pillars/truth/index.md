@@ -1,8 +1,12 @@
 ---
 title: "Pillar 3: Distribution of Truth"
-description: "
-</div>
-
+description: "How to establish and maintain consensus across distributed systems when there's no single source of truth"
+type: pillar
+difficulty: intermediate
+reading_time: 45 min
+prerequisites: ["axiom4-concurrency", "axiom5-coordination"]
+status: complete
+last_updated: 2025-07-20
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

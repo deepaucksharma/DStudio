@@ -1,9 +1,6 @@
 ---
 title: "Axiom 4: Concurrency"
-description: "Imagine a busy restaurant kitchen with multiple chefs:
-- Chef A starts making pasta
-- Chef B starts making sauce
-- Chef C needs the same pan"
+description: "Multiple processes accessing shared resources simultaneously - managing concurrency, coordination, and conflicts"
 type: axiom
 difficulty: advanced
 reading_time: 50 min
@@ -18,6 +15,114 @@ last_updated: 2025-07-20
 # Axiom 4: Concurrency
 
 ---
+
+
+## 🔥 The Constraint
+
+### The Fundamental Limit
+
+**Coordinating concurrent operations requires communication overhead**
+
+This constraint emerges from **Information theory: coordination requires message passing**. No amount of engineering can violate this fundamental principle—we can only work within its boundaries.
+
+### Physics Foundation
+
+The practical manifestation of this constraint:
+- **Theoretical basis**: Information theory: coordination requires message passing
+- **Practical limit**: Consensus protocols, locks, synchronization primitives
+- **Real-world impact**: Coordination overhead grows non-linearly with participants
+
+### Why This Constraint Exists
+
+Unlike software bugs or implementation details, this is a fundamental law of our universe. Understanding this constraint helps us:
+
+1. **Set realistic expectations** - Know what's physically impossible
+2. **Make better trade-offs** - Optimize within the possible
+3. **Design robust systems** - Work with the constraint, not against it
+4. **Avoid false solutions** - Don't chase impossible optimizations
+
+!!! warning "Common Misconception"
+    This constraint cannot be "solved" or "eliminated"—only managed and optimized within its boundaries.
+
+---
+
+## 💡 Why It Matters
+
+Coordination overhead grows non-linearly with participants
+
+### Business Impact
+
+This constraint directly affects:
+- **User experience**: Performance and reliability
+- **Development velocity**: Time-to-market and maintenance
+- **Operational costs**: Infrastructure and support
+- **Competitive advantage**: System capabilities and scalability
+
+### Technical Implications
+
+Every engineering decision must account for this constraint:
+- **Architecture patterns**: Choose designs that work with the constraint
+- **Technology selection**: Pick tools that optimize within the boundaries
+- **Performance optimization**: Focus on what's actually improvable
+- **Monitoring and alerting**: Track metrics related to the constraint
+
+---
+
+## 🚫 Common Misconceptions
+
+Many engineers hold false beliefs about this constraint:
+
+1. **"More threads always improve performance"**
+   - This violates the fundamental constraint
+   - Reality: The constraint makes this impossible
+
+2. **"Distributed consensus is just like local locking"**
+   - This violates the fundamental constraint
+   - Reality: The constraint makes this impossible
+
+3. **"Eventual consistency is always acceptable"**
+   - This violates the fundamental constraint
+   - Reality: The constraint makes this impossible
+
+
+### Reality Check
+
+The constraint is absolute—these misconceptions arise from:
+- **Wishful thinking**: Hoping engineering can overcome physics
+- **Local optimization**: Solving one problem while creating others
+- **Vendor marketing**: Oversimplified claims about complex systems
+- **Incomplete understanding**: Not seeing the full system implications
+
+---
+
+## ⚙️ Practical Implications
+
+How this constraint shapes real system design:
+
+1. **Minimize coordination points in design**
+2. **Use eventual consistency where possible**
+3. **Partition data to reduce coordination scope**
+4. **Understand CAP theorem trade-offs**
+
+
+### Engineering Guidelines
+
+When designing systems, always:
+- **Start with the constraint**: Acknowledge it in your architecture
+- **Measure the constraint**: Monitor relevant metrics
+- **Design around the constraint**: Use patterns that work with it
+- **Communicate the constraint**: Help stakeholders understand limitations
+
+### Success Patterns
+
+Teams that respect this constraint:
+- Set realistic performance goals
+- Choose appropriate architectural patterns
+- Invest in proper monitoring and observability
+- Make trade-offs explicit and data-driven
+
+---
+
 
 ## Level 1: Intuition (Start Here) 🌱
 
@@ -722,10 +827,10 @@ public:
                 // Version mismatch - retry with backoff
                 return folly::futures::retrying(
                     std::chrono::milliseconds(100),
-                    [this, new_assoc](size_t retry_count) {
+                    [this, new_assoc](../../patterns/retry-backoff.md) {
                         return exponentialBackoff(retry_count);
                     },
-                    [this, new_assoc](size_t retry_count) {
+                    [this, new_assoc](../../patterns/retry-backoff.md) {
                         // Re-read and retry
                         return this->AssocGet(new_assoc.id1, new_assoc.atype, new_assoc.id2)
                             .thenValue([this, new_data](Association current) {
@@ -1496,4 +1601,4 @@ class PaddedAtomicLong extends AtomicLong {
 
 **Next**: [Examples](examples.md)
 
-**Related**: [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/) • [Saga](/patterns/saga/)
+**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md)

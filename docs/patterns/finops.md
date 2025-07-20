@@ -1,12 +1,11 @@
 ---
 title: FinOps Patterns
-description: Engineering efficiency ≠ Cost efficiency
-```text
+description: "Optimize cloud costs and financial efficiency in distributed systems operations"
 type: pattern
-difficulty: beginner
-reading_time: 10 min
+difficulty: intermediate
+reading_time: 20 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "operations"
 status: complete
 last_updated: 2025-07-20
 ---

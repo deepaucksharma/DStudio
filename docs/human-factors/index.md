@@ -1,6 +1,6 @@
 ---
 title: "Part V: Human & Operational Factors"
-description: Pure math and patterns aren't enough. Systems are built, operated, and debugged by humans. This section explores the critical human and operational...
+description: "Human factors and operational excellence in distributed systems - where the silicon meets the soul"
 type: human-factors
 difficulty: beginner
 reading_time: 5 min

@@ -1,12 +1,11 @@
 ---
 title: Tunable Consistency
-description: Fixed consistency = Over-engineering or under-delivering
-```text
+description: "Adjust consistency levels dynamically based on application requirements and trade-offs"
 type: pattern
 difficulty: advanced
-reading_time: 10 min
+reading_time: 25 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "data"
 status: complete
 last_updated: 2025-07-20
 ---

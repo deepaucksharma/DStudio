@@ -535,4 +535,4 @@ circuit_breaker:
 
 **Previous**: [← Change Data Capture (CDC)](cdc.md) | **Next**: [Consensus Pattern →](consensus.md)
 
-**Related**: [Retry Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/) • [Timeout](/patterns/timeout/)
+**Related**: [Retry Backoff](retry-backoff.md) • [Bulkhead](bulkhead.md) • [Timeout](timeout.md)

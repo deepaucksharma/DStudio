@@ -514,7 +514,7 @@ How CQRS works with other patterns:
 
 **Previous**: [← Consensus Pattern](consensus.md) | **Next**: [Distributed Lock Pattern →](distributed-lock.md)
 
-**Related**: [Event Sourcing](/patterns/event-sourcing/) • [Saga](/patterns/saga/) • [Event Driven](/patterns/event-driven/)
+**Related**: [Event Sourcing](event-sourcing.md) • [Saga](saga.md) • [Event Driven](event-driven.md)
 ## ❌ When NOT to Use
 
 ### Inappropriate Scenarios

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Latency Exercises**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](index.md) → **Latency Exercises**
 
 # Latency Exercises
 
@@ -363,6 +363,6 @@ class MicroCDN:
 
 ---
 
-**Previous**: [Examples](examples.md) | **Next**: [Axiom 2](../axiom2-*)
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 2](../axiom2-capacity/index.md)
 
-**Related**: [Timeout](/patterns/timeout/) • [Circuit Breaker](/patterns/circuit-breaker/) • [Caching Strategies](/patterns/caching-strategies/)
+**Related**: [Timeout](../../patterns/timeout.md) • [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md)

@@ -1,8 +1,12 @@
 ---
 title: "Pillar 5: Distribution of Intelligence"
-description: "
-</div>
-
+description: "How to implement learning and adaptive systems across distributed architectures with machine learning and AI"
+type: pillar
+difficulty: advanced
+reading_time: 50 min
+prerequisites: ["axiom6-observability", "axiom7-human", "axiom8-economics"]
+status: complete
+last_updated: 2025-07-20
 ---
 
 ## Level 1: Intuition (Start Here) 🌱

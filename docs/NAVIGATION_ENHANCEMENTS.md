@@ -77,16 +77,16 @@ Each pillar should link to:
 ## See Also
 
 ### 🔬 Deep Dive
-- [Mathematical Foundations](/quantitative/queueing-models/) - Queueing theory for capacity planning
-- [Production Examples](/human-factors/sre-practices/) - Real-world capacity management
+- [Mathematical Foundations](quantitative/queueing-models.md) - Queueing theory for capacity planning
+- [Production Examples](human-factors/sre-practices.md) - Real-world capacity management
 
 ### 🛠️ Practical Application
-- [Capacity Planning Exercise](/part1-axioms/axiom2-capacity/exercises/) - Hands-on practice
-- [Auto-scaling Patterns](/patterns/auto-scaling/) - Implementation strategies
+- [Capacity Planning Exercise](part1-axioms/axiom6-observability/exercises.md) - Hands-on practice
+- [Auto-scaling Patterns](patterns/auto-scaling.md) - Implementation strategies
 
 ### 🎯 Related Decisions
 - [When to Scale Up vs Out?](/part2-pillars/work/#scaling-decisions) - Architecture choices
-- [Cost vs Performance Trade-offs](/part1-axioms/axiom8-economics/#capacity-costs) - Economic analysis
+- [Cost vs Performance Trade-offs](part1-axioms/axiom2-capacity/index.md) - Economic analysis
 ```bash
 ## Implementation Strategy
 

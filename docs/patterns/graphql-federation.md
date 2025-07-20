@@ -1,13 +1,11 @@
 ---
 title: GraphQL Federation
-description: Client needs user + orders + products = 4+ round trips
-Mobile on 3G = 2 seconds just in latency!
-```text
+description: "Compose multiple GraphQL services into a unified API gateway to reduce client round trips"
 type: pattern
-difficulty: beginner
-reading_time: 10 min
+difficulty: intermediate
+reading_time: 15 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "api"
 status: complete
 last_updated: 2025-07-20
 ---

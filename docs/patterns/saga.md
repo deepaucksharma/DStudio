@@ -1,12 +1,11 @@
 ---
 title: Saga (Distributed Transactions)
-description: What if step 3 fails after 1 & 2 succeed?
-```text
+description: "Manage distributed transactions using coordinated sequences of local transactions with compensation"
 type: pattern
-difficulty: beginner
-reading_time: 10 min
+difficulty: advanced
+reading_time: 25 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "coordination"
 status: complete
 last_updated: 2025-07-20
 ---

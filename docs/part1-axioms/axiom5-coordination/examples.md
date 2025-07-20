@@ -38,4 +38,4 @@ Side-by-side implementations of 2PC, Paxos, and Raft showing complexity differen
 
 **Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Consensus](/patterns/consensus/) • [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/)
+**Related**: [Consensus](../../patterns/consensus.md) • [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md)

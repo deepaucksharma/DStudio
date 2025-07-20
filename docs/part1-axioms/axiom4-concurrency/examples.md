@@ -38,4 +38,4 @@ Working examples of vector clock implementations for causality tracking.
 
 **Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/) • [Saga](/patterns/saga/)
+**Related**: [Distributed Lock](../../patterns/distributed-lock.md) • [Leader Election](../../patterns/leader-election.md) • [Saga](../../patterns/saga.md)

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Latency Examples**
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](index.md) → **Latency Examples**
 
 # Latency Examples
 
@@ -36,4 +36,4 @@ How to hide latency from users through clever UI design.
 
 **Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
 
-**Related**: [Timeout](/patterns/timeout/) • [Circuit Breaker](/patterns/circuit-breaker/) • [Caching Strategies](/patterns/caching-strategies/)
+**Related**: [Timeout](../../patterns/timeout.md) • [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md)
