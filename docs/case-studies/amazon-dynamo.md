@@ -1,29 +1,17 @@
 ---
 title: "Amazon's DynamoDB: Building a Database That Never Goes Down"
-description: "How Amazon built a globally distributed database with 99.999% availability"
-date: 2024-01-20
-category: "case-studies"
-case_study_type: "data-systems"
-company: "Amazon"
-industry: "e-commerce"
-tags:
-  - distributed-database
-  - nosql
-  - high-availability
-  - eventual-consistency
-  - dynamo
-difficulty: "advanced"
-reading_time: "30 min"
-axioms_demonstrated:
-  - latency
-  - capacity
-  - failure
-  - concurrency
-  - coordination
-  - observability
-  - human-interface
-  - economics
+description: How Amazon built a globally distributed database with 99.999% availability
+type: case-study
+difficulty: advanced
+reading_time: 40 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Case Studies](/case-studies/) → **Amazon's DynamoDB: Building a Database That Never Goes Down**
+
 
 # 🛒 Amazon's DynamoDB: Building a Database That Never Goes Down
 
@@ -120,7 +108,7 @@ timeline
 </div>
 
 ### 🚀 Axiom 1 (Latency): Physics-Based Design
-```
+```text
 Latency Budget Analysis:
 - User tolerance: 100ms for page load
 - Network: 50ms (coast-to-coast)
@@ -135,7 +123,7 @@ DynamoDB Solution:
 ```
 
 ### 📦 Axiom 2 (Capacity): Infinite Scale Illusion
-```
+```yaml
 Scaling Requirements:
 - Black Friday: 10x normal traffic
 - Gradual ramp: 1M to 20M requests/sec
@@ -149,7 +137,7 @@ Implementation:
 ```
 
 ### 💥 Axiom 3 (Failure): Always Available
-```
+```yaml
 Failure Scenarios:
 - Node failures: 100s per day
 - Rack failures: Weekly
@@ -164,7 +152,7 @@ Recovery Mechanisms:
 ```
 
 ### ⏰ Axiom 4 (Concurrency): Time is Relative
-```
+```dockerfile
 Concurrent Operations:
 - Shopping cart updates from multiple devices
 - Wish list modifications
@@ -178,7 +166,7 @@ Resolution Strategy:
 ```
 
 ### 🤝 Axiom 5 (Coordination): Gossip over Consensus
-```
+```yaml
 Traditional Consensus Problems:
 - Paxos requires majority (3/5 nodes)
 - Network partition = unavailability
@@ -194,7 +182,7 @@ Trade-off: Availability over consistency
 ```
 
 ### 👁️ Axiom 6 (Observability): Operational Excellence
-```
+```yaml
 Monitoring Stack:
 - CloudWatch metrics (latency, throughput)
 - X-Ray for distributed tracing
@@ -209,7 +197,7 @@ Key Metrics:
 ```
 
 ### 👤 Axiom 7 (Human Interface): Developer First
-```
+```yaml
 API Design Principles:
 - Simple put/get/delete operations
 - Consistent error codes
@@ -224,7 +212,7 @@ SDK Features:
 ```
 
 ### 💰 Axiom 8 (Economics): Pay for What You Use
-```
+```yaml
 Pricing Models:
 - On-demand: No capacity planning
 - Provisioned: Predictable costs
@@ -275,7 +263,7 @@ Replication: Store on N=3 consecutive nodes
 Virtual Nodes: 150 per physical node (for balance)
 
 **Vector Clocks Example:**
-```
+```text
 Shopping Cart Conflict Resolution:
 
 User's Phone:        Server Replica A:    Server Replica B:
@@ -296,7 +284,7 @@ Conflict Detection:
 ## 🛡️ Failure Handling Strategies
 
 **Multi-Level Resilience**
-```
+```yaml
 Level 1: Node Failures
 - Detect: Gossip protocol (heartbeats)
 - React: Route traffic to replicas
@@ -324,7 +312,7 @@ Level 4: Correlated Failures
 <h3>Speed Through Engineering</h3>
 
 **Hot Key Problem:**
-```
+```text
 Problem: Celebrity tweets overwhelm single partition
 
 Solution: Request coalescing
@@ -335,7 +323,7 @@ Solution: Request coalescing
 ```
 
 **Read Performance:**
-```
+```text
 Optimization Stack:
 1. Client-side caching (30 second TTL)
 2. Regional read replicas
@@ -347,7 +335,7 @@ Result: P99 latency <5ms
 ```
 
 **Write Performance:**
-```
+```text
 Write Path Optimization:
 1. WAL (Write-Ahead Log) to SSD
 2. Asynchronous replication
@@ -364,7 +352,7 @@ Result: 100k writes/second per node
 <h3>Critical Architecture Choices</h3>
 
 **Decision 1: Availability over Consistency**
-```
+```yaml
 Problem: CAP theorem forces a choice
 
 Options Evaluated:
@@ -387,7 +375,7 @@ Decision: Eventual consistency with tunable options
 ```
 
 **Decision 2: Consistent Hashing**
-```
+```yaml
 Problem: How to distribute data across nodes
 
 Options:
@@ -410,7 +398,7 @@ Decision: Consistent hashing with virtual nodes
 ```
 
 **Decision 3: Replication Strategy**
-```
+```yaml
 Problem: Ensuring durability and availability
 
 Options:
@@ -494,3 +482,7 @@ Decision: Quorum with hinted handoff
 ---
 
 *"DynamoDB proves that with the right architecture, you can have your cake (availability) and eat it too (consistency when needed)."*
+
+---
+
+**Previous**: [← Uber's Location System](uber-location.md) | **Next**: [Spotify Recommendations →](spotify-recommendations.md)

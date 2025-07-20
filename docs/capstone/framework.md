@@ -1,3 +1,18 @@
+---
+title: Capstone Project Framework
+description: The Distributed Systems Capstone Project is a comprehensive, real-world project that demonstrates mastery of all concepts in the Compendium. Studen...
+type: general
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → **Capstone Project Framework**
+
+
 # Capstone Project Framework
 
 ## Overview

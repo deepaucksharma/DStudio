@@ -1,3 +1,23 @@
+---
+title: Capacity Planning Worksheet
+description: "Resource Usage at Peak:
+- CPU: _______%
+- Memory: _______%
+- Network: _______ Mbps
+- Disk I/O: _______ IOPS
+```"
+type: quantitative
+difficulty: beginner
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part IV: Quantitative](/quantitative/) → **Capacity Planning Worksheet**
+
+
 # Capacity Planning Worksheet
 
 **Right-sizing for the future**
@@ -5,7 +25,7 @@
 ## Capacity Planning Framework
 
 ### Step 1: Baseline Measurement
-```
+```python
 Current State:
 - Peak traffic: _______ requests/second
 - Average traffic: _______ requests/second  
@@ -20,7 +40,7 @@ Resource Usage at Peak:
 ```
 
 ### Step 2: Growth Projection
-```
+```python
 Linear Growth:
 Future = Current × (1 + monthly_rate × months)
 
@@ -32,7 +52,7 @@ Future = Capacity / (1 + e^(-k×(t-t0)))
 ```
 
 ### Step 3: Safety Margins
-```
+```python
 Component          Margin    Reason
 ---------          ------    ------
 CPU                40%       Burst handling
@@ -45,7 +65,7 @@ Database Conn      30%       Connection storms
 ## Workload Characterization
 
 ### Traffic Patterns
-```
+```python
 Daily Pattern:
 - Peak hour: _____ (e.g., 2 PM)
 - Peak/average ratio: _____ (e.g., 3x)
@@ -58,7 +78,7 @@ Seasonal Pattern:
 ```
 
 ### Request Mix
-```
+```python
 Operation         % of Traffic    Resource Impact
 ---------         ------------    ---------------
 Read (cached)     60%            Low
@@ -73,7 +93,7 @@ Weighted resource usage:
 ## Scaling Strategies
 
 ### Vertical vs Horizontal
-```
+```text
 Vertical (Bigger boxes):
 Current: 8 CPU, 32GB RAM
 Next: 16 CPU, 64GB RAM
@@ -88,7 +108,7 @@ Limit: Practically unlimited
 ```
 
 ### Resource Planning Table
-```
+```bash
 Month    Traffic    CPU Need    Instances    Cost
 -----    -------    --------    ---------    ----
 0        1000 rps   800 cores   100          $10k
@@ -102,14 +122,14 @@ Decision point: Month 6 - need architecture change
 ## Capacity Planning Tools
 
 ### Little's Law Application
-```
+```python
 Concurrent users = Requests/sec × Session duration
 Database connections = Queries/sec × Query time
 Memory needed = Objects/sec × Object lifetime × Size
 ```
 
 ### Queue Theory Application
-```
+```python
 If utilization > 70%:
   Response time increases exponentially
   Plan for maximum 70% steady state
@@ -120,7 +140,7 @@ Servers needed = Load / (Capacity × 0.7)
 ## Real Example: E-Commerce Platform
 
 ### Current Baseline
-```
+```python
 - 10,000 concurrent users
 - 100 requests/second average
 - 300 requests/second peak
@@ -129,14 +149,14 @@ Servers needed = Load / (Capacity × 0.7)
 ```
 
 ### Growth Assumptions
-```
+```python
 - User growth: 20% monthly
 - Data growth: 30% monthly
 - Feature complexity: +10% resources
 ```
 
 ### 6-Month Projection
-```
+```python
 Users: 10,000 × 1.2^6 = 30,000
 Requests: 300 × 3 = 900 peak
 Database: 50 × 1.3^6 = 230GB
@@ -212,7 +232,7 @@ def calculate_storage_needs():
 ## Capacity Planning by Service Type
 
 ### Web Application
-```
+```redis
 Capacity factors:
 - Request rate
 - Response size
@@ -226,7 +246,7 @@ Rules of thumb:
 ```
 
 ### API Service
-```
+```python
 Capacity factors:
 - Call rate
 - Payload size
@@ -240,7 +260,7 @@ Rules of thumb:
 ```
 
 ### Database
-```
+```redis
 Capacity factors:
 - Query complexity
 - Data size
@@ -254,7 +274,7 @@ Rules of thumb:
 ```
 
 ### Message Queue
-```
+```proto
 Capacity factors:
 - Message rate
 - Message size
@@ -270,7 +290,7 @@ Rules of thumb:
 ## Capacity Triggers
 
 ### Scaling Triggers
-```
+```python
 Immediate action required:
 - CPU > 80% sustained
 - Memory > 90%
@@ -286,7 +306,7 @@ Planning required:
 ```
 
 ### Architecture Change Triggers
-```
+```python
 Consider architecture change when:
 - Vertical scaling hits limit
 - Costs growing super-linearly
@@ -297,7 +317,7 @@ Consider architecture change when:
 
 ## Capacity Planning Checklist
 
-```
+```redis
 □ Current metrics collected
 □ Growth rates calculated
 □ Peak patterns identified

@@ -1,3 +1,20 @@
+---
+title: "Axiom 5: Cost of Coordination"
+description: "Imagine a symphony orchestra:
+- Solo violin: Plays freely, no coordination needed
+- String quartet: 4 musicians watching each other, minimal overhe..."
+type: axiom
+difficulty: advanced
+reading_time: 50 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 5](/part1-axioms/axiom5-coordination/) → **Axiom 5: Cost of Coordination**
+
+
 # Axiom 5: Cost of Coordination
 
 ---
@@ -20,7 +37,7 @@ Imagine a symphony orchestra:
 
 ### Real-World Analogy: Planning a Group Dinner
 
-```
+```yaml
 Scenario: 10 friends want to have dinner together
 
 Coordination Steps:
@@ -80,7 +97,7 @@ Observe:
 <div class="principle-box">
 <h3>The Iron Triangle of Coordination</h3>
 
-```
+```text
         CONSISTENCY
          /       \
         /         \
@@ -129,7 +146,7 @@ Pick two. The third suffers.
 - Real-time results to world media
 
 **The Problem**:
-```
+```text
 Venue A (Swimming):         Venue B (Track):
 Local time: 14:32:15.231   Local time: 14:32:15.234
 Record: World Record!      Record: Not quite...
@@ -159,7 +176,7 @@ Which happened first? Systems disagree by 3ms!
 
 ### Coordination Patterns: A Visual Guide
 
-```
+```text
 1. No Coordination (Chaos)
    A → [Work]
    B → [Work]    No communication
@@ -207,7 +224,7 @@ Which happened first? Systems disagree by 3ms!
 <div class="spectrum-diagram">
 <h3>📊 Coordination Intensity Scale</h3>
 
-```
+```text
 LEAST                                                      MOST
 COORDINATION                                               COORDINATION
 ←─────────────────────────────────────────────────────────→
@@ -238,7 +255,7 @@ Msgs:     0          N log N    N         N/2      3N         2N         N²
 <h3>⚠️ The Hall of Shame</h3>
 
 **1. The "Chatty Protocol"**
-```
+```text
 For each of 1000 items:
     Coordinator: "Process item?"
     Worker: "OK"
@@ -254,7 +271,7 @@ Better: Batch into 1 request/response
 ```
 
 **2. The "Paranoid Sync"**
-```
+```text
 Every 100ms:
     Node A → All: "I'm at version 42"
     Node B → All: "I'm at version 42"
@@ -265,7 +282,7 @@ For data that changes once per hour
 ```
 
 **3. The "Accidental N²"**
-```
+```yaml
 On any update:
     For each node:
         For each other node:
@@ -309,7 +326,7 @@ Assumptions: 1M operations/month, $0.09/GB transfer, 1KB messages
 <div class="decision-framework">
 <h3>🎯 The Coordination Decision Tree</h3>
 
-```
+```text
 START: Need nodes to agree on something?
 │
 ├─ Q: Can I eliminate the need?
@@ -356,7 +373,7 @@ START: Need nodes to agree on something?
 
 **Slack's Solution**: Hybrid coordination
 
-```
+```text
 Architecture:
 
 ┌─────────────┐     ┌─────────────┐     ┌─────────────┐
@@ -392,7 +409,7 @@ Architecture:
 <h3>🎨 The Art of Not Coordinating</h3>
 
 **1. CRDTs (Conflict-Free Replicated Data Types)**
-```
+```text
 Example: Collaborative editing (Google Docs)
 
 Traditional: Lock paragraph → Edit → Unlock
@@ -404,7 +421,7 @@ No coordination needed!
 ```
 
 **2. Commutative Operations**
-```
+```text
 Example: Like counter
 
 Bad: Read count → Add 1 → Write count (needs lock)
@@ -415,7 +432,7 @@ Good: Send "+1" operation (order doesn't matter)
 ```
 
 **3. Idempotent Design**
-```
+```text
 Example: Payment processing
 
 Bad: "Process payment" (dangerous if repeated)
@@ -425,7 +442,7 @@ Database: UPSERT with ID = automatic deduplication
 ```
 
 **4. Event Sourcing**
-```
+```text
 Example: Bank account
 
 Bad: Coordinate to update balance
@@ -504,7 +521,7 @@ Balance: Sum = 100 (anyone can calculate)
 - Requirement: Globally consistent, <10ms latency
 
 **Why Traditional Coordination Fails**:
-```
+```yaml
 Option 1: Global Lock
 - 2B users competing = infinite wait
 
@@ -517,7 +534,7 @@ Option 3: Full Replication
 
 **TAO's Solution**: Coordination Hierarchy
 
-```
+```text
 ┌─────────────────────────────────────────────┐
 │            MASTER REGION (US)               │
 │  ┌─────────┐  ┌─────────┐  ┌─────────┐     │
@@ -562,7 +579,7 @@ Option 3: Full Replication
 - Fault tolerance (survives failures)
 
 **CAP Theorem Applied**:
-```
+```text
 Consistency: All nodes see same data
 Availability: System remains operational  
 Partition Tolerance: Survives network splits
@@ -572,7 +589,7 @@ So really: CP or AP
 ```
 
 **Coordination-Free Computability**:
-```
+```yaml
 Can compute without coordination:
 - Monotonic operations (only grow)
 - Commutative operations (order-free)
@@ -645,7 +662,7 @@ Cannot compute without coordination:
 <h3>📋 Coordination Cost Calculator</h3>
 
 **Quick Formulas**:
-```
+```yaml
 No Coordination:      0
 Leader-based:         O(N) messages
 Quorum:              O(N) messages, O(1) rounds
@@ -657,7 +674,7 @@ Dollar cost = (messages × size × $/GB) + (latency × $/hour)
 ```
 
 **When to Use What**:
-```
+```text
 Stateless → No coordination
 Read-heavy → Replicas + eventual
 Write-heavy → Sharding
@@ -672,3 +689,9 @@ Adversarial → Byzantine
 **Next**: [Axiom 6: Observability →](../axiom6-observability/index.md)
 
 *"The best coordination is no coordination."*
+
+---
+
+**Next**: [Examples](examples.md)
+
+**Related**: [Consensus](/patterns/consensus/) • [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/)

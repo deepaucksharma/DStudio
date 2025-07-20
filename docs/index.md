@@ -1,3 +1,20 @@
+---
+title: The Compendium of Distributed Systems
+description: "<div class="hero-section">
+  <h2>Learn Distributed Systems from First Principles</h2>
+  <p class="hero-quote">"All distributed systems behavior eme..."
+type: general
+difficulty: intermediate
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → **The Compendium of Distributed Systems**
+
+
 # The Compendium of Distributed Systems
 
 <div class="hero-section">

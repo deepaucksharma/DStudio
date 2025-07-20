@@ -1,3 +1,20 @@
+---
+title: Saga (Distributed Transactions)
+description: What if step 3 fails after 1 & 2 succeed?
+```text
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Saga (Distributed Transactions)**
+
+
 # Saga (Distributed Transactions)
 
 **When ACID meets distributed reality**
@@ -12,8 +29,7 @@ Distributed transaction across services:
 4. Send notification
 
 What if step 3 fails after 1 & 2 succeed?
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -25,8 +41,7 @@ T2 ✓                T2 ✓
 T3 ✓                T3 ✗
 T4 ✓                C2 ← Compensate
                     C1 ← Compensate
-```
-
+```bash
 ## Saga Patterns
 
 ```
@@ -37,8 +52,7 @@ T4 ✓                C2 ← Compensate
       
 2. CHOREOGRAPHY (Event Chain)
    T1 → [Event] → T2 → [Event] → T3
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -224,8 +238,7 @@ class ChoreographySaga:
                 payload={'booking_id': saga['flight_booking']['id']},
                 correlation_id=saga_id
             ))
-```
-
+```bash
 ## Saga State Machine
 
 ```python
@@ -289,3 +302,97 @@ class SagaStateMachine:
 • **Uber**: Trip booking across services
 • **Airbnb**: Reservation workflow
 • **Amazon**: Order fulfillment pipeline
+
+---
+
+**Previous**: [← Retry & Backoff Strategies](retry-backoff.md) | **Next**: [Serverless/FaaS (Function-as-a-Service) →](serverless-faas.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Saga (Distributed Transactions) in existing systems
+
+**Task**: 
+Find 2 real-world examples where Saga (Distributed Transactions) is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Saga (Distributed Transactions)
+
+**Scenario**: You need to implement Saga (Distributed Transactions) for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Saga (Distributed Transactions)
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Saga (Distributed Transactions)
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Saga (Distributed Transactions) be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Saga (Distributed Transactions) later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Saga (Distributed Transactions) in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Saga (Distributed Transactions) to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

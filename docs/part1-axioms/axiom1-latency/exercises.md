@@ -1,3 +1,18 @@
+---
+title: Latency Exercises
+description: "<div id="speed-calculator"></div>"
+type: axiom
+difficulty: advanced
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Latency Exercises**
+
+
 # Latency Exercises
 
 ## 🧪 Hands-On Labs
@@ -227,7 +242,7 @@ player_distribution = {
 ### 3. The Distributed Lock Dilemma
 **Setup**: 5-node cluster with measured latencies:
 
-```
+```text
     NODE1  NODE2  NODE3  NODE4  NODE5
 N1    0     10     25     40     35
 N2   10      0     15     30     25  
@@ -352,3 +367,9 @@ class MicroCDN:
     
     Use Lamport timestamps or vector clocks.
     Test with a simulated distributed system with artificial delays.
+
+---
+
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 2](../axiom2-*)
+
+**Related**: [Timeout](/patterns/timeout/) • [Circuit Breaker](/patterns/circuit-breaker/) • [Caching Strategies](/patterns/caching-strategies/)

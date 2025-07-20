@@ -1,3 +1,18 @@
+---
+title: Partial Failure Examples
+description: Documentation for distributed systems concepts
+type: axiom
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](/part1-axioms/axiom3-failure/) → **Partial Failure Examples**
+
+
 # Partial Failure Examples
 
 ## Real-World Case Studies
@@ -23,3 +38,9 @@ Code showing proper timeout coordination between layers.
 Implementing effective health checks that detect partial failures.
 
 *More examples coming soon*
+
+---
+
+**Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)
+
+**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Retry Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/)

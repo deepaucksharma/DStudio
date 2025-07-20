@@ -1,3 +1,20 @@
+---
+title: Service Discovery Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: advanced
+reading_time: 25 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Service Discovery Pattern**
+
+
 # Service Discovery Pattern
 
 **Finding services in a dynamic distributed system**
@@ -542,8 +559,7 @@ class ConsulServiceDiscovery:
         }
         
         return self.consul.query.create(query)
-```
-
+```proto
 #### Kubernetes Service Discovery
 ```python
 from kubernetes import client, config, watch
@@ -637,8 +653,7 @@ class KubernetesServiceDiscovery:
                     })
             
             callback(event_type, instances)
-```
-
+```bash
 ### Real-World Case Study: Netflix Eureka
 
 ```python
@@ -736,8 +751,7 @@ class EurekaServiceDiscovery:
             return instances
         
         return []
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -840,3 +854,7 @@ class OptimalServiceDiscovery:
 ---
 
 *"In distributed systems, finding a service is half the battle—the other half is finding it healthy."*
+
+---
+
+**Previous**: [← Serverless/FaaS (Function-as-a-Service)](serverless-faas.md) | **Next**: [Service Mesh →](service-mesh.md)

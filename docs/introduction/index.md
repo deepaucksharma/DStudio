@@ -1,3 +1,18 @@
+---
+title: Welcome to Distributed Systems
+description: Welcome to The Compendium of Distributed Systems - a comprehensive guide that teaches distributed systems from first principles. Unlike traditional...
+type: introduction
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Introduction](/introduction/) → **Welcome to Distributed Systems**
+
+
 # Welcome to Distributed Systems
 
 ## The Journey Begins

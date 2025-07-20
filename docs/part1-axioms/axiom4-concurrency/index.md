@@ -1,3 +1,21 @@
+---
+title: "Axiom 4: Concurrency"
+description: "Imagine a busy restaurant kitchen with multiple chefs:
+- Chef A starts making pasta
+- Chef B starts making sauce  
+- Chef C needs the same pan"
+type: axiom
+difficulty: advanced
+reading_time: 50 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](/part1-axioms/axiom4-concurrency/) → **Axiom 4: Concurrency**
+
+
 # Axiom 4: Concurrency
 
 ---
@@ -129,13 +147,13 @@ Think of concurrent operations like:
 <h3>Sequential vs Concurrent Execution</h3>
 
 **Sequential (Predictable):**
-```
+```text
 Operation A → Operation B → Operation C
 Total states: 1 (always same order)
 ```
 
 **Concurrent (Chaos):**
-```
+```text
 Operations A, B, C happening "at the same time"
 Possible orderings:
 - A → B → C
@@ -159,7 +177,7 @@ Total states: n! × (ways to interleave) = explosion!
 **Date**: December 23, 2019 (Peak Holiday Travel)  
 **Impact**: 40-minute flight delay, viral social media incident
 
-```
+```redis
 The Race Condition Timeline:
 
 T 00:00.000: Alice opens seat map, sees 14A available
@@ -1501,7 +1519,7 @@ class PaddedAtomicLong extends AtomicLong {
 <h3>📋 Concurrency Control Cheat Sheet</h3>
 
 **Choose Your Weapon:**
-```
+```text
 Low Contention (< 10% conflicts):
   → Optimistic locking (CAS)
   → MVCC
@@ -1519,7 +1537,7 @@ High Contention (> 50%):
 ```
 
 **Common Patterns:**
-```
+```text
 □ Double-checked locking (careful!)
 □ Copy-on-write
 □ Reader-writer locks
@@ -1531,7 +1549,7 @@ High Contention (> 50%):
 ```
 
 **Debugging Concurrency:**
-```
+```text
 □ Thread sanitizer (TSan)
 □ Helgrind (Valgrind)
 □ Stress testing with chaos
@@ -1545,3 +1563,9 @@ High Contention (> 50%):
 **Next**: [Axiom 5: Coordination →](../axiom5-coordination/index.md)
 
 *"Shared mutable state is the root of all evil. The history of computing is the history of avoiding shared mutable state."*
+
+---
+
+**Next**: [Examples](examples.md)
+
+**Related**: [Distributed Lock](/patterns/distributed-lock/) • [Leader Election](/patterns/leader-election/) • [Saga](/patterns/saga/)

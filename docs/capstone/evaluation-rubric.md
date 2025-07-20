@@ -1,3 +1,18 @@
+---
+title: Capstone Project Evaluation Rubric
+description: This rubric provides detailed evaluation criteria for the Distributed Systems Capstone Project. It ensures consistent, fair assessment while recogn...
+type: general
+difficulty: intermediate
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → **Capstone Project Evaluation Rubric**
+
+
 # Capstone Project Evaluation Rubric
 
 ## Overview

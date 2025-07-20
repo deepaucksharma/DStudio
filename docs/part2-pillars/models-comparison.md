@@ -1,10 +1,28 @@
+---
+title: CAST vs SPACE Models
+description: "Availability  
+├─ Best effort: May fail under load
+├─ Highly available: 99.9%+ uptime
+└─ Fault tolerant: Continues despite failures"
+type: pillar
+difficulty: intermediate
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → **CAST vs SPACE Models**
+
+
 # CAST vs SPACE Models
 
 **Learning Objective**: Compare different distributed systems models to choose the right mental framework.
 
 ## CAST Model (Control, Availability, State, Time)
 
-```
+```yaml
 Control
 ├─ Centralized: Master/slave, orchestration
 ├─ Distributed: Peer-to-peer, choreography
@@ -28,7 +46,7 @@ Time
 
 ## SPACE Model (State, Processing, Access, Concurrency, Exchange)
 
-```
+```proto
 State
 ├─ Shared: Multiple nodes access same data
 ├─ Partitioned: Data divided among nodes
@@ -57,7 +75,7 @@ Exchange
 
 ## Model Comparison Matrix
 
-```
+```text
 Aspect          CAST Focus           SPACE Focus
 ------          ----------           -----------
 Abstraction     Architectural        Implementation
@@ -84,7 +102,7 @@ Best For        Architects          Developers
 ## Real-World Example: Video Streaming Platform
 
 **CAST Analysis**:
-```
+```text
 Control: Centralized CDN management
 Availability: 99.99% (52 min downtime/year)
 State: User sessions, watch history
@@ -92,7 +110,7 @@ Time: Async upload, sync playback
 ```
 
 **SPACE Analysis**:
-```
+```text
 State: Replicated video files
 Processing: Stream transcoding
 Access: Random seek in videos
@@ -180,3 +198,74 @@ netflix.analyze_space()
 ---
 
 **Next**: [When Models Collide →](models-collide.md)
+---
+
+## 💡 Knowledge Application
+
+### Exercise 1: Concept Exploration ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Deepen understanding of CAST vs SPACE Models
+
+**Reflection Questions**:
+1. What are the 3 most important concepts from this content?
+2. How do these concepts relate to systems you work with?
+3. What examples from your experience illustrate these ideas?
+4. What questions do you still have?
+
+**Application**: Choose one concept and explain it to someone else in your own words.
+
+### Exercise 2: Real-World Connection ⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Connect theory to practice
+
+**Research Task**:
+1. Find 2 real-world examples where these concepts apply
+2. Analyze how the concepts manifest in each example
+3. Identify what would happen if these principles were ignored
+
+**Examples could be**:
+- Open source projects
+- Well-known tech companies
+- Systems you use daily
+- Historical technology decisions
+
+### Exercise 3: Critical Thinking ⭐⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Develop deeper analytical skills
+
+**Challenge Scenarios**:
+1. **Constraint Analysis**: What limitations or constraints affect applying these concepts?
+2. **Trade-off Evaluation**: What trade-offs are involved in following these principles?
+3. **Context Dependency**: In what situations might these concepts not apply?
+4. **Evolution Prediction**: How might these concepts change as technology evolves?
+
+**Deliverable**: A brief analysis addressing each scenario with specific examples.
+
+---
+
+## 🔗 Cross-Topic Connections
+
+**Integration Exercise**:
+- How does CAST vs SPACE Models relate to other topics in this documentation?
+- What patterns or themes do you see across different sections?
+- Where do you see potential conflicts or tensions between different concepts?
+
+**Systems Thinking**:
+- How would you explain the role of these concepts in the broader context of distributed systems?
+- What other knowledge areas complement what you've learned here?
+
+---
+
+## 🎯 Next Steps
+
+**Immediate Actions**:
+1. One thing you'll research further
+2. One practice you'll try in your current work
+3. One person you'll share this knowledge with
+
+**Longer-term Learning**:
+- What related topics would be valuable to study next?
+- How will you stay current with developments in this area?
+- What hands-on experience would solidify your understanding?
+
+---

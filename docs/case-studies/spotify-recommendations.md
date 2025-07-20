@@ -1,25 +1,17 @@
 ---
-title: "Spotify's Music Recommendation Engine"
-description: "Personalize music for 500M users with ML at scale"
-date: 2024-01-20
-category: "case-studies"
-case_study_type: "ml-systems"
-company: "Spotify"
-industry: "music-streaming"
-tags:
-  - machine-learning
-  - recommendation-systems
-  - real-time
-  - personalization
-  - data-pipeline
-difficulty: "advanced"
-reading_time: "25 min"
-axioms_demonstrated:
-  - state
-  - intelligence
-  - latency
-  - capacity
+title: Spotify's Music Recommendation Engine
+description: Personalize music for 500M users with ML at scale
+type: case-study
+difficulty: advanced
+reading_time: 30 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Case Studies](/case-studies/) → **Spotify's Music Recommendation Engine**
+
 
 # 🎵 Spotify's Music Recommendation Engine
 
@@ -46,7 +38,7 @@ axioms_demonstrated:
 
 ### Phase 1: Collaborative Filtering (2008-2012)
 
-```
+```text
 User Plays → Daily Batch Job → Matrix Factorization → Static Recommendations
 ```
 
@@ -206,8 +198,7 @@ class SpotifyRecommender:
         diversified = self.diversity_algorithm(filtered)
         
         return diversified[:100]  # Top 100 recommendations
-```
-
+```bash
 ### Real-Time Feature Pipeline
 
 ```mermaid
@@ -235,8 +226,7 @@ sequenceDiagram
         A->>C: Cache results
     end
     A-->>U: Show recommendations
-```
-
+```bash
 ## 📊 Axiom Application
 
 ### Axiom 2: State Distribution
@@ -253,8 +243,7 @@ Storage:
 - Hot features: Redis (30TB)
 - Warm features: Cassandra (500TB)
 - Cold features: HDFS (10PB)
-```
-
+```bash
 ### Axiom 5: Intelligence at Scale
 **Challenge**: Train models on billions of interactions
 
@@ -272,8 +261,7 @@ Scale:
 - 10K model experiments/month
 - 50 production models
 - 1M predictions/second
-```
-
+```bash
 ### Axiom 1: Latency Constraints
 **Challenge**: Real-time recommendations under 100ms
 
@@ -290,8 +278,7 @@ Optimizations:
 2. Model quantization (32-bit → 8-bit)
 3. Edge caching (CloudFront)
 4. Approximate algorithms
-```
-
+```bash
 ## 💡 Key Innovations
 
 ### 1. Audio Understanding at Scale
@@ -316,8 +303,7 @@ class AudioFeatureExtractor:
         }
         
         return features
-```
-
+```bash
 ### 2. Contextual Bandits for Exploration
 
 **Balancing Exploration vs Exploitation**:
@@ -335,8 +321,7 @@ class ContextualBandit:
         # Thompson sampling update
         self.success_counts[user][item] += reward
         self.trial_counts[user][item] += 1
-```
-
+```bash
 ### 3. Session-Based Recommendations
 
 **Understanding User Intent**:
@@ -417,3 +402,7 @@ Detection:
 ---
 
 *"At Spotify's scale, every user is unique, but patterns in human behavior create the foundation for personalization."*
+
+---
+
+**Previous**: [← Amazon DynamoDB](amazon-dynamo.md) | **Next**: [PayPal Payments →](paypal-payments.md)

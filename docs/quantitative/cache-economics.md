@@ -1,3 +1,18 @@
+---
+title: Cache Economics Sheet
+description: "The fundamental equation for cache profitability:"
+type: quantitative
+difficulty: beginner
+reading_time: 40 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part IV: Quantitative](/quantitative/) → **Cache Economics Sheet**
+
+
 # Cache Economics Sheet
 
 **When caching saves money**
@@ -6,7 +21,7 @@
 
 The fundamental equation for cache profitability:
 
-```
+```python
 Cache is profitable when:
 (Cache Cost) < (Saved Backend Cost) + (Saved Latency Cost)
 
@@ -19,7 +34,7 @@ Saved Latency = (Hit Rate) × (Requests) × (Latency Reduction) × ($/ms)
 ## Cache Sizing Economics
 
 ### Memory Cost Analysis
-```
+```bash
 Redis cluster:
 - 100GB memory: $500/month
 - 1 billion keys: 100 bytes each
@@ -32,7 +47,7 @@ Database query:
 ```
 
 ### Hit Rate Impact
-```
+```python
 Hit Rate    Backend Savings    ROI
 --------    ---------------    ---
 50%         50%                -20% (loss)
@@ -46,7 +61,7 @@ Hit Rate    Backend Savings    ROI
 ## Cache Pattern Economics
 
 ### Cache-Aside ROI
-```
+```python
 Costs:
 - 2 operations on miss (check + load)
 - 1 operation on hit
@@ -60,7 +75,7 @@ Break-even hit rate: 60-70%
 ```
 
 ### Write-Through ROI
-```
+```python
 Costs:
 - Every write goes to both
 - More complex code
@@ -74,7 +89,7 @@ Break-even when read/write > 3:1
 ```
 
 ### Write-Back ROI
-```
+```python
 Costs:
 - Risk of data loss
 - Complex recovery
@@ -90,7 +105,7 @@ Break-even when write-heavy + tolerates loss
 ## Real-World Cache Economics
 
 ### CDN Edge Caching
-```
+```bash
 CloudFront pricing:
 - Cache storage: $0.085/GB
 - Cache hits: $0.01/10k requests
@@ -107,7 +122,7 @@ ROI: 9,700%
 ```
 
 ### Application Cache Tiers
-```
+```python
 L1: Local memory (free, 128MB)
     Hit rate: 30%
     Latency: 0.1ms
@@ -126,7 +141,7 @@ Improvement: 87%
 ```
 
 ### Database Query Cache
-```
+```bash
 Query cost breakdown:
 - CPU time: $0.0001
 - I/O operations: $0.0008
@@ -144,7 +159,7 @@ Savings: 100x when hit!
 ## Cache Invalidation Costs
 
 ### TTL-Based
-```
+```text
 Pros: Simple, no coordination
 Cons: Stale data window
 
@@ -160,7 +175,7 @@ Example:
 ```
 
 ### Event-Based
-```
+```text
 Infrastructure:
 - Message queue: $100/month
 - Invalidation service: $200/month
@@ -177,7 +192,7 @@ Example: E-commerce inventory
 ```
 
 ### Tag-Based Invalidation
-```
+```python
 Implementation:
 - Tag index storage: O(tags × keys)
 - Invalidation time: O(keys per tag)
@@ -226,7 +241,7 @@ def should_cache(query_cost, access_frequency, result_size):
 ```
 
 ### Pre-warming Economics
-```
+```bash
 Scenario: Black Friday sale
 - Expected traffic: 100x normal
 - Cache misses would kill database
@@ -241,7 +256,7 @@ Cost analysis:
 ## Cache Sizing Optimization
 
 ### Working Set Analysis
-```
+```redis
 Pareto principle (80/20 rule):
 - 20% of keys get 80% of requests
 - Focus cache on hot keys
@@ -253,7 +268,7 @@ Implementation:
 ```
 
 ### Memory vs Hit Rate
-```
+```bash
 Cache Size    Hit Rate    Cost    Benefit
 ----------    --------    ----    -------
 1GB           60%         $10     $600
@@ -290,7 +305,7 @@ def optimize_cache_sizes(budget, access_pattern):
 ## Cache ROI Calculator
 
 ### Input Parameters
-```
+```python
 Monthly request volume: R
 Cache hit rate: H
 Backend cost per request: B
@@ -302,7 +317,7 @@ ROI = ((R × H × B) + (R × H × L × V) - C) / C × 100%
 ```
 
 ### Example Calculation
-```
+```bash
 E-commerce product catalog:
 - Requests: 100M/month
 - Hit rate: 90%

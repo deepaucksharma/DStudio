@@ -1,3 +1,18 @@
+---
+title: "Part I: The Eight Fundamental Axioms"
+description: Before we discuss any patterns, algorithms, or architectures, we must understand the fundamental constraints that govern all distributed systems. T...
+type: axiom
+difficulty: advanced
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → **Part I: The Eight Fundamental Axioms**
+
+
 # Part I: The Eight Fundamental Axioms
 
 ## First Principles Foundation
@@ -68,7 +83,7 @@ These quotes capture why axioms matter - they acknowledge the fundamental realit
 
 Each axiom leads to emergent behaviors, which lead to design patterns:
 
-```
+```text
 Physics/Math Constraint
     ↓
 Axiom (Inescapable Reality)
@@ -134,3 +149,7 @@ Ready to understand why your distributed system behaves the way it does?
 ---
 
 *"To violate an axiom is not to break a rule—it is to break your system."*
+
+---
+
+**Next**: [Examples](examples.md)

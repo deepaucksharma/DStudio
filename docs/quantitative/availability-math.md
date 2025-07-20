@@ -1,3 +1,18 @@
+---
+title: Availability Math & Nines
+description: "Understanding availability percentages and their real impact:"
+type: quantitative
+difficulty: beginner
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part IV: Quantitative](/quantitative/) → **Availability Math & Nines**
+
+
 # Availability Math & Nines
 
 **Building reliable systems from unreliable parts**
@@ -6,7 +21,7 @@
 
 Understanding availability percentages and their real impact:
 
-```
+```python
 Availability    Downtime/Year    Downtime/Month    Downtime/Day
 -----------    -------------    --------------    ------------
 90% (1 nine)    36.5 days       3 days            2.4 hours
@@ -19,7 +34,7 @@ Availability    Downtime/Year    Downtime/Month    Downtime/Day
 ## Availability Calculations
 
 ### Series (AND) - Multiply
-```
+```text
 System works = A works AND B works AND C works
 Availability = A × B × C
 
@@ -29,7 +44,7 @@ System = 0.9999 × 0.999 × 0.999 = 99.79%
 ```
 
 ### Parallel (OR) - Complement
-```
+```text
 System fails = A fails AND B fails
 Availability = 1 - (1-A) × (1-B)
 
@@ -39,7 +54,7 @@ System = 1 - (0.001 × 0.001) = 99.9999%
 ```
 
 ### N+M Redundancy
-```
+```python
 Need N components, have N+M
 System fails when more than M fail
 
@@ -50,7 +65,7 @@ Availability = Σ(k=0 to M) C(N+M,k) × A^(N+M-k) × (1-A)^k
 ## Complex System Modeling
 
 ### Active-Active with Load Balancer
-```
+```python
      LB (99.99%)
     /           \
 App1 (99.9%)  App2 (99.9%)
@@ -62,7 +77,7 @@ Full system: 0.9999 × 0.999999 × 0.999 = 99.89%
 ```
 
 ### Multi-Region Architecture
-```
+```python
 Region 1                Region 2
 LB → Apps → DB         LB → Apps → DB
 (99.8%)                (99.8%)
@@ -72,7 +87,7 @@ System = 1 - (0.002)² = 99.9996%
 ```
 
 ### Microservices Chain
-```
+```python
 A → B → C → D → E
 Each 99.9%
 
@@ -85,7 +100,7 @@ Can maintain 99.9% overall
 ## Improving Availability
 
 ### Strategy Comparison
-```
+```python
 Approach                Cost    Improvement
 --------                ----    -----------
 Better hardware         $$     99% → 99.9%
@@ -96,7 +111,7 @@ Faster recovery         $       Big impact
 ```
 
 ### Redundancy Patterns
-```
+```python
 Pattern              Formula                     Example
 -------              -------                     -------
 Simple redundancy    1-(1-A)²                   99% → 99.99%
@@ -107,7 +122,7 @@ Geographic redundancy 1-(1-A_region)²            99.9% → 99.999%
 ## Error Budgets
 
 ### Calculating Error Budget
-```
+```python
 SLO: 99.9% availability
 Error budget: 0.1% = 43.8 minutes/month
 
@@ -134,7 +149,7 @@ def can_deploy():
 ## Real-World Availability
 
 ### Cloud Provider SLAs
-```
+```proto
 Service              SLA      Reality      Your App Max
 -------              ---      -------      ------------
 AWS EC2              99.99%   99.995%      99.99%
@@ -145,7 +160,7 @@ Azure VMs            99.99%   99.98%       99.98%
 ```
 
 ### Building on Cloud
-```
+```python
 Your app on AWS:
 - Your code: 99.9%
 - EC2: 99.99%
@@ -160,7 +175,7 @@ Reality with issues: 99.5-99.7%
 
 Availability through the lens of failure and recovery:
 
-```
+```python
 Availability = MTBF / (MTBF + MTTR)
 
 Where:
@@ -169,7 +184,7 @@ MTTR = Mean Time To Recovery
 ```
 
 ### Examples
-```
+```python
 Example 1:
 MTBF = 30 days
 MTTR = 30 minutes
@@ -183,7 +198,7 @@ Faster recovery is often easier than preventing failures!
 ```
 
 ### Improving MTBF vs MTTR
-```
+```python
 Improving MTBF:
 - Better testing (+10% effort → +20% MTBF)
 - Code reviews (+20% effort → +30% MTBF)
@@ -198,7 +213,7 @@ Improving MTTR:
 ## Availability Patterns
 
 ### Failover Time Impact
-```
+```python
 Failover Time    Monthly Impact    Nines Lost
 -------------    --------------    ----------
 10 seconds       Negligible        None
@@ -208,7 +223,7 @@ Failover Time    Monthly Impact    Nines Lost
 ```
 
 ### Partial Availability
-```
+```python
 System with degraded modes:
 - Full functionality: 99.9%
 - Degraded (read-only): 99.99%
@@ -218,7 +233,7 @@ User-perceived: Much better than binary up/down
 ```
 
 ### Cascading Failures
-```
+```proto
 Service A (99.9%) depends on B (99.9%) and C (99.9%)
 
 Without circuit breakers:
@@ -231,7 +246,7 @@ A = 0.999 (degrades gracefully)
 ## Availability Economics
 
 ### Cost vs Nines
-```
+```python
 Nines    Relative Cost    Complexity
 -----    -------------    ----------
 99%      1x               Simple
@@ -241,7 +256,7 @@ Nines    Relative Cost    Complexity
 ```
 
 ### ROI of Availability
-```
+```bash
 E-commerce site:
 - Revenue: $10M/year
 - Each 0.1% downtime = $10K lost

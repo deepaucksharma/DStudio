@@ -1,3 +1,21 @@
+---
+title: GraphQL Federation
+description: Client needs user + orders + products = 4+ round trips
+Mobile on 3G = 2 seconds just in latency!
+```text
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **GraphQL Federation**
+
+
 # GraphQL Federation
 
 **One graph to rule them all**
@@ -13,8 +31,7 @@ REST API explosion:
 
 Client needs user + orders + products = 4+ round trips
 Mobile on 3G = 2 seconds just in latency!
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -35,8 +52,7 @@ query {
 }
 
 One request, shaped response, no overfetching
-```
-
+```bash
 ## Federation Pattern
 
 ```
@@ -51,8 +67,7 @@ User Service    Order Service    Product Service
               Gateway (Stitches schemas)
                      ↓
                   Client
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -305,8 +320,7 @@ class QueryPlanner:
                 results[step.key] = result
                 
         return self.merge_results(results)
-```
-
+```bash
 ## Advanced Features
 
 ```python
@@ -432,3 +446,7 @@ class GraphQLMetrics:
 • **GitHub**: Migrated API v3 (REST) to v4 (GraphQL)
 • **Shopify**: 1000+ types in federated graph
 • **Netflix**: Federated graph for UI teams
+
+---
+
+**Previous**: [← Graceful Degradation Pattern](graceful-degradation.md) | **Next**: [Health Check Pattern →](health-check.md)

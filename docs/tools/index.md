@@ -1,3 +1,18 @@
+---
+title: Interactive Tools
+description: Apply the axioms and pillars with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.
+type: general
+difficulty: advanced
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → **Interactive Tools**
+
+
 # Interactive Tools
 
 Apply the axioms and pillars with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.
@@ -20,7 +35,7 @@ Apply the axioms and pillars with practical calculators, worksheets, and decisio
 | Sydney | Frankfurt | 16,000 | 53.3ms | 80.0ms | 100-150ms |
 
 **Quick Calculator Formulas:**
-```
+```text
 Light Speed Latency = Distance ÷ 300,000 km/s
 Fiber Latency = Light Speed × 1.5 (refractive index)
 Internet Latency = Fiber × 1.2-2.0 (routing overhead)
@@ -39,14 +54,14 @@ Internet Latency = Fiber × 1.2-2.0 (routing overhead)
 <h3>🗃️ System Capacity Planner</h3>
 
 **Step 1: Define Your Workload**
-```
+```text
 Peak Users: _________ concurrent users
 Requests per User: _________ requests/minute
 Peak Traffic: _________ requests/second (RPS)
 ```
 
 **Step 2: Resource Requirements per Request**
-```
+```text
 CPU Time: _________ ms per request
 Memory: _________ MB per request  
 Storage I/O: _________ IOPS per request
@@ -94,7 +109,7 @@ Network: _________ KB per request
 3. **Score <20**: Monitor and document
 
 **Common Failure Patterns:**
-```
+```yaml
 Hardware Failures:
 - MTBF: 3-5 years for servers
 - Disk failure: 2-4% annually
@@ -122,7 +137,7 @@ Operational Failures:
 <h3>⏱️ Race Condition Detector</h3>
 
 **Critical Section Analysis:**
-```
+```proto
 Identify Shared Resources:
 □ Shared variables/state
 □ Database records
@@ -172,7 +187,7 @@ Timing Dependencies:
 | **Strong Consistency** | High | 9 | 9 | 9 | 3 |
 
 **Decision Framework:**
-```
+```text
 If strong consistency required:
 ├─ Byzantine faults possible? → PBFT
 ├─ Network efficiency critical? → Gossip + Eventual
@@ -205,7 +220,7 @@ If eventual consistency acceptable:
 | **Saturation** | CPU Utilization | <70% | __% | ⚪ |
 
 **SLA Calculator:**
-```
+```redis
 Availability Target: 99.9% (8h 45m downtime/year)
 Error Budget: 0.1% (43.8 minutes/month)
 
@@ -216,7 +231,7 @@ Burn rate: _____ × (normal = 1.0)
 ```
 
 **Alert Design Checklist:**
-```
+```text
 □ Actionable (tells you what to do)
 □ User-impacting (affects real users)
 □ Includes context (what's happening)
@@ -254,7 +269,7 @@ Burn rate: _____ × (normal = 1.0)
 - 56-70: Extreme load, redesign required
 
 **NASA TLX Factors:**
-```
+```text
 Mental Demand: How much thinking was required?
 Physical Demand: How much physical activity?
 Temporal Demand: How hurried was the pace?
@@ -274,7 +289,7 @@ Frustration: How stressed/annoyed were you?
 <h3>💸 Total Cost of Ownership (TCO) Calculator</h3>
 
 **Infrastructure Costs (Annual):**
-```
+```bash
 Compute: $_____ /year
 Storage: $_____ /year  
 Network: $_____ /year
@@ -283,7 +298,7 @@ Support: $_____ /year
 ```
 
 **Operational Costs (Annual):**
-```
+```bash
 Engineering: $_____ /year (_____ FTE × $150k)
 Operations: $_____ /year (_____ FTE × $120k)
 Incident Cost: $_____ /year (_____ hours × $500/hour)
@@ -300,7 +315,7 @@ Training: $_____ /year
 | 1M | $800K | $400K | $1.20 | +++% |
 
 **Break-even Analysis:**
-```
+```bash
 Fixed Costs: $_____ /month
 Variable Cost per User: $_____ /user/month
 Revenue per User: $_____ /user/month
@@ -360,7 +375,7 @@ What other options did we evaluate?
 <h3>⚡ 5-Minute Architecture Decisions</h3>
 
 **Database Choice Framework:**
-```
+```text
 ┌─────────────────────────────────┐
 │ ACID transactions required?     │
 │ ↓ YES              ↓ NO         │
@@ -377,7 +392,7 @@ What other options did we evaluate?
 ```
 
 **Caching Strategy Decision:**
-```
+```yaml
 Data Change Frequency:
 ├─ Rarely (hours): Database caching
 ├─ Occasionally (minutes): Application caching  
@@ -392,7 +407,7 @@ Cache Invalidation:
 ```
 
 **Microservices Boundary Decision:**
-```
+```text
 Split services when:
 □ Different teams own the logic
 □ Different scaling requirements
@@ -419,7 +434,7 @@ Keep together when:
 <h3>🃏 Distributed Systems Cheat Sheet</h3>
 
 **Latency Rules:**
-```
+```yaml
 L1 cache: 0.5 ns
 L2 cache: 7 ns  
 RAM: 100 ns
@@ -429,7 +444,7 @@ Network: 150 ms (cross-continent)
 ```
 
 **Capacity Rules:**
-```
+```text
 Little's Law: N = λ × W
 - N = items in system
 - λ = arrival rate  
@@ -439,7 +454,7 @@ Rule of thumb: 2x capacity for 99% availability
 ```
 
 **Availability Math:**
-```
+```text
 99%: 3.65 days/year downtime
 99.9%: 8.77 hours/year downtime  
 99.99%: 52.6 minutes/year downtime
@@ -447,7 +462,7 @@ Rule of thumb: 2x capacity for 99% availability
 ```
 
 **Cost Scaling Patterns:**
-```
+```text
 Linear: Storage, bandwidth
 Logarithmic: Caching efficiency
 Quadratic: Network mesh, consensus

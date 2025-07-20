@@ -1,3 +1,20 @@
+---
+title: Service Mesh
+description: Embedding this in every service = chaos
+```proto
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Service Mesh**
+
+
 # Service Mesh
 
 **The network as a programmable platform**
@@ -14,8 +31,7 @@ Microservices create networking complexity:
 - Observability (trace every call?)
 
 Embedding this in every service = chaos
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -28,8 +44,7 @@ App Container          Sidecar Proxy
                     Control Plane
                     [Config, Policy, 
                      Telemetry]
-```
-
+```bash
 ## Core Components
 
 ```
@@ -44,8 +59,7 @@ App Container          Sidecar Proxy
    - Policy configuration
    - Certificate management
    - Observability aggregation
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -247,8 +261,7 @@ class MeshTelemetry:
             'status': response.status,
             'trace_id': span.trace_id
         })
-```
-
+```bash
 ## Advanced Features
 
 ```python
@@ -332,3 +345,97 @@ class CanaryDeployment:
 • **Google**: Istio for GCP services
 • **Lyft**: Envoy proxy (they created it)
 • **PayPal**: 1000+ services on Linkerd
+
+---
+
+**Previous**: [← Service Discovery Pattern](service-discovery.md) | **Next**: [Sharding (Data Partitioning) →](sharding.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Service Mesh in existing systems
+
+**Task**: 
+Find 2 real-world examples where Service Mesh is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Service Mesh
+
+**Scenario**: You need to implement Service Mesh for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Service Mesh
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Service Mesh
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Service Mesh be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Service Mesh later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Service Mesh in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Service Mesh to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

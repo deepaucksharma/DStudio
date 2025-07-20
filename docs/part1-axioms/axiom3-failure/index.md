@@ -1,3 +1,18 @@
+---
+title: "Axiom 3: Partial Failure"
+description: "Remember playing "telephone" as a kid? One person whispers to the next, and by the end, the message is completely garbled. That's distributed syste..."
+type: axiom
+difficulty: intermediate
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](/part1-axioms/axiom3-failure/) → **Axiom 3: Partial Failure**
+
+
 # Axiom 3: Partial Failure
 
 ---
@@ -149,12 +164,12 @@ result = safe_call_with_timeout(flaky_database_call, timeout=1.0, default="cache
 <h3>Failure Is Not Binary</h3>
 
 **Monolithic System:**
-```
+```javascript
 State = {Working, Dead}  # Only 2 states
 ```
 
 **Distributed System:**
-```
+```javascript
 State = {
     Working,
     Degraded,
@@ -185,7 +200,7 @@ You can't avoid partial failure; you can only choose how to handle it.
 **Scale**: 100M daily active users  
 **Initial Issue**: One DB replica 20% slower (bad disk)
 
-```
+```dockerfile
 Timeline of Disaster:
 T+0s:   App servers detect slow responses from replica #3
 T+1s:   Client timeout at 1s, automatic retry triggered
@@ -211,7 +226,7 @@ Fix Applied:
 
 ### The Failure Boundary Matrix
 
-```
+```proto
 Failure Domain    Blast Radius    Recovery Time    Example
 --------------    ------------    -------------    -------
 Process           1 container     Seconds          OOM kill
@@ -1469,7 +1484,7 @@ class RegionEvacuation:
 <h3>📋 Failure Handling Checklist</h3>
 
 **Detection:**
-```
+```text
 □ Health checks (deep, not just ping)
 □ Circuit breakers (fail fast)
 □ Timeout hierarchies (nested timeouts)
@@ -1478,7 +1493,7 @@ class RegionEvacuation:
 ```
 
 **Isolation:**
-```
+```text
 □ Bulkheads (thread pools)
 □ Shuffle sharding (reduce blast radius)
 □ Failure domains (AZ, region)
@@ -1487,7 +1502,7 @@ class RegionEvacuation:
 ```
 
 **Recovery:**
-```
+```text
 □ Exponential backoff with jitter
 □ Circuit breaker recovery probes
 □ Graceful degradation
@@ -1496,7 +1511,7 @@ class RegionEvacuation:
 ```
 
 **Testing:**
-```
+```text
 □ Chaos engineering
 □ Game days
 □ Failure injection
@@ -1510,3 +1525,9 @@ class RegionEvacuation:
 **Next**: [Axiom 4: Concurrency →](../axiom4-concurrency/index.md)
 
 *"In distributed systems, the question isn't if failures will happen, but how your system behaves when they do."*
+
+---
+
+**Next**: [Examples](examples.md)
+
+**Related**: [Circuit Breaker](/patterns/circuit-breaker/) • [Retry Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/)

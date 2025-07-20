@@ -1,10 +1,29 @@
+---
+title: Event-Driven Architecture
+description: Service A → [OrderPlaced] → Event Bus
+                              ↓ ↓ ↓
+                    Inventory Payment Shipping
+                    Servic...
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Event-Driven Architecture**
+
+
 # Event-Driven Architecture
 
 **Everything is an event; the universe is eventual**
 
 ## THE PROBLEM
 
-```
+```proto
 Synchronous coupling creates brittleness:
 Service A calls B calls C calls D
 - One slow service slows all
@@ -14,7 +33,7 @@ Service A calls B calls C calls D
 
 ## THE SOLUTION
 
-```
+```proto
 Events enable autonomous services:
 
 Service A → [OrderPlaced] → Event Bus
@@ -26,7 +45,7 @@ Service A → [OrderPlaced] → Event Bus
 
 ## Event Patterns Hierarchy
 
-```
+```javascript
 1. EVENT NOTIFICATION
    "Something happened"
    {type: "OrderPlaced", orderId: 123}
@@ -224,3 +243,7 @@ class OrderEvent:
 • **Netflix**: 150 billion events/day
 • **Uber**: Trip events drive 100+ services
 • **PayPal**: Payment events across systems
+
+---
+
+**Previous**: [← Edge Computing/IoT Patterns](edge-computing.md) | **Next**: [Event Sourcing Pattern →](event-sourcing.md)

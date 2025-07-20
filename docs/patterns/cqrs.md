@@ -1,28 +1,20 @@
 ---
-title: "CQRS (Command Query Responsibility Segregation)"
-description: "Separate read and write models for optimized performance and scalability"
-date: 2024-01-20
-category: "patterns"
+title: CQRS (Command Query Responsibility Segregation)
+description: Separate read and write models for optimized performance and scalability
+type: pattern
+difficulty: advanced
+reading_time: 10 min
+prerequisites: []
 pattern_type: "architectural"
-problem_solved: "Conflicting requirements between read and write operations"
 when_to_use: "High-performance reads, complex domain logic, different read/write scaling needs"
 when_not_to_use: "Simple CRUD applications, low traffic systems, small teams"
-tags:
-  - cqrs
-  - architecture
-  - scalability
-  - event-sourcing
-  - microservices
-difficulty: "advanced"
-reading_time: "20 min"
-prerequisites:
-  - /part2-pillars/state/
-  - /part1-axioms/axiom4-concurrency/
-related:
-  - /patterns/event-sourcing/
-  - /patterns/event-driven/
-  - /patterns/saga/
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **CQRS (Command Query Responsibility Segregation)**
+
 
 # CQRS (Command Query Responsibility Segregation)
 
@@ -518,3 +510,9 @@ How CQRS works with other patterns:
 ---
 
 *"The question is not whether to use one model or two, but whether your single model is serving both masters poorly."*
+
+---
+
+**Previous**: [← Consensus Pattern](consensus.md) | **Next**: [Distributed Lock Pattern →](distributed-lock.md)
+
+**Related**: [Event Sourcing](/patterns/event-sourcing/) • [Saga](/patterns/saga/) • [Event Driven](/patterns/event-driven/)

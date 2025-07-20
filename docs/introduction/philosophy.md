@@ -1,3 +1,18 @@
+---
+title: "The Philosophy: Learning from First Principles"
+description: "In 1964, Richard Feynman gave a lecture at Cornell titled "The Character of Physical Law." He argued that to truly understand something, you must b..."
+type: introduction
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Introduction](/introduction/) → **The Philosophy: Learning from First Principles**
+
+
 # The Philosophy: Learning from First Principles
 
 ## Why First Principles Matter

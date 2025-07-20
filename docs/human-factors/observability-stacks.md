@@ -1,10 +1,28 @@
+---
+title: Observability Stacks
+description: "Metrics: What is broken
+Logs: Why it's broken  
+Traces: Where it's broken
+```"
+type: human-factors
+difficulty: beginner
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Observability Stacks**
+
+
 # Observability Stacks
 
 **You can't fix what you can't see**
 
 ## The Observability Triad
 
-```
+```text
         Metrics
           ↑
        INSIGHTS
@@ -70,7 +88,7 @@ Instrumentation → Collection → Storage → Analysis
 
 ## Reference Architecture
 
-```
+```text
                     Applications
                          ↓
               [OpenTelemetry SDK/Agents]
@@ -347,7 +365,7 @@ def should_sample(trace):
 
 ### Investigation Flow
 
-```
+```proto
 1. Alert fires: "Payment service error rate high"
 
 2. Check metrics dashboard:

@@ -1,3 +1,19 @@
+---
+title: State Management Exercises
+description: <details>
+<summary>Solution</summary>
+type: pillar
+difficulty: advanced
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [State](/part2-pillars/state/) → **State Management Exercises**
+
+
 # State Management Exercises
 
 ## Exercise 1: Build a Distributed Key-Value Store

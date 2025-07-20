@@ -1,3 +1,22 @@
+---
+title: Idempotent Receiver Pattern
+description: "Most reliable systems use at-least-once delivery, which means:
+- Network retries cause duplicate messages
+- Failover scenarios resend messages
+- Qu..."
+type: pattern
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Idempotent Receiver Pattern**
+
+
 # Idempotent Receiver Pattern
 
 **Process each message exactly once - Even when messages arrive multiple times**
@@ -486,3 +505,7 @@ How idempotent receiver works with other patterns:
 ---
 
 *"The network is reliable until it delivers your message twice."*
+
+---
+
+**Previous**: [← Health Check Pattern](health-check.md) | **Next**: [Leader Election Pattern →](leader-election.md)

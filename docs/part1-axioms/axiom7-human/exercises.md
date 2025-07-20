@@ -1,3 +1,20 @@
+---
+title: Human Interface Exercises
+description: 1. Design a system status page for different audiences (SRE, manager, executive)
+2. Create an automation priority matrix based on toil scores
+3. Bu...
+type: axiom
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](/part1-axioms/axiom7-human/) → **Human Interface Exercises**
+
+
 # Human Interface Exercises
 
 ## Hands-On Labs
@@ -28,3 +45,7 @@ Design a UI that works for both novices and experts.
 - How do you balance automation with operator skill retention?
 
 *More exercises coming soon*
+
+---
+
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 8](../axiom8-*)

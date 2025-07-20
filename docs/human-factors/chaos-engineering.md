@@ -1,3 +1,22 @@
+---
+title: Chaos Engineering
+description: 1. Build hypothesis around steady state
+2. Vary real-world events
+3. Run experiments in production
+4. Automate experiments
+5. Minimize blast radius
+type: human-factors
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Chaos Engineering**
+
+
 # Chaos Engineering
 
 **Breaking things on purpose to build confidence**
@@ -29,7 +48,7 @@ Baseline measurement:
 
 ### 2. Hypothesis Formation
 
-```
+```text
 "We believe that [SYSTEM] can tolerate [FAILURE]
  as measured by [METRICS] staying within [BOUNDS]"
 ```
@@ -167,7 +186,7 @@ Tests: Backoff, queueing
 
 ### Pre-GameDay Checklist
 
-```
+```text
 □ Hypothesis documented
 □ Success criteria defined
 □ Monitoring dashboards ready
@@ -190,7 +209,7 @@ Tests: Backoff, queueing
 
 ### GameDay Timeline
 
-```
+```yaml
 T-30min: Final checks, team assembly
 T-15min: Monitoring verification
 T-0: Begin experiment
@@ -295,7 +314,7 @@ T+2hr: Report published
 
 ### ROI Calculation
 
-```
+```bash
 Investment:
 - 2 engineers × 20% time = $100k/year
 - Tools and infrastructure = $20k/year

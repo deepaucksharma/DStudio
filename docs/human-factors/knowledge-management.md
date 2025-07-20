@@ -1,3 +1,20 @@
+---
+title: Knowledge Management in Distributed Systems
+description: "In distributed systems, knowledge is distributed too. Critical information lives in:
+- Engineers' heads (tribal knowledge)
+- Scattered documentatio..."
+type: human-factors
+difficulty: intermediate
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Knowledge Management in Distributed Systems**
+
+
 # Knowledge Management in Distributed Systems
 
 **Capturing, sharing, and evolving system knowledge**

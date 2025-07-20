@@ -1,3 +1,18 @@
+---
+title: "Axiom 1: Latency (Speed of Light)"
+description: Imagine you order pizza from a restaurant 10 miles away. No matter how fast the driver goes (within legal limits), there's a minimum delivery time ...
+type: axiom
+difficulty: intermediate
+reading_time: 60 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Axiom 1: Latency (Speed of Light)**
+
+
 # Axiom 1: Latency (Speed of Light)
 
 > **Learning Objective**: Internalize that latency is physics, not engineering. You cannot patch the speed of light.
@@ -64,7 +79,7 @@ Light—and therefore information—has a speed limit:
 
 Understanding latency starts with knowing the fundamental delays at each scale:
 
-```
+```yaml
 Same rack:          0.5 ms    ████
 Same DC:            1-2 ms    ████████
 Same region:        10 ms     ████████████████████
@@ -78,7 +93,7 @@ Mars (best case):   4 min     ∞ (off the chart)
 
 When you visit a website hosted in another country:
 
-```
+```text
 Your Browser → Local ISP → Internet Backbone → Remote ISP → Web Server
                    5ms          50ms            5ms          1ms
                            
@@ -116,7 +131,7 @@ remaining = total_budget - network_latency - processing_time - database_query
 
 Let's dissect where latency comes from in a real system:
 
-```
+```proto
 User Click → Response
 ├── Last Mile Network (5-50ms)
 │   ├── WiFi/Cellular (2-20ms)
@@ -151,7 +166,7 @@ User Click → Response
 - Checkout requires real-time inventory check (terrible!)
 
 **The Physics Math**:
-```
+```text
 Tokyo ↔ San Francisco: 5,000 miles (8,000 km)
 Theoretical minimum: 8,000km / 200,000km/s = 40ms one-way
 Real world RTT: 120ms (optimal) to 250ms (congested)
@@ -311,7 +326,7 @@ monitor.analyze()
 
 The speed of electromagnetic waves in a medium is given by:
 
-```
+```text
 v = c / n
 ```
 
@@ -329,7 +344,7 @@ For optical fiber:
 
 Shannon's theorem provides the maximum information rate:
 
-```
+```text
 C = B × log₂(1 + S/N)
 ```
 
@@ -348,7 +363,7 @@ This creates a fundamental trade-off:
 
 The Internet is not a uniform mesh. It follows a hierarchical structure:
 
-```
+```text
 Tier 1 ISPs (Global backbone)
     ↕ (Settlement-free peering)
 Tier 2 ISPs (Regional networks)
@@ -872,7 +887,7 @@ if __name__ == "__main__":
 **Problem**: Added CDN, latency increased
 
 **Investigation**:
-```
+```text
 Before CDN:
 Client → Origin (50ms)
 Total: 50ms
@@ -1184,3 +1199,9 @@ class GeographicLoadBalancer:
 **Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/index.md)
 
 *"You can't patch the speed of light, but you can architect around it."*
+
+---
+
+**Next**: [Examples](examples.md)
+
+**Related**: [Timeout](/patterns/timeout/) • [Circuit Breaker](/patterns/circuit-breaker/) • [Caching Strategies](/patterns/caching-strategies/)

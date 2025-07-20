@@ -1,28 +1,20 @@
 ---
-title: "Event Sourcing Pattern"
-description: "Store all changes as events rather than current state - the log is the truth"
-date: 2024-01-20
-category: "patterns"
+title: Event Sourcing Pattern
+description: Store all changes as events rather than current state - the log is the truth
+type: pattern
+difficulty: advanced
+reading_time: 10 min
+prerequisites: []
 pattern_type: "data"
-problem_solved: "Loss of historical data, audit requirements, temporal queries"
 when_to_use: "Audit trails, complex domains, time-travel debugging, event-driven systems"
 when_not_to_use: "Simple CRUD, storage constraints, real-time queries"
-tags:
-  - event-sourcing
-  - audit
-  - cqrs
-  - event-driven
-  - data-patterns
-difficulty: "advanced"
-reading_time: "25 min"
-prerequisites:
-  - /part2-pillars/state/
-  - /part1-axioms/axiom4-concurrency/
-related:
-  - /patterns/cqrs/
-  - /patterns/event-driven/
-  - /patterns/outbox/
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Event Sourcing Pattern**
+
 
 # Event Sourcing
 
@@ -30,7 +22,7 @@ related:
 
 ## THE PROBLEM
 
-```
+```redis
 Current state loses history:
 UPDATE account SET balance = 150
 
@@ -43,7 +35,7 @@ What happened?
 
 ## THE SOLUTION
 
-```
+```bash
 Events tell the whole story:
 [AccountOpened, $0] → [Deposited, $100] → [Withdrew, $50] → [Deposited, $100]
                                                                       ↓
@@ -288,3 +280,9 @@ def upgrade_item_added_v1_to_v2(event):
 • **Banking**: Every transaction stored
 • **Healthcare**: Patient history immutable
 • **Git**: Commits are event sourcing!
+
+---
+
+**Previous**: [← Event-Driven Architecture](event-driven.md) | **Next**: [FinOps Patterns →](finops.md)
+
+**Related**: [Cqrs](/patterns/cqrs/) • [Saga](/patterns/saga/) • [Event Driven](/patterns/event-driven/)

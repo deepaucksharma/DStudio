@@ -1,3 +1,18 @@
+---
+title: SRE Practices
+description: "Site Reliability Engineering treats operations as a software problem. Core tenets:"
+type: human-factors
+difficulty: beginner
+reading_time: 40 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **SRE Practices**
+
+
 # SRE Practices
 
 **Running systems reliably at scale**
@@ -26,7 +41,7 @@ Site Reliability Engineering treats operations as a software problem. Core tenet
 
 ### The Fundamental Equation
 
-```
+```redis
 Error Budget = 100% - SLO
 
 If SLO = 99.9%, Error Budget = 0.1% = 43 minutes/month
@@ -88,7 +103,7 @@ class ErrorBudgetManager:
 ### Definitions
 
 **SLI (Service Level Indicator)**: What we measure
-```
+```text
 - Request latency
 - Error rate  
 - Availability
@@ -96,14 +111,14 @@ class ErrorBudgetManager:
 ```
 
 **SLO (Service Level Objective)**: Internal target
-```
+```text
 - 99.9% of requests < 100ms
 - 99.95% success rate
 - 99.99% availability
 ```
 
 **SLA (Service Level Agreement)**: External promise
-```
+```redis
 - Always set looser than SLO
 - SLO: 99.9% → SLA: 99.5%
 - Leaves room for error
@@ -138,7 +153,7 @@ sli = successful_page_loads / total_page_loads
 5. Leave headroom for degradation
 
 **Common SLO Targets:**
-```
+```yaml
 User-facing: 99.9% (43.8 min/month)
 Internal API: 99.95% (21.9 min/month)
 Batch jobs: 99% (7.3 hours/month)
@@ -415,7 +430,7 @@ class ChangeRiskAssessor:
 
 ### Progressive Rollouts
 
-```
+```text
 1. Dev environment (immediate)
    ↓
 2. Staging environment (1 hour)

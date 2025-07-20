@@ -1,3 +1,18 @@
+---
+title: Immutable Laws Quiz
+description: Test your understanding of the fundamental axioms with these questions.
+type: axiom
+difficulty: advanced
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → **Immutable Laws Quiz**
+
+
 # Immutable Laws Quiz
 
 Test your understanding of the fundamental axioms with these questions.

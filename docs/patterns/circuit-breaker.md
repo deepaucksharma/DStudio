@@ -1,32 +1,20 @@
 ---
-title: "Circuit Breaker Pattern"
-description: "Prevent cascade failures in distributed systems by failing fast when services are unhealthy"
-date: 2024-01-15
-modified: 2024-01-20
-category: "patterns"
+title: Circuit Breaker Pattern
+description: Prevent cascade failures in distributed systems by failing fast when services are unhealthy
+type: pattern
+difficulty: intermediate
+reading_time: 45 min
+prerequisites: []
 pattern_type: "resilience"
-problem_solved: "Cascade failures from unhealthy dependencies"
 when_to_use: "External service calls, microservice communication, database connections"
 when_not_to_use: "Internal method calls, non-network operations, CPU-bound tasks"
-tags:
-  - resilience
-  - fault-tolerance
-  - circuit-breaker
-  - design-patterns
-  - microservices
-difficulty: "intermediate"
-reading_time: "20 min"
-prerequisites:
-  - /part1-axioms/axiom1-latency/
-  - /part1-axioms/axiom3-failure/
-related:
-  - /patterns/retry-backoff/
-  - /patterns/bulkhead/
-  - /patterns/timeout/
-  - /patterns/health-check/
-toc: true
-weight: 10
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Circuit Breaker Pattern**
+
 
 # Circuit Breaker Pattern
 
@@ -62,7 +50,7 @@ weight: 10
 
 Imagine your home's electrical panel:
 
-```
+```text
 🏠 Normal Operation (CLOSED)
 ┌─────────────────┐
 │ [●] Kitchen     │  ← Circuit allows electricity to flow
@@ -115,7 +103,7 @@ Track failure metrics to determine service health:
 
 #### State Transitions
 
-```
+```text
 Failure Threshold Met
     CLOSED ────────────→ OPEN
        ↑                  │
@@ -138,7 +126,7 @@ Failure Threshold Met
 
 ### Simple Implementation Logic
 
-```
+```javascript
 if circuit_state == CLOSED:
     try:
         result = call_service()
@@ -200,7 +188,7 @@ Tracks failure percentages:
 #### Sliding Window Circuit Breaker
 Maintains rolling window of recent results:
 
-```
+```text
 Time →    [S][F][S][F][F][S][F][F][F][S]
                       ↑
                  Current window
@@ -210,7 +198,7 @@ Time →    [S][F][S][F][F][S][F][F][F][S]
 ### Failure Detection Strategies
 
 #### Exception-Based Detection
-```
+```yaml
 Detect these as failures:
 - TimeoutException
 - ConnectionRefusedException  
@@ -224,7 +212,7 @@ Ignore these:
 ```
 
 #### Latency-Based Detection
-```
+```text
 Latency Percentiles:
 P50: 100ms ← Normal
 P95: 500ms ← Warning
@@ -232,7 +220,7 @@ P99: 2000ms ← Critical → Count as failure
 ```
 
 #### Custom Health Checks
-```
+```text
 Health Check Logic:
 1. Ping endpoint every 30s
 2. If 3 consecutive pings fail → Mark unhealthy
@@ -256,7 +244,7 @@ Health Check Logic:
 ### Production Patterns
 
 #### Netflix Hystrix Architecture
-```
+```bash
 Application Thread
        │
        ▼
@@ -282,7 +270,7 @@ Application Thread
 ```
 
 #### Multi-Level Circuit Breakers
-```
+```proto
 Application Level
 ├── Service A Circuit Breaker
 │   ├── Instance A1 Health
@@ -312,7 +300,7 @@ Application Level
 ### Advanced Failure Cases
 
 #### Thundering Herd on Recovery
-```
+```text
 Problem:
 Circuit reopens → All instances send traffic simultaneously
 
@@ -321,7 +309,7 @@ Half-open: 10% traffic → 25% → 50% → 100%
 ```
 
 #### False Positives
-```
+```text
 Cause: Temporary network glitch
 Result: Circuit opens unnecessarily
 
@@ -332,7 +320,7 @@ Mitigation:
 ```
 
 #### Cascade Failures
-```
+```text
 Service A calls Service B calls Service C
 
 C fails → B circuit opens → A circuit opens
@@ -367,7 +355,7 @@ Mitigation:
 ### Next-Generation Patterns
 
 #### Adaptive Circuit Breakers
-```
+```dockerfile
 Machine Learning Integration:
 - Predict failures before they happen
 - Adjust thresholds based on traffic patterns
@@ -380,7 +368,7 @@ Deploy period: 1 failure = trip
 ```
 
 #### Circuit Breaker Mesh
-```
+```proto
 Service Mesh Integration:
 ┌─────────┐    ┌─────────┐    ┌─────────┐
 │Service A│◄──►│ Envoy   │◄──►│Service B│
@@ -393,7 +381,7 @@ Service Mesh Integration:
 ```
 
 #### Chaos Engineering Integration
-```
+```yaml
 Automated Failure Injection:
 1. Inject faults during low-traffic periods
 2. Verify circuit breakers activate correctly
@@ -421,7 +409,7 @@ Continuous Validation:
 
 #### Circuit Breaker Metrics Dashboard
 
-```
+```proto
 Production Monitoring:
 
 ┌─ Circuit Breaker Health ─────────────────────┐
@@ -563,3 +551,9 @@ circuit_breaker:
 ---
 
 *\"The circuit breaker is your system's immune system - it sacrifices individual requests to protect the whole organism.\"*
+
+---
+
+**Previous**: [← Change Data Capture (CDC)](cdc.md) | **Next**: [Consensus Pattern →](consensus.md)
+
+**Related**: [Retry Backoff](/patterns/retry-backoff/) • [Bulkhead](/patterns/bulkhead/) • [Timeout](/patterns/timeout/)

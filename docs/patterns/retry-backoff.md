@@ -1,28 +1,20 @@
 ---
-title: "Retry & Backoff Strategies"
-description: "Handle transient failures gracefully with intelligent retry logic and exponential backoff"
-date: 2024-01-20
-category: "patterns"
+title: Retry & Backoff Strategies
+description: Handle transient failures gracefully with intelligent retry logic and exponential backoff
+type: pattern
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
 pattern_type: "resilience"
-problem_solved: "Transient failures and temporary unavailability"
 when_to_use: "Network calls, external APIs, distributed services, temporary failures"
 when_not_to_use: "Permanent failures, business logic errors, data validation failures"
-tags:
-  - retry
-  - backoff
-  - resilience
-  - fault-tolerance
-  - exponential-backoff
-difficulty: "intermediate"
-reading_time: "20 min"
-prerequisites:
-  - /part1-axioms/axiom3-failure/
-  - /part1-axioms/axiom1-latency/
-related:
-  - /patterns/circuit-breaker/
-  - /patterns/timeout/
-  - /patterns/bulkhead/
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Retry & Backoff Strategies**
+
 
 # Retry & Backoff Strategies
 
@@ -631,3 +623,7 @@ How retry & backoff works with other patterns:
 ---
 
 *"Retry with backoff is like knocking on a door - start gently, wait longer between knocks, and know when to give up."*
+
+---
+
+**Previous**: [← Rate Limiting Pattern](rate-limiting.md) | **Next**: [Saga (Distributed Transactions) →](saga.md)

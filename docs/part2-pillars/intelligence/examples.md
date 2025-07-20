@@ -1,3 +1,23 @@
+---
+title: Intelligence & Learning Examples
+description: "class IntelligentScheduler:
+    def __init__(self):
+        self.predictor = BorgResourcePredictor()
+        self.placement_history = []
+        
+ ..."
+type: pillar
+difficulty: beginner
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Intelligence](/part2-pillars/intelligence/) → **Intelligence & Learning Examples**
+
+
 # Intelligence & Learning Examples
 
 ## Real-World Case Studies

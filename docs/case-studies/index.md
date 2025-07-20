@@ -1,15 +1,17 @@
 ---
 title: "Case Studies: Axioms in Action"
-description: "Real-world distributed systems analyzed through the lens of axioms and pillars"
-date: 2024-01-20
-category: "case-studies"
-tags:
-  - distributed-systems
-  - real-world
-  - architecture
-  - case-studies
-toc: true
+description: Real-world distributed systems analyzed through the lens of axioms and pillars
+type: case-study
+difficulty: advanced
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Case Studies](/case-studies/) → **Case Studies: Axioms in Action**
+
 
 # Case Studies: Axioms in Action
 

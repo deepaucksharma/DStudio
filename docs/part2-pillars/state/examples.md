@@ -1,3 +1,20 @@
+---
+title: State Management Examples
+description: "2007: Dynamo paper
+├── Problem: Availability during failures  
+└── Solution: Eventual consistency + vector clocks"
+type: pillar
+difficulty: intermediate
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [State](/part2-pillars/state/) → **State Management Examples**
+
+
 # State Management Examples
 
 ## Real-World Case Studies
@@ -8,7 +25,7 @@
 
 **Architecture Evolution**:
 
-```
+```yaml
 2004: Simple key-value store
 ├── Problem: Single master bottleneck
 └── Solution: Consistent hashing
@@ -113,7 +130,7 @@ class DynamoNode:
 
 **Architecture**:
 
-```
+```text
 Hash Slot Distribution (16,384 slots)
 ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
 │  Master A   │ │  Master B   │ │  Master C   │

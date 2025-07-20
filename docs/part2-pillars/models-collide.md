@@ -1,3 +1,19 @@
+---
+title: When Models Collide
+description: "Conflict: Can't have all four!
+```"
+type: pillar
+difficulty: intermediate
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → **When Models Collide**
+
+
 # When Models Collide
 
 **Learning Objective**: Real systems don't fit neatly into models; learn to handle the mess.
@@ -6,7 +22,7 @@
 
 ### The Challenge
 
-```
+```text
 Requirements:
 1. <100ms latency globally (Axiom 1)
 2. 99.999% availability (Axiom 3)  
@@ -18,7 +34,7 @@ Conflict: Can't have all four!
 
 ### The Hybrid Solution
 
-```
+```text
 ┌─────────────── US-WEST ───────────────┐
 │  ┌─────────────────────────────────┐  │
 │  │   Primary Payment Database       │  │

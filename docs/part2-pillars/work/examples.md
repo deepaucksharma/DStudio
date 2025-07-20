@@ -1,3 +1,22 @@
+---
+title: Work Distribution Examples
+description: "After (2020):
+┌─────────┐ ┌─────────┐ ┌──────────┐
+│  User   │ │Playlist │ │ Payment  │
+│ Service │ │ Service │ │ Service  │
+└─────────┘ └─────────..."
+type: pillar
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Work](/part2-pillars/work/) → **Work Distribution Examples**
+
+
 # Work Distribution Examples
 
 ## Real-World Case Studies
@@ -9,7 +28,7 @@
 **Problem**: Monolithic backend couldn't scale with team growth
 
 **Solution Architecture**:
-```
+```proto
 Before (2012):
 ┌─────────────────────────────┐
 │    Monolithic Backend       │

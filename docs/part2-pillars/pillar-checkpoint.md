@@ -1,3 +1,22 @@
+---
+title: Pillar Checkpoint Exercise
+description: How would you distribute the chat workload?
+```proto
+□ Geographic sharding (users by region)
+□ Channel-based sharding (rooms/groups)
+□ Temporal sharding...
+type: pillar
+difficulty: intermediate
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → **Pillar Checkpoint Exercise**
+
+
 # Pillar Checkpoint Exercise
 
 ## Exercise: Design a Global Chat System
@@ -24,8 +43,7 @@ How would you distribute the chat workload?
 □ Feature sharding (presence separate)
 
 Your design: ________________
-```
-
+```text
 **2. State Distribution (2 points)**
 
 Where does each type of state live?
@@ -36,8 +54,7 @@ User profiles: [________________]
 Read receipts: [________________]
 
 Justify your choices: ________________
-```
-
+```text
 **3. Truth Distribution (2 points)**
 
 What consistency model for each feature?
@@ -48,8 +65,7 @@ Presence:          [________________]
 User blocks:       [________________]
 
 Trade-offs: ________________
-```
-
+```text
 **4. Control Distribution (2 points)**
 
 How do you manage the system?
@@ -58,8 +74,7 @@ Service discovery: [________________]
 Config management: [________________]
 Traffic routing:   [________________]
 Monitoring:        [________________]
-```
-
+```text
 **5. Intelligence Distribution (2 points)**
 
 Where can ML/AI help?
@@ -71,8 +86,7 @@ Where can ML/AI help?
 □ Auto-scaling predictions
 
 Your top 2 choices: ________________
-```
-
+```bash
 ### Design Sketch Section
 
 Draw your architecture showing:

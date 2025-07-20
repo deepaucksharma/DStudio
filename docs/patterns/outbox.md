@@ -1,3 +1,24 @@
+---
+title: Outbox Pattern
+description: "This leads to:
+- Data inconsistency between services
+- Lost domain events
+- Ghost events causing invalid state
+- Complex recovery procedures
+- Manu..."
+type: pattern
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Outbox Pattern**
+
+
 # Outbox Pattern
 
 **Reliable message publishing with transactional guarantees - Never lose an event again**
@@ -589,3 +610,7 @@ How outbox pattern works with other patterns:
 ---
 
 *"In distributed systems, there are only two hard problems: exactly-once delivery, guaranteed message ordering, and off-by-one errors."*
+
+---
+
+**Previous**: [← Observability Patterns](observability.md) | **Next**: [Pattern Catalog Quiz →](pattern-quiz.md)

@@ -1,3 +1,20 @@
+---
+title: Graceful Degradation Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: beginner
+reading_time: 20 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Graceful Degradation Pattern**
+
+
 # Graceful Degradation Pattern
 
 **Maintaining partial functionality when systems fail**
@@ -559,8 +576,7 @@ class TwitterDegradation:
         # Else: Only essential features
         
         return enabled_features
-```
-
+```bash
 ### Real-World Case Study: GitHub's Degradation
 
 ```python
@@ -652,8 +668,7 @@ class GitHubDegradationStrategy:
                 'retry_after': 300
             }
         }
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -847,3 +862,97 @@ class AdaptiveDegradation:
 ---
 
 *"The mark of a robust system is not that it never fails, but how gracefully it fails."*
+
+---
+
+**Previous**: [← Geo-Replication Patterns](geo-replication.md) | **Next**: [GraphQL Federation →](graphql-federation.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Graceful Degradation in existing systems
+
+**Task**: 
+Find 2 real-world examples where Graceful Degradation is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Graceful Degradation
+
+**Scenario**: You need to implement Graceful Degradation for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Graceful Degradation
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Graceful Degradation
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Graceful Degradation be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Graceful Degradation later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Graceful Degradation in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Graceful Degradation to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

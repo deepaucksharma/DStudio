@@ -1,3 +1,20 @@
+---
+title: Observability Patterns
+description: Flying blind in production = Pain
+```text
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Observability Patterns**
+
+
 # Observability Patterns
 
 **You can't fix what you can't see**
@@ -12,8 +29,7 @@ Production mystery:
 - "It worked yesterday" → What changed?
 
 Flying blind in production = Pain
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -24,8 +40,7 @@ METRICS          LOGS           TRACES
 What's broken?  Why broken?   How it broke?
    ↓               ↓               ↓
  Grafana       Elasticsearch   Jaeger
-```
-
+```bash
 ## The Observability Stack
 
 ```
@@ -40,8 +55,7 @@ What's broken?  Why broken?   How it broke?
    
 4. ANALYSIS (Use data)
    Dashboards, alerts, queries
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -385,8 +399,7 @@ class SLOMonitor:
             'budget_remaining': remaining_budget,
             'budget_remaining_percent': (remaining_budget / allowed_errors) * 100
         }
-```
-
+```bash
 ## Advanced Observability
 
 ```python
@@ -480,3 +493,7 @@ class CorrelationAnalyzer:
 • **Google**: Dapper tracing
 • **Twitter**: Observability 2.0
 • **Netflix**: Atlas metrics
+
+---
+
+**Previous**: [← Load Shedding Pattern](load-shedding.md) | **Next**: [Outbox Pattern →](outbox.md)

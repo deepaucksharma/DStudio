@@ -1,3 +1,18 @@
+---
+title: Universal Scalability Law
+description: "Real systems face two impediments to linear scaling:"
+type: quantitative
+difficulty: intermediate
+reading_time: 50 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part IV: Quantitative](/quantitative/) → **Universal Scalability Law**
+
+
 # Universal Scalability Law
 
 **Why systems don't scale linearly**
@@ -6,7 +21,7 @@
 
 Real systems face two impediments to linear scaling:
 
-```
+```python
 C(N) = N / (1 + α(N-1) + βN(N-1))
 
 Where:
@@ -19,21 +34,21 @@ N = Number of nodes
 ## Three Scaling Regimes
 
 ### 1. Linear Scaling (α=0, β=0)
-```
+```text
 Perfect world: 2x nodes = 2x capacity
 Reality: Never happens
 Example: Embarrassingly parallel batch jobs
 ```
 
 ### 2. Contention-Limited (α>0, β=0)
-```
+```text
 Shared resource bottleneck
 Example: Database lock contention
 Shape: Approaches horizontal asymptote
 ```
 
 ### 3. Coherency-Limited (α>0, β>0)
-```
+```text
 Coordination overhead dominates
 Example: Distributed consensus
 Shape: Performance DECREASES after peak!
@@ -42,7 +57,7 @@ Shape: Performance DECREASES after peak!
 ## Measuring Your Parameters
 
 ### Data Collection
-```
+```python
 Nodes  Throughput   Relative
 -----  ----------   --------
 1      1000 req/s   1.0
@@ -54,7 +69,7 @@ Nodes  Throughput   Relative
 ```
 
 ### Parameter Fitting
-```
+```python
 Using regression or optimization:
 α ≈ 0.03 (3% serialization)
 β ≈ 0.0008 (0.08% coordination cost)
@@ -65,7 +80,7 @@ Peak performance at: N = sqrt((1-α)/β) ≈ 35 nodes
 ## Real-World Examples
 
 ### Database Replication
-```
+```python
 Read replicas scaling:
 - Contention: Connection pool limits
 - Coherency: Replication lag monitoring
@@ -77,7 +92,7 @@ Peak: ~30 replicas
 ```
 
 ### Microservice Mesh
-```
+```proto
 Service-to-service calls:
 - Contention: Service discovery lookups
 - Coherency: Health checking, N² connections
@@ -89,7 +104,7 @@ Peak: ~10 services before degradation
 ```
 
 ### Distributed Cache
-```
+```python
 Cache nodes:
 - Contention: Hash ring updates
 - Coherency: Cache invalidation broadcasts
@@ -101,7 +116,7 @@ Peak: ~100 nodes practical limit
 ```
 
 ### Kafka Cluster
-```
+```python
 Broker scaling:
 - Contention: Zookeeper operations
 - Coherency: Partition rebalancing
@@ -250,8 +265,7 @@ USL prediction:
 40 nodes → 15200 req/s (degrading)
 
 Conclusion: Need architectural change
-```
-
+```bash
 ### Break the Bottleneck
 ```
 Options:
@@ -259,8 +273,7 @@ Options:
 2. Reduce coordination (lower β)
 3. Async processing (lower α)
 4. Caching layer (offload entirely)
-```
-
+```bash
 ### Sharding Strategy
 ```
 Single system: Peak at 35 nodes
@@ -268,8 +281,7 @@ Single system: Peak at 35 nodes
 Total capacity: 4 × peak = 4x improvement
 
 But: Cross-shard operations costly
-```
-
+```python
 ## USL in Practice
 
 ### Monitoring for USL
@@ -286,8 +298,7 @@ Watch for:
 - Network traffic growing quadratically
 - Lock contention increasing
 - Coordination overhead rising
-```
-
+```bash
 ### Architecture Decisions
 ```
 If α dominates:

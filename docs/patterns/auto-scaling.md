@@ -1,3 +1,20 @@
+---
+title: Auto-scaling Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: beginner
+reading_time: 25 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Auto-scaling Pattern**
+
+
 # Auto-scaling Pattern
 
 **Dynamic resource allocation based on demand**
@@ -481,8 +498,7 @@ class ScryerAutoScaler:
                 })
         
         return self._optimize_recommendations(recommendations)
-```
-
+```bash
 #### Kubernetes Horizontal Pod Autoscaler
 ```python
 class HorizontalPodAutoscaler:
@@ -552,8 +568,7 @@ class HorizontalPodAutoscaler:
         ratio = desired / self.current_replicas
         
         return ratio > (1 + tolerance) or ratio < (1 - tolerance)
-```
-
+```bash
 ### Real-World Case Study: AWS Auto Scaling
 
 ```python
@@ -627,8 +642,7 @@ class AWSAutoScalingGroup:
             # Find smallest scale-in
             scale_in_adjs = [a for a in adjustments if a['action'] == 'scale_in']
             return min(scale_in_adjs, key=lambda x: abs(x['adjustment']))
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -817,3 +831,97 @@ class OptimalAutoScaler:
 ---
 
 *"The best scaling is the scaling you don't notice."*
+
+---
+
+**Next**: [Bulkhead Pattern →](bulkhead.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Auto-scaling in existing systems
+
+**Task**: 
+Find 2 real-world examples where Auto-scaling is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Auto-scaling
+
+**Scenario**: You need to implement Auto-scaling for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Auto-scaling
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Auto-scaling
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Auto-scaling be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Auto-scaling later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Auto-scaling in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Auto-scaling to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

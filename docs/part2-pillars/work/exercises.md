@@ -1,3 +1,19 @@
+---
+title: Work Distribution Exercises
+description: <details>
+<summary>Solution Approach</summary>
+type: pillar
+difficulty: beginner
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Work](/part2-pillars/work/) → **Work Distribution Exercises**
+
+
 # Work Distribution Exercises
 
 ## Exercise 1: Design a Video Processing Pipeline

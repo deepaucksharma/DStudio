@@ -1,25 +1,17 @@
 ---
-title: "Uber's Real-Time Location System"
-description: "Track millions of drivers and riders globally with sub-second updates"
-date: 2024-01-20
-category: "case-studies"
-case_study_type: "real-time-systems"
-company: "Uber"
-industry: "transportation"
-tags:
-  - real-time
-  - location-tracking
-  - distributed-systems
-  - geospatial
-  - high-scale
-difficulty: "advanced"
-reading_time: "25 min"
-axioms_demonstrated:
-  - latency
-  - capacity
-  - failure
-  - coordination
+title: Uber's Real-Time Location System
+description: Track millions of drivers and riders globally with sub-second updates
+type: case-study
+difficulty: advanced
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Case Studies](/case-studies/) → **Uber's Real-Time Location System**
+
 
 # 🚗 Uber's Real-Time Location System
 
@@ -49,7 +41,7 @@ axioms_demonstrated:
 
 ### Phase 1: Simple Polling (2009-2011)
 
-```
+```text
 Driver App → API Gateway → MySQL → Dispatcher
 ```
 
@@ -60,7 +52,7 @@ Driver App → API Gateway → MySQL → Dispatcher
 
 ### Phase 2: In-Memory Grid (2011-2013)
 
-```
+```text
 Driver App → Load Balancer → App Servers → Redis Cluster
                                          ↓
                                     MySQL (backup)
@@ -170,7 +162,7 @@ graph LR
 - Intelligent batching
 
 **Resource Optimization**:
-```
+```yaml
 Before: 1 update/4 sec × 5M drivers = 1.25M writes/sec
 After:  Variable rate + batching = 400K writes/sec (68% reduction)
 ```
@@ -204,7 +196,7 @@ After:  Variable rate + batching = 400K writes/sec (68% reduction)
 - Idempotent operations
 
 **Example: Driver State Machine**
-```
+```text
 OFFLINE → ONLINE → DISPATCHED → EN_ROUTE → ARRIVED → IN_TRIP → OFFLINE
 ```
 
@@ -235,7 +227,7 @@ Each transition is an atomic operation with strict ordering guarantees.
 
 ### 4. Matching Algorithm
 **Decision**: Hierarchical search with ML ranking
-```
+```text
 1. Coarse filter: H3 cells within radius
 2. Fine filter: Actual distance calculation
 3. ML ranking: Driver behavior, traffic, history
@@ -334,3 +326,7 @@ Each transition is an atomic operation with strict ordering guarantees.
 ---
 
 *"At Uber's scale, the speed of light becomes a real constraint in system design."*
+
+---
+
+**Next**: [Amazon DynamoDB →](amazon-dynamo.md)

@@ -1,3 +1,19 @@
+---
+title: Control & Coordination Exercises
+description: <details>
+<summary>Solution</summary>
+type: pillar
+difficulty: intermediate
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Control](/part2-pillars/control/) → **Control & Coordination Exercises**
+
+
 # Control & Coordination Exercises
 
 ## Exercise 1: Build a Circuit Breaker

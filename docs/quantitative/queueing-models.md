@@ -1,3 +1,21 @@
+---
+title: Queueing Models (M/M/1)
+description: "M/M/1 notation means:
+- Markovian (exponential) arrivals
+- Markovian (exponential) service times  
+- 1 server"
+type: quantitative
+difficulty: beginner
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part IV: Quantitative](/quantitative/) → **Queueing Models (M/M/1)**
+
+
 # Queueing Models (M/M/1)
 
 **When will your system hit the wall?**
@@ -10,7 +28,7 @@ M/M/1 notation means:
 - **1** server
 
 Key parameter:
-```
+```proto
 ρ = λ/μ (utilization)
 Where:
 λ = arrival rate
@@ -20,7 +38,7 @@ Where:
 ## Fundamental Formulas
 
 ### Average Queue Length
-```
+```text
 Lq = ρ²/(1-ρ)
 
 Example:
@@ -31,7 +49,7 @@ Example:
 ```
 
 ### Average Wait Time
-```
+```python
 Wq = Lq/λ = ρ/(μ-λ)
 
 Example (μ=100 req/s):
@@ -42,7 +60,7 @@ Example (μ=100 req/s):
 ```
 
 ### Response Time Distribution
-```
+```python
 P(response time > t) = e^(-μ(1-ρ)t)
 
 Probability of response > 1 second:
@@ -56,7 +74,7 @@ At 95% util: e^(-5×0.05×1) = 7.8%!
 
 Response time vs utilization shows exponential growth:
 
-```
+```python
 Utilization  Queue Time   Total Response
 -----------  ----------   --------------
 50%          10ms         20ms
@@ -77,12 +95,12 @@ With multiple servers, the math gets complex but the insights remain:
 
 ### Erlang C Formula
 Probability that an arriving customer must queue:
-```
+```python
 P(queue) = (ρ^c / c!) / Σ(k=0 to c-1)[(ρ^k / k!) + (ρ^c / c!) × (1/(1-ρ/c))]
 ```
 
 ### Practical Impact
-```
+```python
 Servers  Utilization  Queue Probability
 -------  -----------  -----------------
 1        80%          80%
@@ -97,7 +115,7 @@ Servers  Utilization  Queue Probability
 ## Real-World Applications
 
 ### API Server Sizing
-```
+```proto
 Given:
 - Request rate: 1000 req/s
 - Service time: 50ms
@@ -114,7 +132,7 @@ Queue time ≈ 100ms (acceptable)
 ```
 
 ### Database Connection Pool
-```
+```redis
 Queries: 500/s
 Query time: 20ms
 Target wait: <5ms
@@ -127,7 +145,7 @@ Connections needed = 500×0.02/0.2 = 50
 ```
 
 ### Message Queue Sizing
-```
+```python
 Messages: 1000/s
 Process time: 10ms
 Target: <100ms latency
@@ -143,7 +161,7 @@ Add safety: 15 workers
 ## When M/M/1 Breaks Down
 
 ### Real Traffic is Bursty
-```
+```python
 Actual pattern:
 - Morning spike: 2x average
 - Lunch lull: 0.5x average  
@@ -154,7 +172,7 @@ Safety factor: 1.5-2x
 ```
 
 ### Service Times Vary
-```
+```python
 Real distribution:
 - Fast queries: 10ms (80%)
 - Slow queries: 200ms (20%)
@@ -164,7 +182,7 @@ Use M/G/1 model or simulation
 ```
 
 ### Correlated Arrivals
-```
+```python
 Real pattern:
 - User sessions generate bursts
 - Failures cause retries
@@ -199,7 +217,7 @@ elif avg_wait_time < target/2:
 ```
 
 ### Priority Queues
-```
+```text
 High priority: Payment processing
 Normal priority: Regular API calls
 Low priority: Batch operations
@@ -210,7 +228,7 @@ Separate queues or weighted fair queueing
 ## Advanced Queueing Patterns
 
 ### Queue with Timeout
-```
+```python
 Effective arrival rate when customers leave:
 λ_eff = λ × P(wait < timeout)
 
@@ -218,7 +236,7 @@ Improves system stability but reduces throughput
 ```
 
 ### Bulk Service
-```
+```python
 Process N items together:
 - Reduces per-item overhead
 - Increases minimum latency
@@ -226,7 +244,7 @@ Process N items together:
 ```
 
 ### Processor Sharing
-```
+```python
 All customers served simultaneously at reduced rate
 - Used in CPU scheduling
 - Fair but higher average latency
@@ -236,7 +254,7 @@ All customers served simultaneously at reduced rate
 ## Practical Guidelines
 
 ### Sizing for Latency
-```
+```proto
 Target Latency  Max Utilization
 --------------  ---------------
 2x service time      50%
@@ -254,7 +272,7 @@ Key metrics to track:
 - Service rate (μ)
 
 ### Capacity Planning
-```
+```proto
 Current: 70% utilization, 30ms response
 Future: 2x traffic
 

@@ -1,3 +1,20 @@
+---
+title: Load Balancing Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: intermediate
+reading_time: 20 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Load Balancing Pattern**
+
+
 # Load Balancing Pattern
 
 **Distributing work across multiple resources**
@@ -912,3 +929,7 @@ class OptimalLoadBalancer:
 ---
 
 *"Perfect balance is not the goal—effective distribution is."*
+
+---
+
+**Previous**: [← Leader Election Pattern](leader-election.md) | **Next**: [Load Shedding Pattern →](load-shedding.md)

@@ -1,3 +1,18 @@
+---
+title: On-Call Culture
+description: On-call culture encompasses the practices, values, and systems that make 24/7 service support sustainable and effective while maintaining team heal...
+type: human-factors
+difficulty: beginner
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **On-Call Culture**
+
+
 # On-Call Culture
 
 **Building sustainable and effective on-call practices**

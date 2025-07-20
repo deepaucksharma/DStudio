@@ -1,3 +1,18 @@
+---
+title: Incident Response
+description: Incident response is the organized approach to addressing and managing the aftermath of a security breach or system failure. The goal is to handle ...
+type: human-factors
+difficulty: beginner
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Incident Response**
+
+
 # Incident Response
 
 **Coordinated action when systems fail**
@@ -93,7 +108,7 @@ class IncidentResponseChecklist:
 ### Communication Templates
 
 #### Initial Customer Communication
-```
+```text
 We are currently investigating reports of [service] issues. 
 Our team is actively working on the problem.
 
@@ -105,7 +120,7 @@ Status page: [link]
 ```
 
 #### Update Communication
-```
+```text
 Update on [service] incident:
 
 Current status: [Investigating/Identified/Monitoring]
@@ -116,7 +131,7 @@ Next update in: [timeframe]
 ```
 
 #### Resolution Communication
-```
+```yaml
 The [service] incident has been resolved.
 
 Duration: [start time] - [end time]
@@ -269,8 +284,7 @@ kubectl rollout undo deployment/service-name
 
 # Rollback to specific version
 kubectl rollout undo deployment/service-name --to-revision=2
-```
-
+```bash
 ### Emergency Scale
 ```bash
 # Scale up immediately
@@ -278,7 +292,7 @@ kubectl scale deployment/service-name --replicas=10
 
 # Auto-scale based on CPU
 kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
-```
+```text
 ```
 
 ## Incident Metrics

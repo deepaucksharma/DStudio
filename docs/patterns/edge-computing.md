@@ -1,3 +1,20 @@
+---
+title: Edge Computing/IoT Patterns
+description: When milliseconds = meters, edge matters
+```text
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Edge Computing/IoT Patterns**
+
+
 # Edge Computing/IoT Patterns
 
 **Computing at the speed of physics**
@@ -12,8 +29,7 @@ Centralized cloud has physics limits:
 - Remote oil rig satellite link = $10/MB
 
 When milliseconds = meters, edge matters
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -23,8 +39,7 @@ Device     Edge Node    Regional DC    Cloud
  [ML]  →   [Cache]  →  [Process]  →  [Store]
   ↓          ↓            ↓            ↓
 <1ms       <10ms        <50ms        <200ms
-```
-
+```bash
 ## Edge Architecture Patterns
 
 ```
@@ -39,8 +54,7 @@ Device     Edge Node    Regional DC    Cloud
    
 4. HIERARCHICAL PROCESSING
    Sense → Filter → Aggregate → Analyze
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -285,8 +299,7 @@ class EdgeOrchestrator:
         )
         
         return deployment.deploy()
-```
-
+```bash
 ## Edge-Specific Patterns
 
 ```python
@@ -362,3 +375,97 @@ class EdgeFederation:
 • **Tesla**: Autopilot edge inference
 • **AWS Wavelength**: 5G edge computing
 • **Azure IoT Edge**: Factory automation
+
+---
+
+**Previous**: [← Distributed Lock Pattern](distributed-lock.md) | **Next**: [Event-Driven Architecture →](event-driven.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Edge Computing/IoT s in existing systems
+
+**Task**: 
+Find 2 real-world examples where Edge Computing/IoT s is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Edge Computing/IoT s
+
+**Scenario**: You need to implement Edge Computing/IoT s for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Edge Computing/IoT s
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Edge Computing/IoT s
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Edge Computing/IoT s be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Edge Computing/IoT s later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Edge Computing/IoT s in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Edge Computing/IoT s to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

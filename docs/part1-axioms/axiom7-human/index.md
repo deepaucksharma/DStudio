@@ -1,3 +1,21 @@
+---
+title: "Axiom 7: Human-System Interface"
+description: "Think about airplane cockpits:
+- 1920s: Hundreds of unlabeled switches, dials everywhere
+- 1970s: Organized panels, standard layouts
+- Today: Glass..."
+type: axiom
+difficulty: intermediate
+reading_time: 55 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](/part1-axioms/axiom7-human/) → **Axiom 7: Human-System Interface**
+
+
 # Axiom 7: Human-System Interface
 
 ---
@@ -19,7 +37,7 @@ Think about airplane cockpits:
 
 ### Real-World Analogy: Kitchen Design
 
-```
+```text
 Bad Kitchen (Bad Ops Interface):
 - Knives mixed with spoons
 - Hot stove next to paper towels
@@ -43,14 +61,14 @@ Result: Efficient, safe cooking
 Try typing these commands quickly:
 
 **Test 1: IP Addresses**
-```
+```text
 ssh 10.0.1.5   (production)
 ssh 10.0.1.15  (development)
 ```
 How easy to mix up? Very!
 
 **Test 2: Meaningful Names**
-```
+```text
 ssh prod-database-primary
 ssh dev-database-test
 ```
@@ -79,7 +97,7 @@ How easy to mix up? Much harder!
 <div class="principle-box">
 <h3>The Human Component Specifications</h3>
 
-```
+```text
 Human "Hardware" Specs:
 - Input: Eyes (10 Mbps), Ears (1 Mbps)
 - Processing: ~50 bits/second conscious thought
@@ -101,7 +119,7 @@ System Implications:
 <div class="swiss-cheese-diagram">
 <h3>🧀 How Human Errors Become Disasters</h3>
 
-```
+```yaml
 Defense Layer 1: UI Design
     🧀 (Hole: Similar looking buttons)
          ↓
@@ -146,7 +164,7 @@ $ remove-capacity -n 12000
 ```
 
 **The UI That Failed**:
-```
+```text
 Enter number of servers to remove: [________]
 [Execute]
 ```
@@ -159,7 +177,7 @@ Enter number of servers to remove: [________]
 5. Tool allowed impossible operations
 
 **The Fix**:
-```
+```proto
 New UI:
 ┌─────────────────────────────────────┐
 │ Remove Capacity Tool                │
@@ -184,7 +202,7 @@ New UI:
 <div class="cognitive-load">
 <h3>🧠 Mental Capacity Budget</h3>
 
-```
+```yaml
 Total Cognitive Capacity: 100%
 
 During Normal Operations:
@@ -217,7 +235,7 @@ Reduce cognitive load during incidents
 <div class="info-architecture">
 <h3>📊 Progressive Disclosure Pattern</h3>
 
-```
+```proto
 Level 1: Status Overview (Glanceable)
 ┌─────────────────────────────────┐
 │ System Status: ● HEALTHY        │
@@ -265,7 +283,7 @@ Level 3: Detailed Metrics (Analytical)
 | **Catastrophic** | Physical key turn | Shutdown entire region |
 
 **Implementation Example**:
-```
+```yaml
 ┌─────────────────────────────────────────┐
 │ ⚠️ DANGEROUS OPERATION                  │
 │                                         │
@@ -346,8 +364,7 @@ kubectl scale deployment payment-api --replicas=+3
 kubectl get pods -l app=payment-api --watch
 
 # Should see CPU drop within 2 minutes
-```
-
+```bash
 ### Fix B: Database locks (30% of cases)
 [Full query and resolution steps...]
 
@@ -372,7 +389,7 @@ kubectl get pods -l app=payment-api --watch
 **Design Principles Applied**:
 
 1. **Role-Based Stations**
-```
+```text
 ┌─────┬─────┬─────┬─────┐
 │FLIGHT│RETRO│FIDO │EECOM│  Front Row: Critical
 ├─────┼─────┼─────┼─────┤
@@ -393,7 +410,7 @@ Voice loops for coordination
 - No information overload
 
 3. **Communication Protocol**
-```
+```text
 "Flight, RETRO"      (Address, Identify)
 "Go ahead, RETRO"    (Acknowledge)
 "Trajectory nominal" (Message)
@@ -421,7 +438,7 @@ Clear, unambiguous, recorded
 <h3>🎨 Production-Tested Interface Patterns</h3>
 
 **1. The Status Semaphore**
-```
+```bash
 Normal Operations          During Incident
 ┌─────────────────┐       ┌─────────────────┐
 │                 │       │    INCIDENT     │
@@ -440,7 +457,7 @@ One-click to action
 ```
 
 **2. The Danger Zone Pattern**
-```
+```proto
 ┌─────────────────────────────────────────┐
 │ Normal Operations                       │
 │ ┌─────────────┐ ┌─────────────┐        │
@@ -465,7 +482,7 @@ Visual hierarchy prevents accidents
 ```
 
 **3. The Context Accumulator**
-```
+```yaml
 As you navigate, breadcrumbs build context:
 
 Home > Production > US-East > Payments > API Servers > Instance-42
@@ -488,7 +505,7 @@ Always visible, prevents "where am I?" confusion
 <div class="toil-elimination">
 <h3>📊 The Toil Elimination Pyramid</h3>
 
-```
+```text
          Toil Hierarchy
               △
             /   \
@@ -510,7 +527,7 @@ Goal: Move everything up
 ```
 
 **Real Toil Metrics**:
-```
+```text
 Team: Payment Platform SRE
 Quarter: Q1 2024
 
@@ -535,7 +552,7 @@ Total reduction: 115 hrs → 41 hrs (64% reduction)
 <h3>🚀 Beyond Traditional Interfaces</h3>
 
 **1. Predictive Interfaces**
-```
+```yaml
 Traditional: Show current state
 Future: Show predicted future
 
@@ -552,7 +569,7 @@ Future: Show predicted future
 ```
 
 **2. AR/VR Operations Centers**
-```
+```text
 Instead of 2D dashboards:
 - 3D service topology
 - Walk through your infrastructure
@@ -568,7 +585,7 @@ Example: Netflix VROE (VR Ops Environment)
 ```
 
 **3. AI Pair Operator**
-```
+```dockerfile
 Human: "Why is latency high?"
 AI: "Database queries from the new feature.
      Query time increased 10x after deploy.
@@ -633,7 +650,7 @@ Natural collaboration, not replacement
 <h3>📋 Human Factors Checklist</h3>
 
 **For Every Interface**:
-```
+```text
 ☐ Can tired person use safely?
 ☐ Destructive actions protected?
 ☐ State clearly visible?
@@ -642,7 +659,7 @@ Natural collaboration, not replacement
 ```
 
 **For Every Procedure**:
-```
+```dockerfile
 ☐ Documented in runbook?
 ☐ Automated if possible?
 ☐ Tested regularly?
@@ -651,7 +668,7 @@ Natural collaboration, not replacement
 ```
 
 **For Every Incident**:
-```
+```text
 ☐ Human factors analyzed?
 ☐ UI improvements identified?
 ☐ Automation opportunities?
@@ -665,3 +682,7 @@ Natural collaboration, not replacement
 **Next**: [Axiom 8: Economics →](../axiom8-economics/index.md)
 
 *"The best interface is no interface. The best process is no process. But until then, design for humans."*
+
+---
+
+**Next**: [Examples](examples.md)

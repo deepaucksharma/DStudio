@@ -1,3 +1,21 @@
+---
+title: "Axiom 6: Observability"
+description: "Imagine driving at night:
+- Clear night, good headlights: You see the road ahead
+- Foggy night, dim lights: You see 10 feet, drive slowly
+- No ligh..."
+type: axiom
+difficulty: beginner
+reading_time: 60 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](/part1-axioms/axiom6-observability/) → **Axiom 6: Observability**
+
+
 # Axiom 6: Observability
 
 ---
@@ -20,7 +38,7 @@ Imagine driving at night:
 
 ### Real-World Analogy: Medical Diagnosis
 
-```
+```yaml
 Patient: "I don't feel well"
 
 Bad Doctor (No Observability):
@@ -66,7 +84,7 @@ Try debugging these scenarios:
 
 ### The Beginner's Observability Pyramid
 
-```
+```text
           ▲
          /│\
         / │ \  Traces
@@ -92,7 +110,7 @@ Start at the bottom, work your way up
 <div class="principle-box">
 <h3>The Distributed Uncertainty Principle</h3>
 
-```
+```yaml
 You cannot simultaneously know:
 1. Exact state of all nodes (snapshot lag)
 2. Exact order of all events (clock skew)
@@ -114,7 +132,7 @@ More observation = More overhead = Changed behavior
 <div class="pillars-diagram">
 <h3>🏛️ The Observability Temple</h3>
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │                 OBSERVABILITY                   │
 │                                                 │
@@ -166,7 +184,7 @@ More observation = More overhead = Changed behavior
 - Which features caused load (no attribution)
 
 **The Investigation**:
-```
+```yaml
 Day 1-30: "Add more servers" (didn't help)
 Day 31-60: "Rewrite in Scala" (helped some)
 Day 61-90: Add real observability:
@@ -212,7 +230,7 @@ Discovery: Tweet timeline query doing N+1 queries!
 <div class="golden-signals">
 <h3>✨ Google SRE's Universal Health Metrics</h3>
 
-```
+```yaml
 ┌─────────────────────────────────────────────────┐
 │              THE FOUR GOLDEN SIGNALS            │
 ├─────────────────────────────────────────────────┤
@@ -265,7 +283,7 @@ If you monitor nothing else, monitor these.
 <div class="sampling-strategy">
 <h3>🎲 Smart Sampling: See Everything Important, Store Less</h3>
 
-```
+```python
 Naive Approach: Sample 1% uniformly
 Problem: Misses rare but important events
 
@@ -305,7 +323,7 @@ Smart Sampling Decision Tree:
 <h3>⚠️ Observability Mistakes That Hurt</h3>
 
 **1. The "Logger Vomit"**
-```
+```text
 log.debug("Entering function")
 log.debug("Parameter x = " + x)
 log.debug("About to check condition")
@@ -316,7 +334,7 @@ Result: 10TB logs/day, 0 useful information
 ```
 
 **2. The "Average Lies"**
-```
+```yaml
 Dashboard shows: Average latency = 50ms ✅
 Reality: 
 - 95% of requests: 10ms
@@ -325,7 +343,7 @@ Average hides the suffering
 ```
 
 **3. The "Metric Explosion"**
-```
+```bash
 cardinality = user_id × endpoint × status_code × region
            = 1M × 100 × 10 × 20
            = 20 billion time series
@@ -334,7 +352,7 @@ cardinality = user_id × endpoint × status_code × region
 ```
 
 **4. The "Dashboard Graveyard"**
-```
+```text
 500 dashboards created
 3 actually used
 497 showing stale/broken metrics
@@ -358,7 +376,7 @@ Nobody knows which are important
 - Multiple cities with different patterns
 
 **Phase 1: The Dark Ages (2014)**
-```
+```yaml
 - Each team: Different logging
 - No standards
 - No correlation
@@ -367,7 +385,7 @@ Nobody knows which are important
 ```
 
 **Phase 2: Standardization (2016)**
-```
+```text
 Introduced:
 - Structured logging standard
 - Correlation IDs (uber-trace-id)
@@ -378,7 +396,7 @@ Result: MTTR down to hours
 ```
 
 **Phase 3: Distributed Tracing (2018)**
-```
+```text
 Built Jaeger (open-sourced):
 - Trace every Nth request
 - Dynamic sampling on errors
@@ -389,7 +407,7 @@ Result: MTTR down to minutes
 ```
 
 **Phase 4: ML-Powered Insights (2020)**
-```
+```text
 Added:
 - Anomaly detection
 - Automatic root cause analysis
@@ -400,7 +418,7 @@ Result: Many issues fixed before users notice
 ```
 
 **Key Innovation: Context Propagation**
-```
+```javascript
 Every request carries:
 {
   "uber-trace-id": "abc123",
@@ -421,7 +439,7 @@ Benefit: Can slice data by any dimension
 <h3>🎨 Production-Tested Observability Patterns</h3>
 
 **1. The SLI/SLO/SLA Hierarchy**
-```
+```proto
 SLI (Service Level Indicator): What you measure
   - API latency P99 < 100ms
   - Error rate < 0.1%
@@ -436,7 +454,7 @@ Buffer: SLO > SLA (your safety margin)
 ```
 
 **2. Error Budget Monitoring**
-```
+```redis
 Monthly Error Budget = (1 - SLO) × Minutes
 99.9% SLO = 43.2 minutes downtime allowed
 
@@ -456,7 +474,7 @@ Dashboard:
 ```
 
 **3. Synthetic Monitoring**
-```
+```dockerfile
 Real User Monitoring: What users experience
 Synthetic Monitoring: Proactive testing
 
@@ -510,7 +528,7 @@ Benefit: Detect issues before users do
 **Traditional Observability**: Watch what happens
 **Chaos Observability**: Make things happen and watch
 
-```
+```yaml
 Chaos Experiments with Observability:
 
 1. Baseline Metrics
@@ -537,7 +555,7 @@ Chaos Experiments with Observability:
 ```
 
 **Chaos Observability Stack**:
-```
+```text
 ┌───────────────────────────────────────────┐
 │          Chaos Control Plane              │
 │  (What experiments are running where)     │
@@ -559,7 +577,7 @@ Chaos Experiments with Observability:
 <h3>🚀 Beyond Traditional Observability</h3>
 
 **1. AI-Powered Root Cause Analysis**
-```
+```text
 Traditional: Human looks at dashboards
 Future: AI identifies problems
 
@@ -571,7 +589,7 @@ Example:
 ```
 
 **2. Predictive Observability**
-```
+```yaml
 Current: Alert when things break
 Future: Alert before things break
 
@@ -582,7 +600,7 @@ Future: Alert before things break
 ```
 
 **3. Business Observability**
-```
+```bash
 Tech Metrics → Business Metrics
 
 "Latency increased 100ms" → "$50K/hour revenue loss"
@@ -591,7 +609,7 @@ Tech Metrics → Business Metrics
 ```
 
 **4. Quantum Observability**
-```
+```dockerfile
 Classical: Observe OR run fast
 Quantum: Observe AND run fast
 
@@ -635,7 +653,7 @@ Quantum: Observe AND run fast
 <h3>📋 Observability Checklist</h3>
 
 **Minimum Viable Observability**:
-```
+```text
 ☑ Structured JSON logs
 ☑ Four Golden Signals dashboard
 ☑ Error alerting (not noise)
@@ -644,7 +662,7 @@ Quantum: Observe AND run fast
 ```
 
 **Production-Ready Observability**:
-```
+```text
 ☑ All of above +
 ☑ Distributed tracing (sampled)
 ☑ SLI/SLO monitoring
@@ -654,7 +672,7 @@ Quantum: Observe AND run fast
 ```
 
 **World-Class Observability**:
-```
+```text
 ☑ All of above +
 ☑ ML-powered anomaly detection
 ☑ Chaos experiment tracking
@@ -669,3 +687,7 @@ Quantum: Observe AND run fast
 **Next**: [Axiom 7: Human Interface →](../axiom7-human/index.md)
 
 *"In distributed systems, the truth is out there... scattered across 1000 log files."*
+
+---
+
+**Next**: [Examples](examples.md)

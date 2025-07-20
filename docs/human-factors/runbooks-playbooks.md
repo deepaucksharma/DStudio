@@ -1,3 +1,18 @@
+---
+title: Runbooks & Playbooks
+description: "Think: Runbook = Recipe, Playbook = Cooking principles"
+type: human-factors
+difficulty: intermediate
+reading_time: 55 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Runbooks & Playbooks**
+
+
 # Runbooks & Playbooks
 
 **Turning chaos into checklist**
@@ -43,8 +58,7 @@ curl -X POST https://admin/circuit-breaker/payment/enable
 
 # 3. Switch to degraded mode
 ./scripts/enable-cached-payment-tokens.sh
-```
-
+```proto
 ## Investigation Steps
 1. **Check upstream dependencies**
    ```sql
@@ -97,8 +111,7 @@ Last resort if mitigation fails:
 
 # Verification
 curl https://payment-gateway/health | jq .version
-```
-
+```bash
 ## Follow-up Actions
 - [ ] Create incident ticket
 - [ ] Update status page
@@ -237,8 +250,7 @@ git log --since="2 hours ago" -- config/
 
 # Infrastructure events
 aws ec2 describe-instances --filters "Name=launch-time,Values=>2024-01-01"
-```
-
+```bash
 ### 3. Blast Radius
 - Which services affected?
 - Which regions?
@@ -262,8 +274,7 @@ for service in $(kubectl get deployments -o name); do
   echo "=== $service ==="
   kubectl logs -l app=$service --since=1h | grep -i "error\|timeout\|fail"
 done | tee investigation-$(date +%s).log
-```
-
+```bash
 ### Time Series Correlation
 ```python
 # Find what else spiked when issue started
@@ -276,8 +287,7 @@ for metric in metrics:
     
     if spike_detected(values_before, values_after):
         print(f"Correlated spike: {metric.name}")
-```
-
+```bash
 ### Hypothesis Testing
 1. Form hypothesis: "DB connection exhaustion"
 2. Make prediction: "Connection count = max"
@@ -299,8 +309,7 @@ Never assume - always measure:
 ```bash
 # Trace full request path
 curl -H "X-Trace: true" https://api/endpoint | jq .trace_timeline
-```
-
+```proto
 ### 2. Component Breakdown
 - Network time (DNS, TLS, transfer)
 - Gateway processing
@@ -332,8 +341,7 @@ WHERE timestamp > NOW() - INTERVAL '5 minutes'
 GROUP BY query_template
 HAVING COUNT(*) > 100
 ORDER BY COUNT(*) DESC;
-```
-
+```bash
 ### Lock Contention
 Symptom: Spiky latency
 ```sql
@@ -347,14 +355,13 @@ FROM pg_stat_activity AS waiting
 JOIN pg_stat_activity AS blocking 
     ON blocking.pid = ANY(pg_blocking_pids(waiting.pid))
 WHERE waiting.wait_event_type = 'Lock';
-```
-
+```bash
 ### GC Pauses
 Symptom: Periodic freezes
 ```bash
 # Check GC logs
 grep "Full GC" app.log | awk '{print $10}' | stats
-```
+```bash
 ```
 
 ### Incident Command Playbook
@@ -449,8 +456,7 @@ Postmortem to follow."
 - Handles stakeholders
 - Drafts messaging
 - Shields tech team
-```
-
+```bash
 ## Automation Integration
 
 ### Executable Runbooks
@@ -489,8 +495,7 @@ class RunbookExecutor:
                 input("Press Enter when complete...")
                 
         print("\nRunbook execution complete!")
-```
-
+```bash
 ### ChatOps Integration
 
 ```yaml
@@ -514,8 +519,7 @@ commands:
           )
           
           return f"Starting runbook: {runbook_name}"
-```
-
+```bash
 ## Runbook Library Structure
 
 ### Organization
@@ -542,8 +546,7 @@ runbooks/
     ├── general-slowness.md
     ├── intermittent-errors.md
     └── customer-reports.md
-```
-
+```bash
 ### Runbook Metadata
 
 ```yaml
@@ -565,8 +568,7 @@ dashboards:
   - https://grafana/d/payments
   - https://grafana/d/database
 ---
-```
-
+```bash
 ## Testing Runbooks
 
 ### Chaos Day Validation
@@ -596,8 +598,7 @@ def chaos_test_runbook(runbook, environment='staging'):
     cleanup_failure(failure)
     
     return TestResult(success=True, duration=duration)
-```
-
+```bash
 ### Regular Drills
 
 ```yaml
@@ -620,8 +621,7 @@ spec:
               value: "safe"  # Don't break prod
             - name: RUNBOOK
               value: "random"  # Pick random runbook
-```
-
+```bash
 ## Best Practices
 
 1. **Write for Your Tired Self**

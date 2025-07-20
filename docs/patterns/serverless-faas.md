@@ -1,3 +1,23 @@
+---
+title: Serverless/FaaS (Function-as-a-Service)
+description: Request → API Gateway → Lambda → Response
+              ↓           ↓
+         Auto-scale    Millisecond
+         to millions   billing
+```dockerfile
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Serverless/FaaS (Function-as-a-Service)**
+
+
 # Serverless/FaaS (Function-as-a-Service)
 
 **No servers, just functions (that run on servers you don't see)**
@@ -11,8 +31,7 @@ Traditional scaling challenges:
 - Managing servers = operational overhead
 - 0→1 scaling = cold start pain
 - 1→0 scaling = paying for idle
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -22,8 +41,7 @@ Request → API Gateway → Lambda → Response
               ↓           ↓
          Auto-scale    Millisecond
          to millions   billing
-```
-
+```bash
 ## Serverless Patterns
 
 ```
@@ -38,8 +56,7 @@ Request → API Gateway → Lambda → Response
    
 4. SCHEDULED
    Cron → Function → Batch Job
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -327,8 +344,7 @@ class ServerlessPerformance:
             
             # Find sweet spot
             return min(results, key=lambda x: x['cost'])
-```
-
+```bash
 ## Advanced Patterns
 
 ```python
@@ -437,3 +453,7 @@ class LambdaSaga:
 • **iRobot**: 100% serverless architecture
 • **Coca-Cola**: Vending machine backends
 • **Financial Times**: Content pipeline
+
+---
+
+**Previous**: [← Saga (Distributed Transactions)](saga.md) | **Next**: [Service Discovery Pattern →](service-discovery.md)

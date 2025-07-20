@@ -1,3 +1,19 @@
+---
+title: "Part III: Modern Architectural Patterns"
+description: Every pattern in distributed systems emerges from the fundamental axioms. This section presents battle-tested patterns that address real-world dist...
+type: pattern
+difficulty: intermediate
+reading_time: 5 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Part III: Modern Architectural Patterns**
+
+
 # Part III: Modern Architectural Patterns
 
 **Proven solutions derived from fundamental constraints**
@@ -63,7 +79,7 @@ Patterns for running systems in production:
 
 Each pattern addresses specific axiom constraints:
 
-```
+```proto
 Pattern               Primary Axioms        Trade-offs
 -------               --------------        ----------
 Circuit Breaker       Failure, Latency      Availability vs Accuracy

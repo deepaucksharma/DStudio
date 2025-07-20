@@ -1,3 +1,18 @@
+---
+title: "Part V: Human & Operational Factors"
+description: Pure math and patterns aren't enough. Systems are built, operated, and debugged by humans. This section explores the critical human and operational...
+type: human-factors
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Part V: Human & Operational Factors**
+
+
 # Part V: Human & Operational Factors
 
 **Where the silicon meets the soul**
@@ -114,7 +129,7 @@ Every concept is grounded in production experience:
 
 ### 🚀 Success Patterns
 
-```
+```text
 Technical Excellence + Human Factors = Operational Success
 
 Good Technology + Poor Human Factors = Outages

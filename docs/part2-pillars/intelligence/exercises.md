@@ -1,3 +1,19 @@
+---
+title: Intelligence & Learning Exercises
+description: <details>
+<summary>Solution</summary>
+type: pillar
+difficulty: beginner
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Intelligence](/part2-pillars/intelligence/) → **Intelligence & Learning Exercises**
+
+
 # Intelligence & Learning Exercises
 
 ## Exercise 1: Build a Learning Load Balancer

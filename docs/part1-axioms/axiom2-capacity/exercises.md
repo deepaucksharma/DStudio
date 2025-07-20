@@ -1,3 +1,20 @@
+---
+title: Capacity Exercises
+description: 1. Calculate the optimal utilization target for different resource types
+2. Design a system that gracefully degrades at capacity limits
+3. Implemen...
+type: axiom
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](/part1-axioms/axiom2-capacity/) → **Capacity Exercises**
+
+
 # Capacity Exercises
 
 ## Hands-On Labs
@@ -28,3 +45,9 @@ Use the provided load testing scripts to discover system limits.
 - When is it better to drop requests vs queueing them?
 
 *More exercises coming soon*
+
+---
+
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 3](../axiom3-*)
+
+**Related**: [Auto Scaling](/patterns/auto-scaling/) • [Load Balancing](/patterns/load-balancing/) • [Sharding](/patterns/sharding/)

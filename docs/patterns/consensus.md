@@ -1,30 +1,20 @@
 ---
-title: "Consensus Pattern"
-description: "Achieving agreement among distributed nodes in the presence of failures"
-date: 2024-01-20
-category: "patterns"
+title: Consensus Pattern
+description: Achieving agreement among distributed nodes in the presence of failures
+type: pattern
+difficulty: advanced
+reading_time: 30 min
+prerequisites: []
 pattern_type: "coordination"
-problem_solved: "Distributed agreement without single point of failure"
 when_to_use: "Leader election, distributed configuration, replicated state machines"
 when_not_to_use: "High-throughput data processing, eventually consistent systems"
-tags:
-  - consensus
-  - coordination
-  - raft
-  - paxos
-  - distributed-systems
-difficulty: "advanced"
-reading_time: "25 min"
-prerequisites:
-  - /part1-axioms/axiom5-coordination/
-  - /part1-axioms/axiom3-failure/
-related:
-  - /patterns/leader-election/
-  - /patterns/distributed-lock/
-  - /patterns/saga/
-toc: true
-weight: 50
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Consensus Pattern**
+
 
 # Consensus Pattern
 
@@ -587,8 +577,7 @@ class EtcdRaftImplementation:
         self.revision = snapshot['revision']
         self.revision_index = snapshot['revision_index']
         self.last_applied = snapshot['applied_index']
-```
-
+```bash
 #### Google's Spanner Consensus
 ```python
 class SpannerConsensus:
@@ -644,8 +633,7 @@ class SpannerConsensus:
         
         # All must succeed
         return all(prepare_promises)
-```
-
+```bash
 ### Real-World Case Study: CockroachDB Consensus
 
 ```python
@@ -724,8 +712,7 @@ class CockroachDBConsensus:
             return True
         
         return False
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -773,8 +760,7 @@ class ConsensusTheory:
             'message_complexity': nodes ** 2,
             'optimal_quorum': nodes // 2 + 1
         }
-```
-
+```bash
 #### Optimal Consensus Protocols
 ```python
 class OptimalConsensus:
@@ -841,3 +827,7 @@ class OptimalConsensus:
 ---
 
 *"In distributed systems, consensus is the art of getting everyone to agree when no one trusts anyone completely."*
+
+---
+
+**Previous**: [← Circuit Breaker Pattern](circuit-breaker.md) | **Next**: [CQRS (Command Query Responsibility Segregation) →](cqrs.md)

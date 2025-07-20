@@ -1,3 +1,20 @@
+---
+title: Health Check Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: advanced
+reading_time: 25 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Health Check Pattern**
+
+
 # Health Check Pattern
 
 **Monitoring service health for reliable systems**
@@ -430,8 +447,7 @@ class AdaptiveHealthCheck:
         else:
             # Check less frequently when stable
             self.check_interval = min(60, self.check_interval * 1.1)
-```
-
+```bash
 #### Kubernetes-Style Health Probes
 ```python
 class KubernetesHealthProbes:
@@ -515,8 +531,7 @@ class KubernetesHealthProbes:
             "status": "ready" if all_ready else "not_ready",
             "checks": checks
         }
-```
-
+```bash
 ### Real-World Case Study: Netflix's Deep Health Checks
 
 ```python
@@ -605,8 +620,7 @@ class NetflixDeepHealthCheck:
                 'error': str(e),
                 'critical_path_failed': True
             }
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -745,3 +759,7 @@ class OptimalHealthChecker:
 ---
 
 *"The best time to check health is before you get sick."*
+
+---
+
+**Previous**: [← GraphQL Federation](graphql-federation.md) | **Next**: [Idempotent Receiver Pattern →](idempotent-receiver.md)

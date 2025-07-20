@@ -1,3 +1,18 @@
+---
+title: Reference Materials
+description: Your comprehensive reference for distributed systems concepts, terms, and practical guides.
+type: reference
+difficulty: intermediate
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Reference](/reference/) → **Reference Materials**
+
+
 # Reference Materials
 
 Your comprehensive reference for distributed systems concepts, terms, and practical guides.

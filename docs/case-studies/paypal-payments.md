@@ -1,25 +1,17 @@
 ---
-title: "PayPal's Payment Processing System"
-description: "Process billions in payments with zero data loss and global compliance"
-date: 2024-01-20
-category: "case-studies"
-case_study_type: "critical-systems"
-company: "PayPal"
-industry: "fintech"
-tags:
-  - payment-processing
-  - distributed-transactions
-  - saga-pattern
-  - financial-systems
-  - compliance
-difficulty: "expert"
-reading_time: "30 min"
-axioms_demonstrated:
-  - truth
-  - control
-  - failure
-  - coordination
+title: PayPal's Payment Processing System
+description: Process billions in payments with zero data loss and global compliance
+type: case-study
+difficulty: expert
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
 ---
+
+<!-- Navigation -->
+[Home](/) → [Case Studies](/case-studies/) → **PayPal's Payment Processing System**
+
 
 # 🏦 PayPal's Payment Processing System
 
@@ -47,7 +39,7 @@ axioms_demonstrated:
 
 ### Phase 1: Monolithic System (1998-2005)
 
-```
+```text
 Web App → Single Database → Batch Processing → Bank Networks
 ```
 
@@ -306,7 +298,7 @@ class EventStore:
 ```
 
 **Audit Trail Requirements:**
-```
+```yaml
 Every transaction must maintain:
 - Who initiated (user, system, API)
 - What changed (amount, status, metadata)
@@ -513,3 +505,7 @@ class PaymentFailureHandler:
 ---
 
 *"In payment processing, 'good enough' isn't good enough. Every penny matters, every transaction counts."*
+
+---
+
+**Previous**: [← Spotify Recommendations](spotify-recommendations.md)

@@ -1,3 +1,20 @@
+---
+title: Change Data Capture (CDC)
+description: How to stream changes reliably?
+```text
+type: pattern
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Change Data Capture (CDC)**
+
+
 # Change Data Capture (CDC)
 
 **Every change leaves a trace**
@@ -12,8 +29,7 @@ Keeping systems in sync is hard:
 - Point-to-point sync = spaghetti
 
 How to stream changes reliably?
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -26,8 +42,7 @@ Database Write → Transaction Log → CDC Process → Event Stream
                                   - Cache
                                   - Analytics
                                   - Other Services
-```
-
+```bash
 ## CDC Patterns
 
 ```
@@ -42,8 +57,7 @@ Database Write → Transaction Log → CDC Process → Event Stream
    
 4. SNAPSHOT + LOG
    Initial snapshot + incremental changes
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -348,3 +362,97 @@ class CDCMonitor:
 • **LinkedIn**: Databus CDC for real-time data
 • **Netflix**: CDC for cache updates
 • **Uber**: Database replication via CDC
+
+---
+
+**Previous**: [← Caching Strategies](caching-strategies.md) | **Next**: [Circuit Breaker Pattern →](circuit-breaker.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Change Data Capture (CDC) in existing systems
+
+**Task**: 
+Find 2 real-world examples where Change Data Capture (CDC) is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Change Data Capture (CDC)
+
+**Scenario**: You need to implement Change Data Capture (CDC) for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Change Data Capture (CDC)
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Change Data Capture (CDC)
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Change Data Capture (CDC) be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Change Data Capture (CDC) later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Change Data Capture (CDC) in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Change Data Capture (CDC) to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

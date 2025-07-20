@@ -1,3 +1,19 @@
+---
+title: Org-Structure Physics
+description: ""Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."
+- Melvin Co..."
+type: human-factors
+difficulty: beginner
+reading_time: 60 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Org-Structure Physics**
+
+
 # Org-Structure Physics
 
 **Conway's Law in action: You ship your org chart**
@@ -13,7 +29,7 @@ This isn't a suggestion. It's physics.
 
 ### Communication Bandwidth
 
-```
+```text
 Team A ←──high bandwidth──→ Team A members
    ↓                            
    low bandwidth                
@@ -44,7 +60,7 @@ Result: Natural module boundaries form at team boundaries.
 
 ### 1. Functional Organization
 
-```
+```text
          CTO
       /   |   \
    Eng   QA   Ops
@@ -59,7 +75,7 @@ Result: Natural module boundaries form at team boundaries.
 
 ### 2. Product Teams
 
-```
+```text
     Product Org
     /    |    \
 Team A  Team B  Team C
@@ -77,7 +93,7 @@ Stack)  Stack)  Stack)
 
 ### 3. Platform Model
 
-```
+```text
     Product Teams
          ↓
     Platform Team
@@ -94,7 +110,7 @@ Stack)  Stack)  Stack)
 
 ### 4. Matrix Organization
 
-```
+```text
    Feature Teams ←→ Component Teams
         ↓               ↓
    Product Focus    Technical Focus
@@ -221,7 +237,7 @@ Deliberately structuring teams to achieve desired architecture.
 ### Process
 
 1. **Design target architecture**
-   ```
+   ```text
    Ideal System Architecture
    ├── User Service
    ├── Order Service
@@ -248,8 +264,7 @@ Deliberately structuring teams to achieve desired architecture.
 **Before:**
 ```
 Single Team → Monolith
-```
-
+```text
 **Transition:**
 ```python
 # 1. Identify bounded contexts
@@ -270,16 +285,14 @@ for context in contexts:
 
 # 3. Teams extract their services
 # Architecture emerges naturally
-```
-
+```text
 **After:**
 ```
 User Team → User Service
 Order Team → Order Service
 Payment Team → Payment Service
 Notification Team → Notification Service
-```
-
+```bash
 ## Anti-Patterns
 
 ### 1. Misaligned Architecture
@@ -290,8 +303,7 @@ Notification Team → Notification Service
 Team A owns: [ServiceA, half of ServiceB]
 Team B owns: [half of ServiceB, ServiceC]
 Result: Coordination nightmare
-```
-
+```proto
 **Fix:** Align service boundaries with team boundaries
 
 ### 2. Shared Ownership
@@ -311,8 +323,7 @@ service_owners = {
     "sla": "99.9%",
     "on_call": "platform_team"
 }
-```
-
+```bash
 ### 3. Cognitive Overload
 
 **Symptom:** Team owns too many unrelated things
@@ -327,8 +338,7 @@ TeamX owns:
 - Kitchen sink
 
 Result: Nothing done well
-```
-
+```yaml
 **Fix:** Split into focused teams
 
 ### 4. Awkward Handoffs
@@ -340,8 +350,7 @@ Feature Flow:
 Frontend Team → Backend Team → Frontend Team → 
 Database Team → Backend Team → Deploy Team → 
 Frontend Team → Done (6 months later)
-```
-
+```yaml
 **Fix:** Stream-aligned teams with full ownership
 
 ## Scaling Patterns
@@ -359,8 +368,7 @@ Tribe: 50-150 people (know everyone)
 Division: 500-1500 people (know of everyone)
   ↓
 Company: Federated divisions
-```
-
+```bash
 ### Scaling Models
 
 **1. Spotify Model**
@@ -368,22 +376,19 @@ Company: Federated divisions
 Squad (team) → Tribe (collection) → Guild (practice)
                                     ↓
                                 Chapter (expertise)
-```
-
+```text
 **2. Amazon Model**
 ```
 Two-Pizza Team → Single-threaded owner → Full P&L
                                          ↓
                                     Service API
-```
-
+```text
 **3. Google Model**
 ```
 Small Team → Tech Lead/Manager → Director → VP
              ↓
         Engineering Excellence (SRE, EngProd)
-```
-
+```bash
 ## Measuring Organizational Effectiveness
 
 ### Team Health Metrics
@@ -399,8 +404,7 @@ class TeamHealthCheck:
             'cognitive_load': self.survey_team_stress(team),
             'dependencies': self.count_blocking_deps(team)
         }
-```
-
+```bash
 ### Communication Health
 
 ```sql
@@ -413,8 +417,7 @@ SELECT
 FROM team_calendars
 GROUP BY team
 ORDER BY coordination_overhead DESC;
-```
-
+```bash
 ### Architecture-Org Alignment
 
 ```python
@@ -443,8 +446,7 @@ def measure_conway_alignment(org_structure, system_architecture):
                     })
     
     return misalignments
-```
-
+```proto
 ## Best Practices
 
 1. **Design Organization Intentionally**
@@ -478,8 +480,7 @@ def measure_conway_alignment(org_structure, system_architecture):
 ```
 Mobile Team → Backend Team → Data Team
 Result: 3-month feature cycle
-```
-
+```yaml
 **Problem:** Features required coordination across all teams
 
 **Reorganization (Stream-aligned):**

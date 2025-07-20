@@ -1,3 +1,18 @@
+---
+title: "Recipe Cards: Step-by-Step Procedures"
+description: Practical, actionable guides for implementing patterns and solving common distributed systems problems.
+type: reference
+difficulty: beginner
+reading_time: 55 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Reference](/reference/) → **Recipe Cards: Step-by-Step Procedures**
+
+
 # Recipe Cards: Step-by-Step Procedures
 
 Practical, actionable guides for implementing patterns and solving common distributed systems problems.

@@ -1,3 +1,20 @@
+---
+title: Distributed Lock Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: advanced
+reading_time: 35 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Distributed Lock Pattern**
+
+
 # Distributed Lock Pattern
 
 **Mutual exclusion across distributed nodes**
@@ -351,8 +368,7 @@ class FencedLockHandle:
             operation,
             fence_token=self.token
         )
-```
-
+```yaml
 ---
 
 ## 🚀 Level 4: Expert
@@ -417,8 +433,7 @@ class ChubbyLockService:
                 self.release_lock_internal(session_id, lock_path)
             
             del self.sessions[session_id]
-```
-
+```bash
 #### etcd Distributed Locks
 ```python
 import etcd3
@@ -459,8 +474,7 @@ class EtcdDistributedLock:
         if acquired:
             return lock
         return None
-```
-
+```bash
 ### Real-World Case Study: Uber's Distributed Lock
 
 ```python
@@ -513,8 +527,7 @@ class UberDistributedLockManager:
             'timeout_rate': self.metrics.get_timeout_rate(),
             'deadlock_detected': self.detect_deadlocks()
         }
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -551,8 +564,7 @@ class FLPImpossibility:
         })
         
         return scenarios
-```
-
+```bash
 #### Optimal Lock Algorithms
 ```python
 class OptimalDistributedLock:
@@ -641,3 +653,9 @@ class OptimalDistributedLock:
 ---
 
 *"A distributed lock is a promise that's hard to keep and harder to break safely."*
+
+---
+
+**Previous**: [← CQRS (Command Query Responsibility Segregation)](cqrs.md) | **Next**: [Edge Computing/IoT Patterns →](edge-computing.md)
+
+**Related**: [Leader Election](/patterns/leader-election/) • [Consensus](/patterns/consensus/)

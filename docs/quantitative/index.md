@@ -1,3 +1,18 @@
+---
+title: "Part IV: Quantitative Toolkit"
+description: While patterns emerge from axioms and pillars, making informed decisions requires quantitative tools. This toolkit provides the mathematical founda...
+type: quantitative
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part IV: Quantitative](/quantitative/) → **Part IV: Quantitative Toolkit**
+
+
 # Part IV: Quantitative Toolkit
 
 **The math that matters for distributed systems**

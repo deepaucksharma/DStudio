@@ -1,3 +1,18 @@
+---
+title: Distributed Systems Cheat Sheets
+description: Quick reference guides for calculations, decisions, and common patterns.
+type: reference
+difficulty: advanced
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Reference](/reference/) → **Distributed Systems Cheat Sheets**
+
+
 # Distributed Systems Cheat Sheets
 
 Quick reference guides for calculations, decisions, and common patterns.
@@ -81,7 +96,7 @@ Quick reference guides for calculations, decisions, and common patterns.
 
 ### Consistency Model Selection
 
-```
+```text
 Need strong consistency?
 ├─ YES → Financial/Safety Critical
 │   ├─ Single region? → ACID database
@@ -277,7 +292,7 @@ max_attempts: 3
 - **Severity 4**: Cosmetic/performance issue
 
 ### Communication Template
-```
+```text
 Status: [INVESTIGATING/IDENTIFIED/MONITORING/RESOLVED]
 Impact: [brief description]
 Current Actions: [what we're doing]

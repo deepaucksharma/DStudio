@@ -1,3 +1,20 @@
+---
+title: FinOps Patterns
+description: Engineering efficiency ≠ Cost efficiency
+```text
+type: pattern
+difficulty: beginner
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **FinOps Patterns**
+
+
 # FinOps Patterns
 
 **When distributed systems meet the CFO**
@@ -12,8 +29,7 @@ Cloud bill shock:
 - "We're storing 10 copies of the same data"
 
 Engineering efficiency ≠ Cost efficiency
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -24,8 +40,7 @@ VISIBILITY → OPTIMIZATION → GOVERNANCE
  Tag & Track   Right-size    Enforce budgets
      ↓             ↓              ↓
   Dashboards   Auto-scale    Cost alerts
-```
-
+```bash
 ## FinOps Principles
 
 ```
@@ -33,8 +48,7 @@ VISIBILITY → OPTIMIZATION → GOVERNANCE
 2. ALLOCATE: Every resource needs an owner
 3. OPTIMIZE: Right tool for the right job
 4. AUTOMATE: Machines are better at saving money
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -454,3 +468,7 @@ class BudgetEnforcer:
 • **Spotify**: 30% cost reduction via FinOps
 • **Adobe**: Saved millions with automated optimization
 • **Airbnb**: Cost allocation driving accountability
+
+---
+
+**Previous**: [← Event Sourcing Pattern](event-sourcing.md) | **Next**: [Geo-Replication Patterns →](geo-replication.md)

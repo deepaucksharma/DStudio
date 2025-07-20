@@ -1,10 +1,29 @@
+---
+title: Decision Tree Walk-Through
+description: "Mitigation:
+- Read models for complex queries
+- Archival strategy for old events
+- Clear SLAs on consistency windows
+```"
+type: pillar
+difficulty: intermediate
+reading_time: 10 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → **Decision Tree Walk-Through**
+
+
 # Decision Tree Walk-Through
 
 ## Case Study: Fintech Ledger System Design
 
 ### Requirements
 
-```
+```text
 - Double-entry bookkeeping
 - Immutable audit trail
 - Global operations (3 regions)
@@ -16,7 +35,7 @@
 
 ### The Decision Journey
 
-```
+```dockerfile
 START: Design a ledger system
 │
 ├─Q1: What's the consistency requirement?
@@ -117,7 +136,7 @@ class FinTechLedger:
 
 ### Decision Impact Analysis
 
-```
+```yaml
 Decision: Event Sourcing
 + Immutable audit trail ✓
 + Horizontal scalability ✓

@@ -1,3 +1,21 @@
+---
+title: "Axiom 2: Finite Capacity"
+description: "Imagine an office building elevator:
+- Capacity: 10 people or 2,000 lbs
+- What happens with 11 people? Someone waits
+- What happens with 15 people ..."
+type: axiom
+difficulty: intermediate
+reading_time: 50 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](/part1-axioms/axiom2-capacity/) → **Axiom 2: Finite Capacity**
+
+
 # Axiom 2: Finite Capacity
 
 > **Learning Objective**: Every resource has a breaking point; find it before production does.
@@ -29,7 +47,7 @@ Imagine an office building elevator:
 
 ### Real-World Analogy: Highway Traffic
 
-```
+```text
 Traffic Flow vs Cars on Road:
 
 Flow │     ╱──────── Optimal flow (~70% capacity)
@@ -141,7 +159,7 @@ Capacity follows conservation laws:
 **Impact**: $50M lost sales
 
 **The Timeline**:
-```
+```dockerfile
 06:00 - Marketing sends "50% off everything" email
 06:01 - 2M users click simultaneously
 06:02 - API servers scale from 100 to 1,000 pods
@@ -186,7 +204,7 @@ Capacity follows conservation laws:
 <div class="decision-box">
 <h3>🎯 Scale-Up vs Scale-Out Decision Tree</h3>
 
-```
+```text
 START: Need more capacity
   │
   ├─ Is workload parallelizable?
@@ -210,7 +228,7 @@ START: Need more capacity
 <div class="formula-box">
 <h3>🧮 The Effective Capacity Formula</h3>
 
-```
+```text
 Effective Capacity = Raw Capacity × Utilization Factor × Efficiency Factor
 
 Where:
@@ -278,7 +296,7 @@ Running at 100% capacity means you're already over capacity. Systems need breath
 <div class="example-box">
 <h3>🧮 Capacity Planning for 1M Concurrent Viewers</h3>
 
-```
+```bash
 Requirements:
 - 1M concurrent streams
 - 4K video = 25 Mbps per stream
@@ -305,7 +323,7 @@ Revenue needed at $10/user: 225k subscribers
 <div class="formula-box">
 <h3>🧮 Universal Scaling Law</h3>
 
-```
+```yaml
 Capacity(N) = N × Capacity(1) × Efficiency(N)
 
 Where Efficiency(N) = 1 / (1 + α(N-1) + βN(N-1))
@@ -532,8 +550,7 @@ handle_info({tcp, Socket, Data}, State) ->
     end.
 
 %% Result: 2M connections per server (typical: 10-50K)
-```
-
+```bash
 ### Advanced Capacity Patterns
 
 #### 1. Adaptive Load Shedding
@@ -557,8 +574,7 @@ def adaptive_load_shed(request, system_load):
         raise ServiceUnavailable("System overloaded")
     
     return process_request(request)
-```
-
+```bash
 #### 2. Resource Pools with Stealing
 ```python
 class ResourcePoolWithStealing:
@@ -592,8 +608,7 @@ class ResourcePoolWithStealing:
             return self.create_new_connection(service)
         
         raise NoConnectionsAvailable()
-```
-
+```bash
 ### Measurement: Production Monitoring
 
 ```python
@@ -638,8 +653,7 @@ class CapacityMonitor:
         
         time_to_limit = (100 - current) / growth_rate
         return time_to_limit
-```
-
+```yaml
 ---
 
 ## Level 5: Mastery (Scale to Infinity) 🌴
@@ -833,8 +847,7 @@ class TheoreticalCapacityLimits:
         elif consistency_model == 'none':
             # Perfect parallelism (cache, CDN)
             return nodes * single_node
-```
-
+```bash
 ### War Story: Stack Overflow's 9 Servers
 
 ```csharp
@@ -920,8 +933,7 @@ public class ExtremeOptimizationPatterns
         return result;  // No allocations!
     }
 }
-```
-
+```bash
 ### The Capacity Optimization Cookbook
 
 ```python
@@ -1017,8 +1029,7 @@ class CapacityOptimizationPatterns:
                 "P2P protocols for content distribution"
             ]
         }
-```
-
+```bash
 ## Summary: Key Takeaways by Level
 
 ### 🌱 Beginner
@@ -1061,8 +1072,7 @@ class CapacityOptimizationPatterns:
 □ Network bandwidth
 □ Disk IOPS
 □ Time to provision capacity
-```
-
+```text
 **Calculate These Ratios:**
 ```
 □ CPU: current/max > 0.7 → Warning
@@ -1070,8 +1080,7 @@ class CapacityOptimizationPatterns:
 □ Connections: active/max > 0.75 → Warning
 □ Queue: depth/max > 0.8 → Critical
 □ Network: bps/capacity > 0.8 → Warning
-```
-
+```text
 **Implement These Patterns:**
 ```
 □ Backpressure (reject when full)
@@ -1087,3 +1096,9 @@ class CapacityOptimizationPatterns:
 **Next**: [Axiom 3: Failure →](../axiom3-failure/index.md)
 
 *"The question is not IF you'll hit capacity limits, but WHEN."*
+
+---
+
+**Next**: [Examples](examples.md)
+
+**Related**: [Auto Scaling](/patterns/auto-scaling/) • [Load Balancing](/patterns/load-balancing/) • [Sharding](/patterns/sharding/)

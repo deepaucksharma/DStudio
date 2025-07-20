@@ -1,3 +1,18 @@
+---
+title: "Part II: Foundational Pillars"
+description: The axioms teach us what constrains distributed systems. The pillars teach us how to work within those constraints.
+type: pillar
+difficulty: intermediate
+reading_time: 15 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → **Part II: Foundational Pillars**
+
+
 # Part II: Foundational Pillars
 
 **Learning Objective**: Understand how axioms combine to create fundamental architectural patterns.
@@ -10,7 +25,7 @@ Think of it this way: if axioms are Newton's laws of motion, then pillars are ae
 
 ## The Emergence Principle
 
-```
+```dockerfile
 Axioms = Constraints (what you cannot change)
 Pillars = Patterns (how you work within constraints)
 
@@ -44,7 +59,7 @@ But within these constraints, we can build remarkable systems. The five pillars 
 
 ## The Three Core + Two Extension Model
 
-```
+```text
                     AXIOMS (Constraints)
                            ↓
     ┌────────────────────────────────────────────┐
@@ -72,7 +87,7 @@ But within these constraints, we can build remarkable systems. The five pillars 
 ### Why These Five?
 
 **Coverage Analysis**:
-```
+```text
 System Aspect               Covered By Pillar
 -------------               -----------------
 Request handling           → Work Distribution
@@ -87,7 +102,7 @@ Orthogonality check: ✓ Pillars independent
 ```
 
 **Historical Evolution**:
-```
+```yaml
 1960s: Mainframes (no distribution needed)
 1970s: Client-server (Work distribution emerges)
 1980s: Databases (State distribution emerges)
@@ -105,7 +120,7 @@ This intuition is what separates senior engineers from junior ones. It's what le
 
 ### The Pillar Interaction Model
 
-```
+```text
 Work × State = Stateless vs Stateful services
 Work × Truth = Consistency models for compute
 State × Truth = CAP theorem territory
@@ -115,7 +130,7 @@ Intelligence × All = Self-healing systems
 
 ### Mental Model: The Distributed Systems House
 
-```
+```text
      Intelligence (Roof - Protects/Adapts)
            /                    \
     Control                    Control

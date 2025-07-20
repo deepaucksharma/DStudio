@@ -1,3 +1,23 @@
+---
+title: Leader Election Pattern
+description: "Without coordination:
+- Multiple nodes make conflicting decisions
+- Resources get double-allocated
+- Work gets duplicated or missed
+- Split-brain s..."
+type: pattern
+difficulty: advanced
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Leader Election Pattern**
+
+
 # Leader Election Pattern
 
 **Coordinate distributed decisions through democratic consensus - One leader to rule them all**
@@ -705,3 +725,7 @@ How leader election works with other patterns:
 ---
 
 *"In distributed systems, leadership is not about power—it's about responsibility for coordination."*
+
+---
+
+**Previous**: [← Idempotent Receiver Pattern](idempotent-receiver.md) | **Next**: [Load Balancing Pattern →](load-balancing.md)

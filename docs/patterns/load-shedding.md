@@ -1,3 +1,20 @@
+---
+title: Load Shedding Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: beginner
+reading_time: 25 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Load Shedding Pattern**
+
+
 # Load Shedding Pattern
 
 **Gracefully dropping load to maintain system stability**
@@ -413,8 +430,7 @@ class AdaptiveConcurrencyLimiter:
         # Apply bounds
         self.limit = max(self.min_limit, min(self.max_limit, self.limit))
         self.last_rtt = rtt
-```
-
+```bash
 #### Token Bucket with Priority
 ```python
 class PriorityTokenBucket:
@@ -474,8 +490,7 @@ class PriorityTokenBucket:
         new_tokens = int(elapsed * self.rate)
         self.tokens = min(self.capacity, self.tokens + new_tokens)
         self.last_update = now
-```
-
+```bash
 ### Real-World Case Study: Twitter's Load Shedding
 
 ```python
@@ -553,8 +568,7 @@ class TwitterLoadShedder:
         reduction_factor = 1 - (load_level * 0.2)  # 20% reduction per level
         
         return int(base_limits[user_tier] * reduction_factor)
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -695,3 +709,97 @@ class OptimalLoadShedder:
 ---
 
 *"It's better to serve some users well than all users poorly."*
+
+---
+
+**Previous**: [← Load Balancing Pattern](load-balancing.md) | **Next**: [Observability Patterns →](observability.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Load Shedding in existing systems
+
+**Task**: 
+Find 2 real-world examples where Load Shedding is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Load Shedding
+
+**Scenario**: You need to implement Load Shedding for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Load Shedding
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Load Shedding
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Load Shedding be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Load Shedding later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Load Shedding in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Load Shedding to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

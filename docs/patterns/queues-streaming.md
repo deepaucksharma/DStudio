@@ -1,10 +1,29 @@
+---
+title: Queues & Stream-Processing
+description: 2. PUBLISH-SUBSCRIBE (Topics)
+   Producer → [M1|M2|M3] → Consumer 1
+                        ↘ Consumer 2
+   Each consumer gets all messages
+type: pattern
+difficulty: beginner
+reading_time: 15 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Queues & Stream-Processing**
+
+
 # Queues & Stream-Processing
 
 **Decoupling work from workers since 1958**
 
 ## THE PROBLEM
 
-```
+```proto
 Direct coupling creates cascading failures:
 Client → Service A → Service B → Database
          ↓ Failure    ↓ Blocked   ↓ Overload
@@ -13,7 +32,7 @@ Client → Service A → Service B → Database
 
 ## THE SOLUTION
 
-```
+```proto
 Queues break temporal coupling:
 Client → Queue → Service A → Queue → Service B
          ↓ Buffered         ↓ Decoupled
@@ -22,7 +41,7 @@ Client → Queue → Service A → Queue → Service B
 
 ## Core Queue Patterns
 
-```
+```proto
 1. POINT-TO-POINT (Work Queue)
    Producer → [M1|M2|M3|M4] → Consumer
    Each message processed once
@@ -185,9 +204,103 @@ class CommitLog:
 
 ## Performance Characteristics
 
-```
+```yaml
 Throughput: 100K-1M msg/sec (Kafka)
 Latency: 1-10ms typical
 Durability: Configurable (memory/disk)
 Ordering: Per-partition guaranteed
 ```
+
+---
+
+**Previous**: [← Pattern Catalog Quiz](pattern-quiz.md) | **Next**: [Rate Limiting Pattern →](rate-limiting.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Queues & Stream-Processing in existing systems
+
+**Task**: 
+Find 2 real-world examples where Queues & Stream-Processing is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Queues & Stream-Processing
+
+**Scenario**: You need to implement Queues & Stream-Processing for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Queues & Stream-Processing
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Queues & Stream-Processing
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Queues & Stream-Processing be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Queues & Stream-Processing later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Queues & Stream-Processing in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Queues & Stream-Processing to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

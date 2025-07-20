@@ -1,3 +1,18 @@
+---
+title: Consistency Tuning in Production
+description: "Theory says "just set consistency level to QUORUM." Reality says "our p99 latency just tripled and we're losing $10k/minute.""
+type: human-factors
+difficulty: intermediate
+reading_time: 20 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part V: Human Factors](/human-factors/) → **Consistency Tuning in Production**
+
+
 # Consistency Tuning in Production
 
 **The art of dialing consistency without breaking production**
@@ -17,7 +32,7 @@ Production is where theory meets:
 
 ### Step 1: Map Operations to Requirements
 
-```
+```text
 Operation Type         Consistency Need    Rationale
 --------------        ----------------    ---------
 User login            STRONG              Security critical
@@ -35,7 +50,7 @@ Audit logs           ALL                 Compliance required
 
 Baseline metrics per consistency level:
 
-```
+```bash
 Operation: getUserProfile
 LOCAL_ONE:    p50=5ms,   p99=15ms,   success=99.9%
 LOCAL_QUORUM: p50=12ms,  p99=40ms,   success=99.7%

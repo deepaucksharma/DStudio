@@ -1,3 +1,20 @@
+---
+title: Observability Exercises
+description: 1. Calculate the cost of different observability strategies
+2. Design a system to detect anomalies without explicit thresholds
+3. Implement correla...
+type: axiom
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 6](/part1-axioms/axiom6-observability/) → **Observability Exercises**
+
+
 # Observability Exercises
 
 ## Hands-On Labs
@@ -28,3 +45,7 @@ Create alerts that minimize false positives while catching real issues.
 - How do you observe the observers (meta-monitoring)?
 
 *More exercises coming soon*
+
+---
+
+**Previous**: [Examples](examples.md) | **Next**: [Axiom 7](../axiom7-*)

@@ -1,3 +1,23 @@
+---
+title: Truth & Consensus Exercises
+description: "class DistributedSystem:
+    def __init__(self, num_nodes):
+        self.nodes = {}
+        # TODO: Initialize nodes with Lamport clocks
+        
+ ..."
+type: pillar
+difficulty: advanced
+reading_time: 25 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Truth](/part2-pillars/truth/) → **Truth & Consensus Exercises**
+
+
 # Truth & Consensus Exercises
 
 ## Exercise 1: Implement a Lamport Clock System

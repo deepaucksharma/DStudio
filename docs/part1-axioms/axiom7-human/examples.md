@@ -1,3 +1,18 @@
+---
+title: Human Interface Examples
+description: Documentation for distributed systems concepts
+type: axiom
+difficulty: beginner
+reading_time: 5 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](/part1-axioms/axiom7-human/) → **Human Interface Examples**
+
+
 # Human Interface Examples
 
 ## Real-World Case Studies
@@ -28,3 +43,7 @@ How to identify and prioritize toil for automation.
 From manual procedures to full automation.
 
 *More examples coming soon*
+
+---
+
+**Previous**: [Overview](./) | **Next**: [Exercises](exercises.md)

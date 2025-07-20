@@ -1,3 +1,20 @@
+---
+title: Pattern Catalog Quiz
+description: "1. Match pattern to problem: Each pattern solves specific distributed systems challenges
+2. Understand trade-offs: Every pattern has costs and comp..."
+type: pattern
+difficulty: intermediate
+reading_time: 5 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Pattern Catalog Quiz**
+
+
 # Pattern Catalog Quiz
 
 **Test Your Pattern Knowledge**
@@ -132,3 +149,7 @@ Having tested your pattern knowledge, Part IV will provide the mathematical tool
 - Capacity plan with confidence
 
 The math that matters for distributed systems...
+
+---
+
+**Previous**: [← Outbox Pattern](outbox.md) | **Next**: [Queues & Stream-Processing →](queues-streaming.md)

@@ -1,3 +1,20 @@
+---
+title: Timeout Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: beginner
+reading_time: 25 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Timeout Pattern**
+
+
 # Timeout Pattern
 
 **Protecting systems from indefinite waits**
@@ -79,7 +96,7 @@ except TimeoutError as e:
 
 ### Timeout Hierarchy
 
-```
+```text
 Application Timeout (60s)
 ├── HTTP Client Timeout (30s)
 │   ├── Connection Timeout (5s)
@@ -275,8 +292,7 @@ async def hedged_request(primary_func, backup_func, hedge_delay=1.0):
             
         # Return the winner
         return done.pop().result()
-```
-
+```bash
 #### Timeout with Partial Results
 ```python
 class PartialResultTimeout:
@@ -316,8 +332,7 @@ class PartialResultTimeout:
             'errors': errors,
             'completion_rate': len(results) / len(requests)
         }
-```
-
+```bash
 ### Real-World Case Study: Netflix Timeout Strategy
 
 ```python
@@ -365,8 +380,7 @@ class NetflixTimeoutStrategy:
             return await self.get_generic_recommendations(
                 timeout=fallback_timeout
             )
-```
-
+```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -453,3 +467,7 @@ class OptimalTimeoutCalculator:
 ---
 
 *"The absence of a timeout is the presence of a bug."*
+
+---
+
+**Previous**: [← Sharding (Data Partitioning)](sharding.md) | **Next**: [Tunable Consistency →](tunable-consistency.md)

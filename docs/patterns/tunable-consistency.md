@@ -1,3 +1,20 @@
+---
+title: Tunable Consistency
+description: Fixed consistency = Over-engineering or under-delivering
+```text
+type: pattern
+difficulty: advanced
+reading_time: 10 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Tunable Consistency**
+
+
 # Tunable Consistency
 
 **One size doesn't fit all**
@@ -12,8 +29,7 @@ Different operations need different guarantees:
 - Bank transfer → Requires linearizability
 
 Fixed consistency = Over-engineering or under-delivering
-```
-
+```bash
 ## THE SOLUTION
 
 ```
@@ -22,8 +38,7 @@ Let clients choose consistency per operation:
 client.read(key, consistency=STRONG)    → Wait for majority
 client.read(key, consistency=EVENTUAL)  → Return from any node
 client.read(key, consistency=BOUNDED)   → Max staleness 5 sec
-```
-
+```bash
 ## Consistency Levels
 
 ```
@@ -33,8 +48,7 @@ Linearizable                    Eventual
 Sequential                      Read Uncommitted  
 Snapshot                        Monotonic Read
 Read Your Write                 Bounded Staleness
-```
-
+```bash
 ## IMPLEMENTATION
 
 ```python
@@ -270,8 +284,7 @@ negotiator.add_rule(
     {'table': 'metrics', 'operation': 'READ'},
     ConsistencyLevel.BOUNDED_STALENESS
 )
-```
-
+```bash
 ## Advanced Patterns
 
 ```python
@@ -340,3 +353,97 @@ class ConsistencySLAMonitor:
 • **Azure Cosmos DB**: 5 consistency levels
 • **Amazon DynamoDB**: Eventual & strong
 • **Google Spanner**: External consistency option
+
+---
+
+**Previous**: [← Timeout Pattern](timeout.md)
+---
+
+## 💪 Hands-On Exercises
+
+### Exercise 1: Pattern Recognition ⭐⭐
+**Time**: ~15 minutes  
+**Objective**: Identify Tunable Consistency in existing systems
+
+**Task**: 
+Find 2 real-world examples where Tunable Consistency is implemented:
+1. **Example 1**: A well-known tech company or service
+2. **Example 2**: An open-source project or tool you've used
+
+For each example:
+- Describe how the pattern is implemented
+- What problems it solves in that context
+- What alternatives could have been used
+
+### Exercise 2: Implementation Planning ⭐⭐⭐
+**Time**: ~25 minutes  
+**Objective**: Design an implementation of Tunable Consistency
+
+**Scenario**: You need to implement Tunable Consistency for an e-commerce checkout system processing 10,000 orders/hour.
+
+**Requirements**:
+- 99.9% availability required
+- Payment processing must be reliable
+- Orders must not be lost or duplicated
+
+**Your Task**:
+1. Design the architecture using Tunable Consistency
+2. Identify key components and their responsibilities
+3. Define interfaces between components
+4. Consider failure scenarios and mitigation strategies
+
+**Deliverable**: Architecture diagram + 1-page implementation plan
+
+### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+**Time**: ~20 minutes  
+**Objective**: Evaluate when NOT to use Tunable Consistency
+
+**Challenge**: You're consulting for a startup building their first product.
+
+**Analysis Required**:
+1. **Context Assessment**: Under what conditions would Tunable Consistency be overkill?
+2. **Cost-Benefit**: Compare implementation costs vs. benefits
+3. **Alternatives**: What simpler approaches could work initially?
+4. **Evolution Path**: How would you migrate to Tunable Consistency later?
+
+**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+
+---
+
+## 🛠️ Code Challenge
+
+### Beginner: Basic Implementation
+Implement a minimal version of Tunable Consistency in your preferred language.
+- Focus on core functionality
+- Include basic error handling
+- Add simple logging
+
+### Intermediate: Production Features  
+Extend the basic implementation with:
+- Configuration management
+- Metrics collection
+- Unit tests
+- Documentation
+
+### Advanced: Performance & Scale
+Optimize for production use:
+- Handle concurrent access
+- Implement backpressure
+- Add monitoring hooks
+- Performance benchmarks
+
+---
+
+## 🎯 Real-World Application
+
+**Project Integration**: 
+- How would you introduce Tunable Consistency to an existing system?
+- What migration strategy would minimize risk?
+- How would you measure success?
+
+**Team Discussion Points**:
+1. When team members suggest this pattern, what questions should you ask?
+2. How would you explain the value to non-technical stakeholders?
+3. What monitoring would indicate the pattern is working well?
+
+---

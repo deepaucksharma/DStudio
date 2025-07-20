@@ -1,3 +1,18 @@
+---
+title: "Pillar 2: Distribution of State"
+description: Imagine a massive library with millions of books. How do you organize the catalog?
+type: pillar
+difficulty: advanced
+reading_time: 45 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [State](/part2-pillars/state/) → **Pillar 2: Distribution of State**
+
+
 # Pillar 2: Distribution of State
 
 **Learning Objective**: Master the art of splitting data without splitting reliability.
@@ -223,7 +238,7 @@ Think of distributed state like:
 <h3>Why State Distribution is Hard</h3>
 
 **Computation vs State:**
-```
+```dockerfile
 Computation:
 - Stateless between requests
 - Can retry on failure
@@ -247,7 +262,7 @@ How do you maintain a single logical view of data that's physically spread acros
 **Date**: October 21, 2018  
 **Impact**: 24 hours of degraded service
 
-```
+```yaml
 The Split-Brain Disaster:
 
 21:52:00 - Routine maintenance replaces failing 100G network switch
@@ -278,7 +293,7 @@ Lesson: In distributed systems, "split brain" is the ultimate failure - when you
 
 ### The CAP Theorem Visualized
 
-```
+```text
 In a distributed system, you can only guarantee 2 of 3:
 
          Consistency (C)
@@ -345,7 +360,7 @@ Choose A+P: Social media (availability > consistency)
 | **Chain Replication** | Head → Middle → Tail | Tail only | Strong consistency | Sequential bottleneck |
 
 **Primary-Replica Architecture**:
-```
+```text
 Client Write  ──→  [PRIMARY]  ──→  [Replica 1]
                        │      ──→  [Replica 2]  
                        │      ──→  [Replica 3]
@@ -355,7 +370,7 @@ Client Read ←────  [Any Node]
 ```
 
 **Multi-Primary Architecture**:
-```
+```text
 Client 1 ──→ [Primary A] ←─── Sync ───→ [Primary B] ←── Client 2
                │                           │
                ├── Replica A1              ├── Replica B1
@@ -384,7 +399,7 @@ Conflict Resolution: Last-Write-Wins by timestamp
 | **Eventual** | Will be consistent "eventually" | Social media likes | Fastest |
 
 **Consistency Visualization**:
-```
+```text
 Strong Consistency:
 User writes "Hello" → All users immediately see "Hello"
 ├─ Global lock required
@@ -1951,7 +1966,7 @@ class LiveStateMigration:
 <h3>📋 State Distribution Decision Tree</h3>
 
 **Choose Your Pattern:**
-```
+```text
 Read/Write Ratio:
   > 95% reads → Primary-replica
   > 50% writes → Sharding
@@ -1974,7 +1989,7 @@ Conflict Resolution:
 ```
 
 **Key Formulas:**
-```
+```text
 Replication Lag = Network + Queue + Processing
 Quorum Size = (N / 2) + 1
 Shard Count = Data Size / Shard Capacity

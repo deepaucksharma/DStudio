@@ -1,3 +1,20 @@
+---
+title: "Pillar 5: Distribution of Intelligence"
+description: "<div class="pillar-header">
+  <div class="learning-objective">
+    <strong>Learning Objective</strong>: Master building systems that learn, adapt, ..."
+type: pillar
+difficulty: beginner
+reading_time: 75 min
+prerequisites: []
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part II: Pillars](/part2-pillars/) → [Intelligence](/part2-pillars/intelligence/) → **Pillar 5: Distribution of Intelligence**
+
+
 # Pillar 5: Distribution of Intelligence
 
 <div class="pillar-header">
@@ -23,7 +40,7 @@ Think about temperature control evolution:
 
 ### Real-World Analogy: Restaurant Kitchen Intelligence
 
-```
+```yaml
 Evolution of a Restaurant Kitchen:
 
 Week 1: Manual Everything
@@ -79,7 +96,7 @@ Play this pattern recognition game:
 
 ### The Beginner's Intelligence Stack
 
-```
+```text
          🧠 Human Intelligence
           (Strategic decisions)
                 |
@@ -137,7 +154,7 @@ Play this pattern recognition game:
 <div class="principle-box">
 <h3>The Fundamental Intelligence Theorem</h3>
 
-```
+```dockerfile
 Intelligence = Data + Algorithms + Feedback Loops
 
 Where:
@@ -158,7 +175,7 @@ Where:
 <div class="intelligence-types">
 <h3>🎯 Types of System Intelligence</h3>
 
-```
+```text
 1. Reactive Intelligence (Immediate)
    Input → Rules → Output
    Example: Spam filter
@@ -183,7 +200,7 @@ Where:
 
 ### The Learning Hierarchy
 
-```
+```dockerfile
 Supervised Learning 📚
 ├─ Learn from labeled examples
 ├─ "This email is spam"
@@ -219,7 +236,7 @@ Transfer Learning 🔄
 **Cause**: Intelligent trading algorithms
 
 **The Cascade**:
-```
+```bash
 2:32 PM: Large sell order enters market
 2:41 PM: HFT algorithms detect anomaly
 2:42 PM: Algorithms start rapid selling
@@ -327,7 +344,7 @@ This concept map shows how distributed intelligence encompasses learning paradig
 <h3>🎰 The Restaurant Menu Problem</h3>
 
 **Scenario**: Which dish to recommend?
-```
+```dockerfile
 The Dilemma:
 - Recommend popular dishes (exploit)
 - Try new dishes (explore)
@@ -347,7 +364,7 @@ Math intuition:
 ```
 
 **Real Implementation**:
-```
+```text
 For each recommendation:
 1. Calculate success probability + uncertainty
 2. Add controlled randomness
@@ -363,7 +380,7 @@ For each recommendation:
 <h3>📈 Learning from Streams</h3>
 
 **Challenge**: Learn from continuous data
-```
+```text
 Traditional: Batch Learning
 ├─ Collect all data
 ├─ Train model once
@@ -378,7 +395,7 @@ Modern: Online Learning
 ```
 
 **Example: Fraud Detection**
-```
+```text
 Stream Processing:
 Transaction → Feature Extraction → Score → Decision
      ↓                                        ↓
@@ -397,7 +414,7 @@ Benefits:
 <div class="recommendation-architecture">
 <h3>🎯 Modern Recommendation Pipeline</h3>
 
-```
+```text
 1. Candidate Generation (Recall)
    ├─ Collaborative filtering
    ├─ Content similarity
@@ -436,7 +453,7 @@ Benefits:
 <h3>🚨 Finding Needles in Haystacks</h3>
 
 **Statistical Methods**:
-```
+```yaml
 Z-Score Method:
 - Calculate mean and standard deviation
 - Flag points > 3 standard deviations
@@ -450,7 +467,7 @@ Isolation Forest:
 ```
 
 **Machine Learning Methods**:
-```
+```python
 Autoencoder Approach:
 1. Train to reconstruct normal data
 2. High reconstruction error = anomaly
@@ -465,7 +482,7 @@ One-Class SVM:
 ```
 
 **Ensemble Methods**:
-```
+```yaml
 Combine multiple detectors:
 ├─ Statistical baseline
 ├─ ML model predictions
@@ -515,7 +532,7 @@ Combine multiple detectors:
 <h3>🔬 Experimentation Framework</h3>
 
 **Multi-Armed Bandit A/B Testing**:
-```
+```dockerfile
 Traditional A/B:
 - Fixed split (50/50)
 - Run for fixed time
@@ -536,7 +553,7 @@ Implementation:
 ```
 
 **Challenges at Scale**:
-```
+```yaml
 Network Effects:
 - User interactions affect each other
 - Can't assume independence
@@ -564,7 +581,7 @@ Long-term Effects:
 <h3>🎬 From Ratings to Deep Learning</h3>
 
 **Timeline of Intelligence Evolution**:
-```
+```yaml
 2006: Cinematch (Collaborative Filtering)
 - User ratings matrix
 - Pearson correlation
@@ -596,7 +613,7 @@ Long-term Effects:
 ```
 
 **Key Insights**:
-```
+```text
 Data Evolution:
 Ratings → Views → Engagement → Context
 
@@ -623,7 +640,7 @@ Batch → Near-real-time → Streaming → Edge
 <div class="decision-framework">
 <h3>🎯 Choosing Intelligence Approaches</h3>
 
-```
+```text
 1. What's your data situation?
 ├─ Lots of labeled data? → Supervised learning
 │   Example: Email classification
@@ -668,7 +685,7 @@ Batch → Near-real-time → Streaming → Edge
 <h3>🌐 Privacy-Preserving Intelligence</h3>
 
 **Traditional vs Federated**:
-```
+```yaml
 Traditional ML:
 - Centralize all data
 - Train in datacenter
@@ -683,7 +700,7 @@ Federated Learning:
 ```
 
 **Implementation Strategy**:
-```
+```redis
 1. Server Initialization:
    - Create global model
    - Define aggregation strategy
@@ -721,7 +738,7 @@ Federated Learning:
 <h3>⚠️ Intelligence Mistakes That Hurt</h3>
 
 **1. The Accuracy Trap**
-```
+```yaml
 WRONG: Optimize only for accuracy
 - 99.9% accuracy finding rare events
 - But 99.9% false positive rate!
@@ -734,7 +751,7 @@ RIGHT: Optimize for business metrics
 ```
 
 **2. The Black Box Production**
-```
+```yaml
 WRONG: Deploy unexplainable models
 - Complex neural network
 - No debugging capability
@@ -748,7 +765,7 @@ RIGHT: Production-ready ML
 ```
 
 **3. The Data Leakage Problem**
-```
+```redis
 WRONG: Train on future information
 - Include target in features
 - Time-based leakage
@@ -771,7 +788,7 @@ RIGHT: Proper validation
 <h3>🚀 Self-Improving Intelligence</h3>
 
 **AutoML Evolution**:
-```
+```yaml
 Generation 1: Hyperparameter Tuning
 - Grid search
 - Random search
@@ -796,7 +813,7 @@ Generation 4: Self-Improving Systems
 ```
 
 **Example: Google's AutoML Zero**
-```
+```yaml
 Evolution Process:
 1. Start with random programs
 2. Mutate and crossover
@@ -818,7 +835,7 @@ Discoveries:
 <h3>🧠 Brain-Inspired Intelligence</h3>
 
 **Traditional vs Neuromorphic**:
-```
+```yaml
 Von Neumann Architecture:
 - Separate memory/processing
 - Sequential execution
@@ -833,7 +850,7 @@ Neuromorphic Architecture:
 ```
 
 **Spiking Neural Networks**:
-```
+```yaml
 Traditional NN:
 - Continuous activations
 - Synchronous updates
@@ -912,7 +929,7 @@ Spiking NN:
 <h3>📋 Intelligence Patterns Cheat Sheet</h3>
 
 **ML Algorithm Selection**:
-```
+```text
 ┌─────────────────────────────────┐
 │ Labeled data available?         │
 │ ↓ YES              ↓ NO         │
@@ -929,7 +946,7 @@ Spiking NN:
 ```
 
 **Learning Approaches**:
-```
+```dockerfile
 - Batch: All data at once
 - Online: One sample at a time
 - Mini-batch: Small groups
@@ -937,7 +954,7 @@ Spiking NN:
 ```
 
 **Common Metrics**:
-```
+```yaml
 Classification:
 - Accuracy = Correct / Total
 - Precision = True Positives / Predicted Positives
@@ -951,7 +968,7 @@ Regression:
 ```
 
 **Production Checklist**:
-```
+```text
 □ Data pipeline robust?
 □ Model versioning?
 □ A/B testing ready?

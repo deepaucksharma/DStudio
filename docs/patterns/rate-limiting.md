@@ -1,3 +1,20 @@
+---
+title: Rate Limiting Pattern
+description: "<div class="pattern-context">
+<h3>🧭 Pattern Context</h3>"
+type: pattern
+difficulty: intermediate
+reading_time: 15 min
+prerequisites: []
+pattern_type: "general"
+status: complete
+last_updated: 2025-07-20
+---
+
+<!-- Navigation -->
+[Home](/) → [Part III: Patterns](/patterns/) → **Rate Limiting Pattern**
+
+
 # Rate Limiting Pattern
 
 **Controlling request flow to protect system resources**
@@ -730,3 +747,7 @@ class OptimalRateLimiter:
 ---
 
 *"Rate limiting is not about saying no, it's about saying yes sustainably."*
+
+---
+
+**Previous**: [← Queues & Stream-Processing](queues-streaming.md) | **Next**: [Retry & Backoff Strategies →](retry-backoff.md)
