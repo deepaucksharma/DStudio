@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Runbooks & Playbooks**
 
-
 # Runbooks & Playbooks
 
 **Turning chaos into checklist**
@@ -141,25 +140,25 @@ class RunbookValidator:
         Validate runbook is usable under stress
         """
         checks = []
-        
+
         # All commands should be copy-pasteable
         commands = extract_code_blocks(runbook_path)
         for cmd in commands:
             if has_placeholder(cmd):
                 checks.append(f"Command has placeholder: {cmd}")
-        
+
         # All links should work
         links = extract_links(runbook_path)
         for link in links:
             if not is_reachable(link):
                 checks.append(f"Dead link: {link}")
-        
+
         # Decision points should be clear
         if_thens = extract_conditionals(runbook_path)
         for condition in if_thens:
             if not is_measurable(condition):
                 checks.append(f"Vague condition: {condition}")
-        
+
         return checks
 ```
 
@@ -189,7 +188,7 @@ spec:
                   last_modified = get_last_modified(runbook)
                   if days_ago(last_modified) > 90:
                       alert_team(f"{runbook} not updated in 90+ days")
-                  
+
                   # Verify all commands still valid
                   test_runbook_commands(runbook)
 ```
@@ -205,18 +204,18 @@ def implement_feature(feature_name):
     """
     # 1. Write runbook for operating feature
     runbook = write_operational_guide(feature_name)
-    
+
     # 2. Implement monitoring/alerts from runbook
     for alert in runbook.alerts_needed:
         implement_alert(alert)
-    
+
     # 3. Build dashboards from runbook
     for metric in runbook.key_metrics:
         add_to_dashboard(metric)
-    
+
     # 4. Then implement feature
     implement_actual_feature(feature_name)
-    
+
     # 5. Verify runbook works
     chaos_test_with_runbook(feature_name, runbook)
 ```
@@ -284,7 +283,7 @@ metrics = get_all_metrics()
 for metric in metrics:
     values_before = metric.get_values(anomaly_time - 1h, anomaly_time)
     values_after = metric.get_values(anomaly_time, anomaly_time + 10m)
-    
+
     if spike_detected(values_before, values_after):
         print(f"Correlated spike: {metric.name}")
 ```bash
@@ -325,7 +324,7 @@ Check the USE method:
 
 For each resource:
 - CPU: %used, run queue, throttles
-- Memory: %used, page faults, OOM kills  
+- Memory: %used, page faults, OOM kills
 - Disk: %busy, queue depth, errors
 - Network: %bandwidth, drops, retransmits
 
@@ -346,13 +345,13 @@ ORDER BY COUNT(*) DESC;
 Symptom: Spiky latency
 ```sql
 -- PostgreSQL lock analysis
-SELECT 
+SELECT
     waiting.pid AS waiting_pid,
     waiting.query AS waiting_query,
     blocking.pid AS blocking_pid,
     blocking.query AS blocking_query
 FROM pg_stat_activity AS waiting
-JOIN pg_stat_activity AS blocking 
+JOIN pg_stat_activity AS blocking
     ON blocking.pid = ANY(pg_blocking_pids(waiting.pid))
 WHERE waiting.wait_event_type = 'Lock';
 ```bash
@@ -411,10 +410,10 @@ For any proposed action:
 ### Communication Templates
 
 **Initial Report:**
-"We are investigating [ISSUE] affecting [SERVICE]. 
-Impact: [CUSTOMER IMPACT]. 
-Started: [TIME]. 
-Team is engaged. 
+"We are investigating [ISSUE] affecting [SERVICE].
+Impact: [CUSTOMER IMPACT].
+Started: [TIME].
+Team is engaged.
 Updates every 15 min."
 
 **Update:**
@@ -439,7 +438,7 @@ Postmortem to follow."
 - External communication
 - DOES NOT debug
 
-### Tech Lead  
+### Tech Lead
 - Leads investigation
 - Coordinates fixers
 - Reports to IC
@@ -467,19 +466,19 @@ class RunbookExecutor:
     def __init__(self, runbook_path):
         self.runbook = parse_runbook(runbook_path)
         self.context = {}
-        
+
     def execute(self):
         """
         Semi-automated runbook execution
         """
         for step in self.runbook.steps:
             print(f"\n[Step {step.number}] {step.description}")
-            
+
             if step.is_automated:
                 # Execute automatically
                 result = self.run_command(step.command)
                 self.context[step.output_var] = result
-                
+
             elif step.is_decision:
                 # Human decision required
                 print(f"Check: {step.condition}")
@@ -488,12 +487,12 @@ class RunbookExecutor:
                     self.execute_branch(step.yes_branch)
                 else:
                     self.execute_branch(step.no_branch)
-                    
+
             else:
                 # Manual step
                 print(f"Manual action required: {step.instruction}")
                 input("Press Enter when complete...")
-                
+
         print("\nRunbook execution complete!")
 ```bash
 ### ChatOps Integration
@@ -506,18 +505,18 @@ commands:
     handler: |
       def handle_runbook_command(text, user):
           runbook_name = text.strip()
-          
+
           # Validate access
           if not user_can_execute(user, runbook_name):
               return "Sorry, you don't have permission"
-          
+
           # Start execution
           thread = execute_runbook_interactive(
               runbook_name,
               channel=user.channel,
               executor=user
           )
-          
+
           return f"Starting runbook: {runbook_name}"
 ```bash
 ## Runbook Library Structure
@@ -580,23 +579,23 @@ def chaos_test_runbook(runbook, environment='staging'):
     """
     # 1. Inject failure
     failure = inject_failure(runbook.failure_scenario)
-    
+
     # 2. Wait for alert
     alert = wait_for_alert(runbook.alert_name, timeout=300)
     assert alert.fired, "Alert didn't fire!"
-    
+
     # 3. Execute runbook
     start_time = time.now()
     result = execute_runbook(runbook, dry_run=False)
     duration = time.now() - start_time
-    
+
     # 4. Verify resolution
     assert system_healthy(), "Runbook didn't fix issue!"
     assert duration < runbook.sla, f"Took too long: {duration}"
-    
+
     # 5. Cleanup
     cleanup_failure(failure)
-    
+
     return TestResult(success=True, duration=duration)
 ```bash
 ### Regular Drills
@@ -653,7 +652,7 @@ spec:
 
 ```sql
 -- Runbook effectiveness
-SELECT 
+SELECT
     runbook_name,
     COUNT(*) as times_used,
     AVG(time_to_resolution) as avg_ttr,

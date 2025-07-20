@@ -12,28 +12,9 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Case Studies](/case-studies/) → **Uber's Real-Time Location System**
 
-
 # 🚗 Uber's Real-Time Location System
 
 **The Challenge**: Track millions of drivers and riders globally with sub-second updates
-
-<div class="case-study">
-<h3>📊 System Requirements</h3>
-
-**Scale Constraints:**
-- 15M trips daily across 900+ cities
-- 5M active drivers globally  
-- Location updates every 4 seconds
-- Sub-500ms dispatch latency required
-- 99.99% availability target
-
-**Critical Features:**
-- Real-time driver tracking
-- Efficient rider-driver matching
-- Accurate ETA calculation
-- Surge pricing computation
-- Geofence monitoring
-</div>
 
 ---
 
@@ -73,18 +54,18 @@ graph TB
         GS2[Geo Shard 2<br/>Europe]
         GS3[Geo Shard 3<br/>Asia]
     end
-    
+
     subgraph "Data Layer"
         RC1[Redis Cluster 1]
         RC2[Redis Cluster 2]
         RC3[Redis Cluster 3]
         CS[Cassandra<br/>Historical Data]
     end
-    
+
     LB --> GS1 --> RC1
     LB --> GS2 --> RC2
     LB --> GS3 --> RC3
-    
+
     RC1 --> CS
     RC2 --> CS
     RC3 --> CS
@@ -104,26 +85,26 @@ graph LR
         DA[Driver App]
         RA[Rider App]
     end
-    
+
     subgraph "Stream Processing"
         K[Kafka]
         F[Flink]
         S[Storm]
     end
-    
+
     subgraph "Services"
         LS[Location Service]
         MS[Matching Service]
         PS[Pricing Service]
         ES[ETA Service]
     end
-    
+
     subgraph "Storage"
         R[Redis<br/>Live State]
         C[Cassandra<br/>History]
         H[HDFS<br/>Analytics]
     end
-    
+
     DA --> K
     RA --> K
     K --> F --> LS --> R
@@ -261,7 +242,7 @@ Each transition is an atomic operation with strict ordering guarantees.
 
 ### Scenario 1: Regional Data Center Failure
 **Impact**: 5M users affected
-**Mitigation**: 
+**Mitigation**:
 - Auto-failover to nearest DC (< 30s)
 - Degraded mode with cached data
 - Progressive restoration

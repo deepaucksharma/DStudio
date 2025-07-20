@@ -17,7 +17,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Leader Election Pattern**
 
-
 # Leader Election Pattern
 
 **Coordinate distributed decisions through democratic consensus - One leader to rule them all**
@@ -76,7 +75,7 @@ graph TB
         E -->|No Majority| T[New Term]
         T -->|Retry| E
     end
-    
+
     subgraph "Steady State"
         L -->|Heartbeats| F1[Follower 1]
         L -->|Heartbeats| F2[Follower 2]
@@ -84,13 +83,13 @@ graph TB
         F1 -->|Timeout| C1
         F2 -->|Timeout| C2
     end
-    
+
     subgraph "Client Interaction"
         CL[Clients] -->|Requests| L
         CL -.->|Redirect| F1
         F1 -.->|Forward| L
     end
-    
+
     style L fill:#f9f,stroke:#333,stroke-width:4px
     style E fill:#bbf,stroke:#333,stroke-width:2px
     style W fill:#bfb,stroke:#333,stroke-width:2px
@@ -130,17 +129,17 @@ class NodeInfo:
     node_id: str
     address: str
     last_seen: float = 0
-    
+
 @dataclass
 class Term:
     """Represents an election term"""
     number: int
     leader_id: Optional[str] = None
     voted_for: Optional[str] = None
-    
+
 class LeaderElection:
     """Implements leader election using a Raft-like algorithm"""
-    
+
     def __init__(self,
                  node_id: str,
                  peers: List[NodeInfo],
@@ -152,78 +151,78 @@ class LeaderElection:
         self.redis = redis_client
         self.election_timeout_range = election_timeout_range  # milliseconds
         self.heartbeat_interval = heartbeat_interval  # milliseconds
-        
+
         self.state = NodeState.FOLLOWER
         self.current_term = Term(0)
         self.leader_id: Optional[str] = None
         self.votes_received: Set[str] = set()
-        
+
         self.election_timeout = self._random_timeout()
         self.last_heartbeat = time.time() * 1000
-        
+
         self.leader_callback: Optional[Callable] = None
         self.follower_callback: Optional[Callable] = None
-        
+
         self.logger = logging.getLogger(f"Election[{node_id}]")
         self._running = False
-    
+
     def _random_timeout(self) -> float:
         """Generate random election timeout to prevent split votes"""
         return random.uniform(*self.election_timeout_range)
-    
+
     async def start(self):
         """Start the election process"""
         self._running = True
         self.logger.info(f"Starting election process")
-        
+
         # Run main loop
         asyncio.create_task(self._election_loop())
-        
+
         # If leader, run heartbeat loop
         asyncio.create_task(self._heartbeat_loop())
-    
+
     async def stop(self):
         """Stop the election process"""
         self._running = False
-        
+
         # Step down if leader
         if self.state == NodeState.LEADER:
             await self._step_down()
-    
+
     async def _election_loop(self):
         """Main election loop"""
         while self._running:
             try:
                 current_time = time.time() * 1000
-                
+
                 if self.state == NodeState.FOLLOWER:
                     # Check for election timeout
                     if current_time - self.last_heartbeat > self.election_timeout:
                         self.logger.info("Election timeout, becoming candidate")
                         await self._become_candidate()
-                
+
                 elif self.state == NodeState.CANDIDATE:
                     # Already handled in become_candidate
                     pass
-                
+
                 await asyncio.sleep(0.01)  # 10ms loop
-                
+
             except Exception as e:
                 self.logger.error(f"Election loop error: {e}")
                 await asyncio.sleep(1)
-    
+
     async def _heartbeat_loop(self):
         """Send heartbeats if leader"""
         while self._running:
             try:
                 if self.state == NodeState.LEADER:
                     await self._send_heartbeats()
-                
+
                 await asyncio.sleep(self.heartbeat_interval / 1000)
-                
+
             except Exception as e:
                 self.logger.error(f"Heartbeat error: {e}")
-    
+
     async def _become_candidate(self):
         """Transition to candidate and start election"""
         self.state = NodeState.CANDIDATE
@@ -231,23 +230,23 @@ class LeaderElection:
         self.current_term.voted_for = self.node_id
         self.votes_received = {self.node_id}  # Vote for self
         self.election_timeout = self._random_timeout()
-        
+
         self.logger.info(f"Became candidate for term {self.current_term.number}")
-        
+
         # Request votes from all peers
         vote_tasks = []
         for peer_id in self.peers:
             if peer_id != self.node_id:
                 vote_tasks.append(self._request_vote(peer_id))
-        
+
         # Wait for votes
         results = await asyncio.gather(*vote_tasks, return_exceptions=True)
-        
+
         # Count votes
         for i, peer_id in enumerate(self.peers):
             if peer_id != self.node_id and results[i-1] is True:
                 self.votes_received.add(peer_id)
-        
+
         # Check if won election
         if len(self.votes_received) > len(self.peers) / 2:
             await self._become_leader()
@@ -256,21 +255,21 @@ class LeaderElection:
             self.logger.info(f"Lost election with {len(self.votes_received)} votes")
             self.state = NodeState.FOLLOWER
             self.last_heartbeat = time.time() * 1000
-    
+
     async def _request_vote(self, peer_id: str) -> bool:
         """Request vote from a peer"""
         try:
             # Use Redis for communication
             vote_key = f"vote_request:{peer_id}:{self.current_term.number}"
             response_key = f"vote_response:{self.node_id}:{self.current_term.number}"
-            
+
             # Send vote request
             await self.redis.setex(
                 vote_key,
                 int(self.election_timeout / 1000),
                 self.node_id
             )
-            
+
             # Wait for response
             start_time = time.time()
             while time.time() - start_time < (self.election_timeout / 1000):
@@ -279,13 +278,13 @@ class LeaderElection:
                     await self.redis.delete(response_key)
                     return response == b"yes"
                 await asyncio.sleep(0.01)
-            
+
             return False
-            
+
         except Exception as e:
             self.logger.error(f"Vote request error: {e}")
             return False
-    
+
     async def _handle_vote_request(self, candidate_id: str, term: int) -> bool:
         """Handle incoming vote request"""
         # Grant vote if haven't voted in this term
@@ -293,53 +292,53 @@ class LeaderElection:
             self.current_term = Term(term)
             self.state = NodeState.FOLLOWER
             self.last_heartbeat = time.time() * 1000
-        
-        if (self.current_term.voted_for is None or 
+
+        if (self.current_term.voted_for is None or
             self.current_term.voted_for == candidate_id):
             self.current_term.voted_for = candidate_id
             return True
-        
+
         return False
-    
+
     async def _become_leader(self):
         """Transition to leader state"""
         self.state = NodeState.LEADER
         self.leader_id = self.node_id
         self.current_term.leader_id = self.node_id
-        
+
         self.logger.info(f"Became leader for term {self.current_term.number}")
-        
+
         # Notify via callback
         if self.leader_callback:
             await self.leader_callback()
-        
+
         # Send initial heartbeats
         await self._send_heartbeats()
-    
+
     async def _send_heartbeats(self):
         """Send heartbeats to all followers"""
         heartbeat_tasks = []
-        
+
         for peer_id in self.peers:
             if peer_id != self.node_id:
                 heartbeat_tasks.append(self._send_heartbeat(peer_id))
-        
+
         await asyncio.gather(*heartbeat_tasks, return_exceptions=True)
-    
+
     async def _send_heartbeat(self, peer_id: str):
         """Send heartbeat to specific peer"""
         try:
             heartbeat_key = f"heartbeat:{peer_id}:{self.current_term.number}"
-            
+
             await self.redis.setex(
                 heartbeat_key,
                 int(self.heartbeat_interval * 2 / 1000),
                 f"{self.node_id}:{time.time()}"
             )
-            
+
         except Exception as e:
             self.logger.error(f"Heartbeat error to {peer_id}: {e}")
-    
+
     async def _handle_heartbeat(self, leader_id: str, term: int):
         """Handle incoming heartbeat"""
         if term >= self.current_term.number:
@@ -347,29 +346,29 @@ class LeaderElection:
             self.state = NodeState.FOLLOWER
             self.leader_id = leader_id
             self.last_heartbeat = time.time() * 1000
-            
+
             if self.follower_callback:
                 await self.follower_callback(leader_id)
-    
+
     async def _step_down(self):
         """Step down from leadership"""
         self.logger.info("Stepping down from leadership")
         self.state = NodeState.FOLLOWER
         self.leader_id = None
         self.last_heartbeat = time.time() * 1000
-    
+
     def is_leader(self) -> bool:
         """Check if this node is the current leader"""
         return self.state == NodeState.LEADER
-    
+
     def get_leader(self) -> Optional[str]:
         """Get current leader ID"""
         return self.leader_id
 
 class DistributedLock:
     """Distributed lock implementation using leader election"""
-    
-    def __init__(self, 
+
+    def __init__(self,
                  name: str,
                  node_id: str,
                  redis_client: aioredis.Redis,
@@ -380,13 +379,13 @@ class DistributedLock:
         self.ttl = ttl
         self._lock_key = f"dlock:{name}"
         self._owner_key = f"dlock:owner:{name}"
-    
+
     @asynccontextmanager
     async def acquire(self, timeout: float = 10.0):
         """Acquire distributed lock"""
         start_time = time.time()
         acquired = False
-        
+
         try:
             while time.time() - start_time < timeout:
                 # Try to acquire lock
@@ -396,7 +395,7 @@ class DistributedLock:
                     nx=True,
                     ex=self.ttl
                 )
-                
+
                 if acquired:
                     # Store owner info
                     await self.redis.setex(
@@ -405,7 +404,7 @@ class DistributedLock:
                         f"{self.node_id}:{time.time()}"
                     )
                     break
-                
+
                 # Check if we already own it
                 current_owner = await self.redis.get(self._lock_key)
                 if current_owner and current_owner.decode() == self.node_id:
@@ -413,19 +412,19 @@ class DistributedLock:
                     await self.redis.expire(self._lock_key, self.ttl)
                     acquired = True
                     break
-                
+
                 await asyncio.sleep(0.1)
-            
+
             if not acquired:
                 raise TimeoutError(f"Failed to acquire lock {self.name}")
-            
+
             yield
-            
+
         finally:
             if acquired:
                 # Release lock only if we own it
                 await self._release()
-    
+
     async def _release(self):
         """Release the lock if we own it"""
         current_owner = await self.redis.get(self._lock_key)
@@ -434,7 +433,7 @@ class DistributedLock:
 
 class LeaderElectedService:
     """Base class for services that require leader election"""
-    
+
     def __init__(self,
                  node_id: str,
                  peers: List[NodeInfo],
@@ -445,33 +444,33 @@ class LeaderElectedService:
         self.election.follower_callback = self._on_became_follower
         self._leader_task: Optional[asyncio.Task] = None
         self.logger = logging.getLogger(f"Service[{node_id}]")
-    
+
     async def start(self):
         """Start the service"""
         await self.election.start()
         self.logger.info("Service started")
-    
+
     async def stop(self):
         """Stop the service"""
         if self._leader_task:
             self._leader_task.cancel()
         await self.election.stop()
         self.logger.info("Service stopped")
-    
+
     async def _on_became_leader(self):
         """Called when this node becomes leader"""
         self.logger.info("Became leader, starting leader tasks")
         if self._leader_task:
             self._leader_task.cancel()
         self._leader_task = asyncio.create_task(self._leader_loop())
-    
+
     async def _on_became_follower(self, leader_id: str):
         """Called when this node becomes follower"""
         self.logger.info(f"Became follower, leader is {leader_id}")
         if self._leader_task:
             self._leader_task.cancel()
             self._leader_task = None
-    
+
     async def _leader_loop(self):
         """Override this to implement leader-specific tasks"""
         raise NotImplementedError
@@ -479,45 +478,45 @@ class LeaderElectedService:
 # Example: Distributed Job Scheduler
 class DistributedScheduler(LeaderElectedService):
     """Job scheduler where only leader schedules jobs"""
-    
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.scheduled_jobs = {}
-    
+
     async def _leader_loop(self):
         """Leader scheduling loop"""
         while self.election.is_leader():
             try:
                 # Get pending jobs from Redis
                 jobs = await self._get_pending_jobs()
-                
+
                 for job in jobs:
                     if job['id'] not in self.scheduled_jobs:
                         # Schedule new job
                         task = asyncio.create_task(self._execute_job(job))
                         self.scheduled_jobs[job['id']] = task
                         self.logger.info(f"Scheduled job {job['id']}")
-                
+
                 # Cleanup completed jobs
                 completed = []
                 for job_id, task in self.scheduled_jobs.items():
                     if task.done():
                         completed.append(job_id)
-                
+
                 for job_id in completed:
                     del self.scheduled_jobs[job_id]
-                
+
                 await asyncio.sleep(1)
-                
+
             except Exception as e:
                 self.logger.error(f"Scheduler error: {e}")
                 await asyncio.sleep(1)
-    
+
     async def _get_pending_jobs(self) -> List[Dict]:
         """Get jobs from queue"""
         # Implementation depends on job storage
         return []
-    
+
     async def _execute_job(self, job: Dict):
         """Execute a scheduled job"""
         self.logger.info(f"Executing job {job['id']}")
@@ -527,37 +526,37 @@ class DistributedScheduler(LeaderElectedService):
 # Example: Shard Manager
 class ShardManager(LeaderElectedService):
     """Manages shard assignments - only leader rebalances"""
-    
+
     def __init__(self, *args, total_shards: int = 100, **kwargs):
         super().__init__(*args, **kwargs)
         self.total_shards = total_shards
         self.shard_assignments = {}
-    
+
     async def _leader_loop(self):
         """Leader shard management loop"""
         while self.election.is_leader():
             try:
                 # Get active nodes
                 active_nodes = await self._get_active_nodes()
-                
+
                 # Check if rebalancing needed
                 if self._needs_rebalancing(active_nodes):
                     new_assignments = self._calculate_assignments(active_nodes)
                     await self._apply_assignments(new_assignments)
                     self.logger.info("Rebalanced shards across nodes")
-                
+
                 await asyncio.sleep(10)  # Check every 10 seconds
-                
+
             except Exception as e:
                 self.logger.error(f"Shard manager error: {e}")
                 await asyncio.sleep(10)
-    
+
     async def _get_active_nodes(self) -> List[str]:
         """Get list of active nodes"""
         # Check heartbeats in Redis
         pattern = "heartbeat:*"
         active = []
-        
+
         cursor = 0
         while True:
             cursor, keys = await self.redis.scan(cursor, match=pattern)
@@ -565,44 +564,44 @@ class ShardManager(LeaderElectedService):
                 node_id = key.decode().split(':')[1]
                 if node_id not in active:
                     active.append(node_id)
-            
+
             if cursor == 0:
                 break
-        
+
         return active
-    
+
     def _needs_rebalancing(self, active_nodes: List[str]) -> bool:
         """Check if shards need rebalancing"""
         if not self.shard_assignments:
             return True
-        
+
         # Check if nodes changed
         current_nodes = set(self.shard_assignments.values())
         active_set = set(active_nodes)
-        
+
         return current_nodes != active_set
-    
+
     def _calculate_assignments(self, nodes: List[str]) -> Dict[int, str]:
         """Calculate optimal shard distribution"""
         assignments = {}
         shards_per_node = self.total_shards // len(nodes)
-        
+
         for i in range(self.total_shards):
             node_index = i // shards_per_node
             if node_index >= len(nodes):
                 node_index = len(nodes) - 1
             assignments[i] = nodes[node_index]
-        
+
         return assignments
-    
+
     async def _apply_assignments(self, assignments: Dict[int, str]):
         """Apply new shard assignments"""
         # Store in Redis for all nodes to see
         pipe = self.redis.pipeline()
-        
+
         for shard, node in assignments.items():
             pipe.hset("shard_assignments", str(shard), node)
-        
+
         await pipe.execute()
         self.shard_assignments = assignments
 ```
@@ -729,71 +728,6 @@ How leader election works with other patterns:
 ---
 
 **Previous**: [← Idempotent Receiver Pattern](idempotent-receiver.md) | **Next**: [Load Balancing Pattern →](load-balancing.md)
-## ❌ When NOT to Use
-
-### Inappropriate Scenarios
-- **Simple applications** with minimal complexity
-- **Development environments** where reliability isn't critical
-- **Single-user systems** without scale requirements
-- **Internal tools** with relaxed availability needs
-
-### Technical Constraints
-- **Simple Systems**: Overhead exceeds benefits
-- **Development/Testing**: Adds unnecessary complexity
-- **Performance Critical**: Pattern overhead is unacceptable
-- **Legacy Systems**: Cannot be easily modified
-
-### Resource Limitations
-- **No Monitoring**: Cannot observe pattern effectiveness
-- **Limited Expertise**: Team lacks distributed systems knowledge
-- **Tight Coupling**: System design prevents pattern implementation
-
-### Anti-Patterns
-- Adding complexity without clear benefit
-- Implementing without proper monitoring
-- Using as a substitute for fixing root causes
-- Over-engineering simple problems
-
-
-
-## 🌟 Real Examples
-
-### Production Implementations
-
-**Major Cloud Provider**: Uses this pattern for service reliability across global infrastructure
-
-**Popular Framework**: Implements this pattern by default in their distributed systems toolkit
-
-**Enterprise System**: Applied this pattern to improve uptime from 99% to 99.9%
-
-### Open Source Examples
-- **Libraries**: Resilience4j, Polly, circuit-breaker-js
-- **Frameworks**: Spring Cloud, Istio, Envoy
-- **Platforms**: Kubernetes, Docker Swarm, Consul
-
-### Case Study: E-commerce Platform
-A major e-commerce platform implemented Leader Election Pattern to handle critical user flows:
-
-**Challenge**: System failures affected user experience and revenue
-
-**Implementation**: 
-- Applied Leader Election Pattern pattern to critical service calls
-- Added fallback mechanisms for degraded operation
-- Monitored service health continuously
-
-**Results**:
-- 99.9% availability during service disruptions
-- Customer satisfaction improved due to reliable experience
-- Revenue protected during partial outages
-
-### Lessons Learned
-- Start with conservative thresholds and tune based on data
-- Monitor the pattern itself, not just the protected service
-- Have clear runbooks for when the pattern activates
-- Test failure scenarios regularly in production
-
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -804,12 +738,12 @@ class Leader_ElectionPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -817,23 +751,23 @@ class Leader_ElectionPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -867,20 +801,17 @@ leader_election:
 ```python
 def test_leader_election_behavior():
     pattern = Leader_ElectionPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

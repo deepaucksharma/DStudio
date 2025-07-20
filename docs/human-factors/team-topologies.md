@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Team Topologies for Distributed Systems**
 
-
 # Team Topologies for Distributed Systems
 
 **Organizing teams for effective distributed systems development**
@@ -37,15 +36,15 @@ stream_aligned_team:
     - Direct customer/user feedback loop
     - Cross-functional capabilities
     - Autonomous decision-making
-  
+
   size: 5-9 people
-  
+
   responsibilities:
     - Feature development
     - Service operations
     - On-call rotation
     - Customer support escalations
-  
+
   examples:
     - "Checkout Team" (owns entire checkout flow)
     - "Mobile App Team" (owns mobile experience)
@@ -62,15 +61,15 @@ platform_team:
     - Focuses on developer experience
     - Abstracts infrastructure complexity
     - Self-service capabilities
-  
+
   size: 5-9 people per platform area
-  
+
   services_provided:
     - Deployment pipelines
     - Monitoring and observability
     - Database platforms
     - Message queuing systems
-  
+
   success_metrics:
     - Time to deploy new service
     - Platform adoption rate
@@ -87,15 +86,15 @@ enabling_team:
     - Knowledge transfer focus
     - Coaching and mentoring
     - Research and experimentation
-  
+
   size: 3-5 specialists
-  
+
   engagement_types:
     - New technology adoption
     - Performance optimization
     - Security improvements
     - Architecture evolution
-  
+
   duration: 3-6 months per engagement
 ```
 
@@ -109,7 +108,7 @@ complicated_subsystem_team:
     - Complex domain expertise
     - Clear interface boundaries
     - Limited cognitive load on others
-  
+
   examples:
     - Machine learning model team
     - Video encoding team
@@ -143,14 +142,14 @@ complicated_subsystem_team:
 ```python
 class ConwayAnalyzer:
     """Analyze alignment between teams and architecture"""
-    
+
     def analyze_alignment(self, teams, services):
         misalignments = []
-        
+
         # Check service ownership
         for service in services:
             owners = self.find_service_owners(service, teams)
-            
+
             if len(owners) == 0:
                 misalignments.append({
                     'type': 'orphaned_service',
@@ -164,11 +163,11 @@ class ConwayAnalyzer:
                     'owners': [t.name for t in owners],
                     'impact': 'Coordination overhead'
                 })
-        
+
         # Check team dependencies
         for team in teams:
             dependencies = self.analyze_team_dependencies(team)
-            
+
             if len(dependencies) > 5:
                 misalignments.append({
                     'type': 'high_coupling',
@@ -176,7 +175,7 @@ class ConwayAnalyzer:
                     'dependencies': len(dependencies),
                     'impact': 'Reduced autonomy'
                 })
-        
+
         return misalignments
 ```
 
@@ -201,12 +200,12 @@ class CognitiveLoadCalculator:
             'meeting_hours_per_week': team.meeting_hours * 1,
             'documentation_debt': team.outdated_docs_count * 2
         }
-        
+
         total_load = sum(load_factors.values())
-        
+
         # Threshold based on team size
         capacity = team.size * 50  # 50 points per person
-        
+
         return {
             'total_load': total_load,
             'capacity': capacity,
@@ -214,7 +213,7 @@ class CognitiveLoadCalculator:
             'breakdown': load_factors,
             'recommendation': self.get_recommendation(total_load / capacity)
         }
-    
+
     def get_recommendation(self, utilization):
         if utilization > 1.2:
             return "Critical: Reduce scope immediately"
@@ -238,12 +237,12 @@ platform_evolution:
     trigger: "Same solution built 3+ times"
     action: "Extract common functionality"
     team: "Initial platform engineers"
-    
+
   stage_2_self_service:
     trigger: "Platform team becomes bottleneck"
     action: "Build self-service capabilities"
     focus: "Developer experience"
-    
+
   stage_3_product:
     trigger: "Platform widely adopted"
     action: "Treat platform as internal product"
@@ -258,7 +257,7 @@ class PlatformProduct:
         self.features = []
         self.users = []  # Stream-aligned teams
         self.metrics = PlatformMetrics()
-    
+
     def measure_success(self):
         return {
             'adoption_rate': len(self.users) / total_teams,
@@ -267,11 +266,11 @@ class PlatformProduct:
             'user_satisfaction': self.metrics.nps_score,
             'reliability': self.metrics.uptime
         }
-    
+
     def prioritize_features(self):
         # Use same product management techniques
         # as external products
-        return sorted(self.features, 
+        return sorted(self.features,
                      key=lambda f: f.user_value / f.effort,
                      reverse=True)
 ```
@@ -287,21 +286,21 @@ team_api:
       - Service: "Checkout API"
         SLA: "99.9% uptime"
         Response_time: "<200ms p99"
-      
+
       - Service: "Order Processing"
         SLA: "99.95% success rate"
         Processing_time: "<5 seconds"
-    
+
     consumes:
       - "Inventory Service"
       - "Payment Service"
       - "User Service"
-    
+
     communication:
       - sync: "Slack #checkout-team"
       - async: "checkout-team@company.com"
       - on_call: "PagerDuty checkout-team"
-    
+
     working_agreements:
       - "2-week sprint cycles"
       - "Thursday deployments"
@@ -316,7 +315,7 @@ team_api:
 class OrganizationalScaling:
     def recommend_split(self, team):
         """Recommend when and how to split teams"""
-        
+
         indicators = {
             'size': team.size > 9,
             'services': len(team.services) > 5,
@@ -324,17 +323,17 @@ class OrganizationalScaling:
             'delivery': team.cycle_time > 2 * historical_average,
             'conflicts': team.merge_conflicts > 20/week
         }
-        
+
         if sum(indicators.values()) >= 3:
             # Recommend split
             return self.suggest_split_strategy(team)
-        
+
         return None
-    
+
     def suggest_split_strategy(self, team):
         # Analyze service dependencies
         clusters = self.find_service_clusters(team.services)
-        
+
         return {
             'strategy': 'service_boundary_split',
             'new_teams': [
@@ -434,7 +433,7 @@ Search Team (owns search functionality)
 ## 👥 Practical Application
 
 ### Exercise 1: Current State Assessment ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Evaluate your team's current practices related to Team Topologies for Distributed Systems
 
 **Self-Assessment**:
@@ -446,7 +445,7 @@ Search Team (owns search functionality)
 **Scoring**: Rate each area 1-5 and identify the top 2 areas for improvement.
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Create an actionable improvement plan
 
 **Planning Framework**:
@@ -461,7 +460,7 @@ Search Team (owns search functionality)
 - Required resources/support
 
 ### Exercise 3: Simulation Exercise ⭐⭐⭐⭐
-**Time**: ~30 minutes  
+**Time**: ~30 minutes
 **Objective**: Practice the concepts in a realistic scenario
 
 **Scenario**: Your team just experienced a significant production incident related to Team Topologies for Distributed Systems.

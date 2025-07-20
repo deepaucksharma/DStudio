@@ -1,6 +1,6 @@
 ---
 title: Axioms Synthesis
-description: "Legend: 
+description: "Legend:
 ─── E-commerce Site (latency + capacity critical)
 ─·─ Analytics Pipeline (cost + coordination matter)
 ··· Trading System (latency dominate..."
@@ -15,7 +15,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → **Axioms Synthesis**
 
-
 # Axioms Synthesis
 
 ## Axioms Spider Chart
@@ -25,7 +24,7 @@ last_updated: 2025-07-20
 ```yaml
                         Latency
                           10
-                      8   .   
+                      8   .
                   6     .   .
               4       .       .
           2         .           .
@@ -38,7 +37,7 @@ Cost    0 ─────────*─────────────. C
                     . . .
                 Coordination
 
-Legend: 
+Legend:
 ─── E-commerce Site (latency + capacity critical)
 ─·─ Analytics Pipeline (cost + coordination matter)
 ··· Trading System (latency dominates everything)
@@ -116,7 +115,7 @@ Where has physics bitten us?
 - [ ] Synchronous when async would work
 Worst incident: ________________
 
-## Axiom 2: Capacity  
+## Axiom 2: Capacity
 What filled up and broke?
 - [ ] Database connections
 - [ ] Memory on critical service
@@ -134,7 +133,7 @@ Our blast radius: ________________
 ## Axiom 4: Concurrency
 Where do we race?
 - [ ] User registration
-- [ ] Inventory updates  
+- [ ] Inventory updates
 - [ ] Distributed counters
 - [ ] Cache invalidation
 Consistency model: ________________
@@ -182,7 +181,7 @@ The axiom I most underestimated: ________________
 ```text
 Based on this reflection:
 1. Immediate fix needed: ________________
-2. Architecture change to consider: ________________  
+2. Architecture change to consider: ________________
 3. Monitoring to add: ________________
 4. Knowledge gap to fill: ________________
 5. Story to share with team: ________________
@@ -193,7 +192,7 @@ Based on this reflection:
 Having established the 8 fundamental axioms that govern all distributed systems, Part II will show how these constraints combine to create the five foundational pillars of distributed system design:
 
 1. **Distribution of Work**: How to spread computation (emerges from Capacity + Latency axioms)
-2. **Distribution of State**: How to spread data (emerges from Capacity + Partial Failure + Latency)  
+2. **Distribution of State**: How to spread data (emerges from Capacity + Partial Failure + Latency)
 3. **Distribution of Truth**: How to achieve agreement (emerges from Coordination + Concurrency + Partial Failure)
 4. **Distribution of Control**: How to manage the system (emerges from Human Interface + Observability)
 5. **Distribution of Intelligence**: How to make systems adaptive (emerges from all axioms + feedback loops)
@@ -204,7 +203,7 @@ These pillars aren't arbitrary categorizations—they're the natural solutions t
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of Axioms Synthesis
 
 **Reflection Questions**:
@@ -216,7 +215,7 @@ These pillars aren't arbitrary categorizations—they're the natural solutions t
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -231,7 +230,7 @@ These pillars aren't arbitrary categorizations—they're the natural solutions t
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

@@ -17,7 +17,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Serverless/FaaS (Function-as-a-Service)**
 
-
 # Serverless/FaaS (Function-as-a-Service)
 
 **No servers, just functions (that run on servers you don't see)**
@@ -47,13 +46,13 @@ Request → API Gateway → Lambda → Response
 ```
 1. REQUEST/RESPONSE
    HTTP → Function → Response
-   
+
 2. EVENT-DRIVEN
    S3 Upload → Function → Process
-   
+
 3. STREAM PROCESSING
    Kinesis → Function → Transform
-   
+
 4. SCHEDULED
    Cron → Function → Batch Job
 ```bash
@@ -66,13 +65,13 @@ def lambda_handler(event, context):
     event: Input data (JSON)
     context: Runtime information
     """
-    
+
     # Parse input
     body = json.loads(event.get('body', '{}'))
-    
+
     # Business logic
     result = process_request(body)
-    
+
     # Return API Gateway formatted response
     return {
         'statusCode': 200,
@@ -91,7 +90,7 @@ class ServerlessFunction:
         self.environment = {}
         self.triggers = []
         self.layers = []
-        
+
     def add_http_trigger(self, method, path):
         self.triggers.append({
             'type': 'http',
@@ -99,17 +98,17 @@ class ServerlessFunction:
             'path': path,
             'cors': True
         })
-        
+
     def add_event_trigger(self, event_source):
         self.triggers.append({
             'type': 'event',
             'source': event_source
         })
-        
+
     def with_environment(self, env_vars):
         self.environment.update(env_vars)
         return self
-        
+
     def with_layer(self, layer_arn):
         self.layers.append(layer_arn)
         return self
@@ -119,13 +118,13 @@ class ColdStartOptimizer:
     def __init__(self):
         self.connections = {}
         self.initialized = False
-        
+
     def get_connection(self, key, factory):
         """Reuse connections across invocations"""
         if key not in self.connections:
             self.connections[key] = factory()
         return self.connections[key]
-    
+
     def initialize_once(self, init_fn):
         """Run expensive initialization only on cold start"""
         if not self.initialized:
@@ -137,13 +136,13 @@ optimizer = ColdStartOptimizer()
 
 def optimized_handler(event, context):
     # Reuse database connection
-    db = optimizer.get_connection('postgres', 
+    db = optimizer.get_connection('postgres',
         lambda: psycopg2.connect(os.environ['DATABASE_URL'])
     )
-    
+
     # Initialize ML model once
     optimizer.initialize_once(lambda: load_ml_model())
-    
+
     # Fast path for warm invocations
     return process_with_connections(event, db)
 
@@ -151,10 +150,10 @@ def optimized_handler(event, context):
 class EventProcessor:
     def __init__(self):
         self.handlers = {}
-        
+
     def register(self, event_type, handler):
         self.handlers[event_type] = handler
-        
+
     def process(self, event, context):
         # Route based on event source
         if 's3' in event:
@@ -165,37 +164,37 @@ class EventProcessor:
             return self.process_dynamodb_stream(event)
         else:
             return self.process_api_request(event)
-    
+
     def process_s3_event(self, event):
         """Handle S3 upload events"""
         for record in event['Records']:
             bucket = record['s3']['bucket']['name']
             key = record['s3']['object']['key']
-            
+
             # Download and process file
             s3 = boto3.client('s3')
             obj = s3.get_object(Bucket=bucket, Key=key)
-            
+
             # Process based on file type
             if key.endswith('.jpg'):
                 return self.process_image(obj['Body'])
             elif key.endswith('.csv'):
                 return self.process_csv(obj['Body'])
-    
+
     def process_sqs_event(self, event):
         """Handle SQS messages"""
         results = []
-        
+
         for record in event['Records']:
             message = json.loads(record['body'])
-            
+
             try:
                 result = self.handlers[message['type']](message['payload'])
                 results.append(result)
             except Exception as e:
                 # Failed messages go back to queue
                 raise
-                
+
         return {'batchItemFailures': []}
 
 # Orchestration with Step Functions
@@ -204,7 +203,7 @@ class StepFunctionWorkflow:
         self.name = name
         self.states = {}
         self.start_state = None
-        
+
     def add_task(self, name, function_arn, next_state=None):
         self.states[name] = {
             'Type': 'Task',
@@ -217,20 +216,20 @@ class StepFunctionWorkflow:
                 'BackoffRate': 2.0
             }]
         }
-        
+
     def add_parallel(self, name, branches, next_state=None):
         self.states[name] = {
             'Type': 'Parallel',
             'Branches': branches,
             'Next': next_state
         }
-        
+
     def add_choice(self, name, choices):
         self.states[name] = {
             'Type': 'Choice',
             'Choices': choices
         }
-        
+
     def to_json(self):
         return {
             'Comment': f'{self.name} workflow',
@@ -241,13 +240,13 @@ class StepFunctionWorkflow:
 # Example: Image processing pipeline
 def create_image_pipeline():
     workflow = StepFunctionWorkflow('ImageProcessing')
-    
+
     # Step 1: Validate image
-    workflow.add_task('ValidateImage', 
+    workflow.add_task('ValidateImage',
         'arn:aws:lambda:region:account:function:validate-image',
         next_state='ProcessingChoice'
     )
-    
+
     # Step 2: Choose processing path
     workflow.add_choice('ProcessingChoice', [
         {
@@ -261,25 +260,25 @@ def create_image_pipeline():
             'Next': 'ProcessDocument'
         }
     ])
-    
+
     # Step 3a: Photo processing
     workflow.add_parallel('ProcessPhoto', [
         {'StartAt': 'ResizeImage', 'States': {...}},
         {'StartAt': 'ExtractMetadata', 'States': {...}},
         {'StartAt': 'DetectFaces', 'States': {...}}
     ], next_state='SaveResults')
-    
+
     # Step 3b: Document processing
     workflow.add_task('ProcessDocument',
         'arn:aws:lambda:region:account:function:ocr-document',
         next_state='SaveResults'
     )
-    
+
     # Step 4: Save results
     workflow.add_task('SaveResults',
         'arn:aws:lambda:region:account:function:save-to-dynamodb'
     )
-    
+
     workflow.start_state = 'ValidateImage'
     return workflow
 
@@ -309,21 +308,21 @@ class ServerlessPerformance:
                 'lazy_initialization': True
             }
         }
-    
+
     @staticmethod
     def optimize_memory():
         """Memory = CPU in Lambda"""
         def find_optimal_memory(function_name):
             memories = [128, 256, 512, 1024, 1536, 2048, 3008]
             results = []
-            
+
             for memory in memories:
                 # Update function configuration
                 lambda_client.update_function_configuration(
                     FunctionName=function_name,
                     MemorySize=memory
                 )
-                
+
                 # Run performance test
                 durations = []
                 for _ in range(10):
@@ -332,16 +331,16 @@ class ServerlessPerformance:
                         InvocationType='RequestResponse'
                     )
                     durations.append(response['Duration'])
-                
+
                 avg_duration = sum(durations) / len(durations)
                 cost = (memory / 1024) * (avg_duration / 1000) * 0.0000166667
-                
+
                 results.append({
                     'memory': memory,
                     'duration': avg_duration,
                     'cost': cost
                 })
-            
+
             # Find sweet spot
             return min(results, key=lambda x: x['cost'])
 ```bash
@@ -353,12 +352,12 @@ class FanOutFanIn:
     def __init__(self, mapper_fn, reducer_fn):
         self.mapper = mapper_fn
         self.reducer = reducer_fn
-        
+
     async def execute(self, items):
         # Fan-out: Process items in parallel
         sns = boto3.client('sns')
         topic_arn = os.environ['MAPPER_TOPIC']
-        
+
         futures = []
         for item in items:
             response = sns.publish(
@@ -369,10 +368,10 @@ class FanOutFanIn:
                 })
             )
             futures.append(response)
-            
+
         # Wait for all mappers to complete
         # (In practice, use SQS/DynamoDB to track)
-        
+
         # Fan-in: Collect and reduce results
         results = await self.collect_results()
         return self.reducer(results)
@@ -382,7 +381,7 @@ class LambdaSaga:
     def __init__(self, table_name):
         self.dynamodb = boto3.resource('dynamodb')
         self.table = self.dynamodb.Table(table_name)
-        
+
     def start_saga(self, saga_id, steps):
         # Initialize saga state
         self.table.put_item(Item={
@@ -392,20 +391,20 @@ class LambdaSaga:
             'steps': steps,
             'completed_steps': []
         })
-        
+
         # Trigger first step
         self.execute_step(saga_id, 0)
-        
+
     def execute_step(self, saga_id, step_index):
         # Get saga state
         response = self.table.get_item(Key={'saga_id': saga_id})
         saga = response['Item']
-        
+
         if saga['status'] != 'RUNNING':
             return
-            
+
         step = saga['steps'][step_index]
-        
+
         try:
             # Invoke step function
             lambda_client = boto3.client('lambda')
@@ -414,22 +413,22 @@ class LambdaSaga:
                 InvocationType='RequestResponse',
                 Payload=json.dumps(step['payload'])
             )
-            
+
             # Update saga state
             saga['completed_steps'].append({
                 'index': step_index,
                 'result': json.loads(result['Payload'].read())
             })
-            
+
             # Next step or complete
             if step_index + 1 < len(saga['steps']):
                 saga['current_step'] = step_index + 1
                 self.execute_step(saga_id, step_index + 1)
             else:
                 saga['status'] = 'COMPLETED'
-                
+
             self.table.put_item(Item=saga)
-            
+
         except Exception as e:
             # Compensation logic
             self.compensate_saga(saga_id, step_index)
@@ -481,8 +480,6 @@ class LambdaSaga:
 - User experience is a priority
 - System is customer-facing or business-critical
 
-
-
 ## ❌ When NOT to Use
 
 ### Inappropriate Scenarios
@@ -507,8 +504,6 @@ class LambdaSaga:
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -539,8 +534,6 @@ class LambdaSaga:
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -551,12 +544,12 @@ class Serverless_FaasPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -564,23 +557,23 @@ class Serverless_FaasPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -614,20 +607,17 @@ serverless_faas:
 ```python
 def test_serverless_faas_behavior():
     pattern = Serverless_FaasPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

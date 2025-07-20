@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Pattern Legend & Icons**
 
-
 # Pattern Legend & Icons
 
 ## Visual Language for Quick Scanning
@@ -25,7 +24,7 @@ last_updated: 2025-07-20
 👤 Human factors        💰 Cost sensitive
 ```
 
-### PATTERN CHARACTERISTICS  
+### PATTERN CHARACTERISTICS
 ```text
 📊 Improves throughput   🛡️ Improves reliability
 ⏱️ Reduces latency       💾 Handles state
@@ -36,7 +35,7 @@ last_updated: 2025-07-20
 ### IMPLEMENTATION DIFFICULTY
 ```text
 ● Easy (1-2 days)
-●● Medium (1-2 weeks)  
+●● Medium (1-2 weeks)
 ●●● Hard (1-2 months)
 ●●●● Very Hard (3+ months)
 ```
@@ -67,7 +66,7 @@ last_updated: 2025-07-20
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of Pattern Legend & Icons
 
 **Reflection Questions**:
@@ -79,7 +78,7 @@ last_updated: 2025-07-20
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -94,7 +93,7 @@ last_updated: 2025-07-20
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

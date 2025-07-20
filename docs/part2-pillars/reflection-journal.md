@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Micro-Reflection Journal**
 
-
 # Micro-Reflection Journal
 
 ## Quick Self-Assessment: Pillar Weaknesses
@@ -27,7 +26,7 @@ Rate each pillar (1-5 stars):
 - Single points of failure? _______
 - Last scaling issue: _____________
 
-**State Distribution** ☆☆☆☆☆  
+**State Distribution** ☆☆☆☆☆
 - Data fits on one machine? [Y/N]
 - Backup strategy? _______________
 - Last data loss: ________________
@@ -49,7 +48,7 @@ Rate each pillar (1-5 stars):
 
 **Weakest Pillar**: ______________
 
-**One thing to fix this sprint**: 
+**One thing to fix this sprint**:
 ________________________________
 ```
 
@@ -61,7 +60,7 @@ ________________________________
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of Micro-Reflection Journal
 
 **Reflection Questions**:
@@ -73,7 +72,7 @@ ________________________________
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -88,7 +87,7 @@ ________________________________
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

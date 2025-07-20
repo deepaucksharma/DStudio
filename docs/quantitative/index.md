@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Part IV: Quantitative Toolkit**
 
-
 # Part IV: Quantitative Toolkit
 
 **The math that matters for distributed systems**

@@ -18,7 +18,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Trade-off Calculus Radar**
 
-
 # Trade-off Calculus Radar
 
 ## The Extended Trade-off Dimensions
@@ -54,29 +53,29 @@ class TradeOffCalculator:
             'cost': 0,         # 0=expensive, 10=cheap
             'security': 0      # 0=weak, 10=strong
         }
-    
+
     def add_pattern(self, pattern, impacts):
         """Add a pattern's impact on dimensions"""
         for dimension, impact in impacts.items():
             self.dimensions[dimension] += impact
-    
+
     def normalize(self):
         """Normalize to 0-10 scale"""
         for dim in self.dimensions:
             self.dimensions[dim] = max(0, min(10, self.dimensions[dim]))
-    
+
     def calculate_balance(self):
         """Higher score = more balanced system"""
         values = list(self.dimensions.values())
         mean = sum(values) / len(values)
         variance = sum((x - mean) ** 2 for x in values) / len(values)
         return 10 - (variance ** 0.5)
-    
+
     def recommend_improvement(self):
         """Suggest what to improve"""
         worst = min(self.dimensions.items(), key=lambda x: x[1])
         best = max(self.dimensions.items(), key=lambda x: x[1])
-        
+
         return {
             'bottleneck': worst[0],
             'score': worst[1],
@@ -157,7 +156,7 @@ Security ██████ 6
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of Trade-off Calculus Radar
 
 **Reflection Questions**:
@@ -169,7 +168,7 @@ Security ██████ 6
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -184,7 +183,7 @@ Security ██████ 6
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

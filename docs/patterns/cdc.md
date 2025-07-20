@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Change Data Capture (CDC)**
 
-
 # Change Data Capture (CDC)
 
 **Every change leaves a trace**
@@ -48,13 +47,13 @@ Database Write → Transaction Log → CDC Process → Event Stream
 ```
 1. LOG-BASED CDC (Most reliable)
    Read DB transaction log directly
-   
+
 2. TRIGGER-BASED CDC
    Database triggers on INSERT/UPDATE/DELETE
-   
+
 3. QUERY-BASED CDC
    Poll with timestamp/version columns
-   
+
 4. SNAPSHOT + LOG
    Initial snapshot + incremental changes
 ```bash
@@ -67,33 +66,33 @@ class LogBasedCDC:
         self.db_config = database_config
         self.last_log_position = self.load_checkpoint()
         self.handlers = {}
-        
+
     def capture_changes(self):
         """Read database transaction log"""
-        
+
         # Connect to database replication stream
         with ReplicationConnection(self.db_config) as conn:
             # Start from last known position
             conn.start_replication(self.last_log_position)
-            
+
             for log_entry in conn.stream_log():
                 try:
                     # Parse log entry
                     change = self.parse_log_entry(log_entry)
-                    
+
                     # Process change
                     self.process_change(change)
-                    
+
                     # Update checkpoint
                     self.last_log_position = log_entry.position
                     self.save_checkpoint()
-                    
+
                 except Exception as e:
                     self.handle_error(e, log_entry)
-    
+
     def parse_log_entry(self, log_entry):
         """Parse different log formats"""
-        
+
         if log_entry.type == 'INSERT':
             return Change(
                 operation='INSERT',
@@ -102,7 +101,7 @@ class LogBasedCDC:
                 timestamp=log_entry.timestamp,
                 transaction_id=log_entry.tx_id
             )
-            
+
         elif log_entry.type == 'UPDATE':
             return Change(
                 operation='UPDATE',
@@ -112,7 +111,7 @@ class LogBasedCDC:
                 timestamp=log_entry.timestamp,
                 transaction_id=log_entry.tx_id
             )
-            
+
         elif log_entry.type == 'DELETE':
             return Change(
                 operation='DELETE',
@@ -121,15 +120,15 @@ class LogBasedCDC:
                 timestamp=log_entry.timestamp,
                 transaction_id=log_entry.tx_id
             )
-    
+
     def process_change(self, change):
         """Route change to handlers"""
-        
+
         # Table-specific handlers
         if change.table in self.handlers:
             for handler in self.handlers[change.table]:
                 handler.handle(change)
-                
+
         # Global handlers
         for handler in self.handlers.get('*', []):
             handler.handle(change)
@@ -141,31 +140,31 @@ class CDCConnector:
         self.sink = self.create_sink(sink_config)
         self.transformers = []
         self.filters = []
-        
+
     def add_transformer(self, transformer):
         """Add data transformation"""
         self.transformers.append(transformer)
-        
+
     def add_filter(self, filter_fn):
         """Add change filter"""
         self.filters.append(filter_fn)
-        
+
     async def run(self):
         """Main CDC pipeline"""
-        
+
         async for change in self.source.stream():
             # Apply filters
             if not all(f(change) for f in self.filters):
                 continue
-                
+
             # Apply transformations
             transformed = change
             for transformer in self.transformers:
                 transformed = transformer.transform(transformed)
-                
+
             # Send to sink
             await self.sink.send(transformed)
-            
+
             # Commit position
             await self.source.commit(change.position)
 
@@ -175,50 +174,50 @@ class SnapshotCDC:
         self.database = database
         self.target = target
         self.snapshot_completed = False
-        
+
     async def sync(self):
         """Full sync with snapshot + incremental"""
-        
+
         if not self.snapshot_completed:
             await self.initial_snapshot()
-            
+
         await self.incremental_sync()
-    
+
     async def initial_snapshot(self):
         """Take consistent snapshot"""
-        
+
         # Start transaction for consistency
         async with self.database.transaction() as tx:
             # Get current log position
             log_position = await tx.get_current_log_position()
-            
+
             # Mark target as "snapshotting"
             await self.target.begin_snapshot()
-            
+
             # Copy all tables
             for table in self.database.tables:
                 await self.snapshot_table(tx, table)
-                
+
             # Save log position for incremental
             await self.target.save_snapshot_position(log_position)
-            
+
             # Mark snapshot complete
             await self.target.complete_snapshot()
             self.snapshot_completed = True
-    
+
     async def snapshot_table(self, tx, table):
         """Stream table data in batches"""
-        
+
         total_rows = await tx.count(table)
         batch_size = 10000
-        
+
         for offset in range(0, total_rows, batch_size):
             rows = await tx.query(
                 f"SELECT * FROM {table} LIMIT {batch_size} OFFSET {offset}"
             )
-            
+
             await self.target.write_batch(table, rows)
-            
+
             # Report progress
             progress = min(100, (offset + batch_size) / total_rows * 100)
             print(f"Snapshot {table}: {progress:.1f}%")
@@ -227,39 +226,39 @@ class SnapshotCDC:
 class SchemaEvolutionHandler:
     def __init__(self):
         self.schema_registry = SchemaRegistry()
-        
+
     def handle_change(self, change):
         """Handle schema changes gracefully"""
-        
+
         # Detect schema change
         if change.operation == 'ALTER_TABLE':
             old_schema = self.schema_registry.get(change.table)
             new_schema = change.new_schema
-            
+
             # Generate migration
             migration = self.generate_migration(old_schema, new_schema)
-            
+
             # Apply to downstream systems
             self.apply_migration(migration)
-            
+
             # Update registry
             self.schema_registry.update(change.table, new_schema)
-    
+
     def generate_migration(self, old_schema, new_schema):
         """Generate migration for downstream"""
-        
+
         migration = Migration()
-        
+
         # Added columns
         for col in new_schema.columns:
             if col not in old_schema.columns:
                 migration.add_column(col, default=self.infer_default(col))
-                
-        # Removed columns  
+
+        # Removed columns
         for col in old_schema.columns:
             if col not in new_schema.columns:
                 migration.drop_column(col)
-                
+
         # Changed columns
         for col in new_schema.columns:
             if col in old_schema.columns:
@@ -267,7 +266,7 @@ class SchemaEvolutionHandler:
                 new_type = new_schema.columns[col].type
                 if old_type != new_type:
                     migration.alter_column(col, new_type)
-                    
+
         return migration
 
 # CDC to multiple targets
@@ -276,39 +275,39 @@ class CDCFanOut:
         self.source = source
         self.targets = []
         self.failed_targets = {}
-        
+
     def add_target(self, target, retry_policy=None):
         self.targets.append({
             'target': target,
             'retry_policy': retry_policy or ExponentialBackoff()
         })
-        
+
     async def process(self):
         """Fan out changes to all targets"""
-        
+
         async for change in self.source.stream():
             # Send to all targets in parallel
             tasks = []
             for target_config in self.targets:
                 task = self.send_with_retry(target_config, change)
                 tasks.append(task)
-                
+
             # Wait for all to complete
             results = await asyncio.gather(*tasks, return_exceptions=True)
-            
+
             # Handle failures
             for i, result in enumerate(results):
                 if isinstance(result, Exception):
                     await self.handle_target_failure(
                         self.targets[i], change, result
                     )
-    
+
     async def send_with_retry(self, target_config, change):
         """Send change with retry logic"""
-        
+
         target = target_config['target']
         retry_policy = target_config['retry_policy']
-        
+
         for attempt in range(retry_policy.max_attempts):
             try:
                 await target.send(change)
@@ -328,17 +327,17 @@ class CDCMonitor:
             'lag_seconds': Gauge(),
             'errors': Counter()
         }
-        
+
     def record_change(self, change):
         self.metrics['changes_captured'].inc()
-        
+
         # Calculate replication lag
         lag = time.time() - change.timestamp
         self.metrics['lag_seconds'].set(lag)
-        
+
     def record_error(self, error, change):
         self.metrics['errors'].inc()
-        
+
         # Alert if lag is too high
         if self.metrics['lag_seconds'].value > 60:
             self.alert(f"CDC lag high: {lag}s")
@@ -368,7 +367,6 @@ class CDCMonitor:
 **Previous**: [← Caching Strategies](caching-strategies.md) | **Next**: [Circuit Breaker Pattern →](circuit-breaker.md)
 ---
 
-
 ## ✅ When to Use
 
 ### Ideal Scenarios
@@ -392,8 +390,6 @@ class CDCMonitor:
 - Cost of downtime is significant
 - User experience is a priority
 - System is customer-facing or business-critical
-
-
 
 ## ❌ When NOT to Use
 
@@ -419,8 +415,6 @@ class CDCMonitor:
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -451,8 +445,6 @@ class CDCMonitor:
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -463,12 +455,12 @@ class CdcPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -476,23 +468,23 @@ class CdcPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -526,29 +518,28 @@ cdc:
 ```python
 def test_cdc_behavior():
     pattern = CdcPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
 
-
 ## 💪 Hands-On Exercises
 
 ### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Identify Change Data Capture (CDC) in existing systems
 
-**Task**: 
+**Task**:
 Find 2 real-world examples where Change Data Capture (CDC) is implemented:
 1. **Example 1**: A well-known tech company or service
 2. **Example 2**: An open-source project or tool you've used
@@ -559,7 +550,7 @@ For each example:
 - What alternatives could have been used
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Design an implementation of Change Data Capture (CDC)
 
 **Scenario**: You need to implement Change Data Capture (CDC) for an e-commerce checkout system processing 10,000 orders/hour.
@@ -578,7 +569,7 @@ For each example:
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
 ### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Change Data Capture (CDC)
 
 **Challenge**: You're consulting for a startup building their first product.
@@ -601,7 +592,7 @@ Implement a minimal version of Change Data Capture (CDC) in your preferred langu
 - Include basic error handling
 - Add simple logging
 
-### Intermediate: Production Features  
+### Intermediate: Production Features
 Extend the basic implementation with:
 - Configuration management
 - Metrics collection
@@ -619,7 +610,7 @@ Optimize for production use:
 
 ## 🎯 Real-World Application
 
-**Project Integration**: 
+**Project Integration**:
 - How would you introduce Change Data Capture (CDC) to an existing system?
 - What migration strategy would minimize risk?
 - How would you measure success?

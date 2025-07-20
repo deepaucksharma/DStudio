@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Knowledge Management in Distributed Systems**
 
-
 # Knowledge Management in Distributed Systems
 
 **Capturing, sharing, and evolving system knowledge**
@@ -49,12 +48,12 @@ architectural_knowledge:
     - Why we chose Kafka over RabbitMQ
     - Database sharding strategy
     - Service communication patterns
-    
+
   constraints:
     - Network topology limitations
     - Compliance requirements
     - Performance boundaries
-    
+
   evolution:
     - Migration from monolith
     - Future state architecture
@@ -68,12 +67,12 @@ operational_knowledge:
     - Service startup procedures
     - Incident response steps
     - Rollback procedures
-    
+
   tribal_knowledge:
     - "Never deploy service X on Fridays"
     - "Always check cache before database"
     - "This query kills production"
-    
+
   performance:
     - Capacity limits
     - Optimization techniques
@@ -87,12 +86,12 @@ domain_knowledge:
     - Payment processing flows
     - Inventory calculations
     - Pricing algorithms
-    
+
   edge_cases:
     - Leap year handling
     - Time zone complexities
     - Currency conversions
-    
+
   integrations:
     - External API contracts
     - Partner requirements
@@ -142,7 +141,7 @@ class LivingDocumentation:
     """
     Documentation that stays in sync with code
     """
-    
+
     def generate_service_docs(self, service_name):
         docs = {
             'api': self.extract_api_docs(service_name),
@@ -151,20 +150,20 @@ class LivingDocumentation:
             'dependencies': self.analyze_dependencies(service_name),
             'examples': self.generate_examples(service_name)
         }
-        
+
         # Generate markdown
         return self.render_documentation(docs)
-    
+
     def extract_api_docs(self, service_name):
         """Extract from OpenAPI/Swagger annotations"""
         swagger_spec = self.load_swagger(service_name)
-        
+
         return {
             'endpoints': swagger_spec['paths'],
             'models': swagger_spec['definitions'],
             'authentication': swagger_spec['security']
         }
-    
+
     def validate_documentation(self):
         """Ensure docs match reality"""
         validations = [
@@ -173,7 +172,7 @@ class LivingDocumentation:
             self.check_api_compatibility(),
             self.verify_config_defaults()
         ]
-        
+
         return all(validations)
 ```
 
@@ -183,7 +182,7 @@ class LivingDocumentation:
 class IncidentKnowledgeExtractor:
     def extract_learnings(self, incident):
         """Extract reusable knowledge from incidents"""
-        
+
         learnings = {
             'symptoms': self.extract_symptoms(incident),
             'root_causes': self.extract_root_causes(incident),
@@ -191,16 +190,16 @@ class IncidentKnowledgeExtractor:
             'response_patterns': self.extract_successful_actions(incident),
             'prevention': self.generate_prevention_steps(incident)
         }
-        
+
         # Create runbook entries
         runbook_updates = self.generate_runbook_updates(learnings)
-        
+
         # Create monitoring rules
         monitoring_rules = self.generate_alert_rules(learnings)
-        
+
         # Update documentation
         doc_updates = self.generate_doc_updates(learnings)
-        
+
         return {
             'learnings': learnings,
             'runbook_updates': runbook_updates,
@@ -217,22 +216,22 @@ class IncidentKnowledgeExtractor:
 service_catalog:
   checkout-service:
     description: "Handles checkout flow and order creation"
-    
+
     technical:
       language: "Java 17"
       framework: "Spring Boot 3.0"
       database: "PostgreSQL 14"
-      
+
     ownership:
       team: "Checkout Team"
       slack: "#checkout-team"
       on_call: "checkout-oncall"
-      
+
     documentation:
       runbook: "/runbooks/checkout-service"
       architecture: "/architecture/checkout"
       api_docs: "/api/checkout/v2"
-      
+
     dependencies:
       upstream:
         - payment-service
@@ -240,7 +239,7 @@ service_catalog:
       downstream:
         - order-service
         - notification-service
-        
+
     slos:
       availability: "99.9%"
       latency_p99: "200ms"
@@ -254,24 +253,24 @@ class KnowledgeGraph:
     """
     Connect related pieces of knowledge
     """
-    
+
     def __init__(self):
         self.graph = nx.DiGraph()
-    
+
     def add_knowledge_node(self, node_type, node_id, metadata):
         self.graph.add_node(
             node_id,
             type=node_type,
             **metadata
         )
-    
+
     def link_knowledge(self, from_node, to_node, relationship):
         self.graph.add_edge(
             from_node,
             to_node,
             relationship=relationship
         )
-    
+
     def find_related_knowledge(self, node_id, depth=2):
         """Find all knowledge related to a topic"""
         subgraph = nx.ego_graph(
@@ -279,12 +278,12 @@ class KnowledgeGraph:
             node_id,
             radius=depth
         )
-        
+
         return {
             'nodes': subgraph.nodes(data=True),
             'relationships': subgraph.edges(data=True)
         }
-    
+
     def suggest_missing_links(self):
         """ML-based link prediction"""
         # Use graph embedding techniques
@@ -299,7 +298,7 @@ class KnowledgeGraph:
 ```python
 class DocumentationAsCode:
     """Treat documentation like code"""
-    
+
     def __init__(self, repo_path):
         self.repo = GitRepo(repo_path)
         self.linters = [
@@ -307,40 +306,40 @@ class DocumentationAsCode:
             LinkChecker(),
             CodeBlockValidator()
         ]
-    
+
     def validate_pr(self, pr_number):
         """Validate documentation changes"""
         changes = self.repo.get_pr_changes(pr_number)
-        
+
         validation_results = []
         for file in changes:
             if file.endswith('.md'):
                 for linter in self.linters:
                     result = linter.validate(file)
                     validation_results.append(result)
-        
+
         return all(validation_results)
-    
+
     def generate_changelog(self):
         """Track documentation changes"""
         commits = self.repo.get_commits(
             path='docs/',
             since='1 week ago'
         )
-        
+
         changes = {
             'added': [],
             'updated': [],
             'removed': []
         }
-        
+
         for commit in commits:
             changes[commit.change_type].append({
                 'file': commit.file,
                 'author': commit.author,
                 'summary': commit.message
             })
-        
+
         return changes
 ```
 
@@ -353,19 +352,19 @@ knowledge_sharing_formats:
     duration: "1 hour"
     format: "Design doc presentation + Q&A"
     audience: "All engineers"
-    
+
   incident_reviews:
     frequency: "Weekly"
     duration: "30 minutes"
     format: "Recent incident learnings"
     audience: "On-call engineers"
-    
+
   tech_talks:
     frequency: "Monthly"
     duration: "45 minutes"
     format: "Deep dive on technology/pattern"
     audience: "Optional for all"
-    
+
   pair_programming:
     frequency: "Daily"
     duration: "2-4 hours"
@@ -378,10 +377,10 @@ knowledge_sharing_formats:
 ```python
 class InteractiveLearning:
     """Hands-on knowledge transfer"""
-    
+
     def create_game_day_scenario(self, topic):
         """Create failure scenario for learning"""
-        
+
         if topic == "database_failure":
             return {
                 'scenario': "Primary database becomes read-only",
@@ -398,10 +397,10 @@ class InteractiveLearning:
                 ],
                 'inject_failure': self.make_database_readonly
             }
-    
+
     def run_architecture_kata(self, requirements):
         """Practice architecture design"""
-        
+
         return {
             'requirements': requirements,
             'constraints': self.generate_constraints(),
@@ -427,7 +426,7 @@ class InteractiveLearning:
 class KnowledgeHealthMetrics:
     def calculate_documentation_coverage(self):
         services = self.get_all_services()
-        
+
         coverage = {}
         for service in services:
             coverage[service] = {
@@ -437,27 +436,27 @@ class KnowledgeHealthMetrics:
                 'has_api_docs': self.check_api_docs(service),
                 'docs_age': self.get_newest_doc_age(service)
             }
-        
+
         return {
             'overall_coverage': self.calculate_overall_coverage(coverage),
             'by_service': coverage,
             'missing_critical': self.find_missing_critical_docs(coverage)
         }
-    
+
     def measure_knowledge_distribution(self):
         """Identify knowledge silos"""
-        
+
         contributions = self.analyze_doc_contributions()
-        
+
         return {
             'bus_factor': self.calculate_bus_factor(contributions),
             'knowledge_silos': self.identify_single_contributors(contributions),
             'collaboration_index': self.calculate_collaboration_index(contributions)
         }
-    
+
     def track_knowledge_usage(self):
         """Which docs are actually used?"""
-        
+
         return {
             'page_views': self.get_documentation_analytics(),
             'search_queries': self.get_search_analytics(),
@@ -477,34 +476,34 @@ knowledge_tools:
       type: "Wiki"
       pros: "Easy editing, good search"
       cons: "Gets stale, poor versioning"
-      
+
     - name: "GitBook"
       type: "Docs as code"
       pros: "Version control, markdown"
       cons: "Developer-focused"
-      
+
     - name: "Backstage"
       type: "Developer portal"
       pros: "Service catalog, plugins"
       cons: "Complex setup"
-      
+
   diagramming:
     - name: "Mermaid"
       type: "Text-based"
       pros: "Version control friendly"
       cons: "Limited diagram types"
-      
+
     - name: "Draw.io"
       type: "Visual"
       pros: "Rich features"
       cons: "Binary files"
-      
+
   knowledge_base:
     - name: "Stack Overflow Teams"
       type: "Q&A"
       pros: "Familiar format"
       cons: "Another tool"
-      
+
     - name: "Notion"
       type: "All-in-one"
       pros: "Flexible, databases"

@@ -2,7 +2,7 @@
 title: Pattern Interconnection Matrix v2
 description: "Legend:
 +++ Strongly improves axiom constraint
-++  Moderately improves  
+++  Moderately improves
 +   Slightly improves
 +/- Context dependent
 -   Slightly worsens
@@ -17,7 +17,6 @@ last_updated: 2025-07-20
 
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Pattern Interconnection Matrix v2**
-
 
 # Pattern Interconnection Matrix v2
 
@@ -37,7 +36,7 @@ Cost       +     -     +     --    --     +/-    ++     -
 
 Legend:
 +++ Strongly improves axiom constraint
-++  Moderately improves  
+++  Moderately improves
 +   Slightly improves
 +/- Context dependent
 -   Slightly worsens
@@ -110,7 +109,7 @@ Legend:
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of Pattern Interconnection Matrix v2
 
 **Reflection Questions**:
@@ -122,7 +121,7 @@ Legend:
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -137,7 +136,7 @@ Legend:
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

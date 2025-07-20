@@ -13,7 +13,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Part III: Modern Architectural Patterns**
 
-
 # Part III: Modern Architectural Patterns
 
 **Proven solutions derived from fundamental constraints**
@@ -160,7 +159,7 @@ Ready to test your pattern knowledge?
 ### 📚 Universal Principles
 
 1. **Patterns emerge from constraints** - Every pattern solves a specific axiom limitation
-2. **Trade-offs are mandatory** - No pattern gives you something for nothing  
+2. **Trade-offs are mandatory** - No pattern gives you something for nothing
 3. **Context determines choice** - Same problem, different scale/team/constraints = different pattern
 4. **Simple beats complex** - Start with the simplest solution that works
 5. **Operations are paramount** - If you can't operate it at 3 AM, don't build it

@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Service Mesh**
 
-
 # Service Mesh
 
 **The network as a programmable platform**
@@ -42,7 +41,7 @@ App Container          Sidecar Proxy
                           |
                           ↓
                     Control Plane
-                    [Config, Policy, 
+                    [Config, Policy,
                      Telemetry]
 ```bash
 ## Core Components
@@ -70,26 +69,26 @@ class ServiceMeshProxy:
         self.control_plane = ControlPlane()
         self.circuit_breakers = {}
         self.load_balancers = {}
-        
+
     def call(self, target_service, request):
         """Intercept outbound call"""
-        
+
         # 1. Service discovery
         endpoints = self.control_plane.discover(target_service)
         if not endpoints:
             raise ServiceNotFound(target_service)
-            
+
         # 2. Load balancing
         endpoint = self.load_balance(target_service, endpoints)
-        
+
         # 3. Circuit breaking
         breaker = self.get_circuit_breaker(target_service)
         if breaker.is_open():
             raise CircuitOpen(target_service)
-            
+
         # 4. Add headers (tracing, auth)
         headers = self.enrich_headers(request)
-        
+
         # 5. Retry logic
         for attempt in range(3):
             try:
@@ -97,26 +96,26 @@ class ServiceMeshProxy:
                 response = self.execute_with_timeout(
                     endpoint, request, headers, timeout=5
                 )
-                
+
                 # 7. Record success
                 breaker.record_success()
                 self.record_metrics(target_service, response)
-                
+
                 return response
-                
+
             except Exception as e:
                 breaker.record_failure()
                 if attempt == 2:  # Last attempt
                     raise
-                    
+
                 # Exponential backoff
                 time.sleep(2 ** attempt * 0.1)
-    
+
     def load_balance(self, service, endpoints):
         if service not in self.load_balancers:
             self.load_balancers[service] = RoundRobinLB(endpoints)
         return self.load_balancers[service].next()
-    
+
     def get_circuit_breaker(self, service):
         if service not in self.circuit_breakers:
             self.circuit_breakers[service] = CircuitBreaker(
@@ -133,7 +132,7 @@ class ControlPlane:
         self.policies = PolicyEngine()
         self.certificates = CertManager()
         self.telemetry = TelemetryCollector()
-        
+
     def configure_service(self, service_config):
         """Push configuration to data plane"""
         config = {
@@ -160,7 +159,7 @@ class ControlPlane:
                 'authz_policy': 'rbac'
             }
         }
-        
+
         # Push to all proxies
         for proxy in self.get_proxies(service_config.name):
             proxy.update_config(config)
@@ -170,14 +169,14 @@ class TrafficPolicy:
     def __init__(self):
         self.routes = []
         self.splits = []
-        
+
     def add_route(self, match, destination):
         """Route based on headers, path, etc"""
         self.routes.append({
             'match': match,
             'destination': destination
         })
-        
+
     def add_traffic_split(self, splits):
         """Canary deployments"""
         # splits = [{'version': 'v1', 'weight': 90},
@@ -185,13 +184,13 @@ class TrafficPolicy:
         total = sum(s['weight'] for s in splits)
         assert total == 100, "Weights must sum to 100"
         self.splits = splits
-        
+
     def route_request(self, request):
         # Check explicit routes first
         for route in self.routes:
             if self.matches(request, route['match']):
                 return route['destination']
-                
+
         # Then do weighted routing
         if self.splits:
             rand = random.randint(1, 100)
@@ -200,26 +199,26 @@ class TrafficPolicy:
                 cumulative += split['weight']
                 if rand <= cumulative:
                     return split['version']
-                    
+
         return 'default'
 
 # mTLS implementation
 class MutualTLS:
     def __init__(self, cert_manager):
         self.cert_manager = cert_manager
-        
+
     def establish_connection(self, service_a, service_b):
         # Get certificates
         cert_a = self.cert_manager.get_cert(service_a)
         cert_b = self.cert_manager.get_cert(service_b)
-        
+
         # Verify certificates
         if not self.verify_cert(cert_a, service_a):
             raise InvalidCertificate(service_a)
-            
+
         if not self.verify_cert(cert_b, service_b):
             raise InvalidCertificate(service_b)
-            
+
         # Create secure channel
         return SecureChannel(cert_a, cert_b)
 
@@ -229,7 +228,7 @@ class MeshTelemetry:
         self.metrics = MetricsCollector()
         self.traces = TraceCollector()
         self.logs = LogAggregator()
-        
+
     def record_request(self, request, response, duration):
         # Metrics
         self.metrics.increment('request_count', tags={
@@ -237,12 +236,12 @@ class MeshTelemetry:
             'destination': request.destination,
             'status': response.status
         })
-        
+
         self.metrics.histogram('request_duration', duration, tags={
             'source': request.source,
             'destination': request.destination
         })
-        
+
         # Distributed tracing
         span = self.traces.create_span(
             name=f"{request.source} → {request.destination}",
@@ -251,7 +250,7 @@ class MeshTelemetry:
         span.set_tag('http.status_code', response.status)
         span.set_tag('http.method', request.method)
         span.finish()
-        
+
         # Logs
         self.logs.log({
             'timestamp': time.time(),
@@ -269,21 +268,21 @@ class MeshTelemetry:
 class FaultInjection:
     def __init__(self):
         self.faults = []
-        
+
     def add_delay(self, percentage, delay_ms):
         self.faults.append({
             'type': 'delay',
             'percentage': percentage,
             'delay': delay_ms
         })
-        
+
     def add_abort(self, percentage, status_code):
         self.faults.append({
             'type': 'abort',
             'percentage': percentage,
             'status': status_code
         })
-        
+
     def inject(self, request):
         for fault in self.faults:
             if random.randint(1, 100) <= fault['percentage']:
@@ -296,16 +295,16 @@ class FaultInjection:
 class CanaryDeployment:
     def __init__(self, mesh_control_plane):
         self.control_plane = mesh_control_plane
-        
+
     def deploy_canary(self, service, new_version, percentage):
         policy = TrafficPolicy()
         policy.add_traffic_split([
             {'version': 'stable', 'weight': 100 - percentage},
             {'version': new_version, 'weight': percentage}
         ])
-        
+
         self.control_plane.apply_policy(service, policy)
-        
+
     def monitor_canary(self, service, metrics_window=300):
         stable_metrics = self.control_plane.get_metrics(
             service, version='stable', window=metrics_window
@@ -313,17 +312,17 @@ class CanaryDeployment:
         canary_metrics = self.control_plane.get_metrics(
             service, version='canary', window=metrics_window
         )
-        
+
         # Compare error rates
         if canary_metrics.error_rate > stable_metrics.error_rate * 1.1:
             self.rollback_canary(service)
             return False
-            
+
         # Compare latency
         if canary_metrics.p99_latency > stable_metrics.p99_latency * 1.2:
             self.rollback_canary(service)
             return False
-            
+
         return True
 ```
 
@@ -351,7 +350,6 @@ class CanaryDeployment:
 **Previous**: [← Service Discovery Pattern](service-discovery.md) | **Next**: [Sharding (Data Partitioning) →](sharding.md)
 ---
 
-
 ## ✅ When to Use
 
 ### Ideal Scenarios
@@ -375,8 +373,6 @@ class CanaryDeployment:
 - Cost of downtime is significant
 - User experience is a priority
 - System is customer-facing or business-critical
-
-
 
 ## ❌ When NOT to Use
 
@@ -402,8 +398,6 @@ class CanaryDeployment:
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -434,8 +428,6 @@ class CanaryDeployment:
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -446,12 +438,12 @@ class Service_MeshPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -459,23 +451,23 @@ class Service_MeshPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -509,29 +501,28 @@ service_mesh:
 ```python
 def test_service_mesh_behavior():
     pattern = Service_MeshPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
 
-
 ## 💪 Hands-On Exercises
 
 ### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Identify Service Mesh in existing systems
 
-**Task**: 
+**Task**:
 Find 2 real-world examples where Service Mesh is implemented:
 1. **Example 1**: A well-known tech company or service
 2. **Example 2**: An open-source project or tool you've used
@@ -542,7 +533,7 @@ For each example:
 - What alternatives could have been used
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Design an implementation of Service Mesh
 
 **Scenario**: You need to implement Service Mesh for an e-commerce checkout system processing 10,000 orders/hour.
@@ -561,7 +552,7 @@ For each example:
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
 ### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Service Mesh
 
 **Challenge**: You're consulting for a startup building their first product.
@@ -584,7 +575,7 @@ Implement a minimal version of Service Mesh in your preferred language.
 - Include basic error handling
 - Add simple logging
 
-### Intermediate: Production Features  
+### Intermediate: Production Features
 Extend the basic implementation with:
 - Configuration management
 - Metrics collection
@@ -602,7 +593,7 @@ Optimize for production use:
 
 ## 🎯 Real-World Application
 
-**Project Integration**: 
+**Project Integration**:
 - How would you introduce Service Mesh to an existing system?
 - What migration strategy would minimize risk?
 - How would you measure success?

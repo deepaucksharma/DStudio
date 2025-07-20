@@ -16,7 +16,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Decision Tree Walk-Through**
 
-
 # Decision Tree Walk-Through
 
 ## Case Study: Fintech Ledger System Design
@@ -81,12 +80,12 @@ class FinTechLedger:
         self.region = region
         self.event_store = EventStore()
         self.read_store = ReadStore()
-        
+
     def transfer(self, from_account, to_account, amount):
         # 1. Validate (read path)
         if not self.validate_balance(from_account, amount):
             raise InsufficientFunds()
-        
+
         # 2. Create events (write path)
         events = [
             DebitEvent(
@@ -104,19 +103,19 @@ class FinTechLedger:
                 region=self.region
             )
         ]
-        
+
         # 3. Persist events (immutable)
         for event in events:
             self.event_store.append(event)
-        
+
         # 4. Update read models (async)
         self.update_projections_async(events)
-        
+
         return TransferResult(
             status="accepted",
             eventual_consistency_sla="5 seconds"
         )
-    
+
     def get_balance(self, account, as_of=None):
         if as_of:
             # Historical query - replay events
@@ -124,7 +123,7 @@ class FinTechLedger:
         else:
             # Current query - use projection
             return self.read_store.get_balance(account)
-    
+
     def audit_trail(self, account, start_date, end_date):
         # Immutable events provide perfect audit
         events = self.event_store.query(

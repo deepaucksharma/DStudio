@@ -13,7 +13,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **When Models Collide**
 
-
 # When Models Collide
 
 **Learning Objective**: Real systems don't fit neatly into models; learn to handle the mess.
@@ -25,7 +24,7 @@ last_updated: 2025-07-20
 ```text
 Requirements:
 1. <100ms latency globally (Axiom 1)
-2. 99.999% availability (Axiom 3)  
+2. 99.999% availability (Axiom 3)
 3. Strict consistency for payments (Pillar 3)
 4. Cost effective (Axiom 8)
 
@@ -87,32 +86,32 @@ class StripePaymentFlow:
         self.primary_db = Database("us-west", consistency="strong")
         self.secondary_db = Database("us-east", consistency="async")
         self.cache = Cache(ttl=300)
-        
+
     def process_payment(self, payment):
         # 1. Quick risk check (cached)
         risk_score = self.cache.get(f"risk:{payment.merchant_id}")
         if not risk_score:
             risk_score = self.compute_risk(payment.merchant_id)
             self.cache.set(f"risk:{payment.merchant_id}", risk_score)
-        
+
         if risk_score > 0.8:
             return self.decline_high_risk(payment)
-        
+
         # 2. Idempotency check (both regions)
         if self.is_duplicate(payment.idempotency_key):
             return self.get_previous_result(payment.idempotency_key)
-        
+
         # 3. Payment processing (primary region)
         try:
             result = self.primary_db.transaction(
                 lambda tx: self.execute_payment(tx, payment)
             )
-            
+
             # 4. Async replicate to secondary
             self.replicate_async(payment, result)
-            
+
             return result
-            
+
         except NetworkPartition:
             # 5. Fallback to secondary (degraded mode)
             if payment.amount < 10000:  # Small payments only
@@ -124,14 +123,14 @@ class StripePaymentFlow:
                     status="retry_later",
                     message="High-value payments temporarily unavailable"
                 )
-    
+
     def execute_payment(self, tx, payment):
         # Strong consistency path
         tx.debit(payment.source, payment.amount)
         tx.credit(payment.destination, payment.amount)
         tx.log_transaction(payment)
         return PaymentResult(status="success")
-    
+
     def execute_payment_degraded(self, tx, payment):
         # Eventual consistency path
         # Log intent, process async

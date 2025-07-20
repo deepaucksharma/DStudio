@@ -12,27 +12,9 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Case Studies](/case-studies/) → **Spotify's Music Recommendation Engine**
 
-
 # 🎵 Spotify's Music Recommendation Engine
 
 **The Challenge**: Personalize music for 500M users with ML at scale
-
-<div class="case-study">
-<h3>📊 System Requirements</h3>
-
-**Scale Constraints:**
-- 500M+ monthly active users
-- 100M+ songs in catalog
-- 5B+ daily recommendations
-- 30B+ monthly playlist starts
-- <100ms recommendation latency
-
-**Business Context:**
-- User retention directly tied to personalization
-- 40% of listening via algorithmic playlists
-- Competition from Apple, Amazon, YouTube
-- Artist discovery critical for ecosystem
-</div>
 
 ## 🏗️ Architecture Evolution
 
@@ -57,27 +39,27 @@ graph LR
         AC[Audio Content]
         SM[Social Media]
     end
-    
+
     subgraph "Processing"
         CF[Collaborative Filtering]
         CB[Content-Based]
         NLP[Natural Language]
     end
-    
+
     subgraph "Output"
         DR[Daily Recommendations]
         RP[Radio Playlists]
         DW[Discover Weekly]
     end
-    
+
     UP --> CF --> DR
     AC --> CB --> DR
     UA --> CF
     SM --> NLP --> DR
-    
+
     CF --> RP
     CB --> RP
-    
+
     CF --> DW
     CB --> DW
     NLP --> DW
@@ -96,35 +78,35 @@ graph TB
         K[Kafka<br/>100B events/day]
         SC[Storm Clusters]
     end
-    
+
     subgraph "Feature Store"
         UF[User Features<br/>Real-time]
         SF[Song Features<br/>Batch]
         CF[Context Features<br/>Real-time]
     end
-    
+
     subgraph "ML Pipeline"
         FE[Feature Engineering]
         MT[Model Training<br/>TensorFlow]
         MS[Model Serving<br/>Kubernetes]
     end
-    
+
     subgraph "Recommendation Services"
         HP[Home Page]
         RP[Radio]
         PL[Playlists]
         SR[Search Results]
     end
-    
+
     K --> SC --> UF
     K --> SC --> CF
-    
+
     UF --> FE
     SF --> FE
     CF --> FE
-    
+
     FE --> MT --> MS
-    
+
     MS --> HP
     MS --> RP
     MS --> PL
@@ -181,22 +163,22 @@ class SpotifyRecommender:
             'contextual': GradientBoostingModel()
         }
         self.ensemble = WeightedEnsemble()
-    
+
     def get_recommendations(self, user_id, context):
         # Get predictions from each model
         predictions = {}
         for name, model in self.models.items():
             predictions[name] = model.predict(user_id, context)
-        
+
         # Ensemble with learned weights
         final_scores = self.ensemble.combine(predictions)
-        
+
         # Apply business rules
         filtered = self.apply_business_rules(final_scores)
-        
+
         # Diversity injection
         diversified = self.diversity_algorithm(filtered)
-        
+
         return diversified[:100]  # Top 100 recommendations
 ```bash
 ### Real-Time Feature Pipeline
@@ -210,12 +192,12 @@ sequenceDiagram
     participant F as Feature Store
     participant M as ML Service
     participant C as Cache
-    
+
     U->>A: Play song
     A->>K: Stream event
     K->>S: Process event
     S->>F: Update features
-    
+
     U->>A: Request recommendations
     A->>C: Check cache
     alt Cache miss
@@ -289,10 +271,10 @@ class AudioFeatureExtractor:
     def extract_features(self, audio_file):
         # Mel-spectrogram analysis
         spectrogram = self.compute_mel_spectrogram(audio_file)
-        
+
         # CNN for audio features
         audio_embeddings = self.audio_cnn(spectrogram)
-        
+
         # Extract high-level features
         features = {
             'tempo': self.tempo_estimator(spectrogram),
@@ -301,7 +283,7 @@ class AudioFeatureExtractor:
             'energy': self.energy_analyzer(spectrogram),
             'acousticness': self.acoustic_detector(audio_embeddings)
         }
-        
+
         return features
 ```bash
 ### 2. Contextual Bandits for Exploration
@@ -316,7 +298,7 @@ class ContextualBandit:
         else:
             # Exploitation: use learned preferences
             return self.exploit_known_preferences(user, candidates)
-    
+
     def update_policy(self, user, item, reward):
         # Thompson sampling update
         self.success_counts[user][item] += reward

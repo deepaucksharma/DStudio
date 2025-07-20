@@ -1,6 +1,6 @@
 ---
 title: CAST vs SPACE Models
-description: "Availability  
+description: "Availability
 ├─ Best effort: May fail under load
 ├─ Highly available: 99.9%+ uptime
 └─ Fault tolerant: Continues despite failures"
@@ -15,7 +15,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **CAST vs SPACE Models**
 
-
 # CAST vs SPACE Models
 
 **Learning Objective**: Compare different distributed systems models to choose the right mental framework.
@@ -28,7 +27,7 @@ Control
 ├─ Distributed: Peer-to-peer, choreography
 └─ Hybrid: Regional masters, hierarchical
 
-Availability  
+Availability
 ├─ Best effort: May fail under load
 ├─ Highly available: 99.9%+ uptime
 └─ Fault tolerant: Continues despite failures
@@ -126,11 +125,11 @@ class SystemModel:
         self.name = name
         self.cast = {}
         self.space = {}
-    
+
     def analyze_cast(self):
         """CAST model analysis"""
         print(f"\n=== CAST Analysis for {self.name} ===")
-        
+
         # Control
         control_score = 0
         if self.cast.get('master_node'):
@@ -139,17 +138,17 @@ class SystemModel:
             control_score = 5  # Distributed
         else:
             control_score = 3  # Hybrid
-            
+
         # Availability
         nines = self.cast.get('sla', 99.0)
         avail_score = min(5, (nines - 95) / 0.9)
-        
+
         # State
         state_score = 1 if self.cast.get('stateless') else 4
-        
+
         # Time
         time_score = 1 if self.cast.get('sync') else 4
-        
+
         print(f"Control: {'█' * control_score}{'░' * (5-control_score)} "
               f"({'Centralized' if control_score < 3 else 'Distributed'})")
         print(f"Availability: {'█' * int(avail_score)}{'░' * (5-int(avail_score))} "
@@ -158,11 +157,11 @@ class SystemModel:
               f"({'Stateless' if state_score < 3 else 'Stateful'})")
         print(f"Time: {'█' * time_score}{'░' * (5-time_score)} "
               f"({'Synchronous' if time_score < 3 else 'Asynchronous'})")
-    
+
     def analyze_space(self):
         """SPACE model analysis"""
         print(f"\n=== SPACE Analysis for {self.name} ===")
-        
+
         patterns = {
             'State': self.space.get('state', 'Unknown'),
             'Processing': self.space.get('processing', 'Unknown'),
@@ -170,7 +169,7 @@ class SystemModel:
             'Concurrency': self.space.get('concurrency', 'Unknown'),
             'Exchange': self.space.get('exchange', 'Unknown')
         }
-        
+
         for aspect, pattern in patterns.items():
             print(f"{aspect:12} : {pattern}")
 
@@ -203,7 +202,7 @@ netflix.analyze_space()
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of CAST vs SPACE Models
 
 **Reflection Questions**:
@@ -215,7 +214,7 @@ netflix.analyze_space()
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -230,7 +229,7 @@ netflix.analyze_space()
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

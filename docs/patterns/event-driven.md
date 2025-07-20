@@ -16,7 +16,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Event-Driven Architecture**
 
-
 # Event-Driven Architecture
 
 **Everything is an event; the universe is eventual**
@@ -50,7 +49,7 @@ Service A → [OrderPlaced] → Event Bus
    "Something happened"
    {type: "OrderPlaced", orderId: 123}
 
-2. EVENT-CARRIED STATE TRANSFER  
+2. EVENT-CARRIED STATE TRANSFER
    "Here's what changed"
    {type: "OrderPlaced", order: {...full data...}}
 
@@ -88,16 +87,16 @@ class EventBus:
     def __init__(self):
         self.subscribers: Dict[str, List[Callable]] = {}
         self.dlq = []  # Dead letter queue
-        
+
     def subscribe(self, event_type: str, handler: Callable):
         if event_type not in self.subscribers:
             self.subscribers[event_type] = []
         self.subscribers[event_type].append(handler)
-        
+
     def publish(self, event: Event):
         handlers = self.subscribers.get(event.type, [])
         handlers.extend(self.subscribers.get('*', []))  # Wildcard
-        
+
         for handler in handlers:
             try:
                 if asyncio.iscoroutinefunction(handler):
@@ -120,21 +119,21 @@ class OrderSaga:
     def __init__(self, event_bus: EventBus):
         self.event_bus = event_bus
         self.state = {}
-        
+
         # Subscribe to events
         event_bus.subscribe('OrderPlaced', self.handle_order_placed)
         event_bus.subscribe('PaymentProcessed', self.handle_payment)
         event_bus.subscribe('PaymentFailed', self.handle_payment_failed)
         event_bus.subscribe('InventoryReserved', self.handle_inventory)
         event_bus.subscribe('InventoryFailed', self.handle_inventory_failed)
-        
+
     async def handle_order_placed(self, event: Event):
         order_id = event.payload['order_id']
         self.state[order_id] = {
             'status': 'pending_payment',
             'order': event.payload
         }
-        
+
         # Trigger payment
         self.event_bus.publish(Event(
             id=f"pay_{order_id}",
@@ -145,11 +144,11 @@ class OrderSaga:
             },
             metadata={'saga_id': order_id}
         ))
-        
+
     async def handle_payment(self, event: Event):
         order_id = event.payload['order_id']
         self.state[order_id]['status'] = 'pending_inventory'
-        
+
         # Trigger inventory reservation
         self.event_bus.publish(Event(
             id=f"inv_{order_id}",
@@ -160,11 +159,11 @@ class OrderSaga:
             },
             metadata={'saga_id': order_id}
         ))
-        
+
     async def handle_payment_failed(self, event: Event):
         order_id = event.payload['order_id']
         self.state[order_id]['status'] = 'failed'
-        
+
         # Compensate - cancel order
         self.event_bus.publish(Event(
             id=f"cancel_{order_id}",
@@ -178,20 +177,20 @@ class EventStore:
     def __init__(self):
         self.events = []
         self.snapshots = {}
-        
+
     def append(self, aggregate_id: str, event: Event):
         self.events.append({
             'aggregate_id': aggregate_id,
             'event': event,
             'timestamp': time.time()
         })
-        
+
     def get_events(self, aggregate_id: str, after_version: int = 0):
         return [
             e['event'] for e in self.events
             if e['aggregate_id'] == aggregate_id
         ][after_version:]
-        
+
     def replay_to(self, aggregate_id: str, target: object):
         """Replay events to rebuild state"""
         events = self.get_events(aggregate_id)
@@ -271,8 +270,6 @@ class OrderEvent:
 - User experience is a priority
 - System is customer-facing or business-critical
 
-
-
 ## ❌ When NOT to Use
 
 ### Inappropriate Scenarios
@@ -297,8 +294,6 @@ class OrderEvent:
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -329,8 +324,6 @@ class OrderEvent:
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -341,12 +334,12 @@ class Event_DrivenPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -354,23 +347,23 @@ class Event_DrivenPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -404,20 +397,17 @@ event_driven:
 ```python
 def test_event_driven_behavior():
     pattern = Event_DrivenPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

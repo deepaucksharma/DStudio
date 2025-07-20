@@ -15,7 +15,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **CQRS (Command Query Responsibility Segregation)**
 
-
 # CQRS (Command Query Responsibility Segregation)
 
 **Separate read and write models for optimized performance - Different problems need different solutions**
@@ -61,21 +60,21 @@ graph LR
         CH --> DM[Domain Model]
         DM --> ES[Event Store]
     end
-    
+
     subgraph "Read Side"
         ES --> EP[Event Projections]
         EP --> RM1[Read Model 1<br/>User Views]
         EP --> RM2[Read Model 2<br/>Analytics]
         EP --> RM3[Read Model 3<br/>Search Index]
     end
-    
+
     subgraph "Query Side"
         Q[Queries] --> QH[Query Handlers]
         QH --> RM1
         QH --> RM2
         QH --> RM3
     end
-    
+
     style DM fill:#f9f,stroke:#333,stroke-width:2px
     style ES fill:#bbf,stroke:#333,stroke-width:2px
     style RM1 fill:#bfb,stroke:#333,stroke-width:2px
@@ -108,7 +107,7 @@ from collections import defaultdict
 class Command(ABC):
     """Base command class"""
     timestamp: datetime = None
-    
+
     def __post_init__(self):
         if not self.timestamp:
             self.timestamp = datetime.utcnow()
@@ -150,16 +149,16 @@ class BankAccount:
         self.owner_name = None
         self.version = 0
         self.pending_events = []
-        
+
     @classmethod
     def create(cls, command: CreateAccountCommand) -> 'BankAccount':
         """Factory method for creating new account"""
         account = cls(command.account_id)
-        
+
         # Business rule: Initial balance cannot be negative
         if command.initial_balance < 0:
             raise ValueError("Initial balance cannot be negative")
-            
+
         event = AccountCreatedEvent(
             aggregate_id=command.account_id,
             event_id=f"{command.account_id}-1",
@@ -168,23 +167,23 @@ class BankAccount:
             owner_name=command.owner_name,
             initial_balance=command.initial_balance
         )
-        
+
         account._apply_event(event)
         account.pending_events.append(event)
         return account
-        
+
     def deposit(self, command: DepositMoneyCommand):
         """Handle money deposit with validation"""
         # Business rule: Deposit amount must be positive
         if command.amount <= 0:
             raise ValueError("Deposit amount must be positive")
-            
+
         # Business rule: Maximum single deposit
         if command.amount > 1_000_000:
             raise ValueError("Single deposit cannot exceed $1M")
-            
+
         new_balance = self.balance + command.amount
-        
+
         event = MoneyDepositedEvent(
             aggregate_id=self.account_id,
             event_id=f"{self.account_id}-{self.version + 1}",
@@ -193,10 +192,10 @@ class BankAccount:
             amount=command.amount,
             balance_after=new_balance
         )
-        
+
         self._apply_event(event)
         self.pending_events.append(event)
-        
+
     def _apply_event(self, event: DomainEvent):
         """Apply event to update state"""
         if isinstance(event, AccountCreatedEvent):
@@ -204,7 +203,7 @@ class BankAccount:
             self.balance = event.initial_balance
         elif isinstance(event, MoneyDepositedEvent):
             self.balance = event.balance_after
-            
+
         self.version = event.version
 
 # Event Store
@@ -212,20 +211,20 @@ class EventStore:
     def __init__(self):
         self.events: Dict[str, List[DomainEvent]] = defaultdict(list)
         self.subscribers = []
-        
+
     async def save_events(self, aggregate_id: str, events: List[DomainEvent]):
         """Persist events and notify subscribers"""
         for event in events:
             self.events[aggregate_id].append(event)
-            
+
             # Notify all subscribers asynchronously
             for subscriber in self.subscribers:
                 asyncio.create_task(subscriber(event))
-                
+
     def get_events(self, aggregate_id: str) -> List[DomainEvent]:
         """Retrieve all events for an aggregate"""
         return self.events.get(aggregate_id, [])
-        
+
     def subscribe(self, handler):
         """Subscribe to event stream"""
         self.subscribers.append(handler)
@@ -235,59 +234,59 @@ class BankAccountCommandHandler:
     def __init__(self, event_store: EventStore):
         self.event_store = event_store
         self.accounts = {}  # In-memory cache
-        
+
     async def handle_create_account(self, command: CreateAccountCommand):
         """Process account creation command"""
         # Check if account already exists
         if command.account_id in self.accounts:
             raise ValueError(f"Account {command.account_id} already exists")
-            
+
         # Create account through domain model
         account = BankAccount.create(command)
-        
+
         # Save events
         await self.event_store.save_events(account.account_id, account.pending_events)
-        
+
         # Cache aggregate
         self.accounts[account.account_id] = account
-        
+
     async def handle_deposit(self, command: DepositMoneyCommand):
         """Process deposit command"""
         # Load or reconstruct aggregate
         account = await self._load_account(command.account_id)
-        
+
         # Execute business logic
         account.deposit(command)
-        
+
         # Save events
         await self.event_store.save_events(account.account_id, account.pending_events)
-        
+
     async def _load_account(self, account_id: str) -> BankAccount:
         """Load account from cache or event store"""
         if account_id in self.accounts:
             return self.accounts[account_id]
-            
+
         # Reconstruct from events
         events = self.event_store.get_events(account_id)
         if not events:
             raise ValueError(f"Account {account_id} not found")
-            
+
         account = BankAccount(account_id)
         for event in events:
             account._apply_event(event)
-            
+
         self.accounts[account_id] = account
         return account
 
 # Query Side - Optimized Read Models
 class AccountReadModel:
     """Denormalized read model for account queries"""
-    
+
     def __init__(self):
         self.accounts = {}
         self.high_value_accounts = set()
         self.accounts_by_owner = defaultdict(list)
-        
+
     async def project_event(self, event: DomainEvent):
         """Update read model based on events"""
         if isinstance(event, AccountCreatedEvent):
@@ -300,26 +299,26 @@ class AccountReadModel:
                 'transaction_count': 0
             }
             self.accounts_by_owner[event.owner_name].append(event.aggregate_id)
-            
+
         elif isinstance(event, MoneyDepositedEvent):
             if event.aggregate_id in self.accounts:
                 account = self.accounts[event.aggregate_id]
                 account['balance'] = event.balance_after
                 account['last_updated'] = event.timestamp
                 account['transaction_count'] += 1
-                
+
                 # Update high-value index
                 if event.balance_after >= 100_000:
                     self.high_value_accounts.add(event.aggregate_id)
-                    
+
     def get_account(self, account_id: str) -> Dict[str, Any]:
         """Get account details"""
         return self.accounts.get(account_id)
-        
+
     def get_high_value_accounts(self) -> List[Dict[str, Any]]:
         """Get all high-value accounts"""
         return [self.accounts[aid] for aid in self.high_value_accounts]
-        
+
     def get_accounts_by_owner(self, owner_name: str) -> List[Dict[str, Any]]:
         """Get all accounts for an owner"""
         account_ids = self.accounts_by_owner.get(owner_name, [])
@@ -329,22 +328,22 @@ class AccountReadModel:
 class AccountQueryHandler:
     def __init__(self, read_model: AccountReadModel):
         self.read_model = read_model
-        
+
     async def get_account_details(self, account_id: str) -> Dict[str, Any]:
         """Query account details"""
         account = self.read_model.get_account(account_id)
         if not account:
             raise ValueError(f"Account {account_id} not found")
         return account
-        
+
     async def get_high_value_accounts(self) -> List[Dict[str, Any]]:
         """Query high-value accounts"""
         return self.read_model.get_high_value_accounts()
-        
+
     async def get_owner_portfolio(self, owner_name: str) -> Dict[str, Any]:
         """Query all accounts for an owner"""
         accounts = self.read_model.get_accounts_by_owner(owner_name)
-        
+
         return {
             'owner': owner_name,
             'account_count': len(accounts),
@@ -360,16 +359,16 @@ async def setup_cqrs_system():
     command_handler = BankAccountCommandHandler(event_store)
     read_model = AccountReadModel()
     query_handler = AccountQueryHandler(read_model)
-    
+
     # Subscribe read model to events
     event_store.subscribe(read_model.project_event)
-    
+
     return command_handler, query_handler
 
 # Example usage
 async def example_usage():
     command_handler, query_handler = await setup_cqrs_system()
-    
+
     # Execute commands
     await command_handler.handle_create_account(
         CreateAccountCommand(
@@ -378,18 +377,18 @@ async def example_usage():
             initial_balance=1000.0
         )
     )
-    
+
     await command_handler.handle_deposit(
         DepositMoneyCommand(
             account_id="ACC-001",
             amount=50000.0
         )
     )
-    
+
     # Query read models
     account = await query_handler.get_account_details("ACC-001")
     print(f"Account balance: ${account['balance']:,.2f}")
-    
+
     portfolio = await query_handler.get_owner_portfolio("John Doe")
     print(f"Total portfolio value: ${portfolio['total_balance']:,.2f}")
 ```
@@ -478,11 +477,11 @@ How CQRS works with other patterns:
 
 ### Example 1: Shopify Order Management
 - **Challenge**: 1M+ merchants querying orders while processing new ones
-- **Implementation**: 
+- **Implementation**:
   - Write side: Strong consistency for order placement
   - Read side: Multiple projections (by merchant, by product, by date)
   - Result: 10x query performance improvement
-- **Results**: 
+- **Results**:
   - Read latency: 500ms → 50ms
   - Write throughput: 10k → 100k orders/sec
   - System load: 80% → 30% CPU usage
@@ -541,8 +540,6 @@ How CQRS works with other patterns:
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
 
-
-
 ## 🌟 Real Examples
 
 ### Production Implementations
@@ -563,7 +560,7 @@ A major e-commerce platform implemented CQRS (Command Query Responsibility Segre
 
 **Challenge**: System failures affected user experience and revenue
 
-**Implementation**: 
+**Implementation**:
 - Applied CQRS (Command Query Responsibility Segregation) pattern to critical service calls
 - Added fallback mechanisms for degraded operation
 - Monitored service health continuously
@@ -579,8 +576,6 @@ A major e-commerce platform implemented CQRS (Command Query Responsibility Segre
 - Have clear runbooks for when the pattern activates
 - Test failure scenarios regularly in production
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -591,12 +586,12 @@ class CqrsPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -604,23 +599,23 @@ class CqrsPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -654,20 +649,17 @@ cqrs:
 ```python
 def test_cqrs_behavior():
     pattern = CqrsPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

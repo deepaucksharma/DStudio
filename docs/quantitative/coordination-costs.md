@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Coordination Cost Models**
 
-
 # Coordination Cost Models
 
 **The hidden tax of distributed systems**
@@ -269,7 +268,7 @@ def transfer_money(from_account, to_account, amount):
         debit(from_account, amount)
         credit(to_account, amount)
 
-# Better: Account-level coordination  
+# Better: Account-level coordination
 def transfer_money(from_account, to_account, amount):
     # Only coordinate affected accounts
     with multi_lock([from_account, to_account]):
@@ -315,7 +314,7 @@ coordinate_batch(updates)  # 3N messages total
 ```bash
 Coordination Cost Metrics:
 - 2PC transactions: 50K/day @ $0.30 = $15K/day
-- Raft consensus: 1M/day @ $0.02 = $20K/day  
+- Raft consensus: 1M/day @ $0.02 = $20K/day
 - Health checks: 100M/day @ $0.001 = $100/day
 - Config updates: 10K/day @ $0.10 = $1K/day
 Total: $36K/day = $13M/year
@@ -335,7 +334,7 @@ Remember: The best coordination is no coordination. When you must coordinate, do
 ## 📊 Practical Calculations
 
 ### Exercise 1: Basic Application ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Apply the concepts to a simple scenario
 
 **Scenario**: A web API receives 1,000 requests per second with an average response time of 50ms.
@@ -348,7 +347,7 @@ Remember: The best coordination is no coordination. When you must coordinate, do
 **Show your work** and explain the practical implications.
 
 ### Exercise 2: System Design Math ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Use quantitative analysis for design decisions
 
 **Problem**: Design capacity for a new service with these requirements:
@@ -363,7 +362,7 @@ Remember: The best coordination is no coordination. When you must coordinate, do
 4. Estimate costs and resource requirements
 
 ### Exercise 3: Performance Debugging ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Use quantitative methods to diagnose issues
 
 **Case**: Production metrics show:

@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Little's Law Deep-Dive**
 
-
 # Little's Law Deep-Dive
 
 **The most important equation in systems thinking**
@@ -45,7 +44,7 @@ If the shop has 8 seats → 2 people standing → Bad experience
     **Amazon's Discovery**: In 2006, Amazon found every 100ms of latency cost them 1% in sales
     Using Little's Law: If page load W increases by 100ms and λ (visitors) = 100M/day
     Then L (concurrent users waiting) increases proportionally, leading to abandonment
-    
+
     **Twitter's Fail Whale**: During 2010 World Cup
     - Tweet rate λ = 3,283 tweets/second (peak)
     - Processing time W = 5 seconds (overloaded)
@@ -136,7 +135,7 @@ Actual Netflix: Uses 300+ servers for redundancy and peak loads
 ### Uber's Driver Matching
 ```python
 Peak hour in Manhattan:
-- Ride requests: λ = 1,000 requests/minute 
+- Ride requests: λ = 1,000 requests/minute
 - Match time: W = 3 seconds = 0.05 minutes
 - Concurrent matches: L = 1,000 × 0.05 = 50 matches in progress
 
@@ -181,7 +180,7 @@ Incident Timeline:
 
 3. Thread pool exhaustion at 50,000 threads
    Queue backup: 50,000 requests waiting
-   
+
 4. Cascading failure as timeouts trigger retries
    Effective λ doubles to 100,000 req/s
    System collapses
@@ -224,7 +223,7 @@ Need to double resources (servers, threads, connections)
 ### Misconception 1: Only for Queues
 Reality: Applies to ANY system with flow
 - Cache entries
-- TCP connections  
+- TCP connections
 - Database locks
 - Memory pages
 - User sessions
@@ -246,7 +245,7 @@ Client → Edge → Storage Layer → Replication
 
 Stage measurements:
 - Edge buffer: L₁ = 1M objects, W₁ = 100ms
-- Storage write: L₂ = 500K objects, W₂ = 200ms  
+- Storage write: L₂ = 500K objects, W₂ = 200ms
 - Replication: L₃ = 2M objects, W₃ = 500ms
 
 Total latency: W = 100 + 200 + 500 = 800ms
@@ -259,7 +258,7 @@ Pipeline: A → B → C
 
 For each stage:
 L₁ = λ × W₁
-L₂ = λ × W₂  
+L₂ = λ × W₂
 L₃ = λ × W₃
 
 Total: L = λ × (W₁ + W₂ + W₃)

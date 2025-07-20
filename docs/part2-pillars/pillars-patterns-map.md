@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Pillars ↔ Patterns Mini-Map**
 
-
 # Pillars ↔ Patterns Mini-Map
 
 ## Quick Reference Grid
@@ -60,10 +59,10 @@ Legend: ███ Strong fit  ██ Good fit  █ Some fit  ░ Minimal
 ## 💪 Hands-On Exercises
 
 ### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Identify Pillars ↔ s Mini-Map in existing systems
 
-**Task**: 
+**Task**:
 Find 2 real-world examples where Pillars ↔ s Mini-Map is implemented:
 1. **Example 1**: A well-known tech company or service
 2. **Example 2**: An open-source project or tool you've used
@@ -74,7 +73,7 @@ For each example:
 - What alternatives could have been used
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Design an implementation of Pillars ↔ s Mini-Map
 
 **Scenario**: You need to implement Pillars ↔ s Mini-Map for an e-commerce checkout system processing 10,000 orders/hour.
@@ -93,7 +92,7 @@ For each example:
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
 ### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Pillars ↔ s Mini-Map
 
 **Challenge**: You're consulting for a startup building their first product.
@@ -116,7 +115,7 @@ Implement a minimal version of Pillars ↔ s Mini-Map in your preferred language
 - Include basic error handling
 - Add simple logging
 
-### Intermediate: Production Features  
+### Intermediate: Production Features
 Extend the basic implementation with:
 - Configuration management
 - Metrics collection
@@ -134,7 +133,7 @@ Optimize for production use:
 
 ## 🎯 Real-World Application
 
-**Project Integration**: 
+**Project Integration**:
 - How would you introduce Pillars ↔ s Mini-Map to an existing system?
 - What migration strategy would minimize risk?
 - How would you measure success?

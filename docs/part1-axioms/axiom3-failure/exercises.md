@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 3](/part1-axioms/axiom3-failure/) → **Partial Failure Exercises**
 
-
 # Partial Failure Exercises
 
 ## Hands-On Labs

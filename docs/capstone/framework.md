@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → **Capstone Project Framework**
 
-
 # Capstone Project Framework
 
 ## Overview
@@ -356,22 +355,22 @@ class Config:
 
 class DistributedSystem(ABC):
     """Base class for capstone projects"""
-    
+
     def __init__(self, config: Config):
         self.config = config
         self.state = {}
         self.metrics = {}
-    
+
     @abstractmethod
     async def start(self):
         """Start the system"""
         pass
-    
+
     @abstractmethod
     async def shutdown(self):
         """Graceful shutdown"""
         pass
-    
+
     @abstractmethod
     def get_metrics(self) -> Dict[str, Any]:
         """Return system metrics"""
@@ -380,15 +379,15 @@ class DistributedSystem(ABC):
 # Test harness for validation
 class SystemValidator:
     """Automated validation framework"""
-    
+
     async def test_basic_operations(self, system: DistributedSystem):
         """Test core functionality"""
         pass
-    
+
     async def test_fault_tolerance(self, system: DistributedSystem):
         """Test failure scenarios"""
         pass
-    
+
     async def test_performance(self, system: DistributedSystem):
         """Benchmark system performance"""
         pass
@@ -405,7 +404,7 @@ class SystemValidator:
 - **Now**: Open source project with 500+ stars
 
 #### "GeoKV" - Geo-Distributed Key-Value Store
-- **Team**: 4 students  
+- **Team**: 4 students
 - **Innovation**: Adaptive consistency based on geographic distance
 - **Results**: 50% lower latency than fixed consistency
 - **Now**: Paper published at systems conference

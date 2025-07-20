@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Consistency Tuning in Production**
 
-
 # Consistency Tuning in Production
 
 **The art of dialing consistency without breaking production**
@@ -69,19 +68,19 @@ class ConsistencyManager:
         # User-based
         if context.user.is_premium:
             return upgrade_consistency(operation.default)
-            
+
         # Time-based
         if is_peak_hours():
             return downgrade_consistency(operation.default)
-            
+
         # Health-based
         if replica_lag > threshold:
             return LOCAL_ONE  # Degrade gracefully
-            
+
         # SLO-based
         if error_budget_remaining < 10%:
             return strongest_available()
-            
+
         return operation.default
 ```
 
@@ -123,13 +122,13 @@ async def read_with_degradation(key):
         (LOCAL_QUORUM, 300),  # 300ms timeout
         (ONE, 500),           # 500ms timeout
     ]
-    
+
     for consistency, timeout in strategies:
         try:
             return await read(key, consistency, timeout)
         except TimeoutError:
             continue
-    
+
     # Last resort: return cached or default
     return get_cached_or_default(key)
 ```

@@ -16,7 +16,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Idempotent Receiver Pattern**
 
-
 # Idempotent Receiver Pattern
 
 **Process each message exactly once - Even when messages arrive multiple times**
@@ -75,7 +74,7 @@ graph LR
         Q --> |At-least-once| R[Receiver]
         Q --> |Retry/Duplicate| R
     end
-    
+
     subgraph "Idempotent Receiver"
         R --> C{Already<br/>Processed?}
         C -->|No| S[State Store]
@@ -85,12 +84,12 @@ graph LR
         H --> |Process| D[Downstream]
         H --> A
     end
-    
+
     subgraph "State Management"
         S --> |Check| C
         T[TTL Cleanup] --> S
     end
-    
+
     style P fill:#f9f,stroke:#333,stroke-width:2px
     style R fill:#bbf,stroke:#333,stroke-width:2px
     style S fill:#bfb,stroke:#333,stroke-width:2px
@@ -128,7 +127,7 @@ class Message:
     payload: Dict[str, Any]
     timestamp: datetime
     source: str
-    
+
     @staticmethod
     def generate_id(payload: Dict[str, Any], source: str) -> str:
         """Generate deterministic ID based on content"""
@@ -137,46 +136,46 @@ class Message:
 
 class IdempotencyStore:
     """Manages idempotent message processing state"""
-    
+
     def __init__(self, redis_client: redis.Redis, ttl_seconds: int = 86400):
         self.redis = redis_client
         self.ttl = ttl_seconds
         self.logger = logging.getLogger(__name__)
-        
+
     async def has_processed(self, message_id: str) -> bool:
         """Check if message has been processed"""
         return bool(self.redis.exists(f"processed:{message_id}"))
-    
+
     async def mark_processing(self, message_id: str) -> bool:
         """Atomically mark message as being processed"""
         key = f"processing:{message_id}"
         # SET NX returns True if key was set (didn't exist)
         acquired = self.redis.set(key, "1", nx=True, ex=300)  # 5 min timeout
         return bool(acquired)
-    
+
     async def mark_processed(self, message_id: str, result: Any = None):
         """Mark message as successfully processed"""
         pipe = self.redis.pipeline()
-        
+
         # Store processed flag
         processed_key = f"processed:{message_id}"
         pipe.set(processed_key, "1", ex=self.ttl)
-        
+
         # Store result if provided
         if result is not None:
             result_key = f"result:{message_id}"
             pipe.set(result_key, json.dumps(result), ex=self.ttl)
-        
+
         # Remove processing flag
         pipe.delete(f"processing:{message_id}")
-        
+
         pipe.execute()
-        
+
     async def get_result(self, message_id: str) -> Optional[Any]:
         """Retrieve stored result for processed message"""
         result = self.redis.get(f"result:{message_id}")
         return json.loads(result) if result else None
-    
+
     async def cleanup_expired(self) -> int:
         """Clean up expired entries (handled by Redis TTL)"""
         # Redis handles TTL automatically
@@ -185,7 +184,7 @@ class IdempotencyStore:
 
 class IdempotentReceiver:
     """Ensures exactly-once message processing semantics"""
-    
+
     def __init__(self, store: IdempotencyStore):
         self.store = store
         self.logger = logging.getLogger(__name__)
@@ -195,63 +194,63 @@ class IdempotentReceiver:
             'errors': 0,
             'concurrent_attempts': 0
         }
-    
+
     async def process_message(self, message: Message, handler) -> Any:
         """Process message idempotently"""
-        
+
         # Check if already processed
         if await self.store.has_processed(message.id):
             self.metrics['duplicates'] += 1
             self.logger.info(f"Duplicate message detected: {message.id}")
-            
+
             # Return stored result if available
             result = await self.store.get_result(message.id)
             return result
-        
+
         # Try to acquire processing lock
         if not await self.store.mark_processing(message.id):
             self.metrics['concurrent_attempts'] += 1
             self.logger.warning(f"Concurrent processing attempt: {message.id}")
-            
+
             # Wait and check if other process completed
             await asyncio.sleep(0.5)
             if await self.store.has_processed(message.id):
                 return await self.store.get_result(message.id)
             else:
                 raise RuntimeError(f"Processing failed for message: {message.id}")
-        
+
         try:
             # Process the message
             self.logger.info(f"Processing message: {message.id}")
             result = await handler(message)
-            
+
             # Mark as processed with result
             await self.store.mark_processed(message.id, result)
             self.metrics['processed'] += 1
-            
+
             return result
-            
+
         except Exception as e:
             self.metrics['errors'] += 1
             self.logger.error(f"Error processing message {message.id}: {e}")
             # Remove processing lock on error
             await self.store.redis.delete(f"processing:{message.id}")
             raise
-    
+
     def get_metrics(self) -> Dict[str, int]:
         """Get processing metrics"""
         return self.metrics.copy()
 
-def idempotent(ttl_seconds: int = 86400, 
+def idempotent(ttl_seconds: int = 86400,
                key_generator=None,
                store_result: bool = True):
     """Decorator for making functions idempotent"""
-    
+
     def decorator(func):
         # Initialize store (in production, inject this dependency)
         redis_client = redis.Redis(decode_responses=True)
         store = IdempotencyStore(redis_client, ttl_seconds)
-        
+
         @wraps(func)
         async def wrapper(*args, **kwargs):
             # Generate idempotency key
@@ -262,68 +261,68 @@ def idempotent(ttl_seconds: int = 86400,
                 key = hashlib.sha256(
                     f"{func.__name__}:{args}:{kwargs}".encode()
                 ).hexdigest()
-            
+
             # Check if already processed
             if await store.has_processed(key):
                 return await store.get_result(key) if store_result else None
-            
+
             # Acquire processing lock
             if not await store.mark_processing(key):
                 # Wait for other process
                 await asyncio.sleep(0.5)
                 return await store.get_result(key) if store_result else None
-            
+
             try:
                 # Execute function
                 result = await func(*args, **kwargs)
-                
+
                 # Mark as processed
                 await store.mark_processed(
-                    key, 
+                    key,
                     result if store_result else None
                 )
-                
+
                 return result
-                
+
             except Exception:
                 # Clean up on error
                 await store.redis.delete(f"processing:{key}")
                 raise
-        
+
         return wrapper
     return decorator
 
 # Example Usage
 class OrderService:
     """Example service using idempotent receiver"""
-    
+
     def __init__(self, idempotent_receiver: IdempotentReceiver):
         self.receiver = idempotent_receiver
         self.orders_created = 0
-    
+
     async def handle_create_order(self, message: Message) -> Dict[str, Any]:
         """Handler that creates order - must be idempotent"""
         order_data = message.payload
-        
+
         # Simulate order creation
         order_id = f"ORD-{int(time.time())}"
         self.orders_created += 1
-        
+
         # In real implementation:
         # - Check if order already exists
         # - Use database transactions
         # - Make downstream calls idempotent
-        
+
         result = {
             'order_id': order_id,
             'status': 'created',
             'items': order_data.get('items', []),
             'total': sum(item['price'] for item in order_data.get('items', []))
         }
-        
+
         self.logger.info(f"Created order: {order_id}")
         return result
-    
+
     async def process_order_message(self, raw_message: Dict[str, Any]) -> Any:
         """Process incoming order message"""
         # Create message with ID
@@ -333,7 +332,7 @@ class OrderService:
             timestamp=datetime.now(),
             source=raw_message['source']
         )
-        
+
         # Process idempotently
         return await self.receiver.process_message(
             message,
@@ -343,14 +342,14 @@ class OrderService:
 # Advanced: Batch Processing with Idempotency
 class BatchIdempotentProcessor:
     """Process batches while maintaining idempotency"""
-    
+
     def __init__(self, store: IdempotencyStore):
         self.store = store
-        
+
     async def process_batch(self, messages: List[Message], handler) -> List[Any]:
         """Process batch of messages, skipping duplicates"""
         results = []
-        
+
         # Pre-filter duplicates for efficiency
         to_process = []
         for msg in messages:
@@ -359,24 +358,24 @@ class BatchIdempotentProcessor:
                 results.append((msg.id, result, True))  # True = was duplicate
             else:
                 to_process.append(msg)
-        
+
         # Process new messages concurrently
         if to_process:
             tasks = [
-                self._process_single(msg, handler) 
+                self._process_single(msg, handler)
                 for msg in to_process
             ]
-            
+
             batch_results = await asyncio.gather(*tasks, return_exceptions=True)
-            
+
             for msg, result in zip(to_process, batch_results):
                 if isinstance(result, Exception):
                     results.append((msg.id, None, False))
                 else:
                     results.append((msg.id, result, False))
-        
+
         return results
-    
+
     async def _process_single(self, message: Message, handler) -> Any:
         """Process single message with error handling"""
         try:
@@ -534,8 +533,6 @@ How idempotent receiver works with other patterns:
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
 
-
-
 ## 🌟 Real Examples
 
 ### Production Implementations
@@ -556,7 +553,7 @@ A major e-commerce platform implemented Idempotent Receiver Pattern to handle cr
 
 **Challenge**: System failures affected user experience and revenue
 
-**Implementation**: 
+**Implementation**:
 - Applied Idempotent Receiver Pattern pattern to critical service calls
 - Added fallback mechanisms for degraded operation
 - Monitored service health continuously
@@ -572,8 +569,6 @@ A major e-commerce platform implemented Idempotent Receiver Pattern to handle cr
 - Have clear runbooks for when the pattern activates
 - Test failure scenarios regularly in production
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -584,12 +579,12 @@ class Idempotent_ReceiverPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -597,23 +592,23 @@ class Idempotent_ReceiverPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -647,20 +642,17 @@ idempotent_receiver:
 ```python
 def test_idempotent_receiver_behavior():
     pattern = Idempotent_ReceiverPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

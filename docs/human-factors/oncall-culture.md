@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **On-Call Culture**
 
-
 # On-Call Culture
 
 **Building sustainable and effective on-call practices**
@@ -60,7 +59,7 @@ On-call culture encompasses the practices, values, and systems that make 24/7 se
 def calculate_rotation_size(incidents_per_week, max_incidents_per_person=2):
     """
     Calculate optimal on-call rotation size
-    
+
     Factors:
     - Each person on-call once per rotation cycle
     - No more than max_incidents per shift
@@ -68,15 +67,15 @@ def calculate_rotation_size(incidents_per_week, max_incidents_per_person=2):
     """
     # Base calculation
     min_people = incidents_per_week / max_incidents_per_person
-    
+
     # Add buffer for time off
     vacation_buffer = 1.15
-    
+
     # Add buffer for burnout prevention
     burnout_buffer = 1.25
-    
+
     optimal_size = int(min_people * vacation_buffer * burnout_buffer)
-    
+
     # Minimum viable rotation
     return max(optimal_size, 4)
 ```
@@ -107,12 +106,12 @@ on_call_compensation:
     weekday: $500/week
     weekend: $750/week
     holiday: $1000/week
-  
+
   incident_rates:
     first_incident: $0  # Included in base
     additional_incidents: $100/each
     after_hours_incident: $150/each
-    
+
   time_off:
     weekend_shift: 0.5 days comp time
     holiday_shift: 1.0 days comp time
@@ -126,11 +125,11 @@ on_call_compensation:
 class AlertQualityTracker:
     def __init__(self):
         self.alerts = []
-    
+
     def calculate_alert_quality(self):
         total_alerts = len(self.alerts)
         actionable = sum(1 for a in self.alerts if a.actionable)
-        
+
         return {
             'total_alerts': total_alerts,
             'actionable_rate': actionable / total_alerts,
@@ -138,20 +137,20 @@ class AlertQualityTracker:
             'false_positive_rate': sum(1 for a in self.alerts if a.false_positive) / total_alerts,
             'duplicate_rate': self.calculate_duplicate_rate()
         }
-    
+
     def identify_noisy_alerts(self, threshold=0.5):
         """Find alerts with high false positive rate"""
         alert_stats = {}
-        
+
         for alert in self.alerts:
             name = alert.name
             if name not in alert_stats:
                 alert_stats[name] = {'total': 0, 'false_positives': 0}
-            
+
             alert_stats[name]['total'] += 1
             if alert.false_positive:
                 alert_stats[name]['false_positives'] += 1
-        
+
         noisy_alerts = []
         for name, stats in alert_stats.items():
             false_rate = stats['false_positives'] / stats['total']
@@ -161,7 +160,7 @@ class AlertQualityTracker:
                     'false_positive_rate': false_rate,
                     'total_alerts': stats['total']
                 })
-        
+
         return sorted(noisy_alerts, key=lambda x: x['false_positive_rate'], reverse=True)
 ```
 
@@ -175,13 +174,13 @@ alert_standards:
     - service: Affected service name
     - runbook: Link to resolution steps
     - dashboard: Link to relevant metrics
-    
+
   quality_criteria:
     - Actionable: Engineer can do something
     - Urgent: Requires immediate attention
     - User-impacting: Affects customers
     - Unique: Not duplicate of other alerts
-    
+
   slo_based_alerting:
     - Alert on symptoms, not causes
     - Use error budgets
@@ -194,7 +193,7 @@ alert_standards:
 ```python
 class OnCallToolkit:
     """Standard tools for on-call engineers"""
-    
+
     def __init__(self):
         self.tools = {
             'alerting': ['PagerDuty', 'Opsgenie', 'VictorOps'],
@@ -204,7 +203,7 @@ class OnCallToolkit:
             'documentation': ['Confluence', 'Notion', 'Wiki'],
             'automation': ['Rundeck', 'Ansible', 'Jenkins']
         }
-    
+
     def setup_new_oncall(self, engineer):
         """Setup checklist for new on-call engineer"""
         checklist = [
@@ -217,7 +216,7 @@ class OnCallToolkit:
             "Review recent incidents",
             "Participate in game day exercise"
         ]
-        
+
         return {
             'engineer': engineer,
             'checklist': checklist,
@@ -229,7 +228,7 @@ class OnCallToolkit:
 ```python
 class OnCallAutomation:
     """Automate common on-call tasks"""
-    
+
     def auto_diagnosis(self, alert):
         """Automatically gather diagnostic information"""
         diagnostics = {
@@ -240,14 +239,14 @@ class OnCallAutomation:
             'dependencies_health': self.check_dependencies(alert.service),
             'similar_incidents': self.find_similar_incidents(alert)
         }
-        
+
         # Post to incident channel
         self.post_diagnostics(alert.incident_channel, diagnostics)
-        
+
         # Suggest likely causes
         causes = self.analyze_diagnostics(diagnostics)
         return causes
-    
+
     def auto_remediation(self, alert):
         """Attempt safe auto-remediation"""
         safe_remediations = {
@@ -256,7 +255,7 @@ class OnCallAutomation:
             'connection_exhaustion': self.reset_connections,
             'disk_full': self.cleanup_old_logs
         }
-        
+
         if alert.type in safe_remediations:
             try:
                 result = safe_remediations[alert.type](alert.service)
@@ -293,20 +292,20 @@ class OnCallAutomation:
 class BurnoutPrevention:
     def __init__(self):
         self.engineer_stats = {}
-    
+
     def track_oncall_load(self, engineer, week):
         stats = self.engineer_stats.get(engineer, {})
-        
+
         return {
             'incidents_this_week': stats.get('incidents', 0),
             'night_pages_this_month': stats.get('night_pages', 0),
             'consecutive_rough_weeks': stats.get('rough_weeks', 0),
             'time_since_last_break': stats.get('weeks_on', 0)
         }
-    
+
     def recommend_action(self, engineer):
         load = self.track_oncall_load(engineer, current_week())
-        
+
         if load['consecutive_rough_weeks'] >= 2:
             return "Skip next rotation"
         elif load['night_pages_this_month'] >= 5:
@@ -327,13 +326,13 @@ on_call_health_metrics:
     - night_pages_per_month
     - mttr_by_engineer
     - escalation_rate
-    
+
   team_metrics:
     - rotation_participation_rate
     - voluntary_extra_shifts
     - on_call_survey_scores
     - turnover_rate
-    
+
   system_metrics:
     - alert_quality_score
     - auto_remediation_rate
@@ -351,7 +350,7 @@ class OnCallSurvey:
         "How fair is the on-call compensation?",
         "What's your biggest on-call pain point?"
     ]
-    
+
     def analyze_responses(self, responses):
         # Track trends over time
         # Identify problem areas

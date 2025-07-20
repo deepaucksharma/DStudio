@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Cache Economics Sheet**
 
-
 # Cache Economics Sheet
 
 **When caching saves money**
@@ -214,19 +213,19 @@ Worth it when:
 ```python
 def calculate_ttl(key, access_pattern):
     base_ttl = 3600  # 1 hour
-    
+
     # High-value keys: Longer TTL
     if is_expensive_query(key):
         ttl = base_ttl * 4
-        
+
     # Frequently changing: Shorter TTL
     elif high_update_frequency(key):
         ttl = base_ttl / 4
-        
+
     # Access pattern based
     elif access_pattern.is_periodic():
         ttl = access_pattern.period * 1.5
-        
+
     return ttl
 ```
 
@@ -236,7 +235,7 @@ def should_cache(query_cost, access_frequency, result_size):
     # Cache only if profitable
     cache_cost_per_hour = result_size * memory_cost_per_gb
     saved_per_hour = access_frequency * query_cost
-    
+
     return saved_per_hour > cache_cost_per_hour * 2  # 2x margin
 ```
 
@@ -284,21 +283,21 @@ Sweet spot: 10-100GB for most apps
 def optimize_cache_sizes(budget, access_pattern):
     # L1: CPU cache (free but tiny)
     l1_size = min(cpu_cache_available, hot_working_set)
-    
+
     # L2: Application memory
     l2_cost_per_gb = $5
     l2_size = optimize_for_hit_rate(
         budget * 0.3,  # 30% of budget
         l2_cost_per_gb
     )
-    
+
     # L3: Redis
     l3_cost_per_gb = $50
     l3_size = optimize_for_hit_rate(
         budget * 0.7,  # 70% of budget
         l3_cost_per_gb
     )
-    
+
     return (l1_size, l2_size, l3_size)
 ```
 

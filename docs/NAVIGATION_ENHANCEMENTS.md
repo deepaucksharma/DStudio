@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → **Navigation Enhancements for The Compendium**
 
-
 # Navigation Enhancements for The Compendium
 
 This document outlines the comprehensive cross-reference system implemented throughout the Compendium to improve discoverability and learning flow.
@@ -65,32 +64,12 @@ Each pillar should link to:
 ### Concept Maps
 
 ```markdown
-<div class="concept-map">
-<h3>🗺️ Concept Relationships</h3>
 
-```mermaid
-graph TD
-    A[Current Topic] --> B[Foundation Axiom]
-    A --> C[Related Pattern]
-    A --> D[Case Study Example]
-    B --> E[Mathematical Tool]
-    C --> F[Implementation Guide]
-    D --> G[Lessons Learned]
-```
-</div>
 ```bash
 ### Learning Path Indicators
 
 ```markdown
-<div class="learning-path">
-<h3>📍 You Are Here</h3>
 
-**Path**: New Graduate → **[Axioms]** → Pillars → Patterns → Case Studies
-
-**Progress**: [██████████████████░░] 80% through Axioms
-
-**Next**: [Pillar 1: Work](/part2-pillars/work/) - How systems process requests
-</div>
 ```bash
 ### See Also Sections
 
@@ -101,7 +80,7 @@ graph TD
 - [Mathematical Foundations](/quantitative/queueing-models/) - Queueing theory for capacity planning
 - [Production Examples](/human-factors/sre-practices/) - Real-world capacity management
 
-### 🛠️ Practical Application  
+### 🛠️ Practical Application
 - [Capacity Planning Exercise](/part1-axioms/axiom2-capacity/exercises/) - Hands-on practice
 - [Auto-scaling Patterns](/patterns/auto-scaling/) - Implementation strategies
 
@@ -113,7 +92,7 @@ graph TD
 
 ### Phase 1: Add Quick Navigation Boxes
 - Add to all axiom pages
-- Add to all pattern pages  
+- Add to all pattern pages
 - Add to all case study sections
 
 ### Phase 2: Create Concept Maps
@@ -142,47 +121,13 @@ graph TD
 ### For Pattern Pages
 
 ```markdown
-<div class="pattern-navigation">
-<div class="pattern-context">
-<h3>🧭 Pattern Context</h3>
 
-**Solves**: Which axiom challenges this addresses
-**Related**: Complementary patterns
-**Alternatives**: Other solutions to consider
-</div>
-
-<div class="implementation-links">
-<h3>🛠️ Implementation</h3>
-
-**Code Examples**: Working implementations
-**Case Studies**: Production usage
-**Exercises**: Practice scenarios
-</div>
 </div>
 ```bash
 ### For Case Study Pages
 
 ```markdown
-<div class="case-study-nav">
-<div class="case-study-context">
-<h3>🏢 System Context</h3>
 
-**Scale**: [Startup/Growth/Enterprise]
-**Domain**: [E-commerce/Social/Gaming/etc.]
-**Key Challenges**: Primary distributed systems problems solved
-</div>
-
-<div class="axiom-demonstration">
-<h3>📐 Axioms Demonstrated</h3>
-
-Links to specific axioms with explanations of how they apply
-</div>
-
-<div class="pattern-usage">
-<h3>🔧 Patterns Applied</h3>
-
-Links to patterns with implementation details
-</div>
 </div>
 ```bash
 ## Cross-Reference Data Structure
@@ -196,14 +141,14 @@ cross_references:
       case_studies: [netflix, uber-dispatch, cdn-optimization]
       quantitative_tools: [latency-budget, queueing-theory]
       exercises: [speed-of-light, network-simulation]
-    
+
   patterns:
     circuit-breaker:
       primary_axioms: [axiom1-latency, axiom3-failure]
       related_patterns: [retry-backoff, bulkhead, timeout]
       case_studies: [netflix-hystrix, aws-lambda]
       implementations: [java-hystrix, golang-breaker, python-pybreaker]
-      
+
   case_studies:
     netflix:
       demonstrated_axioms: [latency, failure, economics]

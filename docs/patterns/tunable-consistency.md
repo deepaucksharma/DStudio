@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Tunable Consistency**
 
-
 # Tunable Consistency
 
 **One size doesn't fit all**
@@ -24,7 +23,7 @@ last_updated: 2025-07-20
 ```
 Different operations need different guarantees:
 - Password change → Must be strongly consistent
-- Like count → Can be eventually consistent  
+- Like count → Can be eventually consistent
 - View count → Can be very relaxed
 - Bank transfer → Requires linearizability
 
@@ -45,7 +44,7 @@ client.read(key, consistency=BOUNDED)   → Max staleness 5 sec
 STRONGEST ←————————————————————→ WEAKEST
     ↓                                ↓
 Linearizable                    Eventual
-Sequential                      Read Uncommitted  
+Sequential                      Read Uncommitted
 Snapshot                        Monotonic Read
 Read Your Write                 Bounded Staleness
 ```bash
@@ -71,87 +70,87 @@ class TunableDataStore:
         self.nodes = nodes
         self.vector_clock = VectorClock()
         self.write_timestamp = {}
-        
+
     async def write(self, key, value, consistency=ConsistencyLevel.SEQUENTIAL):
         """Write with chosen consistency"""
-        
+
         timestamp = time.time()
         version = self.vector_clock.increment()
-        
+
         if consistency == ConsistencyLevel.LINEARIZABLE:
             # Wait for all nodes
             await self._write_all_nodes(key, value, version)
-            
+
         elif consistency == ConsistencyLevel.SEQUENTIAL:
             # Write to majority
             await self._write_quorum(key, value, version)
-            
+
         elif consistency == ConsistencyLevel.EVENTUAL:
             # Write to any node, return immediately
             await self._write_any_node(key, value, version)
             # Async replication happens in background
-            
+
         self.write_timestamp[key] = timestamp
         return version
-    
+
     async def read(self, key, consistency=ConsistencyLevel.SEQUENTIAL):
         """Read with chosen consistency"""
-        
+
         if consistency == ConsistencyLevel.LINEARIZABLE:
             # Read from majority, return latest
             return await self._read_quorum_latest(key)
-            
+
         elif consistency == ConsistencyLevel.SEQUENTIAL:
             # Read from majority
             return await self._read_quorum(key)
-            
+
         elif consistency == ConsistencyLevel.SNAPSHOT:
             # Read from consistent snapshot
             return await self._read_snapshot(key)
-            
+
         elif consistency == ConsistencyLevel.READ_YOUR_WRITE:
             # Ensure we see our own writes
             return await self._read_after_write(key)
-            
+
         elif consistency == ConsistencyLevel.MONOTONIC_READ:
             # Never go backwards
             return await self._read_monotonic(key)
-            
+
         elif consistency == ConsistencyLevel.BOUNDED_STALENESS:
             # Accept stale data within bounds
             return await self._read_bounded(key, max_staleness_ms=5000)
-            
+
         elif consistency == ConsistencyLevel.EVENTUAL:
             # Read from any node
             return await self._read_any(key)
-    
+
     async def _write_quorum(self, key, value, version):
         """Write to majority of nodes"""
         quorum_size = len(self.nodes) // 2 + 1
         write_futures = []
-        
+
         for node in self.nodes[:quorum_size]:
             future = node.write(key, value, version)
             write_futures.append(future)
-            
+
         # Wait for quorum
         results = await asyncio.gather(*write_futures)
-        
+
         # Background replication to remaining nodes
         for node in self.nodes[quorum_size:]:
             asyncio.create_task(node.write(key, value, version))
-    
+
     async def _read_quorum_latest(self, key):
         """Read from majority, return latest version"""
         quorum_size = len(self.nodes) // 2 + 1
         read_futures = []
-        
+
         for node in self.nodes[:quorum_size]:
             future = node.read(key)
             read_futures.append(future)
-            
+
         results = await asyncio.gather(*read_futures)
-        
+
         # Return value with highest version
         latest = max(results, key=lambda r: r.version if r else -1)
         return latest
@@ -163,61 +162,61 @@ class BoundedStalenessStore:
         self.primary = None
         self.replicas = []
         self.last_sync_time = {}
-        
+
     async def read_bounded(self, key):
         """Read with staleness guarantee"""
-        
+
         # Try to read from replica
         for replica in self.replicas:
             staleness = time.time() * 1000 - self.last_sync_time.get(replica.id, 0)
-            
+
             if staleness <= self.max_staleness_ms:
                 # Replica is fresh enough
                 return await replica.read(key)
-                
+
         # Fallback to primary if replicas too stale
         return await self.primary.read(key)
-    
+
     async def sync_replicas(self):
         """Keep replicas within staleness bound"""
         while True:
             current_time = time.time() * 1000
-            
+
             for replica in self.replicas:
                 staleness = current_time - self.last_sync_time.get(replica.id, 0)
-                
+
                 if staleness > self.max_staleness_ms * 0.8:  # 80% threshold
                     # Sync before hitting limit
                     await self.sync_replica(replica)
                     self.last_sync_time[replica.id] = current_time
-                    
+
             await asyncio.sleep(1)  # Check every second
 
-# Session consistency implementation  
+# Session consistency implementation
 class SessionConsistency:
     def __init__(self, store):
         self.store = store
         self.session_vectors = {}  # session_id -> vector clock
-        
+
     async def read(self, key, session_id):
         """Read with session consistency"""
-        
+
         # Get session's last known version
         session_vector = self.session_vectors.get(session_id, VectorClock())
-        
+
         # Read from any replica that has caught up
         for node in self.store.nodes:
             node_vector = await node.get_vector_clock()
-            
+
             if node_vector.happens_after(session_vector):
                 # This node has all writes from session
                 value = await node.read(key)
-                
+
                 # Update session vector
                 self.session_vectors[session_id] = node_vector
-                
+
                 return value
-                
+
         # No node caught up, wait for replication
         await self.wait_for_vector(session_vector)
         return await self.read(key, session_id)
@@ -226,36 +225,36 @@ class SessionConsistency:
 class ConsistencyNegotiator:
     def __init__(self):
         self.rules = []
-        
+
     def add_rule(self, pattern, consistency):
         """Add consistency rule for operations"""
         self.rules.append({
             'pattern': pattern,
             'consistency': consistency
         })
-        
+
     def negotiate(self, operation):
         """Determine consistency for operation"""
-        
+
         # Check rules in order
         for rule in self.rules:
             if self.matches(operation, rule['pattern']):
                 return rule['consistency']
-                
+
         # Default consistency
         return ConsistencyLevel.SEQUENTIAL
-    
+
     def matches(self, operation, pattern):
         """Check if operation matches pattern"""
         if pattern.get('table') and operation.table != pattern['table']:
             return False
-            
+
         if pattern.get('operation') and operation.type != pattern['operation']:
             return False
-            
+
         if pattern.get('user_type') and operation.user_type != pattern['user_type']:
             return False
-            
+
         return True
 
 # Example usage patterns
@@ -293,12 +292,12 @@ class AdaptiveConsistency:
     def __init__(self, store):
         self.store = store
         self.load_monitor = LoadMonitor()
-        
+
     async def read(self, key, preferred_consistency):
         """Adapt consistency based on system load"""
-        
+
         current_load = self.load_monitor.get_load()
-        
+
         if current_load > 0.8:  # High load
             # Downgrade consistency for performance
             if preferred_consistency == ConsistencyLevel.LINEARIZABLE:
@@ -307,12 +306,12 @@ class AdaptiveConsistency:
                 actual_consistency = ConsistencyLevel.EVENTUAL
             else:
                 actual_consistency = preferred_consistency
-                
+
             print(f"High load: downgrading from {preferred_consistency} to {actual_consistency}")
-            
+
         else:  # Normal load
             actual_consistency = preferred_consistency
-            
+
         return await self.store.read(key, actual_consistency)
 
 # Consistency SLA monitoring
@@ -321,17 +320,17 @@ class ConsistencySLAMonitor:
         self.consistency_met = Counter()
         self.consistency_violated = Counter()
         self.staleness_histogram = Histogram()
-        
+
     def record_read(self, requested_consistency, actual_staleness_ms):
         """Track if consistency SLA was met"""
-        
+
         if requested_consistency == ConsistencyLevel.BOUNDED_STALENESS:
             if actual_staleness_ms <= 5000:  # 5 second bound
                 self.consistency_met.inc()
             else:
                 self.consistency_violated.inc()
                 self.alert(f"Staleness SLA violated: {actual_staleness_ms}ms")
-                
+
         self.staleness_histogram.observe(actual_staleness_ms)
 ```
 
@@ -359,7 +358,6 @@ class ConsistencySLAMonitor:
 **Previous**: [← Timeout Pattern](timeout.md)
 ---
 
-
 ## ✅ When to Use
 
 ### Ideal Scenarios
@@ -383,8 +381,6 @@ class ConsistencySLAMonitor:
 - Cost of downtime is significant
 - User experience is a priority
 - System is customer-facing or business-critical
-
-
 
 ## ❌ When NOT to Use
 
@@ -410,8 +406,6 @@ class ConsistencySLAMonitor:
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -442,8 +436,6 @@ class ConsistencySLAMonitor:
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -454,12 +446,12 @@ class Tunable_ConsistencyPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -467,23 +459,23 @@ class Tunable_ConsistencyPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -517,29 +509,28 @@ tunable_consistency:
 ```python
 def test_tunable_consistency_behavior():
     pattern = Tunable_ConsistencyPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
 
-
 ## 💪 Hands-On Exercises
 
 ### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Identify Tunable Consistency in existing systems
 
-**Task**: 
+**Task**:
 Find 2 real-world examples where Tunable Consistency is implemented:
 1. **Example 1**: A well-known tech company or service
 2. **Example 2**: An open-source project or tool you've used
@@ -550,7 +541,7 @@ For each example:
 - What alternatives could have been used
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Design an implementation of Tunable Consistency
 
 **Scenario**: You need to implement Tunable Consistency for an e-commerce checkout system processing 10,000 orders/hour.
@@ -569,7 +560,7 @@ For each example:
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
 ### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Tunable Consistency
 
 **Challenge**: You're consulting for a startup building their first product.
@@ -592,7 +583,7 @@ Implement a minimal version of Tunable Consistency in your preferred language.
 - Include basic error handling
 - Add simple logging
 
-### Intermediate: Production Features  
+### Intermediate: Production Features
 Extend the basic implementation with:
 - Configuration management
 - Metrics collection
@@ -610,7 +601,7 @@ Optimize for production use:
 
 ## 🎯 Real-World Application
 
-**Project Integration**: 
+**Project Integration**:
 - How would you introduce Tunable Consistency to an existing system?
 - What migration strategy would minimize risk?
 - How would you measure success?

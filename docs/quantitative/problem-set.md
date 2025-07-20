@@ -13,7 +13,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Numerical Problem Set**
 
-
 # Numerical Problem Set
 
 **Practice problems with real-world parameters**

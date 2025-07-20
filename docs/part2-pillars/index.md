@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Part II: Foundational Pillars**
 
-
 # Part II: Foundational Pillars
 
 **Learning Objective**: Understand how axioms combine to create fundamental architectural patterns.
@@ -37,7 +36,7 @@ distributed system patterns emerge from fundamental constraints.
 
 The eight axioms reveal fundamental limits:
 - Information cannot travel faster than light (Latency)
-- Systems have finite resources (Capacity) 
+- Systems have finite resources (Capacity)
 - Components fail independently (Partial Failure)
 - Events happen concurrently (Concurrency)
 - Coordination has costs (Coordination)
@@ -46,16 +45,6 @@ The eight axioms reveal fundamental limits:
 - Everything has economic costs (Economics)
 
 But within these constraints, we can build remarkable systems. The five pillars show us how:
-
-<div class="pillar-overview">
-
-**Work**: How to decompose and distribute computation  
-**State**: How to manage and replicate data  
-**Truth**: How to establish consensus and consistency  
-**Control**: How to coordinate and orchestrate systems  
-**Intelligence**: How to adapt and evolve systems
-
-</div>
 
 ## The Three Core + Two Extension Model
 
@@ -91,7 +80,7 @@ But within these constraints, we can build remarkable systems. The five pillars 
 System Aspect               Covered By Pillar
 -------------               -----------------
 Request handling           → Work Distribution
-Data persistence          → State Distribution  
+Data persistence          → State Distribution
 Consistency               → Truth Distribution
 Operations                → Control Distribution
 Adaptation                → Intelligence Distribution
@@ -148,7 +137,7 @@ Work--+--------State--------+---Work
 Each pillar respects all eight axioms, but typically wrestles most directly with a subset:
 
 - **Work** primarily grapples with Latency and Capacity
-- **State** wrestles with Consistency and Partial Failure  
+- **State** wrestles with Consistency and Partial Failure
 - **Truth** deals with Coordination and Observability
 - **Control** balances Human Interface and Economics
 - **Intelligence** emerges from all axioms working together
@@ -168,37 +157,3 @@ By the end, you'll understand not just *what* each pillar does, but *why* it wor
 *"Give me a lever long enough and I can move the world. Give me the right abstractions and I can build any system."*
 
 ## The Five Pillars
-
-<div class="grid cards" markdown>
-
-- :material-cog: **[Work](work/index.md)**
-
-    ---
-    
-    Decomposing computation across space and time
-
-- :material-database: **[State](state/index.md)**
-
-    ---
-    
-    Managing data consistency and replication
-
-- :material-check-decagram: **[Truth](truth/index.md)**
-
-    ---
-    
-    Establishing consensus and ordering
-
-- :material-tune: **[Control](control/index.md)**
-
-    ---
-    
-    Coordinating system behavior
-
-- :material-brain: **[Intelligence](intelligence/index.md)**
-
-    ---
-    
-    Adaptive and self-organizing systems
-
-</div>

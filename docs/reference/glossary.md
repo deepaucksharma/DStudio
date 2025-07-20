@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Reference](/reference/) → **Distributed Systems Glossary**
 
-
 # Distributed Systems Glossary
 
 Comprehensive definitions of terms used throughout The Compendium of Distributed Systems.

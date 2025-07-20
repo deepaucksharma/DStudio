@@ -4,7 +4,7 @@ description: "class DistributedSystem:
     def __init__(self, num_nodes):
         self.nodes = {}
         # TODO: Initialize nodes with Lamport clocks
-        
+
  ..."
 type: pillar
 difficulty: advanced
@@ -17,7 +17,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → [Truth](/part2-pillars/truth/) → **Truth & Consensus Exercises**
 
-
 # Truth & Consensus Exercises
 
 ## Exercise 1: Implement a Lamport Clock System
@@ -28,17 +27,17 @@ last_updated: 2025-07-20
 class LamportClock:
     def __init__(self):
         self.time = 0
-    
+
     def tick(self):
         """Increment logical time for local event"""
         # TODO: Implement local event handling
         pass
-    
+
     def send_message(self, message):
         """Attach timestamp when sending message"""
         # TODO: Implement send logic with timestamp
         pass
-    
+
     def receive_message(self, message, timestamp):
         """Update clock when receiving message"""
         # TODO: Implement receive logic with clock update
@@ -48,7 +47,7 @@ class DistributedSystem:
     def __init__(self, num_nodes):
         self.nodes = {}
         # TODO: Initialize nodes with Lamport clocks
-        
+
     def simulate_events(self, events):
         """
         Simulate a series of events
@@ -70,12 +69,12 @@ class DistributedSystem:
 class LamportClock:
     def __init__(self):
         self.time = 0
-    
+
     def tick(self):
         """Increment logical time for local event"""
         self.time += 1
         return self.time
-    
+
     def send_message(self, message):
         """Attach timestamp when sending message"""
         self.tick()  # Increment before send
@@ -83,13 +82,13 @@ class LamportClock:
             'content': message,
             'timestamp': self.time
         }
-    
+
     def receive_message(self, message, timestamp):
         """Update clock when receiving message"""
         # Update to max(local, received) + 1
         self.time = max(self.time, timestamp) + 1
         return self.time
-    
+
     def get_time(self):
         return self.time
 
@@ -103,7 +102,7 @@ class DistributedSystem:
                 'messages': [],
                 'log': []
             }
-    
+
     def simulate_events(self, events):
         """Simulate a series of events"""
         for event in events:
@@ -117,33 +116,33 @@ class DistributedSystem:
                     'event': f"Local event on {node_id}"
                 })
                 print(f"{node_id}: Local event at time {time}")
-                
+
             elif event[1] == 'send':
                 # Send message
                 sender = event[0]
                 receiver = event[2]
                 msg_content = event[3]
-                
+
                 msg = self.nodes[sender]['clock'].send_message(msg_content)
                 self.nodes[receiver]['messages'].append({
                     'from': sender,
                     'message': msg
                 })
-                
+
                 self.nodes[sender]['log'].append({
                     'type': 'send',
                     'time': msg['timestamp'],
                     'to': receiver,
                     'message': msg_content
                 })
-                
+
                 print(f"{sender}: Sent '{msg_content}' to {receiver} at time {msg['timestamp']}")
-                
+
             elif event[1] == 'receive':
                 # Receive message
                 receiver = event[0]
                 sender = event[2]
-                
+
                 # Find message from sender
                 msg = None
                 for i, m in enumerate(self.nodes[receiver]['messages']):
@@ -151,13 +150,13 @@ class DistributedSystem:
                         msg = m['message']
                         del self.nodes[receiver]['messages'][i]
                         break
-                
+
                 if msg:
                     time = self.nodes[receiver]['clock'].receive_message(
-                        msg['content'], 
+                        msg['content'],
                         msg['timestamp']
                     )
-                    
+
                     self.nodes[receiver]['log'].append({
                         'type': 'receive',
                         'time': time,
@@ -165,13 +164,13 @@ class DistributedSystem:
                         'message': msg['content'],
                         'sent_time': msg['timestamp']
                     })
-                    
+
                     print(f"{receiver}: Received '{msg['content']}' from {sender} at time {time}")
-    
+
     def verify_causality(self):
         """Verify causality is preserved"""
         all_events = []
-        
+
         # Collect all events
         for node_id, node in self.nodes.items():
             for event in node['log']:
@@ -179,29 +178,29 @@ class DistributedSystem:
                     'node': node_id,
                     'event': event
                 })
-        
+
         # Sort by Lamport time
         all_events.sort(key=lambda x: x['event']['time'])
-        
+
         print("\nTotal ordering of events:")
         for e in all_events:
             print(f"Time {e['event']['time']}: {e['node']} - {e['event']['type']}")
-        
+
         # Verify causality
         for i, event in enumerate(all_events):
             if event['event']['type'] == 'receive':
                 sent_time = event['event']['sent_time']
                 receive_time = event['event']['time']
-                
+
                 # Send must happen before receive
                 assert sent_time < receive_time, "Causality violation!"
-        
+
         print("\nCausality verified ✓")
 
 # Test the implementation
 if __name__ == "__main__":
     system = DistributedSystem(3)
-    
+
     events = [
         ('node0', 'local'),
         ('node0', 'send', 'node1', 'Hello'),
@@ -213,7 +212,7 @@ if __name__ == "__main__":
         ('node0', 'send', 'node2', 'Bye'),
         ('node2', 'receive', 'node0', 'Bye')
     ]
-    
+
     system.simulate_events(events)
     system.verify_causality()
 ```
@@ -231,21 +230,21 @@ class LeaderElection:
         self.all_nodes = all_nodes
         self.leader = None
         self.election_in_progress = False
-        
+
     def start_election(self):
         """
         Initiate leader election
         TODO: Implement bully algorithm or ring algorithm
         """
         pass
-    
+
     def handle_election_message(self, from_node, message_type):
         """
         Handle election-related messages
         TODO: Process ELECTION, OK, COORDINATOR messages
         """
         pass
-    
+
     def detect_leader_failure(self):
         """
         Detect when current leader has failed
@@ -274,29 +273,29 @@ class LeaderElection:
         self.heartbeat_interval = 1.0
         self.heartbeat_timeout = 3.0
         self.active = True
-        
+
         # Start heartbeat thread
         self.heartbeat_thread = threading.Thread(target=self._heartbeat_loop)
         self.heartbeat_thread.daemon = True
         self.heartbeat_thread.start()
-    
+
     def start_election(self):
         """Initiate leader election using bully algorithm"""
         if self.election_in_progress:
             return
-        
+
         print(f"Node {self.node_id}: Starting election")
         self.election_in_progress = True
         self.leader = None
-        
+
         # Send ELECTION message to all nodes with higher ID
         higher_nodes = [n for n in self.all_nodes if n > self.node_id]
-        
+
         if not higher_nodes:
             # We have the highest ID, become leader
             self._become_leader()
             return
-        
+
         # Send election messages
         responses = []
         for node in higher_nodes:
@@ -307,21 +306,21 @@ class LeaderElection:
             )
             if response and response.get('type') == 'OK':
                 responses.append(response)
-        
+
         if responses:
             # Someone with higher ID responded, wait for COORDINATOR
             self.election_in_progress = False
-            
+
             # Set timeout to restart election if no COORDINATOR received
             threading.Timer(5.0, self._check_coordinator_received).start()
         else:
             # No one with higher ID responded, become leader
             self._become_leader()
-    
+
     def handle_election_message(self, from_node, message):
         """Handle election-related messages"""
         msg_type = message.get('type')
-        
+
         if msg_type == 'ELECTION':
             # Someone with lower ID started election
             if from_node < self.node_id:
@@ -331,32 +330,32 @@ class LeaderElection:
                     from_node,
                     {'type': 'OK', 'from': self.node_id}
                 )
-                
+
                 # Start our own election
                 self.start_election()
-        
+
         elif msg_type == 'OK':
             # Someone with higher ID is alive
             # Handled in start_election()
             pass
-        
+
         elif msg_type == 'COORDINATOR':
             # New leader announcement
             self.leader = from_node
             self.election_in_progress = False
             print(f"Node {self.node_id}: Accepted {from_node} as leader")
-        
+
         elif msg_type == 'HEARTBEAT':
             # Leader heartbeat
             if from_node == self.leader:
                 self.last_heartbeat = time.time()
-    
+
     def _become_leader(self):
         """Become the leader and announce to all"""
         self.leader = self.node_id
         self.election_in_progress = False
         print(f"Node {self.node_id}: Became leader")
-        
+
         # Announce to all other nodes
         for node in self.all_nodes:
             if node != self.node_id:
@@ -365,7 +364,7 @@ class LeaderElection:
                     node,
                     {'type': 'COORDINATOR', 'from': self.node_id}
                 )
-    
+
     def _heartbeat_loop(self):
         """Send heartbeats if leader, check heartbeats if follower"""
         while self.active:
@@ -383,9 +382,9 @@ class LeaderElection:
                 if self.leader and (time.time() - self.last_heartbeat > self.heartbeat_timeout):
                     print(f"Node {self.node_id}: Leader {self.leader} timeout")
                     self.start_election()
-            
+
             time.sleep(self.heartbeat_interval)
-    
+
     def _check_coordinator_received(self):
         """Check if COORDINATOR message was received"""
         if not self.leader and not self.election_in_progress:
@@ -398,59 +397,59 @@ class Network:
     def __init__(self):
         self.nodes = {}
         self.message_loss_rate = 0.1  # 10% message loss
-        
+
     def register_node(self, node_id, node):
         self.nodes[node_id] = node
-    
+
     def send_message(self, from_node, to_node, message):
         # Simulate message loss
         if random.random() < self.message_loss_rate:
             return None
-        
+
         if to_node in self.nodes:
             # Simulate network delay
             delay = random.uniform(0.01, 0.1)
-            
+
             def deliver():
                 self.nodes[to_node].handle_election_message(from_node, message)
-            
+
             threading.Timer(delay, deliver).start()
-            
+
             # Return OK for ELECTION messages
             if message.get('type') == 'ELECTION':
                 return {'type': 'OK', 'from': to_node}
-        
+
         return None
 
 # Test the implementation
 def test_leader_election():
     network = Network()
     nodes = []
-    
+
     # Create 5 nodes
     for i in range(5):
         node = LeaderElection(i, list(range(5)), network)
         nodes.append(node)
         network.register_node(i, node)
-    
+
     # Start election from node 0
     nodes[0].start_election()
-    
+
     # Wait for election to complete
     time.sleep(2)
-    
+
     # Verify all nodes agree on leader
     leaders = [node.leader for node in nodes]
     print(f"\nLeaders: {leaders}")
     assert all(l == 4 for l in leaders), "Not all nodes agree on leader!"
-    
+
     # Simulate leader failure
     print("\nSimulating leader (node 4) failure...")
     nodes[4].active = False
-    
+
     # Wait for failure detection and new election
     time.sleep(5)
-    
+
     # Check new leader (should be node 3)
     active_nodes = nodes[:4]
     leaders = [node.leader for node in active_nodes]
@@ -472,12 +471,12 @@ class TransactionCoordinator:
     def __init__(self, participants):
         self.participants = participants
         self.tx_log = []
-        
+
     def begin_transaction(self, tx_id):
         """Start a new distributed transaction"""
         # TODO: Initialize transaction state
         pass
-    
+
     def execute_transaction(self, tx_id, operations):
         """
         Execute transaction across participants
@@ -493,17 +492,17 @@ class Participant:
     def __init__(self, participant_id):
         self.participant_id = participant_id
         self.prepared_transactions = {}
-        
+
     def prepare(self, tx_id, operations):
         """Prepare phase of 2PC"""
         # TODO: Validate and prepare operations
         pass
-    
+
     def commit(self, tx_id):
         """Commit prepared transaction"""
         # TODO: Make changes permanent
         pass
-    
+
     def abort(self, tx_id):
         """Abort prepared transaction"""
         # TODO: Rollback changes
@@ -534,61 +533,61 @@ class TransactionCoordinator:
         self.tx_log = []
         self.transactions = {}
         self.lock = threading.Lock()
-        
+
     def begin_transaction(self, tx_id):
         """Start a new distributed transaction"""
         with self.lock:
             if tx_id in self.transactions:
                 raise Exception(f"Transaction {tx_id} already exists")
-            
+
             self.transactions[tx_id] = {
                 'state': TxState.INIT,
                 'participants': set(),
                 'prepare_votes': {},
                 'start_time': time.time()
             }
-            
+
             self._log(tx_id, 'BEGIN', {})
             return True
-    
+
     def execute_transaction(self, tx_id, operations):
         """Execute transaction across participants using 2PC"""
         if tx_id not in self.transactions:
             raise Exception(f"Transaction {tx_id} not found")
-        
+
         tx = self.transactions[tx_id]
         tx['participants'] = set(operations.keys())
-        
+
         try:
             # Phase 1: Prepare
             if not self._prepare_phase(tx_id, operations):
                 self._abort_transaction(tx_id)
                 return False
-            
+
             # Phase 2: Commit
             return self._commit_phase(tx_id)
-            
+
         except Exception as e:
             print(f"Transaction {tx_id} failed: {e}")
             self._abort_transaction(tx_id)
             return False
-    
+
     def _prepare_phase(self, tx_id, operations):
         """Phase 1: Ask all participants to prepare"""
         tx = self.transactions[tx_id]
         tx['state'] = TxState.PREPARING
         self._log(tx_id, 'PREPARE', {'participants': list(tx['participants'])})
-        
+
         # Send prepare to all participants
         prepare_threads = []
-        
+
         def prepare_participant(participant_id, ops):
             participant = self.participants[participant_id]
             vote = participant.prepare(tx_id, ops)
-            
+
             with self.lock:
                 tx['prepare_votes'][participant_id] = vote
-        
+
         # Start prepare requests in parallel
         for participant_id, ops in operations.items():
             thread = threading.Thread(
@@ -597,39 +596,39 @@ class TransactionCoordinator:
             )
             thread.start()
             prepare_threads.append(thread)
-        
+
         # Wait for all prepares with timeout
         timeout = 5.0
         start_time = time.time()
-        
+
         for thread in prepare_threads:
             remaining = timeout - (time.time() - start_time)
             if remaining > 0:
                 thread.join(timeout=remaining)
-            
+
             if thread.is_alive():
                 print(f"Prepare timeout for transaction {tx_id}")
                 return False
-        
+
         # Check votes
         all_votes = all(tx['prepare_votes'].values())
-        
+
         if all_votes:
             tx['state'] = TxState.PREPARED
             self._log(tx_id, 'PREPARED', {'votes': tx['prepare_votes']})
-        
+
         return all_votes
-    
+
     def _commit_phase(self, tx_id):
         """Phase 2: Send commit to all participants"""
         tx = self.transactions[tx_id]
         tx['state'] = TxState.COMMITTING
         self._log(tx_id, 'COMMIT', {})
-        
+
         # Send commit to all participants
         commit_threads = []
         commit_results = {}
-        
+
         def commit_participant(participant_id):
             participant = self.participants[participant_id]
             try:
@@ -638,7 +637,7 @@ class TransactionCoordinator:
             except Exception as e:
                 print(f"Commit failed for {participant_id}: {e}")
                 commit_results[participant_id] = False
-        
+
         for participant_id in tx['participants']:
             thread = threading.Thread(
                 target=commit_participant,
@@ -646,24 +645,24 @@ class TransactionCoordinator:
             )
             thread.start()
             commit_threads.append(thread)
-        
+
         # Wait for all commits
         for thread in commit_threads:
             thread.join()
-        
+
         # Transaction is committed even if some participants fail
         # They must eventually commit based on the log
         tx['state'] = TxState.COMMITTED
         self._log(tx_id, 'COMMITTED', {'results': commit_results})
-        
+
         return True
-    
+
     def _abort_transaction(self, tx_id):
         """Abort transaction and notify participants"""
         tx = self.transactions[tx_id]
         tx['state'] = TxState.ABORTING
         self._log(tx_id, 'ABORT', {})
-        
+
         # Send abort to all participants
         for participant_id in tx['participants']:
             if participant_id in self.participants:
@@ -671,10 +670,10 @@ class TransactionCoordinator:
                     self.participants[participant_id].abort(tx_id)
                 except Exception as e:
                     print(f"Abort failed for {participant_id}: {e}")
-        
+
         tx['state'] = TxState.ABORTED
         self._log(tx_id, 'ABORTED', {})
-    
+
     def _log(self, tx_id, action, data):
         """Write to transaction log for recovery"""
         entry = {
@@ -685,16 +684,16 @@ class TransactionCoordinator:
         }
         self.tx_log.append(entry)
         print(f"LOG: {action} for tx {tx_id}")
-    
+
     def recover(self):
         """Recover from crash using transaction log"""
         # Replay log to determine transaction states
         tx_states = {}
-        
+
         for entry in self.tx_log:
             tx_id = entry['tx_id']
             action = entry['action']
-            
+
             if action == 'BEGIN':
                 tx_states[tx_id] = TxState.INIT
             elif action == 'PREPARED':
@@ -703,7 +702,7 @@ class TransactionCoordinator:
                 tx_states[tx_id] = TxState.COMMITTED
             elif action == 'ABORTED':
                 tx_states[tx_id] = TxState.ABORTED
-        
+
         # Handle incomplete transactions
         for tx_id, state in tx_states.items():
             if state == TxState.PREPARED:
@@ -720,14 +719,14 @@ class Participant:
         self.committed_transactions = set()
         self.data = {}
         self.lock = threading.Lock()
-        
+
     def prepare(self, tx_id, operations):
         """Prepare phase of 2PC"""
         with self.lock:
             if tx_id in self.prepared_transactions:
                 # Already prepared
                 return True
-            
+
             try:
                 # Validate operations
                 temp_changes = {}
@@ -739,51 +738,51 @@ class Participant:
                         temp_changes[op['key']] = current + op['amount']
                     else:
                         raise Exception(f"Unknown operation type: {op['type']}")
-                
+
                 # Save prepared state
                 self.prepared_transactions[tx_id] = {
                     'operations': operations,
                     'changes': temp_changes,
                     'timestamp': time.time()
                 }
-                
+
                 print(f"Participant {self.participant_id}: Prepared tx {tx_id}")
                 return True
-                
+
             except Exception as e:
                 print(f"Participant {self.participant_id}: Prepare failed - {e}")
                 return False
-    
+
     def commit(self, tx_id):
         """Commit prepared transaction"""
         with self.lock:
             if tx_id not in self.prepared_transactions:
                 raise Exception(f"Transaction {tx_id} not prepared")
-            
+
             if tx_id in self.committed_transactions:
                 # Already committed
                 return True
-            
+
             # Apply changes
             changes = self.prepared_transactions[tx_id]['changes']
             self.data.update(changes)
-            
+
             # Mark as committed
             self.committed_transactions.add(tx_id)
             del self.prepared_transactions[tx_id]
-            
+
             print(f"Participant {self.participant_id}: Committed tx {tx_id}")
             return True
-    
+
     def abort(self, tx_id):
         """Abort prepared transaction"""
         with self.lock:
             if tx_id in self.prepared_transactions:
                 del self.prepared_transactions[tx_id]
                 print(f"Participant {self.participant_id}: Aborted tx {tx_id}")
-            
+
             return True
-    
+
     def get_value(self, key):
         """Get current value"""
         with self.lock:
@@ -797,15 +796,15 @@ def test_2pc():
         'db2': Participant('db2'),
         'db3': Participant('db3')
     }
-    
+
     # Create coordinator
     coordinator = TransactionCoordinator(participants)
-    
+
     # Test successful transaction
     print("=== Test 1: Successful transaction ===")
     tx_id = 'tx001'
     coordinator.begin_transaction(tx_id)
-    
+
     operations = {
         'db1': [
             {'type': 'set', 'key': 'user:1', 'value': 'Alice'},
@@ -819,20 +818,20 @@ def test_2pc():
             {'type': 'increment', 'key': 'total_users', 'amount': 2}
         ]
     }
-    
+
     result = coordinator.execute_transaction(tx_id, operations)
     print(f"Transaction result: {result}")
-    
+
     # Verify data
     print(f"db1 user:1 = {participants['db1'].get_value('user:1')}")
     print(f"db2 user:2 = {participants['db2'].get_value('user:2')}")
     print(f"db3 total_users = {participants['db3'].get_value('total_users')}")
-    
+
     # Test failed transaction
     print("\n=== Test 2: Failed transaction ===")
     tx_id = 'tx002'
     coordinator.begin_transaction(tx_id)
-    
+
     operations = {
         'db1': [
             {'type': 'set', 'key': 'user:3', 'value': 'Charlie'}
@@ -841,10 +840,10 @@ def test_2pc():
             {'type': 'invalid_op', 'key': 'test'}  # This will fail
         ]
     }
-    
+
     result = coordinator.execute_transaction(tx_id, operations)
     print(f"Transaction result: {result}")
-    
+
     # Verify rollback
     print(f"db1 user:3 = {participants['db1'].get_value('user:3')}")  # Should be None
 
@@ -864,17 +863,17 @@ class ByzantineGeneral:
         self.general_id = general_id
         self.is_traitor = is_traitor
         self.received_values = defaultdict(dict)
-        
+
     def propose_action(self, action):
         """Commander proposes action to all lieutenants"""
         # TODO: Implement message sending (may lie if traitor)
         pass
-    
+
     def receive_value(self, round, from_general, value):
         """Receive value from another general"""
         # TODO: Store received values for consensus
         pass
-    
+
     def decide_action(self, f):
         """Decide on action with up to f traitors"""
         # TODO: Implement Byzantine fault tolerant consensus
@@ -894,17 +893,17 @@ class RaftNode:
         self.voted_for = None
         self.state = 'follower'
         self.leader = None
-        
+
     def election_timeout(self):
         """Called when election timeout expires"""
         # TODO: Start new election
         pass
-    
+
     def request_vote(self, term, candidate_id, last_log_index, last_log_term):
         """Handle RequestVote RPC"""
         # TODO: Decide whether to grant vote
         pass
-    
+
     def become_leader(self):
         """Transition to leader state"""
         # TODO: Send heartbeats to maintain leadership
@@ -922,17 +921,17 @@ class DistributedProcess:
         self.channels = channels  # incoming and outgoing
         self.local_state = {}
         self.recording = False
-        
+
     def initiate_snapshot(self):
         """Start global snapshot algorithm"""
         # TODO: Record local state and send markers
         pass
-    
+
     def receive_marker(self, channel_id):
         """Handle marker message"""
         # TODO: Implement Chandy-Lamport algorithm
         pass
-    
+
     def get_snapshot(self):
         """Return collected snapshot"""
         # TODO: Combine local state and channel states
@@ -948,12 +947,12 @@ class FaultTolerantConsensus:
     def __init__(self, nodes, f):
         self.nodes = nodes
         self.f = f  # Maximum failures to tolerate
-        
+
     def propose(self, value):
         """Propose a value for consensus"""
         # TODO: Handle up to f crash failures
         pass
-    
+
     def handle_timeout(self, phase):
         """Handle timeout in any phase"""
         # TODO: Recover from partial failures

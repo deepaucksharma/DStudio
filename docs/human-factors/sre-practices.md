@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **SRE Practices**
 
-
 # SRE Practices
 
 **Running systems reliably at scale**
@@ -30,7 +29,7 @@ Site Reliability Engineering treats operations as a software problem. Core tenet
 
 !!! quote "Ben Treynor Sloss, Google VP and SRE Founder"
     "SRE is what happens when you ask a software engineer to design an operations team."
-    
+
     Google's SRE insights from running billions of queries daily:
     - **50% cap on ops work** - Other 50% must be development
     - **Error budgets** - Shared between dev and SRE teams
@@ -51,17 +50,17 @@ If SLO = 99.9%, Error Budget = 0.1% = 43 minutes/month
 
 !!! example "How Companies Use Error Budgets"
     **Google Search (2020)**:
-    - SLO: 99.95% availability 
+    - SLO: 99.95% availability
     - Monthly budget: 21.9 minutes downtime
     - Actual incident: 45-minute outage
     - Result: Feature freeze for 2 weeks, all hands on reliability
-    
+
     **Stripe Payments (2019)**:
     - SLO: 99.99% API success rate
     - Quarterly budget: 13 minutes of errors
     - Used 8 minutes in one incident
     - Result: Delayed new API version, fixed timeout handling
-    
+
     **Netflix Streaming**:
     - SLO: 99.9% stream start success
     - Innovation budget: 0.05% for experiments
@@ -74,22 +73,22 @@ class ErrorBudgetManager:
     def __init__(self, slo_target):
         self.slo_target = slo_target
         self.error_budget = 1.0 - slo_target
-        
+
     def can_deploy(self, current_availability, time_remaining):
         # Calculate burn rate
         budget_spent = (self.slo_target - current_availability)
         budget_remaining = self.error_budget - budget_spent
-        
+
         if budget_remaining <= 0:
             return False, "Error budget exhausted"
-            
+
         # Project if we'll have budget for incidents
         days_remaining = time_remaining.days
         daily_budget = budget_remaining / days_remaining
-        
+
         if daily_budget < 0.001:  # Less than 1.4 min/day
             return False, "Insufficient budget for remainder"
-            
+
         return True, f"{budget_remaining*100:.3f}% budget remaining"
 ```
 
@@ -105,7 +104,7 @@ class ErrorBudgetManager:
 **SLI (Service Level Indicator)**: What we measure
 ```text
 - Request latency
-- Error rate  
+- Error rate
 - Availability
 - Durability
 ```
@@ -136,8 +135,8 @@ p99_latency = np.percentile(latencies, 99)
 
 # Better SLI: User-centric metric
 successful_page_loads = count(
-    latency < 1000ms AND 
-    no_errors AND 
+    latency < 1000ms AND
+    no_errors AND
     all_resources_loaded
 )
 sli = successful_page_loads / total_page_loads
@@ -168,7 +167,7 @@ Data pipeline: 99.99% (4.4 min/month)
     | 99.95% | 4.38 hours | 21.9 minutes | E-commerce | $500K |
     | 99.99% | 52.6 minutes | 4.38 minutes | Financial services | $2M |
     | 99.999% | 5.26 minutes | 26.3 seconds | Healthcare/Trading | $10M+ |
-    
+
     *Rough infrastructure + engineering cost for typical 1000 req/s service
 
 ## Toil Elimination
@@ -178,7 +177,7 @@ Data pipeline: 99.99% (4.4 min/month)
     - Automated database failovers (saved 10 hours/week)
     - Self-service capacity provisioning (saved 20 hours/week)
     - Automated abuse detection (saved 30 hours/week)
-    
+
     **Gmail**: Eliminated 95% of manual spam config updates
     - Before: 8 SREs spending 50% time on spam rules
     - After: ML model auto-updates, 1 SRE reviews weekly
@@ -200,21 +199,21 @@ Goal: <50% of SRE time on toil
 class ToilTracker:
     def __init__(self):
         self.tasks = {}
-        
+
     def log_toil(self, task_type, duration_minutes):
         self.tasks[task_type] = self.tasks.get(task_type, 0) + duration_minutes
-        
+
     def analyze(self, total_work_minutes):
         toil_minutes = sum(self.tasks.values())
         toil_percentage = (toil_minutes / total_work_minutes) * 100
-        
+
         # Prioritize automation
         sorted_tasks = sorted(
-            self.tasks.items(), 
-            key=lambda x: x[1], 
+            self.tasks.items(),
+            key=lambda x: x[1],
             reverse=True
         )
-        
+
         print(f"Toil: {toil_percentage:.1f}% of time")
         print("\nTop toil sources:")
         for task, minutes in sorted_tasks[:5]:
@@ -263,13 +262,13 @@ def renew_certificates():
     - Moved from hero culture to sustainable on-call
     - Automatic comp time after night incidents
     - "Chaos engineering" reduces 3am pages by 90%
-    
+
     **Airbnb**: Tiered on-call with clear escalation
     - L1: Product engineers (own service issues)
     - L2: SRE team (infrastructure issues)
     - L3: Staff engineers (architectural issues)
     - Result: 50% reduction in false pages
-    
+
     **Cloudflare**: Follow-the-sun model
     - Singapore → London → San Francisco → Singapore
     - Nobody on-call during their night
@@ -312,7 +311,7 @@ def renew_certificates():
 ```yaml
 alert: HighErrorRate
 expr: |
-  rate(http_requests_total{status=~"5.."}[5m]) 
+  rate(http_requests_total{status=~"5.."}[5m])
   / rate(http_requests_total[5m]) > 0.05
 for: 2m
 labels:
@@ -355,7 +354,7 @@ Focus on systems and processes, not people.
 - 15:19 - Service recovered
 
 ### Root Cause
-Memory leak in new payment validation logic. 
+Memory leak in new payment validation logic.
 Testing did not catch because:
 1. Load tests used different data patterns
 2. Staging has different memory limits
@@ -394,13 +393,13 @@ Track improvement over time:
 class ChangeRiskAssessor:
     def assess_risk(self, change):
         risk_score = 0
-        
+
         # Size of change
         if change.lines_changed > 1000:
             risk_score += 3
         elif change.lines_changed > 100:
             risk_score += 1
-            
+
         # Type of change
         if change.touches_database:
             risk_score += 2
@@ -408,19 +407,19 @@ class ChangeRiskAssessor:
             risk_score += 2
         if change.updates_dependencies:
             risk_score += 3
-            
+
         # Timing
         if is_peak_hours():
             risk_score += 2
         if is_friday():
             risk_score += 1
-            
+
         # Mitigation
         if change.has_feature_flag:
             risk_score -= 1
         if change.has_canary_plan:
             risk_score -= 1
-            
+
         return {
             'score': risk_score,
             'level': 'high' if risk_score > 5 else 'medium' if risk_score > 2 else 'low',
@@ -459,23 +458,23 @@ def capacity_forecast(
     Forecast capacity needs
     """
     forecasts = {}
-    
+
     for months in [3, 6, 12]:
         # Compound growth
         projected = current_usage * ((1 + growth_rate) ** months)
-        
+
         # Account for peaks
         peak_capacity = projected * peak_multiplier
-        
+
         # Add safety margin
         required = peak_capacity * safety_margin
-        
+
         forecasts[f"{months}_month"] = {
             'average': projected,
             'peak': peak_capacity,
             'provision': required
         }
-    
+
     return forecasts
 
 # Example
@@ -493,16 +492,16 @@ Monitor trends before they become problems:
 ```sql
 -- Weekly growth rate
 WITH weekly_traffic AS (
-  SELECT 
+  SELECT
     DATE_TRUNC('week', timestamp) as week,
     COUNT(*) as requests
   FROM api_logs
   GROUP BY week
 )
-SELECT 
+SELECT
   week,
   requests,
-  (requests - LAG(requests) OVER (ORDER BY week)) 
+  (requests - LAG(requests) OVER (ORDER BY week))
     / LAG(requests) OVER (ORDER BY week) * 100 as growth_percent
 FROM weekly_traffic;
 ```

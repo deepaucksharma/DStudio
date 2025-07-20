@@ -13,7 +13,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → [Control](/part2-pillars/control/) → **Control & Coordination Exercises**
 
-
 # Control & Coordination Exercises
 
 ## Exercise 1: Build a Circuit Breaker
@@ -25,7 +24,7 @@ class CircuitBreaker:
     def __init__(self, failure_threshold=5, recovery_timeout=60, expected_exception=Exception):
         """
         Initialize circuit breaker
-        
+
         Args:
             failure_threshold: Number of failures before opening
             recovery_timeout: Seconds before attempting recovery
@@ -34,11 +33,11 @@ class CircuitBreaker:
         # TODO: Initialize state machine
         # States: CLOSED -> OPEN -> HALF_OPEN -> CLOSED
         pass
-    
+
     def call(self, func, *args, **kwargs):
         """
         Execute function through circuit breaker
-        
+
         TODO:
         1. Check current state
         2. Execute function if allowed
@@ -46,15 +45,15 @@ class CircuitBreaker:
         4. Transition states as needed
         """
         pass
-    
+
     def record_success(self):
         """Record successful call"""
         pass
-    
+
     def record_failure(self):
         """Record failed call"""
         pass
-    
+
     def reset(self):
         """Manual reset of circuit breaker"""
         pass
@@ -79,16 +78,16 @@ class CircuitBreaker:
         self.failure_threshold = failure_threshold
         self.recovery_timeout = recovery_timeout
         self.expected_exception = expected_exception
-        
+
         self._state = State.CLOSED
         self._failure_count = 0
         self._last_failure_time = None
         self._lock = threading.RLock()
-        
+
         # Metrics
         self._success_count = 0
         self._total_calls = 0
-        
+
     @property
     def state(self):
         with self._lock:
@@ -96,54 +95,54 @@ class CircuitBreaker:
                 if self._should_attempt_reset():
                     self._state = State.HALF_OPEN
             return self._state
-    
+
     def call(self, func, *args, **kwargs):
         """Execute function through circuit breaker"""
         with self._lock:
             self._total_calls += 1
-            
+
             if self.state == State.OPEN:
                 raise CircuitBreakerOpenException(
                     f"Circuit breaker is OPEN. Failures: {self._failure_count}"
                 )
-        
+
         try:
             result = func(*args, **kwargs)
             self.record_success()
             return result
-            
+
         except self.expected_exception as e:
             self.record_failure()
             raise e
-    
+
     def record_success(self):
         """Record successful call"""
         with self._lock:
             self._success_count += 1
-            
+
             if self._state == State.HALF_OPEN:
                 # Success in half-open state, close the circuit
                 self._state = State.CLOSED
                 self._failure_count = 0
                 self._last_failure_time = None
                 print(f"Circuit breaker CLOSED after successful recovery")
-    
+
     def record_failure(self):
         """Record failed call"""
         with self._lock:
             self._failure_count += 1
             self._last_failure_time = time.time()
-            
+
             if self._state == State.HALF_OPEN:
                 # Failure in half-open state, re-open the circuit
                 self._state = State.OPEN
                 print(f"Circuit breaker RE-OPENED after recovery failure")
-                
+
             elif self._failure_count >= self.failure_threshold:
                 # Too many failures, open the circuit
                 self._state = State.OPEN
                 print(f"Circuit breaker OPENED after {self._failure_count} failures")
-    
+
     def reset(self):
         """Manual reset of circuit breaker"""
         with self._lock:
@@ -152,22 +151,22 @@ class CircuitBreaker:
             self._last_failure_time = None
             self._success_count = 0
             print("Circuit breaker manually RESET")
-    
+
     def _should_attempt_reset(self):
         """Check if enough time has passed to try recovery"""
         return (
             self._last_failure_time and
             time.time() - self._last_failure_time >= self.recovery_timeout
         )
-    
+
     def get_stats(self):
         """Get circuit breaker statistics"""
         with self._lock:
             success_rate = (
-                self._success_count / self._total_calls 
+                self._success_count / self._total_calls
                 if self._total_calls > 0 else 0
             )
-            
+
             return {
                 'state': self._state.value,
                 'failure_count': self._failure_count,
@@ -183,51 +182,51 @@ class CircuitBreakerOpenException(Exception):
 
 # Advanced circuit breaker with multiple failure types
 class AdvancedCircuitBreaker(CircuitBreaker):
-    def __init__(self, failure_threshold=5, recovery_timeout=60, 
+    def __init__(self, failure_threshold=5, recovery_timeout=60,
                  expected_exceptions=None, exclude_exceptions=None):
         super().__init__(failure_threshold, recovery_timeout, Exception)
         self.expected_exceptions = expected_exceptions or [Exception]
         self.exclude_exceptions = exclude_exceptions or []
-        
+
         # Per-exception tracking
         self._exception_counts = {}
-        
+
     def call(self, func, *args, **kwargs):
         """Execute with exception filtering"""
         with self._lock:
             self._total_calls += 1
-            
+
             if self.state == State.OPEN:
                 raise CircuitBreakerOpenException(
                     f"Circuit breaker is OPEN"
                 )
-        
+
         try:
             result = func(*args, **kwargs)
             self.record_success()
             return result
-            
+
         except Exception as e:
             # Check if we should count this exception
             if self._should_count_exception(e):
                 self.record_failure()
                 self._track_exception(e)
             raise e
-    
+
     def _should_count_exception(self, exception):
         """Determine if exception should trigger circuit breaker"""
         # Exclude specific exceptions
         for exclude_type in self.exclude_exceptions:
             if isinstance(exception, exclude_type):
                 return False
-        
+
         # Include specific exceptions
         for expected_type in self.expected_exceptions:
             if isinstance(exception, expected_type):
                 return True
-        
+
         return False
-    
+
     def _track_exception(self, exception):
         """Track exception types for debugging"""
         exc_type = type(exception).__name__
@@ -241,14 +240,14 @@ def test_circuit_breaker():
         if should_fail:
             raise ConnectionError("Service unavailable")
         return "Success!"
-    
+
     # Create circuit breaker
     cb = CircuitBreaker(
         failure_threshold=3,
         recovery_timeout=5,
         expected_exception=ConnectionError
     )
-    
+
     # Test normal operation
     print("Testing normal operation...")
     for i in range(5):
@@ -257,9 +256,9 @@ def test_circuit_breaker():
             print(f"Call {i+1}: {result}")
         except Exception as e:
             print(f"Call {i+1} failed: {e}")
-    
+
     print(f"\nStats: {cb.get_stats()}")
-    
+
     # Test circuit opening
     print("\nTesting circuit opening...")
     for i in range(5):
@@ -270,13 +269,13 @@ def test_circuit_breaker():
             print(f"Call {i+1}: Circuit breaker open!")
         except Exception as e:
             print(f"Call {i+1} failed: {e}")
-    
+
     print(f"\nStats: {cb.get_stats()}")
-    
+
     # Wait for recovery
     print("\nWaiting for recovery timeout...")
     time.sleep(6)
-    
+
     # Test half-open state
     print("\nTesting half-open state...")
     try:
@@ -284,7 +283,7 @@ def test_circuit_breaker():
         print(f"Recovery successful: {result}")
     except Exception as e:
         print(f"Recovery failed: {e}")
-    
+
     print(f"\nFinal stats: {cb.get_stats()}")
 
 if __name__ == "__main__":
@@ -307,7 +306,7 @@ class TokenBucketLimiter(RateLimiter):
     def __init__(self, rate, capacity):
         """
         Token bucket rate limiter
-        
+
         Args:
             rate: Tokens added per second
             capacity: Maximum tokens in bucket
@@ -319,7 +318,7 @@ class SlidingWindowLimiter(RateLimiter):
     def __init__(self, requests_per_window, window_size):
         """
         Sliding window rate limiter
-        
+
         Args:
             requests_per_window: Max requests in window
             window_size: Window size in seconds
@@ -331,7 +330,7 @@ class LeakyBucketLimiter(RateLimiter):
     def __init__(self, rate, capacity):
         """
         Leaky bucket rate limiter
-        
+
         Args:
             rate: Requests processed per second
             capacity: Queue capacity
@@ -363,32 +362,32 @@ class TokenBucketLimiter(RateLimiter):
             'last_update': time.time()
         })
         self.lock = threading.Lock()
-    
+
     def allow_request(self, key):
         with self.lock:
             bucket = self.buckets[key]
             now = time.time()
-            
+
             # Refill tokens
             elapsed = now - bucket['last_update']
             tokens_to_add = elapsed * self.rate
             bucket['tokens'] = min(self.capacity, bucket['tokens'] + tokens_to_add)
             bucket['last_update'] = now
-            
+
             # Check if request allowed
             if bucket['tokens'] >= 1:
                 bucket['tokens'] -= 1
                 return True
-            
+
             return False
-    
+
     def get_wait_time(self, key):
         """Get time to wait for next token"""
         with self.lock:
             bucket = self.buckets[key]
             if bucket['tokens'] >= 1:
                 return 0
-            
+
             tokens_needed = 1 - bucket['tokens']
             wait_time = tokens_needed / self.rate
             return wait_time
@@ -400,35 +399,35 @@ class SlidingWindowLimiter(RateLimiter):
         self.window_size = window_size  # seconds
         self.requests = defaultdict(deque)
         self.lock = threading.Lock()
-    
+
     def allow_request(self, key):
         with self.lock:
             now = time.time()
             window_start = now - self.window_size
-            
+
             # Remove old requests outside window
             request_times = self.requests[key]
             while request_times and request_times[0] < window_start:
                 request_times.popleft()
-            
+
             # Check if under limit
             if len(request_times) < self.requests_per_window:
                 request_times.append(now)
                 return True
-            
+
             return False
-    
+
     def get_request_count(self, key):
         """Get current request count in window"""
         with self.lock:
             now = time.time()
             window_start = now - self.window_size
-            
+
             # Clean old requests
             request_times = self.requests[key]
             while request_times and request_times[0] < window_start:
                 request_times.popleft()
-            
+
             return len(request_times)
 
 class LeakyBucketLimiter(RateLimiter):
@@ -441,27 +440,27 @@ class LeakyBucketLimiter(RateLimiter):
             'last_leak': time.time()
         })
         self.lock = threading.Lock()
-    
+
     def allow_request(self, key):
         with self.lock:
             bucket = self.queues[key]
             now = time.time()
-            
+
             # Process leaked requests
             elapsed = now - bucket['last_leak']
             leaked = int(elapsed * self.rate)
-            
+
             if leaked > 0:
                 # Remove leaked requests
                 for _ in range(min(leaked, len(bucket['queue']))):
                     bucket['queue'].popleft()
                 bucket['last_leak'] = now
-            
+
             # Check if we can add request
             if len(bucket['queue']) < self.capacity:
                 bucket['queue'].append(now)
                 return True
-            
+
             return False
 
 # Advanced: Distributed rate limiter using Redis-like interface
@@ -470,30 +469,30 @@ class DistributedRateLimiter:
         self.redis = redis_client
         self.rate = rate
         self.window_size = window_size
-    
+
     def allow_request(self, key):
         """Sliding window using Redis sorted sets"""
         now = time.time()
         window_start = now - self.window_size
-        
+
         pipe = self.redis.pipeline()
-        
+
         # Remove old entries
         pipe.zremrangebyscore(key, 0, window_start)
-        
+
         # Count requests in window
         pipe.zcard(key)
-        
+
         # Add current request
         pipe.zadd(key, {str(now): now})
-        
+
         # Set expiry
         pipe.expire(key, self.window_size + 1)
-        
+
         results = pipe.execute()
-        
+
         current_requests = results[1]
-        
+
         if current_requests < self.rate:
             return True
         else:
@@ -509,47 +508,47 @@ class HybridRateLimiter:
             rate=100,      # 100 requests/second refill
             capacity=200   # Allow burst of 200
         )
-        
+
         # Long-term rate limit
         self.sustained_limiter = SlidingWindowLimiter(
             requests_per_window=1000,  # 1000 requests
             window_size=60            # per minute
         )
-        
+
         # Per-IP limits
         self.ip_limiter = SlidingWindowLimiter(
             requests_per_window=100,
             window_size=60
         )
-    
+
     def allow_request(self, user_id, ip_address):
         """Check all rate limits"""
         # Check burst limit
         if not self.burst_limiter.allow_request(user_id):
             return False, "Burst limit exceeded"
-        
+
         # Check sustained limit
         if not self.sustained_limiter.allow_request(user_id):
             return False, "Sustained rate limit exceeded"
-        
+
         # Check IP limit
         if not self.ip_limiter.allow_request(ip_address):
             return False, "IP rate limit exceeded"
-        
+
         return True, "OK"
 
 # Test rate limiters
 def test_rate_limiters():
     print("Testing Token Bucket...")
     tb = TokenBucketLimiter(rate=10, capacity=20)
-    
+
     # Use up initial capacity
     successes = 0
     for i in range(25):
         if tb.allow_request("user1"):
             successes += 1
     print(f"Initial burst: {successes}/25 requests allowed")
-    
+
     # Wait for refill
     time.sleep(1)
     successes = 0
@@ -557,19 +556,19 @@ def test_rate_limiters():
         if tb.allow_request("user1"):
             successes += 1
     print(f"After 1s: {successes}/15 requests allowed")
-    
+
     print("\nTesting Sliding Window...")
     sw = SlidingWindowLimiter(requests_per_window=10, window_size=5)
-    
+
     # Fill window
     for i in range(10):
         result = sw.allow_request("user1")
         print(f"Request {i+1}: {'Allowed' if result else 'Denied'}")
-    
+
     # Try one more
     result = sw.allow_request("user1")
     print(f"Request 11: {'Allowed' if result else 'Denied'}")
-    
+
     print(f"Current count: {sw.get_request_count('user1')}")
 
 if __name__ == "__main__":
@@ -587,35 +586,35 @@ class DistributedLock:
     def __init__(self, name, ttl=30):
         """
         Distributed lock implementation
-        
+
         Args:
             name: Lock name
             ttl: Time to live in seconds
         """
         self.name = name
         self.ttl = ttl
-        
+
     def acquire(self, timeout=None):
         """
         Acquire lock with optional timeout
-        
+
         TODO:
         1. Try to acquire lock atomically
         2. Set expiry to prevent deadlocks
         3. Return fencing token if successful
         """
         pass
-    
+
     def release(self, token):
         """
         Release lock if we own it
-        
+
         TODO:
         1. Verify token matches
         2. Release atomically
         """
         pass
-    
+
     def extend(self, token, extension):
         """Extend lock TTL"""
         pass
@@ -630,7 +629,7 @@ class BackpressureQueue:
     def __init__(self, max_size, high_watermark=0.8, low_watermark=0.6):
         """
         Queue with backpressure signaling
-        
+
         Args:
             max_size: Maximum queue size
             high_watermark: Threshold to start backpressure
@@ -638,15 +637,15 @@ class BackpressureQueue:
         """
         # TODO: Implement queue with backpressure
         pass
-    
+
     def put(self, item):
         """Add item, may block or reject based on backpressure"""
         pass
-    
+
     def get(self):
         """Get item from queue"""
         pass
-    
+
     def is_accepting(self):
         """Check if queue is accepting new items"""
         pass
@@ -661,21 +660,21 @@ class Autoscaler:
     def __init__(self, min_instances=1, max_instances=10):
         self.min_instances = min_instances
         self.max_instances = max_instances
-        
+
     def decide_scaling(self, metrics):
         """
         Decide whether to scale up, down, or maintain
-        
+
         Args:
             metrics: Dict with 'cpu', 'memory', 'requests_per_second', etc.
-            
+
         TODO:
         1. Implement scaling logic
         2. Prevent flapping
         3. Consider multiple metrics
         """
         pass
-    
+
     def calculate_desired_instances(self, current_instances, metrics):
         """Calculate target instance count"""
         pass
@@ -691,17 +690,17 @@ class GossipNode:
         self.node_id = node_id
         self.seed_nodes = seed_nodes
         self.members = {}  # node_id -> {'status': 'alive', 'version': 0}
-        
+
     def start(self):
         """Start gossiping"""
         # TODO: Implement gossip protocol
         pass
-    
+
     def gossip_round(self):
         """Perform one round of gossip"""
         # TODO: Select random peers and exchange state
         pass
-    
+
     def merge_state(self, remote_state):
         """Merge remote state with local state"""
         # TODO: Implement vector clock or version merging
@@ -716,23 +715,23 @@ class GossipNode:
 class HealthChecker:
     def __init__(self):
         self.checks = {}
-        
+
     def register_check(self, name, check_func, critical=True):
         """Register a health check"""
         # TODO: Store check with metadata
         pass
-    
+
     def run_checks(self):
         """
         Run all health checks
-        
+
         TODO:
         1. Execute checks with timeout
         2. Aggregate results
         3. Determine overall health
         """
         pass
-    
+
     def get_health_status(self):
         """Return detailed health status"""
         pass

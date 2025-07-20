@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 4](/part1-axioms/axiom4-concurrency/) → **Concurrency Examples**
 
-
 # Concurrency Examples
 
 ## Real-World Case Studies

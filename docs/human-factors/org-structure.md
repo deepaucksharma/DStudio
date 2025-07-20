@@ -13,7 +13,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Org-Structure Physics**
 
-
 # Org-Structure Physics
 
 **Conway's Law in action: You ship your org chart**
@@ -31,9 +30,9 @@ This isn't a suggestion. It's physics.
 
 ```text
 Team A ←──high bandwidth──→ Team A members
-   ↓                            
-   low bandwidth                
-   ↓                            
+   ↓
+   low bandwidth
+   ↓
 Team B ←──high bandwidth──→ Team B members
 ```
 
@@ -85,7 +84,7 @@ Stack)  Stack)  Stack)
 
 **System Architecture:**
 - Service A (owned by Team A)
-- Service B (owned by Team B)  
+- Service B (owned by Team B)
 - Service C (owned by Team C)
 - APIs between services
 
@@ -202,7 +201,7 @@ class SubsystemTeam:
 - High bandwidth
 - Innovation mode
 
-**2. X-as-a-Service**  
+**2. X-as-a-Service**
 - Clear API/contract
 - Consumer/provider
 - Low coupling
@@ -270,7 +269,7 @@ Single Team → Monolith
 # 1. Identify bounded contexts
 contexts = [
     "user_management",
-    "order_processing", 
+    "order_processing",
     "payment_handling",
     "notifications"
 ]
@@ -347,8 +346,8 @@ Result: Nothing done well
 
 ```
 Feature Flow:
-Frontend Team → Backend Team → Frontend Team → 
-Database Team → Backend Team → Deploy Team → 
+Frontend Team → Backend Team → Frontend Team →
+Database Team → Backend Team → Deploy Team →
 Frontend Team → Done (6 months later)
 ```yaml
 **Fix:** Stream-aligned teams with full ownership
@@ -409,7 +408,7 @@ class TeamHealthCheck:
 
 ```sql
 -- Meeting overhead by team
-SELECT 
+SELECT
     team,
     AVG(meetings_per_week) as avg_meetings,
     AVG(meeting_hours_per_week) as avg_hours,
@@ -426,7 +425,7 @@ def measure_conway_alignment(org_structure, system_architecture):
     Measure how well org matches architecture
     """
     misalignments = []
-    
+
     for service in system_architecture:
         owners = get_service_owners(service)
         if len(owners) > 1:
@@ -435,7 +434,7 @@ def measure_conway_alignment(org_structure, system_architecture):
                 'issue': 'multiple_owners',
                 'owners': owners
             })
-        
+
         dependencies = get_service_dependencies(service)
         for dep in dependencies:
             if not same_team(service.owner, dep.owner):
@@ -444,7 +443,7 @@ def measure_conway_alignment(org_structure, system_architecture):
                         'issue': 'high_coupling_across_teams',
                         'services': [service, dep]
                     })
-    
+
     return misalignments
 ```proto
 ## Best Practices

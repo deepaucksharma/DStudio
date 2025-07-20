@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 8](/part1-axioms/axiom8-economics/) → **Economics Exercises**
 
-
 # Economics Exercises
 
 ## Hands-On Labs

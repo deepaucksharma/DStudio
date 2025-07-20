@@ -16,7 +16,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Queues & Stream-Processing**
 
-
 # Queues & Stream-Processing
 
 **Decoupling work from workers since 1958**
@@ -71,12 +70,12 @@ class ResilientQueue:
             'rejected': 0,
             'dropped': 0
         }
-        
+
     def enqueue(self, message):
         if self.overflow_strategy == 'reject' and len(self.queue) >= self.max_size:
             self.metrics['rejected'] += 1
             raise QueueFullError("Queue at capacity")
-            
+
         self.queue.append({
             'id': str(uuid4()),
             'timestamp': time.time(),
@@ -84,7 +83,7 @@ class ResilientQueue:
             'message': message
         })
         self.metrics['enqueued'] += 1
-        
+
     def dequeue(self, timeout=None):
         start = time.time()
         while True:
@@ -96,11 +95,11 @@ class ResilientQueue:
                 if timeout and (time.time() - start) > timeout:
                     return None
                 time.sleep(0.01)
-    
+
     def ack(self, message_id):
         # In real system, would remove from in-flight set
         pass
-    
+
     def nack(self, message_id, requeue=True):
         # In real system, would requeue or DLQ
         pass
@@ -112,7 +111,7 @@ class StreamProcessor:
         self.sink = sink_queue
         self.processor = processor_fn
         self.running = False
-        
+
     def start(self, num_workers=1):
         self.running = True
         workers = []
@@ -121,7 +120,7 @@ class StreamProcessor:
             w.start()
             workers.append(w)
         return workers
-    
+
     def _worker(self, worker_id):
         while self.running:
             msg = self.source.dequeue(timeout=1)
@@ -142,49 +141,49 @@ class CommitLog:
     def __init__(self, partition_count=16):
         self.partitions = [[] for _ in range(partition_count)]
         self.offsets = {i: 0 for i in range(partition_count)}
-        
+
     def append(self, key, value):
         partition = hash(key) % len(self.partitions)
         offset = len(self.partitions[partition])
-        
+
         self.partitions[partition].append({
             'offset': offset,
             'key': key,
             'value': value,
             'timestamp': time.time()
         })
-        
+
         return partition, offset
-    
+
     def consume(self, partition, offset):
         if partition >= len(self.partitions):
             raise ValueError(f"Invalid partition {partition}")
-            
+
         messages = []
         partition_log = self.partitions[partition]
-        
+
         for i in range(offset, len(partition_log)):
             messages.append(partition_log[i])
-            
+
         return messages
-    
+
     def consumer_group(self, group_id, partitions):
         """Manages offsets for consumer groups"""
         if group_id not in self.offsets:
             self.offsets[group_id] = {p: 0 for p in partitions}
-            
+
         messages = []
         for partition in partitions:
             msgs = self.consume(partition, self.offsets[group_id][partition])
             messages.extend(msgs)
             if msgs:
                 self.offsets[group_id][partition] = msgs[-1]['offset'] + 1
-                
+
         return messages
 ```
 
 ## ✓ CHOOSE THIS WHEN:
-• Variable load (handles spikes)  
+• Variable load (handles spikes)
 • Producers/consumers scale differently
 • Need resilience to downstream failures
 • Ordering matters (streaming)
@@ -216,7 +215,6 @@ Ordering: Per-partition guaranteed
 **Previous**: [← Pattern Catalog Quiz](pattern-quiz.md) | **Next**: [Rate Limiting Pattern →](rate-limiting.md)
 ---
 
-
 ## ✅ When to Use
 
 ### Ideal Scenarios
@@ -240,8 +238,6 @@ Ordering: Per-partition guaranteed
 - Cost of downtime is significant
 - User experience is a priority
 - System is customer-facing or business-critical
-
-
 
 ## ❌ When NOT to Use
 
@@ -267,8 +263,6 @@ Ordering: Per-partition guaranteed
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -299,8 +293,6 @@ Ordering: Per-partition guaranteed
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -311,12 +303,12 @@ class Queues_StreamingPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -324,23 +316,23 @@ class Queues_StreamingPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -374,29 +366,28 @@ queues_streaming:
 ```python
 def test_queues_streaming_behavior():
     pattern = Queues_StreamingPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
 
-
 ## 💪 Hands-On Exercises
 
 ### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Identify Queues & Stream-Processing in existing systems
 
-**Task**: 
+**Task**:
 Find 2 real-world examples where Queues & Stream-Processing is implemented:
 1. **Example 1**: A well-known tech company or service
 2. **Example 2**: An open-source project or tool you've used
@@ -407,7 +398,7 @@ For each example:
 - What alternatives could have been used
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Design an implementation of Queues & Stream-Processing
 
 **Scenario**: You need to implement Queues & Stream-Processing for an e-commerce checkout system processing 10,000 orders/hour.
@@ -426,7 +417,7 @@ For each example:
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
 ### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Queues & Stream-Processing
 
 **Challenge**: You're consulting for a startup building their first product.
@@ -449,7 +440,7 @@ Implement a minimal version of Queues & Stream-Processing in your preferred lang
 - Include basic error handling
 - Add simple logging
 
-### Intermediate: Production Features  
+### Intermediate: Production Features
 Extend the basic implementation with:
 - Configuration management
 - Metrics collection
@@ -467,7 +458,7 @@ Optimize for production use:
 
 ## 🎯 Real-World Application
 
-**Project Integration**: 
+**Project Integration**:
 - How would you introduce Queues & Stream-Processing to an existing system?
 - What migration strategy would minimize risk?
 - How would you measure success?

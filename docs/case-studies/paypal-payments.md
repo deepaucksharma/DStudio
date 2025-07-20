@@ -12,28 +12,9 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Case Studies](/case-studies/) → **PayPal's Payment Processing System**
 
-
 # 🏦 PayPal's Payment Processing System
 
 **The Challenge**: Process billions in payments with zero data loss
-
-<div class="case-study">
-<h3>📊 System Requirements</h3>
-
-**Scale Constraints:**
-- $1.36 trillion annual payment volume
-- 426M active accounts
-- 200+ markets and 100+ currencies
-- 58M transactions per day peak
-- Zero tolerance for data loss
-
-**Regulatory Requirements:**
-- PCI DSS compliance
-- SOX compliance
-- Country-specific regulations
-- Anti-money laundering (AML)
-- Real-time fraud detection
-</div>
 
 ## 🏗️ Architecture Evolution
 
@@ -58,24 +39,24 @@ graph TB
         MOB[Mobile App]
         API[Partner APIs]
     end
-    
+
     subgraph "Services"
         AS[Account Service]
         PS[Payment Service]
         FS[Fraud Service]
         NS[Notification Service]
     end
-    
+
     subgraph "Data"
         ADB[(Account DB)]
         TDB[(Transaction DB)]
         FDB[(Fraud DB)]
     end
-    
+
     WEB --> AS
     MOB --> AS
     API --> PS
-    
+
     AS --> ADB
     PS --> TDB
     PS --> FS
@@ -98,42 +79,42 @@ graph LR
         GW[API Gateway]
         WAF[WAF]
     end
-    
+
     subgraph "Processing Layer"
         PP[Payment Processor]
         FE[Fraud Engine]
         RE[Risk Engine]
         CE[Compliance Engine]
     end
-    
+
     subgraph "Transaction Coordinator"
         TC[SAGA Orchestrator]
         EV[Event Bus]
     end
-    
+
     subgraph "Data Layer"
         ES[(Event Store)]
         SS[(State Store)]
         AS[(Audit Store)]
     end
-    
+
     subgraph "External"
         BN[Bank Networks]
         CC[Card Networks]
         RG[Regulators]
     end
-    
+
     CDN --> GW --> PP
     PP --> TC
     TC --> FE
     TC --> RE
     TC --> CE
-    
+
     TC --> EV
     EV --> ES
     TC --> SS
     TC --> AS
-    
+
     PP --> BN
     PP --> CC
     AS --> RG
@@ -151,7 +132,7 @@ class PaymentSaga:
         self.saga_id = saga_id
         self.state = "INITIATED"
         self.compensations = []
-        
+
     async def execute_payment(self, payment_request):
         try:
             # Step 1: Validate and Lock Funds
@@ -161,13 +142,13 @@ class PaymentSaga:
             self.compensations.append(
                 lambda: self.unlock_funds(payment_request.sender)
             )
-            
+
             # Step 2: Fraud Check
             fraud_result = await self.check_fraud(payment_request)
             if fraud_result.is_suspicious:
                 await self.compensate()
                 return PaymentResult.REJECTED
-            
+
             # Step 3: Compliance Check
             compliance_result = await self.check_compliance(
                 payment_request
@@ -175,7 +156,7 @@ class PaymentSaga:
             if not compliance_result.is_compliant:
                 await self.compensate()
                 return PaymentResult.COMPLIANCE_FAILED
-            
+
             # Step 4: Execute Transfer
             transfer_result = await self.execute_transfer(
                 payment_request
@@ -183,25 +164,25 @@ class PaymentSaga:
             self.compensations.append(
                 lambda: self.reverse_transfer(transfer_result.id)
             )
-            
+
             # Step 5: Update Balances
             await self.update_balances(payment_request)
-            
+
             # Step 6: Send Notifications
             await self.send_notifications(payment_request)
-            
+
             # Success - Clear compensations
             self.state = "COMPLETED"
             self.compensations.clear()
-            
+
             return PaymentResult.SUCCESS
-            
+
         except Exception as e:
             # Failure - Run compensations
             await self.compensate()
             self.state = "FAILED"
             raise
-    
+
     async def compensate(self):
         """Run compensation actions in reverse order"""
         for compensation in reversed(self.compensations):
@@ -218,38 +199,38 @@ class PaymentSaga:
 class IdempotentPaymentProcessor:
     def __init__(self):
         self.processed_requests = {}  # In practice, distributed cache
-        
+
     async def process_payment(self, request):
         # Generate idempotency key
         idempotency_key = self.generate_key(request)
-        
+
         # Check if already processed
         if idempotency_key in self.processed_requests:
             return self.processed_requests[idempotency_key]
-        
+
         # Acquire distributed lock
         lock = await self.acquire_lock(idempotency_key)
         if not lock:
             # Another instance is processing
             return await self.wait_for_result(idempotency_key)
-        
+
         try:
             # Double-check after acquiring lock
             if idempotency_key in self.processed_requests:
                 return self.processed_requests[idempotency_key]
-            
+
             # Process payment
             result = await self.execute_payment(request)
-            
+
             # Store result
             self.processed_requests[idempotency_key] = result
             await self.persist_result(idempotency_key, result)
-            
+
             return result
-            
+
         finally:
             await self.release_lock(idempotency_key)
-    
+
     def generate_key(self, request):
         """Generate deterministic idempotency key"""
         return hashlib.sha256(
@@ -273,7 +254,7 @@ class PaymentEvent:
     timestamp: datetime
     event_type: str
     payload: dict
-    
+
 class EventStore:
     async def append_event(self, event: PaymentEvent):
         # Atomic append with ordering guarantee
@@ -282,18 +263,18 @@ class EventStore:
             event=event,
             expected_version=self.get_version(event.saga_id)
         )
-        
+
         # Publish to event bus
         await self.event_bus.publish(event)
-    
+
     async def get_payment_history(self, payment_id: str):
         """Reconstruct payment state from events"""
         events = await self.storage.get_events(payment_id)
-        
+
         state = PaymentState()
         for event in events:
             state = self.apply_event(state, event)
-        
+
         return state
 ```
 
@@ -316,34 +297,34 @@ class PaymentOrchestrator:
     def __init__(self):
         self.state_machine = PaymentStateMachine()
         self.timeout_manager = TimeoutManager()
-        
+
     async def orchestrate_payment(self, payment_id: str):
         # Load current state
         state = await self.load_state(payment_id)
-        
+
         # Determine next actions
         actions = self.state_machine.get_next_actions(state)
-        
+
         # Execute actions in parallel where possible
         results = await asyncio.gather(*[
             self.execute_action(action) for action in actions
             if action.can_run_parallel
         ])
-        
+
         # Execute sequential actions
         for action in actions:
             if not action.can_run_parallel:
                 result = await self.execute_action(action)
                 if not result.success:
                     await self.handle_failure(action, result)
-        
+
         # Update state
         new_state = self.state_machine.transition(
-            state, 
+            state,
             results
         )
         await self.save_state(payment_id, new_state)
-        
+
         # Set timeout for next step
         if not new_state.is_terminal:
             await self.timeout_manager.set_timeout(
@@ -373,30 +354,30 @@ class PaymentFailureHandler:
                 max_retries=5
             )
         }
-    
+
     async def handle_failure(self, error: Exception, context: dict):
         error_type = self.classify_error(error)
-        
+
         if error_type == 'business_error':
             # No retry for business logic errors
             return FailureResult.ABORT
-        
+
         if error_type == 'insufficient_funds':
             # Specific handling for common cases
             await self.notify_user_insufficient_funds(context)
             return FailureResult.USER_ACTION_REQUIRED
-        
+
         # Get retry policy
         retry_policy = self.retry_policies.get(
             error_type,
             self.default_retry_policy
         )
-        
+
         if retry_policy.should_retry(context['attempt']):
             delay = retry_policy.get_delay(context['attempt'])
             await asyncio.sleep(delay / 1000)  # Convert to seconds
             return FailureResult.RETRY
-        
+
         # Max retries exceeded
         await self.escalate_to_manual_review(context)
         return FailureResult.MANUAL_REVIEW

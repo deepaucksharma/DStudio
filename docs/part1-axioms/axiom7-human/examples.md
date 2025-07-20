@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 7](/part1-axioms/axiom7-human/) → **Human Interface Examples**
 
-
 # Human Interface Examples
 
 ## Real-World Case Studies

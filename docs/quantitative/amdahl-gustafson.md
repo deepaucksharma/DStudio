@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Amdahl & Gustafson Laws**
 
-
 # Amdahl & Gustafson Laws
 
 **The limits of parallelization**
@@ -26,7 +25,7 @@ Speedup = 1 / (s + p/n)
 
 Where:
 s = Serial fraction (can't parallelize)
-p = Parallel fraction (can parallelize)  
+p = Parallel fraction (can parallelize)
 n = Number of processors
 s + p = 1
 ```
@@ -140,7 +139,7 @@ so max speedup is 5x. Don't over-provision."
 
 **Gustafson Perspective** (scaled problem):
 ```text
-"As we grow, we'll process more payments in 
+"As we grow, we'll process more payments in
 batches, reducing serial fraction to 2%."
 ```
 
@@ -179,7 +178,7 @@ Single DB query: 100ms
 
 Sharded across 10 nodes:
 - Query routing: 5ms (serial)
-- Parallel queries: 100ms/10 = 10ms  
+- Parallel queries: 100ms/10 = 10ms
 - Result merging: 5ms (serial)
 - Total: 20ms (5x speedup)
 
@@ -282,7 +281,7 @@ Serial fraction < 5%:
 
 Serial fraction 5-20%:
   → Moderate parallelization (4-8x)
-  
+
 Serial fraction > 20%:
   → Focus on reducing serial parts first
 ```
@@ -313,7 +312,7 @@ Remember: Perfect parallelization is rare. Plan for serial bottlenecks and desig
 ## 📊 Practical Calculations
 
 ### Exercise 1: Basic Application ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Apply the concepts to a simple scenario
 
 **Scenario**: A web API receives 1,000 requests per second with an average response time of 50ms.
@@ -326,7 +325,7 @@ Remember: Perfect parallelization is rare. Plan for serial bottlenecks and desig
 **Show your work** and explain the practical implications.
 
 ### Exercise 2: System Design Math ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Use quantitative analysis for design decisions
 
 **Problem**: Design capacity for a new service with these requirements:
@@ -341,7 +340,7 @@ Remember: Perfect parallelization is rare. Plan for serial bottlenecks and desig
 4. Estimate costs and resource requirements
 
 ### Exercise 3: Performance Debugging ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Use quantitative methods to diagnose issues
 
 **Case**: Production metrics show:

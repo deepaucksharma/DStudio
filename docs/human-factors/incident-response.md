@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Incident Response**
 
-
 # Incident Response
 
 **Coordinated action when systems fail**
@@ -87,17 +86,17 @@ class IncidentResponseChecklist:
             "Document timeline",
             "Schedule postmortem"
         ]
-    
+
     def validate_response(self, incident):
         completed = []
         missing = []
-        
+
         for item in self.checklist:
             if self.is_completed(incident, item):
                 completed.append(item)
             else:
                 missing.append(item)
-        
+
         return {
             'completed': completed,
             'missing': missing,
@@ -109,7 +108,7 @@ class IncidentResponseChecklist:
 
 #### Initial Customer Communication
 ```text
-We are currently investigating reports of [service] issues. 
+We are currently investigating reports of [service] issues.
 Our team is actively working on the problem.
 
 Affected services: [list]
@@ -150,7 +149,7 @@ class IncidentAutomation:
         self.pagerduty = PagerDutyClient()
         self.slack = SlackClient()
         self.statuspage = StatusPageClient()
-        
+
     def create_incident(self, alert):
         # Create PagerDuty incident
         incident = self.pagerduty.create_incident({
@@ -158,27 +157,27 @@ class IncidentAutomation:
             'service': alert.service,
             'urgency': self.calculate_urgency(alert)
         })
-        
+
         # Create Slack channel
         channel = self.slack.create_channel(
             f"incident-{incident.id}",
             purpose=f"Response for: {alert.title}"
         )
-        
+
         # Invite on-call team
         oncall = self.pagerduty.get_oncall(alert.service)
         self.slack.invite_users(channel, oncall)
-        
+
         # Post initial message
         self.slack.post_message(channel, self.format_incident_message(incident))
-        
+
         # Update status page
         self.statuspage.create_incident({
             'name': alert.title,
             'status': 'investigating',
             'impact': self.determine_impact(alert)
         })
-        
+
         return incident
 ```
 
@@ -228,7 +227,7 @@ class EscalationPolicy:
                 'targets': ['director', 'vp_engineering']
             }
         ]
-    
+
     def get_escalation_targets(self, incident_age_minutes):
         targets = []
         for level in self.levels:
@@ -259,7 +258,7 @@ class EscalationPolicy:
 ### Issue 1: High Memory Usage
 **Symptoms**: Memory alerts, OOM kills
 **Diagnosis**: Check memory metrics, heap dumps
-**Resolution**: 
+**Resolution**:
 1. Restart service (immediate relief)
 2. Investigate memory leak
 3. Scale horizontally if needed
@@ -312,14 +311,14 @@ class IncidentMetrics:
             for inc in incidents
         )
         return total_time / len(incidents) / 60  # minutes
-    
+
     def calculate_mtta(self, incidents):
         total_time = sum(
             (inc.acknowledged_at - inc.triggered_at).total_seconds()
             for inc in incidents
         )
         return total_time / len(incidents) / 60  # minutes
-    
+
     def generate_report(self, incidents):
         return {
             'total_incidents': len(incidents),

@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → **Part I: The Eight Fundamental Axioms**
 
-
 # Part I: The Eight Fundamental Axioms
 
 ## First Principles Foundation
@@ -33,32 +32,10 @@ Before we discuss any patterns, algorithms, or architectures, we must understand
     6. There is one administrator
     7. Transport cost is zero
     8. The network is homogeneous
-    
+
     **Our 8 Axioms flip these fallacies into positive principles** - instead of what not to assume, we teach what you must accept.
 
 ## The Eight Axioms
-
-<div class="axiom-grid">
-{{ grid(columns=2, gap='lg') }}
-
-{{ card(type='axiom', title='Axiom 1: Latency', content='Information cannot travel faster than light. This creates fundamental delays in all distributed communication.', link='axiom1-latency/') }}
-
-{{ card(type='axiom', title='Axiom 2: Finite Capacity', content='Every resource has limits. No amount of engineering can create infinite compute, storage, or bandwidth.', link='axiom2-capacity/') }}
-
-{{ card(type='axiom', title='Axiom 3: Failure', content='Components will fail. Networks will partition. Messages will be lost. Failure is not a bug—it is a feature.', link='axiom3-failure/') }}
-
-{{ card(type='axiom', title='Axiom 4: Concurrency', content='Multiple things happen at once. Without global time, ordering becomes a fundamental challenge.', link='axiom4-concurrency/') }}
-
-{{ card(type='axiom', title='Axiom 5: Coordination', content='Agreement requires communication. Communication requires time. Time costs latency and availability.', link='axiom5-coordination/') }}
-
-{{ card(type='axiom', title='Axiom 6: Observability', content='You cannot debug what you cannot see. But observation changes the system being observed.', link='axiom6-observability/') }}
-
-{{ card(type='axiom', title='Axiom 7: Human Interface', content='Systems must be operable by humans under stress. Cognitive load is a finite resource.', link='axiom7-human/') }}
-
-{{ card(type='axiom', title='Axiom 8: Economics', content='Every decision has a cost. Resources, time, and complexity must be balanced against value.', link='axiom8-economics/') }}
-
-{{ endgrid() }}
-</div>
 
 ## Why Axioms Matter
 
@@ -73,7 +50,7 @@ But **when do you use each?** Without understanding the underlying constraints, 
 
 !!! quote "Werner Vogels, CTO of Amazon"
     "Everything fails all the time. Build your systems accordingly."
-    
+
 !!! quote "Leslie Lamport, Turing Award Winner"
     "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable."
 
@@ -134,7 +111,7 @@ Axioms don't exist in isolation. They interact and compound:
     - Violate 1 axiom: System degrades gracefully
     - Violate 2 axioms: System becomes unreliable
     - Violate 3+ axioms: System fails catastrophically
-    
+
     **Example**: Knight Capital's $440M loss in 45 minutes violated:
     - Axiom 3 (Failure): No rollback plan
     - Axiom 4 (Concurrency): Race condition in deployment

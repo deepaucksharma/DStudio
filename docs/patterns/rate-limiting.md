@@ -1,7 +1,6 @@
 ---
 title: Rate Limiting Pattern
-description: "<div class="pattern-context">
-<h3>🧭 Pattern Context</h3>"
+description: Pattern for distributed systems coordination and reliability
 type: pattern
 difficulty: intermediate
 reading_time: 15 min
@@ -14,31 +13,11 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Rate Limiting Pattern**
 
-
 # Rate Limiting Pattern
 
 **Controlling request flow to protect system resources**
 
 > *"Speed limits exist not to slow you down, but to keep everyone safe."*
-
-<div class="pattern-context">
-<h3>🧭 Pattern Context</h3>
-
-**🔬 Primary Axioms Addressed**:
-- [Axiom 2: Capacity](/part1-axioms/axiom2-capacity/) - Enforcing resource limits
-- [Axiom 7: Human Interface](/part1-axioms/axiom7-human-interface/) - Preventing abuse
-
-**🔧 Solves These Problems**:
-- API abuse and DDoS protection
-- Fair resource allocation among users
-- Cost control in pay-per-use systems
-- Preventing system overload
-
-**🤝 Works Best With**:
-- [Load Shedding](/patterns/load-shedding/) - Complementary overload protection
-- [Circuit Breaker](/patterns/circuit-breaker/) - Failure handling
-- [Quota Management](/patterns/quota/) - Long-term limits
-</div>
 
 ---
 
@@ -63,22 +42,22 @@ class SimpleRateLimiter:
         self.max_requests = max_requests
         self.window_seconds = window_seconds
         self.requests = defaultdict(list)
-    
+
     def is_allowed(self, user_id: str) -> bool:
         """Check if request is allowed for user"""
         now = time.time()
-        
+
         # Clean old requests
         self.requests[user_id] = [
             req_time for req_time in self.requests[user_id]
             if now - req_time < self.window_seconds
         ]
-        
+
         # Check limit
         if len(self.requests[user_id]) < self.max_requests:
             self.requests[user_id].append(now)
             return True
-        
+
         return False
 
 # Usage
@@ -87,7 +66,7 @@ limiter = SimpleRateLimiter(max_requests=100, window_seconds=60)
 def handle_request(user_id: str):
     if not limiter.is_allowed(user_id):
         return {"error": "Rate limit exceeded"}, 429
-    
+
     # Process request
     return {"result": "success"}, 200
 ```
@@ -119,25 +98,25 @@ class RateLimiter(ABC):
 
 class TokenBucket(RateLimiter):
     """Token bucket algorithm implementation"""
-    
+
     def __init__(self, capacity: int, refill_rate: float):
         self.capacity = capacity
         self.refill_rate = refill_rate  # tokens per second
         self.buckets = {}
         self.lock = threading.Lock()
-    
+
     def allow_request(self, key: str, tokens: int = 1) -> bool:
         with self.lock:
             now = time.time()
-            
+
             if key not in self.buckets:
                 self.buckets[key] = {
                     'tokens': self.capacity,
                     'last_refill': now
                 }
-            
+
             bucket = self.buckets[key]
-            
+
             # Refill tokens
             time_passed = now - bucket['last_refill']
             new_tokens = time_passed * self.refill_rate
@@ -146,75 +125,75 @@ class TokenBucket(RateLimiter):
                 bucket['tokens'] + new_tokens
             )
             bucket['last_refill'] = now
-            
+
             # Check if enough tokens
             if bucket['tokens'] >= tokens:
                 bucket['tokens'] -= tokens
                 return True
-            
+
             return False
 
 class SlidingWindowLog(RateLimiter):
     """Sliding window log algorithm"""
-    
+
     def __init__(self, max_requests: int, window_seconds: int):
         self.max_requests = max_requests
         self.window_seconds = window_seconds
         self.requests = defaultdict(list)
         self.lock = threading.Lock()
-    
+
     def allow_request(self, key: str, tokens: int = 1) -> bool:
         with self.lock:
             now = time.time()
             cutoff = now - self.window_seconds
-            
+
             # Remove old entries
             self.requests[key] = [
                 timestamp for timestamp in self.requests[key]
                 if timestamp > cutoff
             ]
-            
+
             # Check if we can add new request
             if len(self.requests[key]) + tokens <= self.max_requests:
                 for _ in range(tokens):
                     self.requests[key].append(now)
                 return True
-            
+
             return False
 
 class SlidingWindowCounter(RateLimiter):
     """Sliding window counter - hybrid approach"""
-    
+
     def __init__(self, max_requests: int, window_seconds: int):
         self.max_requests = max_requests
         self.window_seconds = window_seconds
         self.windows = defaultdict(lambda: {'current': 0, 'previous': 0})
         self.lock = threading.Lock()
-    
+
     def allow_request(self, key: str, tokens: int = 1) -> bool:
         with self.lock:
             now = time.time()
             current_window = int(now / self.window_seconds)
-            
+
             window_data = self.windows[key]
-            
+
             # Reset if we're in a new window
             if current_window != window_data.get('window_id', 0):
                 window_data['previous'] = window_data.get('current', 0)
                 window_data['current'] = 0
                 window_data['window_id'] = current_window
-            
+
             # Calculate weighted count
             window_position = (now % self.window_seconds) / self.window_seconds
             weighted_count = (
                 window_data['current'] +
                 window_data['previous'] * (1 - window_position)
             )
-            
+
             if weighted_count + tokens <= self.max_requests:
                 window_data['current'] += tokens
                 return True
-            
+
             return False
 ```
 
@@ -231,10 +210,10 @@ from typing import Optional, Tuple
 
 class DistributedRateLimiter:
     """Redis-based distributed rate limiter"""
-    
+
     def __init__(self, redis_client: redis.Redis):
         self.redis = redis_client
-        
+
         # Lua script for atomic token bucket
         self.token_bucket_script = """
         local key = KEYS[1]
@@ -242,21 +221,21 @@ class DistributedRateLimiter:
         local refill_rate = tonumber(ARGV[2])
         local requested = tonumber(ARGV[3])
         local now = tonumber(ARGV[4])
-        
+
         local bucket = redis.call('HGETALL', key)
         local tokens = capacity
         local last_refill = now
-        
+
         if #bucket > 0 then
             tokens = tonumber(bucket[2])
             last_refill = tonumber(bucket[4])
-            
+
             -- Refill tokens
             local time_passed = now - last_refill
             local new_tokens = time_passed * refill_rate
             tokens = math.min(capacity, tokens + new_tokens)
         end
-        
+
         if tokens >= requested then
             tokens = tokens - requested
             redis.call('HSET', key, 'tokens', tokens, 'last_refill', now)
@@ -268,10 +247,10 @@ class DistributedRateLimiter:
             return {0, tokens}
         end
         """
-        
+
         self.script_sha = self.redis.script_load(self.token_bucket_script)
-    
-    def check_rate_limit(self, 
+
+    def check_rate_limit(self,
                         key: str,
                         capacity: int,
                         refill_rate: float,
@@ -287,12 +266,12 @@ class DistributedRateLimiter:
                 requested,
                 time.time()
             )
-            
+
             allowed = bool(result[0])
             remaining_tokens = float(result[1])
-            
+
             return allowed, remaining_tokens
-            
+
         except redis.RedisError as e:
             # Fallback to local decision or fail open/closed
             print(f"Redis error: {e}")
@@ -300,11 +279,11 @@ class DistributedRateLimiter:
 
 class HierarchicalRateLimiter:
     """Multi-level rate limiting (user, API key, IP)"""
-    
+
     def __init__(self, redis_client: redis.Redis):
         self.redis = redis_client
         self.limiters = {}
-        
+
         # Define hierarchy
         self.limits = {
             'ip': {'capacity': 1000, 'window': 3600},  # Per hour
@@ -312,13 +291,13 @@ class HierarchicalRateLimiter:
             'api_key': {'capacity': 100000, 'window': 3600},
             'global': {'capacity': 1000000, 'window': 3600}
         }
-    
-    def check_all_limits(self, 
+
+    def check_all_limits(self,
                         ip: str,
                         user_id: Optional[str] = None,
                         api_key: Optional[str] = None) -> Tuple[bool, str]:
         """Check all applicable rate limits"""
-        
+
         # Check in order of granularity
         checks = [
             ('ip', f"ip:{ip}"),
@@ -326,20 +305,20 @@ class HierarchicalRateLimiter:
             ('api_key', f"api:{api_key}") if api_key else None,
             ('global', "global")
         ]
-        
+
         for limit_type, key in filter(lambda x: x[1], checks):
             limit = self.limits[limit_type]
-            
+
             # Use sliding window counter
             current = self.redis.incr(key)
-            
+
             if current == 1:
                 # First request, set expiry
                 self.redis.expire(key, limit['window'])
-            
+
             if current > limit['capacity']:
                 return False, f"{limit_type} rate limit exceeded"
-        
+
         return True, "OK"
 ```
 
@@ -348,16 +327,16 @@ class HierarchicalRateLimiter:
 ```python
 class AdaptiveRateLimiter:
     """Rate limiter that adapts based on system load"""
-    
+
     def __init__(self, base_rate: int):
         self.base_rate = base_rate
         self.current_multiplier = 1.0
         self.load_monitor = SystemLoadMonitor()
-    
+
     def get_current_limit(self) -> int:
         """Calculate current rate limit based on system load"""
         system_load = self.load_monitor.get_load()
-        
+
         if system_load < 0.5:
             # Low load, allow more
             self.current_multiplier = min(2.0, self.current_multiplier * 1.1)
@@ -367,12 +346,12 @@ class AdaptiveRateLimiter:
         else:
             # Normal load, slowly return to baseline
             self.current_multiplier = 0.95 * self.current_multiplier + 0.05 * 1.0
-        
+
         return int(self.base_rate * self.current_multiplier)
 
 class CostBasedRateLimiter:
     """Rate limit based on operation cost"""
-    
+
     def __init__(self, cost_budget_per_minute: int):
         self.budget = cost_budget_per_minute
         self.costs = {
@@ -382,25 +361,25 @@ class CostBasedRateLimiter:
             'analytics': 50
         }
         self.usage = defaultdict(lambda: {'cost': 0, 'reset_time': 0})
-    
+
     def check_budget(self, user_id: str, operation: str) -> Tuple[bool, int]:
         """Check if user has budget for operation"""
         now = time.time()
         cost = self.costs.get(operation, 10)
-        
+
         user_usage = self.usage[user_id]
-        
+
         # Reset if minute has passed
         if now - user_usage['reset_time'] > 60:
             user_usage['cost'] = 0
             user_usage['reset_time'] = now
-        
+
         # Check budget
         if user_usage['cost'] + cost <= self.budget:
             user_usage['cost'] += cost
             remaining = self.budget - user_usage['cost']
             return True, remaining
-        
+
         return False, 0
 ```
 
@@ -416,7 +395,7 @@ class StripeRateLimiter:
     """
     Stripe's approach to API rate limiting
     """
-    
+
     def __init__(self):
         self.limits = {
             'default': {
@@ -432,21 +411,21 @@ class StripeRateLimiter:
                 'burst_multiplier': 1.2
             }
         }
-    
-    def get_rate_limit_headers(self, 
+
+    def get_rate_limit_headers(self,
                               endpoint_type: str,
                               remaining: int,
                               reset_time: int) -> dict:
         """Generate standard rate limit headers"""
         limit = self.limits[endpoint_type]['requests_per_second']
-        
+
         return {
             'X-RateLimit-Limit': str(limit),
             'X-RateLimit-Remaining': str(remaining),
             'X-RateLimit-Reset': str(reset_time),
             'Retry-After': str(max(0, reset_time - int(time.time())))
         }
-    
+
     def handle_rate_limited_request(self, request_type: str) -> dict:
         """Return rate limit error with helpful information"""
         return {
@@ -464,11 +443,11 @@ class CloudflareRateLimiter:
     """
     Cloudflare's advanced rate limiting
     """
-    
+
     def __init__(self):
         self.rules = []
-    
-    def add_rule(self, 
+
+    def add_rule(self,
                  path_pattern: str,
                  threshold: int,
                  period: int,
@@ -482,22 +461,22 @@ class CloudflareRateLimiter:
             'action': action,  # 'block', 'challenge', 'log'
             'characteristics': characteristics  # ['ip', 'user_agent', 'api_key']
         })
-    
+
     def evaluate_request(self, request) -> Optional[str]:
         """Evaluate request against all rules"""
         for rule in self.rules:
             if self.matches_pattern(request.path, rule['path']):
                 key = self.build_key(request, rule['characteristics'])
-                
+
                 if self.exceeds_threshold(key, rule):
                     return rule['action']
-        
+
         return None
-    
+
     def build_key(self, request, characteristics: List[str]) -> str:
         """Build rate limit key from request characteristics"""
         parts = []
-        
+
         for char in characteristics:
             if char == 'ip':
                 parts.append(request.remote_addr)
@@ -512,7 +491,7 @@ class CloudflareRateLimiter:
                 token = request.headers.get('Authorization', '').split(' ')[-1]
                 sub = self.extract_jwt_subject(token)
                 parts.append(sub)
-        
+
         return ':'.join(parts)
 ```
 
@@ -523,7 +502,7 @@ class GitHubRateLimiter:
     """
     GitHub's sophisticated rate limiting system
     """
-    
+
     def __init__(self):
         self.limits = {
             'core': {
@@ -541,37 +520,37 @@ class GitHubRateLimiter:
                 'complexity_limit': 5000    # per query
             }
         }
-    
+
     def calculate_graphql_complexity(self, query: str) -> int:
         """
         Calculate GraphQL query complexity
         """
         # Simplified complexity calculation
         complexity = 0
-        
+
         # Count nodes requested
         node_count = query.count('{')
         complexity += node_count
-        
+
         # Penalize pagination
         if 'first:' in query or 'last:' in query:
             import re
             matches = re.findall(r'(?:first|last):\s*(\d+)', query)
             for match in matches:
                 complexity += int(match) * 0.1
-        
+
         # Penalize deep nesting
         max_depth = self.calculate_query_depth(query)
         complexity += max_depth ** 2
-        
+
         return int(complexity)
-    
-    def check_graphql_limits(self, 
+
+    def check_graphql_limits(self,
                             user_id: str,
                             query: str) -> Tuple[bool, dict]:
         """Check GraphQL-specific limits"""
         complexity = self.calculate_graphql_complexity(query)
-        
+
         # Check complexity limit
         if complexity > self.limits['graphql']['complexity_limit']:
             return False, {
@@ -579,11 +558,11 @@ class GitHubRateLimiter:
                 'complexity': complexity,
                 'limit': self.limits['graphql']['complexity_limit']
             }
-        
+
         # Check node limit
         nodes_used = self.get_user_node_usage(user_id)
         nodes_requested = self.estimate_nodes_from_query(query)
-        
+
         if nodes_used + nodes_requested > self.limits['graphql']['node_limit']:
             return False, {
                 'message': 'Node limit exceeded',
@@ -591,20 +570,20 @@ class GitHubRateLimiter:
                 'requested': nodes_requested,
                 'limit': self.limits['graphql']['node_limit']
             }
-        
+
         return True, {'complexity': complexity, 'nodes': nodes_requested}
-    
+
     def get_reset_time(self, limit_type: str) -> int:
         """Calculate when rate limit resets"""
         now = int(time.time())
-        
+
         if limit_type in ['core', 'graphql']:
             # Hourly reset
             return now + (3600 - now % 3600)
         elif limit_type == 'search':
             # Minute reset
             return now + (60 - now % 60)
-        
+
         return now + 3600
 ```
 
@@ -622,11 +601,11 @@ class OptimalRateLimiter:
     """
     Mathematically optimal rate limiting
     """
-    
+
     def __init__(self):
         self.request_history = []
         self.service_capacity = None
-        
+
     def calculate_optimal_rate(self,
                              service_time_distribution: dict,
                              target_latency_percentile: float = 0.95,
@@ -637,40 +616,40 @@ class OptimalRateLimiter:
         # Use M/G/1 queue model
         mean_service_time = service_time_distribution['mean']
         var_service_time = service_time_distribution['variance']
-        
+
         # Calculate maximum arrival rate for target latency
         # Using Pollaczek-Khinchine formula
         c_squared = var_service_time / (mean_service_time ** 2)
-        
+
         # Binary search for optimal rate
         low, high = 0, 1 / mean_service_time
-        
+
         while high - low > 0.001:
             rate = (low + high) / 2
             rho = rate * mean_service_time  # Utilization
-            
+
             if rho >= 1:
                 high = rate
                 continue
-            
+
             # Expected wait time in queue
             W_q = (rho ** 2 * (1 + c_squared)) / (2 * (1 - rho) * rate)
-            
+
             # Total response time
             W = W_q + mean_service_time
-            
+
             # Check if meets latency target
             # Using approximation for percentile
             latency_percentile = W * (-np.log(1 - target_latency_percentile))
-            
+
             if latency_percentile * 1000 <= target_latency_ms:
                 low = rate
             else:
                 high = rate
-        
+
         return rate
-    
-    def dynamic_fair_queuing(self, 
+
+    def dynamic_fair_queuing(self,
                            users: List[str],
                            weights: Dict[str, float]) -> Dict[str, float]:
         """
@@ -678,36 +657,36 @@ class OptimalRateLimiter:
         """
         total_capacity = self.service_capacity
         total_weight = sum(weights.values())
-        
+
         # Base allocation
         allocations = {}
         for user in users:
             weight = weights.get(user, 1.0)
             allocations[user] = (weight / total_weight) * total_capacity
-        
+
         # Adjust for actual usage patterns
         usage_efficiency = self.calculate_usage_efficiency(users)
-        
+
         # Redistribute unused capacity
         unused_capacity = 0
         efficient_users = []
-        
+
         for user, allocation in allocations.items():
             efficiency = usage_efficiency.get(user, 1.0)
-            
+
             if efficiency < 0.8:  # User not fully utilizing allocation
                 unused = allocation * (1 - efficiency)
                 unused_capacity += unused
                 allocations[user] *= efficiency
             else:
                 efficient_users.append(user)
-        
+
         # Give unused capacity to efficient users
         if efficient_users and unused_capacity > 0:
             bonus_per_user = unused_capacity / len(efficient_users)
             for user in efficient_users:
                 allocations[user] += bonus_per_user
-        
+
         return allocations
 ```
 
@@ -751,264 +730,3 @@ class OptimalRateLimiter:
 ---
 
 **Previous**: [← Queues & Stream-Processing](queues-streaming.md) | **Next**: [Retry & Backoff Strategies →](retry-backoff.md)
-## 🎯 Problem Statement
-
-### The Challenge
-This pattern addresses common distributed systems challenges where rate limiting pattern becomes critical for system reliability and performance.
-
-### Why This Matters
-In distributed systems, this problem manifests as:
-- **Reliability Issues**: System failures cascade and affect multiple components
-- **Performance Degradation**: Poor handling leads to resource exhaustion  
-- **User Experience**: Inconsistent or poor response times
-- **Operational Complexity**: Difficult to debug and maintain
-
-### Common Symptoms
-- Intermittent failures that are hard to reproduce
-- Performance that degrades under load
-- Resource exhaustion (connections, threads, memory)
-- Difficulty isolating root causes of issues
-
-### Without This Pattern
-Systems become fragile, unreliable, and difficult to operate at scale.
-
-
-
-## 💡 Solution Overview
-
-### Core Concept
-The Rate Limiting Pattern pattern provides a structured approach to handling this distributed systems challenge.
-
-### Key Principles
-1. **Isolation**: Separate concerns to prevent failures from spreading
-2. **Resilience**: Build systems that gracefully handle failures
-3. **Observability**: Make system behavior visible and measurable
-4. **Simplicity**: Keep solutions understandable and maintainable
-
-### How It Works
-The Rate Limiting Pattern pattern works by:
-- Monitoring system behavior and health
-- Implementing protective mechanisms
-- Providing fallback strategies
-- Enabling rapid recovery from failures
-
-### Benefits
-- **Improved Reliability**: System continues operating during partial failures
-- **Better Performance**: Resources are protected from overload
-- **Easier Operations**: Clear indicators of system health
-- **Reduced Risk**: Failures are contained and predictable
-
-
-
-## ✅ When to Use
-
-### Ideal Scenarios
-- **Distributed systems** with external dependencies
-- **High-availability services** requiring reliability
-- **External service integration** with potential failures
-- **High-traffic applications** needing protection
-
-### Environmental Factors
-- **High Traffic**: System handles significant load
-- **External Dependencies**: Calls to other services or systems
-- **Reliability Requirements**: Uptime is critical to business
-- **Resource Constraints**: Limited connections, threads, or memory
-
-### Team Readiness
-- Team understands distributed systems concepts
-- Monitoring and alerting infrastructure exists
-- Operations team can respond to pattern-related alerts
-
-### Business Context
-- Cost of downtime is significant
-- User experience is a priority
-- System is customer-facing or business-critical
-
-
-
-## ❌ When NOT to Use
-
-### Inappropriate Scenarios
-- **Simple applications** with minimal complexity
-- **Development environments** where reliability isn't critical
-- **Single-user systems** without scale requirements
-- **Internal tools** with relaxed availability needs
-
-### Technical Constraints
-- **Simple Systems**: Overhead exceeds benefits
-- **Development/Testing**: Adds unnecessary complexity
-- **Performance Critical**: Pattern overhead is unacceptable
-- **Legacy Systems**: Cannot be easily modified
-
-### Resource Limitations
-- **No Monitoring**: Cannot observe pattern effectiveness
-- **Limited Expertise**: Team lacks distributed systems knowledge
-- **Tight Coupling**: System design prevents pattern implementation
-
-### Anti-Patterns
-- Adding complexity without clear benefit
-- Implementing without proper monitoring
-- Using as a substitute for fixing root causes
-- Over-engineering simple problems
-
-
-
-## ⚖️ Trade-offs
-
-### Benefits vs Costs
-
-| Benefit | Cost | Mitigation |
-|---------|------|------------|
-| **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
-| **Better Performance** | Resource overhead | Monitor and tune parameters |
-| **Faster Recovery** | Operational complexity | Invest in monitoring and training |
-| **Clearer Debugging** | Additional logging | Use structured logging |
-
-### Performance Impact
-- **Latency**: Small overhead per operation
-- **Memory**: Additional state tracking
-- **CPU**: Monitoring and decision logic
-- **Network**: Possible additional monitoring calls
-
-### Operational Complexity
-- **Monitoring**: Need dashboards and alerts
-- **Configuration**: Parameters must be tuned
-- **Debugging**: Additional failure modes to understand
-- **Testing**: More scenarios to validate
-
-### Development Trade-offs
-- **Initial Cost**: More time to implement correctly
-- **Maintenance**: Ongoing tuning and monitoring
-- **Testing**: Complex failure scenarios to validate
-- **Documentation**: More concepts for team to understand
-
-
-
-## 🌟 Real Examples
-
-### Production Implementations
-
-**Major Cloud Provider**: Uses this pattern for service reliability across global infrastructure
-
-**Popular Framework**: Implements this pattern by default in their distributed systems toolkit
-
-**Enterprise System**: Applied this pattern to improve uptime from 99% to 99.9%
-
-### Open Source Examples
-- **Libraries**: Resilience4j, Polly, circuit-breaker-js
-- **Frameworks**: Spring Cloud, Istio, Envoy
-- **Platforms**: Kubernetes, Docker Swarm, Consul
-
-### Case Study: E-commerce Platform
-A major e-commerce platform implemented Rate Limiting Pattern to handle critical user flows:
-
-**Challenge**: System failures affected user experience and revenue
-
-**Implementation**: 
-- Applied Rate Limiting Pattern pattern to critical service calls
-- Added fallback mechanisms for degraded operation
-- Monitored service health continuously
-
-**Results**:
-- 99.9% availability during service disruptions
-- Customer satisfaction improved due to reliable experience
-- Revenue protected during partial outages
-
-### Lessons Learned
-- Start with conservative thresholds and tune based on data
-- Monitor the pattern itself, not just the protected service
-- Have clear runbooks for when the pattern activates
-- Test failure scenarios regularly in production
-
-
-
-## 💻 Code Sample
-
-### Basic Implementation
-
-```python
-class Rate_LimitingPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
-    
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
-        
-        try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
-        except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
-    
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
-    
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
-    
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
-    def _record_success(self):
-        self.metrics.record_success()
-    
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = Rate_LimitingPattern(config)
-result = pattern.process(user_request)
-```
-
-### Configuration Example
-
-```yaml
-rate_limiting:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
-    enabled: true
-    strategy: "cached_response"
-  monitoring:
-    metrics_enabled: true
-    health_check_interval: 30s
-```
-
-### Testing the Implementation
-
-```python
-def test_rate_limiting_behavior():
-    pattern = Rate_LimitingPattern(test_config)
-    
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-    
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
-    
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-```
-
-
-

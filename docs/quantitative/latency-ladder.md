@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Latency Ladder 2025**
 
-
 # Latency Ladder 2025
 
 **Know your physics: Every operation has a cost**
@@ -64,7 +63,7 @@ Understanding where your milliseconds go:
 ```proto
 User-Perceived Latency Budget:
 100ms - Instant
-200ms - Fast  
+200ms - Fast
 500ms - Acceptable
 1s    - Noticeable
 3s    - Annoying
@@ -175,7 +174,7 @@ Margin: 19ms for jitter
 ```redis
 Before: Sequential queries
 - Get user: 10ms
-- Get orders: 20ms  
+- Get orders: 20ms
 - Get items per order: 10ms × N
 Total: 30ms + 10N ms
 
@@ -196,7 +195,7 @@ Total: 30ms (constant!)
 ## Rules of Thumb
 
 - **1ms** - Same machine operation threshold
-- **10ms** - Same datacenter threshold  
+- **10ms** - Same datacenter threshold
 - **100ms** - Human perception threshold
 - **1000ms** - User patience threshold
 
@@ -206,7 +205,7 @@ Remember: You can't beat physics, but you can work with it.
 ## 📊 Practical Calculations
 
 ### Exercise 1: Basic Application ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Apply the concepts to a simple scenario
 
 **Scenario**: A web API receives 1,000 requests per second with an average response time of 50ms.
@@ -219,7 +218,7 @@ Remember: You can't beat physics, but you can work with it.
 **Show your work** and explain the practical implications.
 
 ### Exercise 2: System Design Math ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Use quantitative analysis for design decisions
 
 **Problem**: Design capacity for a new service with these requirements:
@@ -234,7 +233,7 @@ Remember: You can't beat physics, but you can work with it.
 4. Estimate costs and resource requirements
 
 ### Exercise 3: Performance Debugging ⭐⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Use quantitative methods to diagnose issues
 
 **Case**: Production metrics show:

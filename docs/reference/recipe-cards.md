@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Reference](/reference/) → **Recipe Cards: Step-by-Step Procedures**
 
-
 # Recipe Cards: Step-by-Step Procedures
 
 Practical, actionable guides for implementing patterns and solving common distributed systems problems.
@@ -35,7 +34,7 @@ Practical, actionable guides for implementing patterns and solving common distri
 1. **Define Circuit Breaker States**
    ```python
    from enum import Enum
-   
+
    class CircuitState(Enum):
        CLOSED = "CLOSED"      # Normal operation
        OPEN = "OPEN"          # Failing fast
@@ -63,7 +62,7 @@ Practical, actionable guides for implementing patterns and solving common distri
                self.state = CircuitState.HALF_OPEN
            else:
                raise CircuitOpenError("Circuit breaker is OPEN")
-       
+
        try:
            result = func(*args, **kwargs)
            self._on_success()
@@ -98,7 +97,7 @@ Practical, actionable guides for implementing patterns and solving common distri
    ```python
    import random
    import time
-   
+
    def exponential_backoff(attempt, base_delay=1.0, max_delay=60.0, jitter=True):
        delay = min(base_delay * (2 ** attempt), max_delay)
        if jitter:
@@ -282,10 +281,10 @@ Practical, actionable guides for implementing patterns and solving common distri
 2. **Configure Application Metrics**
    ```python
    from prometheus_client import Counter, Histogram, start_http_server
-   
+
    REQUEST_COUNT = Counter('requests_total', 'Total requests', ['method', 'endpoint'])
    REQUEST_LATENCY = Histogram('request_duration_seconds', 'Request latency')
-   
+
    @REQUEST_LATENCY.time()
    def handle_request():
        REQUEST_COUNT.labels(method='GET', endpoint='/api').inc()
@@ -323,16 +322,16 @@ Practical, actionable guides for implementing patterns and solving common distri
 1. **Analyze Query Performance**
    ```sql
    -- Find slow queries
-   SELECT query, mean_exec_time, calls 
-   FROM pg_stat_statements 
-   ORDER BY mean_exec_time DESC 
+   SELECT query, mean_exec_time, calls
+   FROM pg_stat_statements
+   ORDER BY mean_exec_time DESC
    LIMIT 10;
    ```
 
 2. **Add Strategic Indexes**
    ```sql
    -- Create composite index for common query pattern
-   CREATE INDEX idx_orders_customer_date 
+   CREATE INDEX idx_orders_customer_date
    ON orders(customer_id, created_at);
    ```
 
@@ -345,7 +344,7 @@ Practical, actionable guides for implementing patterns and solving common distri
 4. **Implement Query Caching**
    ```python
    from functools import lru_cache
-   
+
    @lru_cache(maxsize=1000)
    def get_user_profile(user_id):
        return db.query("SELECT * FROM users WHERE id = %s", user_id)
@@ -367,7 +366,7 @@ Practical, actionable guides for implementing patterns and solving common distri
 1. **Enable Response Compression**
    ```python
    from flask_compress import Compress
-   
+
    app = Flask(__name__)
    Compress(app)  # Enables gzip compression
    ```
@@ -375,9 +374,9 @@ Practical, actionable guides for implementing patterns and solving common distri
 2. **Implement Response Caching**
    ```python
    from flask_caching import Cache
-   
+
    cache = Cache(app, config={'CACHE_TYPE': 'redis'})
-   
+
    @app.route('/api/data')
    @cache.cached(timeout=300)
    def get_data():
@@ -388,7 +387,7 @@ Practical, actionable guides for implementing patterns and solving common distri
    ```python
    # Use faster JSON serialization
    import orjson
-   
+
    def fast_json_response(data):
        return Response(orjson.dumps(data), mimetype='application/json')
    ```
@@ -417,13 +416,13 @@ Practical, actionable guides for implementing patterns and solving common distri
 1. **Implement Rate Limiting**
    ```python
    from flask_limiter import Limiter
-   
+
    limiter = Limiter(
        app,
        key_func=lambda: request.remote_addr,
        default_limits=["100 per hour"]
    )
-   
+
    @app.route('/api/sensitive')
    @limiter.limit("10 per minute")
    def sensitive_endpoint():
@@ -433,7 +432,7 @@ Practical, actionable guides for implementing patterns and solving common distri
 2. **Add Input Validation**
    ```python
    from marshmallow import Schema, fields, validate
-   
+
    class UserSchema(Schema):
        email = fields.Email(required=True)
        age = fields.Integer(validate=validate.Range(min=18, max=120))
@@ -443,19 +442,19 @@ Practical, actionable guides for implementing patterns and solving common distri
    ```python
    import jwt
    from functools import wraps
-   
+
    def token_required(f):
        @wraps(f)
        def decorated(*args, **kwargs):
            token = request.headers.get('Authorization')
            if not token:
                return jsonify({'message': 'Token missing'}), 401
-           
+
            try:
                data = jwt.decode(token, app.config['SECRET_KEY'], algorithms=['HS256'])
            except:
                return jsonify({'message': 'Token invalid'}), 401
-           
+
            return f(*args, **kwargs)
        return decorated
    ```
@@ -488,7 +487,7 @@ Practical, actionable guides for implementing patterns and solving common distri
    current_rps = 1000  # requests per second
    growth_factor = 2.0  # expected growth
    safety_margin = 1.5  # buffer for spikes
-   
+
    required_capacity = current_rps * growth_factor * safety_margin
    print(f"Required capacity: {required_capacity} RPS")
    ```

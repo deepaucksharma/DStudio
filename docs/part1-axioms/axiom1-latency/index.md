@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Axiom 1: Latency (Speed of Light)**
 
-
 # Axiom 1: Latency (Speed of Light)
 
 > **Learning Objective**: Internalize that latency is physics, not engineering. You cannot patch the speed of light.
@@ -38,7 +37,7 @@ This is latency in distributed systems: **the fundamental time it takes for info
 
 Every time you:
 - Load a webpage from another continent
-- Make a video call to someone far away  
+- Make a video call to someone far away
 - Save a file to the cloud
 - Query a remote database
 
@@ -49,14 +48,6 @@ You're paying a "physics tax" that no amount of engineering can eliminate.
 ## 🟡 Foundation: Understanding Latency (15 min read)
 
 ### Core Definition
-
-<div class="definition-box">
-<strong>Latency</strong> := Time for information to travel from point A to point B
-
-**Minimum Bound**: distance / speed_of_light
-
-**In fiber**: ~200,000 km/s (2/3 of c due to refractive index)
-</div>
 
 ### The Physics Foundation
 
@@ -72,7 +63,7 @@ Light—and therefore information—has a speed limit:
     - Router processing delays (0.1-1ms per hop)
     - Protocol overhead (TCP handshakes, TLS negotiation)
     - Congestion and queueing
-    
+
     **Rule of Thumb**: For every 1000km, expect ~5ms theoretical + ~10-15ms practical latency
 
 ### The Latency Ladder
@@ -96,7 +87,7 @@ When you visit a website hosted in another country:
 ```text
 Your Browser → Local ISP → Internet Backbone → Remote ISP → Web Server
                    5ms          50ms            5ms          1ms
-                           
+
 Total minimum: 61ms (just physics, no processing!)
 ```
 
@@ -105,7 +96,7 @@ Total minimum: 61ms (just physics, no processing!)
     - **Google**: 500ms delay caused 20% drop in traffic
     - **Amazon**: 100ms latency cost 1% in sales (~$1.6B/year)
     - **Facebook**: 1-second delay = 3% fewer posts, 5% fewer photos
-    
+
     Source: Various company engineering blogs and public statements
 
 ### Basic Latency Budget
@@ -156,11 +147,11 @@ User Click → Response
 
 ### 🎬 Real Failure: The Tokyo Checkout Disaster
 
-**Company**: Major US E-commerce Platform  
-**Date**: Black Friday 2019  
+**Company**: Major US E-commerce Platform
+**Date**: Black Friday 2019
 **Impact**: $12M lost revenue
 
-**The Setup**: 
+**The Setup**:
 - Tokyo customers routed to Tokyo data center (good!)
 - Inventory database in San Francisco (bad!)
 - Checkout requires real-time inventory check (terrible!)
@@ -173,14 +164,14 @@ Real world RTT: 120ms (optimal) to 250ms (congested)
 
 Checkout flow:
 1. Check inventory:     250ms RTT
-2. Reserve items:       250ms RTT  
+2. Reserve items:       250ms RTT
 3. Verify pricing:      250ms RTT
 4. Process payment:     150ms (local)
 5. Confirm inventory:   250ms RTT
 Total:                  1,150ms of latency!
 ```
 
-**The Result**: 
+**The Result**:
 - Page load time: 1.8 seconds
 - Cart abandonment: 67% (normal: 20%)
 - Revenue loss: $12M in 6 hours
@@ -199,12 +190,12 @@ def checkout(cart_items):
 def checkout(cart_items):
     # Check local cache (1ms)
     local_inventory = get_regional_cache()
-    
+
     # Optimistic checkout
     if all(local_inventory.probably_available(item) for item in cart_items):
         # Process payment first
         payment = process_payment()
-        
+
         # Async verification with SF (customer doesn't wait)
         verify_async(cart_items, payment)
         return success()
@@ -224,18 +215,18 @@ class LatencyAwareCacheHierarchy:
             ("origin_cache", 100),     # 100ms - Primary DC
             ("database", 200)          # 200ms - Source of truth
         ]
-    
+
     def get(self, key, latency_budget):
         for cache_name, cache_latency in self.caches:
             if cache_latency > latency_budget:
                 break  # Can't afford to check slower caches
-                
+
             value = self.check_cache(cache_name, key)
             if value is not None:
                 # Async populate faster caches
                 self.populate_upstream_caches(key, value, cache_name)
                 return value
-                
+
         # Latency budget exhausted
         return None
 ```
@@ -248,7 +239,7 @@ def optimize_replica_placement(user_distribution, latency_requirements):
     Solve the facility location problem for replica placement
     """
     regions = get_all_regions()
-    
+
     # Build latency matrix
     latency_matrix = {}
     for user_region in user_distribution:
@@ -256,7 +247,7 @@ def optimize_replica_placement(user_distribution, latency_requirements):
             latency_matrix[user_region, dc_region] = measure_latency(
                 user_region, dc_region
             )
-    
+
     # Integer Linear Programming to minimize latency
     selected_dcs = solve_ilp(
         objective="minimize_weighted_latency",
@@ -267,7 +258,7 @@ def optimize_replica_placement(user_distribution, latency_requirements):
         },
         weights=user_distribution
     )
-    
+
     return selected_dcs
 ```
 
@@ -278,30 +269,30 @@ class LatencyBudgetMonitor:
     def __init__(self, total_budget_ms):
         self.budget = total_budget_ms
         self.checkpoints = []
-        
+
     def checkpoint(self, name):
         self.checkpoints.append((name, time.perf_counter()))
-        
+
     def analyze(self):
         if len(self.checkpoints) < 2:
             return
-            
+
         print(f"Latency Budget Analysis (Total: {self.budget}ms)")
         print("=" * 50)
-        
+
         start_time = self.checkpoints[0][1]
         total_time = 0
-        
+
         for i in range(1, len(self.checkpoints)):
             name = self.checkpoints[i][0]
             elapsed = (self.checkpoints[i][1] - self.checkpoints[i-1][1]) * 1000
             total_time += elapsed
-            
+
             percentage = (elapsed / self.budget) * 100
             bar = "█" * int(percentage / 2)
-            
+
             print(f"{name:20} {elapsed:6.1f}ms {percentage:5.1f}% {bar}")
-        
+
         remaining = self.budget - total_time
         status = "✓ OK" if remaining > 0 else "✗ BUDGET EXCEEDED"
         print(f"\nRemaining: {remaining:.1f}ms {status}")
@@ -398,7 +389,7 @@ def bgp_path_selection(routes):
         # 7. Oldest route (stability)
         # 8. Lowest router ID
         pass
-    
+
     # Result: Your packets might take the "scenic route"
 ```
 
@@ -414,12 +405,12 @@ class LatencyPredictor:
     def __init__(self):
         self.historical_data = []
         self.model = self._build_model()
-    
+
     def _build_model(self):
-        # Features: time_of_day, day_of_week, distance, 
+        # Features: time_of_day, day_of_week, distance,
         #          packet_size, network_conditions
         # Target: observed_latency
-        
+
         # Use gradient boosting for non-linear relationships
         from sklearn.ensemble import GradientBoostingRegressor
         return GradientBoostingRegressor(
@@ -427,15 +418,15 @@ class LatencyPredictor:
             learning_rate=0.1,
             max_depth=5
         )
-    
+
     def predict(self, source, destination, time, conditions):
         features = self._extract_features(
             source, destination, time, conditions
         )
-        
+
         base_latency = self._physics_minimum(source, destination)
         predicted_overhead = self.model.predict([features])[0]
-        
+
         return {
             'minimum': base_latency,
             'expected': base_latency + predicted_overhead,
@@ -466,13 +457,13 @@ class ContentAddressableNetwork:
     def get(self, content_hash):
         # Find all replicas
         replicas = self.dht.find_replicas(content_hash)
-        
+
         # Measure latency to each
         latencies = []
         for replica in replicas:
             latency = self.measure_latency(replica)
             latencies.append((latency, replica))
-        
+
         # Fetch from nearest
         latencies.sort()
         return self.fetch_from(latencies[0][1])
@@ -487,22 +478,22 @@ class EdgeComputeOptimizer:
     """
     def execute(self, task, data_location, user_location):
         compute_locations = self.get_available_edge_nodes()
-        
+
         min_latency = float('inf')
         best_location = None
-        
+
         for node in compute_locations:
             # Latency = data fetch + compute + response
             data_latency = self.get_latency(data_location, node)
             compute_time = self.estimate_compute_time(task, node)
             response_latency = self.get_latency(node, user_location)
-            
+
             total = data_latency + compute_time + response_latency
-            
+
             if total < min_latency:
                 min_latency = total
                 best_location = node
-        
+
         return self.dispatch_to(task, best_location)
 ```
 
@@ -526,7 +517,7 @@ import heapq
 class Region:
     name: str
     location: Tuple[float, float]  # (latitude, longitude)
-    
+
 @dataclass
 class Request:
     key: str
@@ -535,23 +526,23 @@ class Request:
     client_region: Region
     timestamp: float
     deadline: float  # SLA deadline
-    
+
 class PhysicsAwareKVStore:
     """
     A globally distributed KV store that optimizes for latency
     """
-    
+
     def __init__(self, regions: List[Region]):
         self.regions = regions
         self.nodes = {region: KVNode(region) for region in regions}
         self.latency_matrix = self._compute_latency_matrix()
-        
+
     def _compute_latency_matrix(self) -> Dict[Tuple[Region, Region], float]:
         """
         Compute minimum latency between all region pairs
         """
         matrix = {}
-        
+
         for r1 in self.regions:
             for r2 in self.regions:
                 if r1 == r2:
@@ -561,102 +552,102 @@ class PhysicsAwareKVStore:
                     distance_km = self._haversine_distance(
                         r1.location, r2.location
                     )
-                    
+
                     # Physics: speed of light in fiber
                     min_latency_ms = distance_km / 200  # 200km/ms
-                    
+
                     # Add realistic overhead (routing, congestion)
                     overhead_factor = 1.5  # Conservative estimate
                     matrix[(r1, r2)] = min_latency_ms * overhead_factor
-                    
+
         return matrix
-    
+
     def _haversine_distance(self, loc1, loc2):
         """Calculate distance between two points on Earth"""
         import math
-        
+
         lat1, lon1 = math.radians(loc1[0]), math.radians(loc1[1])
         lat2, lon2 = math.radians(loc2[0]), math.radians(loc2[1])
-        
+
         dlat = lat2 - lat1
         dlon = lon2 - lon1
-        
-        a = (math.sin(dlat/2)**2 + 
+
+        a = (math.sin(dlat/2)**2 +
              math.cos(lat1) * math.cos(lat2) * math.sin(dlon/2)**2)
         c = 2 * math.asin(math.sqrt(a))
-        
+
         earth_radius_km = 6371
         return earth_radius_km * c
-    
-    async def get(self, key: str, client_region: Region, 
+
+    async def get(self, key: str, client_region: Region,
                   consistency: str = 'eventual',
                   latency_budget_ms: float = 100) -> Optional[str]:
         """
         Get value with latency awareness
         """
         start_time = time.time()
-        
+
         if consistency == 'strong':
             # Must read from primary
             primary = self._get_primary(key)
             latency = self.latency_matrix[(client_region, primary.region)]
-            
+
             if latency > latency_budget_ms:
                 raise LatencyBudgetExceeded(
                     f"Cannot meet {latency_budget_ms}ms budget. "
                     f"Minimum latency: {latency}ms"
                 )
-                
+
             return await self._read_with_latency(primary, key, latency)
-            
+
         elif consistency == 'eventual':
             # Read from nearest replica
             replicas = self._get_replicas(key)
-            
+
             # Sort by latency from client
             replicas_by_latency = [
                 (self.latency_matrix[(client_region, node.region)], node)
                 for node in replicas
             ]
             replicas_by_latency.sort()
-            
+
             # Try replicas in order of increasing latency
             for latency, replica in replicas_by_latency:
                 if latency > latency_budget_ms:
                     break  # No point trying farther replicas
-                    
+
                 try:
                     return await self._read_with_latency(
                         replica, key, latency
                     )
                 except Exception:
                     continue  # Try next replica
-                    
+
             raise NoReplicaAvailable(f"No replica within {latency_budget_ms}ms")
-            
+
         elif consistency == 'bounded_staleness':
             # Read from any replica with staleness < threshold
             max_staleness_ms = 5000  # 5 seconds
-            
+
             valid_replicas = []
             for replica in self._get_replicas(key):
                 staleness = await self._get_staleness(replica, key)
                 if staleness < max_staleness_ms:
                     latency = self.latency_matrix[(client_region, replica.region)]
                     valid_replicas.append((latency, replica))
-            
+
             if not valid_replicas:
                 # Fall back to primary
                 return await self.get(key, client_region, 'strong', latency_budget_ms)
-            
+
             valid_replicas.sort()
             latency, replica = valid_replicas[0]
-            
+
             if latency > latency_budget_ms:
                 raise LatencyBudgetExceeded()
-                
+
             return await self._read_with_latency(replica, key, latency)
-    
+
     async def put(self, key: str, value: str, client_region: Region,
                   durability: str = 'async',
                   latency_budget_ms: float = 200) -> bool:
@@ -667,31 +658,31 @@ class PhysicsAwareKVStore:
             # Synchronous replication to W replicas
             W = 3  # Write quorum
             replicas = self._get_replicas(key)[:W]
-            
+
             # Calculate total latency for parallel writes
             max_latency = max(
                 self.latency_matrix[(client_region, replica.region)]
                 for replica in replicas
             )
-            
+
             if max_latency * 2 > latency_budget_ms:  # RTT
                 # Cannot meet budget with sync replication
                 raise LatencyBudgetExceeded(
                     f"Sync write requires {max_latency * 2}ms, "
                     f"budget is {latency_budget_ms}ms"
                 )
-            
+
             # Parallel writes
             tasks = [
                 self._write_with_latency(replica, key, value, max_latency)
                 for replica in replicas
             ]
-            
+
             results = await asyncio.gather(*tasks, return_exceptions=True)
             success_count = sum(1 for r in results if r is True)
-            
+
             return success_count >= (W // 2 + 1)  # Majority
-            
+
         elif durability == 'async':
             # Write to nearest replica, async propagation
             replicas = self._get_replicas(key)
@@ -699,83 +690,83 @@ class PhysicsAwareKVStore:
                 replicas,
                 key=lambda r: self.latency_matrix[(client_region, r.region)]
             )
-            
+
             latency = self.latency_matrix[(client_region, nearest.region)]
-            
+
             if latency * 2 > latency_budget_ms:
                 raise LatencyBudgetExceeded()
-            
+
             # Write to nearest
             success = await self._write_with_latency(
                 nearest, key, value, latency
             )
-            
+
             if success:
                 # Async replication to others
                 asyncio.create_task(
                     self._async_replicate(key, value, nearest, replicas)
                 )
-            
+
             return success
-    
-    async def _read_with_latency(self, node, key: str, 
+
+    async def _read_with_latency(self, node, key: str,
                                  latency_ms: float) -> Optional[str]:
         """Simulate network latency for reads"""
         # Simulate one-way latency
         await asyncio.sleep(latency_ms / 1000)
-        
+
         value = node.get_local(key)
-        
+
         # Simulate return latency
         await asyncio.sleep(latency_ms / 1000)
-        
+
         return value
-    
-    async def _write_with_latency(self, node, key: str, 
+
+    async def _write_with_latency(self, node, key: str,
                                   value: str, latency_ms: float) -> bool:
         """Simulate network latency for writes"""
         await asyncio.sleep(latency_ms / 1000)
         success = node.put_local(key, value)
         await asyncio.sleep(latency_ms / 1000)
         return success
-    
+
     def _get_primary(self, key: str) -> 'KVNode':
         """Determine primary node for key using consistent hashing"""
         key_hash = int(hashlib.md5(key.encode()).hexdigest(), 16)
         nodes = list(self.nodes.values())
         return nodes[key_hash % len(nodes)]
-    
+
     def _get_replicas(self, key: str, count: int = 3) -> List['KVNode']:
         """Get replica nodes for key"""
         primary = self._get_primary(key)
         all_nodes = list(self.nodes.values())
-        
+
         # Sort by distance from primary
         nodes_by_distance = [
             (self.latency_matrix[(primary.region, node.region)], node)
             for node in all_nodes if node != primary
         ]
         nodes_by_distance.sort()
-        
+
         # Return primary + closest replicas
         return [primary] + [node for _, node in nodes_by_distance[:count-1]]
-    
+
 
 class KVNode:
     """Individual KV store node"""
     def __init__(self, region: Region):
         self.region = region
         self.data: Dict[str, Tuple[str, float]] = {}  # key -> (value, timestamp)
-        
+
     def get_local(self, key: str) -> Optional[str]:
         if key in self.data:
             return self.data[key][0]
         return None
-    
+
     def put_local(self, key: str, value: str) -> bool:
         self.data[key] = (value, time.time())
         return True
-    
+
     def get_timestamp(self, key: str) -> Optional[float]:
         if key in self.data:
             return self.data[key][1]
@@ -786,51 +777,51 @@ async def demo_physics_aware_kv():
     # Define regions (major AWS regions)
     regions = [
         Region("us-east-1", (38.7489, -77.0470)),      # N. Virginia
-        Region("us-west-2", (45.5234, -122.6762)),     # Oregon  
+        Region("us-west-2", (45.5234, -122.6762)),     # Oregon
         Region("eu-west-1", (53.3498, -6.2603)),       # Ireland
         Region("ap-southeast-1", (1.3521, 103.8198)),  # Singapore
         Region("ap-northeast-1", (35.6762, 139.6503)), # Tokyo
         Region("sa-east-1", (-23.5505, -46.6333)),    # São Paulo
     ]
-    
+
     store = PhysicsAwareKVStore(regions)
-    
+
     # Client in Tokyo
     client_region = regions[4]  # Tokyo
-    
+
     # Test different consistency levels
     print("=== Physics-Aware KV Store Demo ===\n")
-    
+
     # 1. Eventual consistency read (fast)
     print("1. Eventual consistency read from Tokyo:")
     try:
         value = await store.get(
-            "user:123", 
-            client_region, 
+            "user:123",
+            client_region,
             consistency='eventual',
             latency_budget_ms=50
         )
         print(f"   ✓ Success (read from local replica)")
     except LatencyBudgetExceeded as e:
         print(f"   ✗ Failed: {e}")
-    
+
     # 2. Strong consistency read (slow)
     print("\n2. Strong consistency read from Tokyo (primary in US):")
     try:
         value = await store.get(
             "bank:balance:456",
             client_region,
-            consistency='strong', 
+            consistency='strong',
             latency_budget_ms=50
         )
         print(f"   ✓ Success")
     except LatencyBudgetExceeded as e:
         print(f"   ✗ Failed: {e}")
         print(f"   → Suggestion: Increase budget or use eventual consistency")
-    
+
     # 3. Adaptive consistency based on budget
     print("\n3. Adaptive consistency based on budget:")
-    
+
     async def smart_get(key, budget_ms):
         # Try strong consistency first
         try:
@@ -848,7 +839,7 @@ async def demo_physics_aware_kv():
                 return await store.get(
                     key, client_region, 'eventual', budget_ms
                 )
-    
+
     value = await smart_get("product:789", 100)
     print(f"   ✓ Adapted to meet 100ms budget")
 
@@ -861,17 +852,17 @@ if __name__ == "__main__":
 
 !!! quote "Jeff Dean, Google Senior Fellow"
     "The difference between theory and practice is larger in practice than in theory."
-    
+
     This is especially true for latency - theoretical minimums rarely match reality.
 
 #### Story 1: The Millisecond That Cost $1M
 
-**Company**: High-Frequency Trading Firm  
+**Company**: High-Frequency Trading Firm
 **Challenge**: Every millisecond of latency = $1M/year in lost trades
 
 **Solution**: Custom network path through Arctic Ocean
 - Standard path: London → New York via Atlantic cables (65ms)
-- Arctic path: London → Arctic → New York (58ms)  
+- Arctic path: London → Arctic → New York (58ms)
 - Savings: 7ms = $7M/year
 - Cost: $300M to lay cable
 - ROI: 43 months
@@ -883,7 +874,7 @@ if __name__ == "__main__":
 
 #### Story 2: The CDN That Made Things Slower
 
-**Company**: Video Streaming Service  
+**Company**: Video Streaming Service
 **Problem**: Added CDN, latency increased
 
 **Investigation**:
@@ -900,7 +891,7 @@ Cache hit rate: 70%
 Average latency: 0.7 * 20ms + 0.3 * 140ms = 56ms (SLOWER!)
 ```
 
-**Root Cause**: 
+**Root Cause**:
 - CDN edge was poorly connected to origin
 - Cache hit rate too low for video content
 - TCP connection setup overhead
@@ -922,16 +913,16 @@ class RequestCollapser:
     """
     def __init__(self):
         self.in_flight = {}  # key -> Future
-        
+
     async def get(self, key, fetch_func):
         if key in self.in_flight:
             # Request already in flight, wait for it
             return await self.in_flight[key]
-        
+
         # Create new request
         future = asyncio.create_task(fetch_func(key))
         self.in_flight[key] = future
-        
+
         try:
             result = await future
             return result
@@ -958,37 +949,37 @@ class LatencyCircuitBreaker:
         self.latencies = deque(maxlen=window_size)
         self.state = 'closed'  # closed, open, half_open
         self.opened_at = None
-        
+
     async def call(self, func, *args, **kwargs):
         if self.state == 'open':
             if time.time() - self.opened_at > 30:  # 30s cool-down
                 self.state = 'half_open'
             else:
                 raise CircuitOpenError("Circuit breaker is open")
-        
+
         start = time.time()
         try:
             result = await func(*args, **kwargs)
             latency_ms = (time.time() - start) * 1000
-            
+
             self.latencies.append(latency_ms)
-            
+
             # Check if we should open circuit
             if len(self.latencies) >= 10:
                 p95_latency = sorted(self.latencies)[int(len(self.latencies) * 0.95)]
-                
+
                 if p95_latency > self.threshold:
                     self.state = 'open'
                     self.opened_at = time.time()
                     raise LatencyThresholdExceeded(
                         f"P95 latency {p95_latency}ms exceeds {self.threshold}ms"
                     )
-            
+
             if self.state == 'half_open':
                 self.state = 'closed'  # Success, close circuit
-                
+
             return result
-            
+
         except Exception as e:
             if self.state == 'half_open':
                 self.state = 'open'  # Failure, reopen
@@ -1006,34 +997,34 @@ class GeographicLoadBalancer:
     def __init__(self, endpoints):
         self.endpoints = endpoints  # List of (region, capacity, current_load)
         self.client_locations = {}  # IP -> lat/lon cache
-        
+
     def route(self, client_ip, request_size=1):
         client_location = self._get_client_location(client_ip)
-        
+
         # Calculate effective latency to each endpoint
         candidates = []
-        
+
         for endpoint in self.endpoints:
             # Skip if at capacity
             if endpoint.current_load + request_size > endpoint.capacity:
                 continue
-                
+
             # Physics latency
             base_latency = self._calculate_latency(
-                client_location, 
+                client_location,
                 endpoint.location
             )
-            
+
             # Queueing delay (M/M/1 queue)
             utilization = endpoint.current_load / endpoint.capacity
             queue_delay = (utilization / (1 - utilization)) * endpoint.service_time
-            
+
             total_latency = base_latency + queue_delay
             candidates.append((total_latency, endpoint))
-        
+
         if not candidates:
             raise NoCapacityError("All endpoints at capacity")
-        
+
         # Route to lowest latency endpoint
         candidates.sort()
         return candidates[0][1]
@@ -1067,84 +1058,6 @@ class GeographicLoadBalancer:
 
 ## Common Anti-Patterns to Avoid
 
-<div class="antipatterns">
-<h3>⚠️ Latency Violations to Avoid</h3>
-
-1. **Death by Thousand Cuts**: Each service "only" adds 5ms
-   ```python
-   # Bad: Serial calls
-   user = get_user()          # 5ms
-   prefs = get_preferences()  # 5ms  
-   history = get_history()    # 5ms
-   recommend = get_recs()     # 5ms
-   # Total: 20ms (could be 5ms with parallel calls)
-   ```
-
-2. **Retry Multiplication**: 3 retries × 100ms = 300ms gone
-   ```python
-   # Bad: Fixed timeout retries
-   for i in range(3):
-       try:
-           return make_request(timeout=100)
-       except TimeoutError:
-           continue  # Total: 300ms wasted
-   
-   # Good: Exponential backoff with total budget
-   budget = 150
-   for i in range(3):
-       timeout = min(50 * (2**i), budget)
-       budget -= timeout
-       if budget <= 0:
-           break
-   ```
-
-3. **Ignoring Geography in Architecture**
-   ```python
-   # Bad: Every request crosses oceans
-   class GlobalSingleton:
-       def __init__(self):
-           self.master = "us-east-1"  # Everything goes here
-   
-   # Good: Regional instances with eventual consistency
-   class RegionalService:
-       def __init__(self):
-           self.regions = deploy_to_all_regions()
-           self.sync = EventualConsistency()
-   ```
-
-4. **Synchronous When Async Would Do**
-   ```python
-   # Bad: Wait for analytics
-   def handle_request():
-       response = process()
-       log_analytics(response)  # 50ms to analytics service
-       return response
-   
-   # Good: Fire and forget
-   def handle_request():
-       response = process()
-       asyncio.create_task(log_analytics(response))
-       return response
-   ```
-
-5. **Cache Misses in Critical Path**
-   ```python
-   # Bad: Cache miss = SLA miss
-   def get_critical_data(key):
-       return cache.get(key) or fetch_from_database(key)  # 100ms on miss
-   
-   # Good: Proactive cache warming
-   def get_critical_data(key):
-       # Always serve from cache
-       value = cache.get(key)
-       if not value:
-           # Serve stale data while refreshing
-           value = cache.get(f"{key}:stale")
-           asyncio.create_task(warm_cache(key))
-       return value
-   ```
-</div>
-
 ---
 
 ## Summary: Key Takeaways
@@ -1164,33 +1077,6 @@ class GeographicLoadBalancer:
 5. **Thou shalt design for geography** - Distance always matters
 
 ### Quick Reference Card
-
-<div class="reference-card">
-<h3>📋 Latency Quick Reference</h3>
-
-**Typical Operations**:
-- L1 cache: 0.5 ns
-- L2 cache: 7 ns
-- RAM: 100 ns
-- SSD: 150 μs
-- HDD: 10 ms
-- Network same DC: 0.5 ms
-- Network cross-region: 50 ms
-
-**Rules of Thumb**: 
-- If `distance > 1000 km`, latency dominates design
-- If `operation_count > 10`, parallelize or batch
-- If `budget < 100ms`, avoid cross-region calls
-- Cache hit rate must be > 90% to reduce average latency
-- Every network hop adds 0.5-5ms
-
-**Speed of Light Limits**:
-- NYC ↔ London: 28ms minimum
-- NYC ↔ SF: 21ms minimum  
-- NYC ↔ Sydney: 80ms minimum
-- Earth ↔ Moon: 1.3s minimum
-- Earth ↔ Mars: 4-24min minimum
-</div>
 
 ---
 

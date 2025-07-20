@@ -17,7 +17,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Capacity Planning Worksheet**
 
-
 # Capacity Planning Worksheet
 
 **Right-sizing for the future**
@@ -28,7 +27,7 @@ last_updated: 2025-07-20
 ```python
 Current State:
 - Peak traffic: _______ requests/second
-- Average traffic: _______ requests/second  
+- Average traffic: _______ requests/second
 - Storage used: _______ GB
 - Growth rate: _______% monthly
 
@@ -133,7 +132,7 @@ Memory needed = Objects/sec × Object lifetime × Size
 If utilization > 70%:
   Response time increases exponentially
   Plan for maximum 70% steady state
-  
+
 Servers needed = Load / (Capacity × 0.7)
 ```
 
@@ -175,16 +174,16 @@ Required Infrastructure:
 ```python
 def calculate_cpu_needs(current_load, growth_rate, months):
     future_load = current_load * ((1 + growth_rate) ** months)
-    
+
     # Account for:
     # - Base OS overhead: 10%
     # - Safety margin: 40%
     # - Peak factor: 3x
-    
+
     average_cpu = future_load * cpu_per_request
     peak_cpu = average_cpu * 3
     total_cpu = peak_cpu / 0.5  # 50% target utilization
-    
+
     return total_cpu
 ```
 
@@ -194,16 +193,16 @@ def calculate_memory_needs():
     # Static components
     os_memory = 2  # GB
     app_runtime = 4  # GB
-    
+
     # Dynamic components
     connection_pool = connections * 10  # MB per connection
     cache_size = hot_data_size * 1.2  # 20% overhead
     session_storage = concurrent_users * session_size
-    
+
     # Safety margins
     gc_headroom = total * 0.3
-    
-    return sum([os_memory, app_runtime, connection_pool, 
+
+    return sum([os_memory, app_runtime, connection_pool,
                 cache_size, session_storage, gc_headroom])
 ```
 
@@ -212,20 +211,20 @@ def calculate_memory_needs():
 def calculate_storage_needs():
     # Data growth projection
     data_growth = compound_growth(current_data, rate, time)
-    
+
     # Log storage (often overlooked)
     log_size = requests_per_day * log_entry_size * retention_days
-    
+
     # Backup storage
     backup_size = data_size * backup_generations
-    
+
     # Indexes and overhead
     index_size = data_size * 0.3  # 30% typical
-    
+
     # Future margin
     margin = total * 0.5  # 50% headroom
-    
-    return sum([data_growth, log_size, backup_size, 
+
+    return sum([data_growth, log_size, backup_size,
                 index_size, margin])
 ```
 

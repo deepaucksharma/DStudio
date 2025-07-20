@@ -15,7 +15,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Retry & Backoff Strategies**
 
-
 # Retry & Backoff Strategies
 
 **If at first you don't succeed, wait intelligently and try again - The art of handling transient failures**
@@ -75,14 +74,14 @@ graph LR
         C -->|No| A
         C -->|Yes| F
     end
-    
+
     subgraph "Backoff Strategies"
         B1[Fixed: 1s, 1s, 1s]
         B2[Linear: 1s, 2s, 3s]
         B3[Exponential: 1s, 2s, 4s, 8s]
         B4[Decorrelated: Variable]
     end
-    
+
     style A fill:#f9f,stroke:#333,stroke-width:2px
     style W fill:#bbf,stroke:#333,stroke-width:2px
     style J fill:#bfb,stroke:#333,stroke-width:2px
@@ -134,40 +133,40 @@ class RetryConfig:
     jitter_range: float = 0.1   # ±10%
     retryable_exceptions: List[type] = None
     timeout: Optional[float] = None
-    
+
     def __post_init__(self):
         if self.retryable_exceptions is None:
             self.retryable_exceptions = [RetryableError, ConnectionError, TimeoutError]
 
 class RetryStatistics:
     """Track retry behavior for monitoring"""
-    
+
     def __init__(self):
         self.total_calls = 0
         self.successful_calls = 0
         self.failed_calls = 0
         self.retry_counts = []
         self.total_retry_time = 0.0
-        
+
     def record_attempt(self, attempt_number: int, success: bool, duration: float):
         """Record outcome of an attempt"""
         self.total_calls += 1
-        
+
         if success:
             self.successful_calls += 1
             if attempt_number > 1:
                 self.retry_counts.append(attempt_number - 1)
         else:
             self.failed_calls += 1
-            
+
         if attempt_number > 1:
             self.total_retry_time += duration
-            
+
     def get_metrics(self) -> dict:
         """Get retry metrics"""
         retry_rate = len(self.retry_counts) / max(self.total_calls, 1)
         avg_retries = sum(self.retry_counts) / max(len(self.retry_counts), 1)
-        
+
         return {
             'total_calls': self.total_calls,
             'success_rate': self.successful_calls / max(self.total_calls, 1),
@@ -178,7 +177,7 @@ class RetryStatistics:
 
 class BackoffCalculator:
     """Calculate backoff delays based on strategy"""
-    
+
     @staticmethod
     def calculate_delay(
         attempt: int,
@@ -187,39 +186,39 @@ class BackoffCalculator:
         previous_delay: float = 0
     ) -> float:
         """Calculate next delay based on strategy"""
-        
+
         if strategy == BackoffStrategy.FIXED:
             base_delay = config.initial_delay
-            
+
         elif strategy == BackoffStrategy.LINEAR:
             base_delay = config.initial_delay * attempt
-            
+
         elif strategy == BackoffStrategy.EXPONENTIAL:
             base_delay = config.initial_delay * (config.exponential_base ** (attempt - 1))
-            
+
         elif strategy == BackoffStrategy.DECORRELATED:
             # Decorrelated jitter - better than full jitter for avoiding clusters
             if previous_delay == 0:
                 base_delay = config.initial_delay
             else:
                 base_delay = random.uniform(config.initial_delay, previous_delay * 3)
-        
+
         else:
             raise ValueError(f"Unknown backoff strategy: {strategy}")
-            
+
         # Apply maximum delay cap
         base_delay = min(base_delay, config.max_delay)
-        
+
         # Apply jitter if configured
         if config.jitter and strategy != BackoffStrategy.DECORRELATED:
             jitter_amount = base_delay * config.jitter_range
             base_delay += random.uniform(-jitter_amount, jitter_amount)
-            
+
         return max(0, base_delay)  # Ensure non-negative
 
 class RetryContext:
     """Context for retry operations"""
-    
+
     def __init__(self, config: RetryConfig, stats: RetryStatistics):
         self.config = config
         self.stats = stats
@@ -227,74 +226,74 @@ class RetryContext:
         self.last_delay = 0
         self.total_elapsed = 0
         self.errors = []
-        
+
     def should_retry(self, error: Exception) -> bool:
         """Determine if error is retryable"""
         return any(isinstance(error, exc_type) for exc_type in self.config.retryable_exceptions)
-        
+
     def has_budget(self) -> bool:
         """Check if we have retry budget remaining"""
         if self.attempt >= self.config.max_attempts:
             return False
-            
+
         if self.config.timeout and self.total_elapsed >= self.config.timeout:
             return False
-            
+
         return True
 
 class Retrier:
     """Main retry implementation with various strategies"""
-    
-    def __init__(self, 
+
+    def __init__(self,
                  strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
                  config: Optional[RetryConfig] = None):
         self.strategy = strategy
         self.config = config or RetryConfig()
         self.stats = RetryStatistics()
         self.logger = logging.getLogger(__name__)
-        
-    async def execute_async(self, 
-                           func: Callable[..., T], 
-                           *args, 
+
+    async def execute_async(self,
+                           func: Callable[..., T],
+                           *args,
                            **kwargs) -> T:
         """Execute async function with retry logic"""
         context = RetryContext(self.config, self.stats)
         start_time = time.time()
-        
+
         while True:
             context.attempt += 1
             attempt_start = time.time()
-            
+
             try:
                 # Execute the function
                 result = await func(*args, **kwargs)
-                
+
                 # Record success
                 duration = time.time() - attempt_start
                 context.stats.record_attempt(context.attempt, True, duration)
-                
+
                 if context.attempt > 1:
                     self.logger.info(
                         f"Retry succeeded after {context.attempt} attempts"
                     )
-                    
+
                 return result
-                
+
             except Exception as e:
                 duration = time.time() - attempt_start
                 context.errors.append(e)
-                
+
                 # Check if we should retry
                 if not context.should_retry(e) or not context.has_budget():
                     context.stats.record_attempt(context.attempt, False, duration)
-                    
+
                     self.logger.error(
                         f"Retry failed after {context.attempt} attempts: {e}"
                     )
-                    
+
                     # Raise the last error
                     raise
-                    
+
                 # Calculate backoff delay
                 delay = BackoffCalculator.calculate_delay(
                     context.attempt,
@@ -302,60 +301,60 @@ class Retrier:
                     self.config,
                     context.last_delay
                 )
-                
+
                 context.last_delay = delay
                 context.total_elapsed = time.time() - start_time
-                
+
                 self.logger.warning(
                     f"Attempt {context.attempt} failed: {e}. "
                     f"Retrying in {delay:.2f}s..."
                 )
-                
+
                 # Wait before retry
                 await asyncio.sleep(delay)
-                
-    def execute_sync(self, 
-                    func: Callable[..., T], 
-                    *args, 
+
+    def execute_sync(self,
+                    func: Callable[..., T],
+                    *args,
                     **kwargs) -> T:
         """Execute sync function with retry logic"""
         context = RetryContext(self.config, self.stats)
         start_time = time.time()
-        
+
         while True:
             context.attempt += 1
             attempt_start = time.time()
-            
+
             try:
                 # Execute the function
                 result = func(*args, **kwargs)
-                
+
                 # Record success
                 duration = time.time() - attempt_start
                 context.stats.record_attempt(context.attempt, True, duration)
-                
+
                 if context.attempt > 1:
                     self.logger.info(
                         f"Retry succeeded after {context.attempt} attempts"
                     )
-                    
+
                 return result
-                
+
             except Exception as e:
                 duration = time.time() - attempt_start
                 context.errors.append(e)
-                
+
                 # Check if we should retry
                 if not context.should_retry(e) or not context.has_budget():
                     context.stats.record_attempt(context.attempt, False, duration)
-                    
+
                     self.logger.error(
                         f"Retry failed after {context.attempt} attempts: {e}"
                     )
-                    
+
                     # Raise the last error
                     raise
-                    
+
                 # Calculate backoff delay
                 delay = BackoffCalculator.calculate_delay(
                     context.attempt,
@@ -363,15 +362,15 @@ class Retrier:
                     self.config,
                     context.last_delay
                 )
-                
+
                 context.last_delay = delay
                 context.total_elapsed = time.time() - start_time
-                
+
                 self.logger.warning(
                     f"Attempt {context.attempt} failed: {e}. "
                     f"Retrying in {delay:.2f}s..."
                 )
-                
+
                 # Wait before retry
                 time.sleep(delay)
 
@@ -382,7 +381,7 @@ def retry(strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
           jitter: bool = True,
           retryable_exceptions: List[type] = None):
     """Decorator for adding retry logic to functions"""
-    
+
     def decorator(func):
         config = RetryConfig(
             max_attempts=max_attempts,
@@ -391,9 +390,9 @@ def retry(strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
             jitter=jitter,
             retryable_exceptions=retryable_exceptions
         )
-        
+
         retrier = Retrier(strategy=strategy, config=config)
-        
+
         if asyncio.iscoroutinefunction(func):
             @wraps(func)
             async def async_wrapper(*args, **kwargs):
@@ -404,17 +403,17 @@ def retry(strategy: BackoffStrategy = BackoffStrategy.EXPONENTIAL,
             def sync_wrapper(*args, **kwargs):
                 return retrier.execute_sync(func, *args, **kwargs)
             return sync_wrapper
-            
+
     return decorator
 
 # Example usage
 class APIClient:
     """Example API client with retry logic"""
-    
+
     def __init__(self, base_url: str):
         self.base_url = base_url
         self.session = None
-        
+
     @retry(
         strategy=BackoffStrategy.EXPONENTIAL,
         max_attempts=5,
@@ -427,9 +426,9 @@ class APIClient:
         # Simulate API call
         if random.random() < 0.3:  # 30% failure rate
             raise ConnectionError("Network error")
-            
+
         return {"data": f"Response from {endpoint}"}
-        
+
     @retry(
         strategy=BackoffStrategy.DECORRELATED,
         max_attempts=3,
@@ -440,46 +439,46 @@ class APIClient:
         # Simulate API call
         if random.random() < 0.2:  # 20% failure rate
             raise TimeoutError("Request timeout")
-            
+
         return {"status": "success", "id": random.randint(1000, 9999)}
 
 # Advanced retry patterns
 class CircuitBreakerRetrier(Retrier):
     """Retrier with circuit breaker integration"""
-    
+
     def __init__(self, *args, failure_threshold: int = 5, recovery_timeout: float = 60.0, **kwargs):
         super().__init__(*args, **kwargs)
         self.failure_threshold = failure_threshold
         self.recovery_timeout = recovery_timeout
         self.consecutive_failures = 0
         self.circuit_open_until = 0
-        
+
     async def execute_async(self, func: Callable[..., T], *args, **kwargs) -> T:
         """Execute with circuit breaker check"""
         # Check if circuit is open
         if time.time() < self.circuit_open_until:
             raise RuntimeError("Circuit breaker is open")
-            
+
         try:
             result = await super().execute_async(func, *args, **kwargs)
             self.consecutive_failures = 0  # Reset on success
             return result
-            
+
         except Exception as e:
             self.consecutive_failures += 1
-            
+
             if self.consecutive_failures >= self.failure_threshold:
                 self.circuit_open_until = time.time() + self.recovery_timeout
                 self.logger.error(
                     f"Circuit breaker opened after {self.consecutive_failures} failures"
                 )
-                
+
             raise
 
 # Example of advanced usage
 async def example_advanced_usage():
     """Demonstrate advanced retry patterns"""
-    
+
     # Create client with circuit breaker
     retrier = CircuitBreakerRetrier(
         strategy=BackoffStrategy.EXPONENTIAL,
@@ -487,20 +486,20 @@ async def example_advanced_usage():
         failure_threshold=3,
         recovery_timeout=30.0
     )
-    
+
     async def flaky_operation():
         """Simulated flaky operation"""
         if random.random() < 0.7:  # 70% failure rate
             raise ConnectionError("Service unavailable")
         return "Success!"
-        
+
     # Try operation with circuit breaker
     try:
         result = await retrier.execute_async(flaky_operation)
         print(f"Operation succeeded: {result}")
     except Exception as e:
         print(f"Operation failed: {e}")
-        
+
     # Get retry statistics
     metrics = retrier.stats.get_metrics()
     print(f"Retry metrics: {metrics}")
@@ -591,11 +590,11 @@ How retry & backoff works with other patterns:
 
 ### Example 1: Stripe Payment Processing
 - **Challenge**: Network failures during payment processing
-- **Implementation**: 
+- **Implementation**:
   - Exponential backoff with jitter
   - Idempotency keys for safe retries
   - Maximum 3 attempts over 32 seconds
-- **Results**: 
+- **Results**:
   - Success rate: 94% → 99.7%
   - Failed payments: 60k/day → 3k/day
   - Customer complaints: 80% reduction
@@ -651,8 +650,6 @@ How retry & backoff works with other patterns:
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
 
-
-
 ## 🌟 Real Examples
 
 ### Production Implementations
@@ -671,7 +668,7 @@ A major e-commerce platform implemented Retry & Backoff Strategies to handle pay
 
 **Challenge**: Payment service failures caused entire checkout to fail
 
-**Implementation**: 
+**Implementation**:
 - Applied Retry & Backoff Strategies pattern to payment service calls
 - Added fallback to queue orders for later processing
 - Monitored payment service health continuously
@@ -686,8 +683,6 @@ A major e-commerce platform implemented Retry & Backoff Strategies to handle pay
 - Monitor the pattern itself, not just the protected service
 - Have clear runbooks for when the pattern activates
 - Test failure scenarios regularly in production
-
-
 
 ## 💻 Code Sample
 
@@ -708,14 +703,14 @@ def retry_with_backoff(max_retries=3, base_delay=1, max_delay=60):
                 except (ConnectionError, TimeoutError) as e:
                     if attempt == max_retries:
                         raise
-                    
+
                     # Exponential backoff with jitter
                     delay = min(base_delay * (2 ** attempt), max_delay)
                     jitter = random.uniform(0, delay * 0.1)
                     time.sleep(delay + jitter)
-                    
+
                     print(f"Retry {attempt + 1}/{max_retries} after {delay:.2f}s")
-            
+
         return wrapper
     return decorator
 
@@ -780,20 +775,17 @@ app.use('/retrybackoff', retrybackoff({
 ```python
 def test_retry_backoff_behavior():
     pattern = Retry&BackoffStrategies(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

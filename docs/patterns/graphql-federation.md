@@ -15,7 +15,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **GraphQL Federation**
 
-
 # GraphQL Federation
 
 **One graph to rule them all**
@@ -82,7 +81,7 @@ class User:
     name: str
     email: str
 
-@dataclass  
+@dataclass
 class Order:
     id: str
     user_id: str
@@ -100,7 +99,7 @@ class UserService:
     async def get_user(self, user_id: str) -> User:
         # Simulate DB call
         return User(id=user_id, name="John Doe", email="john@example.com")
-    
+
     async def get_users_batch(self, user_ids: list) -> dict:
         # Batch loading for efficiency
         users = await asyncio.gather(*[
@@ -114,7 +113,7 @@ class OrderService:
             Order(id="ord1", user_id=user_id, total=99.99, items=["item1"]),
             Order(id="ord2", user_id=user_id, total=149.99, items=["item2"])
         ]
-    
+
     async def get_order(self, order_id: str) -> Order:
         return Order(id=order_id, user_id="123", total=99.99, items=[])
 
@@ -127,7 +126,7 @@ class GraphQLFederation:
             'product': ProductService()
         }
         self.schema = self.build_schema()
-        
+
     def build_schema(self):
         # User type with federation directive
         user_type = GraphQLObjectType(
@@ -142,7 +141,7 @@ class GraphQLFederation:
                 )
             }
         )
-        
+
         # Order type extending User
         order_type = GraphQLObjectType(
             'Order',
@@ -159,7 +158,7 @@ class GraphQLFederation:
                 )
             }
         )
-        
+
         # Query root
         query_type = GraphQLObjectType(
             'Query',
@@ -176,16 +175,16 @@ class GraphQLFederation:
                 )
             }
         )
-        
+
         return GraphQLSchema(query=query_type)
-    
+
     # Resolvers with DataLoader pattern
     async def resolve_user(self, root, info, id):
         return await self.services['user'].get_user(id)
-    
+
     async def resolve_user_orders(self, user, info):
         return await self.services['order'].get_user_orders(user.id)
-    
+
     async def resolve_order_user(self, order, info):
         # Use DataLoader to batch user lookups
         return await info.context.user_loader.load(order.user_id)
@@ -197,38 +196,38 @@ class DataLoader:
         self.max_batch_size = max_batch_size
         self.queue = []
         self.cache = {}
-        
+
     async def load(self, key):
         if key in self.cache:
             return self.cache[key]
-            
+
         # Add to batch queue
         future = asyncio.Future()
         self.queue.append((key, future))
-        
+
         # Dispatch batch if full or after delay
         if len(self.queue) >= self.max_batch_size:
             await self.dispatch()
         else:
             asyncio.create_task(self.dispatch_after_delay())
-            
+
         return await future
-    
+
     async def dispatch(self):
         if not self.queue:
             return
-            
+
         # Extract keys and futures
         batch = self.queue[:self.max_batch_size]
         self.queue = self.queue[self.max_batch_size:]
-        
+
         keys = [item[0] for item in batch]
         futures = {item[0]: item[1] for item in batch}
-        
+
         # Call batch function
         try:
             results = await self.batch_fn(keys)
-            
+
             # Resolve futures
             for key, future in futures.items():
                 if key in results:
@@ -236,11 +235,11 @@ class DataLoader:
                     future.set_result(results[key])
                 else:
                     future.set_exception(KeyError(f"Key {key} not found"))
-                    
+
         except Exception as e:
             for future in futures.values():
                 future.set_exception(e)
-    
+
     async def dispatch_after_delay(self):
         await asyncio.sleep(0.001)  # 1ms delay
         await self.dispatch()
@@ -250,18 +249,18 @@ class FederationGateway:
     def __init__(self, service_schemas):
         self.service_schemas = service_schemas
         self.composed_schema = self.compose_schemas()
-        
+
     def compose_schemas(self):
         """Stitch together multiple schemas"""
         types = {}
         queries = {}
-        
+
         for service_name, schema in self.service_schemas.items():
             # Merge types
             for type_name, type_def in schema.type_map.items():
                 if type_name.startswith('__'):  # Skip introspection
                     continue
-                    
+
                 if type_name in types:
                     # Extend existing type
                     types[type_name] = self.merge_types(
@@ -269,17 +268,17 @@ class FederationGateway:
                     )
                 else:
                     types[type_name] = type_def
-            
+
             # Merge queries
             query_type = schema.query_type
             if query_type:
                 for field_name, field in query_type.fields.items():
                     queries[f"{service_name}_{field_name}"] = field
-        
+
         # Build unified schema
         unified_query = GraphQLObjectType('Query', queries)
         return GraphQLSchema(query=unified_query, types=list(types.values()))
-    
+
     def merge_types(self, type1, type2):
         """Merge two GraphQL types"""
         merged_fields = {**type1.fields, **type2.fields}
@@ -290,35 +289,35 @@ class QueryPlanner:
     def __init__(self, schema, services):
         self.schema = schema
         self.services = services
-        
+
     def plan_query(self, query):
         """Create execution plan for query"""
         plan = QueryPlan()
-        
+
         # Parse query and identify required services
         selections = self.parse_selections(query)
-        
+
         for selection in selections:
             service = self.identify_service(selection)
             plan.add_step(service, selection)
-            
+
         # Optimize plan (merge calls to same service)
         return plan.optimize()
-    
+
     async def execute_plan(self, plan, context):
         """Execute query plan with optimal batching"""
         results = {}
-        
+
         # Execute in parallel where possible
         for parallel_group in plan.parallel_groups:
             group_results = await asyncio.gather(*[
                 self.execute_step(step, context)
                 for step in parallel_group
             ])
-            
+
             for step, result in zip(parallel_group, group_results):
                 results[step.key] = result
-                
+
         return self.merge_results(results)
 ```bash
 ## Advanced Features
@@ -330,17 +329,17 @@ class FederationDirectives:
     def key(fields: str):
         """Mark type as entity with key fields"""
         return f'@key(fields: "{fields}")'
-    
+
     @staticmethod
     def external():
         """Mark field as owned by another service"""
         return '@external'
-    
+
     @staticmethod
     def requires(fields: str):
         """Specify required fields from other service"""
         return f'@requires(fields: "{fields}")'
-    
+
     @staticmethod
     def provides(fields: str):
         """Specify fields this service provides"""
@@ -350,7 +349,7 @@ class FederationDirectives:
 class GraphQLSubscriptions:
     def __init__(self):
         self.subscriptions = {}
-        
+
     def add_subscription(self, name, resolver):
         subscription_type = GraphQLField(
             GraphQLString,
@@ -358,16 +357,16 @@ class GraphQLSubscriptions:
             resolve=lambda obj, info: obj
         )
         self.subscriptions[name] = subscription_type
-        
+
     async def order_updated_subscription(self, root, info, order_id):
         """Real-time order updates"""
         async for update in self.order_update_stream(order_id):
             yield update
-            
+
     async def order_update_stream(self, order_id):
         """Stream order updates from event bus"""
         event_bus = info.context.event_bus
-        
+
         async for event in event_bus.subscribe(f'order.{order_id}.updated'):
             yield {
                 'orderId': order_id,
@@ -380,51 +379,51 @@ class GraphQLMetrics:
     def __init__(self):
         self.resolver_times = defaultdict(list)
         self.query_complexity = []
-        
+
     def track_resolver(self, field_name):
         def decorator(resolver_fn):
             async def wrapper(*args, **kwargs):
                 start = time.time()
                 result = await resolver_fn(*args, **kwargs)
                 duration = time.time() - start
-                
+
                 self.resolver_times[field_name].append(duration)
-                
+
                 if duration > 0.1:  # Slow resolver warning
                     logger.warning(f"Slow resolver {field_name}: {duration}s")
-                    
+
                 return result
             return wrapper
         return decorator
-    
+
     def calculate_query_cost(self, query):
         """Estimate query complexity for rate limiting"""
         cost = 0
         depth = 0
-        
+
         def visit_field(field, current_depth):
             nonlocal cost, depth
-            
+
             # Base cost per field
             cost += 1
-            
+
             # Additional cost for lists
             if field.return_type.is_list:
                 cost += 10
-                
+
             # Track max depth
             depth = max(depth, current_depth)
-            
+
             # Recursively visit selections
             if field.selections:
                 for selection in field.selections:
                     visit_field(selection, current_depth + 1)
-        
+
         visit_field(query.root_field, 1)
-        
+
         # Exponential cost for deep queries
         cost *= (1.5 ** depth)
-        
+
         return cost
 ```
 
@@ -474,8 +473,6 @@ class GraphQLMetrics:
 - User experience is a priority
 - System is customer-facing or business-critical
 
-
-
 ## ❌ When NOT to Use
 
 ### Inappropriate Scenarios
@@ -500,8 +497,6 @@ class GraphQLMetrics:
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
-
-
 
 ## ⚖️ Trade-offs
 
@@ -532,8 +527,6 @@ class GraphQLMetrics:
 - **Testing**: Complex failure scenarios to validate
 - **Documentation**: More concepts for team to understand
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -544,12 +537,12 @@ class Graphql_FederationPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -557,23 +550,23 @@ class Graphql_FederationPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -607,20 +600,17 @@ graphql_federation:
 ```python
 def test_graphql_federation_behavior():
     pattern = Graphql_FederationPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

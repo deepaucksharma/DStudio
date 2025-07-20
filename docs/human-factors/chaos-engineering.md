@@ -16,7 +16,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Chaos Engineering**
 
-
 # Chaos Engineering
 
 **Breaking things on purpose to build confidence**
@@ -84,11 +83,11 @@ def chaos_terminate_instance():
         Filters=[{'Name': 'tag:chaos', 'Values': ['enabled']}]
     )
     target = random.choice(instances)
-    
+
     # Safety check
     if not can_terminate_safely(target):
         return
-        
+
     # Terminate with notification
     notify_team(f"Terminating {target.id}")
     ec2.terminate_instances(InstanceIds=[target.id])
@@ -119,7 +118,7 @@ Tests: Time-dependent logic, ordering
 def chaos_fill_disk(fill_percent=90):
     available = shutil.disk_usage('/').free
     to_fill = int(available * fill_percent / 100)
-    
+
     with open('/tmp/chaos_disk', 'wb') as f:
         f.write(b'0' * to_fill)
 ```
@@ -133,12 +132,12 @@ Tests: Degradation handling, alerts
 class ChaosMiddleware:
     def __init__(self, app):
         self.app = app
-        
+
     async def __call__(self, request):
         # Inject latency randomly
         if random.random() < 0.1:  # 10% of requests
             await asyncio.sleep(1.0)  # 1 second delay
-            
+
         return await self.app(request)
 ```
 
@@ -172,7 +171,7 @@ class ChaosRateLimiter:
     def __init__(self, limit=10):
         self.limit = limit
         self.window = {}
-        
+
     def check_limit(self, key):
         count = self.window.get(key, 0)
         if count >= self.limit:

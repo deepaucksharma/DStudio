@@ -1,6 +1,6 @@
 ---
 title: Latency Exercises
-description: "<div id="speed-calculator"></div>"
+description: ""
 type: axiom
 difficulty: advanced
 reading_time: 20 min
@@ -12,15 +12,12 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Latency Exercises**
 
-
 # Latency Exercises
 
 ## 🧪 Hands-On Labs
 
 ### Lab 1: Measure Your Physics Tax
 Use ping and traceroute to understand real-world latency.
-
-<div id="speed-calculator"></div>
 
 ### Speed of Light Calculator
 
@@ -32,17 +29,17 @@ import math
 def calculate_min_latency(distance_km):
     """Calculate minimum theoretical latency"""
     speed_of_light_km_ms = 300  # km/millisecond
-    
+
     # One-way latency
     one_way = distance_km / speed_of_light_km_ms
-    
+
     # Round-trip time
     rtt = one_way * 2
-    
+
     # Add realistic overhead (routers, processing)
     # Typically 1.5-2x theoretical minimum
     realistic_rtt = rtt * 1.5
-    
+
     return {
         'theoretical_one_way_ms': round(one_way, 2),
         'theoretical_rtt_ms': round(rtt, 2),
@@ -55,8 +52,6 @@ print(calculate_min_latency(nyc_london_km))
 # Output: {'theoretical_one_way_ms': 18.62, 'theoretical_rtt_ms': 37.23, 'realistic_rtt_ms': 55.85}
 ```
 
-<div id="budget-analysis"></div>
-
 ### Lab 2: Build a Latency Budget
 
 Create a latency budget for a sample application:
@@ -67,15 +62,15 @@ class LatencyBudget:
         self.total_budget = total_budget_ms
         self.allocations = {}
         self.remaining = total_budget_ms
-    
+
     def allocate(self, component, latency_ms):
         """Allocate latency budget to component"""
         if latency_ms > self.remaining:
             raise ValueError(f"Insufficient budget: {latency_ms}ms requested, {self.remaining}ms available")
-        
+
         self.allocations[component] = latency_ms
         self.remaining -= latency_ms
-        
+
     def analyze(self):
         """Analyze budget allocation"""
         return {
@@ -100,8 +95,6 @@ budget.allocate('notification_service', 25)
 print(budget.analyze())
 ```
 
-<div id="network-sim"></div>
-
 ### Lab 3: Network Latency Simulation
 
 Simulate different network conditions:
@@ -116,26 +109,26 @@ class NetworkSimulator:
         self.base_latency = base_latency_ms / 1000  # Convert to seconds
         self.jitter = jitter_ms / 1000
         self.packet_loss_rate = packet_loss_rate
-        
+
     async def simulate_request(self, data):
         """Simulate network request with latency and loss"""
         # Simulate packet loss
         if random.random() < self.packet_loss_rate:
             raise Exception("Packet lost")
-        
+
         # Calculate latency with jitter
         latency = self.base_latency + random.uniform(-self.jitter, self.jitter)
-        
+
         # Simulate network delay
         await asyncio.sleep(latency)
-        
+
         return f"Response for: {data}"
-    
+
     async def benchmark(self, num_requests=100):
         """Benchmark network performance"""
         latencies = []
         failures = 0
-        
+
         for i in range(num_requests):
             start = time.time()
             try:
@@ -144,7 +137,7 @@ class NetworkSimulator:
                 latencies.append(latency)
             except:
                 failures += 1
-        
+
         if latencies:
             return {
                 'avg_latency_ms': sum(latencies) / len(latencies),
@@ -164,7 +157,7 @@ async def test_networks():
         'satellite': NetworkSimulator(600, 100, 0.01),
         'congested': NetworkSimulator(100, 50, 0.05)
     }
-    
+
     for name, network in networks.items():
         print(f"\n{name}:")
         results = await network.benchmark()
@@ -245,7 +238,7 @@ player_distribution = {
 ```text
     NODE1  NODE2  NODE3  NODE4  NODE5
 N1    0     10     25     40     35
-N2   10      0     15     30     25  
+N2   10      0     15     30     25
 N3   25     15      0     20     15
 N4   40     30     20      0     10
 N5   35     25     15     10      0
@@ -281,10 +274,10 @@ N5   35     25     15     10      0
 !!! exercise "Business Impact Analysis"
     Given:
     - Your latency: NYC ↔ Chicago = 7.5ms
-    - Competitor's new microwave link: 6.8ms 
+    - Competitor's new microwave link: 6.8ms
     - Average trade opportunity window: 2ms
     - Your current profit: $10M/month
-    
+
     Questions:
     1. What percentage of trades will you now lose?
     2. What's the maximum you should pay for a matching link?
@@ -299,7 +292,7 @@ N5   35     25     15     10      0
     - -40°C affects equipment
     - Limited technical staff on-site
     - Power is extremely expensive
-    
+
     Design a system that provides good user experience despite these constraints.
     Consider: Caching strategy, Update mechanism, Failure handling, Content prioritization
 
@@ -310,14 +303,14 @@ N5   35     25     15     10      0
 
 !!! lab "Hands-On Investigation"
     Tools needed: Wireshark, traceroute, dig, curl
-    
+
     Pick a service (e.g., gmail.com) and measure:
     1. DNS resolution time
     2. TCP handshake duration
     3. TLS negotiation overhead
     4. Time to first byte
     5. Total page load time
-    
+
     Create a detailed breakdown showing where time is spent.
     Bonus: Compare HTTP/2 vs HTTP/3 performance
 
@@ -330,17 +323,17 @@ class MicroCDN:
     def __init__(self):
         self.edges = {}  # location -> EdgeServer
         self.latency_map = {}  # (src, dst) -> latency_ms
-        
+
     def add_edge(self, location, capacity):
         """Add an edge server"""
         pass
-        
+
     def route_request(self, client_location, content_id):
         """Find optimal edge for client"""
         # TODO: Implement latency-aware routing
         # Consider: Cache hits, Server load, Network distance
         pass
-        
+
     def simulate_day(self, request_pattern):
         """Simulate 24 hours of traffic"""
         # TODO: Calculate cache hit rates, Average latency, Cost
@@ -364,7 +357,7 @@ class MicroCDN:
     2. Accounts for clock skew and network latency
     3. Reconstructs true event ordering
     4. Visualizes causality chains
-    
+
     Use Lamport timestamps or vector clocks.
     Test with a simulated distributed system with artificial delays.
 

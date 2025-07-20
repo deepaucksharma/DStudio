@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Universal Scalability Law**
 
-
 # Universal Scalability Law
 
 **Why systems don't scale linearly**
@@ -151,10 +150,10 @@ Common sources of contention:
 def measure_contention():
     # Time with 1 node
     t1 = time_operation(nodes=1)
-    
+
     # Time with N nodes
     tN = time_operation(nodes=N)
-    
+
     # If purely contention-limited:
     # tN ≈ t1 * (1 + α(N-1))
     α = (tN/t1 - 1)/(N-1)
@@ -185,7 +184,7 @@ def measure_coherency():
     # Count inter-node messages
     messages_2_nodes = count_messages(nodes=2)
     messages_N_nodes = count_messages(nodes=N)
-    
+
     # If coherency-limited:
     # messages ∝ N²
     if messages_N_nodes ≈ messages_2_nodes * (N/2)²:
@@ -200,7 +199,7 @@ def measure_coherency():
    # Before: Global lock
    with global_lock:
        counter += 1
-   
+
    # After: Lock-free
    atomic_increment(counter)
    ```
@@ -209,7 +208,7 @@ def measure_coherency():
    ```python
    # Before: Single pool
    connection = global_pool.get()
-   
+
    # After: Per-thread pools
    connection = thread_local_pool.get()
    ```
@@ -218,7 +217,7 @@ def measure_coherency():
    ```python
    # Before: Always fetch
    config = fetch_from_service()
-   
+
    # After: Cache with TTL
    config = local_cache.get_or_fetch()
    ```
@@ -228,7 +227,7 @@ def measure_coherency():
    ```python
    # Before: Synchronous replication
    replicate_to_all_nodes_sync(data)
-   
+
    # After: Async with convergence
    eventually_replicate(data)
    ```
@@ -237,7 +236,7 @@ def measure_coherency():
    ```python
    # Before: All-to-all
    broadcast_to_all(message)
-   
+
    # After: Tree-based
    send_to_regional_coordinators(message)
    ```
@@ -247,7 +246,7 @@ def measure_coherency():
    # Before: Notify everyone
    for node in all_nodes:
        notify(node, event)
-   
+
    # After: Publish-subscribe
    publish_to_topic(event)
    ```

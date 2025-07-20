@@ -18,7 +18,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part III: Patterns](/patterns/) → **Outbox Pattern**
 
-
 # Outbox Pattern
 
 **Reliable message publishing with transactional guarantees - Never lose an event again**
@@ -72,7 +71,7 @@ graph LR
         T --> D[(Business Data)]
         T --> O[(Outbox Table)]
     end
-    
+
     subgraph "Publishing Process"
         P[Publisher Service] --> O
         P --> |Polls| O
@@ -80,12 +79,12 @@ graph LR
         P --> |Marks Sent| O
         Q --> |Delivers| C[Consumers]
     end
-    
+
     subgraph "Monitoring"
         M[Monitor] --> O
         M --> |Alert on| L[Lag/Failures]
     end
-    
+
     style T fill:#f9f,stroke:#333,stroke-width:2px
     style O fill:#bbf,stroke:#333,stroke-width:2px
     style P fill:#bfb,stroke:#333,stroke-width:2px
@@ -135,7 +134,7 @@ class OutboxMessage:
     attempts: int = 0
     last_attempt_at: Optional[datetime] = None
     published_at: Optional[datetime] = None
-    
+
     def to_json(self) -> str:
         """Convert to JSON for publishing"""
         return json.dumps({
@@ -149,11 +148,11 @@ class OutboxMessage:
 
 class OutboxStore:
     """Manages outbox message persistence"""
-    
+
     def __init__(self, db_pool: asyncpg.Pool):
         self.db_pool = db_pool
         self.logger = logging.getLogger(__name__)
-    
+
     async def initialize_schema(self):
         """Create outbox table if not exists"""
         async with self.db_pool.acquire() as conn:
@@ -173,14 +172,14 @@ class OutboxStore:
                     INDEX idx_aggregate (aggregate_id, created_at)
                 )
             ''')
-    
+
     @asynccontextmanager
     async def transaction(self):
         """Provide transactional context"""
         async with self.db_pool.acquire() as conn:
             async with conn.transaction():
                 yield conn
-    
+
     async def add_message(self, conn: asyncpg.Connection, message: OutboxMessage):
         """Add message to outbox within transaction"""
         await conn.execute('''
@@ -188,12 +187,12 @@ class OutboxStore:
                 id, aggregate_id, aggregate_type, event_type,
                 payload, status, created_at
             ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-        ''', 
+        ''',
             message.id, message.aggregate_id, message.aggregate_type,
             message.event_type, json.dumps(message.payload),
             message.status.value, message.created_at
         )
-    
+
     async def get_pending_messages(self, batch_size: int = 100) -> List[OutboxMessage]:
         """Retrieve pending messages for publishing"""
         async with self.db_pool.acquire() as conn:
@@ -212,9 +211,9 @@ class OutboxStore:
                 RETURNING *
             ''', MessageStatus.PUBLISHING.value, MessageStatus.PENDING.value,
                 MessageStatus.PUBLISHING.value, batch_size)
-            
+
             return [self._row_to_message(row) for row in rows]
-    
+
     async def mark_published(self, message_ids: List[str]):
         """Mark messages as successfully published"""
         async with self.db_pool.acquire() as conn:
@@ -223,22 +222,22 @@ class OutboxStore:
                 SET status = $1, published_at = CURRENT_TIMESTAMP
                 WHERE id = ANY($2)
             ''', MessageStatus.PUBLISHED.value, message_ids)
-    
+
     async def mark_failed(self, message_id: str, max_attempts: int = 3):
         """Mark message as failed, potentially for retry"""
         async with self.db_pool.acquire() as conn:
             await conn.execute('''
                 UPDATE outbox
-                SET 
+                SET
                     attempts = attempts + 1,
-                    status = CASE 
+                    status = CASE
                         WHEN attempts + 1 >= $1 THEN $2
                         ELSE $3
                     END
                 WHERE id = $4
             ''', max_attempts, MessageStatus.FAILED.value,
                 MessageStatus.PENDING.value, message_id)
-    
+
     async def cleanup_old_messages(self, retention_days: int = 7):
         """Remove old published messages"""
         async with self.db_pool.acquire() as conn:
@@ -247,9 +246,9 @@ class OutboxStore:
                 WHERE status = $1
                 AND published_at < CURRENT_TIMESTAMP - INTERVAL '%s days'
             ''' % retention_days, MessageStatus.PUBLISHED.value)
-            
+
             return deleted.split()[-1]  # Return count
-    
+
     def _row_to_message(self, row) -> OutboxMessage:
         """Convert database row to OutboxMessage"""
         return OutboxMessage(
@@ -267,8 +266,8 @@ class OutboxStore:
 
 class OutboxPublisher:
     """Publishes messages from outbox to message queue"""
-    
-    def __init__(self, 
+
+    def __init__(self,
                  outbox_store: OutboxStore,
                  kafka_producer: aiokafka.AIOKafkaProducer,
                  topic_resolver=None):
@@ -281,29 +280,29 @@ class OutboxPublisher:
             'failed': 0,
             'lag': 0
         }
-    
+
     def _default_topic_resolver(self, message: OutboxMessage) -> str:
         """Default strategy for determining topic"""
         return f"{message.aggregate_type}.{message.event_type}"
-    
+
     async def publish_batch(self) -> int:
         """Publish a batch of pending messages"""
         messages = await self.store.get_pending_messages()
-        
+
         if not messages:
             return 0
-        
+
         # Track oldest message for lag metric
         oldest_message_age = (datetime.utcnow() - messages[0].created_at).total_seconds()
         self.metrics['lag'] = oldest_message_age
-        
+
         published_ids = []
-        
+
         for message in messages:
             try:
                 # Determine topic
                 topic = self.topic_resolver(message)
-                
+
                 # Publish to Kafka
                 await self.producer.send_and_wait(
                     topic,
@@ -314,86 +313,86 @@ class OutboxPublisher:
                         ('event_type', message.event_type.encode())
                     ]
                 )
-                
+
                 published_ids.append(message.id)
                 self.metrics['published'] += 1
                 self.logger.debug(f"Published message {message.id}")
-                
+
             except Exception as e:
                 self.logger.error(f"Failed to publish {message.id}: {e}")
                 await self.store.mark_failed(message.id)
                 self.metrics['failed'] += 1
-        
+
         # Mark successful publishes
         if published_ids:
             await self.store.mark_published(published_ids)
-        
+
         return len(published_ids)
-    
+
     async def run_publisher(self, poll_interval: float = 1.0):
         """Run continuous publishing loop"""
         self.logger.info("Starting outbox publisher")
-        
+
         while True:
             try:
                 count = await self.publish_batch()
-                
+
                 if count == 0:
                     # No messages, wait before polling again
                     await asyncio.sleep(poll_interval)
                 # If we published messages, immediately check for more
-                
+
             except Exception as e:
                 self.logger.error(f"Publisher error: {e}")
                 await asyncio.sleep(poll_interval)
 
 class TransactionalOutbox:
     """High-level API for transactional outbox pattern"""
-    
+
     def __init__(self, outbox_store: OutboxStore):
         self.store = outbox_store
-    
-    async def execute_with_events(self, 
+
+    async def execute_with_events(self,
                                   business_operation,
                                   events: List[OutboxMessage]):
         """Execute business operation and publish events transactionally"""
         async with self.store.transaction() as conn:
             # Execute business operation
             result = await business_operation(conn)
-            
+
             # Add events to outbox
             for event in events:
                 await self.store.add_message(conn, event)
-            
+
             # Transaction commits here
             return result
 
 # Example Usage
 class OrderService:
     """Example service using outbox pattern"""
-    
-    def __init__(self, 
+
+    def __init__(self,
                  db_pool: asyncpg.Pool,
                  outbox: TransactionalOutbox):
         self.db_pool = db_pool
         self.outbox = outbox
-    
+
     async def create_order(self, order_data: Dict[str, Any]) -> str:
         """Create order with transactional event publishing"""
         order_id = str(uuid.uuid4())
-        
+
         # Define business operation
         async def business_operation(conn):
             # Insert order
             await conn.execute('''
                 INSERT INTO orders (id, customer_id, items, total, status)
                 VALUES ($1, $2, $3, $4, $5)
-            ''', order_id, order_data['customer_id'], 
-                json.dumps(order_data['items']), 
+            ''', order_id, order_data['customer_id'],
+                json.dumps(order_data['items']),
                 order_data['total'], 'PENDING')
-            
+
             return order_id
-        
+
         # Create events
         events = [
             OutboxMessage(
@@ -410,16 +409,16 @@ class OrderService:
                 created_at=datetime.utcnow()
             )
         ]
-        
+
         # Execute transactionally
         await self.outbox.execute_with_events(business_operation, events)
-        
+
         return order_id
 
 # Advanced: Outbox with Partitioning
 class PartitionedOutboxStore(OutboxStore):
     """Outbox with partitioning for high volume"""
-    
+
     async def initialize_schema(self):
         """Create partitioned outbox table"""
         async with self.db_pool.acquire() as conn:
@@ -439,16 +438,16 @@ class PartitionedOutboxStore(OutboxStore):
                     PRIMARY KEY (created_at, id)
                 ) PARTITION BY RANGE (created_at)
             ''')
-            
+
             # Create initial partitions
             await self._create_partition(datetime.utcnow())
-    
+
     async def _create_partition(self, date: datetime):
         """Create monthly partition"""
         table_name = f"outbox_{date.strftime('%Y_%m')}"
         start_date = date.replace(day=1)
         end_date = (start_date + timedelta(days=32)).replace(day=1)
-        
+
         async with self.db_pool.acquire() as conn:
             await conn.execute(f'''
                 CREATE TABLE IF NOT EXISTS {table_name}
@@ -459,26 +458,26 @@ class PartitionedOutboxStore(OutboxStore):
 # Monitoring
 class OutboxMonitor:
     """Monitor outbox health"""
-    
+
     def __init__(self, outbox_store: OutboxStore):
         self.store = outbox_store
-    
+
     async def get_metrics(self) -> Dict[str, Any]:
         """Get outbox metrics"""
         async with self.store.db_pool.acquire() as conn:
             metrics = await conn.fetchrow('''
-                SELECT 
+                SELECT
                     COUNT(*) FILTER (WHERE status = 'PENDING') as pending,
                     COUNT(*) FILTER (WHERE status = 'FAILED') as failed,
-                    COUNT(*) FILTER (WHERE status = 'PUBLISHED' 
+                    COUNT(*) FILTER (WHERE status = 'PUBLISHED'
                         AND published_at > CURRENT_TIMESTAMP - INTERVAL '1 hour') as published_1h,
                     MIN(created_at) FILTER (WHERE status = 'PENDING') as oldest_pending,
-                    AVG(EXTRACT(EPOCH FROM (published_at - created_at))) 
-                        FILTER (WHERE status = 'PUBLISHED' 
+                    AVG(EXTRACT(EPOCH FROM (published_at - created_at)))
+                        FILTER (WHERE status = 'PUBLISHED'
                         AND published_at > CURRENT_TIMESTAMP - INTERVAL '1 hour') as avg_latency
                 FROM outbox
             ''')
-            
+
             return {
                 'pending_count': metrics['pending'] or 0,
                 'failed_count': metrics['failed'] or 0,
@@ -639,8 +638,6 @@ How outbox pattern works with other patterns:
 - Using as a substitute for fixing root causes
 - Over-engineering simple problems
 
-
-
 ## 🌟 Real Examples
 
 ### Production Implementations
@@ -661,7 +658,7 @@ A major e-commerce platform implemented Outbox Pattern to handle critical user f
 
 **Challenge**: System failures affected user experience and revenue
 
-**Implementation**: 
+**Implementation**:
 - Applied Outbox Pattern pattern to critical service calls
 - Added fallback mechanisms for degraded operation
 - Monitored service health continuously
@@ -677,8 +674,6 @@ A major e-commerce platform implemented Outbox Pattern to handle critical user f
 - Have clear runbooks for when the pattern activates
 - Test failure scenarios regularly in production
 
-
-
 ## 💻 Code Sample
 
 ### Basic Implementation
@@ -689,12 +684,12 @@ class OutboxPattern:
         self.config = config
         self.metrics = Metrics()
         self.state = "ACTIVE"
-    
+
     def process(self, request):
         """Main processing logic with pattern protection"""
         if not self._is_healthy():
             return self._fallback(request)
-        
+
         try:
             result = self._protected_operation(request)
             self._record_success()
@@ -702,23 +697,23 @@ class OutboxPattern:
         except Exception as e:
             self._record_failure(e)
             return self._fallback(request)
-    
+
     def _is_healthy(self):
         """Check if the protected resource is healthy"""
         return self.metrics.error_rate < self.config.threshold
-    
+
     def _protected_operation(self, request):
         """The operation being protected by this pattern"""
         # Implementation depends on specific use case
         pass
-    
+
     def _fallback(self, request):
         """Fallback behavior when protection activates"""
         return {"status": "fallback", "message": "Service temporarily unavailable"}
-    
+
     def _record_success(self):
         self.metrics.record_success()
-    
+
     def _record_failure(self, error):
         self.metrics.record_failure(error)
 
@@ -752,20 +747,17 @@ outbox:
 ```python
 def test_outbox_behavior():
     pattern = OutboxPattern(test_config)
-    
+
     # Test normal operation
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
-    
+
     # Test failure handling
     with mock.patch('external_service.call', side_effect=Exception):
         result = pattern.process(failing_request)
         assert result['status'] == 'fallback'
-    
+
     # Test recovery
     result = pattern.process(normal_request)
     assert result['status'] == 'success'
 ```
-
-
-

@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Blameless Postmortems**
 
-
 # Blameless Postmortems
 
 **Learning from failures without finger-pointing**
@@ -78,10 +77,10 @@ Why? → Performance testing not prioritized
 # Incident Postmortem: [Title]
 
 ## Incident Summary
-- **Date**: 
-- **Duration**: 
-- **Impact**: 
-- **Severity**: 
+- **Date**:
+- **Duration**:
+- **Impact**:
+- **Severity**:
 
 ## What Happened?
 [Narrative description of the incident]
@@ -144,7 +143,7 @@ Track the effectiveness of your postmortem process:
 ```python
 class PostmortemAutomation:
     """Automate postmortem data collection"""
-    
+
     def collect_incident_data(self, incident_id):
         return {
             'alerts': self.get_alert_history(incident_id),
@@ -153,11 +152,11 @@ class PostmortemAutomation:
             'metrics': self.get_metric_snapshots(incident_id),
             'communications': self.get_slack_history(incident_id)
         }
-    
+
     def generate_timeline(self, incident_data):
         """Auto-generate timeline from various sources"""
         events = []
-        
+
         # Add alerts
         for alert in incident_data['alerts']:
             events.append({
@@ -165,7 +164,7 @@ class PostmortemAutomation:
                 'event': f"Alert: {alert['name']}",
                 'source': 'monitoring'
             })
-        
+
         # Add deployments
         for deploy in incident_data['deployments']:
             events.append({
@@ -173,7 +172,7 @@ class PostmortemAutomation:
                 'event': f"Deployment: {deploy['service']}",
                 'source': 'ci/cd'
             })
-        
+
         # Sort by time
         return sorted(events, key=lambda x: x['time'])
 ```
@@ -214,7 +213,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 ## 👥 Practical Application
 
 ### Exercise 1: Current State Assessment ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Evaluate your team's current practices related to Blameless Postmortems
 
 **Self-Assessment**:
@@ -226,7 +225,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 **Scoring**: Rate each area 1-5 and identify the top 2 areas for improvement.
 
 ### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Create an actionable improvement plan
 
 **Planning Framework**:
@@ -241,7 +240,7 @@ We found: "Config validation was manual, no automated checks for common errors"
 - Required resources/support
 
 ### Exercise 3: Simulation Exercise ⭐⭐⭐⭐
-**Time**: ~30 minutes  
+**Time**: ~30 minutes
 **Objective**: Practice the concepts in a realistic scenario
 
 **Scenario**: Your team just experienced a significant production incident related to Blameless Postmortems.

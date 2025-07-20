@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 1](/part1-axioms/axiom1-latency/) → **Latency Examples**
 
-
 # Latency Examples
 
 ## Real-World Case Studies

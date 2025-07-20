@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Reference](/reference/) → **Distributed Systems Cheat Sheets**
 
-
 # Distributed Systems Cheat Sheets
 
 Quick reference guides for calculations, decisions, and common patterns.
@@ -24,7 +23,7 @@ Quick reference guides for calculations, decisions, and common patterns.
 ### Little's Law
 **Formula**: `L = λW`
 - **L**: Average number in system
-- **λ**: Arrival rate (requests/second)  
+- **λ**: Arrival rate (requests/second)
 - **W**: Average time in system (seconds)
 
 **Example**: 100 req/s × 0.5s = 50 concurrent requests
@@ -56,7 +55,7 @@ Quick reference guides for calculations, decisions, and common patterns.
 
 **Speed of Light Limits**:
 - NYC ↔ SF: 21ms minimum (4,000km)
-- NYC ↔ London: 28ms minimum (5,600km)  
+- NYC ↔ London: 28ms minimum (5,600km)
 - NYC ↔ Tokyo: 67ms minimum (10,800km)
 - Satellite (GEO): 240ms minimum (round trip)
 
@@ -87,7 +86,7 @@ Quick reference guides for calculations, decisions, and common patterns.
 
 **Scaling Estimates**:
 - Linear: Cost = O(n)
-- Database: Cost = O(n log n) 
+- Database: Cost = O(n log n)
 - Coordination: Cost = O(n²)
 
 ---
@@ -102,7 +101,7 @@ Need strong consistency?
 │   ├─ Single region? → ACID database
 │   └─ Multi-region? → Consensus (Raft/Paxos)
 └─ NO → Can tolerate eventual consistency?
-    ├─ YES → 
+    ├─ YES →
     │   ├─ Conflict resolution needed? → CRDTs
     │   └─ Simple case? → Last-write-wins
     └─ NO → Causal consistency
@@ -112,7 +111,7 @@ Need strong consistency?
 
 **For Latency Problems**:
 1. **Caching** - Store results closer to users
-2. **Edge Computing** - Process closer to users  
+2. **Edge Computing** - Process closer to users
 3. **Circuit Breaker** - Fail fast when slow
 4. **Async Processing** - Don't wait for slow operations
 

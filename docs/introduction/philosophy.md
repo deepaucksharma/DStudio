@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Introduction](/introduction/) → **The Philosophy: Learning from First Principles**
 
-
 # The Philosophy: Learning from First Principles
 
 ## Why First Principles Matter
@@ -21,7 +20,7 @@ In 1964, Richard Feynman gave a lecture at Cornell titled "The Character of Phys
 
 !!! quote "The Feynman Technique"
     "If you can't explain it simply, you don't understand it well enough. The best way to learn is to teach - break down complex ideas into simple components, identify gaps in understanding, and rebuild from the ground up."
-    
+
     — Richard Feynman
 
 ## Traditional Learning vs First Principles Learning
@@ -56,7 +55,7 @@ graph BT
     C --> D[Analyze: Decompose complex systems]
     D --> E[Evaluate: Make trade-off decisions]
     E --> F[Create: Design novel solutions]
-    
+
     style A fill:#e1f5e1
     style F fill:#ffe1e1
 ```
@@ -110,9 +109,9 @@ We explicitly teach learning strategies:
 
 !!! tip "The Three-Pass Method"
     **Pass 1: Survey** - Skim to understand structure and main ideas
-    
+
     **Pass 2: Question** - Read actively, predicting consequences
-    
+
     **Pass 3: Implement** - Work exercises, explain to others
 
 ### Transfer Learning
@@ -132,12 +131,12 @@ Each axiom creates a mental model:
 graph LR
     A[Axiom 1: Latency] --> B[Mental Model:<br/>Distance = Delay]
     B --> C[Prediction:<br/>Geo-distribution needs caching]
-    
+
     D[Axiom 3: Failure] --> E[Mental Model:<br/>Everything breaks]
     E --> F[Prediction:<br/>Need redundancy]
-    
+
     G[Combined] --> H[Insight:<br/>Cached replicas must handle<br/>inconsistency during failures]
-    
+
     C --> H
     F --> H
 ```
@@ -158,9 +157,9 @@ Our approach isn't just philosophical preference - it's grounded in decades of c
 
 !!! info "Research Foundation"
     **The Expertise Reversal Effect** (Sweller, 2003): Experts learn differently than novices. While beginners need worked examples, experts benefit more from deriving solutions. Our multi-path approach accommodates both.
-    
+
     **Deliberate Practice Theory** (Ericsson, 1993): Mastery comes from practicing at the edge of current ability with immediate feedback. Our exercises progressively challenge readers while providing failure stories as feedback.
-    
+
     **Transfer Learning** (Thorndike & Woodworth, 1901): Knowledge transfers best when underlying principles are understood. By teaching physics-based constraints, skills transfer across any distributed system.
 
 ### For Individual Engineers
@@ -190,7 +189,7 @@ Our approach isn't just philosophical preference - it's grounded in decades of c
 
 !!! quote "From Google's SRE Book"
     "Hope is not a strategy. Engineering solutions based on fundamental constraints and mathematical analysis is."
-    
+
     Google's Site Reliability Engineers are trained to:
     1. **Quantify everything** - If you can't measure it, you can't improve it
     2. **Derive from fundamentals** - Ask "why" five times to reach root causes
@@ -225,7 +224,7 @@ Keep a notebook where you:
 
 !!! exercise "Test Your Understanding"
     For each new concept, ask:
-    
+
     1. **What** is the fundamental constraint?
     2. **Why** does this constraint exist?
     3. **How** does it manifest in real systems?
@@ -273,7 +272,7 @@ Keep a notebook where you:
     - Struggles with new paradigms
     - Debates solutions based on experience
     - Limited to learned patterns
-    
+
     **First-Principles Engineer After 5 Years:**
     - Understands any distributed system quickly
     - Derives solutions for novel problems
@@ -284,11 +283,11 @@ Keep a notebook where you:
 
 !!! example "How Top Companies Apply First Principles"
     **Amazon's Working Backwards**: Start with customer constraints (latency, cost) and derive architecture
-    
+
     **SpaceX's Physics-Based Design**: "The best part is no part. The best process is no process. The best requirement is no requirement." - Reasoning from physics up
-    
+
     **Netflix's Chaos Engineering**: Don't assume reliability - derive it from testing failure modes
-    
+
     **Cloudflare's Speed of Light Blog Series**: Teaches networking from physical constraints
 
 ## The Learning Never Stops
@@ -296,7 +295,7 @@ Keep a notebook where you:
 Distributed systems evolve, but principles endure:
 
 - **1960s**: Mainframes → Same coordination problems
-- **1990s**: Internet → Same latency constraints  
+- **1990s**: Internet → Same latency constraints
 - **2010s**: Cloud → Same failure modes
 - **2020s**: Edge computing → Same physics applies
 - **Future**: Quantum networks → Still bound by causality

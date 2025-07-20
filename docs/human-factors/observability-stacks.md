@@ -1,7 +1,7 @@
 ---
 title: Observability Stacks
 description: "Metrics: What is broken
-Logs: Why it's broken  
+Logs: Why it's broken
 Traces: Where it's broken
 ```"
 type: human-factors
@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 
 <!-- Navigation -->
 [Home](/) → [Part V: Human Factors](/human-factors/) → **Observability Stacks**
-
 
 # Observability Stacks
 
@@ -30,7 +29,7 @@ last_updated: 2025-07-20
    Logs ←----→ Traces
 
 Metrics: What is broken
-Logs: Why it's broken  
+Logs: Why it's broken
 Traces: Where it's broken
 ```
 
@@ -67,7 +66,7 @@ Generation → Collection → Processing → Storage → Analysis
 **Key Decisions:**
 - Structured vs unstructured
 - Sampling rate
-- Retention policy  
+- Retention policy
 - Index strategy
 
 ### Tracing Layer
@@ -164,10 +163,10 @@ with tracer.start_as_current_span('process_payment') as span:
         'payment.currency': currency,
         'payment.method': method
     })
-    
+
     # Process payment
     result = process_payment_internal(amount)
-    
+
     span.set_attribute('payment.success', result.success)
 ```
 
@@ -179,11 +178,11 @@ processors:
   batch:
     send_batch_size: 1000
     timeout: 10s
-  
+
   memory_limiter:
     check_interval: 1s
     limit_mib: 512
-  
+
   sampling:
     decision_cache_size: 10000
     trace_id_ratio: 0.1  # 10% sampling
@@ -201,7 +200,7 @@ processors:
 
 **1. Service Overview (RED metrics)**
 - Rate: Requests per second
-- Errors: Error percentage  
+- Errors: Error percentage
 - Duration: Latency percentiles
 
 **2. Infrastructure View**
@@ -229,19 +228,19 @@ processors:
 def correlation_id_middleware(request, response, next):
     # Get or generate correlation ID
     correlation_id = request.headers.get('x-correlation-id') or str(uuid4())
-    
+
     # Add to response
     response.headers['x-correlation-id'] = correlation_id
-    
+
     # Add to all telemetry
     logger = logger.bind(correlation_id=correlation_id)
     span = trace.get_current_span()
     if span:
         span.set_attribute('correlation.id', correlation_id)
-    
+
     # Add to metrics labels (carefully - cardinality!)
     metrics.labels(correlation_id=correlation_id)
-    
+
     return next(request, response)
 ```
 
@@ -345,11 +344,11 @@ def should_sample(trace):
     # Always sample errors
     if trace.has_error:
         return True
-    
+
     # Sample slow requests
     if trace.duration > 1000:  # 1 second
         return True
-    
+
     # Random sample others
     return random() < 0.01  # 1%
 

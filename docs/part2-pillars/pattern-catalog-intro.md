@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **PATTERN CATALOG INTRO**
 
-
 # PATTERN CATALOG INTRO
 
 ## How to Read Pattern Pages
@@ -69,7 +68,7 @@ Each pattern in Part III follows this structure:
 ## 💡 Knowledge Application
 
 ### Exercise 1: Concept Exploration ⭐⭐
-**Time**: ~15 minutes  
+**Time**: ~15 minutes
 **Objective**: Deepen understanding of PATTERN CATALOG INTRO
 
 **Reflection Questions**:
@@ -81,7 +80,7 @@ Each pattern in Part III follows this structure:
 **Application**: Choose one concept and explain it to someone else in your own words.
 
 ### Exercise 2: Real-World Connection ⭐⭐⭐
-**Time**: ~20 minutes  
+**Time**: ~20 minutes
 **Objective**: Connect theory to practice
 
 **Research Task**:
@@ -96,7 +95,7 @@ Each pattern in Part III follows this structure:
 - Historical technology decisions
 
 ### Exercise 3: Critical Thinking ⭐⭐⭐⭐
-**Time**: ~25 minutes  
+**Time**: ~25 minutes
 **Objective**: Develop deeper analytical skills
 
 **Challenge Scenarios**:

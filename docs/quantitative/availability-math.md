@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Availability Math & Nines**
 
-
 # Availability Math & Nines
 
 **Building reliable systems from unreliable parts**
@@ -137,7 +136,7 @@ Spending the budget:
 def can_deploy():
     error_budget_remaining = calculate_remaining_budget()
     deployment_risk = estimate_deployment_risk()
-    
+
     if error_budget_remaining > deployment_risk * 2:
         return True  # Safe to deploy
     elif error_budget_remaining > 0:
@@ -298,10 +297,10 @@ class AvailabilityTracker:
         self.requests[component] += 1
         if success:
             self.successes[component] += 1
-    
+
     def get_availability(self, component):
         return self.successes[component] / self.requests[component]
-    
+
     def alert_if_degraded(self):
         for component, target_sla in self.slas.items():
             if self.get_availability(component) < target_sla:

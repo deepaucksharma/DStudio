@@ -16,7 +16,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Pillar Checkpoint Exercise**
 
-
 # Pillar Checkpoint Exercise
 
 ## Exercise: Design a Global Chat System

@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Reference](/reference/) → **Reference Materials**
 
-
 # Reference Materials
 
 Your comprehensive reference for distributed systems concepts, terms, and practical guides.

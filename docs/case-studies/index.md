@@ -12,109 +12,13 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Case Studies](/case-studies/) → **Case Studies: Axioms in Action**
 
-
 # Case Studies: Axioms in Action
 
 Learn how the 8 axioms and 5 pillars apply to real-world systems through detailed analysis of production architectures and their trade-offs.
 
-<div class="case-study-guide">
-<h3>📖 How to Use These Case Studies</h3>
-
-**🎯 Learning Approach**:
-- **Start with Challenge**: Understand the business problem
-- **Follow Timeline**: See how solutions evolved
-- **Map to Axioms**: Connect constraints to design decisions
-- **Study Trade-offs**: Learn from architectural choices
-
-**🧭 Navigation Tips**:
-- Each case study highlights **Key Design Decisions** with trade-off analysis
-- **Timeline diagrams** show evolution and learning moments
-- **Axiom mapping tables** connect theory to practice
-- **Cross-references** link to relevant patterns and tools
-
-**📊 Case Study Categories**:
-- **🚗 Real-time Systems**: Uber (location), Fortnite (game state)  
-- **📊 Data Systems**: Amazon (DynamoDB), Spotify (ML)
-- **💰 Critical Systems**: PayPal (payments), SpaceX (mission control)
-</div>
-
 ---
 
 ## 📚 Available Case Studies
-
-<div class="grid cards">
-
-<div class="card">
-<h3>🚗 <a href="uber-location.md">Uber's Real-Time Location System</a></h3>
-<p><strong>Challenge</strong>: Track millions of drivers and riders globally with sub-second updates</p>
-<ul>
-<li>15M trips daily across 900+ cities</li>
-<li>5M active drivers globally</li>
-<li>Sub-500ms dispatch latency</li>
-<li>H3 hexagonal grid innovation</li>
-</ul>
-<p><strong>Key Lessons</strong>: Geospatial sharding, event sourcing, graceful degradation</p>
-</div>
-
-<div class="card">
-<h3>🛒 <a href="amazon-dynamo.md">Amazon's DynamoDB</a></h3>
-<p><strong>Challenge</strong>: Build a database that never goes down during Black Friday</p>
-<ul>
-<li>20M requests/second peak</li>
-<li>99.999% availability achieved</li>
-<li>Global distribution</li>
-<li>Consistent hashing + vector clocks</li>
-</ul>
-<p><strong>Key Lessons</strong>: Eventual consistency, quorum systems, managed services</p>
-</div>
-
-<div class="card">
-<h3>🎵 <a href="spotify-recommendations.md">Spotify's Recommendation Engine</a></h3>
-<p><strong>Challenge</strong>: Personalize music for 500M users with ML at scale</p>
-<ul>
-<li>5B+ daily recommendations</li>
-<li>100M+ songs catalog</li>
-<li>Real-time feature updates</li>
-<li>Hybrid ML architecture</li>
-</ul>
-<p><strong>Key Lessons</strong>: Feature stores, ML pipelines, A/B testing at scale</p>
-</div>
-
-<div class="card">
-<h3>🏦 <a href="paypal-payments.md">PayPal's Payment Processing</a></h3>
-<p><strong>Challenge</strong>: Process billions in payments with zero data loss</p>
-<ul>
-<li>$1.36T annual payment volume</li>
-<li>Zero tolerance for errors</li>
-<li>Global regulatory compliance</li>
-<li>Distributed transaction sagas</li>
-</ul>
-<p><strong>Key Lessons</strong>: SAGA pattern, idempotency, audit trails</p>
-</div>
-
-<div class="card">
-<h3>🎮 Fortnite's Real-Time Game State</h3>
-<p><strong>Challenge</strong>: Synchronize 100 players at 60 FPS globally</p>
-<ul>
-<li>350M registered players</li>
-<li>12.3M concurrent players peak</li>
-<li>16ms tick rate requirement</li>
-<li>Client prediction + reconciliation</li>
-</ul>
-<p><strong>Key Lessons</strong>: State synchronization, lag compensation, edge servers</p>
-</div>
-
-<div class="card">
-<h3>🚀 SpaceX's Mission Control</h3>
-<p><strong>Challenge</strong>: Zero-failure tolerance for human spaceflight</p>
-<ul>
-<li>10,000 telemetry points/second</li>
-<li>Triple redundancy requirement</li>
-<li>200ms decision latency</li>
-<li>Byzantine fault tolerance</li>
-</ul>
-<p><strong>Key Lessons</strong>: Formal verification, chaos engineering, safety systems</p>
-</div>
 
 </div>
 

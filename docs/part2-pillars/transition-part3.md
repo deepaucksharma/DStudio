@@ -15,13 +15,12 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → **Transition Page (Part III Preview)**
 
-
 # Transition Page (Part III Preview)
 
 ## From Principles to Practice
 
 ```yaml
-     "In theory, there is no difference between 
+     "In theory, there is no difference between
       theory and practice. In practice, there is."
                                     - Yogi Berra
 
@@ -34,7 +33,7 @@ last_updated: 2025-07-20
             Part III: PATTERNS
                   ↓
             [Solutions]
-                  
+
     Where the rubber meets the distributed road.
 ```
 

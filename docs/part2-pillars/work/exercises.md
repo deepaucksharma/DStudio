@@ -13,7 +13,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part II: Pillars](/part2-pillars/) → [Work](/part2-pillars/work/) → **Work Distribution Exercises**
 
-
 # Work Distribution Exercises
 
 ## Exercise 1: Design a Video Processing Pipeline
@@ -52,12 +51,12 @@ class VideoProcessor:
         self.chunk_size = 60  # seconds
         self.workers = ConsistentHash()
         self.job_tracker = JobTracker()
-    
+
     def process_video(self, video_id, video_url):
         # 1. Split into chunks for parallel processing
         metadata = self.get_video_metadata(video_url)
         chunks = self.split_into_chunks(metadata.duration)
-        
+
         # 2. Create job DAG
         job = {
             'id': video_id,
@@ -73,15 +72,15 @@ class VideoProcessor:
                 'thumbnails': {'status': 'pending', 'depends': ['split']},
                 'speech': {'status': 'pending', 'depends': ['split']},
                 'content_scan': {'status': 'pending', 'depends': ['split']},
-                'merge': {'status': 'pending', 
+                'merge': {'status': 'pending',
                          'depends': ['transcode', 'thumbnails', 'speech', 'content_scan']}
             }
         }
-        
+
         # 3. Distribute work
         self.job_tracker.create(job)
         self.enqueue_ready_tasks(job)
-    
+
     def enqueue_ready_tasks(self, job):
         for task_name, task in job['tasks'].items():
             if task['status'] == 'pending':
@@ -130,22 +129,22 @@ class DistributedCrawler:
         self.url_frontier = PriorityQueue()
         self.seen_urls = BloomFilter(capacity=100_000_000)
         self.domain_locks = {}
-        
+
     def add_urls(self, urls):
         """Add URLs to frontier with priority"""
         # TODO: Implement URL filtering and priority assignment
         pass
-    
+
     def get_next_url(self, worker_id):
         """Get next URL for worker respecting rate limits"""
         # TODO: Implement work distribution with per-domain rate limiting
         pass
-    
+
     def mark_complete(self, url, extracted_links):
         """Process crawl results"""
         # TODO: Handle extracted links and update frontier
         pass
-    
+
     def handle_failure(self, url, error):
         """Handle crawl failures"""
         # TODO: Implement retry logic with exponential backoff
@@ -169,91 +168,91 @@ class DistributedCrawler:
         self.domain_last_access = defaultdict(float)
         self.domain_delay = defaultdict(lambda: 1.0)  # Default 1 second
         self.retry_counts = defaultdict(int)
-        
+
     def add_urls(self, urls):
         """Add URLs to frontier with priority"""
         current_time = time.time()
-        
+
         for url in urls:
             # Skip if seen
             if url in self.seen_urls:
                 continue
-            
+
             self.seen_urls.add(url)
-            
+
             # Calculate priority
             domain = urlparse(url).netloc
             priority = self.calculate_priority(url, domain)
-            
+
             # Calculate earliest crawl time
             last_access = self.domain_last_access[domain]
             delay = self.domain_delay[domain]
             earliest_time = max(current_time, last_access + delay)
-            
+
             # Add to frontier
             heapq.heappush(self.url_frontier, (earliest_time, priority, url))
-    
+
     def calculate_priority(self, url, domain):
         """Higher score = higher priority (negated for min heap)"""
         score = 0
-        
+
         # Prioritize new domains
         if domain not in self.domain_last_access:
             score += 100
-        
+
         # Prioritize shorter URLs (likely more important)
         score -= len(url) * 0.1
-        
+
         # Deprioritize based on retry count
         score -= self.retry_counts[url] * 50
-        
+
         return -score  # Negate for min heap
-    
+
     def get_next_url(self, worker_id):
         """Get next URL for worker respecting rate limits"""
         current_time = time.time()
-        
+
         # Clean up expired entries
         while self.url_frontier:
             earliest_time, priority, url = self.url_frontier[0]
-            
+
             # If not ready yet, no URLs available
             if earliest_time > current_time:
                 return None
-            
+
             # Pop the URL
             heapq.heappop(self.url_frontier)
-            
+
             # Update domain access time
             domain = urlparse(url).netloc
             self.domain_last_access[domain] = current_time
-            
+
             return url
-        
+
         return None
-    
+
     def mark_complete(self, url, extracted_links):
         """Process crawl results"""
         # Reset retry count on success
         self.retry_counts[url] = 0
-        
+
         # Add new URLs to frontier
         self.add_urls(extracted_links)
-    
+
     def handle_failure(self, url, error):
         """Handle crawl failures"""
         self.retry_counts[url] += 1
-        
+
         # Exponential backoff
         if self.retry_counts[url] <= 3:
             retry_delay = (2 ** self.retry_counts[url]) * 60  # 2, 4, 8 minutes
             retry_time = time.time() + retry_delay
-            
+
             # Re-add to frontier with lower priority
             domain = urlparse(url).netloc
             priority = self.calculate_priority(url, domain)
             heapq.heappush(self.url_frontier, (retry_time, priority, url))
-    
+
     def update_crawl_delay(self, domain, delay):
         """Update rate limit for domain (from robots.txt)"""
         self.domain_delay[domain] = max(delay, 0.1)  # Minimum 100ms
@@ -271,7 +270,7 @@ class LoadBalancer:
         self.servers = servers
         self.strategy = strategy
         # TODO: Initialize strategy-specific state
-        
+
     def select_server(self, request=None):
         """Select a server based on strategy"""
         if self.strategy == 'round_robin':
@@ -289,12 +288,12 @@ class LoadBalancer:
         elif self.strategy == 'least_response_time':
             # TODO: Implement response-time based selection
             pass
-    
+
     def mark_server_down(self, server):
         """Handle server failure"""
         # TODO: Remove server and redistribute load
         pass
-    
+
     def add_server(self, server):
         """Handle server addition"""
         # TODO: Add server and rebalance
@@ -321,29 +320,29 @@ class LoadBalancer:
         self.servers = servers
         self.strategy = strategy
         self.active_servers = set(servers)
-        
+
         # Strategy-specific initialization
         self.round_robin_counter = 0
         self.connections = defaultdict(int)
         self.weights = {s: s.weight if hasattr(s, 'weight') else 1 for s in servers}
         self.weighted_counter = 0
-        
+
         # Response time tracking
         self.response_times = defaultdict(lambda: 0.0)
         self.response_counts = defaultdict(int)
         self.ewma_alpha = 0.3  # Exponential weighted moving average
-        
+
         # Consistent hashing
         self.hash_ring = {}
         self.sorted_hashes = []
         if strategy == 'consistent_hash':
             self._build_hash_ring()
-    
+
     def _build_hash_ring(self):
         """Build consistent hash ring with virtual nodes"""
         self.hash_ring.clear()
         self.sorted_hashes.clear()
-        
+
         for server in self.active_servers:
             # Add 150 virtual nodes per server
             for i in range(150):
@@ -351,99 +350,99 @@ class LoadBalancer:
                 hash_val = int(hashlib.md5(virtual_key.encode()).hexdigest(), 16)
                 self.hash_ring[hash_val] = server
                 bisect.insort(self.sorted_hashes, hash_val)
-    
+
     def select_server(self, request=None):
         """Select a server based on strategy"""
         if not self.active_servers:
             raise Exception("No active servers available")
-        
+
         if self.strategy == 'round_robin':
             servers_list = list(self.active_servers)
             server = servers_list[self.round_robin_counter % len(servers_list)]
             self.round_robin_counter += 1
             return server
-            
+
         elif self.strategy == 'least_connections':
             return min(self.active_servers, key=lambda s: self.connections[s])
-            
+
         elif self.strategy == 'weighted_round_robin':
             # Build weighted list
             weighted_servers = []
             for server in self.active_servers:
                 weighted_servers.extend([server] * self.weights[server])
-            
+
             if not weighted_servers:
                 return list(self.active_servers)[0]
-            
+
             server = weighted_servers[self.weighted_counter % len(weighted_servers)]
             self.weighted_counter += 1
             return server
-            
+
         elif self.strategy == 'consistent_hash':
             if not request or not hasattr(request, 'key'):
                 # Fallback to round-robin if no key
                 return self.select_server_round_robin()
-            
+
             key_hash = int(hashlib.md5(request.key.encode()).hexdigest(), 16)
             idx = bisect.bisect_right(self.sorted_hashes, key_hash)
-            
+
             if idx == len(self.sorted_hashes):
                 idx = 0
-                
+
             return self.hash_ring[self.sorted_hashes[idx]]
-            
+
         elif self.strategy == 'least_response_time':
             # Select server with lowest average response time
             def get_avg_response_time(server):
                 if self.response_counts[server] == 0:
                     return 0  # Favor untested servers
                 return self.response_times[server]
-            
+
             return min(self.active_servers, key=get_avg_response_time)
-    
+
     def mark_server_down(self, server):
         """Handle server failure"""
         if server in self.active_servers:
             self.active_servers.remove(server)
-            
+
             # Clean up consistent hash ring
             if self.strategy == 'consistent_hash':
                 self._build_hash_ring()
-            
+
             # Reset connections for this server
             self.connections[server] = 0
-    
+
     def add_server(self, server):
         """Handle server addition"""
         if server not in self.active_servers:
             self.active_servers.add(server)
-            
+
             # Set default weight if needed
             if not hasattr(server, 'weight'):
                 self.weights[server] = 1
-            
+
             # Rebuild consistent hash ring
             if self.strategy == 'consistent_hash':
                 self._build_hash_ring()
-    
+
     def record_request_start(self, server):
         """Track connection start"""
         self.connections[server] += 1
-    
+
     def record_request_end(self, server, response_time):
         """Track connection end and response time"""
         self.connections[server] = max(0, self.connections[server] - 1)
-        
+
         # Update response time with EWMA
         if self.response_counts[server] == 0:
             self.response_times[server] = response_time
         else:
             old_avg = self.response_times[server]
             self.response_times[server] = (
-                self.ewma_alpha * response_time + 
+                self.ewma_alpha * response_time +
                 (1 - self.ewma_alpha) * old_avg
             )
-        
+
         self.response_counts[server] += 1
 ```
 
@@ -457,13 +456,13 @@ class LoadBalancer:
 class MapReduceFramework:
     def __init__(self, num_workers=4):
         self.num_workers = num_workers
-        
+
     def run(self, data, map_func, reduce_func):
         """Execute MapReduce job"""
         # TODO: Implement the MapReduce execution flow
         # 1. Split data among mappers
         # 2. Run map phase
-        # 3. Shuffle/sort intermediate results  
+        # 3. Shuffle/sort intermediate results
         # 4. Run reduce phase
         # 5. Collect results
         pass
@@ -498,55 +497,55 @@ import multiprocessing as mp
 class MapReduceFramework:
     def __init__(self, num_workers=4):
         self.num_workers = num_workers
-        
+
     def run(self, data, map_func, reduce_func):
         """Execute MapReduce job"""
         # 1. Split data among mappers
         chunk_size = max(1, len(data) // self.num_workers)
         chunks = [
-            data[i:i + chunk_size] 
+            data[i:i + chunk_size]
             for i in range(0, len(data), chunk_size)
         ]
-        
+
         # 2. Run map phase in parallel
         intermediate = defaultdict(list)
-        
+
         with ProcessPoolExecutor(max_workers=self.num_workers) as executor:
             # Map phase
             map_results = executor.map(
                 lambda chunk: self._run_mapper(chunk, map_func),
                 chunks
             )
-            
+
             # Collect intermediate results
             for result in map_results:
                 for key, value in result:
                     intermediate[key].append(value)
-        
+
         # 3. Shuffle/sort is implicit in our dict structure
-        
+
         # 4. Run reduce phase
         final_results = {}
-        
+
         # Partition keys among reducers
         keys = list(intermediate.keys())
         key_chunks = [
-            keys[i::self.num_workers] 
+            keys[i::self.num_workers]
             for i in range(min(self.num_workers, len(keys)))
         ]
-        
+
         with ProcessPoolExecutor(max_workers=self.num_workers) as executor:
             reduce_results = executor.map(
                 lambda key_chunk: self._run_reducer(key_chunk, intermediate, reduce_func),
                 key_chunks
             )
-            
+
             # Collect final results
             for result in reduce_results:
                 final_results.update(result)
-        
+
         return final_results
-    
+
     def _run_mapper(self, chunk, map_func):
         """Run map function on a chunk"""
         results = []
@@ -555,7 +554,7 @@ class MapReduceFramework:
             for key_value in map_func(item):
                 results.append(key_value)
         return results
-    
+
     def _run_reducer(self, keys, intermediate, reduce_func):
         """Run reduce function on a set of keys"""
         results = {}
@@ -585,12 +584,12 @@ class OptimizedMapReduceFramework(MapReduceFramework):
         # Split data among mappers
         chunk_size = max(1, len(data) // self.num_workers)
         chunks = [
-            data[i:i + chunk_size] 
+            data[i:i + chunk_size]
             for i in range(0, len(data), chunk_size)
         ]
-        
+
         intermediate = defaultdict(list)
-        
+
         with ProcessPoolExecutor(max_workers=self.num_workers) as executor:
             # Map phase with local combining
             map_results = executor.map(
@@ -599,41 +598,41 @@ class OptimizedMapReduceFramework(MapReduceFramework):
                 ),
                 chunks
             )
-            
+
             # Collect intermediate results
             for result in map_results:
                 for key, value in result.items():
                     intermediate[key].append(value)
-        
+
         # Reduce phase
         final_results = {}
-        
+
         keys = list(intermediate.keys())
         key_chunks = [
-            keys[i::self.num_workers] 
+            keys[i::self.num_workers]
             for i in range(min(self.num_workers, len(keys)))
         ]
-        
+
         with ProcessPoolExecutor(max_workers=self.num_workers) as executor:
             reduce_results = executor.map(
                 lambda key_chunk: self._run_reducer(key_chunk, intermediate, reduce_func),
                 key_chunks
             )
-            
+
             for result in reduce_results:
                 final_results.update(result)
-        
+
         return final_results
-    
+
     def _run_mapper_with_combiner(self, chunk, map_func, combine_func):
         """Run map function with local combining"""
         local_results = defaultdict(list)
-        
+
         # Run mapper
         for item in chunk:
             for key, value in map_func(item):
                 local_results[key].append(value)
-        
+
         # Run combiner locally if provided
         if combine_func:
             combined = {}
@@ -651,17 +650,17 @@ if __name__ == "__main__":
         "the brown fox is quick and clever",
         "a quick brown dog runs fast"
     ]
-    
+
     # Basic MapReduce
     mr = MapReduceFramework(num_workers=2)
     result = mr.run(documents, word_count_map, word_count_reduce)
     print("Word counts:", result)
-    
+
     # Optimized with combiner
     mr_opt = OptimizedMapReduceFramework(num_workers=2)
     result_opt = mr_opt.run(
-        documents, 
-        word_count_map, 
+        documents,
+        word_count_map,
         word_count_reduce,
         combine_func=word_count_reduce  # Use same reduce as combiner
     )
@@ -684,22 +683,22 @@ class DistributedTaskQueue:
     def __init__(self):
         # TODO: Initialize queue structures
         pass
-    
+
     def submit_task(self, task, priority=0, depends_on=None):
         """Submit a task with optional dependencies"""
         # TODO: Add task to appropriate queue
         pass
-    
+
     def get_next_task(self, worker_capabilities):
         """Get next available task for worker"""
         # TODO: Find highest priority task with met dependencies
         pass
-    
+
     def complete_task(self, task_id, result):
         """Mark task as complete and trigger dependents"""
         # TODO: Update task status and check dependencies
         pass
-    
+
     def fail_task(self, task_id, error, retry=True):
         """Handle task failure"""
         # TODO: Implement retry or move to DLQ

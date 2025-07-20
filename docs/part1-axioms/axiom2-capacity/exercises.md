@@ -14,7 +14,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part I: Axioms](/part1-axioms/) → [Axiom 2](/part1-axioms/axiom2-capacity/) → **Capacity Exercises**
 
-
 # Capacity Exercises
 
 ## Hands-On Labs

@@ -2,7 +2,7 @@
 title: Queueing Models (M/M/1)
 description: "M/M/1 notation means:
 - Markovian (exponential) arrivals
-- Markovian (exponential) service times  
+- Markovian (exponential) service times
 - 1 server"
 type: quantitative
 difficulty: beginner
@@ -15,7 +15,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Part IV: Quantitative](/quantitative/) → **Queueing Models (M/M/1)**
 
-
 # Queueing Models (M/M/1)
 
 **When will your system hit the wall?**
@@ -24,7 +23,7 @@ last_updated: 2025-07-20
 
 M/M/1 notation means:
 - **M**arkovian (exponential) arrivals
-- **M**arkovian (exponential) service times  
+- **M**arkovian (exponential) service times
 - **1** server
 
 Key parameter:
@@ -164,7 +163,7 @@ Add safety: 15 workers
 ```python
 Actual pattern:
 - Morning spike: 2x average
-- Lunch lull: 0.5x average  
+- Lunch lull: 0.5x average
 - End of day: 1.5x average
 
 Solution: Use peak, not average
@@ -197,7 +196,7 @@ Impact: Actual queue >> M/M/1 prediction
 ```python
 if queue_length > threshold:
     reject_with_503()
-    
+
 # Prevents:
 # - Unbounded queue growth
 # - Memory exhaustion
@@ -210,7 +209,7 @@ if avg_wait_time > target:
     scale_up()
 elif avg_wait_time < target/2:
     scale_down()
-    
+
 # Maintains:
 # - Consistent performance
 # - Cost efficiency

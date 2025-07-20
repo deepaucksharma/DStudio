@@ -12,7 +12,6 @@ last_updated: 2025-07-20
 <!-- Navigation -->
 [Home](/) → [Reference](/reference/) → **Security Considerations in Distributed Systems**
 
-
 # Security Considerations in Distributed Systems
 
 Security implications, vulnerabilities, and defensive strategies for distributed architectures.
@@ -63,7 +62,7 @@ class SecureCircuitBreaker:
     def __init__(self, max_trips_per_hour=10):
         self.max_trips_per_hour = max_trips_per_hour
         self.trip_times = []
-    
+
     def can_trip(self):
         now = time.time()
         # Remove trips older than 1 hour
@@ -120,10 +119,10 @@ class SecureSaga:
         # Verify the user still has permission to perform compensation
         if not self.auth_service.can_compensate(original_user, action):
             raise SecurityError("User no longer authorized for compensation")
-        
+
         # Log compensation for audit trail
         self.audit_log.log_compensation(action, original_user)
-        
+
         # Execute with additional validation
         return action.compensate()
 ```
@@ -143,7 +142,7 @@ class SecureEventStore:
         # Encrypt sensitive data in events
         if event.contains_pii():
             event = self.crypto.encrypt_pii_fields(event)
-        
+
         # Add security metadata
         event.metadata.update({
             'user_id': user_context.user_id,
@@ -151,14 +150,14 @@ class SecureEventStore:
             'ip_address': self.hash_ip(user_context.ip),
             'signature': self.sign_event(event)
         })
-        
+
         return self.event_store.append(event)
-    
+
     def read_events(self, stream_id, user_context):
         # Check read permissions
         if not self.auth.can_read_stream(user_context, stream_id):
             raise AuthorizationError()
-        
+
         events = self.event_store.read(stream_id)
         # Decrypt events for authorized users
         return [self.decrypt_if_authorized(e, user_context) for e in events]
@@ -186,7 +185,7 @@ class SecureJWTManager:
         self.secret_key = secret_key
         self.algorithm = algorithm
         self.blacklist = set()  # Token blacklist
-    
+
     def create_token(self, user_id, permissions, expires_in_hours=1):
         payload = {
             'user_id': user_id,
@@ -196,21 +195,21 @@ class SecureJWTManager:
             'jti': str(uuid.uuid4())  # Unique token ID for blacklisting
         }
         return jwt.encode(payload, self.secret_key, algorithm=self.algorithm)
-    
+
     def validate_token(self, token):
         try:
             payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
-            
+
             # Check if token is blacklisted
             if payload['jti'] in self.blacklist:
                 raise jwt.InvalidTokenError("Token is blacklisted")
-            
+
             return payload
         except jwt.ExpiredSignatureError:
             raise AuthenticationError("Token has expired")
         except jwt.InvalidTokenError:
             raise AuthenticationError("Invalid token")
-    
+
     def blacklist_token(self, token):
         payload = jwt.decode(token, self.secret_key, algorithms=[self.algorithm])
         self.blacklist.add(payload['jti'])
@@ -222,22 +221,22 @@ class ServiceMeshAuth:
     def __init__(self):
         self.service_registry = {}
         self.policies = {}
-    
+
     def register_service(self, service_name, public_key):
         self.service_registry[service_name] = public_key
-    
+
     def authorize_request(self, source_service, target_service, action):
         policy_key = f"{source_service}->{target_service}:{action}"
         if policy_key not in self.policies:
             return False
-        
+
         return self.policies[policy_key].evaluate()
-    
+
     def verify_service_identity(self, service_name, signature, message):
         public_key = self.service_registry.get(service_name)
         if not public_key:
             return False
-        
+
         return self.crypto.verify_signature(public_key, signature, message)
 ```
 
@@ -250,7 +249,7 @@ class OAuth2Handler:
         self.client_id = client_id
         self.client_secret = client_secret
         self.auth_server_url = auth_server_url
-    
+
     def exchange_code_for_token(self, authorization_code, redirect_uri):
         # Use PKCE for additional security
         token_request = {
@@ -260,17 +259,17 @@ class OAuth2Handler:
             'client_id': self.client_id,
             'client_secret': self.client_secret
         }
-        
+
         response = requests.post(
             f"{self.auth_server_url}/token",
             data=token_request,
             headers={'Content-Type': 'application/x-www-form-urlencoded'},
             timeout=10
         )
-        
+
         if response.status_code != 200:
             raise AuthenticationError("Token exchange failed")
-        
+
         return response.json()
 ```
 
@@ -287,17 +286,17 @@ import socket
 
 def create_secure_context():
     context = ssl.create_default_context(ssl.Purpose.SERVER_AUTH)
-    
+
     # Require strong TLS versions
     context.minimum_version = ssl.TLSVersion.TLSv1_2
-    
+
     # Require certificate verification
     context.check_hostname = True
     context.verify_mode = ssl.CERT_REQUIRED
-    
+
     # Strong cipher suites
     context.set_ciphers('ECDHE+AESGCM:ECDHE+CHACHA20:DHE+AESGCM:DHE+CHACHA20:!aNULL:!MD5:!DSS')
-    
+
     return context
 
 def secure_client_connection(hostname, port):
@@ -354,12 +353,12 @@ from cryptography.fernet import Fernet
 class EncryptedField:
     def __init__(self, encryption_key):
         self.fernet = Fernet(encryption_key)
-    
+
     def encrypt(self, plaintext):
         if plaintext is None:
             return None
         return self.fernet.encrypt(plaintext.encode()).decode()
-    
+
     def decrypt(self, ciphertext):
         if ciphertext is None:
             return None
@@ -369,10 +368,10 @@ class EncryptedField:
 class User(Model):
     username = CharField()
     encrypted_ssn = CharField()  # Stored encrypted
-    
+
     def set_ssn(self, ssn):
         self.encrypted_ssn = encryption_field.encrypt(ssn)
-    
+
     def get_ssn(self):
         return encryption_field.decrypt(self.encrypted_ssn)
 ```
@@ -389,19 +388,19 @@ class DataMasker:
     def mask_email(email):
         if not email or '@' not in email:
             return email
-        
+
         local, domain = email.split('@', 1)
         if len(local) <= 2:
             return f"{'*' * len(local)}@{domain}"
         return f"{local[0]}{'*' * (len(local) - 2)}{local[-1]}@{domain}"
-    
+
     @staticmethod
     def mask_phone(phone):
         digits = re.sub(r'\D', '', phone)
         if len(digits) < 4:
             return '*' * len(digits)
         return f"{'*' * (len(digits) - 4)}{digits[-4:]}"
-    
+
     @staticmethod
     def hash_pii(value, salt):
         return hashlib.sha256(f"{value}{salt}".encode()).hexdigest()
@@ -423,10 +422,10 @@ class SecurityMonitor:
             'unusual_access_patterns': 5,  # standard deviations
             'privilege_escalations': 1  # any occurrence
         }
-    
+
     def detect_anomalies(self, current_metrics):
         alerts = []
-        
+
         # Check for brute force attacks
         if current_metrics.get('failed_logins', 0) > self.alert_thresholds['failed_logins']:
             alerts.append({
@@ -434,7 +433,7 @@ class SecurityMonitor:
                 'severity': 'HIGH',
                 'details': f"High failed login rate: {current_metrics['failed_logins']}/min"
             })
-        
+
         # Check for unusual access patterns
         access_pattern_score = self.calculate_access_pattern_score(current_metrics)
         if access_pattern_score > self.alert_thresholds['unusual_access_patterns']:
@@ -443,9 +442,9 @@ class SecurityMonitor:
                 'severity': 'MEDIUM',
                 'details': f"Access pattern score: {access_pattern_score}"
             })
-        
+
         return alerts
-    
+
     def log_security_event(self, event_type, user_id, details):
         security_log = {
             'timestamp': time.time(),
@@ -455,7 +454,7 @@ class SecurityMonitor:
             'source_ip': self.get_client_ip(),
             'user_agent': self.get_user_agent()
         }
-        
+
         # Send to security information and event management (SIEM)
         self.siem_client.send(security_log)
 ```
@@ -468,20 +467,20 @@ class AuditLogger:
     def __init__(self, logger_name="security_audit"):
         self.logger = logging.getLogger(logger_name)
         self.logger.setLevel(logging.INFO)
-        
+
         # Ensure logs are tamper-evident
         handler = RotatingFileHandler(
             'security_audit.log',
             maxBytes=100*1024*1024,  # 100MB
             backupCount=50
         )
-        
+
         formatter = logging.Formatter(
             '%(asctime)s - %(levelname)s - %(message)s'
         )
         handler.setFormatter(formatter)
         self.logger.addHandler(handler)
-    
+
     def log_access(self, user_id, resource, action, success, details=None):
         audit_entry = {
             'user_id': self.hash_user_id(user_id),
@@ -493,9 +492,9 @@ class AuditLogger:
             'ip_address': self.hash_ip(self.get_client_ip()),
             'details': details
         }
-        
+
         self.logger.info(json.dumps(audit_entry))
-    
+
     def hash_user_id(self, user_id):
         # Hash user ID for privacy while maintaining auditability
         return hashlib.sha256(f"{user_id}{self.salt}".encode()).hexdigest()[:16]
