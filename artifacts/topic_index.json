@@ -1,0 +1,3318 @@
+{
+  "failure": [
+    {
+      "file": "EXERCISE_TEMPLATE_AXIOM.md",
+      "title": "Exercise Template: Axioms"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_GUIDE.md",
+      "title": "Exercise Template Usage Guide"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PATTERN.md",
+      "title": "Exercise Template: Patterns"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PILLAR.md",
+      "title": "Exercise Template: Pillars"
+    },
+    {
+      "file": "FORMATTING_ISSUES.md",
+      "title": "Formatting Consistency Report"
+    },
+    {
+      "file": "FRONTMATTER_TEMPLATE.md",
+      "title": "YAML Frontmatter Template"
+    },
+    {
+      "file": "NAVIGATION_ENHANCEMENTS.md",
+      "title": "Navigation Enhancements for The Compendium"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "STYLE_GUIDE.md",
+      "title": "Documentation Style Guide"
+    },
+    {
+      "file": "capstone/evaluation-rubric.md",
+      "title": "Capstone Project Evaluation Rubric"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/blameless-postmortems.md",
+      "title": "Blameless Postmortems"
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "title": "Chaos Engineering"
+    },
+    {
+      "file": "human-factors/consistency-tuning.md",
+      "title": "Consistency Tuning in Production"
+    },
+    {
+      "file": "human-factors/incident-response.md",
+      "title": "Incident Response"
+    },
+    {
+      "file": "human-factors/index.md",
+      "title": "Part V: Human & Operational Factors"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/oncall-culture.md",
+      "title": "On-Call Culture"
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks"
+    },
+    {
+      "file": "human-factors/sre-practices.md",
+      "title": "SRE Practices"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/examples.md",
+      "title": "Capacity Examples"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/examples.md",
+      "title": "Partial Failure Examples"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/exercises.md",
+      "title": "Partial Failure Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/exercises.md",
+      "title": "Human Interface Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/failure-recap.md",
+      "title": "Failure-Vignette Recap Boxes"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models"
+    },
+    {
+      "file": "part2-pillars/pattern-legend.md",
+      "title": "Pattern Legend & Icons"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/pillar-checkpoint.md",
+      "title": "Pillar Checkpoint Exercise"
+    },
+    {
+      "file": "part2-pillars/reflection-journal.md",
+      "title": "Micro-Reflection Journal"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/tradeoff-calculus.md",
+      "title": "Trade-off Calculus Radar"
+    },
+    {
+      "file": "part2-pillars/truth/examples.md",
+      "title": "Truth & Consensus Examples"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/PATTERN_TEMPLATE.md",
+      "title": "Pattern Name"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/event-driven.md",
+      "title": "Event-Driven Architecture"
+    },
+    {
+      "file": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns"
+    },
+    {
+      "file": "patterns/graceful-degradation.md",
+      "title": "Graceful Degradation Pattern"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/load-shedding.md",
+      "title": "Load Shedding Pattern"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/queues-streaming.md",
+      "title": "Queues & Stream-Processing"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/retry-backoff.md",
+      "title": "Retry & Backoff Strategies"
+    },
+    {
+      "file": "patterns/saga.md",
+      "title": "Saga (Distributed Transactions)"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "patterns/service-mesh.md",
+      "title": "Service Mesh"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "patterns/timeout.md",
+      "title": "Timeout Pattern"
+    },
+    {
+      "file": "quantitative/availability-math.md",
+      "title": "Availability Math & Nines"
+    },
+    {
+      "file": "quantitative/cache-economics.md",
+      "title": "Cache Economics Sheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/recipe-cards.md",
+      "title": "Recipe Cards: Step-by-Step Procedures"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "coordination": [
+    {
+      "file": "EXERCISE_TEMPLATE_GUIDE.md",
+      "title": "Exercise Template Usage Guide"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PATTERN.md",
+      "title": "Exercise Template: Patterns"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PILLAR.md",
+      "title": "Exercise Template: Pillars"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_QUANTITATIVE.md",
+      "title": "Exercise Template: Quantitative Methods"
+    },
+    {
+      "file": "FRONTMATTER_TEMPLATE.md",
+      "title": "YAML Frontmatter Template"
+    },
+    {
+      "file": "NAVIGATION_ENHANCEMENTS.md",
+      "title": "Navigation Enhancements for The Compendium"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "STYLE_GUIDE.md",
+      "title": "Documentation Style Guide"
+    },
+    {
+      "file": "capstone/evaluation-rubric.md",
+      "title": "Capstone Project Evaluation Rubric"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/spotify-recommendations.md",
+      "title": "Spotify's Music Recommendation Engine"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/incident-response.md",
+      "title": "Incident Response"
+    },
+    {
+      "file": "human-factors/index.md",
+      "title": "Part V: Human & Operational Factors"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/oncall-culture.md",
+      "title": "On-Call Culture"
+    },
+    {
+      "file": "human-factors/org-structure.md",
+      "title": "Org-Structure Physics"
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks"
+    },
+    {
+      "file": "human-factors/team-topologies.md",
+      "title": "Team Topologies for Distributed Systems"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/examples.md",
+      "title": "Partial Failure Examples"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/exercises.md",
+      "title": "Partial Failure Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/exercises.md",
+      "title": "Concurrency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/examples.md",
+      "title": "Coordination Examples"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/exercises.md",
+      "title": "Coordination Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/examples.md",
+      "title": "Observability Examples"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/examples.md",
+      "title": "Economics Examples"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/exercises.md",
+      "title": "Economics Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/intelligence/examples.md",
+      "title": "Intelligence & Learning Examples"
+    },
+    {
+      "file": "part2-pillars/intelligence/exercises.md",
+      "title": "Intelligence & Learning Exercises"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models"
+    },
+    {
+      "file": "part2-pillars/pattern-legend.md",
+      "title": "Pattern Legend & Icons"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/pillar-checkpoint.md",
+      "title": "Pillar Checkpoint Exercise"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/transition-part3.md",
+      "title": "Transition Page (Part III Preview)"
+    },
+    {
+      "file": "part2-pillars/truth/examples.md",
+      "title": "Truth & Consensus Examples"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/PATTERN_TEMPLATE.md",
+      "title": "Pattern Name"
+    },
+    {
+      "file": "patterns/cdc.md",
+      "title": "Change Data Capture (CDC)"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/edge-computing.md",
+      "title": "Edge Computing/IoT Patterns"
+    },
+    {
+      "file": "patterns/event-driven.md",
+      "title": "Event-Driven Architecture"
+    },
+    {
+      "file": "patterns/finops.md",
+      "title": "FinOps Patterns"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/observability.md",
+      "title": "Observability Patterns"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/retry-backoff.md",
+      "title": "Retry & Backoff Strategies"
+    },
+    {
+      "file": "patterns/saga.md",
+      "title": "Saga (Distributed Transactions)"
+    },
+    {
+      "file": "patterns/serverless-faas.md",
+      "title": "Serverless/FaaS (Function-as-a-Service)"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "patterns/service-mesh.md",
+      "title": "Service Mesh"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "quantitative/amdahl-gustafson.md",
+      "title": "Amdahl & Gustafson Laws"
+    },
+    {
+      "file": "quantitative/cache-economics.md",
+      "title": "Cache Economics Sheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/index.md",
+      "title": "Reference Materials"
+    },
+    {
+      "file": "reference/recipe-cards.md",
+      "title": "Recipe Cards: Step-by-Step Procedures"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "latency": [
+    {
+      "file": "EXERCISE_TEMPLATE_GUIDE.md",
+      "title": "Exercise Template Usage Guide"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PATTERN.md",
+      "title": "Exercise Template: Patterns"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PILLAR.md",
+      "title": "Exercise Template: Pillars"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_QUANTITATIVE.md",
+      "title": "Exercise Template: Quantitative Methods"
+    },
+    {
+      "file": "FRONTMATTER_TEMPLATE.md",
+      "title": "YAML Frontmatter Template"
+    },
+    {
+      "file": "NAVIGATION_ENHANCEMENTS.md",
+      "title": "Navigation Enhancements for The Compendium"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "STYLE_GUIDE.md",
+      "title": "Documentation Style Guide"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/spotify-recommendations.md",
+      "title": "Spotify's Music Recommendation Engine"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "title": "Chaos Engineering"
+    },
+    {
+      "file": "human-factors/consistency-tuning.md",
+      "title": "Consistency Tuning in Production"
+    },
+    {
+      "file": "human-factors/incident-response.md",
+      "title": "Incident Response"
+    },
+    {
+      "file": "human-factors/index.md",
+      "title": "Part V: Human & Operational Factors"
+    },
+    {
+      "file": "human-factors/observability-stacks.md",
+      "title": "Observability Stacks"
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks"
+    },
+    {
+      "file": "human-factors/sre-practices.md",
+      "title": "SRE Practices"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/examples.md",
+      "title": "Latency Examples"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/examples.md",
+      "title": "Observability Examples"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/decision-tree.md",
+      "title": "Decision Tree Walk-Through"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/intelligence/exercises.md",
+      "title": "Intelligence & Learning Exercises"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-collide.md",
+      "title": "When Models Collide"
+    },
+    {
+      "file": "part2-pillars/pattern-legend.md",
+      "title": "Pattern Legend & Icons"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/tradeoff-calculus.md",
+      "title": "Trade-off Calculus Radar"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/PATTERN_TEMPLATE.md",
+      "title": "Pattern Name"
+    },
+    {
+      "file": "patterns/auto-scaling.md",
+      "title": "Auto-scaling Pattern"
+    },
+    {
+      "file": "patterns/caching-strategies.md",
+      "title": "Caching Strategies"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/edge-computing.md",
+      "title": "Edge Computing/IoT Patterns"
+    },
+    {
+      "file": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns"
+    },
+    {
+      "file": "patterns/graphql-federation.md",
+      "title": "GraphQL Federation"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/load-shedding.md",
+      "title": "Load Shedding Pattern"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz"
+    },
+    {
+      "file": "patterns/queues-streaming.md",
+      "title": "Queues & Stream-Processing"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/retry-backoff.md",
+      "title": "Retry & Backoff Strategies"
+    },
+    {
+      "file": "patterns/serverless-faas.md",
+      "title": "Serverless/FaaS (Function-as-a-Service)"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "patterns/service-mesh.md",
+      "title": "Service Mesh"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "patterns/timeout.md",
+      "title": "Timeout Pattern"
+    },
+    {
+      "file": "quantitative/amdahl-gustafson.md",
+      "title": "Amdahl & Gustafson Laws"
+    },
+    {
+      "file": "quantitative/cache-economics.md",
+      "title": "Cache Economics Sheet"
+    },
+    {
+      "file": "quantitative/capacity-planning.md",
+      "title": "Capacity Planning Worksheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/latency-ladder.md",
+      "title": "Latency Ladder 2025"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/queueing-models.md",
+      "title": "Queueing Models (M/M/1)"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/index.md",
+      "title": "Reference Materials"
+    },
+    {
+      "file": "reference/recipe-cards.md",
+      "title": "Recipe Cards: Step-by-Step Procedures"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "consistency": [
+    {
+      "file": "EXERCISE_TEMPLATE_GUIDE.md",
+      "title": "Exercise Template Usage Guide"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_QUANTITATIVE.md",
+      "title": "Exercise Template: Quantitative Methods"
+    },
+    {
+      "file": "FORMATTING_ISSUES.md",
+      "title": "Formatting Consistency Report"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "STYLE_GUIDE.md",
+      "title": "Documentation Style Guide"
+    },
+    {
+      "file": "capstone/evaluation-rubric.md",
+      "title": "Capstone Project Evaluation Rubric"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/consistency-tuning.md",
+      "title": "Consistency Tuning in Production"
+    },
+    {
+      "file": "human-factors/index.md",
+      "title": "Part V: Human & Operational Factors"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/sre-practices.md",
+      "title": "SRE Practices"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/examples.md",
+      "title": "Coordination Examples"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/exercises.md",
+      "title": "Coordination Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/examples.md",
+      "title": "Economics Examples"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/exercises.md",
+      "title": "Economics Exercises"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/decision-tree.md",
+      "title": "Decision Tree Walk-Through"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/intelligence/examples.md",
+      "title": "Intelligence & Learning Examples"
+    },
+    {
+      "file": "part2-pillars/intelligence/exercises.md",
+      "title": "Intelligence & Learning Exercises"
+    },
+    {
+      "file": "part2-pillars/models-collide.md",
+      "title": "When Models Collide"
+    },
+    {
+      "file": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/pillar-checkpoint.md",
+      "title": "Pillar Checkpoint Exercise"
+    },
+    {
+      "file": "part2-pillars/reflection-journal.md",
+      "title": "Micro-Reflection Journal"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/truth/examples.md",
+      "title": "Truth & Consensus Examples"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/cdc.md",
+      "title": "Change Data Capture (CDC)"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/event-driven.md",
+      "title": "Event-Driven Architecture"
+    },
+    {
+      "file": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/retry-backoff.md",
+      "title": "Retry & Backoff Strategies"
+    },
+    {
+      "file": "patterns/saga.md",
+      "title": "Saga (Distributed Transactions)"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "patterns/tunable-consistency.md",
+      "title": "Tunable Consistency"
+    },
+    {
+      "file": "quantitative/amdahl-gustafson.md",
+      "title": "Amdahl & Gustafson Laws"
+    },
+    {
+      "file": "quantitative/cache-economics.md",
+      "title": "Cache Economics Sheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/index.md",
+      "title": "Reference Materials"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "capacity": [
+    {
+      "file": "EXERCISE_TEMPLATE_GUIDE.md",
+      "title": "Exercise Template Usage Guide"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PATTERN.md",
+      "title": "Exercise Template: Patterns"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_PILLAR.md",
+      "title": "Exercise Template: Pillars"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_QUANTITATIVE.md",
+      "title": "Exercise Template: Quantitative Methods"
+    },
+    {
+      "file": "FRONTMATTER_TEMPLATE.md",
+      "title": "YAML Frontmatter Template"
+    },
+    {
+      "file": "NAVIGATION_ENHANCEMENTS.md",
+      "title": "Navigation Enhancements for The Compendium"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/spotify-recommendations.md",
+      "title": "Spotify's Music Recommendation Engine"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "title": "Chaos Engineering"
+    },
+    {
+      "file": "human-factors/incident-response.md",
+      "title": "Incident Response"
+    },
+    {
+      "file": "human-factors/index.md",
+      "title": "Part V: Human & Operational Factors"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/observability-stacks.md",
+      "title": "Observability Stacks"
+    },
+    {
+      "file": "human-factors/org-structure.md",
+      "title": "Org-Structure Physics"
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks"
+    },
+    {
+      "file": "human-factors/sre-practices.md",
+      "title": "SRE Practices"
+    },
+    {
+      "file": "human-factors/team-topologies.md",
+      "title": "Team Topologies for Distributed Systems"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/examples.md",
+      "title": "Capacity Examples"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/exercises.md",
+      "title": "Capacity Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/decision-tree.md",
+      "title": "Decision Tree Walk-Through"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/intelligence/examples.md",
+      "title": "Intelligence & Learning Examples"
+    },
+    {
+      "file": "part2-pillars/intelligence/exercises.md",
+      "title": "Intelligence & Learning Exercises"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/pattern-legend.md",
+      "title": "Pattern Legend & Icons"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/tradeoff-calculus.md",
+      "title": "Trade-off Calculus Radar"
+    },
+    {
+      "file": "part2-pillars/transition-part3.md",
+      "title": "Transition Page (Part III Preview)"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/PATTERN_TEMPLATE.md",
+      "title": "Pattern Name"
+    },
+    {
+      "file": "patterns/auto-scaling.md",
+      "title": "Auto-scaling Pattern"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/edge-computing.md",
+      "title": "Edge Computing/IoT Patterns"
+    },
+    {
+      "file": "patterns/finops.md",
+      "title": "FinOps Patterns"
+    },
+    {
+      "file": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns"
+    },
+    {
+      "file": "patterns/graceful-degradation.md",
+      "title": "Graceful Degradation Pattern"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/load-shedding.md",
+      "title": "Load Shedding Pattern"
+    },
+    {
+      "file": "patterns/observability.md",
+      "title": "Observability Patterns"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz"
+    },
+    {
+      "file": "patterns/queues-streaming.md",
+      "title": "Queues & Stream-Processing"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/retry-backoff.md",
+      "title": "Retry & Backoff Strategies"
+    },
+    {
+      "file": "patterns/serverless-faas.md",
+      "title": "Serverless/FaaS (Function-as-a-Service)"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "quantitative/amdahl-gustafson.md",
+      "title": "Amdahl & Gustafson Laws"
+    },
+    {
+      "file": "quantitative/capacity-planning.md",
+      "title": "Capacity Planning Worksheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/latency-ladder.md",
+      "title": "Latency Ladder 2025"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/queueing-models.md",
+      "title": "Queueing Models (M/M/1)"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/index.md",
+      "title": "Reference Materials"
+    },
+    {
+      "file": "reference/recipe-cards.md",
+      "title": "Recipe Cards: Step-by-Step Procedures"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "messaging": [
+    {
+      "file": "EXERCISE_TEMPLATE_GUIDE.md",
+      "title": "Exercise Template Usage Guide"
+    },
+    {
+      "file": "EXERCISE_TEMPLATE_QUANTITATIVE.md",
+      "title": "Exercise Template: Quantitative Methods"
+    },
+    {
+      "file": "FORMATTING_ISSUES.md",
+      "title": "Formatting Consistency Report"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/spotify-recommendations.md",
+      "title": "Spotify's Music Recommendation Engine"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/blameless-postmortems.md",
+      "title": "Blameless Postmortems"
+    },
+    {
+      "file": "human-factors/incident-response.md",
+      "title": "Incident Response"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/org-structure.md",
+      "title": "Org-Structure Physics"
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks"
+    },
+    {
+      "file": "human-factors/team-topologies.md",
+      "title": "Team Topologies for Distributed Systems"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/examples.md",
+      "title": "Capacity Examples"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/exercises.md",
+      "title": "Capacity Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/decision-tree.md",
+      "title": "Decision Tree Walk-Through"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-collide.md",
+      "title": "When Models Collide"
+    },
+    {
+      "file": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/pillar-checkpoint.md",
+      "title": "Pillar Checkpoint Exercise"
+    },
+    {
+      "file": "part2-pillars/pillars-patterns-map.md",
+      "title": "Pillars \u2194 Patterns Mini-Map"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/truth/examples.md",
+      "title": "Truth & Consensus Examples"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/auto-scaling.md",
+      "title": "Auto-scaling Pattern"
+    },
+    {
+      "file": "patterns/caching-strategies.md",
+      "title": "Caching Strategies"
+    },
+    {
+      "file": "patterns/cdc.md",
+      "title": "Change Data Capture (CDC)"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/edge-computing.md",
+      "title": "Edge Computing/IoT Patterns"
+    },
+    {
+      "file": "patterns/event-driven.md",
+      "title": "Event-Driven Architecture"
+    },
+    {
+      "file": "patterns/event-sourcing.md",
+      "title": "Event Sourcing Pattern"
+    },
+    {
+      "file": "patterns/graceful-degradation.md",
+      "title": "Graceful Degradation Pattern"
+    },
+    {
+      "file": "patterns/graphql-federation.md",
+      "title": "GraphQL Federation"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/load-shedding.md",
+      "title": "Load Shedding Pattern"
+    },
+    {
+      "file": "patterns/observability.md",
+      "title": "Observability Patterns"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz"
+    },
+    {
+      "file": "patterns/queues-streaming.md",
+      "title": "Queues & Stream-Processing"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/saga.md",
+      "title": "Saga (Distributed Transactions)"
+    },
+    {
+      "file": "patterns/serverless-faas.md",
+      "title": "Serverless/FaaS (Function-as-a-Service)"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "quantitative/cache-economics.md",
+      "title": "Cache Economics Sheet"
+    },
+    {
+      "file": "quantitative/capacity-planning.md",
+      "title": "Capacity Planning Worksheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/queueing-models.md",
+      "title": "Queueing Models (M/M/1)"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/index.md",
+      "title": "Reference Materials"
+    },
+    {
+      "file": "reference/recipe-cards.md",
+      "title": "Recipe Cards: Step-by-Step Procedures"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "partitioning": [
+    {
+      "file": "EXERCISE_TEMPLATE_PATTERN.md",
+      "title": "Exercise Template: Patterns"
+    },
+    {
+      "file": "FRONTMATTER_TEMPLATE.md",
+      "title": "YAML Frontmatter Template"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "STYLE_GUIDE.md",
+      "title": "Documentation Style Guide"
+    },
+    {
+      "file": "capstone/evaluation-rubric.md",
+      "title": "Capstone Project Evaluation Rubric"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "title": "Chaos Engineering"
+    },
+    {
+      "file": "human-factors/org-structure.md",
+      "title": "Org-Structure Physics"
+    },
+    {
+      "file": "human-factors/team-topologies.md",
+      "title": "Team Topologies for Distributed Systems"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/decision-tree.md",
+      "title": "Decision Tree Walk-Through"
+    },
+    {
+      "file": "part2-pillars/failure-recap.md",
+      "title": "Failure-Vignette Recap Boxes"
+    },
+    {
+      "file": "part2-pillars/intelligence/examples.md",
+      "title": "Intelligence & Learning Examples"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-collide.md",
+      "title": "When Models Collide"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/reflection-journal.md",
+      "title": "Micro-Reflection Journal"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/truth/examples.md",
+      "title": "Truth & Consensus Examples"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/queues-streaming.md",
+      "title": "Queues & Stream-Processing"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/service-mesh.md",
+      "title": "Service Mesh"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "quantitative/amdahl-gustafson.md",
+      "title": "Amdahl & Gustafson Laws"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/index.md",
+      "title": "Reference Materials"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "caching": [
+    {
+      "file": "EXERCISE_TEMPLATE_PATTERN.md",
+      "title": "Exercise Template: Patterns"
+    },
+    {
+      "file": "FORMATTING_ISSUES.md",
+      "title": "Formatting Consistency Report"
+    },
+    {
+      "file": "FRONTMATTER_TEMPLATE.md",
+      "title": "YAML Frontmatter Template"
+    },
+    {
+      "file": "NAVIGATION_ENHANCEMENTS.md",
+      "title": "Navigation Enhancements for The Compendium"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/spotify-recommendations.md",
+      "title": "Spotify's Music Recommendation Engine"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/blameless-postmortems.md",
+      "title": "Blameless Postmortems"
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "title": "Chaos Engineering"
+    },
+    {
+      "file": "human-factors/consistency-tuning.md",
+      "title": "Consistency Tuning in Production"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/sre-practices.md",
+      "title": "SRE Practices"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/intelligence/examples.md",
+      "title": "Intelligence & Learning Examples"
+    },
+    {
+      "file": "part2-pillars/intelligence/exercises.md",
+      "title": "Intelligence & Learning Exercises"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-collide.md",
+      "title": "When Models Collide"
+    },
+    {
+      "file": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/pillar-checkpoint.md",
+      "title": "Pillar Checkpoint Exercise"
+    },
+    {
+      "file": "part2-pillars/pillars-patterns-map.md",
+      "title": "Pillars \u2194 Patterns Mini-Map"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/tradeoff-calculus.md",
+      "title": "Trade-off Calculus Radar"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/caching-strategies.md",
+      "title": "Caching Strategies"
+    },
+    {
+      "file": "patterns/cdc.md",
+      "title": "Change Data Capture (CDC)"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/edge-computing.md",
+      "title": "Edge Computing/IoT Patterns"
+    },
+    {
+      "file": "patterns/event-sourcing.md",
+      "title": "Event Sourcing Pattern"
+    },
+    {
+      "file": "patterns/finops.md",
+      "title": "FinOps Patterns"
+    },
+    {
+      "file": "patterns/graceful-degradation.md",
+      "title": "Graceful Degradation Pattern"
+    },
+    {
+      "file": "patterns/graphql-federation.md",
+      "title": "GraphQL Federation"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/observability.md",
+      "title": "Observability Patterns"
+    },
+    {
+      "file": "patterns/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/service-discovery.md",
+      "title": "Service Discovery Pattern"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "patterns/timeout.md",
+      "title": "Timeout Pattern"
+    },
+    {
+      "file": "quantitative/cache-economics.md",
+      "title": "Cache Economics Sheet"
+    },
+    {
+      "file": "quantitative/capacity-planning.md",
+      "title": "Capacity Planning Worksheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/latency-ladder.md",
+      "title": "Latency Ladder 2025"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/queueing-models.md",
+      "title": "Queueing Models (M/M/1)"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/recipe-cards.md",
+      "title": "Recipe Cards: Step-by-Step Procedures"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ],
+  "replication": [
+    {
+      "file": "FORMATTING_ISSUES.md",
+      "title": "Formatting Consistency Report"
+    },
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "capstone/evaluation-rubric.md",
+      "title": "Capstone Project Evaluation Rubric"
+    },
+    {
+      "file": "capstone/framework.md",
+      "title": "Capstone Project Framework"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/index.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/chaos-engineering.md",
+      "title": "Chaos Engineering"
+    },
+    {
+      "file": "human-factors/consistency-tuning.md",
+      "title": "Consistency Tuning in Production"
+    },
+    {
+      "file": "human-factors/observability-stacks.md",
+      "title": "Observability Stacks"
+    },
+    {
+      "file": "human-factors/oncall-culture.md",
+      "title": "On-Call Culture"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/examples.md",
+      "title": "Partial Failure Examples"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom6-observability/index.md",
+      "title": "Axiom 6: Observability"
+    },
+    {
+      "file": "part1-axioms/axiom7-human/index.md",
+      "title": "Axiom 7: Human-System Interface"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part2-pillars/control/examples.md",
+      "title": "Control & Coordination Examples"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/control/index.md",
+      "title": "Pillar 4: Distribution of Control"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/models-collide.md",
+      "title": "When Models Collide"
+    },
+    {
+      "file": "part2-pillars/pillars-patterns-map.md",
+      "title": "Pillars \u2194 Patterns Mini-Map"
+    },
+    {
+      "file": "part2-pillars/reflection-journal.md",
+      "title": "Micro-Reflection Journal"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/truth/examples.md",
+      "title": "Truth & Consensus Examples"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/cdc.md",
+      "title": "Change Data Capture (CDC)"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/geo-replication.md",
+      "title": "Geo-Replication Patterns"
+    },
+    {
+      "file": "patterns/graceful-degradation.md",
+      "title": "Graceful Degradation Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/load-balancing.md",
+      "title": "Load Balancing Pattern"
+    },
+    {
+      "file": "patterns/pattern-quiz.md",
+      "title": "Pattern Catalog Quiz"
+    },
+    {
+      "file": "patterns/timeout.md",
+      "title": "Timeout Pattern"
+    },
+    {
+      "file": "patterns/tunable-consistency.md",
+      "title": "Tunable Consistency"
+    },
+    {
+      "file": "quantitative/availability-math.md",
+      "title": "Availability Math & Nines"
+    },
+    {
+      "file": "quantitative/capacity-planning.md",
+      "title": "Capacity Planning Worksheet"
+    },
+    {
+      "file": "quantitative/coordination-costs.md",
+      "title": "Coordination Cost Models"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "reference/security.md",
+      "title": "Security Considerations in Distributed Systems"
+    }
+  ],
+  "concurrency": [
+    {
+      "file": "SOLUTION_GUIDES.md",
+      "title": "Solution Guides for Distributed Systems Exercises"
+    },
+    {
+      "file": "case-studies/amazon-dynamo.md",
+      "title": "Amazon's DynamoDB: Building a Database That Never Goes Down"
+    },
+    {
+      "file": "case-studies/index-original.md",
+      "title": "Case Studies: Axioms in Action"
+    },
+    {
+      "file": "case-studies/paypal-payments.md",
+      "title": "PayPal's Payment Processing System"
+    },
+    {
+      "file": "case-studies/uber-location.md",
+      "title": "Uber's Real-Time Location System"
+    },
+    {
+      "file": "human-factors/knowledge-management.md",
+      "title": "Knowledge Management in Distributed Systems"
+    },
+    {
+      "file": "human-factors/runbooks-playbooks.md",
+      "title": "Runbooks & Playbooks"
+    },
+    {
+      "file": "index.md",
+      "title": "The Compendium of Distributed Systems"
+    },
+    {
+      "file": "introduction/index.md",
+      "title": "Welcome to Distributed Systems"
+    },
+    {
+      "file": "introduction/philosophy.md",
+      "title": "The Philosophy: Learning from First Principles"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/exercises.md",
+      "title": "Latency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom1-latency/index.md",
+      "title": "Axiom 1: Latency (Speed of Light)"
+    },
+    {
+      "file": "part1-axioms/axiom2-capacity/index.md",
+      "title": "Axiom 2: Finite Capacity"
+    },
+    {
+      "file": "part1-axioms/axiom3-failure/index.md",
+      "title": "Axiom 3: Partial Failure"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/examples.md",
+      "title": "Concurrency Examples"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/exercises.md",
+      "title": "Concurrency Exercises"
+    },
+    {
+      "file": "part1-axioms/axiom4-concurrency/index.md",
+      "title": "Axiom 4: Concurrency"
+    },
+    {
+      "file": "part1-axioms/axiom5-coordination/index.md",
+      "title": "Axiom 5: Cost of Coordination"
+    },
+    {
+      "file": "part1-axioms/axiom8-economics/index.md",
+      "title": "Axiom 8: Economic Gradient"
+    },
+    {
+      "file": "part1-axioms/index.md",
+      "title": "Part I: The Eight Fundamental Axioms"
+    },
+    {
+      "file": "part1-axioms/quiz.md",
+      "title": "Immutable Laws Quiz"
+    },
+    {
+      "file": "part1-axioms/synthesis.md",
+      "title": "Axioms Synthesis"
+    },
+    {
+      "file": "part2-pillars/control/exercises.md",
+      "title": "Control & Coordination Exercises"
+    },
+    {
+      "file": "part2-pillars/index.md",
+      "title": "Part II: Foundational Pillars"
+    },
+    {
+      "file": "part2-pillars/intelligence/index.md",
+      "title": "Pillar 5: Distribution of Intelligence"
+    },
+    {
+      "file": "part2-pillars/models-comparison.md",
+      "title": "CAST vs SPACE Models"
+    },
+    {
+      "file": "part2-pillars/pattern-legend.md",
+      "title": "Pattern Legend & Icons"
+    },
+    {
+      "file": "part2-pillars/pattern-matrix.md",
+      "title": "Pattern Interconnection Matrix v2"
+    },
+    {
+      "file": "part2-pillars/state/examples.md",
+      "title": "State Management Examples"
+    },
+    {
+      "file": "part2-pillars/state/exercises.md",
+      "title": "State Management Exercises"
+    },
+    {
+      "file": "part2-pillars/state/index.md",
+      "title": "Pillar 2: Distribution of State"
+    },
+    {
+      "file": "part2-pillars/truth/exercises.md",
+      "title": "Truth & Consensus Exercises"
+    },
+    {
+      "file": "part2-pillars/truth/index.md",
+      "title": "Pillar 3: Distribution of Truth"
+    },
+    {
+      "file": "part2-pillars/work/examples.md",
+      "title": "Work Distribution Examples"
+    },
+    {
+      "file": "part2-pillars/work/exercises.md",
+      "title": "Work Distribution Exercises"
+    },
+    {
+      "file": "part2-pillars/work/index.md",
+      "title": "Pillar 1: Distribution of Work"
+    },
+    {
+      "file": "patterns/PATTERN_TEMPLATE.md",
+      "title": "Pattern Name"
+    },
+    {
+      "file": "patterns/bulkhead.md",
+      "title": "Bulkhead Pattern"
+    },
+    {
+      "file": "patterns/caching-strategies.md",
+      "title": "Caching Strategies"
+    },
+    {
+      "file": "patterns/cdc.md",
+      "title": "Change Data Capture (CDC)"
+    },
+    {
+      "file": "patterns/circuit-breaker.md",
+      "title": "Circuit Breaker Pattern"
+    },
+    {
+      "file": "patterns/consensus.md",
+      "title": "Consensus Pattern"
+    },
+    {
+      "file": "patterns/cqrs.md",
+      "title": "CQRS (Command Query Responsibility Segregation)"
+    },
+    {
+      "file": "patterns/distributed-lock.md",
+      "title": "Distributed Lock Pattern"
+    },
+    {
+      "file": "patterns/event-sourcing.md",
+      "title": "Event Sourcing Pattern"
+    },
+    {
+      "file": "patterns/graphql-federation.md",
+      "title": "GraphQL Federation"
+    },
+    {
+      "file": "patterns/health-check.md",
+      "title": "Health Check Pattern"
+    },
+    {
+      "file": "patterns/idempotent-receiver.md",
+      "title": "Idempotent Receiver Pattern"
+    },
+    {
+      "file": "patterns/index.md",
+      "title": "Part III: Modern Architectural Patterns"
+    },
+    {
+      "file": "patterns/leader-election.md",
+      "title": "Leader Election Pattern"
+    },
+    {
+      "file": "patterns/load-shedding.md",
+      "title": "Load Shedding Pattern"
+    },
+    {
+      "file": "patterns/outbox.md",
+      "title": "Outbox Pattern"
+    },
+    {
+      "file": "patterns/rate-limiting.md",
+      "title": "Rate Limiting Pattern"
+    },
+    {
+      "file": "patterns/retry-backoff.md",
+      "title": "Retry & Backoff Strategies"
+    },
+    {
+      "file": "patterns/serverless-faas.md",
+      "title": "Serverless/FaaS (Function-as-a-Service)"
+    },
+    {
+      "file": "patterns/sharding.md",
+      "title": "Sharding (Data Partitioning)"
+    },
+    {
+      "file": "quantitative/amdahl-gustafson.md",
+      "title": "Amdahl & Gustafson Laws"
+    },
+    {
+      "file": "quantitative/availability-math.md",
+      "title": "Availability Math & Nines"
+    },
+    {
+      "file": "quantitative/index.md",
+      "title": "Part IV: Quantitative Toolkit"
+    },
+    {
+      "file": "quantitative/latency-ladder.md",
+      "title": "Latency Ladder 2025"
+    },
+    {
+      "file": "quantitative/littles-law.md",
+      "title": "Little's Law Deep-Dive"
+    },
+    {
+      "file": "quantitative/problem-set.md",
+      "title": "Numerical Problem Set"
+    },
+    {
+      "file": "quantitative/universal-scalability.md",
+      "title": "Universal Scalability Law"
+    },
+    {
+      "file": "reference/cheat-sheets.md",
+      "title": "Distributed Systems Cheat Sheets"
+    },
+    {
+      "file": "reference/glossary.md",
+      "title": "Distributed Systems Glossary"
+    },
+    {
+      "file": "tools/index.md",
+      "title": "Interactive Tools"
+    }
+  ]
+}

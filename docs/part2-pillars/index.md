@@ -157,3 +157,64 @@ By the end, you'll understand not just *what* each pillar does, but *why* it wor
 *"Give me a lever long enough and I can move the world. Give me the right abstractions and I can build any system."*
 
 ## The Five Pillars
+
+### Pillar 1: Work Distribution
+**How to distribute computation across nodes**
+
+Work distribution is about spreading computational tasks across multiple machines efficiently. It wrestles primarily with latency and capacity axioms, seeking to maximize throughput while minimizing response time.
+
+**Key Concepts**: Load balancing, task scheduling, parallel processing, map-reduce, function-as-a-service  
+**Primary Challenge**: Balancing work evenly while minimizing coordination overhead  
+[**→ Master Work Distribution**](work/index.md)
+
+### Pillar 2: State Distribution  
+**How to distribute data across nodes**
+
+State distribution manages how data is stored, replicated, and accessed across a distributed system. It grapples with consistency and failure axioms, trading off between data availability and correctness.
+
+**Key Concepts**: Replication, partitioning, consistency models, databases, caching  
+**Primary Challenge**: Maintaining data integrity while ensuring availability  
+[**→ Understand State Distribution**](state/index.md)
+
+### Pillar 3: Truth Distribution
+**How to maintain consistency across nodes**
+
+Truth distribution establishes what is "true" in a system where different nodes may have different views of reality. It deals with coordination and observability axioms, defining how and when nodes agree on shared state.
+
+**Key Concepts**: Consensus algorithms, distributed transactions, event ordering, logical clocks  
+**Primary Challenge**: Achieving agreement without sacrificing performance  
+[**→ Navigate Truth Distribution**](truth/index.md)
+
+### Pillar 4: Control Distribution
+**How to distribute operational control**
+
+Control distribution manages how decisions are made and executed across the system. It balances human interface and observability axioms, ensuring systems remain operable and debuggable at scale.
+
+**Key Concepts**: Orchestration, configuration management, deployment strategies, monitoring  
+**Primary Challenge**: Maintaining control without creating bottlenecks  
+[**→ Implement Control Distribution**](control/index.md)
+
+### Pillar 5: Intelligence Distribution
+**How to distribute decision-making**
+
+Intelligence distribution enables systems to adapt and self-optimize. It emerges from all axioms working together, creating feedback loops that allow systems to learn and improve over time.
+
+**Key Concepts**: Auto-scaling, self-healing, machine learning systems, adaptive algorithms  
+**Primary Challenge**: Building systems that improve without human intervention  
+[**→ Build Intelligent Systems**](intelligence/index.md)
+
+## Start Your Journey
+
+Ready to master distributed systems? Begin with the pillar that matches your current challenge:
+
+- **Performance issues?** Start with [Work Distribution](work/index.md)
+- **Data consistency problems?** Explore [State Distribution](state/index.md)  
+- **Coordination challenges?** Dive into [Truth Distribution](truth/index.md)
+- **Operational complexity?** Master [Control Distribution](control/index.md)
+- **Scaling decisions?** Understand [Intelligence Distribution](intelligence/index.md)
+
+Remember: The pillars build on each other. Master them individually, then learn how they interact to create robust distributed systems.
+
+---
+
+**Next**: Choose your first pillar or return to [Part I: Axioms](/part1-axioms/) to strengthen your foundation.

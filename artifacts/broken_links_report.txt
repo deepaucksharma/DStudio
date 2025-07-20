@@ -1,0 +1,125 @@
+Fixed 0 links
+
+Still broken:
+
+NAVIGATION_ENHANCEMENTS.md:
+  - /part2-pillars/work/
+  - /quantitative/queueing-models/
+  - /human-factors/sre-practices/
+  - /part1-axioms/axiom2-capacity/exercises/
+  - /patterns/auto-scaling/
+  - /part2-pillars/work/#scaling-decisions
+  - /part1-axioms/axiom8-economics/#capacity-costs
+
+patterns/load-shedding.md:
+  - /part1-axioms/axiom2-capacity/
+  - /part1-axioms/axiom3-failure/
+  - /patterns/circuit-breaker/
+  - /patterns/bulkhead/
+  - /patterns/rate-limiting/
+  - current_load
+  - current_load
+
+patterns/graceful-degradation.md:
+  - /part1-axioms/axiom3-failure/
+  - /part1-axioms/axiom7-human-interface/
+  - /patterns/circuit-breaker/
+  - /patterns/load-shedding/
+  - /patterns/fallback/
+
+patterns/event-sourcing.md:
+  - event
+
+patterns/consensus.md:
+  - /part1-axioms/axiom5-coordination/
+  - /part1-axioms/axiom3-failure/
+  - /patterns/leader-election/
+  - /patterns/distributed-lock/
+  - /patterns/event-sourcing/
+
+patterns/circuit-breaker.md:
+  - /part1-axioms/axiom1-latency/
+  - /part1-axioms/axiom3-failure/
+  - /patterns/retry-backoff/
+  - /patterns/bulkhead/
+  - /patterns/timeout/
+  - /patterns/health-check/
+
+patterns/rate-limiting.md:
+  - /part1-axioms/axiom2-capacity/
+  - /part1-axioms/axiom7-human-interface/
+  - /patterns/load-shedding/
+  - /patterns/circuit-breaker/
+  - /patterns/quota/
+
+patterns/health-check.md:
+  - /part1-axioms/axiom3-failure/
+  - /part1-axioms/axiom6-observability/
+  - /patterns/circuit-breaker/
+  - /patterns/service-discovery/
+  - /patterns/load-balancing/
+
+patterns/service-discovery.md:
+  - /part1-axioms/axiom3-failure/
+  - /part1-axioms/axiom5-coordination/
+  - /patterns/load-balancing/
+  - /patterns/health-check/
+  - /patterns/circuit-breaker/
+
+patterns/saga.md:
+  - context
+  - event, context
+  - context
+
+patterns/distributed-lock.md:
+  - /part1-axioms/axiom4-concurrency/
+  - /part1-axioms/axiom5-coordination/
+  - /patterns/leader-election/
+  - /patterns/timeout/
+  - /patterns/fencing/
+
+patterns/timeout.md:
+  - /part1-axioms/axiom1-latency/
+  - /part1-axioms/axiom3-failure/
+  - /patterns/circuit-breaker/
+  - /patterns/retry-backoff/
+  - /patterns/bulkhead/
+
+patterns/auto-scaling.md:
+  - /part1-axioms/axiom2-capacity/
+  - /part1-axioms/axiom8-economics/
+  - /patterns/load-balancing/
+  - /patterns/health-check/
+  - /patterns/circuit-breaker/
+
+patterns/load-balancing.md:
+  - /part1-axioms/axiom2-capacity/
+  - /part1-axioms/axiom3-failure/
+  - /patterns/health-check/
+  - /patterns/auto-scaling/
+  - /patterns/circuit-breaker/
+
+human-factors/oncall-culture.md:
+  - alert.service
+
+human-factors/knowledge-management.md:
+  - /patterns/event-sourcing/
+  - /patterns/cqrs/
+
+part1-axioms/axiom4-concurrency/index.md:
+  - auto result
+  - Association assoc
+  - bool success
+  - bool success
+  - size_t retry_count
+  - size_t retry_count
+  - Association current
+  - Node* node
+
+part1-axioms/axiom3-failure/index.md:
+  - self.cluster
+
+part2-pillars/state/index.md:
+  - 
+                            self.steps[i]['result']
+                        

@@ -37,6 +37,46 @@ Before we discuss any patterns, algorithms, or architectures, we must understand
 
 ## The Eight Axioms
 
+### Axiom 1: Latency (Speed of Light)
+**Information cannot travel faster than the speed of light**  
+Physics sets hard limits on communication speed. Every network hop adds unavoidable delay. This constraint shapes everything from data center placement to user experience design.  
+[**→ Deep Dive into Latency**](axiom1-latency/index.md)
+
+### Axiom 2: Finite Capacity  
+**Every system has resource limits**  
+CPU, memory, disk, and network bandwidth are finite. Capacity constraints create bottlenecks, force trade-offs, and drive architectural decisions.  
+[**→ Master Capacity Management**](axiom2-capacity/index.md)
+
+### Axiom 3: Inevitable Failure
+**Components fail independently and unpredictably**  
+Hardware fails, software crashes, networks partition. Failure is not an exception—it's the rule. Systems must embrace and design for failure.  
+[**→ Build Resilient Systems**](axiom3-failure/index.md)
+
+### Axiom 4: Concurrency Complexity
+**Concurrent operations create race conditions**  
+When multiple things happen at once, ordering becomes ambiguous. This fundamental uncertainty creates bugs that are hard to find and harder to fix.  
+[**→ Manage Concurrent Systems**](axiom4-concurrency/index.md)
+
+### Axiom 5: Coordination Costs
+**Agreement requires communication**  
+Getting distributed components to agree takes time and messages. The more nodes involved, the more expensive coordination becomes.  
+[**→ Understand Coordination**](axiom5-coordination/index.md)
+
+### Axiom 6: Limited Observability
+**You cannot observe everything in a distributed system**  
+Heisenberg's uncertainty principle applies: observation affects the system. Complete visibility is impossible; you must work with partial information.  
+[**→ Implement Observability**](axiom6-observability/index.md)
+
+### Axiom 7: Human Interface Constraints
+**Humans operate the system**  
+People have cognitive limits, make mistakes, and need sleep. The human interface is often the weakest link and must be designed carefully.  
+[**→ Design for Humans**](axiom7-human/index.md)
+
+### Axiom 8: Economic Reality
+**Everything has a cost**  
+Resources cost money. Engineering time costs money. Downtime costs money. Every architectural decision is ultimately an economic decision.  
+[**→ Balance Economics**](axiom8-economics/index.md)
+
 ## Why Axioms Matter
 
 Traditional education teaches distributed systems as a collection of solutions:

@@ -20,7 +20,25 @@ Learn how the 8 axioms and 5 pillars apply to real-world systems through detaile
 
 ## 📚 Available Case Studies
 
-</div>
+### [Uber: Real-Time Location System](uber-location.md)
+**Scale**: 40M concurrent users | **Challenge**: Sub-100ms global location updates  
+**Key Insights**: H3 hexagonal grid system, edge computing, eventual consistency trade-offs  
+**Axioms in Focus**: Latency, Coordination, State Distribution
+
+### [Amazon DynamoDB: Eventually Consistent by Design](amazon-dynamo.md)
+**Scale**: 105M requests/second | **Challenge**: 99.999% availability globally  
+**Key Insights**: Masterless architecture, vector clocks, consistent hashing, anti-entropy  
+**Axioms in Focus**: Failure, Consistency, Availability Trade-offs
+
+### [Spotify: ML-Powered Recommendations](spotify-recommendations.md)
+**Scale**: 5B recommendations/day | **Challenge**: Personalization at scale  
+**Key Insights**: Hybrid online/offline processing, feature stores, A/B testing infrastructure  
+**Axioms in Focus**: State, Intelligence, Work Distribution
+
+### [PayPal: Distributed Payment Processing](paypal-payments.md)
+**Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale  
+**Key Insights**: Distributed sagas, idempotency, compensating transactions  
+**Axioms in Focus**: Truth, Control, Economic Constraints
 
 ---
 

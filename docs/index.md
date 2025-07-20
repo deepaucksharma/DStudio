@@ -32,7 +32,6 @@ graph TD
 ```
 
 <a href="/part1-axioms/" class="path-cta">Start Foundation Path →</a>
-</div>
 
 **Your Journey:**
 ```mermaid
@@ -48,7 +47,6 @@ graph TD
 ```
 
 <a href="/part2-pillars/" class="path-cta">Advance Your Skills →</a>
-</div>
 
 **Your Journey:**
 ```mermaid
@@ -64,7 +62,6 @@ graph TD
 ```
 
 <a href="/human-factors/" class="path-cta">Lead Technical Teams →</a>
-</div>
 
 **Your Journey:**
 ```mermaid
@@ -79,80 +76,118 @@ graph TD
 ```
 
 <a href="/patterns/" class="path-cta">Find Solutions Now →</a>
-</div>
-
-</div>
 
 ---
 
 ## 📖 Complete Content Map
 
-</div>
+### Part I: The Eight Fundamental Axioms
+*Physics and mathematics that constrain all distributed systems*
+- [Latency](/part1-axioms/axiom1-latency/) - Speed of light limits
+- [Capacity](/part1-axioms/axiom2-capacity/) - Finite resources
+- [Failure](/part1-axioms/axiom3-failure/) - Components break
+- [Concurrency](/part1-axioms/axiom4-concurrency/) - Race conditions
+- [Coordination](/part1-axioms/axiom5-coordination/) - Agreement costs
+- [Observability](/part1-axioms/axiom6-observability/) - Limited visibility
+- [Human Interface](/part1-axioms/axiom7-human/) - Cognitive limits
+- [Economics](/part1-axioms/axiom8-economics/) - Everything has a cost
 
 ### Part II: The Five Foundational Pillars
 *How axioms combine to create system architectures*
+- [Work Distribution](/part2-pillars/work/) - Spreading computation
+- [State Distribution](/part2-pillars/state/) - Managing data
+- [Truth Distribution](/part2-pillars/truth/) - Achieving consistency
+- [Control Distribution](/part2-pillars/control/) - Operational management
+- [Intelligence Distribution](/part2-pillars/intelligence/) - Adaptive systems
 
 ### Part III: Modern Pattern Catalog
 *Battle-tested solutions derived from first principles*
-
-</div>
-
-</div>
-
-</div>
-
-</div>
-
-</div>
+- [Core Patterns](/patterns/#core-patterns) - CQRS, Event Sourcing, Saga
+- [Resilience Patterns](/patterns/#resilience-patterns) - Circuit Breaker, Retry, Timeout
+- [Data Patterns](/patterns/#data-patterns) - Sharding, Caching, CDC
+- [Coordination Patterns](/patterns/#coordination-patterns) - Leader Election, Distributed Lock
+- [Operational Patterns](/patterns/#operational-patterns) - Service Mesh, Auto-scaling
 
 ### Part IV: Quantitative Toolkit
 *Mathematics and economics for system design*
-
-</div>
+- [Latency & Performance](/quantitative/#latency--performance) - Little's Law, Queueing Theory
+- [Scaling Laws](/quantitative/#scaling-laws) - Amdahl's Law, Universal Scalability
+- [Economics & Planning](/quantitative/#economics--planning) - Capacity Planning, Cost Models
 
 ### Part V: Human Factors
 *The people side of distributed systems*
-
-</div>
-
-</div>
+- [Production Excellence](/human-factors/#production-excellence) - SRE, Chaos Engineering
+- [Operational Practices](/human-factors/#operational-practices) - Runbooks, Incident Response
+- [Team & Organization](/human-factors/#key-concepts) - Conway's Law, Team Topologies
 
 ---
 
 ## 🛠️ Interactive Learning Tools
 
-</div>
+### 📊 Latency Calculator
+Calculate theoretical and practical latencies for your architecture
+[**→ Launch Calculator**](/tools/#latency-calculator)
 
-</div>
+### 📦 Capacity Planner
+Right-size your infrastructure based on load patterns
+[**→ Plan Capacity**](/tools/#capacity-planner)
 
-</div>
+### 🎯 Pattern Selector
+Find the right pattern for your specific constraints
+[**→ Select Patterns**](/tools/#pattern-selector)
 
 ---
 
 ## 📚 Real-World Case Studies
 
-<a href="/case-studies/netflix-chaos-engineering/">Explore Case Study →</a>
-</div>
+### Uber: Real-Time Location at Scale
+**Challenge**: Track 40M concurrent users with <100ms latency  
+**Solution**: H3 hexagonal grid system + edge computing  
+[**→ Read Case Study**](/case-studies/uber-location/)
 
-<a href="/case-studies/uber-location/">Explore Case Study →</a>
-</div>
+### Amazon DynamoDB: Eventually Consistent by Design
+**Challenge**: 99.999% availability for global e-commerce  
+**Solution**: Masterless architecture + vector clocks  
+[**→ Read Case Study**](/case-studies/amazon-dynamo/)
 
-<a href="/case-studies/paypal-payments/">Explore Case Study →</a>
-</div>
-
-</div>
+### Spotify: ML-Powered Recommendations
+**Challenge**: 5B personalized recommendations daily  
+**Solution**: Hybrid online/offline processing pipeline  
+[**→ Read Case Study**](/case-studies/spotify-recommendations/)
 
 ---
 
 ## 🎯 Why This Approach Works
 
-</div>
+### 🏭️ Foundation First
+We start with immutable laws of physics and mathematics, not trendy technologies. This gives you principles that remain true regardless of the current tech stack.
+
+### 🧠 Mental Models
+Each concept builds on previous ones, creating a complete mental framework for reasoning about distributed systems. You'll develop intuition, not just memorize patterns.
+
+### 💔 Learn from Failures
+Every pattern includes real production failures and their root causes. Understanding why systems break is the fastest path to building resilient ones.
+
+### 📊 Quantitative Approach
+Make decisions based on math, not opinions. Every trade-off can be quantified, measured, and optimized.
 
 ---
 
 ## 🚀 Start Your Mastery Journey
 
-</div>
+**Choose your path based on your experience:**
+
+### 🌱 New to Distributed Systems?
+Begin with [Introduction](/introduction/) → [Axioms](/part1-axioms/) → [Basic Patterns](/patterns/)
+
+### 🌳 Experienced Engineer?
+Jump to [Patterns](/patterns/) or [Case Studies](/case-studies/) for practical applications
+
+### 🌲 Technical Leader?
+Focus on [Human Factors](/human-factors/) and [Quantitative Analysis](/quantitative/)
+
+### ⚡ Just Need a Quick Answer?
+Check [Reference](/reference/) for definitions, formulas, and quick guides
 
 ---
 

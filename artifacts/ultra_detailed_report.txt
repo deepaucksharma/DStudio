@@ -1,0 +1,420 @@
+====================================================================================================
+ULTRA-DETAILED DOCUMENTATION TREE
+====================================================================================================
+
+📊 OVERVIEW:
+  Site: The Compendium of Distributed Systems
+  Total Files: 142
+  Total Topics: 10
+  Cross-references: 252
+
+
+🧭 NAVIGATION STRUCTURE (mkdocs.yml):
+==================================================
+📄 Home → index.md
+📂 Introduction
+  📄 Overview → introduction/index.md
+  📄 Philosophy → introduction/philosophy.md
+  📂 Part I: Axioms
+    📄 Overview → part1-axioms/index.md
+    📂 Axiom 1: Latency
+      📄 Overview → part1-axioms/axiom1-latency/index.md
+      📄 Examples → part1-axioms/axiom1-latency/examples.md
+      📄 Exercises → part1-axioms/axiom1-latency/exercises.md
+    📂 Axiom 2: Capacity
+      📄 Overview → part1-axioms/axiom2-capacity/index.md
+      📄 Examples → part1-axioms/axiom2-capacity/examples.md
+      📄 Exercises → part1-axioms/axiom2-capacity/exercises.md
+    📂 Axiom 3: Failure
+      📄 Overview → part1-axioms/axiom3-failure/index.md
+      📄 Examples → part1-axioms/axiom3-failure/examples.md
+      📄 Exercises → part1-axioms/axiom3-failure/exercises.md
+    📂 Axiom 4: Concurrency
+      📄 Overview → part1-axioms/axiom4-concurrency/index.md
+      📄 Examples → part1-axioms/axiom4-concurrency/examples.md
+      📄 Exercises → part1-axioms/axiom4-concurrency/exercises.md
+    📂 Axiom 5: Coordination
+      📄 Overview → part1-axioms/axiom5-coordination/index.md
+      📄 Examples → part1-axioms/axiom5-coordination/examples.md
+      📄 Exercises → part1-axioms/axiom5-coordination/exercises.md
+    📂 Axiom 6: Observability
+      📄 Overview → part1-axioms/axiom6-observability/index.md
+      📄 Examples → part1-axioms/axiom6-observability/examples.md
+      📄 Exercises → part1-axioms/axiom6-observability/exercises.md
+    📂 Axiom 7: Human Interface
+      📄 Overview → part1-axioms/axiom7-human/index.md
+      📄 Examples → part1-axioms/axiom7-human/examples.md
+      📄 Exercises → part1-axioms/axiom7-human/exercises.md
+    📂 Axiom 8: Economics
+      📄 Overview → part1-axioms/axiom8-economics/index.md
+      📄 Examples → part1-axioms/axiom8-economics/examples.md
+      📄 Exercises → part1-axioms/axiom8-economics/exercises.md
+    📂 Synthesis
+      📄 Summary → part1-axioms/synthesis.md
+      📄 Quiz → part1-axioms/quiz.md
+  📂 Part II: Pillars
+    📄 Overview → part2-pillars/index.md
+    📂 Pillar 1: Work
+      📄 Overview → part2-pillars/work/index.md
+    📂 Pillar 2: State
+      📄 Overview → part2-pillars/state/index.md
+    📂 Pillar 3: Truth
+      📄 Overview → part2-pillars/truth/index.md
+    📂 Pillar 4: Control
+      📄 Overview → part2-pillars/control/index.md
+    📂 Pillar 5: Intelligence
+      📄 Overview → part2-pillars/intelligence/index.md
+    📂 Analysis Tools
+      📄 CAST vs SPACE Models → part2-pillars/models-comparison.md
+      📄 When Models Collide → part2-pillars/models-collide.md
+      📄 Pattern Matrix → part2-pillars/pattern-matrix.md
+      📄 Trade-off Calculus → part2-pillars/tradeoff-calculus.md
+      📄 Decision Tree → part2-pillars/decision-tree.md
+    📂 Exercises & Reflection
+      📄 Pillar Checkpoint → part2-pillars/pillar-checkpoint.md
+      📄 Failure Recap → part2-pillars/failure-recap.md
+      📄 Reflection Journal → part2-pillars/reflection-journal.md
+    📂 Pattern Preview
+      📄 Pattern Catalog Intro → part2-pillars/pattern-catalog-intro.md
+      📄 Pattern Legend → part2-pillars/pattern-legend.md
+      📄 Pillars ↔ Patterns Map → part2-pillars/pillars-patterns-map.md
+      📄 Transition to Part III → part2-pillars/transition-part3.md
+  📂 Part III: Patterns
+    📄 Overview → patterns/index.md
+    📂 Core Patterns
+      📄 Queues & Streaming → patterns/queues-streaming.md
+      📄 CQRS → patterns/cqrs.md
+      📄 Event-Driven Architecture → patterns/event-driven.md
+      📄 Event Sourcing → patterns/event-sourcing.md
+      📄 Saga Pattern → patterns/saga.md
+      📄 Service Mesh → patterns/service-mesh.md
+      📄 GraphQL Federation → patterns/graphql-federation.md
+      📄 Serverless/FaaS → patterns/serverless-faas.md
+    📂 Resilience Patterns
+      📄 Circuit Breaker → patterns/circuit-breaker.md
+      📄 Retry & Backoff → patterns/retry-backoff.md
+      📄 Bulkhead → patterns/bulkhead.md
+      📄 Edge Computing → patterns/edge-computing.md
+    📂 Data Patterns
+      📄 CDC (Change Data Capture) → patterns/cdc.md
+      📄 Tunable Consistency → patterns/tunable-consistency.md
+      📄 Sharding → patterns/sharding.md
+      📄 Caching Strategies → patterns/caching-strategies.md
+      📄 Geo-Replication → patterns/geo-replication.md
+    📂 Coordination Patterns
+      📄 Leader Election → patterns/leader-election.md
+      📄 Idempotent Receiver → patterns/idempotent-receiver.md
+      📄 Outbox → patterns/outbox.md
+    📂 Operational Patterns
+      📄 Observability → patterns/observability.md
+      📄 FinOps → patterns/finops.md
+    📄 Pattern Quiz → patterns/pattern-quiz.md
+  📂 Part IV: Quantitative Toolkit
+    📄 Overview → quantitative/index.md
+    📂 Latency & Performance
+      📄 Latency Ladder → quantitative/latency-ladder.md
+      📄 Little's Law → quantitative/littles-law.md
+      📄 Queueing Theory → quantitative/queueing-models.md
+    📂 Scaling Laws
+      📄 Amdahl & Gustafson Laws → quantitative/amdahl-gustafson.md
+      📄 Universal Scalability Law → quantitative/universal-scalability.md
+    📂 Economics & Planning
+      📄 Coordination Costs → quantitative/coordination-costs.md
+      📄 Cache Economics → quantitative/cache-economics.md
+      📄 Availability Math → quantitative/availability-math.md
+      📄 Capacity Planning → quantitative/capacity-planning.md
+    📄 Problem Set → quantitative/problem-set.md
+  📂 Part V: Human Factors
+    📄 Overview → human-factors/index.md
+    📂 Production Excellence
+      📄 Consistency Tuning → human-factors/consistency-tuning.md
+      📄 Chaos Engineering → human-factors/chaos-engineering.md
+      📄 Observability Stacks → human-factors/observability-stacks.md
+    📂 Operational Practices
+      📄 SRE Practices → human-factors/sre-practices.md
+      📄 Org-Structure Physics → human-factors/org-structure.md
+      📄 Runbooks & Playbooks → human-factors/runbooks-playbooks.md
+  📂 Tools
+    📂 tools/index.md
+  📂 Case Studies
+    📂 case-studies/index.md
+  📂 Reference
+    📄 Overview → reference/index.md
+    📄 Glossary → reference/glossary.md
+    📄 Cheat Sheets → reference/cheat-sheets.md
+    📄 Recipe Cards → reference/recipe-cards.md
+    📄 Security → reference/security.md
+
+
+📁 FILE SYSTEM STRUCTURE:
+==================================================
+├── 📄 EXERCISE_TEMPLATE_AXIOM.md - Exercise Template: Axioms
+├── 📄 EXERCISE_TEMPLATE_GUIDE.md - Exercise Template Usage Guide
+├── 📄 EXERCISE_TEMPLATE_PATTERN.md - Exercise Template: Patterns
+├── 📄 EXERCISE_TEMPLATE_PILLAR.md - Exercise Template: Pillars
+├── 📄 EXERCISE_TEMPLATE_QUANTITATIVE.md - Exercise Template: Quantitative Methods
+├── 📄 FORMATTING_ISSUES.md - Formatting Consistency Report
+├── 📄 FRONTMATTER_TEMPLATE.md - YAML Frontmatter Template
+├── 📄 NAVIGATION_ENHANCEMENTS.md - Navigation Enhancements for The Compendium
+├── 📄 SOLUTION_GUIDES.md - Solution Guides for Distributed Systems Exercises
+├── 📄 STYLE_GUIDE.md - Documentation Style Guide
+├── 📁 assets (3 items)
+│   ├── 📁 charts (0 items)
+│   ├── 📁 diagrams (0 items)
+│   └── 📁 icons (0 items)
+├── 📁 capstone (2 items)
+│   ├── 📄 evaluation-rubric.md - Capstone Project Evaluation Rubric
+│   └── 📄 framework.md - Capstone Project Framework
+├── 📁 case-studies (6 items)
+│   ├── 📄 amazon-dynamo.md - Amazon's DynamoDB: Building a Database That Never Goes Down
+│   ├── 📄 index-original.md - Case Studies: Axioms in Action
+│   ├── 📄 index.md - Case Studies: Axioms in Action
+│   ├── 📄 paypal-payments.md - PayPal's Payment Processing System
+│   ├── 📄 spotify-recommendations.md - Spotify's Music Recommendation Engine
+│   └── 📄 uber-location.md - Uber's Real-Time Location System
+├── 📁 human-factors (12 items)
+│   ├── 📄 blameless-postmortems.md - Blameless Postmortems
+│   ├── 📄 chaos-engineering.md - Chaos Engineering
+│   ├── 📄 consistency-tuning.md - Consistency Tuning in Production
+│   ├── 📄 incident-response.md - Incident Response
+│   ├── 📄 index.md - Part V: Human & Operational Factors
+│   ├── 📄 knowledge-management.md - Knowledge Management in Distributed Systems
+│   ├── 📄 observability-stacks.md - Observability Stacks
+│   ├── 📄 oncall-culture.md - On-Call Culture
+│   ├── 📄 org-structure.md - Org-Structure Physics
+│   ├── 📄 runbooks-playbooks.md - Runbooks & Playbooks
+│   ├── 📄 sre-practices.md - SRE Practices
+│   └── 📄 team-topologies.md - Team Topologies for Distributed Systems
+├── 📄 index.md - The Compendium of Distributed Systems
+├── 📁 introduction (2 items)
+│   ├── 📄 index.md - Welcome to Distributed Systems
+│   └── 📄 philosophy.md - The Philosophy: Learning from First Principles
+├── 📁 javascripts (0 items)
+├── 📁 part1-axioms (11 items)
+│   ├── 📁 axiom1-latency (3 items)
+│   │   ├── 📄 examples.md - Latency Examples
+│   │   ├── 📄 exercises.md - Latency Exercises
+│   │   └── 📄 index.md - Axiom 1: Latency (Speed of Light)
+│   ├── 📁 axiom2-capacity (3 items)
+│   │   ├── 📄 examples.md - Capacity Examples
+│   │   ├── 📄 exercises.md - Capacity Exercises
+│   │   └── 📄 index.md - Axiom 2: Finite Capacity
+│   ├── 📁 axiom3-failure (3 items)
+│   │   ├── 📄 examples.md - Partial Failure Examples
+│   │   ├── 📄 exercises.md - Partial Failure Exercises
+│   │   └── 📄 index.md - Axiom 3: Partial Failure
+│   ├── 📁 axiom4-concurrency (3 items)
+│   │   ├── 📄 examples.md - Concurrency Examples
+│   │   ├── 📄 exercises.md - Concurrency Exercises
+│   │   └── 📄 index.md - Axiom 4: Concurrency
+│   ├── 📁 axiom5-coordination (3 items)
+│   │   ├── 📄 examples.md - Coordination Examples
+│   │   ├── 📄 exercises.md - Coordination Exercises
+│   │   └── 📄 index.md - Axiom 5: Cost of Coordination
+│   ├── 📁 axiom6-observability (3 items)
+│   │   ├── 📄 examples.md - Observability Examples
+│   │   ├── 📄 exercises.md - Observability Exercises
+│   │   └── 📄 index.md - Axiom 6: Observability
+│   ├── 📁 axiom7-human (4 items)
+│   │   ├── 📄 examples.md - Human Interface Examples
+│   │   ├── 📄 exercises.md - Human Interface Exercises
+│   │   ├── 📄 index.md - Axiom 7: Human-System Interface
+│   │   └── 📄 temp_completion.md
+│   ├── 📁 axiom8-economics (3 items)
+│   │   ├── 📄 examples.md - Economics Examples
+│   │   ├── 📄 exercises.md - Economics Exercises
+│   │   └── 📄 index.md - Axiom 8: Economic Gradient
+│   ├── 📄 index.md - Part I: The Eight Fundamental Axioms
+│   ├── 📄 quiz.md - Immutable Laws Quiz
+│   └── 📄 synthesis.md - Axioms Synthesis
+├── 📁 part2-pillars (18 items)
+│   ├── 📁 control (3 items)
+│   │   ├── 📄 examples.md - Control & Coordination Examples
+│   │   ├── 📄 exercises.md - Control & Coordination Exercises
+│   │   └── 📄 index.md - Pillar 4: Distribution of Control
+│   ├── 📄 decision-tree.md - Decision Tree Walk-Through
+│   ├── 📄 failure-recap.md - Failure-Vignette Recap Boxes
+│   ├── 📄 index.md - Part II: Foundational Pillars
+│   ├── 📁 intelligence (3 items)
+│   │   ├── 📄 examples.md - Intelligence & Learning Examples
+│   │   ├── 📄 exercises.md - Intelligence & Learning Exercises
+│   │   └── 📄 index.md - Pillar 5: Distribution of Intelligence
+│   ├── 📄 models-collide.md - When Models Collide
+│   ├── 📄 models-comparison.md - CAST vs SPACE Models
+│   ├── 📄 pattern-catalog-intro.md - PATTERN CATALOG INTRO
+│   ├── 📄 pattern-legend.md - Pattern Legend & Icons
+│   ├── 📄 pattern-matrix.md - Pattern Interconnection Matrix v2
+│   ├── 📄 pillar-checkpoint.md - Pillar Checkpoint Exercise
+│   ├── 📄 pillars-patterns-map.md - Pillars ↔ Patterns Mini-Map
+│   ├── 📄 reflection-journal.md - Micro-Reflection Journal
+│   ├── 📁 state (3 items)
+│   │   ├── 📄 examples.md - State Management Examples
+│   │   ├── 📄 exercises.md - State Management Exercises
+│   │   └── 📄 index.md - Pillar 2: Distribution of State
+│   ├── 📄 tradeoff-calculus.md - Trade-off Calculus Radar
+│   ├── 📄 transition-part3.md - Transition Page (Part III Preview)
+│   ├── 📁 truth (3 items)
+│   │   ├── 📄 examples.md - Truth & Consensus Examples
+│   │   ├── 📄 exercises.md - Truth & Consensus Exercises
+│   │   └── 📄 index.md - Pillar 3: Distribution of Truth
+│   └── 📁 work (3 items)
+│       ├── 📄 examples.md - Work Distribution Examples
+│       ├── 📄 exercises.md - Work Distribution Exercises
+│       └── 📄 index.md - Pillar 1: Distribution of Work
+├── 📁 patterns (36 items)
+│   ├── 📄 PATTERN_STRUCTURE_GUIDE.md - Pattern Documentation Structure Guide
+│   ├── 📄 PATTERN_TEMPLATE.md - Pattern Name
+│   ├── 📄 auto-scaling.md - Auto-scaling Pattern
+│   ├── 📄 bulkhead.md - Bulkhead Pattern
+│   ├── 📄 caching-strategies.md - Caching Strategies
+│   ├── 📄 cdc.md - Change Data Capture (CDC)
+│   ├── 📄 circuit-breaker.md - Circuit Breaker Pattern
+│   ├── 📄 consensus.md - Consensus Pattern
+│   ├── 📄 cqrs.md - CQRS (Command Query Responsibility Segregation)
+│   ├── 📄 distributed-lock.md - Distributed Lock Pattern
+│   ├── 📄 edge-computing.md - Edge Computing/IoT Patterns
+│   ├── 📄 event-driven.md - Event-Driven Architecture
+│   ├── 📄 event-sourcing.md - Event Sourcing Pattern
+│   ├── 📄 finops.md - FinOps Patterns
+│   ├── 📄 geo-replication.md - Geo-Replication Patterns
+│   ├── 📄 graceful-degradation.md - Graceful Degradation Pattern
+│   ├── 📄 graphql-federation.md - GraphQL Federation
+│   ├── 📄 health-check.md - Health Check Pattern
+│   ├── 📄 idempotent-receiver.md - Idempotent Receiver Pattern
+│   ├── 📄 index.md - Part III: Modern Architectural Patterns
+│   ├── 📄 leader-election.md - Leader Election Pattern
+│   ├── 📄 load-balancing.md - Load Balancing Pattern
+│   ├── 📄 load-shedding.md - Load Shedding Pattern
+│   ├── 📄 observability.md - Observability Patterns
+│   ├── 📄 outbox.md - Outbox Pattern
+│   ├── 📄 pattern-quiz.md - Pattern Catalog Quiz
+│   ├── 📄 queues-streaming.md - Queues & Stream-Processing
+│   ├── 📄 rate-limiting.md - Rate Limiting Pattern
+│   ├── 📄 retry-backoff.md - Retry & Backoff Strategies
+│   ├── 📄 saga.md - Saga (Distributed Transactions)
+│   ├── 📄 serverless-faas.md - Serverless/FaaS (Function-as-a-Service)
+│   ├── 📄 service-discovery.md - Service Discovery Pattern
+│   ├── 📄 service-mesh.md - Service Mesh
+│   ├── 📄 sharding.md - Sharding (Data Partitioning)
+│   ├── 📄 timeout.md - Timeout Pattern
+│   └── 📄 tunable-consistency.md - Tunable Consistency
+├── 📁 quantitative (11 items)
+│   ├── 📄 amdahl-gustafson.md - Amdahl & Gustafson Laws
+│   ├── 📄 availability-math.md - Availability Math & Nines
+│   ├── 📄 cache-economics.md - Cache Economics Sheet
+│   ├── 📄 capacity-planning.md - Capacity Planning Worksheet
+│   ├── 📄 coordination-costs.md - Coordination Cost Models
+│   ├── 📄 index.md - Part IV: Quantitative Toolkit
+│   ├── 📄 latency-ladder.md - Latency Ladder 2025
+│   ├── 📄 littles-law.md - Little's Law Deep-Dive
+│   ├── 📄 problem-set.md - Numerical Problem Set
+│   ├── 📄 queueing-models.md - Queueing Models (M/M/1)
+│   └── 📄 universal-scalability.md - Universal Scalability Law
+├── 📁 reference (5 items)
+│   ├── 📄 cheat-sheets.md - Distributed Systems Cheat Sheets
+│   ├── 📄 glossary.md - Distributed Systems Glossary
+│   ├── 📄 index.md - Reference Materials
+│   ├── 📄 recipe-cards.md - Recipe Cards: Step-by-Step Procedures
+│   └── 📄 security.md - Security Considerations in Distributed Systems
+├── 📁 stylesheets (0 items)
+└── 📁 tools (1 items)
+    └── 📄 index.md - Interactive Tools
+
+📚 TOPIC DISTRIBUTION:
+==================================================
+
+🔖 COORDINATION (104 files):
+   - Exercise Template Usage Guide (EXERCISE_TEMPLATE_GUIDE.md)
+   - Exercise Template: Patterns (EXERCISE_TEMPLATE_PATTERN.md)
+   - Exercise Template: Pillars (EXERCISE_TEMPLATE_PILLAR.md)
+   - Exercise Template: Quantitative Methods (EXERCISE_TEMPLATE_QUANTITATIVE.md)
+   - YAML Frontmatter Template (FRONTMATTER_TEMPLATE.md)
+   ... and 99 more
+
+🔖 FAILURE (97 files):
+   - Exercise Template: Axioms (EXERCISE_TEMPLATE_AXIOM.md)
+   - Exercise Template Usage Guide (EXERCISE_TEMPLATE_GUIDE.md)
+   - Exercise Template: Patterns (EXERCISE_TEMPLATE_PATTERN.md)
+   - Exercise Template: Pillars (EXERCISE_TEMPLATE_PILLAR.md)
+   - Formatting Consistency Report (FORMATTING_ISSUES.md)
+   ... and 92 more
+
+🔖 LATENCY (97 files):
+   - Exercise Template Usage Guide (EXERCISE_TEMPLATE_GUIDE.md)
+   - Exercise Template: Patterns (EXERCISE_TEMPLATE_PATTERN.md)
+   - Exercise Template: Pillars (EXERCISE_TEMPLATE_PILLAR.md)
+   - Exercise Template: Quantitative Methods (EXERCISE_TEMPLATE_QUANTITATIVE.md)
+   - YAML Frontmatter Template (FRONTMATTER_TEMPLATE.md)
+   ... and 92 more
+
+🔖 CAPACITY (97 files):
+   - Exercise Template Usage Guide (EXERCISE_TEMPLATE_GUIDE.md)
+   - Exercise Template: Patterns (EXERCISE_TEMPLATE_PATTERN.md)
+   - Exercise Template: Pillars (EXERCISE_TEMPLATE_PILLAR.md)
+   - Exercise Template: Quantitative Methods (EXERCISE_TEMPLATE_QUANTITATIVE.md)
+   - YAML Frontmatter Template (FRONTMATTER_TEMPLATE.md)
+   ... and 92 more
+
+🔖 MESSAGING (91 files):
+   - Exercise Template Usage Guide (EXERCISE_TEMPLATE_GUIDE.md)
+   - Exercise Template: Quantitative Methods (EXERCISE_TEMPLATE_QUANTITATIVE.md)
+   - Formatting Consistency Report (FORMATTING_ISSUES.md)
+   - Solution Guides for Distributed Systems Exercises (SOLUTION_GUIDES.md)
+   - Capstone Project Framework (capstone/framework.md)
+   ... and 86 more
+
+🔖 CONSISTENCY (79 files):
+   - Exercise Template Usage Guide (EXERCISE_TEMPLATE_GUIDE.md)
+   - Exercise Template: Quantitative Methods (EXERCISE_TEMPLATE_QUANTITATIVE.md)
+   - Formatting Consistency Report (FORMATTING_ISSUES.md)
+   - Solution Guides for Distributed Systems Exercises (SOLUTION_GUIDES.md)
+   - Documentation Style Guide (STYLE_GUIDE.md)
+   ... and 74 more
+
+🔖 CACHING (76 files):
+   - Exercise Template: Patterns (EXERCISE_TEMPLATE_PATTERN.md)
+   - Formatting Consistency Report (FORMATTING_ISSUES.md)
+   - YAML Frontmatter Template (FRONTMATTER_TEMPLATE.md)
+   - Navigation Enhancements for The Compendium (NAVIGATION_ENHANCEMENTS.md)
+   - Solution Guides for Distributed Systems Exercises (SOLUTION_GUIDES.md)
+   ... and 71 more
+
+🔖 CONCURRENCY (66 files):
+   - Solution Guides for Distributed Systems Exercises (SOLUTION_GUIDES.md)
+   - Amazon's DynamoDB: Building a Database That Never Goes Down (case-studies/amazon-dynamo.md)
+   - Case Studies: Axioms in Action (case-studies/index-original.md)
+   - PayPal's Payment Processing System (case-studies/paypal-payments.md)
+   - Uber's Real-Time Location System (case-studies/uber-location.md)
+   ... and 61 more
+
+🔖 PARTITIONING (62 files):
+   - Exercise Template: Patterns (EXERCISE_TEMPLATE_PATTERN.md)
+   - YAML Frontmatter Template (FRONTMATTER_TEMPLATE.md)
+   - Solution Guides for Distributed Systems Exercises (SOLUTION_GUIDES.md)
+   - Documentation Style Guide (STYLE_GUIDE.md)
+   - Capstone Project Evaluation Rubric (capstone/evaluation-rubric.md)
+   ... and 57 more
+
+🔖 REPLICATION (55 files):
+   - Formatting Consistency Report (FORMATTING_ISSUES.md)
+   - Solution Guides for Distributed Systems Exercises (SOLUTION_GUIDES.md)
+   - Capstone Project Evaluation Rubric (capstone/evaluation-rubric.md)
+   - Capstone Project Framework (capstone/framework.md)
+   - Amazon's DynamoDB: Building a Database That Never Goes Down (case-studies/amazon-dynamo.md)
+   ... and 50 more
+
+
+🔗 CROSS-REFERENCE ANALYSIS:
+==================================================
+
+Most Referenced Files:
+  - /: 32 references
+  - /patterns/: 28 references
+  - /patterns/circuit-breaker/: 27 references
+  - /part1-axioms/axiom3-failure/: 22 references
+  - /case-studies/: 13 references
+  - /part1-axioms/axiom2-capacity/: 11 references
+  - /patterns/health-check/: 11 references
+  - /patterns/retry-backoff/: 10 references
+  - /patterns/bulkhead/: 10 references
+  - /patterns/load-shedding/: 8 references

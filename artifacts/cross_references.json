@@ -1,0 +1,2822 @@
+{
+  "/part1-axioms/axiom1-latency/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Latency"
+    },
+    {
+      "from": "STYLE_GUIDE.md",
+      "text": "Latency Axiom"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Axiom 1: Latency"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Axiom 1: Latency"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Axiom 1: Latency"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Axiom 1: Latency"
+    }
+  ],
+  "/part1-axioms/axiom2-capacity/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Capacity"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Axiom 2: Capacity"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Axiom 2: Capacity"
+    }
+  ],
+  "/part1-axioms/axiom3-failure/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Failure"
+    },
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Failure Analysis"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Axiom 3: Failure"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Axiom 3: Failure"
+    }
+  ],
+  "/patterns/circuit-breaker/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Circuit Breaker"
+    }
+  ],
+  "/patterns/retry-backoff/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Retry Pattern"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Retry & Backoff"
+    }
+  ],
+  "/patterns/bulkhead/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Bulkhead"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Bulkhead"
+    }
+  ],
+  "/case-studies/#netflix": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Netflix Resilience"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Netflix Case Study"
+    }
+  ],
+  "/case-studies/#aws": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "AWS Auto-scaling"
+    }
+  ],
+  "/tools/#availability": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Availability Calculator"
+    }
+  ],
+  "/tools/#latency": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Latency Budget"
+    }
+  ],
+  "/part2-pillars/work/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Pillar 1: Work"
+    }
+  ],
+  "/quantitative/queueing-models/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Mathematical Foundations"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Queueing Theory"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Queueing Theory"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Queueing Theory"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Queueing Theory"
+    }
+  ],
+  "/human-factors/sre-practices/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Production Examples"
+    },
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "SRE Practices"
+    },
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "SRE Practices"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "SRE Practices"
+    },
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "SRE Practices"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Reliability Engineering"
+    }
+  ],
+  "/part1-axioms/axiom2-capacity/exercises/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Capacity Planning Exercise"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Exercises"
+    }
+  ],
+  "/patterns/auto-scaling/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Auto-scaling Patterns"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Auto-scaling"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Auto-scaling"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Auto-scaling"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Auto-scaling"
+    }
+  ],
+  "/part2-pillars/work/#scaling-decisions": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "When to Scale Up vs Out?"
+    }
+  ],
+  "/part1-axioms/axiom8-economics/#capacity-costs": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Cost vs Performance Trade-offs"
+    }
+  ],
+  "/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/index-original.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/index.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Home"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Home"
+    },
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "Home"
+    },
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "Home"
+    },
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Home"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "Home"
+    },
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "Home"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Home"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Home"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Home"
+    }
+  ],
+  "/part1-axioms/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Axioms"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Part I: Axioms"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "All Axioms"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Part I: Axioms"
+    },
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "All Axioms"
+    }
+  ],
+  "/part1-axioms/axiomX-1/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Axiom X-1"
+    }
+  ],
+  "/part1-axioms/axiomX+1/": [
+    {
+      "from": "NAVIGATION_ENHANCEMENTS.md",
+      "text": "Axiom X+1"
+    }
+  ],
+  "/case-studies/": [
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "Case Studies"
+    },
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Case Studies"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "Case Studies"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Case Studies"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "All Case Studies"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Case Studies"
+    }
+  ],
+  "/case-studies/uber-location/": [
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "\u2190 Uber Location"
+    },
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "\u2190 Uber's Location System"
+    }
+  ],
+  "/case-studies/spotify-recommendations/": [
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "Spotify Recommendations \u2192"
+    },
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "Spotify's Recommendation Engine \u2192"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "\u2190 Spotify Recommendations"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "\u2190 Spotify's Recommendation Engine"
+    }
+  ],
+  "../patterns/sharding.md#consistent-hashing": [
+    {
+      "from": "case-studies/amazon-dynamo.md",
+      "text": "Consistent Hashing"
+    }
+  ],
+  "uber-location.md": [
+    {
+      "from": "case-studies/index.md",
+      "text": "Uber's Location System"
+    },
+    {
+      "from": "case-studies/index.md",
+      "text": "Uber's Location"
+    },
+    {
+      "from": "case-studies/index.md",
+      "text": "Uber"
+    }
+  ],
+  "amazon-dynamo.md": [
+    {
+      "from": "case-studies/index.md",
+      "text": "DynamoDB"
+    },
+    {
+      "from": "case-studies/index.md",
+      "text": "DynamoDB"
+    }
+  ],
+  "paypal-payments.md": [
+    {
+      "from": "case-studies/index.md",
+      "text": "PayPal"
+    }
+  ],
+  "spotify-recommendations.md": [
+    {
+      "from": "case-studies/index.md",
+      "text": "Spotify Recommendations"
+    }
+  ],
+  "/case-studies/fortnite-game/": [
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Fortnite Game State \u2192"
+    },
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Fortnite's Real-Time Game State \u2192"
+    }
+  ],
+  "../patterns/saga.md": [
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "SAGA Pattern"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Saga Pattern"
+    }
+  ],
+  "../patterns/event-sourcing.md": [
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Event Sourcing Pattern"
+    }
+  ],
+  "../patterns/idempotent-receiver.md": [
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Idempotent Receiver"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Idempotent Receiver Pattern"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Idempotent Receiver Pattern"
+    }
+  ],
+  "../patterns/circuit-breaker.md": [
+    {
+      "from": "case-studies/paypal-payments.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Circuit Breaker Pattern"
+    }
+  ],
+  "/case-studies/amazon-dynamo/": [
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "\u2190 Amazon DynamoDB"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "\u2190 Amazon DynamoDB"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Amazon DynamoDB \u2192"
+    },
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Amazon DynamoDB \u2192"
+    }
+  ],
+  "/case-studies/paypal-payments/": [
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "PayPal Payments \u2192"
+    },
+    {
+      "from": "case-studies/spotify-recommendations.md",
+      "text": "PayPal Payment Processing \u2192"
+    }
+  ],
+  "../patterns/sharding.md": [
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "Geospatial Sharding"
+    }
+  ],
+  "../patterns/cqrs.md": [
+    {
+      "from": "case-studies/uber-location.md",
+      "text": "CQRS"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "CQRS Pattern"
+    }
+  ],
+  "/human-factors/": [
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "Human Factors"
+    },
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "Human Factors"
+    },
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Human Factors"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "Human Factors"
+    },
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "Human Factors"
+    }
+  ],
+  "/human-factors/incident-response/": [
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "Incident Response"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "Incident Response"
+    }
+  ],
+  "/human-factors/knowledge-management/": [
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "Knowledge Management"
+    },
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "Knowledge Management"
+    }
+  ],
+  "/part1-axioms/axiom7-human-interface/": [
+    {
+      "from": "human-factors/blameless-postmortems.md",
+      "text": "Axiom 7: Human Interface"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "Axiom 7: Human Interface"
+    },
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "Axiom 7: Human Interface"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Axiom 7: Human Interface"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Human Interface"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Axiom 7: Human Interface"
+    }
+  ],
+  "/human-factors/blameless-postmortems/": [
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "Blameless Postmortems"
+    },
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Blameless Postmortems"
+    }
+  ],
+  "/human-factors/oncall-culture/": [
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "On-Call Culture"
+    },
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "On-Call Culture"
+    }
+  ],
+  "/part1-axioms/axiom6-observability/": [
+    {
+      "from": "human-factors/incident-response.md",
+      "text": "Axiom 6: Observability"
+    },
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Axiom 6: Observability"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Axiom 6: Observability"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Axiom 6: Observability"
+    }
+  ],
+  "consistency-tuning.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Consistency Tuning in Production"
+    },
+    {
+      "from": "human-factors/index.md",
+      "text": "Consistency Tuning"
+    }
+  ],
+  "chaos-engineering.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Chaos Engineering"
+    },
+    {
+      "from": "human-factors/index.md",
+      "text": "Chaos Engineering"
+    },
+    {
+      "from": "human-factors/sre-practices.md",
+      "text": "Chaos Engineering Guide"
+    }
+  ],
+  "observability-stacks.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Observability Stacks"
+    },
+    {
+      "from": "human-factors/index.md",
+      "text": "Observability Stacks"
+    },
+    {
+      "from": "human-factors/sre-practices.md",
+      "text": "Observability Stacks"
+    }
+  ],
+  "sre-practices.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "SRE Practices"
+    },
+    {
+      "from": "human-factors/index.md",
+      "text": "SRE Practices"
+    }
+  ],
+  "org-structure.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Org-Structure Physics"
+    },
+    {
+      "from": "human-factors/index.md",
+      "text": "Conway's Law"
+    }
+  ],
+  "runbooks-playbooks.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Runbooks & Playbooks"
+    },
+    {
+      "from": "human-factors/index.md",
+      "text": "Runbooks & Playbooks"
+    },
+    {
+      "from": "human-factors/sre-practices.md",
+      "text": "Runbooks & Playbooks"
+    }
+  ],
+  "blameless-postmortems.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Blameless Postmortems"
+    }
+  ],
+  "oncall-culture.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "On-Call Culture"
+    }
+  ],
+  "incident-response.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Incident Response"
+    }
+  ],
+  "team-topologies.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Team Topologies"
+    }
+  ],
+  "knowledge-management.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Knowledge Management"
+    }
+  ],
+  "../quantitative/capacity-planning.md": [
+    {
+      "from": "human-factors/index.md",
+      "text": "Capacity Planning"
+    }
+  ],
+  "/patterns/event-sourcing/": [
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Event Sourcing Pattern"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Event Sourcing"
+    }
+  ],
+  "/patterns/cqrs/": [
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "CQRS Pattern"
+    }
+  ],
+  "/human-factors/team-topologies/": [
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Team Topologies"
+    },
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "Team Topologies"
+    }
+  ],
+  "/human-factors/chaos-engineering/": [
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Chaos Engineering"
+    }
+  ],
+  "/part2-pillars/intelligence/": [
+    {
+      "from": "human-factors/knowledge-management.md",
+      "text": "Intelligence Pillar"
+    }
+  ],
+  "alert.service": [
+    {
+      "from": "human-factors/oncall-culture.md",
+      "text": "alert.type"
+    }
+  ],
+  "/part2-pillars/control/": [
+    {
+      "from": "human-factors/team-topologies.md",
+      "text": "Control Pillar"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Control Pillar"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Control Pillar"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Control Pillar"
+    }
+  ],
+  "../part1-axioms/index.md": [
+    {
+      "from": "introduction/index.md",
+      "text": "Part 1: The 8 Axioms"
+    }
+  ],
+  "/part1-axioms/axiom1-latency/examples/": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Examples"
+    }
+  ],
+  "/part1-axioms/axiom1-latency/exercises/": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Exercises"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Test your understanding \u2192"
+    }
+  ],
+  "/tools/#latency-calculator": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Tools"
+    }
+  ],
+  "/patterns/caching-strategies/": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Caching Strategies"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Caching Strategies"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Caching"
+    }
+  ],
+  "/patterns/edge-computing/": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Edge Computing"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Edge Computing"
+    }
+  ],
+  "/case-studies/#uber-location": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Uber's Real-Time Location"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Uber's Location System"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Case Study: Uber"
+    }
+  ],
+  "/case-studies/#spotify-recommendations": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Spotify Recommendations"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Spotify's Recommendations"
+    }
+  ],
+  "/quantitative/latency-ladder/": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Latency Budget Analysis"
+    },
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Latency Ladder"
+    }
+  ],
+  "/case-studies/#fortnite-game": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Fortnite's Game State"
+    }
+  ],
+  "/case-studies/#spacex-control": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "SpaceX Mission Control"
+    }
+  ],
+  "/part1-axioms/axiom1-latency/exercises/#speed-calculator": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Speed of Light Calculator"
+    }
+  ],
+  "/part1-axioms/axiom1-latency/exercises/#budget-analysis": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Latency Budget Exercise"
+    }
+  ],
+  "/part1-axioms/axiom1-latency/exercises/#network-sim": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Network Simulation"
+    }
+  ],
+  "/quantitative/littles-law/": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Little's Law"
+    }
+  ],
+  "../axiom2-capacity/index.md": [
+    {
+      "from": "part1-axioms/axiom1-latency/index.md",
+      "text": "Axiom 2: Finite Capacity \u2192"
+    }
+  ],
+  "/part1-axioms/axiom2-capacity/examples/": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Examples"
+    }
+  ],
+  "/tools/#capacity-calculator": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Tools"
+    }
+  ],
+  "/patterns/load-shedding/": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Load Shedding"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Load Shedding"
+    }
+  ],
+  "/case-studies/#amazon-dynamo": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Amazon DynamoDB"
+    }
+  ],
+  "/case-studies/#netflix-encoding": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Netflix Encoding"
+    }
+  ],
+  "/quantitative/capacity-planning/": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Capacity Planning"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Capacity Planning"
+    }
+  ],
+  "../axiom3-failure/index.md": [
+    {
+      "from": "part1-axioms/axiom2-capacity/index.md",
+      "text": "Axiom 3: Failure \u2192"
+    }
+  ],
+  "self.cluster": [
+    {
+      "from": "part1-axioms/axiom3-failure/index.md",
+      "text": "'experiment'"
+    }
+  ],
+  "../axiom4-concurrency/index.md": [
+    {
+      "from": "part1-axioms/axiom3-failure/index.md",
+      "text": "Axiom 4: Concurrency \u2192"
+    }
+  ],
+  "auto result": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, key"
+    }
+  ],
+  "Association assoc": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, key"
+    }
+  ],
+  "bool success": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, assoc"
+    },
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, new_assoc"
+    }
+  ],
+  "size_t retry_count": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, new_assoc"
+    },
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, new_assoc"
+    }
+  ],
+  "Association current": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, new_data"
+    }
+  ],
+  "Node* node": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "&hazards"
+    }
+  ],
+  "../axiom5-coordination/index.md": [
+    {
+      "from": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "Axiom 5: Coordination \u2192"
+    }
+  ],
+  "../axiom6-observability/index.md": [
+    {
+      "from": "part1-axioms/axiom5-coordination/index.md",
+      "text": "Axiom 6: Observability \u2192"
+    }
+  ],
+  "../axiom7-human/index.md": [
+    {
+      "from": "part1-axioms/axiom6-observability/index.md",
+      "text": "Axiom 7: Human Interface \u2192"
+    }
+  ],
+  "../axiom8-economics/index.md": [
+    {
+      "from": "part1-axioms/axiom7-human/index.md",
+      "text": "Axiom 8: Economics \u2192"
+    }
+  ],
+  "../synthesis.md": [
+    {
+      "from": "part1-axioms/axiom8-economics/index.md",
+      "text": "Synthesis: Bringing It All Together \u2192"
+    }
+  ],
+  "axiom1-latency/index.md": [
+    {
+      "from": "part1-axioms/index.md",
+      "text": "**\u2192 Begin with Axiom 1: Latency**"
+    }
+  ],
+  "../intelligence/index.md": [
+    {
+      "from": "part2-pillars/control/index.md",
+      "text": "Pillar 5: Intelligence \u2192"
+    }
+  ],
+  "pillar-checkpoint.md": [
+    {
+      "from": "part2-pillars/decision-tree.md",
+      "text": "Pillar Checkpoint Exercise \u2192"
+    }
+  ],
+  "reflection-journal.md": [
+    {
+      "from": "part2-pillars/failure-recap.md",
+      "text": "Micro-Reflection Journal \u2192"
+    }
+  ],
+  "work/index.md": [
+    {
+      "from": "part2-pillars/index.md",
+      "text": "Work"
+    }
+  ],
+  "state/index.md": [
+    {
+      "from": "part2-pillars/index.md",
+      "text": "State"
+    }
+  ],
+  "truth/index.md": [
+    {
+      "from": "part2-pillars/index.md",
+      "text": "Truth"
+    }
+  ],
+  "control/index.md": [
+    {
+      "from": "part2-pillars/index.md",
+      "text": "Control"
+    }
+  ],
+  "intelligence/index.md": [
+    {
+      "from": "part2-pillars/index.md",
+      "text": "Intelligence"
+    }
+  ],
+  "../../tools/index.md": [
+    {
+      "from": "part2-pillars/intelligence/index.md",
+      "text": "Tools \u2192"
+    }
+  ],
+  "pattern-matrix.md": [
+    {
+      "from": "part2-pillars/models-collide.md",
+      "text": "Pattern Interconnection Matrix \u2192"
+    }
+  ],
+  "models-collide.md": [
+    {
+      "from": "part2-pillars/models-comparison.md",
+      "text": "When Models Collide \u2192"
+    }
+  ],
+  "pattern-legend.md": [
+    {
+      "from": "part2-pillars/pattern-catalog-intro.md",
+      "text": "Pattern Legend & Icons \u2192"
+    }
+  ],
+  "pillars-patterns-map.md": [
+    {
+      "from": "part2-pillars/pattern-legend.md",
+      "text": "Pillars \u2194 Patterns Mini-Map \u2192"
+    }
+  ],
+  "tradeoff-calculus.md": [
+    {
+      "from": "part2-pillars/pattern-matrix.md",
+      "text": "Trade-off Calculus \u2192"
+    }
+  ],
+  "failure-recap.md": [
+    {
+      "from": "part2-pillars/pillar-checkpoint.md",
+      "text": "Failure Vignette Recap \u2192"
+    }
+  ],
+  "transition-part3.md": [
+    {
+      "from": "part2-pillars/pillars-patterns-map.md",
+      "text": "Transition to Part III \u2192"
+    }
+  ],
+  "pattern-catalog-intro.md": [
+    {
+      "from": "part2-pillars/reflection-journal.md",
+      "text": "Pattern Catalog Intro \u2192"
+    }
+  ],
+  "\n                            self.steps[i]['result']\n                        ": [
+    {
+      "from": "part2-pillars/state/index.md",
+      "text": "'compensate'"
+    }
+  ],
+  "../truth/index.md": [
+    {
+      "from": "part2-pillars/state/index.md",
+      "text": "Pillar 3: Consensus \u2192"
+    }
+  ],
+  "decision-tree.md": [
+    {
+      "from": "part2-pillars/tradeoff-calculus.md",
+      "text": "Decision Tree Walk-Through \u2192"
+    }
+  ],
+  "../control/index.md": [
+    {
+      "from": "part2-pillars/truth/index.md",
+      "text": "Pillar 4: Control \u2192"
+    }
+  ],
+  "/patterns/": [
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "All Patterns"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "Part III: Patterns"
+    },
+    {
+      "from": "patterns/timeout.md",
+      "text": "All Patterns"
+    }
+  ],
+  "/patterns/load-balancing/": [
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Load Balancing"
+    }
+  ],
+  "/part1-axioms/axiom8-economics/": [
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Axiom 8: Economics"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Economics Axiom"
+    }
+  ],
+  "/patterns/health-check/": [
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Health Checks"
+    },
+    {
+      "from": "patterns/auto-scaling.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Health Check API"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/load-balancing.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Health Check"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Health Check"
+    }
+  ],
+  "/patterns/timeout/": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Timeout Pattern"
+    },
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Timeout"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Timeout Pattern"
+    }
+  ],
+  "/quantitative/reliability-math/": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Mathematical Analysis"
+    }
+  ],
+  "/part1-axioms/axiom3-failure/examples/": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Failure Mode Analysis"
+    }
+  ],
+  "/case-studies/#netflix-hystrix": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Netflix Hystrix"
+    }
+  ],
+  "/case-studies/#aws-lambda": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "AWS Lambda"
+    }
+  ],
+  "/case-studies/#spotify-backend": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Spotify Backend"
+    }
+  ],
+  "/case-studies/#uber-microservices": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Uber Microservices"
+    }
+  ],
+  "/patterns/rate-limiting/": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Rate Limiting"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Rate Limiting"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Rate Limiting"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "Rate Limiting"
+    }
+  ],
+  "/patterns/graceful-degradation/": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Graceful Degradation"
+    }
+  ],
+  "/part2-pillars/coordination/": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Coordination Pillar"
+    }
+  ],
+  "/patterns/circuit-breaker/#implementation": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "basic implementation"
+    }
+  ],
+  "/patterns/circuit-breaker/#chaos-tests": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "chaos engineering exercise"
+    }
+  ],
+  "/patterns/circuit-breaker/#monitoring": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "essential metrics"
+    }
+  ],
+  "/patterns/circuit-breaker/#anti-patterns": [
+    {
+      "from": "patterns/circuit-breaker.md",
+      "text": "Advanced scenarios \u2192"
+    }
+  ],
+  "/patterns/leader-election/": [
+    {
+      "from": "patterns/consensus.md",
+      "text": "Leader Election"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Leader Election"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Leader Election"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Leader Election"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Leader Election"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Leader Election"
+    }
+  ],
+  "/patterns/distributed-lock/": [
+    {
+      "from": "patterns/consensus.md",
+      "text": "Distributed Lock"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Distributed Lock"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Distributed Lock"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Distributed Lock"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Distributed Lock"
+    }
+  ],
+  "/part1-axioms/axiom5-coordination/": [
+    {
+      "from": "patterns/consensus.md",
+      "text": "Axiom 5: Coordination"
+    },
+    {
+      "from": "patterns/consensus.md",
+      "text": "Axiom 5: Coordination"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Axiom 5: Coordination"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Axiom 5: Coordination"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Coordination Axiom"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Axiom 5: Coordination"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Axiom 5: Coordination"
+    },
+    {
+      "from": "patterns/service-discovery.md",
+      "text": "Axiom 5: Coordination"
+    }
+  ],
+  "/patterns/consensus/": [
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Consensus"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Consensus"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Consensus"
+    }
+  ],
+  "/part1-axioms/axiom4-concurrency/": [
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Axiom 4: Concurrency"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Axiom 4: Concurrency"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Axiom 4: Concurrency"
+    }
+  ],
+  "/patterns/fencing/": [
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Fencing Tokens"
+    },
+    {
+      "from": "patterns/distributed-lock.md",
+      "text": "Fencing Tokens"
+    }
+  ],
+  "event": [
+    {
+      "from": "patterns/event-sourcing.md",
+      "text": "key"
+    }
+  ],
+  "/patterns/fallback/": [
+    {
+      "from": "patterns/graceful-degradation.md",
+      "text": "Fallback Pattern"
+    }
+  ],
+  "/patterns/service-discovery/": [
+    {
+      "from": "patterns/health-check.md",
+      "text": "Service Discovery"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Service Discovery"
+    },
+    {
+      "from": "patterns/health-check.md",
+      "text": "Service Discovery"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Service Discovery"
+    }
+  ],
+  "/patterns/outbox/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Outbox Pattern"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Outbox Pattern"
+    }
+  ],
+  "/patterns/message-queue/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Message Queue"
+    },
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Message Queue"
+    }
+  ],
+  "/patterns/delivery-semantics/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Message Delivery Semantics"
+    }
+  ],
+  "/quantitative/deduplication/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Distributed Deduplication"
+    }
+  ],
+  "/patterns/exactly-once/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Exactly-Once Delivery"
+    }
+  ],
+  "/patterns/request-reply/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Request-Reply"
+    }
+  ],
+  "/part2-pillars/state/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "State Pillar"
+    }
+  ],
+  "/case-studies/#paypal-payments": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Case Study: PayPal"
+    }
+  ],
+  "/patterns/saga/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Saga Pattern"
+    },
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Saga Pattern"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Saga Pattern"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Saga Pattern"
+    }
+  ],
+  "/patterns/at-least-once/": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "At-Least-Once Delivery"
+    }
+  ],
+  "/part2-pillars/state/exercises/#payment-processor": [
+    {
+      "from": "patterns/idempotent-receiver.md",
+      "text": "Exercise: Build payment processor"
+    }
+  ],
+  "queues-streaming.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Queues & Streaming"
+    }
+  ],
+  "cqrs.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "CQRS"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "CQRS"
+    }
+  ],
+  "event-driven.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Event-Driven Architecture"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Event-Driven Architecture"
+    }
+  ],
+  "event-sourcing.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Event Sourcing"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Event Sourcing"
+    }
+  ],
+  "saga.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Saga Pattern"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Saga Pattern"
+    }
+  ],
+  "service-mesh.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Service Mesh"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Service Mesh"
+    }
+  ],
+  "graphql-federation.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "GraphQL Federation"
+    }
+  ],
+  "serverless-faas.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Serverless/FaaS"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Serverless"
+    }
+  ],
+  "circuit-breaker.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Circuit Breaker"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Circuit Breaker"
+    }
+  ],
+  "retry-backoff.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Retry & Backoff"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Retry & Backoff"
+    }
+  ],
+  "bulkhead.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Bulkhead"
+    }
+  ],
+  "timeout.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Timeout"
+    }
+  ],
+  "health-check.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Health Check"
+    }
+  ],
+  "graceful-degradation.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Graceful Degradation"
+    }
+  ],
+  "rate-limiting.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Rate Limiting"
+    }
+  ],
+  "load-shedding.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Load Shedding"
+    }
+  ],
+  "cdc.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "CDC (Change Data Capture)"
+    }
+  ],
+  "tunable-consistency.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Tunable Consistency"
+    }
+  ],
+  "sharding.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Sharding"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Sharding"
+    }
+  ],
+  "caching-strategies.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Caching Strategies"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Caching Strategies"
+    }
+  ],
+  "geo-replication.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Geo-Replication"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Geo-Replication"
+    }
+  ],
+  "leader-election.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Leader Election"
+    }
+  ],
+  "distributed-lock.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Distributed Lock"
+    }
+  ],
+  "idempotent-receiver.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Idempotent Receiver"
+    }
+  ],
+  "outbox.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Outbox"
+    }
+  ],
+  "service-discovery.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Service Discovery"
+    }
+  ],
+  "observability.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Observability"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Observability"
+    }
+  ],
+  "auto-scaling.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Auto-Scaling"
+    }
+  ],
+  "load-balancing.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Load Balancing"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Load Balancing"
+    }
+  ],
+  "edge-computing.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Edge Computing"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "Edge Computing"
+    }
+  ],
+  "finops.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "FinOps"
+    },
+    {
+      "from": "patterns/index.md",
+      "text": "FinOps"
+    }
+  ],
+  "../human-factors/chaos-engineering.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Chaos Engineering"
+    }
+  ],
+  "pattern-quiz.md": [
+    {
+      "from": "patterns/index.md",
+      "text": "Pattern Quiz"
+    }
+  ],
+  "/quantitative/consensus-theory/": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Consensus Algorithms"
+    }
+  ],
+  "/patterns/choreography/": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Choreography"
+    }
+  ],
+  "/patterns/token-ring/": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Token Ring"
+    }
+  ],
+  "/patterns/gossip/": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Gossip Protocol"
+    }
+  ],
+  "/case-studies/#kafka-controller": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Case Study: Kafka"
+    }
+  ],
+  "/patterns/raft/": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Raft Consensus"
+    }
+  ],
+  "/part1-axioms/axiom5-coordination/exercises/#coordinator": [
+    {
+      "from": "patterns/leader-election.md",
+      "text": "Exercise: Build a coordinator"
+    }
+  ],
+  "current_load": [
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "req_type"
+    },
+    {
+      "from": "patterns/load-shedding.md",
+      "text": "req_type"
+    }
+  ],
+  "/quantitative/distributed-transactions/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Distributed Transactions"
+    }
+  ],
+  "/patterns/delivery-guarantees/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Message Delivery Guarantees"
+    }
+  ],
+  "/patterns/cdc/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "CDC Pattern"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Change Data Capture"
+    }
+  ],
+  "/patterns/idempotent-receiver/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Idempotent Receiver"
+    },
+    {
+      "from": "patterns/outbox.md",
+      "text": "Idempotent Receiver"
+    }
+  ],
+  "/patterns/2pc/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Two-Phase Commit"
+    }
+  ],
+  "/patterns/event-store/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Event Store"
+    }
+  ],
+  "/part2-pillars/truth/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Truth Pillar"
+    }
+  ],
+  "/patterns/event-driven/": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Event-Driven Architecture"
+    }
+  ],
+  "/part2-pillars/truth/exercises/#event-publisher": [
+    {
+      "from": "patterns/outbox.md",
+      "text": "Exercise: Build event publisher"
+    }
+  ],
+  "/patterns/quota/": [
+    {
+      "from": "patterns/rate-limiting.md",
+      "text": "Quota Management"
+    }
+  ],
+  "context": [
+    {
+      "from": "patterns/saga.md",
+      "text": "'on_exit'"
+    },
+    {
+      "from": "patterns/saga.md",
+      "text": "'on_enter'"
+    }
+  ],
+  "event, context": [
+    {
+      "from": "patterns/saga.md",
+      "text": "'action'"
+    }
+  ],
+  "latency-ladder.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Latency Ladder 2025"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Latency Ladder"
+    }
+  ],
+  "littles-law.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Little's Law Deep-Dive"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Little's Law"
+    }
+  ],
+  "queueing-models.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Queueing Theory"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Queueing Theory"
+    }
+  ],
+  "amdahl-gustafson.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Amdahl & Gustafson Laws"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Amdahl's Law"
+    }
+  ],
+  "universal-scalability.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Universal Scalability Law"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Universal Scalability Law"
+    }
+  ],
+  "coordination-costs.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Coordination Costs"
+    }
+  ],
+  "cache-economics.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Cache Economics"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Cache Economics"
+    }
+  ],
+  "availability-math.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Availability Math"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Availability Math"
+    }
+  ],
+  "capacity-planning.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Capacity Planning"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Capacity Planning"
+    }
+  ],
+  "problem-set.md": [
+    {
+      "from": "quantitative/index.md",
+      "text": "Numerical Problem Set"
+    },
+    {
+      "from": "quantitative/index.md",
+      "text": "Practice Problems"
+    }
+  ],
+  "../part1-axioms/axiom1-latency/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Latency Axiom"
+    }
+  ],
+  "../part1-axioms/axiom2-capacity/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Capacity Axiom"
+    }
+  ],
+  "../patterns/outbox.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Outbox Pattern"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Outbox Pattern"
+    }
+  ],
+  "../part1-axioms/axiom3-failure/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Failure Axiom"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Failure Axiom"
+    }
+  ],
+  "../part2-pillars/truth/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Truth Pillar"
+    }
+  ],
+  "../part1-axioms/axiom5-coordination/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Coordination Axiom"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Coordination Axiom"
+    }
+  ],
+  "../patterns/leader-election.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Leader Election"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Leader Election Pattern"
+    },
+    {
+      "from": "reference/glossary.md",
+      "text": "Raft consensus in Leader Election pattern"
+    }
+  ],
+  "../case-studies/index.md#amazon-dynamo": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Amazon's Dynamo Database"
+    }
+  ],
+  "../introduction/index.md#fallacies": [
+    {
+      "from": "reference/glossary.md",
+      "text": "8 Fallacies Section"
+    }
+  ],
+  "../quantitative/littles-law.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Quantitative Toolkit"
+    }
+  ],
+  "../part2-pillars/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Part II: Pillars"
+    }
+  ],
+  "../part1-axioms/axiom4-concurrency/index.md": [
+    {
+      "from": "reference/glossary.md",
+      "text": "Vector Clock implementation in Concurrency axiom"
+    }
+  ],
+  "glossary.md": [
+    {
+      "from": "reference/index.md",
+      "text": "Glossary"
+    }
+  ],
+  "cheat-sheets.md": [
+    {
+      "from": "reference/index.md",
+      "text": "Cheat Sheets"
+    }
+  ],
+  "recipe-cards.md": [
+    {
+      "from": "reference/index.md",
+      "text": "Recipe Cards"
+    }
+  ],
+  "security.md": [
+    {
+      "from": "reference/index.md",
+      "text": "Security Considerations"
+    }
+  ],
+  "glossary.md#cap-theorem": [
+    {
+      "from": "reference/index.md",
+      "text": "CAP Theorem"
+    }
+  ],
+  "glossary.md#eventually-consistent": [
+    {
+      "from": "reference/index.md",
+      "text": "Eventually Consistent"
+    }
+  ],
+  "glossary.md#vector-clock": [
+    {
+      "from": "reference/index.md",
+      "text": "Vector Clock"
+    }
+  ],
+  "glossary.md#circuit-breaker": [
+    {
+      "from": "reference/index.md",
+      "text": "Circuit Breaker"
+    }
+  ],
+  "glossary.md#saga-pattern": [
+    {
+      "from": "reference/index.md",
+      "text": "Saga Pattern"
+    }
+  ],
+  "cheat-sheets.md#littles-law": [
+    {
+      "from": "reference/index.md",
+      "text": "Little's Law"
+    }
+  ],
+  "cheat-sheets.md#availability-math": [
+    {
+      "from": "reference/index.md",
+      "text": "Availability Math"
+    }
+  ],
+  "cheat-sheets.md#latency-budget-planning": [
+    {
+      "from": "reference/index.md",
+      "text": "Latency Budget"
+    }
+  ],
+  "cheat-sheets.md#capacity-planning-formulas": [
+    {
+      "from": "reference/index.md",
+      "text": "Capacity Planning"
+    }
+  ],
+  "recipe-cards.md#recipe-implementing-circuit-breaker": [
+    {
+      "from": "reference/index.md",
+      "text": "Implementing Circuit Breaker"
+    }
+  ],
+  "recipe-cards.md#recipe-debugging-distributed-system-failures": [
+    {
+      "from": "reference/index.md",
+      "text": "Debugging Distributed Failures"
+    }
+  ],
+  "recipe-cards.md#recipe-performance-investigation": [
+    {
+      "from": "reference/index.md",
+      "text": "Performance Tuning"
+    }
+  ],
+  "recipe-cards.md#recipe-essential-observability-stack": [
+    {
+      "from": "reference/index.md",
+      "text": "Monitoring Setup"
+    }
+  ]
+}

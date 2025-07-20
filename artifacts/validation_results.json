@@ -1,0 +1,2096 @@
+{
+  "summary": {
+    "total_files": 129,
+    "complete_files": 32,
+    "incomplete_files": 97,
+    "missing_sections": {
+      "Real-World Examples": 9,
+      "Quiz Questions": 9,
+      "Further Reading": 9,
+      "Exercises": 6,
+      "The Constraint": 1,
+      "Why It Matters": 1,
+      "Common Misconceptions": 1,
+      "Practical Implications": 1,
+      "Problem": 35,
+      "Solution": 35,
+      "Implementation": 35,
+      "When to Use": 35,
+      "When NOT to Use": 35,
+      "Trade-offs": 35,
+      "Real Examples": 35,
+      "Code Sample": 35,
+      "Exercise": 35
+    },
+    "quality_issues": {
+      "No code examples found": 24,
+      "No exercises found": 88,
+      "Placeholder links found: 2 instances": 30,
+      "Placeholder links found: 7 instances": 2,
+      "Placeholder links found: 1 instances": 32,
+      "Code block 9 missing language specification": 3,
+      "Code block 10 missing language specification": 3,
+      "Code block 11 missing language specification": 3,
+      "Code block 14 missing language specification": 2,
+      "Only 1 exercises found (minimum 3 recommended)": 1,
+      "Exercises found but no solutions provided": 8,
+      "Placeholder links found: 17 instances": 1,
+      "Code block 1 missing language specification": 4,
+      "Code block 2 missing language specification": 5,
+      "Code block 3 missing language specification": 5,
+      "Code block 4 missing language specification": 4,
+      "Code block 5 missing language specification": 5,
+      "Code block 6 missing language specification": 14,
+      "Code block 7 missing language specification": 14,
+      "Code block 8 missing language specification": 12,
+      "Code block 12 missing language specification": 2,
+      "Code block 13 missing language specification": 2,
+      "Code block 15 missing language specification": 2,
+      "Code block 16 missing language specification": 2,
+      "Code block 18 missing language specification": 2,
+      "Code block 19 missing language specification": 3,
+      "Code block 20 missing language specification": 3,
+      "Code block 21 missing language specification": 3,
+      "Code block 22 missing language specification": 4,
+      "Code block 23 missing language specification": 2,
+      "Code block 27 missing language specification": 2,
+      "Code block 28 missing language specification": 1,
+      "Placeholder links found: 3 instances": 4,
+      "Generic description detected": 9,
+      "Description too short (< 20 chars)": 17,
+      "Placeholder links found: 4 instances": 4,
+      "Missing frontmatter field: type": 4,
+      "Missing frontmatter field: difficulty": 4,
+      "Missing frontmatter field: reading_time": 4,
+      "Code block 26 missing language specification": 1,
+      "Placeholder links found: 5 instances": 3,
+      "Placeholder links found: 6 instances": 1,
+      "Placeholder links found: 47 instances": 1,
+      "Code block 17 missing language specification": 1,
+      "Placeholder links found: 19 instances": 1,
+      "Placeholder links found: 12 instances": 1
+    }
+  },
+  "details": {
+    "capstone/evaluation-rubric.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 60
+    },
+    "capstone/framework.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "case-studies/amazon-dynamo.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 60
+    },
+    "case-studies/index-original.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "case-studies/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 7 instances"
+      ],
+      "completeness_score": 40
+    },
+    "case-studies/paypal-payments.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "case-studies/spotify-recommendations.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 9 missing language specification",
+        "Code block 10 missing language specification",
+        "Code block 11 missing language specification",
+        "Code block 14 missing language specification"
+      ],
+      "exercise_issues": [
+        "Only 1 exercises found (minimum 3 recommended)"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 25
+    },
+    "case-studies/uber-location.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "human-factors/blameless-postmortems.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "human-factors/chaos-engineering.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "human-factors/consistency-tuning.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "human-factors/incident-response.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "human-factors/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 17 instances"
+      ],
+      "completeness_score": 60
+    },
+    "human-factors/knowledge-management.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "human-factors/observability-stacks.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 1 missing language specification",
+        "Code block 2 missing language specification",
+        "Code block 3 missing language specification",
+        "Code block 4 missing language specification",
+        "Code block 5 missing language specification",
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification",
+        "Code block 9 missing language specification",
+        "Code block 10 missing language specification",
+        "Code block 11 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 20
+    },
+    "human-factors/oncall-culture.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "human-factors/org-structure.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 12 missing language specification",
+        "Code block 13 missing language specification",
+        "Code block 15 missing language specification",
+        "Code block 16 missing language specification",
+        "Code block 18 missing language specification",
+        "Code block 19 missing language specification",
+        "Code block 20 missing language specification",
+        "Code block 21 missing language specification",
+        "Code block 22 missing language specification",
+        "Code block 23 missing language specification",
+        "Code block 27 missing language specification",
+        "Code block 28 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 18
+    },
+    "human-factors/runbooks-playbooks.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 3 missing language specification",
+        "Code block 4 missing language specification",
+        "Code block 5 missing language specification",
+        "Code block 22 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 37
+    },
+    "human-factors/sre-practices.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 3 instances"
+      ],
+      "completeness_score": 60
+    },
+    "human-factors/team-topologies.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 100
+    },
+    "index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "introduction/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "introduction/philosophy.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part1-axioms/axiom1-latency/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom1-latency/exercises.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom1-latency/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 4 instances"
+      ],
+      "completeness_score": 28
+    },
+    "part1-axioms/axiom2-capacity/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom2-capacity/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom2-capacity/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 4 instances"
+      ],
+      "completeness_score": 28
+    },
+    "part1-axioms/axiom3-failure/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom3-failure/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom3-failure/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Exercises",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 3 instances"
+      ],
+      "completeness_score": 25
+    },
+    "part1-axioms/axiom4-concurrency/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom4-concurrency/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom4-concurrency/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Exercises",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 7 instances"
+      ],
+      "completeness_score": 25
+    },
+    "part1-axioms/axiom5-coordination/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom5-coordination/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom5-coordination/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Exercises",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 25
+    },
+    "part1-axioms/axiom6-observability/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom6-observability/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom6-observability/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Exercises",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 25
+    },
+    "part1-axioms/axiom7-human/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom7-human/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom7-human/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Exercises",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 25
+    },
+    "part1-axioms/axiom8-economics/examples.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 20
+    },
+    "part1-axioms/axiom8-economics/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part1-axioms/axiom8-economics/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Real-World Examples",
+        "Exercises",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 25
+    },
+    "part1-axioms/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "The Constraint",
+        "Why It Matters",
+        "Real-World Examples",
+        "Common Misconceptions",
+        "Practical Implications",
+        "Quiz Questions",
+        "Further Reading"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 27
+    },
+    "part1-axioms/quiz.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 60
+    },
+    "part1-axioms/synthesis.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/control/examples.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 100
+    },
+    "part2-pillars/control/exercises.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/control/index.md": {
+      "frontmatter_issues": [
+        "Missing frontmatter field: type",
+        "Missing frontmatter field: difficulty",
+        "Missing frontmatter field: reading_time",
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 37
+    },
+    "part2-pillars/decision-tree.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 1 missing language specification",
+        "Code block 2 missing language specification",
+        "Code block 3 missing language specification",
+        "Code block 4 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 12
+    },
+    "part2-pillars/failure-recap.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part2-pillars/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/intelligence/examples.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/intelligence/exercises.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/intelligence/index.md": {
+      "frontmatter_issues": [
+        "Missing frontmatter field: type",
+        "Missing frontmatter field: difficulty",
+        "Missing frontmatter field: reading_time",
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 37
+    },
+    "part2-pillars/models-collide.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 1 missing language specification",
+        "Code block 2 missing language specification",
+        "Code block 3 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 28
+    },
+    "part2-pillars/models-comparison.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 40
+    },
+    "part2-pillars/pattern-catalog-intro.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 2 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part2-pillars/pattern-legend.md": {
+      "frontmatter_issues": [
+        "Generic description detected"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 40
+    },
+    "part2-pillars/pattern-matrix.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 40
+    },
+    "part2-pillars/pillar-checkpoint.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part2-pillars/pillars-patterns-map.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 15
+    },
+    "part2-pillars/reflection-journal.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part2-pillars/state/examples.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 60
+    },
+    "part2-pillars/state/exercises.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/state/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part2-pillars/tradeoff-calculus.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "Exercises found but no solutions provided"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 60
+    },
+    "part2-pillars/transition-part3.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/truth/examples.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/truth/exercises.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 100
+    },
+    "part2-pillars/truth/index.md": {
+      "frontmatter_issues": [
+        "Missing frontmatter field: type",
+        "Missing frontmatter field: difficulty",
+        "Missing frontmatter field: reading_time",
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 37
+    },
+    "part2-pillars/work/examples.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 60
+    },
+    "part2-pillars/work/exercises.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "part2-pillars/work/index.md": {
+      "frontmatter_issues": [
+        "Missing frontmatter field: type",
+        "Missing frontmatter field: difficulty",
+        "Missing frontmatter field: reading_time",
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 26 missing language specification",
+        "Code block 27 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 33
+    },
+    "patterns/auto-scaling.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/bulkhead.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 23
+    },
+    "patterns/caching-strategies.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/cdc.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 5 missing language specification",
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/circuit-breaker.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 5 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/consensus.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/cqrs.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 5 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/distributed-lock.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 4 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/edge-computing.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/event-driven.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/event-sourcing.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 6 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/finops.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 5 missing language specification",
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 6
+    },
+    "patterns/geo-replication.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/graceful-degradation.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/graphql-federation.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 6
+    },
+    "patterns/health-check.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/idempotent-receiver.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 47 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/leader-election.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/load-balancing.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/load-shedding.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 4 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/observability.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 6
+    },
+    "patterns/outbox.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 7
+    },
+    "patterns/pattern-quiz.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 7
+    },
+    "patterns/queues-streaming.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 23
+    },
+    "patterns/rate-limiting.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/retry-backoff.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/saga.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 5 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/serverless-faas.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 3 instances"
+      ],
+      "completeness_score": 6
+    },
+    "patterns/service-discovery.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/service-mesh.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/sharding.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 3 instances"
+      ],
+      "completeness_score": 13
+    },
+    "patterns/timeout.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 2 instances"
+      ],
+      "completeness_score": 15
+    },
+    "patterns/tunable-consistency.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [
+        "Problem",
+        "Solution",
+        "Implementation",
+        "When to Use",
+        "When NOT to Use",
+        "Trade-offs",
+        "Real Examples",
+        "Code Sample",
+        "Exercise"
+      ],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
+      "exercise_issues": [],
+      "link_issues": [
+        "Placeholder links found: 1 instances"
+      ],
+      "completeness_score": 13
+    },
+    "quantitative/amdahl-gustafson.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 100
+    },
+    "quantitative/availability-math.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "quantitative/cache-economics.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "quantitative/capacity-planning.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 1 missing language specification",
+        "Code block 2 missing language specification",
+        "Code block 3 missing language specification",
+        "Code block 4 missing language specification",
+        "Code block 5 missing language specification",
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification",
+        "Code block 9 missing language specification",
+        "Code block 10 missing language specification",
+        "Code block 11 missing language specification",
+        "Code block 12 missing language specification",
+        "Code block 13 missing language specification",
+        "Code block 14 missing language specification",
+        "Code block 15 missing language specification",
+        "Code block 16 missing language specification",
+        "Code block 17 missing language specification",
+        "Code block 18 missing language specification",
+        "Code block 19 missing language specification",
+        "Code block 20 missing language specification",
+        "Code block 21 missing language specification",
+        "Code block 22 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 11
+    },
+    "quantitative/coordination-costs.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 100
+    },
+    "quantitative/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 19 instances"
+      ],
+      "completeness_score": 40
+    },
+    "quantitative/latency-ladder.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 100
+    },
+    "quantitative/littles-law.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "quantitative/problem-set.md": {
+      "frontmatter_issues": [
+        "Description too short (< 20 chars)"
+      ],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [],
+      "link_issues": [],
+      "completeness_score": 60
+    },
+    "quantitative/queueing-models.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "quantitative/universal-scalability.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "Code block 19 missing language specification",
+        "Code block 20 missing language specification",
+        "Code block 21 missing language specification",
+        "Code block 22 missing language specification",
+        "Code block 23 missing language specification"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 33
+    },
+    "reference/cheat-sheets.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "reference/glossary.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 60
+    },
+    "reference/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [
+        "Placeholder links found: 12 instances"
+      ],
+      "completeness_score": 40
+    },
+    "reference/recipe-cards.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "reference/security.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 80
+    },
+    "tools/index.md": {
+      "frontmatter_issues": [],
+      "missing_sections": [],
+      "code_issues": [
+        "No code examples found"
+      ],
+      "exercise_issues": [
+        "No exercises found"
+      ],
+      "link_issues": [],
+      "completeness_score": 60
+    }
+  }
+}
