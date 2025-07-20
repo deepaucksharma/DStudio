@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part II: Pillars](../index.md) → [State](/part2-pillars/state/) → **State Management Examples**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [State](index.md) → **State Management Examples**
 
 # State Management Examples
 

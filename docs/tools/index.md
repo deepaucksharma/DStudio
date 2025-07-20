@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → **Interactive Tools**
+[Home](../index.md) → **Interactive Tools**
 
 # Interactive Tools
 

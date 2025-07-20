@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Capacity Planning Worksheet**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Capacity Planning Worksheet**
 
 # Capacity Planning Worksheet
 

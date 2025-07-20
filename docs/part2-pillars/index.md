@@ -217,4 +217,4 @@ Remember: The pillars build on each other. Master them individually, then learn 
 
 ---
 
-**Next**: Choose your first pillar or return to [Part I: Axioms](/part1-axioms/) to strengthen your foundation.
+**Next**: Choose your first pillar or return to [Part I: Axioms](../part1-axioms/index.md) to strengthen your foundation.

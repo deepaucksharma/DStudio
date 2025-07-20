@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Queueing Models (M/M/1)**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Queueing Models (M/M/1)**
 
 # Queueing Models (M/M/1)
 

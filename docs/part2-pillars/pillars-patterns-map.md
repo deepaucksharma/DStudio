@@ -12,7 +12,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **Pillars ↔ Patterns Mini-Map**
+[Home](../index.md) → [Part II: Pillars](index.md) → **Pillars ↔ Patterns Mini-Map**
 
 # Pillars ↔ Patterns Mini-Map
 

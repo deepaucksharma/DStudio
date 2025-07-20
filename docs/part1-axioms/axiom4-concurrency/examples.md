@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 4](/part1-axioms/axiom4-concurrency/) → **Concurrency Examples**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 4](index.md) → **Concurrency Examples**
 
 # Concurrency Examples
 

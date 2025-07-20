@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Little's Law Deep-Dive**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Little's Law Deep-Dive**
 
 # Little's Law Deep-Dive
 

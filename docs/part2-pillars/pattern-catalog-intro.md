@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **PATTERN CATALOG INTRO**
+[Home](../index.md) → [Part II: Pillars](index.md) → **PATTERN CATALOG INTRO**
 
 # PATTERN CATALOG INTRO
 

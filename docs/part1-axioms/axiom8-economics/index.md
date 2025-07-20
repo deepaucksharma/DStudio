@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 8](/part1-axioms/axiom8-economics/) → **Axiom 8: Economic Gradient**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 8](index.md) → **Axiom 8: Economic Gradient**
 
 # Axiom 8: Economic Gradient
 

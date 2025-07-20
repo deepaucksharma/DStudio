@@ -14,7 +14,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **Pillar Checkpoint Exercise**
+[Home](../index.md) → [Part II: Pillars](index.md) → **Pillar Checkpoint Exercise**
 
 # Pillar Checkpoint Exercise
 

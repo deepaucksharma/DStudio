@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 7](/part1-axioms/axiom7-human/) → **Human Interface Exercises**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 7](index.md) → **Human Interface Exercises**
 
 # Human Interface Exercises
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **Pattern Legend & Icons**
+[Home](../index.md) → [Part II: Pillars](index.md) → **Pattern Legend & Icons**
 
 # Pattern Legend & Icons
 

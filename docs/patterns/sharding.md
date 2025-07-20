@@ -388,7 +388,7 @@ class GeoSharding:
 
 **Previous**: [← Service Mesh](service-mesh.md) | **Next**: [Timeout Pattern →](timeout.md)
 
-**Related**: [Consistent Hashing](/patterns/consistent-hashing/) • [Geo Replication](geo-replication.md)
+**Related**: [Consistent Hashing](#consistent-hashing) • [Geo Replication](geo-replication.md)
 ---
 
 ## ✅ When to Use

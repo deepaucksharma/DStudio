@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part II: Pillars](../index.md) → [Intelligence](/part2-pillars/intelligence/) → **Intelligence & Learning Examples**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [Intelligence](index.md) → **Intelligence & Learning Examples**
 
 # Intelligence & Learning Examples
 

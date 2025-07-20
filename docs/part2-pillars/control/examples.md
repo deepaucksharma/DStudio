@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part II: Pillars](../index.md) → [Control](/part2-pillars/control/) → **Control & Coordination Examples**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [Control](index.md) → **Control & Coordination Examples**
 
 # Control & Coordination Examples
 

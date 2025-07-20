@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part II: Pillars](../index.md) → [Truth](/part2-pillars/truth/) → **Truth & Consensus Exercises**
+[Home](../../index.md) → [Part II: Pillars](../index.md) → [Truth](index.md) → **Truth & Consensus Exercises**
 
 # Truth & Consensus Exercises
 

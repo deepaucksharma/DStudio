@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Numerical Problem Set**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Numerical Problem Set**
 
 # Numerical Problem Set
 

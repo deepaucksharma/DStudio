@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **Pattern Interconnection Matrix v2**
+[Home](../index.md) → [Part II: Pillars](index.md) → **Pattern Interconnection Matrix v2**
 
 # Pattern Interconnection Matrix v2
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Cache Economics Sheet**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Cache Economics Sheet**
 
 # Cache Economics Sheet
 

@@ -14,7 +14,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part II: Pillars](/part2-pillars/) → **Transition Page (Part III Preview)**
+[Home](../index.md) → [Part II: Pillars](index.md) → **Transition Page (Part III Preview)**
 
 # Transition Page (Part III Preview)
 

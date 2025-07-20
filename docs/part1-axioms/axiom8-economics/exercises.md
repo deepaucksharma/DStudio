@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 8](/part1-axioms/axiom8-economics/) → **Economics Exercises**
+[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 8](index.md) → **Economics Exercises**
 
 # Economics Exercises
 

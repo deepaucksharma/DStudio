@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Availability Math & Nines**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Availability Math & Nines**
 
 # Availability Math & Nines
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Coordination Cost Models**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Coordination Cost Models**
 
 # Coordination Cost Models
 

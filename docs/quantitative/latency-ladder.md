@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](/) → [Part IV: Quantitative](/quantitative/) → **Latency Ladder 2025**
+[Home](../index.md) → [Part IV: Quantitative](index.md) → **Latency Ladder 2025**
 
 # Latency Ladder 2025
 
