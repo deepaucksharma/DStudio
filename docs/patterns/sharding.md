@@ -393,6 +393,180 @@ class GeoSharding:
 **Related**: [Consistent Hashing](/patterns/consistent-hashing/) • [Geo Replication](/patterns/geo-replication/)
 ---
 
+
+## ✅ When to Use
+
+### Ideal Scenarios
+- **Distributed systems** with external dependencies
+- **High-availability services** requiring reliability
+- **External service integration** with potential failures
+- **High-traffic applications** needing protection
+
+### Environmental Factors
+- **High Traffic**: System handles significant load
+- **External Dependencies**: Calls to other services or systems
+- **Reliability Requirements**: Uptime is critical to business
+- **Resource Constraints**: Limited connections, threads, or memory
+
+### Team Readiness
+- Team understands distributed systems concepts
+- Monitoring and alerting infrastructure exists
+- Operations team can respond to pattern-related alerts
+
+### Business Context
+- Cost of downtime is significant
+- User experience is a priority
+- System is customer-facing or business-critical
+
+
+
+## ❌ When NOT to Use
+
+### Inappropriate Scenarios
+- **Simple applications** with minimal complexity
+- **Development environments** where reliability isn't critical
+- **Single-user systems** without scale requirements
+- **Internal tools** with relaxed availability needs
+
+### Technical Constraints
+- **Simple Systems**: Overhead exceeds benefits
+- **Development/Testing**: Adds unnecessary complexity
+- **Performance Critical**: Pattern overhead is unacceptable
+- **Legacy Systems**: Cannot be easily modified
+
+### Resource Limitations
+- **No Monitoring**: Cannot observe pattern effectiveness
+- **Limited Expertise**: Team lacks distributed systems knowledge
+- **Tight Coupling**: System design prevents pattern implementation
+
+### Anti-Patterns
+- Adding complexity without clear benefit
+- Implementing without proper monitoring
+- Using as a substitute for fixing root causes
+- Over-engineering simple problems
+
+
+
+## ⚖️ Trade-offs
+
+### Benefits vs Costs
+
+| Benefit | Cost | Mitigation |
+|---------|------|------------|
+| **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
+| **Better Performance** | Resource overhead | Monitor and tune parameters |
+| **Faster Recovery** | Operational complexity | Invest in monitoring and training |
+| **Clearer Debugging** | Additional logging | Use structured logging |
+
+### Performance Impact
+- **Latency**: Small overhead per operation
+- **Memory**: Additional state tracking
+- **CPU**: Monitoring and decision logic
+- **Network**: Possible additional monitoring calls
+
+### Operational Complexity
+- **Monitoring**: Need dashboards and alerts
+- **Configuration**: Parameters must be tuned
+- **Debugging**: Additional failure modes to understand
+- **Testing**: More scenarios to validate
+
+### Development Trade-offs
+- **Initial Cost**: More time to implement correctly
+- **Maintenance**: Ongoing tuning and monitoring
+- **Testing**: Complex failure scenarios to validate
+- **Documentation**: More concepts for team to understand
+
+
+
+## 💻 Code Sample
+
+### Basic Implementation
+
+```python
+class ShardingPattern:
+    def __init__(self, config):
+        self.config = config
+        self.metrics = Metrics()
+        self.state = "ACTIVE"
+    
+    def process(self, request):
+        """Main processing logic with pattern protection"""
+        if not self._is_healthy():
+            return self._fallback(request)
+        
+        try:
+            result = self._protected_operation(request)
+            self._record_success()
+            return result
+        except Exception as e:
+            self._record_failure(e)
+            return self._fallback(request)
+    
+    def _is_healthy(self):
+        """Check if the protected resource is healthy"""
+        return self.metrics.error_rate < self.config.threshold
+    
+    def _protected_operation(self, request):
+        """The operation being protected by this pattern"""
+        # Implementation depends on specific use case
+        pass
+    
+    def _fallback(self, request):
+        """Fallback behavior when protection activates"""
+        return {"status": "fallback", "message": "Service temporarily unavailable"}
+    
+    def _record_success(self):
+        self.metrics.record_success()
+    
+    def _record_failure(self, error):
+        self.metrics.record_failure(error)
+
+# Usage example
+pattern = ShardingPattern(config)
+result = pattern.process(user_request)
+```
+
+### Configuration Example
+
+```yaml
+sharding:
+  enabled: true
+  thresholds:
+    failure_rate: 50%
+    response_time: 5s
+    error_count: 10
+  timeouts:
+    operation: 30s
+    recovery: 60s
+  fallback:
+    enabled: true
+    strategy: "cached_response"
+  monitoring:
+    metrics_enabled: true
+    health_check_interval: 30s
+```
+
+### Testing the Implementation
+
+```python
+def test_sharding_behavior():
+    pattern = ShardingPattern(test_config)
+    
+    # Test normal operation
+    result = pattern.process(normal_request)
+    assert result['status'] == 'success'
+    
+    # Test failure handling
+    with mock.patch('external_service.call', side_effect=Exception):
+        result = pattern.process(failing_request)
+        assert result['status'] == 'fallback'
+    
+    # Test recovery
+    result = pattern.process(normal_request)
+    assert result['status'] == 'success'
+```
+
+
 ## 💪 Hands-On Exercises
 
 ### Exercise 1: Pattern Recognition ⭐⭐

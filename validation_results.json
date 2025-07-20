@@ -1,8 +1,8 @@
 {
   "summary": {
     "total_files": 129,
-    "complete_files": 36,
-    "incomplete_files": 93,
+    "complete_files": 37,
+    "incomplete_files": 92,
     "missing_sections": {
       "The Constraint": 9,
       "Why It Matters": 9,
@@ -23,7 +23,7 @@
       "Exercise": 35
     },
     "quality_issues": {
-      "No code examples found": 24,
+      "No code examples found": 22,
       "No exercises found": 85,
       "Placeholder links found: 2 instances": 29,
       "Placeholder links found: 7 instances": 1,
@@ -33,16 +33,16 @@
       "Code block 11 missing language specification": 3,
       "Code block 14 missing language specification": 2,
       "Only 1 exercises found (minimum 3 recommended)": 1,
-      "Exercises found but no solutions provided": 10,
+      "Exercises found but no solutions provided": 8,
       "Placeholder links found: 17 instances": 2,
       "Code block 1 missing language specification": 4,
       "Code block 2 missing language specification": 5,
       "Code block 3 missing language specification": 5,
       "Code block 4 missing language specification": 4,
-      "Code block 5 missing language specification": 3,
-      "Code block 6 missing language specification": 2,
-      "Code block 7 missing language specification": 2,
-      "Code block 8 missing language specification": 2,
+      "Code block 5 missing language specification": 5,
+      "Code block 6 missing language specification": 14,
+      "Code block 7 missing language specification": 14,
+      "Code block 8 missing language specification": 12,
       "Code block 12 missing language specification": 2,
       "Code block 13 missing language specification": 2,
       "Code block 15 missing language specification": 2,
@@ -331,14 +331,12 @@
     "index.md": {
       "frontmatter_issues": [],
       "missing_sections": [],
-      "code_issues": [
-        "No code examples found"
-      ],
+      "code_issues": [],
       "exercise_issues": [
         "No exercises found"
       ],
       "link_issues": [],
-      "completeness_score": 60
+      "completeness_score": 80
     },
     "introduction/index.md": {
       "frontmatter_issues": [],
@@ -1146,13 +1144,11 @@
         "Exercise"
       ],
       "code_issues": [],
-      "exercise_issues": [
-        "Exercises found but no solutions provided"
-      ],
+      "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 1 instances"
       ],
-      "completeness_score": 15
+      "completeness_score": 23
     },
     "patterns/bulkhead.md": {
       "frontmatter_issues": [],
@@ -1187,12 +1183,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/cdc.md": {
       "frontmatter_issues": [],
@@ -1207,12 +1207,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 5 missing language specification",
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/circuit-breaker.md": {
       "frontmatter_issues": [],
@@ -1315,12 +1319,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/event-driven.md": {
       "frontmatter_issues": [],
@@ -1379,14 +1387,18 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 5 missing language specification",
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification"
+      ],
       "exercise_issues": [
         "No exercises found"
       ],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 15
+      "completeness_score": 6
     },
     "patterns/geo-replication.md": {
       "frontmatter_issues": [],
@@ -1401,12 +1413,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/graceful-degradation.md": {
       "frontmatter_issues": [],
@@ -1441,14 +1457,18 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [
         "No exercises found"
       ],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 15
+      "completeness_score": 6
     },
     "patterns/health-check.md": {
       "frontmatter_issues": [],
@@ -1574,13 +1594,11 @@
         "Exercise"
       ],
       "code_issues": [],
-      "exercise_issues": [
-        "Exercises found but no solutions provided"
-      ],
+      "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 4 instances"
       ],
-      "completeness_score": 15
+      "completeness_score": 23
     },
     "patterns/observability.md": {
       "frontmatter_issues": [],
@@ -1595,14 +1613,18 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [
         "No exercises found"
       ],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 15
+      "completeness_score": 6
     },
     "patterns/outbox.md": {
       "frontmatter_issues": [
@@ -1641,16 +1663,14 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [
-        "No code examples found"
-      ],
+      "code_issues": [],
       "exercise_issues": [
         "No exercises found"
       ],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 7
+      "completeness_score": 15
     },
     "patterns/queues-streaming.md": {
       "frontmatter_issues": [],
@@ -1729,12 +1749,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 5 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/serverless-faas.md": {
       "frontmatter_issues": [],
@@ -1749,14 +1773,18 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [
         "No exercises found"
       ],
       "link_issues": [
         "Placeholder links found: 3 instances"
       ],
-      "completeness_score": 15
+      "completeness_score": 6
     },
     "patterns/service-discovery.md": {
       "frontmatter_issues": [],
@@ -1793,12 +1821,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/sharding.md": {
       "frontmatter_issues": [],
@@ -1813,12 +1845,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 2 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "patterns/timeout.md": {
       "frontmatter_issues": [],
@@ -1855,12 +1891,16 @@
         "Code Sample",
         "Exercise"
       ],
-      "code_issues": [],
+      "code_issues": [
+        "Code block 6 missing language specification",
+        "Code block 7 missing language specification",
+        "Code block 8 missing language specification"
+      ],
       "exercise_issues": [],
       "link_issues": [
         "Placeholder links found: 1 instances"
       ],
-      "completeness_score": 23
+      "completeness_score": 13
     },
     "quantitative/amdahl-gustafson.md": {
       "frontmatter_issues": [],

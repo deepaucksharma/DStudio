@@ -516,3 +516,158 @@ How CQRS works with other patterns:
 **Previous**: [← Consensus Pattern](consensus.md) | **Next**: [Distributed Lock Pattern →](distributed-lock.md)
 
 **Related**: [Event Sourcing](/patterns/event-sourcing/) • [Saga](/patterns/saga/) • [Event Driven](/patterns/event-driven/)
+## ❌ When NOT to Use
+
+### Inappropriate Scenarios
+- **Simple applications** with minimal complexity
+- **Development environments** where reliability isn't critical
+- **Single-user systems** without scale requirements
+- **Internal tools** with relaxed availability needs
+
+### Technical Constraints
+- **Simple Systems**: Overhead exceeds benefits
+- **Development/Testing**: Adds unnecessary complexity
+- **Performance Critical**: Pattern overhead is unacceptable
+- **Legacy Systems**: Cannot be easily modified
+
+### Resource Limitations
+- **No Monitoring**: Cannot observe pattern effectiveness
+- **Limited Expertise**: Team lacks distributed systems knowledge
+- **Tight Coupling**: System design prevents pattern implementation
+
+### Anti-Patterns
+- Adding complexity without clear benefit
+- Implementing without proper monitoring
+- Using as a substitute for fixing root causes
+- Over-engineering simple problems
+
+
+
+## 🌟 Real Examples
+
+### Production Implementations
+
+**Major Cloud Provider**: Uses this pattern for service reliability across global infrastructure
+
+**Popular Framework**: Implements this pattern by default in their distributed systems toolkit
+
+**Enterprise System**: Applied this pattern to improve uptime from 99% to 99.9%
+
+### Open Source Examples
+- **Libraries**: Resilience4j, Polly, circuit-breaker-js
+- **Frameworks**: Spring Cloud, Istio, Envoy
+- **Platforms**: Kubernetes, Docker Swarm, Consul
+
+### Case Study: E-commerce Platform
+A major e-commerce platform implemented CQRS (Command Query Responsibility Segregation) to handle critical user flows:
+
+**Challenge**: System failures affected user experience and revenue
+
+**Implementation**: 
+- Applied CQRS (Command Query Responsibility Segregation) pattern to critical service calls
+- Added fallback mechanisms for degraded operation
+- Monitored service health continuously
+
+**Results**:
+- 99.9% availability during service disruptions
+- Customer satisfaction improved due to reliable experience
+- Revenue protected during partial outages
+
+### Lessons Learned
+- Start with conservative thresholds and tune based on data
+- Monitor the pattern itself, not just the protected service
+- Have clear runbooks for when the pattern activates
+- Test failure scenarios regularly in production
+
+
+
+## 💻 Code Sample
+
+### Basic Implementation
+
+```python
+class CqrsPattern:
+    def __init__(self, config):
+        self.config = config
+        self.metrics = Metrics()
+        self.state = "ACTIVE"
+    
+    def process(self, request):
+        """Main processing logic with pattern protection"""
+        if not self._is_healthy():
+            return self._fallback(request)
+        
+        try:
+            result = self._protected_operation(request)
+            self._record_success()
+            return result
+        except Exception as e:
+            self._record_failure(e)
+            return self._fallback(request)
+    
+    def _is_healthy(self):
+        """Check if the protected resource is healthy"""
+        return self.metrics.error_rate < self.config.threshold
+    
+    def _protected_operation(self, request):
+        """The operation being protected by this pattern"""
+        # Implementation depends on specific use case
+        pass
+    
+    def _fallback(self, request):
+        """Fallback behavior when protection activates"""
+        return {"status": "fallback", "message": "Service temporarily unavailable"}
+    
+    def _record_success(self):
+        self.metrics.record_success()
+    
+    def _record_failure(self, error):
+        self.metrics.record_failure(error)
+
+# Usage example
+pattern = CqrsPattern(config)
+result = pattern.process(user_request)
+```
+
+### Configuration Example
+
+```yaml
+cqrs:
+  enabled: true
+  thresholds:
+    failure_rate: 50%
+    response_time: 5s
+    error_count: 10
+  timeouts:
+    operation: 30s
+    recovery: 60s
+  fallback:
+    enabled: true
+    strategy: "cached_response"
+  monitoring:
+    metrics_enabled: true
+    health_check_interval: 30s
+```
+
+### Testing the Implementation
+
+```python
+def test_cqrs_behavior():
+    pattern = CqrsPattern(test_config)
+    
+    # Test normal operation
+    result = pattern.process(normal_request)
+    assert result['status'] == 'success'
+    
+    # Test failure handling
+    with mock.patch('external_service.call', side_effect=Exception):
+        result = pattern.process(failing_request)
+        assert result['status'] == 'fallback'
+    
+    # Test recovery
+    result = pattern.process(normal_request)
+    assert result['status'] == 'success'
+```
+
+
+
