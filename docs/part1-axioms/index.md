@@ -6,6 +6,21 @@
 
 Before we discuss any patterns, algorithms, or architectures, we must understand the fundamental constraints that govern all distributed systems. These eight axioms are not design choices—they are **inescapable realities** derived from physics, mathematics, and human nature.
 
+### Standing on the Shoulders of Giants
+
+!!! info "The 8 Fallacies of Distributed Computing"
+    In the 1990s, engineers at Sun Microsystems identified what developers wrongly assume:
+    1. The network is reliable
+    2. Latency is zero
+    3. Bandwidth is infinite
+    4. The network is secure
+    5. Topology doesn't change
+    6. There is one administrator
+    7. Transport cost is zero
+    8. The network is homogeneous
+    
+    **Our 8 Axioms flip these fallacies into positive principles** - instead of what not to assume, we teach what you must accept.
+
 ## The Eight Axioms
 
 <div class="axiom-grid">
@@ -38,6 +53,16 @@ Traditional education teaches distributed systems as a collection of solutions:
 - "Use vector clocks for ordering"
 
 But **when do you use each?** Without understanding the underlying constraints, you're just pattern-matching rather than engineering.
+
+### Industry Validation
+
+!!! quote "Werner Vogels, CTO of Amazon"
+    "Everything fails all the time. Build your systems accordingly."
+    
+!!! quote "Leslie Lamport, Turing Award Winner"
+    "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable."
+
+These quotes capture why axioms matter - they acknowledge the fundamental realities we must design around.
 
 ## The Derivation Chain
 
@@ -81,18 +106,30 @@ Trade-off Decisions
 
 Axioms don't exist in isolation. They interact and compound:
 
-| Interaction | Result |
-|------------|---------|
-| Latency × Coordination | Slow agreement protocols |
-| Capacity × Failure | Resource exhaustion cascades |
-| Concurrency × Observability | Heisenbugs |
-| Human × Economics | Operational cost explosion |
+| Interaction | Result | Real Example |
+|------------|---------|-------------|
+| Latency × Coordination | Slow agreement protocols | Blockchain consensus taking minutes |
+| Capacity × Failure | Resource exhaustion cascades | 2017 AWS S3 outage from overload |
+| Concurrency × Observability | Heisenbugs | Race conditions that disappear when logged |
+| Human × Economics | Operational cost explosion | Netflix spending $1B+ on AWS annually |
+
+### The Compounding Effect
+
+!!! danger "Axiom Violations Compound Exponentially"
+    - Violate 1 axiom: System degrades gracefully
+    - Violate 2 axioms: System becomes unreliable
+    - Violate 3+ axioms: System fails catastrophically
+    
+    **Example**: Knight Capital's $440M loss in 45 minutes violated:
+    - Axiom 3 (Failure): No rollback plan
+    - Axiom 4 (Concurrency): Race condition in deployment
+    - Axiom 7 (Human): Confusing deployment process
 
 ## Get Started
 
 Ready to understand why your distributed system behaves the way it does?
 
-[**→ Begin with Axiom 1: Latency**](axiom1-latency/)
+[**→ Begin with Axiom 1: Latency**](axiom1-latency/index.md)
 
 ---
 

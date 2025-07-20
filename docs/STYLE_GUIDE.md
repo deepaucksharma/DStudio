@@ -165,7 +165,7 @@ Use for non-sequential items:
 #### Internal Links
 Use relative paths:
 ```markdown
-See [Latency Axiom](../part1-axioms/axiom1-latency/index.md)
+See [Latency Axiom](/part1-axioms/axiom1-latency/)
 ```
 
 #### External Links

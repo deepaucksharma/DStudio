@@ -1,5 +1,15 @@
 # Outbox Pattern
 
+<div class="navigation-header">
+<div class="breadcrumb">
+[Home](/) → [Part III: Patterns](/patterns/) → **Outbox Pattern**
+</div>
+
+<div class="pattern-nav">
+**Related**: [Saga Pattern](/patterns/saga/) • [Event Sourcing](/patterns/event-sourcing/) • [All Patterns](/patterns/)
+</div>
+</div>
+
 **Reliable message publishing with transactional guarantees - Never lose an event again**
 
 > *"The database transaction commits, but the message fails to send. Now what? The Outbox pattern ensures both happen or neither does."*
@@ -583,6 +593,65 @@ How outbox pattern works with other patterns:
 2. **When It Shines**: Any system requiring guaranteed event delivery with transactional data
 3. **What to Watch**: Table growth, publisher lag, ordering requirements
 4. **Remember**: The outbox pattern trades latency for reliability - a worthwhile trade in most cases
+
+---
+
+<div class="navigation-footer">
+<div class="pattern-implementation">
+<h3>🛠️ Implementation Resources</h3>
+
+**📝 Code Examples**:
+- [Python Implementation](#python-implementation) - Complete outbox with PostgreSQL
+- [Java Implementation](#java-implementation) - Spring Boot outbox starter
+- [Go Implementation](#go-implementation) - High-performance publisher
+- [Configuration Templates](#configuration) - Database schemas and settings
+
+**🧪 Testing & Validation**:
+- [Failure Injection Tests](#failure-tests) - Validate reliability guarantees
+- [Performance Testing](#performance-tests) - Measure publishing throughput
+- [Monitoring Setup](#monitoring) - Track lag and failure rates
+
+**📚 Deep Dive**:
+- [Distributed Transactions](/quantitative/distributed-transactions/) - Theory and alternatives
+- [Message Delivery Guarantees](/patterns/delivery-guarantees/) - At-least-once semantics
+</div>
+
+<div class="related-patterns">
+<h3>🔗 Related Patterns & Concepts</h3>
+
+**🤝 Complementary Patterns**:
+- [Saga Pattern](/patterns/saga/) - Distributed transactions using outbox
+- [Event Sourcing](/patterns/event-sourcing/) - Natural fit with outbox
+- [CDC Pattern](/patterns/cdc/) - Alternative approach for some cases
+- [Idempotent Receiver](/patterns/idempotent-receiver/) - Handle duplicate messages
+
+**⚖️ Alternative Approaches**:
+- [Two-Phase Commit](/patterns/2pc/) - Stronger guarantees, less availability
+- [Event Store](/patterns/event-store/) - Unified event + state storage
+- [Change Data Capture](/patterns/cdc/) - Database-level event generation
+
+**🧠 Foundational Concepts**:
+- [Axiom 3: Failure](/part1-axioms/axiom3-failure/) - Why dual writes fail
+- [Truth Pillar](/part2-pillars/truth/) - Consistency in distributed systems
+- [Case Study: Uber](/case-studies/#uber-location) - Outbox at scale
+</div>
+
+<div class="next-steps">
+<h3>📚 Continue Learning</h3>
+
+**🎯 Immediate Next Steps**:
+1. **Implement**: Build the [basic outbox example](#basic-example)
+2. **Test**: Run the [failure simulation](#failure-simulation)
+3. **Monitor**: Set up [outbox metrics](#metrics-dashboard)
+
+**🚀 Recommended Path**:
+- **Next Pattern**: [Idempotent Receiver](/patterns/idempotent-receiver/) - Handle message duplicates
+- **Deep Dive**: [Event-Driven Architecture](/patterns/event-driven/) - Complete event patterns
+- **Apply**: [Exercise: Build event publisher](/part2-pillars/truth/exercises/#event-publisher)
+
+**🎓 Mastery Check**: Can you explain why outbox needs cleanup and how to implement it? [Advanced topics →](#cleanup-strategies)
+</div>
+</div>
 
 ---
 

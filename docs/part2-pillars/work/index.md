@@ -80,18 +80,55 @@ How do you break computation into pieces that can run on different machines whil
 - **Parallelism**: How many things can happen at once
 - **Coordination**: How much communication is needed
 - **Locality**: Where data lives relative to computation
+- **Granularity**: Size of individual work units
+- **Dependencies**: How tasks relate to each other
 </div>
+
+### The Fundamental Trade-offs
+
+!!! warning "No Free Lunch in Work Distribution"
+    Every choice in work distribution involves trade-offs:
+    
+    **Parallelism vs Coordination Overhead**
+    - More workers = More communication needed
+    - Amdahl's Law: Serial portions limit speedup
+    - Eventually coordination costs exceed computation savings
+    
+    **Latency vs Throughput**
+    - Batching improves throughput but increases latency
+    - Small batches = Low latency but more overhead
+    - Must choose based on use case requirements
+    
+    **Simplicity vs Performance**
+    - Simple round-robin vs complex work stealing
+    - Static partitioning vs dynamic rebalancing
+    - Easier to debug vs harder to optimize
 
 ### The Work Decomposition Matrix
 
 ```
-Dimension        Options              Trade-offs
----------        -------              ----------
-Space           Single/Multi-node     Latency vs Isolation
-Time            Sync/Async           Consistency vs Throughput
-Data            Shared/Partitioned   Simplicity vs Scale
-Control         Centralized/P2P      Coordination vs Resilience
+Dimension        Options              Trade-offs                Real Example
+---------        -------              ----------                ------------
+Space           Single/Multi-node     Latency vs Isolation      Redis vs Cassandra
+Time            Sync/Async           Consistency vs Throughput  REST vs Kafka
+Data            Shared/Partitioned   Simplicity vs Scale        PostgreSQL vs MongoDB sharding
+Control         Centralized/P2P      Coordination vs Resilience Kubernetes vs BitTorrent
 ```
+
+### When Work Distribution Goes Wrong
+
+!!! danger "Common Anti-Patterns"
+    **The Overeager Parallelizer**: Breaking work into pieces smaller than coordination overhead
+    - Example: 1000 workers processing 1000 items = mostly waiting
+    - Solution: Batch work to amortize coordination costs
+    
+    **The Hotspot Creator**: Uneven work distribution causing bottlenecks
+    - Example: All video encoding jobs hitting the same worker
+    - Solution: Content-aware load balancing or work stealing
+    
+    **The Thundering Herd**: All workers starting simultaneously
+    - Example: Cron job at midnight across all servers
+    - Solution: Jittered starts and gradual ramp-up
 
 ### Concept Map: Work Distribution
 

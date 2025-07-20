@@ -178,8 +178,8 @@ Good Technology + Good Human Factors = High Performance
 
 #### Month 4: Advanced Topics
 1. [Chaos Engineering](chaos-engineering.md) - Building confidence through controlled failure
-2. [Performance Tuning](performance-tuning.md) - Human-centered optimization
-3. [Capacity Management](capacity-management.md) - Planning for human and system growth
+2. [Consistency Tuning](consistency-tuning.md) - Human-centered optimization
+3. [Capacity Planning](../quantitative/capacity-planning.md) - Planning for human and system growth
 
 ## Next Steps
 

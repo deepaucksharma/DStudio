@@ -6,8 +6,6 @@ This document provides comprehensive solution guides for key exercises throughou
 
 1. [State Management Solutions](#state-management-solutions)
 2. [Axiom Exercise Solutions](#axiom-exercise-solutions)
-3. [Pattern Implementation Solutions](#pattern-implementation-solutions)
-4. [Quantitative Problem Solutions](#quantitative-problem-solutions)
 
 ---
 

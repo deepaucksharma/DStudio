@@ -1,3 +1,33 @@
+---
+title: "Circuit Breaker Pattern"
+description: "Prevent cascade failures in distributed systems by failing fast when services are unhealthy"
+date: 2024-01-15
+modified: 2024-01-20
+category: "patterns"
+pattern_type: "resilience"
+problem_solved: "Cascade failures from unhealthy dependencies"
+when_to_use: "External service calls, microservice communication, database connections"
+when_not_to_use: "Internal method calls, non-network operations, CPU-bound tasks"
+tags:
+  - resilience
+  - fault-tolerance
+  - circuit-breaker
+  - design-patterns
+  - microservices
+difficulty: "intermediate"
+reading_time: "20 min"
+prerequisites:
+  - /part1-axioms/axiom1-latency/
+  - /part1-axioms/axiom3-failure/
+related:
+  - /patterns/retry-backoff/
+  - /patterns/bulkhead/
+  - /patterns/timeout/
+  - /patterns/health-check/
+toc: true
+weight: 10
+---
+
 # Circuit Breaker Pattern
 
 <div class="navigation-header">
@@ -545,15 +575,15 @@ circuit_breaker:
 <h3>🛠️ Implementation Resources</h3>
 
 **📝 Code Examples**:
-- [Python Implementation](/patterns/circuit-breaker/#python-implementation) - Production-ready circuit breaker
-- [Java/Hystrix Example](/patterns/circuit-breaker/#hystrix-example) - Netflix's battle-tested approach
-- [Go Implementation](/patterns/circuit-breaker/#go-implementation) - High-performance breaker
-- [Configuration Templates](/patterns/circuit-breaker/#configuration) - Ready-to-use configs
+- [Python Implementation](#implementation-example) - Production-ready circuit breaker
+- [Java/Hystrix Example](#netflix-hystrix-architecture) - Netflix's battle-tested approach
+- [Go Implementation](#implementation-example) - High-performance breaker
+- [Configuration Templates](#basic-circuit-breaker-configuration) - Ready-to-use configs
 
 **🧪 Testing & Validation**:
-- [Chaos Engineering Tests](/patterns/circuit-breaker/#chaos-tests) - Validate failure scenarios
-- [Load Testing](/patterns/circuit-breaker/#load-tests) - Verify threshold settings
-- [Monitoring Setup](/patterns/circuit-breaker/#monitoring) - Essential metrics and alerts
+- [Chaos Engineering Tests](#chaos-engineering-integration) - Validate failure scenarios
+- [Load Testing](#monitoring-metrics) - Verify threshold settings
+- [Monitoring Setup](#circuit-breaker-metrics-dashboard) - Essential metrics and alerts
 
 **📚 Deep Dive**:
 - [Mathematical Analysis](/quantitative/reliability-math/) - Calculate optimal thresholds

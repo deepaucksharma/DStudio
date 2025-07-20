@@ -31,15 +31,15 @@ Your comprehensive reference for distributed systems concepts, terms, and practi
 
 ### Essential Calculations
 - [Little's Law](cheat-sheets.md#littles-law) - L = λW (queue length formula)
-- [Availability Math](cheat-sheets.md#availability) - Calculate system uptime
-- [Latency Budget](cheat-sheets.md#latency-budget) - Plan response time allocation
-- [Capacity Planning](cheat-sheets.md#capacity) - Size systems for load
+- [Availability Math](cheat-sheets.md#availability-math) - Calculate system uptime
+- [Latency Budget](cheat-sheets.md#latency-budget-planning) - Plan response time allocation
+- [Capacity Planning](cheat-sheets.md#capacity-planning-formulas) - Size systems for load
 
 ### Common Procedures
-- [Implementing Circuit Breaker](recipe-cards.md#circuit-breaker) - Step-by-step pattern implementation
-- [Debugging Distributed Failures](recipe-cards.md#debugging-failures) - Systematic troubleshooting
-- [Performance Tuning](recipe-cards.md#performance-tuning) - Optimize distributed systems
-- [Monitoring Setup](recipe-cards.md#monitoring-setup) - Essential observability
+- [Implementing Circuit Breaker](recipe-cards.md#recipe-implementing-circuit-breaker) - Step-by-step pattern implementation
+- [Debugging Distributed Failures](recipe-cards.md#recipe-debugging-distributed-system-failures) - Systematic troubleshooting
+- [Performance Tuning](recipe-cards.md#recipe-performance-investigation) - Optimize distributed systems
+- [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack) - Essential observability
 
 ---
 

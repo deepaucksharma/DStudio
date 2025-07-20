@@ -73,7 +73,7 @@ If: Connection pool exhausted or DB CPU > 80%
 Then:
 1. Increase connection pool: `POOL_SIZE=100`
 2. Enable read replicas: `USE_READ_REPLICA=true`
-3. Kill long-running queries: See [DB Runbook](./db-queries.md)
+3. Kill long-running queries: `SELECT pg_terminate_backend(pid) FROM pg_stat_activity WHERE query_time > interval '5 minutes'`
 
 ### Path B: Third-party API Degradation
 If: External payment processor latency > 2s

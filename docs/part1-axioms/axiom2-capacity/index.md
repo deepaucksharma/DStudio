@@ -1,9 +1,31 @@
 # Axiom 2: Finite Capacity
 
+<div class="navigation-header">
+<div class="breadcrumb">
+[Home](/) → [Part I: Axioms](/part1-axioms/) → **Axiom 2: Capacity**
+</div>
+
+<div class="axiom-nav">
+**Previous**: [Axiom 1: Latency](/part1-axioms/axiom1-latency/) • **Next**: [Axiom 3: Failure](/part1-axioms/axiom3-failure/) • **Overview**: [All Axioms](/part1-axioms/)
+</div>
+</div>
+
 <div class="axiom-header">
   <div class="learning-objective">
     <strong>Learning Objective</strong>: Every resource has a breaking point; find it before production does.
   </div>
+</div>
+
+<div class="quick-nav">
+<h3>🔗 Related Content</h3>
+
+**🧭 Navigation**: [Examples](/part1-axioms/axiom2-capacity/examples/) • [Exercises](/part1-axioms/axiom2-capacity/exercises/) • [Tools](/tools/#capacity-calculator)
+
+**🔧 Patterns**: [Bulkhead](/patterns/bulkhead/) • [Load Shedding](/patterns/load-shedding/) • [Auto-scaling](/patterns/auto-scaling/)
+
+**📊 Case Studies**: [Amazon DynamoDB](/case-studies/#amazon-dynamo) • [Netflix Encoding](/case-studies/#netflix-encoding)
+
+**📈 Quantitative**: [Capacity Planning](/quantitative/capacity-planning/) • [Queueing Theory](/quantitative/queueing-models/)
 </div>
 
 ---
@@ -1081,6 +1103,6 @@ class CapacityOptimizationPatterns:
 
 ---
 
-**Next**: [Axiom 3: Failure →](../axiom3-failure/)
+**Next**: [Axiom 3: Failure →](../axiom3-failure/index.md)
 
 *"The question is not IF you'll hit capacity limits, but WHEN."*

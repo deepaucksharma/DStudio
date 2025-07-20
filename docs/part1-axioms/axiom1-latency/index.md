@@ -67,8 +67,17 @@ You're paying a "physics tax" that no amount of engineering can eliminate.
 Light—and therefore information—has a speed limit:
 
 - **Light in vacuum**: 299,792 km/s
-- **In fiber optic cable**: ~200,000 km/s  
+- **In fiber optic cable**: ~200,000 km/s (due to refractive index ~1.5)
 - **In copper wire**: ~200,000 km/s (electromagnetic wave)
+
+!!! info "Industry Reality Check"
+    **Google's Measurements**: Real-world fiber latency is 3-4x theoretical minimum due to:
+    - Non-straight cable paths (following geography)
+    - Router processing delays (0.1-1ms per hop)
+    - Protocol overhead (TCP handshakes, TLS negotiation)
+    - Congestion and queueing
+    
+    **Rule of Thumb**: For every 1000km, expect ~5ms theoretical + ~10-15ms practical latency
 
 ### The Latency Ladder
 
@@ -94,6 +103,14 @@ Your Browser → Local ISP → Internet Backbone → Remote ISP → Web Server
                            
 Total minimum: 61ms (just physics, no processing!)
 ```
+
+!!! example "Real Measurements from Major Tech Companies"
+    - **Bing**: 2-second delay reduced revenue by 4.3%
+    - **Google**: 500ms delay caused 20% drop in traffic
+    - **Amazon**: 100ms latency cost 1% in sales (~$1.6B/year)
+    - **Facebook**: 1-second delay = 3% fewer posts, 5% fewer photos
+    
+    Source: Various company engineering blogs and public statements
 
 ### Basic Latency Budget
 
@@ -848,6 +865,11 @@ if __name__ == "__main__":
 
 ### Production War Stories
 
+!!! quote "Jeff Dean, Google Senior Fellow"
+    "The difference between theory and practice is larger in practice than in theory."
+    
+    This is especially true for latency - theoretical minimums rarely match reality.
+
 #### Story 1: The Millisecond That Cost $1M
 
 **Company**: High-Frequency Trading Firm  
@@ -1223,6 +1245,6 @@ class GeographicLoadBalancer:
 
 ---
 
-**Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/)
+**Next**: [Axiom 2: Finite Capacity →](../axiom2-capacity/index.md)
 
 *"You can't patch the speed of light, but you can architect around it."*

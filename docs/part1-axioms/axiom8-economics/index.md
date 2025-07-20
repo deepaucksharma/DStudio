@@ -754,6 +754,6 @@ True Cost = Infrastructure
 
 ---
 
-**Next**: [Synthesis: Bringing It All Together →](../synthesis/)
+**Next**: [Synthesis: Bringing It All Together →](../synthesis.md)
 
 *"The most expensive system is the one that doesn't make money. The second most expensive is the one that costs more to run than it earns."*

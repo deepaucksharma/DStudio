@@ -1984,6 +1984,6 @@ Cache Hit Rate = 1 - (Backend QPS / Total QPS)
 
 ---
 
-**Next**: [Pillar 3: Consensus →](../truth/)
+**Next**: [Pillar 3: Consensus →](../truth/index.md)
 
 *"State is the hardest problem in distributed systems. Everything else is just moving bytes around."*

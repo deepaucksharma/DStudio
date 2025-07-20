@@ -26,7 +26,11 @@ Patterns that ensure systems survive failures:
 - **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures
 - **[Retry & Backoff](retry-backoff.md)** - Intelligent retry strategies
 - **[Bulkhead](bulkhead.md)** - Failure isolation through partitioning
-- **[Edge Computing](edge-computing.md)** - Processing at the periphery
+- **[Timeout](timeout.md)** - Bounded wait times for operations
+- **[Health Check](health-check.md)** - Service liveness and readiness
+- **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress
+- **[Rate Limiting](rate-limiting.md)** - Protecting from overload
+- **[Load Shedding](load-shedding.md)** - Dropping work to survive
 
 ### Data Patterns
 Managing data in distributed environments:
@@ -37,10 +41,22 @@ Managing data in distributed environments:
 - **[Caching Strategies](caching-strategies.md)** - Multi-level cache hierarchies
 - **[Geo-Replication](geo-replication.md)** - Global data distribution
 
+### Coordination Patterns
+Patterns for distributed coordination and messaging:
+
+- **[Leader Election](leader-election.md)** - Single coordinator selection
+- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes
+- **[Idempotent Receiver](idempotent-receiver.md)** - Handling duplicate messages
+- **[Outbox](outbox.md)** - Reliable message publishing
+- **[Service Discovery](service-discovery.md)** - Dynamic service location
+
 ### Operational Patterns
 Patterns for running systems in production:
 
 - **[Observability](observability.md)** - Metrics, logs, and traces
+- **[Auto-Scaling](auto-scaling.md)** - Dynamic resource adjustment
+- **[Load Balancing](load-balancing.md)** - Request distribution strategies
+- **[Edge Computing](edge-computing.md)** - Processing at the periphery
 - **[FinOps](finops.md)** - Cloud cost optimization
 
 ## How Patterns Relate to Axioms
@@ -55,6 +71,11 @@ CQRS                 Concurrency, State    Consistency vs Complexity
 Event Sourcing       State, Time           Storage vs Flexibility
 Service Mesh         Coordination, Obs     Performance vs Features
 Sharding             Capacity, State       Scalability vs Complexity
+Rate Limiting        Capacity, Economics   Protection vs User Experience
+Distributed Lock     Coordination, Failure Consistency vs Availability
+Auto-Scaling         Capacity, Economics   Cost vs Response Time
+Load Balancing       Capacity, Latency     Fairness vs Efficiency
+Timeout              Latency, Failure      Responsiveness vs Completeness
 ```
 
 ## Using This Section
@@ -111,14 +132,12 @@ When choosing patterns, consider:
 ### 🌲 Advanced Path (5+ years experience)
 1. **Complex data**: [Sharding](sharding.md) → [Geo-Replication](geo-replication.md)
 2. **Cutting edge**: [Serverless](serverless-faas.md) → [Edge Computing](edge-computing.md)
-3. **Operations**: [FinOps](finops.md) → [Chaos Engineering](chaos-engineering.md)
+3. **Operations**: [FinOps](finops.md) → [Chaos Engineering](../human-factors/chaos-engineering.md)
 
 ### 🧠 Test Your Knowledge
 
 Ready to test your pattern knowledge?
 - **[Pattern Quiz](pattern-quiz.md)** - 20 questions testing pattern selection
-- **[Trade-off Analysis](trade-off-quiz.md)** - Evaluate pattern trade-offs
-- **[Case Study Challenge](case-study-challenge.md)** - Apply patterns to real scenarios
 
 ## Key Takeaways
 

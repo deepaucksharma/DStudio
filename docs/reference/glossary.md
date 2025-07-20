@@ -9,7 +9,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ### Axiom
 **Definition**: A fundamental constraint or law that cannot be violated in distributed systems. The Compendium identifies 8 core axioms that drive all distributed systems behavior.
 
-**Examples**: [Latency Axiom](/part1-axioms/axiom1-latency/) (speed of light), [Capacity Axiom](/part1-axioms/axiom2-capacity/) (finite resources)
+**Examples**: [Latency Axiom](../part1-axioms/axiom1-latency/index.md) (speed of light), [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) (finite resources)
 
 **Usage**: "All patterns emerge from the 8 axioms of distributed systems."
 
@@ -18,7 +18,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Trade-offs**: Higher reliability vs. complexity of handling duplicates
 
-**Related**: [Idempotent Receiver Pattern](/patterns/idempotent-receiver/), [Outbox Pattern](/patterns/outbox/)
+**Related**: [Idempotent Receiver Pattern](../patterns/idempotent-receiver.md), [Outbox Pattern](../patterns/outbox.md)
 
 ### Availability
 **Definition**: The percentage of time a system is operational and accessible. Often measured as "nines" (99.9% = "three nines").
@@ -34,14 +34,14 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Implementation**: Separate thread pools, connection pools, or compute resources for different operations
 
-**Related**: [Circuit Breaker](/patterns/circuit-breaker/), [Failure Axiom](/part1-axioms/axiom3-failure/)
+**Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Failure Axiom](../part1-axioms/axiom3-failure/index.md)
 
 ### Byzantine Fault
 **Definition**: A failure mode where components can behave arbitrarily, including sending conflicting information to different parts of the system.
 
 **Examples**: Malicious actors, hardware corruption, software bugs causing inconsistent behavior
 
-**Related**: [Failure Axiom](/part1-axioms/axiom3-failure/), consensus algorithms
+**Related**: [Failure Axiom](../part1-axioms/axiom3-failure/index.md), consensus algorithms
 
 ## C
 
@@ -50,14 +50,14 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Practical Implication**: Since network partitions are inevitable, systems must choose between consistency and availability
 
-**Related**: [Truth Pillar](/part2-pillars/truth/), [Coordination Axiom](/part1-axioms/axiom5-coordination/)
+**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)
 
 ### Circuit Breaker
 **Definition**: Pattern that prevents cascade failures by failing fast when error thresholds are exceeded, like an electrical circuit breaker.
 
 **States**: Closed (normal), Open (failing fast), Half-Open (testing recovery)
 
-**Implementation**: [Circuit Breaker Pattern](/patterns/circuit-breaker/)
+**Implementation**: [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
 
 ### Consensus
 **Definition**: Agreement among distributed nodes on a single value or state, even in the presence of failures.
@@ -66,7 +66,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Coordination Axiom](/part1-axioms/axiom5-coordination/), [Leader Election](/patterns/leader-election/)
+**Related**: [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md), [Leader Election](../patterns/leader-election.md)
 
 ### Consistent Hashing
 **Definition**: Technique for distributing data across nodes where adding/removing nodes minimally disrupts existing assignments.
@@ -80,7 +80,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Benefits**: Optimized read/write paths, scalability, flexibility
 
-**Implementation**: [CQRS Pattern](/patterns/cqrs/)
+**Implementation**: [CQRS Pattern](../patterns/cqrs.md)
 
 ### CRDT (Conflict-free Replicated Data Type)
 **Definition**: Data structure that can be replicated across multiple nodes and updated independently without coordination, guaranteeing eventual consistency.
@@ -103,7 +103,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Key Features**: Eventually consistent, consistent hashing, automatic scaling
 
-**Case Study**: [Amazon's Dynamo Database](/case-studies/#amazon-dynamo)
+**Case Study**: [Amazon's Dynamo Database](../case-studies/index.md#amazon-dynamo)
 
 ## E
 
@@ -123,7 +123,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Challenges**: Event schema evolution, snapshot management
 
-**Implementation**: [Event Sourcing Pattern](/patterns/event-sourcing/)
+**Implementation**: [Event Sourcing Pattern](../patterns/event-sourcing.md)
 
 ## F
 
@@ -139,7 +139,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **List**: Network is reliable, latency is zero, bandwidth is infinite, network is secure, topology doesn't change, one administrator, transport cost is zero, network is homogeneous
 
-**Reference**: [8 Fallacies Section](/introduction/#fallacies)
+**Reference**: [8 Fallacies Section](../introduction/index.md#fallacies)
 
 ## G
 
@@ -173,7 +173,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Importance**: Critical for retry mechanisms and at-least-once delivery
 
-**Implementation**: [Idempotent Receiver Pattern](/patterns/idempotent-receiver/)
+**Implementation**: [Idempotent Receiver Pattern](../patterns/idempotent-receiver.md)
 
 ### Isolation Levels
 **Definition**: Degrees of consistency guarantees in concurrent systems.
@@ -198,14 +198,14 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Algorithms**: Bully algorithm, Ring algorithm, Raft election
 
-**Implementation**: [Leader Election Pattern](/patterns/leader-election/)
+**Implementation**: [Leader Election Pattern](../patterns/leader-election.md)
 
 ### Little's Law
 **Definition**: Fundamental queueing theory formula: L = λW (average queue length = arrival rate × average wait time).
 
 **Applications**: Capacity planning, performance analysis
 
-**Related**: [Quantitative Toolkit](/quantitative/littles-law/)
+**Related**: [Quantitative Toolkit](../quantitative/littles-law.md)
 
 ### Logical Clock
 **Definition**: Mechanism for ordering events in distributed systems without relying on physical time synchronization.
@@ -244,7 +244,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Benefits**: Transactional guarantees, reliable delivery
 
-**Implementation**: [Outbox Pattern](/patterns/outbox/)
+**Implementation**: [Outbox Pattern](../patterns/outbox.md)
 
 ## P
 
@@ -260,7 +260,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Purpose**: Framework for systematic system design
 
-**Reference**: [Part II: Pillars](/part2-pillars/)
+**Reference**: [Part II: Pillars](../part2-pillars/index.md)
 
 ## Q
 
@@ -282,7 +282,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Benefits**: Strong consistency, partition tolerance
 
-**Implementation**: [Raft exercises](/docs/SOLUTION_GUIDES.md#raft-consensus-solution)
+**Implementation**: [Raft consensus in Leader Election pattern](../patterns/leader-election.md)
 
 ### Read Repair
 **Definition**: Process of fixing inconsistencies detected during read operations by updating stale replicas.
@@ -307,7 +307,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Benefits**: Avoid distributed locks, better availability
 
-**Implementation**: [Saga Pattern](/patterns/saga/)
+**Implementation**: [Saga Pattern](../patterns/saga.md)
 
 ### Sharding
 **Definition**: Horizontal partitioning technique that distributes data across multiple databases or servers.
@@ -343,7 +343,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 **Benefits**: Detects concurrent events, maintains causality
 
-**Implementation**: [Vector Clock exercises](/docs/SOLUTION_GUIDES.md#exercise-2-implement-vector-clocks)
+**Implementation**: [Vector Clock implementation in Concurrency axiom](../part1-axioms/axiom4-concurrency/index.md)
 
 ## W
 

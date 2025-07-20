@@ -858,6 +858,6 @@ Write latency ≥ RTT to majority
 
 ---
 
-**Next**: [Pillar 4: Control →](../control/)
+**Next**: [Pillar 4: Control →](../control/index.md)
 
 *"In distributed systems, truth isn't discovered—it's negotiated."*

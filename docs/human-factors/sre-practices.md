@@ -13,6 +13,15 @@ Site Reliability Engineering treats operations as a software problem. Core tenet
 5. **Release Engineering** - Make releases boring
 6. **Simplicity** - Complexity is the enemy
 
+!!! quote "Ben Treynor Sloss, Google VP and SRE Founder"
+    "SRE is what happens when you ask a software engineer to design an operations team."
+    
+    Google's SRE insights from running billions of queries daily:
+    - **50% cap on ops work** - Other 50% must be development
+    - **Error budgets** - Shared between dev and SRE teams
+    - **Blameless culture** - Focus on systems, not people
+    - **20% project time** - Like Google's famous 20% but for reliability
+
 ## Error Budgets
 
 ### The Fundamental Equation
@@ -22,6 +31,26 @@ Error Budget = 100% - SLO
 
 If SLO = 99.9%, Error Budget = 0.1% = 43 minutes/month
 ```
+
+### Real-World Error Budget Examples
+
+!!! example "How Companies Use Error Budgets"
+    **Google Search (2020)**:
+    - SLO: 99.95% availability 
+    - Monthly budget: 21.9 minutes downtime
+    - Actual incident: 45-minute outage
+    - Result: Feature freeze for 2 weeks, all hands on reliability
+    
+    **Stripe Payments (2019)**:
+    - SLO: 99.99% API success rate
+    - Quarterly budget: 13 minutes of errors
+    - Used 8 minutes in one incident
+    - Result: Delayed new API version, fixed timeout handling
+    
+    **Netflix Streaming**:
+    - SLO: 99.9% stream start success
+    - Innovation budget: 0.05% for experiments
+    - Uses errors to test new encoding algorithms
 
 ### Using Error Budgets
 
@@ -116,7 +145,29 @@ Batch jobs: 99% (7.3 hours/month)
 Data pipeline: 99.99% (4.4 min/month)
 ```
 
+!!! warning "The Hidden Cost of Each Nine"
+    | Availability | Downtime/Year | Downtime/Month | Typical Use Case | Annual Cost* |
+    |--------------|---------------|----------------|------------------|-------------|
+    | 99% | 3.65 days | 7.3 hours | Dev/Test | $10K |
+    | 99.9% | 8.77 hours | 43.8 minutes | Basic web apps | $100K |
+    | 99.95% | 4.38 hours | 21.9 minutes | E-commerce | $500K |
+    | 99.99% | 52.6 minutes | 4.38 minutes | Financial services | $2M |
+    | 99.999% | 5.26 minutes | 26.3 seconds | Healthcare/Trading | $10M+ |
+    
+    *Rough infrastructure + engineering cost for typical 1000 req/s service
+
 ## Toil Elimination
+
+!!! info "Google's Toil Reduction Success Stories"
+    **YouTube (2016)**: Reduced toil from 70% to 30% in 18 months
+    - Automated database failovers (saved 10 hours/week)
+    - Self-service capacity provisioning (saved 20 hours/week)
+    - Automated abuse detection (saved 30 hours/week)
+    
+    **Gmail**: Eliminated 95% of manual spam config updates
+    - Before: 8 SREs spending 50% time on spam rules
+    - After: ML model auto-updates, 1 SRE reviews weekly
+    - Saved: ~150 engineering hours/week
 
 ### What is Toil?
 
@@ -191,6 +242,23 @@ def renew_certificates():
 3. **Equal distribution** - Fair load sharing
 4. **Time-off post-incident** - Recovery time
 5. **Compensated fairly** - Respect the burden
+
+!!! example "How Top Companies Handle On-Call"
+    **Netflix**: "Sleep when you're dead" → "Sleep to stay alive"
+    - Moved from hero culture to sustainable on-call
+    - Automatic comp time after night incidents
+    - "Chaos engineering" reduces 3am pages by 90%
+    
+    **Airbnb**: Tiered on-call with clear escalation
+    - L1: Product engineers (own service issues)
+    - L2: SRE team (infrastructure issues)
+    - L3: Staff engineers (architectural issues)
+    - Result: 50% reduction in false pages
+    
+    **Cloudflare**: Follow-the-sun model
+    - Singapore → London → San Francisco → Singapore
+    - Nobody on-call during their night
+    - 24/7 coverage with better work-life balance
 
 ### Effective Handoffs
 

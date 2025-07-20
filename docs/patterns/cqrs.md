@@ -1,3 +1,29 @@
+---
+title: "CQRS (Command Query Responsibility Segregation)"
+description: "Separate read and write models for optimized performance and scalability"
+date: 2024-01-20
+category: "patterns"
+pattern_type: "architectural"
+problem_solved: "Conflicting requirements between read and write operations"
+when_to_use: "High-performance reads, complex domain logic, different read/write scaling needs"
+when_not_to_use: "Simple CRUD applications, low traffic systems, small teams"
+tags:
+  - cqrs
+  - architecture
+  - scalability
+  - event-sourcing
+  - microservices
+difficulty: "advanced"
+reading_time: "20 min"
+prerequisites:
+  - /part2-pillars/state/
+  - /part1-axioms/axiom4-concurrency/
+related:
+  - /patterns/event-sourcing/
+  - /patterns/event-driven/
+  - /patterns/saga/
+---
+
 # CQRS (Command Query Responsibility Segregation)
 
 **Separate read and write models for optimized performance - Different problems need different solutions**

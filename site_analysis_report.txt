@@ -1,0 +1,173 @@
+================================================================================
+DISTRIBUTED SYSTEMS DOCUMENTATION STRUCTURE ANALYSIS
+================================================================================
+
+STATISTICS:
+  Total Files: 142
+  Total Directories: 32
+  Total Lines: 64,613
+  Total Size: 1.90 MB
+  Files with Frontmatter: 10
+
+NAVIGATION STRUCTURE (from mkdocs.yml):
+
+  📁 Home
+
+  📁 Introduction
+    📄 Overview → introduction/index.md
+    📄 Philosophy → introduction/philosophy.md
+
+  📁 "Part I
+    📄 Overview → part1-axioms/index.md
+    📄 "Axiom 1 → Latency":
+    📄 Overview → part1-axioms/axiom1-latency/index.md
+    📄 Examples → part1-axioms/axiom1-latency/examples.md
+    📄 Exercises → part1-axioms/axiom1-latency/exercises.md
+    📄 "Axiom 2 → Capacity":
+    📄 Overview → part1-axioms/axiom2-capacity/index.md
+    📄 Examples → part1-axioms/axiom2-capacity/examples.md
+    📄 Exercises → part1-axioms/axiom2-capacity/exercises.md
+    📄 "Axiom 3 → Failure":
+    📄 Overview → part1-axioms/axiom3-failure/index.md
+    📄 Examples → part1-axioms/axiom3-failure/examples.md
+    📄 Exercises → part1-axioms/axiom3-failure/exercises.md
+    📄 "Axiom 4 → Concurrency":
+    📄 Overview → part1-axioms/axiom4-concurrency/index.md
+    📄 Examples → part1-axioms/axiom4-concurrency/examples.md
+    📄 Exercises → part1-axioms/axiom4-concurrency/exercises.md
+    📄 "Axiom 5 → Coordination":
+    📄 Overview → part1-axioms/axiom5-coordination/index.md
+    📄 Examples → part1-axioms/axiom5-coordination/examples.md
+    📄 Exercises → part1-axioms/axiom5-coordination/exercises.md
+    📄 "Axiom 6 → Observability":
+    📄 Overview → part1-axioms/axiom6-observability/index.md
+    📄 Examples → part1-axioms/axiom6-observability/examples.md
+    📄 Exercises → part1-axioms/axiom6-observability/exercises.md
+    📄 "Axiom 7 → Human Interface":
+    📄 Overview → part1-axioms/axiom7-human/index.md
+    📄 Examples → part1-axioms/axiom7-human/examples.md
+    📄 Exercises → part1-axioms/axiom7-human/exercises.md
+    📄 "Axiom 8 → Economics":
+    📄 Overview → part1-axioms/axiom8-economics/index.md
+    📄 Examples → part1-axioms/axiom8-economics/examples.md
+    📄 Exercises → part1-axioms/axiom8-economics/exercises.md
+    📄 Synthesis → 
+    📄 Summary → part1-axioms/synthesis.md
+    📄 Quiz → part1-axioms/quiz.md
+
+  📁 "Part II
+    📄 Overview → part2-pillars/index.md
+    📄 "Pillar 1 → Work":
+    📄 Overview → part2-pillars/work/index.md
+    📄 "Pillar 2 → State":
+    📄 Overview → part2-pillars/state/index.md
+    📄 "Pillar 3 → Truth":
+    📄 Overview → part2-pillars/truth/index.md
+    📄 "Pillar 4 → Control":
+    📄 Overview → part2-pillars/control/index.md
+    📄 "Pillar 5 → Intelligence":
+    📄 Overview → part2-pillars/intelligence/index.md
+    📄 "Analysis Tools" → 
+    📄 "CAST vs SPACE Models" → part2-pillars/models-comparison.md
+    📄 "When Models Collide" → part2-pillars/models-collide.md
+    📄 "Pattern Matrix" → part2-pillars/pattern-matrix.md
+    📄 "Trade-off Calculus" → part2-pillars/tradeoff-calculus.md
+    📄 "Decision Tree" → part2-pillars/decision-tree.md
+    📄 "Exercises & Reflection" → 
+    📄 "Pillar Checkpoint" → part2-pillars/pillar-checkpoint.md
+    📄 "Failure Recap" → part2-pillars/failure-recap.md
+    📄 "Reflection Journal" → part2-pillars/reflection-journal.md
+    📄 "Pattern Preview" → 
+    📄 "Pattern Catalog Intro" → part2-pillars/pattern-catalog-intro.md
+    📄 "Pattern Legend" → part2-pillars/pattern-legend.md
+    📄 "Pillars ↔ Patterns Map" → part2-pillars/pillars-patterns-map.md
+    📄 "Transition to Part III" → part2-pillars/transition-part3.md
+
+  📁 "Part III
+    📄 Overview → patterns/index.md
+    📄 "Core Patterns" → 
+    📄 "Queues & Streaming" → patterns/queues-streaming.md
+    📄 "CQRS" → patterns/cqrs.md
+    📄 "Event-Driven Architecture" → patterns/event-driven.md
+    📄 "Event Sourcing" → patterns/event-sourcing.md
+    📄 "Saga Pattern" → patterns/saga.md
+    📄 "Service Mesh" → patterns/service-mesh.md
+    📄 "GraphQL Federation" → patterns/graphql-federation.md
+    📄 "Serverless/FaaS" → patterns/serverless-faas.md
+    📄 "Resilience Patterns" → 
+    📄 "Circuit Breaker" → patterns/circuit-breaker.md
+    📄 "Retry & Backoff" → patterns/retry-backoff.md
+    📄 "Bulkhead" → patterns/bulkhead.md
+    📄 "Edge Computing" → patterns/edge-computing.md
+    📄 "Data Patterns" → 
+    📄 "CDC (Change Data Capture)" → patterns/cdc.md
+    📄 "Tunable Consistency" → patterns/tunable-consistency.md
+    📄 "Sharding" → patterns/sharding.md
+    📄 "Caching Strategies" → patterns/caching-strategies.md
+    📄 "Geo-Replication" → patterns/geo-replication.md
+    📄 "Coordination Patterns" → 
+    📄 "Leader Election" → patterns/leader-election.md
+    📄 "Idempotent Receiver" → patterns/idempotent-receiver.md
+    📄 "Outbox" → patterns/outbox.md
+    📄 "Operational Patterns" → 
+    📄 "Observability" → patterns/observability.md
+    📄 "FinOps" → patterns/finops.md
+    📄 "Pattern Quiz" → patterns/pattern-quiz.md
+
+  📁 "Part IV
+    📄 Overview → quantitative/index.md
+    📄 "Latency & Performance" → 
+    📄 "Latency Ladder" → quantitative/latency-ladder.md
+    📄 "Little's Law" → quantitative/littles-law.md
+    📄 "Queueing Theory" → quantitative/queueing-models.md
+    📄 "Scaling Laws" → 
+    📄 "Amdahl & Gustafson Laws" → quantitative/amdahl-gustafson.md
+    📄 "Universal Scalability Law" → quantitative/universal-scalability.md
+    📄 "Economics & Planning" → 
+    📄 "Coordination Costs" → quantitative/coordination-costs.md
+    📄 "Cache Economics" → quantitative/cache-economics.md
+    📄 "Availability Math" → quantitative/availability-math.md
+    📄 "Capacity Planning" → quantitative/capacity-planning.md
+    📄 "Problem Set" → quantitative/problem-set.md
+
+  📁 "Part V
+    📄 Overview → human-factors/index.md
+    📄 "Production Excellence" → 
+    📄 "Consistency Tuning" → human-factors/consistency-tuning.md
+    📄 "Chaos Engineering" → human-factors/chaos-engineering.md
+    📄 "Observability Stacks" → human-factors/observability-stacks.md
+    📄 "Operational Practices" → 
+    📄 "SRE Practices" → human-factors/sre-practices.md
+    📄 "Org-Structure Physics" → human-factors/org-structure.md
+    📄 "Runbooks & Playbooks" → human-factors/runbooks-playbooks.md
+
+  📁 Tools
+
+  📁 Case Studies
+
+  📁 Reference
+    📄 Overview → reference/index.md
+    📄 Glossary → reference/glossary.md
+    📄 Cheat Sheets → reference/cheat-sheets.md
+    📄 Recipe Cards → reference/recipe-cards.md
+    📄 Security → reference/security.md
+
+
+LARGEST FILES (by line count):
+  1. case-studies/index-original.md (2,102 lines)
+  2. part2-pillars/state/index.md (1,989 lines)
+  3. part2-pillars/work/index.md (1,838 lines)
+  4. SOLUTION_GUIDES.md (1,617 lines)
+  5. part1-axioms/axiom4-concurrency/index.md (1,553 lines)
+  6. part2-pillars/intelligence/exercises.md (1,542 lines)
+  7. part1-axioms/axiom3-failure/index.md (1,518 lines)
+  8. part1-axioms/axiom1-latency/index.md (1,250 lines)
+  9. part1-axioms/axiom2-capacity/index.md (1,108 lines)
+  10. part2-pillars/intelligence/examples.md (1,076 lines)
+
+
+FILES BY CATEGORY:
+  Patterns: 36
+  Axioms: 28
+  Pillars: 28
+  Case Studies: 6

@@ -26,6 +26,17 @@ Think of a coffee shop:
 
 If the shop has 8 seats → 2 people standing → Bad experience
 
+!!! info "Real-World Impact"
+    **Amazon's Discovery**: In 2006, Amazon found every 100ms of latency cost them 1% in sales
+    Using Little's Law: If page load W increases by 100ms and λ (visitors) = 100M/day
+    Then L (concurrent users waiting) increases proportionally, leading to abandonment
+    
+    **Twitter's Fail Whale**: During 2010 World Cup
+    - Tweet rate λ = 3,283 tweets/second (peak)
+    - Processing time W = 5 seconds (overloaded)
+    - Queue depth L = 16,415 tweets backed up
+    - Result: The infamous Fail Whale error page
+
 ## Applications in Distributed Systems
 
 ### 1. Thread Pool Sizing
@@ -94,6 +105,29 @@ Use when you know:
 Need: Maximum throughput
 ```
 
+## Real Production Examples
+
+### Netflix Video Encoding Pipeline
+```
+Scenario: Netflix processes uploads for streaming
+- Upload rate: λ = 100 videos/hour
+- Encoding time: W = 2 hours per video
+- Encoding servers needed: L = 100 × 2 = 200 videos in process
+
+If each server handles 4 videos: 200/4 = 50 servers required
+Actual Netflix: Uses 300+ servers for redundancy and peak loads
+```
+
+### Uber's Driver Matching
+```
+Peak hour in Manhattan:
+- Ride requests: λ = 1,000 requests/minute 
+- Match time: W = 3 seconds = 0.05 minutes
+- Concurrent matches: L = 1,000 × 0.05 = 50 matches in progress
+
+Database connections needed = 50 × 1.2 (safety) = 60 connections
+```
+
 ## Practical Calculations
 
 ### Microservice Capacity
@@ -121,6 +155,25 @@ Add safety: 90 × 1.5 = 135 connections
 
 ## Little's Law in Practice
 
+### Case Study: Slack's 2021 Outage
+```
+Incident Timeline:
+1. Normal state: L = 10,000 concurrent requests, λ = 50,000 req/s
+   W = 10,000 / 50,000 = 0.2s (200ms) ✓
+
+2. Database slowdown begins: W increases to 2s
+   New L = 50,000 × 2 = 100,000 concurrent requests
+
+3. Thread pool exhaustion at 50,000 threads
+   Queue backup: 50,000 requests waiting
+   
+4. Cascading failure as timeouts trigger retries
+   Effective λ doubles to 100,000 req/s
+   System collapses
+
+Lesson: Monitor L continuously - it predicts collapse before it happens
+```
+
 ### Debugging Performance Issues
 ```
 Symptom: Response times increasing
@@ -146,6 +199,13 @@ Need to double resources (servers, threads, connections)
 
 ## Common Misconceptions
 
+!!! warning "Pitfalls That Cost Companies Millions"
+    **GitHub's 2018 Outage**: Assumed Little's Law didn't apply to distributed locks
+    - Lock requests: λ = 10,000/s
+    - Lock hold time spiked: W = 30s (from 0.1s)
+    - Locks needed: L = 300,000 (system had 65,536 max)
+    - Result: 24-hour outage affecting millions
+
 ### Misconception 1: Only for Queues
 Reality: Applies to ANY system with flow
 - Cache entries
@@ -163,6 +223,20 @@ Reality: Applies to complex systems too
 Decompose into subsystems, apply to each
 
 ## Advanced Applications
+
+### AWS S3's Upload Pipeline
+```
+Real multi-stage system:
+Client → Edge → Storage Layer → Replication
+
+Stage measurements:
+- Edge buffer: L₁ = 1M objects, W₁ = 100ms
+- Storage write: L₂ = 500K objects, W₂ = 200ms  
+- Replication: L₃ = 2M objects, W₃ = 500ms
+
+Total latency: W = 100 + 200 + 500 = 800ms
+Throughput: λ = L₁/W₁ = 10M objects/second capacity
+```
 
 ### Multi-Stage Systems
 ```

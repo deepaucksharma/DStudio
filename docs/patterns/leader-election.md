@@ -1,5 +1,15 @@
 # Leader Election Pattern
 
+<div class="navigation-header">
+<div class="breadcrumb">
+[Home](/) → [Part III: Patterns](/patterns/) → **Leader Election**
+</div>
+
+<div class="pattern-nav">
+**Related**: [Distributed Lock](/patterns/distributed-lock/) • [Consensus](/patterns/consensus/) • [All Patterns](/patterns/)
+</div>
+</div>
+
 **Coordinate distributed decisions through democratic consensus - One leader to rule them all**
 
 > *"In a distributed system, everyone thinks they should be the leader. Leader election ensures only one actually is."*
@@ -699,6 +709,65 @@ How leader election works with other patterns:
 2. **When It Shines**: Centralized decision making, resource allocation, preventing conflicts
 3. **What to Watch**: Leader bottlenecks, election storms, network partitions
 4. **Remember**: A good leader election protocol is invisible when working, obvious when needed
+
+---
+
+<div class="navigation-footer">
+<div class="pattern-implementation">
+<h3>🛠️ Implementation Resources</h3>
+
+**📝 Code Examples**:
+- [Python Implementation](#python-implementation) - Production-ready leader election with Redis
+- [Go Implementation](#go-implementation) - High-performance election using etcd
+- [Java Implementation](#java-implementation) - Zookeeper-based leader election
+- [Configuration Templates](#configuration) - Ready-to-use configs
+
+**🧪 Testing & Validation**:
+- [Chaos Engineering Tests](#chaos-tests) - Validate failure scenarios
+- [Load Testing](#load-tests) - Verify election performance
+- [Monitoring Setup](#monitoring) - Essential metrics and alerts
+
+**📚 Deep Dive**:
+- [Consensus Algorithms](/quantitative/consensus-theory/) - Mathematical foundations
+- [Coordination Axiom](/part1-axioms/axiom5-coordination/) - Understanding the constraints
+</div>
+
+<div class="related-patterns">
+<h3>🔗 Related Patterns & Concepts</h3>
+
+**🤝 Complementary Patterns**:
+- [Distributed Lock](/patterns/distributed-lock/) - Simpler coordination primitive
+- [Service Discovery](/patterns/service-discovery/) - Finding the current leader
+- [Health Check](/patterns/health-check/) - Detecting leader failures
+- [Circuit Breaker](/patterns/circuit-breaker/) - Handling leader unavailability
+
+**⚖️ Alternative Approaches**:
+- [Choreography](/patterns/choreography/) - Avoid centralization entirely
+- [Token Ring](/patterns/token-ring/) - Rotating leadership
+- [Gossip Protocol](/patterns/gossip/) - Emergent coordination
+
+**🧠 Foundational Concepts**:
+- [Axiom 5: Coordination](/part1-axioms/axiom5-coordination/) - Why coordination is hard
+- [Control Pillar](/part2-pillars/control/) - Managing distributed state
+- [Case Study: Kafka](/case-studies/#kafka-controller) - Leader election in practice
+</div>
+
+<div class="next-steps">
+<h3>📚 Continue Learning</h3>
+
+**🎯 Immediate Next Steps**:
+1. **Implement**: Try the [basic Redis example](#redis-example) locally
+2. **Experiment**: Run the [split-brain simulation](#split-brain-test)
+3. **Monitor**: Set up [election metrics](#metrics) in your system
+
+**🚀 Recommended Path**:
+- **Next Pattern**: [Saga Pattern](/patterns/saga/) - Distributed transactions without locks
+- **Deep Dive**: [Raft Consensus](/patterns/raft/) - Modern leader election algorithm
+- **Apply**: [Exercise: Build a coordinator](/part1-axioms/axiom5-coordination/exercises/#coordinator)
+
+**🎓 Mastery Check**: Can you explain why leader election needs an odd number of nodes? [Advanced topics →](#advanced-topics)
+</div>
+</div>
 
 ---
 

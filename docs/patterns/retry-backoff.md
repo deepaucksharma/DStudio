@@ -1,3 +1,29 @@
+---
+title: "Retry & Backoff Strategies"
+description: "Handle transient failures gracefully with intelligent retry logic and exponential backoff"
+date: 2024-01-20
+category: "patterns"
+pattern_type: "resilience"
+problem_solved: "Transient failures and temporary unavailability"
+when_to_use: "Network calls, external APIs, distributed services, temporary failures"
+when_not_to_use: "Permanent failures, business logic errors, data validation failures"
+tags:
+  - retry
+  - backoff
+  - resilience
+  - fault-tolerance
+  - exponential-backoff
+difficulty: "intermediate"
+reading_time: "20 min"
+prerequisites:
+  - /part1-axioms/axiom3-failure/
+  - /part1-axioms/axiom1-latency/
+related:
+  - /patterns/circuit-breaker/
+  - /patterns/timeout/
+  - /patterns/bulkhead/
+---
+
 # Retry & Backoff Strategies
 
 **If at first you don't succeed, wait intelligently and try again - The art of handling transient failures**

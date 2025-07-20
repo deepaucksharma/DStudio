@@ -156,31 +156,31 @@ By the end, you'll understand not just *what* each pillar does, but *why* it wor
 
 <div class="grid cards" markdown>
 
-- :material-cog: **[Work](work/)**
+- :material-cog: **[Work](work/index.md)**
 
     ---
     
     Decomposing computation across space and time
 
-- :material-database: **[State](state/)**
+- :material-database: **[State](state/index.md)**
 
     ---
     
     Managing data consistency and replication
 
-- :material-check-decagram: **[Truth](truth/)**
+- :material-check-decagram: **[Truth](truth/index.md)**
 
     ---
     
     Establishing consensus and ordering
 
-- :material-tune: **[Control](control/)**
+- :material-tune: **[Control](control/index.md)**
 
     ---
     
     Coordinating system behavior
 
-- :material-brain: **[Intelligence](intelligence/)**
+- :material-brain: **[Intelligence](intelligence/index.md)**
 
     ---
     

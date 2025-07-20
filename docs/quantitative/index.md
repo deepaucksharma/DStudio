@@ -117,7 +117,7 @@ Cache hit rates, replication costs, and availability targets should drive design
 #### Week 1: Foundations
 1. [Latency Ladder](latency-ladder.md) - Understand basic operation costs
 2. [Little's Law](littles-law.md) - Master the universal equation
-3. [Interactive Calculators](calculator-latency.md) - Practice with real scenarios
+3. **Practice with calculators** - Apply formulas to real scenarios
 
 #### Week 2: Scaling
 1. [Queueing Theory](queueing-models.md) - Predict system saturation
@@ -127,12 +127,12 @@ Cache hit rates, replication costs, and availability targets should drive design
 #### Week 3: Advanced
 1. [Universal Scalability Law](universal-scalability.md) - Model real scaling
 2. [Availability Math](availability-math.md) - Design reliable systems
-3. [Case Studies](case-studies-quant.md) - See math in practice
+3. **Real Applications** - See math in production systems
 
 #### Week 4: Application
 1. [Capacity Planning](capacity-planning.md) - Size real systems
 2. [Cache Economics](cache-economics.md) - Optimize cost/performance
-3. [Model Validation](model-validation.md) - Test your predictions
+3. **Test Your Models** - Validate predictions against reality
 
 ### ⚡ Quick Start Guide
 

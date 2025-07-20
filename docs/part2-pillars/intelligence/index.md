@@ -963,6 +963,6 @@ Regression:
 
 ---
 
-**Next**: [Tools →](../../tools/)
+**Next**: [Tools →](../../tools/index.md)
 
 *"The best AI systems make humans smarter, not obsolete."*

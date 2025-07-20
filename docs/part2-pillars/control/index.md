@@ -961,6 +961,6 @@ Speed of Response:
 
 ---
 
-**Next**: [Pillar 5: Intelligence →](../intelligence/)
+**Next**: [Pillar 5: Intelligence →](../intelligence/index.md)
 
 *"The best control system is one you never notice—until you need it."*

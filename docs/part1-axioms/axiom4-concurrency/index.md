@@ -1548,6 +1548,6 @@ High Contention (> 50%):
 
 ---
 
-**Next**: [Axiom 5: Coordination →](../axiom5-coordination/)
+**Next**: [Axiom 5: Coordination →](../axiom5-coordination/index.md)
 
 *"Shared mutable state is the root of all evil. The history of computing is the history of avoiding shared mutable state."*

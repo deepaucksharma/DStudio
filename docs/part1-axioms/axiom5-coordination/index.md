@@ -675,6 +675,6 @@ Adversarial → Byzantine
 
 ---
 
-**Next**: [Axiom 6: Observability →](../axiom6-observability/)
+**Next**: [Axiom 6: Observability →](../axiom6-observability/index.md)
 
 *"The best coordination is no coordination."*

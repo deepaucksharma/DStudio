@@ -672,6 +672,6 @@ Quantum: Observe AND run fast
 
 ---
 
-**Next**: [Axiom 7: Human Interface →](../axiom7-human/)
+**Next**: [Axiom 7: Human Interface →](../axiom7-human/index.md)
 
 *"In distributed systems, the truth is out there... scattered across 1000 log files."*

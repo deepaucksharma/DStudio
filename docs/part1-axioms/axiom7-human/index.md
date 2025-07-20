@@ -668,6 +668,6 @@ Natural collaboration, not replacement
 
 ---
 
-**Next**: [Axiom 8: Economics →](../axiom8-economics/)
+**Next**: [Axiom 8: Economics →](../axiom8-economics/index.md)
 
 *"The best interface is no interface. The best process is no process. But until then, design for humans."*
