@@ -1088,7 +1088,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1114,6 +1114,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1220,7 +1227,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1246,6 +1253,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1352,7 +1366,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1378,6 +1392,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1511,6 +1532,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1643,6 +1671,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1774,6 +1809,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -5837,7 +5879,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6297,10 +6339,10 @@
 - Stream a 4K video without buffering from servers 1000 miles away
 - Make a purchase that coordinates inventory, payment, and shipping across dozens of systems
 - Trust that your bank balance is correct despite thousands of concurrent transactions</p>
-<p>...you're relying on distributed systems that must overcome the fundamental laws of physics, handle inevitable failures, and coordinate actions across the globe. <strong>In 2024, a 1-hour outage of a major cloud provider can cost the global economy over $1 billion.</strong></p>
+<p>...you're relying on distributed systems that must overcome the fundamental laws of physics, handle inevitable failures, and coordinate actions across the globe. <strong>In 2024, a 1-hour outage of a major cloud provider can cost the global economy over $1 billion¹.</strong></p>
 </div>
 <h2 id="the-8-fallacies-of-distributed-computing">The 8 Fallacies of Distributed Computing<a class="headerlink" href="#the-8-fallacies-of-distributed-computing" title="Permanent link">&para;</a></h2>
-<p>Before we dive into our physics-based approach, it's crucial to understand what distributed systems are NOT. In the 1990s, engineers at Sun Microsystems identified eight dangerous assumptions that developers often make about distributed systems - assumptions that lead to brittle, unreliable systems.</p>
+<p>Before we dive into our physics-based approach, it's crucial to understand what distributed systems are NOT. In the 1990s, engineers at Sun Microsystems identified eight dangerous assumptions that developers often make about distributed systems - assumptions that lead to brittle, unreliable systems²³.</p>
 <div class="admonition danger">
 <p class="admonition-title">The 8 Fallacies</p>
 <ol>
@@ -6314,16 +6356,39 @@
 <li><strong>The network is homogeneous</strong> - Different parts use different protocols and standards.</li>
 </ol>
 </div>
+<h3 id="visual-summary-the-8-fallacies">Visual Summary: The 8 Fallacies<a class="headerlink" href="#visual-summary-the-8-fallacies" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>mindmap
+  root((Distributed Systems&lt;br/&gt;Fallacies))
+    Network Properties
+      The network is reliable
+      Latency is zero
+      Bandwidth is infinite
+      The network is secure
+    System Properties
+      Topology doesn't change
+      There is one administrator
+      Transport cost is zero
+      The network is homogeneous</code></pre>
 <p>These fallacies aren't just theoretical - they manifest in real production failures every day. Understanding them is the first step toward building robust distributed systems.</p>
+<div class="admonition info">
+<p class="admonition-title">Modern Fallacies</p>
+<p>While the original eight fallacies remain foundational, modern distributed systems have revealed additional dangerous assumptions⁴:</p>
+<ul>
+<li><strong>Observability is optional</strong> (2020) - Without proper observability, you're flying blind</li>
+<li><strong>Eventual consistency is easy</strong> - Managing inconsistent states is one of the hardest problems</li>
+<li><strong>Microservices solve complexity</strong> - They often trade code complexity for operational complexity</li>
+<li><strong>The cloud is infinitely scalable</strong> - Even cloud providers have limits and quotas</li>
+</ul>
+</div>
 <h3 id="real-world-consequences">Real-World Consequences<a class="headerlink" href="#real-world-consequences" title="Permanent link">&para;</a></h3>
 <div class="admonition example">
 <p class="admonition-title">The Cost of Ignoring Fallacies</p>
 <p><strong>Fallacy #2 in Action: Amazon's 100ms Rule</strong></p>
-<p>Amazon discovered that every 100ms of latency cost them 1% in sales. In 2009, they revealed that a 100ms delay in page load time could cost them $1.6 billion per year. This wasn't a network "optimization" issue - it was a fundamental constraint of distributed systems spanning continents.</p>
+<p>Amazon discovered that every 100ms of latency cost them 1% in sales⁵. Greg Linden, who worked on Amazon's recommendation engine, revealed that a 100ms delay in page load time could translate to a 1% loss in revenue - potentially $1.6 billion per year for Amazon's scale⁵⁶.</p>
 <p><strong>Fallacy #1 in Action: GitHub's 2018 Outage</strong></p>
-<p>On October 21, 2018, GitHub experienced a 24-hour service degradation. The cause? A brief network partition between their primary and secondary data centers triggered a split-brain scenario. Their assumption of network reliability led to data inconsistency affecting millions of developers worldwide.</p>
+<p>On October 21, 2018, GitHub experienced a 24-hour service degradation⁷. The cause? A brief network partition between their primary and secondary data centers triggered a split-brain scenario. Their assumption of network reliability led to data inconsistency affecting millions of developers worldwide.</p>
 <p><strong>Fallacy #3 in Action: The 2016 Dyn DDoS Attack</strong></p>
-<p>On October 21, 2016, a massive DDoS attack on DNS provider Dyn took down major services including Twitter, Netflix, and Reddit. The attack exploited bandwidth limitations, sending 1.2 Tbps of traffic - proving that bandwidth is very much finite and can be weaponized.</p>
+<p>On October 21, 2016, a massive DDoS attack on DNS provider Dyn took down major services including Twitter, Netflix, and Reddit⁸. The attack exploited bandwidth limitations, sending 1.2 Tbps of traffic - proving that bandwidth is very much finite and can be weaponized.</p>
 </div>
 <h2 id="why-first-principles">Why First Principles?<a class="headerlink" href="#why-first-principles" title="Permanent link">&para;</a></h2>
 <p>Most distributed systems education starts with specific technologies: "Here's how to use Kafka" or "This is how Kubernetes works." But technologies come and go. The fundamental constraints of physics and mathematics remain constant.</p>
@@ -6337,17 +6402,17 @@
 <p class="admonition-title">Research-Backed Principles</p>
 <p>Our approach is grounded in decades of research and hard-won industry experience:</p>
 <p><strong>Latency Impact Studies:</strong>
-- Google: 500ms delay → 20% drop in traffic (2006)
-- Bing: 2s delay → 4.3% drop in revenue per user (2009)
-- Facebook: 1s delay → 3% drop in posts, 5% drop in photos uploaded (2017)</p>
+- Google: 500ms delay → 20% drop in traffic (2006)⁹
+- Bing: 2s delay → 4.3% drop in revenue per user (2009)¹⁰
+- Facebook: 1s delay → 3% drop in posts, 5% drop in photos uploaded (2017)¹¹</p>
 <p><strong>Failure Rates in Production:</strong>
-- Google: Expects 1-5% of drives to fail annually
-- Facebook: Plans for entire data center failures
-- Netflix: Deliberately induces failures daily with Chaos Monkey</p>
+- Google: Expects 1-5% of drives to fail annually¹²
+- Facebook: Plans for entire data center failures¹³
+- Netflix: Deliberately induces failures daily with Chaos Monkey¹⁴</p>
 <p><strong>The CAP Theorem in Practice:</strong>
-- LinkedIn chose AP over C: Accepts temporary inconsistency for availability
+- LinkedIn chose AP over C: Accepts temporary inconsistency for availability¹⁵
 - Banking systems choose CP over A: Prefer to be unavailable than incorrect
-- Amazon DynamoDB: Tunable consistency lets users choose per operation</p>
+- Amazon DynamoDB: Tunable consistency lets users choose per operation¹⁶</p>
 </div>
 <h2 id="your-learning-path">Your Learning Path<a class="headerlink" href="#your-learning-path" title="Permanent link">&para;</a></h2>
 <p>This compendium offers multiple paths through the material, tailored to your background and goals:</p>
@@ -6371,10 +6436,10 @@
 <p class="admonition-title">Real Systems, Real Failures, Real Lessons</p>
 <p>Throughout this compendium, you'll encounter detailed analyses of actual system failures:</p>
 <ul>
-<li><strong>Knight Capital's $440 Million Bug</strong> (2012): How a deployment error and lack of proper distributed system controls led to a 45-minute trading disaster</li>
-<li><strong>AWS S3 Outage</strong> (2017): How a typo during debugging took down a massive portion of the internet, revealing hidden dependencies</li>
-<li><strong>Cloudflare's Global Outage</strong> (2019): How a regular expression deployed globally caused 27 minutes of downtime, showing the perils of synchronized updates</li>
-<li><strong>Slack's Cascading Failure</strong> (2021): How routine scaling triggered a perfect storm of failures across multiple systems</li>
+<li><strong>Knight Capital's $440 Million Bug</strong> (2012): How a deployment error and lack of proper distributed system controls led to a 45-minute trading disaster¹⁷</li>
+<li><strong>AWS S3 Outage</strong> (2017): How a typo during debugging took down a massive portion of the internet, revealing hidden dependencies¹⁸</li>
+<li><strong>Cloudflare's Global Outage</strong> (2019): How a regular expression deployed globally caused 27 minutes of downtime, showing the perils of synchronized updates¹⁹</li>
+<li><strong>Slack's Cascading Failure</strong> (2021): How routine scaling triggered a perfect storm of failures across multiple systems²⁰</li>
 </ul>
 <p>Each case study maps failures back to fundamental axioms, showing how physics and mathematics could have predicted these outcomes.</p>
 </div>
@@ -6453,6 +6518,28 @@
 <li><strong>Share your journey</strong>: Distributed systems are best learned in community</li>
 </ul>
 </div>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>¹ <a href="https://uptimeinstitute.com/resources/research-and-reports/annual-outage-analysis-2024">Uptime Institute Annual Outage Analysis 2024</a></p>
+<p>² <a href="https://www.rgoarchitects.com/Files/fallacies.pdf">Peter Deutsch, "The Eight Fallacies of Distributed Computing" (1994)</a></p>
+<p>³ <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing">James Gosling's addition to the fallacies (1997)</a></p>
+<p>⁴ <a href="https://en.wikipedia.org/wiki/Fallacies_of_distributed_computing#The_fallacies">Modern Fallacies in Distributed Systems (2020)</a></p>
+<p>⁵ <a href="http://glinden.blogspot.com/2006/11/marissa-mayer-at-web-20.html">Greg Linden's Blog: Make Data Useful</a></p>
+<p>⁶ <a href="https://web.stanford.edu/class/cs193p/WWDC/Designing%20for%20Speed%20on%20the%20Modern%20Web.pdf">Stanford CS193p Lecture by Greg Linden on Amazon's Latency Findings</a></p>
+<p>⁷ <a href="https://github.blog/2018-10-30-oct21-post-incident-analysis/">GitHub Engineering: October 21 post-incident analysis</a></p>
+<p>⁸ <a href="https://dyn.com/blog/dyn-analysis-summary-of-friday-october-21-attack/">Dyn Analysis Summary Of Friday October 21 Attack</a></p>
+<p>⁹ <a href="https://ai.googleblog.com/2009/06/speed-matters.html">Google Research: Speed Matters</a></p>
+<p>¹⁰ <a href="https://exp-platform.com/Documents/IEEEComputer2007OnlineExperiments.pdf">Bing: Page Load Time Impact on User Behavior</a></p>
+<p>¹¹ <a href="https://engineering.fb.com/2017/05/24/android/network-performance-effects-on-mobile-user-experience/">Facebook: Network Performance Effects on Mobile User Experience</a></p>
+<p>¹² <a href="https://sre.google/sre-book/embracing-risk/">Google SRE Book: Chapter 3 - Embracing Risk</a></p>
+<p>¹³ <a href="https://engineering.fb.com/2011/01/05/data-center-engineering/building-efficient-data-centers-with-the-open-compute-project/">Facebook Engineering: Building Resilient Infrastructure</a></p>
+<p>¹⁴ <a href="https://netflixtechblog.com/the-netflix-simian-army-16e57fbab116">Netflix Technology Blog: The Netflix Simian Army</a></p>
+<p>¹⁵ <a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying">LinkedIn Engineering: Project Voldemort</a></p>
+<p>¹⁶ <a href="https://docs.aws.amazon.com/amazondynamodb/latest/developerguide/HowItWorks.ReadConsistency.html">Amazon DynamoDB: Consistent Reads</a></p>
+<p>¹⁷ <a href="https://www.sec.gov/Archives/edgar/data/1060131/000119312512346593/d398788d8k.htm">SEC Filing: Knight Capital Group Provides Update</a></p>
+<p>¹⁸ <a href="https://aws.amazon.com/message/41926/">AWS Post-Event Summary: Amazon S3 Service Disruption</a></p>
+<p>¹⁹ <a href="https://blog.cloudflare.com/cloudflare-outage/">Cloudflare Blog: Details of the Cloudflare outage on July 2, 2019</a></p>
+<p>²⁰ <a href="https://slack.engineering/slacks-outage-on-january-4th-2021/">Slack Engineering: Slack's Outage on January 4<sup>th</sup> 2021</a></p>
 
 
 

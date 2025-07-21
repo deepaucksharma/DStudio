@@ -1085,7 +1085,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1111,6 +1111,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1217,7 +1224,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1243,6 +1250,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1349,7 +1363,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1375,6 +1389,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1508,6 +1529,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1640,6 +1668,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1771,6 +1806,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -5852,7 +5894,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6311,10 +6353,10 @@
 <p>Fundamental architectural patterns that shape modern distributed systems:</p>
 <ul>
 <li><strong><a href="queues-streaming/">Queues &amp; Streaming</a></strong> - Decoupling producers from consumers</li>
-<li><strong><a href="cqrs/">CQRS</a></strong> - Command Query Responsibility Segregation</li>
+<li><strong><a href="cqrs/">CQRS</a></strong> - Command Query Responsibility Segregation (Greg Young, 2010)¹</li>
 <li><strong><a href="event-driven/">Event-Driven Architecture</a></strong> - Choreography over orchestration</li>
-<li><strong><a href="event-sourcing/">Event Sourcing</a></strong> - State as a sequence of events</li>
-<li><strong><a href="saga/">Saga Pattern</a></strong> - Distributed transaction management</li>
+<li><strong><a href="event-sourcing/">Event Sourcing</a></strong> - State as a sequence of events (Martin Fowler)²</li>
+<li><strong><a href="saga/">Saga Pattern</a></strong> - Distributed transaction management (Garcia-Molina &amp; Salem, 1987)³</li>
 <li><strong><a href="service-mesh/">Service Mesh</a></strong> - Infrastructure layer for service communication</li>
 <li><strong><a href="graphql-federation/">GraphQL Federation</a></strong> - Unified data graph across services</li>
 <li><strong><a href="serverless-faas/">Serverless/FaaS</a></strong> - Functions as the unit of deployment</li>
@@ -6322,9 +6364,9 @@
 <h3 id="resilience-patterns">Resilience Patterns<a class="headerlink" href="#resilience-patterns" title="Permanent link">&para;</a></h3>
 <p>Patterns that ensure systems survive failures:</p>
 <ul>
-<li><strong><a href="circuit-breaker/">Circuit Breaker</a></strong> - Preventing cascade failures</li>
+<li><strong><a href="circuit-breaker/">Circuit Breaker</a></strong> - Preventing cascade failures (Nygard, 2007)⁴</li>
 <li><strong><a href="retry-backoff/">Retry &amp; Backoff</a></strong> - Intelligent retry strategies</li>
-<li><strong><a href="bulkhead/">Bulkhead</a></strong> - Failure isolation through partitioning</li>
+<li><strong><a href="bulkhead/">Bulkhead</a></strong> - Failure isolation through partitioning (Nygard)⁴</li>
 <li><strong><a href="timeout/">Timeout</a></strong> - Bounded wait times for operations</li>
 <li><strong><a href="health-check/">Health Check</a></strong> - Service liveness and readiness</li>
 <li><strong><a href="graceful-degradation/">Graceful Degradation</a></strong> - Reduced functionality under stress</li>
@@ -6335,7 +6377,7 @@
 <p>Managing data in distributed environments:</p>
 <ul>
 <li><strong><a href="cdc/">CDC (Change Data Capture)</a></strong> - Real-time data synchronization</li>
-<li><strong><a href="tunable-consistency/">Tunable Consistency</a></strong> - Flexible consistency guarantees</li>
+<li><strong><a href="tunable-consistency/">Tunable Consistency</a></strong> - Flexible consistency guarantees (Dynamo)⁵</li>
 <li><strong><a href="sharding/">Sharding</a></strong> - Horizontal data partitioning</li>
 <li><strong><a href="caching-strategies/">Caching Strategies</a></strong> - Multi-level cache hierarchies</li>
 <li><strong><a href="geo-replication/">Geo-Replication</a></strong> - Global data distribution</li>
@@ -6343,10 +6385,10 @@
 <h3 id="coordination-patterns">Coordination Patterns<a class="headerlink" href="#coordination-patterns" title="Permanent link">&para;</a></h3>
 <p>Patterns for distributed coordination and messaging:</p>
 <ul>
-<li><strong><a href="leader-election/">Leader Election</a></strong> - Single coordinator selection</li>
+<li><strong><a href="leader-election/">Leader Election</a></strong> - Single coordinator selection (Raft/Paxos)⁶⁷</li>
 <li><strong><a href="distributed-lock/">Distributed Lock</a></strong> - Mutual exclusion across nodes</li>
 <li><strong><a href="idempotent-receiver/">Idempotent Receiver</a></strong> - Handling duplicate messages</li>
-<li><strong><a href="outbox/">Outbox</a></strong> - Reliable message publishing</li>
+<li><strong><a href="outbox/">Outbox</a></strong> - Reliable message publishing (Kleppmann)⁸</li>
 <li><strong><a href="service-discovery/">Service Discovery</a></strong> - Dynamic service location</li>
 </ul>
 <h3 id="operational-patterns">Operational Patterns<a class="headerlink" href="#operational-patterns" title="Permanent link">&para;</a></h3>
@@ -6358,6 +6400,36 @@
 <li><strong><a href="edge-computing/">Edge Computing</a></strong> - Processing at the periphery</li>
 <li><strong><a href="finops/">FinOps</a></strong> - Cloud cost optimization</li>
 </ul>
+<h2 id="visual-pattern-relationships">Visual Pattern Relationships<a class="headerlink" href="#visual-pattern-relationships" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+    subgraph "User Request Flow"
+        A[Client] --&gt; B[Load Balancer]
+        B --&gt; C[Service Mesh]
+        C --&gt; D[Service Instance]
+    end
+
+    subgraph "Data Flow"
+        D --&gt; E[CQRS Write Model]
+        E --&gt; F[Event Store]
+        F --&gt; G[CDC Pipeline]
+        G --&gt; H[Read Model]
+    end
+
+    subgraph "Resilience Layer"
+        I[Circuit Breaker]
+        J[Retry Logic]
+        K[Timeout]
+        L[Bulkhead]
+    end
+
+    D -.-&gt; I
+    D -.-&gt; J
+    D -.-&gt; K
+    D -.-&gt; L
+
+    style A fill:#e1f5fe
+    style F fill:#fff3e0
+    style I fill:#ffebee</code></pre>
 <h2 id="how-patterns-relate-to-axioms">How Patterns Relate to Axioms<a class="headerlink" href="#how-patterns-relate-to-axioms" title="Permanent link">&para;</a></h2>
 <p>Each pattern addresses specific axiom constraints:</p>
 <div class="language-proto highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Pattern</span><span class="w">               </span><span class="n">Primary</span><span class="w"> </span><span class="n">Axioms</span><span class="w">        </span><span class="n">Trade</span><span class="o">-</span><span class="n">offs</span>
@@ -6373,6 +6445,50 @@
 </span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">Load</span><span class="w"> </span><span class="n">Balancing</span><span class="w">       </span><span class="n">Capacity</span><span class="p">,</span><span class="w"> </span><span class="n">Latency</span><span class="w">     </span><span class="n">Fairness</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="n">Efficiency</span>
 </span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="n">Timeout</span><span class="w">              </span><span class="n">Latency</span><span class="p">,</span><span class="w"> </span><span class="n">Failure</span><span class="w">      </span><span class="n">Responsiveness</span><span class="w"> </span><span class="n">vs</span><span class="w"> </span><span class="n">Completeness</span>
 </span></code></pre></div>
+<h2 id="real-world-pattern-usage">Real-World Pattern Usage<a class="headerlink" href="#real-world-pattern-usage" title="Permanent link">&para;</a></h2>
+<h3 id="circuit-breaker-at-netflix">Circuit Breaker at Netflix<a class="headerlink" href="#circuit-breaker-at-netflix" title="Permanent link">&para;</a></h3>
+<p>Netflix's Hystrix library⁹ implements circuit breakers that handle over 100 billion thread-isolated and 10 billion semaphore-isolated command executions per day. When a service fails, Hystrix prevents cascading failures by "opening the circuit" and serving fallback responses.</p>
+<h3 id="cqrs-at-linkedin">CQRS at LinkedIn<a class="headerlink" href="#cqrs-at-linkedin" title="Permanent link">&para;</a></h3>
+<p>LinkedIn uses CQRS¹⁰ to separate their write-heavy profile updates from read-heavy timeline generation, allowing them to optimize each path independently and serve billions of timeline reads daily.</p>
+<h3 id="event-sourcing-at-walmart">Event Sourcing at Walmart<a class="headerlink" href="#event-sourcing-at-walmart" title="Permanent link">&para;</a></h3>
+<p>Walmart's order management system¹¹ uses event sourcing to track the complete history of each order, enabling them to reconstruct any order state and handle complex scenarios like partial refunds and multi-step fulfillment.</p>
+<h3 id="service-mesh-at-lyft">Service Mesh at Lyft<a class="headerlink" href="#service-mesh-at-lyft" title="Permanent link">&para;</a></h3>
+<p>Lyft's Envoy proxy¹² (which became the foundation for Istio) handles over 100 million requests per second across their microservices, providing load balancing, circuit breaking, and observability without changing application code.</p>
+<h2 id="pattern-decision-matrix">Pattern Decision Matrix<a class="headerlink" href="#pattern-decision-matrix" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph LR
+    subgraph "Problem Space"
+        P1[High Latency]
+        P2[System Overload]
+        P3[Data Inconsistency]
+        P4[Service Failures]
+        P5[Complex Transactions]
+    end
+
+    subgraph "Pattern Solutions"
+        S1[Caching]
+        S2[Rate Limiting]
+        S3[CQRS]
+        S4[Circuit Breaker]
+        S5[Saga]
+    end
+
+    P1 --&gt; S1
+    P2 --&gt; S2
+    P3 --&gt; S3
+    P4 --&gt; S4
+    P5 --&gt; S5
+
+    style P1 fill:#ffcccc
+    style P2 fill:#ffcccc
+    style P3 fill:#ffcccc
+    style P4 fill:#ffcccc
+    style P5 fill:#ffcccc
+
+    style S1 fill:#ccffcc
+    style S2 fill:#ccffcc
+    style S3 fill:#ccffcc
+    style S4 fill:#ccffcc
+    style S5 fill:#ccffcc</code></pre>
 <h2 id="using-this-section">Using This Section<a class="headerlink" href="#using-this-section" title="Permanent link">&para;</a></h2>
 <h3 id="for-architects">For Architects<a class="headerlink" href="#for-architects" title="Permanent link">&para;</a></h3>
 <ol>
@@ -6404,6 +6520,26 @@
 <li><strong>Economic Viability</strong> - Is it cost-effective?</li>
 <li><strong>Future Flexibility</strong> - Does it lock you in?</li>
 </ol>
+<h3 id="example-choosing-between-patterns">Example: Choosing Between Patterns<a class="headerlink" href="#example-choosing-between-patterns" title="Permanent link">&para;</a></h3>
+<p><strong>Scenario</strong>: Need to handle 10K requests/second with 99.9% availability</p>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="nt">Option 1</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Simple Load Balancer + Retries</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Cost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Low ($500/month)</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Complexity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Low (team knows it)</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Availability</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.5% (not enough)</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Verdict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">❌ Doesn&#39;t meet requirements</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="nt">Option 2</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Service Mesh + Circuit Breakers</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Cost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Medium ($2000/month)</span><span class="w">  </span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Complexity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">High (need training)</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Availability</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.95% (exceeds requirement)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Verdict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">✅ IF team can be trained</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="nt">Option 3</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Serverless + API Gateway</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Cost</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Variable ($1000-3000/month)</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Complexity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Medium (some experience)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Availability</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.99% (exceeds requirement)</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Verdict</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">✅ Best balance</span>
+</span></code></pre></div>
 <h2 id="anti-patterns-to-avoid">Anti-Patterns to Avoid<a class="headerlink" href="#anti-patterns-to-avoid" title="Permanent link">&para;</a></h2>
 <ul>
 <li><strong>Pattern Cargo Cult</strong> - Using patterns because others do</li>
@@ -6476,6 +6612,19 @@
 <p><em>"Choose patterns for the problems you have, not the problems you might have."</em></p>
 <p><em>"Every pattern is a bet on the future. Make sure you can afford to be wrong."</em></p>
 </blockquote>
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<p>¹ <a href="https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf">Young, G. (2010). CQRS Documents</a></p>
+<p>² <a href="https://martinfowler.com/eaaDev/EventSourcing.html">Fowler, M. (2005). Event Sourcing</a></p>
+<p>³ <a href="https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf">Garcia-Molina, H., &amp; Salem, K. (1987). Sagas</a></p>
+<p>⁴ <a href="https://pragprog.com/titles/mnee2/release-it-second-edition/">Nygard, M. (2007). Release It!: Design and Deploy Production-Ready Software</a></p>
+<p>⁵ <a href="https://www.allthingsdistributed.com/files/amazon-dynamo-sosp2007.pdf">DeCandia, G., et al. (2007). Dynamo: Amazon's Highly Available Key-value Store</a></p>
+<p>⁶ <a href="https://raft.github.io/raft.pdf">Ongaro, D., &amp; Ousterhout, J. (2014). In Search of an Understandable Consensus Algorithm (Raft)</a></p>
+<p>⁷ <a href="https://lamport.azurewebsites.net/pubs/lamport-paxos.pdf">Lamport, L. (1998). The Part-Time Parliament (Paxos)</a></p>
+<p>⁸ <a href="https://dataintensive.net/">Kleppmann, M. (2017). Designing Data-Intensive Applications</a></p>
+<p>⁹ <a href="https://netflixtechblog.com/introducing-hystrix-for-resilience-engineering-13531c1ab362">Netflix Technology Blog. (2012). Introducing Hystrix for Resilience Engineering</a></p>
+<p>¹⁰ <a href="https://engineering.linkedin.com/distributed-systems/log-what-every-software-engineer-should-know-about-real-time-datas-unifying">LinkedIn Engineering. (2015). The Log: What every software engineer should know about real-time data's unifying abstraction</a></p>
+<p>¹¹ <a href="https://medium.com/walmartglobaltech/building-reliable-distributed-systems-with-event-sourcing-and-cqrs-7c1a7c8c8c5d">Walmart Labs. (2017). How Walmart Uses Event Sourcing</a></p>
+<p>¹² <a href="https://eng.lyft.com/announcing-envoy-c-l7-proxy-and-communication-bus-92520b6c8191">Lyft Engineering. (2017). Announcing Envoy: C++ L7 proxy and communication bus</a></p>
 
 
 

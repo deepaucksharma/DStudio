@@ -1312,9 +1312,9 @@ class ConsistentHashRing:
 
 **Related Patterns:**
 - [Virtual Nodes](../patterns/sharding.md#virtual-nodes)
-- [Gossip Protocol](../patterns/gossip-protocol.md)
-- [Vector Clocks](../patterns/vector-clocks.md)
-- [Replication](../patterns/replication.md)
+- Gossip Protocol
+- Vector Clocks
+- [Replication](../patterns/geo-replication.md)
 
 ## 🔍 Related Concepts & Deep Dives
 
@@ -1338,14 +1338,14 @@ class ConsistentHashRing:
 - **[Leader Election](../patterns/leader-election.md)** - Ring position can determine partition ownership
 
 ### 📊 Quantitative Models
-- **[Ring Theory](../quantitative/distributed-algorithms.md)** - Mathematical foundation for hash rings
-- **[Load Distribution](../quantitative/statistics.md)** - Standard deviation measures balance quality
+- **Ring Theory** - Mathematical foundation for hash rings
+- **Load Distribution** - Standard deviation measures balance quality
 - **[Little's Law](../quantitative/littles-law.md)** - Rebalancing rate impacts system capacity
-- **[Probability Theory](../quantitative/probability.md)** - Virtual node count affects distribution variance
+- **Probability Theory** - Virtual node count affects distribution variance
 
 ### 👥 Human Factors Considerations
-- **[Capacity Planning](../human-factors/capacity-planning.md)** - Node weights must match actual capacity
-- **[Observability Tools](../human-factors/observability.md)** - Ring visualizers essential for operations
+- **[Capacity Planning](../quantitative/capacity-planning.md)** - Node weights must match actual capacity
+- **[Observability Tools](../human-factors/observability-stacks.md)** - Ring visualizers essential for operations
 - **[Incident Response](../human-factors/incident-response.md)** - Hot spot detection and mitigation procedures
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - Understanding ring rebalancing critical for operators
 

@@ -851,6 +851,7 @@ class PredictiveScaling:
 
 ### Dynamic Region Selection
 
+{% raw %}
 ```python
 class MultiRegionOptimizer:
     """Route requests to cheapest region while meeting SLAs"""
@@ -899,7 +900,7 @@ class MultiRegionOptimizer:
                 })
                 
         # Sort by cost
-        eligible_regions.sort(key=lambda x: x['cost'])
+        eligible_regions.sort(key=lambda x: x.get('cost'))
         
         return eligible_regions[0] if eligible_regions else None
         
@@ -909,7 +910,7 @@ class MultiRegionOptimizer:
         return f"""
         # CloudFront behavior for cost-aware routing
         
-        resource "aws_cloudfront_distribution" "cost_optimized" {
+        resource "aws_cloudfront_distribution" "cost_optimized" {{
           origin {{
             domain_name = "api-us-east-1.example.com"
             origin_id   = "us-east-1"
@@ -1206,6 +1207,7 @@ class SpotInstanceArchitecture:
         }}
         """
 ```
+{% endraw %}
 
 ---
 

@@ -1085,7 +1085,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1111,6 +1111,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1217,7 +1224,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1243,6 +1250,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1349,7 +1363,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1375,6 +1389,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1508,6 +1529,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1640,6 +1668,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1771,6 +1806,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -5458,6 +5500,33 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#axiom-impact-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom Impact Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency Decision Matrix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#trade-off-analysis-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Trade-off Analysis Framework
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#monitoring-consistency" class="md-nav__link">
     <span class="md-ellipsis">
       Monitoring Consistency
@@ -5487,6 +5556,39 @@
       Rollout Strategy
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-tuning-decision-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency Tuning Decision Framework
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Consistency Tuning Decision Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#operation-classification-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Operation Classification Matrix
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dynamic-consistency-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dynamic Consistency Strategy
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -6101,7 +6203,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6695,6 +6797,143 @@ last_updated: 2025-07-20</p>
 - Upgrade for premium users
 - Overall availability: 99.95%
 - Cost: $5k/day</p>
+<h2 id="axiom-impact-analysis">Axiom Impact Analysis<a class="headerlink" href="#axiom-impact-analysis" title="Permanent link">&para;</a></h2>
+<p>Understanding how consistency tuning relates to our fundamental axioms helps make better decisions:</p>
+<table>
+<thead>
+<tr>
+<th>Axiom</th>
+<th>Impact on Consistency Tuning</th>
+<th>Key Considerations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Higher consistency = higher latency</td>
+<td>Balance consistency needs with latency SLOs. QUORUM adds network round trips.</td>
+</tr>
+<tr>
+<td><strong>Finite Capacity</strong></td>
+<td>Stronger consistency consumes more resources</td>
+<td>ALL writes can exhaust capacity during failures. Plan for degraded modes.</td>
+</tr>
+<tr>
+<td><strong>Failure</strong></td>
+<td>Consistency levels determine failure tolerance</td>
+<td>LOCAL_ONE survives most failures but risks inconsistency. ALL fails if any node is down.</td>
+</tr>
+<tr>
+<td><strong>Consistency</strong></td>
+<td>Core axiom - defines data agreement guarantees</td>
+<td>Choose appropriate levels per operation based on business requirements.</td>
+</tr>
+<tr>
+<td><strong>Time</strong></td>
+<td>Clock skew affects consistency guarantees</td>
+<td>Last-write-wins resolution depends on synchronized clocks.</td>
+</tr>
+<tr>
+<td><strong>Ordering</strong></td>
+<td>Consistency levels affect operation ordering</td>
+<td>Weaker consistency may see operations out of order.</td>
+</tr>
+<tr>
+<td><strong>Knowledge</strong></td>
+<td>Nodes have incomplete knowledge</td>
+<td>Consistency levels determine how much agreement before proceeding.</td>
+</tr>
+<tr>
+<td><strong>Growth</strong></td>
+<td>Scaling impacts consistency performance</td>
+<td>More nodes = higher latency for QUORUM/ALL operations.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="consistency-decision-matrix">Consistency Decision Matrix<a class="headerlink" href="#consistency-decision-matrix" title="Permanent link">&para;</a></h2>
+<p>Use this matrix to choose the right consistency level:</p>
+<pre class="mermaid"><code>graph TD
+    A[Operation Type] --&gt; B{Data Critical?}
+    B --&gt;|Yes| C{Financial/Security?}
+    B --&gt;|No| D{User Visible?}
+
+    C --&gt;|Yes| E[ALL or QUORUM]
+    C --&gt;|No| F[QUORUM]
+
+    D --&gt;|Yes| G{Session Bound?}
+    D --&gt;|No| H[ONE or ANY]
+
+    G --&gt;|Yes| I[LOCAL_QUORUM]
+    G --&gt;|No| J[EVENTUAL]
+
+    E --&gt; K[Monitor Cost Impact]
+    F --&gt; K
+    I --&gt; K
+    J --&gt; K
+    H --&gt; K</code></pre>
+<h2 id="trade-off-analysis-framework">Trade-off Analysis Framework<a class="headerlink" href="#trade-off-analysis-framework" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Consistency Level</th>
+<th>Latency Impact</th>
+<th>Availability</th>
+<th>Consistency Guarantee</th>
+<th>Cost</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ANY</strong></td>
+<td>Lowest (5ms)</td>
+<td>Highest (99.99%)</td>
+<td>None - may not be durable</td>
+<td>$</td>
+<td>Metrics, logs</td>
+</tr>
+<tr>
+<td><strong>ONE</strong></td>
+<td>Low (10ms)</td>
+<td>Very High (99.9%)</td>
+<td>At least one replica</td>
+<td>$</td>
+<td>Caching, analytics</td>
+</tr>
+<tr>
+<td><strong>LOCAL_ONE</strong></td>
+<td>Low (10ms)</td>
+<td>High (99.9%)</td>
+<td>One replica in local DC</td>
+<td>$</td>
+<td>Read-heavy workloads</td>
+</tr>
+<tr>
+<td><strong>LOCAL_QUORUM</strong></td>
+<td>Medium (25ms)</td>
+<td>High (99.5%)</td>
+<td>Majority in local DC</td>
+<td>$$</td>
+<td>Regional operations</td>
+</tr>
+<tr>
+<td><strong>QUORUM</strong></td>
+<td>High (50ms)</td>
+<td>Medium (99%)</td>
+<td>Majority across all DCs</td>
+<td>$$$</td>
+<td>Standard transactions</td>
+</tr>
+<tr>
+<td><strong>ALL</strong></td>
+<td>Highest (100ms+)</td>
+<td>Lowest (95%)</td>
+<td>All replicas agree</td>
+<td>$$$$</td>
+<td>Critical operations</td>
+</tr>
+</tbody>
+</table>
 <h2 id="monitoring-consistency">Monitoring Consistency<a class="headerlink" href="#monitoring-consistency" title="Permanent link">&para;</a></h2>
 <h3 id="key-metrics">Key Metrics<a class="headerlink" href="#key-metrics" title="Permanent link">&para;</a></h3>
 <p><strong>1. Consistency Level Distribution</strong>
@@ -6730,6 +6969,74 @@ last_updated: 2025-07-20</p>
 - Gradual increase
 - Watch for regional differences
 - Tune based on results</p>
+<h2 id="consistency-tuning-decision-framework">Consistency Tuning Decision Framework<a class="headerlink" href="#consistency-tuning-decision-framework" title="Permanent link">&para;</a></h2>
+<h3 id="operation-classification-matrix">Operation Classification Matrix<a class="headerlink" href="#operation-classification-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Operation Category</th>
+<th>Example Operations</th>
+<th>Default Level</th>
+<th>Degraded Level</th>
+<th>Business Impact of Inconsistency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Financial</strong></td>
+<td>Payment processing, Balance updates</td>
+<td>ALL</td>
+<td>QUORUM</td>
+<td>Revenue loss, compliance issues</td>
+</tr>
+<tr>
+<td><strong>Authentication</strong></td>
+<td>Login, Password change</td>
+<td>QUORUM</td>
+<td>LOCAL_QUORUM</td>
+<td>Security breach, user lockout</td>
+</tr>
+<tr>
+<td><strong>User Content</strong></td>
+<td>Posts, Comments, Profile updates</td>
+<td>QUORUM</td>
+<td>LOCAL_ONE</td>
+<td>User confusion, data loss perception</td>
+</tr>
+<tr>
+<td><strong>Shopping Cart</strong></td>
+<td>Add/Remove items</td>
+<td>LOCAL_QUORUM</td>
+<td>ONE</td>
+<td>Mild frustration, recoverable</td>
+</tr>
+<tr>
+<td><strong>Analytics</strong></td>
+<td>Page views, Click tracking</td>
+<td>ONE</td>
+<td>ANY</td>
+<td>Acceptable data loss (&lt;1%)</td>
+</tr>
+<tr>
+<td><strong>System Metrics</strong></td>
+<td>Performance data, Logs</td>
+<td>ANY</td>
+<td>ANY</td>
+<td>No user impact</td>
+</tr>
+</tbody>
+</table>
+<h3 id="dynamic-consistency-strategy">Dynamic Consistency Strategy<a class="headerlink" href="#dynamic-consistency-strategy" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Normal
+    Normal --&gt; Degraded: High Latency/Errors
+    Degraded --&gt; Emergency: Multiple Failures
+    Emergency --&gt; Degraded: Partial Recovery
+    Degraded --&gt; Normal: Full Recovery
+
+    Normal: QUORUM/ALL for critical ops
+    Degraded: LOCAL_QUORUM for most ops
+    Emergency: ONE for all ops</code></pre>
 <h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link">&para;</a></h2>
 <h3 id="1-consistency-whiplash">1. Consistency Whiplash<a class="headerlink" href="#1-consistency-whiplash" title="Permanent link">&para;</a></h3>
 <p>Problem: Rapidly changing consistency levels

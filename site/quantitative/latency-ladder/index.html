@@ -1085,7 +1085,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1111,6 +1111,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1217,7 +1224,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1243,6 +1250,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1349,7 +1363,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1375,6 +1389,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1508,6 +1529,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1640,6 +1668,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1771,6 +1806,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -4893,6 +4935,99 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#axiom-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom Connections
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Axiom Connections">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#axiom-1-latency-is-non-zero" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom 1: Latency is Non-Zero
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axiom-2-finite-capacity" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom 2: Finite Capacity
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axiom-3-failure-is-inevitable" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom 3: Failure is Inevitable
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#axiom-4-consistency-has-a-cost" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom 4: Consistency Has a Cost
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#visual-latency-comparison" class="md-nav__link">
+    <span class="md-ellipsis">
+      Visual Latency Comparison
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-framework-choosing-storage-tiers" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Framework: Choosing Storage Tiers
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#real-world-application-cdn-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Real-World Application: CDN Architecture
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Real-World Application: CDN Architecture">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#latency-budget-visualization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Latency Budget Visualization
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#key-takeaways" class="md-nav__link">
     <span class="md-ellipsis">
       Key Takeaways
@@ -4911,9 +5046,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#remember-you-cant-beat-physics-but-you-can-work-with-it" class="md-nav__link">
+  <a href="#related-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      Remember: You can't beat physics, but you can work with it.
+      Related Concepts
     </span>
   </a>
   
@@ -6102,7 +6237,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6691,6 +6826,109 @@
 </span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>- Get all items: 15ms (IN clause)
 </span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>Total: 30ms (constant!)
 </span></code></pre></div>
+<h2 id="axiom-connections">Axiom Connections<a class="headerlink" href="#axiom-connections" title="Permanent link">&para;</a></h2>
+<p>Understanding how latency relates to the fundamental axioms:</p>
+<h3 id="axiom-1-latency-is-non-zero">Axiom 1: Latency is Non-Zero<a class="headerlink" href="#axiom-1-latency-is-non-zero" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    A[Speed of Light] --&gt; B[Physical Distance]
+    B --&gt; C[Minimum Latency]
+    C --&gt; D[System Design Constraints]
+
+    style A fill:#e1d5e7
+    style D fill:#ffcccc</code></pre>
+<p><strong>Key Insight</strong>: Every operation shown in the latency ladder proves <a href="../part1-axioms/latency/index.md">Axiom 1</a>. Even L1 cache (0.5ns) has non-zero latency due to electron movement through silicon.</p>
+<h3 id="axiom-2-finite-capacity">Axiom 2: Finite Capacity<a class="headerlink" href="#axiom-2-finite-capacity" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Latency increases under load</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">Base</span> <span class="n">latency</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">At</span> <span class="mi">50</span><span class="o">%</span> <span class="n">capacity</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">At</span> <span class="mi">90</span><span class="o">%</span> <span class="n">capacity</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span> <span class="p">(</span><span class="mi">10</span><span class="n">x</span> <span class="n">increase</span><span class="err">!</span><span class="p">)</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="n">At</span> <span class="mi">99</span><span class="o">%</span> <span class="n">capacity</span><span class="p">:</span> <span class="mi">1000</span><span class="n">ms</span> <span class="p">(</span><span class="mi">100</span><span class="n">x</span> <span class="n">increase</span><span class="err">!</span><span class="p">)</span>
+</span></code></pre></div>
+<p>This exponential growth is explained by <a href="../queueing-models/">Queueing Theory</a> - as utilization approaches 100%, wait times approach infinity.</p>
+<h3 id="axiom-3-failure-is-inevitable">Axiom 3: Failure is Inevitable<a class="headerlink" href="#axiom-3-failure-is-inevitable" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Network timeouts occur when latency exceeds thresholds</li>
+<li>Cascading failures when one slow component backs up the system</li>
+<li>Retry storms when clients assume failure due to high latency</li>
+</ul>
+<h3 id="axiom-4-consistency-has-a-cost">Axiom 4: Consistency Has a Cost<a class="headerlink" href="#axiom-4-consistency-has-a-cost" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Consensus protocols add round-trip latencies</li>
+<li>Strong consistency = multiple network hops</li>
+<li>Eventual consistency trades latency for correctness</li>
+</ul>
+<h2 id="visual-latency-comparison">Visual Latency Comparison<a class="headerlink" href="#visual-latency-comparison" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>gantt
+    title Latency Visualization (Human Scale)
+    dateFormat X
+    axisFormat %s
+
+    section CPU
+    L1 Cache      :0, 0.5s
+    L2 Cache      :0, 7s
+    Main Memory   :0, 90s
+
+    section Storage
+    SSD Read      :0, 4h
+    Disk Seek     :0, 115d
+
+    section Network
+    Datacenter RTT :0, 6d
+    Cross-Region   :0, 1826d</code></pre>
+<h2 id="decision-framework-choosing-storage-tiers">Decision Framework: Choosing Storage Tiers<a class="headerlink" href="#decision-framework-choosing-storage-tiers" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>flowchart TD
+    Start[Data Access Pattern?]
+    Start --&gt; Hot{Access &gt; 1000/sec?}
+    Hot --&gt;|Yes| Memory[Use Memory&lt;br/&gt;100ns latency]
+    Hot --&gt;|No| Warm{Access &gt; 10/sec?}
+    Warm --&gt;|Yes| SSD[Use SSD&lt;br/&gt;16μs latency]
+    Warm --&gt;|No| Cold{Access &gt; 1/hour?}
+    Cold --&gt;|Yes| Disk[Use Disk&lt;br/&gt;10ms latency]
+    Cold --&gt;|No| Archive[Use Archive&lt;br/&gt;minutes-hours]
+
+    style Memory fill:#90EE90
+    style SSD fill:#FFD700
+    style Disk fill:#FFA500
+    style Archive fill:#FF6B6B</code></pre>
+<h2 id="real-world-application-cdn-architecture">Real-World Application: CDN Architecture<a class="headerlink" href="#real-world-application-cdn-architecture" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TB
+    subgraph User Location
+        U[User]
+    end
+
+    subgraph Edge - 10ms
+        E[CDN Edge]
+    end
+
+    subgraph Regional - 50ms
+        R[Regional Cache]
+    end
+
+    subgraph Origin - 150ms
+        O[Origin Server]
+        DB[(Database)]
+    end
+
+    U --&gt;|Cache Hit| E
+    U --&gt;|Cache Miss| E
+    E --&gt;|Miss| R
+    R --&gt;|Miss| O
+    O --&gt; DB
+
+    style E fill:#90EE90
+    style R fill:#FFD700
+    style O fill:#FFA500</code></pre>
+<h3 id="latency-budget-visualization">Latency Budget Visualization<a class="headerlink" href="#latency-budget-visualization" title="Permanent link">&para;</a></h3>
+<div class="language-dockerfile highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Total<span class="w"> </span>Budget:<span class="w"> </span>200ms<span class="w"> </span><span class="o">(</span>Fast<span class="w"> </span>Experience<span class="o">)</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>├──<span class="w"> </span>Network<span class="w"> </span><span class="o">(</span>User→Edge<span class="o">)</span>:<span class="w"> </span>20ms<span class="w"> </span><span class="o">[</span>██████░░░░<span class="o">]</span><span class="w"> </span><span class="m">10</span>%
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├──<span class="w"> </span>TLS<span class="w"> </span>Handshake:<span class="w"> </span>30ms<span class="w">      </span><span class="o">[</span>█████████░<span class="o">]</span><span class="w"> </span><span class="m">15</span>%
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>├──<span class="w"> </span>Edge<span class="w"> </span>Processing:<span class="w"> </span>5ms<span class="w">      </span><span class="o">[</span>██░░░░░░░░<span class="o">]</span><span class="w"> </span><span class="m">2</span>.5%
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>├──<span class="w"> </span>Cache<span class="w"> </span>Check:<span class="w"> </span>2ms<span class="w">          </span><span class="o">[</span>█░░░░░░░░░<span class="o">]</span><span class="w"> </span><span class="m">1</span>%
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>├──<span class="w"> </span>Backend<span class="w"> </span><span class="o">(</span><span class="k">if</span><span class="w"> </span>miss<span class="o">)</span>:<span class="w"> </span>100ms<span class="w">  </span><span class="o">[</span>██████████<span class="o">]</span><span class="w"> </span><span class="m">50</span>%
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>├──<span class="w"> </span>Response<span class="w"> </span>Network:<span class="w"> </span>20ms<span class="w">    </span><span class="o">[</span>██████░░░░<span class="o">]</span><span class="w"> </span><span class="m">10</span>%
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>└──<span class="w"> </span>Buffer:<span class="w"> </span>23ms<span class="w">              </span><span class="o">[</span>███████░░░<span class="o">]</span><span class="w"> </span><span class="m">11</span>.5%
+</span></code></pre></div>
+<p>This budget allocation relates to <a href="../littles-law/">Little's Law</a> - as latency (W) increases, the number of concurrent requests (L) increases proportionally.</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Cache references are 200,000x faster than network calls</strong> - Design to minimize network hops</li>
@@ -6706,7 +6944,14 @@
 <li><strong>100ms</strong> - Human perception threshold</li>
 <li><strong>1000ms</strong> - User patience threshold</li>
 </ul>
-<h2 id="remember-you-cant-beat-physics-but-you-can-work-with-it">Remember: You can't beat physics, but you can work with it.<a class="headerlink" href="#remember-you-cant-beat-physics-but-you-can-work-with-it" title="Permanent link">&para;</a></h2>
+<p>Remember: You can't beat physics, but you can work with it.</p>
+<h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
+<ul>
+<li><strong>Quantitative</strong>: <a href="../littles-law/">Little's Law</a> | <a href="../queueing-models/">Queueing Theory</a> | <a href="../availability-math/">Availability Math</a></li>
+<li><strong>Patterns</strong>: <a href="../patterns/caching.md">Caching</a> | <a href="../patterns/cdn.md">CDN</a> | <a href="../../patterns/edge-computing/">Edge Computing</a></li>
+<li><strong>Operations</strong>: <a href="../human-factors/sre-principles.md">SLO/SLI/SLA</a> | <a href="../human-factors/observability.md">Performance Monitoring</a></li>
+</ul>
+<hr />
 <h2 id="practical-calculations">📊 Practical Calculations<a class="headerlink" href="#practical-calculations" title="Permanent link">&para;</a></h2>
 <h3 id="exercise-1-basic-application">Exercise 1: Basic Application ⭐⭐<a class="headerlink" href="#exercise-1-basic-application" title="Permanent link">&para;</a></h3>
 <p><strong>Time</strong>: ~15 minutes

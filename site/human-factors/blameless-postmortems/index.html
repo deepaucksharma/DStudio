@@ -1085,7 +1085,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1111,6 +1111,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1217,7 +1224,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1243,6 +1250,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1349,7 +1363,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1375,6 +1389,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1508,6 +1529,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1640,6 +1668,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1771,6 +1806,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6002,9 +6044,87 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#axiom-impact-analysis" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axiom Impact Analysis
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postmortem-effectiveness-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postmortem Effectiveness Matrix
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#decision-framework-when-to-conduct-a-postmortem" class="md-nav__link">
+    <span class="md-ellipsis">
+      Decision Framework: When to Conduct a Postmortem
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#contributing-factors-analysis-framework" class="md-nav__link">
+    <span class="md-ellipsis">
+      Contributing Factors Analysis Framework
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Contributing Factors Analysis Framework">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-swiss-cheese-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      The Swiss Cheese Model
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#factor-categories-table" class="md-nav__link">
+    <span class="md-ellipsis">
+      Factor Categories Table
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#cultural-transformation" class="md-nav__link">
     <span class="md-ellipsis">
       Cultural Transformation
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#postmortem-quality-metrics-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Postmortem Quality Metrics Dashboard
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#action-item-prioritization-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Action Item Prioritization Matrix
     </span>
   </a>
   
@@ -6213,7 +6333,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6810,6 +6930,183 @@
 </span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>        <span class="c1"># Sort by time</span>
 </span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>        <span class="k">return</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">events</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">])</span>
 </span></code></pre></div>
+<h2 id="axiom-impact-analysis">Axiom Impact Analysis<a class="headerlink" href="#axiom-impact-analysis" title="Permanent link">&para;</a></h2>
+<p>Understanding how blameless postmortems relate to our fundamental axioms:</p>
+<table>
+<thead>
+<tr>
+<th>Axiom</th>
+<th>Impact on Postmortems</th>
+<th>Key Insights</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Latency</strong></td>
+<td>Incident detection and response time</td>
+<td>Faster detection through better monitoring reduces incident duration</td>
+</tr>
+<tr>
+<td><strong>Finite Capacity</strong></td>
+<td>Resource constraints during incidents</td>
+<td>Postmortems reveal capacity planning gaps and resource bottlenecks</td>
+</tr>
+<tr>
+<td><strong>Failure</strong></td>
+<td>Core focus - learning from failures</td>
+<td>Every failure is a learning opportunity to build resilience</td>
+</tr>
+<tr>
+<td><strong>Consistency</strong></td>
+<td>Inconsistent states often cause incidents</td>
+<td>Postmortems uncover consistency violations and their impacts</td>
+</tr>
+<tr>
+<td><strong>Time</strong></td>
+<td>Timeline reconstruction challenges</td>
+<td>Clock skew can make incident timelines difficult to reconstruct</td>
+</tr>
+<tr>
+<td><strong>Ordering</strong></td>
+<td>Race conditions and timing bugs</td>
+<td>Many incidents stem from unexpected operation ordering</td>
+</tr>
+<tr>
+<td><strong>Knowledge</strong></td>
+<td>Incomplete system understanding</td>
+<td>Postmortems reveal knowledge gaps and documentation needs</td>
+</tr>
+<tr>
+<td><strong>Growth</strong></td>
+<td>Scaling challenges cause incidents</td>
+<td>Growth patterns often trigger new failure modes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="postmortem-effectiveness-matrix">Postmortem Effectiveness Matrix<a class="headerlink" href="#postmortem-effectiveness-matrix" title="Permanent link">&para;</a></h2>
+<p>Evaluate your postmortem process maturity:</p>
+<table>
+<thead>
+<tr>
+<th>Aspect</th>
+<th>Level 1: Reactive</th>
+<th>Level 2: Systematic</th>
+<th>Level 3: Learning</th>
+<th>Level 4: Predictive</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Focus</strong></td>
+<td>Find who broke it</td>
+<td>Find what broke</td>
+<td>Understand why it broke</td>
+<td>Prevent similar breaks</td>
+</tr>
+<tr>
+<td><strong>Participation</strong></td>
+<td>Only on-call</td>
+<td>Engineering team</td>
+<td>Cross-functional</td>
+<td>Organization-wide</td>
+</tr>
+<tr>
+<td><strong>Actions</strong></td>
+<td>Quick fixes</td>
+<td>Bug fixes + monitoring</td>
+<td>Systemic improvements</td>
+<td>Architectural changes</td>
+</tr>
+<tr>
+<td><strong>Sharing</strong></td>
+<td>Team only</td>
+<td>Department</td>
+<td>Company-wide</td>
+<td>Industry sharing</td>
+</tr>
+<tr>
+<td><strong>Metrics</strong></td>
+<td>Incident count</td>
+<td>MTTR</td>
+<td>Learning velocity</td>
+<td>Prevention rate</td>
+</tr>
+<tr>
+<td><strong>Culture</strong></td>
+<td>Blame-oriented</td>
+<td>Process-oriented</td>
+<td>Learning-oriented</td>
+<td>Innovation-oriented</td>
+</tr>
+</tbody>
+</table>
+<h2 id="decision-framework-when-to-conduct-a-postmortem">Decision Framework: When to Conduct a Postmortem<a class="headerlink" href="#decision-framework-when-to-conduct-a-postmortem" title="Permanent link">&para;</a></h2>
+<pre class="mermaid"><code>graph TD
+    A[Incident Occurred] --&gt; B{Customer Impact?}
+    B --&gt;|Yes| C[Required Postmortem]
+    B --&gt;|No| D{Duration &gt; 30min?}
+
+    D --&gt;|Yes| C
+    D --&gt;|No| E{Data Loss/Security?}
+
+    E --&gt;|Yes| C
+    E --&gt;|No| F{Learning Opportunity?}
+
+    F --&gt;|Yes| G[Optional Postmortem]
+    F --&gt;|No| H[Document in Ticket]
+
+    C --&gt; I[Full Process]
+    G --&gt; J[Lightweight Process]
+    H --&gt; K[Knowledge Base]</code></pre>
+<h2 id="contributing-factors-analysis-framework">Contributing Factors Analysis Framework<a class="headerlink" href="#contributing-factors-analysis-framework" title="Permanent link">&para;</a></h2>
+<h3 id="the-swiss-cheese-model">The Swiss Cheese Model<a class="headerlink" href="#the-swiss-cheese-model" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>│   Process   │ │   Tools     │ │   People    │ │  External   │
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>│   Failures  │ │  Failures   │ │  Factors    │ │  Factors    │
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>│      ○      │ │      ○      │ │      ○      │ │      ○      │
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>│   ○     ○   │ │   ○     ○   │ │   ○     ○   │ │   ○     ○   │
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>│      ○      │ │      ○      │ │      ○      │ │      ○      │
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>       ↓              ↓              ↓              ↓
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>    When holes align, incidents occur →→→→→→→ INCIDENT
+</span></code></pre></div>
+<h3 id="factor-categories-table">Factor Categories Table<a class="headerlink" href="#factor-categories-table" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Common Factors</th>
+<th>Prevention Strategies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Technical</strong></td>
+<td>Code bugs, Config errors, Resource limits</td>
+<td>Testing, Validation, Monitoring</td>
+</tr>
+<tr>
+<td><strong>Process</strong></td>
+<td>Missing reviews, Unclear procedures, Skip steps</td>
+<td>Automation, Checklists, Training</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>Handoff failures, Unclear alerts, Missing docs</td>
+<td>Templates, Runbooks, Clear ownership</td>
+</tr>
+<tr>
+<td><strong>Human</strong></td>
+<td>Fatigue, Cognitive overload, Assumptions</td>
+<td>Rotation limits, Clear procedures, Pairing</td>
+</tr>
+<tr>
+<td><strong>External</strong></td>
+<td>Vendor issues, Traffic spikes, Dependencies</td>
+<td>SLAs, Capacity planning, Fallbacks</td>
+</tr>
+</tbody>
+</table>
 <h2 id="cultural-transformation">Cultural Transformation<a class="headerlink" href="#cultural-transformation" title="Permanent link">&para;</a></h2>
 <p>Moving to blameless postmortems requires cultural change:</p>
 <ol>
@@ -6819,6 +7116,52 @@
 <li><strong>Share Widely</strong>: Make postmortems visible to all</li>
 <li><strong>Follow Through</strong>: Complete action items</li>
 </ol>
+<h2 id="postmortem-quality-metrics-dashboard">Postmortem Quality Metrics Dashboard<a class="headerlink" href="#postmortem-quality-metrics-dashboard" title="Permanent link">&para;</a></h2>
+<p>Track the effectiveness of your postmortem process:</p>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>│                  Postmortem Quality Metrics                  │
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>├──────────────────┬──────────────────┬──────────────────────┤
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>│ Metric           │ Current Month    │ Target               │
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>├──────────────────┼──────────────────┼──────────────────────┤
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>│ Time to Complete │ 3.2 days         │ &lt; 5 days            │
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>│ Participation    │ 87%              │ &gt; 80%               │
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>│ Action Items/PM  │ 4.5              │ 3-6                 │
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>│ Actions Completed│ 72%              │ &gt; 70%               │
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>│ Repeat Incidents │ 12%              │ &lt; 15%               │
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>│ Shared Publicly  │ 45%              │ &gt; 40%               │
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>└──────────────────┴──────────────────┴──────────────────────┘
+</span></code></pre></div>
+<h2 id="action-item-prioritization-matrix">Action Item Prioritization Matrix<a class="headerlink" href="#action-item-prioritization-matrix" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Impact ↓ / Effort →</th>
+<th>Low Effort</th>
+<th>Medium Effort</th>
+<th>High Effort</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>High Impact</strong></td>
+<td>🟢 Do First<br>• Add alerts<br>• Update runbook<br>• Quick fixes</td>
+<td>🟡 Do Next<br>• Improve testing<br>• Add automation<br>• Training</td>
+<td>🟠 Plan<br>• Architecture changes<br>• Major refactors<br>• New systems</td>
+</tr>
+<tr>
+<td><strong>Medium Impact</strong></td>
+<td>🟢 Quick Wins<br>• Documentation<br>• Small tools<br>• Config changes</td>
+<td>🟡 Consider<br>• Process updates<br>• Tool upgrades<br>• Monitoring</td>
+<td>🔴 Defer<br>• Nice-to-haves<br>• Major overhauls</td>
+</tr>
+<tr>
+<td><strong>Low Impact</strong></td>
+<td>🟡 If Time<br>• Cleanup<br>• Minor updates</td>
+<td>🔴 Skip<br>• Low value work</td>
+<td>🔴 Skip<br>• Not worth it</td>
+</tr>
+</tbody>
+</table>
 <h2 id="real-world-examples">Real-World Examples<a class="headerlink" href="#real-world-examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-database-outage">Example 1: Database Outage<a class="headerlink" href="#example-1-database-outage" title="Permanent link">&para;</a></h3>
 <p>Instead of: "DBA forgot to add index"

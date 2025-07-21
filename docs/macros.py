@@ -50,3 +50,21 @@ def define_env(env):
         html += '</div>'
         
         return html
+
+def on_pre_page_macros(env):
+    """
+    Called before processing macros on a page
+    """
+    pass
+
+def on_post_page_macros(env):
+    """
+    Called after processing macros on a page
+    """
+    pass
+
+def on_post_build(env):
+    """
+    Called after the build is complete
+    """
+    pass

@@ -334,8 +334,8 @@ groups:
         labels:
           severity: warning
         annotations:
-          summary: High request latency on {{ $labels.job }}
-          description: "95th percentile latency is {{ $value }}s"
+          summary: High request latency on {{ '{{' }} $labels.job {{ '}}' }}
+          description: "95th percentile latency is {{ '{{' }} $value {{ '}}' }}s"
 ```
 
 **Alert Pipeline**:

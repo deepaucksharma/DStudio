@@ -1,452 +1,1232 @@
 ---
-title: Event Sourcing Pattern
-description: Store all changes as events rather than current state - the log is the truth
+title: Event Sourcing
+description: Store all changes as a sequence of events - the log is the database
 type: pattern
 difficulty: advanced
-reading_time: 10 min
-prerequisites: []
+reading_time: 35 min
+prerequisites: 
+  - "Domain-driven design"
+  - "CQRS pattern understanding"
+  - "Event-driven architecture"
 pattern_type: "data"
-when_to_use: "Audit trails, complex domains, time-travel debugging, event-driven systems"
-when_not_to_use: "Simple CRUD, storage constraints, real-time queries"
+when_to_use: "Audit requirements, complex domains, time-travel debugging, event-driven systems"
+when_not_to_use: "Simple CRUD operations, storage constraints, real-time aggregations"
+related_axioms:
+  - time
+  - ordering
+  - knowledge
+  - observability
+related_patterns:
+  - "CQRS"
+  - "Saga Pattern"
+  - "Event-Driven Architecture"
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-21
 ---
-
-<!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Event Sourcing Pattern**
 
 # Event Sourcing
 
-**The database is a cache; the log is the truth**
+<div class="navigation-breadcrumb">
+<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Event Sourcing
+</div>
 
-## THE PROBLEM
+> "The database is a cache; the log is the truth"
+> — Pat Helland, Database Pioneer
 
-```redis
-Current state loses history:
-UPDATE account SET balance = 150
+## The Essential Question
 
-What happened?
-- Previous balance?
-- Who changed it?
-- When?
-- Why?
+**How can we maintain a complete, auditable history of all changes while still providing the current state of our system?**
+
+---
+
+## Level 1: Intuition (5 minutes)
+
+### The Story
+
+Think of your bank account. When you check your balance, you see $1,000. But that number alone tells you nothing about how it got there. Did you deposit $1,000 today? Or did you deposit $2,000 and withdraw $1,000? Or was it 100 transactions of $10 each?
+
+Traditional databases are like showing only the final balance. Event Sourcing is like keeping your entire transaction history - every deposit, withdrawal, and transfer. The current balance is just what you get when you add up all the transactions.
+
+### Visual Metaphor
+
+```
+Traditional Database:             Event Sourcing:
+
+┌─────────────────┐              ┌─────────────────────────────┐
+│ Account Balance │              │ Event Stream                │
+│                 │              ├─────────────────────────────┤
+│    $1,000       │              │ 1. Account Opened      $0   │
+│                 │              │ 2. Deposited         $500   │
+│ (How did we     │              │ 3. Deposited         $300   │
+│  get here?)     │              │ 4. Withdrew          $200   │
+└─────────────────┘              │ 5. Deposited         $400   │
+                                 │                             │
+                                 │ Current Balance:   $1,000   │
+                                 └─────────────────────────────┘
 ```
 
-## THE SOLUTION
+### In One Sentence
 
-```bash
-Events tell the whole story:
-[AccountOpened, $0] → [Deposited, $100] → [Withdrew, $50] → [Deposited, $100]
-                                                                      ↓
-                                                              Balance: $150
+**Event Sourcing**: Store every change to your application state as an immutable event, and derive current state by replaying these events.
 
-Replay events = Current state
-Time travel = Replay to point
+### Real-World Parallel
+
+Event Sourcing is like a git repository: every commit (event) is preserved forever, you can see exactly what changed when, and you can reconstruct the state at any point in time by replaying commits.
+
+---
+
+## Level 2: Foundation (10 minutes)
+
+### The Problem Space
+
+<div class="failure-vignette">
+<h4>🔥 When Event Sourcing Wasn't Used: The Trading Disaster</h4>
+A major trading firm lost millions when they couldn't explain a series of trades that led to a massive position. Their database only showed the final positions, not how they got there. When regulators asked for the sequence of decisions, they had no audit trail. The lack of history led to:
+- $50M in regulatory fines
+- Inability to debug what went wrong
+- No way to replay and fix the issue
+- Loss of trading license for 6 months
+</div>
+
+### Core Concept
+
+Event Sourcing captures every state change as an event object. Instead of storing current state, you store the sequence of events that led to that state:
+
+1. **Events as Facts**: Each event represents something that happened
+2. **Immutability**: Events never change once written
+3. **Event Stream**: Ordered sequence of events per aggregate
+4. **State Derivation**: Current state computed by replaying events
+5. **Time Travel**: Can recreate state at any point in time
+
+### Basic Architecture
+
+```mermaid
+graph LR
+    subgraph "Commands"
+        C1[Create Order]
+        C2[Add Item]
+        C3[Remove Item]
+        C4[Submit Order]
+    end
+    
+    subgraph "Domain Model"
+        DM[Order Aggregate]
+        DM --> V{Validate}
+        V -->|Valid| E[Generate Events]
+        V -->|Invalid| R[Reject]
+    end
+    
+    subgraph "Event Store"
+        E --> ES[(Event Stream)]
+        ES --> |Replay| S[Current State]
+    end
+    
+    subgraph "Projections"
+        ES --> P1[Order List]
+        ES --> P2[Customer Orders]
+        ES --> P3[Analytics]
+    end
+    
+    C1 --> DM
+    C2 --> DM
+    C3 --> DM
+    C4 --> DM
+    
+    style ES fill:#bbf,stroke:#333,stroke-width:3px
+    style S fill:#f9f,stroke:#333,stroke-width:2px
 ```
 
-## IMPLEMENTATION
+### Key Benefits
+
+1. **Complete Audit Trail**: Every change is recorded with who, what, when, why
+2. **Time Travel Debugging**: Replay events to any point to see system state
+3. **Event-Driven Integration**: Events naturally flow to other systems
+4. **Complex Event Processing**: Derive new insights from event patterns
+
+### Trade-offs
+
+| Aspect | Gain | Cost |
+|--------|------|------|
+| Auditability | Complete history | Storage requirements |
+| Debugging | Time travel capability | Query complexity |
+| Flexibility | Multiple projections | Eventual consistency |
+| Integration | Natural event flow | Schema evolution |
+
+---
+
+## Level 3: Deep Dive (20 minutes)
+
+### Detailed Architecture
+
+```mermaid
+graph TB
+    subgraph "Application Layer"
+        API[API Gateway]
+        API --> CH[Command Handlers]
+    end
+    
+    subgraph "Domain Layer"
+        CH --> AL[Aggregate Loader]
+        AL --> ES1[(Event Store)]
+        AL --> AR[Aggregate Root]
+        AR --> BL[Business Logic]
+        BL --> EG[Event Generation]
+        EG --> ES2[(Event Store)]
+    end
+    
+    subgraph "Event Store Layer"
+        ES1 --> SS[(Snapshot Store)]
+        ES2 --> EJ[Event Journal]
+        EJ --> EB[Event Bus]
+        SS --> |Optimization| AL
+    end
+    
+    subgraph "Projection Layer"
+        EB --> PH1[Order Projector]
+        EB --> PH2[Inventory Projector]
+        EB --> PH3[Report Projector]
+        
+        PH1 --> DB1[(Order Views)]
+        PH2 --> DB2[(Inventory Views)]
+        PH3 --> DB3[(Report Views)]
+    end
+    
+    subgraph "Query Layer"
+        QH[Query Handlers]
+        QH --> DB1
+        QH --> DB2
+        QH --> DB3
+        API --> QH
+    end
+    
+    style EJ fill:#bbf,stroke:#333,stroke-width:3px
+    style AR fill:#f9f,stroke:#333,stroke-width:2px
+    style EB fill:#9f9,stroke:#333,stroke-width:2px
+```
+
+### Implementation Patterns
+
+#### Basic Implementation
 
 ```python
-class EventSourcedAggregate:
-    def __init__(self, aggregate_id):
+from dataclasses import dataclass, field
+from datetime import datetime
+from typing import List, Dict, Any, Optional
+from abc import ABC, abstractmethod
+import uuid
+import json
+
+# Event Base Classes
+@dataclass
+class DomainEvent(ABC):
+    aggregate_id: str
+    event_id: str = field(default_factory=lambda: str(uuid.uuid4()))
+    event_type: str = field(init=False)
+    timestamp: datetime = field(default_factory=datetime.utcnow)
+    version: int = 1
+    metadata: Dict[str, Any] = field(default_factory=dict)
+    
+    def __post_init__(self):
+        self.event_type = self.__class__.__name__
+
+# Event Sourced Aggregate Base
+class EventSourcedAggregate(ABC):
+    def __init__(self, aggregate_id: str):
         self.id = aggregate_id
         self.version = 0
-        self.uncommitted_events = []
-
-    def apply_event(self, event):
-        """Apply event to update state"""
-        handler = getattr(self, f'_handle_{event.type}', None)
+        self.uncommitted_events: List[DomainEvent] = []
+        
+    def apply_event(self, event: DomainEvent, is_new: bool = True):
+        """Apply event to aggregate state"""
+        # Use method naming convention for event handlers
+        handler_name = f"_on_{event.event_type}"
+        handler = getattr(self, handler_name, None)
+        
         if handler:
             handler(event)
-        self.version += 1
-
-    def raise_event(self, event):
-        """Raise new event"""
+        else:
+            raise ValueError(f"No handler for event type: {event.event_type}")
+            
+        if is_new:
+            self.uncommitted_events.append(event)
+            
+        self.version = event.version
+    
+    def raise_event(self, event: DomainEvent):
+        """Raise a new domain event"""
         event.aggregate_id = self.id
         event.version = self.version + 1
-        self.apply_event(event)
-        self.uncommitted_events.append(event)
+        self.apply_event(event, is_new=True)
+    
+    def mark_events_committed(self):
+        """Clear uncommitted events after persistence"""
+        self.uncommitted_events.clear()
+    
+    def load_from_history(self, events: List[DomainEvent]):
+        """Rebuild aggregate state from events"""
+        for event in events:
+            self.apply_event(event, is_new=False)
 
-    def mark_committed(self):
-        """Clear uncommitted events after save"""
-        self.uncommitted_events = []
+# Example: Order Aggregate
+@dataclass
+class OrderCreatedEvent(DomainEvent):
+    customer_id: str
+    order_number: str
 
-# Example: Shopping Cart
-class ShoppingCart(EventSourcedAggregate):
-    def __init__(self, cart_id):
-        super().__init__(cart_id)
-        self.items = {}
-        self.customer_id = None
+@dataclass
+class ItemAddedEvent(DomainEvent):
+    product_id: str
+    product_name: str
+    quantity: int
+    unit_price: float
 
-    def create(self, customer_id):
-        self.raise_event(Event(
-            type='cart_created',
-            payload={'customer_id': customer_id}
+@dataclass
+class ItemRemovedEvent(DomainEvent):
+    product_id: str
+
+@dataclass
+class OrderSubmittedEvent(DomainEvent):
+    total_amount: float
+    item_count: int
+
+class Order(EventSourcedAggregate):
+    def __init__(self, order_id: str):
+        super().__init__(order_id)
+        self.customer_id: Optional[str] = None
+        self.order_number: Optional[str] = None
+        self.items: Dict[str, Dict[str, Any]] = {}
+        self.status: str = "DRAFT"
+        self.total_amount: float = 0.0
+        
+    @classmethod
+    def create(cls, order_id: str, customer_id: str, order_number: str) -> 'Order':
+        """Factory method to create new order"""
+        order = cls(order_id)
+        order.raise_event(OrderCreatedEvent(
+            aggregate_id=order_id,
+            customer_id=customer_id,
+            order_number=order_number
         ))
-
-    def add_item(self, product_id, quantity, price):
+        return order
+    
+    def add_item(self, product_id: str, product_name: str, 
+                 quantity: int, unit_price: float):
+        """Add item to order with business rules"""
+        # Business rule: Cannot modify submitted orders
+        if self.status == "SUBMITTED":
+            raise ValueError("Cannot modify submitted order")
+            
+        # Business rule: Validate quantity and price
         if quantity <= 0:
             raise ValueError("Quantity must be positive")
-
-        self.raise_event(Event(
-            type='item_added',
-            payload={
-                'product_id': product_id,
-                'quantity': quantity,
-                'price': price
-            }
+        if unit_price < 0:
+            raise ValueError("Price cannot be negative")
+            
+        self.raise_event(ItemAddedEvent(
+            aggregate_id=self.id,
+            product_id=product_id,
+            product_name=product_name,
+            quantity=quantity,
+            unit_price=unit_price
         ))
-
-    def remove_item(self, product_id):
+    
+    def remove_item(self, product_id: str):
+        """Remove item from order"""
+        if self.status == "SUBMITTED":
+            raise ValueError("Cannot modify submitted order")
+            
         if product_id not in self.items:
-            raise ValueError("Item not in cart")
-
-        self.raise_event(Event(
-            type='item_removed',
-            payload={'product_id': product_id}
+            raise ValueError(f"Product {product_id} not in order")
+            
+        self.raise_event(ItemRemovedEvent(
+            aggregate_id=self.id,
+            product_id=product_id
         ))
-
-    def checkout(self):
+    
+    def submit(self):
+        """Submit order for processing"""
+        if self.status == "SUBMITTED":
+            raise ValueError("Order already submitted")
+            
         if not self.items:
-            raise ValueError("Cart is empty")
-
-        self.raise_event(Event(
-            type='cart_checked_out',
-            payload={
-                'total': sum(i['quantity'] * i['price']
-                           for i in self.items.values())
-            }
+            raise ValueError("Cannot submit empty order")
+            
+        total = sum(item['quantity'] * item['unit_price'] 
+                   for item in self.items.values())
+        
+        self.raise_event(OrderSubmittedEvent(
+            aggregate_id=self.id,
+            total_amount=total,
+            item_count=len(self.items)
         ))
-
-    # Event handlers
-    def _handle_cart_created(self, event):
-        self.customer_id = event.payload['customer_id']
-
-    def _handle_item_added(self, event):
-        product_id = event.payload['product_id']
-        if product_id in self.items:
-            self.items[product_id]['quantity'] += event.payload['quantity']
+    
+    # Event Handlers
+    def _on_OrderCreatedEvent(self, event: OrderCreatedEvent):
+        self.customer_id = event.customer_id
+        self.order_number = event.order_number
+        self.status = "DRAFT"
+    
+    def _on_ItemAddedEvent(self, event: ItemAddedEvent):
+        if event.product_id in self.items:
+            # Update existing item
+            self.items[event.product_id]['quantity'] += event.quantity
         else:
-            self.items[product_id] = {
-                'quantity': event.payload['quantity'],
-                'price': event.payload['price']
+            # Add new item
+            self.items[event.product_id] = {
+                'product_name': event.product_name,
+                'quantity': event.quantity,
+                'unit_price': event.unit_price
             }
+        self._recalculate_total()
+    
+    def _on_ItemRemovedEvent(self, event: ItemRemovedEvent):
+        del self.items[event.product_id]
+        self._recalculate_total()
+    
+    def _on_OrderSubmittedEvent(self, event: OrderSubmittedEvent):
+        self.status = "SUBMITTED"
+        self.total_amount = event.total_amount
+    
+    def _recalculate_total(self):
+        self.total_amount = sum(
+            item['quantity'] * item['unit_price'] 
+            for item in self.items.values()
+        )
+```
 
-    def _handle_item_removed(self, event):
-        del self.items[event.payload['product_id']]
+#### Production-Ready Implementation
 
-    def _handle_cart_checked_out(self, event):
-        self.checked_out = True
+```python
+import asyncio
+from typing import Optional, AsyncIterator, Callable
+import asyncpg
+from dataclasses import asdict
 
-# Event Store with snapshots
+# Production Event Store with PostgreSQL
 class EventStore:
-    def __init__(self, snapshot_frequency=100):
-        self.events = {}  # aggregate_id -> list of events
-        self.snapshots = {}  # aggregate_id -> (version, state)
-        self.snapshot_frequency = snapshot_frequency
-
-    def save(self, aggregate):
-        """Save uncommitted events"""
-        agg_id = aggregate.id
-
-        if agg_id not in self.events:
-            self.events[agg_id] = []
-
-        # Append new events
-        for event in aggregate.uncommitted_events:
-            self.events[agg_id].append(event)
-
-        # Create snapshot if needed
-        if len(self.events[agg_id]) % self.snapshot_frequency == 0:
-            self.snapshots[agg_id] = (
-                aggregate.version,
-                pickle.dumps(aggregate)  # In practice, use proper serialization
+    def __init__(self, connection_pool: asyncpg.Pool, config: dict):
+        self.pool = connection_pool
+        self.config = config
+        self.event_handlers: List[Callable] = []
+        
+    async def initialize(self):
+        """Create event store schema"""
+        async with self.pool.acquire() as conn:
+            await conn.execute("""
+                CREATE TABLE IF NOT EXISTS events (
+                    sequence_number BIGSERIAL PRIMARY KEY,
+                    aggregate_id UUID NOT NULL,
+                    event_id UUID NOT NULL UNIQUE,
+                    event_type VARCHAR(255) NOT NULL,
+                    event_data JSONB NOT NULL,
+                    metadata JSONB NOT NULL,
+                    version INTEGER NOT NULL,
+                    timestamp TIMESTAMP NOT NULL,
+                    INDEX idx_aggregate_id (aggregate_id),
+                    INDEX idx_timestamp (timestamp),
+                    UNIQUE(aggregate_id, version)
+                );
+                
+                CREATE TABLE IF NOT EXISTS snapshots (
+                    aggregate_id UUID PRIMARY KEY,
+                    version INTEGER NOT NULL,
+                    data JSONB NOT NULL,
+                    timestamp TIMESTAMP NOT NULL
+                );
+            """)
+    
+    async def append_events(self, aggregate_id: str, 
+                           events: List[DomainEvent],
+                           expected_version: Optional[int] = None):
+        """Append events with optimistic concurrency control"""
+        async with self.pool.acquire() as conn:
+            async with conn.transaction():
+                # Check expected version if provided
+                if expected_version is not None:
+                    current_version = await conn.fetchval("""
+                        SELECT MAX(version) FROM events 
+                        WHERE aggregate_id = $1
+                    """, aggregate_id)
+                    
+                    if current_version != expected_version:
+                        raise ConcurrencyException(
+                            f"Expected version {expected_version}, "
+                            f"but current version is {current_version}"
+                        )
+                
+                # Insert events
+                for event in events:
+                    await conn.execute("""
+                        INSERT INTO events (
+                            aggregate_id, event_id, event_type,
+                            event_data, metadata, version, timestamp
+                        ) VALUES ($1, $2, $3, $4, $5, $6, $7)
+                    """, 
+                        event.aggregate_id,
+                        event.event_id,
+                        event.event_type,
+                        json.dumps(asdict(event)),
+                        json.dumps(event.metadata),
+                        event.version,
+                        event.timestamp
+                    )
+                
+                # Publish events asynchronously
+                for event in events:
+                    asyncio.create_task(self._publish_event(event))
+    
+    async def get_events(self, aggregate_id: str, 
+                        from_version: int = 0) -> List[DomainEvent]:
+        """Get events for aggregate"""
+        async with self.pool.acquire() as conn:
+            rows = await conn.fetch("""
+                SELECT event_type, event_data, version, timestamp
+                FROM events
+                WHERE aggregate_id = $1 AND version > $2
+                ORDER BY version
+            """, aggregate_id, from_version)
+            
+            events = []
+            for row in rows:
+                event_class = self._get_event_class(row['event_type'])
+                event_data = json.loads(row['event_data'])
+                event = event_class(**event_data)
+                events.append(event)
+                
+            return events
+    
+    async def get_aggregate(self, aggregate_class: type,
+                           aggregate_id: str) -> Optional[EventSourcedAggregate]:
+        """Load aggregate with snapshot optimization"""
+        # Try to load from snapshot
+        snapshot_data = await self._load_snapshot(aggregate_id)
+        
+        if snapshot_data:
+            aggregate = self._deserialize_aggregate(
+                aggregate_class, 
+                snapshot_data['data']
             )
-
-        aggregate.mark_committed()
-
-    def load(self, aggregate_class, aggregate_id):
-        """Load aggregate from events"""
-        if aggregate_id not in self.events:
-            return None
-
-        # Start from snapshot if available
-        if aggregate_id in self.snapshots:
-            version, state = self.snapshots[aggregate_id]
-            aggregate = pickle.loads(state)
-            events_to_replay = self.events[aggregate_id][version:]
+            from_version = snapshot_data['version']
         else:
             aggregate = aggregate_class(aggregate_id)
-            events_to_replay = self.events[aggregate_id]
-
-        # Replay events
-        for event in events_to_replay:
-            aggregate.apply_event(event)
-
+            from_version = 0
+        
+        # Load events after snapshot
+        events = await self.get_events(aggregate_id, from_version)
+        
+        if not events and from_version == 0:
+            return None  # Aggregate doesn't exist
+            
+        # Apply events
+        aggregate.load_from_history(events)
+        
+        # Create snapshot if needed
+        if len(events) > self.config.get('snapshot_frequency', 100):
+            await self._save_snapshot(aggregate)
+            
         return aggregate
+    
+    async def save_aggregate(self, aggregate: EventSourcedAggregate):
+        """Save aggregate events"""
+        if not aggregate.uncommitted_events:
+            return
+            
+        expected_version = aggregate.version - len(aggregate.uncommitted_events)
+        await self.append_events(
+            aggregate.id,
+            aggregate.uncommitted_events,
+            expected_version
+        )
+        
+        aggregate.mark_events_committed()
 
-    def get_events_since(self, aggregate_id, version):
-        """Get events after a specific version"""
-        if aggregate_id not in self.events:
-            return []
-        return self.events[aggregate_id][version:]
-
-# Temporal queries
-class TemporalQuery:
-    def __init__(self, event_store):
+# Event Store with Event Sourcing Projections
+class ProjectionManager:
+    def __init__(self, event_store: EventStore):
         self.event_store = event_store
+        self.projections: Dict[str, EventProjection] = {}
+        self.checkpoints: Dict[str, int] = {}
+        
+    async def register_projection(self, projection: 'EventProjection'):
+        """Register a projection handler"""
+        self.projections[projection.name] = projection
+        
+        # Load checkpoint
+        checkpoint = await self._load_checkpoint(projection.name)
+        self.checkpoints[projection.name] = checkpoint
+        
+    async def start(self):
+        """Start processing events for all projections"""
+        tasks = []
+        for name, projection in self.projections.items():
+            task = asyncio.create_task(
+                self._process_projection(name, projection)
+            )
+            tasks.append(task)
+            
+        await asyncio.gather(*tasks)
+    
+    async def _process_projection(self, name: str, projection: 'EventProjection'):
+        """Process events for a single projection"""
+        checkpoint = self.checkpoints.get(name, 0)
+        
+        while True:
+            try:
+                # Get new events
+                events = await self.event_store.get_all_events_after(checkpoint)
+                
+                if events:
+                    # Process events
+                    for event in events:
+                        if projection.can_handle(event):
+                            await projection.handle(event)
+                            
+                    # Update checkpoint
+                    checkpoint = events[-1].sequence_number
+                    await self._save_checkpoint(name, checkpoint)
+                    self.checkpoints[name] = checkpoint
+                else:
+                    # No new events, wait
+                    await asyncio.sleep(1)
+                    
+            except Exception as e:
+                # Log error and continue
+                print(f"Projection {name} error: {e}")
+                await asyncio.sleep(5)
 
-    def state_at(self, aggregate_class, aggregate_id, timestamp):
-        """Get state at specific time"""
+# Temporal Queries
+class TemporalQueryService:
+    def __init__(self, event_store: EventStore):
+        self.event_store = event_store
+        
+    async def get_aggregate_at_time(self, aggregate_class: type,
+                                   aggregate_id: str,
+                                   timestamp: datetime) -> Optional[EventSourcedAggregate]:
+        """Get aggregate state at specific time"""
+        events = await self.event_store.get_events_before(
+            aggregate_id, 
+            timestamp
+        )
+        
+        if not events:
+            return None
+            
         aggregate = aggregate_class(aggregate_id)
-
-        events = self.event_store.events.get(aggregate_id, [])
-        for event in events:
-            if event.metadata['timestamp'] <= timestamp:
-                aggregate.apply_event(event)
-            else:
-                break
-
+        aggregate.load_from_history(events)
         return aggregate
-
-    def audit_trail(self, aggregate_id, start_time, end_time):
-        """Get all changes in time range"""
-        events = self.event_store.events.get(aggregate_id, [])
-
+    
+    async def get_aggregate_history(self, aggregate_id: str,
+                                   start_time: datetime,
+                                   end_time: datetime) -> List[Dict[str, Any]]:
+        """Get change history in time range"""
+        events = await self.event_store.get_events_in_range(
+            aggregate_id,
+            start_time,
+            end_time
+        )
+        
         return [
             {
-                'version': e.version,
-                'type': e.type,
-                'timestamp': e.metadata['timestamp'],
-                'payload': e.payload,
-                'user': e.metadata.get('user_id')
+                'version': event.version,
+                'type': event.event_type,
+                'timestamp': event.timestamp,
+                'changes': self._extract_changes(event),
+                'metadata': event.metadata
             }
-            for e in events
-            if start_time <= e.metadata['timestamp'] <= end_time
+            for event in events
         ]
 ```
 
-## Advanced: Event Upcasting
+### State Management
+
+Event Sourcing manages state through event application:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Created: Create Aggregate
+    
+    Created --> EventRaised: Business Operation
+    EventRaised --> EventStored: Persist Event
+    EventStored --> StateUpdated: Apply Event
+    StateUpdated --> EventPublished: Notify Projections
+    
+    EventPublished --> Created: More Operations
+    
+    Created --> Snapshot: Many Events
+    Snapshot --> Created: Load from Snapshot
+    
+    StateUpdated --> [*]: Query State
+```
+
+### Common Variations
+
+1. **Event Sourcing with Snapshots**
+   - Use case: Aggregates with many events
+   - Trade-off: Storage vs replay performance
+
+2. **Event Sourcing with CQRS**
+   - Use case: Complex queries, multiple views
+   - Trade-off: Consistency vs query flexibility
+
+3. **Event Sourcing with Projections**
+   - Use case: Reporting, analytics, search
+   - Trade-off: Real-time vs eventual consistency
+
+### Integration Points
+
+- **With CQRS**: Natural fit - events feed read models
+- **With Saga Pattern**: Events trigger distributed transactions
+- **With CDC**: Capture changes from legacy systems as events
+- **With Streaming**: Kafka/Pulsar for event distribution
+
+---
+
+## Level 4: Expert Practitioner (30 minutes)
+
+### Advanced Techniques
+
+#### Event Versioning and Upcasting
 
 ```python
 class EventUpgrader:
     """Handle event schema evolution"""
-
+    
     def __init__(self):
-        self.upgraders = {}
-
-    def register(self, event_type, from_version, to_version, upgrader):
+        self.upgraders: Dict[Tuple[str, str, str], Callable] = {}
+        
+    def register_upgrader(self, event_type: str, 
+                         from_version: str, 
+                         to_version: str,
+                         upgrader: Callable):
+        """Register event version upgrader"""
         key = (event_type, from_version, to_version)
         self.upgraders[key] = upgrader
-
-    def upgrade(self, event):
-        current_version = event.metadata.get('version', '1.0')
-        target_version = '2.0'  # Current version
-
+        
+    def upgrade_event(self, event: Dict[str, Any]) -> Dict[str, Any]:
+        """Upgrade event to current version"""
+        event_type = event['event_type']
+        current_version = event.get('schema_version', '1.0')
+        target_version = self._get_current_version(event_type)
+        
         while current_version < target_version:
-            key = (event.type, current_version, target_version)
+            next_version = self._get_next_version(event_type, current_version)
+            key = (event_type, current_version, next_version)
+            
             if key in self.upgraders:
                 event = self.upgraders[key](event)
-                current_version = event.metadata['version']
+                current_version = next_version
             else:
-                break
-
+                raise ValueError(f"No upgrader for {key}")
+                
         return event
 
-# Example upgrader
-def upgrade_item_added_v1_to_v2(event):
-    """Add currency field to old events"""
-    event.payload['currency'] = 'USD'  # Default
-    event.metadata['version'] = '2.0'
+# Example upgraders
+def upgrade_order_created_v1_to_v2(event: Dict[str, Any]) -> Dict[str, Any]:
+    """Add shipping address to order created event"""
+    event['shipping_address'] = event.get('customer_address', {})
+    event['schema_version'] = '2.0'
+    return event
+
+def upgrade_item_added_v1_to_v2(event: Dict[str, Any]) -> Dict[str, Any]:
+    """Add tax information to item added event"""
+    event['tax_rate'] = 0.08  # Default 8% tax
+    event['tax_amount'] = event['unit_price'] * event['quantity'] * 0.08
+    event['schema_version'] = '2.0'
     return event
 ```
 
-## ✓ CHOOSE THIS WHEN:
-• Complete audit trail required
-• Time travel queries needed
-• Complex state transitions
-• Debugging production issues
-• Compliance/regulatory needs
+#### Event Stream Processing
 
-## ⚠️ BEWARE OF:
-• Storage growth (events forever)
-• Query complexity (no simple SELECT)
-• Schema evolution complexity
-• Replay performance
-• Eventually consistent reads
+```python
+class EventStreamProcessor:
+    """Process event streams for complex event detection"""
+    
+    def __init__(self, event_store: EventStore):
+        self.event_store = event_store
+        self.processors: List[StreamProcessor] = []
+        
+    async def process_stream(self, 
+                           window_size: timedelta,
+                           slide_interval: timedelta):
+        """Process event stream with sliding windows"""
+        
+        last_timestamp = datetime.utcnow() - window_size
+        
+        while True:
+            # Get events in window
+            end_time = datetime.utcnow()
+            events = await self.event_store.get_global_events_in_range(
+                last_timestamp - window_size,
+                end_time
+            )
+            
+            # Process patterns
+            for processor in self.processors:
+                patterns = await processor.detect_patterns(events)
+                
+                for pattern in patterns:
+                    await self._handle_pattern(pattern)
+            
+            # Slide window
+            last_timestamp = end_time - slide_interval
+            await asyncio.sleep(slide_interval.total_seconds())
+    
+    async def _handle_pattern(self, pattern: Dict[str, Any]):
+        """Handle detected pattern"""
+        if pattern['type'] == 'fraud_suspected':
+            await self._trigger_fraud_investigation(pattern)
+        elif pattern['type'] == 'unusual_activity':
+            await self._alert_monitoring(pattern)
 
-## REAL EXAMPLES
-• **Banking**: Every transaction stored
-• **Healthcare**: Patient history immutable
-• **Git**: Commits are event sourcing!
+# Example: Fraud Detection Processor
+class FraudDetectionProcessor:
+    async def detect_patterns(self, events: List[DomainEvent]) -> List[Dict]:
+        patterns = []
+        
+        # Group events by customer
+        customer_events = defaultdict(list)
+        for event in events:
+            if hasattr(event, 'customer_id'):
+                customer_events[event.customer_id].append(event)
+        
+        # Detect suspicious patterns
+        for customer_id, events in customer_events.items():
+            # Multiple orders in short time
+            order_events = [e for e in events 
+                          if e.event_type == 'OrderCreatedEvent']
+            
+            if len(order_events) > 5:
+                time_span = (order_events[-1].timestamp - 
+                           order_events[0].timestamp)
+                
+                if time_span < timedelta(minutes=10):
+                    patterns.append({
+                        'type': 'fraud_suspected',
+                        'customer_id': customer_id,
+                        'reason': 'multiple_orders_short_time',
+                        'event_count': len(order_events),
+                        'time_span': time_span
+                    })
+        
+        return patterns
+```
+
+### Performance Optimization
+
+<div class="decision-box">
+<h4>🎯 Performance Tuning Checklist</h4>
+
+- [ ] **Snapshotting**: Create snapshots every N events (typically 100-1000)
+- [ ] **Event Batching**: Batch event writes for throughput
+- [ ] **Projection Caching**: Cache frequently accessed projections
+- [ ] **Event Compression**: Compress old events to save storage
+- [ ] **Parallel Replay**: Replay events in parallel when possible
+- [ ] **Index Optimization**: Index on aggregate_id, timestamp, event_type
+- [ ] **Connection Pooling**: Separate pools for writes and reads
+- [ ] **Async Processing**: Use async/await for all I/O operations
+</div>
+
+### Monitoring & Observability
+
+Key metrics to track:
+
+```yaml
+metrics:
+  # Event Store Metrics
+  - name: event_append_latency
+    description: Time to append events
+    alert_threshold: p99 > 100ms
+    
+  - name: event_replay_time
+    description: Time to replay aggregate events
+    alert_threshold: p99 > 500ms
+    
+  - name: snapshot_creation_time
+    description: Time to create snapshots
+    alert_threshold: p99 > 1s
+    
+  # Projection Metrics
+  - name: projection_lag
+    description: Lag between event and projection update
+    alert_threshold: p99 > 10s
+    
+  - name: projection_error_rate
+    description: Failed projections per minute
+    alert_threshold: > 10/min
+    
+  # Storage Metrics
+  - name: event_storage_size
+    description: Total event storage used
+    alert_threshold: > 80% capacity
+    
+  - name: events_per_aggregate
+    description: Average events per aggregate
+    alert_threshold: > 10000
+    
+  # Business Metrics
+  - name: events_per_second
+    description: Event creation rate
+    alert_threshold: > 10000/s
+```
+
+### Common Pitfalls
+
+<div class="failure-vignette">
+<h4>⚠️ Pitfall: Mutable Events</h4>
+A team tried to "fix" historical data by modifying events. This broke event replay, destroyed audit trails, and caused projections to diverge from reality.
+
+**Solution**: Events are immutable facts. To correct mistakes, create compensating events that record the correction.
+</div>
+
+<div class="failure-vignette">
+<h4>⚠️ Pitfall: Missing Event Versioning</h4>
+After 1 year in production, a team needed to add fields to events. Without versioning, they couldn't deserialize old events, causing system-wide failures.
+
+**Solution**: Version all events from day one. Implement upcasting to handle old event formats.
+</div>
+
+### Production Checklist
+
+- [ ] **Event versioning** strategy implemented
+- [ ] **Snapshot strategy** defined and tested
+- [ ] **Retention policy** for old events
+- [ ] **Backup and restore** procedures tested
+- [ ] **Event replay** capability verified
+- [ ] **Projection rebuild** process documented
+- [ ] **Monitoring dashboards** configured
+- [ ] **Performance benchmarks** established
 
 ---
 
-**Previous**: [← Event-Driven Architecture](event-driven.md) | **Next**: [FinOps Patterns →](finops.md)
+## Level 5: Mastery (45 minutes)
 
-**Related**: [Cqrs](cqrs.md) • [Saga](saga.md) • [Event Driven](event-driven.md)
-## ✅ When to Use
+### Case Study: Walmart's Inventory System
 
-### Ideal Scenarios
-- **Distributed systems** with external dependencies
-- **High-availability services** requiring reliability
-- **External service integration** with potential failures
-- **High-traffic applications** needing protection
+<div class="truth-box">
+<h4>🏢 Real-World Implementation</h4>
 
-### Environmental Factors
-- **High Traffic**: System handles significant load
-- **External Dependencies**: Calls to other services or systems
-- **Reliability Requirements**: Uptime is critical to business
-- **Resource Constraints**: Limited connections, threads, or memory
+**Company**: Walmart  
+**Scale**: 
+- 4,700+ stores
+- 350M+ items tracked daily
+- 1M+ events per second peak
+- 20TB+ events generated daily
 
-### Team Readiness
-- Team understands distributed systems concepts
-- Monitoring and alerting infrastructure exists
-- Operations team can respond to pattern-related alerts
+**Challenge**: Track every inventory movement across all stores with complete auditability while supporting real-time availability queries.
 
-### Business Context
-- Cost of downtime is significant
-- User experience is a priority
-- System is customer-facing or business-critical
+**Event Sourcing Implementation**:
 
-## ❌ When NOT to Use
+**Event Types**:
+- ItemReceived (from supplier)
+- ItemSold (at register)
+- ItemReturned (by customer)
+- ItemMoved (between locations)
+- ItemDamaged (shrinkage)
+- InventoryAdjusted (manual count)
 
-### Inappropriate Scenarios
-- **Simple applications** with minimal complexity
-- **Development environments** where reliability isn't critical
-- **Single-user systems** without scale requirements
-- **Internal tools** with relaxed availability needs
-
-### Technical Constraints
-- **Simple Systems**: Overhead exceeds benefits
-- **Development/Testing**: Adds unnecessary complexity
-- **Performance Critical**: Pattern overhead is unacceptable
-- **Legacy Systems**: Cannot be easily modified
-
-### Resource Limitations
-- **No Monitoring**: Cannot observe pattern effectiveness
-- **Limited Expertise**: Team lacks distributed systems knowledge
-- **Tight Coupling**: System design prevents pattern implementation
-
-### Anti-Patterns
-- Adding complexity without clear benefit
-- Implementing without proper monitoring
-- Using as a substitute for fixing root causes
-- Over-engineering simple problems
-
-## ⚖️ Trade-offs
-
-### Benefits vs Costs
-
-| Benefit | Cost | Mitigation |
-|---------|------|------------|
-| **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
-| **Better Performance** | Resource overhead | Monitor and tune parameters |
-| **Faster Recovery** | Operational complexity | Invest in monitoring and training |
-| **Clearer Debugging** | Additional logging | Use structured logging |
-
-### Performance Impact
-- **Latency**: Small overhead per operation
-- **Memory**: Additional state tracking
-- **CPU**: Monitoring and decision logic
-- **Network**: Possible additional monitoring calls
-
-### Operational Complexity
-- **Monitoring**: Need dashboards and alerts
-- **Configuration**: Parameters must be tuned
-- **Debugging**: Additional failure modes to understand
-- **Testing**: More scenarios to validate
-
-### Development Trade-offs
-- **Initial Cost**: More time to implement correctly
-- **Maintenance**: Ongoing tuning and monitoring
-- **Testing**: Complex failure scenarios to validate
-- **Documentation**: More concepts for team to understand
-
-## 💻 Code Sample
-
-### Basic Implementation
-
-```python
-class Event_SourcingPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
-
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
-
-        try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
-        except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
-
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
-
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
-
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
-
-    def _record_success(self):
-        self.metrics.record_success()
-
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = Event_SourcingPattern(config)
-result = pattern.process(user_request)
+**Architecture**:
+```
+POS Systems → Kafka → Event Store → Projections
+                ↓                        ↓
+          Archival Storage        Multiple Views
+                                  - Current Stock
+                                  - Location Map
+                                  - Reorder Alerts
+                                  - Loss Prevention
 ```
 
-### Configuration Example
+**Technical Decisions**:
+1. **Partitioning**: Events partitioned by store + department
+2. **Snapshotting**: Daily snapshots per SKU
+3. **Compression**: 10:1 compression for events > 30 days
+4. **Retention**: 7 years for compliance, then archive
+
+**Results**:
+- Shrinkage detection: 40% improvement
+- Inventory accuracy: 95% → 99.8%
+- Audit time: Days → Minutes
+- Reorder optimization: $2B annual savings
+
+**Lessons Learned**:
+1. **Event granularity matters** - Too fine creates volume, too coarse loses detail
+2. **Partition strategy is critical** - Must support both writes and queries
+3. **Projections need indexes** - Raw event replay doesn't scale
+4. **Archive strategy from day one** - Historical data grows fast
+</div>
+
+### Economic Analysis
+
+#### Cost Model
+
+```python
+def calculate_event_sourcing_roi(
+    daily_transactions: int,
+    avg_events_per_transaction: float,
+    audit_requirements: bool,
+    compliance_years: int
+) -> dict:
+    """Calculate ROI for Event Sourcing implementation"""
+    
+    # Storage costs
+    events_per_day = daily_transactions * avg_events_per_transaction
+    event_size_bytes = 500  # Average event size
+    
+    daily_storage_gb = (events_per_day * event_size_bytes) / (1024**3)
+    yearly_storage_tb = (daily_storage_gb * 365) / 1024
+    
+    storage_costs = {
+        'hot_storage': yearly_storage_tb * 0.3 * 50,  # 30% hot at $50/TB
+        'cold_storage': yearly_storage_tb * 0.7 * 10,  # 70% cold at $10/TB
+        'backup': yearly_storage_tb * 5,  # Backup at $5/TB
+    }
+    
+    # Compute costs
+    replay_frequency = 100  # Replays per day
+    replay_compute_hours = replay_frequency * 0.1  # 0.1 hours per replay
+    
+    compute_costs = {
+        'event_processing': events_per_day * 0.00001,  # $0.01 per 1K events
+        'replay_compute': replay_compute_hours * 50,    # $50 per hour
+        'projection_updates': events_per_day * 0.000005  # $0.005 per 1K events
+    }
+    
+    # Benefits
+    benefits = {
+        'audit_cost_reduction': 500000 if audit_requirements else 0,
+        'debugging_time_saved': 200000,  # Developer hours saved
+        'compliance_automation': 300000 if compliance_years > 0 else 0,
+        'business_insights': 1000000,  # New analytics capabilities
+    }
+    
+    # Calculate ROI
+    total_costs = sum(storage_costs.values()) + sum(compute_costs.values())
+    total_benefits = sum(benefits.values())
+    
+    return {
+        'annual_cost': total_costs,
+        'annual_benefit': total_benefits,
+        'roi_percentage': ((total_benefits - total_costs) / total_costs) * 100,
+        'payback_months': (total_costs * 12) / total_benefits,
+        'storage_tb_year': yearly_storage_tb,
+        'recommended': total_benefits > total_costs * 1.5
+    }
+
+# Example calculation
+roi = calculate_event_sourcing_roi(
+    daily_transactions=1_000_000,
+    avg_events_per_transaction=3.5,
+    audit_requirements=True,
+    compliance_years=7
+)
+print(f"ROI: {roi['roi_percentage']:.1f}%, "
+      f"Payback: {roi['payback_months']:.1f} months")
+```
+
+#### When It Pays Off
+
+- **Break-even point**: Systems with audit requirements or complex domains
+- **High ROI scenarios**:
+  - Financial systems (complete audit trail)
+  - Healthcare (patient history)
+  - E-commerce (order lifecycle)
+  - Supply chain (tracking)
+- **Low ROI scenarios**:
+  - Simple CRUD applications
+  - Read-heavy systems with few writes
+  - Systems without audit requirements
+
+### Pattern Evolution
+
+```mermaid
+timeline
+    title Evolution of Event Sourcing
+    
+    1960s : Database logs for recovery
+          : Basic write-ahead logging
+    
+    1980s : Financial systems adopt
+          : Audit requirements drive adoption
+    
+    2000 : Domain-Driven Design
+         : Greg Young formalizes pattern
+    
+    2010 : NoSQL movement
+         : Event stores become specialized
+    
+    2015 : Microservices adoption
+         : Events as integration mechanism
+    
+    2020 : Stream processing mature
+         : Kafka, Pulsar enable scale
+    
+    2025 : Current State
+         : ML/AI consume event streams
+         : Blockchain integration emerging
+```
+
+### Axiom Connections
+
+<div class="axiom-box">
+<h4>🔗 Fundamental Axioms</h4>
+
+This pattern directly addresses:
+
+1. **Time Axiom**: Events capture exact time of state changes
+2. **Ordering Axiom**: Event sequence provides total ordering
+3. **Knowledge Axiom**: Complete history enables perfect knowledge
+4. **Observability Axiom**: Every change is observable
+5. **Human Interface Axiom**: Natural audit trail for compliance
+</div>
+
+### Future Directions
+
+**Emerging Trends**:
+
+1. **Quantum Event Stores**: Cryptographically sealed event chains
+2. **AI-Driven Projections**: ML models that learn optimal projections
+3. **Cross-System Event Mesh**: Federated event sourcing
+4. **Immutable Ledgers**: Blockchain-backed event stores
+
+**What's Next**:
+- Standardized event formats across industries
+- Hardware-accelerated event processing
+- Declarative temporal queries
+- Automated compliance reporting from events
+
+---
+
+## Quick Reference
+
+### Decision Matrix
+
+```mermaid
+graph TD
+    Start[Should I use Event Sourcing?] --> Q1{Need complete<br/>audit trail?}
+    Q1 -->|Yes| UsES[Use Event Sourcing]
+    Q1 -->|No| Q2{Complex domain<br/>with many states?}
+    
+    Q2 -->|No| Q3{Need time travel<br/>debugging?}
+    Q2 -->|Yes| Q4{Can handle<br/>complexity?}
+    
+    Q3 -->|No| NoES[Traditional approach]
+    Q3 -->|Yes| Q4
+    
+    Q4 -->|No| NoES
+    Q4 -->|Yes| UsES
+    
+    UsES --> Q5{High volume?>
+    Q5 -->|Yes| ESStream[ES + Streaming Platform]
+    Q5 -->|No| Q6{Multiple views<br/>needed?}
+    
+    Q6 -->|Yes| ESCQRS[ES + CQRS]
+    Q6 -->|No| ESSimple[Simple Event Store]
+```
+
+### Command Cheat Sheet
+
+```bash
+# Event Store Operations
+event-store append <aggregate-id> <event>    # Append event
+event-store replay <aggregate-id>            # Replay events
+event-store snapshot <aggregate-id>          # Create snapshot
+
+# Projection Management
+projection rebuild <name>                    # Rebuild projection
+projection status                           # Show all projections
+projection pause <name>                     # Pause projection
+projection resume <name>                    # Resume projection
+
+# Temporal Queries
+events at-time <aggregate-id> <timestamp>   # State at time
+events between <id> <start> <end>          # Events in range
+events after <sequence-number>             # Events after point
+
+# Maintenance
+event-store compact                        # Compact old events
+event-store archive <before-date>          # Archive old events
+event-store verify                         # Verify integrity
+```
+
+### Configuration Template
 
 ```yaml
+# Production Event Sourcing configuration
 event_sourcing:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
+  event_store:
+    type: "postgresql"  # or eventstore, mongodb, cassandra
+    connection_pool:
+      size: 50
+      timeout: 30s
+    
+    retention:
+      hot_days: 90      # Recent events in fast storage
+      warm_days: 365    # One year in medium storage  
+      cold_years: 7     # Compliance period in archive
+    
+    partitioning:
+      strategy: "aggregate_type"  # or by_date, by_tenant
+      partitions: 100
+  
+  snapshots:
     enabled: true
-    strategy: "cached_response"
+    frequency: 1000     # Events before snapshot
+    storage: "s3"       # Snapshot storage
+    compression: "gzip"
+    
+  projections:
+    parallel_workers: 10
+    batch_size: 1000
+    checkpoint_interval: 30s
+    error_retry:
+      max_attempts: 3
+      backoff: "exponential"
+  
   monitoring:
     metrics_enabled: true
-    health_check_interval: 30s
+    trace_sampling: 0.1  # 10% of operations
+    slow_query_threshold: 100ms
+    
+  schema_evolution:
+    versioning: true
+    compatibility_mode: "forward"  # forward, backward, full
+    upgrade_on_read: true
 ```
 
-### Testing the Implementation
+---
 
-```python
-def test_event_sourcing_behavior():
-    pattern = Event_SourcingPattern(test_config)
+## Related Resources
 
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
+### Patterns
+- [CQRS](/patterns/cqrs/) - Natural companion for read model separation
+- [Saga Pattern](/patterns/saga/) - Distributed transactions with events
+- [Event-Driven Architecture](/patterns/event-driven/) - Events as first-class citizens
 
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
+### Axioms
+- [Time Axiom](/part1-axioms/time/) - Why event timing matters
+- [Ordering Axiom](/part1-axioms/ordering/) - Event sequence guarantees
+- [Knowledge Axiom](/part1-axioms/knowledge/) - Complete system knowledge
 
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-```
+### Further Reading
+- [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database
+- [Martin Fowler on Event Sourcing](https://martinfowler.com/eaaDev/EventSourcing.html) - Clear introduction
+- [Versioning in Event Sourced Systems](https://leanpub.com/esversioning) - Schema evolution
+- [Event Sourcing in Production](https://medium.com/@hugo.oliveira.rocha/what-they-dont-tell-you-about-event-sourcing-6afc23c69e9a) - Practical lessons
+
+### Tools & Libraries
+- **Java**: Axon Framework, Eventuate
+- **C#/.NET**: EventStore, Marten, SqlStreamStore  
+- **JavaScript**: EventStore client, Eventide
+- **Python**: Eventsourcing library
+- **Go**: EventStore client, Eventuous
+- **Databases**: EventStore, Apache Kafka, PostgreSQL with JSONB
+
+---
+
+<div class="navigation-links">
+<div class="prev-link">
+<a href="/patterns/event-driven/">← Previous: Event-Driven Architecture</a>
+</div>
+<div class="next-link">
+<a href="/patterns/saga/">Next: Saga Pattern →</a>
+</div>
+</div>

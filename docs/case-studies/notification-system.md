@@ -708,7 +708,7 @@ class TemplateManager:
         # Simple replacement for now
         result = template
         for key, value in data.items():
-            result = result.replace(f"{{{key}}}", str(value))
+            result = result.replace(f"{{ '{' }}{key}{{ '}' }}", str(value))
         
         return result
 ```

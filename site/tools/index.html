@@ -24,7 +24,7 @@
     
     
       
-        <title>Interactive Tools - The Compendium of Distributed Systems</title>
+        <title>Interactive Tools & Calculators - The Compendium of Distributed Systems</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#interactive-tools" class="md-skip">
+        <a href="#interactive-tools-calculators" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Interactive Tools
+              Interactive Tools & Calculators
             
           </span>
         </div>
@@ -1085,7 +1085,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1111,6 +1111,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1217,7 +1224,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1243,6 +1250,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1349,7 +1363,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1375,6 +1389,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1508,6 +1529,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1640,6 +1668,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1771,6 +1806,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -5837,7 +5879,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6286,44 +6328,725 @@
 
 
 <!-- Navigation -->
-<p><a href="../">Home</a> → <strong>Interactive Tools</strong></p>
-<h1 id="interactive-tools">Interactive Tools<a class="headerlink" href="#interactive-tools" title="Permanent link">&para;</a></h1>
+<p><a href="../">Home</a> → <strong>Interactive Tools &amp; Calculators</strong></p>
+<h1 id="interactive-tools-calculators">Interactive Tools &amp; Calculators<a class="headerlink" href="#interactive-tools-calculators" title="Permanent link">&para;</a></h1>
 <p>Apply the axioms and pillars with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.</p>
 <hr />
 <h2 id="latency-calculator">🧮 Latency Calculator<a class="headerlink" href="#latency-calculator" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 1: Understand the speed of causality</strong></p>
+<h3 id="geographic-latency-estimator">Geographic Latency Estimator<a class="headerlink" href="#geographic-latency-estimator" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">Distance-Based Latency Calculator</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">Speed of Light in Fiber</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">~200,000 km/s (2/3 speed of light in vacuum)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="nt">Network Overhead</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1.5-2x multiplier for routing</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">Formula</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">One-way latency = (Distance × 1.5) / 200,000 + Processing</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="nt">Examples</span><span class="p">:</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">NYC ↔ LA</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">4,000 km → 30ms minimum</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">NYC ↔ London</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">5,600 km → 42ms minimum</span><span class="w">  </span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">NYC ↔ Sydney</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16,000 km → 120ms minimum</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Around the world</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">40,000 km → 300ms minimum</span>
+</span></code></pre></div>
+<h3 id="latency-budget-worksheet">Latency Budget Worksheet<a class="headerlink" href="#latency-budget-worksheet" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Typical Range</th>
+<th>Your System</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Network RTT</strong></td>
+<td>1-200ms</td>
+<td>___ms</td>
+<td>Depends on distance</td>
+</tr>
+<tr>
+<td><strong>DNS Lookup</strong></td>
+<td>1-100ms</td>
+<td>___ms</td>
+<td>Can be cached</td>
+</tr>
+<tr>
+<td><strong>TLS Handshake</strong></td>
+<td>10-200ms</td>
+<td>___ms</td>
+<td>Reuse connections</td>
+</tr>
+<tr>
+<td><strong>Load Balancer</strong></td>
+<td>1-5ms</td>
+<td>___ms</td>
+<td>Layer 4 vs 7</td>
+</tr>
+<tr>
+<td><strong>API Gateway</strong></td>
+<td>5-20ms</td>
+<td>___ms</td>
+<td>Auth, routing</td>
+</tr>
+<tr>
+<td><strong>Service Mesh</strong></td>
+<td>1-5ms</td>
+<td>___ms</td>
+<td>Per hop</td>
+</tr>
+<tr>
+<td><strong>Database Query</strong></td>
+<td>1-1000ms</td>
+<td>___ms</td>
+<td>Depends on query</td>
+</tr>
+<tr>
+<td><strong>Serialization</strong></td>
+<td>1-50ms</td>
+<td>___ms</td>
+<td>JSON vs Protocol Buffers</td>
+</tr>
+<tr>
+<td><strong>Business Logic</strong></td>
+<td>Variable</td>
+<td>___ms</td>
+<td>Your code</td>
+</tr>
+<tr>
+<td><strong>Total Budget</strong></td>
+<td><strong>Target</strong></td>
+<td>___ms</td>
+<td>Sum all components</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quick-latency-rules">Quick Latency Rules<a class="headerlink" href="#quick-latency-rules" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong>Human Perception</strong>: &lt;100ms feels instant</li>
+<li><strong>Productivity Threshold</strong>: &lt;1s maintains flow</li>
+<li><strong>Attention Span</strong>: &lt;10s before frustration</li>
+<li><strong>SEO Impact</strong>: &gt;3s hurts rankings</li>
+</ul>
 <hr />
 <h2 id="capacity-planning-worksheet">⚖️ Capacity Planning Worksheet<a class="headerlink" href="#capacity-planning-worksheet" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 2: Size your finite boxes</strong></p>
+<h3 id="resource-calculator">Resource Calculator<a class="headerlink" href="#resource-calculator" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># Capacity Planning Formula</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="n">Required</span> <span class="n">Capacity</span> <span class="o">=</span> <span class="p">(</span><span class="n">Peak</span> <span class="n">Load</span> <span class="err">×</span> <span class="n">Safety</span> <span class="n">Factor</span><span class="p">)</span> <span class="o">/</span> <span class="n">Utilization</span> <span class="n">Target</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="n">Where</span><span class="p">:</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="o">-</span> <span class="n">Peak</span> <span class="n">Load</span> <span class="o">=</span> <span class="n">Avg</span> <span class="n">Load</span> <span class="err">×</span> <span class="n">Peak</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">Average</span> <span class="n">Ratio</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="o">-</span> <span class="n">Safety</span> <span class="n">Factor</span> <span class="o">=</span> <span class="mf">1.5</span><span class="o">-</span><span class="mi">2</span><span class="n">x</span> <span class="p">(</span><span class="k">for</span> <span class="n">unexpected</span> <span class="n">spikes</span><span class="p">)</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="o">-</span> <span class="n">Utilization</span> <span class="n">Target</span> <span class="o">=</span> <span class="mi">60</span><span class="o">-</span><span class="mi">80</span><span class="o">%</span> <span class="p">(</span><span class="n">leave</span> <span class="n">headroom</span><span class="p">)</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">Example</span><span class="p">:</span> <span class="n">E</span><span class="o">-</span><span class="n">commerce</span> <span class="n">Site</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="o">-</span> <span class="n">Average</span> <span class="n">Load</span><span class="p">:</span> <span class="mi">1000</span> <span class="n">req</span><span class="o">/</span><span class="n">s</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="o">-</span> <span class="n">Peak</span><span class="o">-</span><span class="n">to</span><span class="o">-</span><span class="n">Average</span><span class="p">:</span> <span class="mi">3</span><span class="n">x</span> <span class="p">(</span><span class="n">during</span> <span class="n">sales</span><span class="p">)</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a><span class="o">-</span> <span class="n">Peak</span> <span class="n">Load</span><span class="p">:</span> <span class="mi">3000</span> <span class="n">req</span><span class="o">/</span><span class="n">s</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="o">-</span> <span class="n">Safety</span> <span class="n">Factor</span><span class="p">:</span> <span class="mf">1.5</span><span class="n">x</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a><span class="o">-</span> <span class="n">Target</span> <span class="n">Utilization</span><span class="p">:</span> <span class="mi">70</span><span class="o">%</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a><span class="o">-</span> <span class="n">Required</span> <span class="n">Capacity</span><span class="p">:</span> <span class="p">(</span><span class="mi">3000</span> <span class="err">×</span> <span class="mf">1.5</span><span class="p">)</span> <span class="o">/</span> <span class="mf">0.7</span> <span class="o">=</span> <span class="mi">6</span><span class="p">,</span><span class="mi">428</span> <span class="n">req</span><span class="o">/</span><span class="n">s</span>
+</span></code></pre></div>
+<h3 id="server-sizing-matrix">Server Sizing Matrix<a class="headerlink" href="#server-sizing-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Workload Type</th>
+<th>vCPUs</th>
+<th>Memory</th>
+<th>Storage</th>
+<th>Network</th>
+<th>Example Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Web Server</strong></td>
+<td>2-4</td>
+<td>4-8 GB</td>
+<td>20 GB</td>
+<td>1 Gbps</td>
+<td>Stateless APIs</td>
+</tr>
+<tr>
+<td><strong>App Server</strong></td>
+<td>4-8</td>
+<td>8-16 GB</td>
+<td>50 GB</td>
+<td>10 Gbps</td>
+<td>Business logic</td>
+</tr>
+<tr>
+<td><strong>Cache Server</strong></td>
+<td>4-8</td>
+<td>16-64 GB</td>
+<td>100 GB</td>
+<td>10 Gbps</td>
+<td>Redis, Memcached</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>8-32</td>
+<td>32-256 GB</td>
+<td>1-10 TB</td>
+<td>10-25 Gbps</td>
+<td>PostgreSQL, MySQL</td>
+</tr>
+<tr>
+<td><strong>Analytics</strong></td>
+<td>16-64</td>
+<td>64-512 GB</td>
+<td>10+ TB</td>
+<td>25 Gbps</td>
+<td>Spark, Presto</td>
+</tr>
+<tr>
+<td><strong>ML Training</strong></td>
+<td>8-96 + GPU</td>
+<td>64GB-1TB</td>
+<td>1-10 TB</td>
+<td>100 Gbps</td>
+<td>TensorFlow, PyTorch</td>
+</tr>
+</tbody>
+</table>
+<h3 id="storage-calculator">Storage Calculator<a class="headerlink" href="#storage-calculator" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="l l-Scalar l-Scalar-Plain">Storage Needs = (Data per Day × Retention Days × Replication Factor) × (1 + Growth Rate)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="l l-Scalar l-Scalar-Plain">Example</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Logging System</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Log Volume</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100 GB/day</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Retention</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">30 days</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Replication</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">3x</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Growth Rate</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">20% annually</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Base Need</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">100 × 30 × 3 = 9 TB</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">With Growth</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">9 TB × 1.2 = 10.8 TB</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Add 50% Buffer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">16.2 TB recommended</span>
+</span></code></pre></div>
 <hr />
 <h2 id="failure-analysis-framework">💥 Failure Analysis Framework<a class="headerlink" href="#failure-analysis-framework" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 3: Plan for inevitable entropy</strong></p>
+<h3 id="failure-mode-scoring">Failure Mode Scoring<a class="headerlink" href="#failure-mode-scoring" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Failure Mode</th>
+<th>Probability (1-5)</th>
+<th>Impact (1-5)</th>
+<th>Detection (1-5)</th>
+<th>Risk Score</th>
+<th>Priority</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Server crash</td>
+<td>___</td>
+<td>___</td>
+<td>___</td>
+<td>P×I×D = ___</td>
+<td>___</td>
+</tr>
+<tr>
+<td>Network partition</td>
+<td>___</td>
+<td>___</td>
+<td>___</td>
+<td>P×I×D = ___</td>
+<td>___</td>
+</tr>
+<tr>
+<td>Database corruption</td>
+<td>___</td>
+<td>___</td>
+<td>___</td>
+<td>P×I×D = ___</td>
+<td>___</td>
+</tr>
+<tr>
+<td>DDoS attack</td>
+<td>___</td>
+<td>___</td>
+<td>___</td>
+<td>P×I×D = ___</td>
+<td>___</td>
+</tr>
+<tr>
+<td>Human error</td>
+<td>___</td>
+<td>___</td>
+<td>___</td>
+<td>P×I×D = ___</td>
+<td>___</td>
+</tr>
+<tr>
+<td>Dependency failure</td>
+<td>___</td>
+<td>___</td>
+<td>___</td>
+<td>P×I×D = ___</td>
+<td>___</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scoring Guide</strong>:
+- <strong>Probability</strong>: 1=Rare, 5=Frequent
+- <strong>Impact</strong>: 1=Minor, 5=Catastrophic
+- <strong>Detection</strong>: 1=Obvious, 5=Hidden
+- <strong>Priority</strong>: &gt;50=Critical, 25-50=High, &lt;25=Medium</p>
+<h3 id="mtbfmttr-calculator">MTBF/MTTR Calculator<a class="headerlink" href="#mtbfmttr-calculator" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="l l-Scalar l-Scalar-Plain">Availability = MTBF / (MTBF + MTTR)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="l l-Scalar l-Scalar-Plain">Where</span><span class="p p-Indicator">:</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MTBF = Mean Time Between Failures</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">MTTR = Mean Time To Recovery</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="nt">Availability Targets</span><span class="p">:</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99% = 3.65 days/year downtime</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.9% = 8.76 hours/year</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.99% = 52.6 minutes/year</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.999% = 5.26 minutes/year</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a><span class="nt">Required MTBF</span><span class="p">:</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a><span class="l l-Scalar l-Scalar-Plain">If MTTR = 1 hour, then</span><span class="p p-Indicator">:</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99% availability needs MTBF = 99 hours</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.9% needs MTBF = 999 hours</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.99% needs MTBF = 9,999 hours</span>
+</span></code></pre></div>
 <hr />
 <h2 id="concurrency-analysis-tools">🎲 Concurrency Analysis Tools<a class="headerlink" href="#concurrency-analysis-tools" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 4: Model distributed timelines</strong></p>
+<h3 id="race-condition-detector">Race Condition Detector<a class="headerlink" href="#race-condition-detector" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Concurrent Access Pattern Analyzer</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Scenarios</span> <span class="n">to</span> <span class="n">Check</span><span class="p">:</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="err">□</span> <span class="n">Multiple</span> <span class="n">writers</span> <span class="n">to</span> <span class="n">same</span> <span class="n">resource</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="err">□</span> <span class="n">Read</span><span class="o">-</span><span class="n">modify</span><span class="o">-</span><span class="n">write</span> <span class="n">without</span> <span class="n">locking</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="err">□</span> <span class="n">Check</span><span class="o">-</span><span class="n">then</span><span class="o">-</span><span class="n">act</span> <span class="n">patterns</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a><span class="err">□</span> <span class="n">Shared</span> <span class="n">mutable</span> <span class="n">state</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a><span class="err">□</span> <span class="n">Non</span><span class="o">-</span><span class="n">atomic</span> <span class="n">operations</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a><span class="err">□</span> <span class="n">Missing</span> <span class="n">happens</span><span class="o">-</span><span class="n">before</span> <span class="n">relationships</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a><span class="n">Risk</span> <span class="n">Matrix</span><span class="p">:</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a><span class="o">|</span> <span class="n">Pattern</span> <span class="o">|</span> <span class="n">Risk</span> <span class="n">Level</span> <span class="o">|</span> <span class="n">Mitigation</span> <span class="o">|</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="o">|---------|------------|------------|</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a><span class="o">|</span> <span class="n">Shared</span> <span class="n">counter</span> <span class="o">|</span> <span class="n">High</span> <span class="o">|</span> <span class="n">Atomic</span> <span class="n">operations</span> <span class="o">|</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a><span class="o">|</span> <span class="n">Config</span> <span class="n">reload</span> <span class="o">|</span> <span class="n">Medium</span> <span class="o">|</span> <span class="n">Versioning</span> <span class="o">|</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a><span class="o">|</span> <span class="n">Cache</span> <span class="n">invalidation</span> <span class="o">|</span> <span class="n">High</span> <span class="o">|</span> <span class="n">Distributed</span> <span class="n">lock</span> <span class="o">|</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a><span class="o">|</span> <span class="n">Session</span> <span class="n">state</span> <span class="o">|</span> <span class="n">Medium</span> <span class="o">|</span> <span class="n">Sticky</span> <span class="n">sessions</span> <span class="o">|</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a><span class="o">|</span> <span class="n">File</span> <span class="n">uploads</span> <span class="o">|</span> <span class="n">Low</span> <span class="o">|</span> <span class="n">Unique</span> <span class="n">names</span> <span class="o">|</span>
+</span></code></pre></div>
+<h3 id="deadlock-prevention-checklist">Deadlock Prevention Checklist<a class="headerlink" href="#deadlock-prevention-checklist" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">Coffman Conditions (ALL must be true for deadlock)</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="l l-Scalar l-Scalar-Plain">□ Mutual Exclusion - Resources can&#39;t be shared</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="l l-Scalar l-Scalar-Plain">□ Hold and Wait - Process holds resource while waiting</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="l l-Scalar l-Scalar-Plain">□ No Preemption - Can&#39;t force resource release</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="l l-Scalar l-Scalar-Plain">□ Circular Wait - Circular chain of dependencies</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="nt">Prevention Strategies</span><span class="p">:</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Resource Ordering ✓ (prevent circular wait)</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Timeouts ✓ (break hold and wait)</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Lock-free algorithms ✓ (no mutual exclusion)</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Deadlock detection ✓ (recovery mechanism)</span>
+</span></code></pre></div>
 <hr />
 <h2 id="consensus-decision-matrix">🤝 Consensus Decision Matrix<a class="headerlink" href="#consensus-decision-matrix" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 5: Choose coordination mechanisms</strong></p>
+<h3 id="consensus-algorithm-selector">Consensus Algorithm Selector<a class="headerlink" href="#consensus-algorithm-selector" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>If You Need...</th>
+<th>And You Have...</th>
+<th>Consider...</th>
+<th>Trade-offs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strong consistency</strong></td>
+<td>3-7 nodes</td>
+<td>Raft</td>
+<td>Simple but leader-based</td>
+</tr>
+<tr>
+<td><strong>Byzantine tolerance</strong></td>
+<td>Untrusted nodes</td>
+<td>PBFT</td>
+<td>Complex, slow</td>
+</tr>
+<tr>
+<td><strong>High throughput</strong></td>
+<td>Many readers</td>
+<td>Chain replication</td>
+<td>Eventual consistency</td>
+</tr>
+<tr>
+<td><strong>Geo-distribution</strong></td>
+<td>Global deployment</td>
+<td>Multi-Paxos</td>
+<td>Complex operations</td>
+</tr>
+<tr>
+<td><strong>Simple operations</strong></td>
+<td>Key-value only</td>
+<td>Consistent hashing</td>
+<td>No transactions</td>
+</tr>
+<tr>
+<td><strong>No coordination</strong></td>
+<td>Commutative ops</td>
+<td>CRDTs</td>
+<td>Limited operations</td>
+</tr>
+</tbody>
+</table>
+<h3 id="quorum-calculator">Quorum Calculator<a class="headerlink" href="#quorum-calculator" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">Quorum Sizes for N nodes</span><span class="p">:</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="l l-Scalar l-Scalar-Plain">Read Quorum (R) + Write Quorum (W) &gt; N</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="nt">Common Configurations</span><span class="p">:</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Strong Consistency</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R = W = (N/2) + 1</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Read Heavy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R = 1, W = N</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Write Heavy</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R = N, W = 1</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Balanced</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R = W = (N+1)/2</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="nt">Examples for N=5</span><span class="p">:</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Strong</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R=3, W=3 (tolerates 2 failures)</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Read Optimized</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R=1, W=5 (fast reads)</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">Write Optimized</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">R=5, W=1 (fast writes)</span>
+</span></code></pre></div>
 <hr />
 <h2 id="observability-metrics-dashboard">👁️ Observability Metrics Dashboard<a class="headerlink" href="#observability-metrics-dashboard" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 6: Instrument for knowledge</strong></p>
+<h3 id="golden-signals-calculator">Golden Signals Calculator<a class="headerlink" href="#golden-signals-calculator" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="nt">The Four Golden Signals</span><span class="p">:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="l l-Scalar l-Scalar-Plain">1. Latency</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- P50</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___ms (typical experience)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- P95</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___ms (slower users)</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- P99</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___ms (worst case)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Target SLO</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___ms</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="l l-Scalar l-Scalar-Plain">2. Traffic</span><span class="w">  </span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Current</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___ req/s</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Peak</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___ req/s</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Growth rate</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___% monthly</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="l l-Scalar l-Scalar-Plain">3. Errors</span>
+</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Rate</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___%</span><span class="w"> </span>
+</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Threshold</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___%</span><span class="w"> </span>
+</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Types</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">4xx</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">___%</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">5xx</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="nv">___%</span><span class="p p-Indicator">]</span>
+</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
+</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="l l-Scalar l-Scalar-Plain">4. Saturation</span>
+</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- CPU</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___%</span>
+</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Memory</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___%</span>
+</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Disk I/O</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___%</span>
+</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">- Network</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___%</span>
+</span></code></pre></div>
+<h3 id="alert-design-worksheet">Alert Design Worksheet<a class="headerlink" href="#alert-design-worksheet" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Threshold</th>
+<th>Duration</th>
+<th>Severity</th>
+<th>Action</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>API Latency P99</td>
+<td>&gt;500ms</td>
+<td>5 min</td>
+<td>Warning</td>
+<td>Check load</td>
+<td>SRE</td>
+</tr>
+<tr>
+<td>Error Rate</td>
+<td>&gt;1%</td>
+<td>2 min</td>
+<td>Critical</td>
+<td>Page on-call</td>
+<td>SRE</td>
+</tr>
+<tr>
+<td>CPU Usage</td>
+<td>&gt;80%</td>
+<td>10 min</td>
+<td>Warning</td>
+<td>Scale up</td>
+<td>Platform</td>
+</tr>
+<tr>
+<td>Disk Space</td>
+<td>&lt;10%</td>
+<td>-</td>
+<td>Critical</td>
+<td>Clean up</td>
+<td>Platform</td>
+</tr>
+<tr>
+<td>Queue Depth</td>
+<td>&gt;1000</td>
+<td>5 min</td>
+<td>Warning</td>
+<td>Add workers</td>
+<td>App</td>
+</tr>
+</tbody>
+</table>
 <hr />
 <h2 id="human-interface-assessment">👤 Human Interface Assessment<a class="headerlink" href="#human-interface-assessment" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 7: Design the organic API</strong></p>
+<h3 id="cognitive-load-scorer">Cognitive Load Scorer<a class="headerlink" href="#cognitive-load-scorer" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="l l-Scalar l-Scalar-Plain">Rate each factor (1-5, where 5 = high load)</span><span class="p p-Indicator">:</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="nt">Information Density</span><span class="p">:</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="nt">□ Number of items on screen</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="nt">□ Depth of navigation</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="nt">□ Technical jargon used</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="nt">□ Required mental model complexity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="nt">Decision Complexity</span><span class="p">:</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="nt">□ Number of choices presented</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="nt">□ Irreversibility of actions</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="nt">□ Dependencies between choices</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a><span class="nt">□ Time pressure</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a><span class="nt">Total Score</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">___/40</span>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&lt;10</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Well designed</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">10-20</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Acceptable</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">20-30</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Needs improvement</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a><span class="p p-Indicator">-</span><span class="w"> </span><span class="nt">&gt;30</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Redesign required</span>
+</span></code></pre></div>
+<h3 id="runbook-quality-checklist">Runbook Quality Checklist<a class="headerlink" href="#runbook-quality-checklist" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">Essential Elements</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="l l-Scalar l-Scalar-Plain">□ Clear trigger conditions</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="l l-Scalar l-Scalar-Plain">□ Step-by-step instructions</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="l l-Scalar l-Scalar-Plain">□ Copy-pasteable commands</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a><span class="l l-Scalar l-Scalar-Plain">□ Decision trees for variations</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="l l-Scalar l-Scalar-Plain">□ Rollback procedures</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="l l-Scalar l-Scalar-Plain">□ Success criteria</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="l l-Scalar l-Scalar-Plain">□ Escalation paths</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a><span class="l l-Scalar l-Scalar-Plain">□ Time estimates</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="nt">Quality Metrics</span><span class="p">:</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a><span class="l l-Scalar l-Scalar-Plain">□ Can be followed at 3 AM?</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a><span class="l l-Scalar l-Scalar-Plain">□ No assumed knowledge?</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="l l-Scalar l-Scalar-Plain">□ All links working?</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="l l-Scalar l-Scalar-Plain">□ Recently tested?</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a><span class="l l-Scalar l-Scalar-Plain">□ Peer reviewed?</span>
+</span></code></pre></div>
 <hr />
-<h2 id="economics-calculator">💰 Economics Calculator<a class="headerlink" href="#economics-calculator" title="Permanent link">&para;</a></h2>
+<h2 id="cost-calculator">💰 Cost Calculator<a class="headerlink" href="#cost-calculator" title="Permanent link">&para;</a></h2>
 <p><strong>Apply Axiom 8: Optimize cost at scale</strong></p>
+<h3 id="cloud-cost-estimator">Cloud Cost Estimator<a class="headerlink" href="#cloud-cost-estimator" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># Monthly Cost Calculator</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">Compute</span><span class="p">:</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="o">-</span> <span class="n">Instance</span> <span class="n">Type</span><span class="p">:</span> <span class="n">_______</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="o">-</span> <span class="n">Quantity</span><span class="p">:</span> <span class="n">___</span> <span class="n">instances</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="o">-</span> <span class="n">Hours</span><span class="o">/</span><span class="n">month</span><span class="p">:</span> <span class="n">___</span> <span class="p">(</span><span class="nb">max</span> <span class="mi">730</span><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="o">-</span> <span class="n">Reserved</span><span class="err">?</span> <span class="err">□</span> <span class="n">Yes</span> <span class="p">(</span><span class="n">___</span><span class="o">%</span> <span class="n">discount</span><span class="p">)</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="o">-</span> <span class="n">Spot</span><span class="err">?</span> <span class="err">□</span> <span class="n">Yes</span> <span class="p">(</span><span class="n">___</span><span class="o">%</span> <span class="n">discount</span><span class="p">)</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="o">-</span> <span class="n">Subtotal</span><span class="p">:</span> <span class="err">$</span><span class="n">____</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="n">Storage</span><span class="p">:</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="o">-</span> <span class="n">Type</span><span class="p">:</span> <span class="err">□</span> <span class="n">SSD</span> <span class="err">□</span> <span class="n">HDD</span> <span class="err">□</span> <span class="n">Object</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="o">-</span> <span class="n">Size</span><span class="p">:</span> <span class="n">___</span> <span class="n">GB</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="o">-</span> <span class="n">Operations</span><span class="p">:</span> <span class="n">___</span> <span class="n">million</span><span class="o">/</span><span class="n">month</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="o">-</span> <span class="n">Transfer</span> <span class="n">OUT</span><span class="p">:</span> <span class="n">___</span> <span class="n">GB</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="o">-</span> <span class="n">Subtotal</span><span class="p">:</span> <span class="err">$</span><span class="n">____</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="n">Network</span><span class="p">:</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="o">-</span> <span class="n">Data</span> <span class="n">Transfer</span><span class="p">:</span> <span class="n">___</span> <span class="n">GB</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="o">-</span> <span class="n">Regions</span><span class="p">:</span> <span class="err">□</span> <span class="n">Same</span> <span class="err">□</span> <span class="n">Cross</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="o">-</span> <span class="n">Load</span> <span class="n">Balancer</span><span class="p">:</span> <span class="err">□</span> <span class="n">Yes</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="o">-</span> <span class="n">Subtotal</span><span class="p">:</span> <span class="err">$</span><span class="n">____</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="n">Total</span> <span class="n">Monthly</span><span class="p">:</span> <span class="err">$</span><span class="n">____</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="n">Annual</span> <span class="p">(</span><span class="mi">12</span><span class="n">x</span><span class="p">):</span> <span class="err">$</span><span class="n">____</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="n">With</span> <span class="n">Growth</span> <span class="p">(</span><span class="mi">20</span><span class="o">%</span><span class="p">):</span> <span class="err">$</span><span class="n">____</span>
+</span></code></pre></div>
+<h3 id="build-vs-buy-calculator">Build vs Buy Calculator<a class="headerlink" href="#build-vs-buy-calculator" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Factor</th>
+<th>Build</th>
+<th>Buy</th>
+<th>Winner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initial Cost</strong></td>
+<td>$___</td>
+<td>$___</td>
+<td>___</td>
+</tr>
+<tr>
+<td><strong>Monthly OpEx</strong></td>
+<td>$___</td>
+<td>$___</td>
+<td>___</td>
+</tr>
+<tr>
+<td><strong>Dev Time</strong></td>
+<td>___ months</td>
+<td>___ weeks</td>
+<td>___</td>
+</tr>
+<tr>
+<td><strong>Maintenance</strong></td>
+<td>___ hrs/month</td>
+<td>___ hrs/month</td>
+<td>___</td>
+</tr>
+<tr>
+<td><strong>Customization</strong></td>
+<td>___/10</td>
+<td>___/10</td>
+<td>___</td>
+</tr>
+<tr>
+<td><strong>5-Year TCO</strong></td>
+<td>$___</td>
+<td>$___</td>
+<td>___</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Decision</strong>: □ Build □ Buy</p>
 <hr />
 <h2 id="architecture-decision-records-adrs">🏗️ Architecture Decision Records (ADRs)<a class="headerlink" href="#architecture-decision-records-adrs" title="Permanent link">&para;</a></h2>
 <p><strong>Apply All Axioms: Document trade-offs</strong></p>
+<h3 id="adr-template">ADR Template<a class="headerlink" href="#adr-template" title="Permanent link">&para;</a></h3>
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="gh"># ADR-001: [Decision Title]</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="gu">## Status</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>[Proposed | Accepted | Deprecated | Superseded]
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="gu">## Context</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>What is the issue that we&#39;re seeing that is motivating this decision?
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="gu">## Decision</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>What is the change that we&#39;re proposing and/or doing?
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="gu">## Consequences</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a><span class="gu">### Positive</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="k">-</span><span class="w"> </span>Benefit 1
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a><span class="k">-</span><span class="w"> </span>Benefit 2
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a><span class="gu">### Negative  </span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a><span class="k">-</span><span class="w"> </span>Drawback 1
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a><span class="k">-</span><span class="w"> </span>Drawback 2
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a><span class="gu">### Neutral</span>
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a><span class="k">-</span><span class="w"> </span>Side effect 1
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a><span class="k">-</span><span class="w"> </span>Side effect 2
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a><span class="gu">## Axioms Applied</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a><span class="k">-</span><span class="w"> </span>Axiom 1 (Latency): How does this affect speed?
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a><span class="k">-</span><span class="w"> </span>Axiom 2 (Capacity): How does this affect resources?
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a><span class="k">-</span><span class="w"> </span>Axiom 3 (Failure): How does this handle failures?
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a><span class="k">-</span><span class="w"> </span>[Continue for relevant axioms...]
+</span></code></pre></div>
 <hr />
 <h2 id="quick-decision-frameworks">🎯 Quick Decision Frameworks<a class="headerlink" href="#quick-decision-frameworks" title="Permanent link">&para;</a></h2>
 <p><strong>Rapid architectural guidance</strong></p>
+<h3 id="database-selection-matrix">Database Selection Matrix<a class="headerlink" href="#database-selection-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>If You Have...</th>
+<th>Consider...</th>
+<th>Because...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt;1GB, ACID needed</td>
+<td>PostgreSQL</td>
+<td>Best of both worlds</td>
+</tr>
+<tr>
+<td>&gt;1TB, analytics</td>
+<td>Columnar (Parquet)</td>
+<td>Compression &amp; speed</td>
+</tr>
+<tr>
+<td>Key-value, &lt;ms latency</td>
+<td>Redis</td>
+<td>In-memory speed</td>
+</tr>
+<tr>
+<td>Documents, flexible</td>
+<td>MongoDB</td>
+<td>Schema flexibility</td>
+</tr>
+<tr>
+<td>Time series</td>
+<td>InfluxDB</td>
+<td>Optimized for time</td>
+</tr>
+<tr>
+<td>Graph relationships</td>
+<td>Neo4j</td>
+<td>Graph algorithms</td>
+</tr>
+<tr>
+<td>Global scale</td>
+<td>DynamoDB</td>
+<td>Managed, scalable</td>
+</tr>
+</tbody>
+</table>
+<h3 id="caching-strategy-selector">Caching Strategy Selector<a class="headerlink" href="#caching-strategy-selector" title="Permanent link">&para;</a></h3>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="nt">Decision Tree</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="l l-Scalar l-Scalar-Plain">Is data user-specific?</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="l l-Scalar l-Scalar-Plain">├─ Yes → Session/local cache</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="l l-Scalar l-Scalar-Plain">└─ No → Is it expensive to compute?</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">├─ Yes → Application cache (Redis)</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="w">    </span><span class="l l-Scalar l-Scalar-Plain">└─ No → Is it static content?</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">├─ Yes → CDN</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">└─ No → Maybe don&#39;t cache</span>
+</span></code></pre></div>
 <hr />
 <h2 id="reference-quick-cards">📚 Reference Quick Cards<a class="headerlink" href="#reference-quick-cards" title="Permanent link">&para;</a></h2>
 <p><strong>Essential formulas and rules of thumb</strong></p>
+<h3 id="littles-law">Little's Law<a class="headerlink" href="#littles-law" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>L = λ × W
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>- L = Items in system
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>- λ = Arrival rate
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>- W = Time in system
+</span></code></pre></div>
+<h3 id="amdahls-law">Amdahl's Law<a class="headerlink" href="#amdahls-law" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Speedup = 1 / (S + P/N)
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>- S = Serial fraction
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>- P = Parallel fraction  
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>- N = Number of processors
+</span></code></pre></div>
+<h3 id="network-bandwidth">Network Bandwidth<a class="headerlink" href="#network-bandwidth" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Bandwidth (Mbps) = File Size (MB) × 8 / Time (seconds)
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Time = Distance (km) / 200,000 km/s + Processing
+</span></code></pre></div>
+<h3 id="storage-iops">Storage IOPS<a class="headerlink" href="#storage-iops" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>IOPS = 1000 / (Seek Time + Latency)
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Throughput = IOPS × Block Size
+</span></code></pre></div>
+<h3 id="availability-math">Availability Math<a class="headerlink" href="#availability-math" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Serial: A = A₁ × A₂ × ... × Aₙ
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>Parallel: A = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
+</span></code></pre></div>
 <hr />
-<p><em>"The best tools amplify human judgment rather than replace it."</em></p>
+<p><em>"The best tools amplify human judgment rather than replace it. Use these calculators as starting points, not final answers."</em></p>
 
 
 

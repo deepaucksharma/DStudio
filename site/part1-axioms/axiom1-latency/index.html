@@ -1097,7 +1097,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1123,6 +1123,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1232,7 +1239,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1258,6 +1265,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1367,7 +1381,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -1393,6 +1407,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1529,6 +1550,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1664,6 +1692,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1798,6 +1833,13 @@
     Exercises
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -5864,7 +5906,7 @@
     
   
   
-    <span class="md-status md-status--stub"></span>
+    <span class="md-status md-status--complete"></span>
   
 
   
@@ -6433,6 +6475,21 @@
 <li><strong>In fiber optic cable</strong>: ~200,000 km/s (due to refractive index ~1.5)</li>
 <li><strong>In copper wire</strong>: ~200,000 km/s (electromagnetic wave)</li>
 </ul>
+<pre class="mermaid"><code>graph LR
+    A[Speed of Light&lt;br/&gt;299,792 km/s] --&gt; B[Fiber Optic&lt;br/&gt;~200,000 km/s]
+    B --&gt; C[Practical Latency&lt;br/&gt;3-4x theoretical]
+
+    subgraph "Real-World Factors"
+        D[Cable Routing]
+        E[Router Delays]
+        F[Protocol Overhead]
+        G[Congestion]
+    end
+
+    C --&gt; D
+    C --&gt; E
+    C --&gt; F
+    C --&gt; G</code></pre>
 <div class="admonition info">
 <p class="admonition-title">Industry Reality Check</p>
 <p><strong>Google's Measurements</strong>: Real-world fiber latency is 3-4x theoretical minimum due to:
@@ -6443,7 +6500,7 @@
 <p><strong>Rule of Thumb</strong>: For every 1000km, expect ~5ms theoretical + ~10-15ms practical latency</p>
 </div>
 <h3 id="the-latency-ladder">The Latency Ladder<a class="headerlink" href="#the-latency-ladder" title="Permanent link">&para;</a></h3>
-<p>Understanding latency starts with knowing the fundamental delays at each scale:</p>
+<p>Understanding latency starts with knowing the fundamental delays at each scale¹:</p>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="nt">Same rack</span><span class="p">:</span><span class="w">          </span><span class="l l-Scalar l-Scalar-Plain">0.5 ms    ████</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="nt">Same DC</span><span class="p">:</span><span class="w">            </span><span class="l l-Scalar l-Scalar-Plain">1-2 ms    ████████</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="nt">Same region</span><span class="p">:</span><span class="w">        </span><span class="l l-Scalar l-Scalar-Plain">10 ms     ████████████████████</span>
@@ -6452,6 +6509,75 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="nt">Geosync satellite</span><span class="p">:</span><span class="w">  </span><span class="l l-Scalar l-Scalar-Plain">500+ ms   ████████████████████████████████████████████████████████████████████████████████████████████████████████████</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="nt">Mars (best case)</span><span class="p">:</span><span class="w">   </span><span class="l l-Scalar l-Scalar-Plain">4 min     ∞ (off the chart)</span>
 </span></code></pre></div>
+<h3 id="visual-global-latency-map">Visual: Global Latency Map<a class="headerlink" href="#visual-global-latency-map" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Latency by Distance"
+        A[Same Building&lt;br/&gt;0.5ms] --&gt; B[Same City&lt;br/&gt;1-2ms]
+        B --&gt; C[Same State&lt;br/&gt;10ms]
+        C --&gt; D[Same Coast&lt;br/&gt;20-30ms]
+        D --&gt; E[Cross-Country&lt;br/&gt;40-60ms]
+        E --&gt; F[Cross-Ocean&lt;br/&gt;80-150ms]
+        F --&gt; G[Opposite Globe&lt;br/&gt;200-300ms]
+    end
+
+    style A fill:#90EE90
+    style B fill:#90EE90
+    style C fill:#FFFFE0
+    style D fill:#FFFFE0
+    style E fill:#FFE4B5
+    style F fill:#FFA07A
+    style G fill:#FF6347</code></pre>
+<h3 id="quantitative-examples-real-routes">Quantitative Examples: Real Routes<a class="headerlink" href="#quantitative-examples-real-routes" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Route</th>
+<th>Distance</th>
+<th>Theoretical Min</th>
+<th>Typical RTT</th>
+<th>Google's Data²</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>NYC → Boston</td>
+<td>306 km</td>
+<td>1.5 ms</td>
+<td>4-6 ms</td>
+<td>5 ms</td>
+</tr>
+<tr>
+<td>NYC → SF</td>
+<td>4,130 km</td>
+<td>20.7 ms</td>
+<td>65-85 ms</td>
+<td>72 ms</td>
+</tr>
+<tr>
+<td>NYC → London</td>
+<td>5,570 km</td>
+<td>27.9 ms</td>
+<td>70-90 ms</td>
+<td>76 ms</td>
+</tr>
+<tr>
+<td>NYC → Tokyo</td>
+<td>10,850 km</td>
+<td>54.3 ms</td>
+<td>160-200 ms</td>
+<td>188 ms</td>
+</tr>
+<tr>
+<td>NYC → Sydney</td>
+<td>15,990 km</td>
+<td>80.0 ms</td>
+<td>250-300 ms</td>
+<td>278 ms</td>
+</tr>
+</tbody>
+</table>
+<p>¹ <a href="https://colin-scott.github.io/personal/volatile/latency.html">Latency Numbers Every Programmer Should Know</a>
+² <a href="https://cloud.google.com/network-intelligence-center/docs/performance-dashboard/concepts/metrics">Google Cloud Network Performance</a></p>
 <h3 id="simple-example-webpage-loading">Simple Example: Webpage Loading<a class="headerlink" href="#simple-example-webpage-loading" title="Permanent link">&para;</a></h3>
 <p>When you visit a website hosted in another country:</p>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Your Browser → Local ISP → Internet Backbone → Remote ISP → Web Server

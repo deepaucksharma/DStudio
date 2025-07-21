@@ -2,530 +2,650 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/FORMATTING_ISSUES/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/LEARNING_PATHS/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/NAVIGATION_ENHANCEMENTS/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/capstone/evaluation-rubric/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/capstone/framework/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/ad-click-aggregation/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/amazon-dynamo/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/chat-system-enhanced/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/chat-system/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/consistent-hashing/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/distributed-message-queue/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/google-drive/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/google-maps/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/hotel-reservation/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/index-original/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/key-value-store/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/metrics-monitoring/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/nearby-friends/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/news-feed/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/notification-system/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/object-storage/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/payment-system/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/paypal-payments/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/proximity-service/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/rate-limiter/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/search-autocomplete-enhanced/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/search-autocomplete/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/spotify-recommendations/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/stock-exchange/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/uber-location-enhanced/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/uber-location/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/unique-id-generator/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/url-shortener/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/web-crawler/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/youtube-enhanced/</loc>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/youtube/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/blameless-postmortems/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/chaos-engineering/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/consistency-tuning/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/incident-response/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/knowledge-management/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/observability-stacks/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/oncall-culture/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/org-structure/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/runbooks-playbooks/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/sre-practices/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/human-factors/team-topologies/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/introduction/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/introduction/philosophy/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/quiz/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/synthesis/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/index-enhanced/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-capacity/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-capacity/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-capacity/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-failure/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-failure/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-failure/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-concurrency/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-concurrency/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-concurrency/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-coordination/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-coordination/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-coordination/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-observability/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-observability/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-observability/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-human/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-human/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-human/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom8-economics/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom8-economics/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom8-economics/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/decision-tree/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/failure-recap/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/models-collide/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/models-comparison/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/pattern-catalog-intro/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/pattern-legend/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/pattern-matrix/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/pillar-checkpoint/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/pillars-patterns-map/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/reflection-journal/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/tradeoff-calculus/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/transition-part3/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/control/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/control/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/control/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/intelligence/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/intelligence/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/intelligence/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/state/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/state/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/state/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/truth/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/truth/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/truth/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/truth/index-backup/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/work/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/work/examples/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/part2-pillars/work/exercises/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/PATTERN_TEMPLATE/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/auto-scaling/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/bulkhead/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/caching-strategies/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/cdc/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/circuit-breaker-enhanced/</loc>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/circuit-breaker/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/consensus/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/cqrs/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/distributed-lock/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/edge-computing/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/event-driven/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/event-sourcing/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/finops/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/geo-replication/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/graceful-degradation/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/graphql-federation/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/health-check/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/idempotent-receiver/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/leader-election/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/load-balancing/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/load-shedding/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/observability/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/outbox/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/pattern-quiz/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/queues-streaming/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/rate-limiting/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/retry-backoff/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/saga/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/serverless-faas/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/service-discovery/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/service-mesh/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/sharding/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/timeout/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/tunable-consistency/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/amdahl-gustafson/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/availability-math/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/cache-economics/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/capacity-planning/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/coordination-costs/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/latency-ladder/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/littles-law/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/problem-set/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/queueing-models/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/universal-scalability/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/cheat-sheets/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/glossary/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/recipe-cards/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/security/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/tools/</loc>
-         <lastmod>2025-07-20</lastmod>
+         <lastmod>2025-07-21</lastmod>
     </url>
 </urlset>

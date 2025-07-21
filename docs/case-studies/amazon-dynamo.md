@@ -497,16 +497,16 @@ Level 4: Correlated Failures
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - DynamoDB Streams enable change data capture
 
 ### 📊 Quantitative Models
-- **[CAP Theorem](../quantitative/cap-pacelc.md)** - DynamoDB chooses AP (availability + partition tolerance) with tunable consistency
+- **CAP Theorem** - DynamoDB chooses AP (availability + partition tolerance) with tunable consistency
 - **[Little's Law](../quantitative/littles-law.md)** - Helps size connection pools: L = λW (20ms latency × 1000 req/s = 20 concurrent connections)
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for request router capacity planning
-- **[Scaling Laws](../quantitative/scaling-laws.md)** - Linear scaling through consistent hashing partitioning
+- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for request router capacity planning
+- **[Scaling Laws](../quantitative/universal-scalability.md)** - Linear scaling through consistent hashing partitioning
 
 ### 👥 Human Factors Considerations
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - DynamoDB's managed service reduces operational burden
 - **[Incident Response](../human-factors/incident-response.md)** - Automated recovery (hinted handoff, Merkle trees) minimizes manual intervention
-- **[Observability Tools](../human-factors/observability.md)** - Contributor Insights identifies hot keys and performance bottlenecks
-- **[Capacity Planning](../human-factors/capacity-planning.md)** - Auto-scaling eliminates manual capacity management
+- **[Observability Tools](../human-factors/observability-stacks.md)** - Contributor Insights identifies hot keys and performance bottlenecks
+- **[Capacity Planning](../quantitative/capacity-planning.md)** - Auto-scaling eliminates manual capacity management
 
 ### 🔄 Similar Case Studies
 - **[Consistent Hashing Deep Dive](consistent-hashing.md)** - Detailed exploration of DynamoDB's core distribution mechanism
