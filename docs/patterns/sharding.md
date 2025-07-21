@@ -1,13 +1,13 @@
 ---
 title: Sharding (Data Partitioning)
-description: "Horizontally partition data across multiple databases to improve scalability and performance"
+description: Horizontally partition data across multiple databases to improve scalability and performance
 type: pattern
 difficulty: advanced
 reading_time: 30 min
 prerequisites: []
 pattern_type: "data"
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
@@ -15,633 +15,1181 @@ last_updated: 2025-07-20
 
 # Sharding (Data Partitioning)
 
-**Divide and conquer at scale**
+**Divide and conquer at planetary scale**
 
-## THE PROBLEM
-
-```
-Single database limits:
-- 10TB data → Doesn't fit on one machine
-- 1M queries/sec → CPU melts
-- Global users → 200ms+ latency
-- Single failure → Everything down
-
-Vertical scaling hits physics
-```bash
-## THE SOLUTION
-
-```
-Sharding: Split data across multiple databases
-
-Users A-F     Users G-M     Users N-S     Users T-Z
-   DB1           DB2           DB3           DB4
-
-100TB → 25TB each
-1M QPS → 250K QPS each
-```bash
-## Sharding Strategies
-
-```
-1. RANGE SHARDING
-   User ID 1-1000 → Shard 1
-   User ID 1001-2000 → Shard 2
-
-2. HASH SHARDING
-   shard = hash(user_id) % num_shards
-
-3. GEOGRAPHIC SHARDING
-   US users → US shard
-   EU users → EU shard
-
-4. DIRECTORY SHARDING
-   Lookup service maps key → shard
-```bash
-## IMPLEMENTATION
-
-```python
-# Consistent hashing for sharding
-class ConsistentHashSharding:
-    def __init__(self, nodes, virtual_nodes=150):
-        self.nodes = nodes
-        self.virtual_nodes = virtual_nodes
-        self.ring = {}
-        self._build_ring()
-
-    def _build_ring(self):
-        """Build hash ring with virtual nodes"""
-        for node in self.nodes:
-            for i in range(self.virtual_nodes):
-                virtual_key = f"{node.id}:{i}"
-                hash_value = self._hash(virtual_key)
-                self.ring[hash_value] = node
-
-        # Sort ring positions
-        self.sorted_keys = sorted(self.ring.keys())
-
-    def _hash(self, key):
-        """Hash function (MD5 for distribution)"""
-        return int(hashlib.md5(key.encode()).hexdigest(), 16)
-
-    def get_shard(self, key):
-        """Find shard for key"""
-        if not self.ring:
-            return None
-
-        hash_value = self._hash(str(key))
-
-        # Find first node clockwise from hash
-        idx = bisect.bisect_left(self.sorted_keys, hash_value)
-
-        if idx == len(self.sorted_keys):
-            idx = 0
-
-        return self.ring[self.sorted_keys[idx]]
-
-    def add_node(self, node):
-        """Add new shard (for scaling)"""
-        self.nodes.append(node)
-
-        # Add virtual nodes for new shard
-        for i in range(self.virtual_nodes):
-            virtual_key = f"{node.id}:{i}"
-            hash_value = self._hash(virtual_key)
-            self.ring[hash_value] = node
-            bisect.insort(self.sorted_keys, hash_value)
-
-    def remove_node(self, node):
-        """Remove shard (for maintenance)"""
-        self.nodes.remove(node)
-
-        # Remove virtual nodes
-        for i in range(self.virtual_nodes):
-            virtual_key = f"{node.id}:{i}"
-            hash_value = self._hash(virtual_key)
-            del self.ring[hash_value]
-            self.sorted_keys.remove(hash_value)
-
-# Sharded database client
-class ShardedDatabase:
-    def __init__(self, shard_config):
-        self.sharding = ConsistentHashSharding(
-            [Shard(cfg) for cfg in shard_config]
-        )
-        self.connections = {}
-
-    def get_connection(self, shard):
-        """Get connection to shard (with pooling)"""
-        if shard.id not in self.connections:
-            self.connections[shard.id] = ConnectionPool(
-                host=shard.host,
-                port=shard.port,
-                max_connections=10
-            )
-        return self.connections[shard.id].get()
-
-    async def write(self, key, value):
-        """Write to appropriate shard"""
-        shard = self.sharding.get_shard(key)
-        conn = self.get_connection(shard)
-
-        try:
-            await conn.execute(
-                "INSERT INTO data (key, value) VALUES (?, ?)",
-                [key, value]
-            )
-        finally:
-            conn.release()
-
-    async def read(self, key):
-        """Read from appropriate shard"""
-        shard = self.sharding.get_shard(key)
-        conn = self.get_connection(shard)
-
-        try:
-            result = await conn.query(
-                "SELECT value FROM data WHERE key = ?",
-                [key]
-            )
-            return result[0] if result else None
-        finally:
-            conn.release()
-
-    async def read_range(self, start_key, end_key):
-        """Read range across shards (scatter-gather)"""
-        # Determine affected shards
-        affected_shards = self.get_shards_for_range(start_key, end_key)
-
-        # Query all affected shards in parallel
-        futures = []
-        for shard in affected_shards:
-            future = self.read_range_from_shard(shard, start_key, end_key)
-            futures.append(future)
-
-        # Gather and merge results
-        all_results = await asyncio.gather(*futures)
-        return self.merge_sorted(all_results)
-
-# Cross-shard queries
-class CrossShardQueryEngine:
-    def __init__(self, sharded_db):
-        self.db = sharded_db
-
-    async def join_query(self, query):
-        """Execute join across shards"""
-
-        # Example: Find orders for users in specific city
-        # SELECT o.* FROM orders o
-        # JOIN users u ON o.user_id = u.id
-        # WHERE u.city = 'NYC'
-
-        # Step 1: Find all NYC users (might be on multiple shards)
-        user_futures = []
-        for shard in self.db.all_shards():
-            future = shard.query(
-                "SELECT id FROM users WHERE city = 'NYC'"
-            )
-            user_futures.append(future)
-
-        user_results = await asyncio.gather(*user_futures)
-        nyc_user_ids = [uid for result in user_results for uid in result]
-
-        # Step 2: Fetch orders for these users
-        order_futures = []
-        for user_id in nyc_user_ids:
-            shard = self.db.get_shard_for_key(f"order:{user_id}")
-            future = shard.query(
-                "SELECT * FROM orders WHERE user_id = ?",
-                [user_id]
-            )
-            order_futures.append(future)
-
-        order_results = await asyncio.gather(*order_futures)
-        return [order for result in order_results for order in result]
-
-# Resharding (changing shard count)
-class ReshardingManager:
-    def __init__(self, old_shards, new_shards):
-        self.old_shards = old_shards
-        self.new_shards = new_shards
-        self.old_sharding = ConsistentHashSharding(old_shards)
-        self.new_sharding = ConsistentHashSharding(new_shards)
-
-    async def reshard(self):
-        """Migrate data to new shard layout"""
-
-        migration_tasks = []
-
-        # For each old shard
-        for old_shard in self.old_shards:
-            # Scan all data
-            cursor = await old_shard.scan()
-
-            async for batch in cursor:
-                for row in batch:
-                    # Determine new shard
-                    new_shard = self.new_sharding.get_shard(row.key)
-
-                    # Only migrate if shard changed
-                    if new_shard.id != old_shard.id:
-                        task = self.migrate_row(row, old_shard, new_shard)
-                        migration_tasks.append(task)
-
-                # Process batch
-                if len(migration_tasks) >= 1000:
-                    await asyncio.gather(*migration_tasks)
-                    migration_tasks = []
-
-        # Final batch
-        if migration_tasks:
-            await asyncio.gather(*migration_tasks)
-
-    async def migrate_row(self, row, old_shard, new_shard):
-        """Migrate single row between shards"""
-
-        # Write to new shard
-        await new_shard.write(row.key, row.value)
-
-        # Delete from old shard
-        await old_shard.delete(row.key)
-
-        # Log migration
-        print(f"Migrated {row.key}: {old_shard.id} → {new_shard.id}")
-
-# Shard-aware caching
-class ShardedCache:
-    def __init__(self, sharded_db):
-        self.db = sharded_db
-        self.local_caches = {}  # shard_id -> LRU cache
-
-    async def get(self, key):
-        """Get with shard-local caching"""
-        shard = self.db.sharding.get_shard(key)
-
-        # Get shard-local cache
-        if shard.id not in self.local_caches:
-            self.local_caches[shard.id] = LRUCache(capacity=10000)
-
-        cache = self.local_caches[shard.id]
-
-        # Check cache
-        if key in cache:
-            return cache[key]
-
-        # Fetch from shard
-        value = await self.db.read(key)
-
-        # Cache result
-        if value is not None:
-            cache[key] = value
-
-        return value
-```bash
-## Advanced Sharding Patterns
-
-```python
-# Hot shard detection and splitting
-class HotShardManager:
-    def __init__(self, monitoring):
-        self.monitoring = monitoring
-        self.thresholds = {
-            'qps': 10000,
-            'bandwidth_mbps': 1000,
-            'cpu_percent': 80
-        }
-
-    async def detect_hot_shards(self):
-        """Find overloaded shards"""
-        hot_shards = []
-
-        for shard in self.monitoring.get_all_shards():
-            metrics = await self.monitoring.get_metrics(shard)
-
-            if (metrics.qps > self.thresholds['qps'] or
-                metrics.bandwidth > self.thresholds['bandwidth_mbps'] or
-                metrics.cpu > self.thresholds['cpu_percent']):
-
-                hot_shards.append({
-                    'shard': shard,
-                    'metrics': metrics,
-                    'hotness_score': self.calculate_hotness(metrics)
-                })
-
-        return sorted(hot_shards, key=lambda x: x['hotness_score'], reverse=True)
-
-    async def split_hot_shard(self, hot_shard):
-        """Split hot shard into two"""
-        shard = hot_shard['shard']
-
-        # Create two new shards
-        new_shard_1 = await self.provision_new_shard()
-        new_shard_2 = await self.provision_new_shard()
-
-        # Migrate data based on key distribution
-        await self.migrate_by_split(shard, new_shard_1, new_shard_2)
-
-        # Update routing
-        await self.update_shard_map(shard, [new_shard_1, new_shard_2])
-
-        # Decommission old shard
-        await self.decommission_shard(shard)
-
-# Geo-distributed sharding
-class GeoSharding:
-    def __init__(self, regions):
-        self.regions = regions
-        self.geo_router = GeoRouter()
-
-    def get_shard_for_user(self, user):
-        """Route based on geography"""
-
-        # Get user location
-        location = self.geo_router.get_location(user.ip_address)
-
-        # Find nearest region
-        nearest_region = min(
-            self.regions,
-            key=lambda r: self.calculate_distance(location, r.location)
-        )
-
-        # Get shard in that region
-        return nearest_region.get_shard(user.id)
-```
-
-## ✓ CHOOSE THIS WHEN:
-• Data doesn't fit on one machine
-• Need horizontal scaling
-• Global distribution required
-• High availability needed
-• Cost-effective scaling
-
-## ⚠️ BEWARE OF:
-• Cross-shard queries are expensive
-• Transactions across shards
-• Hot shard problems
-• Resharding complexity
-• Shard key changes impossible
-
-## REAL EXAMPLES
-• **MongoDB**: Auto-sharding built-in
-• **Instagram**: Sharded PostgreSQL by user_id
-• **Discord**: Sharded by guild_id
+> *"The only way to handle infinite data is to ensure no single place has to handle all of it."*
 
 ---
 
-**Previous**: [← Service Mesh](service-mesh.md) | **Next**: [Timeout Pattern →](timeout.md)
+## 🎯 Level 1: Intuition
 
-**Related**: [Consistent Hashing](#consistent-hashing) • [Geo Replication](geo-replication.md)
----
+### The Library Analogy
 
-## ✅ When to Use
+Imagine a massive library with billions of books:
+- **Single library**: Eventually runs out of space, librarians overwhelmed
+- **Sharded library**: Multiple buildings, each handles books A-F, G-M, etc.
+- **Smart routing**: Card catalog tells you which building has your book
+- **Parallel processing**: Multiple librarians work simultaneously
 
-### Ideal Scenarios
-- **Distributed systems** with external dependencies
-- **High-availability services** requiring reliability
-- **External service integration** with potential failures
-- **High-traffic applications** needing protection
+### Visual Metaphor
 
-### Environmental Factors
-- **High Traffic**: System handles significant load
-- **External Dependencies**: Calls to other services or systems
-- **Reliability Requirements**: Uptime is critical to business
-- **Resource Constraints**: Limited connections, threads, or memory
-
-### Team Readiness
-- Team understands distributed systems concepts
-- Monitoring and alerting infrastructure exists
-- Operations team can respond to pattern-related alerts
-
-### Business Context
-- Cost of downtime is significant
-- User experience is a priority
-- System is customer-facing or business-critical
-
-## ❌ When NOT to Use
-
-### Inappropriate Scenarios
-- **Simple applications** with minimal complexity
-- **Development environments** where reliability isn't critical
-- **Single-user systems** without scale requirements
-- **Internal tools** with relaxed availability needs
-
-### Technical Constraints
-- **Simple Systems**: Overhead exceeds benefits
-- **Development/Testing**: Adds unnecessary complexity
-- **Performance Critical**: Pattern overhead is unacceptable
-- **Legacy Systems**: Cannot be easily modified
-
-### Resource Limitations
-- **No Monitoring**: Cannot observe pattern effectiveness
-- **Limited Expertise**: Team lacks distributed systems knowledge
-- **Tight Coupling**: System design prevents pattern implementation
-
-### Anti-Patterns
-- Adding complexity without clear benefit
-- Implementing without proper monitoring
-- Using as a substitute for fixing root causes
-- Over-engineering simple problems
-
-## ⚖️ Trade-offs
-
-### Benefits vs Costs
-
-| Benefit | Cost | Mitigation |
-|---------|------|------------|
-| **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
-| **Better Performance** | Resource overhead | Monitor and tune parameters |
-| **Faster Recovery** | Operational complexity | Invest in monitoring and training |
-| **Clearer Debugging** | Additional logging | Use structured logging |
-
-### Performance Impact
-- **Latency**: Small overhead per operation
-- **Memory**: Additional state tracking
-- **CPU**: Monitoring and decision logic
-- **Network**: Possible additional monitoring calls
-
-### Operational Complexity
-- **Monitoring**: Need dashboards and alerts
-- **Configuration**: Parameters must be tuned
-- **Debugging**: Additional failure modes to understand
-- **Testing**: More scenarios to validate
-
-### Development Trade-offs
-- **Initial Cost**: More time to implement correctly
-- **Maintenance**: Ongoing tuning and monitoring
-- **Testing**: Complex failure scenarios to validate
-- **Documentation**: More concepts for team to understand
-
-## 💻 Code Sample
+```
+Unsharded Database:              Sharded Database:
+┌─────────────────┐             ┌──────┐ ┌──────┐ ┌──────┐
+│   All Users     │             │Users │ │Users │ │Users │
+│   (10M rows)    │     →       │ A-F  │ │ G-M  │ │ N-Z  │
+│   One Server    │             │(3.3M)│ │(3.3M)│ │(3.4M)│
+└─────────────────┘             └──────┘ └──────┘ └──────┘
+    Bottleneck!                  Distributed Load!
+```
 
 ### Basic Implementation
 
 ```python
-class ShardingPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
+import hashlib
+from typing import Dict, List, Any, Optional
+from dataclasses import dataclass
 
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
+@dataclass
+class ShardConfig:
+    """Configuration for a single shard"""
+    shard_id: int
+    host: str
+    port: int
+    db_name: str
+    weight: float = 1.0  # For weighted sharding
 
-        try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
-        except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
+class SimpleShardRouter:
+    """Basic sharding router using consistent hashing"""
+    
+    def __init__(self, shards: List[ShardConfig]):
+        self.shards = {s.shard_id: s for s in shards}
+        self.shard_count = len(shards)
+        
+    def get_shard(self, key: str) -> ShardConfig:
+        """Route key to appropriate shard"""
+        # Simple hash-based routing
+        hash_value = int(hashlib.md5(key.encode()).hexdigest(), 16)
+        shard_id = hash_value % self.shard_count
+        return self.shards[shard_id]
+    
+    def get_connection(self, key: str):
+        """Get database connection for key"""
+        shard = self.get_shard(key)
+        return self._connect_to_shard(shard)
+    
+    def _connect_to_shard(self, shard: ShardConfig):
+        """Create connection to specific shard"""
+        # In practice, use connection pooling
+        import psycopg2
+        return psycopg2.connect(
+            host=shard.host,
+            port=shard.port,
+            database=shard.db_name
+        )
 
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
+# Example usage
+shards = [
+    ShardConfig(0, "shard0.db.com", 5432, "users_0"),
+    ShardConfig(1, "shard1.db.com", 5432, "users_1"),
+    ShardConfig(2, "shard2.db.com", 5432, "users_2"),
+    ShardConfig(3, "shard3.db.com", 5432, "users_3")
+]
 
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
+router = SimpleShardRouter(shards)
 
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
+# Route user operations to correct shard
+def get_user(user_id: str) -> Dict:
+    conn = router.get_connection(user_id)
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
+    return cursor.fetchone()
 
-    def _record_success(self):
-        self.metrics.record_success()
-
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = ShardingPattern(config)
-result = pattern.process(user_request)
+def create_user(user_id: str, data: Dict):
+    conn = router.get_connection(user_id)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO users (id, name, email) VALUES (%s, %s, %s)",
+        (user_id, data['name'], data['email'])
+    )
+    conn.commit()
 ```
 
-### Configuration Example
+---
 
-```yaml
-sharding:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
-    enabled: true
-    strategy: "cached_response"
-  monitoring:
-    metrics_enabled: true
-    health_check_interval: 30s
-```
+## 🏗️ Level 2: Foundation
 
-### Testing the Implementation
+### Sharding Strategies Comparison
+
+| Strategy | How it Works | Pros | Cons | Use When |
+|----------|-------------|------|------|----------|
+| **Range-Based** | Partition by value range | Simple, ordered queries | Hotspots possible | Time-series data |
+| **Hash-Based** | Hash function distribution | Even distribution | No range queries | User data |
+| **Geographic** | Partition by location | Data locality | Complex queries | Global apps |
+| **Directory-Based** | Lookup table for mapping | Flexible | Additional hop | Dynamic sharding |
+| **Composite** | Multiple shard keys | Fine-grained control | Complex routing | Multi-tenant |
+
+### Implementing Different Sharding Strategies
 
 ```python
-def test_sharding_behavior():
-    pattern = ShardingPattern(test_config)
+from abc import ABC, abstractmethod
+from datetime import datetime
+import bisect
 
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
+class ShardingStrategy(ABC):
+    """Base class for sharding strategies"""
+    
+    @abstractmethod
+    def get_shard_id(self, key: Any) -> int:
+        pass
 
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
+class RangeSharding(ShardingStrategy):
+    """Range-based sharding strategy"""
+    
+    def __init__(self, ranges: List[tuple]):
+        # ranges = [(0, 1000, 0), (1000, 2000, 1), ...]
+        # (start, end, shard_id)
+        self.ranges = sorted(ranges, key=lambda x: x[0])
+        self.boundaries = [r[0] for r in ranges]
+        
+    def get_shard_id(self, key: int) -> int:
+        # Binary search for the right range
+        idx = bisect.bisect_right(self.boundaries, key) - 1
+        if idx < 0 or idx >= len(self.ranges):
+            raise ValueError(f"Key {key} out of range")
+        
+        start, end, shard_id = self.ranges[idx]
+        if key >= start and key < end:
+            return shard_id
+        raise ValueError(f"Key {key} not in any range")
 
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
+class HashSharding(ShardingStrategy):
+    """Consistent hash-based sharding"""
+    
+    def __init__(self, shard_count: int, virtual_nodes: int = 150):
+        self.shard_count = shard_count
+        self.virtual_nodes = virtual_nodes
+        self._build_hash_ring()
+        
+    def _build_hash_ring(self):
+        """Build consistent hash ring with virtual nodes"""
+        self.ring = {}
+        for shard_id in range(self.shard_count):
+            for vnode in range(self.virtual_nodes):
+                hash_key = hashlib.md5(
+                    f"{shard_id}:{vnode}".encode()
+                ).hexdigest()
+                self.ring[hash_key] = shard_id
+        
+        # Sort ring keys for binary search
+        self.sorted_keys = sorted(self.ring.keys())
+    
+    def get_shard_id(self, key: str) -> int:
+        """Get shard using consistent hashing"""
+        hash_key = hashlib.md5(str(key).encode()).hexdigest()
+        
+        # Find the first node clockwise from the hash
+        idx = bisect.bisect_right(self.sorted_keys, hash_key)
+        if idx == len(self.sorted_keys):
+            idx = 0
+        
+        return self.ring[self.sorted_keys[idx]]
+
+class GeographicSharding(ShardingStrategy):
+    """Geography-based sharding"""
+    
+    def __init__(self, region_mapping: Dict[str, int]):
+        self.region_mapping = region_mapping
+        
+    def get_shard_id(self, location: Dict) -> int:
+        """Route based on geographic location"""
+        # Simple region-based routing
+        region = self._get_region(location['latitude'], location['longitude'])
+        return self.region_mapping.get(region, 0)
+    
+    def _get_region(self, lat: float, lon: float) -> str:
+        """Determine region from coordinates"""
+        if lat > 0 and lon < -30:
+            return "north_america"
+        elif lat > 0 and lon > -30 and lon < 60:
+            return "europe"
+        elif lat > 0 and lon > 60:
+            return "asia"
+        else:
+            return "other"
+
+class CompositeSharding(ShardingStrategy):
+    """Multi-dimensional sharding"""
+    
+    def __init__(self, tenant_shards: int, data_shards_per_tenant: int):
+        self.tenant_shards = tenant_shards
+        self.data_shards_per_tenant = data_shards_per_tenant
+        self.total_shards = tenant_shards * data_shards_per_tenant
+        
+    def get_shard_id(self, tenant_id: str, data_key: str) -> int:
+        """Route based on tenant and data key"""
+        # First level: tenant sharding
+        tenant_shard = hash(tenant_id) % self.tenant_shards
+        
+        # Second level: data sharding within tenant
+        data_shard = hash(data_key) % self.data_shards_per_tenant
+        
+        # Combine to get final shard
+        return tenant_shard * self.data_shards_per_tenant + data_shard
 ```
 
-## 💪 Hands-On Exercises
+### Cross-Shard Query Handling
 
-### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes
-**Objective**: Identify Sharding (Data Partitioning) in existing systems
+```python
+import asyncio
+from concurrent.futures import ThreadPoolExecutor
 
-**Task**:
-Find 2 real-world examples where Sharding (Data Partitioning) is implemented:
-1. **Example 1**: A well-known tech company or service
-2. **Example 2**: An open-source project or tool you've used
+class CrossShardQueryExecutor:
+    """Execute queries across multiple shards"""
+    
+    def __init__(self, shard_router):
+        self.router = shard_router
+        self.executor = ThreadPoolExecutor(max_workers=10)
+        
+    async def scatter_gather_query(
+        self, 
+        query: str, 
+        params: tuple = None,
+        aggregate_func=None
+    ) -> List[Any]:
+        """Execute query on all shards and gather results"""
+        
+        # Execute query on all shards in parallel
+        tasks = []
+        for shard_id, shard in self.router.shards.items():
+            task = asyncio.create_task(
+                self._execute_on_shard(shard, query, params)
+            )
+            tasks.append(task)
+        
+        # Gather results
+        results = await asyncio.gather(*tasks, return_exceptions=True)
+        
+        # Filter out errors
+        valid_results = []
+        for i, result in enumerate(results):
+            if isinstance(result, Exception):
+                print(f"Shard {i} failed: {result}")
+            else:
+                valid_results.extend(result)
+        
+        # Apply aggregation if provided
+        if aggregate_func:
+            return aggregate_func(valid_results)
+        
+        return valid_results
+    
+    async def _execute_on_shard(
+        self, 
+        shard: ShardConfig, 
+        query: str, 
+        params: tuple
+    ):
+        """Execute query on single shard"""
+        loop = asyncio.get_event_loop()
+        return await loop.run_in_executor(
+            self.executor,
+            self._sync_execute,
+            shard,
+            query,
+            params
+        )
+    
+    def _sync_execute(self, shard: ShardConfig, query: str, params: tuple):
+        """Synchronous query execution"""
+        conn = self.router._connect_to_shard(shard)
+        cursor = conn.cursor()
+        cursor.execute(query, params)
+        results = cursor.fetchall()
+        conn.close()
+        return results
 
-For each example:
-- Describe how the pattern is implemented
-- What problems it solves in that context
-- What alternatives could have been used
-
-### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes
-**Objective**: Design an implementation of Sharding (Data Partitioning)
-
-**Scenario**: You need to implement Sharding (Data Partitioning) for an e-commerce checkout system processing 10,000 orders/hour.
-
-**Requirements**:
-- 99.9% availability required
-- Payment processing must be reliable
-- Orders must not be lost or duplicated
-
-**Your Task**:
-1. Design the architecture using Sharding (Data Partitioning)
-2. Identify key components and their responsibilities
-3. Define interfaces between components
-4. Consider failure scenarios and mitigation strategies
-
-**Deliverable**: Architecture diagram + 1-page implementation plan
-
-### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes
-**Objective**: Evaluate when NOT to use Sharding (Data Partitioning)
-
-**Challenge**: You're consulting for a startup building their first product.
-
-**Analysis Required**:
-1. **Context Assessment**: Under what conditions would Sharding (Data Partitioning) be overkill?
-2. **Cost-Benefit**: Compare implementation costs vs. benefits
-3. **Alternatives**: What simpler approaches could work initially?
-4. **Evolution Path**: How would you migrate to Sharding (Data Partitioning) later?
-
-**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+# Example: Get top users across all shards
+async def get_top_users_global(limit: int = 10):
+    executor = CrossShardQueryExecutor(router)
+    
+    # Get top users from each shard
+    shard_results = await executor.scatter_gather_query(
+        "SELECT id, name, score FROM users ORDER BY score DESC LIMIT %s",
+        (limit * 2,)  # Get more than needed from each shard
+    )
+    
+    # Merge and get global top
+    def aggregate_top_users(results):
+        # Sort all results by score
+        all_users = sorted(results, key=lambda x: x[2], reverse=True)
+        return all_users[:limit]
+    
+    return aggregate_top_users(shard_results)
+```
 
 ---
 
-## 🛠️ Code Challenge
+## 🔧 Level 3: Deep Dive
 
-### Beginner: Basic Implementation
-Implement a minimal version of Sharding (Data Partitioning) in your preferred language.
-- Focus on core functionality
-- Include basic error handling
-- Add simple logging
+### Advanced Sharding Patterns
 
-### Intermediate: Production Features
-Extend the basic implementation with:
-- Configuration management
-- Metrics collection
-- Unit tests
-- Documentation
+#### 1. Dynamic Resharding
+```python
+class DynamicResharding:
+    """Handle shard splits and migrations"""
+    
+    def __init__(self, config_store):
+        self.config_store = config_store
+        self.migration_lock = asyncio.Lock()
+        
+    async def split_shard(
+        self, 
+        source_shard_id: int, 
+        target_shard_ids: List[int]
+    ):
+        """Split one shard into multiple shards"""
+        
+        async with self.migration_lock:
+            # Phase 1: Prepare
+            migration_id = self._create_migration_record(
+                source_shard_id, 
+                target_shard_ids
+            )
+            
+            # Phase 2: Dual writes
+            await self._enable_dual_writes(
+                source_shard_id, 
+                target_shard_ids
+            )
+            
+            # Phase 3: Backfill historical data
+            await self._backfill_data(
+                source_shard_id, 
+                target_shard_ids,
+                migration_id
+            )
+            
+            # Phase 4: Verify consistency
+            consistent = await self._verify_consistency(
+                source_shard_id,
+                target_shard_ids
+            )
+            
+            if not consistent:
+                await self._rollback_migration(migration_id)
+                raise Exception("Migration consistency check failed")
+            
+            # Phase 5: Switch reads to new shards
+            await self._switch_reads(target_shard_ids)
+            
+            # Phase 6: Stop writes to old shard
+            await self._disable_shard(source_shard_id)
+            
+            # Phase 7: Cleanup
+            await self._cleanup_old_shard(source_shard_id)
+    
+    async def _backfill_data(
+        self, 
+        source_id: int, 
+        target_ids: List[int],
+        migration_id: str
+    ):
+        """Migrate data from source to targets"""
+        
+        # Get source connection
+        source_conn = self.get_shard_connection(source_id)
+        
+        # Stream data in chunks
+        cursor = source_conn.cursor('migration_cursor')
+        cursor.execute("""
+            SELECT * FROM users 
+            WHERE NOT EXISTS (
+                SELECT 1 FROM migration_log 
+                WHERE migration_id = %s 
+                AND record_id = users.id
+            )
+        """, (migration_id,))
+        
+        batch_size = 1000
+        batch = []
+        
+        for row in cursor:
+            # Determine target shard for this row
+            target_id = self._get_target_shard(row['id'], target_ids)
+            batch.append((target_id, row))
+            
+            if len(batch) >= batch_size:
+                await self._write_batch(batch, migration_id)
+                batch = []
+        
+        # Write remaining batch
+        if batch:
+            await self._write_batch(batch, migration_id)
+    
+    async def _write_batch(self, batch: List[tuple], migration_id: str):
+        """Write batch of records to target shards"""
+        
+        # Group by target shard
+        by_shard = defaultdict(list)
+        for target_id, row in batch:
+            by_shard[target_id].append(row)
+        
+        # Write to each shard in parallel
+        tasks = []
+        for target_id, rows in by_shard.items():
+            task = self._write_to_shard(target_id, rows, migration_id)
+            tasks.append(task)
+        
+        await asyncio.gather(*tasks)
+```
 
-### Advanced: Performance & Scale
-Optimize for production use:
-- Handle concurrent access
-- Implement backpressure
-- Add monitoring hooks
-- Performance benchmarks
+#### 2. Shard-Aware Caching
+```python
+class ShardAwareCache:
+    """Cache that understands sharding"""
+    
+    def __init__(self, shard_router, cache_backend):
+        self.router = shard_router
+        self.cache = cache_backend
+        self.local_cache = {}  # L1 cache per shard
+        
+    async def get(self, key: str) -> Optional[Any]:
+        """Get with shard-aware caching"""
+        
+        # Determine which shard owns this key
+        shard_id = self.router.get_shard_id(key)
+        
+        # Check L1 cache (local to this shard)
+        cache_key = f"shard:{shard_id}:key:{key}"
+        if cache_key in self.local_cache:
+            return self.local_cache[cache_key]
+        
+        # Check L2 cache (distributed)
+        value = await self.cache.get(cache_key)
+        if value is not None:
+            # Populate L1
+            self.local_cache[cache_key] = value
+            return value
+        
+        # Cache miss - fetch from shard
+        shard_conn = self.router.get_connection(key)
+        value = await self._fetch_from_shard(shard_conn, key)
+        
+        if value is not None:
+            # Cache in both layers
+            await self.cache.set(cache_key, value, ttl=300)
+            self.local_cache[cache_key] = value
+        
+        return value
+    
+    async def invalidate_shard(self, shard_id: int):
+        """Invalidate all cache entries for a shard"""
+        
+        # Clear L1 cache for this shard
+        keys_to_remove = [
+            k for k in self.local_cache 
+            if k.startswith(f"shard:{shard_id}:")
+        ]
+        for key in keys_to_remove:
+            del self.local_cache[key]
+        
+        # Clear L2 cache
+        await self.cache.delete_pattern(f"shard:{shard_id}:*")
+```
+
+#### 3. Global Secondary Indexes
+```python
+class GlobalSecondaryIndex:
+    """Maintain global indexes across shards"""
+    
+    def __init__(self, index_name: str, shard_router):
+        self.index_name = index_name
+        self.router = shard_router
+        self.index_shards = {}  # Separate shards for index
+        
+    async def update_index(
+        self, 
+        indexed_value: Any, 
+        primary_key: str,
+        shard_id: int
+    ):
+        """Update global secondary index"""
+        
+        # Determine which index shard handles this value
+        index_shard_id = self._get_index_shard(indexed_value)
+        
+        # Store mapping: indexed_value -> (primary_key, data_shard_id)
+        index_conn = self.get_index_connection(index_shard_id)
+        
+        await index_conn.execute("""
+            INSERT INTO {index_name}_index 
+                (indexed_value, primary_key, data_shard_id)
+            VALUES (%s, %s, %s)
+            ON CONFLICT (indexed_value, primary_key) 
+            DO UPDATE SET data_shard_id = EXCLUDED.data_shard_id
+        """.format(index_name=self.index_name), 
+            (indexed_value, primary_key, shard_id)
+        )
+    
+    async def query_by_index(
+        self, 
+        indexed_value: Any
+    ) -> List[Dict]:
+        """Query using global secondary index"""
+        
+        # Step 1: Look up in index to find which shards have data
+        index_shard_id = self._get_index_shard(indexed_value)
+        index_conn = self.get_index_connection(index_shard_id)
+        
+        rows = await index_conn.fetch("""
+            SELECT primary_key, data_shard_id
+            FROM {index_name}_index
+            WHERE indexed_value = %s
+        """.format(index_name=self.index_name), (indexed_value,))
+        
+        # Step 2: Group by data shard
+        by_shard = defaultdict(list)
+        for row in rows:
+            by_shard[row['data_shard_id']].append(row['primary_key'])
+        
+        # Step 3: Fetch from data shards in parallel
+        tasks = []
+        for shard_id, keys in by_shard.items():
+            task = self._fetch_from_data_shard(shard_id, keys)
+            tasks.append(task)
+        
+        results = await asyncio.gather(*tasks)
+        
+        # Flatten results
+        return [item for sublist in results for item in sublist]
+```
 
 ---
 
-## 🎯 Real-World Application
+## 🚀 Level 4: Expert
 
-**Project Integration**:
-- How would you introduce Sharding (Data Partitioning) to an existing system?
-- What migration strategy would minimize risk?
-- How would you measure success?
+### Production Case Study: Discord's Sharding Architecture
 
-**Team Discussion Points**:
-1. When team members suggest this pattern, what questions should you ask?
-2. How would you explain the value to non-technical stakeholders?
-3. What monitoring would indicate the pattern is working well?
+Discord handles billions of messages across millions of servers using sophisticated sharding.
+
+```python
+class DiscordShardingArchitecture:
+    """
+    Discord's approach to sharding at scale
+    - 5M+ concurrent users
+    - 15B+ messages per month
+    - 100M+ servers (guilds)
+    """
+    
+    def __init__(self):
+        # Discord uses Cassandra with custom sharding
+        self.bucket_count = 4096  # Number of buckets
+        self.buckets_per_shard = 32  # Buckets grouped into shards
+        self.shard_count = self.bucket_count // self.buckets_per_shard
+        
+        # Consistent hashing for bucket assignment
+        self.hash_ring = ConsistentHashRing(self.bucket_count)
+        
+        # Shard mapping (bucket -> physical shard)
+        self.shard_map = {}
+        
+        # Hot shard detection
+        self.shard_metrics = defaultdict(lambda: {
+            'qps': 0,
+            'size_mb': 0,
+            'latency_p99': 0
+        })
+    
+    def get_message_location(self, channel_id: str, message_id: str) -> Dict:
+        """
+        Determine where to store/retrieve a message
+        
+        Discord uses:
+        1. Channel ID to determine bucket
+        2. Message ID (Snowflake) for time ordering
+        """
+        
+        # Get bucket from channel ID
+        bucket_id = self.hash_ring.get_bucket(channel_id)
+        
+        # Get shard from bucket
+        shard_id = self.get_shard_for_bucket(bucket_id)
+        
+        # Extract timestamp from Snowflake ID
+        timestamp = self.extract_timestamp(message_id)
+        
+        # Determine time bucket (for time-based partitioning within shard)
+        time_bucket = self.get_time_bucket(timestamp)
+        
+        return {
+            'bucket_id': bucket_id,
+            'shard_id': shard_id,
+            'table': f"messages_{time_bucket}",
+            'partition_key': channel_id,
+            'clustering_key': message_id
+        }
+    
+    def handle_hot_shard(self, shard_id: int):
+        """
+        Handle hot shards by splitting buckets
+        
+        Discord's approach:
+        1. Detect hot shards via metrics
+        2. Split hot buckets to new shards
+        3. Migrate with zero downtime
+        """
+        
+        metrics = self.shard_metrics[shard_id]
+        
+        # Check if shard is hot
+        if (metrics['qps'] > 10000 or 
+            metrics['size_mb'] > 100000 or
+            metrics['latency_p99'] > 100):
+            
+            # Find hottest buckets in this shard
+            hot_buckets = self.identify_hot_buckets(shard_id)
+            
+            # Create migration plan
+            migration_plan = self.create_migration_plan(hot_buckets)
+            
+            # Execute migration
+            self.execute_bucket_migration(migration_plan)
+    
+    def create_migration_plan(self, hot_buckets: List[int]) -> Dict:
+        """
+        Create plan to redistribute hot buckets
+        """
+        
+        plan = {
+            'migrations': [],
+            'new_shards': []
+        }
+        
+        # Find shards with capacity
+        available_shards = self.find_shards_with_capacity()
+        
+        # If no capacity, need new shards
+        if len(available_shards) < len(hot_buckets):
+            new_shard_count = len(hot_buckets) - len(available_shards)
+            plan['new_shards'] = self.provision_new_shards(new_shard_count)
+            available_shards.extend(plan['new_shards'])
+        
+        # Assign buckets to shards
+        for i, bucket_id in enumerate(hot_buckets):
+            target_shard = available_shards[i % len(available_shards)]
+            plan['migrations'].append({
+                'bucket_id': bucket_id,
+                'source_shard': self.get_shard_for_bucket(bucket_id),
+                'target_shard': target_shard,
+                'estimated_size': self.estimate_bucket_size(bucket_id)
+            })
+        
+        return plan
+    
+    async def query_channel_messages(
+        self, 
+        channel_id: str,
+        before_id: Optional[str] = None,
+        limit: int = 50
+    ) -> List[Dict]:
+        """
+        Query messages for a channel with pagination
+        """
+        
+        # Get bucket and shard
+        location = self.get_message_location(channel_id, before_id or "0")
+        
+        # Build query
+        query = """
+            SELECT message_id, author_id, content, timestamp
+            FROM {table}
+            WHERE channel_id = %s
+        """.format(table=location['table'])
+        
+        params = [channel_id]
+        
+        if before_id:
+            query += " AND message_id < %s"
+            params.append(before_id)
+        
+        query += " ORDER BY message_id DESC LIMIT %s"
+        params.append(limit)
+        
+        # Execute on correct shard
+        shard_conn = self.get_shard_connection(location['shard_id'])
+        results = await shard_conn.fetch(query, *params)
+        
+        return [dict(row) for row in results]
+```
+
+### Vitess: YouTube's Sharding Solution
+
+```python
+class VitessShardingManager:
+    """
+    Vitess - YouTube's horizontal sharding solution
+    Handles billions of queries per day
+    """
+    
+    def __init__(self):
+        self.keyspace_schema = {}
+        self.vindex_map = {}  # Vitess index for routing
+        self.shard_topology = {}
+        
+    def define_sharding_scheme(self, table: str, config: Dict):
+        """
+        Define how a table should be sharded
+        
+        Vitess concepts:
+        - Keyspace: Logical database
+        - Shard: Physical partition
+        - Vindex: Index for shard routing
+        """
+        
+        self.keyspace_schema[table] = {
+            'sharding_column': config['sharding_column'],
+            'vindex_type': config['vindex_type'],
+            'shard_count': config['shard_count']
+        }
+        
+        # Create vindex based on type
+        if config['vindex_type'] == 'hash':
+            self.vindex_map[table] = HashVindex(config['shard_count'])
+        elif config['vindex_type'] == 'range':
+            self.vindex_map[table] = RangeVindex(config['ranges'])
+        elif config['vindex_type'] == 'lookup':
+            self.vindex_map[table] = LookupVindex(config['lookup_table'])
+    
+    def route_query(self, query: str) -> List[Dict]:
+        """
+        Route query to appropriate shards
+        
+        Vitess query routing:
+        1. Parse query to extract table and conditions
+        2. Use vindex to determine target shards
+        3. Execute on shards in parallel
+        4. Merge results
+        """
+        
+        # Parse query
+        parsed = self.parse_query(query)
+        table = parsed['table']
+        conditions = parsed['conditions']
+        
+        # Determine target shards
+        target_shards = self.get_target_shards(table, conditions)
+        
+        # Scatter query to shards
+        shard_queries = []
+        for shard_id in target_shards:
+            shard_query = self.rewrite_query_for_shard(query, shard_id)
+            shard_queries.append((shard_id, shard_query))
+        
+        # Execute in parallel
+        results = self.execute_scatter_gather(shard_queries)
+        
+        # Merge results based on query type
+        if parsed['query_type'] == 'SELECT':
+            return self.merge_select_results(results, parsed)
+        elif parsed['query_type'] == 'AGGREGATE':
+            return self.merge_aggregate_results(results, parsed)
+    
+    def handle_cross_shard_transaction(self, operations: List[Dict]):
+        """
+        Handle transactions spanning multiple shards
+        
+        Vitess uses 2PC (Two-Phase Commit):
+        1. Prepare phase on all shards
+        2. Commit phase if all prepared
+        3. Rollback if any failed
+        """
+        
+        # Group operations by shard
+        ops_by_shard = defaultdict(list)
+        for op in operations:
+            shard_id = self.get_shard_for_operation(op)
+            ops_by_shard[shard_id].append(op)
+        
+        # Start distributed transaction
+        dtx_id = self.generate_dtx_id()
+        
+        # Phase 1: Prepare
+        prepare_results = {}
+        for shard_id, shard_ops in ops_by_shard.items():
+            try:
+                prepared = self.prepare_on_shard(
+                    shard_id, 
+                    dtx_id, 
+                    shard_ops
+                )
+                prepare_results[shard_id] = prepared
+            except Exception as e:
+                # Prepare failed, abort
+                self.abort_transaction(dtx_id, prepare_results)
+                raise
+        
+        # Phase 2: Commit
+        for shard_id in prepare_results:
+            self.commit_on_shard(shard_id, dtx_id)
+        
+        return {'transaction_id': dtx_id, 'status': 'committed'}
+```
+
+### Economic Impact Analysis
+
+```python
+class ShardingEconomicsAnalyzer:
+    """Analyze economic impact of sharding strategies"""
+    
+    def analyze_sharding_roi(
+        self,
+        current_state: Dict,
+        sharding_proposal: Dict
+    ) -> Dict:
+        """Calculate ROI of implementing sharding"""
+        
+        # Current costs (single large database)
+        current_costs = {
+            'hardware': self._calculate_vertical_scaling_cost(
+                current_state['data_size_tb'],
+                current_state['qps']
+            ),
+            'licenses': current_state['db_licenses_annual'],
+            'operations': current_state['dba_hours_weekly'] * 52 * 150,
+            'downtime': current_state['downtime_hours_annual'] * 
+                       current_state['revenue_per_hour']
+        }
+        
+        # Projected costs with sharding
+        shard_count = sharding_proposal['shard_count']
+        sharded_costs = {
+            'hardware': self._calculate_horizontal_scaling_cost(
+                current_state['data_size_tb'],
+                current_state['qps'],
+                shard_count
+            ),
+            'licenses': sharding_proposal['db_licenses_annual'],
+            'operations': sharding_proposal['dba_hours_weekly'] * 52 * 150,
+            'development': sharding_proposal['development_hours'] * 150,
+            'migration': sharding_proposal['migration_hours'] * 150
+        }
+        
+        # Benefits
+        benefits = {
+            'improved_performance': self._calculate_performance_value(
+                current_state['avg_latency_ms'],
+                sharding_proposal['expected_latency_ms']
+            ),
+            'increased_capacity': self._calculate_capacity_value(
+                current_state['max_qps'],
+                sharding_proposal['max_qps']
+            ),
+            'reduced_downtime': (
+                current_state['downtime_hours_annual'] - 
+                sharding_proposal['expected_downtime_hours']
+            ) * current_state['revenue_per_hour']
+        }
+        
+        # Calculate ROI
+        annual_savings = (
+            sum(current_costs.values()) - 
+            sum(sharded_costs.values()) + 
+            sum(benefits.values())
+        )
+        
+        implementation_cost = (
+            sharded_costs['development'] + 
+            sharded_costs['migration']
+        )
+        
+        return {
+            'implementation_cost': implementation_cost,
+            'annual_savings': annual_savings,
+            'payback_months': implementation_cost / (annual_savings / 12),
+            'five_year_roi': (annual_savings * 5 - implementation_cost) / 
+                           implementation_cost * 100
+        }
+```
 
 ---
+
+## 🎯 Level 5: Mastery
+
+### Theoretical Foundations
+
+#### Optimal Shard Count Determination
+```python
+import numpy as np
+from scipy.optimize import minimize_scalar
+
+class OptimalShardingCalculator:
+    """
+    Calculate optimal shard count using queuing theory
+    and cost optimization
+    """
+    
+    def calculate_optimal_shards(
+        self,
+        total_data_size: float,  # TB
+        query_rate: float,       # QPS
+        growth_rate: float,      # Annual %
+        constraints: Dict
+    ) -> Dict:
+        """
+        Find optimal shard count balancing:
+        - Query performance
+        - Cost efficiency
+        - Operational complexity
+        """
+        
+        def cost_function(shard_count):
+            # Hardware cost (decreases with more shards due to smaller instances)
+            hw_cost = self._hardware_cost(
+                total_data_size / shard_count,
+                query_rate / shard_count
+            ) * shard_count
+            
+            # Operational cost (increases with more shards)
+            ops_cost = self._operational_cost(shard_count)
+            
+            # Performance penalty (decreases with more shards)
+            perf_penalty = self._performance_penalty(
+                query_rate / shard_count,
+                constraints['max_latency_ms']
+            )
+            
+            # Cross-shard query penalty (increases with more shards)
+            cross_shard_penalty = self._cross_shard_penalty(
+                shard_count,
+                constraints['cross_shard_query_ratio']
+            )
+            
+            return hw_cost + ops_cost + perf_penalty + cross_shard_penalty
+        
+        # Find optimal shard count
+        result = minimize_scalar(
+            cost_function,
+            bounds=(1, 100),
+            method='bounded'
+        )
+        
+        optimal_shards = int(result.x)
+        
+        # Calculate characteristics at optimal point
+        shard_size = total_data_size / optimal_shards
+        shard_qps = query_rate / optimal_shards
+        
+        # Project growth
+        years_until_reshard = self._calculate_reshard_timeline(
+            shard_size,
+            shard_qps,
+            growth_rate,
+            constraints
+        )
+        
+        return {
+            'optimal_shard_count': optimal_shards,
+            'shard_size_tb': shard_size,
+            'shard_qps': shard_qps,
+            'annual_cost': cost_function(optimal_shards),
+            'years_until_reshard': years_until_reshard,
+            'recommendations': self._generate_recommendations(
+                optimal_shards,
+                shard_size,
+                shard_qps
+            )
+        }
+    
+    def _hardware_cost(self, size_tb: float, qps: float) -> float:
+        """Estimate hardware cost for given size and QPS"""
+        # Based on cloud provider pricing
+        # Larger instances have worse $/GB ratio
+        storage_cost = size_tb * 100 * (1 + 0.1 * np.log(size_tb))
+        compute_cost = qps * 0.01 * (1 + 0.05 * np.log(qps))
+        return storage_cost + compute_cost
+    
+    def _cross_shard_penalty(
+        self, 
+        shard_count: int, 
+        cross_shard_ratio: float
+    ) -> float:
+        """Calculate penalty for cross-shard operations"""
+        # More shards = more cross-shard queries
+        # Penalty grows super-linearly
+        return cross_shard_ratio * (shard_count ** 1.5) * 1000
+```
+
+### Advanced Sharding Algorithms
+
+```python
+class AdvancedShardingAlgorithms:
+    """State-of-the-art sharding algorithms"""
+    
+    def jump_consistent_hash(self, key: int, num_buckets: int) -> int:
+        """
+        Google's Jump Consistent Hash
+        - No memory overhead
+        - Consistent bucket reassignment
+        - O(ln n) time complexity
+        """
+        b = -1
+        j = 0
+        
+        while j < num_buckets:
+            b = j
+            key = ((key * 2862933555777941757) + 1) & 0xffffffffffffffff
+            j = int((b + 1) * (2**31 / ((key >> 33) + 1)))
+        
+        return b
+    
+    def maglev_hashing(self, backends: List[str], table_size: int = 65537):
+        """
+        Google's Maglev consistent hashing
+        Used in their load balancers
+        - Minimal disruption on changes
+        - Even distribution
+        - Fast lookup
+        """
+        
+        def hash_1(x):
+            return hash(x + "_1") % table_size
+        
+        def hash_2(x):
+            return hash(x + "_2") % table_size
+        
+        n = len(backends)
+        lookup = [-1] * table_size
+        
+        # Build permutation for each backend
+        permutations = []
+        for backend in backends:
+            offset = hash_1(backend)
+            skip = hash_2(backend)
+            
+            permutation = []
+            for j in range(table_size):
+                permutation.append((offset + j * skip) % table_size)
+            
+            permutations.append(permutation)
+        
+        # Build lookup table
+        next_pos = [0] * n
+        for i in range(table_size):
+            for j in range(n):
+                c = permutations[j][next_pos[j]]
+                
+                while lookup[c] != -1:
+                    next_pos[j] += 1
+                    c = permutations[j][next_pos[j]]
+                
+                lookup[c] = j
+                next_pos[j] += 1
+                break
+        
+        return lookup
+    
+    def bounded_load_consistent_hash(
+        self, 
+        key: str,
+        nodes: List[str],
+        load_factor: float = 1.25
+    ) -> str:
+        """
+        Consistent hashing with bounded loads
+        Ensures no node gets overloaded
+        """
+        
+        # Calculate capacity for each node
+        avg_load = 1.0 / len(nodes)
+        max_load = avg_load * load_factor
+        
+        node_loads = {node: 0.0 for node in nodes}
+        
+        # Try nodes in consistent hash order
+        for i in range(len(nodes)):
+            node = self._consistent_hash_node(key, nodes, i)
+            
+            if node_loads[node] < max_load:
+                node_loads[node] += 1.0 / len(nodes)
+                return node
+        
+        # Fallback to least loaded
+        return min(node_loads.items(), key=lambda x: x[1])[0]
+```
+
+### Future Directions
+
+1. **AI-Driven Sharding**
+   - ML models predicting optimal shard placement
+   - Automatic hot spot detection and mitigation
+   - Predictive resharding before issues occur
+
+2. **Quantum-Resistant Sharding**
+   - Post-quantum cryptographic sharding
+   - Quantum-safe consensus protocols
+   - Entanglement-inspired shard coordination
+
+3. **Edge-Native Sharding**
+   - Geo-distributed sharding at edge
+   - 5G network-aware shard placement
+   - Latency-optimized routing
+
+4. **Blockchain Sharding**
+   - State sharding for blockchain scalability
+   - Cross-shard atomic swaps
+   - Sharded consensus mechanisms
+
+---
+
+## 📋 Quick Reference
+
+### Sharding Strategy Selection
+
+| If you have... | Use this strategy | Key considerations |
+|----------------|-------------------|-------------------|
+| Numeric IDs | Range sharding | Watch for hotspots |
+| Random keys | Hash sharding | No range queries |
+| Geographic data | Location sharding | Data sovereignty |
+| Time-series | Time-based sharding | Easy archival |
+| Multi-tenant | Tenant sharding | Isolation guaranteed |
+| Complex queries | Directory sharding | Additional hop |
+
+### Implementation Checklist
+
+- [ ] Choose sharding key wisely (can't change easily)
+- [ ] Plan for resharding from day one
+- [ ] Implement shard-aware connection pooling
+- [ ] Build cross-shard query capabilities
+- [ ] Add shard monitoring and metrics
+- [ ] Create shard management tools
+- [ ] Test shard failure scenarios
+- [ ] Document shard topology
+- [ ] Plan backup strategy per shard
+- [ ] Consider compliance requirements
+
+### Common Anti-Patterns
+
+1. **Sharding Too Early**: Premature optimization
+2. **Wrong Shard Key**: Causes hotspots or poor distribution
+3. **No Resharding Plan**: Painted into corner
+4. **Ignoring Cross-Shard Queries**: Performance surprises
+5. **Forgetting About Joins**: Distributed joins are hard
+
+---
+
+## 🎓 Key Takeaways
+
+1. **Shard key selection is critical** - It determines everything
+2. **Plan for resharding** - Data grows, patterns change
+3. **Monitor shard health** - Detect hotspots early
+4. **Minimize cross-shard operations** - They're expensive
+5. **Automate shard management** - Manual doesn't scale
+
+---
+
+*"The best sharding strategy is the one that lets you sleep at night while your data doubles."*
+
+---
+
+**Previous**: [← Service Mesh](service-mesh.md) | **Next**: [Timeout Pattern →](timeout.md)

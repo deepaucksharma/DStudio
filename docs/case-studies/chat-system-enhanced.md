@@ -975,6 +975,165 @@ graph TB
            await self._auto_scale_websocket_servers(count)
    ```
 
+## 🔄 Consistency Deep Dive
+
+### Multi-Device Consistency
+```python
+class MultiDeviceConsistencyManager:
+    """Ensures messages are consistent across all user devices"""
+    
+    def __init__(self):
+        self.device_registry = DeviceRegistry()
+        self.sync_engine = SyncEngine()
+        self.conflict_resolver = ConflictResolver()
+        
+    async def handle_message_delivery(self, message: Message, user_id: str):
+        """Deliver message to all user's devices consistently"""
+        
+        # Get all active devices for user
+        devices = await self.device_registry.get_active_devices(user_id)
+        
+        # Generate monotonic timestamp for ordering
+        logical_timestamp = await self.generate_logical_timestamp(user_id)
+        message.logical_timestamp = logical_timestamp
+        
+        # Deliver to all devices with retry logic
+        delivery_futures = []
+        for device in devices:
+            future = self._deliver_to_device_with_consistency(
+                message, device, logical_timestamp
+            )
+            delivery_futures.append(future)
+        
+        # Wait for majority acknowledgment (quorum)
+        results = await self._wait_for_quorum(delivery_futures, len(devices))
+        
+        # Handle devices that didn't acknowledge
+        failed_devices = self._identify_failed_deliveries(results, devices)
+        if failed_devices:
+            await self._queue_for_eventual_delivery(message, failed_devices)
+```
+
+### Message Ordering Guarantees
+```python
+class MessageOrderingSystem:
+    """Implements different ordering guarantees for messages"""
+    
+    def __init__(self, ordering_mode: OrderingMode):
+        self.ordering_mode = ordering_mode
+        self.vector_clock = VectorClock()
+        self.lamport_clock = LamportClock()
+        
+    async def order_messages(self, messages: List[Message]) -> List[Message]:
+        """Order messages based on consistency requirements"""
+        
+        if self.ordering_mode == OrderingMode.TOTAL_ORDER:
+            # Use Lamport timestamps for total ordering
+            return self._total_order_messages(messages)
+            
+        elif self.ordering_mode == OrderingMode.CAUSAL_ORDER:
+            # Use vector clocks for causal ordering
+            return self._causal_order_messages(messages)
+            
+        elif self.ordering_mode == OrderingMode.FIFO_ORDER:
+            # Per-sender FIFO ordering only
+            return self._fifo_order_messages(messages)
+```
+
+### Hybrid Consistency Model
+```python
+class HybridConsistencySystem:
+    """Different consistency levels for different operations"""
+    
+    def __init__(self):
+        self.consistency_zones = {
+            'messages': ConsistencyLevel.EVENTUAL,
+            'group_metadata': ConsistencyLevel.STRONG,
+            'user_presence': ConsistencyLevel.WEAK,
+            'read_receipts': ConsistencyLevel.CAUSAL,
+            'payments': ConsistencyLevel.LINEARIZABLE
+        }
+        
+    async def execute_operation(self, operation: Operation) -> Result:
+        """Execute operation with appropriate consistency level"""
+        
+        consistency_level = self.consistency_zones.get(
+            operation.type, 
+            ConsistencyLevel.EVENTUAL
+        )
+        
+        if consistency_level == ConsistencyLevel.LINEARIZABLE:
+            return await self._execute_linearizable(operation)
+        elif consistency_level == ConsistencyLevel.STRONG:
+            return await self._execute_strong_consistency(operation)
+        elif consistency_level == ConsistencyLevel.CAUSAL:
+            return await self._execute_causal_consistency(operation)
+        elif consistency_level == ConsistencyLevel.EVENTUAL:
+            return await self._execute_eventual_consistency(operation)
+        else:  # WEAK
+            return await self._execute_weak_consistency(operation)
+```
+
+### Causal Broadcast for Group Messages
+```python
+class CausalBroadcastProtocol:
+    """Ensures causal order in group message delivery"""
+    
+    def __init__(self, group_id: str):
+        self.group_id = group_id
+        self.vector_clock = VectorClock()
+        self.pending_messages = defaultdict(list)
+        self.delivered_messages = set()
+        
+    async def broadcast_message(self, sender_id: str, message: Message):
+        """Broadcast message with causal ordering"""
+        
+        # Increment sender's clock
+        self.vector_clock.increment(sender_id)
+        
+        # Attach vector timestamp
+        message.vector_timestamp = self.vector_clock.get_timestamp()
+        
+        # Get group members
+        members = await self.get_group_members(self.group_id)
+        
+        # Send to all members
+        for member_id in members:
+            if member_id != sender_id:
+                await self._send_to_member(member_id, message)
+    
+    def _can_deliver(self, message: Message) -> bool:
+        """Check if message can be delivered respecting causality"""
+        
+        msg_vc = message.vector_timestamp
+        local_vc = self.vector_clock.get_timestamp()
+        
+        # For each process
+        for process_id in msg_vc:
+            if process_id == message.sender_id:
+                # Sender's clock should be exactly one more
+                if msg_vc[process_id] != local_vc.get(process_id, 0) + 1:
+                    return False
+            else:
+                # Other clocks should not be ahead
+                if msg_vc[process_id] > local_vc.get(process_id, 0):
+                    return False
+        
+        return True
+```
+
+### Consistency Trade-offs in Practice
+
+| Consistency Model | Use Case | Trade-offs |
+|------------------|----------|------------|
+| **Strong Consistency** | Group creation, Payment messages | Higher latency, Lower availability |
+| **Causal Consistency** | Message ordering within conversations | Moderate complexity, Good performance |
+| **Eventual Consistency** | Message delivery, Read receipts | Best performance, Potential temporary inconsistencies |
+| **Read-Your-Writes** | User's own messages | Additional tracking overhead |
+| **Monotonic Reads** | Message history pagination | Requires session stickiness |
+
+For a comprehensive deep dive into consistency patterns in chat systems, see [Consistency Deep Dive](consistency-deep-dive-chat.md).
+
 ## 💡 Key Design Insights
 
 ### 1. 🚀 **Real-time Requires Custom Protocols**
@@ -1001,6 +1160,12 @@ graph TB
 - 2M connections per server
 - Actor model perfect for chat
 - Let-it-crash philosophy improves reliability
+
+### 6. 🔄 **Consistency is Context-Dependent**
+- Different operations need different consistency levels
+- CRDTs enable offline-first experiences
+- Vector clocks preserve causality in group chats
+- Consensus only for critical operations (group admin changes)
 
 ## 🔍 Related Concepts & Deep Dives
 

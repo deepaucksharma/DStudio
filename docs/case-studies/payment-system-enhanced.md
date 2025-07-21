@@ -1452,6 +1452,382 @@ class E2EEncryption:
         )
 ```
 
+## 7. Consistency Deep Dive for Payment Systems
+
+### 7.1 ACID Guarantees in Distributed Payments
+```python
+class DistributedPaymentConsistency:
+    """Ensures ACID properties across distributed payment operations"""
+    
+    def __init__(self):
+        self.transaction_coordinator = TwoPhaseCommitCoordinator()
+        self.saga_orchestrator = SagaOrchestrator()
+        self.consistency_monitor = ConsistencyMonitor()
+        
+    async def execute_payment_transaction(self, payment: PaymentRequest) -> TransactionResult:
+        """Execute payment with distributed ACID guarantees"""
+        
+        # Start distributed transaction
+        tx_id = await self.transaction_coordinator.begin_transaction()
+        
+        try:
+            # Phase 1: Prepare all participants
+            prepare_results = await asyncio.gather(
+                self._prepare_debit(tx_id, payment.source_account, payment.amount),
+                self._prepare_credit(tx_id, payment.dest_account, payment.amount),
+                self._prepare_ledger_entry(tx_id, payment),
+                self._prepare_fraud_check(tx_id, payment)
+            )
+            
+            # Check if all participants voted to commit
+            if all(result.can_commit for result in prepare_results):
+                # Phase 2: Commit
+                await self.transaction_coordinator.commit(tx_id)
+                return TransactionResult(success=True, tx_id=tx_id)
+            else:
+                # Abort transaction
+                await self.transaction_coordinator.abort(tx_id)
+                return TransactionResult(success=False, reason="Prepare phase failed")
+                
+        except Exception as e:
+            # Ensure cleanup on any failure
+            await self.transaction_coordinator.abort(tx_id)
+            raise
+    
+    async def _prepare_debit(self, tx_id: str, account: str, amount: Decimal) -> PrepareResult:
+        """Prepare debit with pessimistic locking"""
+        
+        async with self.get_account_lock(account):
+            # Check balance
+            balance = await self.get_balance(account)
+            if balance < amount:
+                return PrepareResult(can_commit=False, reason="Insufficient funds")
+            
+            # Reserve funds
+            await self.reserve_funds(tx_id, account, amount)
+            return PrepareResult(can_commit=True)
+```
+
+### 7.2 Saga Pattern for Long-Running Transactions
+```python
+class PaymentSaga:
+    """Implements Saga pattern for complex payment workflows"""
+    
+    def __init__(self):
+        self.steps = [
+            SagaStep("validate_payment", self.validate_payment, self.cancel_validation),
+            SagaStep("reserve_funds", self.reserve_funds, self.release_funds),
+            SagaStep("process_payment", self.process_payment, self.refund_payment),
+            SagaStep("update_ledger", self.update_ledger, self.reverse_ledger),
+            SagaStep("notify_merchant", self.notify_merchant, self.cancel_notification)
+        ]
+        
+    async def execute(self, payment: PaymentRequest) -> SagaResult:
+        """Execute payment saga with automatic compensation"""
+        
+        completed_steps = []
+        saga_context = SagaContext(payment_id=payment.id)
+        
+        try:
+            # Forward execution
+            for step in self.steps:
+                result = await step.execute(saga_context, payment)
+                
+                if not result.success:
+                    # Trigger compensation
+                    await self._compensate(completed_steps, saga_context)
+                    return SagaResult(
+                        success=False,
+                        failed_step=step.name,
+                        compensation_completed=True
+                    )
+                    
+                completed_steps.append(step)
+                saga_context.add_result(step.name, result)
+            
+            return SagaResult(success=True, context=saga_context)
+            
+        except Exception as e:
+            # Compensate on any error
+            await self._compensate(completed_steps, saga_context)
+            raise
+    
+    async def _compensate(self, completed_steps: List[SagaStep], context: SagaContext):
+        """Execute compensation in reverse order"""
+        
+        for step in reversed(completed_steps):
+            try:
+                await step.compensate(context)
+            except Exception as e:
+                # Log compensation failure but continue
+                logger.error(f"Compensation failed for {step.name}: {e}")
+                # Might need manual intervention
+                await self._alert_operations(step.name, context, e)
+```
+
+### 7.3 Eventual Consistency in Settlement
+```python
+class SettlementConsistencyManager:
+    """Manages eventual consistency for payment settlements"""
+    
+    def __init__(self):
+        self.settlement_queue = DistributedQueue()
+        self.reconciliation_engine = ReconciliationEngine()
+        self.consistency_checker = ConsistencyChecker()
+        
+    async def process_settlement_batch(self, batch_id: str):
+        """Process settlements with eventual consistency"""
+        
+        # Get transactions for settlement
+        transactions = await self.get_pending_transactions(batch_id)
+        
+        # Group by merchant for efficiency
+        merchant_groups = self._group_by_merchant(transactions)
+        
+        # Process each merchant's settlements
+        settlement_futures = []
+        for merchant_id, txns in merchant_groups.items():
+            future = self._settle_merchant_transactions(
+                merchant_id, 
+                txns,
+                batch_id
+            )
+            settlement_futures.append(future)
+        
+        # Wait for all settlements (eventual consistency)
+        results = await asyncio.gather(*settlement_futures, return_exceptions=True)
+        
+        # Handle any failures
+        failed_settlements = [
+            (merchant_id, result) 
+            for merchant_id, result in zip(merchant_groups.keys(), results)
+            if isinstance(result, Exception)
+        ]
+        
+        if failed_settlements:
+            # Queue for retry
+            for merchant_id, error in failed_settlements:
+                await self.settlement_queue.enqueue(
+                    SettlementRetry(
+                        merchant_id=merchant_id,
+                        batch_id=batch_id,
+                        attempt=1,
+                        error=str(error)
+                    )
+                )
+        
+        # Start reconciliation process
+        await self.reconciliation_engine.reconcile_batch(batch_id)
+```
+
+### 7.4 Strong Consistency for Critical Operations
+```python
+class CriticalPaymentOperations:
+    """Implements strong consistency for critical payment operations"""
+    
+    def __init__(self, consensus_engine: RaftConsensus):
+        self.consensus = consensus_engine
+        self.state_machine = PaymentStateMachine()
+        
+    async def update_merchant_fee_structure(self, 
+                                          merchant_id: str,
+                                          new_fees: FeeStructure) -> bool:
+        """Update fees with linearizable consistency"""
+        
+        # Create proposal for consensus
+        proposal = FeeUpdateProposal(
+            merchant_id=merchant_id,
+            new_fees=new_fees,
+            effective_date=datetime.utcnow(),
+            version=await self._get_current_version(merchant_id) + 1
+        )
+        
+        # Submit to consensus
+        result = await self.consensus.propose(proposal)
+        
+        if result.committed:
+            # Apply to state machine
+            self.state_machine.apply_fee_update(proposal)
+            
+            # Ensure all replicas have the update
+            await self._wait_for_replication(proposal)
+            
+            return True
+        
+        return False
+    
+    async def create_payment_account(self, account_details: AccountDetails) -> Account:
+        """Create account with strong consistency across all nodes"""
+        
+        # Generate unique account ID
+        account_id = await self._generate_unique_account_id()
+        
+        # Prepare account creation
+        proposal = AccountCreationProposal(
+            account_id=account_id,
+            details=account_details,
+            created_at=datetime.utcnow()
+        )
+        
+        # Use consensus for creation
+        result = await self.consensus.propose(proposal)
+        
+        if not result.committed:
+            raise ConsistencyError("Failed to achieve consensus on account creation")
+        
+        # Wait for all nodes to acknowledge
+        await self._wait_for_all_nodes(account_id)
+        
+        return Account(id=account_id, **account_details.dict())
+```
+
+### 7.5 Read-After-Write Consistency
+```python
+class PaymentReadConsistency:
+    """Ensures users see their own payment operations immediately"""
+    
+    def __init__(self):
+        self.write_cache = WriteCache(ttl=300)  # 5 minutes
+        self.read_router = ReadRouter()
+        
+    async def process_payment_with_read_consistency(self, 
+                                                   user_id: str,
+                                                   payment: PaymentRequest) -> PaymentResult:
+        """Process payment ensuring read-after-write consistency"""
+        
+        # Process payment
+        result = await self._process_payment_internal(payment)
+        
+        if result.success:
+            # Cache the write for immediate reads
+            cache_entry = PaymentCacheEntry(
+                payment_id=result.payment_id,
+                user_id=user_id,
+                status=result.status,
+                amount=payment.amount,
+                timestamp=datetime.utcnow()
+            )
+            
+            await self.write_cache.set(
+                key=f"payment:{result.payment_id}",
+                value=cache_entry,
+                user_context=user_id
+            )
+            
+            # Also cache by user for listing
+            await self.write_cache.append_to_list(
+                key=f"user_payments:{user_id}",
+                value=result.payment_id,
+                user_context=user_id
+            )
+        
+        return result
+    
+    async def get_payment_status(self, user_id: str, payment_id: str) -> PaymentStatus:
+        """Get payment status with read-after-write guarantee"""
+        
+        # First check write cache
+        cached = await self.write_cache.get(
+            key=f"payment:{payment_id}",
+            user_context=user_id
+        )
+        
+        if cached:
+            return cached.status
+        
+        # Route read to appropriate replica
+        replica = self.read_router.get_replica_for_user(user_id)
+        
+        # Read with consistency token
+        return await replica.get_payment_status(
+            payment_id,
+            consistency_token=self._get_user_consistency_token(user_id)
+        )
+```
+
+### 7.6 Consistency Monitoring and Reconciliation
+```python
+class PaymentConsistencyMonitor:
+    """Monitor and ensure consistency across payment systems"""
+    
+    def __init__(self):
+        self.metrics = ConsistencyMetrics()
+        self.reconciler = PaymentReconciler()
+        self.alert_manager = AlertManager()
+        
+    async def continuous_consistency_check(self):
+        """Continuously monitor payment consistency"""
+        
+        while True:
+            try:
+                # Check ledger consistency
+                ledger_issues = await self._check_ledger_consistency()
+                if ledger_issues:
+                    await self._handle_ledger_inconsistencies(ledger_issues)
+                
+                # Check payment state consistency
+                payment_issues = await self._check_payment_states()
+                if payment_issues:
+                    await self._handle_payment_inconsistencies(payment_issues)
+                
+                # Check settlement consistency
+                settlement_issues = await self._check_settlement_consistency()
+                if settlement_issues:
+                    await self._handle_settlement_inconsistencies(settlement_issues)
+                
+                # Record metrics
+                self.metrics.record_consistency_check(
+                    ledger_issues=len(ledger_issues),
+                    payment_issues=len(payment_issues),
+                    settlement_issues=len(settlement_issues)
+                )
+                
+            except Exception as e:
+                logger.error(f"Consistency check failed: {e}")
+                await self.alert_manager.send_critical_alert(
+                    "Consistency monitoring failure",
+                    details=str(e)
+                )
+            
+            await asyncio.sleep(60)  # Check every minute
+    
+    async def _check_ledger_consistency(self) -> List[LedgerInconsistency]:
+        """Verify double-entry bookkeeping consistency"""
+        
+        issues = []
+        
+        # Sample recent transactions
+        transactions = await self.get_recent_transactions(minutes=5)
+        
+        for tx in transactions:
+            # Verify debits equal credits
+            debits = sum(entry.amount for entry in tx.entries if entry.type == 'debit')
+            credits = sum(entry.amount for entry in tx.entries if entry.type == 'credit')
+            
+            if debits != credits:
+                issues.append(LedgerInconsistency(
+                    transaction_id=tx.id,
+                    debit_total=debits,
+                    credit_total=credits,
+                    difference=abs(debits - credits)
+                ))
+        
+        return issues
+```
+
+### 7.7 Consistency Trade-offs in Payment Systems
+
+| Operation | Consistency Model | Rationale |
+|-----------|------------------|-----------||
+| **Payment Authorization** | Strong Consistency | Must prevent double-spending |
+| **Balance Updates** | Linearizable | Critical for accurate balance |
+| **Transaction History** | Read-After-Write | Users must see their own transactions |
+| **Settlement Processing** | Eventual Consistency | Can tolerate delays for efficiency |
+| **Merchant Analytics** | Eventual Consistency | Aggregate data can be slightly stale |
+| **Fee Structure Updates** | Strong Consistency | Must be consistent across all nodes |
+| **Fraud Scoring** | Bounded Staleness | Recent data is sufficient |
+| **Notification Delivery** | At-Least-Once | Better to over-notify than miss |
+
 ## 8. Failure Scenarios
 
 ### 8.1 Network Partition Handling

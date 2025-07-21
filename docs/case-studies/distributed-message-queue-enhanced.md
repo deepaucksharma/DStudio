@@ -1158,6 +1158,303 @@ graph TB
     end
 ```
 
+## 🔄 Consistency Deep Dive for Message Queues
+
+### Consistency Challenges in Distributed Queues
+
+```mermaid
+graph TB
+    subgraph "Core Consistency Requirements"
+        M1[Message Ordering<br/>FIFO/Total Order]
+        M2[Exactly-Once Delivery<br/>No duplicates/loss]
+        M3[Durability Guarantees<br/>Survive failures]
+        M4[Consumer Group Coordination<br/>Fair distribution]
+    end
+    
+    subgraph "Implementation Challenges"
+        C1[Network Partitions]
+        C2[Broker Failures]
+        C3[Consumer Rebalancing]
+        C4[Cross-DC Replication]
+    end
+    
+    M1 --> C1
+    M2 --> C2
+    M3 --> C3
+    M4 --> C4
+    
+    style M1 fill:#ff6b6b
+    style M2 fill:#4ecdc4
+```
+
+### Message Ordering Guarantees
+
+```mermaid
+sequenceDiagram
+    participant P1 as Producer 1
+    participant P2 as Producer 2
+    participant B as Broker (Partition 0)
+    participant C as Consumer
+    
+    Note over B: Single Partition = Total Order
+    
+    P1->>B: Msg A (offset 100)
+    P2->>B: Msg B (offset 101)
+    P1->>B: Msg C (offset 102)
+    
+    B->>B: Append to Log
+    Note over B: Log: [A:100, B:101, C:102]
+    
+    C->>B: Poll from offset 100
+    B->>C: Msgs [A, B, C] in order
+    
+    Note over C: Consumer sees same order<br/>as written to log
+```
+
+### Consistency Models by Use Case
+
+| Use Case | Consistency Model | Implementation | Trade-offs |
+|----------|------------------|----------------|------------|
+| **Financial Transactions** | Exactly-Once + Total Order | Idempotent producer + Transactions | Higher latency, Lower throughput |
+| **Log Aggregation** | At-Least-Once | Async commits + Retries | Possible duplicates |
+| **Real-time Analytics** | At-Most-Once | Fire-and-forget | Possible message loss |
+| **Event Sourcing** | Exactly-Once + Causal Order | Transactional outbox | Complex implementation |
+| **IoT Telemetry** | Best Effort | UDP-like semantics | High throughput |
+| **CDC (Change Data Capture)** | Exactly-Once + Order | Log-based replication | Requires source support |
+
+### Kafka's Consistency Architecture
+
+```mermaid
+graph TB
+    subgraph "Write Path"
+        P[Producer] -->|1. Send| L[Leader Broker]
+        L -->|2. Replicate| F1[Follower 1]
+        L -->|2. Replicate| F2[Follower 2]
+        F1 -->|3. ACK| L
+        F2 -->|3. ACK| L
+        L -->|4. Commit| LOG[(Commit Log)]
+        L -->|5. Response| P
+    end
+    
+    subgraph "Consistency Settings"
+        ACK0[acks=0<br/>No waiting]
+        ACK1[acks=1<br/>Leader only]
+        ACKALL[acks=all<br/>All ISR]
+    end
+    
+    subgraph "Read Path"
+        C[Consumer] -->|Fetch| L
+        L -->|Return| C
+        C -->|Commit Offset| OT[(Offset Topic)]
+    end
+    
+    style L fill:#ff6b6b
+    style ACKALL fill:#4ecdc4
+```
+
+### Consumer Group Coordination
+
+```mermaid
+stateDiagram-v2
+    [*] --> Joining: Consumer Starts
+    
+    Joining --> Rebalancing: Join Group Request
+    
+    Rebalancing --> SyncGroup: Leader Assigns Partitions
+    
+    SyncGroup --> Fetching: Start Consuming
+    
+    Fetching --> Committing: Process Messages
+    
+    Committing --> Fetching: Continue
+    
+    Fetching --> Rebalancing: Member Failure/Join
+    
+    Fetching --> Leaving: Shutdown
+    
+    Leaving --> [*]
+    
+    note right of Rebalancing
+        Stop-the-world pause
+        for consistency
+    end note
+    
+    note right of Committing
+        Offset commits ensure
+        at-least-once delivery
+    end note
+```
+
+### Exactly-Once Semantics Implementation
+
+```mermaid
+sequenceDiagram
+    participant P as Producer
+    participant TC as Transaction Coordinator
+    participant B1 as Broker 1
+    participant B2 as Broker 2
+    participant OL as Offset Log
+    
+    P->>TC: InitTransaction(transactional.id)
+    TC->>P: Producer ID + Epoch
+    
+    P->>TC: BeginTransaction()
+    
+    P->>B1: Send(msg1, producerId, epoch)
+    B1->>B1: Append to Log (pending)
+    
+    P->>B2: Send(msg2, producerId, epoch)
+    B2->>B2: Append to Log (pending)
+    
+    P->>OL: SendOffsets(consumer offsets)
+    
+    P->>TC: CommitTransaction()
+    
+    TC->>B1: Commit Marker
+    TC->>B2: Commit Marker
+    TC->>OL: Commit Marker
+    
+    Note over B1,B2: Messages become visible
+```
+
+### Multi-DC Replication Consistency
+
+```mermaid
+graph TB
+    subgraph "DC1 (Primary)"
+        P1[Producers] --> K1[Kafka Cluster 1]
+        K1 --> MM1[MirrorMaker 2]
+    end
+    
+    subgraph "DC2 (Secondary)"
+        K2[Kafka Cluster 2]
+        C2[Consumers]
+        K2 --> C2
+    end
+    
+    subgraph "DC3 (Tertiary)"
+        K3[Kafka Cluster 3]
+        C3[Consumers]
+        K3 --> C3
+    end
+    
+    MM1 -->|Async Replication| K2
+    MM1 -->|Async Replication| K3
+    
+    subgraph "Consistency Properties"
+        CP1[Eventually Consistent]
+        CP2[Preserve Partition Order]
+        CP3[At-Least-Once Delivery]
+        CP4[Offset Translation]
+    end
+    
+    style K1 fill:#ff6b6b
+    style MM1 fill:#4ecdc4
+```
+
+### Handling Network Partitions
+
+```mermaid
+graph TB
+    subgraph "Before Partition"
+        BP[Producer] --> BL[Leader]
+        BL <--> BF1[Follower 1<br/>In ISR]
+        BL <--> BF2[Follower 2<br/>In ISR]
+        BC[Consumer] --> BL
+    end
+    
+    subgraph "During Partition"
+        DP[Producer] --> DL[Leader<br/>Isolated]
+        DF1[Follower 1] <--> DF2[Follower 2]
+        DC[Consumer] --> DF1
+        
+        DL -.X.-> DF1
+        DL -.X.-> DF2
+    end
+    
+    subgraph "Resolution"
+        R1[ISR Shrinks to {Leader}]
+        R2[Producers Fail (min.insync.replicas)]
+        R3[Consumers Read from Followers]
+        R4[Wait for Partition Heal]
+    end
+    
+    style DL fill:#ff6b6b
+    style R2 fill:#4ecdc4
+```
+
+### Consistency Monitoring Dashboard
+
+```mermaid
+graph TB
+    subgraph "Replication Metrics"
+        R1[Under-Replicated Partitions: 0]
+        R2[Offline Partitions: 0]
+        R3[ISR Shrink Rate: 0.1/min]
+        R4[Replica Lag: max 100ms]
+    end
+    
+    subgraph "Producer Metrics"
+        P1[Record Send Rate: 1M/sec]
+        P2[Failed Sends: 0.01%]
+        P3[Average Latency: 5ms]
+        P4[Batch Size: 16KB avg]
+    end
+    
+    subgraph "Consumer Metrics"
+        C1[Lag by Group: <1000 msgs]
+        C2[Commit Success: 99.99%]
+        C3[Rebalance Time: 3.2s avg]
+        C4[Fetch Latency: 2ms avg]
+    end
+    
+    subgraph "Alerts"
+        A1[🔴 Partition 5 Under-replicated]
+        A2[🟡 Consumer Lag > 10K]
+        A3[🟠 Rebalance in Progress]
+    end
+```
+
+### Message Queue Consistency Patterns
+
+| Pattern | Description | Use Case | Example |
+|---------|-------------|----------|----------|
+| **Idempotent Producer** | Automatic retry with dedup | Exactly-once produce | Kafka producer ID |
+| **Consumer Checkpointing** | Save progress periodically | Resume after failure | Offset commits |
+| **Transactional Messaging** | Atomic multi-partition writes | Exactly-once processing | Kafka transactions |
+| **Log Compaction** | Keep latest value per key | Event sourcing | Changelog topics |
+| **Sticky Partitioning** | Maintain consumer-partition affinity | Stateful processing | Kafka sticky assignor |
+| **Controlled Shutdown** | Graceful leader migration | Zero downtime | Broker shutdown |
+| **Read Replicas** | Scale read throughput | Analytics workloads | Follower fetching |
+
+### Best Practices for Queue Consistency
+
+```mermaid
+graph LR
+    subgraph "Producer Best Practices"
+        PB1[Enable Idempotence]
+        PB2[Set acks=all for Critical]
+        PB3[Handle Retries Properly]
+        PB4[Use Transactions When Needed]
+    end
+    
+    subgraph "Broker Configuration"
+        BB1[min.insync.replicas ≥ 2]
+        BB2[unclean.leader.election=false]
+        BB3[Replication Factor ≥ 3]
+        BB4[Enable Compression]
+    end
+    
+    subgraph "Consumer Patterns"
+        CB1[Commit After Processing]
+        CB2[Handle Rebalances Gracefully]
+        CB3[Implement Idempotent Processing]
+        CB4[Monitor Consumer Lag]
+    end
+    
+    PB1 --> BB1 --> CB1
+```
+
 ## 🚨 Failure Scenarios & Recovery
 
 ### Common Failure Modes

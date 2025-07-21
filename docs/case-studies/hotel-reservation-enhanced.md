@@ -1342,6 +1342,240 @@ class BookingAnalyticsPipeline:
         }
 ```
 
+## 7. Consistency Deep Dive for Hotel Reservation Systems
+
+### 7.1 The Double-Booking Challenge
+
+```mermaid
+graph TB
+    subgraph "Double Booking Scenario"
+        U1[User 1] -->|Check Room 101| S1[Server 1]
+        U2[User 2] -->|Check Room 101| S2[Server 2]
+        S1 -->|Available!| DB[(Database)]
+        S2 -->|Available!| DB
+        S1 -->|Book Room 101| DB
+        S2 -->|Book Room 101| DB
+        DB -->|❌ Double Booking!| X[Conflict]
+    end
+    
+    style X fill:#ff6b6b
+```
+
+### 7.2 Consistency Models for Different Operations
+
+| Operation | Consistency Model | Implementation | Trade-offs |
+|-----------|------------------|----------------|------------|
+| **Room Search** | Eventual Consistency | Cached inventory with TTL | Fast search, may show stale availability |
+| **Availability Check** | Bounded Staleness | Read from replicas with max lag | Good performance, rare false positives |
+| **Booking Creation** | Strong Consistency | Distributed locking or 2PC | Slower but guarantees no double-booking |
+| **Payment Processing** | Linearizable | Consensus-based updates | Critical for financial accuracy |
+| **Review Submission** | Eventual Consistency | Async processing | Can tolerate delays |
+| **Price Updates** | Causal Consistency | Vector clocks for ordering | Ensures price changes are ordered |
+| **Loyalty Points** | Read-After-Write | Session stickiness | Users see their own updates |
+
+### 7.3 Distributed Locking for Room Inventory
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant B as Booking Service
+    participant L as Lock Service (Redis/Zookeeper)
+    participant I as Inventory DB
+    participant P as Payment Service
+    
+    C->>B: Book Room 101
+    B->>L: ACQUIRE_LOCK(room_101, ttl=30s)
+    alt Lock Acquired
+        L-->>B: Lock Token
+        B->>I: CHECK_AVAILABILITY(room_101)
+        I-->>B: Available
+        B->>P: Process Payment
+        P-->>B: Payment Success
+        B->>I: UPDATE_INVENTORY(room_101, booked)
+        B->>L: RELEASE_LOCK(room_101)
+        B-->>C: Booking Confirmed
+    else Lock Failed
+        L-->>B: Lock Busy
+        B-->>C: Room Being Booked
+    end
+```
+
+### 7.4 Inventory Consistency Architecture
+
+```mermaid
+graph TB
+    subgraph "Write Path - Strong Consistency"
+        W[Write Request] --> ML[Master Lock<br/>Service]
+        ML --> MP[Master DB<br/>Primary]
+        MP -->|Sync| MR1[Master DB<br/>Replica 1]
+        MP -->|Sync| MR2[Master DB<br/>Replica 2]
+    end
+    
+    subgraph "Read Path - Eventual Consistency"
+        R[Read Request] --> LB[Load Balancer]
+        LB --> RR1[Read Replica 1<br/>5s lag]
+        LB --> RR2[Read Replica 2<br/>3s lag]
+        LB --> RR3[Read Replica 3<br/>7s lag]
+    end
+    
+    subgraph "Cache Layer - Bounded Staleness"
+        C[Cache<br/>TTL: 60s] --> R
+        W -->|Invalidate| C
+    end
+    
+    style MP fill:#ff6b6b
+    style ML fill:#4ecdc4
+```
+
+### 7.5 Saga Pattern for Booking Workflow
+
+```mermaid
+graph LR
+    subgraph "Booking Saga"
+        S[Start] --> V[Validate<br/>Availability]
+        V --> R[Reserve<br/>Room]
+        R --> P[Process<br/>Payment]
+        P --> C[Confirm<br/>Booking]
+        C --> N[Notify<br/>Hotel]
+        N --> E[Send<br/>Email]
+        E --> F[Finish]
+    end
+    
+    subgraph "Compensation on Failure"
+        P -.->|Payment Failed| RR[Release<br/>Room]
+        C -.->|Confirm Failed| RP[Refund<br/>Payment]
+        N -.->|Notify Failed| CB[Cancel<br/>Booking]
+    end
+    
+    style P fill:#ff6b6b
+    style R fill:#4ecdc4
+```
+
+### 7.6 Multi-Region Consistency Strategy
+
+```mermaid
+graph TB
+    subgraph "US Region"
+        USC[US Clients] --> USM[US Master<br/>Strong Consistency]
+        USM --> USR[US Read Replicas<br/>Eventual Consistency]
+    end
+    
+    subgraph "EU Region"
+        EUC[EU Clients] --> EUM[EU Master<br/>Strong Consistency]
+        EUM --> EUR[EU Read Replicas<br/>Eventual Consistency]
+    end
+    
+    subgraph "APAC Region"
+        APC[APAC Clients] --> APM[APAC Master<br/>Strong Consistency]
+        APM --> APR[APAC Read Replicas<br/>Eventual Consistency]
+    end
+    
+    subgraph "Global Coordination"
+        USM <-->|Cross-Region<br/>Replication<br/>~100ms| EUM
+        EUM <-->|Cross-Region<br/>Replication<br/>~200ms| APM
+        USM <-->|Cross-Region<br/>Replication<br/>~150ms| APM
+    end
+    
+    subgraph "Global Inventory"
+        GI[Global Inventory<br/>Service] --> USM
+        GI --> EUM
+        GI --> APM
+    end
+```
+
+### 7.7 Consistency Monitoring Dashboard
+
+```mermaid
+graph TB
+    subgraph "Real-time Metrics"
+        M1[Replication Lag<br/>US-EU: 120ms<br/>EU-APAC: 200ms]
+        M2[Lock Contention<br/>Peak: 2.3%<br/>Avg: 0.8%]
+        M3[Booking Conflicts<br/>Resolved: 99.98%<br/>Failed: 0.02%]
+        M4[Consistency SLA<br/>Strong: 99.95%<br/>Eventual: 99.99%]
+    end
+    
+    subgraph "Alerts"
+        A1[🔴 High Replication Lag > 5s]
+        A2[🟡 Lock Timeout Rate > 1%]
+        A3[🔴 Double Booking Detected]
+        A4[🟡 Saga Compensation Failed]
+    end
+    
+    subgraph "Health Indicators"
+        H1[✅ Primary DB: Healthy]
+        H2[✅ Lock Service: Healthy]
+        H3[🟡 EU Replica: Degraded]
+        H4[✅ Payment Gateway: Healthy]
+    end
+```
+
+### 7.8 Best Practices for Hotel Reservation Consistency
+
+| Practice | Description | Impact |
+|----------|-------------|--------|
+| **Pessimistic Locking** | Lock rooms during booking flow | Prevents double-booking but increases latency |
+| **Optimistic Locking** | Version-based conflict detection | Better performance, rare conflicts |
+| **Inventory Partitioning** | Shard by property/region | Reduces lock contention |
+| **Read Replicas with Lag Monitoring** | Track replication delay | Balance consistency vs performance |
+| **Saga Orchestration** | Coordinate multi-step bookings | Maintains consistency across services |
+| **Event Sourcing** | Log all inventory changes | Audit trail and recovery |
+| **CRDT for Reviews** | Conflict-free review aggregation | Eventually consistent ratings |
+
+### 7.9 Handling Network Partitions
+
+```mermaid
+graph TB
+    subgraph "Normal Operation"
+        N1[Region A] <--> N2[Region B]
+        N1 --> I1[Inventory A]
+        N2 --> I2[Inventory B]
+    end
+    
+    subgraph "During Partition"
+        P1[Region A] -.X.-> P2[Region B]
+        P1 --> I3[Inventory A<br/>Local Writes Only]
+        P2 --> I4[Inventory B<br/>Local Writes Only]
+    end
+    
+    subgraph "After Partition Heals"
+        H1[Region A] <--> H2[Region B]
+        H1 & H2 --> R[Reconciliation<br/>Process]
+        R --> C[Conflict<br/>Resolution]
+        C --> F[Final<br/>State]
+    end
+    
+    style R fill:#ff6b6b
+    style C fill:#4ecdc4
+```
+
+### 7.10 Consistency Decision Tree
+
+```mermaid
+graph TD
+    S[Operation Type?] --> R{Read Operation?}
+    S --> W{Write Operation?}
+    
+    R --> R1[Search Hotels]
+    R --> R2[Check Availability]
+    R --> R3[View Booking]
+    
+    R1 --> EC[Eventual Consistency<br/>Cache: 5 min TTL]
+    R2 --> BS[Bounded Staleness<br/>Max Lag: 30s]
+    R3 --> RAW[Read-After-Write<br/>Session Sticky]
+    
+    W --> W1[Create Booking]
+    W --> W2[Process Payment]
+    W --> W3[Update Inventory]
+    
+    W1 --> SC[Strong Consistency<br/>Distributed Lock]
+    W2 --> LZ[Linearizable<br/>2PC/Consensus]
+    W3 --> CC[Causal Consistency<br/>Vector Clocks]
+    
+    style SC fill:#ff6b6b
+    style LZ fill:#ff6b6b
+    style EC fill:#4ecdc4
+```
+
 ## 8. Failure Scenarios
 
 ### 8.1 Handling Peak Season Overload

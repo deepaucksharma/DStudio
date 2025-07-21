@@ -1770,6 +1770,299 @@ class FinancialReconciliation:
         return report
 ```
 
+## 8. Consistency Deep Dive for Digital Wallets
+
+### 8.1 The Wallet Consistency Challenge
+
+```mermaid
+graph TB
+    subgraph "Consistency Requirements"
+        B[Balance Consistency<br/>Never show wrong balance]
+        T[Transaction Ordering<br/>Maintain chronological order]
+        D[Double Spend Prevention<br/>Never allow negative balance]
+        M[Multi-Device Sync<br/>Same view across devices]
+    end
+    
+    subgraph "Implementation Challenges"
+        B --> C1[Concurrent Updates]
+        T --> C2[Distributed Timestamps]
+        D --> C3[Race Conditions]
+        M --> C4[Replication Lag]
+    end
+    
+    style B fill:#ff6b6b
+    style D fill:#ff6b6b
+```
+
+### 8.2 Consistency Models by Operation Type
+
+| Operation | Consistency Level | Implementation | Justification |
+|-----------|------------------|----------------|---------------|
+| **Balance Check** | Read-Your-Writes | Session affinity to primary | Users must see their latest transactions |
+| **Send Money** | Linearizable | Distributed locking + 2PC | Prevent double spending |
+| **Receive Money** | Strong Consistency | Synchronous replication | Immediate balance update |
+| **Transaction History** | Causal Consistency | Vector clocks | Preserve transaction order |
+| **Exchange Rates** | Bounded Staleness | Cache with 1-min TTL | Acceptable lag for rates |
+| **Rewards/Cashback** | Eventual Consistency | Async processing | Can be delayed |
+| **KYC Updates** | Strong Consistency | Consensus protocol | Regulatory requirement |
+| **Social Feed** | Eventual Consistency | Best effort delivery | Non-critical feature |
+
+### 8.3 Distributed Transaction Architecture
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant W as Wallet Service
+    participant L as Lock Manager
+    participant B as Balance DB
+    participant T as Transaction Log
+    participant N as Notification Service
+    
+    U->>W: Transfer $100 to Friend
+    W->>L: ACQUIRE_LOCK(user_wallet)
+    L-->>W: Lock Acquired
+    
+    W->>B: BEGIN TRANSACTION
+    W->>B: CHECK_BALANCE(user) >= 100
+    B-->>W: Balance = $150 ✓
+    W->>B: DEBIT(user, 100)
+    W->>B: CREDIT(friend, 100)
+    W->>T: LOG_TRANSACTION(transfer_details)
+    W->>B: COMMIT
+    
+    W->>L: RELEASE_LOCK(user_wallet)
+    W->>N: NOTIFY(user, friend)
+    W-->>U: Transfer Complete
+```
+
+### 8.4 Multi-Region Wallet Consistency
+
+```mermaid
+graph TB
+    subgraph "Primary Region (US-East)"
+        PW[Primary Wallet DB<br/>Source of Truth]
+        PL[Primary Ledger<br/>Transaction Log]
+        PC[Primary Cache<br/>Write-Through]
+    end
+    
+    subgraph "Secondary Region (US-West)"
+        SW[Secondary Wallet DB<br/>Read Replica]
+        SL[Secondary Ledger<br/>Read Replica]
+        SC[Secondary Cache<br/>Read-Only]
+    end
+    
+    subgraph "Tertiary Region (EU)"
+        TW[Tertiary Wallet DB<br/>Read Replica]
+        TL[Tertiary Ledger<br/>Read Replica]
+        TC[Tertiary Cache<br/>Read-Only]
+    end
+    
+    PW -->|Sync Replication<br/>~5ms| SW
+    PW -->|Async Replication<br/>~100ms| TW
+    PL -->|Change Stream| SL
+    PL -->|Change Stream| TL
+    
+    subgraph "Consistency Guarantees"
+        CG1[Writes: Always to Primary]
+        CG2[Reads: Based on Consistency Need]
+        CG3[Critical: Read from Primary]
+        CG4[Non-Critical: Read from Replica]
+    end
+    
+    style PW fill:#ff6b6b
+    style PL fill:#ff6b6b
+```
+
+### 8.5 Balance Consistency State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Available
+    
+    Available --> Locked: Begin Transaction
+    Locked --> Processing: Validate Funds
+    
+    Processing --> Debited: Deduct Amount
+    Processing --> Failed: Insufficient Funds
+    
+    Debited --> Credited: Credit Recipient
+    Credited --> Committed: Write to Ledger
+    
+    Committed --> Available: Release Lock
+    Failed --> Available: Release Lock
+    
+    Credited --> RolledBack: Credit Failed
+    RolledBack --> Available: Restore Balance
+    
+    note right of Locked
+        Pessimistic locking
+        prevents concurrent
+        modifications
+    end note
+    
+    note right of Committed
+        Transaction is durable
+        and visible to all
+    end note
+```
+
+### 8.6 Handling Concurrent Transactions
+
+```mermaid
+graph TB
+    subgraph "Concurrent Transaction Scenario"
+        U[User Balance: $100]
+        
+        T1[Transaction 1<br/>Send $60] --> L1{Acquire Lock?}
+        T2[Transaction 2<br/>Send $50] --> L2{Acquire Lock?}
+        
+        L1 -->|Success| P1[Process T1]
+        L2 -->|Wait| Q[Queue T2]
+        
+        P1 --> C1[Check: $100 >= $60 ✓]
+        C1 --> D1[Debit $60]
+        D1 --> R1[Release Lock]
+        
+        R1 --> L2B{Acquire Lock?}
+        L2B -->|Success| P2[Process T2]
+        P2 --> C2[Check: $40 >= $50 ❌]
+        C2 --> F[Fail: Insufficient Funds]
+    end
+    
+    style F fill:#ff6b6b
+    style D1 fill:#4ecdc4
+```
+
+### 8.7 Saga Pattern for Complex Wallet Operations
+
+```mermaid
+graph LR
+    subgraph "International Transfer Saga"
+        S[Start] --> V[Verify KYC]
+        V --> C[Check Compliance]
+        C --> L[Lock Source Funds]
+        L --> E[Exchange Currency]
+        E --> F[Pay Fees]
+        F --> T[Transfer Funds]
+        T --> N[Notify Recipient]
+        N --> R[Record Transaction]
+        R --> End[Complete]
+    end
+    
+    subgraph "Compensation Actions"
+        E -.->|Exchange Failed| UL[Unlock Funds]
+        F -.->|Fee Failed| RE[Reverse Exchange]
+        T -.->|Transfer Failed| RF[Refund Fees]
+        N -.->|Notify Failed| RT[Reverse Transfer]
+    end
+    
+    style L fill:#ff6b6b
+    style E fill:#4ecdc4
+    style T fill:#95e1d3
+```
+
+### 8.8 Event Sourcing for Transaction History
+
+```mermaid
+graph TB
+    subgraph "Event Store"
+        E1[Event 1: Account Created<br/>Balance: $0]
+        E2[Event 2: Deposit $1000<br/>Balance: $1000]
+        E3[Event 3: Transfer Out $200<br/>Balance: $800]
+        E4[Event 4: Transfer In $50<br/>Balance: $850]
+        E5[Event 5: Fee Charged $10<br/>Balance: $840]
+        
+        E1 --> E2 --> E3 --> E4 --> E5
+    end
+    
+    subgraph "Projections"
+        P1[Current Balance<br/>View: $840]
+        P2[Monthly Statement<br/>View: Transactions]
+        P3[Tax Report<br/>View: Yearly Summary]
+    end
+    
+    subgraph "Benefits"
+        B1[Complete Audit Trail]
+        B2[Point-in-Time Balance]
+        B3[Replay Capability]
+        B4[Multiple Views]
+    end
+    
+    E5 --> P1
+    E1 & E2 & E3 & E4 & E5 --> P2
+    E1 & E2 & E3 & E4 & E5 --> P3
+```
+
+### 8.9 Consistency Monitoring Dashboard
+
+```mermaid
+graph TB
+    subgraph "Real-Time Metrics"
+        M1[📈 Transaction Latency<br/>P50: 180ms | P99: 420ms]
+        M2[🔒 Lock Contention<br/>Current: 0.3% | Peak: 2.1%]
+        M3[🔄 Replication Lag<br/>US-West: 5ms | EU: 98ms]
+        M4[✅ Consistency SLA<br/>Strong: 99.98% | Eventual: 99.99%]
+    end
+    
+    subgraph "Alerts & Issues"
+        A1[🔴 CRITICAL: Ledger Imbalance Detected]
+        A2[🟡 WARNING: High Replication Lag (>500ms)]
+        A3[🟠 INFO: Scheduled Maintenance Tonight]
+    end
+    
+    subgraph "Transaction Health"
+        T1[Success Rate: 99.92%]
+        T2[Failed - Insufficient Funds: 0.05%]
+        T3[Failed - Technical: 0.03%]
+        T4[Pending: 127 transactions]
+    end
+```
+
+### 8.10 Best Practices for Wallet Consistency
+
+| Practice | Description | Benefits | Trade-offs |
+|----------|-------------|----------|------------|
+| **Idempotent Operations** | Use unique transaction IDs | Prevents duplicate processing | Requires ID tracking |
+| **Optimistic Locking** | Version-based concurrency | Better performance | Occasional conflicts |
+| **Write-Ahead Logging** | Log before state change | Durability guarantee | Storage overhead |
+| **Eventual Consistency for Analytics** | Async aggregation | Scales better | Delayed insights |
+| **Synchronous Replication for Balance** | Wait for acknowledgment | Strong consistency | Higher latency |
+| **Event Sourcing** | Store all state changes | Complete audit trail | Complex queries |
+| **Distributed Snapshots** | Periodic consistent state | Fast recovery | Storage cost |
+| **Circuit Breakers** | Fail fast on errors | System stability | Temporary unavailability |
+
+### 8.11 Handling Split-Brain Scenarios
+
+```mermaid
+graph TB
+    subgraph "Normal Operation"
+        N1[Primary DC] <--> N2[Secondary DC]
+        N1 --> W1[Writes Accepted]
+        N2 --> R1[Reads Only]
+    end
+    
+    subgraph "Network Partition"
+        P1[Primary DC] -.X.-> P2[Secondary DC]
+        P1 --> W2[Writes Continue]
+        P2 --> D[Dilemma: Accept Writes?]
+        D --> O1[Option 1: Stay Read-Only<br/>Lose Availability]
+        D --> O2[Option 2: Accept Writes<br/>Risk Inconsistency]
+    end
+    
+    subgraph "Resolution Strategy"
+        S1[1. Detect Partition via Heartbeat]
+        S2[2. Secondary Remains Read-Only]
+        S3[3. Queue Critical Operations]
+        S4[4. Reconcile When Healed]
+        S5[5. Apply Conflict Resolution]
+        
+        S1 --> S2 --> S3 --> S4 --> S5
+    end
+    
+    style D fill:#ff6b6b
+    style S4 fill:#4ecdc4
+```
+
 ## 9. Failure Scenarios and Recovery
 
 ### 9.1 Handling Double Spending
