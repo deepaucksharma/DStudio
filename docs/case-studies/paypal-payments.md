@@ -733,6 +733,45 @@ graph TB
 - [Square's Transaction Processing](https://developer.squareup.com/blog/payment-reliability)
 - [Adyen's Global Payment Platform](https://www.adyen.com/knowledge-hub/platform-architecture)
 
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - 234ms average latency balances fraud checks with user experience
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Cell architecture isolates load and prevents cascade failures
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Optimistic locking prevents double-spending without blocking
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Event-driven choreography avoids central coordination bottlenecks
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Distributed tracing tracks payments across 20+ services
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Clear error messages and status updates reduce support calls
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Processing costs optimized through batching and routing
+
+### 🏛️ Related Patterns (Part III)
+- **[SAGA Pattern](../patterns/saga.md)** - Orchestrates distributed transactions with compensation logic
+- **[Event Sourcing](../patterns/event-sourcing.md)** - Immutable event log provides perfect audit trail
+- **[Idempotent Receiver](../patterns/idempotent-receiver.md)** - Prevents duplicate payments at every layer
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects against cascading failures to bank networks
+- **[Outbox Pattern](../patterns/outbox.md)** - Ensures reliable event publishing with database transactions
+- **[Bulkhead](../patterns/bulkhead.md)** - Isolates payment types and regions for fault containment
+- **[Retry & Backoff](../patterns/retry-backoff.md)** - Handles transient failures in external integrations
+
+### 📊 Quantitative Models
+- **[CAP Theorem](../quantitative/cap-pacelc.md)** - Chooses AP with eventual consistency through compensations
+- **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
+- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for payment processor pool sizing
+- **[Two-Phase Commit](../quantitative/consistency-models.md)** - Rejected due to availability and latency constraints
+
+### 👥 Human Factors Considerations
+- **[Incident Response](../human-factors/incident-response.md)** - Payment failures require immediate response procedures
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
+- **[Post-Mortem Culture](../human-factors/postmortem-culture.md)** - Every payment failure analyzed for systemic improvements
+- **[Security Considerations](../reference/security-considerations.md)** - PCI compliance and fraud prevention are paramount
+
+### 🔄 Similar Case Studies
+- **[Amazon DynamoDB](amazon-dynamo.md)** - Similar high-availability requirements for financial data
+- **[Uber's Location System](uber-location.md)** - Real-time processing at similar scale
+- **[Rate Limiter Design](rate-limiter.md)** - Prevents payment fraud through intelligent throttling
+- **[Consistent Hashing](consistent-hashing.md)** - Used for routing payments to processing cells
+
 ---
 
 ---

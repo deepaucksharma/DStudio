@@ -778,3 +778,42 @@ graph TD
 ## Conclusion
 
 YouTube's architecture demonstrates how fundamental distributed systems principles scale to handle humanity's video consumption. By carefully managing latency through edge caching, handling exabyte-scale capacity with tiered storage, building resilience at every layer, and optimizing economics through adaptive quality, YouTube delivers billions of hours of video daily. The multi-tier architecture balances the needs of live streaming, popular content, and long-tail videos while continuously optimizing through machine learning. The key insight is that different types of content (live vs. recorded, popular vs. niche) require different architectural treatments, and success comes from intelligently routing content through the optimal pipeline.
+
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Global CDN cache invalidation and content synchronization challenges
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Adaptive UI for different devices and network conditions
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
+
+### 🏛️ Related Patterns (Part III)
+- **[Edge Computing](../patterns/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs
+- **[CDN Strategy](../patterns/geo-replication.md)** - Multi-CDN architecture with intelligent routing
+- **[Load Balancing](../patterns/load-balancing.md)** - Anycast routing and geo-aware traffic distribution
+- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-tier caching from edge to origin
+- **[Event-Driven Architecture](../patterns/event-driven.md)** - Video processing pipeline triggered by upload events
+- **[Auto-Scaling](../patterns/auto-scaling.md)** - Dynamic compute allocation for transcoding workloads
+- **[Graceful Degradation](../patterns/graceful-degradation.md)** - Adaptive bitrate ensures playback under poor conditions
+
+### 📊 Quantitative Models
+- **[Power Laws](../quantitative/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
+- **[Little's Law](../quantitative/littles-law.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
+- **[Queueing Theory](../quantitative/queueing-theory.md)** - Transcoding queue optimization for different video priorities
+- **[Information Theory](../quantitative/information-theory.md)** - Video compression algorithms and bandwidth optimization
+
+### 👥 Human Factors Considerations
+- **[SRE Practices](../human-factors/sre-practices.md)** - Managing global video infrastructure at scale
+- **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting and provisioning for viral videos
+- **[Incident Response](../human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
+- **[Observability Tools](../human-factors/observability.md)** - Video quality metrics and viewer experience monitoring
+
+### 🔄 Similar Case Studies
+- **[Spotify Recommendations](spotify-recommendations.md)** - Similar ML-driven content discovery challenges
+- **[News Feed System](news-feed.md)** - Personalized content distribution at scale
+- **[Uber's Location System](uber-location.md)** - Real-time data processing for live streaming
+- **[Amazon DynamoDB](amazon-dynamo.md)** - Metadata storage for billions of videos requires similar scale

@@ -1838,6 +1838,21 @@ class CostOptimizedURLShortener:
         }
 ```
 
+### 🔍 Comprehensive Axiom Mapping
+
+| Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
+|-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
+| **CDN Edge Caching** | ✅ 5ms redirects<br>Global presence | ⚖️ Limited cache size<br>LRU eviction | ✅ Origin failover<br>Multi-region | ✅ Parallel serving<br>No contention | ➖ Cache coherence<br>via TTL only | 📊 Hit rate metrics<br>Geographic data | ✅ Transparent<br>to users | ✅ 90% cost reduction<br>vs origin hits |
+| **Counter + Hash Hybrid** | ✅ O(1) generation<br>No collisions | ✅ 2^62 URL space<br>7-8 char codes | ✅ Counter gaps OK<br>Hash fallback | ✅ Atomic counter<br>increment | 🔄 Distributed counter<br>coordination | 📊 Generation rate<br>Collision tracking | ✅ Predictable codes<br>Custom aliases | ✅ Simple algorithm<br>Low CPU cost |
+| **SQL with Sharding** | ⚖️ ~10ms lookups<br>Index critical | ✅ Horizontal scale<br>1000+ shards | ✅ Shard isolation<br>Replica failover | ⚠️ Lock contention<br>on hot shards | 🔄 Shard mapping<br>consensus needed | 📊 Query latency<br>Shard distribution | ✅ Familiar SQL<br>Rich querying | ⚖️ Higher cost than<br>NoSQL options |
+| **Analytics Sampling** | ✅ Minimal impact<br>on redirects | ✅ 10x data reduction<br>for high traffic | ✅ Graceful degrade<br>on overload | ✅ Async pipeline<br>No blocking | ➖ Best effort only<br>No coordination | ⚠️ Sampled accuracy<br>Statistical errors | 📊 Confidence levels<br>shown in UI | ✅ 90% cost savings<br>on analytics |
+| **Bloom Filter Checks** | ✅ <1ms existence<br>check | ✅ 10 bits per URL<br>Space efficient | ✅ Reconstructible<br>from DB | ✅ Lock-free reads<br>Thread-safe | ➖ Local only<br>No sharing | 📊 False positive<br>rate tracking | ✅ Reduces 404s<br>Better UX | ✅ Prevents DB hits<br>for missing URLs |
+| **Multi-tier Storage** | ⚖️ Hot in memory<br>Cold slower | ✅ Infinite scale<br>with S3 tier | ✅ Durable cold tier<br>Memory volatile | ✅ Tier migration<br>background jobs | 🔄 Migration rules<br>configuration | 📊 Tier distribution<br>Access patterns | 🛠️ Tier policies<br>configurable | ✅ 80% cost reduction<br>with cold storage |
+| **Rate Limiting** | ⚖️ Adds ~1ms<br>overhead | ✅ Protects capacity<br>Prevents abuse | ✅ Degrades gracefully<br>Returns 429 | ✅ Distributed<br>rate counters | 🔄 Global rate limit<br>coordination | 📊 Rate limit metrics<br>By endpoint/user | ⚠️ Clear error msgs<br>Retry headers | ✅ Prevents abuse<br>costs |
+| **Real-time + Batch Analytics** | ✅ <1s for key metrics<br>Batch for rest | ✅ Efficient batching<br>Compression | ✅ Queue spillover<br>to disk | ✅ Parallel streams<br>processing | 🔄 Stream partitioning<br>coordination | ✅ Real-time dashboard<br>Historical reports | ✅ Both use cases<br>covered | ⚖️ Dual pipeline<br>complexity |
+| **URL Deduplication** | ⚖️ Hash computation<br>overhead | ✅ 30-40% storage<br>savings | ✅ Dedup index<br>can rebuild | ⚠️ Race conditions<br>on same URL | 🔄 Distributed lock<br>for dedup check | 📊 Dedup ratio<br>Collision stats | ✅ Same short URL<br>for duplicates | ✅ Major storage<br>cost savings |
+| **Spam Detection** | ⚖️ ML inference<br>adds latency | ✅ Blacklist scales<br>Pattern matching | ✅ Fail open<br>Don't block good | ✅ Async checking<br>Non-blocking | 🔄 Blacklist sync<br>across regions | 📊 Spam detection<br>False positive rate | ⚠️ May block<br>legitimate URLs | ✅ Prevents abuse<br>Maintains quality |
+
 ### 🏛️ Pillar Mapping
 
 #### Work Distribution
@@ -1883,6 +1898,249 @@ class CostOptimizedURLShortener:
 - **Bloom Filter**: Existence checks
 - **Event Sourcing**: Analytics pipeline
 - **CQRS**: Read/write separation
+
+### 🏗️ Architecture Alternatives
+
+#### Alternative 1: NoSQL-Based Architecture
+```mermaid
+graph TB
+    subgraph "Clients"
+        C1[Web]
+        C2[Mobile]
+        C3[API]
+    end
+    
+    subgraph "API Layer"
+        AG[API Gateway<br/>Route53]
+        LB[ALB]
+    end
+    
+    subgraph "Compute"
+        L1[Lambda<br/>Shorten]
+        L2[Lambda<br/>Redirect]
+        L3[Lambda<br/>Analytics]
+    end
+    
+    subgraph "Storage"
+        DDB[(DynamoDB<br/>URLs)]
+        S3[(S3<br/>Analytics)]
+    end
+    
+    subgraph "Cache"
+        CF[CloudFront]
+        EC[(ElastiCache)]
+    end
+    
+    C1 & C2 & C3 --> CF
+    CF --> AG
+    AG --> LB
+    LB --> L1 & L2 & L3
+    L1 & L2 --> DDB
+    L1 & L2 --> EC
+    L3 --> S3
+    
+    style DDB fill:#ff9999
+    style CF fill:#e3f2fd
+```
+
+**Characteristics:**
+- Serverless, infinite scale
+- Pay-per-use pricing
+- Eventually consistent
+- Vendor lock-in (AWS)
+
+#### Alternative 2: Kubernetes Microservices
+```mermaid
+graph TB
+    subgraph "Ingress"
+        IG[Ingress<br/>Controller]
+    end
+    
+    subgraph "Services"
+        SH[Shortener<br/>Service]
+        RD[Redirect<br/>Service]
+        AN[Analytics<br/>Service]
+        AU[Auth<br/>Service]
+    end
+    
+    subgraph "Data Stores"
+        PG[(PostgreSQL<br/>Sharded)]
+        RD[(Redis<br/>Cluster)]
+        KF[Kafka]
+        ES[(Elasticsearch)]
+    end
+    
+    IG --> SH & RD & AN & AU
+    SH --> PG & RD
+    RD --> RD
+    AN --> KF --> ES
+    AU --> PG
+    
+    style SH fill:#90EE90
+    style RD fill:#90EE90
+    style AN fill:#90EE90
+```
+
+**Characteristics:**
+- Container orchestration
+- Service mesh capable
+- Technology flexibility
+- Higher operational overhead
+
+#### Alternative 3: Edge-First Architecture
+```mermaid
+graph LR
+    subgraph "Edge Locations"
+        E1[Edge Worker<br/>US-East]
+        E2[Edge Worker<br/>EU-West]
+        E3[Edge Worker<br/>AP-South]
+    end
+    
+    subgraph "Edge Storage"
+        KV1[(KV Store)]
+        KV2[(KV Store)]
+        KV3[(KV Store)]
+    end
+    
+    subgraph "Origin"
+        OR[Origin<br/>Service]
+        DB[(Master DB)]
+    end
+    
+    E1 --> KV1
+    E2 --> KV2
+    E3 --> KV3
+    
+    KV1 & KV2 & KV3 -.->|Sync| OR
+    OR --> DB
+    
+    style E1 fill:#e3f2fd
+    style E2 fill:#e3f2fd
+    style E3 fill:#e3f2fd
+```
+
+**Characteristics:**
+- Ultra-low latency globally
+- Edge compute (Workers)
+- Complex consistency model
+- Premium pricing
+
+#### Alternative 4: Blockchain-Based
+```mermaid
+graph TB
+    subgraph "Clients"
+        C[Clients]
+    end
+    
+    subgraph "Gateway"
+        GW[Web3<br/>Gateway]
+    end
+    
+    subgraph "Blockchain"
+        SC[Smart<br/>Contract]
+        BC[(Blockchain<br/>State)]
+    end
+    
+    subgraph "Off-chain"
+        IPFS[(IPFS<br/>Long URLs)]
+        ORC[Oracle<br/>Analytics]
+    end
+    
+    C --> GW
+    GW --> SC
+    SC --> BC
+    SC -.-> IPFS
+    SC -.-> ORC
+```
+
+**Characteristics:**
+- Decentralized, no single owner
+- Immutable URL mappings
+- High transaction costs
+- Limited throughput
+
+#### Alternative 5: Hybrid Multi-Cloud
+```mermaid
+graph TB
+    subgraph "Traffic Management"
+        GTM[Global Traffic<br/>Manager]
+    end
+    
+    subgraph "AWS Region"
+        AWS_LB[ALB]
+        AWS_APP[ECS Service]
+        AWS_DB[(RDS)]
+    end
+    
+    subgraph "GCP Region"
+        GCP_LB[Cloud LB]
+        GCP_APP[Cloud Run]
+        GCP_DB[(Spanner)]
+    end
+    
+    subgraph "Azure Region"
+        AZ_LB[App Gateway]
+        AZ_APP[Container<br/>Instance]
+        AZ_DB[(Cosmos DB)]
+    end
+    
+    GTM --> AWS_LB & GCP_LB & AZ_LB
+    AWS_LB --> AWS_APP --> AWS_DB
+    GCP_LB --> GCP_APP --> GCP_DB
+    AZ_LB --> AZ_APP --> AZ_DB
+    
+    AWS_DB -.->|Sync| GCP_DB
+    GCP_DB -.->|Sync| AZ_DB
+    AZ_DB -.->|Sync| AWS_DB
+```
+
+**Characteristics:**
+- No vendor lock-in
+- Regional failover
+- Complex operations
+- Higher costs
+
+### ⚖️ Trade-off Analysis Matrix
+
+| Architecture | Scalability | Latency | Consistency | Cost | Complexity | Vendor Lock-in | Reliability |
+|--------------|-------------|---------|-------------|------|------------|----------------|-------------|
+| **NoSQL Serverless** | ✅ Infinite | 🔶 Medium | 🔶 Eventual | ✅ Low | ✅ Low | ❌ High | ✅ High |
+| **K8s Microservices** | ✅ High | ✅ Low | ✅ Strong | 🔶 Medium | ❌ High | ✅ Low | 🔶 Medium |
+| **Edge-First** | ✅ High | ✅ Ultra-low | ❌ Weak | ❌ High | 🔶 Medium | 🔶 Medium | ✅ High |
+| **Blockchain** | ❌ Low | ❌ High | ✅ Strong | ❌ Very High | ❌ High | ✅ None | ✅ High |
+| **Hybrid Multi-Cloud** | ✅ High | 🔶 Medium | 🔶 Eventual | ❌ High | ❌ Very High | ✅ None | ✅ Very High |
+
+### 📊 Performance Comparison
+
+```mermaid
+graph LR
+    subgraph "Redirect Latency (p99)"
+        A[Edge-First: 5ms]
+        B[CDN+Origin: 50ms]
+        C[Direct DB: 100ms]
+        D[Blockchain: 3000ms]
+    end
+    
+    A -->|10x| B
+    B -->|2x| C
+    C -->|30x| D
+```
+
+```mermaid
+graph TB
+    subgraph "Cost per Million URLs"
+        T1[Serverless<br/>$10]
+        T2[Containers<br/>$50]
+        T3[Edge<br/>$100]
+        T4[Multi-Cloud<br/>$150]
+        T5[Blockchain<br/>$10,000]
+    end
+    
+    T1 -->|5x| T2
+    T2 -->|2x| T3
+    T3 -->|1.5x| T4
+    T4 -->|66x| T5
+```
 
 ## Part 2: Architecture & Trade-offs
 
@@ -2051,6 +2309,31 @@ Analytics     10M events/s    Kafka throughput
 4. **Abuse Prevention is Critical**: Without spam protection, service becomes unusable quickly.
 
 5. **Simple Algorithms Win**: Counter + base62 encoding beats complex hashing for most use cases.
+
+### 🔗 Related Concepts & Deep Dives
+
+**Prerequisite Understanding:**
+- [Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md) - CDN and caching strategies
+- [Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md) - Cost optimization techniques
+- [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
+- [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
+
+**Advanced Topics:**
+- [Edge Computing Patterns](../patterns/edge-computing.md) - Building at the edge
+- [Analytics at Scale](../patterns/analytics-scale.md) - Handling billions of events
+- [Geo-Distribution](../patterns/geo-distribution.md) - Global service deployment
+- [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
+
+**Related Case Studies:**
+- [CDN Design](./cdn-design.md) - Content delivery networks
+- [Analytics Pipeline](./analytics-pipeline.md) - Real-time analytics systems
+- [API Gateway](./api-gateway.md) - Rate limiting and routing
+
+**Implementation Patterns:**
+- [Database Sharding](../patterns/sharding.md) - Horizontal scaling
+- [Bloom Filters](../patterns/bloom-filter.md) - Space-efficient lookups
+- [Circuit Breakers](../patterns/circuit-breaker.md) - Handling failures
+- [CQRS](../patterns/cqrs.md) - Read/write separation
 
 ### 📚 References
 

@@ -942,3 +942,42 @@ graph TD
 - [Circuit Breaker](../patterns/circuit-breaker.md)
 - [Consistent Hashing](../patterns/sharding.md#consistent-hashing)
 - [Gossip Protocol](../patterns/gossip-protocol.md)
+
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Rate limiting protects backend capacity from overload
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Gossip protocol synchronizes distributed counters
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Every allow/deny decision tracked for debugging
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Clear error messages with retry-after headers
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Local caching reduces infrastructure costs by 80%
+
+### 🏛️ Related Patterns (Part III)
+- **[Rate Limiting](../patterns/rate-limiting.md)** - Core pattern implemented with token bucket algorithm
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects rate limiter from Redis failures
+- **[Bulkhead](../patterns/bulkhead.md)** - Isolates rate limit pools per tenant/API
+- **[Consistent Hashing](../patterns/sharding.md)** - Distributes users across rate limiter nodes
+- **[Caching Strategies](../patterns/caching-strategies.md)** - Local cache with TTL for performance
+- **[Health Check](../patterns/health-check.md)** - Monitors Redis connectivity and accuracy
+- **[Load Shedding](../patterns/load-shedding.md)** - Drops low-priority requests under extreme load
+
+### 📊 Quantitative Models
+- **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for pending checks
+- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for rate limiter node sizing
+- **[CAP Theorem](../quantitative/cap-pacelc.md)** - AP choice: available during partitions with approximate counts
+- **[Bloom Filters](../quantitative/probabilistic-structures.md)** - Space-efficient first-time user detection
+
+### 👥 Human Factors Considerations
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - Rate limiter failures directly impact users
+- **[Incident Response](../human-factors/incident-response.md)** - Runbooks for common scenarios (Redis failure, DDoS)
+- **[Observability Tools](../human-factors/observability.md)** - Dashboards show rate limit utilization per API/user
+- **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting rate limit needs based on growth
+
+### 🔄 Similar Case Studies
+- **[Amazon DynamoDB](amazon-dynamo.md)** - Similar distributed counting challenges
+- **[PayPal Payments](paypal-payments.md)** - Rate limiting prevents payment fraud
+- **[Consistent Hashing](consistent-hashing.md)** - Core technique for distributing rate limit state
+- **[News Feed System](news-feed.md)** - Rate limiting API calls for feed generation

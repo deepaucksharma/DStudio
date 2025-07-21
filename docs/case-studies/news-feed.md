@@ -1238,3 +1238,42 @@ graph TD
 The news feed system represents the convergence of distributed systems challenges: scale, personalization, real-time processing, and economics. By understanding the fundamental axioms and their interactions, we can build systems that serve billions while maintaining sub-second latency and high relevance.
 
 The hybrid architecture balances the trade-offs between different approaches, using push for normal users, pull for celebrities, and ML for personalization. The key insight is that no single approach works for all use cases—the art lies in combining them intelligently based on user patterns and system constraints.
+
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Pre-computed feeds and edge caching achieve <100ms load times
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Multiple fallback strategies ensure feed availability
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Async fanout and parallel timeline merging handle scale
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Eventually consistent timelines with causal ordering
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Engagement metrics drive ML model improvements
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Personalization and pacing optimize for human attention
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Ad placement and infrastructure costs drive architectural decisions
+
+### 🏛️ Related Patterns (Part III)
+- **[Event-Driven Architecture](../patterns/event-driven.md)** - Post creation triggers fanout pipeline
+- **[CQRS](../patterns/cqrs.md)** - Separate write (fanout) and read (feed generation) paths
+- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-tier caching from edge to application layer
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects against celebrity storm cascading failures
+- **[Bulkhead](../patterns/bulkhead.md)** - Isolates celebrity fanout from normal users
+- **[Load Balancing](../patterns/load-balancing.md)** - Distributes feed generation across worker pools
+- **[Sharding](../patterns/sharding.md)** - User-based sharding for timeline storage
+
+### 📊 Quantitative Models
+- **[Little's Law](../quantitative/littles-law.md)** - Feed generation capacity: concurrent requests = arrival rate × processing time
+- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for fanout worker pools
+- **[Power Laws](../quantitative/power-laws.md)** - Celebrity follower distribution drives hybrid architecture
+- **[Information Theory](../quantitative/information-theory.md)** - Relevance scoring and diversity optimization
+
+### 👥 Human Factors Considerations
+- **[SRE Practices](../human-factors/sre-practices.md)** - Managing feed generation SLOs and error budgets
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 monitoring for feed availability
+- **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting growth and viral content spikes
+- **[Post-Mortem Culture](../human-factors/postmortem-culture.md)** - Learning from feed outages and relevance drops
+
+### 🔄 Similar Case Studies
+- **[Spotify Recommendations](spotify-recommendations.md)** - Similar ML personalization challenges
+- **[YouTube's Video Platform](youtube.md)** - Content distribution and recommendation parallels
+- **[Rate Limiter Design](rate-limiter.md)** - Protecting feed generation from abuse
+- **[Uber's Location System](uber-location.md)** - Real-time data processing patterns

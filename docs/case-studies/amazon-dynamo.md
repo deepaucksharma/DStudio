@@ -475,6 +475,45 @@ Level 4: Correlated Failures
 - [Riak](https://riak.com/) - Commercial Dynamo implementation
 - [Voldemort](https://www.project-voldemort.com/) - LinkedIn's key-value store
 
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Automatic partition splits and admission control handle Black Friday's 10x traffic spikes
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Gossip protocol and quorum consensus avoid centralized coordination bottlenecks
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Simple put/get API and clear error handling reduce cognitive load
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
+
+### 🏛️ Related Patterns (Part III)
+- **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing minimizes data movement during scaling
+- **[Tunable Consistency](../patterns/tunable-consistency.md)** - Quorum reads/writes (R+W>N) let applications choose consistency levels
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Request routers prevent cascading failures during overload
+- **[Health Check](../patterns/health-check.md)** - Gossip-based failure detection identifies unhealthy nodes
+- **[Retry & Backoff](../patterns/retry-backoff.md)** - SDK implements exponential backoff for throttled requests
+- **[Load Shedding](../patterns/load-shedding.md)** - Admission control protects system during extreme load
+- **[Event-Driven Architecture](../patterns/event-driven.md)** - DynamoDB Streams enable change data capture
+
+### 📊 Quantitative Models
+- **[CAP Theorem](../quantitative/cap-pacelc.md)** - DynamoDB chooses AP (availability + partition tolerance) with tunable consistency
+- **[Little's Law](../quantitative/littles-law.md)** - Helps size connection pools: L = λW (20ms latency × 1000 req/s = 20 concurrent connections)
+- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for request router capacity planning
+- **[Scaling Laws](../quantitative/scaling-laws.md)** - Linear scaling through consistent hashing partitioning
+
+### 👥 Human Factors Considerations
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - DynamoDB's managed service reduces operational burden
+- **[Incident Response](../human-factors/incident-response.md)** - Automated recovery (hinted handoff, Merkle trees) minimizes manual intervention
+- **[Observability Tools](../human-factors/observability.md)** - Contributor Insights identifies hot keys and performance bottlenecks
+- **[Capacity Planning](../human-factors/capacity-planning.md)** - Auto-scaling eliminates manual capacity management
+
+### 🔄 Similar Case Studies
+- **[Consistent Hashing Deep Dive](consistent-hashing.md)** - Detailed exploration of DynamoDB's core distribution mechanism
+- **[PayPal's Payment System](paypal-payments.md)** - Similar high-availability requirements with financial constraints
+- **[YouTube's Video Platform](youtube.md)** - Another system optimizing for availability over consistency
+- **[Rate Limiter Design](rate-limiter.md)** - Uses similar token bucket algorithms for admission control
+
 ---
 
 ---

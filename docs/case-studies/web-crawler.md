@@ -2177,6 +2177,21 @@ class CostOptimizedCrawler:
         }
 ```
 
+### 🔍 Comprehensive Axiom Mapping
+
+| Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
+|-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
+| **Async I/O Everywhere** | ✅ Non-blocking ops<br>Max throughput | ✅ Handle 1000s<br>connections | ✅ Timeout handling<br>graceful failures | ✅ True parallelism<br>event loops | ➖ Local decision<br>no coordination | 📊 Connection metrics<br>per domain | ✅ Intuitive async<br>programming model | ✅ Max hardware<br>utilization |
+| **Domain-based Queuing** | ⚖️ Adds queue overhead<br>but ensures politeness | ✅ Scales to millions<br>of domains | ✅ Domain isolation<br>failure containment | ✅ Parallel domains<br>serialize per-domain | 🔄 Queue assignment<br>coordination | 📊 Queue depth<br>per domain | ✅ Clear domain<br>rate controls | ✅ Prevents IP bans<br>maintains access |
+| **Persistent URL Frontier** | ⚖️ Disk I/O for<br>durability | ✅ 100B+ URLs<br>RocksDB storage | ✅ Survives crashes<br>checkpoint recovery | ⚠️ Concurrent access<br>needs locking | 🔄 Distributed frontier<br>sharding needed | 📊 Frontier size<br>growth metrics | 🛠️ Priority tuning<br>controls | ⚖️ Storage costs<br>but necessary |
+| **Bloom Filter Dedup** | ✅ O(1) lookups<br>no DB hit | ✅ ~10 bits per URL<br>memory efficient | ✅ Reconstructible<br>from crawl history | ✅ Lock-free reads<br>thread-safe | ➖ Node-local<br>filters | 📊 False positive<br>rate tracking | ⚠️ Probabilistic may<br>miss some URLs | ✅ 90% reduction<br>in storage ops |
+| **Content Hashing** | ⚖️ Hash computation<br>CPU overhead | ✅ Compact hashes<br>vs full content | ✅ Can rebuild<br>from pages | ✅ Parallel hashing<br>in workers | ➖ Local operation<br>no sync needed | 📊 Duplicate rate<br>statistics | ✅ Dedup transparent<br>to users | ✅ Huge storage<br>savings |
+| **Circuit Breakers** | ✅ Fast fail for<br>bad domains | ✅ Prevents resource<br>waste on failures | ✅ Automatic recovery<br>with backoff | ✅ Per-domain state<br>no global lock | ➖ Each node tracks<br>independently | ✅ Breaker state<br>dashboards | ✅ Clear failure<br>visibility | ✅ Saves bandwidth<br>on dead sites |
+| **Robots.txt Caching** | ✅ Avoid repeated<br>fetches | ✅ Bounded cache<br>with TTL | ✅ Fallback to<br>allow on failure | ✅ Concurrent cache<br>reads | 🔄 Cache invalidation<br>strategy | 📊 Cache hit rate<br>robots compliance | ✅ Respect site<br>owner wishes | ✅ Reduces requests<br>saves bandwidth |
+| **Distributed Workers** | ⚖️ Network coordination<br>overhead | ✅ Linear scaling<br>with nodes | ✅ Node failures<br>don't stop crawl | ✅ Massive parallelism<br>across nodes | 🔄 Work distribution<br>via coordinator | 📊 Worker health<br>and throughput | ⚠️ Complex deployment<br>and debugging | ✅ Use spot instances<br>for cost savings |
+| **Checkpointing** | ⚖️ Periodic I/O<br>for snapshots | ✅ Incremental saves<br>bounded size | ✅ Recovery point<br>for restarts | ⚠️ Checkpoint consistency<br>across workers | 🔄 Checkpoint coordination<br>via ZK | 📊 Checkpoint lag<br>recovery time | ✅ Restart capability<br>operational tool | ✅ Prevents recrawl<br>saves resources |
+| **Smart Scheduling** | ⚖️ ML inference<br>overhead | ✅ Prioritizes valuable<br>content | ✅ Adapts to site<br>reliability | ✅ Parallel scoring<br>and scheduling | 🔄 Global priority<br>agreement | 📊 Scheduling efficiency<br>metrics | ⚠️ Complex tuning<br>parameters | ✅ Crawls high-value<br>pages first |
+
 ### 🏛️ Pillar Mapping
 
 #### Work Distribution
@@ -2222,6 +2237,252 @@ class CostOptimizedCrawler:
 - **Bloom Filter**: Duplicate detection
 - **Rate Limiting**: Politeness enforcement
 - **Checkpointing**: State recovery
+
+### 🏗️ Architecture Alternatives
+
+#### Alternative 1: Focused Vertical Crawler
+```mermaid
+graph TB
+    subgraph "Seed Management"
+        SM[Seed Manager<br/>Domain whitelist]
+    end
+    
+    subgraph "Single Node"
+        Q[Priority Queue]
+        F[Fetcher]
+        P[Parser]
+        S[Storage]
+    end
+    
+    subgraph "External"
+        ML[ML Classifier]
+        API[Export API]
+    end
+    
+    SM --> Q
+    Q --> F
+    F --> P
+    P --> S
+    P --> ML
+    ML --> Q
+    S --> API
+    
+    style F fill:#90EE90
+    style ML fill:#FFE4B5
+```
+
+**Characteristics:**
+- Single machine, focused domains
+- Deep crawling with ML filtering
+- High precision, low scale
+- Simple operation
+
+#### Alternative 2: Serverless Crawler
+```mermaid
+graph TB
+    subgraph "Trigger"
+        CW[CloudWatch<br/>Schedule]
+        SQS[SQS Queue]
+    end
+    
+    subgraph "Lambda Functions"
+        L1[URL Fetcher]
+        L2[Parser]
+        L3[Link Extractor]
+        L4[Storage Writer]
+    end
+    
+    subgraph "Storage"
+        S3[(S3 Pages)]
+        DDB[(DynamoDB<br/>Metadata)]
+    end
+    
+    CW --> SQS
+    SQS --> L1
+    L1 --> L2
+    L2 --> L3 & L4
+    L3 --> SQS
+    L4 --> S3 & DDB
+    
+    style L1 fill:#e3f2fd
+    style L2 fill:#e3f2fd
+    style L3 fill:#e3f2fd
+    style L4 fill:#e3f2fd
+```
+
+**Characteristics:**
+- No infrastructure management
+- Auto-scaling
+- Pay per crawl
+- Limited by Lambda constraints
+
+#### Alternative 3: Browser-Based Crawler
+```mermaid
+graph TB
+    subgraph "Controller"
+        C[Crawl Controller]
+        Q[URL Queue]
+    end
+    
+    subgraph "Browser Farm"
+        B1[Chrome 1]
+        B2[Chrome 2]
+        BN[Chrome N]
+        
+        subgraph "Per Browser"
+            PD[Puppeteer<br/>Driver]
+            JS[JS Engine]
+        end
+    end
+    
+    subgraph "Processing"
+        R[Renderer]
+        E[Extractor]
+        S[Screenshot]
+    end
+    
+    C --> Q
+    Q --> B1 & B2 & BN
+    B1 & B2 & BN --> R
+    R --> E & S
+    
+    style B1 fill:#c8e6c9
+    style B2 fill:#c8e6c9
+    style BN fill:#c8e6c9
+```
+
+**Characteristics:**
+- Handles JavaScript sites
+- Screenshots and rendering
+- High resource usage
+- Complex debugging
+
+#### Alternative 4: Distributed Stream Processing
+```mermaid
+graph LR
+    subgraph "Ingestion"
+        K1[Kafka URLs]
+    end
+    
+    subgraph "Stream Processing"
+        F1[Flink Job 1<br/>Fetching]
+        F2[Flink Job 2<br/>Parsing]
+        F3[Flink Job 3<br/>Dedup]
+    end
+    
+    subgraph "Output"
+        K2[Kafka Pages]
+        ES[(ElasticSearch)]
+        HB[(HBase)]
+    end
+    
+    K1 --> F1
+    F1 --> F2
+    F2 --> F3
+    F3 --> K2
+    K2 --> ES & HB
+    
+    style F1 fill:#fff9c4
+    style F2 fill:#fff9c4
+    style F3 fill:#fff9c4
+```
+
+**Characteristics:**
+- Stream processing paradigm
+- Built-in fault tolerance
+- Complex operations
+- High operational overhead
+
+#### Alternative 5: Edge-Distributed Crawler
+```mermaid
+graph TB
+    subgraph "Central"
+        CC[Central<br/>Controller]
+        GQ[Global Queue]
+    end
+    
+    subgraph "Edge Locations"
+        subgraph "US-East"
+            E1[Edge Crawler]
+            C1[(Local Cache)]
+        end
+        
+        subgraph "EU-West"
+            E2[Edge Crawler]
+            C2[(Local Cache)]
+        end
+        
+        subgraph "Asia-Pac"
+            E3[Edge Crawler]
+            C3[(Local Cache)]
+        end
+    end
+    
+    subgraph "Storage"
+        CS[(Central Storage)]
+    end
+    
+    CC --> GQ
+    GQ --> E1 & E2 & E3
+    E1 --> C1
+    E2 --> C2
+    E3 --> C3
+    C1 & C2 & C3 -.->|Sync| CS
+    
+    style E1 fill:#bbdefb
+    style E2 fill:#bbdefb
+    style E3 fill:#bbdefb
+```
+
+**Characteristics:**
+- Geographic distribution
+- Low latency to regional sites
+- Complex synchronization
+- Higher infrastructure cost
+
+### ⚖️ Trade-off Analysis Matrix
+
+| Architecture | Scale | Complexity | Cost | JS Support | Latency | Fault Tolerance | Ops Overhead |
+|--------------|-------|------------|------|------------|---------|-----------------|---------------|
+| **Focused Vertical** | ❌ Low | ✅ Simple | ✅ Low | ❌ None | ✅ Low | ❌ Limited | ✅ Minimal |
+| **Serverless** | 🔶 Medium | 🔶 Medium | 🔶 Variable | ❌ None | 🔶 Medium | ✅ High | ✅ None |
+| **Browser-Based** | 🔶 Medium | ❌ High | ❌ High | ✅ Full | ❌ High | 🔶 Medium | ❌ High |
+| **Stream Processing** | ✅ High | ❌ Very High | ❌ High | ❌ None | ✅ Low | ✅ Excellent | ❌ Very High |
+| **Edge-Distributed** | ✅ High | ❌ High | ❌ High | 🔶 Partial | ✅ Very Low | ✅ High | ❌ High |
+
+### 📊 Performance & Scale Comparison
+
+```mermaid
+graph LR
+    subgraph "Pages/Second"
+        A[Focused: 100]
+        B[Serverless: 1K]
+        C[Browser: 10]
+        D[Stream: 100K]
+        E[Edge: 50K]
+    end
+    
+    A -->|10x| B
+    B -->|0.01x| C
+    B -->|100x| D
+    D -->|0.5x| E
+```
+
+```mermaid
+graph TB
+    subgraph "Cost per Million Pages"
+        T1[Focused<br/>$10]
+        T2[Serverless<br/>$100]
+        T3[Browser<br/>$1000]
+        T4[Stream<br/>$50]
+        T5[Edge<br/>$200]
+    end
+    
+    T1 -->|10x| T2
+    T2 -->|10x| T3
+    T1 -->|5x| T4
+    T4 -->|4x| T5
+```
 
 ## Part 2: Architecture & Trade-offs
 
@@ -2398,6 +2659,31 @@ Storage Node      32GB      8 cores  10TB
 4. **Trap Detection Saves Resources**: Spider traps and infinite spaces waste resources. Pattern detection crucial.
 
 5. **Adaptive Crawling Wins**: Static priorities fail. ML-based scheduling improves freshness and coverage.
+
+### 🔗 Related Concepts & Deep Dives
+
+**Prerequisite Understanding:**
+- [Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md) - Massive parallelism patterns
+- [Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md) - Crawler ethics and robots.txt
+- [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
+- [Bulkhead Pattern](../patterns/bulkhead.md) - Domain isolation strategies
+
+**Advanced Topics:**
+- [JavaScript Crawling](../patterns/js-crawling.md) - Headless browser techniques
+- [Trap Detection](../patterns/crawler-traps.md) - Identifying infinite spaces
+- [Distributed Deduplication](../patterns/distributed-dedup.md) - At-scale duplicate detection
+- [Adaptive Scheduling](../patterns/adaptive-scheduling.md) - ML-based crawl prioritization
+
+**Related Case Studies:**
+- [Search Engine](./search-engine.md) - Using crawled data for indexing
+- [Web Archive](./web-archive.md) - Long-term storage of web content
+- [Price Monitor](./price-monitor.md) - Focused e-commerce crawling
+
+**Implementation Patterns:**
+- [Politeness Policies](../patterns/politeness.md) - Respectful crawling
+- [URL Normalization](../patterns/url-normalization.md) - Canonical URLs
+- [Content Extraction](../patterns/content-extraction.md) - Parsing strategies
+- [Frontier Management](../patterns/url-frontier.md) - Scalable queue design
 
 ### 📚 References
 

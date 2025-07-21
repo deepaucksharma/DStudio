@@ -1125,6 +1125,21 @@ class EconomicKVStore:
         return report
 ```
 
+### 🔍 Comprehensive Axiom Mapping
+
+| Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
+|-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
+| **Multi-level Cache** | ✅ Sub-ms latency<br>Memory → Redis → Disk | ⚖️ Limited memory<br>Cache eviction needed | 🔄 Cache warming<br>on failover | ⚠️ Cache coherence<br>challenges | 🔄 Invalidation<br>coordination | 📊 Hit rate metrics<br>per level | 🛠️ Cache tuning<br>controls | 💰 Memory cost<br>vs. latency |
+| **LSM-Tree Storage** | ⚖️ Write optimized<br>Read amplification | ✅ Efficient storage<br>Compression friendly | ✅ Recovery via<br>WAL + SSTables | ✅ Immutable files<br>No write conflicts | ➖ No coordination<br>needed | 📊 Compaction stats<br>Write amplification | 🛠️ Tunable levels<br>and ratios | ⚖️ CPU for compaction<br>vs. storage |
+| **Consistent Hashing** | ✅ One hop routing<br>No centralized LB | ✅ Even distribution<br>Virtual nodes | ✅ Minimal data<br>movement on failure | ✅ Parallel ops<br>to different keys | 🔄 Ring membership<br>consensus | 📊 Key distribution<br>visualization | 🛠️ Rebalancing<br>controls | ✅ Elastic scaling<br>pay-per-node |
+| **Quorum Replication** | ⚖️ Tunable latency<br>via R/W values | ✅ N replicas<br>spread load | ✅ Tolerate N-1<br>failures | ✅ Concurrent reads<br>Ordered writes | 🔄 Vector clocks<br>for ordering | 📊 Replica lag<br>monitoring | 🛠️ Consistency level<br>per operation | ⚖️ Replication factor<br>vs. storage cost |
+| **Hinted Handoff** | ✅ No blocking on<br>temp failures | ✅ Bounded hint<br>storage | ✅ Eventually delivers<br>missed writes | ✅ Async hint<br>replay | 🔄 Hint coordination<br>with anti-entropy | 📊 Hint queue<br>depth metrics | ⚠️ Complexity in<br>failure scenarios | ✅ Maintains<br>availability |
+| **Vector Clocks** | ➖ Small overhead<br>per request | ✅ Compact representation<br>O(nodes) | ✅ Detects conflicts<br>after partition | ✅ Tracks causality<br>across updates | ✅ Distributed ordering<br>without consensus | 📊 Conflict rate<br>metrics | ⚠️ Complex conflict<br>resolution | ⚖️ Metadata overhead<br>acceptable |
+| **Bloom Filters** | ✅ O(1) negative<br>lookups | ✅ Space efficient<br>~10 bits/key | ✅ Reconstructible<br>from data | ✅ Lock-free<br>reads | ➖ No coordination<br>purely local | 📊 False positive<br>rate tracking | 🛠️ Tunable size<br>and hash functions | ✅ Huge savings<br>on disk seeks |
+| **WAL + Snapshots** | ⚖️ Sequential writes<br>fast, recovery slower | ✅ Bounded log size<br>via snapshots | ✅ Durability<br>guaranteed | ✅ Append-only<br>no conflicts | ➖ Local decision<br>when to snapshot | 📊 Recovery time<br>metrics | 🛠️ Snapshot frequency<br>controls | ⚖️ Write durability<br>vs. performance |
+| **Anti-entropy** | ⚖️ Background process<br>doesn't affect ops | ✅ Merkle trees<br>minimize transfer | ✅ Repairs divergence<br>after failures | ✅ Non-blocking<br>read-only process | 🔄 Gossip protocol<br>for tree exchange | 📊 Divergence<br>detection rate | 🛠️ Repair frequency<br>tuning | ✅ Automated healing<br>reduces ops cost |
+| **Hot Key Detection** | ⚠️ May throttle<br>hot keys | ✅ Count-min sketch<br>space efficient | ✅ Survives restarts<br>via persistence | ✅ Lock-free<br>counting | 🔄 Gossip hot keys<br>for global view | ✅ Real-time hot<br>key dashboard | ⚠️ Requires manual<br>sharding decision | ✅ Prevents cascading<br>failures |
+
 ### 🏛️ Pillar Mapping
 
 #### Work Distribution
@@ -1172,6 +1187,208 @@ class EconomicKVStore:
 - **Bloom Filters**: Existence checks
 - **Circuit Breaker**: Fault isolation
 - **Bulkhead**: Resource isolation
+
+### 🏗️ Architecture Alternatives
+
+#### Alternative 1: Master-Slave Architecture
+```mermaid
+graph TB
+    subgraph "Clients"
+        C1[Client 1]
+        C2[Client 2]
+        C3[Client N]
+    end
+    
+    subgraph "Masters (Sharded)"
+        M1[Master 1<br/>Keys: A-H]
+        M2[Master 2<br/>Keys: I-P]
+        M3[Master 3<br/>Keys: Q-Z]
+    end
+    
+    subgraph "Slaves"
+        S1A[Slave 1A]
+        S1B[Slave 1B]
+        S2A[Slave 2A]
+        S2B[Slave 2B]
+        S3A[Slave 3A]
+        S3B[Slave 3B]
+    end
+    
+    C1 & C2 & C3 --> M1 & M2 & M3
+    M1 --> S1A & S1B
+    M2 --> S2A & S2B
+    M3 --> S3A & S3B
+    
+    style M1 fill:#ff9999
+    style M2 fill:#ff9999
+    style M3 fill:#ff9999
+```
+
+**Characteristics:**
+- Simple consistency model
+- Clear write path through masters
+- Read scaling via slaves
+- Manual failover complexity
+
+#### Alternative 2: Peer-to-Peer Ring (Cassandra-style)
+```mermaid
+graph LR
+    subgraph "Token Ring"
+        N1[Node 1<br/>Token: 0]
+        N2[Node 2<br/>Token: 64]
+        N3[Node 3<br/>Token: 128]
+        N4[Node 4<br/>Token: 192]
+    end
+    
+    N1 -.->|Replication| N2
+    N2 -.->|Replication| N3
+    N3 -.->|Replication| N4
+    N4 -.->|Replication| N1
+    
+    subgraph "Client View"
+        C[Client]
+    end
+    
+    C -->|Consistent Hash| N1
+    C -->|Consistent Hash| N2
+    C -->|Consistent Hash| N3
+    C -->|Consistent Hash| N4
+```
+
+**Characteristics:**
+- No single point of failure
+- Tunable consistency
+- Complex conflict resolution
+- Excellent scalability
+
+#### Alternative 3: Raft Consensus Clusters
+```mermaid
+graph TB
+    subgraph "Raft Group 1"
+        L1[Leader]
+        F1A[Follower]
+        F1B[Follower]
+    end
+    
+    subgraph "Raft Group 2"
+        L2[Leader]
+        F2A[Follower]
+        F2B[Follower]
+    end
+    
+    subgraph "Router"
+        R[Smart Router]
+    end
+    
+    C[Clients] --> R
+    R --> L1 & L2
+    
+    L1 -.->|Log Replication| F1A & F1B
+    L2 -.->|Log Replication| F2A & F2B
+    
+    style L1 fill:#90EE90
+    style L2 fill:#90EE90
+```
+
+**Characteristics:**
+- Strong consistency
+- Automatic failover
+- Limited write throughput
+- Complex cross-shard transactions
+
+#### Alternative 4: Hierarchical Cache Architecture
+```mermaid
+graph TB
+    subgraph "Edge Cache"
+        EC1[Edge Cache 1]
+        EC2[Edge Cache 2]
+    end
+    
+    subgraph "Regional Cache"
+        RC1[Regional Cache 1]
+        RC2[Regional Cache 2]
+    end
+    
+    subgraph "Core Storage"
+        CS1[Core Storage 1]
+        CS2[Core Storage 2]
+        CS3[Core Storage 3]
+    end
+    
+    C[Clients] --> EC1 & EC2
+    EC1 & EC2 --> RC1 & RC2
+    RC1 & RC2 --> CS1 & CS2 & CS3
+    
+    style EC1 fill:#e3f2fd
+    style EC2 fill:#e3f2fd
+    style RC1 fill:#bbdefb
+    style RC2 fill:#bbdefb
+```
+
+**Characteristics:**
+- Optimized for read-heavy workloads
+- Geographic distribution
+- Complex cache invalidation
+- Higher operational overhead
+
+#### Alternative 5: Hybrid Transactional/Analytical (HTAP)
+```mermaid
+graph LR
+    subgraph "Transactional Layer"
+        T1[TX Node 1]
+        T2[TX Node 2]
+    end
+    
+    subgraph "Storage Layer"
+        S1[Storage 1]
+        S2[Storage 2]
+    end
+    
+    subgraph "Analytical Layer"
+        A1[Analytics 1]
+        A2[Analytics 2]
+    end
+    
+    subgraph "CDC Pipeline"
+        CDC[Change Data Capture]
+    end
+    
+    C1[OLTP Clients] --> T1 & T2
+    T1 & T2 --> S1 & S2
+    S1 & S2 --> CDC
+    CDC --> A1 & A2
+    C2[OLAP Clients] --> A1 & A2
+```
+
+**Characteristics:**
+- Supports both OLTP and OLAP
+- Real-time analytics
+- Complex architecture
+- Higher resource requirements
+
+### ⚖️ Trade-off Analysis Matrix
+
+| Architecture | Consistency | Availability | Partition Tolerance | Latency | Throughput | Complexity | Cost |
+|--------------|-------------|--------------|-------------------|---------|------------|------------|------|
+| **Master-Slave** | Strong | Medium<br>(manual failover) | Low<br>(split-brain risk) | Low<br>(direct routing) | Medium<br>(master bottleneck) | Low | Low |
+| **P2P Ring** | Tunable | High<br>(no SPOF) | High<br>(gossip protocol) | Medium<br>(quorum reads) | High<br>(distributed writes) | High | Medium |
+| **Raft Clusters** | Strong | High<br>(auto-failover) | Medium<br>(majority required) | Medium<br>(consensus overhead) | Low<br>(serialized writes) | Medium | Medium |
+| **Hierarchical Cache** | Eventual | High<br>(cache serves stale) | High<br>(cache isolation) | Very Low<br>(edge cache) | Very High<br>(cache hits) | High | High |
+| **HTAP** | Strong for TX<br>Eventual for analytics | High<br>(separated concerns) | High<br>(independent layers) | Low for TX<br>Higher for analytics | High<br>(specialized paths) | Very High | Very High |
+
+### 📊 Detailed Comparison Metrics
+
+```mermaid
+radar
+    title Architecture Comparison
+    "Master-Slave", [7, 5, 4, 8, 5, 9, 9]
+    "P2P Ring", [5, 9, 9, 6, 9, 4, 7]
+    "Raft Clusters", [9, 8, 6, 6, 4, 7, 7]
+    "Hierarchical Cache", [4, 9, 9, 9, 10, 3, 5]
+    "HTAP", [8, 8, 8, 7, 8, 2, 3]
+```
+
+Dimensions: Consistency, Availability, Partition Tolerance, Low Latency, High Throughput, Simplicity, Cost Efficiency
 
 ## Part 2: Architecture & Trade-offs
 
@@ -1439,6 +1656,30 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 5. **Automate Operations**: Manual cluster management doesn't scale. Build automation for scaling, upgrades, and failure recovery.
 
 6. **Test Chaos Early**: Distributed systems have emergent behaviors. Chaos engineering reveals issues before production.
+
+### 🔗 Related Concepts & Deep Dives
+
+**Prerequisite Understanding:**
+- [Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md) - Consensus and distributed coordination
+- [Axiom 3: Failure](../part1-axioms/axiom3-failure/index.md) - Failure modes and recovery strategies
+- [Consistent Hashing Pattern](../patterns/consistent-hashing.md) - Data distribution technique
+- [CAP Theorem](../part2-pillars/pillar3-truth/index.md#cap-theorem) - Fundamental trade-offs
+
+**Advanced Topics:**
+- [Multi-Region Replication](../patterns/multi-region.md) - Global distribution strategies
+- [Hybrid Logical Clocks](../patterns/hlc.md) - Better than vector clocks for some use cases
+- [CRDT Integration](../patterns/crdt.md) - Conflict-free replicated data types
+- [Storage Engine Internals](../quantitative/storage-engines.md) - LSM vs B-Tree deep dive
+
+**Related Case Studies:**
+- [Amazon DynamoDB](./amazon-dynamo.md) - Production implementation of these concepts
+- [Google Spanner](./google-spanner.md) - Globally consistent alternative approach
+- [Redis Architecture](./redis-architecture.md) - In-memory KV store design
+
+**Performance Optimization:**
+- [Caching Strategies](../patterns/caching.md) - Multi-level cache design
+- [Compression Algorithms](../quantitative/compression.md) - Storage optimization
+- [Network Optimization](../patterns/network-optimization.md) - Reducing network overhead
 
 ### 📚 References
 

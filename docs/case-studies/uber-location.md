@@ -518,6 +518,45 @@ graph TB
 - [Uber's Ringpop](https://github.com/uber/ringpop)
 - [Uber Engineering Blog](https://eng.uber.com/)
 
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - H3 hexagonal grid partitioning ensures even load distribution across cells
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Lock-free data structures handle millions of concurrent location updates
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Ringpop gossip protocol coordinates without central authority
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Real-time dashboards track driver density and system health per region
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Driver app design optimizes for one-handed operation while driving
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
+
+### 🏛️ Related Patterns (Part III)
+- **[Sharding & Partitioning](../patterns/sharding.md)** - H3 hexagonal grid provides natural geographic sharding boundaries
+- **[Event-Driven Architecture](../patterns/event-driven.md)** - Location updates flow through Kafka event streams
+- **[CQRS](../patterns/cqrs.md)** - Separate write path (location updates) from read path (driver queries)
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Protects dispatch service from location service failures
+- **[Edge Computing](../patterns/edge-computing.md)** - Regional data centers reduce location update latency
+- **[Service Mesh](../patterns/service-mesh.md)** - Envoy proxies handle service-to-service communication
+- **[Load Balancing](../patterns/load-balancing.md)** - Geo-aware routing directs requests to nearest data center
+
+### 📊 Quantitative Models
+- **[Little's Law](../quantitative/littles-law.md)** - Driver utilization: L = λW (active drivers = arrival rate × trip duration)
+- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for driver dispatch optimization
+- **[Scaling Laws](../quantitative/scaling-laws.md)** - Square root scaling: doubling drivers reduces wait time by √2
+- **[CAP Theorem](../quantitative/cap-pacelc.md)** - Chooses AP: available during network partitions with eventual consistency
+
+### 👥 Human Factors Considerations
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global operations require follow-the-sun support model
+- **[Incident Response](../human-factors/incident-response.md)** - Playbooks for common scenarios (region failures, GPS outages)
+- **[Observability Tools](../human-factors/observability.md)** - Heat maps show driver density and demand patterns
+- **[SRE Practices](../human-factors/sre-practices.md)** - Error budgets balance innovation with reliability
+
+### 🔄 Similar Case Studies
+- **[Amazon DynamoDB](amazon-dynamo.md)** - Similar challenges with global distribution and availability
+- **[News Feed System](news-feed.md)** - Real-time data distribution to millions of users
+- **[YouTube's Video Platform](youtube.md)** - Geographic content distribution and edge caching
+- **[Consistent Hashing](consistent-hashing.md)** - Core technique used in Uber's Ringpop protocol
+
 ---
 
 ---

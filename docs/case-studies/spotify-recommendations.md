@@ -597,6 +597,45 @@ graph TB
 - [YouTube's Algorithm](https://research.google/pubs/pub45530/)
 - [Amazon Personalization](https://aws.amazon.com/personalize/)
 
+## 🔍 Related Concepts & Deep Dives
+
+### 📚 Relevant Axioms (Part I)
+- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - GPU clusters for model training require careful resource scheduling
+- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Fallback to popular playlists when recommendation service fails
+- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Feature store synchronization across multiple data pipelines
+- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - UI design balances algorithmic recommendations with user control
+- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
+
+### 🏛️ Related Patterns (Part III)
+- **[Event-Driven Architecture](../patterns/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
+- **[CQRS](../patterns/cqrs.md)** - Separate paths for collecting user signals vs serving recommendations
+- **[Caching Strategies](../patterns/caching-strategies.md)** - Multi-level caches for popular recommendations and user preferences
+- **[Circuit Breaker](../patterns/circuit-breaker.md)** - Graceful degradation when ML models fail
+- **[Service Mesh](../patterns/service-mesh.md)** - Microservices architecture for different recommendation algorithms
+- **[Load Balancing](../patterns/load-balancing.md)** - GPU load distribution for model inference
+- **[Bulkhead](../patterns/bulkhead.md)** - Isolate experimental models from production traffic
+
+### 📊 Quantitative Models
+- **[Little's Law](../quantitative/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
+- **[Amdahl's Law](../quantitative/amdahls-law.md)** - Parallelizing matrix operations for collaborative filtering
+- **[Power Laws](../quantitative/power-laws.md)** - Long-tail content distribution affects recommendation strategy
+- **[Information Theory](../quantitative/information-theory.md)** - Entropy measures for recommendation diversity
+
+### 👥 Human Factors Considerations
+- **[SRE Practices](../human-factors/sre-practices.md)** - ML model deployment requires specialized SRE workflows
+- **[Observability Tools](../human-factors/observability.md)** - Real-time dashboards track recommendation performance metrics
+- **[On-Call Culture](../human-factors/oncall-culture.md)** - Data scientists on-call for model quality issues
+- **[Post-Mortem Culture](../human-factors/postmortem-culture.md)** - Learning from recommendation failures and filter bubbles
+
+### 🔄 Similar Case Studies
+- **[News Feed System](news-feed.md)** - Similar personalization challenges at scale
+- **[YouTube's Video Platform](youtube.md)** - Video recommendations using similar hybrid approaches
+- **[Rate Limiter Design](rate-limiter.md)** - API rate limiting for recommendation requests
+- **[Amazon DynamoDB](amazon-dynamo.md)** - Storing user preferences and feature vectors at scale
+
 ---
 
 ---
