@@ -3,11 +3,11 @@ title: Leader Election Pattern
 description: "Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios"
 type: pattern
 difficulty: advanced
-reading_time: 10 min
+reading_time: 45 min
 prerequisites: []
-pattern_type: "general"
+pattern_type: "coordination"
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
@@ -15,93 +15,206 @@ last_updated: 2025-07-20
 
 # Leader Election Pattern
 
-**Coordinate distributed decisions through democratic consensus - One leader to rule them all**
+**Democracy in distributed systems - Electing a single decision maker to prevent chaos**
 
-> *"In a distributed system, everyone thinks they should be the leader. Leader election ensures only one actually is."*
-
----
-
-## 🎯 Pattern Overview
-
-### The Problem
-Many distributed operations require a single coordinator:
-- **Resource allocation**: Who assigns work to workers?
-- **Scheduling**: Who decides when jobs run?
-- **Configuration updates**: Who pushes new settings?
-- **Shard management**: Who rebalances data?
-
-Without coordination:
-- Multiple nodes make conflicting decisions
-- Resources get double-allocated
-- Work gets duplicated or missed
-- Split-brain scenarios cause havoc
-- System behavior becomes unpredictable
-
-### The Solution
-Implement a leader election protocol where:
-- **One leader emerges** from a group of candidates
-- **Automatic failover** when the leader fails
-- **Consensus prevents split-brain** scenarios
-- **Followers redirect** coordination tasks to leader
-- **Leadership can transfer** gracefully
-
-### When to Use
-
-| ✅ Use When | ❌ Don't Use When |
-|-------------|-------------------|
-| • Need single point of coordination | • All nodes can work independently |
-| • Centralized decision making required | • Eventual consistency is acceptable |
-| • Resource allocation/scheduling | • Single leader becomes bottleneck |
-| • Preventing duplicate work | • Leader failure blocks system |
-| • Maintaining global view | • Coordination overhead too high |
+> *"In a distributed system, everyone thinks they should be the leader. Leader election ensures only one actually is, and everyone else agrees."*
 
 ---
 
-## 🏗️ Architecture & Implementation
+## 🎯 Level 1: Intuition
 
-### Conceptual Model
+### The School Class President Analogy
 
-```mermaid
-graph TB
-    subgraph "Election Process"
-        C1[Candidate 1] -->|Request Votes| E{Election}
-        C2[Candidate 2] -->|Request Votes| E
-        C3[Candidate 3] -->|Request Votes| E
-        E -->|Majority| L[Leader]
-        E -->|No Majority| T[New Term]
-        T -->|Retry| E
-    end
+Think of leader election like choosing a class president:
 
-    subgraph "Steady State"
-        L -->|Heartbeats| F1[Follower 1]
-        L -->|Heartbeats| F2[Follower 2]
-        L -->|Decisions| W[Work Distribution]
-        F1 -->|Timeout| C1
-        F2 -->|Timeout| C2
-    end
+```
+🏫 Classroom Election Process:
 
-    subgraph "Client Interaction"
-        CL[Clients] -->|Requests| L
-        CL -.->|Redirect| F1
-        F1 -.->|Forward| L
-    end
+1. Campaign Period (FOLLOWER state)
+   - Everyone is equal
+   - Students listen to teachers
+   - No one makes class decisions
 
-    style L fill:#f9f,stroke:#333,stroke-width:4px
-    style E fill:#bbf,stroke:#333,stroke-width:2px
-    style W fill:#bfb,stroke:#333,stroke-width:2px
+2. Election Time (CANDIDATE state)
+   - Multiple students run for president
+   - Each asks for votes
+   - Must get majority to win
+
+3. President Elected (LEADER state)
+   - One student becomes president
+   - Makes decisions for the class
+   - Others follow their lead
+
+4. If President Absent (FAILURE)
+   - New election automatically starts
+   - Vice president might take over temporarily
+   - Class continues functioning
 ```
 
-### Key Components
+### Visual Metaphor
 
-| Component | Purpose | Responsibilities |
-|-----------|---------|------------------|
-| **Election Protocol** | Choose leader fairly | • Prevent split-brain<br>• Handle network partitions<br>• Ensure single leader<br>• Manage term numbers |
-| **Leader** | Coordinate system | • Make decisions<br>• Send heartbeats<br>• Handle client requests<br>• Maintain authority |
-| **Followers** | Support leader | • Respond to heartbeats<br>• Forward requests<br>• Participate in elections<br>• Monitor leader health |
-| **State Machine** | Track node state | • Leader/Follower/Candidate<br>• Current term<br>• Voted for tracking<br>• Election timeout |
-| **Client Library** | Handle redirects | • Find current leader<br>• Retry on leader change<br>• Handle failures gracefully |
+```
+Distributed System without Leader:     With Leader Election:
 
-### Implementation Example
+🖥️ → 📊 ← 🖥️                          🖥️ ↘
+↓     ↕     ↑                                📊 ← 👑🖥️ (Leader)
+🖥️ → 📊 ← 🖥️                          🖥️ ↗
+
+Chaos: Everyone updates               Order: Leader coordinates
+Result: Conflicts & inconsistency     Result: Consistent decisions
+```
+
+### Real-World Examples
+
+| System | What Needs a Leader | Without Leader | With Leader |
+|--------|-------------------|----------------|-------------|
+| **Database Cluster** | Write operations | Conflicting writes | Consistent updates |
+| **Job Scheduler** | Task assignment | Duplicate work | Efficient distribution |
+| **Service Registry** | Configuration updates | Stale configs | Synchronized state |
+| **Shard Manager** | Data rebalancing | Uneven distribution | Optimal placement |
+
+### Basic Implementation
+
+```python
+from enum import Enum
+import time
+import random
+
+class NodeState(Enum):
+    FOLLOWER = "follower"
+    CANDIDATE = "candidate"
+    LEADER = "leader"
+
+class SimpleLeaderElection:
+    def __init__(self, node_id: str, peers: list):
+        self.node_id = node_id
+        self.peers = peers
+        self.state = NodeState.FOLLOWER
+        self.current_term = 0
+        self.voted_for = None
+        self.leader_id = None
+        self.last_heartbeat = time.time()
+        
+    def start_election(self):
+        """Become candidate and request votes"""
+        self.state = NodeState.CANDIDATE
+        self.current_term += 1
+        self.voted_for = self.node_id
+        
+        # Vote for self
+        votes = 1
+        
+        # Request votes from peers
+        for peer in self.peers:
+            if self.request_vote(peer, self.current_term):
+                votes += 1
+        
+        # Check if won majority
+        if votes > len(self.peers) / 2:
+            self.become_leader()
+        else:
+            self.state = NodeState.FOLLOWER
+    
+    def become_leader(self):
+        """Transition to leader state"""
+        self.state = NodeState.LEADER
+        self.leader_id = self.node_id
+        print(f"Node {self.node_id} became leader for term {self.current_term}")
+        
+        # Start sending heartbeats
+        self.send_heartbeats()
+    
+    def request_vote(self, peer: str, term: int) -> bool:
+        """Request vote from a peer (simplified)"""
+        # In real implementation, this would be a network call
+        # Simplified: 70% chance of getting vote
+        return random.random() < 0.7
+    
+    def send_heartbeats(self):
+        """Send heartbeats to maintain leadership"""
+        for peer in self.peers:
+            # In real implementation, send actual heartbeat message
+            print(f"Leader {self.node_id} → heartbeat → {peer}")
+
+# Example usage
+nodes = ["node1", "node2", "node3", "node4", "node5"]
+leader_election = SimpleLeaderElection("node1", nodes[1:])
+leader_election.start_election()
+```
+
+---
+
+## 🏗️ Level 2: Foundation
+
+### Core Concepts
+
+#### Election Terms
+Each election happens in a numbered term, preventing old messages from causing confusion:
+
+```
+Term 1: Node A elected
+Term 2: Node A fails, Node B elected  
+Term 3: Network partition, Node C elected
+Term 4: Partition heals, Node B re-elected
+```
+
+#### State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Follower: Start
+    
+    Follower --> Candidate: Election timeout
+    
+    Candidate --> Leader: Receive majority votes
+    Candidate --> Follower: Lose election/Higher term
+    Candidate --> Candidate: Split vote/Retry
+    
+    Leader --> Follower: Discover higher term
+    
+    note right of Follower
+        - Follow current leader
+        - Respond to vote requests
+        - Reset timer on heartbeat
+    end note
+    
+    note right of Candidate  
+        - Increment term
+        - Vote for self
+        - Request votes
+    end note
+    
+    note right of Leader
+        - Send heartbeats
+        - Process client requests  
+        - Replicate decisions
+    end note
+```
+
+### Consensus Requirements
+
+#### Majority Quorum
+```
+5 nodes: Need 3 votes to win (⌊5/2⌋ + 1 = 3)
+7 nodes: Need 4 votes to win (⌊7/2⌋ + 1 = 4)
+9 nodes: Need 5 votes to win (⌊9/2⌋ + 1 = 5)
+
+Why majority?
+- Prevents split brain (only one majority possible)
+- Tolerates failures (can lose minority and continue)
+- Ensures overlap (any two majorities share at least one node)
+```
+
+#### Timing Parameters
+
+| Parameter | Purpose | Typical Range | Considerations |
+|-----------|---------|---------------|----------------|
+| **Election Timeout** | Trigger new election | 150-300ms | Random to prevent split votes |
+| **Heartbeat Interval** | Maintain leadership | 50-150ms | < Election timeout / 2 |
+| **RPC Timeout** | Network calls | 10-50ms | < Heartbeat interval |
+| **Min Election Timeout** | Prevent thrashing | 150ms | > Several RTTs |
+
+### Raft Algorithm Implementation
 
 ```python
 import asyncio
@@ -604,6 +717,490 @@ class ShardManager(LeaderElectedService):
 
 ---
 
+## 🔧 Level 3: Deep Dive
+
+### Advanced Election Scenarios
+
+#### Split Vote Handling
+```python
+class AdvancedElection:
+    def handle_split_vote(self):
+        """
+        Split vote scenario:
+        - 5 nodes: A, B, C, D, E
+        - A votes for A, B votes for B
+        - C votes for A, D votes for B  
+        - E's vote decides, but E is slow
+        
+        Result: No majority, new election needed
+        """
+        # Use randomized timeouts to break ties
+        self.election_timeout = random.randint(150, 300)
+        
+        # Exponential backoff on repeated splits
+        if self.split_vote_count > 0:
+            self.election_timeout *= (2 ** self.split_vote_count)
+```
+
+#### Network Partition Scenarios
+
+```
+Scenario 1: Clean Partition
+[A, B] | [C, D, E]
+- Right side elects leader (has majority)
+- Left side cannot elect (no majority)
+- System remains available
+
+Scenario 2: Complex Partition  
+[A, B] | [C] | [D, E]
+- No partition has majority
+- No leader can be elected
+- System unavailable until partition heals
+
+Scenario 3: Intermittent Partition
+A ←→ B ←X→ C ←→ D ←→ E
+- B-C link flaps
+- May cause leadership instability
+- Use stable leader preference
+```
+
+### Pre-Vote Optimization
+
+```python
+class PreVoteElection:
+    """Prevent disruption from isolated nodes"""
+    
+    def should_start_election(self) -> bool:
+        """Check if election is likely to succeed"""
+        # First do pre-vote phase
+        pre_votes = self.request_pre_votes()
+        
+        # Only start real election if pre-vote succeeds
+        if pre_votes > len(self.peers) / 2:
+            return True
+        
+        # Don't disrupt stable leader
+        return False
+    
+    def request_pre_votes(self) -> int:
+        """Non-disruptive vote check"""
+        votes = 1  # Self vote
+        
+        for peer in self.peers:
+            # Ask: "Would you vote for me?"
+            # Without actually incrementing terms
+            if peer.would_vote_for(self.node_id, self.current_term + 1):
+                votes += 1
+        
+        return votes
+```
+
+### Leadership Transfer
+
+```python
+class GracefulLeaderTransfer:
+    """Transfer leadership without election"""
+    
+    def transfer_leadership(self, target_node: str):
+        """Gracefully hand over leadership"""
+        if self.state != NodeState.LEADER:
+            raise Exception("Only leader can transfer")
+        
+        # 1. Stop accepting new requests
+        self.accepting_requests = False
+        
+        # 2. Ensure target is up-to-date
+        self.sync_node(target_node)
+        
+        # 3. Send TimeoutNow RPC to target
+        self.send_timeout_now(target_node)
+        
+        # 4. Target immediately starts election
+        # 5. Others vote for target (it's up-to-date)
+        # 6. Leadership transfers smoothly
+```
+
+### Joint Consensus for Membership Changes
+
+```python
+class MembershipChange:
+    """Safe cluster membership changes"""
+    
+    def add_node(self, new_node: str):
+        """Add node using joint consensus"""
+        # Phase 1: Joint configuration
+        # Old AND new majority required
+        self.config = JointConfig(
+            old_nodes=self.current_nodes,
+            new_nodes=self.current_nodes + [new_node]
+        )
+        
+        # Phase 2: Replicate joint config
+        self.replicate_config(self.config)
+        
+        # Phase 3: Transition to new config
+        # Only new majority required
+        self.config = NewConfig(self.current_nodes + [new_node])
+        self.replicate_config(self.config)
+```
+
+---
+
+## 🚀 Level 4: Expert
+
+### Production Case Study: Apache Kafka's Controller Election
+
+Kafka manages metadata for thousands of topics and partitions across hundreds of brokers using controller election.
+
+```python
+class KafkaControllerElection:
+    """
+    Kafka's ZooKeeper-based controller election
+    Handling 2M+ partitions at LinkedIn
+    """
+    
+    def __init__(self):
+        self.zk_client = ZooKeeperClient()
+        self.controller_epoch = 0
+        self.partition_states = {}
+        
+    def elect_controller(self):
+        """Kafka's controller election process"""
+        controller_path = "/controller"
+        
+        try:
+            # Try to create ephemeral node
+            self.zk_client.create(
+                controller_path,
+                data={
+                    "version": 1,
+                    "brokerid": self.broker_id,
+                    "timestamp": time.time()
+                },
+                ephemeral=True
+            )
+            
+            # Success - become controller
+            self.on_controller_election()
+            
+        except NodeExistsError:
+            # Another broker is controller
+            self.on_controller_exists()
+    
+    def on_controller_election(self):
+        """Initialize controller state"""
+        # Increment epoch for fencing
+        self.controller_epoch += 1
+        
+        # Load partition assignments
+        self.load_partition_states()
+        
+        # Start failure detection
+        self.start_broker_monitoring()
+        
+        # Begin partition rebalancing
+        self.start_partition_rebalancer()
+        
+        print(f"Broker {self.broker_id} elected as controller")
+    
+    def handle_broker_failure(self, failed_broker: int):
+        """Handle broker failure as controller"""
+        affected_partitions = self.get_partitions_on_broker(failed_broker)
+        
+        for partition in affected_partitions:
+            # Elect new leader from ISR
+            new_leader = self.elect_partition_leader(
+                partition,
+                exclude=[failed_broker]
+            )
+            
+            # Update metadata
+            self.update_partition_state(
+                partition,
+                leader=new_leader,
+                epoch=self.controller_epoch
+            )
+            
+            # Notify all brokers
+            self.broadcast_metadata_update(partition)
+```
+
+### Real-World Challenges and Solutions
+
+#### Challenge 1: Controller Hotspot
+```python
+class ControllerScaling:
+    """LinkedIn's solution to controller bottleneck"""
+    
+    def delegate_partition_management(self):
+        """Delegate work to partition coordinators"""
+        # Split partitions into groups
+        partition_groups = self.shard_partitions()
+        
+        # Elect coordinator for each group
+        for group_id, partitions in partition_groups.items():
+            coordinator = self.elect_coordinator(group_id)
+            
+            # Delegate management
+            self.delegate_to_coordinator(
+                coordinator,
+                partitions,
+                operations=['leader_election', 'isr_updates']
+            )
+```
+
+#### Challenge 2: ZooKeeper Dependency
+```python
+class KRaftMode:
+    """Kafka's new built-in consensus (KIP-500)"""
+    
+    def __init__(self):
+        self.metadata_log = MetadataLog()
+        self.raft_manager = RaftManager()
+        
+    def elect_without_zookeeper(self):
+        """Use Raft for controller election"""
+        # Controllers form Raft quorum
+        if self.is_controller_eligible():
+            self.raft_manager.join_quorum()
+            
+            # Participate in Raft election
+            if self.raft_manager.become_candidate():
+                votes = self.raft_manager.request_votes()
+                
+                if votes > self.quorum_size / 2:
+                    self.become_active_controller()
+```
+
+### Production Monitoring
+
+```python
+class LeaderElectionMetrics:
+    """Production monitoring for leader election"""
+    
+    def __init__(self):
+        self.metrics = PrometheusClient()
+        
+    def track_election_metrics(self):
+        # Election frequency
+        self.metrics.counter(
+            'leader_elections_total',
+            labels={'cluster': self.cluster_name}
+        )
+        
+        # Election duration
+        self.metrics.histogram(
+            'election_duration_seconds',
+            duration,
+            labels={'result': 'success' if elected else 'failed'}
+        )
+        
+        # Leadership stability
+        self.metrics.gauge(
+            'leader_stable_seconds',
+            time.time() - self.leader_elected_time
+        )
+        
+        # Split brain detection
+        self.metrics.gauge(
+            'active_leaders_count',
+            self.count_active_leaders(),
+            labels={'expected': 1}
+        )
+
+# Alert configuration
+alerts:
+  - name: FrequentLeaderElections
+    expr: rate(leader_elections_total[5m]) > 0.1
+    message: "Too many leader elections (>1 per 10min)"
+    
+  - name: NoLeaderElected  
+    expr: active_leaders_count != 1
+    for: 2m
+    message: "No leader or split brain detected"
+```
+
+---
+
+## 🎯 Level 5: Mastery
+
+### Theoretical Foundations
+
+#### FLP Impossibility Result
+```python
+class FLPImpossibility:
+    """
+    Fischer-Lynch-Paterson (1985):
+    Cannot guarantee both safety and liveness
+    in asynchronous systems with failures
+    """
+    
+    def demonstrate_flp(self):
+        """
+        In async system, cannot distinguish between:
+        1. Slow node (will respond eventually)
+        2. Failed node (will never respond)
+        
+        Therefore must choose:
+        - Safety: Never elect two leaders (may get stuck)
+        - Liveness: Always elect leader (may get split brain)
+        """
+        
+        # Practical solution: Assume partial synchrony
+        # Use timeouts as failure detectors
+        # Accept that they may be wrong sometimes
+```
+
+#### Paxos vs Raft
+
+```python
+class ConsensusComparison:
+    """
+    Comparing consensus algorithms for leader election
+    """
+    
+    def paxos_approach(self):
+        """
+        Paxos: More general but complex
+        - Separate roles (proposers, acceptors, learners)
+        - Can make progress with competing proposals
+        - Harder to understand and implement
+        """
+        phase1_promises = self.send_prepare(proposal_number)
+        if len(phase1_promises) > self.quorum_size:
+            phase2_accepts = self.send_accept(value)
+            
+    def raft_approach(self):
+        """
+        Raft: Designed for understandability
+        - Strong leader (all decisions through leader)
+        - Terms prevent old leaders
+        - Log-based replication built-in
+        """
+        if self.election_timeout_elapsed():
+            self.current_term += 1
+            votes = self.request_votes()
+            if votes > len(self.nodes) / 2:
+                self.become_leader()
+```
+
+### Advanced Optimizations
+
+#### Hierarchical Leader Election
+```python
+class HierarchicalElection:
+    """
+    Multi-level election for massive scale
+    Used in Microsoft Azure Cosmos DB
+    """
+    
+    def __init__(self):
+        self.local_leaders = {}  # Per-datacenter
+        self.regional_leaders = {}  # Per-region
+        self.global_leader = None  # Cross-region
+        
+    def elect_hierarchy(self):
+        """Bottom-up leader election"""
+        # Level 1: Elect within datacenter
+        for dc in self.datacenters:
+            local_leader = self.elect_local_leader(dc)
+            self.local_leaders[dc] = local_leader
+        
+        # Level 2: Elect within region
+        for region in self.regions:
+            regional_leader = self.elect_regional_leader(
+                region,
+                candidates=[self.local_leaders[dc] 
+                           for dc in region.datacenters]
+            )
+            self.regional_leaders[region] = regional_leader
+        
+        # Level 3: Elect global leader
+        self.global_leader = self.elect_global_leader(
+            candidates=list(self.regional_leaders.values())
+        )
+```
+
+#### Witness Nodes for Quorum
+```python
+class WitnessBasedElection:
+    """
+    Using witness nodes to maintain odd numbers
+    Common in database clusters
+    """
+    
+    def setup_witnesses(self):
+        """
+        Witnesses:
+        - Participate in voting only
+        - Don't store data
+        - Lightweight (can run on small instances)
+        - Prevent split brain in even-numbered clusters
+        """
+        
+        # 2 data nodes + 1 witness = 3 voting members
+        # Can lose 1 member and maintain quorum
+        # Much cheaper than 3 full data nodes
+```
+
+### Economic Impact
+
+```python
+class LeaderElectionEconomics:
+    """Calculate economic impact of leader election"""
+    
+    def calculate_roi(self, system_metrics: dict) -> dict:
+        # Without leader election
+        conflict_cost = (
+            system_metrics['conflicts_per_day'] * 
+            system_metrics['resolution_time_hours'] * 
+            system_metrics['engineer_hourly_rate']
+        )
+        
+        inconsistency_cost = (
+            system_metrics['inconsistency_incidents'] * 
+            system_metrics['incident_impact']
+        )
+        
+        # With leader election
+        implementation_cost = 80 * system_metrics['engineer_hourly_rate']
+        operation_cost = (
+            system_metrics['election_frequency'] * 
+            system_metrics['election_downtime_seconds'] * 
+            system_metrics['downtime_cost_per_second']
+        )
+        
+        annual_savings = (
+            (conflict_cost + inconsistency_cost) * 365 -
+            (implementation_cost + operation_cost * 365)
+        )
+        
+        return {
+            'annual_savings': annual_savings,
+            'break_even_days': implementation_cost / (annual_savings / 365),
+            'split_brain_prevention': 'Priceless'
+        }
+```
+
+### Future Directions
+
+1. **Byzantine Fault Tolerant Elections**
+   - Handle malicious nodes
+   - Cryptographic voting
+   - Used in blockchain consensus
+
+2. **Machine Learning Enhanced**
+   - Predict leader failures
+   - Optimize election timing
+   - Auto-tune parameters
+
+3. **Quantum-Resistant Elections**
+   - Post-quantum cryptography
+   - Quantum-safe voting protocols
+   - Future-proof consensus
+
+---
+
 ## 📊 Analysis & Trade-offs
 
 ### Axiom Relationships
@@ -724,90 +1321,35 @@ How leader election works with other patterns:
 ---
 
 **Previous**: [← Idempotent Receiver Pattern](idempotent-receiver.md) | **Next**: [Load Balancing Pattern →](load-balancing.md)
-## 💻 Code Sample
+## 📋 Quick Reference
 
-### Basic Implementation
+### Decision Framework
 
-```python
-class Leader_ElectionPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
+| Question | Yes → Use Leader Election | No → Alternative |
+|----------|--------------------------|------------------|
+| Need single coordinator? | ✅ Essential pattern | ⚠️ Use distributed approach |
+| Preventing split-brain? | ✅ Critical requirement | ⚠️ Consider eventual consistency |
+| Resource allocation? | ✅ Leader assigns resources | ⚠️ Use work stealing |
+| Configuration management? | ✅ Leader pushes updates | ⚠️ Use gossip protocol |
+| Ordering guarantees? | ✅ Leader sequences operations | ⚠️ Use vector clocks |
 
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
+### Implementation Checklist
 
-        try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
-        except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
+- [ ] Choose consensus algorithm (Raft recommended)
+- [ ] Set up majority quorum (odd number of nodes)
+- [ ] Configure election timeouts (150-300ms)
+- [ ] Implement heartbeat mechanism
+- [ ] Add pre-vote optimization
+- [ ] Handle network partitions
+- [ ] Set up monitoring and alerts
+- [ ] Test split-brain scenarios
+- [ ] Document failover procedures
+- [ ] Plan capacity for witness nodes
 
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
+### Common Anti-Patterns
 
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
-
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
-
-    def _record_success(self):
-        self.metrics.record_success()
-
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = Leader_ElectionPattern(config)
-result = pattern.process(user_request)
-```
-
-### Configuration Example
-
-```yaml
-leader_election:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
-    enabled: true
-    strategy: "cached_response"
-  monitoring:
-    metrics_enabled: true
-    health_check_interval: 30s
-```
-
-### Testing the Implementation
-
-```python
-def test_leader_election_behavior():
-    pattern = Leader_ElectionPattern(test_config)
-
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
-
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-```
+1. **Even number of nodes** - Can't form majority
+2. **Too short timeouts** - Constant elections
+3. **No pre-vote** - Disrupts stable clusters
+4. **Ignoring clock skew** - Incorrect timeout calculations
+5. **Single leader dependency** - No read scaling
