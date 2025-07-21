@@ -1,471 +1,1302 @@
 ---
-title: Queues & Stream-Processing
-description: 2. PUBLISH-SUBSCRIBE (Topics)
-   Producer → [M1|M2|M3] → Consumer 1
-                        ↘ Consumer 2
-   Each consumer gets all messages
+title: Queues & Stream Processing
+description: Decouple producers from consumers using message queues and event streams
 type: pattern
-difficulty: beginner
-reading_time: 15 min
-prerequisites: []
-pattern_type: "general"
+difficulty: intermediate
+reading_time: 35 min
+prerequisites: 
+  - "Basic distributed systems concepts"
+  - "Producer-consumer pattern"
+  - "Event-driven architecture basics"
+pattern_type: "core"
+when_to_use: "Handling traffic spikes, decoupling services, event streaming, work distribution"
+when_not_to_use: "Synchronous request-response, low latency requirements, simple direct calls"
+related_axioms:
+  - capacity
+  - latency
+  - failure
+  - coordination
+related_patterns:
+  - "Event-Driven Architecture"
+  - "CQRS"
+  - "Saga Pattern"
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Queues & Stream-Processing**
+# Queues & Stream Processing
 
-# Queues & Stream-Processing
+<div class="navigation-breadcrumb">
+<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Queues & Stream Processing
+</div>
 
-**Decoupling work from workers since 1958**
+> "The queue is the most powerful tool we have for decoupling our architecture"
+> — Tyler Treat, NATS Creator
 
-## THE PROBLEM
+## The Essential Question
 
-```proto
-Direct coupling creates cascading failures:
-Client → Service A → Service B → Database
-         ↓ Failure    ↓ Blocked   ↓ Overload
-     Timeout      Backpressure   Death
+**How can we handle variable workloads and protect services from being overwhelmed while maintaining system reliability?**
+
+---
+
+## Level 1: Intuition (5 minutes)
+
+### The Story
+
+Imagine a popular restaurant on a Friday night. Without a queue system, chaos ensues:
+- Servers are overwhelmed taking orders directly
+- Kitchen gets swamped with orders it can't handle
+- Customers wait indefinitely with no idea of progress
+- One slow table blocks everyone behind them
+
+Now add a host with a waiting list:
+- Customers check in and get a number
+- Kitchen works at sustainable pace
+- Multiple servers can take from the queue
+- System handles rushes without collapse
+
+This is exactly what queues do for software systems.
+
+### Visual Metaphor
+
+```
+Without Queues:                    With Queues:
+
+Client → Service → Database        Client → Queue → Service → Database
+Client → Service ✗ (Overload)               ↓        ↓
+Client → Service ✗ (Timeout)          Buffer spikes  Process at own pace
+Client → Service ✗ (Failed)                 ↓        ↓
+                                     Never lost    Scale independently
+Chaos and failures                 Orderly and resilient
 ```
 
-## THE SOLUTION
+### In One Sentence
 
-```proto
-Queues break temporal coupling:
-Client → Queue → Service A → Queue → Service B
-         ↓ Buffered         ↓ Decoupled
-     Returns fast      Independent scaling
+**Queues & Streams**: Buffer work between producers and consumers, allowing each to operate at their own pace while providing durability and scalability.
+
+### Real-World Parallel
+
+Queues are like a factory assembly line - work items move through stages at a controlled pace, workers can be added or removed as needed, and the line keeps moving even if one station slows down.
+
+---
+
+## Level 2: Foundation (10 minutes)
+
+### The Problem Space
+
+<div class="failure-vignette">
+<h4>🔥 When Queues Weren't Used: The Instagram Explore Meltdown</h4>
+When Instagram launched the Explore feature, they initially used direct service-to-service calls. During the first viral moment:
+- Recommendation service received 100x normal traffic
+- Direct calls overwhelmed ML inference servers
+- Cascading failures brought down the entire Explore tab
+- 4-hour outage affecting 500M users
+- Lost advertising revenue: $2M+
+
+Had they used queues, the spike would have been absorbed and processed gradually.
+</div>
+
+### Core Concept
+
+Message queues and stream processing systems provide:
+
+1. **Temporal Decoupling**: Producers and consumers work independently
+2. **Load Leveling**: Handle traffic spikes without overwhelming consumers
+3. **Reliability**: Messages persist until successfully processed
+4. **Scalability**: Add/remove consumers based on queue depth
+5. **Ordering**: Maintain message order when needed
+
+### Basic Architecture
+
+```mermaid
+graph LR
+    subgraph "Queue Patterns"
+        subgraph "Point-to-Point"
+            P1[Producer] --> Q1[Queue]
+            Q1 --> C1[Consumer 1]
+            Q1 --> C2[Consumer 2]
+        end
+        
+        subgraph "Publish-Subscribe"
+            P2[Producer] --> T[Topic]
+            T --> S1[Subscriber 1]
+            T --> S2[Subscriber 2]
+            T --> S3[Subscriber 3]
+        end
+        
+        subgraph "Stream Processing"
+            P3[Producer] --> L[Log]
+            L --> SP1[Stream Processor 1]
+            L --> SP2[Stream Processor 2]
+            SP1 --> O[Output]
+        end
+    end
+    
+    style Q1 fill:#bbf,stroke:#333,stroke-width:2px
+    style T fill:#f9f,stroke:#333,stroke-width:2px
+    style L fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
-## Core Queue Patterns
+### Key Benefits
 
-```proto
-1. POINT-TO-POINT (Work Queue)
-   Producer → [M1|M2|M3|M4] → Consumer
-   Each message processed once
+1. **Resilience**: System continues working even if consumers are temporarily down
+2. **Elasticity**: Scale consumers based on queue depth
+3. **Buffering**: Absorb traffic spikes without dropping requests
+4. **Replay**: Reprocess messages from streams when needed
 
-2. PUBLISH-SUBSCRIBE (Topics)
-   Producer → [M1|M2|M3] → Consumer 1
-                        ↘ Consumer 2
-   Each consumer gets all messages
+### Trade-offs
 
-3. STREAMING (Ordered Log)
-   Producer → [M1→M2→M3→M4...] → Consumer
-                               ↗ Replay from offset
-   Persistent, replayable
+| Aspect | Gain | Cost |
+|--------|------|------|
+| Coupling | Loose coupling | Additional complexity |
+| Reliability | Message durability | Storage overhead |
+| Scalability | Independent scaling | Queue management |
+| Latency | Consistent processing | Added hop latency |
+
+---
+
+## Level 3: Deep Dive (20 minutes)
+
+### Detailed Architecture
+
+```mermaid
+graph TB
+    subgraph "Producers"
+        P1[Web API]
+        P2[Mobile API]
+        P3[Batch Job]
+        P4[IoT Devices]
+    end
+    
+    subgraph "Message Infrastructure"
+        subgraph "Queue System"
+            B[Message Broker]
+            Q1[Order Queue]
+            Q2[Email Queue]
+            Q3[Analytics Queue]
+            DLQ[Dead Letter Queue]
+        end
+        
+        subgraph "Stream System"
+            K[Kafka/Event Stream]
+            P[Partitions]
+            CG[Consumer Groups]
+        end
+    end
+    
+    subgraph "Consumers"
+        subgraph "Queue Consumers"
+            C1[Order Processor]
+            C2[Email Sender]
+            C3[Analytics Writer]
+        end
+        
+        subgraph "Stream Processors"
+            SP1[Real-time Analytics]
+            SP2[Event Sourcing]
+            SP3[CDC Processor]
+        end
+    end
+    
+    subgraph "Storage"
+        DB[(Database)]
+        S3[(Object Store)]
+        DW[(Data Warehouse)]
+    end
+    
+    P1 --> B
+    P2 --> B
+    P3 --> K
+    P4 --> K
+    
+    B --> Q1 --> C1 --> DB
+    B --> Q2 --> C2
+    B --> Q3 --> C3 --> DW
+    
+    K --> P --> CG
+    CG --> SP1 --> DW
+    CG --> SP2 --> DB
+    CG --> SP3 --> S3
+    
+    Q1 -.->|Failed| DLQ
+    Q2 -.->|Failed| DLQ
+    
+    style B fill:#bbf,stroke:#333,stroke-width:3px
+    style K fill:#9f9,stroke:#333,stroke-width:3px
+    style DLQ fill:#f99,stroke:#333,stroke-width:2px
 ```
 
-## IMPLEMENTATION
+### Implementation Patterns
+
+#### Basic Queue Implementation
 
 ```python
-class ResilientQueue:
-    def __init__(self, max_size=10000, overflow_strategy='reject'):
-        self.queue = deque(maxlen=max_size if overflow_strategy == 'drop' else None)
+from abc import ABC, abstractmethod
+from collections import deque
+from threading import Lock, Event
+from typing import Any, Optional, Dict, List, Callable
+from dataclasses import dataclass
+from datetime import datetime, timedelta
+import json
+import time
+import uuid
+
+@dataclass
+class Message:
+    """Message with metadata"""
+    id: str
+    body: Any
+    timestamp: datetime
+    attributes: Dict[str, str]
+    attempt_count: int = 0
+    
+    def __post_init__(self):
+        if not self.id:
+            self.id = str(uuid.uuid4())
+        if not self.timestamp:
+            self.timestamp = datetime.utcnow()
+
+class Queue(ABC):
+    """Abstract queue interface"""
+    
+    @abstractmethod
+    async def send(self, message: Any, **kwargs) -> str:
+        pass
+    
+    @abstractmethod
+    async def receive(self, max_messages: int = 1, 
+                     timeout: int = 30) -> List[Message]:
+        pass
+    
+    @abstractmethod
+    async def delete(self, message_id: str) -> bool:
+        pass
+    
+    @abstractmethod
+    async def get_depth(self) -> int:
+        pass
+
+class InMemoryQueue(Queue):
+    """Thread-safe in-memory queue implementation"""
+    
+    def __init__(self, max_size: int = 10000):
+        self.queue = deque()
         self.max_size = max_size
-        self.overflow_strategy = overflow_strategy
-        self.metrics = {
-            'enqueued': 0,
-            'dequeued': 0,
-            'rejected': 0,
-            'dropped': 0
-        }
+        self.lock = Lock()
+        self.not_empty = Event()
+        self.in_flight: Dict[str, Message] = {}
+        self.dead_letter_queue = deque()
+        self.max_attempts = 3
+        
+    async def send(self, message: Any, delay: int = 0, **kwargs) -> str:
+        """Send message to queue"""
+        with self.lock:
+            if len(self.queue) >= self.max_size:
+                raise QueueFullError(f"Queue at capacity: {self.max_size}")
+            
+            msg = Message(
+                id=str(uuid.uuid4()),
+                body=message,
+                timestamp=datetime.utcnow() + timedelta(seconds=delay),
+                attributes=kwargs
+            )
+            
+            self.queue.append(msg)
+            self.not_empty.set()
+            
+            return msg.id
+    
+    async def receive(self, max_messages: int = 1, 
+                     timeout: int = 30) -> List[Message]:
+        """Receive messages from queue"""
+        messages = []
+        deadline = time.time() + timeout
+        
+        while len(messages) < max_messages and time.time() < deadline:
+            with self.lock:
+                # Skip messages with future timestamps (delayed)
+                now = datetime.utcnow()
+                available_messages = [
+                    msg for msg in self.queue 
+                    if msg.timestamp <= now
+                ]
+                
+                if available_messages:
+                    msg = available_messages[0]
+                    self.queue.remove(msg)
+                    
+                    msg.attempt_count += 1
+                    self.in_flight[msg.id] = msg
+                    messages.append(msg)
+                    
+                    if not self.queue:
+                        self.not_empty.clear()
+                else:
+                    # Wait for messages
+                    remaining = deadline - time.time()
+                    if remaining > 0:
+                        self.not_empty.wait(min(remaining, 1))
+        
+        return messages
+    
+    async def delete(self, message_id: str) -> bool:
+        """Acknowledge message processing"""
+        with self.lock:
+            if message_id in self.in_flight:
+                del self.in_flight[message_id]
+                return True
+            return False
+    
+    async def visibility_timeout_expired(self):
+        """Return unacknowledged messages to queue"""
+        with self.lock:
+            now = datetime.utcnow()
+            expired = []
+            
+            for msg_id, msg in self.in_flight.items():
+                # 30 second visibility timeout
+                if (now - msg.timestamp).seconds > 30:
+                    expired.append(msg_id)
+            
+            for msg_id in expired:
+                msg = self.in_flight.pop(msg_id)
+                
+                if msg.attempt_count >= self.max_attempts:
+                    # Move to DLQ
+                    self.dead_letter_queue.append(msg)
+                else:
+                    # Requeue with exponential backoff
+                    delay = 2 ** (msg.attempt_count - 1)
+                    msg.timestamp = now + timedelta(seconds=delay)
+                    self.queue.append(msg)
+                    self.not_empty.set()
+    
+    async def get_depth(self) -> int:
+        """Get number of messages in queue"""
+        with self.lock:
+            return len(self.queue)
 
-    def enqueue(self, message):
-        if self.overflow_strategy == 'reject' and len(self.queue) >= self.max_size:
-            self.metrics['rejected'] += 1
-            raise QueueFullError("Queue at capacity")
+# Stream Processing Implementation
+class StreamPartition:
+    """Single partition of an event stream"""
+    
+    def __init__(self, partition_id: int):
+        self.partition_id = partition_id
+        self.events: List[Dict[str, Any]] = []
+        self.lock = Lock()
+        
+    def append(self, key: str, value: Any) -> int:
+        """Append event to partition"""
+        with self.lock:
+            offset = len(self.events)
+            self.events.append({
+                'offset': offset,
+                'key': key,
+                'value': value,
+                'timestamp': datetime.utcnow(),
+                'partition': self.partition_id
+            })
+            return offset
+    
+    def read(self, start_offset: int, max_events: int = 100) -> List[Dict]:
+        """Read events from offset"""
+        with self.lock:
+            end_offset = min(start_offset + max_events, len(self.events))
+            return self.events[start_offset:end_offset]
 
-        self.queue.append({
-            'id': str(uuid4()),
-            'timestamp': time.time(),
-            'attempts': 0,
-            'message': message
-        })
-        self.metrics['enqueued'] += 1
-
-    def dequeue(self, timeout=None):
-        start = time.time()
-        while True:
-            try:
-                item = self.queue.popleft()
-                self.metrics['dequeued'] += 1
-                return item
-            except IndexError:
-                if timeout and (time.time() - start) > timeout:
-                    return None
-                time.sleep(0.01)
-
-    def ack(self, message_id):
-        # In real system, would remove from in-flight set
-        pass
-
-    def nack(self, message_id, requeue=True):
-        # In real system, would requeue or DLQ
-        pass
-
-# Stream processor example
-class StreamProcessor:
-    def __init__(self, source_queue, sink_queue, processor_fn):
-        self.source = source_queue
-        self.sink = sink_queue
-        self.processor = processor_fn
-        self.running = False
-
-    def start(self, num_workers=1):
-        self.running = True
-        workers = []
-        for i in range(num_workers):
-            w = threading.Thread(target=self._worker, args=(i,))
-            w.start()
-            workers.append(w)
-        return workers
-
-    def _worker(self, worker_id):
-        while self.running:
-            msg = self.source.dequeue(timeout=1)
-            if msg:
-                try:
-                    result = self.processor(msg['message'])
-                    self.sink.enqueue(result)
-                    self.source.ack(msg['id'])
-                except Exception as e:
-                    print(f"Worker {worker_id} error: {e}")
-                    self.source.nack(msg['id'])
-```
-
-## Kafka-Style Log Implementation
-
-```python
-class CommitLog:
-    def __init__(self, partition_count=16):
-        self.partitions = [[] for _ in range(partition_count)]
-        self.offsets = {i: 0 for i in range(partition_count)}
-
-    def append(self, key, value):
-        partition = hash(key) % len(self.partitions)
-        offset = len(self.partitions[partition])
-
-        self.partitions[partition].append({
-            'offset': offset,
+class EventStream:
+    """Distributed event stream (like Kafka)"""
+    
+    def __init__(self, num_partitions: int = 16):
+        self.partitions = [
+            StreamPartition(i) for i in range(num_partitions)
+        ]
+        self.consumer_groups: Dict[str, Dict[int, int]] = {}
+        
+    def produce(self, topic: str, key: str, value: Any) -> tuple:
+        """Produce event to stream"""
+        # Partition by key for ordering
+        partition_id = hash(key) % len(self.partitions)
+        partition = self.partitions[partition_id]
+        
+        event = {
+            'topic': topic,
             'key': key,
             'value': value,
-            'timestamp': time.time()
-        })
-
-        return partition, offset
-
-    def consume(self, partition, offset):
-        if partition >= len(self.partitions):
-            raise ValueError(f"Invalid partition {partition}")
-
-        messages = []
-        partition_log = self.partitions[partition]
-
-        for i in range(offset, len(partition_log)):
-            messages.append(partition_log[i])
-
-        return messages
-
-    def consumer_group(self, group_id, partitions):
-        """Manages offsets for consumer groups"""
-        if group_id not in self.offsets:
-            self.offsets[group_id] = {p: 0 for p in partitions}
-
-        messages = []
-        for partition in partitions:
-            msgs = self.consume(partition, self.offsets[group_id][partition])
-            messages.extend(msgs)
-            if msgs:
-                self.offsets[group_id][partition] = msgs[-1]['offset'] + 1
-
-        return messages
+            'headers': {}
+        }
+        
+        offset = partition.append(key, event)
+        return partition_id, offset
+    
+    def subscribe(self, consumer_group: str, 
+                  partitions: Optional[List[int]] = None):
+        """Subscribe to partitions as consumer group"""
+        if partitions is None:
+            partitions = list(range(len(self.partitions)))
+            
+        if consumer_group not in self.consumer_groups:
+            self.consumer_groups[consumer_group] = {
+                p: 0 for p in partitions
+            }
+    
+    def consume(self, consumer_group: str, 
+                max_events: int = 100) -> List[Dict]:
+        """Consume events as part of consumer group"""
+        if consumer_group not in self.consumer_groups:
+            raise ValueError(f"Consumer group {consumer_group} not subscribed")
+        
+        events = []
+        group_offsets = self.consumer_groups[consumer_group]
+        
+        for partition_id, offset in group_offsets.items():
+            partition = self.partitions[partition_id]
+            partition_events = partition.read(offset, max_events)
+            
+            if partition_events:
+                events.extend(partition_events)
+                # Update consumer group offset
+                new_offset = partition_events[-1]['offset'] + 1
+                self.consumer_groups[consumer_group][partition_id] = new_offset
+        
+        return events
 ```
 
-## ✓ CHOOSE THIS WHEN:
-• Variable load (handles spikes)
-• Producers/consumers scale differently
-• Need resilience to downstream failures
-• Ordering matters (streaming)
-• Want replay capability
-
-## ⚠️ BEWARE OF:
-• Queue overflow (monitor depth!)
-• Poison messages (need DLQ)
-• Out-of-order processing (partitions)
-• Latency addition (queue wait)
-• Split-brain consumers
-
-## REAL EXAMPLES
-• **Uber**: 1M+ rides/min through Kafka
-• **LinkedIn**: 7 trillion messages/day
-• **Netflix**: Kinesis for real-time analytics
-
-## Performance Characteristics
-
-```yaml
-Throughput: 100K-1M msg/sec (Kafka)
-Latency: 1-10ms typical
-Durability: Configurable (memory/disk)
-Ordering: Per-partition guaranteed
-```
-
----
-
-**Previous**: [← Pattern Catalog Quiz](pattern-quiz.md) | **Next**: [Rate Limiting Pattern →](rate-limiting.md)
----
-
-## ✅ When to Use
-
-### Ideal Scenarios
-- **Distributed systems** with external dependencies
-- **High-availability services** requiring reliability
-- **External service integration** with potential failures
-- **High-traffic applications** needing protection
-
-### Environmental Factors
-- **High Traffic**: System handles significant load
-- **External Dependencies**: Calls to other services or systems
-- **Reliability Requirements**: Uptime is critical to business
-- **Resource Constraints**: Limited connections, threads, or memory
-
-### Team Readiness
-- Team understands distributed systems concepts
-- Monitoring and alerting infrastructure exists
-- Operations team can respond to pattern-related alerts
-
-### Business Context
-- Cost of downtime is significant
-- User experience is a priority
-- System is customer-facing or business-critical
-
-## ❌ When NOT to Use
-
-### Inappropriate Scenarios
-- **Simple applications** with minimal complexity
-- **Development environments** where reliability isn't critical
-- **Single-user systems** without scale requirements
-- **Internal tools** with relaxed availability needs
-
-### Technical Constraints
-- **Simple Systems**: Overhead exceeds benefits
-- **Development/Testing**: Adds unnecessary complexity
-- **Performance Critical**: Pattern overhead is unacceptable
-- **Legacy Systems**: Cannot be easily modified
-
-### Resource Limitations
-- **No Monitoring**: Cannot observe pattern effectiveness
-- **Limited Expertise**: Team lacks distributed systems knowledge
-- **Tight Coupling**: System design prevents pattern implementation
-
-### Anti-Patterns
-- Adding complexity without clear benefit
-- Implementing without proper monitoring
-- Using as a substitute for fixing root causes
-- Over-engineering simple problems
-
-## ⚖️ Trade-offs
-
-### Benefits vs Costs
-
-| Benefit | Cost | Mitigation |
-|---------|------|------------|
-| **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
-| **Better Performance** | Resource overhead | Monitor and tune parameters |
-| **Faster Recovery** | Operational complexity | Invest in monitoring and training |
-| **Clearer Debugging** | Additional logging | Use structured logging |
-
-### Performance Impact
-- **Latency**: Small overhead per operation
-- **Memory**: Additional state tracking
-- **CPU**: Monitoring and decision logic
-- **Network**: Possible additional monitoring calls
-
-### Operational Complexity
-- **Monitoring**: Need dashboards and alerts
-- **Configuration**: Parameters must be tuned
-- **Debugging**: Additional failure modes to understand
-- **Testing**: More scenarios to validate
-
-### Development Trade-offs
-- **Initial Cost**: More time to implement correctly
-- **Maintenance**: Ongoing tuning and monitoring
-- **Testing**: Complex failure scenarios to validate
-- **Documentation**: More concepts for team to understand
-
-## 💻 Code Sample
-
-### Basic Implementation
+#### Production-Ready Implementation
 
 ```python
-class Queues_StreamingPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
+import asyncio
+import aiokafka
+from aiokafka import AIOKafkaProducer, AIOKafkaConsumer
+from typing import Optional, Dict, List, Callable, Any
+import boto3
+from botocore.exceptions import ClientError
+import logging
 
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
-
+class KafkaStreamProcessor:
+    """Production Kafka stream processor"""
+    
+    def __init__(self, bootstrap_servers: str, 
+                 consumer_group: str,
+                 topics: List[str]):
+        self.bootstrap_servers = bootstrap_servers
+        self.consumer_group = consumer_group
+        self.topics = topics
+        self.producer: Optional[AIOKafkaProducer] = None
+        self.consumer: Optional[AIOKafkaConsumer] = None
+        self.processors: Dict[str, Callable] = {}
+        self.running = False
+        self.logger = logging.getLogger(__name__)
+        
+    async def start(self):
+        """Start the stream processor"""
+        # Initialize producer
+        self.producer = AIOKafkaProducer(
+            bootstrap_servers=self.bootstrap_servers,
+            value_serializer=lambda v: json.dumps(v).encode(),
+            compression_type="snappy",
+            acks='all',  # Wait for all replicas
+            retries=5
+        )
+        await self.producer.start()
+        
+        # Initialize consumer
+        self.consumer = AIOKafkaConsumer(
+            *self.topics,
+            bootstrap_servers=self.bootstrap_servers,
+            consumer_group=self.consumer_group,
+            value_deserializer=lambda v: json.loads(v.decode()),
+            auto_offset_reset='earliest',
+            enable_auto_commit=False,  # Manual commit for exactly-once
+            max_poll_records=100
+        )
+        await self.consumer.start()
+        
+        self.running = True
+        
+    async def stop(self):
+        """Stop the stream processor"""
+        self.running = False
+        
+        if self.producer:
+            await self.producer.stop()
+        if self.consumer:
+            await self.consumer.stop()
+            
+    def register_processor(self, topic: str, processor: Callable):
+        """Register a processor for a topic"""
+        self.processors[topic] = processor
+        
+    async def process_stream(self):
+        """Main processing loop"""
         try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
+            async for msg in self.consumer:
+                if not self.running:
+                    break
+                    
+                try:
+                    # Get processor for topic
+                    processor = self.processors.get(msg.topic)
+                    if not processor:
+                        self.logger.warning(f"No processor for topic {msg.topic}")
+                        continue
+                    
+                    # Process message
+                    result = await processor(msg.value)
+                    
+                    # Produce result if needed
+                    if result and isinstance(result, dict):
+                        output_topic = result.get('topic')
+                        if output_topic:
+                            await self.producer.send(
+                                output_topic,
+                                value=result.get('value'),
+                                key=result.get('key', msg.key)
+                            )
+                    
+                    # Commit offset after successful processing
+                    await self.consumer.commit()
+                    
+                except Exception as e:
+                    self.logger.error(f"Error processing message: {e}")
+                    # Could implement retry logic or DLQ here
+                    
         except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
+            self.logger.error(f"Stream processing error: {e}")
+            raise
 
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
+# AWS SQS Queue Implementation
+class SQSQueue(Queue):
+    """Production-ready AWS SQS queue"""
+    
+    def __init__(self, queue_url: str, 
+                 visibility_timeout: int = 30,
+                 max_receive_count: int = 3):
+        self.queue_url = queue_url
+        self.visibility_timeout = visibility_timeout
+        self.sqs = boto3.client('sqs')
+        
+        # Get queue attributes
+        response = self.sqs.get_queue_attributes(
+            QueueUrl=queue_url,
+            AttributeNames=['All']
+        )
+        self.queue_arn = response['Attributes']['QueueArn']
+        
+        # Setup DLQ if not exists
+        self._setup_dlq(max_receive_count)
+        
+    def _setup_dlq(self, max_receive_count: int):
+        """Setup dead letter queue"""
+        dlq_name = f"{self.queue_url.split('/')[-1]}-dlq"
+        
+        try:
+            # Create DLQ
+            response = self.sqs.create_queue(
+                QueueName=dlq_name,
+                Attributes={
+                    'MessageRetentionPeriod': '1209600'  # 14 days
+                }
+            )
+            dlq_url = response['QueueUrl']
+            
+            # Get DLQ ARN
+            dlq_attrs = self.sqs.get_queue_attributes(
+                QueueUrl=dlq_url,
+                AttributeNames=['QueueArn']
+            )
+            dlq_arn = dlq_attrs['Attributes']['QueueArn']
+            
+            # Configure main queue redrive policy
+            self.sqs.set_queue_attributes(
+                QueueUrl=self.queue_url,
+                Attributes={
+                    'RedrivePolicy': json.dumps({
+                        'deadLetterTargetArn': dlq_arn,
+                        'maxReceiveCount': max_receive_count
+                    })
+                }
+            )
+            
+        except ClientError as e:
+            if e.response['Error']['Code'] != 'QueueAlreadyExists':
+                raise
+                
+    async def send(self, message: Any, delay: int = 0, **kwargs) -> str:
+        """Send message to SQS"""
+        try:
+            response = self.sqs.send_message(
+                QueueUrl=self.queue_url,
+                MessageBody=json.dumps(message),
+                DelaySeconds=delay,
+                MessageAttributes={
+                    k: {'StringValue': str(v), 'DataType': 'String'}
+                    for k, v in kwargs.items()
+                }
+            )
+            return response['MessageId']
+            
+        except ClientError as e:
+            self.logger.error(f"Failed to send message: {e}")
+            raise
+            
+    async def receive(self, max_messages: int = 1, 
+                     timeout: int = 30) -> List[Message]:
+        """Receive messages from SQS"""
+        try:
+            response = self.sqs.receive_message(
+                QueueUrl=self.queue_url,
+                MaxNumberOfMessages=min(max_messages, 10),  # SQS limit
+                WaitTimeSeconds=min(timeout, 20),  # Long polling
+                VisibilityTimeout=self.visibility_timeout,
+                AttributeNames=['All'],
+                MessageAttributeNames=['All']
+            )
+            
+            messages = []
+            for msg in response.get('Messages', []):
+                messages.append(Message(
+                    id=msg['MessageId'],
+                    body=json.loads(msg['Body']),
+                    timestamp=datetime.fromtimestamp(
+                        int(msg['Attributes']['SentTimestamp']) / 1000
+                    ),
+                    attributes=msg.get('MessageAttributes', {}),
+                    attempt_count=int(
+                        msg['Attributes'].get('ApproximateReceiveCount', 0)
+                    )
+                ))
+                
+            return messages
+            
+        except ClientError as e:
+            self.logger.error(f"Failed to receive messages: {e}")
+            raise
 
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
-
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
-
-    def _record_success(self):
-        self.metrics.record_success()
-
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = Queues_StreamingPattern(config)
-result = pattern.process(user_request)
+# Stream Processing Patterns
+class StreamAggregator:
+    """Aggregate events in time windows"""
+    
+    def __init__(self, window_size: timedelta):
+        self.window_size = window_size
+        self.windows: Dict[datetime, Dict[str, Any]] = {}
+        
+    async def process(self, event: Dict[str, Any]) -> Optional[Dict]:
+        """Process event and emit aggregates"""
+        timestamp = event['timestamp']
+        window_start = self._get_window_start(timestamp)
+        
+        # Initialize window if needed
+        if window_start not in self.windows:
+            self.windows[window_start] = {
+                'count': 0,
+                'sum': 0,
+                'values': []
+            }
+        
+        # Update aggregates
+        window = self.windows[window_start]
+        window['count'] += 1
+        
+        value = event.get('value', 0)
+        if isinstance(value, (int, float)):
+            window['sum'] += value
+            window['values'].append(value)
+        
+        # Check if window is complete
+        if timestamp >= window_start + self.window_size:
+            # Emit aggregate
+            result = {
+                'window_start': window_start,
+                'window_end': window_start + self.window_size,
+                'count': window['count'],
+                'sum': window['sum'],
+                'avg': window['sum'] / window['count'] if window['count'] > 0 else 0,
+                'min': min(window['values']) if window['values'] else None,
+                'max': max(window['values']) if window['values'] else None
+            }
+            
+            # Clean up old window
+            del self.windows[window_start]
+            
+            return result
+            
+        return None
+    
+    def _get_window_start(self, timestamp: datetime) -> datetime:
+        """Get start of window for timestamp"""
+        window_seconds = int(self.window_size.total_seconds())
+        epoch = int(timestamp.timestamp())
+        window_start_epoch = (epoch // window_seconds) * window_seconds
+        return datetime.fromtimestamp(window_start_epoch)
 ```
 
-### Configuration Example
+### State Management
+
+Queue and stream systems manage state differently:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Produced: Message Sent
+    
+    Produced --> Queued: In Queue
+    Queued --> Processing: Consumer Receives
+    Processing --> Processed: Success
+    Processing --> Failed: Error
+    
+    Failed --> Queued: Retry
+    Failed --> DLQ: Max Retries
+    
+    Processed --> [*]: Acknowledged
+    DLQ --> [*]: Manual Intervention
+    
+    note right of Processing
+        Visibility timeout prevents
+        other consumers from
+        receiving same message
+    end note
+    
+    note right of DLQ
+        Dead Letter Queue
+        for poison messages
+    end note
+```
+
+### Common Variations
+
+1. **Work Queues**
+   - Use case: Distribute tasks among workers
+   - Trade-off: Simple but no broadcast
+
+2. **Pub/Sub Topics**
+   - Use case: Fan-out to multiple consumers
+   - Trade-off: All subscribers get all messages
+
+3. **Event Streams**
+   - Use case: Event sourcing, analytics
+   - Trade-off: Complexity for replay capability
+
+### Integration Points
+
+- **With CQRS**: Commands through queues, queries from read models
+- **With Event Sourcing**: Stream as the event store
+- **With Saga**: Queue for orchestration messages
+- **With Circuit Breaker**: Protect queue consumers
+
+---
+
+## Level 4: Expert Practitioner (30 minutes)
+
+### Advanced Techniques
+
+#### Exactly-Once Processing
+
+```python
+class ExactlyOnceProcessor:
+    """Ensure exactly-once message processing"""
+    
+    def __init__(self, state_store, processor_func):
+        self.state_store = state_store
+        self.processor = processor_func
+        
+    async def process_message(self, message: Message) -> Any:
+        """Process with idempotency"""
+        # Check if already processed
+        process_key = f"processed:{message.id}"
+        
+        async with self.state_store.transaction() as tx:
+            # Check idempotency
+            already_processed = await tx.get(process_key)
+            if already_processed:
+                return json.loads(already_processed)
+            
+            # Process message
+            result = await self.processor(message)
+            
+            # Store result atomically
+            await tx.set(process_key, json.dumps(result))
+            await tx.commit()
+            
+        return result
+
+# Priority Queue Implementation
+class PriorityQueue:
+    """Queue with message priorities"""
+    
+    def __init__(self, priorities: List[str] = ['high', 'normal', 'low']):
+        self.priorities = priorities
+        self.queues = {p: deque() for p in priorities}
+        self.lock = Lock()
+        
+    async def send(self, message: Any, priority: str = 'normal'):
+        """Send with priority"""
+        if priority not in self.priorities:
+            raise ValueError(f"Invalid priority: {priority}")
+            
+        with self.lock:
+            self.queues[priority].append(message)
+            
+    async def receive(self) -> Optional[Message]:
+        """Receive highest priority message"""
+        with self.lock:
+            for priority in self.priorities:
+                if self.queues[priority]:
+                    return self.queues[priority].popleft()
+        return None
+```
+
+#### Stream Joins and Windows
+
+```python
+class StreamJoiner:
+    """Join multiple streams"""
+    
+    def __init__(self, join_window: timedelta):
+        self.join_window = join_window
+        self.left_buffer: Dict[str, List[Dict]] = defaultdict(list)
+        self.right_buffer: Dict[str, List[Dict]] = defaultdict(list)
+        
+    async def process_left(self, event: Dict) -> List[Dict]:
+        """Process event from left stream"""
+        key = event['key']
+        timestamp = event['timestamp']
+        
+        # Add to buffer
+        self.left_buffer[key].append(event)
+        
+        # Clean old events
+        cutoff = timestamp - self.join_window
+        self.left_buffer[key] = [
+            e for e in self.left_buffer[key]
+            if e['timestamp'] > cutoff
+        ]
+        
+        # Join with right stream
+        results = []
+        for right_event in self.right_buffer.get(key, []):
+            if abs((right_event['timestamp'] - timestamp).total_seconds()) < \
+               self.join_window.total_seconds():
+                results.append({
+                    'key': key,
+                    'left': event,
+                    'right': right_event,
+                    'timestamp': max(event['timestamp'], right_event['timestamp'])
+                })
+                
+        return results
+```
+
+### Performance Optimization
+
+<div class="decision-box">
+<h4>🎯 Performance Tuning Checklist</h4>
+
+- [ ] **Batch Processing**: Process multiple messages per receive
+- [ ] **Connection Pooling**: Reuse connections to queue service
+- [ ] **Compression**: Compress large messages
+- [ ] **Partitioning**: Distribute load across partitions
+- [ ] **Prefetch**: Optimize consumer prefetch count
+- [ ] **Async I/O**: Non-blocking message processing
+- [ ] **Circuit Breakers**: Protect downstream services
+- [ ] **Monitoring**: Track queue depth and latency
+</div>
+
+### Monitoring & Observability
+
+Key metrics to track:
 
 ```yaml
-queues_streaming:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
-    enabled: true
-    strategy: "cached_response"
+metrics:
+  # Queue Metrics
+  - name: queue_depth
+    description: Number of messages in queue
+    alert_threshold: > 10000
+    
+  - name: message_age
+    description: Age of oldest message
+    alert_threshold: > 5m
+    
+  - name: send_rate
+    description: Messages sent per second
+    alert_threshold: > 10000/s
+    
+  - name: receive_rate
+    description: Messages received per second
+    alert_threshold: < 100/s
+    
+  # Processing Metrics
+  - name: processing_time
+    description: Time to process message
+    alert_threshold: p99 > 1s
+    
+  - name: error_rate
+    description: Failed message percentage
+    alert_threshold: > 1%
+    
+  - name: dlq_depth
+    description: Dead letter queue size
+    alert_threshold: > 100
+    
+  # Stream Metrics
+  - name: consumer_lag
+    description: Offset lag per partition
+    alert_threshold: > 10000
+    
+  - name: partition_skew
+    description: Uneven partition distribution
+    alert_threshold: > 50%
+```
+
+### Common Pitfalls
+
+<div class="failure-vignette">
+<h4>⚠️ Pitfall: Poison Messages</h4>
+A malformed message caused consumers to crash repeatedly. Without proper error handling and DLQ, the message blocked the entire queue, preventing all other messages from being processed.
+
+**Solution**: Always implement retry limits and dead letter queues. Validate messages before processing.
+</div>
+
+<div class="failure-vignette">
+<h4>⚠️ Pitfall: Unbounded Queue Growth</h4>
+During a traffic spike, producers overwhelmed consumers. The queue grew unbounded, eventually exhausting memory and crashing the system.
+
+**Solution**: Set queue size limits, implement backpressure, and monitor queue depth with alerts.
+</div>
+
+### Production Checklist
+
+- [ ] **Message validation** before processing
+- [ ] **Dead letter queue** configured
+- [ ] **Retry policy** with exponential backoff
+- [ ] **Monitoring** for queue depth and consumer lag
+- [ ] **Alerting** for queue issues
+- [ ] **Scaling policies** based on queue metrics
+- [ ] **Message compression** for large payloads
+- [ ] **Security** with encryption and access control
+
+---
+
+## Level 5: Mastery (45 minutes)
+
+### Case Study: LinkedIn's Kafka Infrastructure
+
+<div class="truth-box">
+<h4>🏢 Real-World Implementation</h4>
+
+**Company**: LinkedIn  
+**Scale**: 
+- 7 trillion messages per day
+- 100+ Kafka clusters
+- 4,000+ brokers
+- Petabytes of data
+
+**Challenge**: Handle all of LinkedIn's real-time data pipelines including member activities, messaging, notifications, and analytics while maintaining sub-second latency.
+
+**Queue/Stream Implementation**:
+
+**Architecture**:
+```
+Producers → Kafka Clusters → Stream Processors → Consumers
+    ↓                            ↓
+Frontend APIs              Samza/Flink Jobs
+Microservices             Real-time ML
+Data Changes              Analytics Pipeline
+    
+Multi-DC Replication for DR
+```
+
+**Key Design Decisions**:
+1. **Partitioning Strategy**: By member ID for ordering
+2. **Replication**: 3x replication across AZs
+3. **Retention**: 3 days for most topics, 7 for critical
+4. **Compression**: Snappy for balance of CPU/space
+
+**Optimizations**:
+- Custom partition assignment for load balancing
+- Tiered storage (SSD for recent, HDD for older)
+- Adaptive batching based on throughput
+- Zero-copy transfers for performance
+
+**Results**:
+- Message latency: < 10ms p99
+- Availability: 99.99%
+- Throughput: 30MB/s per broker
+- Recovery time: < 30s for broker failure
+
+**Lessons Learned**:
+1. **Monitor everything** - Lag, throughput, errors
+2. **Partition thoughtfully** - It affects ordering and scale
+3. **Plan for failure** - Multi-DC, replicas, quick recovery
+4. **Tune for your workload** - No one-size-fits-all
+</div>
+
+### Economic Analysis
+
+#### Cost Model
+
+```python
+def calculate_queue_roi(
+    messages_per_day: int,
+    avg_message_size_kb: float,
+    peak_to_avg_ratio: float,
+    direct_call_failure_rate: float
+) -> dict:
+    """Calculate ROI for implementing queues"""
+    
+    # Direct service-to-service costs
+    direct_costs = {
+        'server_capacity': messages_per_day * peak_to_avg_ratio * 0.0001,
+        'failure_handling': messages_per_day * direct_call_failure_rate * 0.01,
+        'timeout_overhead': messages_per_day * 0.00001,
+        'cascading_failures': direct_call_failure_rate * 10000  # Outage cost
+    }
+    
+    # Queue infrastructure costs
+    queue_costs = {
+        'queue_service': messages_per_day * avg_message_size_kb * 0.000001,
+        'storage': messages_per_day * avg_message_size_kb * 0.0000001,
+        'management': 2000,  # Fixed monthly cost
+        'monitoring': 500
+    }
+    
+    # Benefits
+    benefits = {
+        'reduced_server_capacity': direct_costs['server_capacity'] * 0.6,
+        'eliminated_failures': direct_costs['cascading_failures'] * 0.95,
+        'improved_reliability': 5000,
+        'elastic_scaling': direct_costs['server_capacity'] * 0.3
+    }
+    
+    monthly_savings = sum(benefits.values()) - sum(queue_costs.values())
+    
+    return {
+        'monthly_savings': monthly_savings,
+        'peak_capacity_reduction': (1 - 1/peak_to_avg_ratio) * 100,
+        'reliability_improvement': 99.9,
+        'recommended': peak_to_avg_ratio > 3 or direct_call_failure_rate > 0.01
+    }
+
+# Example calculation
+roi = calculate_queue_roi(
+    messages_per_day=10_000_000,
+    avg_message_size_kb=10,
+    peak_to_avg_ratio=10,  # 10x peak traffic
+    direct_call_failure_rate=0.05  # 5% failure rate
+)
+print(f"ROI: ${roi['monthly_savings']:,.0f}/month, "
+      f"Peak reduction: {roi['peak_capacity_reduction']:.0f}%")
+```
+
+#### When It Pays Off
+
+- **Break-even point**: 3x peak-to-average ratio or 1% failure rate
+- **High ROI scenarios**:
+  - Variable traffic patterns
+  - Microservices architectures
+  - Event-driven systems
+  - Data pipelines
+- **Low ROI scenarios**:
+  - Constant low traffic
+  - Simple request-response
+  - Real-time gaming (latency sensitive)
+
+### Pattern Evolution
+
+```mermaid
+timeline
+    title Evolution of Queue Systems
+    
+    1950s : IBM Job Entry Systems
+          : Batch processing queues
+    
+    1970s : Message-Oriented Middleware
+          : MQSeries (IBM MQ)
+    
+    1990s : Enterprise Service Bus
+          : JMS standard emerges
+    
+    2000s : Internet-scale queues
+          : Amazon SQS, RabbitMQ
+    
+    2010 : Distributed logs
+         : Kafka changes the game
+    
+    2015 : Streaming platforms
+         : Real-time stream processing
+    
+    2020 : Serverless queues
+         : Event-driven architectures
+    
+    2025 : Current State
+         : Multi-cloud streaming
+         : Edge message routing
+```
+
+### Axiom Connections
+
+<div class="axiom-box">
+<h4>🔗 Fundamental Axioms</h4>
+
+This pattern directly addresses:
+
+1. **Capacity Axiom**: Buffers handle capacity mismatches
+2. **Latency Axiom**: Decoupling reduces blocking
+3. **Failure Axiom**: Messages survive consumer failures
+4. **Coordination Axiom**: Async coordination via messages
+5. **Observability Axiom**: Message flow visibility
+</div>
+
+### Future Directions
+
+**Emerging Trends**:
+
+1. **Edge Queuing**: Message routing at edge locations
+2. **ML-Driven Routing**: Smart message routing based on content
+3. **Quantum-Safe Queues**: Post-quantum encryption for messages
+4. **Cross-Cloud Streaming**: Seamless multi-cloud message flow
+
+**What's Next**:
+- Automatic queue sizing based on traffic patterns
+- Self-healing message flows
+- Declarative stream processing
+- Zero-latency message passing for critical paths
+
+---
+
+## Quick Reference
+
+### Decision Matrix
+
+```mermaid
+graph TD
+    Start[Need async processing?] --> Q1{Variable<br/>load?}
+    Q1 -->|No| Q2{Multiple<br/>consumers?}
+    Q1 -->|Yes| UseQueue[Use Queue/Stream]
+    
+    Q2 -->|No| Q3{Failure<br/>tolerance?}
+    Q2 -->|Yes| UseQueue
+    
+    Q3 -->|No| Direct[Use direct calls]
+    Q3 -->|Yes| UseQueue
+    
+    UseQueue --> Q4{Need<br/>ordering?}
+    Q4 -->|Global| SingleQueue[Single queue/partition]
+    Q4 -->|Per-key| Partitioned[Partitioned queue/stream]
+    Q4 -->|None| MultiQueue[Multiple queues]
+    
+    UseQueue --> Q5{Need<br/>replay?}
+    Q5 -->|Yes| Stream[Use event stream]
+    Q5 -->|No| Queue[Use message queue]
+```
+
+### Command Cheat Sheet
+
+```bash
+# Queue Operations
+queue send <queue> <message>         # Send message
+queue receive <queue> --wait=30      # Receive with timeout
+queue depth <queue>                  # Check queue size
+queue purge <queue>                  # Clear queue
+
+# Stream Operations
+stream produce <topic> <key> <value> # Produce event
+stream consume <group> <topic>       # Consume as group
+stream offset <group> <topic>        # Check consumer lag
+stream replay <topic> --from=<time>  # Replay from timestamp
+
+# Monitoring
+queue-monitor stats <queue>          # Queue statistics
+queue-monitor lag <consumer-group>   # Consumer lag
+queue-monitor dlq                    # Dead letter queue
+
+# Management
+queue create <name> --size=10000     # Create queue
+queue delete <name>                  # Delete queue
+queue policy <name> --dlq --retries=3 # Set policies
+```
+
+### Configuration Template
+
+```yaml
+# Production Queue/Stream configuration
+messaging:
+  queues:
+    default:
+      type: "sqs"  # or rabbitmq, redis
+      visibility_timeout: 30s
+      max_receive_count: 3
+      retention_period: 4d
+      dlq_enabled: true
+      
+    high_priority:
+      type: "sqs"
+      visibility_timeout: 10s
+      max_receive_count: 5
+      
+  streams:
+    events:
+      type: "kafka"  # or kinesis, pulsar
+      partitions: 100
+      replication_factor: 3
+      retention_ms: 604800000  # 7 days
+      compression_type: "snappy"
+      
+    analytics:
+      type: "kafka"
+      partitions: 50
+      retention_ms: 86400000  # 1 day
+      
+  consumers:
+    batch_size: 100
+    parallelism: 10
+    error_strategy: "dlq"  # or retry, ignore
+    checkpoint_interval: 1000
+    
   monitoring:
     metrics_enabled: true
-    health_check_interval: 30s
+    lag_threshold: 10000
+    depth_threshold: 50000
+    age_threshold: 300s
 ```
 
-### Testing the Implementation
+---
 
-```python
-def test_queues_streaming_behavior():
-    pattern = Queues_StreamingPattern(test_config)
+## Related Resources
 
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
+### Patterns
+- [Event-Driven Architecture](/patterns/event-driven/) - Built on queues/streams
+- [CQRS](/patterns/cqrs/) - Commands via queues
+- [Saga Pattern](/patterns/saga/) - Orchestration via queues
+- [Circuit Breaker](/patterns/circuit-breaker/) - Protect consumers
 
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
+### Axioms
+- [Capacity Axiom](/part1-axioms/capacity/) - Why buffering matters
+- [Latency Axiom](/part1-axioms/latency/) - Async vs sync trade-offs
+- [Failure Axiom](/part1-axioms/failure/) - Message durability
 
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-```
+### Further Reading
+- [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
+- [Designing Data-Intensive Applications](https://dataintensive.net/) - Chapter 11 on streams
+- [Enterprise Integration Patterns](https://www.enterpriseintegrationpatterns.com/) - Messaging patterns
+- [AWS SQS Best Practices](https://docs.aws.amazon.com/AWSSimpleQueueService/latest/SQSDeveloperGuide/sqs-best-practices.html)
 
-## 💪 Hands-On Exercises
-
-### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes
-**Objective**: Identify Queues & Stream-Processing in existing systems
-
-**Task**:
-Find 2 real-world examples where Queues & Stream-Processing is implemented:
-1. **Example 1**: A well-known tech company or service
-2. **Example 2**: An open-source project or tool you've used
-
-For each example:
-- Describe how the pattern is implemented
-- What problems it solves in that context
-- What alternatives could have been used
-
-### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes
-**Objective**: Design an implementation of Queues & Stream-Processing
-
-**Scenario**: You need to implement Queues & Stream-Processing for an e-commerce checkout system processing 10,000 orders/hour.
-
-**Requirements**:
-- 99.9% availability required
-- Payment processing must be reliable
-- Orders must not be lost or duplicated
-
-**Your Task**:
-1. Design the architecture using Queues & Stream-Processing
-2. Identify key components and their responsibilities
-3. Define interfaces between components
-4. Consider failure scenarios and mitigation strategies
-
-**Deliverable**: Architecture diagram + 1-page implementation plan
-
-### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes
-**Objective**: Evaluate when NOT to use Queues & Stream-Processing
-
-**Challenge**: You're consulting for a startup building their first product.
-
-**Analysis Required**:
-1. **Context Assessment**: Under what conditions would Queues & Stream-Processing be overkill?
-2. **Cost-Benefit**: Compare implementation costs vs. benefits
-3. **Alternatives**: What simpler approaches could work initially?
-4. **Evolution Path**: How would you migrate to Queues & Stream-Processing later?
-
-**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
+### Tools & Libraries
+- **Message Queues**: RabbitMQ, AWS SQS, Azure Service Bus, Redis
+- **Event Streams**: Apache Kafka, AWS Kinesis, Azure Event Hubs, Pulsar
+- **Stream Processing**: Apache Flink, Spark Streaming, Kafka Streams
+- **Libraries**: 
+  - Java: Spring Cloud Stream
+  - Python: Celery, aiokafka
+  - Go: Sarama, NATS
+  - Node.js: Bull, KafkaJS
 
 ---
 
-## 🛠️ Code Challenge
-
-### Beginner: Basic Implementation
-Implement a minimal version of Queues & Stream-Processing in your preferred language.
-- Focus on core functionality
-- Include basic error handling
-- Add simple logging
-
-### Intermediate: Production Features
-Extend the basic implementation with:
-- Configuration management
-- Metrics collection
-- Unit tests
-- Documentation
-
-### Advanced: Performance & Scale
-Optimize for production use:
-- Handle concurrent access
-- Implement backpressure
-- Add monitoring hooks
-- Performance benchmarks
-
----
-
-## 🎯 Real-World Application
-
-**Project Integration**:
-- How would you introduce Queues & Stream-Processing to an existing system?
-- What migration strategy would minimize risk?
-- How would you measure success?
-
-**Team Discussion Points**:
-1. When team members suggest this pattern, what questions should you ask?
-2. How would you explain the value to non-technical stakeholders?
-3. What monitoring would indicate the pattern is working well?
-
----
+<div class="navigation-links">
+<div class="prev-link">
+<a href="/patterns/">← Previous: Patterns Overview</a>
+</div>
+<div class="next-link">
+<a href="/patterns/cqrs/">Next: CQRS →</a>
+</div>
+</div>

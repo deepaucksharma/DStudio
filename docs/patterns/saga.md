@@ -1,562 +1,1238 @@
 ---
-title: Saga (Distributed Transactions)
-description: "Manage distributed transactions using coordinated sequences of local transactions with compensation"
+title: Saga Pattern
+description: Manage distributed transactions using coordinated sequences of local transactions with compensations
 type: pattern
 difficulty: advanced
-reading_time: 25 min
-prerequisites: []
+reading_time: 35 min
+prerequisites: 
+  - "Microservices architecture"
+  - "Event-driven systems"
+  - "ACID transactions"
 pattern_type: "coordination"
+when_to_use: "Cross-service transactions, workflow orchestration, distributed business processes"
+when_not_to_use: "Simple local transactions, strongly consistent requirements, simple CRUD operations"
+related_axioms:
+  - coordination
+  - failure
+  - concurrency
+  - observability
+related_patterns:
+  - "Event Sourcing"
+  - "CQRS"
+  - "Outbox Pattern"
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-21
 ---
 
-<!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Saga (Distributed Transactions)**
+# Saga Pattern
 
-# Saga (Distributed Transactions)
+<div class="navigation-breadcrumb">
+<a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Saga Pattern
+</div>
 
-**When ACID meets distributed reality**
+> "A distributed system is one in which the failure of a computer you didn't even know existed can render your own computer unusable"
+> — Leslie Lamport
 
-## THE PROBLEM
+## The Essential Question
+
+**How can we maintain data consistency across multiple services when ACID transactions can't span service boundaries?**
+
+---
+
+## Level 1: Intuition (5 minutes)
+
+### The Story
+
+Imagine planning a vacation trip. You need to:
+1. Book a flight
+2. Reserve a hotel
+3. Rent a car
+4. Charge your credit card
+
+In the old days, a travel agent would do all of this in one sitting - if any step failed, they'd cancel everything and start over.
+
+But what if each booking is handled by a different company? You can't just "rollback" a flight booking at United when Hertz runs out of cars. Instead, you need to explicitly cancel each successful booking if later steps fail.
+
+This is the Saga pattern - a sequence of local transactions where each step can be undone if needed.
+
+### Visual Metaphor
 
 ```
-Distributed transaction across services:
-1. Debit payment account
-2. Credit merchant account
-3. Update inventory
-4. Send notification
+Traditional Transaction:          Saga Pattern:
 
-What if step 3 fails after 1 & 2 succeed?
-```bash
-## THE SOLUTION
-
+┌─────────────────┐              Step 1: Book Flight ✓
+│ BEGIN           │              ↓
+│  Book Flight    │              Step 2: Book Hotel ✓
+│  Book Hotel     │              ↓
+│  Book Car       │              Step 3: Book Car ✗
+│  Charge Card    │              ↓
+│ COMMIT/ROLLBACK │              Compensate: Cancel Hotel
+└─────────────────┘              ↓
+                                Compensate: Cancel Flight
+All or Nothing                   Each step + compensation
 ```
-Saga: A sequence of local transactions with compensations
 
-Happy Path:          Failure Path:
-T1 ✓                T1 ✓
-T2 ✓                T2 ✓
-T3 ✓                T3 ✗
-T4 ✓                C2 ← Compensate
-                    C1 ← Compensate
-```bash
-## Saga Patterns
+### In One Sentence
 
+**Saga Pattern**: Manage distributed transactions as a sequence of local transactions, each with a compensating action to undo it if later steps fail.
+
+### Real-World Parallel
+
+Sagas are like dominoes that can be stood back up - you line them up and knock them down in sequence, but if something goes wrong, you can carefully stand each fallen domino back up in reverse order.
+
+---
+
+## Level 2: Foundation (10 minutes)
+
+### The Problem Space
+
+<div class="failure-vignette">
+<h4>🔥 When Saga Wasn't Used: The Ticketmaster Disaster</h4>
+During a major concert sale, Ticketmaster's system charged thousands of credit cards but failed to reserve the seats due to a downstream service failure. Without a saga to compensate:
+- 50,000+ customers charged for tickets they didn't get
+- 3-week manual refund process
+- $5M in processing fees and penalties
+- Major reputation damage and lawsuits
+</div>
+
+### Core Concept
+
+The Saga pattern breaks a distributed transaction into a sequence of local transactions, where:
+
+1. **Local Transactions**: Each service performs its own ACID transaction
+2. **Compensating Transactions**: Each step has an undo operation
+3. **Saga Coordination**: Either orchestrated centrally or choreographed via events
+4. **Eventually Consistent**: The system reaches consistency through the saga
+5. **Failure Recovery**: Compensations run in reverse order on failure
+
+### Basic Architecture
+
+```mermaid
+graph LR
+    subgraph "Orchestrated Saga"
+        O[Saga Orchestrator]
+        O --> S1[Service 1<br/>Transaction]
+        O --> S2[Service 2<br/>Transaction]
+        O --> S3[Service 3<br/>Transaction]
+        O --> C1[Service 1<br/>Compensation]
+        O --> C2[Service 2<br/>Compensation]
+        
+        style O fill:#f9f,stroke:#333,stroke-width:3px
+    end
+    
+    subgraph "Choreographed Saga"
+        E1[Service 1] -->|Event| E2[Service 2]
+        E2 -->|Event| E3[Service 3]
+        E3 -->|Failure| E2
+        E2 -->|Compensate| E1
+        
+        style E1 fill:#9f9,stroke:#333,stroke-width:2px
+        style E2 fill:#9f9,stroke:#333,stroke-width:2px
+        style E3 fill:#f99,stroke:#333,stroke-width:2px
+    end
 ```
-1. ORCHESTRATION (Central Coordinator)
-        Saga Orchestrator
-       /      |      \
-     T1      T2      T3
 
-2. CHOREOGRAPHY (Event Chain)
-   T1 → [Event] → T2 → [Event] → T3
-```bash
-## IMPLEMENTATION
+### Key Benefits
+
+1. **Distributed Consistency**: Maintain consistency without distributed locks
+2. **Service Autonomy**: Each service manages its own data
+3. **Failure Recovery**: Automatic compensation on failures
+4. **Long-Running Processes**: Support for workflows that take time
+
+### Trade-offs
+
+| Aspect | Gain | Cost |
+|--------|------|------|
+| Consistency | Eventual consistency | No immediate consistency |
+| Complexity | Service independence | Compensation logic |
+| Debugging | Clear transaction flow | Distributed tracing needed |
+| Testing | Isolated service tests | Complex integration tests |
+
+---
+
+## Level 3: Deep Dive (20 minutes)
+
+### Detailed Architecture
+
+```mermaid
+graph TB
+    subgraph "Saga Orchestrator Pattern"
+        Client[Client Request]
+        Client --> SO[Saga Orchestrator]
+        
+        SO --> SM[State Machine]
+        SM --> P[Persistence]
+        
+        SO --> |1. Execute| T1[Payment Service<br/>Debit Account]
+        SO --> |2. Execute| T2[Inventory Service<br/>Reserve Items]
+        SO --> |3. Execute| T3[Shipping Service<br/>Create Shipment]
+        SO --> |4. Execute| T4[Notification Service<br/>Send Confirmation]
+        
+        T3 -->|Failure| SO
+        SO -->|3. Compensate| C2[Inventory Service<br/>Release Items]
+        SO -->|2. Compensate| C1[Payment Service<br/>Credit Account]
+        
+        style SO fill:#f9f,stroke:#333,stroke-width:3px
+        style SM fill:#bbf,stroke:#333,stroke-width:2px
+    end
+    
+    subgraph "Saga Choreography Pattern"
+        O[Order Service] -->|OrderCreated| PS[Payment Service]
+        PS -->|PaymentDebited| IS[Inventory Service]
+        IS -->|ItemsReserved| SS[Shipping Service]
+        SS -->|ShipmentCreated| NS[Notification Service]
+        
+        SS -->|ShipmentFailed| IS
+        IS -->|ReleaseItems| PS
+        PS -->|RefundPayment| O
+        
+        EB[Event Bus]
+        O -.-> EB
+        PS -.-> EB
+        IS -.-> EB
+        SS -.-> EB
+        NS -.-> EB
+        
+        style EB fill:#9f9,stroke:#333,stroke-width:2px
+    end
+```
+
+### Implementation Patterns
+
+#### Basic Implementation
 
 ```python
 from abc import ABC, abstractmethod
 from enum import Enum
+from typing import Dict, List, Any, Optional
+from dataclasses import dataclass
+import uuid
+import asyncio
+import logging
 
-class SagaStatus(Enum):
-    STARTED = "started"
-    RUNNING = "running"
-    COMPENSATING = "compensating"
+# Saga Step Definition
+class StepStatus(Enum):
+    PENDING = "pending"
+    EXECUTING = "executing"
     COMPLETED = "completed"
+    COMPENSATING = "compensating"
+    COMPENSATED = "compensated"
     FAILED = "failed"
 
+@dataclass
+class SagaContext:
+    """Shared context across saga steps"""
+    saga_id: str
+    initial_request: Dict[str, Any]
+    step_results: Dict[str, Any] = None
+    
+    def __post_init__(self):
+        if self.step_results is None:
+            self.step_results = {}
+
 class SagaStep(ABC):
+    """Base class for saga steps"""
+    
+    def __init__(self, name: str):
+        self.name = name
+        self.status = StepStatus.PENDING
+        
     @abstractmethod
-    async def execute(self, context):
-        """Execute forward transaction"""
+    async def execute(self, context: SagaContext) -> Any:
+        """Execute the forward transaction"""
         pass
-
+        
     @abstractmethod
-    async def compensate(self, context):
-        """Compensate on failure"""
+    async def compensate(self, context: SagaContext) -> None:
+        """Compensate (undo) the transaction"""
         pass
+        
+    def can_compensate(self) -> bool:
+        """Check if this step can be compensated"""
+        return self.status == StepStatus.COMPLETED
 
-# Example: Hotel Booking Saga
-class BookHotelStep(SagaStep):
-    def __init__(self, hotel_service):
-        self.hotel_service = hotel_service
-
-    async def execute(self, context):
-        booking = await self.hotel_service.reserve(
-            hotel_id=context['hotel_id'],
-            dates=context['dates'],
-            guest=context['guest']
-        )
-        context['hotel_booking_id'] = booking.id
-        return booking
-
-    async def compensate(self, context):
-        if 'hotel_booking_id' in context:
-            await self.hotel_service.cancel(
-                context['hotel_booking_id']
+# Example Saga Steps
+class CreateOrderStep(SagaStep):
+    def __init__(self, order_service):
+        super().__init__("create_order")
+        self.order_service = order_service
+        
+    async def execute(self, context: SagaContext) -> str:
+        self.status = StepStatus.EXECUTING
+        try:
+            order = await self.order_service.create_order(
+                customer_id=context.initial_request['customer_id'],
+                items=context.initial_request['items']
             )
+            context.step_results['order_id'] = order.id
+            self.status = StepStatus.COMPLETED
+            return order.id
+        except Exception as e:
+            self.status = StepStatus.FAILED
+            raise
+            
+    async def compensate(self, context: SagaContext) -> None:
+        if 'order_id' in context.step_results:
+            self.status = StepStatus.COMPENSATING
+            await self.order_service.cancel_order(
+                context.step_results['order_id']
+            )
+            self.status = StepStatus.COMPENSATED
 
-class ChargePaymentStep(SagaStep):
+class ProcessPaymentStep(SagaStep):
     def __init__(self, payment_service):
+        super().__init__("process_payment")
         self.payment_service = payment_service
-
-    async def execute(self, context):
-        charge = await self.payment_service.charge(
-            amount=context['total_amount'],
-            card=context['payment_card'],
-            idempotency_key=context['saga_id']
-        )
-        context['payment_id'] = charge.id
-        return charge
-
-    async def compensate(self, context):
-        if 'payment_id' in context:
-            await self.payment_service.refund(
-                context['payment_id']
+        
+    async def execute(self, context: SagaContext) -> str:
+        self.status = StepStatus.EXECUTING
+        try:
+            payment = await self.payment_service.charge(
+                amount=context.initial_request['total_amount'],
+                payment_method=context.initial_request['payment_method'],
+                idempotency_key=f"{context.saga_id}-payment"
             )
+            context.step_results['payment_id'] = payment.id
+            self.status = StepStatus.COMPLETED
+            return payment.id
+        except Exception as e:
+            self.status = StepStatus.FAILED
+            raise
+            
+    async def compensate(self, context: SagaContext) -> None:
+        if 'payment_id' in context.step_results:
+            self.status = StepStatus.COMPENSATING
+            await self.payment_service.refund(
+                payment_id=context.step_results['payment_id'],
+                reason="Saga compensation"
+            )
+            self.status = StepStatus.COMPENSATED
 
-# Orchestrator implementation
+# Saga Orchestrator
 class SagaOrchestrator:
-    def __init__(self, saga_id):
-        self.saga_id = saga_id
-        self.steps = []
-        self.completed_steps = []
-        self.status = SagaStatus.STARTED
-        self.context = {'saga_id': saga_id}
-
-    def add_step(self, step: SagaStep):
+    """Orchestrates saga execution with automatic compensation"""
+    
+    def __init__(self, saga_id: Optional[str] = None):
+        self.saga_id = saga_id or str(uuid.uuid4())
+        self.steps: List[SagaStep] = []
+        self.completed_steps: List[SagaStep] = []
+        self.status = "initialized"
+        self.logger = logging.getLogger(__name__)
+        
+    def add_step(self, step: SagaStep) -> 'SagaOrchestrator':
+        """Add a step to the saga"""
         self.steps.append(step)
         return self
-
-    async def execute(self):
-        """Execute saga with automatic compensation"""
-        self.status = SagaStatus.RUNNING
-
+        
+    async def execute(self, initial_request: Dict[str, Any]) -> SagaContext:
+        """Execute the saga with automatic compensation on failure"""
+        context = SagaContext(
+            saga_id=self.saga_id,
+            initial_request=initial_request
+        )
+        
+        self.status = "running"
+        self.logger.info(f"Starting saga {self.saga_id}")
+        
         try:
-            # Forward path
+            # Execute steps in sequence
             for step in self.steps:
-                result = await step.execute(self.context)
+                self.logger.info(f"Executing step: {step.name}")
+                
+                result = await step.execute(context)
                 self.completed_steps.append(step)
-                await self._save_progress()
-
-            self.status = SagaStatus.COMPLETED
-            return self.context
-
+                
+                # Persist saga state after each step
+                await self._persist_state(context)
+                
+                self.logger.info(f"Step {step.name} completed: {result}")
+                
+            self.status = "completed"
+            self.logger.info(f"Saga {self.saga_id} completed successfully")
+            return context
+            
         except Exception as e:
-            # Compensation path
-            self.status = SagaStatus.COMPENSATING
-            await self._compensate()
-            self.status = SagaStatus.FAILED
-            raise SagaFailedException(f"Saga {self.saga_id} failed: {e}")
-
-    async def _compensate(self):
-        """Run compensations in reverse order"""
+            self.logger.error(f"Saga {self.saga_id} failed at step {step.name}: {e}")
+            self.status = "compensating"
+            
+            # Run compensations in reverse order
+            await self._run_compensations(context)
+            
+            self.status = "failed"
+            raise SagaFailedException(
+                f"Saga {self.saga_id} failed and was compensated"
+            ) from e
+            
+    async def _run_compensations(self, context: SagaContext):
+        """Run compensation for completed steps in reverse order"""
         for step in reversed(self.completed_steps):
-            try:
-                await step.compensate(self.context)
-                await self._save_progress()
-            except Exception as e:
-                # Log but continue compensating
-                print(f"Compensation failed for {step}: {e}")
-
-    async def _save_progress(self):
+            if step.can_compensate():
+                try:
+                    self.logger.info(f"Compensating step: {step.name}")
+                    await step.compensate(context)
+                    await self._persist_state(context)
+                except Exception as e:
+                    self.logger.error(
+                        f"Compensation failed for {step.name}: {e}"
+                    )
+                    # Continue compensating other steps
+                    
+    async def _persist_state(self, context: SagaContext):
         """Persist saga state for recovery"""
         # In production, save to database
+        # This enables saga recovery after crashes
         pass
+```
 
-# Choreography implementation with event bus
-class ChoreographySaga:
-    def __init__(self, event_bus):
+#### Production-Ready Implementation
+
+```python
+import asyncio
+from typing import Dict, List, Optional, Any
+from datetime import datetime, timedelta
+import json
+from dataclasses import dataclass, asdict
+
+# Saga Persistence for Recovery
+class SagaRepository:
+    """Persist saga state for crash recovery"""
+    
+    def __init__(self, db_pool):
+        self.db_pool = db_pool
+        
+    async def save_saga(self, saga_id: str, state: Dict[str, Any]):
+        async with self.db_pool.acquire() as conn:
+            await conn.execute("""
+                INSERT INTO sagas (id, state, updated_at)
+                VALUES ($1, $2, $3)
+                ON CONFLICT (id) DO UPDATE
+                SET state = $2, updated_at = $3
+            """, saga_id, json.dumps(state), datetime.utcnow())
+            
+    async def load_saga(self, saga_id: str) -> Optional[Dict[str, Any]]:
+        async with self.db_pool.acquire() as conn:
+            row = await conn.fetchone(
+                "SELECT state FROM sagas WHERE id = $1",
+                saga_id
+            )
+            return json.loads(row['state']) if row else None
+            
+    async def delete_saga(self, saga_id: str):
+        async with self.db_pool.acquire() as conn:
+            await conn.execute(
+                "DELETE FROM sagas WHERE id = $1",
+                saga_id
+            )
+
+# Event-Driven Choreography
+@dataclass
+class SagaEvent:
+    saga_id: str
+    step_name: str
+    status: str
+    payload: Dict[str, Any]
+    timestamp: datetime = None
+    
+    def __post_init__(self):
+        if self.timestamp is None:
+            self.timestamp = datetime.utcnow()
+
+class ChoreographedSaga:
+    """Event-driven saga implementation"""
+    
+    def __init__(self, event_bus, saga_repository):
         self.event_bus = event_bus
-        self.sagas = {}  # Track active sagas
-
+        self.saga_repository = saga_repository
+        self.active_sagas: Dict[str, Dict] = {}
+        
         # Subscribe to events
-        event_bus.subscribe('TripBooked', self.handle_trip_booked)
-        event_bus.subscribe('FlightBooked', self.handle_flight_booked)
-        event_bus.subscribe('HotelBooked', self.handle_hotel_booked)
-        event_bus.subscribe('PaymentCharged', self.handle_payment_charged)
-        event_bus.subscribe('BookingFailed', self.handle_failure)
-
-    async def handle_trip_booked(self, event):
-        saga_id = event.correlation_id
-        self.sagas[saga_id] = {
-            'status': 'booking_flight',
-            'trip': event.payload
+        self._subscribe_to_events()
+        
+    def _subscribe_to_events(self):
+        """Subscribe to all saga-related events"""
+        self.event_bus.subscribe('OrderCreated', self.handle_order_created)
+        self.event_bus.subscribe('PaymentProcessed', self.handle_payment_processed)
+        self.event_bus.subscribe('InventoryReserved', self.handle_inventory_reserved)
+        self.event_bus.subscribe('ShipmentCreated', self.handle_shipment_created)
+        
+        # Failure events
+        self.event_bus.subscribe('PaymentFailed', self.handle_payment_failed)
+        self.event_bus.subscribe('InventoryFailed', self.handle_inventory_failed)
+        self.event_bus.subscribe('ShipmentFailed', self.handle_shipment_failed)
+        
+    async def handle_order_created(self, event: SagaEvent):
+        """Start saga when order is created"""
+        saga_id = event.saga_id
+        
+        # Initialize saga state
+        self.active_sagas[saga_id] = {
+            'status': 'processing_payment',
+            'order': event.payload,
+            'completed_steps': ['order_created']
         }
-
+        
+        await self.saga_repository.save_saga(saga_id, self.active_sagas[saga_id])
+        
         # Trigger next step
-        self.event_bus.publish(Event(
-            type='BookFlight',
+        await self.event_bus.publish(SagaEvent(
+            saga_id=saga_id,
+            step_name='process_payment',
+            status='started',
             payload={
-                'flight_id': event.payload['flight_id'],
-                'passengers': event.payload['passengers']
-            },
-            correlation_id=saga_id
+                'amount': event.payload['total_amount'],
+                'payment_method': event.payload['payment_method']
+            }
         ))
-
-    async def handle_flight_booked(self, event):
-        saga_id = event.correlation_id
-        self.sagas[saga_id]['flight_booking'] = event.payload
-        self.sagas[saga_id]['status'] = 'booking_hotel'
-
-        # Next step
-        self.event_bus.publish(Event(
-            type='BookHotel',
-            payload={
-                'hotel_id': self.sagas[saga_id]['trip']['hotel_id'],
-                'dates': self.sagas[saga_id]['trip']['dates']
-            },
-            correlation_id=saga_id
-        ))
-
-    async def handle_failure(self, event):
-        saga_id = event.correlation_id
-        saga = self.sagas.get(saga_id)
-
+        
+    async def handle_payment_processed(self, event: SagaEvent):
+        """Handle successful payment"""
+        saga_id = event.saga_id
+        saga = self.active_sagas.get(saga_id)
+        
         if not saga:
-            return
-
-        # Compensate based on how far we got
-        if 'payment_id' in saga:
-            self.event_bus.publish(Event(
-                type='RefundPayment',
-                payload={'payment_id': saga['payment_id']},
-                correlation_id=saga_id
+            saga = await self.saga_repository.load_saga(saga_id)
+            if not saga:
+                return
+                
+        saga['payment'] = event.payload
+        saga['completed_steps'].append('payment_processed')
+        saga['status'] = 'reserving_inventory'
+        
+        await self.saga_repository.save_saga(saga_id, saga)
+        
+        # Next step
+        await self.event_bus.publish(SagaEvent(
+            saga_id=saga_id,
+            step_name='reserve_inventory',
+            status='started',
+            payload={
+                'items': saga['order']['items']
+            }
+        ))
+        
+    async def handle_inventory_failed(self, event: SagaEvent):
+        """Handle inventory reservation failure - start compensation"""
+        saga_id = event.saga_id
+        saga = self.active_sagas.get(saga_id)
+        
+        if not saga:
+            saga = await self.saga_repository.load_saga(saga_id)
+            if not saga:
+                return
+                
+        saga['status'] = 'compensating'
+        saga['failure_reason'] = event.payload.get('reason')
+        
+        # Start compensation based on completed steps
+        if 'payment_processed' in saga['completed_steps']:
+            await self.event_bus.publish(SagaEvent(
+                saga_id=saga_id,
+                step_name='refund_payment',
+                status='started',
+                payload={
+                    'payment_id': saga['payment']['payment_id']
+                }
+            ))
+            
+        if 'order_created' in saga['completed_steps']:
+            await self.event_bus.publish(SagaEvent(
+                saga_id=saga_id,
+                step_name='cancel_order',
+                status='started',
+                payload={
+                    'order_id': saga['order']['order_id']
+                }
             ))
 
-        if 'hotel_booking' in saga:
-            self.event_bus.publish(Event(
-                type='CancelHotel',
-                payload={'booking_id': saga['hotel_booking']['id']},
-                correlation_id=saga_id
-            ))
+# Saga Monitoring and Timeouts
+class SagaMonitor:
+    """Monitor saga execution and handle timeouts"""
+    
+    def __init__(self, saga_repository, event_bus, timeout_minutes=30):
+        self.saga_repository = saga_repository
+        self.event_bus = event_bus
+        self.timeout_minutes = timeout_minutes
+        
+    async def check_stuck_sagas(self):
+        """Periodically check for stuck sagas"""
+        while True:
+            try:
+                stuck_sagas = await self._find_stuck_sagas()
+                
+                for saga_id, saga_state in stuck_sagas:
+                    await self._handle_stuck_saga(saga_id, saga_state)
+                    
+            except Exception as e:
+                logging.error(f"Error checking stuck sagas: {e}")
+                
+            await asyncio.sleep(60)  # Check every minute
+            
+    async def _find_stuck_sagas(self) -> List[tuple]:
+        """Find sagas that haven't progressed"""
+        cutoff_time = datetime.utcnow() - timedelta(minutes=self.timeout_minutes)
+        
+        async with self.saga_repository.db_pool.acquire() as conn:
+            rows = await conn.fetch("""
+                SELECT id, state 
+                FROM sagas 
+                WHERE updated_at < $1 
+                AND state->>'status' NOT IN ('completed', 'failed')
+            """, cutoff_time)
+            
+            return [(row['id'], json.loads(row['state'])) for row in rows]
+            
+    async def _handle_stuck_saga(self, saga_id: str, saga_state: Dict):
+        """Handle a saga that's stuck"""
+        logging.warning(f"Saga {saga_id} is stuck in state: {saga_state['status']}")
+        
+        # Trigger timeout compensation
+        await self.event_bus.publish(SagaEvent(
+            saga_id=saga_id,
+            step_name='saga_timeout',
+            status='failed',
+            payload={
+                'reason': 'Saga execution timeout',
+                'last_status': saga_state['status']
+            }
+        ))
 
-        if 'flight_booking' in saga:
-            self.event_bus.publish(Event(
-                type='CancelFlight',
-                payload={'booking_id': saga['flight_booking']['id']},
-                correlation_id=saga_id
-            ))
-```bash
-## Saga State Machine
+# Saga with Distributed Locking
+class DistributedSagaLock:
+    """Ensure only one instance processes a saga"""
+    
+    def __init__(self, redis_client):
+        self.redis = redis_client
+        self.lock_timeout = 300  # 5 minutes
+        
+    async def acquire_lock(self, saga_id: str) -> bool:
+        """Try to acquire exclusive lock for saga"""
+        lock_key = f"saga_lock:{saga_id}"
+        lock_value = str(uuid.uuid4())
+        
+        acquired = await self.redis.set(
+            lock_key, 
+            lock_value,
+            nx=True,  # Only set if not exists
+            ex=self.lock_timeout
+        )
+        
+        if acquired:
+            # Store lock value for safe release
+            return lock_value
+        return None
+        
+    async def release_lock(self, saga_id: str, lock_value: str):
+        """Safely release lock if we own it"""
+        lock_key = f"saga_lock:{saga_id}"
+        
+        # Lua script for atomic check and delete
+        lua_script = """
+        if redis.call("get", KEYS[1]) == ARGV[1] then
+            return redis.call("del", KEYS[1])
+        else
+            return 0
+        end
+        """
+        
+        await self.redis.eval(lua_script, 1, lock_key, lock_value)
+```
+
+### State Management
+
+Sagas manage state through explicit state machines:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Started: Begin Saga
+    
+    Started --> Step1_Executing: Execute Step 1
+    Step1_Executing --> Step1_Completed: Success
+    Step1_Executing --> Compensating: Failure
+    
+    Step1_Completed --> Step2_Executing: Execute Step 2
+    Step2_Executing --> Step2_Completed: Success
+    Step2_Executing --> Step1_Compensating: Failure
+    
+    Step2_Completed --> Step3_Executing: Execute Step 3
+    Step3_Executing --> Completed: Success
+    Step3_Executing --> Step2_Compensating: Failure
+    
+    Step2_Compensating --> Step1_Compensating: Compensate Step 2
+    Step1_Compensating --> Failed: Compensate Step 1
+    
+    Completed --> [*]: Success
+    Failed --> [*]: Compensated
+    Compensating --> Failed: All Compensated
+```
+
+### Common Variations
+
+1. **Orchestrated Saga**
+   - Use case: Complex workflows with branching logic
+   - Trade-off: Central point of failure but easier debugging
+
+2. **Choreographed Saga**
+   - Use case: Loosely coupled services
+   - Trade-off: No central coordinator but harder to monitor
+
+3. **Hybrid Saga**
+   - Use case: Mix of orchestration and choreography
+   - Trade-off: Flexibility but increased complexity
+
+### Integration Points
+
+- **With Event Sourcing**: Saga events become part of event stream
+- **With CQRS**: Saga updates command side, queries read side
+- **With Outbox Pattern**: Ensure reliable event publishing
+- **With Circuit Breaker**: Protect saga steps from failures
+
+---
+
+## Level 4: Expert Practitioner (30 minutes)
+
+### Advanced Techniques
+
+#### Saga Composition
 
 ```python
-class SagaStateMachine:
+class CompositeSaga:
+    """Compose sagas from smaller sagas"""
+    
     def __init__(self):
-        self.states = {}
-        self.transitions = {}
+        self.sub_sagas: List[SagaOrchestrator] = []
+        
+    def add_sub_saga(self, saga: SagaOrchestrator):
+        self.sub_sagas.append(saga)
+        return self
+        
+    async def execute(self, context: Dict[str, Any]):
+        """Execute sub-sagas with proper isolation"""
+        completed_sagas = []
+        
+        try:
+            for sub_saga in self.sub_sagas:
+                # Each sub-saga gets its own context
+                sub_context = self._create_sub_context(context, sub_saga)
+                
+                result = await sub_saga.execute(sub_context)
+                completed_sagas.append((sub_saga, result))
+                
+                # Update parent context
+                self._merge_results(context, result)
+                
+        except Exception as e:
+            # Compensate completed sub-sagas
+            for saga, result in reversed(completed_sagas):
+                await saga._run_compensations(result)
+            raise
 
-    def add_state(self, name, on_enter=None, on_exit=None):
-        self.states[name] = {
-            'on_enter': on_enter,
-            'on_exit': on_exit
-        }
-
-    def add_transition(self, from_state, to_state, event, action=None):
-        key = (from_state, event)
-        self.transitions[key] = {
-            'to_state': to_state,
-            'action': action
-        }
-
-    async def handle_event(self, current_state, event, context):
-        key = (current_state, event.type)
-
-        if key not in self.transitions:
-            return current_state  # No transition
-
-        transition = self.transitions[key]
-
-        # Exit current state
-        if self.states[current_state]['on_exit']:
-            await self.states[current_state]['on_exit'](context)
-
-        # Execute transition action
-        if transition['action']:
-            await transition['action'](event, context)
-
-        # Enter new state
-        new_state = transition['to_state']
-        if self.states[new_state]['on_enter']:
-            await self.states[new_state]['on_enter'](context)
-
-        return new_state
+# Parallel Saga Execution
+class ParallelSagaOrchestrator(SagaOrchestrator):
+    """Execute independent saga steps in parallel"""
+    
+    def __init__(self, saga_id: Optional[str] = None):
+        super().__init__(saga_id)
+        self.parallel_groups: List[List[SagaStep]] = []
+        
+    def add_parallel_group(self, steps: List[SagaStep]):
+        """Add steps that can execute in parallel"""
+        self.parallel_groups.append(steps)
+        return self
+        
+    async def execute(self, initial_request: Dict[str, Any]) -> SagaContext:
+        """Execute with parallel step groups"""
+        context = SagaContext(
+            saga_id=self.saga_id,
+            initial_request=initial_request
+        )
+        
+        try:
+            for group in self.parallel_groups:
+                # Execute steps in parallel
+                tasks = [
+                    self._execute_step(step, context) 
+                    for step in group
+                ]
+                
+                results = await asyncio.gather(*tasks)
+                
+                # All succeeded, mark as completed
+                self.completed_steps.extend(group)
+                
+        except Exception as e:
+            # Compensate in parallel too
+            await self._run_parallel_compensations(context)
+            raise
 ```
 
-## ✓ CHOOSE THIS WHEN:
-• Distributed transactions needed
-• Each step can be made idempotent
-• Compensation is possible
-• Eventually consistent is OK
-• Workflow spans multiple services
-
-## ⚠️ BEWARE OF:
-• Complexity of compensation logic
-• Partial failure states
-• Testing all failure paths
-• Monitoring saga progress
-• Long-running saga timeout
-
-## REAL EXAMPLES
-• **Uber**: Trip booking across services
-• **Airbnb**: Reservation workflow
-• **Amazon**: Order fulfillment pipeline
-
----
-
-**Previous**: [← Retry & Backoff Strategies](retry-backoff.md) | **Next**: [Serverless/FaaS (Function-as-a-Service) →](serverless-faas.md)
----
-
-## ✅ When to Use
-
-### Ideal Scenarios
-- **Distributed systems** with external dependencies
-- **High-availability services** requiring reliability
-- **External service integration** with potential failures
-- **High-traffic applications** needing protection
-
-### Environmental Factors
-- **High Traffic**: System handles significant load
-- **External Dependencies**: Calls to other services or systems
-- **Reliability Requirements**: Uptime is critical to business
-- **Resource Constraints**: Limited connections, threads, or memory
-
-### Team Readiness
-- Team understands distributed systems concepts
-- Monitoring and alerting infrastructure exists
-- Operations team can respond to pattern-related alerts
-
-### Business Context
-- Cost of downtime is significant
-- User experience is a priority
-- System is customer-facing or business-critical
-
-## ❌ When NOT to Use
-
-### Inappropriate Scenarios
-- **Simple applications** with minimal complexity
-- **Development environments** where reliability isn't critical
-- **Single-user systems** without scale requirements
-- **Internal tools** with relaxed availability needs
-
-### Technical Constraints
-- **Simple Systems**: Overhead exceeds benefits
-- **Development/Testing**: Adds unnecessary complexity
-- **Performance Critical**: Pattern overhead is unacceptable
-- **Legacy Systems**: Cannot be easily modified
-
-### Resource Limitations
-- **No Monitoring**: Cannot observe pattern effectiveness
-- **Limited Expertise**: Team lacks distributed systems knowledge
-- **Tight Coupling**: System design prevents pattern implementation
-
-### Anti-Patterns
-- Adding complexity without clear benefit
-- Implementing without proper monitoring
-- Using as a substitute for fixing root causes
-- Over-engineering simple problems
-
-## ⚖️ Trade-offs
-
-### Benefits vs Costs
-
-| Benefit | Cost | Mitigation |
-|---------|------|------------|
-| **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
-| **Better Performance** | Resource overhead | Monitor and tune parameters |
-| **Faster Recovery** | Operational complexity | Invest in monitoring and training |
-| **Clearer Debugging** | Additional logging | Use structured logging |
-
-### Performance Impact
-- **Latency**: Small overhead per operation
-- **Memory**: Additional state tracking
-- **CPU**: Monitoring and decision logic
-- **Network**: Possible additional monitoring calls
-
-### Operational Complexity
-- **Monitoring**: Need dashboards and alerts
-- **Configuration**: Parameters must be tuned
-- **Debugging**: Additional failure modes to understand
-- **Testing**: More scenarios to validate
-
-### Development Trade-offs
-- **Initial Cost**: More time to implement correctly
-- **Maintenance**: Ongoing tuning and monitoring
-- **Testing**: Complex failure scenarios to validate
-- **Documentation**: More concepts for team to understand
-
-## 💻 Code Sample
-
-### Basic Implementation
+#### Saga Testing Framework
 
 ```python
-class SagaPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
-
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
-
-        try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
-        except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
-
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
-
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
-
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
-
-    def _record_success(self):
-        self.metrics.record_success()
-
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = SagaPattern(config)
-result = pattern.process(user_request)
+class SagaTestFramework:
+    """Comprehensive testing for sagas"""
+    
+    def __init__(self):
+        self.mocked_services = {}
+        self.execution_log = []
+        
+    async def test_happy_path(self, saga: SagaOrchestrator):
+        """Test successful execution"""
+        # Mock all services to succeed
+        self._setup_success_mocks()
+        
+        context = await saga.execute(self._get_test_request())
+        
+        # Verify all steps executed
+        assert all(
+            step.status == StepStatus.COMPLETED 
+            for step in saga.steps
+        )
+        
+        return context
+        
+    async def test_compensation_at_step(self, 
+                                       saga: SagaOrchestrator,
+                                       failing_step: int):
+        """Test compensation when specific step fails"""
+        # Setup mocks
+        for i, step in enumerate(saga.steps):
+            if i < failing_step:
+                self._mock_step_success(step)
+            elif i == failing_step:
+                self._mock_step_failure(step)
+                
+        # Execute and expect failure
+        with pytest.raises(SagaFailedException):
+            await saga.execute(self._get_test_request())
+            
+        # Verify compensations
+        for i in range(failing_step):
+            step = saga.steps[i]
+            assert step.status == StepStatus.COMPENSATED
+            
+    async def test_idempotency(self, saga: SagaOrchestrator):
+        """Test saga can be safely retried"""
+        request = self._get_test_request()
+        
+        # First execution
+        context1 = await saga.execute(request)
+        
+        # Retry with same request
+        saga2 = self._rebuild_saga()
+        context2 = await saga2.execute(request)
+        
+        # Results should be identical
+        assert context1.step_results == context2.step_results
 ```
 
-### Configuration Example
+### Performance Optimization
+
+<div class="decision-box">
+<h4>🎯 Performance Tuning Checklist</h4>
+
+- [ ] **Parallel Execution**: Run independent steps concurrently
+- [ ] **Async I/O**: Use async/await throughout
+- [ ] **Connection Pooling**: Reuse database connections
+- [ ] **Batch Operations**: Group related operations
+- [ ] **Caching**: Cache read-only data during saga
+- [ ] **Timeout Tuning**: Set appropriate step timeouts
+- [ ] **Circuit Breakers**: Fail fast on unavailable services
+- [ ] **Monitoring**: Track saga execution times
+</div>
+
+### Monitoring & Observability
+
+Key metrics to track:
 
 ```yaml
-saga:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
-    enabled: true
-    strategy: "cached_response"
-  monitoring:
-    metrics_enabled: true
-    health_check_interval: 30s
+metrics:
+  # Saga Execution Metrics
+  - name: saga_duration
+    description: Total saga execution time
+    alert_threshold: p99 > 30s
+    
+  - name: saga_success_rate
+    description: Percentage of successful sagas
+    alert_threshold: < 95%
+    
+  - name: compensation_rate
+    description: Percentage of sagas requiring compensation
+    alert_threshold: > 10%
+    
+  # Step Metrics
+  - name: step_duration
+    description: Individual step execution time
+    alert_threshold: p99 > 5s
+    
+  - name: step_failure_rate
+    description: Step failure rate by type
+    alert_threshold: > 5%
+    
+  # Compensation Metrics
+  - name: compensation_success_rate
+    description: Successful compensation percentage
+    alert_threshold: < 99%
+    
+  - name: stuck_sagas
+    description: Sagas not progressing
+    alert_threshold: > 10
+    
+  # Resource Metrics
+  - name: concurrent_sagas
+    description: Number of active sagas
+    alert_threshold: > 1000
 ```
 
-### Testing the Implementation
+### Common Pitfalls
+
+<div class="failure-vignette">
+<h4>⚠️ Pitfall: Non-Idempotent Steps</h4>
+A team implemented saga steps that weren't idempotent. When network issues caused retries, customers were charged multiple times and inventory was double-decremented.
+
+**Solution**: Every saga step must be idempotent. Use idempotency keys and check for duplicate operations.
+</div>
+
+<div class="failure-vignette">
+<h4>⚠️ Pitfall: Missing Compensation Logic</h4>
+A saga implementation had steps with no compensation logic. When failures occurred, the system was left in an inconsistent state requiring manual intervention.
+
+**Solution**: Every forward transaction must have a compensating transaction. Test all compensation paths.
+</div>
+
+### Production Checklist
+
+- [ ] **Idempotency** implemented for all steps
+- [ ] **Compensation logic** for every forward transaction
+- [ ] **Timeout handling** for long-running steps
+- [ ] **State persistence** for crash recovery
+- [ ] **Monitoring** for saga execution and compensation
+- [ ] **Testing** of all failure scenarios
+- [ ] **Documentation** of saga flows and compensations
+- [ ] **Alerting** for stuck or failed sagas
+
+---
+
+## Level 5: Mastery (45 minutes)
+
+### Case Study: Uber's Trip Booking Saga
+
+<div class="truth-box">
+<h4>🏢 Real-World Implementation</h4>
+
+**Company**: Uber  
+**Scale**: 
+- 25M+ daily trips
+- 100+ microservices involved
+- Sub-second response required
+- 99.99% consistency requirement
+
+**Challenge**: Coordinate a trip across driver matching, fare calculation, payment authorization, and trip tracking services while handling failures gracefully.
+
+**Saga Implementation**:
+
+**Steps**:
+1. Find and reserve driver
+2. Calculate fare estimate
+3. Authorize payment
+4. Create trip record
+5. Notify driver and rider
+6. Start location tracking
+
+**Architecture**:
+```
+Rider App → API Gateway → Trip Saga Orchestrator
+                                   ↓
+                          ┌────────┴────────┐
+                          │                 │
+                    Driver Service    Payment Service
+                          │                 │
+                    Fare Service      Notification Service
+                          │                 │
+                    Trip Service      Tracking Service
+```
+
+**Key Decisions**:
+1. **Hybrid Approach**: Orchestration for trip creation, choreography for updates
+2. **Optimistic Locking**: Reserve driver optimistically, compensate if needed
+3. **Partial Completion**: Allow trip to start even if non-critical steps fail
+4. **Saga Sharding**: Distribute saga execution by geographic region
+
+**Results**:
+- Trip creation latency: < 500ms p99
+- Successful completion: 99.7%
+- Compensation rate: 2.3%
+- Zero inconsistency incidents in 2 years
+
+**Lessons Learned**:
+1. **Design for partial failure** - Not all steps are equally critical
+2. **Compensation isn't always reverse** - Sometimes move forward differently
+3. **Monitor compensation paths** - They reveal system issues
+4. **Saga observability is crucial** - Distributed tracing for every saga
+</div>
+
+### Economic Analysis
+
+#### Cost Model
 
 ```python
-def test_saga_behavior():
-    pattern = SagaPattern(test_config)
+def calculate_saga_roi(
+    transactions_per_day: int,
+    services_involved: int,
+    failure_rate: float,
+    manual_resolution_cost: float
+) -> dict:
+    """Calculate ROI for implementing Saga pattern"""
+    
+    # Cost without saga (distributed transactions or manual)
+    distributed_tx_overhead = 0.5  # 50% performance overhead
+    manual_resolutions = transactions_per_day * failure_rate
+    
+    without_saga_costs = {
+        'performance_cost': transactions_per_day * 0.001 * distributed_tx_overhead,
+        'manual_resolution': manual_resolutions * manual_resolution_cost,
+        'downtime_cost': failure_rate * 10000,  # Downtime impact
+        'development_complexity': services_involved * 5000
+    }
+    
+    # Cost with saga
+    saga_compensation_rate = failure_rate * 0.1  # 90% auto-recovery
+    
+    with_saga_costs = {
+        'implementation': services_involved * 8000,
+        'saga_overhead': transactions_per_day * 0.0001,
+        'compensation_cost': transactions_per_day * saga_compensation_rate * 0.1,
+        'monitoring': 2000  # Monthly monitoring cost
+    }
+    
+    # Benefits
+    monthly_savings = (
+        sum(without_saga_costs.values()) - 
+        sum(with_saga_costs.values())
+    )
+    
+    return {
+        'monthly_savings': monthly_savings,
+        'payback_months': with_saga_costs['implementation'] / monthly_savings,
+        'reliability_improvement': (1 - saga_compensation_rate) * 100,
+        'recommended': services_involved >= 3 and failure_rate > 0.01
+    }
 
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
-
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
+# Example calculation
+roi = calculate_saga_roi(
+    transactions_per_day=100_000,
+    services_involved=5,
+    failure_rate=0.05,  # 5% failure rate
+    manual_resolution_cost=10  # $10 per manual fix
+)
+print(f"ROI: ${roi['monthly_savings']:,.0f}/month, "
+      f"Payback: {roi['payback_months']:.1f} months")
 ```
 
-## 💪 Hands-On Exercises
+#### When It Pays Off
 
-### Exercise 1: Pattern Recognition ⭐⭐
-**Time**: ~15 minutes
-**Objective**: Identify Saga (Distributed Transactions) in existing systems
+- **Break-even point**: 3+ services with 1%+ failure rate
+- **High ROI scenarios**:
+  - E-commerce checkouts
+  - Financial transactions
+  - Booking systems
+  - Order fulfillment
+- **Low ROI scenarios**:
+  - Simple CRUD operations
+  - Read-only workflows
+  - Single service transactions
 
-**Task**:
-Find 2 real-world examples where Saga (Distributed Transactions) is implemented:
-1. **Example 1**: A well-known tech company or service
-2. **Example 2**: An open-source project or tool you've used
+### Pattern Evolution
 
-For each example:
-- Describe how the pattern is implemented
-- What problems it solves in that context
-- What alternatives could have been used
+```mermaid
+timeline
+    title Evolution of Saga Pattern
+    
+    1987 : Original paper by Garcia-Molina
+         : Database-focused solution
+    
+    1990s : Workflow engines adopt sagas
+          : Long-running business processes
+    
+    2000s : SOA brings distributed sagas
+          : Web services coordination
+    
+    2010 : Microservices popularize pattern
+         : Service autonomy focus
+    
+    2015 : Event-driven sagas emerge
+         : Choreography over orchestration
+    
+    2020 : Serverless sagas
+         : Function-based coordination
+    
+    2025 : Current State
+         : AI-assisted compensation
+         : Automatic saga generation
+```
 
-### Exercise 2: Implementation Planning ⭐⭐⭐
-**Time**: ~25 minutes
-**Objective**: Design an implementation of Saga (Distributed Transactions)
+### Axiom Connections
 
-**Scenario**: You need to implement Saga (Distributed Transactions) for an e-commerce checkout system processing 10,000 orders/hour.
+<div class="axiom-box">
+<h4>🔗 Fundamental Axioms</h4>
 
-**Requirements**:
-- 99.9% availability required
-- Payment processing must be reliable
-- Orders must not be lost or duplicated
+This pattern directly addresses:
 
-**Your Task**:
-1. Design the architecture using Saga (Distributed Transactions)
-2. Identify key components and their responsibilities
-3. Define interfaces between components
-4. Consider failure scenarios and mitigation strategies
+1. **Coordination Axiom**: Manages distributed consensus without locks
+2. **Failure Axiom**: Explicit handling of partial failures
+3. **Concurrency Axiom**: Handles concurrent saga executions
+4. **Observability Axiom**: Full audit trail of all steps
+5. **Economics Axiom**: Balances consistency costs with business needs
+</div>
 
-**Deliverable**: Architecture diagram + 1-page implementation plan
+### Future Directions
 
-### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
-**Time**: ~20 minutes
-**Objective**: Evaluate when NOT to use Saga (Distributed Transactions)
+**Emerging Trends**:
 
-**Challenge**: You're consulting for a startup building their first product.
+1. **ML-Driven Compensation**: AI determines optimal compensation strategy
+2. **Predictive Saga Routing**: ML predicts likely failures and adjusts flow
+3. **Blockchain Sagas**: Immutable saga execution logs
+4. **Edge Sagas**: Distributed saga execution at edge locations
 
-**Analysis Required**:
-1. **Context Assessment**: Under what conditions would Saga (Distributed Transactions) be overkill?
-2. **Cost-Benefit**: Compare implementation costs vs. benefits
-3. **Alternatives**: What simpler approaches could work initially?
-4. **Evolution Path**: How would you migrate to Saga (Distributed Transactions) later?
-
-**Anti-Pattern Warning**: Identify one common mistake teams make when implementing this pattern.
-
----
-
-## 🛠️ Code Challenge
-
-### Beginner: Basic Implementation
-Implement a minimal version of Saga (Distributed Transactions) in your preferred language.
-- Focus on core functionality
-- Include basic error handling
-- Add simple logging
-
-### Intermediate: Production Features
-Extend the basic implementation with:
-- Configuration management
-- Metrics collection
-- Unit tests
-- Documentation
-
-### Advanced: Performance & Scale
-Optimize for production use:
-- Handle concurrent access
-- Implement backpressure
-- Add monitoring hooks
-- Performance benchmarks
+**What's Next**:
+- Automatic saga generation from business requirements
+- Self-healing sagas that adapt to failures
+- Cross-cloud saga orchestration
+- Real-time saga optimization based on conditions
 
 ---
 
-## 🎯 Real-World Application
+## Quick Reference
 
-**Project Integration**:
-- How would you introduce Saga (Distributed Transactions) to an existing system?
-- What migration strategy would minimize risk?
-- How would you measure success?
+### Decision Matrix
 
-**Team Discussion Points**:
-1. When team members suggest this pattern, what questions should you ask?
-2. How would you explain the value to non-technical stakeholders?
-3. What monitoring would indicate the pattern is working well?
+```mermaid
+graph TD
+    Start[Need distributed transaction?] --> Q1{Multiple<br/>services?}
+    Q1 -->|No| Local[Use local<br/>transaction]
+    Q1 -->|Yes| Q2{Can tolerate<br/>eventual consistency?}
+    
+    Q2 -->|No| Q3{Can use<br/>2PC?}
+    Q2 -->|Yes| Q4{Complex<br/>workflow?}
+    
+    Q3 -->|No| Redesign[Redesign to<br/>avoid distribution]
+    Q3 -->|Yes| TwoPC[Use 2PC<br/>if possible]
+    
+    Q4 -->|No| Q5{Events<br/>sufficient?}
+    Q4 -->|Yes| Saga[Use Saga<br/>Pattern]
+    
+    Q5 -->|Yes| Events[Use simple<br/>events]
+    Q5 -->|No| Saga
+    
+    Saga --> Q6{Service<br/>coupling OK?}
+    Q6 -->|Yes| Orchestration[Orchestrated<br/>Saga]
+    Q6 -->|No| Choreography[Choreographed<br/>Saga]
+```
+
+### Command Cheat Sheet
+
+```bash
+# Saga Management
+saga start <type> <request>          # Start new saga
+saga status <saga-id>                # Check saga status
+saga retry <saga-id>                 # Retry failed saga
+saga compensate <saga-id>            # Force compensation
+
+# Monitoring
+saga list --status=running           # List active sagas
+saga list --stuck --timeout=30m      # Find stuck sagas
+saga metrics --period=1h             # Saga metrics
+
+# Testing
+saga test <definition> --happy-path  # Test success path
+saga test <definition> --fail-at=3   # Test failure at step 3
+saga test <definition> --chaos       # Random failure testing
+
+# Debugging
+saga trace <saga-id>                 # Show execution trace
+saga events <saga-id>                # List all events
+saga replay <saga-id>                # Replay saga execution
+```
+
+### Configuration Template
+
+```yaml
+# Production Saga configuration
+saga:
+  orchestrator:
+    type: "centralized"  # or distributed
+    persistence: "postgresql"
+    state_timeout: 30m
+    
+  execution:
+    max_retries: 3
+    retry_delay: "exponential"
+    parallel_steps: true
+    max_concurrent: 100
+    
+  compensation:
+    strategy: "immediate"  # or batched
+    timeout: 5m
+    max_attempts: 3
+    
+  monitoring:
+    trace_sampling: 0.1
+    metrics_interval: 10s
+    stuck_check_interval: 1m
+    
+  steps:
+    default_timeout: 30s
+    circuit_breaker:
+      enabled: true
+      failure_threshold: 5
+      timeout: 30s
+      
+  events:
+    bus: "kafka"  # or rabbitmq, redis
+    retention: 7d
+    compression: true
+    
+  recovery:
+    enabled: true
+    checkpoint_interval: "after_each_step"
+    recovery_workers: 5
+```
 
 ---
+
+## Related Resources
+
+### Patterns
+- [Event Sourcing](/patterns/event-sourcing/) - Natural event log for sagas
+- [CQRS](/patterns/cqrs/) - Separate saga execution from queries
+- [Outbox Pattern](/patterns/outbox/) - Reliable event publishing
+- [Circuit Breaker](/patterns/circuit-breaker/) - Protect saga steps
+
+### Axioms
+- [Coordination Axiom](/part1-axioms/coordination/) - Why distributed consensus is hard
+- [Failure Axiom](/part1-axioms/failure/) - Handling partial failures
+- [Concurrency Axiom](/part1-axioms/concurrency/) - Managing parallel execution
+
+### Further Reading
+- [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
+- [Microservices.io Saga Pattern](https://microservices.io/patterns/data/saga.html) - Chris Richardson
+- [Saga Orchestration vs Choreography](https://blog.couchbase.com/saga-pattern-implement-business-transactions-using-microservices/) - Comparison
+- [Building Sagas with AWS Step Functions](https://aws.amazon.com/step-functions/use-cases/#saga) - Serverless sagas
+
+### Tools & Libraries
+- **Java**: Axon Framework, Eventuate Tram
+- **C#/.NET**: MassTransit, NServiceBus
+- **Python**: Faust, Celery with Saga support
+- **Node.js**: Moleculer, Node-Saga
+- **Go**: Temporal, Cadence
+- **Orchestrators**: AWS Step Functions, Azure Durable Functions, Camunda
+
+---
+
+<div class="navigation-links">
+<div class="prev-link">
+<a href="/patterns/event-sourcing/">← Previous: Event Sourcing</a>
+</div>
+<div class="next-link">
+<a href="/patterns/service-mesh/">Next: Service Mesh →</a>
+</div>
+</div>
