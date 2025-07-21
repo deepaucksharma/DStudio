@@ -651,6 +651,244 @@ class TimeoutAdjuster:
 
 ---
 
+## 🔄 Consistency During Failures
+
+### The CAP Theorem in Practice
+
+```mermaid
+graph TB
+    subgraph "Normal Operation"
+        N1[Node 1] <--> N2[Node 2]
+        N2 <--> N3[Node 3]
+        N1 <--> N3
+        C1[Client] --> N1
+        Note1[Can have C + A + P]
+    end
+    
+    subgraph "Network Partition"
+        P1[Node 1] -.X.- P2[Node 2]
+        P2 <--> P3[Node 3]
+        P1 -.X.- P3
+        C2[Client] --> P1
+        Note2[Must choose C or A]
+    end
+    
+    subgraph "Choice 1: Consistency"
+        CP1[Node 1<br/>REJECT WRITES] 
+        CP2[Node 2/3<br/>Accept Writes]
+        Note3[Sacrifice Availability]
+    end
+    
+    subgraph "Choice 2: Availability" 
+        AP1[Node 1<br/>Accept Writes]
+        AP2[Node 2/3<br/>Accept Writes]
+        Note4[Risk Inconsistency]
+    end
+```
+
+### Consistency Models Under Failure
+
+| Model | Behavior During Failure | Use Case | Example |
+|-------|------------------------|----------|----------|
+| **Strong Consistency** | Refuse writes to minority partition | Financial ledgers | Bank accounts |
+| **Eventual Consistency** | Accept writes, reconcile later | Social media | Twitter likes |
+| **Weak Consistency** | No guarantees | Caching | CDN content |
+| **Causal Consistency** | Preserve causality only | Chat apps | WhatsApp |
+| **Session Consistency** | Consistency within session | Shopping carts | Amazon |
+
+### Split-Brain Scenarios
+
+```mermaid
+sequenceDiagram
+    participant C1 as Client 1
+    participant C2 as Client 2
+    participant N1 as Node 1 (Partition A)
+    participant N2 as Node 2 (Partition B)
+    participant N3 as Node 3 (Partition B)
+    
+    Note over N1,N3: Network partition occurs
+    
+    C1->>N1: Write X=10
+    N1->>N1: Accept (thinks it's leader)
+    N1-->>C1: Success
+    
+    C2->>N2: Write X=20
+    N2->>N3: Coordinate
+    N3->>N2: Agree
+    N2-->>C2: Success
+    
+    Note over N1,N3: Partition heals
+    
+    N1->>N2: Sync state
+    Note over N1,N3: Conflict! X=10 vs X=20
+    
+    alt Last Write Wins
+        N1->>N1: X=20 (newer timestamp)
+    else Vector Clocks
+        N1->>N1: X=[10,20] (conflict marked)
+    else Manual Resolution
+        N1->>Admin: Conflict needs resolution
+    end
+```
+
+### Byzantine Failures and Consistency
+
+```mermaid
+graph TB
+    subgraph "Byzantine Fault Tolerant Consensus"
+        subgraph "Honest Nodes"
+            H1[Honest 1]
+            H2[Honest 2]  
+            H3[Honest 3]
+        end
+        
+        subgraph "Byzantine Node"
+            B[Byzantine<br/>Sends different<br/>values]
+        end
+        
+        B -->|Value A| H1
+        B -->|Value B| H2
+        B -->|Value C| H3
+        
+        H1 <--> H2
+        H2 <--> H3
+        H1 <--> H3
+        
+        Result[Consensus on majority value<br/>despite Byzantine node]
+    end
+    
+    Note[Requires 3f+1 nodes to<br/>tolerate f Byzantine failures]
+```
+
+### Failure Detection and Consistency
+
+```yaml
+Failure Detectors:
+  Perfect Detector (Impossible):
+    - Never suspects correct process
+    - Eventually suspects failed process
+    
+  Eventually Perfect (Realistic):
+    - May temporarily suspect correct process
+    - Eventually stops false suspicions
+    - Eventually detects all failures
+    
+  Impact on Consistency:
+    - False suspicions → Unnecessary leader changes
+    - Delayed detection → Stale reads
+    - Network delays → Split brain risk
+```
+
+### Consistency Recovery Patterns
+
+#### 1. Read Repair
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Coordinator
+    participant R1 as Replica 1
+    participant R2 as Replica 2  
+    participant R3 as Replica 3
+    
+    Client->>Coordinator: Read key K
+    Coordinator->>R1: Read K
+    Coordinator->>R2: Read K
+    Coordinator->>R3: Read K
+    
+    R1-->>Coordinator: K=10 (v1)
+    R2-->>Coordinator: K=20 (v2)
+    R3-->>Coordinator: K=10 (v1)
+    
+    Note over Coordinator: Detect inconsistency
+    
+    Coordinator->>Client: Return K=20 (latest)
+    
+    Coordinator->>R1: Repair: K=20
+    Coordinator->>R3: Repair: K=20
+```
+
+#### 2. Hinted Handoff
+```mermaid
+sequenceDiagram
+    participant Client
+    participant N1 as Node 1
+    participant N2 as Node 2 (Down)
+    participant N3 as Node 3
+    
+    Client->>N1: Write K=30
+    N1->>N2: Replicate
+    Note over N2: Node 2 is down
+    
+    N1->>N3: Hint: K=30 for N2
+    N3->>N3: Store hint
+    
+    Note over N2: Node 2 recovers
+    
+    N3->>N2: Deliver hint: K=30
+    N2->>N2: Apply write
+```
+
+### Quorum-Based Consistency
+
+```mermaid
+graph TB
+    subgraph "Write Quorum (W=2)"
+        W1[Write to Node 1 ✓]
+        W2[Write to Node 2 ✓] 
+        W3[Write to Node 3 ❌]
+        WR[Write Succeeds<br/>2/3 nodes]
+    end
+    
+    subgraph "Read Quorum (R=2)"
+        R1[Read from Node 1 ✓]
+        R2[Read from Node 2 ❌]
+        R3[Read from Node 3 ✓]
+        RR[Read Succeeds<br/>2/3 nodes]
+    end
+    
+    subgraph "Consistency Guarantee"
+        F[W + R > N<br/>2 + 2 > 3<br/>Strong Consistency]
+    end
+    
+    WR --> F
+    RR --> F
+```
+
+### Practical Failure-Consistency Patterns
+
+| Pattern | Description | Consistency Impact | Use Case |
+|---------|-------------|-------------------|----------||
+| **Sloppy Quorum** | Accept writes on any N nodes | Improves availability, eventual consistency | Dynamo |
+| **Strict Quorum** | Require specific nodes | Strong consistency, lower availability | Cassandra |
+| **Chain Replication** | Linear replication chain | Strong consistency, ordered updates | CORFU |
+| **Primary-Backup** | All writes through primary | Simple consistency model | MySQL |
+| **Multi-Paxos** | Consensus on every operation | Linearizable | Spanner |
+
+### Consistency SLAs During Failures
+
+```yaml
+Tiered Consistency SLAs:
+  Critical Data (Payment records):
+    - RPO: 0 (no data loss)
+    - Consistency: Strong
+    - Availability: 99.9%
+    - During failure: Reject writes
+    
+  Important Data (User profiles):
+    - RPO: 1 minute
+    - Consistency: Read-after-write
+    - Availability: 99.99%  
+    - During failure: Route to healthy replicas
+    
+  Cache Data (Session state):
+    - RPO: Acceptable loss
+    - Consistency: Eventual
+    - Availability: 99.999%
+    - During failure: Regenerate if needed
+```
+
+---
+
 ## Level 4: Expert (Production Patterns) 🌲
 
 ### Netflix's Hystrix Pattern: Bulkheads in Action

@@ -600,6 +600,238 @@ class DistributedProcess:
 
 ---
 
+## 🔄 Consistency in Concurrent Systems
+
+### The Consistency-Concurrency Trade-off
+
+```mermaid
+graph TB
+    subgraph "Consistency Models Under Concurrency"
+        subgraph "Weak Models (High Concurrency)"
+            RC[Read Committed<br/>No dirty reads]
+            RU[Read Uncommitted<br/>Maximum concurrency]
+        end
+        
+        subgraph "Strong Models (Low Concurrency)"
+            SR[Serializable<br/>As-if serial execution]
+            SSI[Serializable SI<br/>Optimistic concurrency]
+        end
+        
+        subgraph "Middle Ground"
+            RR[Repeatable Read<br/>No phantom reads]
+            SI[Snapshot Isolation<br/>MVCC-based]
+        end
+    end
+    
+    RU -->|More Consistency| RC
+    RC -->|More Consistency| RR
+    RR -->|More Consistency| SI
+    SI -->|More Consistency| SSI
+    SSI -->|More Consistency| SR
+    
+    style RU fill:#90EE90
+    style SR fill:#FFB6C1
+```
+
+### Concurrency Control Mechanisms
+
+#### 1. Pessimistic Concurrency Control
+
+```mermaid
+sequenceDiagram
+    participant T1 as Transaction 1
+    participant T2 as Transaction 2
+    participant DB as Database
+    participant L as Lock Manager
+    
+    T1->>L: LOCK(Account A)
+    L->>T1: Lock Granted
+    T1->>DB: READ(A)
+    
+    Note over T2: T2 wants same data
+    T2->>L: LOCK(Account A)
+    L->>T2: WAIT (Blocked)
+    
+    T1->>DB: WRITE(A - 100)
+    T1->>L: UNLOCK(A)
+    
+    L->>T2: Lock Granted
+    T2->>DB: READ(A)
+    T2->>DB: WRITE(A + 50)
+    T2->>L: UNLOCK(A)
+```
+
+#### 2. Optimistic Concurrency Control
+
+```mermaid
+sequenceDiagram
+    participant T1 as Transaction 1  
+    participant T2 as Transaction 2
+    participant DB as Database
+    participant V as Version Check
+    
+    T1->>DB: READ(A, version=5)
+    T2->>DB: READ(A, version=5)
+    
+    Note over T1,T2: Both proceed optimistically
+    
+    T1->>DB: WRITE(A - 100, check version=5)
+    DB->>V: Version still 5?
+    V->>DB: Yes
+    DB->>T1: Success (version now 6)
+    
+    T2->>DB: WRITE(A + 50, check version=5)
+    DB->>V: Version still 5?
+    V->>DB: No, now 6
+    DB->>T2: Conflict! Retry needed
+```
+
+#### 3. Multi-Version Concurrency Control (MVCC)
+
+```mermaid
+graph TB
+    subgraph "MVCC Timeline"
+        T0[Time 0<br/>A = 100]
+        T1[Time 1<br/>A = 100 (v1)<br/>A = 80 (v2)]
+        T2[Time 2<br/>A = 100 (v1)<br/>A = 80 (v2)<br/>A = 130 (v3)]
+        
+        TX1[Transaction 1<br/>Reads A = 100]
+        TX2[Transaction 2<br/>Writes A = 80]
+        TX3[Transaction 3<br/>Writes A = 130]
+        
+        T0 --> T1
+        T1 --> T2
+        
+        TX1 -.->|Snapshot at T0| T0
+        TX2 -->|Creates v2| T1  
+        TX3 -->|Creates v3| T2
+    end
+    
+    Note[Each transaction sees<br/>consistent snapshot]
+```
+
+### Consistency Anomalies in Concurrent Systems
+
+| Anomaly | Description | Example | Prevention |
+|---------|-------------|---------|------------|
+| **Dirty Read** | Read uncommitted data | T1 writes X=10 (uncommitted), T2 reads X=10, T1 aborts | Read Committed isolation |
+| **Lost Update** | Concurrent updates conflict | T1: X=X+10, T2: X=X+20, one update lost | Locking or versioning |
+| **Phantom Read** | New rows appear | T1 counts rows, T2 inserts, T1 counts again | Serializable isolation |
+| **Write Skew** | Constraint violated | Two doctors go off-call simultaneously | Serializable or explicit locks |
+| **Read Skew** | Inconsistent reads | Read A, B changes, Read B - inconsistent | Snapshot isolation |
+
+### Distributed Consistency Under Concurrency
+
+```mermaid
+graph TB
+    subgraph "Distributed Transaction"
+        C[Coordinator]
+        P1[Participant 1<br/>Lock A]
+        P2[Participant 2<br/>Lock B]
+        P3[Participant 3<br/>Lock C]
+        
+        C -->|Prepare| P1
+        C -->|Prepare| P2
+        C -->|Prepare| P3
+        
+        P1 -->|Vote Yes/No| C
+        P2 -->|Vote Yes/No| C
+        P3 -->|Vote Yes/No| C
+        
+        C -->|Commit/Abort| P1
+        C -->|Commit/Abort| P2
+        C -->|Commit/Abort| P3
+    end
+    
+    subgraph "Consistency Guarantees"
+        G1[Atomicity: All or Nothing]
+        G2[Isolation: No Interference]
+        G3[Global Ordering: Same View]
+    end
+```
+
+### Lock-Free Consistency Patterns
+
+```yaml
+Compare-And-Swap (CAS):
+  Use Case: Atomic updates without locks
+  Example: AtomicInteger increment
+  Consistency: Linearizable for single values
+  Limitation: ABA problem
+
+Copy-On-Write (COW):
+  Use Case: Read-heavy workloads
+  Example: Linux fork(), Java ConcurrentHashMap
+  Consistency: Snapshot isolation for readers
+  Trade-off: Memory overhead
+
+Read-Copy-Update (RCU):
+  Use Case: Very high read concurrency
+  Example: Linux kernel data structures
+  Consistency: Eventually consistent
+  Benefit: Zero read overhead
+
+Software Transactional Memory (STM):
+  Use Case: Complex concurrent updates
+  Example: Haskell STM, Clojure refs
+  Consistency: Serializable
+  Trade-off: Retry overhead
+```
+
+### Consistency in Actor Systems
+
+```mermaid
+sequenceDiagram
+    participant A1 as Actor 1
+    participant A2 as Actor 2
+    participant A3 as Actor 3
+    participant MB as Message Bus
+    
+    Note over A1,A3: Each actor has local state
+    
+    A1->>MB: UpdateBalance(+100)
+    A2->>MB: UpdateBalance(-50)
+    
+    MB->>A3: Process(+100)
+    Note over A3: Balance = 100
+    
+    MB->>A3: Process(-50)  
+    Note over A3: Balance = 50
+    
+    Note over A1,A3: No shared state<br/>Messages ordered per actor<br/>Eventually consistent
+```
+
+### Best Practices for Concurrent Consistency
+
+1. **Choose the Right Isolation Level**
+   ```sql
+   -- For financial transactions
+   SET TRANSACTION ISOLATION LEVEL SERIALIZABLE;
+   
+   -- For analytics queries  
+   SET TRANSACTION ISOLATION LEVEL READ COMMITTED;
+   
+   -- For real-time dashboards
+   SET TRANSACTION ISOLATION LEVEL READ UNCOMMITTED;
+   ```
+
+2. **Use Version Vectors for Distributed Systems**
+   ```yaml
+   Node A: [A:5, B:3, C:7]  # A has seen 5 of its own events
+   Node B: [A:4, B:3, C:7]  # B is behind on A's events
+   Node C: [A:5, B:3, C:8]  # C has newer events
+   ```
+
+3. **Implement Idempotency**
+   ```yaml
+   Request ID: Unique per operation
+   Effect: At-most-once execution
+   Storage: Track completed requests
+   Benefit: Safe retries
+   ```
+
+---
+
 ## Level 4: Expert (Production Patterns) 🌲
 
 ### Google's Chubby: Distributed Lock Service

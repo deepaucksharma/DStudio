@@ -784,6 +784,212 @@ async def book_trip(user_id, trip_details):
 
 ---
 
+## 🔄 Consistency Examples: The Coordination Spectrum
+
+### Example 1: Social Media Feed Consistency
+
+**Scenario**: Facebook/Twitter feed generation with 1B+ users
+
+```mermaid
+graph TB
+    subgraph "Eventual Consistency Approach"
+        U1[User Posts] --> S1[Shard 1]
+        S1 --> F1[Follower Feed 1<br/>Delay: 0-5s]
+        S1 --> F2[Follower Feed 2<br/>Delay: 0-10s]
+        S1 --> F3[Follower Feed 3<br/>Delay: 0-30s]
+        
+        Note1[Cost: $0.01/1M operations]
+    end
+    
+    subgraph "Strong Consistency Approach"
+        U2[User Posts] --> C[Coordinator]
+        C --> S2[Shard 1]
+        C --> S3[Shard 2]
+        C --> S4[Shard 3]
+        S2 & S3 & S4 -->|ACK| C
+        C --> F4[All Followers<br/>Consistent View]
+        
+        Note2[Cost: $10/1M operations<br/>1000x more expensive!]
+    end
+    
+    style Note1 fill:#90EE90
+    style Note2 fill:#FFB6C1
+```
+
+### Example 2: E-Commerce Inventory Consistency
+
+```mermaid
+sequenceDiagram
+    participant C1 as Customer 1
+    participant C2 as Customer 2
+    participant INV as Inventory Service
+    participant DB1 as DB Replica 1
+    participant DB2 as DB Replica 2
+    
+    Note over INV: Last item in stock!
+    
+    C1->>INV: Buy Item (Stock: 1)
+    C2->>INV: Buy Item (Stock: 1)
+    
+    alt Eventual Consistency
+        INV->>DB1: Decrement (async)
+        INV->>DB2: Decrement (async)
+        INV-->>C1: Success!
+        INV-->>C2: Success!
+        Note over C1,C2: Both think they bought it!
+        Note over INV: Oversold - Customer complaint
+    else Strong Consistency  
+        INV->>DB1: Lock & Decrement
+        DB1->>DB2: Replicate
+        DB2-->>DB1: ACK
+        DB1-->>INV: Committed
+        INV-->>C1: Success!
+        INV-->>C2: Out of Stock!
+        Note over C1,C2: Correct behavior
+        Note over INV: 50ms latency added
+    end
+```
+
+### Example 3: Banking Transfer Consistency
+
+```yaml
+Scenario: Transfer $1000 from Account A to Account B
+
+Option 1: Eventual Consistency (WRONG!)
+  Steps:
+    1. Debit A: -$1000 (Region 1)
+    2. Credit B: +$1000 (Region 2)
+  Problem: 
+    - Network partition after step 1
+    - Money disappears!
+    - Violates accounting principles
+  Cost: $0.001 per transaction
+  Result: Regulatory fines, customer lawsuits
+
+Option 2: Two-Phase Commit (CORRECT)
+  Steps:
+    1. Prepare: Lock A and B
+    2. Vote: Both agree to proceed
+    3. Commit: Atomically update both
+  Guarantees:
+    - All or nothing
+    - No money creation/destruction
+  Cost: $0.10 per transaction (100x more)
+  Result: Correct, compliant, but slower
+```
+
+### Example 4: Distributed Counter Consistency
+
+```mermaid
+graph TB
+    subgraph "YouTube View Counter"
+        subgraph "CRDT Approach"
+            V1[Views +100<br/>Server 1]
+            V2[Views +200<br/>Server 2]
+            V3[Views +150<br/>Server 3]
+            M1[Merge:<br/>Total = 450]
+            V1 & V2 & V3 --> M1
+            Note1[Eventually Consistent<br/>No Coordination]
+        end
+        
+        subgraph "Synchronized Counter"
+            C[Central Counter]
+            S1[Server 1] -->|+100| C
+            S2[Server 2] -->|+200| C
+            S3[Server 3] -->|+150| C
+            C -->|Lock/Update/Unlock| DB[(Database)]
+            Note2[Strongly Consistent<br/>Bottleneck at scale]
+        end
+    end
+    
+    style Note1 fill:#90EE90
+    style Note2 fill:#FFB6C1
+```
+
+### Example 5: Chat Message Ordering
+
+```python
+class ChatConsistencyExample:
+    """Different consistency models for chat applications"""
+    
+    def __init__(self):
+        self.messages = []
+        self.vector_clock = {}
+        
+    def eventual_consistency_chat(self):
+        """
+        WhatsApp-style: Messages may arrive out of order
+        Cost: Low
+        Coordination: None
+        """
+        # Alice sends: "Let's meet at 5pm"
+        # Bob sends: "How about 6pm?"
+        # Due to network delays:
+        # Alice sees: [Bob: "How about 6pm?", Alice: "Let's meet at 5pm"]
+        # Bob sees: [Alice: "Let's meet at 5pm", Bob: "How about 6pm?"]
+        # Confusion!
+        pass
+        
+    def causal_consistency_chat(self):
+        """
+        Slack-style: Causally related messages ordered
+        Cost: Medium  
+        Coordination: Vector clocks
+        """
+        # Uses vector clocks to ensure:
+        # - Replies always appear after original message
+        # - Edits appear in correct order
+        # - Reactions maintain causality
+        # Small overhead, good UX
+        pass
+        
+    def total_order_chat(self):
+        """
+        Trading floor chat: All see exact same order
+        Cost: High
+        Coordination: Consensus/Atomic broadcast
+        """
+        # Every message goes through consensus
+        # 10-100ms added latency
+        # Required for financial compliance
+        # Overkill for social chat
+        pass
+```
+
+### Example 6: Collaborative Editing Consistency
+
+```mermaid
+graph TB
+    subgraph "Google Docs - Operational Transformation"
+        U1[User 1 Types: 'Hello'] 
+        U2[User 2 Types: 'World']
+        OT[OT Engine]
+        U1 & U2 --> OT
+        OT -->|Transform & Merge| DOC[Document: 'HelloWorld']
+        Note1[Complex but real-time]
+    end
+    
+    subgraph "Git - Explicit Coordination"
+        D1[Dev 1 Branch]
+        D2[Dev 2 Branch] 
+        M[Merge/Rebase]
+        D1 & D2 --> M
+        M -->|Manual Resolution| MAIN[Main Branch]
+        Note2[Simple but requires human intervention]
+    end
+    
+    subgraph "Figma - CRDT-based"
+        F1[Designer 1 Edits]
+        F2[Designer 2 Edits]
+        CRDT[CRDT Merge]
+        F1 & F2 --> CRDT
+        CRDT -->|Automatic| DESIGN[Final Design]
+        Note3[Best of both worlds]
+    end
+```
+
+---
+
 ## 🎯 Key Takeaways
 
 ### When to Use Each Coordination Level

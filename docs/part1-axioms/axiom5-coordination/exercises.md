@@ -783,6 +783,216 @@ Rate your understanding (1-5):
 
 ---
 
+## 🔄 Consistency Coordination Lab
+
+### Lab 4: Implement Tunable Consistency
+
+**Build a system that can dynamically adjust consistency levels based on requirements**
+
+```python
+from enum import Enum
+from typing import Dict, List, Optional, Tuple
+import asyncio
+import time
+
+class ConsistencyLevel(Enum):
+    ONE = 1          # Write to one replica
+    QUORUM = 2       # Write to majority
+    ALL = 3          # Write to all replicas
+    LOCAL_QUORUM = 4 # Quorum in local DC
+    EACH_QUORUM = 5  # Quorum in each DC
+
+class TunableConsistencySystem:
+    """
+    Implement a Cassandra-like tunable consistency system
+    """
+    
+    def __init__(self, replicas: List[str], replication_factor: int = 3):
+        self.replicas = replicas
+        self.replication_factor = replication_factor
+        self.data = {}  # replica -> {key: (value, timestamp)}
+        
+    async def write(self, key: str, value: str, 
+                   consistency: ConsistencyLevel) -> bool:
+        """
+        TODO: Implement write with tunable consistency
+        1. Calculate required acknowledgments
+        2. Send write to replicas
+        3. Wait for required ACKs
+        4. Return success/failure
+        """
+        pass
+        
+    async def read(self, key: str, 
+                  consistency: ConsistencyLevel) -> Optional[str]:
+        """
+        TODO: Implement read with tunable consistency
+        1. Calculate required responses
+        2. Query replicas
+        3. Resolve conflicts if any
+        4. Return latest value
+        """
+        pass
+        
+    def calculate_required_nodes(self, consistency: ConsistencyLevel, 
+                               operation: str) -> int:
+        """
+        TODO: Calculate how many nodes needed for consistency level
+        """
+        pass
+
+# Test scenarios
+test_cases = [
+    {
+        "name": "Strong Consistency (Banking)",
+        "write_cl": ConsistencyLevel.QUORUM,
+        "read_cl": ConsistencyLevel.QUORUM,
+        "expected_behavior": "Always read what you write"
+    },
+    {
+        "name": "High Performance (Analytics)",
+        "write_cl": ConsistencyLevel.ONE,
+        "read_cl": ConsistencyLevel.ONE,
+        "expected_behavior": "May read stale data"
+    },
+    {
+        "name": "Write Heavy (Logging)",
+        "write_cl": ConsistencyLevel.ONE,
+        "read_cl": ConsistencyLevel.ALL,
+        "expected_behavior": "Fast writes, consistent reads"
+    }
+]
+```
+
+### Exercise 4.1: Consistency vs Availability Trade-offs
+
+```python
+class ConsistencyAvailabilityAnalyzer:
+    """
+    Analyze the trade-offs between consistency and availability
+    """
+    
+    def __init__(self, total_nodes: int = 5):
+        self.total_nodes = total_nodes
+        
+    def calculate_availability(self, consistency_level: str, 
+                             nodes_required: int,
+                             node_failure_rate: float = 0.01) -> float:
+        """
+        TODO: Calculate system availability given:
+        - Consistency requirements  
+        - Individual node failure rate
+        - Number of replicas
+        
+        Return probability that operation succeeds
+        """
+        pass
+        
+    def find_optimal_configuration(self, 
+                                 target_availability: float,
+                                 target_consistency: str) -> Dict:
+        """
+        TODO: Find the optimal number of replicas and 
+        consistency levels to meet both targets
+        """
+        pass
+
+# Scenarios to analyze
+scenarios = [
+    "Payment processing: 99.99% availability with strong consistency",
+    "Social media feed: 99.999% availability with eventual consistency",
+    "Configuration service: 99.9% availability with linearizability"
+]
+```
+
+### Exercise 4.2: Implement Read Repair
+
+```python
+class ReadRepairCoordinator:
+    """
+    Implement read repair to fix inconsistencies during reads
+    """
+    
+    def __init__(self, replicas: List[str]):
+        self.replicas = replicas
+        
+    async def read_with_repair(self, key: str, 
+                              consistency_level: ConsistencyLevel) -> Tuple[str, int]:
+        """
+        TODO: Implement read repair
+        1. Read from multiple replicas
+        2. Detect inconsistencies  
+        3. Repair out-of-date replicas
+        4. Return most recent value and number of repairs
+        """
+        pass
+        
+    def detect_inconsistency(self, responses: List[Tuple[str, int]]) -> bool:
+        """
+        TODO: Detect if replicas have different values
+        """
+        pass
+        
+    async def repair_replica(self, replica: str, key: str, 
+                           correct_value: str, timestamp: int):
+        """
+        TODO: Update out-of-date replica
+        """
+        pass
+```
+
+### Exercise 4.3: Consistency Monitoring Dashboard
+
+```python
+class ConsistencyMonitor:
+    """
+    Build a monitoring system for consistency violations
+    """
+    
+    def __init__(self):
+        self.metrics = {
+            'read_inconsistencies': 0,
+            'write_failures': 0,
+            'repair_operations': 0,
+            'stale_reads': 0
+        }
+        
+    def build_dashboard(self) -> str:
+        """
+        TODO: Create ASCII dashboard showing:
+        1. Current consistency violations
+        2. Replication lag by node
+        3. Success rates by consistency level
+        4. Recommended actions
+        
+        Example output:
+        ╔══════════════════════════════════════╗
+        ║   Consistency Monitoring Dashboard    ║
+        ╠══════════════════════════════════════╣
+        ║ Inconsistent Reads:  12 (0.01%)      ║
+        ║ Replication Lag:                     ║
+        ║   Node1: 5ms   Node2: 12ms          ║
+        ║   Node3: 3ms   Node4: 45ms ⚠️       ║
+        ║ Success Rates:                       ║
+        ║   ONE: 99.99%  QUORUM: 99.95%       ║
+        ║   ALL: 98.50%                        ║
+        ╚══════════════════════════════════════╝
+        """
+        pass
+```
+
+### Lab 4 Grading Rubric
+
+- [ ] Correctly implements tunable consistency (5 pts)
+- [ ] Handles network failures gracefully (5 pts)
+- [ ] Implements efficient read repair (5 pts)
+- [ ] Monitoring accurately tracks violations (5 pts)
+- [ ] Can explain consistency/availability trade-offs (5 pts)
+
+**Total: ___/25 points**
+
+---
+
 ## 🎯 Final Challenge: Production System Design
 
 ```python

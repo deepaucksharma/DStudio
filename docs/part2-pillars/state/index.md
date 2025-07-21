@@ -267,7 +267,145 @@ Choose A+P: Social media (availability > consistency)
 
 ### State Replication Strategies
 
-### Consistency Models Explained
+### 🔄 Consistency Models for Distributed State
+
+#### State Consistency Spectrum
+
+```mermaid
+graph TB
+    subgraph "Consistency Models"
+        subgraph "Weak (High Performance)"
+            W1[No Consistency<br/>Fire & Forget]
+            W2[Eventual Consistency<br/>S3, DynamoDB]
+        end
+        
+        subgraph "Session (User-Friendly)"
+            S1[Read Your Writes<br/>MongoDB]
+            S2[Monotonic Reads<br/>Cassandra]
+            S3[Causal Consistency<br/>CosmosDB]
+        end
+        
+        subgraph "Strong (Correct)"
+            ST1[Snapshot Isolation<br/>PostgreSQL]
+            ST2[Serializable<br/>Spanner]
+            ST3[Linearizable<br/>etcd]
+        end
+    end
+    
+    W1 -->|More Guarantees| W2
+    W2 -->|More Guarantees| S1
+    S1 -->|More Guarantees| S2
+    S2 -->|More Guarantees| S3
+    S3 -->|More Guarantees| ST1
+    ST1 -->|More Guarantees| ST2
+    ST2 -->|More Guarantees| ST3
+    
+    style W1 fill:#90EE90
+    style ST3 fill:#FFB6C1
+```
+
+#### Consistency and State Distribution Patterns
+
+| Pattern | State Distribution | Consistency | Use Case |
+|---------|-------------------|-------------|----------|
+| **Single Master** | All writes to one node | Strong | MySQL primary |
+| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra |
+| **Partitioned** | Each partition has master | Strong per partition | MongoDB sharding |
+| **Replicated State Machine** | All nodes execute same ops | Strong | etcd/Raft |
+| **CRDT** | Merge concurrent updates | Strong eventual | Redis CRDT |
+| **Event Sourced** | State from event log | Eventual | Kafka + CQRS |
+
+#### Consistency Under State Mutations
+
+```mermaid
+sequenceDiagram
+    participant C1 as Client 1
+    participant C2 as Client 2
+    participant M as Master
+    participant R1 as Replica 1
+    participant R2 as Replica 2
+    
+    Note over M,R2: Different consistency guarantees
+    
+    C1->>M: Write X=10
+    M->>M: Apply X=10
+    
+    alt Synchronous Replication
+        M->>R1: Replicate X=10
+        M->>R2: Replicate X=10
+        R1-->>M: ACK
+        R2-->>M: ACK
+        M-->>C1: Success
+        Note over C1: High latency, strong consistency
+    else Asynchronous Replication
+        M-->>C1: Success
+        M->>R1: Replicate X=10 (async)
+        M->>R2: Replicate X=10 (async)
+        Note over C1: Low latency, eventual consistency
+    end
+    
+    C2->>R1: Read X
+    Note over C2: May see old or new value
+```
+
+#### State Consistency Violations
+
+```mermaid
+graph TB
+    subgraph "Common Violations"
+        V1[Lost Update<br/>Two writes, one lost]
+        V2[Dirty Read<br/>Read uncommitted data]
+        V3[Phantom Read<br/>Data appears/disappears]
+        V4[Write Skew<br/>Constraint violated]
+    end
+    
+    subgraph "Detection Methods"
+        D1[Version Vectors]
+        D2[Checksums]
+        D3[Invariant Checking]
+        D4[Audit Logs]
+    end
+    
+    subgraph "Resolution Strategies"  
+        R1[Last Write Wins]
+        R2[Merge Function]
+        R3[Manual Resolution]
+        R4[Compensating Transaction]
+    end
+    
+    V1 --> D1 --> R1
+    V2 --> D2 --> R4
+    V3 --> D3 --> R3
+    V4 --> D4 --> R2
+```
+
+#### Practical State Consistency Patterns
+
+```yaml
+Read Repair:
+  Trigger: On read, detect inconsistency
+  Action: Fix inconsistent replicas
+  Example: Cassandra read repair
+  Overhead: Increased read latency
+
+Write-Through Cache:
+  Trigger: On write
+  Action: Update cache and database
+  Example: Redis + PostgreSQL
+  Guarantee: Cache always consistent
+
+Anti-Entropy:
+  Trigger: Periodic background process
+  Action: Compare and sync replicas
+  Example: Dynamo anti-entropy  
+  Overhead: Background bandwidth
+
+Quorum Reads/Writes:
+  Config: R + W > N
+  Example: 3 replicas, R=2, W=2
+  Guarantee: Strong consistency
+  Trade-off: Lower availability
+```
 
 ---
 

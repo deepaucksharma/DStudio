@@ -599,6 +599,251 @@ class GossipNode:
 
 ---
 
+## 🔄 Consistency as Distributed Truth
+
+### The Consistency Spectrum as Truth Levels
+
+```mermaid
+graph TB
+    subgraph "Truth Guarantees"
+        subgraph "Weak Truth"
+            WT1[No Guarantees<br/>Cache/CDN]
+            WT2[Best Effort<br/>UDP Metrics]
+        end
+        
+        subgraph "Probabilistic Truth"
+            PT1[Eventually True<br/>DNS, S3]
+            PT2[Probably True<br/>Bloom Filters]
+        end
+        
+        subgraph "Ordered Truth"
+            OT1[Causal Truth<br/>Social Feeds]
+            OT2[Sequential Truth<br/>Bank Ledger]
+        end
+        
+        subgraph "Absolute Truth"
+            AT1[Linearizable<br/>Config Store]
+            AT2[Atomic Truth<br/>Transactions]
+        end
+    end
+    
+    WT1 -->|More Coordination| PT1
+    PT1 -->|More Coordination| OT1
+    OT1 -->|More Coordination| AT1
+    
+    style WT1 fill:#90EE90
+    style AT1 fill:#FFB6C1
+```
+
+### Truth Establishment Protocols
+
+#### 1. Consensus-Based Truth (Raft/Paxos)
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant L as Leader
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    
+    Note over L,F2: Establishing truth via majority
+    
+    C->>L: Propose: X=10
+    L->>L: Log[5] = "X=10"
+    L->>F1: AppendEntries(X=10)
+    L->>F2: AppendEntries(X=10)
+    
+    F1->>F1: Log[5] = "X=10"
+    F2->>F2: Log[5] = "X=10"
+    
+    F1-->>L: ACK
+    F2-->>L: ACK
+    
+    Note over L: 3/3 agree = Truth
+    L->>L: Commit Log[5]
+    L-->>C: X=10 is TRUE
+```
+
+#### 2. Byzantine Truth (BFT Consensus)
+```mermaid
+graph TB
+    subgraph "Byzantine Agreement"
+        subgraph "Round 1: Propose"
+            L[Leader] -->|X=10| N1[Node 1]
+            L -->|X=10| N2[Node 2]
+            L -->|X=10| B[Byzantine Node]
+            L -->|X=10| N3[Node 3]
+        end
+        
+        subgraph "Round 2: Echo"
+            N1 -->|Echo: X=10| ALL[All Nodes]
+            N2 -->|Echo: X=10| ALL
+            B -->|Echo: X=99| ALL
+            N3 -->|Echo: X=10| ALL
+        end
+        
+        subgraph "Round 3: Accept"
+            Result[3/4 say X=10<br/>Truth = X=10]
+        end
+    end
+    
+    Note[Need 3f+1 nodes for f Byzantine]
+```
+
+#### 3. Probabilistic Truth (Blockchain)
+```mermaid
+graph LR
+    subgraph "Proof of Work Truth"
+        B1[Block 100<br/>Truth: A=50] --> B2[Block 101<br/>Truth: A=40]
+        B2 --> B3[Block 102<br/>Truth: A=35]
+        B3 --> B4[Block 103<br/>Truth: A=30]
+        
+        B3 --> F1[Fork: Block 103'<br/>Truth: A=32]
+        
+        Note[Longest chain = Truth<br/>Probability increases with depth]
+    end
+    
+    style B4 fill:#90EE90
+    style F1 fill:#FFB6C1
+```
+
+### Truth Conflicts and Resolution
+
+```mermaid
+graph TB
+    subgraph "Conflict Detection"
+        V1[Version 1: X=10<br/>Time: 1000<br/>Node: A]
+        V2[Version 2: X=20<br/>Time: 1000<br/>Node: B]
+        CD[Conflict Detected!]
+        V1 & V2 --> CD
+    end
+    
+    subgraph "Resolution Strategies"
+        LWW[Last Write Wins<br/>Use timestamp]
+        MVR[Multi-Value Register<br/>Keep both]
+        APC[Application Callback<br/>Custom logic]
+        CRD[CRDT Merge<br/>Automatic]
+    end
+    
+    CD --> LWW & MVR & APC & CRD
+    
+    subgraph "Results"
+        R1[X=20<br/>(higher timestamp)]
+        R2[X=[10,20]<br/>(conflict preserved)]
+        R3[X=15<br/>(app merged)]
+        R4[X=30<br/>(CRDT sum)]
+    end
+    
+    LWW --> R1
+    MVR --> R2
+    APC --> R3
+    CRD --> R4
+```
+
+### Truth Propagation Patterns
+
+| Pattern | Truth Guarantee | Latency | Use Case |
+|---------|----------------|---------|-----------||
+| **Synchronous Replication** | Immediate truth | High (RTT x replicas) | Financial data |
+| **Asynchronous Replication** | Eventual truth | Low (immediate return) | Analytics |
+| **Quorum Replication** | Probabilistic truth | Medium (majority RTT) | User data |
+| **Chain Replication** | Ordered truth | Variable (chain length) | Logs |
+| **Gossip Protocol** | Convergent truth | Logarithmic | Membership |
+
+### Truth Under Partition
+
+```mermaid
+graph TB
+    subgraph "Partition Scenario"
+        subgraph "Partition A"
+            PA1[Node 1<br/>Truth: X=10]
+            PA2[Node 2<br/>Truth: X=10]
+            CA[Clients A]
+        end
+        
+        subgraph "Partition B"
+            PB1[Node 3<br/>Truth: X=20]
+            PB2[Node 4<br/>Truth: X=20]
+            PB3[Node 5<br/>Truth: X=20]
+            CB[Clients B]
+        end
+        
+        PA1 -.X.- PB1
+        PA2 -.X.- PB2
+    end
+    
+    subgraph "Resolution Options"
+        O1[Accept Split Brain<br/>Reconcile later]
+        O2[Minority Shuts Down<br/>Preserve consistency]
+        O3[Read-Only Mode<br/>No writes allowed]
+        O4[Deterministic Winner<li/>E.g., larger partition]
+    end
+    
+    style PA1 fill:#FFB6C1
+    style PB1 fill:#90EE90
+```
+
+### Practical Truth Verification
+
+```yaml
+Truth Verification Techniques:
+
+  Merkle Trees:
+    Purpose: Verify large dataset consistency
+    Method: Hash tree comparison
+    Example: Bitcoin, Cassandra anti-entropy
+    
+  Vector Clocks:
+    Purpose: Track causal relationships
+    Method: Per-node logical timestamps
+    Example: Dynamo, Riak
+    
+  Checksums:
+    Purpose: Detect corruption
+    Method: Hash comparison
+    Example: HDFS block verification
+    
+  Consensus Epochs:
+    Purpose: Detect leadership changes
+    Method: Monotonic epoch numbers
+    Example: Raft term numbers
+    
+  Fencing Tokens:
+    Purpose: Prevent split-brain writes
+    Method: Monotonic tokens with storage check
+    Example: HDFS lease tokens
+```
+
+### Truth Economics
+
+```mermaid
+graph TB
+    subgraph "Cost of Truth Levels"
+        C1[Local Truth<br/>$0.001/GB]
+        C2[Regional Truth<br/>$0.01/GB]
+        C3[Global Eventual<br/>$0.10/GB]
+        C4[Global Strong<br/>$1.00/GB]
+        C5[Global Ordered<br/>$10.00/GB]
+        
+        C1 -->|10x| C2
+        C2 -->|10x| C3
+        C3 -->|10x| C4
+        C4 -->|10x| C5
+    end
+    
+    subgraph "Latency Impact"
+        L1[Local: 1ms]
+        L2[Regional: 10ms]
+        L3[Global: 100ms]
+        L4[Consensus: 200ms]
+        L5[Blockchain: 10min]
+    end
+    
+    style C1 fill:#90EE90
+    style C5 fill:#FFB6C1
+```
+
+---
+
 ## Level 4: Expert (Production Patterns) 🌲
 
 ### Case Study: Kubernetes Etcd Consensus

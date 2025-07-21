@@ -855,6 +855,179 @@ Results:
 | **PACELC** | If Partition, choose A or C; Else choose Latency or Consistency | Trade-offs even when healthy | Dynamic adaptation |
 | **CALM Theorem** | Monotonic programs are coordination-free | Some computations don't need coordination | Use when possible |
 
+### 🔄 Consistency Models Deep Dive
+
+#### The Consistency Spectrum
+
+```mermaid
+graph LR
+    subgraph "Weak Consistency"
+        EC[Eventual<br/>Consistency]
+        WC[Weak<br/>Consistency]
+    end
+    
+    subgraph "Strong Consistency"
+        SC[Sequential<br/>Consistency]
+        LIN[Linearizability]
+        SER[Serializability]
+    end
+    
+    subgraph "Middle Ground"
+        CC[Causal<br/>Consistency]
+        RYW[Read Your<br/>Writes]
+        MR[Monotonic<br/>Reads]
+        MW[Monotonic<br/>Writes]
+        BS[Bounded<br/>Staleness]
+    end
+    
+    WC -->|More Coordination| EC
+    EC -->|More Coordination| CC
+    CC -->|More Coordination| SC
+    SC -->|More Coordination| LIN
+    
+    style EC fill:#90EE90
+    style LIN fill:#FFB6C1
+```
+
+#### Consistency Models and Coordination Cost
+
+| Consistency Model | Coordination Required | Latency Impact | Use Cases |
+|-------------------|---------------------|----------------|------------|
+| **Eventual Consistency** | None (async) | 0ms | Social feeds, analytics |
+| **Read Your Writes** | Session tracking | ~0ms | User profiles |
+| **Monotonic Reads** | Version tracking | ~0ms | Progress tracking |
+| **Causal Consistency** | Vector clocks | 1-5ms | Chat messages, comments |
+| **Bounded Staleness** | Time sync | 5-50ms | Financial quotes |
+| **Strong Consistency** | Quorum/consensus | 10-100ms | Account balances |
+| **Linearizability** | Global ordering | 50-500ms | Configuration changes |
+
+#### Practical Consistency Patterns
+
+```mermaid
+graph TB
+    subgraph "Pattern: Read Repair"
+        RR1[Client Reads]
+        RR2[Detect Inconsistency]
+        RR3[Repair in Background]
+        RR1 --> RR2 --> RR3
+    end
+    
+    subgraph "Pattern: Write Quorums"
+        WQ1[Write to W nodes]
+        WQ2[Read from R nodes]
+        WQ3[W + R > N]
+        WQ1 --> WQ3
+        WQ2 --> WQ3
+    end
+    
+    subgraph "Pattern: Vector Clocks"
+        VC1[Track Causality]
+        VC2[Detect Conflicts]
+        VC3[Merge or Resolve]
+        VC1 --> VC2 --> VC3
+    end
+    
+    subgraph "Pattern: CRDT"
+        CR1[Conflict-Free Updates]
+        CR2[Merge Without Coordination]
+        CR3[Eventually Converge]
+        CR1 --> CR2 --> CR3
+    end
+```
+
+#### Consistency by Domain
+
+```mermaid
+graph TB
+    subgraph "Financial Services"
+        F1[Account Balance: Linearizable]
+        F2[Transaction History: Serializable]
+        F3[Analytics: Eventual]
+    end
+    
+    subgraph "E-Commerce"
+        E1[Inventory: Strong Consistency]
+        E2[Product Catalog: Eventual]
+        E3[Shopping Cart: Session Consistency]
+    end
+    
+    subgraph "Social Media"
+        S1[Posts: Causal Consistency]
+        S2[Likes: Eventual]
+        S3[DMs: Read Your Writes]
+    end
+    
+    subgraph "Gaming"
+        G1[Player Position: Regional Consistency]
+        G2[Leaderboard: Bounded Staleness]
+        G3[Chat: Causal]
+    end
+```
+
+#### The Cost of Consistency
+
+```yaml
+Eventual Consistency:
+  Coordination Cost: $0
+  Latency: 0ms
+  Availability: 99.99%
+  Complexity: Low
+  Example: View counts
+
+Causal Consistency:
+  Coordination Cost: $
+  Latency: 1-10ms  
+  Availability: 99.9%
+  Complexity: Medium
+  Example: Comment threads
+
+Strong Consistency:
+  Coordination Cost: $$$
+  Latency: 10-100ms
+  Availability: 99%
+  Complexity: High
+  Example: Bank transfers
+
+Linearizability:
+  Coordination Cost: $$$$$
+  Latency: 50-500ms
+  Availability: 95%
+  Complexity: Very High
+  Example: Distributed locks
+```
+
+#### Consistency Decision Framework
+
+```mermaid
+graph TD
+    Start[What are you building?] --> Q1{Is money involved?}
+    
+    Q1 -->|Yes| Q2{Direct transaction?}
+    Q1 -->|No| Q3{User-generated content?}
+    
+    Q2 -->|Yes| L1[Use Linearizability]
+    Q2 -->|No| L2[Use Strong Consistency]
+    
+    Q3 -->|Yes| Q4{Real-time interaction?}
+    Q3 -->|No| L3[Use Eventual Consistency]
+    
+    Q4 -->|Yes| L4[Use Causal Consistency]
+    Q4 -->|No| L5[Use Read Your Writes]
+    
+    style L1 fill:#ff6b6b
+    style L3 fill:#4ecdc4
+```
+
+#### Handling Consistency Violations
+
+| Violation Type | Detection Method | Resolution Strategy |
+|----------------|------------------|--------------------|
+| **Read Skew** | Version comparison | Retry with stronger consistency |
+| **Write Skew** | Constraint checking | Use compare-and-swap |
+| **Phantom Reads** | Range queries | Use predicate locks |
+| **Lost Updates** | Version vectors | Last-write-wins or merge |
+| **Dirty Reads** | Read timestamps | Use read committed |
+
 #### Physical Limits
 
 ```yaml
