@@ -117,7 +117,23 @@ graph LR
 
 ---
 
-## 🔬 Axiom Analysis
+## 🔬 Complete Axiom Analysis
+
+### Comprehensive Axiom Mapping Table
+
+| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+|-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
+| **H3 Hexagonal Grid** | 10ms lookup time vs 50ms for lat/lng | 40% less storage than rectangles | Cell boundaries remain stable | Parallel spatial queries | No coordinate conflicts | Clear cell ownership | Intuitive hex visualization | Reduces compute by 40% |
+| **Geospatial Sharding** | Data locality reduces latency | Natural partition boundaries | City-level failure isolation | Independent city operations | No cross-city coordination | Per-city metrics | City-based debugging | Infrastructure per market |
+| **Event Streaming (Kafka)** | Async processing, no blocking | Handles 40M events/sec | Replayable from any point | Multiple consumers | Ordered event delivery | Event flow tracing | Event-driven mental model | Shared infrastructure |
+| **Redis for Live State** | Sub-ms reads, 5ms writes | In-memory scales horizontally | Replicas for failover | Optimistic concurrency | No distributed locks | Real-time metrics | Simple key-value model | Memory cost vs disk |
+| **Adaptive Sampling** | Reduces network overhead | 68% less data transmitted | Graceful degradation | Per-driver rate limiting | Client-side decisions | Sampling rate metrics | Transparent to drivers | Bandwidth cost reduction |
+| **Service Mesh** | Circuit breakers prevent cascades | Request routing at edge | Automatic failover | Retry with backoff | Distributed tracing | Service dependency maps | Clear service boundaries | Reduces ops overhead |
+| **CRDT Location Updates** | Conflict-free by design | Mergeable across partitions | Eventually consistent | Concurrent updates safe | No coordination needed | Convergence tracking | Simple last-write-wins | No consensus overhead |
+| **Predictive Caching** | Pre-warm common queries | Cache scales independently | Cache miss doesn't fail | Read-through pattern | TTL-based invalidation | Hit rate monitoring | Consistent behavior | Reduces backend load |
+| **Multi-Region Architecture** | Local region <20ms | Regional capacity isolation | Region failure tolerance | Regional autonomy | Cross-region replication | Regional dashboards | Region-aware routing | Regional cost centers |
+
+### Detailed Axiom Impact Analysis
 
 ### Axiom 1: Latency is Non-Zero
 **Challenge**: Global system with speed-of-light constraints
@@ -182,6 +198,206 @@ OFFLINE → ONLINE → DISPATCHED → EN_ROUTE → ARRIVED → IN_TRIP → OFFLI
 ```
 
 Each transition is an atomic operation with strict ordering guarantees.
+
+---
+
+## 🏛️ Architecture Alternatives
+
+### Alternative 1: Centralized Database with Caching
+
+```mermaid
+graph TB
+    subgraph "Centralized Architecture"
+        C[Mobile Clients]
+        LB[Load Balancer]
+        AS[App Servers]
+        RC[Redis Cache]
+        PG[(PostgreSQL<br/>with PostGIS)]
+        RR[(Read Replicas)]
+    end
+    
+    C --> LB --> AS
+    AS --> RC
+    RC -.->|Cache Miss| PG
+    AS --> PG
+    PG -->|Replication| RR
+    AS -.->|Read| RR
+```
+
+### Alternative 2: Peer-to-Peer Mesh
+
+```mermaid
+graph TB
+    subgraph "P2P Architecture"
+        D1[Driver 1]
+        D2[Driver 2]
+        D3[Driver 3]
+        D4[Driver 4]
+        R1[Rider 1]
+        R2[Rider 2]
+        
+        DHT[Distributed<br/>Hash Table]
+        BS[Bootstrap<br/>Servers]
+    end
+    
+    D1 <--> D2
+    D2 <--> D3
+    D3 <--> D4
+    D4 <--> D1
+    D1 <--> D3
+    
+    R1 --> DHT
+    R2 --> DHT
+    DHT --> D1
+    
+    All nodes -.-> BS
+```
+
+### Alternative 3: Edge Computing with 5G
+
+```mermaid
+graph TB
+    subgraph "Edge Architecture"
+        MC[Mobile Clients]
+        
+        subgraph "5G Edge"
+            MEC1[MEC Server 1]
+            MEC2[MEC Server 2]
+            MEC3[MEC Server 3]
+        end
+        
+        subgraph "Regional DC"
+            RS[Regional Service]
+            RDB[(Regional DB)]
+        end
+        
+        subgraph "Central DC"
+            CS[Central Service]
+            CDB[(Central DB)]
+        end
+    end
+    
+    MC --> MEC1
+    MC --> MEC2
+    MC --> MEC3
+    
+    MEC1 <--> MEC2
+    MEC2 <--> MEC3
+    MEC1 <--> MEC3
+    
+    MEC1 --> RS
+    MEC2 --> RS
+    MEC3 --> RS
+    
+    RS --> RDB
+    RS --> CS
+    CS --> CDB
+```
+
+### Alternative 4: Blockchain-Based Location
+
+```mermaid
+graph TB
+    subgraph "Blockchain Architecture"
+        D[Drivers]
+        R[Riders]
+        
+        subgraph "Blockchain Network"
+            N1[Node 1]
+            N2[Node 2]
+            N3[Node 3]
+            N4[Node 4]
+            BC[(Blockchain)]
+        end
+        
+        subgraph "Off-chain"
+            SC[State Channels]
+            IPFS[IPFS Storage]
+        end
+    end
+    
+    D --> N1
+    R --> N2
+    
+    N1 <--> N2
+    N2 <--> N3
+    N3 <--> N4
+    N4 <--> N1
+    
+    All nodes --> BC
+    
+    D <--> SC
+    R <--> SC
+    SC --> IPFS
+```
+
+### Alternative 5: Uber's Chosen Architecture
+
+```mermaid
+graph TB
+    subgraph "Uber's Architecture"
+        subgraph "Client Layer"
+            DA[Driver App]
+            RA[Rider App]
+        end
+        
+        subgraph "Edge PoPs"
+            EP1[Edge PoP 1]
+            EP2[Edge PoP 2]
+        end
+        
+        subgraph "Stream Processing"
+            K[Kafka Clusters]
+            F[Flink Jobs]
+        end
+        
+        subgraph "Services"
+            LS[Location Service]
+            MS[Matching Service]
+            H3[H3 Index]
+        end
+        
+        subgraph "Storage"
+            R[Redis Clusters]
+            C[Cassandra]
+        end
+    end
+    
+    DA --> EP1 --> K
+    RA --> EP2 --> K
+    K --> F
+    F --> LS
+    LS --> H3
+    LS --> R
+    R --> C
+    LS --> MS
+```
+
+## 📊 Architecture Trade-off Analysis
+
+### Comprehensive Comparison Matrix
+
+| Aspect | Centralized DB | P2P Mesh | Edge Computing | Blockchain | Uber's Choice |
+|--------|----------------|----------|----------------|------------|---------------|
+| **Latency** | ❌ 100-200ms | ⚠️ Variable (50-500ms) | ✅ <10ms at edge | ❌ Seconds | ✅ 45ms P50 |
+| **Scalability** | ❌ Database bottleneck | ⚠️ O(log n) lookups | ✅ Edge scales | ❌ Limited TPS | ✅ Linear scaling |
+| **Reliability** | ❌ SPOF at DB | ✅ No SPOF | ✅ Edge redundancy | ✅ Immutable | ✅ 99.97% uptime |
+| **Consistency** | ✅ Strong | ❌ Eventually consistent | ⚠️ Edge sync issues | ✅ Consensus | ⚠️ Eventual |
+| **Cost** | ✅ Simple, predictable | ✅ Minimal infrastructure | ❌ Edge expensive | ❌ High compute | ⚠️ Moderate |
+| **Privacy** | ❌ Centralized data | ✅ Distributed | ⚠️ Telco dependency | ⚠️ Public ledger | ⚠️ Centralized |
+| **Complexity** | ✅ Simple | ❌ NAT, connectivity | ❌ Edge orchestration | ❌ Very complex | ⚠️ Moderate |
+| **Global Scale** | ❌ Latency issues | ❌ Discovery problems | ✅ Local processing | ❌ Sync delays | ✅ Multi-region |
+
+### Decision Factors for Architecture Selection
+
+| Factor | Weight | Centralized | P2P | Edge | Blockchain | Uber |
+|--------|--------|------------|-----|------|------------|------|
+| **Real-time Updates** | 30% | 2/10 | 4/10 | 9/10 | 1/10 | 8/10 |
+| **Global Scale** | 25% | 3/10 | 5/10 | 8/10 | 2/10 | 9/10 |
+| **Cost Efficiency** | 20% | 8/10 | 9/10 | 3/10 | 1/10 | 7/10 |
+| **Reliability** | 15% | 4/10 | 7/10 | 8/10 | 9/10 | 8/10 |
+| **Developer Experience** | 10% | 9/10 | 3/10 | 5/10 | 2/10 | 7/10 |
+| **Total Score** | 100% | 4.7/10 | 5.8/10 | 6.9/10 | 2.4/10 | **7.9/10** |
 
 ---
 

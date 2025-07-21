@@ -31,6 +31,8 @@ Where:
 μ = service rate
 ```
 
+This builds on [Little's Law](littles-law.md) where L = λW, and connects to the [Latency Ladder](latency-ladder.md) for understanding service times.
+
 ## Fundamental Formulas
 
 ### Average Queue Length
@@ -127,6 +129,8 @@ With 70 servers: ρ = 50/70 = 71%
 Queue time ≈ 100ms (acceptable)
 ```
 
+This sizing directly impacts [Availability](availability-math.md) - overloaded servers fail, reducing system availability.
+
 ### Database Connection Pool
 ```redis
 Queries: 500/s
@@ -199,6 +203,8 @@ if queue_length > threshold:
 # - Memory exhaustion
 # - Cascade failures
 ```
+
+This is a key component of the [Circuit Breaker pattern](../patterns/circuit-breaker.md) and [Backpressure](../patterns/backpressure.md) mechanisms.
 
 ### Adaptive Capacity
 ```python
@@ -280,6 +286,176 @@ Options:
 3. Add cache: Reduce arrival rate 50%
 ```
 
+## Axiom Connections
+
+### Axiom 2: Finite Capacity
+```mermaid
+graph LR
+    A[Arrival Rate λ] --> B{Queue}
+    B --> C[Service Rate μ]
+    B --> D[Queue Growth]
+    
+    D --> E[Memory Limit]
+    E --> F[System Failure]
+    
+    style E fill:#ff6b6b
+    style F fill:#ff0000
+```
+
+**Key Insight**: M/M/1 models directly demonstrate [Axiom 2: Finite Capacity](../part1-axioms/capacity/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+
+### Axiom 3: Failure is Inevitable
+- At high utilization (>90%), small disruptions cause catastrophic queue growth
+- Variance in service times creates unpredictable failure modes
+- Queue overflow leads to dropped requests and cascading failures
+
+### Axiom 5: Time and Order
+```python
+# FIFO Queue Ordering
+Customer 1 arrives at t=0, waits 0ms
+Customer 2 arrives at t=1, waits 10ms
+Customer 3 arrives at t=2, waits 20ms
+# Order preserved, but wait times compound
+```
+
+### Axiom 7: Observability is Limited
+- Queue depth is observable, but individual wait times require tracking
+- Utilization is measurable, but doesn't capture variance effects
+- True service time distribution often unknown
+
+## Visual Queue Dynamics
+
+### The Knee of the Curve - Interactive View
+
+```mermaid
+graph TB
+    subgraph "Utilization vs Response Time"
+        A[0-50% Safe Zone<br/>Linear growth] -->|Stable| A
+        B[50-80% Caution Zone<br/>Accelerating growth] -->|Monitor| B
+        C[80-95% Danger Zone<br/>Exponential growth] -->|Alert!| C
+        D[95-100% Death Zone<br/>System collapse] -->|Failure| D
+    end
+    
+    style A fill:#90EE90
+    style B fill:#FFD700
+    style C fill:#FFA500
+    style D fill:#FF6B6B
+```
+
+### Queue Behavior Visualization
+
+```dockerfile
+Utilization: 50%
+Queue: [█░░░░░░░░░] 1 item avg
+Wait:  ▁▁▁▁▂▁▁▁▁▁  Stable
+
+Utilization: 80%
+Queue: [████░░░░░░] 4 items avg
+Wait:  ▁▂▄▂▅▃▂▄▃▂  Variable
+
+Utilization: 90%
+Queue: [████████░░] 8 items avg
+Wait:  ▂▅█▄██▆█▇█  Spiky
+
+Utilization: 95%
+Queue: [██████████] 20+ items!
+Wait:  ▅███████▇█  Unstable
+```
+
+## Decision Framework: Queue Configuration
+
+```mermaid
+flowchart TD
+    Start[System Requirements]
+    Start --> Latency{Latency Sensitive?}
+    
+    Latency -->|Yes| LowUtil[Target 50-60% Utilization<br/>Predictable performance]
+    Latency -->|No| Throughput{Throughput Critical?}
+    
+    Throughput -->|Yes| HighUtil[Target 70-80% Utilization<br/>Maximum efficiency]
+    Throughput -->|No| Balanced[Target 60-70% Utilization<br/>Good compromise]
+    
+    LowUtil --> Config1[Many small servers<br/>Low queue depth limits]
+    HighUtil --> Config2[Fewer large servers<br/>Deep queues OK]
+    Balanced --> Config3[Moderate servers<br/>Dynamic scaling]
+    
+    style LowUtil fill:#90EE90
+    style HighUtil fill:#FFA500
+    style Balanced fill:#FFD700
+```
+
+## Real-World Application: Load Balancer Design
+
+```mermaid
+graph TB
+    subgraph "Traffic Distribution"
+        LB[Load Balancer]
+        LB --> S1[Server 1<br/>ρ=0.7]
+        LB --> S2[Server 2<br/>ρ=0.7]
+        LB --> S3[Server 3<br/>ρ=0.7]
+        LB --> S4[Server 4<br/>ρ=0.7]
+    end
+    
+    subgraph "Queue Metrics"
+        M1[Avg Queue: 2.3]
+        M2[P95 Wait: 100ms]
+        M3[P99 Wait: 500ms]
+    end
+    
+    S1 -.-> M1
+    S2 -.-> M2
+    S3 -.-> M3
+```
+
+### Capacity Planning Visualization
+
+```python
+# Current State Analysis
+Current Load: 1000 req/s
+Service Time: 50ms
+Servers: 60
+Utilization: 83% ⚠️
+
+# Growth Scenarios
+┌─────────────┬──────────┬────────────┬─────────────┐
+│ Growth      │ New Load │ Servers    │ Queue Time  │
+├─────────────┼──────────┼────────────┼─────────────┤
+│ +20%        │ 1200     │ 60 ❌      │ ∞ (fails)   │
+│ +20%        │ 1200     │ 70 ✓      │ 100ms       │
+│ +50%        │ 1500     │ 85 ✓      │ 120ms       │
+│ +100%       │ 2000     │ 115 ✓     │ 110ms       │
+└─────────────┴──────────┴────────────┴─────────────┘
+```
+
+## Advanced Visualization: Multi-Queue System
+
+```mermaid
+graph LR
+    subgraph "Priority Queue System"
+        H[High Priority<br/>Payment]
+        M[Medium Priority<br/>API Calls]
+        L[Low Priority<br/>Analytics]
+    end
+    
+    subgraph "Shared Workers"
+        W1[Worker Pool]
+        W2[80% High]
+        W3[15% Medium]
+        W4[5% Low]
+    end
+    
+    H --> W1
+    M --> W1
+    L --> W1
+    W1 --> W2
+    W1 --> W3
+    W1 --> W4
+    
+    style H fill:#ff6b6b
+    style M fill:#ffd700
+    style L fill:#90ee90
+```
+
 ## Key Takeaways
 
 1. **80% is the practical limit** - Beyond this, queues explode
@@ -289,3 +465,9 @@ Options:
 5. **Plan for peaks** - Average traffic is misleading
 
 Remember: Queues are everywhere - CPU, network, disk, application. Understanding queueing theory helps predict system behavior before it breaks.
+
+## Related Concepts
+
+- **Quantitative**: [Little's Law](littles-law.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
+- **Patterns**: [Circuit Breaker](../patterns/circuit-breaker.md) | [Backpressure](../patterns/backpressure.md) | [Rate Limiting](../patterns/rate-limiting.md)
+- **Operations**: [Capacity Planning](../human-factors/capacity-planning.md) | [Load Testing](../human-factors/performance-testing.md)

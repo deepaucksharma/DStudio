@@ -316,6 +316,84 @@ class BurnoutPrevention:
             return "Normal rotation"
 ```
 
+## Axiom Impact Analysis
+
+Understanding how on-call culture relates to distributed systems axioms:
+
+| Axiom | Impact on On-Call Culture | Strategic Implications |
+|-------|---------------------------|----------------------|
+| **Latency** | Alert latency affects response time | Optimize alerting paths, minimize notification delays, pre-warm systems |
+| **Finite Capacity** | Human capacity is limited | Prevent burnout, size rotations appropriately, automate repetitive tasks |
+| **Failure** | On-call exists because systems fail | Build resilient systems to reduce on-call burden, embrace failure as learning |
+| **Consistency** | Inconsistent practices cause confusion | Standardize procedures, maintain consistent tooling, clear documentation |
+| **Time** | Time zones affect global teams | Consider follow-the-sun models, respect off-hours, plan handoffs carefully |
+| **Ordering** | Alert storms need prioritization | Define clear severity levels, prevent duplicate alerts, order matters |
+| **Knowledge** | On-call requires system knowledge | Invest in training, maintain runbooks, share tribal knowledge |
+| **Growth** | Team/system growth impacts on-call | Plan rotation scaling, update procedures as systems grow |
+
+## On-Call Health Assessment Framework
+
+Evaluate your on-call culture across multiple dimensions:
+
+```mermaid
+radar:
+  title: On-Call Culture Health Score
+  legend:
+    - Current State
+    - Target State
+  data:
+    - [85, 70, 60, 90, 75, 80]
+    - [90, 85, 80, 95, 85, 90]
+  labels:
+    - Rotation Fairness
+    - Alert Quality
+    - Tool Effectiveness
+    - Team Morale
+    - Documentation
+    - Automation Level
+```
+
+## On-Call Load Distribution Analysis
+
+### Weekly Load Heatmap
+```
+        Mon  Tue  Wed  Thu  Fri  Sat  Sun
+00-04   🟢   🟢   🟢   🟢   🟢   🟡   🟡
+04-08   🟢   🟢   🟢   🟢   🟢   🟢   🟢
+08-12   🟡   🟡   🟡   🟡   🟡   🟢   🟢
+12-16   🟡   🔴   🔴   🟡   🟡   🟢   🟢
+16-20   🟡   🟡   🟡   🟡   🟢   🟢   🟢
+20-24   🟢   🟢   🟢   🟢   🟡   🟡   🟡
+
+🟢 Low load  🟡 Medium load  🔴 High load
+```
+
+### Decision Matrix: Rotation Model Selection
+
+| Factor ↓ / Model → | Follow-the-Sun | Weekly Primary/Secondary | Daily Rotation | Team-based |
+|-------------------|----------------|------------------------|----------------|------------|
+| **Team Size Needed** | Large (>12) | Medium (6-10) | Small (5-7) | Any size |
+| **Handoff Complexity** | Low | Medium | High | Low |
+| **Coverage Quality** | Excellent | Good | Fair | Variable |
+| **Individual Impact** | Minimal | Moderate | Minimal | Shared |
+| **Best For** | Global teams | Standard teams | Light on-call | Small teams |
+
+## Alert Quality Scoring System
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                    Alert Quality Score                       │
+├─────────────────────────────────────────────────────────────┤
+│ Actionable:    ████████████████████ 85%  (+5% from last mo)│
+│ Unique:        ███████████████      75%  (-2% from last mo)│
+│ Has Runbook:   ██████████████████   90%  (+8% from last mo)│
+│ Clear Owner:   ████████████████     80%  (+3% from last mo)│
+│ Right Severity:████████████         70%  (no change)       │
+├─────────────────────────────────────────────────────────────┤
+│ Overall Score: 80% (Target: 85%)                            │
+└─────────────────────────────────────────────────────────────┘
+```
+
 ## Measuring On-Call Health
 
 ### Key Metrics
@@ -357,6 +435,45 @@ class OnCallSurvey:
         # Generate action items
         pass
 ```
+
+## On-Call Burnout Prevention Framework
+
+### Burnout Risk Assessment
+
+| Risk Factor | Low Risk | Medium Risk | High Risk | Critical |
+|-------------|----------|-------------|-----------|----------|
+| **Incidents/Week** | < 2 | 2-5 | 5-10 | > 10 |
+| **Night Pages/Month** | < 2 | 2-5 | 5-10 | > 10 |
+| **Consecutive Weeks** | < 4 | 4-8 | 8-12 | > 12 |
+| **Team Size** | > 8 | 6-8 | 4-6 | < 4 |
+| **Alert Quality** | > 90% | 70-90% | 50-70% | < 50% |
+| **Automation Level** | > 80% | 60-80% | 40-60% | < 40% |
+
+### Intervention Strategies by Risk Level
+
+```mermaid
+graph LR
+    A[Risk Assessment] --> B{Risk Level?}
+    B -->|Low| C[Monitor & Maintain]
+    B -->|Medium| D[Targeted Improvements]
+    B -->|High| E[Immediate Action]
+    B -->|Critical| F[Emergency Response]
+    
+    C --> G[Regular Check-ins]
+    D --> H[Reduce Load<br/>Improve Tools]
+    E --> I[Rotation Break<br/>Extra Support]
+    F --> J[Pause Rotation<br/>Rebuild System]
+```
+
+## Cost-Benefit Analysis of On-Call Improvements
+
+| Investment | Cost | Benefit | ROI Timeline | Priority |
+|------------|------|---------|--------------|----------|
+| **Auto-remediation** | $$$ | Reduce incidents 50% | 3 months | High |
+| **Better Monitoring** | $$ | Reduce MTTD 40% | 1 month | High |
+| **Runbook Automation** | $$ | Reduce MTTR 30% | 2 months | Medium |
+| **Follow-the-Sun** | $$$$ | Eliminate night pages | 6 months | Low |
+| **Alert Tuning** | $ | Reduce noise 60% | 2 weeks | Critical |
 
 ## Best Practices Summary
 

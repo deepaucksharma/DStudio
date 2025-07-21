@@ -122,11 +122,107 @@ d) Network protocols
 
 Want more questions? Each axiom section includes specific exercises and scenarios to test your understanding.
 
-## Study Tips
+## Advanced Scenario Questions
 
-1. **Understand the why**: Don't memorize formulas - understand the physics
-2. **Work through examples**: Each axiom has "Try This" exercises
-3. **Apply to your system**: Use the reflection journal to connect theory to practice
-4. **Question everything**: Can you find counter-examples or edge cases?
+### Scenario 1: Global Payment System
+You're designing a payment system across 5 continents. Which axiom combination most constrains your design?
+
+a) Latency + Capacity
+b) Consistency + Economics
+c) Latency + Consistency + Economics ✓
+d) Failure + Human Interface
+
+**Explanation**: 
+- **Latency**: Cross-continent RTT = 150-300ms
+- **Consistency**: Money must not be double-spent
+- **Economics**: Each region needs local infrastructure
+Together they force complex trade-offs between speed, correctness, and cost.
+
+### Scenario 2: Distributed Lock Service
+Your lock service sees 50% failure in leader election. Most likely cause?
+
+a) Network partition
+b) Clock skew ✓
+c) CPU overload
+d) Memory leak
+
+**Explanation**: Leader election relies on timeouts. Clock skew between nodes can cause them to disagree on when timeouts occur, leading to split-brain scenarios.
+
+### Scenario 3: Microservices Debugging
+Debugging takes 10x longer in microservices vs monolith. Primary axiom responsible?
+
+a) Latency
+b) Failure
+c) Observability ✓
+d) Coordination
+
+**Explanation**: Partial observability across service boundaries makes debugging exponentially harder. You can't see the full system state from any single vantage point.
+
+## Quiz Results Interpretation
+
+| Score | Level | What It Means |
+|-------|-------|---------------|
+| 0-3 | Beginner | Review axioms fundamentals |
+| 4-6 | Intermediate | Good grasp, practice applications |
+| 7-9 | Advanced | Ready for complex scenarios |
+| 10+ | Expert | Teach others! |
+
+## Axiom Mastery Assessment
+
+Rate your understanding of each axiom:
+
+| Axiom | Concept | Math/Formulas | Real Applications | Trade-offs |
+|-------|---------|---------------|-------------------|------------|
+| 1. Latency | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 2. Capacity | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 3. Failure | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 4. Concurrency | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 5. Coordination | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 6. Observability | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 7. Human Interface | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 8. Economics | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+
+Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Confident
+
+## Common Misconceptions
+
+### ❌ Myth vs ✅ Reality
+
+| Myth | Reality | Axiom |
+|------|---------|-------|
+| "Just add more servers" | Coordination costs grow quadratically | Axiom 5 |
+| "Use microservices for speed" | Network calls add latency | Axiom 1 |
+| "100% uptime is possible" | Failures are inevitable | Axiom 3 |
+| "Strong consistency is always best" | It has latency and availability costs | Axiom 4 |
+| "More monitoring is always better" | Observer effect has costs | Axiom 6 |
+
+## Study Resources by Learning Style
+
+### 🎯 Visual Learners
+- Review axiom diagrams
+- Trace through architecture diagrams
+- Watch latency animations
+
+### 📖 Reading/Writing Learners
+- Work through exercises
+- Write reflection journal entries
+- Create your own examples
+
+### 🎧 Auditory Learners
+- Explain axioms to a colleague
+- Join study groups
+- Listen to distributed systems podcasts
+
+### 🔨 Kinesthetic Learners
+- Build the lab exercises
+- Experiment with failure scenarios
+- Measure real system behavior
+
+## Next Steps
+
+1. **Weak Areas**: Focus on axioms where you scored lowest
+2. **Practice**: Work through exercises in each axiom section
+3. **Apply**: Use the reflection journal to connect to your work
+4. **Share**: Teach someone else - best way to solidify understanding
 
 Remember: These aren't trivia questions - they test whether you truly understand the fundamental constraints that govern all distributed systems.

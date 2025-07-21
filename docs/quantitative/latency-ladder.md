@@ -184,6 +184,132 @@ After: Batch + parallel
 Total: 30ms (constant!)
 ```
 
+## Axiom Connections
+
+Understanding how latency relates to the fundamental axioms:
+
+### Axiom 1: Latency is Non-Zero
+```mermaid
+graph LR
+    A[Speed of Light] --> B[Physical Distance]
+    B --> C[Minimum Latency]
+    C --> D[System Design Constraints]
+    
+    style A fill:#e1d5e7
+    style D fill:#ffcccc
+```
+
+**Key Insight**: Every operation shown in the latency ladder proves [Axiom 1](../part1-axioms/latency/index.md). Even L1 cache (0.5ns) has non-zero latency due to electron movement through silicon.
+
+### Axiom 2: Finite Capacity
+```python
+# Latency increases under load
+Base latency: 10ms
+At 50% capacity: 10ms
+At 90% capacity: 100ms (10x increase!)
+At 99% capacity: 1000ms (100x increase!)
+```
+
+This exponential growth is explained by [Queueing Theory](queueing-models.md) - as utilization approaches 100%, wait times approach infinity.
+
+### Axiom 3: Failure is Inevitable
+- Network timeouts occur when latency exceeds thresholds
+- Cascading failures when one slow component backs up the system
+- Retry storms when clients assume failure due to high latency
+
+### Axiom 4: Consistency Has a Cost
+- Consensus protocols add round-trip latencies
+- Strong consistency = multiple network hops
+- Eventual consistency trades latency for correctness
+
+## Visual Latency Comparison
+
+```mermaid
+gantt
+    title Latency Visualization (Human Scale)
+    dateFormat X
+    axisFormat %s
+    
+    section CPU
+    L1 Cache      :0, 0.5s
+    L2 Cache      :0, 7s
+    Main Memory   :0, 90s
+    
+    section Storage
+    SSD Read      :0, 4h
+    Disk Seek     :0, 115d
+    
+    section Network
+    Datacenter RTT :0, 6d
+    Cross-Region   :0, 1826d
+```
+
+## Decision Framework: Choosing Storage Tiers
+
+```mermaid
+flowchart TD
+    Start[Data Access Pattern?]
+    Start --> Hot{Access > 1000/sec?}
+    Hot -->|Yes| Memory[Use Memory<br/>100ns latency]
+    Hot -->|No| Warm{Access > 10/sec?}
+    Warm -->|Yes| SSD[Use SSD<br/>16μs latency]
+    Warm -->|No| Cold{Access > 1/hour?}
+    Cold -->|Yes| Disk[Use Disk<br/>10ms latency]
+    Cold -->|No| Archive[Use Archive<br/>minutes-hours]
+    
+    style Memory fill:#90EE90
+    style SSD fill:#FFD700
+    style Disk fill:#FFA500
+    style Archive fill:#FF6B6B
+```
+
+## Real-World Application: CDN Architecture
+
+```mermaid
+graph TB
+    subgraph User Location
+        U[User]
+    end
+    
+    subgraph Edge - 10ms
+        E[CDN Edge]
+    end
+    
+    subgraph Regional - 50ms
+        R[Regional Cache]
+    end
+    
+    subgraph Origin - 150ms
+        O[Origin Server]
+        DB[(Database)]
+    end
+    
+    U -->|Cache Hit| E
+    U -->|Cache Miss| E
+    E -->|Miss| R
+    R -->|Miss| O
+    O --> DB
+    
+    style E fill:#90EE90
+    style R fill:#FFD700
+    style O fill:#FFA500
+```
+
+### Latency Budget Visualization
+
+```dockerfile
+Total Budget: 200ms (Fast Experience)
+├── Network (User→Edge): 20ms [██████░░░░] 10%
+├── TLS Handshake: 30ms      [█████████░] 15%
+├── Edge Processing: 5ms      [██░░░░░░░░] 2.5%
+├── Cache Check: 2ms          [█░░░░░░░░░] 1%
+├── Backend (if miss): 100ms  [██████████] 50%
+├── Response Network: 20ms    [██████░░░░] 10%
+└── Buffer: 23ms              [███████░░░] 11.5%
+```
+
+This budget allocation relates to [Little's Law](littles-law.md) - as latency (W) increases, the number of concurrent requests (L) increases proportionally.
+
 ## Key Takeaways
 
 1. **Cache references are 200,000x faster than network calls** - Design to minimize network hops
@@ -200,6 +326,12 @@ Total: 30ms (constant!)
 - **1000ms** - User patience threshold
 
 Remember: You can't beat physics, but you can work with it.
+
+## Related Concepts
+
+- **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Availability Math](availability-math.md)
+- **Patterns**: [Caching](../patterns/caching.md) | [CDN](../patterns/cdn.md) | [Edge Computing](../patterns/edge-computing.md)
+- **Operations**: [SLO/SLI/SLA](../human-factors/sre-principles.md) | [Performance Monitoring](../human-factors/observability.md)
 ---
 
 ## 📊 Practical Calculations

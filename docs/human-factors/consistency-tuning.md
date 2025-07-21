@@ -182,6 +182,58 @@ if consistency_slo_met < target:
 - Overall availability: 99.95%
 - Cost: $5k/day
 
+## Axiom Impact Analysis
+
+Understanding how consistency tuning relates to our fundamental axioms helps make better decisions:
+
+| Axiom | Impact on Consistency Tuning | Key Considerations |
+|-------|------------------------------|-------------------|
+| **Latency** | Higher consistency = higher latency | Balance consistency needs with latency SLOs. QUORUM adds network round trips. |
+| **Finite Capacity** | Stronger consistency consumes more resources | ALL writes can exhaust capacity during failures. Plan for degraded modes. |
+| **Failure** | Consistency levels determine failure tolerance | LOCAL_ONE survives most failures but risks inconsistency. ALL fails if any node is down. |
+| **Consistency** | Core axiom - defines data agreement guarantees | Choose appropriate levels per operation based on business requirements. |
+| **Time** | Clock skew affects consistency guarantees | Last-write-wins resolution depends on synchronized clocks. |
+| **Ordering** | Consistency levels affect operation ordering | Weaker consistency may see operations out of order. |
+| **Knowledge** | Nodes have incomplete knowledge | Consistency levels determine how much agreement before proceeding. |
+| **Growth** | Scaling impacts consistency performance | More nodes = higher latency for QUORUM/ALL operations. |
+
+## Consistency Decision Matrix
+
+Use this matrix to choose the right consistency level:
+
+```mermaid
+graph TD
+    A[Operation Type] --> B{Data Critical?}
+    B -->|Yes| C{Financial/Security?}
+    B -->|No| D{User Visible?}
+    
+    C -->|Yes| E[ALL or QUORUM]
+    C -->|No| F[QUORUM]
+    
+    D -->|Yes| G{Session Bound?}
+    D -->|No| H[ONE or ANY]
+    
+    G -->|Yes| I[LOCAL_QUORUM]
+    G -->|No| J[EVENTUAL]
+    
+    E --> K[Monitor Cost Impact]
+    F --> K
+    I --> K
+    J --> K
+    H --> K
+```
+
+## Trade-off Analysis Framework
+
+| Consistency Level | Latency Impact | Availability | Consistency Guarantee | Cost | Use Case |
+|-------------------|----------------|--------------|----------------------|------|----------|
+| **ANY** | Lowest (5ms) | Highest (99.99%) | None - may not be durable | $ | Metrics, logs |
+| **ONE** | Low (10ms) | Very High (99.9%) | At least one replica | $ | Caching, analytics |
+| **LOCAL_ONE** | Low (10ms) | High (99.9%) | One replica in local DC | $ | Read-heavy workloads |
+| **LOCAL_QUORUM** | Medium (25ms) | High (99.5%) | Majority in local DC | $$ | Regional operations |
+| **QUORUM** | High (50ms) | Medium (99%) | Majority across all DCs | $$$ | Standard transactions |
+| **ALL** | Highest (100ms+) | Lowest (95%) | All replicas agree | $$$$ | Critical operations |
+
 ## Monitoring Consistency
 
 ### Key Metrics
@@ -227,6 +279,34 @@ if consistency_slo_met < target:
 - Gradual increase
 - Watch for regional differences
 - Tune based on results
+
+## Consistency Tuning Decision Framework
+
+### Operation Classification Matrix
+
+| Operation Category | Example Operations | Default Level | Degraded Level | Business Impact of Inconsistency |
+|-------------------|-------------------|---------------|----------------|----------------------------------|
+| **Financial** | Payment processing, Balance updates | ALL | QUORUM | Revenue loss, compliance issues |
+| **Authentication** | Login, Password change | QUORUM | LOCAL_QUORUM | Security breach, user lockout |
+| **User Content** | Posts, Comments, Profile updates | QUORUM | LOCAL_ONE | User confusion, data loss perception |
+| **Shopping Cart** | Add/Remove items | LOCAL_QUORUM | ONE | Mild frustration, recoverable |
+| **Analytics** | Page views, Click tracking | ONE | ANY | Acceptable data loss (<1%) |
+| **System Metrics** | Performance data, Logs | ANY | ANY | No user impact |
+
+### Dynamic Consistency Strategy
+
+```mermaid
+stateDiagram-v2
+    [*] --> Normal
+    Normal --> Degraded: High Latency/Errors
+    Degraded --> Emergency: Multiple Failures
+    Emergency --> Degraded: Partial Recovery
+    Degraded --> Normal: Full Recovery
+    
+    Normal: QUORUM/ALL for critical ops
+    Degraded: LOCAL_QUORUM for most ops
+    Emergency: ONE for all ops
+```
 
 ## Common Pitfalls
 

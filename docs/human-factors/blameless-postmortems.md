@@ -177,6 +177,81 @@ class PostmortemAutomation:
         return sorted(events, key=lambda x: x['time'])
 ```
 
+## Axiom Impact Analysis
+
+Understanding how blameless postmortems relate to our fundamental axioms:
+
+| Axiom | Impact on Postmortems | Key Insights |
+|-------|----------------------|--------------|
+| **Latency** | Incident detection and response time | Faster detection through better monitoring reduces incident duration |
+| **Finite Capacity** | Resource constraints during incidents | Postmortems reveal capacity planning gaps and resource bottlenecks |
+| **Failure** | Core focus - learning from failures | Every failure is a learning opportunity to build resilience |
+| **Consistency** | Inconsistent states often cause incidents | Postmortems uncover consistency violations and their impacts |
+| **Time** | Timeline reconstruction challenges | Clock skew can make incident timelines difficult to reconstruct |
+| **Ordering** | Race conditions and timing bugs | Many incidents stem from unexpected operation ordering |
+| **Knowledge** | Incomplete system understanding | Postmortems reveal knowledge gaps and documentation needs |
+| **Growth** | Scaling challenges cause incidents | Growth patterns often trigger new failure modes |
+
+## Postmortem Effectiveness Matrix
+
+Evaluate your postmortem process maturity:
+
+| Aspect | Level 1: Reactive | Level 2: Systematic | Level 3: Learning | Level 4: Predictive |
+|--------|-------------------|---------------------|-------------------|---------------------|
+| **Focus** | Find who broke it | Find what broke | Understand why it broke | Prevent similar breaks |
+| **Participation** | Only on-call | Engineering team | Cross-functional | Organization-wide |
+| **Actions** | Quick fixes | Bug fixes + monitoring | Systemic improvements | Architectural changes |
+| **Sharing** | Team only | Department | Company-wide | Industry sharing |
+| **Metrics** | Incident count | MTTR | Learning velocity | Prevention rate |
+| **Culture** | Blame-oriented | Process-oriented | Learning-oriented | Innovation-oriented |
+
+## Decision Framework: When to Conduct a Postmortem
+
+```mermaid
+graph TD
+    A[Incident Occurred] --> B{Customer Impact?}
+    B -->|Yes| C[Required Postmortem]
+    B -->|No| D{Duration > 30min?}
+    
+    D -->|Yes| C
+    D -->|No| E{Data Loss/Security?}
+    
+    E -->|Yes| C
+    E -->|No| F{Learning Opportunity?}
+    
+    F -->|Yes| G[Optional Postmortem]
+    F -->|No| H[Document in Ticket]
+    
+    C --> I[Full Process]
+    G --> J[Lightweight Process]
+    H --> K[Knowledge Base]
+```
+
+## Contributing Factors Analysis Framework
+
+### The Swiss Cheese Model
+```
+┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
+│   Process   │ │   Tools     │ │   People    │ │  External   │
+│   Failures  │ │  Failures   │ │  Factors    │ │  Factors    │
+│      ○      │ │      ○      │ │      ○      │ │      ○      │
+│   ○     ○   │ │   ○     ○   │ │   ○     ○   │ │   ○     ○   │
+│      ○      │ │      ○      │ │      ○      │ │      ○      │
+└─────────────┘ └─────────────┘ └─────────────┘ └─────────────┘
+       ↓              ↓              ↓              ↓
+    When holes align, incidents occur →→→→→→→ INCIDENT
+```
+
+### Factor Categories Table
+
+| Category | Common Factors | Prevention Strategies |
+|----------|---------------|----------------------|
+| **Technical** | Code bugs, Config errors, Resource limits | Testing, Validation, Monitoring |
+| **Process** | Missing reviews, Unclear procedures, Skip steps | Automation, Checklists, Training |
+| **Communication** | Handoff failures, Unclear alerts, Missing docs | Templates, Runbooks, Clear ownership |
+| **Human** | Fatigue, Cognitive overload, Assumptions | Rotation limits, Clear procedures, Pairing |
+| **External** | Vendor issues, Traffic spikes, Dependencies | SLAs, Capacity planning, Fallbacks |
+
 ## Cultural Transformation
 
 Moving to blameless postmortems requires cultural change:
@@ -186,6 +261,33 @@ Moving to blameless postmortems requires cultural change:
 3. **Celebrate Honesty**: Publicly thank honest mistake sharing
 4. **Share Widely**: Make postmortems visible to all
 5. **Follow Through**: Complete action items
+
+## Postmortem Quality Metrics Dashboard
+
+Track the effectiveness of your postmortem process:
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│                  Postmortem Quality Metrics                  │
+├──────────────────┬──────────────────┬──────────────────────┤
+│ Metric           │ Current Month    │ Target               │
+├──────────────────┼──────────────────┼──────────────────────┤
+│ Time to Complete │ 3.2 days         │ < 5 days            │
+│ Participation    │ 87%              │ > 80%               │
+│ Action Items/PM  │ 4.5              │ 3-6                 │
+│ Actions Completed│ 72%              │ > 70%               │
+│ Repeat Incidents │ 12%              │ < 15%               │
+│ Shared Publicly  │ 45%              │ > 40%               │
+└──────────────────┴──────────────────┴──────────────────────┘
+```
+
+## Action Item Prioritization Matrix
+
+| Impact ↓ / Effort → | Low Effort | Medium Effort | High Effort |
+|---------------------|------------|---------------|-------------|
+| **High Impact** | 🟢 Do First<br>• Add alerts<br>• Update runbook<br>• Quick fixes | 🟡 Do Next<br>• Improve testing<br>• Add automation<br>• Training | 🟠 Plan<br>• Architecture changes<br>• Major refactors<br>• New systems |
+| **Medium Impact** | 🟢 Quick Wins<br>• Documentation<br>• Small tools<br>• Config changes | 🟡 Consider<br>• Process updates<br>• Tool upgrades<br>• Monitoring | 🔴 Defer<br>• Nice-to-haves<br>• Major overhauls |
+| **Low Impact** | 🟡 If Time<br>• Cleanup<br>• Minor updates | 🔴 Skip<br>• Low value work | 🔴 Skip<br>• Not worth it |
 
 ## Real-World Examples
 

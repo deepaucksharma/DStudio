@@ -294,6 +294,86 @@ kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
 ```text
 ```
 
+## Axiom Impact Analysis
+
+How incident response connects to fundamental distributed systems axioms:
+
+| Axiom | Impact on Incident Response | Strategic Considerations |
+|-------|----------------------------|-------------------------|
+| **Latency** | Detection and response time critical | Minimize alert latency, optimize communication channels, pre-position resources |
+| **Finite Capacity** | Incidents often triggered by capacity limits | Plan for degraded modes, have scaling runbooks ready, monitor resource usage |
+| **Failure** | Core trigger for incident response | Build resilient systems, plan for failure scenarios, practice recovery |
+| **Consistency** | Inconsistencies complicate debugging | Include consistency checks in runbooks, understand trade-offs during incidents |
+| **Time** | Critical for correlation and timeline | Ensure clock sync, timestamp everything, account for timezone differences |
+| **Ordering** | Race conditions cause complex incidents | Document expected order, have tools to trace operation flow |
+| **Knowledge** | Incomplete info hampers response | Invest in observability, maintain up-to-date documentation, share knowledge |
+| **Growth** | Scale triggers new incident patterns | Plan for growth-related failures, update runbooks as systems evolve |
+
+## Incident Response Decision Tree
+
+```mermaid
+graph TD
+    A[Alert Triggered] --> B{Auto-remediation Available?}
+    B -->|Yes| C[Execute Auto-fix]
+    B -->|No| D{Critical Service?}
+    
+    C --> E{Fixed?}
+    E -->|Yes| F[Monitor & Document]
+    E -->|No| D
+    
+    D -->|Yes| G[Page On-call Immediately]
+    D -->|No| H{Business Hours?}
+    
+    G --> I[Assemble War Room]
+    
+    H -->|Yes| J[Notify Team]
+    H -->|No| K{Can Wait?}
+    
+    K -->|Yes| L[Queue for Morning]
+    K -->|No| G
+    
+    I --> M[Execute Response Plan]
+    J --> M
+    L --> M
+```
+
+## Incident Classification Framework
+
+### Severity Assessment Matrix
+
+| Criteria ↓ / Level → | SEV-1 (Critical) | SEV-2 (Major) | SEV-3 (Minor) | SEV-4 (Low) |
+|---------------------|------------------|---------------|---------------|-------------|
+| **Revenue Impact** | >$10k/minute | $1k-10k/minute | <$1k/minute | None |
+| **User Impact** | All users affected | Many users (>10%) | Some users (<10%) | Few users |
+| **Data Risk** | Data loss/corruption | Data at risk | Data delays | No risk |
+| **Security** | Active breach | Vulnerability exposed | Potential issue | None |
+| **Reputation** | Media attention | Social media noise | Customer complaints | Internal only |
+| **Recovery Time** | >4 hours | 1-4 hours | <1 hour | <30 minutes |
+
+### Response Requirements by Severity
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│ SEV-1: All Hands On Deck                                        │
+├─────────────────────────────────────────────────────────────────┤
+│ • Response Time: < 5 minutes                                    │
+│ • War Room: Mandatory                                           │
+│ • Updates: Every 15 minutes                                     │
+│ • Leadership: VP notification                                   │
+│ • Customer Comms: Immediate                                     │
+└─────────────────────────────────────────────────────────────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│ SEV-2: Rapid Response                                           │
+├─────────────────────────────────────────────────────────────────┤
+│ • Response Time: < 15 minutes                                   │
+│ • War Room: As needed                                           │
+│ • Updates: Every 30 minutes                                     │
+│ • Leadership: Director notification                             │
+│ • Customer Comms: Within 30 min                                 │
+└─────────────────────────────────────────────────────────────────┘
+```
+
 ## Incident Metrics
 
 ### Key Performance Indicators
@@ -329,6 +409,54 @@ class IncidentMetrics:
             'repeat_incidents': self.find_repeat_incidents(incidents)
         }
 ```
+
+## Communication Strategy Matrix
+
+### Stakeholder Communication Plan
+
+| Stakeholder | SEV-1 | SEV-2 | SEV-3 | SEV-4 |
+|-------------|-------|-------|-------|-------|
+| **Customers** | Immediate status page | 30 min status update | If asked | No comms |
+| **Support Team** | Immediate briefing | Alert + talking points | FYI notice | Wiki update |
+| **Engineering** | All hands page | Team page | Slack notify | Ticket only |
+| **Leadership** | CEO + VP alert | Director alert | Manager FYI | Weekly report |
+| **Sales** | Account manager alert | If customer facing | No action | No action |
+
+### Incident Timeline Tracking
+
+```
+┌─────────────────────────────────────────────────────────────┐
+│ Incident Timeline: Payment Service Outage                   │
+├─────────────┬───────────────────────────────────────────────┤
+│ Time        │ Event                                         │
+├─────────────┼───────────────────────────────────────────────┤
+│ 14:32:15    │ 🔴 First alert: High error rate (>5%)       │
+│ 14:32:45    │ 🔔 PagerDuty triggered                       │
+│ 14:33:12    │ ✅ On-call acknowledged                      │
+│ 14:35:00    │ 🔍 Initial investigation started             │
+│ 14:38:30    │ 🎯 Root cause identified: DB connection pool │
+│ 14:40:00    │ 📢 Customer communication sent               │
+│ 14:42:15    │ 🔧 Mitigation applied: Increased pool size   │
+│ 14:45:00    │ 📊 Error rate dropping                       │
+│ 14:48:00    │ ✅ Service recovered                          │
+│ 14:55:00    │ 📝 All clear, monitoring continues           │
+└─────────────┴───────────────────────────────────────────────┘
+```
+
+## Role Responsibility RACI Matrix
+
+| Activity | Incident Commander | Tech Lead | Comms Lead | Scribe | On-call |
+|----------|-------------------|-----------|------------|---------|----------|
+| **Declare Incident** | A | C | I | I | R |
+| **Assess Severity** | A | C | I | R | C |
+| **Technical Investigation** | I | A | I | R | R |
+| **Customer Updates** | A | I | R | C | I |
+| **Execute Fixes** | A | R | I | I | C |
+| **Status Updates** | R | C | A | R | I |
+| **Document Timeline** | I | C | C | A | C |
+| **Call Postmortem** | A | R | I | R | C |
+
+*R = Responsible, A = Accountable, C = Consulted, I = Informed*
 
 ## Learning and Improvement
 

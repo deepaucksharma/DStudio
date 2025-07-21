@@ -182,6 +182,8 @@ MTBF = Mean Time Between Failures
 MTTR = Mean Time To Recovery
 ```
 
+MTTR is directly affected by detection and response latency (see [Latency Ladder](latency-ladder.md)). During recovery, [Little's Law](littles-law.md) helps predict queue buildup.
+
 ### Examples
 ```python
 Example 1:
@@ -220,6 +222,8 @@ Failover Time    Monthly Impact    Nines Lost
 5 minutes        5-10 incidents    0.5
 30 minutes       30-60 incidents   1.0
 ```
+
+During failover, requests queue up according to [Queueing Theory](queueing-models.md). Understanding this helps size buffers and set appropriate timeouts.
 
 ### Partial Availability
 ```python
@@ -307,6 +311,234 @@ class AvailabilityTracker:
                 alert(f"{component} below SLA: {availability}")
 ```
 
+## Axiom Connections
+
+### Axiom 3: Failure is Inevitable
+```mermaid
+graph TD
+    A[Component Failure] --> B[System Response]
+    B --> C{Architecture}
+    C -->|Series| D[System Fails]
+    C -->|Parallel| E[System Survives]
+    C -->|N+M| F[Degraded Operation]
+    
+    style A fill:#ff6b6b
+    style E fill:#90ee90
+    style F fill:#ffd700
+```
+
+**Key Insight**: Availability math quantifies [Axiom 3: Failure is Inevitable](../part1-axioms/failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+
+### Axiom 2: Finite Capacity
+- Redundancy requires 2x resources for high availability
+- N+M patterns trade capacity for reliability
+- During failures, remaining capacity must handle full load
+
+### Axiom 4: Consistency Has a Cost
+```python
+# Consistency vs Availability Trade-off
+Strong Consistency + Partition = No Availability
+High Availability + Partition = Inconsistency
+# CAP theorem in action
+```
+
+### Axiom 8: Growth Changes Everything
+- As systems grow, probability of component failure increases
+- More components = more failure modes
+- Availability targets become harder to maintain at scale
+
+## Visual Availability Architecture
+
+### Series vs Parallel - Visual Impact
+
+```mermaid
+graph LR
+    subgraph "Series (99% each) = 97%"
+        A1[LB 99%] --> B1[App 99%] --> C1[DB 99%]
+    end
+    
+    subgraph "Parallel (99% each) = 99.99%"
+        A2[App1 99%]
+        A3[App2 99%]
+        A2 --> D[Either Works]
+        A3 --> D
+    end
+    
+    style A1 fill:#ffa500
+    style D fill:#90ee90
+```
+
+### The Nines Visualization
+
+```dockerfile
+99% (2 nines):    ████████████████████░ 3.65 days/year
+99.9% (3 nines):  ███████████████████▉░ 8.76 hours/year  
+99.99% (4 nines): ████████████████████░ 52.6 minutes/year
+99.999% (5 nines):████████████████████░ 5.26 minutes/year
+
+Cost to achieve:  $    $$    $$$    $$$$$$$$
+Complexity:       ▂    ▄     ▆      █████████
+```
+
+## Decision Framework: Choosing Availability Target
+
+```mermaid
+flowchart TD
+    Start[Business Requirements]
+    Start --> Revenue{Revenue Impact?}
+    
+    Revenue -->|>$1M/hour| Five[Target: 99.999%<br/>5.26 min/year]
+    Revenue -->|>$10K/hour| Four[Target: 99.99%<br/>52.6 min/year]
+    Revenue -->|>$1K/hour| Three[Target: 99.9%<br/>8.76 hours/year]
+    Revenue -->|<$1K/hour| Two[Target: 99%<br/>3.65 days/year]
+    
+    Five --> Arch1[Multi-region<br/>Active-active<br/>Zero downtime deploys]
+    Four --> Arch2[Multi-AZ<br/>Hot standby<br/>Blue-green deploys]
+    Three --> Arch3[Single region<br/>Cold standby<br/>Rolling updates]
+    Two --> Arch4[Basic redundancy<br/>Manual failover<br/>Scheduled maintenance]
+    
+    style Five fill:#ff6b6b
+    style Four fill:#ffa500
+    style Three fill:#ffd700
+    style Two fill:#90ee90
+```
+
+## Real-World Application: E-commerce Platform
+
+```mermaid
+graph TB
+    subgraph "User Traffic"
+        U[Users]
+    end
+    
+    subgraph "Edge Layer 99.99%"
+        CDN[CDN]
+        WAF[WAF]
+    end
+    
+    subgraph "Application Layer"
+        LB1[LB 99.99%]
+        LB2[LB 99.99%]
+        App1[App 99.9%]
+        App2[App 99.9%]
+        App3[App 99.9%]
+    end
+    
+    subgraph "Data Layer"
+        DB1[(Primary 99.9%)]
+        DB2[(Replica 99.9%)]
+        Cache[Cache 99.99%]
+    end
+    
+    U --> CDN
+    CDN --> WAF
+    WAF --> LB1
+    WAF --> LB2
+    LB1 --> App1
+    LB1 --> App2
+    LB2 --> App2
+    LB2 --> App3
+    App1 --> Cache
+    App2 --> Cache
+    App3 --> Cache
+    Cache --> DB1
+    DB1 -.-> DB2
+    
+    style CDN fill:#90ee90
+    style Cache fill:#90ee90
+```
+
+### Availability Calculation
+```python
+# Component Availability
+Edge: 0.9999 × 0.9999 = 99.98%
+LB Layer: 1 - (0.0001)² = 99.9999%
+App Layer: 1 - (0.001)³ = 99.9999%
+Cache: 99.99%
+DB Layer: 1 - (0.001)² = 99.9999%
+
+# End-to-end (Series)
+Total = 0.9998 × 0.999999 × 0.999999 × 0.9999 × 0.999999
+      = 99.97% (2.6 hours downtime/year)
+```
+
+## MTBF/MTTR Visualization
+
+```mermaid
+graph LR
+    subgraph "Current State"
+        A[MTBF: 30 days<br/>MTTR: 30 min<br/>Avail: 99.93%]
+    end
+    
+    subgraph "Improve MTTR"
+        B[MTBF: 30 days<br/>MTTR: 5 min<br/>Avail: 99.99%]
+    end
+    
+    subgraph "Improve MTBF"
+        C[MTBF: 90 days<br/>MTTR: 30 min<br/>Avail: 99.98%]
+    end
+    
+    A -->|Faster Recovery| B
+    A -->|Better Testing| C
+    
+    style B fill:#90ee90
+    style C fill:#ffd700
+```
+
+### Error Budget Dashboard
+
+```dockerfile
+Monthly Error Budget: 43.8 minutes (99.9% SLO)
+
+Week 1: ████████░░░░░░░░░░░░ 8.5 min used
+Week 2: ████████████░░░░░░░░ 12.3 min used  
+Week 3: ██████████████████░░ 18.2 min used
+Week 4: ████████████████████ 20.0 min used
+
+Remaining: 4.8 minutes ⚠️
+Status: CAUTION - Reduce deployment risk
+```
+
+## Advanced Pattern: Cell-Based Architecture
+
+```mermaid
+graph TB
+    subgraph "Cell Architecture"
+        subgraph "Cell 1"
+            C1A[App]
+            C1D[(Data)]
+            C1C[Cache]
+        end
+        
+        subgraph "Cell 2"
+            C2A[App]
+            C2D[(Data)]
+            C2C[Cache]
+        end
+        
+        subgraph "Cell 3"
+            C3A[App]
+            C3D[(Data)]
+            C3C[Cache]
+        end
+    end
+    
+    R[Router] --> C1A
+    R --> C2A
+    R --> C3A
+    
+    style C1A fill:#90ee90
+    style C2A fill:#90ee90
+    style C3A fill:#90ee90
+```
+
+**Availability Impact**:
+- Cell failure affects only 1/N of users
+- No cascading failures between cells
+- Simplified recovery procedures
+
+This architecture pattern is related to [Bulkhead](../patterns/bulkhead.md) and [Cell-Based Architecture](../patterns/cell-based.md) for isolation.
+
 ## Key Takeaways
 
 1. **Series multiplies, parallel adds nines** - Architecture matters more than component reliability
@@ -316,3 +548,9 @@ class AvailabilityTracker:
 5. **Measure actual availability** - SLAs are ceilings, not floors
 
 Remember: Perfect availability is impossible. Design for graceful degradation and fast recovery.
+
+## Related Concepts
+
+- **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md)
+- **Patterns**: [Bulkhead](../patterns/bulkhead.md) | [Circuit Breaker](../patterns/circuit-breaker.md) | [Failover](../patterns/failover.md)
+- **Operations**: [SRE Principles](../human-factors/sre-principles.md) | [Chaos Engineering](../human-factors/chaos-engineering.md) | [Incident Response](../human-factors/incident-response.md)
