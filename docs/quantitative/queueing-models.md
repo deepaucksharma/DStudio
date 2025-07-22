@@ -339,50 +339,224 @@ Servers  Utilization  Queue Probability
 ## Real-World Applications
 
 ### API Server Sizing
-```proto
-Given:
-- Request rate: 1000 req/s
-- Service time: 50ms
-- Target: 95% < 200ms
+<div class="decision-box">
+<h4>🖥️ Server Capacity Planning</h4>
 
-Single server: ρ = 1000×0.05 = 50 (impossible!)
-Need: 50+ servers
+<div class="requirements-box" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+  <strong>Given Requirements:</strong>
+  <table style="width: 100%; margin-top: 10px;">
+    <tr><td>Request rate:</td><td><strong>1000 req/s</strong></td></tr>
+    <tr><td>Service time:</td><td><strong>50ms</strong></td></tr>
+    <tr><td>Target:</td><td><strong>95% requests < 200ms</strong></td></tr>
+  </table>
+</div>
 
-With 60 servers: ρ = 50/60 = 83%
-Queue time ≈ 250ms (too high)
+<div class="calculation-visualization" style="margin: 20px 0; text-align: center;">
+  <svg viewBox="0 0 600 350" style="width: 100%; max-width: 600px;">
+    <!-- Title -->
+    <text x="300" y="20" text-anchor="middle" font-weight="bold">Server Sizing Analysis</text>
+    
+    <!-- Single server attempt -->
+    <g transform="translate(50, 50)">
+      <rect x="0" y="0" width="500" height="60" fill="#FFCDD2" rx="5"/>
+      <text x="250" y="25" text-anchor="middle" font-weight="bold">🚫 Single Server Analysis</text>
+      <text x="250" y="45" text-anchor="middle">ρ = 1000 × 0.05 = 50 (5000% utilization!)</text>
+      <text x="250" y="65" text-anchor="middle" font-size="12" fill="#B71C1C">IMPOSSIBLE - Need parallelism</text>
+    </g>
+    
+    <!-- Multi-server scenarios -->
+    <g transform="translate(50, 140)">
+      <text x="0" y="0" font-weight="bold">Multi-Server Scenarios:</text>
+      
+      <!-- 60 servers -->
+      <g transform="translate(0, 20)">
+        <rect x="0" y="0" width="200" height="50" fill="#FFE0B2" rx="5"/>
+        <text x="100" y="20" text-anchor="middle" font-weight="bold">60 Servers</text>
+        <text x="100" y="35" text-anchor="middle" font-size="11">ρ = 50/60 = 83%</text>
+        <text x="100" y="48" text-anchor="middle" font-size="10">Queue: ~250ms ❌</text>
+        
+        <!-- Visual load indicator -->
+        <rect x="220" y="15" width="100" height="20" fill="#E0E0E0" rx="3"/>
+        <rect x="220" y="15" width="83" height="20" fill="#FF5722" rx="3"/>
+        <text x="270" y="30" text-anchor="middle" font-size="10" fill="white">83%</text>
+      </g>
+      
+      <!-- 70 servers -->
+      <g transform="translate(0, 80)">
+        <rect x="0" y="0" width="200" height="50" fill="#C8E6C9" rx="5"/>
+        <text x="100" y="20" text-anchor="middle" font-weight="bold">70 Servers</text>
+        <text x="100" y="35" text-anchor="middle" font-size="11">ρ = 50/70 = 71%</text>
+        <text x="100" y="48" text-anchor="middle" font-size="10">Queue: ~100ms ✅</text>
+        
+        <!-- Visual load indicator -->
+        <rect x="220" y="15" width="100" height="20" fill="#E0E0E0" rx="3"/>
+        <rect x="220" y="15" width="71" height="20" fill="#4CAF50" rx="3"/>
+        <text x="270" y="30" text-anchor="middle" font-size="10" fill="white">71%</text>
+      </g>
+    </g>
+    
+    <!-- Response time chart -->
+    <g transform="translate(380, 140)">
+      <text x="0" y="0" font-weight="bold">Response Times:</text>
+      <rect x="0" y="20" width="150" height="100" fill="#F5F5F5" rx="5"/>
+      
+      <!-- Target line -->
+      <line x1="10" y1="50" x2="140" y2="50" stroke="#2196F3" stroke-width="2" stroke-dasharray="5,5"/>
+      <text x="75" y="45" text-anchor="middle" font-size="10" fill="#2196F3">Target: 200ms</text>
+      
+      <!-- 60 servers bar -->
+      <rect x="20" y="60" width="40" height="40" fill="#FF5722"/>
+      <text x="40" y="110" text-anchor="middle" font-size="9">60 srv</text>
+      <text x="40" y="55" text-anchor="middle" font-size="9" fill="#B71C1C">300ms</text>
+      
+      <!-- 70 servers bar -->
+      <rect x="90" y="80" width="40" height="20" fill="#4CAF50"/>
+      <text x="110" y="110" text-anchor="middle" font-size="9">70 srv</text>
+      <text x="110" y="75" text-anchor="middle" font-size="9" fill="#2E7D32">150ms</text>
+    </g>
+  </svg>
+</div>
 
-With 70 servers: ρ = 50/70 = 71%
-Queue time ≈ 100ms (acceptable)
-```
+<div class="recommendation-box" style="background: #E8F5E9; padding: 15px; margin-top: 10px; border-left: 4px solid #4CAF50;">
+🎯 <strong>Recommendation:</strong> Deploy 70 servers to maintain 71% utilization, ensuring 95th percentile response time stays under 200ms with safety margin.
+</div>
+</div>
 
 This sizing directly impacts [Availability](availability-math.md) - overloaded servers fail, reducing system availability.
 
 ### Database Connection Pool
-```redis
-Queries: 500/s
-Query time: 20ms
-Target wait: <5ms
+<div class="axiom-box">
+<h4>🔗 Connection Pool Calculator</h4>
 
-Utilization for 5ms wait:
-5 = 20×ρ/(1-ρ)
-ρ = 0.2 (20% utilization!)
+<div class="problem-statement" style="background: #F3E5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+  <table style="width: 100%;">
+    <tr><td><strong>Query rate:</strong></td><td>500 queries/s</td></tr>
+    <tr><td><strong>Query time:</strong></td><td>20ms</td></tr>
+    <tr><td><strong>Target wait:</strong></td><td>&lt; 5ms</td></tr>
+  </table>
+</div>
 
-Connections needed = 500×0.02/0.2 = 50
-```
+<div class="calculation-flow" style="text-align: center; margin: 20px 0;">
+  <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
+    <!-- Title -->
+    <text x="250" y="20" text-anchor="middle" font-weight="bold">Connection Pool Sizing</text>
+    
+    <!-- Step 1: Calculate utilization -->
+    <rect x="50" y="50" width="400" height="60" fill="#E1BEE7" rx="5"/>
+    <text x="250" y="70" text-anchor="middle" font-weight="bold">Step 1: Find Required Utilization</text>
+    <text x="250" y="90" text-anchor="middle">Wait time formula: W = S×ρ/(1-ρ)</text>
+    <text x="250" y="105" text-anchor="middle">5ms = 20ms×ρ/(1-ρ) → ρ = 0.2 (20%)</text>
+    
+    <!-- Step 2: Calculate connections -->
+    <rect x="50" y="130" width="400" height="60" fill="#D1C4E9" rx="5"/>
+    <text x="250" y="150" text-anchor="middle" font-weight="bold">Step 2: Calculate Connections</text>
+    <text x="250" y="170" text-anchor="middle">Load = 500 × 0.02s = 10 concurrent queries</text>
+    <text x="250" y="185" text-anchor="middle">Connections = 10 / 0.2 = 50 connections</text>
+    
+    <!-- Visual representation -->
+    <g transform="translate(100, 210)">
+      <text x="150" y="0" text-anchor="middle" font-weight="bold">Connection Pool Utilization</text>
+      <rect x="0" y="10" width="300" height="30" fill="#E0E0E0" rx="5"/>
+      <rect x="0" y="10" width="60" height="30" fill="#5448C8" rx="5"/>
+      <text x="150" y="30" text-anchor="middle" fill="white">20% utilized (10/50)</text>
+      <text x="150" y="55" text-anchor="middle" font-size="10">🔒 40 connections available for bursts</text>
+    </g>
+  </svg>
+</div>
+
+<div class="insight-box" style="background: #F3E5F5; padding: 10px; margin-top: 10px; border-left: 4px solid #5448C8;">
+💡 <strong>Counter-intuitive Result:</strong> To maintain low wait times, you need very low utilization (20%). This is why connection pools seem "oversized" - they're designed for responsiveness, not efficiency.
+</div>
+</div>
 
 ### Message Queue Sizing
-```python
-Messages: 1000/s
-Process time: 10ms
-Target: <100ms latency
+<div class="decision-box">
+<h4>📦 Queue Worker Calculator</h4>
 
-ρ for 100ms total:
-100 = 10 + 10×ρ/(1-ρ)
-ρ ≈ 0.9
+<div class="requirements" style="background: #E8F5E9; padding: 15px; margin: 10px 0; border-radius: 5px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div><strong>Message rate:</strong> 1,000 msg/s</div>
+    <div><strong>Process time:</strong> 10ms/msg</div>
+    <div><strong>Target latency:</strong> &lt; 100ms</div>
+    <div><strong>Service time:</strong> 10ms</div>
+  </div>
+</div>
 
-Workers needed = 1000×0.01/0.9 = 11
-Add safety: 15 workers
-```
+<div class="worker-visualization" style="text-align: center; margin: 20px 0;">
+  <svg viewBox="0 0 600 350" style="width: 100%; max-width: 600px;">
+    <!-- Title -->
+    <text x="300" y="20" text-anchor="middle" font-weight="bold">Worker Sizing Analysis</text>
+    
+    <!-- Calculation box -->
+    <rect x="50" y="40" width="500" height="80" fill="#F5F5F5" rx="5"/>
+    <text x="300" y="60" text-anchor="middle">Target: 100ms = 10ms (service) + 90ms (queue)</text>
+    <text x="300" y="80" text-anchor="middle">Queue formula: 90ms = 10ms × ρ/(1-ρ)</text>
+    <text x="300" y="100" text-anchor="middle" font-weight="bold">ρ = 0.9 (90% utilization allowed)</text>
+    <text x="300" y="115" text-anchor="middle" font-size="12">Load = 1000 × 0.01 = 10 → Workers = 10/0.9 = 11</text>
+    
+    <!-- Worker visualization -->
+    <g transform="translate(50, 150)">
+      <text x="250" y="0" text-anchor="middle" font-weight="bold">Worker Pool Configuration</text>
+      
+      <!-- Minimum workers -->
+      <g transform="translate(0, 20)">
+        <text x="0" y="15" font-size="12">Minimum (11):</text>
+        <g transform="translate(100, 0)">
+          <!-- Draw 11 workers -->
+          <rect x="0" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="25" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="50" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="75" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="100" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="125" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="150" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="175" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="200" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="225" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <rect x="250" y="0" width="20" height="20" fill="#4CAF50" stroke="#333"/>
+          <text x="290" y="15" font-size="10">90% util</text>
+        </g>
+      </g>
+      
+      <!-- Recommended workers -->
+      <g transform="translate(0, 60)">
+        <text x="0" y="15" font-size="12">Recommended (15):</text>
+        <g transform="translate(100, 0)">
+          <!-- Draw 15 workers -->
+          <rect x="0" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="25" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="50" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="75" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="100" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="125" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="150" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="175" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="200" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="225" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="250" y="0" width="20" height="20" fill="#2196F3" stroke="#333"/>
+          <rect x="275" y="0" width="20" height="20" fill="#81C784" stroke="#333"/>
+          <rect x="300" y="0" width="20" height="20" fill="#81C784" stroke="#333"/>
+          <rect x="325" y="0" width="20" height="20" fill="#81C784" stroke="#333"/>
+          <rect x="350" y="0" width="20" height="20" fill="#81C784" stroke="#333"/>
+          <text x="390" y="15" font-size="10">67% util + buffer</text>
+        </g>
+      </g>
+    </g>
+    
+    <!-- Performance comparison -->
+    <g transform="translate(100, 280)">
+      <rect x="0" y="0" width="400" height="50" fill="#E3F2FD" rx="5"/>
+      <text x="200" y="20" text-anchor="middle" font-weight="bold">Performance Comparison</text>
+      <text x="100" y="40" text-anchor="middle" font-size="11">11 workers: 90ms queue</text>
+      <text x="300" y="40" text-anchor="middle" font-size="11">15 workers: 40ms queue ✅</text>
+    </g>
+  </svg>
+</div>
+
+<div class="recommendation" style="background: #E3F2FD; padding: 10px; margin-top: 10px; border-left: 4px solid #2196F3;">
+🎯 <strong>Best Practice:</strong> Deploy 15 workers for 67% utilization. This provides headroom for traffic spikes and maintains consistent sub-100ms latency.
+</div>
+</div>
 
 ## When M/M/1 Breaks Down
 

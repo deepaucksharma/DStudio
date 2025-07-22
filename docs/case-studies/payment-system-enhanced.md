@@ -175,1282 +175,1140 @@ graph TB
 ## 4. Detailed Component Design
 
 ### 4.1 Payment Orchestrator
-```python
-import asyncio
-from typing import Dict, Optional, List
-from dataclasses import dataclass
-from enum import Enum
-import uuid
-from datetime import datetime
 
-class PaymentStatus(Enum):
-    PENDING = "pending"
-    PROCESSING = "processing"
-    AUTHORIZED = "authorized"
-    CAPTURED = "captured"
-    FAILED = "failed"
-    REFUNDED = "refunded"
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant PO as Payment Orchestrator
+    participant IC as Idempotency Cache
+    participant RE as Risk Engine
+    participant PP as Payment Provider
+    participant L as Ledger
+    
+    C->>PO: Process Payment Request
+    PO->>IC: Check Idempotency Key
+    
+    alt Cached Result
+        IC-->>PO: Return Cached
+        PO-->>C: Payment Result
+    else New Request
+        PO->>RE: Assess Risk
+        
+        alt High Risk
+            RE-->>PO: Block
+            PO-->>C: Payment Denied
+        else Low Risk
+            PO->>PP: Route to Provider
+            
+            opt 3DS Required
+                PP->>C: 3DS Challenge
+                C-->>PP: 3DS Response
+            end
+            
+            PP->>PP: Authorize Payment
+            PP-->>PO: Auth Result
+            
+            PO->>L: Update Ledger
+            PO->>IC: Cache Result
+            PO-->>C: Payment Success
+        end
+    end
+```
 
-@dataclass
-class PaymentRequest:
-    merchant_id: str
-    amount: int  # In cents
-    currency: str
-    payment_method: Dict
-    metadata: Dict
-    idempotency_key: str
+**Payment Orchestration Flow**
 
-class PaymentOrchestrator:
-    """Orchestrates payment flow across multiple providers"""
+| Stage | Component | Purpose | Timeout |
+|-------|-----------|---------|----------|
+| Idempotency Check | Cache | Prevent duplicate charges | 50ms |
+| Risk Assessment | Risk Engine | Fraud prevention | 200ms |
+| Provider Selection | Router | Optimal routing | 10ms |
+| 3DS Authentication | Provider | Strong authentication | 30s |
+| Authorization | Provider | Reserve funds | 5s |
+| Ledger Update | Database | Record transaction | 100ms |
+
+**Provider Routing Rules**
+
+| Payment Method | Routing Logic | Provider Selection |
+|----------------|---------------|--------------------|
+| Visa Card | Brand-based | Stripe |
+| Mastercard | Brand-based | Adyen |
+| Apple Pay | Wallet type | Apple Pay provider |
+| US Bank Transfer | Geographic | Plaid |
+| EU Bank Transfer | Geographic | Mollie |
+| International | Default | Wise |
+
+**Retry Strategy Configuration**
+
+```mermaid
+graph LR
+    A[First Attempt] -->|Network Error| B[Wait 1s]
+    B --> C[Second Attempt]
+    C -->|Timeout| D[Wait 2s]
+    D --> E[Third Attempt]
+    E -->|Failed| F[Max Retries Exceeded]
     
-    def __init__(self, providers: Dict[str, PaymentProvider], 
-                 risk_engine: RiskEngine,
-                 ledger: LedgerService):
-        self.providers = providers
-        self.risk_engine = risk_engine
-        self.ledger = ledger
-        self.idempotency_cache = IdempotencyCache()
-        
-    async def process_payment(self, request: PaymentRequest) -> PaymentResult:
-        """Process payment with idempotency and orchestration"""
-        
-        # Check idempotency
-        cached_result = await self.idempotency_cache.get(request.idempotency_key)
-        if cached_result:
-            return cached_result
-            
-        # Create transaction record
-        transaction = await self._create_transaction(request)
-        
-        try:
-            # Risk assessment
-            risk_score = await self.risk_engine.assess(request)
-            if risk_score.action == RiskAction.BLOCK:
-                return await self._fail_transaction(
-                    transaction, 
-                    "Risk: " + risk_score.reason
-                )
-            
-            # Route to appropriate provider
-            provider = self._select_provider(request.payment_method)
-            
-            # 3DS check if required
-            if self._requires_3ds(request, risk_score):
-                auth_result = await self._perform_3ds(request, provider)
-                if not auth_result.success:
-                    return await self._fail_transaction(
-                        transaction,
-                        "3DS authentication failed"
-                    )
-            
-            # Process payment
-            result = await self._process_with_retry(
-                provider, 
-                request, 
-                transaction
-            )
-            
-            # Update ledger
-            await self._update_ledger(transaction, result)
-            
-            # Cache result
-            await self.idempotency_cache.set(
-                request.idempotency_key, 
-                result,
-                ttl=86400  # 24 hours
-            )
-            
-            return result
-            
-        except Exception as e:
-            logger.error(f"Payment processing error: {e}")
-            return await self._fail_transaction(transaction, str(e))
+    A -->|Success| G[Complete]
+    C -->|Success| G
+    E -->|Success| G
     
-    async def _process_with_retry(self, provider: PaymentProvider, 
-                                  request: PaymentRequest,
-                                  transaction: Transaction) -> PaymentResult:
-        """Process payment with retry logic"""
-        max_retries = 3
-        retry_delay = 1
-        
-        for attempt in range(max_retries):
-            try:
-                # Update transaction state
-                await self._update_transaction_state(
-                    transaction, 
-                    PaymentStatus.PROCESSING
-                )
-                
-                # Attempt authorization
-                auth_result = await provider.authorize(request)
-                
-                if auth_result.success:
-                    # Update state
-                    await self._update_transaction_state(
-                        transaction,
-                        PaymentStatus.AUTHORIZED
-                    )
-                    
-                    # Auto-capture if configured
-                    if request.auto_capture:
-                        capture_result = await provider.capture(
-                            auth_result.authorization_id,
-                            request.amount
-                        )
-                        
-                        if capture_result.success:
-                            await self._update_transaction_state(
-                                transaction,
-                                PaymentStatus.CAPTURED
-                            )
-                    
-                    return PaymentResult(
-                        success=True,
-                        transaction_id=transaction.id,
-                        authorization_id=auth_result.authorization_id,
-                        status=transaction.status
-                    )
-                else:
-                    # Determine if retry is appropriate
-                    if not self._should_retry(auth_result.error_code):
-                        return PaymentResult(
-                            success=False,
-                            transaction_id=transaction.id,
-                            error=auth_result.error_message
-                        )
-                        
-            except NetworkError as e:
-                if attempt == max_retries - 1:
-                    raise
-                await asyncio.sleep(retry_delay * (2 ** attempt))
-                
-        raise MaxRetriesExceeded()
-    
-    def _select_provider(self, payment_method: Dict) -> PaymentProvider:
-        """Select payment provider based on method and routing rules"""
-        method_type = payment_method.get("type")
-        
-        # Card routing logic
-        if method_type == "card":
-            card_brand = self._detect_card_brand(payment_method["number"])
-            
-            # Route based on card brand and region
-            if card_brand == "visa":
-                return self.providers["stripe"]
-            elif card_brand == "mastercard":
-                return self.providers["adyen"]
-            else:
-                return self.providers["default"]
-                
-        # Digital wallet routing
-        elif method_type == "wallet":
-            wallet_type = payment_method.get("wallet_type")
-            return self.providers.get(wallet_type, self.providers["default"])
-            
-        # Bank transfer routing
-        elif method_type == "bank_transfer":
-            country = payment_method.get("country")
-            if country == "US":
-                return self.providers["plaid"]
-            elif country in ["DE", "FR", "NL"]:
-                return self.providers["mollie"]
-            else:
-                return self.providers["wise"]
-                
-        return self.providers["default"]
+    style F fill:#ff6b6b
+    style G fill:#4ecdc4
 ```
 
 ### 4.2 Distributed Ledger System
-```python
-from decimal import Decimal
-import asyncpg
-from typing import List, Optional
-import hashlib
 
-class LedgerService:
-    """Double-entry bookkeeping ledger for payment tracking"""
+```mermaid
+graph TB
+    subgraph "Double-Entry Ledger"
+        J[Journal Entry]
+        LE1[Ledger Entry: Debit]
+        LE2[Ledger Entry: Credit]
+        AB[Account Balances]
+        AL[Audit Log]
+    end
     
-    def __init__(self, db_pool: asyncpg.Pool):
-        self.db_pool = db_pool
-        self.sharding_strategy = HashSharding(num_shards=16)
-        
-    async def record_transaction(self, entries: List[LedgerEntry]) -> str:
-        """Record atomic ledger transaction"""
-        
-        # Validate double-entry balance
-        if not self._validate_double_entry(entries):
-            raise ValueError("Entries do not balance")
-        
-        transaction_id = str(uuid.uuid4())
-        
-        # Determine shard based on merchant
-        shard_id = self.sharding_strategy.get_shard(entries[0].account_id)
-        
-        async with self.db_pool.acquire() as conn:
-            async with conn.transaction():
-                # Insert journal entry
-                journal_id = await conn.fetchval("""
-                    INSERT INTO journals (
-                        transaction_id, 
-                        created_at, 
-                        description,
-                        shard_id
-                    )
-                    VALUES ($1, $2, $3, $4)
-                    RETURNING id
-                """, transaction_id, datetime.utcnow(), 
-                    entries[0].description, shard_id)
-                
-                # Insert ledger entries
-                for entry in entries:
-                    await conn.execute("""
-                        INSERT INTO ledger_entries (
-                            journal_id,
-                            account_id,
-                            debit,
-                            credit,
-                            currency,
-                            exchange_rate,
-                            metadata
-                        )
-                        VALUES ($1, $2, $3, $4, $5, $6, $7)
-                    """, journal_id, entry.account_id,
-                        entry.debit, entry.credit,
-                        entry.currency, entry.exchange_rate,
-                        json.dumps(entry.metadata))
-                
-                # Update account balances
-                for entry in entries:
-                    await self._update_account_balance(
-                        conn, 
-                        entry.account_id,
-                        entry.debit - entry.credit,
-                        entry.currency
-                    )
-                
-                # Create immutable audit record
-                await self._create_audit_record(conn, transaction_id, entries)
-        
-        return transaction_id
+    subgraph "Sharding Strategy"
+        S1[Shard 1: Accounts A-D]
+        S2[Shard 2: Accounts E-H]
+        S3[Shard 3: Accounts I-L]
+        SN[Shard N: Accounts W-Z]
+    end
     
-    async def get_account_balance(self, account_id: str, 
-                                  currency: str = None) -> Dict[str, Decimal]:
-        """Get current account balance(s)"""
-        
-        query = """
-            SELECT currency, SUM(debit - credit) as balance
-            FROM ledger_entries
-            WHERE account_id = $1
-        """
-        params = [account_id]
-        
-        if currency:
-            query += " AND currency = $2"
-            params.append(currency)
-            
-        query += " GROUP BY currency"
-        
-        async with self.db_pool.acquire() as conn:
-            rows = await conn.fetch(query, *params)
-            return {row['currency']: row['balance'] for row in rows}
+    subgraph "Consistency"
+        V[Validation: Debits = Credits]
+        H[Hash Chain: Immutable History]
+    end
     
-    async def reconcile_transactions(self, start_date: datetime, 
-                                    end_date: datetime) -> ReconciliationReport:
-        """Reconcile transactions for a period"""
-        
-        async with self.db_pool.acquire() as conn:
-            # Get all journal entries
-            journals = await conn.fetch("""
-                SELECT j.*, 
-                       array_agg(le.*) as entries
-                FROM journals j
-                JOIN ledger_entries le ON le.journal_id = j.id
-                WHERE j.created_at BETWEEN $1 AND $2
-                GROUP BY j.id
-            """, start_date, end_date)
-            
-            discrepancies = []
-            
-            for journal in journals:
-                # Verify each journal balances
-                total_debit = sum(e['debit'] for e in journal['entries'])
-                total_credit = sum(e['credit'] for e in journal['entries'])
-                
-                if total_debit != total_credit:
-                    discrepancies.append({
-                        'journal_id': journal['id'],
-                        'transaction_id': journal['transaction_id'],
-                        'difference': total_debit - total_credit
-                    })
-            
-            # Check account balance consistency
-            account_discrepancies = await self._check_account_consistency(
-                conn, 
-                start_date, 
-                end_date
-            )
-            
-            return ReconciliationReport(
-                period_start=start_date,
-                period_end=end_date,
-                journal_discrepancies=discrepancies,
-                account_discrepancies=account_discrepancies,
-                reconciled=len(discrepancies) == 0
-            )
+    J --> LE1 & LE2
+    LE1 & LE2 --> V
+    V --> AB
+    AB --> AL
+    AL --> H
     
-    def _validate_double_entry(self, entries: List[LedgerEntry]) -> bool:
-        """Validate entries follow double-entry rules"""
-        # Group by currency
-        currency_totals = {}
-        
-        for entry in entries:
-            if entry.currency not in currency_totals:
-                currency_totals[entry.currency] = {
-                    'debit': Decimal('0'),
-                    'credit': Decimal('0')
-                }
-            
-            currency_totals[entry.currency]['debit'] += entry.debit
-            currency_totals[entry.currency]['credit'] += entry.credit
-        
-        # Verify each currency balances
-        for currency, totals in currency_totals.items():
-            if totals['debit'] != totals['credit']:
-                return False
-                
-        return True
+    LE1 --> S1
+    LE2 --> S2
     
-    async def _create_audit_record(self, conn: asyncpg.Connection,
-                                   transaction_id: str,
-                                   entries: List[LedgerEntry]):
-        """Create immutable audit trail"""
-        # Create audit hash
-        audit_data = {
-            'transaction_id': transaction_id,
-            'entries': [e.to_dict() for e in entries],
-            'timestamp': datetime.utcnow().isoformat()
-        }
-        
-        audit_hash = hashlib.sha256(
-            json.dumps(audit_data, sort_keys=True).encode()
-        ).hexdigest()
-        
-        # Store in append-only audit log
-        await conn.execute("""
-            INSERT INTO audit_log (
-                transaction_id,
-                audit_hash,
-                audit_data,
-                created_at
-            )
-            VALUES ($1, $2, $3, $4)
-        """, transaction_id, audit_hash, json.dumps(audit_data), 
-            datetime.utcnow())
+    style J fill:#4ecdc4
+    style V fill:#ffd93d
+    style H fill:#95e1d3
+```
+
+**Ledger Entry Structure**
+
+| Field | Type | Purpose | Example |
+|-------|------|---------|----------|
+| journal_id | UUID | Links related entries | 123e4567-e89b |
+| account_id | String | Account identifier | merchant_12345 |
+| debit | Decimal | Debit amount | 100.00 |
+| credit | Decimal | Credit amount | 0.00 |
+| currency | String | ISO currency code | USD |
+| exchange_rate | Decimal | FX rate if applicable | 1.0 |
+| metadata | JSON | Additional info | {"order_id": "xyz"} |
+
+**Double-Entry Examples**
+
+| Transaction Type | Account | Debit | Credit |
+|------------------|---------|-------|--------|
+| **Customer Payment** | | | |
+| | Customer Liability | 100.00 | 0.00 |
+| | Merchant Receivable | 0.00 | 97.00 |
+| | Platform Fee Revenue | 0.00 | 3.00 |
+| **Merchant Payout** | | | |
+| | Merchant Receivable | 97.00 | 0.00 |
+| | Bank Account | 0.00 | 97.00 |
+
+**Reconciliation Process**
+
+```mermaid
+sequenceDiagram
+    participant S as Scheduler
+    participant R as Reconciler
+    participant L as Ledger
+    participant B as Bank API
+    participant A as Alert System
+    
+    S->>R: Start Daily Reconciliation
+    R->>L: Get Period Transactions
+    R->>B: Get Bank Statements
+    
+    R->>R: Match Transactions
+    
+    alt All Matched
+        R->>L: Mark Reconciled
+    else Discrepancies Found
+        R->>A: Alert Finance Team
+        R->>L: Flag Discrepancies
+    end
+    
+    R->>S: Report Complete
 ```
 
 ### 4.3 Real-time Fraud Detection
-```python
-import numpy as np
-from sklearn.ensemble import IsolationForest
-import redis
-from typing import Dict, List, Tuple
 
-class FraudDetectionEngine:
-    """ML-based fraud detection with real-time scoring"""
+```mermaid
+graph TB
+    subgraph "Feature Extraction"
+        TF[Transaction Features<br/>Amount, Time, Currency]
+        HF[Historical Features<br/>User Behavior Patterns]
+        VF[Velocity Features<br/>Transaction Rate]
+        DF[Device Features<br/>Location, Trust Score]
+    end
     
-    def __init__(self, redis_client: redis.Redis, 
-                 feature_store: FeatureStore):
-        self.redis = redis_client
-        self.feature_store = feature_store
-        self.models = self._load_models()
-        self.rules_engine = RulesEngine()
-        
-    async def assess_transaction(self, transaction: Transaction) -> RiskScore:
-        """Assess transaction fraud risk in real-time"""
-        
-        # Extract features
-        features = await self._extract_features(transaction)
-        
-        # Run rules engine first (fast path)
-        rules_result = self.rules_engine.evaluate(transaction)
-        if rules_result.action == RiskAction.BLOCK:
-            return RiskScore(
-                score=1.0,
-                action=RiskAction.BLOCK,
-                reasons=rules_result.reasons
-            )
-        
-        # ML scoring
-        ml_score = await self._ml_scoring(features)
-        
-        # Combine scores
-        final_score = self._combine_scores(
-            rules_result.score,
-            ml_score,
-            weights={'rules': 0.3, 'ml': 0.7}
-        )
-        
-        # Determine action
-        action = self._determine_action(final_score, transaction)
-        
-        # Update velocity counters
-        await self._update_velocity_counters(transaction)
-        
-        return RiskScore(
-            score=final_score,
-            action=action,
-            reasons=self._get_risk_reasons(features, final_score)
-        )
+    subgraph "Detection Layers"
+        RE[Rules Engine<br/>Fast Path]
+        ML[ML Models<br/>Ensemble]
+        CS[Combined Score]
+    end
     
-    async def _extract_features(self, transaction: Transaction) -> np.array:
-        """Extract ML features from transaction"""
-        
-        features = []
-        
-        # Transaction features
-        features.extend([
-            transaction.amount,
-            self._get_merchant_category_risk(transaction.merchant_category),
-            self._get_time_of_day_risk(transaction.timestamp),
-            self._is_weekend(transaction.timestamp),
-            self._get_currency_risk(transaction.currency)
-        ])
-        
-        # Historical features
-        user_features = await self.feature_store.get_user_features(
-            transaction.user_id,
-            [
-                "avg_transaction_amount_7d",
-                "transaction_count_24h",
-                "unique_merchants_30d",
-                "failed_transactions_7d",
-                "days_since_first_transaction"
-            ]
-        )
-        features.extend(user_features)
-        
-        # Velocity features
-        velocity = await self._get_velocity_features(transaction)
-        features.extend([
-            velocity['transactions_per_minute'],
-            velocity['unique_cards_per_hour'],
-            velocity['amount_per_day'],
-            velocity['failed_attempts_per_hour']
-        ])
-        
-        # Device/location features
-        device_features = await self._get_device_features(transaction)
-        features.extend([
-            device_features['is_new_device'],
-            device_features['device_trust_score'],
-            device_features['distance_from_last_transaction'],
-            device_features['is_vpn'],
-            device_features['is_high_risk_country']
-        ])
-        
-        return np.array(features).reshape(1, -1)
+    subgraph "Actions"
+        ALLOW[Allow]
+        CHALLENGE[3DS Challenge]
+        REVIEW[Manual Review]
+        BLOCK[Block]
+    end
     
-    async def _ml_scoring(self, features: np.array) -> float:
-        """Score using ensemble of models"""
-        
-        scores = []
-        
-        # Isolation Forest for anomaly detection
-        anomaly_score = self.models['isolation_forest'].decision_function(features)[0]
-        scores.append(self._normalize_score(anomaly_score, -0.5, 0.5))
-        
-        # XGBoost for fraud classification
-        xgb_proba = self.models['xgboost'].predict_proba(features)[0][1]
-        scores.append(xgb_proba)
-        
-        # Neural network for complex patterns
-        nn_score = self.models['neural_net'].predict(features)[0][0]
-        scores.append(nn_score)
-        
-        # Weighted average
-        weights = [0.3, 0.5, 0.2]
-        return sum(s * w for s, w in zip(scores, weights))
+    TF & HF & VF & DF --> RE
+    TF & HF & VF & DF --> ML
+    RE & ML --> CS
     
-    async def _get_velocity_features(self, transaction: Transaction) -> Dict:
-        """Calculate velocity-based features"""
-        
-        # Use Redis for real-time counters
-        pipe = self.redis.pipeline()
-        
-        # Transaction velocity
-        user_key = f"velocity:user:{transaction.user_id}"
-        merchant_key = f"velocity:merchant:{transaction.merchant_id}"
-        card_key = f"velocity:card:{transaction.card_fingerprint}"
-        
-        # Increment counters
-        for key in [user_key, merchant_key, card_key]:
-            pipe.incr(f"{key}:count:1m")
-            pipe.expire(f"{key}:count:1m", 60)
-            
-            pipe.incr(f"{key}:count:1h")
-            pipe.expire(f"{key}:count:1h", 3600)
-            
-            pipe.incrby(f"{key}:amount:1d", int(transaction.amount))
-            pipe.expire(f"{key}:amount:1d", 86400)
-        
-        results = await pipe.execute()
-        
-        return {
-            'transactions_per_minute': int(results[0]),
-            'unique_cards_per_hour': await self._count_unique_cards_per_hour(
-                transaction.merchant_id
-            ),
-            'amount_per_day': int(results[8]),
-            'failed_attempts_per_hour': await self._count_failed_attempts(
-                transaction.user_id
-            )
-        }
+    CS -->|Score < 0.3| ALLOW
+    CS -->|0.3-0.6| CHALLENGE
+    CS -->|0.6-0.85| REVIEW
+    CS -->|> 0.85| BLOCK
     
-    def _determine_action(self, score: float, 
-                          transaction: Transaction) -> RiskAction:
-        """Determine action based on score and context"""
-        
-        # Dynamic thresholds based on merchant risk
-        merchant_risk = self._get_merchant_risk_profile(transaction.merchant_id)
-        
-        if merchant_risk == 'high':
-            block_threshold = 0.7
-            review_threshold = 0.4
-        else:
-            block_threshold = 0.85
-            review_threshold = 0.6
-        
-        # Adjust for amount
-        if transaction.amount > 10000:  # $100+
-            block_threshold -= 0.1
-            review_threshold -= 0.1
-        
-        # Determine action
-        if score >= block_threshold:
-            return RiskAction.BLOCK
-        elif score >= review_threshold:
-            return RiskAction.REVIEW
-        elif score >= 0.3:
-            return RiskAction.CHALLENGE  # 3DS
-        else:
-            return RiskAction.ALLOW
+    style ALLOW fill:#4ecdc4
+    style CHALLENGE fill:#ffd93d
+    style REVIEW fill:#ff9800
+    style BLOCK fill:#ff6b6b
+```
+
+**Feature Categories & Weights**
+
+| Feature Category | Examples | Weight | Update Frequency |
+|------------------|----------|--------|------------------|
+| **Transaction** | Amount, merchant type, time | 25% | Real-time |
+| **Historical** | Avg spend, transaction count | 30% | Hourly batch |
+| **Velocity** | Transactions/min, unique cards | 25% | Real-time |
+| **Device/Location** | New device, distance traveled | 20% | Per request |
+
+**ML Model Ensemble**
+
+```mermaid
+graph LR
+    subgraph "Models"
+        IF[Isolation Forest<br/>Anomaly Detection]
+        XGB[XGBoost<br/>Classification]
+        NN[Neural Network<br/>Deep Patterns]
+    end
+    
+    subgraph "Scoring"
+        S1[Anomaly Score: 0.3]
+        S2[Fraud Probability: 0.5]
+        S3[Pattern Score: 0.2]
+    end
+    
+    subgraph "Result"
+        WA[Weighted Average]
+        FS[Final Score: 0-1]
+    end
+    
+    IF --> S1
+    XGB --> S2
+    NN --> S3
+    
+    S1 & S2 & S3 --> WA
+    WA --> FS
+```
+
+**Velocity Counter Implementation**
+
+| Counter Type | Key Pattern | TTL | Purpose |
+|--------------|-------------|-----|----------|
+| Minute Counter | velocity:user:{id}:1m | 60s | Burst detection |
+| Hour Counter | velocity:user:{id}:1h | 3600s | Rate limiting |
+| Daily Amount | velocity:user:{id}:amount:1d | 86400s | Spending limits |
+| Failed Attempts | velocity:user:{id}:failed:1h | 3600s | Attack detection |
+
+**Risk Scoring Thresholds**
+
+```mermaid
+graph TB
+    subgraph "Base Thresholds"
+        BT[Block: 0.85<br/>Review: 0.6<br/>Challenge: 0.3]
+    end
+    
+    subgraph "Adjustments"
+        MR[Merchant Risk<br/>High: -0.15<br/>Low: +0]
+        TA[Transaction Amount<br/>>$100: -0.1<br/><$10: +0.1]
+        UH[User History<br/>New: -0.1<br/>Trusted: +0.2]
+    end
+    
+    subgraph "Final Thresholds"
+        FT[Adjusted Thresholds]
+    end
+    
+    BT --> FT
+    MR --> FT
+    TA --> FT
+    UH --> FT
+    
+    style BT fill:#4ecdc4
+    style FT fill:#ffd93d
 ```
 
 ### 4.4 Payment Routing and Failover
-```python
-class SmartRouter:
-    """Intelligent payment routing with failover"""
+
+```mermaid
+sequenceDiagram
+    participant R as Smart Router
+    participant HM as Health Monitor
+    participant P1 as Provider 1 (Primary)
+    participant P2 as Provider 2 (Backup)
+    participant P3 as Provider 3 (Tertiary)
     
-    def __init__(self, providers: List[PaymentProvider]):
-        self.providers = providers
-        self.health_monitor = HealthMonitor()
-        self.performance_tracker = PerformanceTracker()
-        
-    async def route_payment(self, request: PaymentRequest) -> PaymentResult:
-        """Route payment with smart failover"""
-        
-        # Get eligible providers
-        eligible_providers = self._get_eligible_providers(request)
-        
-        # Sort by performance and cost
-        sorted_providers = self._sort_providers(
-            eligible_providers,
-            request
-        )
-        
-        # Try providers in order
-        for provider in sorted_providers:
-            if not self.health_monitor.is_healthy(provider):
-                continue
-                
-            try:
-                start_time = time.time()
-                
-                # Attempt payment
-                result = await provider.process(request)
-                
-                # Track performance
-                latency = time.time() - start_time
-                self.performance_tracker.record(
-                    provider.name,
-                    success=result.success,
-                    latency=latency
-                )
-                
-                if result.success:
-                    return result
-                    
-                # Check if we should retry with another provider
-                if not self._should_failover(result.error_code):
-                    return result
-                    
-            except Exception as e:
-                logger.error(f"Provider {provider.name} failed: {e}")
-                self.health_monitor.record_failure(provider)
-                
-        # All providers failed
-        return PaymentResult(
-            success=False,
-            error="All payment providers unavailable"
-        )
+    R->>HM: Check Provider Health
+    HM-->>R: [P1: Healthy, P2: Healthy, P3: Degraded]
     
-    def _sort_providers(self, providers: List[PaymentProvider],
-                        request: PaymentRequest) -> List[PaymentProvider]:
-        """Sort providers by success rate, latency, and cost"""
-        
-        scores = []
-        
-        for provider in providers:
-            stats = self.performance_tracker.get_stats(provider.name)
-            
-            # Calculate composite score
-            success_score = stats.success_rate * 100
-            latency_score = 100 - (stats.avg_latency_ms / 10)
-            cost_score = 100 - (provider.get_cost(request) * 10)
-            
-            # Weighted score
-            total_score = (
-                success_score * 0.5 +
-                latency_score * 0.3 +
-                cost_score * 0.2
-            )
-            
-            scores.append((provider, total_score))
-        
-        # Sort by score descending
-        scores.sort(key=lambda x: x[1], reverse=True)
-        
-        return [provider for provider, _ in scores]
+    R->>R: Sort by Score
+    Note over R: Success Rate: 50%<br/>Latency: 30%<br/>Cost: 20%
+    
+    R->>P1: Process Payment
+    
+    alt Success
+        P1-->>R: Payment Success
+        R->>R: Update Performance Metrics
+    else Retriable Error
+        P1-->>R: Error (Timeout)
+        R->>HM: Record Failure
+        R->>P2: Failover Attempt
+        P2-->>R: Payment Success
+    else Non-Retriable Error
+        P1-->>R: Error (Invalid Card)
+        R->>R: Return Error (No Retry)
+    end
 ```
 
-### 4.5 Settlement and Reconciliation
-```python
-class SettlementEngine:
-    """Handles merchant settlements and reconciliation"""
+**Provider Selection Criteria**
+
+| Factor | Weight | Calculation | Example |
+|--------|--------|-------------|----------|
+| Success Rate | 50% | Successful/Total | 98.5% → 98.5 points |
+| Latency | 30% | 100 - (ms/10) | 200ms → 80 points |
+| Cost | 20% | 100 - (cost% × 10) | 2.9% → 71 points |
+| **Total Score** | 100% | Weighted Sum | 88.8 points |
+
+**Failover Decision Matrix**
+
+```mermaid
+graph TB
+    subgraph "Error Types"
+        E1[Network Timeout]
+        E2[Provider Unavailable]
+        E3[Rate Limit]
+        E4[Invalid Card]
+        E5[Insufficient Funds]
+        E6[Fraud Block]
+    end
     
-    def __init__(self, ledger: LedgerService, 
-                 bank_api: BankingAPI):
-        self.ledger = ledger
-        self.bank_api = bank_api
-        self.settlement_schedule = SettlementSchedule()
-        
-    async def run_settlement(self, merchant_id: str, 
-                            settlement_date: date) -> SettlementResult:
-        """Execute merchant settlement"""
-        
-        # Get transactions to settle
-        transactions = await self._get_settleable_transactions(
-            merchant_id,
-            settlement_date
-        )
-        
-        if not transactions:
-            return SettlementResult(
-                merchant_id=merchant_id,
-                amount=0,
-                status="no_transactions"
-            )
-        
-        # Calculate settlement amount
-        gross_amount = sum(t.amount for t in transactions)
-        fees = self._calculate_fees(transactions)
-        net_amount = gross_amount - fees
-        
-        # Create settlement batch
-        batch = SettlementBatch(
-            merchant_id=merchant_id,
-            settlement_date=settlement_date,
-            gross_amount=gross_amount,
-            fees=fees,
-            net_amount=net_amount,
-            transaction_ids=[t.id for t in transactions]
-        )
-        
-        try:
-            # Record in ledger
-            await self._record_settlement_entries(batch)
-            
-            # Initiate bank transfer
-            transfer_result = await self.bank_api.initiate_transfer(
-                amount=net_amount,
-                recipient=merchant_id,
-                reference=f"SETTLE-{batch.id}"
-            )
-            
-            # Update batch status
-            batch.status = "initiated"
-            batch.transfer_id = transfer_result.transfer_id
-            await self._update_batch_status(batch)
-            
-            # Mark transactions as settled
-            await self._mark_transactions_settled(
-                batch.transaction_ids,
-                batch.id
-            )
-            
-            return SettlementResult(
-                merchant_id=merchant_id,
-                batch_id=batch.id,
-                amount=net_amount,
-                status="success"
-            )
-            
-        except Exception as e:
-            logger.error(f"Settlement failed: {e}")
-            await self._handle_settlement_failure(batch, e)
-            raise
+    subgraph "Actions"
+        RETRY[Retry with Next Provider]
+        FAIL[Return Error]
+        DELAY[Retry with Backoff]
+    end
     
-    async def reconcile_settlements(self, date_range: DateRange) -> ReconciliationReport:
-        """Reconcile settlements with bank statements"""
-        
-        # Get settlement batches
-        batches = await self._get_settlement_batches(date_range)
-        
-        # Get bank transactions
-        bank_transactions = await self.bank_api.get_transactions(date_range)
-        
-        # Match settlements to bank transactions
-        matches = []
-        unmatched_settlements = []
-        unmatched_bank_transactions = list(bank_transactions)
-        
-        for batch in batches:
-            matched = False
-            
-            for bank_tx in unmatched_bank_transactions:
-                if self._matches_settlement(batch, bank_tx):
-                    matches.append({
-                        'batch': batch,
-                        'bank_transaction': bank_tx,
-                        'amount_difference': batch.net_amount - bank_tx.amount
-                    })
-                    unmatched_bank_transactions.remove(bank_tx)
-                    matched = True
-                    break
-            
-            if not matched:
-                unmatched_settlements.append(batch)
-        
-        # Generate report
-        return ReconciliationReport(
-            period=date_range,
-            total_batches=len(batches),
-            matched_count=len(matches),
-            unmatched_settlements=unmatched_settlements,
-            unmatched_bank_transactions=unmatched_bank_transactions,
-            discrepancies=self._find_discrepancies(matches)
-        )
+    E1 --> RETRY
+    E2 --> RETRY
+    E3 --> DELAY
+    E4 --> FAIL
+    E5 --> FAIL
+    E6 --> FAIL
+    
+    style RETRY fill:#4ecdc4
+    style FAIL fill:#ff6b6b
+    style DELAY fill:#ffd93d
 ```
+
+**Health Monitoring Configuration**
+
+| Metric | Threshold | Window | Action |
+|--------|-----------|--------|--------|
+| Error Rate | > 5% | 5 min | Mark degraded |
+| Timeout Rate | > 10% | 5 min | Reduce traffic |
+| Success Rate | < 95% | 15 min | Temporary exclude |
+| Recovery | > 99% | 10 min | Restore traffic |
+
+### 4.5 Settlement and Reconciliation
+
+```mermaid
+sequenceDiagram
+    participant S as Settlement Engine
+    participant L as Ledger
+    participant B as Bank API
+    participant M as Merchant
+    
+    Note over S: Daily Settlement Run
+    
+    S->>L: Get Settleable Transactions
+    L-->>S: Transaction List
+    
+    S->>S: Calculate Settlement
+    Note over S: Gross: $10,000<br/>Fees: $300<br/>Net: $9,700
+    
+    S->>L: Record Settlement Entries
+    
+    par Double Entry
+        L->>L: Debit: Merchant Receivable $10,000
+        and
+        L->>L: Credit: Merchant Payable $9,700
+        and
+        L->>L: Credit: Fee Revenue $300
+    end
+    
+    S->>B: Initiate Transfer
+    B-->>S: Transfer ID: TXN123
+    
+    S->>L: Update Transaction Status
+    S->>M: Settlement Notification
+```
+
+**Settlement Calculation**
+
+| Component | Calculation | Example |
+|-----------|-------------|----------|
+| Gross Amount | Sum of transactions | $10,000 |
+| Processing Fee | 2.9% + $0.30 per txn | $290 + $30 = $320 |
+| Platform Fee | 0.5% of gross | $50 |
+| Refunds/Chargebacks | Deductions | -$100 |
+| **Net Settlement** | Gross - All Fees | $9,530 |
+
+**Settlement States**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: Transactions Ready
+    Pending --> Calculating: Start Settlement
+    Calculating --> Approved: Fees Calculated
+    Approved --> Processing: Bank Transfer Initiated
+    Processing --> Completed: Funds Transferred
+    Processing --> Failed: Transfer Error
+    Failed --> Retry: Manual Intervention
+    Retry --> Processing: Retry Transfer
+    Completed --> [*]
+```
+
+**Reconciliation Process**
+
+```mermaid
+graph TB
+    subgraph "Data Sources"
+        SB[Settlement Batches]
+        BT[Bank Transactions]
+        LR[Ledger Records]
+    end
+    
+    subgraph "Matching"
+        AM[Amount Match]
+        DM[Date Match]
+        RM[Reference Match]
+    end
+    
+    subgraph "Results"
+        M[Matched]
+        US[Unmatched Settlements]
+        UB[Unmatched Bank Txns]
+        D[Discrepancies]
+    end
+    
+    SB & BT --> AM & DM & RM
+    AM & DM & RM --> M
+    AM & DM & RM --> US
+    AM & DM & RM --> UB
+    M --> D
+    
+    style M fill:#4ecdc4
+    style D fill:#ff6b6b
+```
+
+**Reconciliation Report Structure**
+
+| Section | Content | Action Required |
+|---------|---------|------------------|
+| **Summary** | Total settlements: 150<br/>Matched: 148<br/>Unmatched: 2 | Review unmatched |
+| **Discrepancies** | Amount differences<br/>Timing differences | Investigate |
+| **Unmatched Settlements** | Missing bank confirmation | Contact bank |
+| **Unmatched Bank Txns** | Unknown deposits | Research source |
 
 ## 5. Advanced Features
 
 ### 5.1 Multi-Currency Support
-```python
-class CurrencyExchange:
-    """Real-time currency conversion with hedging"""
+
+```mermaid
+graph LR
+    subgraph "Currency Flow"
+        C1[Customer<br/>EUR €100]
+        FX[FX Engine]
+        M1[Merchant<br/>USD $110]
+    end
     
-    def __init__(self, forex_provider: ForexProvider):
-        self.forex_provider = forex_provider
-        self.rate_cache = TTLCache(maxsize=1000, ttl=60)
-        self.hedging_engine = HedgingEngine()
-        
-    async def convert_amount(self, amount: Decimal, 
-                            from_currency: str,
-                            to_currency: str,
-                            transaction_type: str = "payment") -> ConversionResult:
-        """Convert amount with real-time rates"""
-        
-        if from_currency == to_currency:
-            return ConversionResult(
-                amount=amount,
-                rate=Decimal('1.0'),
-                fee=Decimal('0')
-            )
-        
-        # Get exchange rate
-        rate = await self._get_exchange_rate(
-            from_currency,
-            to_currency,
-            transaction_type
-        )
-        
-        # Calculate conversion
-        converted_amount = amount * rate.mid_rate
-        
-        # Apply spread based on transaction type
-        if transaction_type == "payment":
-            spread = rate.payment_spread
-        elif transaction_type == "payout":
-            spread = rate.payout_spread
-        else:
-            spread = rate.default_spread
-        
-        # Calculate fee
-        fee = converted_amount * spread
-        final_amount = converted_amount - fee
-        
-        # Record for hedging
-        await self.hedging_engine.record_exposure(
-            from_currency=from_currency,
-            to_currency=to_currency,
-            amount=amount,
-            rate=rate.mid_rate
-        )
-        
-        return ConversionResult(
-            amount=final_amount,
-            rate=rate.mid_rate,
-            fee=fee,
-            timestamp=datetime.utcnow()
-        )
+    subgraph "Rate Components"
+        MR[Mid Rate: 1.12]
+        PS[Payment Spread: 2%]
+        PF[Platform Fee: 0.5%]
+    end
+    
+    subgraph "Calculation"
+        CALC[100 × 1.12 = $112<br/>- Spread: $2.24<br/>- Fee: $0.56<br/>= $109.20]
+    end
+    
+    C1 --> FX
+    MR & PS & PF --> FX
+    FX --> CALC
+    CALC --> M1
+    
+    style FX fill:#4ecdc4
+    style CALC fill:#ffd93d
 ```
 
+**Currency Conversion Configuration**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|  
+| Rate Cache TTL | 60s | Balance freshness vs API calls |
+| Spread Types | Payment: 2%<br/>Payout: 2.5% | Different margins per flow |
+| Hedging Threshold | $10,000 | Auto-hedge large exposures |
+| Rate Sources | Primary: Reuters<br/>Backup: XE | Redundancy |
+
+**FX Rate Management**
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant FX as FX Service
+    participant RC as Rate Cache
+    participant RP as Rate Provider
+    participant HE as Hedging Engine
+    
+    C->>FX: Convert EUR to USD
+    FX->>RC: Check Cache
+    
+    alt Cache Hit
+        RC-->>FX: Cached Rate
+    else Cache Miss
+        FX->>RP: Get Live Rate
+        RP-->>FX: EUR/USD: 1.12
+        FX->>RC: Cache Rate (60s)
+    end
+    
+    FX->>FX: Apply Spread
+    FX->>HE: Record Exposure
+    FX-->>C: Conversion Result
+```
+
+**Currency Exposure Dashboard**
+
+| Currency Pair | Net Exposure | Hedged | Unhedged Risk |
+|---------------|--------------|---------|---------------|
+| EUR/USD | +$2.5M | $2.0M | $0.5M |
+| GBP/USD | -$1.2M | $1.0M | $0.2M |
+| JPY/USD | +$0.8M | $0.5M | $0.3M |
+| **Total Risk** | | | **$1.0M** |
+
 ### 5.2 Subscription and Recurring Payments
-```python
-class SubscriptionManager:
-    """Manages recurring payment schedules"""
+
+```mermaid
+stateDiagram-v2
+    [*] --> Created: New Subscription
+    Created --> Active: First Payment Success
+    Created --> Failed: First Payment Failed
     
-    def __init__(self, payment_orchestrator: PaymentOrchestrator,
-                 scheduler: DistributedScheduler):
-        self.payment_orchestrator = payment_orchestrator
-        self.scheduler = scheduler
-        
-    async def create_subscription(self, request: SubscriptionRequest) -> Subscription:
-        """Create new subscription with scheduling"""
-        
-        subscription = Subscription(
-            id=str(uuid.uuid4()),
-            customer_id=request.customer_id,
-            plan_id=request.plan_id,
-            payment_method_id=request.payment_method_id,
-            amount=request.amount,
-            currency=request.currency,
-            interval=request.interval,
-            interval_count=request.interval_count,
-            start_date=request.start_date,
-            status=SubscriptionStatus.ACTIVE
-        )
-        
-        # Store subscription
-        await self._store_subscription(subscription)
-        
-        # Schedule first payment
-        next_payment_date = self._calculate_next_payment_date(subscription)
-        await self.scheduler.schedule_job(
-            job_id=f"subscription:{subscription.id}",
-            job_type="process_subscription_payment",
-            run_at=next_payment_date,
-            payload={
-                'subscription_id': subscription.id
-            }
-        )
-        
-        # Process immediate payment if required
-        if request.charge_immediately:
-            await self._process_subscription_payment(subscription)
-        
-        return subscription
+    Active --> Active: Recurring Payment Success
+    Active --> PastDue: Payment Failed
+    Active --> Paused: Customer Request
+    Active --> Upgraded: Plan Change
+    Active --> Cancelled: Cancellation
     
-    async def process_subscription_payment(self, subscription_id: str):
-        """Process scheduled subscription payment"""
+    PastDue --> Active: Payment Retry Success
+    PastDue --> Suspended: Max Retries Exceeded
+    
+    Paused --> Active: Resume
+    Paused --> Cancelled: Timeout
+    
+    Suspended --> Active: Manual Resolution
+    Suspended --> Cancelled: No Resolution
+    
+    Failed --> [*]
+    Cancelled --> [*]
+```
+
+**Subscription Configuration**
+
+| Parameter | Options | Example |
+|-----------|---------|----------|
+| **Billing Interval** | Daily, Weekly, Monthly, Yearly | Monthly |
+| **Trial Period** | 0-90 days | 14 days |
+| **Retry Strategy** | Immediate, Daily, Smart | Smart (1, 3, 5, 7 days) |
+| **Proration** | Enabled/Disabled | Enabled |
+| **Auto-collection** | On/Off | On |
+
+**Subscription Payment Flow**
+
+```mermaid
+sequenceDiagram
+    participant S as Scheduler
+    participant SM as Subscription Manager
+    participant PO as Payment Orchestrator
+    participant C as Customer
+    participant N as Notification Service
+    
+    S->>SM: Trigger Subscription Payment
+    SM->>SM: Validate Subscription Status
+    
+    alt Active Subscription
+        SM->>PO: Process Payment
+        PO->>C: Charge Payment Method
         
-        subscription = await self._get_subscription(subscription_id)
-        
-        if subscription.status != SubscriptionStatus.ACTIVE:
-            logger.info(f"Skipping inactive subscription {subscription_id}")
-            return
-        
-        # Check if payment method is still valid
-        payment_method = await self._get_payment_method(
-            subscription.payment_method_id
-        )
-        
-        if not payment_method or payment_method.status != "active":
-            await self._handle_invalid_payment_method(subscription)
-            return
-        
-        # Create payment request
-        payment_request = PaymentRequest(
-            merchant_id=subscription.merchant_id,
-            amount=subscription.amount,
-            currency=subscription.currency,
-            payment_method=payment_method.to_dict(),
-            metadata={
-                'subscription_id': subscription.id,
-                'billing_period': self._get_current_billing_period(subscription)
-            },
-            idempotency_key=f"sub:{subscription.id}:{datetime.utcnow().date()}"
-        )
-        
-        try:
-            # Process payment
-            result = await self.payment_orchestrator.process_payment(payment_request)
-            
-            if result.success:
-                # Update subscription
-                subscription.last_payment_date = datetime.utcnow()
-                subscription.next_payment_date = self._calculate_next_payment_date(
-                    subscription
-                )
-                await self._update_subscription(subscription)
-                
-                # Schedule next payment
-                await self.scheduler.schedule_job(
-                    job_id=f"subscription:{subscription.id}",
-                    job_type="process_subscription_payment",
-                    run_at=subscription.next_payment_date,
-                    payload={'subscription_id': subscription.id}
-                )
-                
-                # Send success notification
-                await self._send_payment_notification(
-                    subscription,
-                    result,
-                    success=True
-                )
-            else:
-                # Handle payment failure
-                await self._handle_payment_failure(subscription, result)
-                
-        except Exception as e:
-            logger.error(f"Subscription payment error: {e}")
-            await self._handle_payment_error(subscription, e)
+        alt Success
+            C-->>PO: Payment Approved
+            PO-->>SM: Success
+            SM->>S: Schedule Next Payment
+            SM->>N: Send Receipt
+        else Failure
+            C-->>PO: Payment Declined
+            PO-->>SM: Failed
+            SM->>SM: Update to Past Due
+            SM->>S: Schedule Retry
+            SM->>N: Send Failure Notice
+        end
+    else Inactive
+        SM->>S: Cancel Future Payments
+    end
+```
+
+**Retry Strategy Matrix**
+
+| Attempt | Delay | Action | Customer Notice |
+|---------|-------|--------|------------------|
+| 1 | Immediate | Retry same card | None |
+| 2 | 1 day | Retry + email | Payment failed email |
+| 3 | 3 days | Retry + in-app | Update payment method |
+| 4 | 5 days | Retry + SMS | Service interruption warning |
+| 5 | 7 days | Final retry | Suspension notice |
+| 6+ | - | Suspend service | Subscription suspended |
+
+**Subscription Metrics Dashboard**
+
+```mermaid
+graph TB
+    subgraph "Key Metrics"
+        MRR[MRR: $1.2M]
+        CHURN[Churn: 2.3%]
+        LTV[LTV: $480]
+        ARPU[ARPU: $29]
+    end
+    
+    subgraph "Payment Performance"
+        SUCCESS[Success Rate: 97.5%]
+        RETRY[Retry Success: 65%]
+        INVOLUN[Involuntary Churn: 0.8%]
+    end
+    
+    subgraph "Growth Indicators"
+        NEW[New Subs: +5K/mo]
+        UPGRADE[Upgrades: 12%]
+        REACTIVATE[Reactivations: 3%]
+    end
+    
+    style MRR fill:#4ecdc4
+    style CHURN fill:#ff6b6b
+    style SUCCESS fill:#66bb6a
 ```
 
 ### 5.3 Complex Payment Flows
-```python
-class PaymentSagaCoordinator:
-    """Coordinates complex multi-step payment flows"""
+
+```mermaid
+graph TB
+    subgraph "Marketplace Payment Saga"
+        S1[1. Authorize Buyer Payment]
+        S2[2. Calculate Splits]
+        S3[3. Hold Marketplace Fee]
+        S4[4. Transfer to Sellers]
+        S5[5. Capture Payment]
+        S6[6. Update Ledger]
+    end
     
-    def __init__(self, state_machine: StateMachine,
-                 compensator: CompensationManager):
-        self.state_machine = state_machine
-        self.compensator = compensator
-        
-    async def execute_marketplace_payment(self, 
-                                         payment: MarketplacePayment) -> SagaResult:
-        """Execute marketplace payment with splits"""
-        
-        saga = PaymentSaga(
-            id=str(uuid.uuid4()),
-            type="marketplace_payment",
-            state="initiated",
-            steps=[]
-        )
-        
-        try:
-            # Step 1: Authorize payment from buyer
-            auth_step = await self._authorize_buyer_payment(payment)
-            saga.steps.append(auth_step)
-            
-            if not auth_step.success:
-                return SagaResult(success=False, saga=saga)
-            
-            # Step 2: Calculate splits and fees
-            splits = await self._calculate_payment_splits(payment)
-            saga.metadata['splits'] = splits
-            
-            # Step 3: Create hold for marketplace fee
-            hold_step = await self._create_marketplace_hold(
-                payment.amount,
-                splits.marketplace_fee
-            )
-            saga.steps.append(hold_step)
-            
-            # Step 4: Transfer to sellers
-            for split in splits.seller_splits:
-                transfer_step = await self._transfer_to_seller(
-                    split.seller_id,
-                    split.amount,
-                    payment.currency
-                )
-                saga.steps.append(transfer_step)
-                
-                if not transfer_step.success:
-                    # Initiate compensation
-                    await self._compensate_saga(saga)
-                    return SagaResult(success=False, saga=saga)
-            
-            # Step 5: Capture payment
-            capture_step = await self._capture_payment(
-                auth_step.authorization_id,
-                payment.amount
-            )
-            saga.steps.append(capture_step)
-            
-            # Step 6: Record in ledger
-            await self._record_marketplace_transaction(payment, splits)
-            
-            saga.state = "completed"
-            return SagaResult(success=True, saga=saga)
-            
-        except Exception as e:
-            logger.error(f"Saga failed: {e}")
-            await self._compensate_saga(saga)
-            saga.state = "failed"
-            return SagaResult(success=False, saga=saga, error=str(e))
+    subgraph "Compensation Actions"
+        C1[Void Authorization]
+        C2[Release Hold]
+        C3[Reverse Transfers]
+        C4[Refund Payment]
+    end
     
-    async def _compensate_saga(self, saga: PaymentSaga):
-        """Compensate completed steps in reverse order"""
-        
-        for step in reversed(saga.steps):
-            if step.success and step.compensation_action:
-                try:
-                    await self.compensator.compensate(
-                        action=step.compensation_action,
-                        params=step.compensation_params
-                    )
-                except Exception as e:
-                    logger.error(f"Compensation failed for step {step.id}: {e}")
+    S1 --> S2
+    S2 --> S3
+    S3 --> S4
+    S4 --> S5
+    S5 --> S6
+    
+    S1 -.->|On Failure| C1
+    S3 -.->|On Failure| C2
+    S4 -.->|On Failure| C3
+    S5 -.->|On Failure| C4
+    
+    style S1 fill:#4ecdc4
+    style C1 fill:#ff6b6b
 ```
+
+**Marketplace Payment Flow Example**
+
+| Step | Action | Amount | Status | Compensation |
+|------|--------|--------|--------|---------------|
+| 1 | Authorize buyer | $100 | ✅ Success | Void auth |
+| 2 | Calculate splits | - | ✅ Success | None |
+| 3 | Hold platform fee | $10 | ✅ Success | Release hold |
+| 4a | Transfer to Seller A | $60 | ✅ Success | Reverse transfer |
+| 4b | Transfer to Seller B | $30 | ❌ Failed | - |
+| 5 | Compensation started | - | 🔄 Running | - |
+
+**Saga State Machine**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initiated: Start Saga
+    Initiated --> Running: Begin Execution
+    
+    Running --> Running: Execute Steps
+    Running --> Compensating: Step Failed
+    Running --> Completed: All Steps Success
+    
+    Compensating --> Compensating: Undo Steps
+    Compensating --> Compensated: All Undone
+    Compensating --> PartiallyCompensated: Some Failed
+    
+    Completed --> [*]
+    Compensated --> [*]
+    PartiallyCompensated --> ManualIntervention
+```
+
+**Complex Flow Types**
+
+```mermaid
+graph LR
+    subgraph "Split Payments"
+        SP1[Customer $100]
+        SP2[Platform $10]
+        SP3[Seller A $60]
+        SP4[Seller B $30]
+    end
+    
+    subgraph "Escrow Payments"
+        EP1[Hold Funds]
+        EP2[Fulfill Conditions]
+        EP3[Release Funds]
+    end
+    
+    subgraph "Installments"
+        IP1[Initial Payment]
+        IP2[Monthly Charge]
+        IP3[Final Payment]
+    end
+    
+    SP1 --> SP2 & SP3 & SP4
+    EP1 --> EP2 --> EP3
+    IP1 --> IP2 --> IP3
+    
+    style SP1 fill:#4ecdc4
+    style EP1 fill:#ffd93d
+    style IP1 fill:#95e1d3
+```
+
+**Saga Monitoring Dashboard**
+
+| Metric | Value | Threshold | Status |
+|--------|-------|-----------|--------|
+| Success Rate | 98.5% | > 95% | 🟢 Good |
+| Avg Duration | 2.3s | < 5s | 🟢 Good |
+| Compensation Rate | 0.8% | < 2% | 🟢 Good |
+| Partial Failures | 12/day | < 50/day | 🟢 Good |
+| Manual Interventions | 2/week | < 10/week | 🟢 Good |
 
 ## 6. Performance Optimizations
 
 ### 6.1 Connection Pooling and Circuit Breaking
-```python
-class OptimizedPaymentGateway:
-    """High-performance gateway with connection management"""
+
+```mermaid
+graph TB
+    subgraph "Connection Pool"
+        CP[Connection Pool<br/>Max: 100 connections]
+        C1[Active Connection 1]
+        C2[Active Connection 2]
+        CN[Active Connection N]
+        CQ[Connection Queue]
+    end
     
-    def __init__(self):
-        self.connection_pools = {}
-        self.circuit_breakers = {}
-        self.request_coalescer = RequestCoalescer()
-        
-        # Initialize connection pools for each provider
-        for provider_name, config in PROVIDER_CONFIGS.items():
-            self.connection_pools[provider_name] = aiohttp.TCPConnector(
-                limit=config.max_connections,
-                limit_per_host=config.max_per_host,
-                ttl_dns_cache=300,
-                enable_cleanup_closed=True
-            )
-            
-            self.circuit_breakers[provider_name] = CircuitBreaker(
-                failure_threshold=config.failure_threshold,
-                recovery_timeout=config.recovery_timeout,
-                expected_exception=aiohttp.ClientError
-            )
+    subgraph "Circuit Breaker States"
+        CLOSED[Closed<br/>Normal Operation]
+        OPEN[Open<br/>Failing Fast]
+        HALF[Half-Open<br/>Testing Recovery]
+    end
     
-    async def execute_request(self, provider: str, 
-                             request: PaymentRequest) -> PaymentResponse:
-        """Execute request with optimization"""
-        
-        # Check circuit breaker
-        breaker = self.circuit_breakers[provider]
-        if breaker.current_state == "open":
-            raise ProviderUnavailableError(f"{provider} circuit open")
-        
-        # Try request coalescing for idempotent requests
-        if request.idempotent:
-            existing = self.request_coalescer.get_pending(request.idempotency_key)
-            if existing:
-                return await existing
-        
-        # Create future for coalescing
-        future = asyncio.Future()
-        self.request_coalescer.register(request.idempotency_key, future)
-        
-        try:
-            async with aiohttp.ClientSession(
-                connector=self.connection_pools[provider]
-            ) as session:
-                
-                # Execute with circuit breaker
-                response = await breaker.call(
-                    self._make_request,
-                    session,
-                    provider,
-                    request
-                )
-                
-                future.set_result(response)
-                return response
-                
-        except Exception as e:
-            future.set_exception(e)
-            raise
-        finally:
-            self.request_coalescer.remove(request.idempotency_key)
+    subgraph "Request Flow"
+        REQ[Incoming Request]
+        CB[Circuit Breaker Check]
+        POOL[Get Connection]
+        EXEC[Execute Request]
+    end
+    
+    REQ --> CB
+    CB -->|Closed| POOL
+    CB -->|Open| FAIL[Immediate Failure]
+    POOL --> EXEC
+    
+    CLOSED -->|Failures > 5| OPEN
+    OPEN -->|After 60s| HALF
+    HALF -->|Success| CLOSED
+    HALF -->|Failure| OPEN
+    
+    style CLOSED fill:#4ecdc4
+    style OPEN fill:#ff6b6b
+    style HALF fill:#ffd93d
 ```
 
-### 6.2 Caching Strategy
-```python
-class PaymentCache:
-    """Multi-tier caching for payment data"""
+**Connection Pool Configuration**
+
+| Provider | Max Connections | Per Host Limit | TTL | DNS Cache |
+|----------|-----------------|----------------|-----|------------|
+| Stripe | 100 | 50 | 300s | 300s |
+| Adyen | 80 | 40 | 300s | 300s |
+| PayPal | 120 | 60 | 300s | 300s |
+| Default | 50 | 25 | 300s | 300s |
+
+**Circuit Breaker Configuration**
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant CB as Circuit Breaker
+    participant P as Provider
     
-    def __init__(self):
-        self.local_cache = LRUCache(maxsize=10000)
-        self.redis_cache = RedisCache()
-        self.cache_aside_ttl = {
-            'payment_method': 3600,  # 1 hour
-            'merchant_config': 300,  # 5 minutes
-            'exchange_rate': 60,     # 1 minute
-            'risk_score': 86400      # 24 hours
-        }
+    Note over CB: State: CLOSED
     
-    async def get_payment_method(self, payment_method_id: str) -> Optional[PaymentMethod]:
-        """Get payment method with cache-aside pattern"""
-        
-        # Check local cache
-        cached = self.local_cache.get(f"pm:{payment_method_id}")
-        if cached:
-            return cached
-        
-        # Check Redis
-        redis_key = f"payment_method:{payment_method_id}"
-        cached_data = await self.redis_cache.get(redis_key)
-        
-        if cached_data:
-            payment_method = PaymentMethod.from_dict(cached_data)
-            self.local_cache.put(f"pm:{payment_method_id}", payment_method)
-            return payment_method
-        
-        # Fetch from database
-        payment_method = await self._fetch_from_db(payment_method_id)
-        
-        if payment_method:
-            # Update caches
-            await self.redis_cache.set(
-                redis_key,
-                payment_method.to_dict(),
-                ttl=self.cache_aside_ttl['payment_method']
-            )
-            self.local_cache.put(f"pm:{payment_method_id}", payment_method)
-        
-        return payment_method
+    loop Normal Operation
+        C->>CB: Request
+        CB->>P: Forward Request
+        P-->>CB: Success
+        CB-->>C: Response
+    end
+    
+    loop Failures Accumulate
+        C->>CB: Request
+        CB->>P: Forward Request
+        P-->>CB: Error
+        CB-->>C: Error
+        Note over CB: Failures: 1, 2, 3, 4, 5
+    end
+    
+    Note over CB: State: OPEN
+    
+    C->>CB: Request
+    CB-->>C: Fail Fast (Circuit Open)
+    
+    Note over CB: Wait 60 seconds...
+    Note over CB: State: HALF_OPEN
+    
+    C->>CB: Test Request
+    CB->>P: Forward Request
+    P-->>CB: Success
+    CB-->>C: Response
+    
+    Note over CB: State: CLOSED
 ```
+
+**Request Coalescing**
+
+| Scenario | Behavior | Benefit |
+|----------|----------|----------|
+| Duplicate requests | Return same response | Prevent double charges |
+| Concurrent identical | Share single request | Reduce provider load |
+| Idempotent operations | Cache for duration | Improve performance |
+
+### 6.2 Caching Strategy
+
+```mermaid
+graph TB
+    subgraph "Cache Hierarchy"
+        L1[L1: Local Cache<br/>10K entries<br/>~1μs]
+        L2[L2: Redis Cache<br/>Distributed<br/>~1ms]
+        L3[L3: Database<br/>Persistent<br/>~10ms]
+    end
+    
+    subgraph "Cache Patterns"
+        CA[Cache Aside<br/>Lazy Loading]
+        WT[Write Through<br/>Sync Updates]
+        WB[Write Behind<br/>Async Updates]
+    end
+    
+    subgraph "Data Types"
+        PM[Payment Methods<br/>TTL: 1 hour]
+        MC[Merchant Config<br/>TTL: 5 min]
+        FX[Exchange Rates<br/>TTL: 1 min]
+        RS[Risk Scores<br/>TTL: 24 hours]
+    end
+    
+    L1 --> L2 --> L3
+    CA --> PM & MC
+    WT --> FX
+    WB --> RS
+    
+    style L1 fill:#4ecdc4
+    style L2 fill:#ffd93d
+    style L3 fill:#95e1d3
+```
+
+**Cache Configuration Matrix**
+
+| Data Type | Local Cache | Redis TTL | Pattern | Hit Rate Target |
+|-----------|-------------|-----------|---------|------------------|
+| Payment Methods | 10K entries | 3600s | Cache Aside | > 95% |
+| Merchant Config | 1K entries | 300s | Cache Aside | > 90% |
+| Exchange Rates | 100 entries | 60s | Write Through | > 99% |
+| Risk Scores | 50K entries | 86400s | Write Behind | > 80% |
+
+**Cache Performance Metrics**
+
+```mermaid
+sequenceDiagram
+    participant R as Request
+    participant L1 as Local Cache
+    participant L2 as Redis
+    participant DB as Database
+    
+    R->>L1: Get Payment Method
+    
+    alt L1 Hit (95%)
+        L1-->>R: Return (1μs)
+    else L1 Miss
+        L1->>L2: Check Redis
+        
+        alt L2 Hit (4%)
+            L2-->>L1: Data
+            L1->>L1: Update Local
+            L1-->>R: Return (1ms)
+        else L2 Miss (1%)
+            L2->>DB: Query
+            DB-->>L2: Data
+            L2->>L2: Cache with TTL
+            L2-->>L1: Data
+            L1->>L1: Update Local
+            L1-->>R: Return (10ms)
+        end
+    end
+```
+
+**Cache Invalidation Strategy**
+
+| Event | Action | Scope |
+|-------|--------|-------|
+| Payment method updated | Invalidate L1+L2 | Specific key |
+| Merchant config change | Broadcast invalidation | All nodes |
+| FX rate update | Overwrite with new | All instances |
+| Risk model retrain | Bulk invalidation | Pattern match |
 
 ## 7. Security Implementation
 
 ### 7.1 PCI Compliance and Tokenization
-```python
-class TokenizationService:
-    """PCI-compliant card tokenization"""
+
+```mermaid
+graph TB
+    subgraph "PCI Scope Reduction"
+        BROWSER[Customer Browser]
+        IFRAME[Secure iFrame]
+        VAULT[Token Vault]
+        MERCHANT[Merchant Server]
+    end
     
-    def __init__(self, hsm_client: HSMClient):
-        self.hsm = hsm_client
-        self.token_vault = TokenVault()
-        
-    async def tokenize_card(self, card_number: str, 
-                           merchant_id: str) -> TokenizationResult:
-        """Tokenize card number using HSM"""
-        
-        # Validate card number
-        if not self._validate_card_number(card_number):
-            raise InvalidCardNumberError()
-        
-        # Generate token
-        token_data = {
-            'timestamp': datetime.utcnow().isoformat(),
-            'merchant_id': merchant_id,
-            'random': secrets.token_bytes(16).hex()
-        }
-        
-        token = await self.hsm.generate_token(
-            data=json.dumps(token_data),
-            key_id="tokenization_key_v1"
-        )
-        
-        # Encrypt card number
-        encrypted_pan = await self.hsm.encrypt(
-            plaintext=card_number,
-            key_id="pan_encryption_key_v1"
-        )
-        
-        # Store in vault
-        await self.token_vault.store(
-            token=token,
-            encrypted_pan=encrypted_pan,
-            merchant_id=merchant_id,
-            last_four=card_number[-4:],
-            expiry=datetime.utcnow() + timedelta(days=365 * 7)  # 7 years
-        )
-        
-        return TokenizationResult(
-            token=token,
-            last_four=card_number[-4:],
-            card_brand=self._detect_card_brand(card_number)
-        )
+    subgraph "Tokenization Flow"
+        CARD[Card Number:<br/>4111-1111-1111-1111]
+        HSM[HSM Encryption]
+        TOKEN[Token:<br/>tok_1234567890]
+        STORE[Encrypted Storage]
+    end
     
-    async def detokenize_card(self, token: str, 
-                             merchant_id: str) -> str:
-        """Retrieve card number from token"""
-        
-        # Validate token ownership
-        token_data = await self.token_vault.get(token)
-        
-        if not token_data or token_data.merchant_id != merchant_id:
-            raise TokenNotFoundError()
-        
-        if token_data.expiry < datetime.utcnow():
-            raise TokenExpiredError()
-        
-        # Decrypt card number
-        card_number = await self.hsm.decrypt(
-            ciphertext=token_data.encrypted_pan,
-            key_id="pan_encryption_key_v1"
-        )
-        
-        # Audit log
-        await self._audit_detokenization(token, merchant_id)
-        
-        return card_number
+    subgraph "Security Layers"
+        TLS[TLS 1.3]
+        AES[AES-256-GCM]
+        AUDIT[Audit Logging]
+    end
+    
+    BROWSER -->|Never touches merchant| IFRAME
+    IFRAME -->|Direct to vault| VAULT
+    VAULT -->|Only token| MERCHANT
+    
+    CARD --> HSM
+    HSM --> TOKEN
+    TOKEN --> STORE
+    
+    style VAULT fill:#ff6b6b
+    style HSM fill:#4ecdc4
+    style MERCHANT fill:#95e1d3
+```
+
+**PCI Compliance Levels**
+
+| Level | Transaction Volume | Requirements |
+|-------|-------------------|---------------|
+| Level 1 | > 6M transactions/year | Annual onsite audit |
+| Level 2 | 1M - 6M transactions/year | Annual self-assessment |
+| Level 3 | 20K - 1M transactions/year | Annual self-assessment |
+| Level 4 | < 20K transactions/year | Annual self-assessment |
+
+**Tokenization Architecture**
+
+```mermaid
+sequenceDiagram
+    participant C as Customer
+    participant SF as Secure Form
+    participant TS as Token Service
+    participant HSM as HSM
+    participant TV as Token Vault
+    participant M as Merchant
+    
+    C->>SF: Enter Card Details
+    SF->>TS: Card Number (TLS)
+    TS->>TS: Validate Card
+    TS->>HSM: Generate Token
+    HSM-->>TS: Unique Token
+    TS->>HSM: Encrypt PAN
+    HSM-->>TS: Encrypted PAN
+    TS->>TV: Store Mapping
+    TS-->>SF: Return Token
+    SF-->>M: Token Only
+    
+    Note over M: Merchant never sees card number
+```
+
+**Token Format & Security**
+
+| Component | Example | Purpose |
+|-----------|---------|---------|  
+| Prefix | tok_ | Identify token type |
+| Version | 1 | Token format version |
+| Random ID | 2FqH8Kxp9... | Unique identifier |
+| Checksum | a7b3 | Validate token integrity |
+| **Full Token** | tok_12FqH8Kxp9...a7b3 | Safe to store |
+
+**Security Controls**
+
+```mermaid
+graph LR
+    subgraph "Data Protection"
+        E1[Encryption at Rest<br/>AES-256]
+        E2[Encryption in Transit<br/>TLS 1.3]
+        E3[Key Management<br/>HSM/KMS]
+    end
+    
+    subgraph "Access Control"
+        A1[Role-Based Access]
+        A2[API Key Authentication]
+        A3[IP Whitelisting]
+    end
+    
+    subgraph "Monitoring"
+        M1[Access Logs]
+        M2[Anomaly Detection]
+        M3[Compliance Reports]
+    end
+    
+    E1 & E2 & E3 --> SECURE[PCI DSS Compliant]
+    A1 & A2 & A3 --> SECURE
+    M1 & M2 & M3 --> SECURE
+    
+    style SECURE fill:#66bb6a
 ```
 
 ### 7.2 End-to-End Encryption
-```python
-class E2EEncryption:
-    """End-to-end encryption for sensitive payment data"""
+
+```mermaid
+sequenceDiagram
+    participant S as Sender
+    participant KE as Key Exchange
+    participant E as Encryption
+    participant N as Network
+    participant D as Decryption
+    participant R as Recipient
     
-    def __init__(self):
-        self.key_manager = KeyManager()
-        
-    async def encrypt_payment_data(self, 
-                                  payment_data: Dict,
-                                  recipient_public_key: str) -> EncryptedPayment:
-        """Encrypt payment data for specific recipient"""
-        
-        # Generate ephemeral key pair
-        ephemeral_private = ec.generate_private_key(ec.SECP256R1())
-        ephemeral_public = ephemeral_private.public_key()
-        
-        # Derive shared secret
-        recipient_key = serialization.load_pem_public_key(
-            recipient_public_key.encode()
-        )
-        shared_secret = ephemeral_private.exchange(
-            ec.ECDH(), 
-            recipient_key
-        )
-        
-        # Derive encryption key
-        kdf = HKDF(
-            algorithm=hashes.SHA256(),
-            length=32,
-            salt=None,
-            info=b'payment encryption'
-        )
-        encryption_key = kdf.derive(shared_secret)
-        
-        # Encrypt payment data
-        cipher = Cipher(
-            algorithms.AES(encryption_key),
-            modes.GCM(os.urandom(12))
-        )
-        encryptor = cipher.encryptor()
-        
-        plaintext = json.dumps(payment_data).encode()
-        ciphertext = encryptor.update(plaintext) + encryptor.finalize()
-        
-        return EncryptedPayment(
-            ephemeral_public_key=ephemeral_public.public_bytes(
-                encoding=serialization.Encoding.PEM,
-                format=serialization.PublicFormat.SubjectPublicKeyInfo
-            ).decode(),
-            ciphertext=base64.b64encode(ciphertext).decode(),
-            tag=base64.b64encode(encryptor.tag).decode()
-        )
+    S->>KE: Generate Ephemeral Keys
+    KE->>KE: ECDH Key Agreement
+    KE->>E: Derive Shared Secret
+    
+    S->>E: Payment Data
+    E->>E: AES-256-GCM Encrypt
+    E->>N: Encrypted Payload
+    
+    Note over N: Only encrypted data in transit
+    
+    N->>D: Encrypted Payload
+    R->>D: Private Key
+    D->>D: Derive Shared Secret
+    D->>D: AES-256-GCM Decrypt
+    D->>R: Payment Data
 ```
+
+**E2E Encryption Components**
+
+| Component | Algorithm | Purpose | Key Size |
+|-----------|-----------|---------|----------|
+| Key Exchange | ECDH (P-256) | Establish shared secret | 256 bits |
+| Symmetric Encryption | AES-GCM | Encrypt payment data | 256 bits |
+| Key Derivation | HKDF-SHA256 | Derive encryption key | 256 bits |
+| Authentication | HMAC-SHA256 | Message integrity | 256 bits |
+
+**Encryption Flow Diagram**
+
+```mermaid
+graph TB
+    subgraph "Sender Side"
+        PD[Payment Data]
+        EPK[Ephemeral Key Pair]
+        SS1[Shared Secret]
+        EK1[Encryption Key]
+        CT[Ciphertext]
+    end
+    
+    subgraph "Transit"
+        PACK[Encrypted Package:<br/>- Ephemeral Public Key<br/>- Ciphertext<br/>- Auth Tag]
+    end
+    
+    subgraph "Recipient Side"
+        RPK[Recipient Private Key]
+        SS2[Shared Secret]
+        EK2[Encryption Key]
+        PT[Plaintext]
+    end
+    
+    PD --> EK1
+    EPK --> SS1
+    SS1 --> EK1
+    EK1 --> CT
+    CT --> PACK
+    
+    PACK --> SS2
+    RPK --> SS2
+    SS2 --> EK2
+    EK2 --> PT
+    
+    style PACK fill:#ff6b6b
+    style CT fill:#4ecdc4
+    style PT fill:#66bb6a
+```
+
+**Security Properties**
+
+| Property | Description | Benefit |
+|----------|-------------|----------|
+| **Forward Secrecy** | New keys each session | Past data stays secure |
+| **Non-repudiation** | Digital signatures | Proof of transaction |
+| **Integrity** | AEAD encryption | Tamper detection |
+| **Confidentiality** | Strong encryption | Data privacy |
 
 ## 7. Consistency Deep Dive for Payment Systems
 

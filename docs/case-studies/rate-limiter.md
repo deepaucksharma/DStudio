@@ -53,29 +53,40 @@ Solution Strategy:
 - Optimistic local decisions
 ```
 
-**Implementation:**
-```python
-class LocalRateLimiter:
-    def __init__(self, sync_interval_ms=100):
-        self.local_counts = {}
-        self.sync_interval = sync_interval_ms
-        self.bloom_filter = BloomFilter(size=1000000, fp_rate=0.01)
+**Implementation Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Fast Path"
+        BF[Bloom Filter<br/>0.01ms]
+        LC[Local Cache<br/>0.05ms]
+    end
     
-    async def check_rate_limit(self, key, limit):
-        # Ultra-fast bloom filter check first
-        if key not in self.bloom_filter:
-            self.bloom_filter.add(key)
-            return True  # First request, definitely allowed
-        
-        # Local cache check
-        if key in self.local_counts:
-            if self.local_counts[key] < limit * 0.8:  # 80% local threshold
-                self.local_counts[key] += 1
-                return True
-        
-        # Fall back to distributed check
-        return await self.distributed_check(key, limit)
+    subgraph "Distributed Path"
+        DC[Distributed Check<br/>0.5ms]
+        REDIS[Redis Backend]
+    end
+    
+    REQ[Request] --> BF
+    BF -->|Not seen| ALLOW[Allow + Add to BF]
+    BF -->|Maybe seen| LC
+    LC -->|Under 80%| ALLOW2[Allow + Increment]
+    LC -->|Over 80%| DC
+    DC --> REDIS
+    
+    style BF fill:#4ecdc4
+    style LC fill:#ffd93d
+    style REDIS fill:#ff6b6b
 ```
+
+**Local Rate Limiter Configuration:**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|  
+| Bloom Filter Size | 1M entries | First-time detection |
+| False Positive Rate | 1% | Space vs accuracy |
+| Local Threshold | 80% of limit | Reduce distributed calls |
+| Sync Interval | 100ms | Balance accuracy vs load |
 
 #### 💾 Axiom 2 (Capacity): Finite Resources
 ```text
@@ -97,27 +108,46 @@ Distribution Strategy:
 - Each node handles ~100K requests/second
 ```
 
-**Implementation:**
-```yaml
-# Kubernetes deployment
-apiVersion: apps/v1
-kind: StatefulSet
-metadata:
-  name: rate-limiter
-spec:
-  replicas: 100
-  template:
-    spec:
-      containers:
-      - name: rate-limiter
-        resources:
-          requests:
-            memory: "512Mi"
-            cpu: "2"
-          limits:
-            memory: "1Gi"
-            cpu: "4"
+**Deployment Configuration:**
+
+```mermaid
+graph TB
+    subgraph "Kubernetes Cluster"
+        subgraph "StatefulSet: 100 replicas"
+            P1[Pod 1<br/>2 CPU / 512Mi]
+            P2[Pod 2<br/>2 CPU / 512Mi]
+            PN[Pod N<br/>2 CPU / 512Mi]
+        end
+        
+        subgraph "Storage"
+            PV1[PersistentVolume 1]
+            PV2[PersistentVolume 2]
+            PVN[PersistentVolume N]
+        end
+        
+        subgraph "Services"
+            SVC[Headless Service]
+            LB[Load Balancer]
+        end
+    end
+    
+    P1 --> PV1
+    P2 --> PV2
+    PN --> PVN
+    
+    LB --> P1 & P2 & PN
+    
+    style P1 fill:#4ecdc4
 ```
+
+**Resource Allocation:**
+
+| Resource | Request | Limit | Purpose |
+|----------|---------|-------|---------|  
+| CPU | 2 cores | 4 cores | Handle 100K req/s |
+| Memory | 512Mi | 1Gi | Cache + state |
+| Replicas | 100 | - | 10M total req/s |
+| Storage | 10Gi | - | Persistent state |
 
 #### 🔥 Axiom 3 (Failure): Byzantine Failures
 ```text
@@ -135,30 +165,39 @@ Mitigation Strategies:
 - Best-effort enforcement during failures
 ```
 
-**Implementation:**
-```python
-class ResilientRateLimiter:
-    def __init__(self):
-        self.circuit_breaker = CircuitBreaker(
-            failure_threshold=5,
-            recovery_timeout=60,
-            expected_exception=RedisConnectionError
-        )
+**Failure Handling Architecture:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Normal: System Start
     
-    async def check_limit(self, key, limit):
-        try:
-            # Try distributed check with circuit breaker
-            with self.circuit_breaker:
-                return await self.redis_check(key, limit)
-        except CircuitBreakerOpen:
-            # Fallback to local enforcement
-            return self.local_fallback(key, limit)
-        except Exception as e:
-            # Ultimate fallback: allow with logging
-            logger.error(f"Rate limiter failure: {e}")
-            metrics.increment("rate_limiter.fallback")
-            return True  # Fail open for availability
+    Normal --> Normal: Success
+    Normal --> Degraded: Redis Errors > 5
+    
+    Degraded --> LocalOnly: Circuit Open
+    LocalOnly --> Testing: After 60s
+    Testing --> Normal: Success
+    Testing --> LocalOnly: Still Failing
+    
+    state Normal {
+        [*] --> RedisCheck
+        RedisCheck --> [*]: Result
+    }
+    
+    state LocalOnly {
+        [*] --> LocalFallback
+        LocalFallback --> [*]: Allow (Fail Open)
+    }
 ```
+
+**Resilience Configuration:**
+
+| Component | Setting | Purpose |
+|-----------|---------|---------|  
+| Circuit Breaker Threshold | 5 failures | Prevent cascading failure |
+| Recovery Timeout | 60 seconds | Allow system recovery |
+| Fallback Strategy | Fail open | Prioritize availability |
+| Local Limits | Conservative | Prevent abuse during outage |
 
 #### 🔀 Axiom 4 (Concurrency): Race Conditions
 ```text
@@ -175,29 +214,44 @@ Solutions:
 - Eventually consistent local views
 ```
 
-**Implementation:**
-```lua
--- Lua script for atomic rate limit check
-local key = KEYS[1]
-local limit = tonumber(ARGV[1])
-local window = tonumber(ARGV[2])
-local current_time = tonumber(ARGV[3])
+**Sliding Window Implementation:**
 
--- Remove old entries
-redis.call('ZREMRANGEBYSCORE', key, 0, current_time - window)
-
--- Count current entries
-local current = redis.call('ZCARD', key)
-
-if current < limit then
-    -- Add new entry
-    redis.call('ZADD', key, current_time, current_time)
-    redis.call('EXPIRE', key, window)
-    return 1  -- Allowed
-else
-    return 0  -- Denied
-end
+```mermaid
+graph LR
+    subgraph "Sliding Window (60s)"
+        T1[T-60s] --> T2[T-45s] --> T3[T-30s] --> T4[T-15s] --> NOW[Now]
+    end
+    
+    subgraph "Redis Sorted Set"
+        E1[Entry: score=timestamp]
+        E2[Entry: score=timestamp]
+        EN[Entry: score=timestamp]
+    end
+    
+    subgraph "Operations"
+        REM[Remove old entries<br/>ZREMRANGEBYSCORE]
+        COUNT[Count entries<br/>ZCARD]
+        ADD[Add new entry<br/>ZADD]
+    end
+    
+    T1 -.->|Expire| REM
+    NOW --> COUNT
+    COUNT -->|< limit| ADD
+    
+    style NOW fill:#4ecdc4
+    style REM fill:#ff6b6b
 ```
+
+**Lua Script Operations:**
+
+| Step | Redis Command | Purpose | Time Complexity |
+|------|---------------|---------|------------------|
+| 1 | ZREMRANGEBYSCORE | Remove expired entries | O(log N + M) |
+| 2 | ZCARD | Count current entries | O(1) |
+| 3 | ZADD | Add new entry | O(log N) |
+| 4 | EXPIRE | Set TTL on key | O(1) |
+
+**Atomicity Guarantee:** All operations execute atomically in Redis, preventing race conditions.
 
 #### 🤝 Axiom 5 (Coordination): Distributed Consensus
 ```text
@@ -214,31 +268,44 @@ Implementation:
 - CRDTs for conflict resolution
 ```
 
-**Implementation:**
-```python
-class DistributedRateLimiter:
-    def __init__(self):
-        self.gossip = GossipProtocol(
-            node_id=self.node_id,
-            seeds=['limiter-1', 'limiter-2', 'limiter-3']
-        )
-        self.crdt_counter = GCounter()  # Grow-only counter
+**Distributed Coordination Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Gossip Protocol"
+        N1[Node 1] <-->|State Exchange| N2[Node 2]
+        N2 <-->|State Exchange| N3[Node 3]
+        N3 <-->|State Exchange| N4[Node 4]
+        N4 <-->|State Exchange| N1
+    end
     
-    async def sync_counts(self):
-        # Gossip local state
-        local_state = self.crdt_counter.state()
-        await self.gossip.broadcast({
-            'type': 'counter_sync',
-            'node': self.node_id,
-            'state': local_state
-        })
+    subgraph "CRDT State"
+        GC1[G-Counter 1<br/>{N1:100, N2:50}]
+        GC2[G-Counter 2<br/>{N1:100, N2:52}]
+        MERGE[Merge Operation<br/>Max per node]
+    end
     
-    async def handle_gossip(self, message):
-        if message['type'] == 'counter_sync':
-            # Merge remote state
-            remote_state = message['state']
-            self.crdt_counter.merge(remote_state)
+    subgraph "Consistency"
+        EC[Eventual Consistency<br/>Converges in seconds]
+    end
+    
+    N1 --> GC1
+    N2 --> GC2
+    GC1 & GC2 --> MERGE
+    MERGE --> EC
+    
+    style N1 fill:#4ecdc4
+    style MERGE fill:#ffd93d
 ```
+
+**Gossip Configuration:**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|  
+| Gossip Interval | 500ms | State propagation speed |
+| Fanout | 3 nodes | Redundancy vs bandwidth |
+| Seed Nodes | 3 | Bootstrap discovery |
+| CRDT Type | G-Counter | Conflict-free counting |
 
 #### 👁️ Axiom 6 (Observability): Monitoring
 ```text
@@ -256,33 +323,47 @@ Observability Stack:
 - Custom dashboards for operations
 ```
 
-**Implementation:**
-```python
-class ObservableRateLimiter:
-    def __init__(self):
-        self.metrics = MetricsCollector()
-        
-    async def check_rate_limit(self, key, limit):
-        with self.metrics.timer('rate_limiter.check_duration'):
-            result = await self._do_check(key, limit)
-            
-            # Record detailed metrics
-            self.metrics.increment('rate_limiter.checks', tags={
-                'result': 'allowed' if result else 'denied',
-                'strategy': self.get_strategy(key),
-                'limit_type': self.get_limit_type(limit)
-            })
-            
-            if not result:
-                # Log denials for analysis
-                logger.info('rate_limit_exceeded', extra={
-                    'key': key,
-                    'limit': limit,
-                    'current_rate': self.get_current_rate(key)
-                })
-            
-            return result
+**Observability Stack:**
+
+```mermaid
+graph TB
+    subgraph "Metrics Collection"
+        REQ[Request Metrics]
+        LAT[Latency Histogram]
+        DENY[Denial Counter]
+        FALL[Fallback Rate]
+    end
+    
+    subgraph "Monitoring"
+        PROM[Prometheus<br/>15s scrape]
+        GRAF[Grafana<br/>Dashboards]
+        ALERT[AlertManager]
+    end
+    
+    subgraph "Logging"
+        STRUCT[Structured Logs]
+        ELK[ELK Stack]
+        TRACE[Distributed Tracing]
+    end
+    
+    REQ & LAT & DENY & FALL --> PROM
+    PROM --> GRAF
+    PROM --> ALERT
+    
+    DENY --> STRUCT --> ELK
+    
+    style PROM fill:#ff6b6b
+    style GRAF fill:#4ecdc4
 ```
+
+**Key Metrics:**
+
+| Metric | Type | Labels | Alert Threshold |
+|--------|------|--------|------------------|
+| rate_limiter.checks | Counter | result, strategy | - |
+| rate_limiter.latency | Histogram | strategy | p99 > 5ms |
+| rate_limiter.denials | Counter | reason, endpoint | rate > 10% |
+| rate_limiter.fallbacks | Counter | reason | rate > 1% |
 
 #### 👤 Axiom 7 (Human Interface): Operations
 ```text
@@ -299,28 +380,45 @@ Interface Design:
 - Automated alerts
 ```
 
-**Implementation:**
-```python
-# Admin API for rate limiter management
-@app.post("/api/v1/rate-limits")
-async def update_rate_limit(config: RateLimitConfig):
-    """Update rate limit configuration dynamically"""
-    validation_errors = validate_config(config)
-    if validation_errors:
-        return JSONResponse(
-            status_code=400,
-            content={"errors": validation_errors}
-        )
+**Admin API Architecture:**
+
+```mermaid
+sequenceDiagram
+    participant A as Admin
+    participant API as REST API
+    participant V as Validator
+    participant C as Config Store
+    participant N as Nodes
     
-    # Apply configuration with canary rollout
-    await rate_limiter.apply_config(
-        config,
-        rollout_percentage=10,  # Start with 10%
-        rollout_duration_minutes=30
-    )
+    A->>API: POST /api/v1/rate-limits
+    API->>V: Validate Config
+    V-->>API: Validation Result
     
-    return {"status": "applied", "config": config.dict()}
+    alt Valid Config
+        API->>C: Store Config
+        API->>N: Canary Rollout (10%)
+        
+        loop Monitor for 30 min
+            N-->>API: Metrics
+            API->>API: Check Health
+        end
+        
+        API->>N: Full Rollout
+        API-->>A: Success
+    else Invalid Config
+        API-->>A: 400 Bad Request
+    end
 ```
+
+**API Endpoints:**
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|  
+| /api/v1/rate-limits | GET | List current limits |
+| /api/v1/rate-limits | POST | Update limits |
+| /api/v1/rate-limits/{id} | DELETE | Remove limit rule |
+| /api/v1/metrics | GET | Current metrics |
+| /api/v1/debug/{key} | GET | Debug specific key |
 
 #### 💰 Axiom 8 (Economics): Cost Optimization
 ```text
@@ -337,30 +435,43 @@ Optimization Strategies:
 - Auto-scaling during peak times
 ```
 
-**Implementation:**
-```python
-class EconomicRateLimiter:
-    def __init__(self):
-        self.cost_tracker = CostTracker()
-        
-    async def optimize_for_cost(self):
-        # Analyze usage patterns
-        usage_stats = await self.analyze_usage()
-        
-        # Adjust caching strategy
-        if usage_stats.redis_cost > THRESHOLD:
-            self.increase_local_cache_ratio()
-        
-        # Scale down during off-peak
-        if usage_stats.current_load < 0.3:
-            await self.scale_down_replicas()
-        
-        # Report cost metrics
-        self.cost_tracker.report({
-            'redis_calls_saved': usage_stats.cache_hits,
-            'estimated_savings': usage_stats.cache_hits * 0.0001
-        })
+**Cost Optimization Strategy:**
+
+```mermaid
+graph TB
+    subgraph "Cost Factors"
+        REDIS[Redis Cluster<br/>$500/month]
+        COMPUTE[100 Nodes<br/>$2000/month]
+        NET[Network Transfer<br/>$300/month]
+    end
+    
+    subgraph "Optimizations"
+        CACHE[Local Caching<br/>80% reduction]
+        BLOOM[Bloom Filters<br/>90% reduction]
+        SCALE[Auto-scaling<br/>40% savings]
+    end
+    
+    subgraph "Savings"
+        BEFORE[Before: $2800/mo]
+        AFTER[After: $1400/mo]
+        SAVE[50% Cost Reduction]
+    end
+    
+    REDIS --> CACHE --> SAVE
+    COMPUTE --> SCALE --> SAVE
+    NET --> BLOOM --> SAVE
+    
+    style SAVE fill:#4ecdc4
 ```
+
+**Cost Breakdown:**
+
+| Component | Base Cost | Optimization | Savings |
+|-----------|-----------|--------------|---------|  
+| Redis calls | $500/mo | Local cache (80%) | $400/mo |
+| Compute | $2000/mo | Auto-scale (40%) | $800/mo |
+| Network | $300/mo | Bloom filter (50%) | $150/mo |
+| **Total** | **$2800/mo** | **Combined** | **$1350/mo** |
 
 ### 🏛️ Pillar Mapping
 

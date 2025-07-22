@@ -1,0 +1,2649 @@
+# Cross-Reference Validation Report
+Generated for: /Users/deepaksharma/syc/DStudio/docs
+Total files scanned: 180
+
+## Summary
+- Broken links: 1595
+- Broken anchors: 1
+- Heading structure issues: 874
+- Duplicate anchors: 151
+- Circular references: 0
+- Errors: 0
+
+## Broken Links
+- BROKEN LINK in NAVIGATION_ENHANCEMENTS.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in NAVIGATION_ENHANCEMENTS.md:80 - 'quantitative/queueing-models.md' points outside docs root
+- BROKEN LINK in NAVIGATION_ENHANCEMENTS.md:81 - 'human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in NAVIGATION_ENHANCEMENTS.md:84 - 'part1-axioms/axiom6-observability/exercises.md' points outside docs root
+- BROKEN LINK in NAVIGATION_ENHANCEMENTS.md:85 - 'patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in NAVIGATION_ENHANCEMENTS.md:89 - 'part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:15 - 'part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:23 - 'case-studies/rate-limiter.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:26 - 'patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:31 - 'quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:33 - 'quantitative/availability-math.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:40 - 'case-studies/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:43 - 'part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:46 - 'part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:51 - 'case-studies/youtube.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:52 - 'case-studies/paypal-payments.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:53 - 'case-studies/uber-location.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:54 - 'human-factors/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:62 - 'part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:65 - 'part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:68 - 'case-studies/amazon-dynamo.md#trade-off-analysis' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:76 - 'patterns/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:95 - 'part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:96 - 'part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:99 - 'part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:100 - 'patterns/tunable-consistency.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:103 - 'case-studies/paypal-payments.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:104 - 'case-studies/amazon-dynamo.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:107 - 'part1-axioms/axiom5-coordination/exercises.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:108 - 'human-factors/consistency-tuning.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:114 - 'part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:115 - 'part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:118 - 'quantitative/latency-ladder.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:119 - 'quantitative/queueing-models.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:120 - 'quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:123 - 'patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:124 - 'patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:127 - 'case-studies/youtube.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:128 - 'case-studies/spotify-recommendations.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:134 - 'part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:137 - 'part1-axioms/axiom8-economics/exercises.md#lab-1' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:138 - 'part1-axioms/axiom8-economics/exercises.md#lab-2' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:145 - 'part1-axioms/axiom8-economics/exercises.md#lab-3' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:146 - 'part1-axioms/axiom8-economics/exercises.md#lab-4' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:152 - 'part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:153 - 'part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:156 - 'quantitative/availability-math.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:157 - 'part1-axioms/axiom3-failure/index.md#the-mathematics-of-failure' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:160 - 'patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:161 - 'patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:162 - 'patterns/timeout.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:165 - 'human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:166 - 'human-factors/blameless-postmortems.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:167 - 'human-factors/chaos-engineering.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:232 - 'part1-axioms/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:233 - 'case-studies/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:234 - 'patterns/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:235 - 'quantitative/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:236 - 'human-factors/index.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:239 - 'part1-axioms/axiom1-latency/examples.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:240 - 'case-studies/amazon-dynamo.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:241 - 'patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:242 - 'quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in LEARNING_PATHS.md:243 - 'human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in FORMATTING_ISSUES.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in index.md:86 - 'part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in index.md:87 - 'part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in index.md:88 - 'part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in index.md:89 - 'part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in index.md:90 - 'part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in index.md:91 - 'part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in index.md:92 - 'part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in index.md:93 - 'part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in index.md:97 - 'part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in index.md:98 - 'part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in index.md:99 - 'part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in index.md:100 - 'part2-pillars/control/index.md' points outside docs root
+- BROKEN LINK in index.md:101 - 'part2-pillars/intelligence/index.md' points outside docs root
+- BROKEN LINK in index.md:105 - 'patterns/index.md#core-patterns' points outside docs root
+- BROKEN LINK in index.md:106 - 'patterns/index.md#resilience-patterns' points outside docs root
+- BROKEN LINK in index.md:107 - 'patterns/index.md#data-patterns' points outside docs root
+- BROKEN LINK in index.md:108 - 'patterns/index.md#coordination-patterns' points outside docs root
+- BROKEN LINK in index.md:109 - 'patterns/index.md#operational-patterns' points outside docs root
+- BROKEN LINK in index.md:113 - 'quantitative/index.md#latency--performance' points outside docs root
+- BROKEN LINK in index.md:114 - 'quantitative/index.md#scaling-laws' points outside docs root
+- BROKEN LINK in index.md:115 - 'quantitative/index.md#economics--planning' points outside docs root
+- BROKEN LINK in index.md:119 - 'human-factors/index.md#production-excellence' points outside docs root
+- BROKEN LINK in index.md:120 - 'human-factors/index.md#operational-practices' points outside docs root
+- BROKEN LINK in index.md:121 - 'human-factors/index.md#key-concepts' points outside docs root
+- BROKEN LINK in index.md:129 - 'tools/index.md#latency-calculator' points outside docs root
+- BROKEN LINK in index.md:133 - 'tools/index.md#capacity-planner' points outside docs root
+- BROKEN LINK in index.md:137 - 'tools/index.md#pattern-selector' points outside docs root
+- BROKEN LINK in index.md:146 - 'case-studies/uber-location.md' points outside docs root
+- BROKEN LINK in index.md:151 - 'case-studies/amazon-dynamo.md' points outside docs root
+- BROKEN LINK in index.md:156 - 'case-studies/spotify-recommendations.md' points outside docs root
+- BROKEN LINK in index.md:181 - 'introduction/index.md' points outside docs root
+- BROKEN LINK in index.md:181 - 'part1-axioms/index.md' points outside docs root
+- BROKEN LINK in index.md:181 - 'patterns/index.md' points outside docs root
+- BROKEN LINK in index.md:184 - 'patterns/index.md' points outside docs root
+- BROKEN LINK in index.md:184 - 'case-studies/index.md' points outside docs root
+- BROKEN LINK in index.md:187 - 'human-factors/index.md' points outside docs root
+- BROKEN LINK in index.md:187 - 'quantitative/index.md' points outside docs root
+- BROKEN LINK in index.md:190 - 'reference/index.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:34 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:34 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:425 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:607 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:607 - '../patterns/backpressure.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:705 - '../part1-axioms/capacity/index.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:871 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:871 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:871 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:872 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:872 - '../patterns/backpressure.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:872 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:873 - '../human-factors/capacity-planning.md' points outside docs root
+- BROKEN LINK in quantitative/queueing-models.md:873 - '../human-factors/performance-testing.md' points outside docs root
+- BROKEN LINK in quantitative/amdahl-gustafson.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/amdahl-gustafson.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:185 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:185 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:226 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:330 - '../part1-axioms/failure/index.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:540 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:540 - '../patterns/cell-based.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:554 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:554 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:554 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:555 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:555 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:555 - '../patterns/failover.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:556 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:556 - '../human-factors/chaos-engineering.md' points outside docs root
+- BROKEN LINK in quantitative/availability-math.md:556 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in quantitative/universal-scalability.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/universal-scalability.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/problem-set.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/problem-set.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:32 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:33 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:34 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:37 - 'amdahl-gustafson.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:38 - 'universal-scalability.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:41 - 'coordination-costs.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:42 - 'cache-economics.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:43 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:44 - 'capacity-planning.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:47 - 'problem-set.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:132 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:133 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:137 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:138 - 'amdahl-gustafson.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:139 - 'problem-set.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:142 - 'universal-scalability.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:143 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:147 - 'capacity-planning.md' points outside docs root
+- BROKEN LINK in quantitative/index.md:148 - 'cache-economics.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:202 - '../part1-axioms/latency/index.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:213 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:311 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:332 - 'littles-law.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:332 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:332 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:333 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:333 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:334 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in quantitative/latency-ladder.md:334 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in quantitative/capacity-planning.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/capacity-planning.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/cache-economics.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/cache-economics.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/coordination-costs.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/coordination-costs.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:733 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:908 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:913 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:918 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:924 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:925 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:926 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:948 - 'queueing-models.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:948 - 'latency-ladder.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:948 - 'availability-math.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:949 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:949 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:949 - '../patterns/backpressure.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:950 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in quantitative/littles-law.md:950 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in tools/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/load-shedding.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/load-shedding.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/load-shedding.md:544 - 'current_load' points outside docs root
+- BROKEN LINK in patterns/load-shedding.md:548 - 'current_load' points outside docs root
+- BROKEN LINK in patterns/load-shedding.md:650 - 'load-balancing.md' points outside docs root
+- BROKEN LINK in patterns/load-shedding.md:650 - 'observability.md' points outside docs root
+- BROKEN LINK in patterns/graceful-degradation.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/graceful-degradation.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/graceful-degradation.md:791 - 'geo-replication.md' points outside docs root
+- BROKEN LINK in patterns/graceful-degradation.md:791 - 'graphql-federation.md' points outside docs root
+- BROKEN LINK in patterns/caching-strategies.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/caching-strategies.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/caching-strategies.md:1318 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/caching-strategies.md:1318 - 'cdc.md' points outside docs root
+- BROKEN LINK in patterns/event-sourcing.md:715 - 'event' points outside docs root
+- BROKEN LINK in patterns/event-sourcing.md:1198 - '/patterns/cqrs/' -> file 'patterns/cqrs/' not found
+- BROKEN LINK in patterns/event-sourcing.md:1199 - '/patterns/saga/' -> file 'patterns/saga/' not found
+- BROKEN LINK in patterns/event-sourcing.md:1200 - '/patterns/event-driven/' -> file 'patterns/event-driven/' not found
+- BROKEN LINK in patterns/tunable-consistency.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/tunable-consistency.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/tunable-consistency.md:1133 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/tunable-consistency.md:1133 - 'sharding.md' points outside docs root
+- BROKEN LINK in patterns/consensus.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/consensus.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/consensus.md:766 - 'circuit-breaker.md' points outside docs root
+- BROKEN LINK in patterns/consensus.md:766 - 'cqrs.md' points outside docs root
+- BROKEN LINK in patterns/multi-region.md:78 - '/patterns/geo-replication/' -> file 'patterns/geo-replication/' not found
+- BROKEN LINK in patterns/multi-region.md:79 - '/patterns/edge-computing/' -> file 'patterns/edge-computing/' not found
+- BROKEN LINK in patterns/multi-region.md:80 - '/patterns/tunable-consistency/' -> file 'patterns/tunable-consistency/' not found
+- BROKEN LINK in patterns/bulkhead.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1786 - 'circuit-breaker.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1787 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1788 - 'rate-limiting.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1789 - 'load-shedding.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1790 - 'service-mesh.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1807 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/bulkhead.md:1807 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:383 - 'cdc.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:383 - 'consensus.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:385 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:385 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker.md:385 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/outbox.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/outbox.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/outbox.md:1347 - 'finops.md' points outside docs root
+- BROKEN LINK in patterns/outbox.md:1347 - 'idempotent-receiver.md' points outside docs root
+- BROKEN LINK in patterns/leader-election.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/leader-election.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/leader-election.md:1323 - 'idempotent-receiver.md' points outside docs root
+- BROKEN LINK in patterns/leader-election.md:1323 - 'load-balancing.md' points outside docs root
+- BROKEN LINK in patterns/geo-replication.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/geo-replication.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/geo-replication.md:310 - 'conflicts' points outside docs root
+- BROKEN LINK in patterns/geo-replication.md:1471 - 'finops.md' points outside docs root
+- BROKEN LINK in patterns/geo-replication.md:1471 - 'graceful-degradation.md' points outside docs root
+- BROKEN LINK in patterns/pattern-combinations.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-combinations.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-combinations.md:754 - 'pattern-selector.md' points outside docs root
+- BROKEN LINK in patterns/pattern-combinations.md:754 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1833 - 'circuit-breaker.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1834 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1835 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1836 - 'rate-limiting.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1837 - 'saga.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1854 - 'rate-limiting.md' points outside docs root
+- BROKEN LINK in patterns/retry-backoff.md:1854 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:2321 - 'circuit-breaker.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:2322 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:2323 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:2324 - 'load-shedding.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:2341 - 'load-shedding.md' points outside docs root
+- BROKEN LINK in patterns/rate-limiting.md:2341 - 'service-discovery.md' points outside docs root
+- BROKEN LINK in patterns/health-check.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/health-check.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/health-check.md:738 - 'graphql-federation.md' points outside docs root
+- BROKEN LINK in patterns/health-check.md:738 - 'idempotent-receiver.md' points outside docs root
+- BROKEN LINK in patterns/graphql-federation.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/graphql-federation.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/graphql-federation.md:1208 - 'auto-scaling.md' points outside docs root
+- BROKEN LINK in patterns/graphql-federation.md:1208 - 'health-check.md' points outside docs root
+- BROKEN LINK in patterns/pattern-selector.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-selector.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-selector.md:594 - 'pattern-comparison.md' points outside docs root
+- BROKEN LINK in patterns/pattern-selector.md:594 - 'pattern-combinations.md' points outside docs root
+- BROKEN LINK in patterns/service-discovery.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/service-discovery.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/service-discovery.md:892 - 'serverless-faas.md' points outside docs root
+- BROKEN LINK in patterns/service-discovery.md:892 - 'service-mesh.md' points outside docs root
+- BROKEN LINK in patterns/index.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/index.md:27 - 'pattern-comparison.md' points outside docs root
+- BROKEN LINK in patterns/index.md:28 - 'pattern-selector.md' points outside docs root
+- BROKEN LINK in patterns/index.md:29 - 'pattern-combinations.md' points outside docs root
+- BROKEN LINK in patterns/index.md:43 - 'queues-streaming.md' points outside docs root
+- BROKEN LINK in patterns/index.md:44 - 'cqrs.md' points outside docs root
+- BROKEN LINK in patterns/index.md:45 - 'event-driven.md' points outside docs root
+- BROKEN LINK in patterns/index.md:46 - 'event-sourcing.md' points outside docs root
+- BROKEN LINK in patterns/index.md:47 - 'saga.md' points outside docs root
+- BROKEN LINK in patterns/index.md:48 - 'service-mesh.md' points outside docs root
+- BROKEN LINK in patterns/index.md:49 - 'graphql-federation.md' points outside docs root
+- BROKEN LINK in patterns/index.md:50 - 'serverless-faas.md' points outside docs root
+- BROKEN LINK in patterns/index.md:55 - 'circuit-breaker.md' points outside docs root
+- BROKEN LINK in patterns/index.md:56 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/index.md:57 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/index.md:58 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/index.md:59 - 'health-check.md' points outside docs root
+- BROKEN LINK in patterns/index.md:60 - 'graceful-degradation.md' points outside docs root
+- BROKEN LINK in patterns/index.md:61 - 'rate-limiting.md' points outside docs root
+- BROKEN LINK in patterns/index.md:62 - 'load-shedding.md' points outside docs root
+- BROKEN LINK in patterns/index.md:67 - 'cdc.md' points outside docs root
+- BROKEN LINK in patterns/index.md:68 - 'tunable-consistency.md' points outside docs root
+- BROKEN LINK in patterns/index.md:69 - 'sharding.md' points outside docs root
+- BROKEN LINK in patterns/index.md:70 - 'caching-strategies.md' points outside docs root
+- BROKEN LINK in patterns/index.md:71 - 'geo-replication.md' points outside docs root
+- BROKEN LINK in patterns/index.md:72 - 'outbox.md' points outside docs root
+- BROKEN LINK in patterns/index.md:77 - 'leader-election.md' points outside docs root
+- BROKEN LINK in patterns/index.md:78 - 'distributed-lock.md' points outside docs root
+- BROKEN LINK in patterns/index.md:79 - 'idempotent-receiver.md' points outside docs root
+- BROKEN LINK in patterns/index.md:80 - 'service-discovery.md' points outside docs root
+- BROKEN LINK in patterns/index.md:85 - 'observability.md' points outside docs root
+- BROKEN LINK in patterns/index.md:86 - 'auto-scaling.md' points outside docs root
+- BROKEN LINK in patterns/index.md:87 - 'load-balancing.md' points outside docs root
+- BROKEN LINK in patterns/index.md:88 - 'edge-computing.md' points outside docs root
+- BROKEN LINK in patterns/index.md:89 - 'finops.md' points outside docs root
+- BROKEN LINK in patterns/index.md:204 - 'pattern-comparison.md' points outside docs root
+- BROKEN LINK in patterns/index.md:205 - 'pattern-selector.md' points outside docs root
+- BROKEN LINK in patterns/index.md:206 - 'pattern-combinations.md' points outside docs root
+- BROKEN LINK in patterns/index.md:216 - 'pattern-comparison.md' points outside docs root
+- BROKEN LINK in patterns/index.md:266 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/index.md:266 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/index.md:267 - 'caching-strategies.md' points outside docs root
+- BROKEN LINK in patterns/index.md:268 - 'rate-limiting.md' points outside docs root
+- BROKEN LINK in patterns/index.md:269 - 'load-balancing.md' points outside docs root
+- BROKEN LINK in patterns/index.md:272 - 'cqrs.md' points outside docs root
+- BROKEN LINK in patterns/index.md:272 - 'event-sourcing.md' points outside docs root
+- BROKEN LINK in patterns/index.md:273 - 'event-driven.md' points outside docs root
+- BROKEN LINK in patterns/index.md:273 - 'saga.md' points outside docs root
+- BROKEN LINK in patterns/index.md:274 - 'outbox.md' points outside docs root
+- BROKEN LINK in patterns/index.md:274 - 'idempotent-receiver.md' points outside docs root
+- BROKEN LINK in patterns/index.md:275 - 'service-mesh.md' points outside docs root
+- BROKEN LINK in patterns/index.md:275 - 'auto-scaling.md' points outside docs root
+- BROKEN LINK in patterns/index.md:278 - 'sharding.md' points outside docs root
+- BROKEN LINK in patterns/index.md:278 - 'geo-replication.md' points outside docs root
+- BROKEN LINK in patterns/index.md:278 - 'tunable-consistency.md' points outside docs root
+- BROKEN LINK in patterns/index.md:279 - 'edge-computing.md' points outside docs root
+- BROKEN LINK in patterns/index.md:279 - 'caching-strategies.md#cdn-strategies' points outside docs root
+- BROKEN LINK in patterns/index.md:280 - 'serverless-faas.md' points outside docs root
+- BROKEN LINK in patterns/index.md:280 - 'graphql-federation.md' points outside docs root
+- BROKEN LINK in patterns/index.md:281 - 'observability.md' points outside docs root
+- BROKEN LINK in patterns/index.md:281 - 'finops.md' points outside docs root
+- BROKEN LINK in patterns/index.md:286 - 'pattern-quiz.md' points outside docs root
+- BROKEN LINK in patterns/index.md:287 - 'pattern-selector.md' points outside docs root
+- BROKEN LINK in patterns/index.md:343 - 'pattern-comparison.md' points outside docs root
+- BROKEN LINK in patterns/index.md:344 - 'pattern-selector.md' points outside docs root
+- BROKEN LINK in patterns/index.md:345 - 'pattern-combinations.md' points outside docs root
+- BROKEN LINK in patterns/saga.md:1187 - '/patterns/event-sourcing/' -> file 'patterns/event-sourcing/' not found
+- BROKEN LINK in patterns/saga.md:1188 - '/patterns/cqrs/' -> file 'patterns/cqrs/' not found
+- BROKEN LINK in patterns/saga.md:1189 - '/patterns/outbox/' -> file 'patterns/outbox/' not found
+- BROKEN LINK in patterns/saga.md:1190 - '/patterns/circuit-breaker/' -> file 'patterns/circuit-breaker/' not found
+- BROKEN LINK in patterns/event-driven.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/event-driven.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/event-driven.md:1352 - 'edge-computing.md' points outside docs root
+- BROKEN LINK in patterns/event-driven.md:1352 - 'event-sourcing.md' points outside docs root
+- BROKEN LINK in patterns/idempotent-receiver.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/idempotent-receiver.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/idempotent-receiver.md:1263 - 'outbox.md' points outside docs root
+- BROKEN LINK in patterns/idempotent-receiver.md:1263 - 'graphql-federation.md' points outside docs root
+- BROKEN LINK in patterns/backpressure.md:84 - '/patterns/circuit-breaker/' -> file 'patterns/circuit-breaker/' not found
+- BROKEN LINK in patterns/backpressure.md:85 - '/patterns/bulkhead/' -> file 'patterns/bulkhead/' not found
+- BROKEN LINK in patterns/backpressure.md:86 - '/patterns/rate-limiting/' -> file 'patterns/rate-limiting/' not found
+- BROKEN LINK in patterns/backpressure.md:87 - '/patterns/queues-streaming/' -> file 'patterns/queues-streaming/' not found
+- BROKEN LINK in patterns/backpressure.md:95 - '/quantitative/queueing-models/' -> file 'quantitative/queueing-models/' not found
+- BROKEN LINK in patterns/backpressure.md:96 - '/quantitative/littles-law/' -> file 'quantitative/littles-law/' not found
+- BROKEN LINK in patterns/pattern-comparison.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-comparison.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-comparison.md:419 - 'finops.md' points outside docs root
+- BROKEN LINK in patterns/pattern-comparison.md:419 - 'pattern-selector.md' points outside docs root
+- BROKEN LINK in patterns/api-gateway.md:76 - '/patterns/service-mesh/' -> file 'patterns/service-mesh/' not found
+- BROKEN LINK in patterns/api-gateway.md:77 - '/patterns/circuit-breaker/' -> file 'patterns/circuit-breaker/' not found
+- BROKEN LINK in patterns/api-gateway.md:78 - '/patterns/rate-limiting/' -> file 'patterns/rate-limiting/' not found
+- BROKEN LINK in patterns/service-mesh.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/service-mesh.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/service-mesh.md:1148 - 'serverless-faas.md' points outside docs root
+- BROKEN LINK in patterns/service-mesh.md:1148 - 'sharding.md' points outside docs root
+- BROKEN LINK in patterns/cdc.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/cdc.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/cdc.md:1151 - 'caching-strategies.md' points outside docs root
+- BROKEN LINK in patterns/cdc.md:1151 - 'circuit-breaker.md' points outside docs root
+- BROKEN LINK in patterns/sharding.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/sharding.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/sharding.md:1102 - 'service-mesh.md' points outside docs root
+- BROKEN LINK in patterns/sharding.md:1102 - 'timeout.md' points outside docs root
+- BROKEN LINK in patterns/observability.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/observability.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/observability.md:1353 - 'load-shedding.md' points outside docs root
+- BROKEN LINK in patterns/observability.md:1353 - 'outbox.md' points outside docs root
+- BROKEN LINK in patterns/distributed-lock.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/distributed-lock.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/distributed-lock.md:597 - 'cqrs.md' points outside docs root
+- BROKEN LINK in patterns/distributed-lock.md:597 - 'edge-computing.md' points outside docs root
+- BROKEN LINK in patterns/distributed-lock.md:599 - 'leader-election.md' points outside docs root
+- BROKEN LINK in patterns/distributed-lock.md:599 - 'consensus.md' points outside docs root
+- BROKEN LINK in patterns/two-phase-commit.md:67 - '/patterns/saga/' -> file 'patterns/saga/' not found
+- BROKEN LINK in patterns/two-phase-commit.md:68 - '/patterns/outbox/' -> file 'patterns/outbox/' not found
+- BROKEN LINK in patterns/two-phase-commit.md:69 - '/patterns/event-sourcing/' -> file 'patterns/event-sourcing/' not found
+- BROKEN LINK in patterns/timeout.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/timeout.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/timeout.md:1204 - 'retry-backoff.md' points outside docs root
+- BROKEN LINK in patterns/timeout.md:1204 - 'tunable-consistency.md' points outside docs root
+- BROKEN LINK in patterns/auto-scaling.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/auto-scaling.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/auto-scaling.md:774 - 'bulkhead.md' points outside docs root
+- BROKEN LINK in patterns/load-balancing.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/load-balancing.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/load-balancing.md:948 - 'leader-election.md' points outside docs root
+- BROKEN LINK in patterns/load-balancing.md:948 - 'load-shedding.md' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:231 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:291 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:293 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:297 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:299 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:303 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:307 - 'event, context' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:710 - 'clean_event' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:1706 - 'saga.md' points outside docs root
+- BROKEN LINK in patterns/serverless-faas.md:1706 - 'service-discovery.md' points outside docs root
+- BROKEN LINK in patterns/cqrs.md:1012 - '/patterns/event-sourcing/' -> file 'patterns/event-sourcing/' not found
+- BROKEN LINK in patterns/cqrs.md:1013 - '/patterns/saga/' -> file 'patterns/saga/' not found
+- BROKEN LINK in patterns/cqrs.md:1014 - '/patterns/event-driven/' -> file 'patterns/event-driven/' not found
+- BROKEN LINK in patterns/finops.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/finops.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/finops.md:936 - 'my_share' points outside docs root
+- BROKEN LINK in patterns/finops.md:1149 - 'event-sourcing.md' points outside docs root
+- BROKEN LINK in patterns/finops.md:1149 - 'geo-replication.md' points outside docs root
+- BROKEN LINK in patterns/queues-streaming.md:1221 - '/patterns/event-driven/' -> file 'patterns/event-driven/' not found
+- BROKEN LINK in patterns/queues-streaming.md:1222 - '/patterns/cqrs/' -> file 'patterns/cqrs/' not found
+- BROKEN LINK in patterns/queues-streaming.md:1223 - '/patterns/saga/' -> file 'patterns/saga/' not found
+- BROKEN LINK in patterns/queues-streaming.md:1224 - '/patterns/circuit-breaker/' -> file 'patterns/circuit-breaker/' not found
+- BROKEN LINK in patterns/edge-computing.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/edge-computing.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/edge-computing.md:1636 - 'distributed-lock.md' points outside docs root
+- BROKEN LINK in patterns/edge-computing.md:1636 - 'event-driven.md' points outside docs root
+- BROKEN LINK in patterns/pattern-quiz.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-quiz.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in patterns/pattern-quiz.md:153 - 'outbox.md' points outside docs root
+- BROKEN LINK in patterns/pattern-quiz.md:153 - 'queues-streaming.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker-enhanced.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in patterns/circuit-breaker-enhanced.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-catalog-intro.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-catalog-intro.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-catalog-intro.md:65 - 'pattern-legend.md' points outside docs root
+- BROKEN LINK in part2-pillars/pillars-patterns-map.md:15 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pillars-patterns-map.md:15 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pillars-patterns-map.md:56 - 'transition-part3.md' points outside docs root
+- BROKEN LINK in part2-pillars/reflection-journal.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/reflection-journal.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/reflection-journal.md:57 - 'pattern-catalog-intro.md' points outside docs root
+- BROKEN LINK in part2-pillars/decision-tree.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/decision-tree.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/decision-tree.md:151 - 'pillar-checkpoint.md' points outside docs root
+- BROKEN LINK in part2-pillars/models-collide.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/models-collide.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/models-collide.md:154 - 'pattern-matrix.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:301 - 'work/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:302 - 'state/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:303 - 'truth/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:304 - 'control/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:305 - 'intelligence/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/index.md:318 - 'work/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/tradeoff-calculus.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/tradeoff-calculus.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/tradeoff-calculus.md:147 - 'decision-tree.md' points outside docs root
+- BROKEN LINK in part2-pillars/failure-recap.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/failure-recap.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/failure-recap.md:63 - 'reflection-journal.md' points outside docs root
+- BROKEN LINK in part2-pillars/models-comparison.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/models-comparison.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/models-comparison.md:196 - 'models-collide.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-matrix.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-matrix.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-matrix.md:100 - 'tradeoff-calculus.md' points outside docs root
+- BROKEN LINK in part2-pillars/transition-part3.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/transition-part3.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-legend.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-legend.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pattern-legend.md:63 - 'pillars-patterns-map.md' points outside docs root
+- BROKEN LINK in part2-pillars/pillar-checkpoint.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pillar-checkpoint.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/pillar-checkpoint.md:108 - 'failure-recap.md' points outside docs root
+- BROKEN LINK in introduction/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in introduction/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in introduction/index.md:227 - '../part1-axioms/index.md' points outside docs root
+- BROKEN LINK in introduction/philosophy.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in introduction/philosophy.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/synthesis.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/synthesis.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:52 - 'axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:52 - 'axiom1-latency/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:68 - 'axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:68 - 'axiom2-capacity/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:85 - 'axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:85 - 'axiom3-failure/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:105 - 'axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:105 - 'axiom4-concurrency/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:119 - 'axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:119 - 'axiom5-coordination/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:140 - 'axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:140 - 'axiom6-observability/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:153 - 'axiom7-human/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:153 - 'axiom7-human/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:175 - 'axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:175 - 'axiom8-economics/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:297 - 'axiom1-latency/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:298 - 'axiom2-capacity/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:299 - 'axiom3-failure/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:300 - 'axiom4-concurrency/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:301 - 'axiom5-coordination/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:302 - 'axiom6-observability/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:303 - 'axiom7-human/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:304 - 'axiom8-economics/exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:310 - 'axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/index.md:318 - 'axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/quiz.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/quiz.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/payment-system.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/payment-system.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:721 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:722 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:723 - '../patterns/idempotent-receiver.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:724 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:739 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:740 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:741 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:742 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:743 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:744 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:745 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:746 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:749 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:750 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:751 - '../patterns/idempotent-receiver.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:752 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:753 - '../patterns/outbox.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:754 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:755 - '../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:758 - '../quantitative/cap-pacelc.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:759 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:760 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:761 - '../quantitative/consistency-models.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:764 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:765 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:766 - '../human-factors/postmortem-culture.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:767 - '../reference/security-considerations.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:770 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:771 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:772 - 'rate-limiter.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:773 - 'consistent-hashing.md' points outside docs root
+- BROKEN LINK in case-studies/paypal-payments.md:783 - 'spotify-recommendations.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:44 - '../patterns/tile-caching.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:45 - '../patterns/vector-maps.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:46 - '../patterns/real-time.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:78 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:81 - '../patterns/tile-pyramid.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:130 - '../patterns/vector-tiles.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:131 - '../patterns/client-rendering.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:132 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:133 - '../part2-pillars/intelligence/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1156 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1157 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1158 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1159 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1160 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1161 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1162 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1163 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1166 - '../patterns/tile-pyramid.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1167 - '../patterns/vector-tiles.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1168 - '../patterns/spatial-indexing.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1169 - '../patterns/graph-algorithms.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1170 - '../patterns/stream-processing.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1171 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1172 - '../patterns/ml-pipeline.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1175 - '../quantitative/graph-theory.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1176 - '../quantitative/computational-geometry.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1177 - '../quantitative/time-series.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1178 - '../quantitative/computer-vision.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1181 - 'uber-maps.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1182 - 'apple-maps.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1183 - 'openstreetmap.md' points outside docs root
+- BROKEN LINK in case-studies/google-maps-enhanced.md:1184 - 'here-maps.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:44 - '../patterns/durability.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:45 - '../patterns/replication.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:46 - '../patterns/partitioning.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:80 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:83 - '../patterns/wal.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:138 - '../patterns/leader-follower.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:139 - '../patterns/partitioning.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:140 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:141 - '../part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1549 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1550 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1551 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1552 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1553 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1554 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1555 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1556 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1559 - '../patterns/wal.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1560 - '../patterns/leader-follower.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1561 - '../patterns/partitioning.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1562 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1563 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1564 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1565 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1568 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1569 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1570 - '../quantitative/cap-theorem.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1571 - '../quantitative/amdahls-law.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1574 - 'pulsar-architecture.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1575 - 'kinesis-design.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1576 - 'redis-streams.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue-enhanced.md:1577 - 'eventstore-design.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:603 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:604 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:605 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:606 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:607 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:608 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:609 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:610 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:613 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:614 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:615 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:616 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:617 - '../patterns/service-mesh.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:618 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:619 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:622 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:623 - '../quantitative/amdahls-law.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:624 - '../quantitative/power-laws.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:625 - '../quantitative/information-theory.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:628 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:629 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:630 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:631 - '../human-factors/postmortem-culture.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:634 - 'news-feed.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:635 - 'youtube.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:636 - 'rate-limiter.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:637 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:647 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/spotify-recommendations.md:647 - 'paypal-payments.md' points outside docs root
+- BROKEN LINK in case-studies/stock-exchange-enhanced.md:347 - 'const PriceLevel& level, uint32_t price' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:44 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:45 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:46 - '../patterns/fault-tolerance.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:79 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:82 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:135 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:136 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:137 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:138 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:906 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:907 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:908 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:909 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:910 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:911 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:912 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:913 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:916 - '../patterns/cdn.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:917 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:918 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:919 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:920 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:921 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:922 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:925 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:926 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:927 - '../quantitative/power-laws.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:928 - '../quantitative/cap-theorem.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:931 - 'netflix-streaming.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:932 - 'spotify-audio.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:933 - 'instagram-stories.md' points outside docs root
+- BROKEN LINK in case-studies/youtube-enhanced.md:934 - 'tiktok-algorithm.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:44 - '../patterns/deduplication.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:45 - '../patterns/delta-sync.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:46 - '../patterns/distributed-storage.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:78 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:81 - '../patterns/metadata-service.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:136 - '../patterns/cas.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:137 - '../patterns/chunking.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:138 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:139 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1013 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1014 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1015 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1016 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1017 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1018 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1019 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1020 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1023 - '../patterns/cas.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1024 - '../patterns/delta-sync.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1025 - '../patterns/merkle-trees.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1026 - '../patterns/crdt.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1027 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1028 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1029 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1032 - '../quantitative/cap-theorem.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1033 - '../quantitative/information-theory.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1034 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1035 - '../quantitative/storage-economics.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1038 - 'dropbox-architecture.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1039 - 'box-platform.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1040 - 'onedrive-sync.md' points outside docs root
+- BROKEN LINK in case-studies/google-drive-enhanced.md:1041 - 'icloud-design.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2316 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2317 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2318 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2319 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2322 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2323 - '../patterns/analytics-scale.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2324 - '../patterns/geo-distribution.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2325 - '../patterns/security-shortener.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2328 - './cdn-design.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2329 - './analytics-pipeline.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2330 - './api-gateway.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2333 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2334 - '../patterns/bloom-filter.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2335 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2336 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2351 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2352 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2353 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/url-shortener.md:2354 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:468 - '../patterns/sharding.md#consistent-hashing' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:481 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:482 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:483 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:484 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:485 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:486 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:487 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:488 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:491 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:492 - '../patterns/tunable-consistency.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:493 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:494 - '../patterns/health-check.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:495 - '../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:496 - '../patterns/load-shedding.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:497 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:501 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:502 - '../quantitative/queueing-models.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:503 - '../quantitative/universal-scalability.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:506 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:507 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:508 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:509 - '../quantitative/capacity-planning.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:512 - 'consistent-hashing.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:513 - 'paypal-payments.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:514 - 'youtube.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:515 - 'rate-limiter.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:525 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/amazon-dynamo.md:525 - 'spotify-recommendations.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1245 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1246 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1247 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1248 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1249 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1250 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1251 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1252 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1255 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1256 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1257 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1258 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1259 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1260 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1261 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1264 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1265 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1266 - '../quantitative/power-laws.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1267 - '../quantitative/information-theory.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1270 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1271 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1272 - '../human-factors/capacity-planning.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1273 - '../human-factors/postmortem-culture.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1276 - 'spotify-recommendations.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1277 - 'youtube.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1278 - 'rate-limiter.md' points outside docs root
+- BROKEN LINK in case-studies/news-feed.md:1279 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2666 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2667 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2668 - '../patterns/queues-streaming.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2669 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2672 - '../patterns/js-crawling.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2673 - '../patterns/crawler-traps.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2674 - '../patterns/distributed-dedup.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2675 - '../patterns/adaptive-scheduling.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2678 - './search-engine.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2679 - './web-archive.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2680 - './price-monitor.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2683 - '../patterns/politeness.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2684 - '../patterns/url-normalization.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2685 - '../patterns/content-extraction.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2686 - '../patterns/url-frontier.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2702 - '../patterns/priority-queue.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2703 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2704 - '../patterns/bloom-filter.md' points outside docs root
+- BROKEN LINK in case-studies/web-crawler.md:2705 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:506 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:507 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:508 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:509 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:524 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:525 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:526 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:527 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:528 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:529 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:530 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:531 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:534 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:535 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:536 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:537 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:538 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:539 - '../patterns/service-mesh.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:540 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:543 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:544 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:545 - '../quantitative/scaling-laws.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:546 - '../quantitative/cap-pacelc.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:549 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:550 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:551 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:552 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:555 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:556 - 'news-feed.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:557 - 'youtube.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:558 - 'consistent-hashing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location.md:568 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/distributed-message-queue.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:785 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:786 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:787 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:788 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:789 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:790 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:791 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:792 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:795 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:796 - '../patterns/geo-replication.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:797 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:798 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:799 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:800 - '../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:801 - '../patterns/graceful-degradation.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:804 - '../quantitative/power-laws.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:805 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:806 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:807 - '../quantitative/information-theory.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:810 - '../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:811 - '../human-factors/capacity-planning.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:812 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:813 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:816 - 'spotify-recommendations.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:817 - 'news-feed.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:818 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/youtube.md:819 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/metrics-monitoring.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/metrics-monitoring.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1985 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1986 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1987 - '../patterns/clock-sync.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1988 - '../patterns/logical-clocks.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1991 - '../reference/jepsen-id-generators.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1992 - '../patterns/id-generation-scale.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1993 - '../patterns/time-series-ids.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1994 - '../quantitative/collision-probability.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1997 - './url-shortener.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1998 - './distributed-tracing.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:1999 - './event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2002 - '../patterns/client-library-design.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2003 - '../patterns/service-discovery.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2004 - '../patterns/graceful-degradation.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2021 - '../patterns/logical-clocks.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2022 - '../patterns/vector-clocks.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2023 - '../patterns/consistent-hashing.md' points outside docs root
+- BROKEN LINK in case-studies/unique-id-generator.md:2024 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in case-studies/ad-click-aggregation.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/ad-click-aggregation.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:23 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:28 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:33 - 'spotify-recommendations.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:38 - 'paypal-payments.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:79 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:80 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:81 - 'paypal-payments.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:84 - 'spotify-recommendations.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:85 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:90 - 'uber-location.md' points outside docs root
+- BROKEN LINK in case-studies/index.md:95 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:49 - '../patterns/spatial-indexing.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:50 - '../patterns/query-optimization.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:51 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:81 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:84 - '../patterns/r-tree.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:142 - '../patterns/quadtree.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:143 - '../patterns/geohashing.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:144 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:145 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1088 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1089 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1090 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1091 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1092 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1093 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1094 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1095 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1098 - '../patterns/spatial-indexing.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1099 - '../patterns/geohashing.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1100 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1101 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1102 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1103 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1104 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1107 - '../quantitative/haversine.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1108 - '../quantitative/spatial-stats.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1109 - '../quantitative/comp-geometry.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1110 - '../quantitative/graph-theory.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1113 - 'uber-h3.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1114 - 'google-maps.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1115 - 'foursquare-venues.md' points outside docs root
+- BROKEN LINK in case-studies/proximity-service-enhanced.md:1116 - 'pokemon-go-spatial.md' points outside docs root
+- BROKEN LINK in case-studies/object-storage.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/object-storage.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/stock-exchange.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/stock-exchange.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:941 - '../patterns/rate-limiting.md#token-bucket' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:942 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:943 - '../patterns/sharding.md#consistent-hashing' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:944 - '../patterns/gossip-protocol.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:949 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:950 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:951 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:952 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:953 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:954 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:955 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:956 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:959 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:960 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:961 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:962 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:963 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:964 - '../patterns/health-check.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:965 - '../patterns/load-shedding.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:968 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:969 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:970 - '../quantitative/cap-pacelc.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:971 - '../quantitative/probabilistic-structures.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:974 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:975 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:976 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:977 - '../human-factors/capacity-planning.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:980 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:981 - 'paypal-payments.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:982 - 'consistent-hashing.md' points outside docs root
+- BROKEN LINK in case-studies/rate-limiter.md:983 - 'news-feed.md' points outside docs root
+- BROKEN LINK in case-studies/hotel-reservation.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/hotel-reservation.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:42 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:43 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:44 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:80 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:83 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:135 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:136 - '../patterns/geo-replication.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:137 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:138 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:205 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:206 - '../patterns/service-mesh.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:207 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:208 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:209 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:232 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:238 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:239 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:240 - '../patterns/cdn.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:255 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:261 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:262 - '../patterns/compression.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:263 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:281 - '../part2-pillars/control/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:287 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:288 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:289 - '../patterns/graceful-degradation.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:290 - '../patterns/health-check.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:321 - '../part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:327 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:328 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:329 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:330 - '../patterns/idempotent-receiver.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:351 - '../part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:357 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:358 - '../patterns/consensus.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:359 - '../patterns/vector-clocks.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:360 - '../patterns/tunable-consistency.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:365 - '../part2-pillars/intelligence/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:371 - '../patterns/observability.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:372 - '../patterns/distributed-tracing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:373 - '../patterns/sli-slo-sla.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:396 - '../part2-pillars/control/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:402 - '../human-factors/runbooks-playbooks.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:403 - '../patterns/progressive-deployment.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:404 - '../patterns/feature-flags.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:409 - '../part2-pillars/intelligence/index.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:415 - '../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:416 - '../patterns/finops.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:417 - '../patterns/serverless-faas.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:555 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:556 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:557 - '../patterns/service-mesh.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:558 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:559 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:560 - '../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:561 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:564 - 'google-maps.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:565 - 'fortnite.md' points outside docs root
+- BROKEN LINK in case-studies/uber-location-enhanced.md:566 - 'whatsapp.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:44 - '../patterns/indexing.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:45 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:46 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:77 - '../part2-pillars/state/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:80 - '../patterns/in-memory-computing.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:136 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:137 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:138 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:139 - '../part2-pillars/intelligence/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1005 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1006 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1007 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1008 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1009 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1010 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1011 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1012 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1015 - '../patterns/trie.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1016 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1017 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1018 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1019 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1020 - '../patterns/event-streaming.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1021 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1024 - '../quantitative/information-theory.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1025 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1026 - '../quantitative/probability.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1027 - '../quantitative/ml-ranking.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1030 - 'google-search.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1031 - 'elasticsearch-internals.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1032 - 'facebook-typeahead.md' points outside docs root
+- BROKEN LINK in case-studies/search-autocomplete-enhanced.md:1033 - 'amazon-search.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3141 - '../part1-axioms/axiom3-failure/' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3142 - '../part1-axioms/axiom5-coordination/' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3143 - '../part1-axioms/axiom1-latency/' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3144 - '../part1-axioms/axiom8-economics/' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3147 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3148 - '../patterns/queues-streaming.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3149 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3150 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3153 - './real-time-messaging.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3154 - './search-autocomplete.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3155 - './recommendation-engine.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3156 - './workflow-engine.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3177 - '../patterns/queues-streaming.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3178 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3179 - '../patterns/event-driven.md' points outside docs root
+- BROKEN LINK in case-studies/notification-system.md:3180 - '../patterns/rate-limiting.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1663 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1664 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1665 - '../patterns/consistent-hashing.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1666 - '../part2-pillars/pillar3-truth/index.md#cap-theorem' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1669 - '../patterns/multi-region.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1670 - '../patterns/hlc.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1671 - '../patterns/crdt.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1672 - '../quantitative/storage-engines.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1675 - './amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1676 - './google-spanner.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1677 - './redis-architecture.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1680 - '../patterns/caching.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1681 - '../quantitative/compression.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1682 - '../patterns/network-optimization.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1699 - '../patterns/lsm-tree.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1700 - '../patterns/wal.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1701 - '../patterns/consensus.md#quorum' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1702 - '../patterns/vector-clocks.md' points outside docs root
+- BROKEN LINK in case-studies/key-value-store.md:1703 - '../patterns/anti-entropy.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1314 - '../patterns/sharding.md#virtual-nodes' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1317 - '../patterns/geo-replication.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1322 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1323 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1324 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1325 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1326 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1327 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1328 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1329 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1332 - '../patterns/sharding.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1333 - '../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1334 - '../patterns/service-discovery.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1335 - '../patterns/geo-replication.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1336 - '../patterns/health-check.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1337 - '../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1338 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1343 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1347 - '../quantitative/capacity-planning.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1348 - '../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1349 - '../human-factors/incident-response.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1350 - '../human-factors/oncall-culture.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1353 - 'amazon-dynamo.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1354 - 'rate-limiter.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1355 - 'news-feed.md' points outside docs root
+- BROKEN LINK in case-studies/consistent-hashing.md:1356 - 'paypal-payments.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:44 - '../patterns/push-notifications.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:45 - '../patterns/location-privacy.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:46 - '../patterns/mobile-battery.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:80 - '../part2-pillars/human/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:83 - '../patterns/geofencing.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:125 - '../patterns/location-privacy.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:126 - '../patterns/consent.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:127 - '../part2-pillars/human/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:128 - '../part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1139 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1140 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1141 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1142 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1143 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1144 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1145 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1146 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1149 - '../patterns/location-privacy.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1150 - '../patterns/consent-management.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1151 - '../patterns/stream-processing.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1152 - '../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1153 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1154 - '../patterns/geofencing.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1155 - '../patterns/battery-optimization.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1158 - '../quantitative/privacy-metrics.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1159 - '../quantitative/battery-models.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1160 - '../quantitative/social-networks.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1161 - '../quantitative/spatial-stats.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1164 - 'find-my-device.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1165 - 'snap-map.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1166 - 'life360.md' points outside docs root
+- BROKEN LINK in case-studies/nearby-friends-enhanced.md:1167 - 'strava-heatmaps.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:44 - '../patterns/message-queue.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:45 - '../patterns/connection-pooling.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:87 - '../part2-pillars/work/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:90 - '../patterns/actor-model.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:140 - '../patterns/e2e-encryption.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:141 - '../patterns/key-management.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:142 - '../part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:143 - '../part2-pillars/control/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1299 - 'consistency-deep-dive-chat.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1337 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1338 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1339 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1340 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1341 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1342 - '../part1-axioms/axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1343 - '../part1-axioms/axiom7-human/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1344 - '../part1-axioms/axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1347 - '../patterns/websocket.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1348 - '../patterns/message-queue.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1349 - '../patterns/actor-model.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1350 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1351 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1352 - '../patterns/crdt.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1353 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1356 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1357 - '../quantitative/queueing-theory.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1358 - '../quantitative/cap-theorem.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1359 - '../quantitative/network-theory.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1362 - 'discord-architecture.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1363 - 'slack-infrastructure.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1364 - 'telegram-protocol.md' points outside docs root
+- BROKEN LINK in case-studies/chat-system-enhanced.md:1365 - 'signal-architecture.md' points outside docs root
+- BROKEN LINK in capstone/evaluation-rubric.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in capstone/framework.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/runbooks-playbooks.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/runbooks-playbooks.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/team-topologies.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/team-topologies.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/consistency-tuning.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/consistency-tuning.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/sre-practices.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/sre-practices.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/sre-practices.md:512 - 'chaos-engineering.md' points outside docs root
+- BROKEN LINK in human-factors/sre-practices.md:515 - 'observability-stacks.md' points outside docs root
+- BROKEN LINK in human-factors/sre-practices.md:518 - 'runbooks-playbooks.md' points outside docs root
+- BROKEN LINK in human-factors/observability-stacks.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/observability-stacks.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/chaos-engineering.md:17 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/chaos-engineering.md:17 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/incident-response.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/incident-response.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/oncall-culture.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/oncall-culture.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/oncall-culture.md:261 - 'alert.service' points outside docs root
+- BROKEN LINK in human-factors/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:26 - 'consistency-tuning.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:27 - 'chaos-engineering.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:28 - 'observability-stacks.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:31 - 'sre-practices.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:32 - 'org-structure.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:33 - 'runbooks-playbooks.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:179 - 'observability-stacks.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:180 - 'runbooks-playbooks.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:181 - 'blameless-postmortems.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:184 - 'sre-practices.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:185 - 'oncall-culture.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:186 - 'incident-response.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:189 - 'team-topologies.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:190 - 'org-structure.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:191 - 'knowledge-management.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:194 - 'chaos-engineering.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:195 - 'consistency-tuning.md' points outside docs root
+- BROKEN LINK in human-factors/index.md:196 - '../quantitative/capacity-planning.md' points outside docs root
+- BROKEN LINK in human-factors/blameless-postmortems.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/blameless-postmortems.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/org-structure.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/org-structure.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/knowledge-management.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in human-factors/knowledge-management.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in human-factors/knowledge-management.md:131 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in human-factors/knowledge-management.md:132 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:26 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:26 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:35 - '../patterns/idempotent-receiver.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:35 - '../patterns/outbox.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:51 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:51 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:58 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:67 - '../part2-pillars/truth/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:67 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:74 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:83 - '../part1-axioms/axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:83 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:97 - '../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:120 - '../case-studies/amazon-dynamo.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:140 - '../patterns/event-sourcing.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:156 - '../introduction/index.md#fallacies' points outside docs root
+- BROKEN LINK in reference/glossary.md:190 - '../patterns/idempotent-receiver.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:215 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:222 - '../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:261 - '../patterns/outbox.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:277 - '../part2-pillars/index.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:299 - '../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:324 - '../patterns/saga.md' points outside docs root
+- BROKEN LINK in reference/glossary.md:360 - '../part1-axioms/axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in reference/recipe-cards.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in reference/recipe-cards.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in reference/index.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in reference/index.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in reference/index.md:24 - 'glossary.md' points outside docs root
+- BROKEN LINK in reference/index.md:27 - 'cheat-sheets.md' points outside docs root
+- BROKEN LINK in reference/index.md:30 - 'recipe-cards.md' points outside docs root
+- BROKEN LINK in reference/index.md:33 - 'security.md' points outside docs root
+- BROKEN LINK in reference/index.md:41 - 'glossary.md#cap-theorem' points outside docs root
+- BROKEN LINK in reference/index.md:42 - 'glossary.md#eventually-consistent' points outside docs root
+- BROKEN LINK in reference/index.md:43 - 'glossary.md#vector-clock' points outside docs root
+- BROKEN LINK in reference/index.md:44 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in reference/index.md:45 - 'glossary.md#saga-pattern' points outside docs root
+- BROKEN LINK in reference/index.md:48 - 'cheat-sheets.md#littles-law' points outside docs root
+- BROKEN LINK in reference/index.md:49 - 'cheat-sheets.md#availability-math' points outside docs root
+- BROKEN LINK in reference/index.md:50 - '../part1-axioms/axiom1-latency/index.md' points outside docs root
+- BROKEN LINK in reference/index.md:51 - '../part1-axioms/axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in reference/index.md:54 - '../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in reference/index.md:55 - '../part1-axioms/axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in reference/index.md:56 - 'recipe-cards.md#recipe-performance-investigation' points outside docs root
+- BROKEN LINK in reference/index.md:57 - 'recipe-cards.md#recipe-essential-observability-stack' points outside docs root
+- BROKEN LINK in reference/cheat-sheets.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in reference/cheat-sheets.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in reference/security.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in reference/security.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/examples.md:1145 - './' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/examples.md:1145 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:949 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:949 - '../axiom7-human/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:951 - '../../patterns/service-mesh.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:951 - '../../patterns/api-gateway.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:951 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/exercises.md:951 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:1513 - '../axiom7-human/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:1519 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:1521 - '../../human-factors/observability-stacks.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:1521 - '../../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom6-observability/index.md:1521 - '../../patterns/observability.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:770 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:770 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:772 - '../../patterns/distributed-lock.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:772 - '../../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:772 - '../../patterns/saga.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/examples.md:772 - '../../patterns/consensus.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:910 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:910 - '../axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:912 - '../../patterns/distributed-lock.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:912 - '../../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:912 - '../../patterns/saga.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/exercises.md:912 - '../../patterns/consensus.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:999 - 'auto result' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1008 - 'Association assoc' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1030 - 'bool success' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1053 - 'bool success' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1062 - '../../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1065 - '../../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1068 - 'Association current' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1616 - 'Node* node' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1828 - '../axiom5-coordination/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1834 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1836 - '../../patterns/distributed-lock.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1836 - '../../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom4-concurrency/index.md:1836 - '../../patterns/saga.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:320 - 'pattern, current_content' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:669 - './' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:669 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:671 - '../../patterns/timeout.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:671 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/examples.md:671 - '../../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:366 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:366 - '../axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:368 - '../../patterns/timeout.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:368 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/exercises.md:368 - '../../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:552 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:553 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:554 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:554 - '../../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:554 - '../../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:555 - '../../case-studies/uber-location.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:555 - '../../case-studies/netflix-cdn.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:556 - '../../quantitative/latency-ladder.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index-enhanced.md:556 - '../../quantitative/littles-law.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:129 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:129 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:130 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:130 - '../../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:130 - '../../patterns/edge-computing.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:131 - '../../case-studies/uber-location.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:131 - '../../case-studies/spotify-recommendations.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:132 - '../../quantitative/latency-ladder.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:132 - '../../quantitative/queueing-models.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:1246 - '../axiom2-capacity/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:1252 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:1254 - '../../patterns/timeout.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:1254 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom1-latency/index.md:1254 - '../../patterns/caching-strategies.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:1030 - './' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:1030 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:1032 - '../../patterns/consensus.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:1032 - '../../patterns/distributed-lock.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:1032 - '../../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/examples.md:1032 - '../../patterns/two-phase-commit.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1033 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1033 - '../axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1035 - '../../patterns/consensus.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1035 - '../../patterns/distributed-lock.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1035 - '../../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1035 - '../../patterns/saga.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/exercises.md:1035 - '../../patterns/cqrs.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:1678 - '../axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:1684 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:1686 - '../../patterns/consensus.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:1686 - '../../patterns/distributed-lock.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:1686 - '../../patterns/leader-election.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom5-coordination/index.md:1686 - '../../quantitative/coordination-costs.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/examples.md:924 - './' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/examples.md:924 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:1307 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:1307 - '../axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:1309 - '../../human-factors/sre-practices.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:1309 - '../../human-factors/chaos-engineering.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/exercises.md:1309 - '../axiom6-observability/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/index.md:838 - '../axiom8-economics/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom7-human/index.md:844 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:486 - 'nodes' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:499 - 'nodes' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:1257 - './' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/examples.md:1257 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:1260 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:1260 - '../summary.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:1262 - '../../quantitative/capacity-planning.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:1262 - '../../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/exercises.md:1262 - '../../patterns/multi-region.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/index.md:1149 - '../synthesis.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom8-economics/index.md:1155 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:701 - './' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:701 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:704 - '../../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:705 - '../../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:706 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/examples.md:707 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:541 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:541 - '../axiom3-failure/' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:544 - '../../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:545 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/exercises.md:546 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:129 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:129 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:130 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:130 - '../../patterns/load-shedding.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:130 - '../../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:131 - '../../case-studies/amazon-dynamo.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:132 - '../../quantitative/capacity-planning.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:132 - '../../quantitative/queueing-models.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:973 - '../axiom3-failure/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:979 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:981 - '../../patterns/auto-scaling.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:981 - '../../patterns/load-balancing.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom2-capacity/index.md:981 - '../../patterns/sharding.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:731 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:731 - 'exercises.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:733 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:733 - '../../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/examples.md:733 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:790 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:790 - '../axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:792 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:792 - '../../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:792 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:792 - '../../patterns/health-check.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/exercises.md:792 - '../../patterns/timeout.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:1581 - 'self.cluster' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:1804 - '../axiom4-concurrency/index.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:1810 - 'examples.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:1812 - '../../patterns/circuit-breaker.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:1812 - '../../patterns/retry-backoff.md' points outside docs root
+- BROKEN LINK in part1-axioms/axiom3-failure/index.md:1812 - '../../patterns/bulkhead.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/examples.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/examples.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/examples.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/intelligence/index.md:1191 - '../../tools/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/examples.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/examples.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/examples.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/index.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/index.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/index.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/state/index.md:1535 - '../truth/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/work/examples.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/work/examples.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/work/examples.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/work/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/work/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/work/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/examples.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/examples.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/examples.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/exercises.md:13 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/exercises.md:13 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/exercises.md:13 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/truth/index.md:1566 - '../control/index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/examples.md:16 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/examples.md:16 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/examples.md:16 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/exercises.md:14 - '../../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/exercises.md:14 - '../index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/exercises.md:14 - 'index.md' points outside docs root
+- BROKEN LINK in part2-pillars/control/index.md:902 - '../intelligence/index.md' points outside docs root
+
+## Broken Anchors
+- BROKEN ANCHOR in NAVIGATION_ENHANCEMENTS.md:88 - '/part2-pillars/work/#scaling-decisions' -> anchor 'scaling-decisions' not found in part2-pillars/work/index.md. Available: last-updated-2025-07-20, intuition-the-restaurant-kitchen-problem-5-min-read, why-this-matters, questions-this-pillar-answers, foundation-understanding-work-distribution-15-min-read, the-central-question, core-concepts, the-fundamental-trade-offs, the-work-decomposition-matrix, when-work-distribution-goes-wrong, concept-map-work-distribution, work-distribution-decision-framework, simple-example-processing-user-uploads, amdahls-law-the-fundamental-limit, deep-dive-engineering-work-distribution-30-min-read, real-failure-the-netflix-encoding-disaster, work-distribution-patterns, 1-master-worker-pattern, 2-work-stealing-pattern, 3-mapreduce-pattern, the-coordination-tax, load-balancing-strategies, expert-theory-and-advanced-techniques-45-min-read, theoretical-foundations, universal-scalability-law, queue-theory-for-work-distribution, advanced-work-distribution-algorithms, consistent-hashing-with-virtual-nodes, two-phase-commit-for-distributed-work, research-frontiers, speculative-execution, div, mastery-building-production-work-systems-60-min-read, complete-implementation-distributed-task-scheduler, task-states-and-core-data-structures, for-priority-queue-higher-priority-lower-number, start-workers, start-monitoring, start-deadlock-detector, store-task-in-redis, add-to-appropriate-queue-based-on-priority, notify-monitoring, find-tasks-that-have-been-running-too-long, get-all-running-tasks, mark-as-failed-and-requeue-if-retries-remain, update-task-state, get-next-task, no-task-available-sleep-briefly, try-local-queue-first, try-to-get-from-redis-queues, get-multiple-tasks-at-once-for-efficiency, remove-from-queue, load-tasks, keep-first-task-add-rest-to-local-queue, no-tasks-in-queues-try-work-stealing, steal-half-of-their-excess-tasks, add-to-our-queue-and-return-first, update-task-state-in-redis, record-start, get-handler, execute-with-timeout, success, update-final-state, record-completion, example-usage, create-scheduler, register-task-handlers, start-scheduler, submit-tasks, high-priority-image-processing, normal-priority-data-analysis, wait-for-completion, check-results, production-war-stories, story-1-the-100x-speed-up-that-almost-broke-everything, story-2-when-work-stealing-saved-black-friday, performance-optimization-cookbook, recipe-1-the-batch-accumulator-pattern, recipe-2-the-priority-work-queue, recipe-3-the-adaptive-batch-sizing, the-future-of-work-distribution, emerging-patterns, common-anti-patterns-to-avoid, summary-key-takeaways, the-work-distribution-commandments, quick-reference-card
+
+## Heading Structure Issues
+- HEADING STRUCTURE in NAVIGATION_ENHANCEMENTS.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in FORMATTING_ISSUES.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/queueing-models.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/queueing-models.md:609 - Skipped from h1 to h3: 'Adaptive Capacity'
+- HEADING STRUCTURE in quantitative/queueing-models.md:621 - Skipped from h1 to h3: 'Priority Queues'
+- HEADING STRUCTURE in quantitative/queueing-models.md:721 - Skipped from h1 to h3: 'Axiom 7: Observability is Limited'
+- HEADING STRUCTURE in quantitative/amdahl-gustafson.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/amdahl-gustafson.md:220 - Skipped from h1 to h3: 'Pipeline Parallelism'
+- HEADING STRUCTURE in quantitative/availability-math.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/availability-math.md:297 - Skipped from h1 to h3: 'Measure Component Availability'
+- HEADING STRUCTURE in quantitative/availability-math.md:345 - Skipped from h1 to h3: 'Axiom 8: Growth Changes Everything'
+- HEADING STRUCTURE in quantitative/universal-scalability.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/universal-scalability.md:225 - Skipped from h1 to h3: 'Reduce β (Coherency)'
+- HEADING STRUCTURE in quantitative/problem-set.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/latency-ladder.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/latency-ladder.md:215 - Skipped from h1 to h3: 'Axiom 3: Failure is Inevitable'
+- HEADING STRUCTURE in quantitative/capacity-planning.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/capacity-planning.md:363 - Skipped from h1 to h3: 'Memory Capacity Planning'
+- HEADING STRUCTURE in quantitative/capacity-planning.md:382 - Skipped from h1 to h3: 'Storage Capacity Planning'
+- HEADING STRUCTURE in quantitative/cache-economics.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/cache-economics.md:232 - Skipped from h1 to h3: 'Selective Caching'
+- HEADING STRUCTURE in quantitative/cache-economics.md:242 - Skipped from h1 to h3: 'Pre-warming Economics'
+- HEADING STRUCTURE in quantitative/coordination-costs.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/coordination-costs.md:279 - Skipped from h1 to h3: 'Async When Possible'
+- HEADING STRUCTURE in quantitative/coordination-costs.md:295 - Skipped from h1 to h3: 'Batch Coordination'
+- HEADING STRUCTURE in quantitative/littles-law.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in quantitative/littles-law.md:744 - Skipped from h1 to h3: 'Axiom 5: Time and Order'
+- HEADING STRUCTURE in tools/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in tools/index.md:89 - Skipped from h1 to h3: 'Server Sizing Matrix'
+- HEADING STRUCTURE in tools/index.md:189 - Skipped from h1 to h3: 'Deadlock Prevention Checklist'
+- HEADING STRUCTURE in tools/index.md:373 - Skipped from h1 to h3: 'Build vs Buy Calculator'
+- HEADING STRUCTURE in patterns/load-shedding.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/load-shedding.md:260 - Skipped from h1 to h4: 'Cost-Based Load Shedding'
+- HEADING STRUCTURE in patterns/load-shedding.md:314 - Skipped from h1 to h3: 'Load Shedding Anti-Patterns'
+- HEADING STRUCTURE in patterns/load-shedding.md:369 - Skipped from h1 to h4: 'Token Bucket with Priority'
+- HEADING STRUCTURE in patterns/load-shedding.md:429 - Skipped from h1 to h3: 'Real-World Case Study: Twitter's Load Shedding'
+- HEADING STRUCTURE in patterns/load-shedding.md:611 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/graceful-degradation.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/graceful-degradation.md:296 - Skipped from h1 to h4: 'Content Degradation'
+- HEADING STRUCTURE in patterns/graceful-degradation.md:373 - Skipped from h1 to h3: 'Degradation Anti-Patterns'
+- HEADING STRUCTURE in patterns/graceful-degradation.md:503 - Skipped from h1 to h3: 'Real-World Case Study: GitHub's Degradation'
+- HEADING STRUCTURE in patterns/graceful-degradation.md:751 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/caching-strategies.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/caching-strategies.md:299 - Skipped from h1 to h3: 'Cache Key Design'
+- HEADING STRUCTURE in patterns/caching-strategies.md:439 - Skipped from h1 to h4: '2. Distributed Cache Coordination'
+- HEADING STRUCTURE in patterns/caching-strategies.md:531 - Skipped from h1 to h4: '3. Smart Cache Warming'
+- HEADING STRUCTURE in patterns/caching-strategies.md:781 - Skipped from h1 to h3: 'Cache Stampede Protection'
+- HEADING STRUCTURE in patterns/caching-strategies.md:890 - Skipped from h1 to h3: 'Economic Impact Analysis'
+- HEADING STRUCTURE in patterns/caching-strategies.md:1158 - Skipped from h1 to h3: 'ML-Powered Intelligent Caching'
+- HEADING STRUCTURE in patterns/caching-strategies.md:1249 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/event-sourcing.md:24 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/event-sourcing.md:404 - Skipped from h1 to h4: 'Production-Ready Implementation'
+- HEADING STRUCTURE in patterns/event-sourcing.md:647 - Skipped from h1 to h3: 'State Management'
+- HEADING STRUCTURE in patterns/event-sourcing.md:737 - Skipped from h1 to h4: 'Event Stream Processing'
+- HEADING STRUCTURE in patterns/event-sourcing.md:813 - Skipped from h1 to h3: 'Performance Optimization'
+- HEADING STRUCTURE in patterns/event-sourcing.md:871 - Skipped from h1 to h3: 'Common Pitfalls'
+- HEADING STRUCTURE in patterns/event-sourcing.md:1030 - Skipped from h1 to h4: 'When It Pays Off'
+- HEADING STRUCTURE in patterns/event-sourcing.md:1148 - Skipped from h1 to h3: 'Configuration Template'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:285 - Skipped from h1 to h3: 'Session Consistency Implementation'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:389 - Skipped from h1 to h4: 'Bounded Staleness with Hybrid Logical Clocks'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:460 - Skipped from h1 to h4: 'Dynamic Consistency Adjustment'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:649 - Skipped from h1 to h3: 'Advanced Monitoring and Optimization'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:843 - Skipped from h1 to h4: 'Mathematical Models'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:933 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:975 - Skipped from h1 to h4: 'AI-Driven Consistency'
+- HEADING STRUCTURE in patterns/tunable-consistency.md:1020 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/consensus.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/consensus.md:182 - Skipped from h1 to h3: 'Multi-Paxos for Log Replication'
+- HEADING STRUCTURE in patterns/consensus.md:396 - Skipped from h1 to h3: 'Byzantine Fault Tolerant Consensus'
+- HEADING STRUCTURE in patterns/consensus.md:448 - Skipped from h1 to h3: 'Consensus Anti-Patterns'
+- HEADING STRUCTURE in patterns/consensus.md:514 - Skipped from h1 to h4: 'Google's Spanner Consensus'
+- HEADING STRUCTURE in patterns/consensus.md:570 - Skipped from h1 to h3: 'Real-World Case Study: CockroachDB Consensus'
+- HEADING STRUCTURE in patterns/consensus.md:697 - Skipped from h1 to h4: 'Optimal Consensus Protocols'
+- HEADING STRUCTURE in patterns/consensus.md:726 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/multi-region.md:24 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/bulkhead.md:12 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in patterns/bulkhead.md:784 - Skipped from h1 to h4: 'Container-Based Bulkheads'
+- HEADING STRUCTURE in patterns/bulkhead.md:996 - Skipped from h1 to h4: 'Implementation Results'
+- HEADING STRUCTURE in patterns/bulkhead.md:1108 - Skipped from h1 to h3: 'Production Monitoring Dashboard'
+- HEADING STRUCTURE in patterns/bulkhead.md:1326 - Skipped from h1 to h4: 'Chaos Engineering for Bulkheads'
+- HEADING STRUCTURE in patterns/bulkhead.md:1454 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/bulkhead.md:1500 - Skipped from h1 to h4: 'AI-Driven Autonomous Bulkheads'
+- HEADING STRUCTURE in patterns/bulkhead.md:1568 - Skipped from h1 to h3: 'Economic Impact Calculator'
+- HEADING STRUCTURE in patterns/bulkhead.md:1700 - Skipped from h1 to h3: 'Implementation Checklist'
+- HEADING STRUCTURE in patterns/bulkhead.md:1772 - Skipped from h1 to h3: 'Best Practices Summary'
+- HEADING STRUCTURE in patterns/bulkhead.md:1995 - Skipped from h1 to h3: 'Configuration Example'
+- HEADING STRUCTURE in patterns/circuit-breaker.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/outbox.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/outbox.md:294 - Skipped from h1 to h3: 'Advanced Features'
+- HEADING STRUCTURE in patterns/outbox.md:664 - Skipped from h1 to h3: 'Monitoring and Operations'
+- HEADING STRUCTURE in patterns/outbox.md:903 - Skipped from h1 to h3: 'Advanced Patterns'
+- HEADING STRUCTURE in patterns/outbox.md:964 - Skipped from h1 to h4: 'Change Data Capture Integration'
+- HEADING STRUCTURE in patterns/outbox.md:1156 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/outbox.md:1191 - Skipped from h1 to h4: 'AI-Powered Publishing Optimization'
+- HEADING STRUCTURE in patterns/outbox.md:1240 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/leader-election.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/leader-election.md:745 - Skipped from h1 to h4: 'Network Partition Scenarios'
+- HEADING STRUCTURE in patterns/leader-election.md:798 - Skipped from h1 to h3: 'Leadership Transfer'
+- HEADING STRUCTURE in patterns/leader-election.md:823 - Skipped from h1 to h3: 'Joint Consensus for Membership Changes'
+- HEADING STRUCTURE in patterns/leader-election.md:928 - Skipped from h1 to h3: 'Real-World Challenges and Solutions'
+- HEADING STRUCTURE in patterns/leader-election.md:952 - Skipped from h1 to h4: 'Challenge 2: ZooKeeper Dependency'
+- HEADING STRUCTURE in patterns/leader-election.md:975 - Skipped from h1 to h3: 'Production Monitoring'
+- HEADING STRUCTURE in patterns/leader-election.md:1054 - Skipped from h1 to h4: 'Paxos vs Raft'
+- HEADING STRUCTURE in patterns/leader-election.md:1124 - Skipped from h1 to h4: 'Witness Nodes for Quorum'
+- HEADING STRUCTURE in patterns/leader-election.md:1146 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/leader-election.md:1185 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/geo-replication.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/geo-replication.md:293 - Skipped from h1 to h4: '2. Conflict Resolution'
+- HEADING STRUCTURE in patterns/geo-replication.md:376 - Skipped from h1 to h4: '3. Geo-Aware Routing'
+- HEADING STRUCTURE in patterns/geo-replication.md:434 - Skipped from h1 to h3: 'Advanced Patterns'
+- HEADING STRUCTURE in patterns/geo-replication.md:618 - Skipped from h1 to h4: 'Conflict-Free Replicated Data Types (CRDTs)'
+- HEADING STRUCTURE in patterns/geo-replication.md:745 - Skipped from h1 to h4: 'Hybrid Logical Clocks for Geo-Replication'
+- HEADING STRUCTURE in patterns/geo-replication.md:970 - Skipped from h1 to h3: 'Advanced Geo-Replication Patterns'
+- HEADING STRUCTURE in patterns/geo-replication.md:1212 - Skipped from h1 to h4: 'Information Theory of Geo-Replication'
+- HEADING STRUCTURE in patterns/geo-replication.md:1282 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/geo-replication.md:1328 - Skipped from h1 to h4: 'ML-Optimized Replication'
+- HEADING STRUCTURE in patterns/geo-replication.md:1375 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:108 - Skipped from h1 to h3: 'The Resilience Stack: Circuit Breaker + Retry + Timeout + Bulkhead'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:244 - Skipped from h1 to h3: 'The Data Pipeline: CDC + Streaming + CQRS'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:313 - Skipped from h1 to h3: 'The Microservices Foundation: Service Mesh + API Gateway + Event Bus'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:398 - Skipped from h1 to h3: 'Financial Trading System'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:431 - Skipped from h1 to h3: 'IoT Platform'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:488 - Skipped from h1 to h4: '❌ Caching + Strong Consistency'
+- HEADING STRUCTURE in patterns/pattern-combinations.md:506 - Skipped from h1 to h4: '❌ Event Sourcing + Synchronous Projections'
+- HEADING STRUCTURE in patterns/retry-backoff.md:12 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in patterns/retry-backoff.md:739 - Skipped from h1 to h4: 'Retry Budget Pattern'
+- HEADING STRUCTURE in patterns/retry-backoff.md:873 - Skipped from h1 to h3: 'Real-World Implementation Patterns'
+- HEADING STRUCTURE in patterns/retry-backoff.md:912 - Skipped from h1 to h4: 'Google Cloud Exponential Backoff'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1116 - Skipped from h1 to h4: 'Results'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1259 - Skipped from h1 to h3: 'Production Monitoring Dashboard'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1376 - Skipped from h1 to h4: 'Adaptive Retry with Reinforcement Learning'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1502 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1552 - Skipped from h1 to h4: 'Biological-Inspired Retry Systems'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1606 - Skipped from h1 to h3: 'Economic Impact Analysis'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1755 - Skipped from h1 to h3: 'Implementation Checklist'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1956 - Skipped from h1 to h3: 'Configuration Example'
+- HEADING STRUCTURE in patterns/retry-backoff.md:1999 - Skipped from h1 to h3: 'Testing the Implementation'
+- HEADING STRUCTURE in patterns/rate-limiting.md:12 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in patterns/rate-limiting.md:393 - Skipped from h1 to h3: 'Choosing the Right Algorithm'
+- HEADING STRUCTURE in patterns/rate-limiting.md:878 - Skipped from h1 to h3: 'Advanced Patterns'
+- HEADING STRUCTURE in patterns/rate-limiting.md:975 - Skipped from h1 to h3: 'Geographic Rate Limiting'
+- HEADING STRUCTURE in patterns/rate-limiting.md:1033 - Skipped from h1 to h3: 'Machine Learning Enhanced Rate Limiting'
+- HEADING STRUCTURE in patterns/rate-limiting.md:1320 - Skipped from h1 to h4: 'Implementation Results'
+- HEADING STRUCTURE in patterns/rate-limiting.md:1488 - Skipped from h1 to h3: 'Production Monitoring Dashboard'
+- HEADING STRUCTURE in patterns/rate-limiting.md:1647 - Skipped from h1 to h4: 'API Gateway Rate Limiting'
+- HEADING STRUCTURE in patterns/rate-limiting.md:1724 - Skipped from h1 to h3: 'Rate Limiting Best Practices'
+- HEADING STRUCTURE in patterns/rate-limiting.md:1892 - Skipped from h1 to h4: 'AI-Driven Adaptive Rate Limiting'
+- HEADING STRUCTURE in patterns/rate-limiting.md:2037 - Skipped from h1 to h4: 'Distributed Ledger Rate Limiting'
+- HEADING STRUCTURE in patterns/rate-limiting.md:2096 - Skipped from h1 to h3: 'Future Research Directions'
+- HEADING STRUCTURE in patterns/rate-limiting.md:2267 - Skipped from h1 to h3: 'Performance Impact Analysis'
+- HEADING STRUCTURE in patterns/health-check.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/health-check.md:331 - Skipped from h1 to h4: 'Circuit Breaker Integration'
+- HEADING STRUCTURE in patterns/health-check.md:368 - Skipped from h1 to h3: 'Health Check Anti-Patterns'
+- HEADING STRUCTURE in patterns/health-check.md:424 - Skipped from h1 to h4: 'Kubernetes-Style Health Probes'
+- HEADING STRUCTURE in patterns/health-check.md:508 - Skipped from h1 to h3: 'Real-World Case Study: Netflix's Deep Health Checks'
+- HEADING STRUCTURE in patterns/health-check.md:701 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/graphql-federation.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/graphql-federation.md:153 - Skipped from h1 to h3: 'GraphQL Federation Architecture'
+- HEADING STRUCTURE in patterns/graphql-federation.md:219 - Skipped from h1 to h3: 'Basic Implementation'
+- HEADING STRUCTURE in patterns/graphql-federation.md:326 - Skipped from h1 to h3: 'Federation with Apollo Gateway'
+- HEADING STRUCTURE in patterns/graphql-federation.md:435 - Skipped from h1 to h4: '2. Query Complexity Analysis'
+- HEADING STRUCTURE in patterns/graphql-federation.md:501 - Skipped from h1 to h4: '3. Smart Query Planning'
+- HEADING STRUCTURE in patterns/graphql-federation.md:568 - Skipped from h1 to h3: 'Real Production Implementation'
+- HEADING STRUCTURE in patterns/graphql-federation.md:708 - Skipped from h1 to h3: 'GitHub's GraphQL Federation Strategy'
+- HEADING STRUCTURE in patterns/graphql-federation.md:780 - Skipped from h1 to h3: 'Performance Metrics from Production'
+- HEADING STRUCTURE in patterns/graphql-federation.md:946 - Skipped from h1 to h4: '3. Distributed Query Planning'
+- HEADING STRUCTURE in patterns/graphql-federation.md:984 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/graphql-federation.md:1016 - Skipped from h1 to h4: '2. Quantum-Inspired Optimization'
+- HEADING STRUCTURE in patterns/graphql-federation.md:1036 - Skipped from h1 to h3: 'Mathematical Models'
+- HEADING STRUCTURE in patterns/graphql-federation.md:1165 - Skipped from h1 to h3: 'Common Patterns'
+- HEADING STRUCTURE in patterns/graphql-federation.md:1186 - Skipped from h1 to h3: 'Federation vs Traditional Architectures'
+- HEADING STRUCTURE in patterns/pattern-selector.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/service-discovery.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/service-discovery.md:218 - Skipped from h1 to h3: 'Health-Aware Service Discovery'
+- HEADING STRUCTURE in patterns/service-discovery.md:340 - Skipped from h1 to h4: 'Multi-Region Discovery'
+- HEADING STRUCTURE in patterns/service-discovery.md:412 - Skipped from h1 to h3: 'Service Discovery Flow'
+- HEADING STRUCTURE in patterns/service-discovery.md:558 - Skipped from h1 to h4: 'Kubernetes Service Discovery'
+- HEADING STRUCTURE in patterns/service-discovery.md:651 - Skipped from h1 to h3: 'Real-World Case Study: Netflix Eureka'
+- HEADING STRUCTURE in patterns/service-discovery.md:813 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/index.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/saga.md:24 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/saga.md:381 - Skipped from h1 to h4: 'Production-Ready Implementation'
+- HEADING STRUCTURE in patterns/saga.md:634 - Skipped from h1 to h3: 'State Management'
+- HEADING STRUCTURE in patterns/saga.md:754 - Skipped from h1 to h4: 'Saga Testing Framework'
+- HEADING STRUCTURE in patterns/saga.md:814 - Skipped from h1 to h3: 'Performance Optimization'
+- HEADING STRUCTURE in patterns/saga.md:872 - Skipped from h1 to h3: 'Common Pitfalls'
+- HEADING STRUCTURE in patterns/saga.md:1020 - Skipped from h1 to h4: 'When It Pays Off'
+- HEADING STRUCTURE in patterns/saga.md:1138 - Skipped from h1 to h3: 'Configuration Template'
+- HEADING STRUCTURE in patterns/event-driven.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/event-driven.md:336 - Skipped from h1 to h3: 'Event-Driven Saga Implementation'
+- HEADING STRUCTURE in patterns/event-driven.md:495 - Skipped from h1 to h4: 'Complex Event Processing (CEP)'
+- HEADING STRUCTURE in patterns/event-driven.md:573 - Skipped from h1 to h4: 'Event Stream Processing'
+- HEADING STRUCTURE in patterns/event-driven.md:773 - Skipped from h1 to h3: 'Advanced Event Store Implementation'
+- HEADING STRUCTURE in patterns/event-driven.md:893 - Skipped from h1 to h3: 'Production Monitoring and Operations'
+- HEADING STRUCTURE in patterns/event-driven.md:1069 - Skipped from h1 to h4: 'Mathematical Models'
+- HEADING STRUCTURE in patterns/event-driven.md:1147 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/event-driven.md:1201 - Skipped from h1 to h4: 'AI-Enhanced Event Processing'
+- HEADING STRUCTURE in patterns/event-driven.md:1248 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:271 - Skipped from h1 to h3: 'Implementation Patterns'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:642 - Skipped from h1 to h3: 'Monitoring and Observability'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:865 - Skipped from h1 to h3: 'Advanced Patterns'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:909 - Skipped from h1 to h4: 'Saga Pattern with Idempotency'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:1004 - Skipped from h1 to h4: 'Mathematical Model of Deduplication'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:1092 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:1123 - Skipped from h1 to h4: 'AI-Powered Duplicate Detection'
+- HEADING STRUCTURE in patterns/idempotent-receiver.md:1164 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/backpressure.md:24 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/pattern-comparison.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/api-gateway.md:23 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/service-mesh.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/service-mesh.md:261 - Skipped from h1 to h3: 'Security Implementation'
+- HEADING STRUCTURE in patterns/service-mesh.md:382 - Skipped from h1 to h4: 'Fault Injection for Chaos Engineering'
+- HEADING STRUCTURE in patterns/service-mesh.md:633 - Skipped from h1 to h3: 'Advanced Patterns'
+- HEADING STRUCTURE in patterns/service-mesh.md:692 - Skipped from h1 to h3: 'Performance Optimization'
+- HEADING STRUCTURE in patterns/service-mesh.md:808 - Skipped from h1 to h4: 'Performance Modeling'
+- HEADING STRUCTURE in patterns/service-mesh.md:893 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/service-mesh.md:941 - Skipped from h1 to h4: 'AI-Driven Mesh Optimization'
+- HEADING STRUCTURE in patterns/service-mesh.md:998 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/cdc.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/cdc.md:292 - Skipped from h1 to h3: 'CDC Event Processing Pipeline'
+- HEADING STRUCTURE in patterns/cdc.md:482 - Skipped from h1 to h4: '2. Schema Evolution Handling'
+- HEADING STRUCTURE in patterns/cdc.md:552 - Skipped from h1 to h4: '3. CDC Deduplication and Ordering'
+- HEADING STRUCTURE in patterns/cdc.md:803 - Skipped from h1 to h3: 'Real-World Monitoring'
+- HEADING STRUCTURE in patterns/cdc.md:871 - Skipped from h1 to h3: 'Economic Impact Analysis'
+- HEADING STRUCTURE in patterns/cdc.md:1004 - Skipped from h1 to h3: 'Advanced CDC Optimization'
+- HEADING STRUCTURE in patterns/cdc.md:1077 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/sharding.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/sharding.md:225 - Skipped from h1 to h3: 'Cross-Shard Query Handling'
+- HEADING STRUCTURE in patterns/sharding.md:406 - Skipped from h1 to h4: '2. Shard-Aware Caching'
+- HEADING STRUCTURE in patterns/sharding.md:456 - Skipped from h1 to h4: '3. Global Secondary Indexes'
+- HEADING STRUCTURE in patterns/sharding.md:746 - Skipped from h1 to h3: 'Economic Impact Analysis'
+- HEADING STRUCTURE in patterns/sharding.md:930 - Skipped from h1 to h3: 'Advanced Sharding Algorithms'
+- HEADING STRUCTURE in patterns/sharding.md:1028 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/observability.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/observability.md:221 - Skipped from h1 to h3: 'Observable Service Implementation'
+- HEADING STRUCTURE in patterns/observability.md:339 - Skipped from h1 to h3: 'The Four Golden Signals'
+- HEADING STRUCTURE in patterns/observability.md:451 - Skipped from h1 to h4: '2. Custom Business Metrics'
+- HEADING STRUCTURE in patterns/observability.md:516 - Skipped from h1 to h4: '3. Intelligent Alerting'
+- HEADING STRUCTURE in patterns/observability.md:603 - Skipped from h1 to h3: 'Production-Ready Implementation'
+- HEADING STRUCTURE in patterns/observability.md:775 - Skipped from h1 to h3: 'Netflix's Telemetry System'
+- HEADING STRUCTURE in patterns/observability.md:844 - Skipped from h1 to h3: 'Performance Analysis from Production'
+- HEADING STRUCTURE in patterns/observability.md:1059 - Skipped from h1 to h4: '2. Control Theory for Observability'
+- HEADING STRUCTURE in patterns/observability.md:1166 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/observability.md:1243 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/observability.md:1338 - Skipped from h1 to h3: 'Quick Implementation'
+- HEADING STRUCTURE in patterns/distributed-lock.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/distributed-lock.md:133 - Skipped from h1 to h4: '3. Consensus-Based Locks'
+- HEADING STRUCTURE in patterns/distributed-lock.md:159 - Skipped from h1 to h3: 'Lock Safety Properties'
+- HEADING STRUCTURE in patterns/distributed-lock.md:265 - Skipped from h1 to h3: 'Problems with Distributed Locks'
+- HEADING STRUCTURE in patterns/distributed-lock.md:375 - Skipped from h1 to h4: 'etcd Distributed Locks'
+- HEADING STRUCTURE in patterns/distributed-lock.md:416 - Skipped from h1 to h3: 'Real-World Case Study: Uber's Distributed Lock'
+- HEADING STRUCTURE in patterns/distributed-lock.md:506 - Skipped from h1 to h4: 'Optimal Lock Algorithms'
+- HEADING STRUCTURE in patterns/distributed-lock.md:557 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/distributed-lock.md:684 - Skipped from h1 to h3: 'Configuration Example'
+- HEADING STRUCTURE in patterns/two-phase-commit.md:23 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/timeout.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/timeout.md:351 - Skipped from h1 to h4: '2. Adaptive Timeouts'
+- HEADING STRUCTURE in patterns/timeout.md:461 - Skipped from h1 to h4: '3. Hedged Requests with Timeout'
+- HEADING STRUCTURE in patterns/timeout.md:759 - Skipped from h1 to h3: 'Real-World Monitoring Dashboard'
+- HEADING STRUCTURE in patterns/timeout.md:845 - Skipped from h1 to h3: 'Economic Impact Analysis'
+- HEADING STRUCTURE in patterns/timeout.md:1039 - Skipped from h1 to h3: 'Chaos Engineering for Timeouts'
+- HEADING STRUCTURE in patterns/timeout.md:1130 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/auto-scaling.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/auto-scaling.md:291 - Skipped from h1 to h4: 'Multi-Dimensional Auto-scaling'
+- HEADING STRUCTURE in patterns/auto-scaling.md:358 - Skipped from h1 to h3: 'Auto-scaling Anti-Patterns'
+- HEADING STRUCTURE in patterns/auto-scaling.md:439 - Skipped from h1 to h4: 'Kubernetes Horizontal Pod Autoscaler'
+- HEADING STRUCTURE in patterns/auto-scaling.md:509 - Skipped from h1 to h3: 'Real-World Case Study: AWS Auto Scaling'
+- HEADING STRUCTURE in patterns/auto-scaling.md:734 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/load-balancing.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/load-balancing.md:274 - Skipped from h1 to h3: 'Consistent Hashing Visualization'
+- HEADING STRUCTURE in patterns/load-balancing.md:390 - Skipped from h1 to h3: 'Geographic Load Balancing'
+- HEADING STRUCTURE in patterns/load-balancing.md:569 - Skipped from h1 to h4: 'NGINX Advanced Load Balancing'
+- HEADING STRUCTURE in patterns/load-balancing.md:667 - Skipped from h1 to h3: 'Real-World Case Study: Netflix's Zuul'
+- HEADING STRUCTURE in patterns/load-balancing.md:908 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/serverless-faas.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/serverless-faas.md:267 - Skipped from h1 to h4: '2. Event-Driven Pattern'
+- HEADING STRUCTURE in patterns/serverless-faas.md:343 - Skipped from h1 to h4: '3. Stream Processing Pattern'
+- HEADING STRUCTURE in patterns/serverless-faas.md:404 - Skipped from h1 to h3: 'Cold Start Optimization'
+- HEADING STRUCTURE in patterns/serverless-faas.md:627 - Skipped from h1 to h4: 'Serverless Event Sourcing'
+- HEADING STRUCTURE in patterns/serverless-faas.md:741 - Skipped from h1 to h4: 'Serverless WebSockets'
+- HEADING STRUCTURE in patterns/serverless-faas.md:1070 - Skipped from h1 to h3: 'Step Functions Workflow Visualization'
+- HEADING STRUCTURE in patterns/serverless-faas.md:1359 - Skipped from h1 to h4: 'Queueing Theory for Serverless'
+- HEADING STRUCTURE in patterns/serverless-faas.md:1426 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/serverless-faas.md:1496 - Skipped from h1 to h4: 'Serverless Containers'
+- HEADING STRUCTURE in patterns/serverless-faas.md:1559 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/cqrs.md:24 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/cqrs.md:314 - Skipped from h1 to h4: 'Production-Ready Implementation'
+- HEADING STRUCTURE in patterns/cqrs.md:484 - Skipped from h1 to h3: 'State Management'
+- HEADING STRUCTURE in patterns/cqrs.md:572 - Skipped from h1 to h4: 'Eventual Consistency Handling'
+- HEADING STRUCTURE in patterns/cqrs.md:632 - Skipped from h1 to h3: 'Performance Optimization'
+- HEADING STRUCTURE in patterns/cqrs.md:689 - Skipped from h1 to h3: 'Common Pitfalls'
+- HEADING STRUCTURE in patterns/cqrs.md:848 - Skipped from h1 to h4: 'When It Pays Off'
+- HEADING STRUCTURE in patterns/cqrs.md:957 - Skipped from h1 to h3: 'Configuration Template'
+- HEADING STRUCTURE in patterns/finops.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/finops.md:132 - Skipped from h1 to h3: 'Basic Cost Tracking Implementation'
+- HEADING STRUCTURE in patterns/finops.md:224 - Skipped from h1 to h3: 'Resource Tagging Strategy'
+- HEADING STRUCTURE in patterns/finops.md:292 - Skipped from h1 to h3: 'Cost Optimization Engine'
+- HEADING STRUCTURE in patterns/finops.md:448 - Skipped from h1 to h4: '2. Predictive Cost Optimization'
+- HEADING STRUCTURE in patterns/finops.md:513 - Skipped from h1 to h4: '3. Automated Cost Remediation'
+- HEADING STRUCTURE in patterns/finops.md:579 - Skipped from h1 to h3: 'Production Implementation'
+- HEADING STRUCTURE in patterns/finops.md:773 - Skipped from h1 to h3: 'Real Production Metrics'
+- HEADING STRUCTURE in patterns/finops.md:909 - Skipped from h1 to h4: '2. Game Theory for Multi-Tenant Optimization'
+- HEADING STRUCTURE in patterns/finops.md:980 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/finops.md:1006 - Skipped from h1 to h4: '2. AI-Driven Autonomous FinOps'
+- HEADING STRUCTURE in patterns/finops.md:1046 - Skipped from h1 to h3: 'Economic Impact Analysis'
+- HEADING STRUCTURE in patterns/finops.md:1139 - Skipped from h1 to h3: 'Quick Wins'
+- HEADING STRUCTURE in patterns/queues-streaming.md:24 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/queues-streaming.md:457 - Skipped from h1 to h4: 'Production-Ready Implementation'
+- HEADING STRUCTURE in patterns/queues-streaming.md:726 - Skipped from h1 to h3: 'State Management'
+- HEADING STRUCTURE in patterns/queues-streaming.md:832 - Skipped from h1 to h4: 'Stream Joins and Windows'
+- HEADING STRUCTURE in patterns/queues-streaming.md:873 - Skipped from h1 to h3: 'Performance Optimization'
+- HEADING STRUCTURE in patterns/queues-streaming.md:934 - Skipped from h1 to h3: 'Common Pitfalls'
+- HEADING STRUCTURE in patterns/queues-streaming.md:1051 - Skipped from h1 to h4: 'When It Pays Off'
+- HEADING STRUCTURE in patterns/queues-streaming.md:1172 - Skipped from h1 to h3: 'Configuration Template'
+- HEADING STRUCTURE in patterns/edge-computing.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in patterns/edge-computing.md:286 - Skipped from h1 to h4: '2. Store and Forward Pattern'
+- HEADING STRUCTURE in patterns/edge-computing.md:356 - Skipped from h1 to h4: '3. Edge ML Optimization'
+- HEADING STRUCTURE in patterns/edge-computing.md:413 - Skipped from h1 to h3: 'Edge-Specific Data Management'
+- HEADING STRUCTURE in patterns/edge-computing.md:657 - Skipped from h1 to h4: 'Edge Orchestration'
+- HEADING STRUCTURE in patterns/edge-computing.md:753 - Skipped from h1 to h4: 'Edge Security'
+- HEADING STRUCTURE in patterns/edge-computing.md:948 - Skipped from h1 to h3: 'Edge Infrastructure at Scale'
+- HEADING STRUCTURE in patterns/edge-computing.md:1052 - Skipped from h1 to h3: 'Advanced Edge Patterns'
+- HEADING STRUCTURE in patterns/edge-computing.md:1304 - Skipped from h1 to h4: 'Information Theory at the Edge'
+- HEADING STRUCTURE in patterns/edge-computing.md:1376 - Skipped from h1 to h3: 'Future Directions'
+- HEADING STRUCTURE in patterns/edge-computing.md:1442 - Skipped from h1 to h4: 'Neuromorphic Edge Computing'
+- HEADING STRUCTURE in patterns/edge-computing.md:1494 - Skipped from h1 to h3: 'Economic Impact'
+- HEADING STRUCTURE in patterns/pattern-quiz.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/circuit-breaker-enhanced.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in patterns/circuit-breaker-enhanced.md:328 - Skipped from h1 to h3: 'Testing Circuit Breakers'
+- HEADING STRUCTURE in part2-pillars/pattern-catalog-intro.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/pillars-patterns-map.md:11 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/reflection-journal.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/decision-tree.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/decision-tree.md:132 - Skipped from h1 to h3: 'Decision Impact Analysis'
+- HEADING STRUCTURE in part2-pillars/models-collide.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/tradeoff-calculus.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/failure-recap.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/models-comparison.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/pattern-matrix.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/transition-part3.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/pattern-legend.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/pillar-checkpoint.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in introduction/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in introduction/philosophy.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/synthesis.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/quiz.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/payment-system.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/payment-system.md:217 - Skipped from h1 to h3: '2. Distributed Transaction Management'
+- HEADING STRUCTURE in case-studies/payment-system.md:329 - Skipped from h1 to h3: '4. Double-Entry Bookkeeping'
+- HEADING STRUCTURE in case-studies/payment-system.md:456 - Skipped from h1 to h3: 'Multi-Currency Support'
+- HEADING STRUCTURE in case-studies/payment-system.md:593 - Skipped from h1 to h3: 'Payment Routing'
+- HEADING STRUCTURE in case-studies/payment-system.md:834 - Skipped from h1 to h3: 'Audit Trail'
+- HEADING STRUCTURE in case-studies/paypal-payments.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/paypal-payments.md:196 - Skipped from h1 to h3: 'Idempotency and Exactly-Once Processing'
+- HEADING STRUCTURE in case-studies/paypal-payments.md:291 - Skipped from h1 to h3: 'Axiom 4: Control Through Orchestration'
+- HEADING STRUCTURE in case-studies/paypal-payments.md:336 - Skipped from h1 to h3: 'Axiom 3: Failure Handling'
+- HEADING STRUCTURE in case-studies/google-maps-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/google-maps-enhanced.md:351 - Skipped from h1 to h3: '2. Real-time Traffic System'
+- HEADING STRUCTURE in case-studies/google-maps-enhanced.md:475 - Skipped from h1 to h3: '3. Routing Engine'
+- HEADING STRUCTURE in case-studies/google-maps-enhanced.md:618 - Skipped from h1 to h3: '4. Tile Generation System'
+- HEADING STRUCTURE in case-studies/google-maps-enhanced.md:721 - Skipped from h1 to h3: '5. Places and Search'
+- HEADING STRUCTURE in case-studies/google-maps-enhanced.md:1040 - Skipped from h1 to h3: 'Data Pipeline Monitoring'
+- HEADING STRUCTURE in case-studies/distributed-message-queue-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/distributed-message-queue-enhanced.md:401 - Skipped from h1 to h3: '2. Replication Protocol'
+- HEADING STRUCTURE in case-studies/distributed-message-queue-enhanced.md:547 - Skipped from h1 to h3: '3. Consumer Group Coordination'
+- HEADING STRUCTURE in case-studies/distributed-message-queue-enhanced.md:677 - Skipped from h1 to h3: '4. Stream Processing Integration'
+- HEADING STRUCTURE in case-studies/distributed-message-queue-enhanced.md:799 - Skipped from h1 to h3: '5. Performance Optimization'
+- HEADING STRUCTURE in case-studies/distributed-message-queue-enhanced.md:1130 - Skipped from h1 to h3: 'Monitoring Dashboard'
+- HEADING STRUCTURE in case-studies/spotify-recommendations.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/spotify-recommendations.md:184 - Skipped from h1 to h3: 'Real-Time Feature Pipeline'
+- HEADING STRUCTURE in case-studies/spotify-recommendations.md:306 - Skipped from h1 to h3: '2. Contextual Bandits for Exploration'
+- HEADING STRUCTURE in case-studies/spotify-recommendations.md:324 - Skipped from h1 to h3: '3. Session-Based Recommendations'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:423 - Skipped from h1 to h3: '4.2 Real-Time Score Processing Pipeline'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:658 - Skipped from h1 to h3: '4.3 Anti-Cheat System'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:846 - Skipped from h1 to h3: '4.4 Friend and Social Leaderboards'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:1006 - Skipped from h1 to h3: '4.5 Tournament System'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:1251 - Skipped from h1 to h3: '5.2 Seasonal Leaderboards'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:1391 - Skipped from h1 to h3: '5.3 Cross-Game Leaderboards'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:1527 - Skipped from h1 to h3: '6.2 Sharding Strategy'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:1596 - Skipped from h1 to h3: '7.2 Cheat Detection Analytics'
+- HEADING STRUCTURE in case-studies/gaming-leaderboard-enhanced.md:1656 - Skipped from h1 to h3: '8.2 Score Corruption Recovery'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:514 - Skipped from h1 to h3: '4.3 Risk Management Engine'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:645 - Skipped from h1 to h3: '4.4 Settlement and Clearing System'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:782 - Skipped from h1 to h3: '4.5 Market Surveillance System'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:1025 - Skipped from h1 to h3: '5.2 Alternative Trading System (Dark Pool)'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:1157 - Skipped from h1 to h3: '5.3 Market Making System'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:1492 - Skipped from h1 to h3: '7.2 Latency Monitoring'
+- HEADING STRUCTURE in case-studies/stock-exchange-enhanced.md:2017 - Skipped from h1 to h3: '11.2 AI-Driven Market Making'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:176 - Skipped from h1 to h3: 'Axiom 2: Capacity - The Vocabulary Explosion'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:318 - Skipped from h1 to h3: 'Axiom 3: Failure - Graceful Degradation'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:419 - Skipped from h1 to h3: 'Axiom 4: Concurrency - Handling Parallel Queries'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:553 - Skipped from h1 to h3: 'Axiom 5: Coordination - Global Consistency'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:642 - Skipped from h1 to h3: 'Axiom 6: Observability - Understanding Search Patterns'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:746 - Skipped from h1 to h3: 'Axiom 7: Human Interface - Natural Query Understanding'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:864 - Skipped from h1 to h3: 'Axiom 8: Economics - Balancing Quality and Cost'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:1031 - Skipped from h1 to h3: 'Alternative Architecture 2: FST (Finite State Transducer)'
+- HEADING STRUCTURE in case-studies/search-autocomplete.md:1138 - Skipped from h1 to h3: 'Recommended Hybrid Architecture'
+- HEADING STRUCTURE in case-studies/youtube-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/youtube-enhanced.md:344 - Skipped from h1 to h3: '2. Storage Architecture'
+- HEADING STRUCTURE in case-studies/youtube-enhanced.md:416 - Skipped from h1 to h3: '3. CDN & Edge Architecture'
+- HEADING STRUCTURE in case-studies/youtube-enhanced.md:533 - Skipped from h1 to h3: '5. Video Delivery Optimization'
+- HEADING STRUCTURE in case-studies/youtube-enhanced.md:792 - Skipped from h1 to h3: 'Real-time Monitoring Dashboard'
+- HEADING STRUCTURE in case-studies/google-drive-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/google-drive-enhanced.md:362 - Skipped from h1 to h3: '2. Sync Engine & Conflict Resolution'
+- HEADING STRUCTURE in case-studies/google-drive-enhanced.md:454 - Skipped from h1 to h3: '3. Real-time Collaboration'
+- HEADING STRUCTURE in case-studies/google-drive-enhanced.md:543 - Skipped from h1 to h3: '4. Intelligent Caching & Prediction'
+- HEADING STRUCTURE in case-studies/google-drive-enhanced.md:622 - Skipped from h1 to h3: '5. Storage Tiering & Lifecycle'
+- HEADING STRUCTURE in case-studies/google-drive-enhanced.md:899 - Skipped from h1 to h3: 'Real-time Monitoring Dashboard'
+- HEADING STRUCTURE in case-studies/consistency-deep-dive-chat.md:44 - Skipped from h1 to h3: '1.2 Message Ordering Guarantees'
+- HEADING STRUCTURE in case-studies/consistency-deep-dive-chat.md:147 - Skipped from h1 to h3: '2.2 Strong Consistency for Critical Operations'
+- HEADING STRUCTURE in case-studies/consistency-deep-dive-chat.md:358 - Skipped from h1 to h3: '4.2 Causal Broadcast for Group Messages'
+- HEADING STRUCTURE in case-studies/consistency-deep-dive-chat.md:503 - Skipped from h1 to h3: '5.2 Consistency Monitoring and Metrics'
+- HEADING STRUCTURE in case-studies/consistency-deep-dive-chat.md:664 - Skipped from h1 to h3: '6.2 Consensus-based Total Order Broadcast'
+- HEADING STRUCTURE in case-studies/consistency-deep-dive-chat.md:812 - Skipped from h1 to h3: '7.2 Consistency with Network Partitions'
+- HEADING STRUCTURE in case-studies/url-shortener.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/url-shortener.md:251 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): Storage Optimization'
+- HEADING STRUCTURE in case-studies/url-shortener.md:390 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Resilience and Recovery'
+- HEADING STRUCTURE in case-studies/url-shortener.md:608 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Parallel Processing'
+- HEADING STRUCTURE in case-studies/url-shortener.md:847 - Skipped from h1 to h4: '🤝 Axiom 5 (Coordination): Distributed Consensus'
+- HEADING STRUCTURE in case-studies/url-shortener.md:1099 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): Analytics Pipeline'
+- HEADING STRUCTURE in case-studies/url-shortener.md:1380 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): Management Tools'
+- HEADING STRUCTURE in case-studies/url-shortener.md:1679 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/url-shortener.md:1841 - Skipped from h1 to h3: '🔍 Comprehensive Axiom Mapping'
+- HEADING STRUCTURE in case-studies/amazon-dynamo.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/news-feed.md:119 - Skipped from h1 to h3: 'Axiom 2: Capacity - The Quadratic Growth Challenge'
+- HEADING STRUCTURE in case-studies/news-feed.md:194 - Skipped from h1 to h3: 'Axiom 3: Failure - Content Must Flow'
+- HEADING STRUCTURE in case-studies/news-feed.md:276 - Skipped from h1 to h3: 'Axiom 4: Concurrency - The Timeline Merge Challenge'
+- HEADING STRUCTURE in case-studies/news-feed.md:386 - Skipped from h1 to h3: 'Axiom 5: Coordination - Global Consistency at Scale'
+- HEADING STRUCTURE in case-studies/news-feed.md:456 - Skipped from h1 to h3: 'Axiom 6: Observability - Understanding Feed Health'
+- HEADING STRUCTURE in case-studies/news-feed.md:532 - Skipped from h1 to h3: 'Axiom 7: Human Interface - The Ergonomics of Engagement'
+- HEADING STRUCTURE in case-studies/news-feed.md:627 - Skipped from h1 to h3: 'Axiom 8: Economics - The Attention Economy'
+- HEADING STRUCTURE in case-studies/news-feed.md:768 - Skipped from h1 to h3: 'Alternative Architecture 2: Pure Pull Model'
+- HEADING STRUCTURE in case-studies/news-feed.md:797 - Skipped from h1 to h3: 'Alternative Architecture 3: ML-First Architecture'
+- HEADING STRUCTURE in case-studies/news-feed.md:857 - Skipped from h1 to h3: 'Recommended Hybrid Architecture'
+- HEADING STRUCTURE in case-studies/web-crawler.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/web-crawler.md:220 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): URL Frontier Management'
+- HEADING STRUCTURE in case-studies/web-crawler.md:515 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Robust Crawling'
+- HEADING STRUCTURE in case-studies/web-crawler.md:813 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Parallel Crawling'
+- HEADING STRUCTURE in case-studies/web-crawler.md:1090 - Skipped from h1 to h4: '🤝 Axiom 5 (Coordination): Distributed Crawling'
+- HEADING STRUCTURE in case-studies/web-crawler.md:1396 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): Crawl Monitoring'
+- HEADING STRUCTURE in case-studies/web-crawler.md:1694 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): Crawler Management'
+- HEADING STRUCTURE in case-studies/web-crawler.md:1983 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/web-crawler.md:2180 - Skipped from h1 to h3: '🔍 Comprehensive Axiom Mapping'
+- HEADING STRUCTURE in case-studies/uber-location.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:356 - Skipped from h1 to h3: '4.2 Scalable Storage System'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:524 - Skipped from h1 to h3: '4.3 Advanced Spam Detection'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:688 - Skipped from h1 to h3: '4.4 Real-time Search Engine'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:874 - Skipped from h1 to h3: '4.5 Real-time Collaboration'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:1083 - Skipped from h1 to h3: '5.2 Advanced Security Features'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:1177 - Skipped from h1 to h3: '5.3 Intelligent Organization'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:1349 - Skipped from h1 to h3: '6.2 Distributed Caching Strategy'
+- HEADING STRUCTURE in case-studies/distributed-email-enhanced.md:1501 - Skipped from h1 to h3: '8.2 Corruption Detection and Recovery'
+- HEADING STRUCTURE in case-studies/distributed-message-queue.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/distributed-message-queue.md:164 - Skipped from h1 to h3: '3. Replication Protocol'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:357 - Skipped from h1 to h3: '4.2 Search and Ranking Engine'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:592 - Skipped from h1 to h3: '4.3 Dynamic Pricing Engine'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:745 - Skipped from h1 to h3: '4.4 Booking Orchestration with Saga Pattern'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:874 - Skipped from h1 to h3: '4.5 Multi-Channel Synchronization'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:1021 - Skipped from h1 to h3: '5.2 Guest Experience Personalization'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:1091 - Skipped from h1 to h3: '5.3 Fraud Detection for Bookings'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:1240 - Skipped from h1 to h3: '6.2 Database Sharding'
+- HEADING STRUCTURE in case-studies/hotel-reservation-enhanced.md:1614 - Skipped from h1 to h3: '8.2 Inventory Conflict Resolution'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:488 - Skipped from h1 to h3: '4.2 Payment Processing Engine'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:654 - Skipped from h1 to h3: '4.3 Fraud Detection System'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:796 - Skipped from h1 to h3: '4.4 Multi-Currency Support'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:922 - Skipped from h1 to h3: '4.5 QR Code Payment System'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:1207 - Skipped from h1 to h3: '5.2 Rewards and Cashback System'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:1344 - Skipped from h1 to h3: '5.3 Scheduled Payments'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:1527 - Skipped from h1 to h3: '6.2 Transaction Limits and Controls'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:1651 - Skipped from h1 to h3: '7.2 Batch Processing'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:1729 - Skipped from h1 to h3: '8.2 Financial Reconciliation'
+- HEADING STRUCTURE in case-studies/digital-wallet-enhanced.md:2099 - Skipped from h1 to h3: '9.2 Disaster Recovery'
+- HEADING STRUCTURE in case-studies/metrics-monitoring.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/metrics-monitoring.md:184 - Skipped from h1 to h3: '3. Storage Architecture'
+- HEADING STRUCTURE in case-studies/metrics-monitoring.md:319 - Skipped from h1 to h3: 'Real-time Alerting'
+- HEADING STRUCTURE in case-studies/metrics-monitoring.md:484 - Skipped from h1 to h3: 'Monitoring the Monitor'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:195 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): ID Space Management'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:303 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Clock and Node Failures'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:476 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Lock-Free Generation'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:602 - Skipped from h1 to h4: '🤝 Axiom 5 (Coordination): Distributed Agreement'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:805 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): ID Analytics'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:1003 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): Developer Experience'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:1247 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:1400 - Skipped from h1 to h3: '🔍 Comprehensive Axiom Mapping'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:1828 - Skipped from h1 to h4: 'Option 3: Database Sequences'
+- HEADING STRUCTURE in case-studies/unique-id-generator.md:1924 - Skipped from h1 to h3: '📊 Performance Characteristics'
+- HEADING STRUCTURE in case-studies/ad-click-aggregation.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/ad-click-aggregation.md:235 - Skipped from h1 to h3: '3. Aggregation Strategy'
+- HEADING STRUCTURE in case-studies/ad-click-aggregation.md:471 - Skipped from h1 to h3: 'Query Performance'
+- HEADING STRUCTURE in case-studies/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/proximity-service-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/proximity-service-enhanced.md:437 - Skipped from h1 to h3: '2. Proximity Query Engine'
+- HEADING STRUCTURE in case-studies/proximity-service-enhanced.md:581 - Skipped from h1 to h3: '3. Real-time Updates'
+- HEADING STRUCTURE in case-studies/proximity-service-enhanced.md:662 - Skipped from h1 to h3: '4. Geospatial Aggregation'
+- HEADING STRUCTURE in case-studies/object-storage.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/object-storage.md:214 - Skipped from h1 to h3: '2. Metadata Management'
+- HEADING STRUCTURE in case-studies/object-storage.md:434 - Skipped from h1 to h3: 'Cross-Region Replication'
+- HEADING STRUCTURE in case-studies/object-storage.md:502 - Skipped from h1 to h3: 'Performance Optimization'
+- HEADING STRUCTURE in case-studies/object-storage.md:716 - Skipped from h1 to h3: 'Storage Optimization'
+- HEADING STRUCTURE in case-studies/stock-exchange.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/stock-exchange.md:327 - Skipped from h1 to h3: '3. Fair Access and Anti-Gaming'
+- HEADING STRUCTURE in case-studies/stock-exchange.md:365 - Skipped from h1 to h3: '4. Market Data Distribution'
+- HEADING STRUCTURE in case-studies/stock-exchange.md:517 - Skipped from h1 to h3: 'Circuit Breakers and Halts'
+- HEADING STRUCTURE in case-studies/stock-exchange.md:572 - Skipped from h1 to h3: 'Order Types and Algorithms'
+- HEADING STRUCTURE in case-studies/stock-exchange.md:853 - Skipped from h1 to h3: 'Audit Trail'
+- HEADING STRUCTURE in case-studies/chat-system.md:154 - Skipped from h1 to h3: 'Axiom 2: Capacity - The Quadratic Connection Problem'
+- HEADING STRUCTURE in case-studies/chat-system.md:241 - Skipped from h1 to h3: 'Axiom 3: Failure - Messages Must Not Be Lost'
+- HEADING STRUCTURE in case-studies/chat-system.md:348 - Skipped from h1 to h3: 'Axiom 4: Concurrency - Handling Simultaneous Conversations'
+- HEADING STRUCTURE in case-studies/chat-system.md:425 - Skipped from h1 to h3: 'Axiom 5: Coordination - Global Message Ordering'
+- HEADING STRUCTURE in case-studies/chat-system.md:511 - Skipped from h1 to h3: 'Axiom 6: Observability - Understanding System Health'
+- HEADING STRUCTURE in case-studies/chat-system.md:605 - Skipped from h1 to h3: 'Axiom 7: Human Interface - Optimizing for Natural Conversation'
+- HEADING STRUCTURE in case-studies/chat-system.md:719 - Skipped from h1 to h3: 'Axiom 8: Economics - Balancing Cost and Features'
+- HEADING STRUCTURE in case-studies/chat-system.md:959 - Skipped from h1 to h3: 'Alternative Architecture 2: Centralized Server'
+- HEADING STRUCTURE in case-studies/chat-system.md:1053 - Skipped from h1 to h3: 'Alternative Architecture 3: Federated (Matrix Protocol)'
+- HEADING STRUCTURE in case-studies/chat-system.md:1153 - Skipped from h1 to h3: 'Alternative Architecture 4: Blockchain-Based'
+- HEADING STRUCTURE in case-studies/chat-system.md:1287 - Skipped from h1 to h3: 'Alternative Architecture 5: Event Sourcing + CQRS'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:364 - Skipped from h1 to h3: '4.2 Erasure Coding Storage Engine'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:529 - Skipped from h1 to h3: '4.3 Distributed Storage Node'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:696 - Skipped from h1 to h3: '4.4 Multipart Upload Manager'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:880 - Skipped from h1 to h3: '4.5 Storage Class Management'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:1104 - Skipped from h1 to h3: '5.2 Intelligent Tiering'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:1211 - Skipped from h1 to h3: '5.3 Performance Optimization'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:1353 - Skipped from h1 to h3: '6.2 Storage Analytics'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:1442 - Skipped from h1 to h3: '7.2 Access Control'
+- HEADING STRUCTURE in case-studies/s3-object-storage-enhanced.md:1539 - Skipped from h1 to h3: '8.2 Corrupted Object Recovery'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:80 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): Finite Resources'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:122 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Byzantine Failures'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:163 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Race Conditions'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:243 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): Monitoring'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:287 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): Operations'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:325 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/rate-limiter.md:365 - Skipped from h1 to h3: '🏛️ Pillar Mapping'
+- HEADING STRUCTURE in case-studies/hotel-reservation.md:13 - Skipped from h0 to h2: 'last_updated: 2025-01-21'
+- HEADING STRUCTURE in case-studies/hotel-reservation.md:228 - Skipped from h1 to h3: '2. Search Optimization'
+- HEADING STRUCTURE in case-studies/hotel-reservation.md:317 - Skipped from h1 to h3: '3. Booking Workflow'
+- HEADING STRUCTURE in case-studies/hotel-reservation.md:511 - Skipped from h1 to h3: 'Overbooking Prevention'
+- HEADING STRUCTURE in case-studies/hotel-reservation.md:672 - Skipped from h1 to h3: 'Real-time Availability Updates'
+- HEADING STRUCTURE in case-studies/hotel-reservation.md:812 - Skipped from h1 to h3: '2. Inventory Sync Failure'
+- HEADING STRUCTURE in case-studies/uber-location-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/uber-location-enhanced.md:499 - Skipped from h1 to h3: '3. Regional Fault Isolation'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:337 - Skipped from h1 to h3: '2. Fuzzy Search & Typo Correction'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:439 - Skipped from h1 to h3: '3. Machine Learning Ranking'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:511 - Skipped from h1 to h3: '4. Real-time Data Pipeline'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:568 - Skipped from h1 to h3: '5. Caching Strategy'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:852 - Skipped from h1 to h3: '2. Memory Optimization'
+- HEADING STRUCTURE in case-studies/search-autocomplete-enhanced.md:893 - Skipped from h1 to h3: '3. Distributed Coordination'
+- HEADING STRUCTURE in case-studies/notification-system.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/notification-system.md:380 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): Scale Management'
+- HEADING STRUCTURE in case-studies/notification-system.md:716 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Reliable Delivery'
+- HEADING STRUCTURE in case-studies/notification-system.md:1015 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Parallel Processing'
+- HEADING STRUCTURE in case-studies/notification-system.md:1292 - Skipped from h1 to h4: '🤝 Axiom 5 (Coordination): Multi-Channel Orchestration'
+- HEADING STRUCTURE in case-studies/notification-system.md:1621 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): Analytics & Monitoring'
+- HEADING STRUCTURE in case-studies/notification-system.md:1935 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): User Control'
+- HEADING STRUCTURE in case-studies/notification-system.md:2270 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/notification-system.md:2544 - Skipped from h1 to h3: '📊 Comprehensive Axiom Mapping'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:363 - Skipped from h1 to h3: '4.2 Distributed Ledger System'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:551 - Skipped from h1 to h3: '4.3 Real-time Fraud Detection'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:739 - Skipped from h1 to h3: '4.4 Payment Routing and Failover'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:826 - Skipped from h1 to h3: '4.5 Settlement and Reconciliation'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1008 - Skipped from h1 to h3: '5.2 Subscription and Recurring Payments'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1120 - Skipped from h1 to h3: '5.3 Complex Payment Flows'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1276 - Skipped from h1 to h3: '6.2 Caching Strategy'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1400 - Skipped from h1 to h3: '7.2 End-to-End Encryption'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1511 - Skipped from h1 to h3: '7.2 Saga Pattern for Long-Running Transactions'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1568 - Skipped from h1 to h3: '7.3 Eventual Consistency in Settlement'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1623 - Skipped from h1 to h3: '7.4 Strong Consistency for Critical Operations'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1684 - Skipped from h1 to h3: '7.5 Read-After-Write Consistency'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1748 - Skipped from h1 to h3: '7.6 Consistency Monitoring and Reconciliation'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1818 - Skipped from h1 to h3: '7.7 Consistency Trade-offs in Payment Systems'
+- HEADING STRUCTURE in case-studies/payment-system-enhanced.md:1872 - Skipped from h1 to h3: '8.2 Data Corruption Recovery'
+- HEADING STRUCTURE in case-studies/key-value-store.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/key-value-store.md:154 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): Storage Engine Design'
+- HEADING STRUCTURE in case-studies/key-value-store.md:266 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Replication & Recovery'
+- HEADING STRUCTURE in case-studies/key-value-store.md:420 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Conflict Resolution'
+- HEADING STRUCTURE in case-studies/key-value-store.md:529 - Skipped from h1 to h4: '🤝 Axiom 5 (Coordination): Consensus & Membership'
+- HEADING STRUCTURE in case-studies/key-value-store.md:678 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): Metrics & Debugging'
+- HEADING STRUCTURE in case-studies/key-value-store.md:791 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): Operations & Management'
+- HEADING STRUCTURE in case-studies/key-value-store.md:953 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/key-value-store.md:1128 - Skipped from h1 to h3: '🔍 Comprehensive Axiom Mapping'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:110 - Skipped from h1 to h4: '💾 Axiom 2 (Capacity): Load Distribution'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:176 - Skipped from h1 to h4: '🔥 Axiom 3 (Failure): Node Failures and Recovery'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:247 - Skipped from h1 to h4: '🔀 Axiom 4 (Concurrency): Concurrent Ring Modifications'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:318 - Skipped from h1 to h4: '🤝 Axiom 5 (Coordination): Ring Topology Consensus'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:401 - Skipped from h1 to h4: '👁️ Axiom 6 (Observability): Ring Monitoring'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:485 - Skipped from h1 to h4: '👤 Axiom 7 (Human Interface): Operational Tools'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:573 - Skipped from h1 to h4: '💰 Axiom 8 (Economics): Cost Optimization'
+- HEADING STRUCTURE in case-studies/consistent-hashing.md:668 - Skipped from h1 to h3: '🏛️ Pillar Mapping'
+- HEADING STRUCTURE in case-studies/prometheus-datadog-enhanced.md:301 - Skipped from h1 to h3: '4.2 High-Performance Query Engine'
+- HEADING STRUCTURE in case-studies/prometheus-datadog-enhanced.md:450 - Skipped from h1 to h3: '4.3 Real-Time Alerting Engine'
+- HEADING STRUCTURE in case-studies/prometheus-datadog-enhanced.md:630 - Skipped from h1 to h3: '4.4 Distributed Aggregation Pipeline'
+- HEADING STRUCTURE in case-studies/prometheus-datadog-enhanced.md:836 - Skipped from h1 to h3: '5.2 Machine Learning Integration'
+- HEADING STRUCTURE in case-studies/prometheus-datadog-enhanced.md:936 - Skipped from h1 to h3: '6.2 Storage Optimization'
+- HEADING STRUCTURE in case-studies/prometheus-datadog-enhanced.md:993 - Skipped from h1 to h3: '7.2 Query Failures'
+- HEADING STRUCTURE in case-studies/nearby-friends-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in case-studies/nearby-friends-enhanced.md:358 - Skipped from h1 to h3: '2. Efficient Proximity Detection'
+- HEADING STRUCTURE in case-studies/nearby-friends-enhanced.md:477 - Skipped from h1 to h3: '3. Battery-Efficient Location Updates'
+- HEADING STRUCTURE in case-studies/nearby-friends-enhanced.md:603 - Skipped from h1 to h3: '4. Social Graph Integration'
+- HEADING STRUCTURE in case-studies/nearby-friends-enhanced.md:716 - Skipped from h1 to h3: '5. Real-time Stream Processing'
+- HEADING STRUCTURE in case-studies/nearby-friends-enhanced.md:1036 - Skipped from h1 to h3: 'Privacy Dashboard'
+- HEADING STRUCTURE in case-studies/chat-system-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in capstone/evaluation-rubric.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in capstone/framework.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in capstone/framework.md:334 - Skipped from h1 to h3: 'Development Tools'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:165 - Skipped from h1 to h3: '2. Keep Updated'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:196 - Skipped from h1 to h3: '3. Runbook Driven Development'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:253 - Skipped from h1 to h3: '3. Blast Radius'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:277 - Skipped from h1 to h3: 'Time Series Correlation'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:290 - Skipped from h1 to h3: 'Hypothesis Testing'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:312 - Skipped from h1 to h3: '2. Component Breakdown'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:366 - Skipped from h1 to h3: 'Incident Command Playbook'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:498 - Skipped from h1 to h3: 'ChatOps Integration'
+- HEADING STRUCTURE in human-factors/runbooks-playbooks.md:601 - Skipped from h1 to h3: 'Regular Drills'
+- HEADING STRUCTURE in human-factors/team-topologies.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/consistency-tuning.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/consistency-tuning.md:114 - Skipped from h1 to h3: '2. Gradual Consistency Degradation'
+- HEADING STRUCTURE in human-factors/consistency-tuning.md:141 - Skipped from h1 to h3: '3. Consistency SLOs'
+- HEADING STRUCTURE in human-factors/consistency-tuning.md:326 - Skipped from h1 to h3: '2. Silent Degradation'
+- HEADING STRUCTURE in human-factors/consistency-tuning.md:337 - Skipped from h1 to h3: '3. All-or-Nothing Thinking'
+- HEADING STRUCTURE in human-factors/sre-practices.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/sre-practices.md:145 - Skipped from h1 to h3: 'Setting SLOs'
+- HEADING STRUCTURE in human-factors/sre-practices.md:224 - Skipped from h1 to h3: 'Automation Examples'
+- HEADING STRUCTURE in human-factors/sre-practices.md:430 - Skipped from h1 to h3: 'Progressive Rollouts'
+- HEADING STRUCTURE in human-factors/sre-practices.md:488 - Skipped from h1 to h3: 'Leading Indicators'
+- HEADING STRUCTURE in human-factors/observability-stacks.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/observability-stacks.md:170 - Skipped from h1 to h3: '2. Optimize Collection'
+- HEADING STRUCTURE in human-factors/observability-stacks.md:194 - Skipped from h1 to h3: '3. Design Dashboards'
+- HEADING STRUCTURE in human-factors/observability-stacks.md:244 - Skipped from h1 to h3: '2. Service Dependency Mapping'
+- HEADING STRUCTURE in human-factors/observability-stacks.md:303 - Skipped from h1 to h3: 'Log Costs'
+- HEADING STRUCTURE in human-factors/observability-stacks.md:330 - Skipped from h1 to h3: 'Trace Costs'
+- HEADING STRUCTURE in human-factors/chaos-engineering.md:13 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/chaos-engineering.md:128 - Skipped from h1 to h3: 'Application Chaos'
+- HEADING STRUCTURE in human-factors/incident-response.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/incident-response.md:287 - Skipped from h1 to h3: 'Emergency Scale'
+- HEADING STRUCTURE in human-factors/oncall-culture.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/blameless-postmortems.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/org-structure.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/org-structure.md:325 - Skipped from h1 to h3: '3. Cognitive Overload'
+- HEADING STRUCTURE in human-factors/knowledge-management.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in human-factors/knowledge-management.md:177 - Skipped from h1 to h3: '3. Knowledge Extraction from Incidents'
+- HEADING STRUCTURE in reference/glossary.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in reference/recipe-cards.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in reference/recipe-cards.md:213 - Skipped from h1 to h3: 'Recipe: Performance Investigation'
+- HEADING STRUCTURE in reference/recipe-cards.md:360 - Skipped from h1 to h3: 'Recipe: API Performance Optimization'
+- HEADING STRUCTURE in reference/index.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in reference/cheat-sheets.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in reference/security.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in reference/security.md:79 - Skipped from h1 to h3: 'Retry Pattern Security'
+- HEADING STRUCTURE in reference/security.md:112 - Skipped from h1 to h3: 'Saga Pattern Security'
+- HEADING STRUCTURE in reference/security.md:136 - Skipped from h1 to h3: 'Event Sourcing Security'
+- HEADING STRUCTURE in reference/security.md:243 - Skipped from h1 to h3: 'OAuth 2.0 / OpenID Connect Integration'
+- HEADING STRUCTURE in reference/security.md:309 - Skipped from h1 to h3: 'Service Mesh Security (mTLS)'
+- HEADING STRUCTURE in reference/security.md:379 - Skipped from h1 to h3: 'Data Masking and Anonymization'
+- HEADING STRUCTURE in reference/security.md:462 - Skipped from h1 to h3: 'Audit Logging'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/examples.md:182 - Skipped from h1 to h3: 'Case 2: The 14-Hour Ghost Outage (Facebook, 2019)'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/examples.md:388 - Skipped from h1 to h3: 'Case 3: The Metric That Lied (Uber's Surge Pricing Bug)'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:120 - Skipped from h1 to h4: 'Exercise 1.2: Log Aggregation Pipeline'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:178 - Skipped from h1 to h3: 'Lab 2: Distributed Tracing Implementation'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:293 - Skipped from h1 to h4: 'Exercise 2.2: Trace Analysis'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:350 - Skipped from h1 to h3: 'Lab 3: Metrics Collection and Analysis'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:428 - Skipped from h1 to h4: 'Exercise 3.2: Alert Rule Engine'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:496 - Skipped from h1 to h3: 'Lab 4: Observability Cost Optimization'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:573 - Skipped from h1 to h4: 'Exercise 4.2: Data Retention Optimizer'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:697 - Skipped from h1 to h3: 'Challenge 2: Observability Without Observability'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:722 - Skipped from h1 to h3: 'Challenge 3: The Observability Paradox'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:787 - Skipped from h1 to h3: 'Project 2: Distributed Tracing Compression'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:808 - Skipped from h1 to h3: 'Project 3: Cost-Aware Observability'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/exercises.md:879 - Skipped from h1 to h3: 'Cost Optimization Checklist'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:239 - Skipped from h1 to h4: '2. Metrics: The Aggregated View'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:274 - Skipped from h1 to h4: '3. Traces: The Flow Visualization'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:302 - Skipped from h1 to h3: '🎬 Failure Vignette: The Twitter Fail Whale Era'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:375 - Skipped from h1 to h4: '2. Traffic: The Pulse of Your System'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:417 - Skipped from h1 to h4: '4. Saturation: The Breaking Point'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:488 - Skipped from h1 to h3: 'Anti-Pattern Gallery'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:545 - Skipped from h1 to h4: '4. The Cardinality Bomb'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:644 - Skipped from h1 to h4: '2. Service Level Objectives (SLO) Monitoring'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:678 - Skipped from h1 to h4: '3. Synthetic Monitoring'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:720 - Skipped from h1 to h4: '4. Chaos Observability'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:754 - Skipped from h1 to h3: 'Observability Economics'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:909 - Skipped from h1 to h4: '2. Correlation Analysis'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:958 - Skipped from h1 to h4: '3. Predictive Observability'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:997 - Skipped from h1 to h3: 'Future of Observability'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:1054 - Skipped from h1 to h4: '3. Observability Mesh'
+- HEADING STRUCTURE in part1-axioms/axiom6-observability/index.md:1250 - Skipped from h1 to h3: 'Exercise 2: Cost-Optimize Observability 🌿'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:83 - Skipped from h1 to h4: 'The Timeline'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:165 - Skipped from h1 to h4: 'Concurrent Booking Timeline'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:254 - Skipped from h1 to h4: 'Probability of Successful Double-Spend'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:324 - Skipped from h1 to h3: 'Pattern 2: Multi-Version Concurrency Control (MVCC)'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:385 - Skipped from h1 to h3: 'Pattern 3: Compare-and-Swap (CAS) Operations'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:449 - Skipped from h1 to h3: 'Pattern 4: Vector Clocks for Causality'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:547 - Skipped from h1 to h3: 'Bug Pattern 2: Dirty Reads'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:578 - Skipped from h1 to h3: 'Bug Pattern 3: Deadlocks'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/examples.md:666 - Skipped from h1 to h3: 'Example 2: Distributed Lock Manager'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:117 - Skipped from h1 to h4: 'Exercise 1.2: The Inventory Nightmare'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:159 - Skipped from h1 to h3: 'Lab 2: Distributed Locking Olympics'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:240 - Skipped from h1 to h4: 'Exercise 2.2: Distributed Lock Manager'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:305 - Skipped from h1 to h3: 'Lab 3: Vector Clock Workshop'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:443 - Skipped from h1 to h3: 'Challenge 2: Deadlock-Free Dining Philosophers'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:501 - Skipped from h1 to h3: 'Challenge 3: Distributed Consensus Implementation'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:664 - Skipped from h1 to h3: 'Experiment 3: The Blockchain Ordering Problem'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/exercises.md:743 - Skipped from h1 to h3: 'Project 2: Distributed Lock Visualizer'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:188 - Skipped from h1 to h3: 'The Concurrency Zoo 🦁'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:234 - Skipped from h1 to h3: 'Beginner's Mental Model'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:303 - Skipped from h1 to h4: '2. Dirty Reads'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:314 - Skipped from h1 to h4: '3. Phantom Reads'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:410 - Skipped from h1 to h4: '2. Software Transactional Memory (STM)'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:479 - Skipped from h1 to h4: '3. Lock-Free Data Structures'
+- HEADING STRUCTURE in part1-axioms/axiom4-concurrency/index.md:535 - Skipped from h1 to h3: 'Distributed Concurrency: Vector Clocks'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/examples.md:105 - Skipped from h1 to h3: 'Case 2: The HFT Arms Race'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/examples.md:179 - Skipped from h1 to h3: 'Case 3: WhatsApp's Global Message Ordering'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/examples.md:336 - Skipped from h1 to h3: 'Pattern 3: Latency-Based Routing'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/examples.md:430 - Skipped from h1 to h3: 'Example 2: Geographic Load Balancer'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/examples.md:506 - Skipped from h1 to h3: 'Example 3: Optimistic UI with Rollback'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/exercises.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/exercises.md:55 - Skipped from h1 to h3: 'Lab 2: Build a Latency Budget'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/exercises.md:98 - Skipped from h1 to h3: 'Lab 3: Network Latency Simulation'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/exercises.md:213 - Skipped from h1 to h3: '2. The Global Gaming Challenge'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/exercises.md:235 - Skipped from h1 to h3: '3. The Distributed Lock Dilemma'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/exercises.md:350 - Skipped from h1 to h3: '3. The Time Travel Debugger'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index-enhanced.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index-enhanced.md:232 - Skipped from h1 to h3: 'Engineering Guidelines'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:365 - Skipped from h1 to h3: 'Advanced Caching Strategies'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:395 - Skipped from h1 to h4: 'Geographic Placement Optimization'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:426 - Skipped from h1 to h3: 'Measuring and Monitoring Latency'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:557 - Skipped from h1 to h3: 'Advanced Techniques'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:599 - Skipped from h1 to h4: 'Quantum Networks and Future Limits'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:633 - Skipped from h1 to h4: 'Edge Computing and Latency Arbitrage'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:1012 - Skipped from h1 to h3: 'Production War Stories'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:1101 - Skipped from h1 to h4: 'Recipe 2: The Latency-Aware Circuit Breaker'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:1151 - Skipped from h1 to h4: 'Recipe 3: The Geographic Load Balancer'
+- HEADING STRUCTURE in part1-axioms/axiom1-latency/index.md:1194 - Skipped from h1 to h3: 'The Future of Latency'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:135 - Skipped from h1 to h4: 'The Solution: Eventual Consistency + Local Decisions'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:201 - Skipped from h1 to h3: 'Case 2: Google Spanner's $100M Atomic Clocks'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:344 - Skipped from h1 to h3: 'Case 3: Amazon's Zero-Coordination DynamoDB'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:653 - Skipped from h1 to h3: 'Pattern 2: Coordination Avoidance via Sharding'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:716 - Skipped from h1 to h3: 'Pattern 3: Saga Pattern for Distributed Transactions'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:959 - Skipped from h1 to h3: 'Example 6: Collaborative Editing Consistency'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:1121 - Skipped from h1 to h4: 'Netflix's Coordination Savings'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/examples.md:1198 - Skipped from h1 to h4: 'Why Blockchain Coordination Is So Expensive'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:131 - Skipped from h1 to h4: 'Exercise 1.2: Coordination Trade-off Analyzer'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:192 - Skipped from h1 to h3: 'Lab 2: Implement Coordination Protocols'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:275 - Skipped from h1 to h4: 'Exercise 2.2: Simplified Raft Implementation'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:367 - Skipped from h1 to h3: 'Lab 3: Zero-Coordination Design'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:436 - Skipped from h1 to h4: 'Exercise 3.2: Sharded Counter System'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:531 - Skipped from h1 to h3: 'Challenge 2: Coordination-Free Analytics'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:567 - Skipped from h1 to h3: 'Challenge 3: The Billion-User Problem'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:646 - Skipped from h1 to h3: 'Project 3: Chaos Coordination Testing'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:867 - Skipped from h1 to h3: 'Exercise 4.1: Consistency vs Availability Trade-offs'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/exercises.md:908 - Skipped from h1 to h3: 'Exercise 4.2: Implement Read Repair'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/index.md:353 - Skipped from h1 to h3: 'The True Cost of Consensus'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/index.md:689 - Skipped from h1 to h3: 'Real-World Implementation: Uber's Ringpop'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/index.md:1311 - Skipped from h1 to h3: 'Exercise 5: Coordination Cost Dashboard 🌴'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/index.md:1474 - Skipped from h1 to h3: 'Coordination Patterns by Industry'
+- HEADING STRUCTURE in part1-axioms/axiom5-coordination/index.md:1555 - Skipped from h1 to h3: 'Coordination Monitoring & Debugging'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:154 - Skipped from h1 to h3: 'Case 2: The Delete-Production Incident (GitLab, 2017)'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:173 - Skipped from h1 to h4: 'Building a Safe CLI Interface'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:277 - Skipped from h1 to h3: 'Case 3: Hawaii Missile Alert (2018)'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:404 - Skipped from h1 to h3: 'Case 4: Knight Capital's $440M UI Disaster (Different Angle)'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:680 - Skipped from h1 to h3: 'Issue 2: Memory Leak After 7 Days Uptime'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/examples.md:845 - Skipped from h1 to h3: 'Pattern 2: Safe Command Execution'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:228 - Skipped from h1 to h4: 'Exercise 1.2: Production Shell Wrapper'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:342 - Skipped from h1 to h3: 'Lab 2: Runbook Excellence Workshop'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:551 - Skipped from h1 to h4: 'Exercise 2.2: Runbook Testing Framework'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:641 - Skipped from h1 to h3: 'Lab 3: Cognitive Load Optimization'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:753 - Skipped from h1 to h4: 'Exercise 3.2: Progressive Automation'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:859 - Skipped from h1 to h3: 'Lab 4: Incident Command Interface'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:1004 - Skipped from h1 to h4: 'Exercise 4.2: Communication Templates'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:1102 - Skipped from h1 to h3: 'Challenge 2: The Perfect Runbook'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:1127 - Skipped from h1 to h3: 'Challenge 3: Automation Psychology'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/exercises.md:1192 - Skipped from h1 to h3: 'Project 2: Failure Language Analysis'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/index.md:382 - Skipped from h1 to h3: 'Step 2: Examine Recent Changes'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/index.md:582 - Skipped from h1 to h4: 'Toil Elimination Roadmap'
+- HEADING STRUCTURE in part1-axioms/axiom7-human/index.md:811 - Skipped from h1 to h4: 'Exercise 2: Toil Analysis 🌿'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/examples.md:57 - Skipped from h1 to h4: 'The Timeline of Disaster'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/examples.md:212 - Skipped from h1 to h4: 'Lessons Learned'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/examples.md:388 - Skipped from h1 to h4: 'The Hidden Costs Analysis'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/examples.md:447 - Skipped from h1 to h3: 'Case 3: The Coordination Tax - Consensus at Scale'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:178 - Skipped from h1 to h4: 'Exercise 1.2: Hidden Cost Detector'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:284 - Skipped from h1 to h3: 'Lab 2: Cloud Cost Optimization Workshop'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:444 - Skipped from h1 to h4: 'Exercise 2.2: FinOps Automation Platform'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:590 - Skipped from h1 to h3: 'Lab 3: Cost-Aware Architecture Design'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:741 - Skipped from h1 to h4: 'Exercise 3.2: Cost-Aware Auto-scaling'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:827 - Skipped from h1 to h3: 'Lab 4: Economic Architecture Patterns'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:911 - Skipped from h1 to h4: 'Exercise 4.2: Reserved Capacity Optimizer'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:1033 - Skipped from h1 to h3: 'Challenge 2: The Penny-Pinching Startup'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:1061 - Skipped from h1 to h3: 'Challenge 3: The Cost Attribution System'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/exercises.md:1131 - Skipped from h1 to h3: 'Project 2: Economic Modeling of Distributed Systems'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/index.md:507 - Skipped from h1 to h3: 'The Hidden Cost Catalog'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/index.md:628 - Skipped from h1 to h4: '2. Smart Reserved Instance Planning'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/index.md:718 - Skipped from h1 to h3: 'Cost Anomaly Detection'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/index.md:899 - Skipped from h1 to h4: 'Infrastructure as a Portfolio'
+- HEADING STRUCTURE in part1-axioms/axiom8-economics/index.md:1105 - Skipped from h1 to h4: 'Exercise 3: Build vs Buy Analysis 🌳'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/examples.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/examples.md:55 - Skipped from h1 to h3: 'Uber's New Year's Eve Crisis (2016)'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/examples.md:117 - Skipped from h1 to h3: 'Database Connection Pool Exhaustion at Scale'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/examples.md:314 - Skipped from h1 to h3: 'Little's Law in Practice'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/examples.md:393 - Skipped from h1 to h3: 'Implementing Backpressure'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/examples.md:588 - Skipped from h1 to h3: 'Database Connection Pooling Best Practices'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/exercises.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/exercises.md:86 - Skipped from h1 to h3: 'Success Criteria'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/exercises.md:165 - Skipped from h1 to h3: 'Success Criteria'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/exercises.md:259 - Skipped from h1 to h3: 'Success Criteria'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/exercises.md:361 - Skipped from h1 to h3: 'Success Criteria'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/index.md:213 - Skipped from h1 to h3: 'The Beginner's Capacity Checklist'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/index.md:416 - Skipped from h1 to h3: 'Common Anti-Patterns (And How to Fix Them)'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/index.md:487 - Skipped from h1 to h4: '2. Resource Pools with Stealing'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/index.md:521 - Skipped from h1 to h3: 'Measurement: Production Monitoring'
+- HEADING STRUCTURE in part1-axioms/axiom2-capacity/index.md:760 - Skipped from h1 to h3: 'War Story: Stack Overflow's 9 Servers'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:82 - Skipped from h1 to h4: 'Lessons Learned'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:112 - Skipped from h1 to h4: 'Cascading Failure Analysis'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:166 - Skipped from h1 to h4: 'Deployment Failure'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:285 - Skipped from h1 to h3: 'Bulkhead Pattern: Isolating Failures'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:374 - Skipped from h1 to h3: 'Timeout Hierarchy: Preventing Cascade'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/examples.md:452 - Skipped from h1 to h3: 'Health Check Patterns'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-21'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:125 - Skipped from h1 to h4: 'Exercise 1.2: Failure Injection Framework'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:192 - Skipped from h1 to h3: 'Lab 2: Advanced Circuit Breaker Implementation'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:337 - Skipped from h1 to h3: 'Lab 3: Distributed Timeout Coordination'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:480 - Skipped from h1 to h3: 'Challenge 2: Retry Storm Prevention'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:558 - Skipped from h1 to h3: 'Challenge 3: Intelligent Health Checking'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/exercises.md:654 - Skipped from h1 to h3: 'Project 2: Chaos Engineering Game'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/index.md:220 - Skipped from h1 to h3: 'The Failure Zoo 🦁'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/index.md:395 - Skipped from h1 to h4: '2. Gray Failure (The Liar)'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/index.md:424 - Skipped from h1 to h4: '3. Split Brain (The Twins)'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/index.md:461 - Skipped from h1 to h3: 'Production-Grade Failure Handling'
+- HEADING STRUCTURE in part1-axioms/axiom3-failure/index.md:1626 - Skipped from h1 to h3: 'The Ultimate Test: Region Evacuation'
+- HEADING STRUCTURE in part2-pillars/intelligence/examples.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/intelligence/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/intelligence/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/state/examples.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/state/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/state/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/work/examples.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/work/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/work/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/work/index.md:1557 - Skipped from h1 to h3: 'Production War Stories'
+- HEADING STRUCTURE in part2-pillars/truth/examples.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/truth/exercises.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/truth/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/control/examples.md:12 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/control/exercises.md:10 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+- HEADING STRUCTURE in part2-pillars/control/index.md:9 - Skipped from h0 to h2: 'last_updated: 2025-07-20'
+
+## Duplicate Anchors
+- DUPLICATE ANCHOR in patterns/caching-strategies.md:653 - 'metrics' from 'Metrics' already exists
+- DUPLICATE ANCHOR in patterns/caching-strategies.md:733 - 'update-database' from 'Update database' already exists
+- DUPLICATE ANCHOR in patterns/caching-strategies.md:806 - 'try-cache-first' from 'Try cache first' already exists
+- DUPLICATE ANCHOR in patterns/event-sourcing.md:1137 - 'temporal-queries' from 'Temporal Queries' already exists
+- DUPLICATE ANCHOR in patterns/consensus.md:636 - 'propose-through-raft' from 'Propose through Raft' already exists
+- DUPLICATE ANCHOR in patterns/bulkhead.md:246 - 'adaptive-sizing' from 'Adaptive sizing' already exists
+- DUPLICATE ANCHOR in patterns/outbox.md:629 - 'mark-as-published' from 'Mark as published' already exists
+- DUPLICATE ANCHOR in patterns/leader-election.md:1282 - 'real-world-examples' from '🚀 Real-World Examples' already exists
+- DUPLICATE ANCHOR in patterns/pattern-combinations.md:491 - 'dont-do-this' from 'DON'T DO THIS' already exists
+- DUPLICATE ANCHOR in patterns/pattern-combinations.md:509 - 'dont-do-this' from 'DON'T DO THIS' already exists
+- DUPLICATE ANCHOR in patterns/retry-backoff.md:446 - 'record-success' from 'Record success' already exists
+- DUPLICATE ANCHOR in patterns/retry-backoff.md:553 - 'simulate-api-call' from 'Simulate API call' already exists
+- DUPLICATE ANCHOR in patterns/retry-backoff.md:626 - 'advanced-retry-patterns' from 'Advanced Retry Patterns' already exists
+- DUPLICATE ANCHOR in patterns/retry-backoff.md:1915 - 'basic-implementation' from 'Basic Implementation' already exists
+- DUPLICATE ANCHOR in patterns/rate-limiting.md:255 - 'calculate-metadata' from 'Calculate metadata' already exists
+- DUPLICATE ANCHOR in patterns/rate-limiting.md:1994 - 'extract-features' from 'Extract features' already exists
+- DUPLICATE ANCHOR in patterns/service-discovery.md:689 - 'register' from 'Register' already exists
+- DUPLICATE ANCHOR in patterns/sharding.md:724 - 'phase-1-prepare' from 'Phase 1: Prepare' already exists
+- DUPLICATE ANCHOR in patterns/observability.md:339 - 'the-four-golden-signals' from 'The Four Golden Signals' already exists
+- DUPLICATE ANCHOR in patterns/distributed-lock.md:468 - 'yaml' from '```yaml' already exists
+- DUPLICATE ANCHOR in patterns/timeout.md:218 - 'example-usage' from 'Example usage' already exists
+- DUPLICATE ANCHOR in patterns/timeout.md:408 - 'apply-bounds' from 'Apply bounds' already exists
+- DUPLICATE ANCHOR in patterns/timeout.md:867 - 'calculate-timeout-rate' from 'Calculate timeout rate' already exists
+- DUPLICATE ANCHOR in patterns/serverless-faas.md:309 - 'usage' from 'Usage' already exists
+- DUPLICATE ANCHOR in patterns/serverless-faas.md:1225 - 'usage' from 'Usage' already exists
+- DUPLICATE ANCHOR in patterns/queues-streaming.md:797 - 'process-message' from 'Process message' already exists
+- DUPLICATE ANCHOR in patterns/edge-computing.md:1052 - 'advanced-edge-patterns' from 'Advanced Edge Patterns' already exists
+- DUPLICATE ANCHOR in case-studies/paypal-payments.md:404 - 'axiom-3-truth-through-event-sourcing' from 'Axiom 3: Truth Through Event Sourcing' already exists
+- DUPLICATE ANCHOR in case-studies/gaming-leaderboard-enhanced.md:1304 - 'get-final-rankings' from 'Get final rankings' already exists
+- DUPLICATE ANCHOR in case-studies/gaming-leaderboard-enhanced.md:1673 - 'check-for-impossible-score-jumps' from 'Check for impossible score jumps' already exists
+- DUPLICATE ANCHOR in case-studies/consistency-deep-dive-chat.md:837 - 'resolve-conflicts' from 'Resolve conflicts' already exists
+- DUPLICATE ANCHOR in case-studies/url-shortener.md:1309 - 'process-results' from 'Process results' already exists
+- DUPLICATE ANCHOR in case-studies/url-shortener.md:1423 - 'validate-url' from 'Validate URL' already exists
+- DUPLICATE ANCHOR in case-studies/web-crawler.md:1345 - 'atomic-write' from 'Atomic write' already exists
+- DUPLICATE ANCHOR in case-studies/web-crawler.md:1423 - 'metrics' from 'Metrics' already exists
+- DUPLICATE ANCHOR in case-studies/distributed-email-enhanced.md:704 - 'check-cache' from 'Check cache' already exists
+- DUPLICATE ANCHOR in case-studies/distributed-email-enhanced.md:1191 - 'extract-features' from 'Extract features' already exists
+- DUPLICATE ANCHOR in case-studies/digital-wallet-enhanced.md:897 - 'cache-for-1-minute' from 'Cache for 1 minute' already exists
+- DUPLICATE ANCHOR in case-studies/digital-wallet-enhanced.md:1170 - 'process-payment' from 'Process payment' already exists
+- DUPLICATE ANCHOR in case-studies/digital-wallet-enhanced.md:1295 - 'check-balance' from 'Check balance' already exists
+- DUPLICATE ANCHOR in case-studies/digital-wallet-enhanced.md:1412 - 'process-payment' from 'Process payment' already exists
+- DUPLICATE ANCHOR in case-studies/digital-wallet-enhanced.md:1745 - 'check-balance' from 'Check balance' already exists
+- DUPLICATE ANCHOR in case-studies/unique-id-generator.md:852 - 'generate-id' from 'Generate ID' already exists
+- DUPLICATE ANCHOR in case-studies/unique-id-generator.md:1904 - 'compose-id' from 'Compose ID' already exists
+- DUPLICATE ANCHOR in case-studies/object-storage.md:671 - 'update-metadata' from 'Update metadata' already exists
+- DUPLICATE ANCHOR in case-studies/s3-object-storage-enhanced.md:631 - 'record-metrics' from 'Record metrics' already exists
+- DUPLICATE ANCHOR in case-studies/s3-object-storage-enhanced.md:1547 - 'get-object-metadata' from 'Get object metadata' already exists
+- DUPLICATE ANCHOR in case-studies/notification-system.md:273 - 'connection-pools' from 'Connection pools' already exists
+- DUPLICATE ANCHOR in case-studies/notification-system.md:527 - 'capacity-tracking' from 'Capacity tracking' already exists
+- DUPLICATE ANCHOR in case-studies/notification-system.md:1083 - 'process-each-priority-level' from 'Process each priority level' already exists
+- DUPLICATE ANCHOR in case-studies/notification-system.md:1699 - 'track-latency' from 'Track latency' already exists
+- DUPLICATE ANCHOR in case-studies/payment-system-enhanced.md:728 - 'determine-action' from 'Determine action' already exists
+- DUPLICATE ANCHOR in case-studies/payment-system-enhanced.md:1086 - 'process-payment' from 'Process payment' already exists
+- DUPLICATE ANCHOR in case-studies/payment-system-enhanced.md:1698 - 'process-payment' from 'Process payment' already exists
+- DUPLICATE ANCHOR in human-factors/blameless-postmortems.md:88 - 'timeline' from 'Timeline' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom6-observability/exercises.md:231 - 'todo' from 'TODO:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom6-observability/exercises.md:385 - 'todo-implement' from 'TODO: Implement:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom6-observability/exercises.md:459 - 'todo-implement' from 'TODO: Implement:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom6-observability/exercises.md:543 - 'todo-calculate' from 'TODO: Calculate:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom6-observability/exercises.md:833 - 'consider' from 'Consider:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom6-observability/exercises.md:943 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom4-concurrency/examples.md:603 - 'transfer-logic-here' from 'Transfer logic here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom4-concurrency/exercises.md:433 - 'todo-implement-using-cas' from 'TODO: Implement using CAS' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom4-concurrency/exercises.md:829 - 'todo-benchmark' from 'TODO: Benchmark:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom4-concurrency/exercises.md:838 - 'todo-benchmark' from 'TODO: Benchmark:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom4-concurrency/index.md:636 - 'concurrency-control-mechanisms' from 'Concurrency Control Mechanisms' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom5-coordination/examples.md:191 - 'output' from 'Output:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom5-coordination/exercises.md:594 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom5-coordination/exercises.md:844 - 'test-scenarios' from 'Test scenarios' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom5-coordination/exercises.md:1026 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom5-coordination/index.md:1292 - 'your-implementation' from 'Your implementation' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom5-coordination/index.md:1296 - 'your-implementation' from 'Your implementation' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom7-human/examples.md:286 - 'the-original-dangerous-interface' from 'The original dangerous interface' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom7-human/exercises.md:1301 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom8-economics/exercises.md:360 - 'consider' from 'Consider:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom8-economics/exercises.md:655 - 'todo-calculate-considering' from 'TODO: Calculate considering:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom8-economics/exercises.md:943 - 'todo-implement-optimization-considering' from 'TODO: Implement optimization considering:' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom8-economics/exercises.md:1057 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom8-economics/exercises.md:1088 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom8-economics/exercises.md:1254 - 'your-implementation-here' from 'Your implementation here' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:99 - 'objective' from 'Objective' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:102 - 'background' from 'Background' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:105 - 'exercise' from 'Exercise' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:165 - 'success-criteria' from 'Success Criteria' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:175 - 'objective' from 'Objective' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:178 - 'background' from 'Background' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:181 - 'exercise' from 'Exercise' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:259 - 'success-criteria' from 'Success Criteria' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:294 - 'objective' from 'Objective' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:297 - 'background' from 'Background' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:300 - 'exercise' from 'Exercise' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom2-capacity/exercises.md:361 - 'success-criteria' from 'Success Criteria' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom3-failure/examples.md:418 - 'usage-example' from 'Usage Example' already exists
+- DUPLICATE ANCHOR in part1-axioms/axiom3-failure/examples.md:693 - 'usage-example' from 'Usage example' already exists
+- DUPLICATE ANCHOR in part2-pillars/intelligence/exercises.md:388 - 'implementation-tasks' from 'Implementation Tasks:' already exists
+- DUPLICATE ANCHOR in part2-pillars/intelligence/exercises.md:710 - 'implementation-tasks' from 'Implementation Tasks:' already exists
+- DUPLICATE ANCHOR in part2-pillars/intelligence/exercises.md:1026 - 'implementation-tasks' from 'Implementation Tasks:' already exists
+- DUPLICATE ANCHOR in part2-pillars/intelligence/exercises.md:1082 - 'implementation-tasks' from 'Implementation Tasks:' already exists
+- DUPLICATE ANCHOR in part2-pillars/intelligence/exercises.md:1139 - 'implementation-tasks' from 'Implementation Tasks:' already exists
+- DUPLICATE ANCHOR in part2-pillars/intelligence/exercises.md:1211 - 'implementation-tasks' from 'Implementation Tasks:' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/exercises.md:174 - 'find-replica-nodes' from 'Find replica nodes' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:235 - 'the-cap-theorem-visualized' from 'The CAP Theorem Visualized' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:380 - 'practical-state-consistency-patterns' from 'Practical State Consistency Patterns' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:541 - 'vector-clocks-tracking-causality' from 'Vector Clocks: Tracking Causality' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:605 - 'crdts-conflict-free-replicated-data-types' from 'CRDTs: Conflict-Free Replicated Data Types' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:699 - 'dynamodb-eventually-consistent-at-scale' from 'DynamoDB: Eventually Consistent at Scale' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:802 - 'google-spanner-globally-consistent-database' from 'Google Spanner: Globally Consistent Database' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:931 - 'facebook-tao-graph-oriented-storage' from 'Facebook TAO: Graph-Oriented Storage' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:1062 - 'conflict-free-replicated-data-types-crdts-in-production' from 'Conflict-Free Replicated Data Types (CRDTs) in Production' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:1210 - 'the-art-of-distributed-transactions' from 'The Art of Distributed Transactions' already exists
+- DUPLICATE ANCHOR in part2-pillars/state/index.md:1354 - 'state-migration-at-scale' from 'State Migration at Scale' already exists
+- DUPLICATE ANCHOR in part2-pillars/work/exercises.md:459 - 'failure-handling-strategy' from 'Failure Handling Strategy' already exists
+- DUPLICATE ANCHOR in part2-pillars/work/exercises.md:1014 - 'data-skew-handling' from 'Data Skew Handling' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:92 - 'design-task' from 'Design Task' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:145 - 'visual-design-requirements' from 'Visual Design Requirements' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:171 - 'design-deliverables' from 'Design Deliverables' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:193 - 'validation-criteria' from 'Validation Criteria' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:204 - 'design-task' from 'Design Task' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:257 - 'visual-design-requirements' from 'Visual Design Requirements' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:294 - 'design-deliverables' from 'Design Deliverables' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:320 - 'validation-criteria' from 'Validation Criteria' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:332 - 'design-task' from 'Design Task' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:374 - 'visual-design-requirements' from 'Visual Design Requirements' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:405 - 'design-deliverables' from 'Design Deliverables' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:457 - 'validation-criteria' from 'Validation Criteria' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:469 - 'design-task' from 'Design Task' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:527 - 'visual-design-requirements' from 'Visual Design Requirements' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:579 - 'design-deliverables' from 'Design Deliverables' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:606 - 'validation-criteria' from 'Validation Criteria' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:618 - 'design-task' from 'Design Task' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:676 - 'visual-design-requirements' from 'Visual Design Requirements' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:724 - 'design-deliverables' from 'Design Deliverables' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:758 - 'validation-criteria' from 'Validation Criteria' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:770 - 'design-task' from 'Design Task' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:818 - 'visual-design-requirements' from 'Visual Design Requirements' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:892 - 'design-deliverables' from 'Design Deliverables' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/exercises.md:927 - 'validation-criteria' from 'Validation Criteria' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:343 - 'the-vector-clock-pattern' from 'The Vector Clock Pattern' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:415 - 'crdts-conflict-free-truth' from 'CRDTs: Conflict-Free Truth' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:485 - 'the-gossip-pattern' from 'The Gossip Pattern' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:751 - 'practical-truth-verification' from 'Practical Truth Verification' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:920 - 'advanced-patterns-multi-region-consensus' from 'Advanced Patterns: Multi-Region Consensus' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1008 - 'production-anti-patterns' from 'Production Anti-Patterns' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1063 - 'the-future-quantum-consensus' from 'The Future: Quantum Consensus' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1111 - 'blockchain-evolution-consensus-at-scale' from 'Blockchain Evolution: Consensus at Scale' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1162 - 'the-philosophy-of-distributed-truth' from 'The Philosophy of Distributed Truth' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1222 - 'google-spanner-engineering-around-physics' from 'Google Spanner: Engineering Around Physics' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1393 - 'exercise-3-two-phase-commit-protocol' from 'Exercise 3: Two-Phase Commit Protocol 🌳' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1446 - 'exercise-4-simple-raft-leader-election' from 'Exercise 4: Simple Raft Leader Election 🌲' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1479 - 'exercise-5-crdt-implementation' from 'Exercise 5: CRDT Implementation 🌴' already exists
+- DUPLICATE ANCHOR in part2-pillars/truth/index.md:1536 - 'quick-reference-card' from 'Quick Reference Card' already exists
+
+## Information
+- INFO: Found 308 external links that should be manually reviewed for currency
+
+## File Statistics
+- Total internal links: 1640
+- Total external links: 308
+- Total anchor links: 1
+- Total headings: 14502

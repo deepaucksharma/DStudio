@@ -56,100 +56,55 @@ Optimization Strategies:
 - Adaptive prefetching
 ```
 
-**Implementation:**
-```python
-import asyncio
-from typing import Optional, Dict, Any
-import aioredis
-import rocksdb
+**Implementation Architecture:**
 
-class LatencyOptimizedKVStore:
-    def __init__(self):
-        # L1: In-process LRU cache
-        self.memory_cache = LRUCache(maxsize=10000)
-        
-        # L2: Redis for hot data
-        self.redis_pool = None
-        
-        # L3: RocksDB for persistent storage
-        self.rocks_db = rocksdb.DB(
-            "data.db",
-            rocksdb.Options(
-                create_if_missing=True,
-                max_open_files=300000,
-                write_buffer_size=67108864,  # 64MB
-                max_write_buffer_number=3,
-                target_file_size_base=67108864,
-                
-                # Optimize for low latency reads
-                bloom_locality=1,
-                memtable_prefix_bloom_size_ratio=0.1,
-                
-                # Block cache for hot data
-                block_cache=rocksdb.LRUCache(536870912),  # 512MB
-                block_cache_compressed=rocksdb.LRUCache(268435456)  # 256MB
-            )
-        )
-        
-        # Bloom filter for existence checks
-        self.bloom_filter = ScalableBloomFilter(
-            initial_capacity=1000000,
-            error_rate=0.001
-        )
+```mermaid
+graph TB
+    subgraph "Storage Hierarchy"
+        L1[L1: Memory Cache<br/>10K entries<br/>0.01ms]
+        L2[L2: Redis<br/>Hot data<br/>0.5ms]
+        L3[L3: RocksDB<br/>Persistent<br/>1ms]
+    end
     
-    async def get(self, key: str) -> Optional[bytes]:
-        """Hierarchical lookup with latency tracking"""
-        # L1: Memory cache (0.01ms)
-        value = self.memory_cache.get(key)
-        if value is not None:
-            metrics.increment('cache.hits.l1')
-            return value
-        
-        # Bloom filter check (0.001ms)
-        if key not in self.bloom_filter:
-            metrics.increment('bloom_filter.true_negatives')
-            return None
-        
-        # L2: Redis cache (0.5ms)
-        if self.redis_pool:
-            value = await self.redis_pool.get(key)
-            if value:
-                metrics.increment('cache.hits.l2')
-                self.memory_cache.put(key, value)
-                return value
-        
-        # L3: RocksDB (1ms)
-        value = self.rocks_db.get(key.encode())
-        if value:
-            metrics.increment('cache.hits.l3')
-            # Populate upper caches
-            asyncio.create_task(self._populate_caches(key, value))
-            return value
-        
-        metrics.increment('cache.misses')
-        return None
+    subgraph "Optimization Layer"
+        BF[Bloom Filter<br/>Negative lookups<br/>0.001ms]
+        PF[Prefetching<br/>Predictive loading]
+    end
     
-    async def put(self, key: str, value: bytes, durability='async'):
-        """Write with configurable durability"""
-        # Add to bloom filter
-        self.bloom_filter.add(key)
-        
-        # Update caches
-        self.memory_cache.put(key, value)
-        
-        if durability == 'async':
-            # Fire and forget
-            asyncio.create_task(self._async_persist(key, value))
-            return True
-        elif durability == 'sync':
-            # Wait for local persistence
-            self.rocks_db.put(key.encode(), value)
-            await self._update_redis(key, value)
-            return True
-        elif durability == 'quorum':
-            # Wait for replication quorum
-            return await self._quorum_write(key, value)
+    subgraph "Request Flow"
+        GET[GET Request] --> BF
+        BF -->|Not exists| MISS[Return None]
+        BF -->|May exist| L1
+        L1 -->|Hit| HIT[Return Value]
+        L1 -->|Miss| L2
+        L2 -->|Hit| HIT
+        L2 -->|Miss| L3
+        L3 --> HIT
+    end
+    
+    style L1 fill:#4ecdc4
+    style L2 fill:#ffd93d
+    style L3 fill:#95e1d3
+    style BF fill:#ff6b6b
 ```
+
+**Storage Configuration Parameters:**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|  
+| Memory Cache Size | 10,000 entries | Ultra-fast access |
+| Redis Pool Size | 100 connections | Distributed caching |
+| RocksDB Write Buffer | 64MB | Batch writes |
+| Block Cache | 512MB | Hot data in memory |
+| Bloom Filter Error Rate | 0.1% | Space vs accuracy |
+
+**Durability Options:**
+
+| Mode | Behavior | Latency | Use Case |
+|------|----------|---------|----------|
+| async | Fire-and-forget | <1ms | High throughput |
+| sync | Wait for local disk | ~10ms | Important data |
+| quorum | Wait for replication | ~50ms | Critical data |
 
 #### 💾 Axiom 2 (Capacity): Storage Engine Design
 ```text
@@ -171,96 +126,83 @@ Read Amplification: ~5x
 Space Amplification: ~1.1x
 ```
 
-**Implementation:**
-```python
-class LSMTreeKVStore:
-    def __init__(self):
-        self.memtable = SortedDict()  # In-memory sorted structure
-        self.memtable_size = 0
-        self.memtable_threshold = 256 * 1024 * 1024  # 256MB
-        
-        self.sstables = []  # List of sorted string tables
-        self.level_configs = [
-            {'size': 256 * 1024 * 1024, 'files': 1},      # L0: 256MB
-            {'size': 2.56 * 1024**3, 'files': 10},        # L1: 2.56GB
-            {'size': 25.6 * 1024**3, 'files': 100},       # L2: 25.6GB
-            {'size': 256 * 1024**3, 'files': 1000},       # L3: 256GB
-            {'size': 2.56 * 1024**4, 'files': 10000},     # L4: 2.56TB
-        ]
-        
-        self.compaction_thread = threading.Thread(target=self._compaction_loop)
-        self.compaction_thread.start()
+**LSM-Tree Storage Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Write Path"
+        W[Write Request] --> MT[Memtable<br/>256MB]
+        MT --> WAL[Write-Ahead Log]
+        MT -->|Full| FLUSH[Flush to SSTable]
+    end
     
-    def put(self, key: bytes, value: bytes):
-        """Write to memtable, flush when full"""
-        self.memtable[key] = value
-        self.memtable_size += len(key) + len(value)
-        
-        if self.memtable_size >= self.memtable_threshold:
-            self._flush_memtable()
+    subgraph "Storage Levels"
+        L0[L0: 256MB<br/>Recent Writes]
+        L1[L1: 2.56GB<br/>10x larger]
+        L2[L2: 25.6GB<br/>10x larger]
+        L3[L3: 256GB<br/>10x larger]
+        L4[L4: 2.56TB<br/>10x larger]
+    end
     
-    def get(self, key: bytes) -> Optional[bytes]:
-        """Search memtable, then SSTables newest to oldest"""
-        # Check memtable first
-        if key in self.memtable:
-            return self.memtable[key]
-        
-        # Check SSTables from newest to oldest
-        for sstable in reversed(self.sstables):
-            value = sstable.get(key)
-            if value is not None:
-                return value if value != TOMBSTONE else None
-        
-        return None
+    subgraph "Read Path"
+        R[Read Request] --> MT2[Check Memtable]
+        MT2 --> BF[Bloom Filters]
+        BF --> SST[SSTable Search<br/>Newest to Oldest]
+    end
     
-    def _flush_memtable(self):
-        """Convert memtable to SSTable"""
-        if not self.memtable:
-            return
-        
-        # Create new SSTable
-        sstable = SSTable()
-        
-        # Write sorted data
-        for key, value in self.memtable.items():
-            sstable.add(key, value)
-        
-        # Add bloom filter and index
-        sstable.finalize()
-        
-        # Add to L0
-        self.sstables.append(sstable)
-        
-        # Clear memtable
-        self.memtable.clear()
-        self.memtable_size = 0
-        
-        # Trigger compaction if needed
-        self._maybe_compact()
+    FLUSH --> L0
+    L0 -->|Compact| L1
+    L1 -->|Compact| L2
+    L2 -->|Compact| L3
+    L3 -->|Compact| L4
     
-    def _compaction_loop(self):
-        """Background compaction thread"""
-        while True:
-            level = self._select_compaction_level()
-            if level is not None:
-                self._compact_level(level)
-            time.sleep(1)
+    style MT fill:#ff6b6b
+    style L0 fill:#4ecdc4
+    style L4 fill:#95e1d3
+```
+
+**LSM-Tree Configuration:**
+
+| Level | Size | Files | Purpose | Compaction Trigger |
+|-------|------|-------|---------|--------------------|
+| Memtable | 256MB | 1 | Active writes | Size threshold |
+| L0 | 256MB | 1-4 | Recent flushes | 4 files |
+| L1 | 2.56GB | 10 | First merge | 10 files |
+| L2 | 25.6GB | 100 | Intermediate | Size ratio |
+| L3 | 256GB | 1000 | Bulk storage | Size ratio |
+| L4 | 2.56TB | 10000 | Cold data | Size ratio |
+
+**Performance Trade-offs:**
+
+| Metric | Value | Impact |
+|--------|-------|--------|
+| Write Amplification | ~10x | CPU/IO cost for compaction |
+| Read Amplification | ~5x | May read multiple levels |
+| Space Amplification | ~1.1x | Temporary during compaction |
+
+**Compaction Strategies:**
+
+```mermaid
+sequenceDiagram
+    participant BG as Background Thread
+    participant L0 as Level 0
+    participant L1 as Level 1
+    participant L2 as Level 2
     
-    def _compact_level(self, level: int):
-        """Merge SSTables at given level"""
-        # Size-tiered compaction strategy
-        files_at_level = self._get_files_at_level(level)
+    loop Every second
+        BG->>L0: Check file count
+        alt Files >= 4
+            BG->>L0: Select files to compact
+            BG->>L1: Merge into L1
+            BG->>L0: Delete merged files
+        end
         
-        if len(files_at_level) >= 10:  # Compact every 10 files
-            # Merge files
-            merged = self._merge_sstables(files_at_level)
-            
-            # Promote to next level
-            self._add_to_level(level + 1, merged)
-            
-            # Remove old files
-            for f in files_at_level:
-                self.sstables.remove(f)
+        BG->>L1: Check size ratio
+        alt Size > threshold
+            BG->>L1: Select overlapping files
+            BG->>L2: Merge and promote
+        end
+    end
 ```
 
 #### 🔥 Axiom 3 (Failure): Replication & Recovery
@@ -280,142 +222,115 @@ Replication Strategy:
 - Anti-entropy for permanent repair
 ```
 
-**Implementation:**
-```python
-class ReplicatedKVStore:
-    def __init__(self, node_id: str, peers: List[str]):
-        self.node_id = node_id
-        self.peers = peers
-        self.replication_factor = 3
-        self.write_quorum = 2  # W
-        self.read_quorum = 2   # R
-        # W + R > N ensures strong consistency
-        
-        self.local_store = LSMTreeKVStore()
-        self.vector_clocks = {}  # For conflict detection
-        self.hinted_handoffs = {}  # For temporary failures
-        
-    async def put(self, key: str, value: bytes) -> bool:
-        """Quorum write with vector clock"""
-        # Increment vector clock
-        clock = self.vector_clocks.get(key, VectorClock())
-        clock.increment(self.node_id)
-        
-        # Prepare write request
-        write_request = {
-            'key': key,
-            'value': value,
-            'clock': clock,
-            'timestamp': time.time()
-        }
-        
-        # Get preference list (consistent hashing)
-        preference_list = self._get_preference_list(key)
-        
-        # Parallel writes to replicas
-        write_tasks = []
-        for node in preference_list[:self.replication_factor]:
-            if node == self.node_id:
-                # Local write
-                self.local_store.put(key, value)
-                self.vector_clocks[key] = clock
-            else:
-                # Remote write
-                task = self._remote_write(node, write_request)
-                write_tasks.append(task)
-        
-        # Wait for quorum
-        results = await asyncio.gather(*write_tasks, return_exceptions=True)
-        success_count = 1  # Local write
-        
-        for i, result in enumerate(results):
-            if isinstance(result, Exception):
-                # Store for hinted handoff
-                failed_node = preference_list[i+1]  # +1 for local
-                self._store_hint(failed_node, write_request)
-            else:
-                success_count += 1
-        
-        return success_count >= self.write_quorum
+**Replication Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Consistent Hashing Ring"
+        N1[Node 1<br/>Token: 0-85]
+        N2[Node 2<br/>Token: 86-170]
+        N3[Node 3<br/>Token: 171-255]
+        N4[Node 4<br/>Virtual Node]
+    end
     
-    async def get(self, key: str) -> Optional[bytes]:
-        """Quorum read with read repair"""
-        preference_list = self._get_preference_list(key)
-        
-        # Parallel reads from replicas
-        read_tasks = []
-        for node in preference_list[:self.replication_factor]:
-            if node == self.node_id:
-                # Local read
-                local_result = self.local_store.get(key)
-                local_clock = self.vector_clocks.get(key)
-                read_tasks.append(asyncio.create_task(
-                    self._wrap_result(local_result, local_clock)
-                ))
-            else:
-                # Remote read
-                task = self._remote_read(node, key)
-                read_tasks.append(task)
-        
-        # Collect responses
-        responses = await asyncio.gather(*read_tasks, return_exceptions=True)
-        valid_responses = []
-        
-        for resp in responses:
-            if not isinstance(resp, Exception) and resp is not None:
-                valid_responses.append(resp)
-        
-        if len(valid_responses) < self.read_quorum:
-            return None  # Not enough responses
-        
-        # Resolve conflicts using vector clocks
-        latest_value, latest_clock = self._resolve_conflicts(valid_responses)
-        
-        # Read repair if inconsistent
-        asyncio.create_task(self._read_repair(key, latest_value, latest_clock, responses))
-        
-        return latest_value
+    subgraph "Replication Strategy"
+        K[Key: "user:123"<br/>Hash: 142]
+        R1[Primary: Node 2]
+        R2[Replica 1: Node 3]
+        R3[Replica 2: Node 1]
+    end
     
-    def _resolve_conflicts(self, responses: List[Tuple[bytes, VectorClock]]):
-        """Use vector clocks to find latest value"""
-        # Sort by vector clock precedence
-        def compare_clocks(r1, r2):
-            clock1, clock2 = r1[1], r2[1]
-            if clock1.happens_before(clock2):
-                return -1
-            elif clock2.happens_before(clock1):
-                return 1
-            else:
-                # Concurrent writes - use timestamp or merge
-                return 0
-        
-        responses.sort(key=functools.cmp_to_key(compare_clocks))
-        
-        # Return latest (or merged if concurrent)
-        return responses[-1]
+    subgraph "Quorum Settings"
+        Q[N=3 (replicas)<br/>W=2 (write quorum)<br/>R=2 (read quorum)<br/>W+R > N ✓]
+    end
     
-    async def _handle_node_failure(self, failed_node: str):
-        """Handle permanent node failure"""
-        # Find all keys that had failed_node as replica
-        affected_keys = self._find_affected_keys(failed_node)
-        
-        for key in affected_keys:
-            # Re-replicate to maintain replication factor
-            current_replicas = self._get_healthy_replicas(key)
-            
-            if len(current_replicas) < self.replication_factor:
-                # Choose new replica
-                new_replica = self._choose_new_replica(key, current_replicas)
-                
-                # Copy data to new replica
-                value = await self.get(key)
-                if value:
-                    await self._remote_write(new_replica, {
-                        'key': key,
-                        'value': value,
-                        'clock': self.vector_clocks.get(key)
-                    })
+    K --> R1
+    R1 --> R2
+    R2 --> R3
+    
+    N1 -.-> N2 -.-> N3 -.-> N4 -.-> N1
+    
+    style R1 fill:#ff6b6b
+    style Q fill:#4ecdc4
 ```
+
+**Replication Configuration:**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|  
+| Replication Factor (N) | 3 | Data copies |
+| Write Quorum (W) | 2 | Durability guarantee |
+| Read Quorum (R) | 2 | Consistency guarantee |
+| Hinted Handoff TTL | 7 days | Temporary failure recovery |
+
+**Write Flow with Quorum:**
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant COORD as Coordinator
+    participant N1 as Node 1 (Primary)
+    participant N2 as Node 2 (Replica)
+    participant N3 as Node 3 (Replica)
+    
+    C->>COORD: PUT(key, value)
+    COORD->>COORD: Increment Vector Clock
+    
+    par Parallel Writes
+        COORD->>N1: Write + Clock
+        and
+        COORD->>N2: Write + Clock
+        and
+        COORD->>N3: Write + Clock
+    end
+    
+    N1-->>COORD: ACK
+    N2-->>COORD: ACK
+    Note over N3: Network delay
+    
+    Note over COORD: W=2 achieved
+    COORD-->>C: Success
+    
+    N3-->>COORD: ACK (late)
+    COORD->>COORD: Update success count
+```
+
+**Conflict Resolution:**
+
+```mermaid
+graph TB
+    subgraph "Concurrent Writes"
+        W1[Write 1: "Alice"<br/>VC: {A:2, B:1}]
+        W2[Write 2: "Bob"<br/>VC: {A:1, B:2}]
+    end
+    
+    subgraph "Detection"
+        COMP[Compare Vector Clocks]
+        CONC[Concurrent!<br/>Neither happens-before]
+    end
+    
+    subgraph "Resolution Strategies"
+        LWW[Last-Write-Wins<br/>Use timestamp]
+        MERGE[Application Merge<br/>Custom logic]
+        MVR[Multi-Value<br/>Return both]
+    end
+    
+    W1 & W2 --> COMP
+    COMP --> CONC
+    CONC --> LWW & MERGE & MVR
+    
+    style CONC fill:#ff6b6b
+    style MERGE fill:#4ecdc4
+```
+
+**Failure Handling Matrix:**
+
+| Failure Type | Detection Method | Recovery Action | Data Impact |
+|--------------|------------------|-----------------|-------------|
+| Node Crash | Heartbeat timeout | Hinted handoff | No loss |
+| Network Partition | Gossip divergence | Continue with quorum | Temporary inconsistency |
+| Disk Failure | I/O errors | Re-replicate from peers | No loss if replicas exist |
+| Data Corruption | Checksum mismatch | Restore from replica | Self-healing |
 
 #### 🔀 Axiom 4 (Concurrency): Conflict Resolution
 ```text
@@ -434,96 +349,108 @@ Strategies:
 - Pessimistic locking (optional)
 ```
 
-**Implementation:**
-```python
-class MVCCKVStore:
-    """Multi-Version Concurrency Control KV Store"""
+**MVCC Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Version Storage"
+        K1[Key: "user:1"]
+        V1[Version 100: "Alice"]  
+        V2[Version 105: "Alice Smith"]
+        V3[Version 110: "Alice Jones"]
+    end
     
-    def __init__(self):
-        self.versions = {}  # key -> [(version, value, timestamp)]
-        self.transactions = {}  # txn_id -> Transaction
-        self.global_version = AtomicCounter()
-        
-    def begin_transaction(self) -> Transaction:
-        """Start MVCC transaction"""
-        txn = Transaction(
-            id=uuid.uuid4(),
-            start_version=self.global_version.get(),
-            read_set={},
-            write_set={}
-        )
-        self.transactions[txn.id] = txn
-        return txn
+    subgraph "Active Transactions"
+        T1[Txn 1<br/>Start: v102<br/>Sees: "Alice"]
+        T2[Txn 2<br/>Start: v108<br/>Sees: "Alice Smith"]
+        T3[Txn 3<br/>Start: v112<br/>Sees: "Alice Jones"]
+    end
     
-    def get(self, key: str, txn: Optional[Transaction] = None) -> Optional[bytes]:
-        """Read with snapshot isolation"""
-        if key not in self.versions:
-            return None
-        
-        # Determine read version
-        read_version = txn.start_version if txn else self.global_version.get()
-        
-        # Find latest version <= read_version
-        for version, value, _ in reversed(self.versions[key]):
-            if version <= read_version:
-                if txn:
-                    txn.read_set[key] = version
-                return value
-        
-        return None
+    subgraph "Isolation Levels"
+        SI[Snapshot Isolation<br/>Read from start version]
+        RC[Read Committed<br/>Read latest committed]
+        RR[Repeatable Read<br/>Lock on first read]
+    end
     
-    def put(self, key: str, value: bytes, txn: Optional[Transaction] = None):
-        """Write with conflict detection"""
-        if txn:
-            # Buffer write in transaction
-            txn.write_set[key] = value
-        else:
-            # Direct write
-            version = self.global_version.increment()
-            self._add_version(key, version, value)
+    K1 --> V1 & V2 & V3
+    T1 --> V1
+    T2 --> V2
+    T3 --> V3
     
-    def commit(self, txn: Transaction) -> bool:
-        """Commit transaction with validation"""
-        # Validation phase - check for conflicts
-        for key, read_version in txn.read_set.items():
-            current_version = self._get_latest_version(key)
-            if current_version > read_version:
-                # Write-write conflict
-                self._abort_transaction(txn)
-                return False
-        
-        # Commit phase - make writes visible
-        commit_version = self.global_version.increment()
-        
-        for key, value in txn.write_set.items():
-            self._add_version(key, commit_version, value)
-        
-        # Cleanup
-        del self.transactions[txn.id]
-        return True
+    style V1 fill:#e0e0e0
+    style V2 fill:#ffd93d
+    style V3 fill:#4ecdc4
+```
+
+**Transaction Lifecycle:**
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant KV as MVCC Store
+    participant GV as Global Version
     
-    def _add_version(self, key: str, version: int, value: bytes):
-        """Add new version of key"""
-        if key not in self.versions:
-            self.versions[key] = []
-        
-        self.versions[key].append((version, value, time.time()))
-        
-        # Garbage collect old versions
-        self._gc_old_versions(key)
+    C->>KV: Begin Transaction
+    KV->>GV: Get Current Version (108)
+    KV->>C: Txn(start_version=108)
     
-    def _gc_old_versions(self, key: str):
-        """Remove versions older than oldest active transaction"""
-        oldest_txn_version = min(
-            (t.start_version for t in self.transactions.values()),
-            default=self.global_version.get()
-        )
-        
-        # Keep only versions that might be needed
-        self.versions[key] = [
-            (v, val, ts) for v, val, ts in self.versions[key]
-            if v >= oldest_txn_version - 100  # Keep some buffer
-        ]
+    C->>KV: Read("user:1")
+    KV->>KV: Find version <= 108
+    KV-->>C: "Alice Smith"
+    
+    C->>KV: Write("user:2", "Bob")
+    KV->>KV: Buffer in write_set
+    
+    C->>KV: Commit
+    KV->>KV: Validate read_set
+    Note over KV: Check if read keys changed
+    
+    alt Validation Success
+        KV->>GV: Increment (109)
+        KV->>KV: Apply write_set at v109
+        KV-->>C: Commit Success
+    else Validation Failed
+        KV->>KV: Abort transaction
+        KV-->>C: Commit Failed (Conflict)
+    end
+```
+
+**Concurrency Control Comparison:**
+
+| Feature | MVCC | Pessimistic Locking | Optimistic Locking |
+|---------|------|--------------------|--------------------|  
+| Read Blocking | Never | Yes (by writes) | Never |
+| Write Blocking | On conflict | Always | On conflict |
+| Deadlock Risk | No | Yes | No |
+| Memory Usage | High (versions) | Low | Medium |
+| Best For | Read-heavy | Write-heavy | Low contention |
+
+**Garbage Collection Strategy:**
+
+```mermaid
+graph LR
+    subgraph "Version Timeline"
+        V1[v95] --> V2[v100] --> V3[v105] --> V4[v110] --> V5[v115]
+    end
+    
+    subgraph "Active Transactions"
+        T1[Txn: start=102]
+        T2[Txn: start=108]
+    end
+    
+    subgraph "GC Decision"
+        MIN[Min Active = 102]
+        KEEP[Keep >= 102]
+        DEL[Delete < 102]
+    end
+    
+    T1 & T2 --> MIN
+    MIN --> KEEP
+    V1 --> DEL
+    V2 & V3 & V4 & V5 --> KEEP
+    
+    style V1 fill:#ff6b6b,stroke-dasharray: 5 5
+    style DEL fill:#ff6b6b
 ```
 
 #### 🤝 Axiom 5 (Coordination): Consensus & Membership
@@ -542,138 +469,115 @@ Consensus Usage:
 - Paxos for critical decisions
 ```
 
-**Implementation:**
-```python
-class ConsensusKVStore:
-    """Strongly consistent KV store using Raft"""
+**Raft Consensus Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Raft Cluster"
+        L[Leader<br/>Node 1]
+        F1[Follower<br/>Node 2]
+        F2[Follower<br/>Node 3]
+        F3[Follower<br/>Node 4]
+        F4[Follower<br/>Node 5]
+    end
     
-    def __init__(self, node_id: str, peers: List[str]):
-        self.node_id = node_id
-        self.peers = peers
-        
-        # Raft state
-        self.current_term = 0
-        self.voted_for = None
-        self.log = []  # List of log entries
-        self.commit_index = 0
-        self.last_applied = 0
-        
-        # Leader state
-        self.next_index = {}  # For each peer
-        self.match_index = {}  # For each peer
-        
-        # Role
-        self.role = 'follower'
-        self.leader_id = None
-        
-        # State machine (the actual KV store)
-        self.state_machine = {}
-        
-        # Start election timer
-        self._reset_election_timer()
+    subgraph "Log Replication"
+        LL[Leader Log<br/>Entry 1-10]
+        FL1[Follower Log<br/>Entry 1-10]
+        FL2[Follower Log<br/>Entry 1-9]
+    end
     
-    async def put(self, key: str, value: bytes) -> bool:
-        """Strongly consistent put via Raft"""
-        if self.role != 'leader':
-            # Forward to leader
-            if self.leader_id:
-                return await self._forward_to_leader('put', key, value)
-            else:
-                raise Exception("No leader elected")
-        
-        # Leader: append to log
-        entry = LogEntry(
-            term=self.current_term,
-            index=len(self.log),
-            command={'op': 'put', 'key': key, 'value': value}
-        )
-        
-        self.log.append(entry)
-        
-        # Replicate to followers
-        success = await self._replicate_entry(entry)
-        
-        if success:
-            # Apply to state machine
-            self.state_machine[key] = value
-            self.commit_index = entry.index
-            return True
-        
-        return False
+    subgraph "State"
+        TERM[Term: 5]
+        CI[Commit Index: 9]
+        LI[Last Applied: 9]
+    end
     
-    async def _replicate_entry(self, entry: LogEntry) -> bool:
-        """Replicate log entry to majority"""
-        if not self.peers:  # Single node
-            return True
-        
-        # Send AppendEntries to all peers
-        tasks = []
-        for peer in self.peers:
-            task = self._send_append_entries(peer, [entry])
-            tasks.append(task)
-        
-        # Wait for responses
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        # Count successes (including self)
-        success_count = 1
-        for result in results:
-            if result and not isinstance(result, Exception):
-                success_count += 1
-        
-        # Majority?
-        return success_count > len(self.peers) // 2 + 1
+    L -->|AppendEntries| F1 & F2 & F3 & F4
+    F1 & F2 -->|Success| L
+    F3 -->|Lagging| L
+    F4 -->|Network Issue| L
     
-    async def _send_append_entries(self, peer: str, entries: List[LogEntry]) -> bool:
-        """Send AppendEntries RPC"""
-        prev_log_index = self.next_index[peer] - 1
-        prev_log_term = self.log[prev_log_index].term if prev_log_index >= 0 else 0
-        
-        request = {
-            'term': self.current_term,
-            'leader_id': self.node_id,
-            'prev_log_index': prev_log_index,
-            'prev_log_term': prev_log_term,
-            'entries': entries,
-            'leader_commit': self.commit_index
-        }
-        
-        response = await rpc_call(peer, 'append_entries', request)
-        
-        if response['success']:
-            # Update indices
-            self.next_index[peer] = entries[-1].index + 1
-            self.match_index[peer] = entries[-1].index
-            return True
-        else:
-            # Decrement next_index and retry
-            self.next_index[peer] = max(0, self.next_index[peer] - 1)
-            return False
-    
-    async def _election_timeout(self):
-        """Handle election timeout - become candidate"""
-        self.role = 'candidate'
-        self.current_term += 1
-        self.voted_for = self.node_id
-        votes = 1  # Vote for self
-        
-        # Request votes from peers
-        tasks = []
-        for peer in self.peers:
-            task = self._request_vote(peer)
-            tasks.append(task)
-        
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        for result in results:
-            if result and not isinstance(result, Exception):
-                if result['vote_granted']:
-                    votes += 1
-        
-        # Become leader if majority
-        if votes > len(self.peers) // 2 + 1:
-            self._become_leader()
+    style L fill:#ff6b6b
+    style F1 fill:#4ecdc4
+    style F2 fill:#4ecdc4
 ```
+
+**Raft State Machine:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Follower: Start
+    
+    Follower --> Candidate: Election Timeout
+    Candidate --> Candidate: Split Vote
+    Candidate --> Follower: Discover Leader
+    Candidate --> Leader: Win Election
+    
+    Leader --> Follower: Higher Term
+    
+    state Leader {
+        [*] --> SendHeartbeats
+        SendHeartbeats --> ReplicateLog
+        ReplicateLog --> CommitEntries
+        CommitEntries --> SendHeartbeats
+    }
+```
+
+**Consensus Properties:**
+
+| Property | Guarantee | Implementation |
+|----------|-----------|----------------|
+| Election Safety | One leader per term | Majority vote required |
+| Leader Append-Only | Leaders never overwrite | Append only to log |
+| Log Matching | Same log = same entries | Check prev entry match |
+| Leader Completeness | Committed = in future leaders | Only vote if up-to-date |
+| State Machine Safety | Same order = same state | Apply in log order |
+
+**Log Replication Flow:**
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant L as Leader
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    participant F3 as Follower 3
+    
+    C->>L: PUT(key, value)
+    L->>L: Append to log
+    
+    par Replicate to Followers
+        L->>F1: AppendEntries(entry)
+        and
+        L->>F2: AppendEntries(entry)
+        and
+        L->>F3: AppendEntries(entry)
+    end
+    
+    F1-->>L: Success
+    F2-->>L: Success
+    Note over F3: Network delay
+    
+    Note over L: Majority (3/4) achieved
+    L->>L: Commit entry
+    L->>L: Apply to state machine
+    L-->>C: Success
+    
+    L->>F1: AppendEntries(commit_index)
+    L->>F2: AppendEntries(commit_index)
+    F1->>F1: Apply to state machine
+    F2->>F2: Apply to state machine
+```
+
+**Configuration Management:**
+
+| Parameter | Default | Purpose |
+|-----------|---------|---------|  
+| Election Timeout | 150-300ms | Randomized to prevent split votes |
+| Heartbeat Interval | 50ms | Prevent elections |
+| Max Log Size | 1GB | Trigger snapshot |
+| Snapshot Threshold | 10K entries | Compact log |
 
 #### 👁️ Axiom 6 (Observability): Metrics & Debugging
 ```text
@@ -693,100 +597,105 @@ Debugging Tools:
 - Compaction visualization
 ```
 
-**Implementation:**
-```python
-class ObservableKVStore:
-    def __init__(self):
-        self.metrics = MetricsRegistry()
-        
-        # Operation metrics
-        self.op_counters = {
-            'get': self.metrics.counter('kvstore.ops.get'),
-            'put': self.metrics.counter('kvstore.ops.put'),
-            'delete': self.metrics.counter('kvstore.ops.delete')
-        }
-        
-        # Latency histograms
-        self.latency_histograms = {
-            'get': self.metrics.histogram('kvstore.latency.get'),
-            'put': self.metrics.histogram('kvstore.latency.put'),
-            'delete': self.metrics.histogram('kvstore.latency.delete')
-        }
-        
-        # Storage metrics
-        self.storage_metrics = {
-            'size': self.metrics.gauge('kvstore.storage.size'),
-            'keys': self.metrics.gauge('kvstore.storage.keys'),
-            'compactions': self.metrics.counter('kvstore.storage.compactions'),
-            'write_amp': self.metrics.gauge('kvstore.storage.write_amplification')
-        }
-        
-        # Hot key detection
-        self.access_frequency = CountMinSketch(width=10000, depth=5)
-        self.hot_keys = []
-        
-    async def get_with_metrics(self, key: str) -> Optional[bytes]:
-        """Instrumented get operation"""
-        self.op_counters['get'].increment()
-        
-        # Track access frequency
-        self.access_frequency.add(key)
-        
-        # Check if hot key
-        if self.access_frequency.estimate(key) > 1000:  # threshold
-            if key not in self.hot_keys:
-                self.hot_keys.append(key)
-                logger.warning(f"Hot key detected: {key}")
-        
-        # Time the operation
-        with self.latency_histograms['get'].time():
-            value = await self._do_get(key)
-        
-        # Record cache hit/miss
-        if value is not None:
-            self.metrics.counter('kvstore.cache.hits').increment()
-        else:
-            self.metrics.counter('kvstore.cache.misses').increment()
-        
-        return value
+**Observability Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Metrics Collection"
+        OP[Operation Metrics<br/>get/put/delete]
+        LAT[Latency Histograms<br/>P50, P95, P99]
+        STOR[Storage Metrics<br/>size, compactions]
+        HOT[Hot Key Detection<br/>Count-Min Sketch]
+    end
     
-    def export_diagnostics(self) -> dict:
-        """Export diagnostic information"""
-        return {
-            'operational_metrics': {
-                'ops_per_second': {
-                    'get': self.op_counters['get'].rate(),
-                    'put': self.op_counters['put'].rate(),
-                    'delete': self.op_counters['delete'].rate()
-                },
-                'latency_percentiles': {
-                    'get': self.latency_histograms['get'].percentiles([50, 95, 99, 99.9]),
-                    'put': self.latency_histograms['put'].percentiles([50, 95, 99, 99.9])
-                }
-            },
-            'storage_health': {
-                'size_bytes': self.storage_metrics['size'].value(),
-                'total_keys': self.storage_metrics['keys'].value(),
-                'compaction_rate': self.storage_metrics['compactions'].rate(),
-                'write_amplification': self.storage_metrics['write_amp'].value()
-            },
-            'hot_keys': self.hot_keys[:10],  # Top 10
-            'replication_status': self._get_replication_status(),
-            'node_health': self._get_node_health()
-        }
+    subgraph "Monitoring Stack"
+        PROM[Prometheus<br/>Time Series]
+        GRAF[Grafana<br/>Dashboards]
+        ALERT[AlertManager<br/>Notifications]
+    end
     
-    def _create_debug_snapshot(self, key: str) -> dict:
-        """Create detailed debug snapshot for a key"""
-        return {
-            'key': key,
-            'access_frequency': self.access_frequency.estimate(key),
-            'replicas': self._get_replica_status(key),
-            'version_history': self._get_version_history(key),
-            'storage_location': self._get_storage_location(key),
-            'cache_status': self._get_cache_status(key),
-            'lock_holders': self._get_lock_info(key)
-        }
+    subgraph "Debug Tools"
+        SNAP[Key Snapshot]
+        TRACE[Distributed Trace]
+        PROF[CPU/Memory Profile]
+    end
+    
+    OP & LAT & STOR & HOT --> PROM
+    PROM --> GRAF
+    PROM --> ALERT
+    
+    style PROM fill:#ff6b6b
+    style GRAF fill:#4ecdc4
 ```
+
+**Key Metrics Dashboard:**
+
+| Metric | Description | Alert Threshold |
+|--------|-------------|------------------|
+| **ops.get.rate** | GET requests/sec | > 100K/sec |
+| **ops.put.rate** | PUT requests/sec | > 50K/sec |
+| **latency.get.p99** | 99th percentile GET | > 10ms |
+| **latency.put.p99** | 99th percentile PUT | > 50ms |
+| **storage.size** | Total data size | > 80% capacity |
+| **compaction.rate** | Compactions/hour | > 100/hour |
+| **replication.lag** | Max replica lag | > 1000 entries |
+| **hot_keys.count** | Number of hot keys | > 100 |
+
+**Hot Key Detection:**
+
+```mermaid
+sequenceDiagram
+    participant R as Request
+    participant CMS as Count-Min Sketch
+    participant DET as Detector
+    participant ACT as Action
+    
+    loop Every Request
+        R->>CMS: Increment(key)
+        CMS->>DET: Get Frequency
+        
+        alt Frequency > 1000/sec
+            DET->>ACT: Mark as Hot Key
+            ACT->>ACT: Add to hot list
+            ACT->>ACT: Consider sharding
+            ACT->>ACT: Alert operators
+        end
+    end
+```
+
+**Debug Snapshot Example:**
+
+```json
+{
+  "key": "user:popular:123",
+  "access_frequency": 5420,
+  "replicas": [
+    {"node": "kv-1", "version": 142, "lag": 0},
+    {"node": "kv-2", "version": 142, "lag": 0},
+    {"node": "kv-3", "version": 141, "lag": 1}
+  ],
+  "storage_location": {
+    "level": "L1",
+    "sstable": "data-00142.sst",
+    "offset": 1024576,
+    "compression": "snappy"
+  },
+  "cache_status": {
+    "l1_cache": true,
+    "l2_cache": true,
+    "last_access": "2024-01-20T10:30:00Z"
+  }
+}
+```
+
+**Performance Analysis Tools:**
+
+| Tool | Purpose | Usage |
+|------|---------|-------|  
+| Trace Viewer | Request flow analysis | Debug slow queries |
+| Flame Graphs | CPU profiling | Find hot code paths |
+| Heap Profiler | Memory analysis | Detect memory leaks |
+| Query Analyzer | Access patterns | Optimize schema |
 
 #### 👤 Axiom 7 (Human Interface): Operations & Management
 ```text
@@ -806,148 +715,109 @@ Administrative APIs:
 - Cache management
 ```
 
-**Implementation:**
-```python
-class OperationalKVStore:
-    def __init__(self):
-        self.admin_api = FastAPI()
-        self._setup_admin_endpoints()
-        
-    def _setup_admin_endpoints(self):
-        """RESTful admin API"""
-        
-        @self.admin_api.post("/cluster/nodes")
-        async def add_node(node_spec: NodeSpec):
-            """Add new node to cluster"""
-            # Validate node specification
-            if not self._validate_node_spec(node_spec):
-                raise HTTPException(400, "Invalid node specification")
-            
-            # Plan data migration
-            migration_plan = self._plan_rebalance(node_spec)
-            
-            # Execute with progress tracking
-            task_id = str(uuid.uuid4())
-            asyncio.create_task(
-                self._execute_rebalance(migration_plan, task_id)
-            )
-            
-            return {
-                'task_id': task_id,
-                'migration_plan': migration_plan,
-                'estimated_duration': migration_plan['estimated_minutes'],
-                'status_url': f'/tasks/{task_id}'
-            }
-        
-        @self.admin_api.get("/debug/key/{key}")
-        async def debug_key(key: str):
-            """Comprehensive key debugging"""
-            return {
-                'key': key,
-                'exists': await self.exists(key),
-                'value_size': len(await self.get(key) or b''),
-                'replicas': self._get_key_replicas(key),
-                'version_info': self._get_key_versions(key),
-                'access_stats': {
-                    'frequency': self.access_frequency.estimate(key),
-                    'last_accessed': self._get_last_access_time(key),
-                    'cache_hits': self._get_cache_hits(key)
-                },
-                'storage_info': {
-                    'level': self._get_storage_level(key),
-                    'sstable': self._get_sstable_info(key),
-                    'compression': self._get_compression_info(key)
-                }
-            }
-        
-        @self.admin_api.post("/maintenance/compact")
-        async def trigger_compaction(request: CompactionRequest):
-            """Manual compaction trigger"""
-            if request.level == 'all':
-                levels = range(len(self.level_configs))
-            else:
-                levels = [request.level]
-            
-            compaction_stats = []
-            for level in levels:
-                stats = await self._compact_level(level, force=True)
-                compaction_stats.append(stats)
-            
-            return {
-                'status': 'completed',
-                'levels_compacted': len(levels),
-                'stats': compaction_stats,
-                'space_reclaimed_mb': sum(s['space_reclaimed'] for s in compaction_stats)
-            }
-        
-        @self.admin_api.post("/backup")
-        async def create_backup(request: BackupRequest):
-            """Create consistent backup"""
-            # Create snapshot
-            snapshot_id = await self._create_snapshot()
-            
-            # Stream to backup location
-            backup_path = f"{request.backup_location}/kvstore-{snapshot_id}"
-            
-            async def stream_snapshot():
-                async for chunk in self._stream_snapshot(snapshot_id):
-                    await upload_chunk(backup_path, chunk)
-            
-            task_id = str(uuid.uuid4())
-            asyncio.create_task(stream_snapshot())
-            
-            return {
-                'snapshot_id': snapshot_id,
-                'backup_path': backup_path,
-                'task_id': task_id,
-                'estimated_size_gb': self._estimate_backup_size() / 1024**3
-            }
+**Admin API & Operations:**
+
+```mermaid
+graph TB
+    subgraph "Admin API Endpoints"
+        NODE[POST /cluster/nodes<br/>Add/Remove Nodes]
+        DEBUG[GET /debug/key/{key}<br/>Key Diagnostics]
+        COMPACT[POST /maintenance/compact<br/>Manual Compaction]
+        BACKUP[POST /backup<br/>Create Snapshot]
+    end
     
-    def create_cli(self):
-        """Command-line interface"""
-        import click
-        
-        @click.group()
-        def cli():
-            pass
-        
-        @cli.command()
-        @click.argument('key')
-        def get(key):
-            """Get value for key"""
-            value = self.get(key)
-            if value:
-                click.echo(value.decode('utf-8', errors='replace'))
-            else:
-                click.echo(f"Key '{key}' not found", err=True)
-        
-        @cli.command()
-        @click.argument('key')
-        @click.argument('value')
-        @click.option('--ttl', type=int, help='TTL in seconds')
-        def put(key, value, ttl):
-            """Set key-value pair"""
-            success = self.put(key, value.encode(), ttl=ttl)
-            if success:
-                click.echo(f"OK")
-            else:
-                click.echo(f"Failed to set '{key}'", err=True)
-        
-        @cli.command()
-        def status():
-            """Show cluster status"""
-            status = self.get_cluster_status()
-            click.echo(f"Nodes: {status['node_count']}")
-            click.echo(f"Keys: {status['total_keys']:,}")
-            click.echo(f"Size: {status['total_size_gb']:.1f} GB")
-            click.echo(f"Load: {status['ops_per_second']:,} ops/sec")
-            
-            if status['unhealthy_nodes']:
-                click.echo(f"\nUnhealthy nodes:", err=True)
-                for node in status['unhealthy_nodes']:
-                    click.echo(f"  - {node}", err=True)
-        
-        return cli
+    subgraph "CLI Commands"
+        GET[kvctl get {key}]
+        PUT[kvctl put {key} {value}]
+        STATUS[kvctl status]
+        REPAIR[kvctl repair]
+    end
+    
+    subgraph "Automation"
+        REBAL[Auto Rebalancing]
+        HEALTH[Health Checks]
+        ALERT[Alert Rules]
+    end
+    
+    NODE --> REBAL
+    DEBUG --> HEALTH
+    COMPACT --> ALERT
+    
+    style NODE fill:#4ecdc4
+    style GET fill:#ffd93d
+```
+
+**Node Addition Workflow:**
+
+```mermaid
+sequenceDiagram
+    participant O as Operator
+    participant API as Admin API
+    participant C as Cluster
+    participant N as New Node
+    
+    O->>API: POST /cluster/nodes
+    API->>API: Validate node spec
+    API->>C: Plan rebalancing
+    C-->>API: Migration plan
+    
+    API->>N: Initialize node
+    API->>C: Start data migration
+    
+    loop Migration Progress
+        C->>N: Transfer data chunks
+        N-->>C: Acknowledge
+        C->>API: Progress update
+        API->>O: Status webhook
+    end
+    
+    C->>C: Update ring topology
+    API-->>O: Migration complete
+```
+
+**Operations Dashboard:**
+
+| Panel | Metrics | Actions |
+|-------|---------|---------|  
+| **Cluster Health** | Node status, Load distribution | Add/remove nodes |
+| **Performance** | QPS, Latency, Cache hits | Tune parameters |
+| **Storage** | Disk usage, Compaction | Trigger compaction |
+| **Replication** | Lag, Consistency | Force sync |
+
+**Common Operational Tasks:**
+
+| Task | Command/API | Frequency |
+|------|-------------|-----------|  
+| Add capacity | `POST /cluster/nodes` | As needed |
+| Replace failed node | `kvctl replace-node {id}` | On failure |
+| Manual compaction | `POST /maintenance/compact` | Weekly |
+| Create backup | `POST /backup` | Daily |
+| Debug slow key | `GET /debug/key/{key}` | On demand |
+| Upgrade version | `kvctl rolling-upgrade` | Monthly |
+
+**Monitoring & Alerts:**
+
+```yaml
+alerts:
+  - name: HighLatency
+    expr: kvstore_latency_p99 > 10
+    for: 5m
+    severity: warning
+    
+  - name: DiskSpaceLow
+    expr: kvstore_disk_free < 0.2
+    for: 10m
+    severity: critical
+    
+  - name: ReplicationLag
+    expr: kvstore_replication_lag > 1000
+    for: 5m
+    severity: warning
+    
+  - name: HotKeyDetected
+    expr: kvstore_hot_keys > 100
+    for: 1m
+    severity: info
 ```
 
 #### 💰 Axiom 8 (Economics): Cost Optimization
@@ -967,162 +837,142 @@ Optimization Strategies:
 - Batch operations
 ```
 
-**Implementation:**
-```python
-class EconomicKVStore:
-    def __init__(self):
-        self.storage_tiers = [
-            StorageTier('memory', cost_per_gb=0.50, latency_ms=0.1, capacity_gb=100),
-            StorageTier('ssd', cost_per_gb=0.10, latency_ms=1, capacity_gb=10000),
-            StorageTier('hdd', cost_per_gb=0.03, latency_ms=10, capacity_gb=100000),
-            StorageTier('s3', cost_per_gb=0.023, latency_ms=100, capacity_gb=float('inf'))
-        ]
-        
-        self.compression_algorithms = {
-            'none': {'ratio': 1.0, 'cpu_cost': 0},
-            'snappy': {'ratio': 0.7, 'cpu_cost': 1},
-            'lz4': {'ratio': 0.6, 'cpu_cost': 2},
-            'zstd': {'ratio': 0.4, 'cpu_cost': 5}
-        }
-        
-        self.access_tracker = AccessTracker()
-        self.cost_model = CostModel()
+**Cost Optimization Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Storage Tiers"
+        MEM[Memory<br/>$0.50/GB<br/>0.1ms]
+        SSD[SSD<br/>$0.10/GB<br/>1ms]
+        HDD[HDD<br/>$0.03/GB<br/>10ms]
+        S3[S3<br/>$0.023/GB<br/>100ms]
+    end
     
-    async def optimize_storage_placement(self):
-        """Move data between tiers based on access patterns"""
-        # Analyze access patterns
-        access_stats = self.access_tracker.get_stats()
-        
-        # Classify data by temperature
-        hot_keys = []  # >1000 accesses/hour
-        warm_keys = []  # 100-1000 accesses/hour
-        cold_keys = []  # <100 accesses/hour
-        
-        for key, stats in access_stats.items():
-            access_rate = stats['accesses_per_hour']
-            if access_rate > 1000:
-                hot_keys.append(key)
-            elif access_rate > 100:
-                warm_keys.append(key)
-            else:
-                cold_keys.append(key)
-        
-        # Move data to appropriate tiers
-        migrations = []
-        
-        # Hot data → Memory
-        for key in hot_keys[:self.storage_tiers[0].capacity_keys]:
-            if self._get_tier(key) != 'memory':
-                migrations.append(('memory', key))
-        
-        # Warm data → SSD
-        for key in warm_keys:
-            if self._get_tier(key) not in ['memory', 'ssd']:
-                migrations.append(('ssd', key))
-        
-        # Cold data → HDD or S3
-        for key in cold_keys:
-            current_tier = self._get_tier(key)
-            if current_tier in ['memory', 'ssd']:
-                # Calculate cost-benefit
-                current_cost = self._calculate_storage_cost(key, current_tier)
-                hdd_cost = self._calculate_storage_cost(key, 'hdd')
-                s3_cost = self._calculate_storage_cost(key, 's3')
-                
-                if s3_cost < hdd_cost * 0.8:  # 20% cheaper
-                    migrations.append(('s3', key))
-                else:
-                    migrations.append(('hdd', key))
-        
-        # Execute migrations
-        for tier, key in migrations:
-            await self._migrate_key(key, tier)
-        
-        return {
-            'migrations': len(migrations),
-            'cost_savings': self._calculate_savings(migrations)
-        }
+    subgraph "Access Patterns"
+        HOT[Hot Data<br/>>1000/hr]
+        WARM[Warm Data<br/>100-1000/hr]
+        COLD[Cold Data<br/><100/hr]
+    end
     
-    def select_compression(self, key: str, value: bytes) -> Tuple[str, bytes]:
-        """Choose optimal compression algorithm"""
-        value_size = len(value)
-        access_rate = self.access_tracker.get_access_rate(key)
-        
-        # Don't compress small values
-        if value_size < 100:
-            return 'none', value
-        
-        # Test compression ratios
-        best_algorithm = 'none'
-        best_cost = float('inf')
-        
-        for algo, props in self.compression_algorithms.items():
-            if algo == 'none':
-                compressed_size = value_size
-            else:
-                compressed = self._compress(value, algo)
-                compressed_size = len(compressed)
-            
-            # Calculate total cost (storage + CPU)
-            storage_cost = compressed_size * self.cost_model.storage_cost_per_byte
-            cpu_cost = props['cpu_cost'] * access_rate * self.cost_model.cpu_cost_per_op
-            
-            total_cost = storage_cost + cpu_cost
-            
-            if total_cost < best_cost:
-                best_cost = total_cost
-                best_algorithm = algo
-        
-        # Apply best compression
-        if best_algorithm == 'none':
-            return 'none', value
-        else:
-            return best_algorithm, self._compress(value, best_algorithm)
+    subgraph "Optimization"
+        TIER[Tiering Engine]
+        COMP[Compression]
+        CACHE[Cache Policy]
+    end
     
-    def generate_cost_report(self) -> dict:
-        """Generate detailed cost breakdown"""
-        report = {
-            'storage_costs': {},
-            'compute_costs': {},
-            'network_costs': {},
-            'total_monthly_cost': 0
-        }
+    HOT --> MEM
+    WARM --> SSD
+    COLD --> HDD
+    COLD --> S3
+    
+    TIER --> MEM & SSD & HDD & S3
+    
+    style MEM fill:#ff6b6b
+    style SSD fill:#ffd93d  
+    style HDD fill:#95e1d3
+    style S3 fill:#e0e0e0
+```
+
+**Storage Tier Configuration:**
+
+| Tier | Cost/GB/Month | Latency | Capacity | Use Case |
+|------|---------------|---------|----------|----------|
+| Memory | $0.50 | 0.1ms | 100GB | Hot working set |
+| SSD | $0.10 | 1ms | 10TB | Active data |
+| HDD | $0.03 | 10ms | 100TB | Warm archive |
+| S3 | $0.023 | 100ms | ∞ | Cold archive |
+
+**Compression Decision Matrix:**
+
+```mermaid
+graph LR
+    subgraph "Input Factors"
+        SIZE[Value Size]
+        ACCESS[Access Rate]
+        TYPE[Data Type]
+    end
+    
+    subgraph "Algorithms"
+        NONE[None<br/>Ratio: 1.0x<br/>CPU: 0]
+        SNAPPY[Snappy<br/>Ratio: 0.7x<br/>CPU: Low]
+        LZ4[LZ4<br/>Ratio: 0.6x<br/>CPU: Medium]
+        ZSTD[Zstandard<br/>Ratio: 0.4x<br/>CPU: High]
+    end
+    
+    subgraph "Decision"
+        CALC[Cost Calculator<br/>Storage + CPU]
+    end
+    
+    SIZE & ACCESS & TYPE --> CALC
+    CALC --> NONE & SNAPPY & LZ4 & ZSTD
+```
+
+**Cost Breakdown Example (1PB Scale):**
+
+| Component | Usage | Unit Cost | Monthly Cost |
+|-----------|-------|-----------|---------------|
+| **Storage** | | | |
+| - Memory | 100GB | $0.50/GB | $50 |
+| - SSD | 10TB | $0.10/GB | $1,000 |
+| - HDD | 900TB | $0.03/GB | $27,000 |
+| - S3 | 90TB | $0.023/GB | $2,070 |
+| **Compute** | | | |
+| - Instances | 100 nodes | $100/node | $10,000 |
+| - CPU hours | 73,000 | $0.10/hr | $7,300 |
+| **Network** | | | |
+| - Egress | 50TB | $0.05/GB | $2,500 |
+| - Inter-AZ | 100TB | $0.01/GB | $1,000 |
+| **Total** | | | **$50,920** |
+
+**Cost Optimization Strategies:**
+
+```mermaid
+sequenceDiagram
+    participant M as Monitor
+    participant A as Analyzer
+    participant O as Optimizer
+    participant E as Executor
+    
+    loop Every Hour
+        M->>A: Collect Access Stats
+        A->>A: Classify Hot/Warm/Cold
+        A->>O: Generate Migration Plan
         
-        # Storage costs by tier
-        for tier in self.storage_tiers:
-            usage_gb = self._get_tier_usage(tier.name)
-            cost = usage_gb * tier.cost_per_gb
-            report['storage_costs'][tier.name] = {
-                'usage_gb': usage_gb,
-                'cost_per_gb': tier.cost_per_gb,
-                'monthly_cost': cost
-            }
-            report['total_monthly_cost'] += cost
+        O->>O: Calculate Cost/Benefit
+        Note over O: Current: $X<br/>After: $Y<br/>Savings: $(X-Y)
         
-        # Compute costs
-        cpu_hours = self._get_cpu_hours()
-        compute_cost = cpu_hours * 0.10  # $0.10 per hour
-        report['compute_costs'] = {
-            'cpu_hours': cpu_hours,
-            'hourly_rate': 0.10,
-            'monthly_cost': compute_cost * 730  # hours/month
-        }
-        report['total_monthly_cost'] += compute_cost * 730
-        
-        # Network costs
-        egress_gb = self._get_network_egress()
-        network_cost = egress_gb * 0.05
-        report['network_costs'] = {
-            'egress_gb': egress_gb,
-            'cost_per_gb': 0.05,
-            'monthly_cost': network_cost
-        }
-        report['total_monthly_cost'] += network_cost
-        
-        # Cost optimization recommendations
-        report['recommendations'] = self._generate_cost_recommendations()
-        
-        return report
+        alt Savings > Threshold
+            O->>E: Execute Migrations
+            E->>E: Move Cold→S3
+            E->>E: Move Warm→HDD
+            E->>E: Compress Large Values
+        end
+    end
+```
+
+**Monthly Cost Report:**
+
+```json
+{
+  "period": "2024-01",
+  "storage_costs": {
+    "memory": {"usage_gb": 95, "cost": "$47.50"},
+    "ssd": {"usage_gb": 9500, "cost": "$950"},
+    "hdd": {"usage_gb": 850000, "cost": "$25,500"},
+    "s3": {"usage_gb": 85000, "cost": "$1,955"}
+  },
+  "compute_costs": {
+    "instances": "$10,000",
+    "processing": "$7,300"
+  },
+  "network_costs": "$3,500",
+  "total_monthly_cost": "$49,202.50",
+  "recommendations": [
+    "Move 50TB of warm data from SSD to HDD (save $350/mo)",
+    "Enable zstd compression for 20TB cold data (save $180/mo)",
+    "Implement request coalescing (save $200/mo CPU)"
+  ]
+}
 ```
 
 ### 🔍 Comprehensive Axiom Mapping

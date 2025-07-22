@@ -1,0 +1,1550 @@
+[
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/tools/index.md",
+    "line_number": 465,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "L = \u03bb \u00d7 W\n- L = Items in system\n- \u03bb = Arrival rate\n- W = Time in system",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/tools/index.md",
+    "line_number": 473,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Speedup = 1 / (S + P/N)\n- S = Serial fraction\n- P = Parallel fraction  \n- N = Number of processors",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/tools/index.md",
+    "line_number": 481,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Bandwidth (Mbps) = File Size (MB) \u00d7 8 / Time (seconds)\nTime = Distance (km) / 200,000 km/s + Process...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/tools/index.md",
+    "line_number": 487,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "IOPS = 1000 / (Seek Time + Latency)\nThroughput = IOPS \u00d7 Block Size",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/tools/index.md",
+    "line_number": 493,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Serial: A = A\u2081 \u00d7 A\u2082 \u00d7 ... \u00d7 A\u2099\nParallel: A = 1 - (1-A\u2081) \u00d7 (1-A\u2082) \u00d7 ... \u00d7 (1-A\u2099)",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/load-shedding.md",
+    "line_number": 96,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "import time\nimport heapq\nfrom dataclasses import dataclass\nfrom typing import Dict, List\n\n@dataclass\nclass Request:\n    id: str\n    priority: int\n    cost: float\n    timestamp: float\n    user_tier: st...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/caching-strategies.md",
+    "line_number": 36,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Cache:                    With Cache:\nEvery request \u2192 Database         First request \u2192 Datab...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/tunable-consistency.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\ud83c\udf54 Fast Food (Eventual Consistency)\n- Order at any counter\n- Food might vary slightly\n- Super fast se...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/tunable-consistency.md",
+    "line_number": 52,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Different Operations, Different Needs:\n\n\ud83d\udcb0 Bank Transfer         \u2764\ufe0f Social Media Like      \ud83d\udcca Analytic...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 692,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Error = 0.4 \u00d7 (Target_Latency - Current_Latency) / Target_Latency\n      + 0.4 \u00d7 (Current_Rejections ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 816,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**Container Isolation Benefits**:\n| Aspect | Benefit |\n|--------|----------|\n| **CPU** | Hard limit...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 879,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83d\ude80 Level 4: Expert\n\n### Real-World Case Study: Amazon's Cell-Based Architecture\n\n#### The Ch...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 897,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**Impact of Shared Fate**:\n- \ud83c\udf0d **Global outages**: One issue affects all regions\n- \ud83d\udca3 **Blast radius...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 994,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n#### Implementation Results\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1028,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Case Study: Spotify's Squad Isolation\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1106,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Production Monitoring Dashboard\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1146,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Enterprise Implementation Patterns\n\n#### Microsoft Azure's Deployment Stamps",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1218,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83c\udfaf Level 5: Mastery\n\n### Theoretical Foundations of Isolation\n\n#### Queueing Theory Applied ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1634,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83d\udccb Quick Reference\n\n### Decision Matrix: Choosing Bulkhead Strategy\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1655,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Configuration Cheat Sheet\n\n| Service Type | Bulkhead Type | Size Formula | Queue Size |\n|------...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1698,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Implementation Checklist\n\n#### Basic Bulkhead\n- [ ] Identify resource boundaries\n- [ ] Choose i...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/bulkhead.md",
+    "line_number": 1770,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Best Practices Summary\n\n1. **Start small** - Begin with coarse-grained isolation\n2. **Monitor e...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/outbox.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Outbox:                    With Outbox:\nDoctor: \"Patient discharged!\"      Doctor writes in ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/outbox.md",
+    "line_number": 44,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "The Dual-Write Problem:\n\nApplication: \"Save order AND send email!\"\n\nScenario 1: \u2713 Save \u2192 \u2717 Email = C...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/leader-election.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\ud83c\udfeb Classroom Election Process:\n\n1. Campaign Period (FOLLOWER state)\n   - Everyone is equal\n   - Stude...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/leader-election.md",
+    "line_number": 56,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Distributed System without Leader:     With Leader Election:\n\n\ud83d\udda5\ufe0f \u2192 \ud83d\udcca \u2190 \ud83d\udda5\ufe0f                          \ud83d\udda5...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/leader-election.md",
+    "line_number": 154,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Term 1: Node A elected\nTerm 2: Node A fails, Node B elected  \nTerm 3: Network partition, Node C elec...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/leader-election.md",
+    "line_number": 197,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "5 nodes: Need 3 votes to win (\u230a5/2\u230b + 1 = 3)\n7 nodes: Need 4 votes to win (\u230a7/2\u230b + 1 = 4)\n9 nodes: N...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/leader-election.md",
+    "line_number": 747,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Scenario 1: Clean Partition\n[A, B] | [C, D, E]\n- Right side elects leader (has majority)\n- Left side...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/geo-replication.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Single Library:                       Global Library Network:\n\n\ud83d\udcda Central Library                    ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/geo-replication.md",
+    "line_number": 50,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Geo-Replication:              With Geo-Replication:\n\nUsers \u2192 [Atlantic Ocean] \u2192 Server     U...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/retry-backoff.md",
+    "line_number": 763,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**Budget Configuration**:\n| Service Type | Budget % | Window | Reasoning |\n|--------------|--------...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/retry-backoff.md",
+    "line_number": 871,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Real-World Implementation Patterns\n\n#### AWS SDK Retry Strategy",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/retry-backoff.md",
+    "line_number": 961,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**Impact**:\n- \ud83d\udd25 **Single service failure** took down entire Netflix\n- \ud83d\udcb8 **$1M+ per hour** in lost r...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/retry-backoff.md",
+    "line_number": 1008,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n#### Implementation Details\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 143,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "from abc import ABC, abstractmethod\nfrom typing import Dict, Tuple, Optional\n\nclass TokenBucket(RateLimiter):\n    \"\"\"Token bucket algorithm with burst support\"\"\"\n\n    def __init__(self, capacity: int,...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 973,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Geographic Rate Limiting\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 1031,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Machine Learning Enhanced Rate Limiting\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 1114,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83d\ude80 Level 4: Expert\n\n### Real-World Case Study: GitHub's Rate Limiting Evolution\n\n#### The Ch...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 1132,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**Impact**:\n- \ud83d\udd25 **23% of API capacity** consumed by abusive clients\n- \ud83d\ude24 **P99 latency increased 5x*...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 1554,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Enterprise Rate Limiting Patterns\n\n#### Multi-Tenant Rate Limiting",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/rate-limiting.md",
+    "line_number": 1823,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83c\udfaf Level 5: Mastery\n\n### Next-Generation Rate Limiting\n\n#### Quantum-Resistant Rate Limiting",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/health-check.md",
+    "line_number": 267,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "class DependencyHealthChecker:\n    \"\"\"Check health of all dependencies with smart aggregation\"\"\"\n\n    def __init__(self):\n        self.dependencies = {}\n        self.weights = {}  # Importance weights...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/graphql-federation.md",
+    "line_number": 1040,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "C(Q) = \u03a3\u1d62 (L\u1d62 \u00d7 D\u1d62) + \u03a3\u2c7c (N\u2c7c \u00d7 T\u2c7c) + P \u00d7 log(F)\n\nWhere:\n- L\u1d62 = Latency of service i\n- D\u1d62 = Data tran...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/graphql-federation.md",
+    "line_number": 1054,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "E = (R\u2081 / R\u2099) \u00d7 (1 / C)\n\nWhere:\n- R\u2081 = Response time with 1 service\n- R\u2099 = Response time with n serv...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/service-discovery.md",
+    "line_number": 811,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Future Directions\n\n1. **ML-Driven Discovery**: Predict service locations before lookup\n2. **Blo...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/saga.md",
+    "line_number": 54,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional Transaction:          Saga Pattern:\n\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510              Step 1: Book Fligh...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/saga.md",
+    "line_number": 383,
+    "issue_type": "security_issue",
+    "severity": "high",
+    "description": "Security issue: eval() can be dangerous",
+    "code_snippet": "import asyncio\nfrom typing import Dict, List, Optional, Any\nfrom datetime import datetime, timedelta\nimport json\nfrom dataclasses import dataclass, asdict\n\n# Saga Persistence for Recovery\nclass SagaRe...",
+    "recommendation": "Remove or replace: eval() can be dangerous"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/event-driven.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional (Request-Response):          Event-Driven:\n\n\ud83d\udcf1 Phone Calls                          \ud83d\udcfb Rad...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/event-driven.md",
+    "line_number": 47,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Synchronous Architecture:               Event-Driven Architecture:\n\nOrder Service                   ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/idempotent-receiver.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Idempotency:               With Idempotency:\nPerson presses UP button           Person press...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/idempotent-receiver.md",
+    "line_number": 44,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "The Duplicate Message Problem:\n\nNetwork: \"Did you get my message?\"\n\u2192 No response (timeout)\n\u2192 \"Let me...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/idempotent-receiver.md",
+    "line_number": 364,
+    "issue_type": "security_issue",
+    "severity": "high",
+    "description": "Security issue: eval() can be dangerous",
+    "code_snippet": "import asyncio\nfrom enum import Enum\nfrom typing import List, Dict, Any, Optional, Set\nimport time\nfrom dataclasses import dataclass, field\nfrom collections import defaultdict\n\nclass ProcessingStatus(...",
+    "recommendation": "Remove or replace: eval() can be dangerous"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/idempotent-receiver.md",
+    "line_number": 949,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83c\udfaf Level 5: Mastery\n\n### Theoretical Foundations\n\n#### Formal Verification of Idempotency\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/idempotent-receiver.md",
+    "line_number": 1162,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Economic Impact\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/pattern-comparison.md",
+    "line_number": 97,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Legend: \n\u2705 Excellent combination\n\ud83d\udfe1 Good combination\n\u26a0\ufe0f Possible but complex\n\u274c Not recommended",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/pattern-comparison.md",
+    "line_number": 164,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "High Performance \u2190\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2192 High Complexity\n\nSimple                                          C...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/pattern-comparison.md",
+    "line_number": 364,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Frontend \u2192 API Gateway (Rate Limiting)\n         \u2192 Service Mesh\n         \u2192 Microservices:\n           ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/pattern-comparison.md",
+    "line_number": 376,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Mobile Apps \u2192 Edge Computing (Caching)\n           \u2192 GraphQL Federation\n           \u2192 Services:\n      ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/pattern-comparison.md",
+    "line_number": 387,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Trading Apps \u2192 API Gateway (Rate Limiting + Auth)\n            \u2192 Service Mesh (mTLS + Circuit Breaker...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/service-mesh.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional Approach (No Mesh):        With Service Mesh:\n\n\ud83c\udfe2 \u2192 \ud83c\udfe2 Direct roads                  \ud83c\udfe2 \u2190 S...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/service-mesh.md",
+    "line_number": 45,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Service Mesh:                  With Service Mesh:\n\nService A \u2190\u2192 Service B                Ser...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/cdc.md",
+    "line_number": 36,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional Approach:              CDC Approach:\nDatabase \u2192 Batch ETL \u2192 Target     Database \u2192 Change...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/sharding.md",
+    "line_number": 33,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Unsharded:                    Sharded:\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510          \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502   A...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/observability.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Observability (Emergency Room):\nPatient: \"I don't feel well\"\nDoctor: \"Where does it hurt?\"\nP...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/observability.md",
+    "line_number": 61,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "METRICS: The Speedometer\n\"How fast are we going?\"\n- Request rate: 1000/sec\n- Error rate: 0.1%\n- Resp...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/distributed-lock.md",
+    "line_number": 38,
+    "issue_type": "security_issue",
+    "severity": "high",
+    "description": "Security issue: eval() can be dangerous",
+    "code_snippet": "import redis\nimport time\nimport uuid\n\nclass SimpleDistributedLock:\n    def __init__(self, redis_client: redis.Redis):\n        self.redis = redis_client\n\n    def acquire(self, resource: str, timeout_ms...",
+    "recommendation": "Remove or replace: eval() can be dangerous"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/serverless-faas.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional Server (Restaurant):          Serverless (Food Truck Rally):\n\n\ud83c\udfe2 Own Kitchen             ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/serverless-faas.md",
+    "line_number": 48,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional Architecture:                 Serverless Architecture:\n\n     Load Balancer              ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/finops.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without FinOps (Living without a budget):\n- Electric bill arrives: \"Why is it $500?!\"\n- \"Who left al...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/finops.md",
+    "line_number": 64,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "What you see (10%):\n\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502 Compute (EC2)   \u2502 \u2190 \"Our servers cost $10K/month\"\n\u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/queues-streaming.md",
+    "line_number": 54,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Without Queues:                    With Queues:\n\nClient \u2192 Service \u2192 Database        Client \u2192 Queue \u2192...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/edge-computing.md",
+    "line_number": 30,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Traditional Cloud (Central Hospital):        Edge Computing (Distributed Care):\n\n\ud83c\udfe5 Main Hospital    ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/patterns/edge-computing.md",
+    "line_number": 49,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "The Edge Computing Hierarchy:\n\n\u2601\ufe0f Cloud (Brain)\n   \u2193 Strategic decisions, deep analysis\n\ud83c\udfe2 Regional D...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue-enhanced.md",
+    "line_number": 801,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "class PerformanceOptimizer:\n    \"\"\"Optimizations for high throughput\"\"\"\n    \n    def __init__(self):\n        self.batch_size = 16384  # 16KB\n        self.linger_ms = 10\n        self.compression_type =...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/spotify-recommendations.md",
+    "line_number": 211,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## \ud83d\udcca Complete Axiom Analysis\n\n### Comprehensive Axiom Mapping Table\n\n| Design Decision | Axiom 1: L...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/spotify-recommendations.md",
+    "line_number": 339,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## \ud83c\udfdb\ufe0f Architecture Alternatives\n\n### Alternative 1: Pure Collaborative Filtering\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/spotify-recommendations.md",
+    "line_number": 364,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Alternative 2: Content-Based System\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/spotify-recommendations.md",
+    "line_number": 393,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Alternative 3: Deep Learning Only\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/spotify-recommendations.md",
+    "line_number": 422,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Alternative 4: Graph-Based Recommendation\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/spotify-recommendations.md",
+    "line_number": 452,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Alternative 5: Spotify's Hybrid Architecture\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/youtube-enhanced.md",
+    "line_number": 346,
+    "issue_type": "deprecated_syntax",
+    "severity": "medium",
+    "description": "Deprecated syntax detected: Use print() function syntax",
+    "code_snippet": "class TieredStorageManager:\n    \"\"\"Manage hot/warm/cold storage tiers\"\"\"\n    \n    def __init__(self):\n        self.tiers = {\n            'hot': {\n                'type': 'SSD',\n                'capaci...",
+    "recommendation": "Use print() function syntax"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/web-crawler.md",
+    "line_number": 237,
+    "issue_type": "deprecated_syntax",
+    "severity": "medium",
+    "description": "Deprecated syntax detected: Use print() function syntax",
+    "code_snippet": "import rocksdb\nimport mmh3\nfrom urllib.parse import urlparse\nimport heapq\nfrom collections import defaultdict\nimport struct\n\nclass ScalableURLFrontier:\n    def __init__(self, num_priority_queues=1000)...",
+    "recommendation": "Use print() function syntax"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/web-crawler.md",
+    "line_number": 237,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "import rocksdb\nimport mmh3\nfrom urllib.parse import urlparse\nimport heapq\nfrom collections import defaultdict\nimport struct\n\nclass ScalableURLFrontier:\n    def __init__(self, num_priority_queues=1000)...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/web-crawler.md",
+    "line_number": 2001,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "class CostOptimizedCrawler:\n    def __init__(self):\n        self.cost_tracker = CostTracker()\n        self.bandwidth_used = 0\n        self.storage_used = 0\n        self.compute_hours = 0\n        \n    ...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 134,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Partition 0:\n[Offset 0][Offset 1][Offset 2][Offset 3]...[Offset N]\n   |         |         |         ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 186,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Topic: Orders (6 partitions)\nConsumer Group: OrderProcessors (3 consumers)\n\nAssignment:\n- Consumer 1...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 205,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "1. Read data from disk to OS buffer\n2. Copy from OS buffer to application buffer\n3. Copy from applic...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 213,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "1. Read data from disk to OS buffer\n2. Send directly from OS buffer to NIC",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 283,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Message size: 1KB\nRetention: 7 days\nThroughput: 100K messages/sec\n\nDaily storage = 100K * 1KB * 8640...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 317,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Partition Scenario:\n[Broker 1, 2] <--X--> [Broker 3, 4, 5]\n\nWith min.insync.replicas = 2:\n- Minority...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/distributed-message-queue.md",
+    "line_number": 328,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Consumer Group Before:\n- C1: Partitions 0,1,2\n- C2: Partitions 3,4,5\n\nC1 Fails \u2192\n\nRebalancing Result...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 142,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Metric: http_requests_total\nLabels: {method=\"GET\", endpoint=\"/api/users\", status=\"200\", region=\"us-e...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 187,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Recent Data (Hot Storage):\n- In-memory for last 2 hours\n- SSD for last 24 hours\n- Optimized for writ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 272,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "# Explosion example\nmetrics = 1000\nservices = 100\nendpoints = 50\nregions = 10\nstatus_codes = 5\n\nTota...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 362,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Global Level (Cross-Region):\n  \u251c\u2500\u2500 Regional Level (US-East)\n  \u2502   \u251c\u2500\u2500 Cluster Level (Prod-1)\n  \u2502   \u2502...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 438,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Inverted Index:\n  \"region=us-east\" -> [series1, series2, series3, ...]\n  \"service=api\" -> [series2, ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 487,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "prometheus_tsdb_head_samples_appended_total\nprometheus_tsdb_compaction_duration_seconds\nprometheus_r...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 516,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Impact: Loss of recent data (last 2 hours)\nMitigation: \n- 3x replication across nodes\n- Automatic fa...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 525,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Symptoms: \n- Query latency spikes\n- Memory exhaustion\n- CPU throttling\n\nMitigation:\n- Query result c...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/metrics-monitoring.md",
+    "line_number": 539,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Detection:\n- Series count growing exponentially\n- Memory usage increasing rapidly\n- Ingestion slowin...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/ad-click-aggregation.md",
+    "line_number": 474,
+    "issue_type": "deprecated_syntax",
+    "severity": "medium",
+    "description": "Deprecated syntax detected: Avoid SELECT *, specify columns explicitly",
+    "code_snippet": "-- Create OLAP cube for fast queries\nCREATE TABLE click_cube AS\nWITH dimensions AS (\n    SELECT \n        DATE_TRUNC('hour', timestamp) as hour,\n        advertiser_id,\n        publisher_id,\n        cam...",
+    "recommendation": "Avoid SELECT *, specify columns explicitly"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/proximity-service-enhanced.md",
+    "line_number": 33,
+    "issue_type": "deprecated_syntax",
+    "severity": "medium",
+    "description": "Deprecated syntax detected: Avoid SELECT *, specify columns explicitly",
+    "code_snippet": "-- Original naive approach\nSELECT * FROM businesses \nWHERE latitude BETWEEN :lat - 0.1 AND :lat + 0.1\n  AND longitude BETWEEN :lng - 0.1 AND :lng + 0.1\nORDER BY distance(latitude, longitude, :lat, :ln...",
+    "recommendation": "Avoid SELECT *, specify columns explicitly"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/s3-object-storage-enhanced.md",
+    "line_number": 1292,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "class S3MetricsCollector:\n    \"\"\"Collects and aggregates S3 metrics\"\"\"\n    \n    def __init__(self):\n        self.metrics_pipeline = MetricsPipeline()\n        self.request_logger = RequestLogger()\n    ...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/prometheus-datadog-enhanced.md",
+    "line_number": 451,
+    "issue_type": "deprecated_syntax",
+    "severity": "medium",
+    "description": "Deprecated syntax detected: Use print() function syntax",
+    "code_snippet": "import asyncio\nfrom datetime import datetime, timedelta\nfrom typing import Dict, List, Set, Optional\nimport aioredis\n\nclass AlertRule:\n    \"\"\"Alert rule definition\"\"\"\n    \n    def __init__(self, rule_...",
+    "recommendation": "Use print() function syntax"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/case-studies/prometheus-datadog-enhanced.md",
+    "line_number": 631,
+    "issue_type": "bad_practice",
+    "severity": "medium",
+    "description": "Wildcard import detected",
+    "code_snippet": "from pyspark.sql import SparkSession\nfrom pyspark.sql.functions import *\nfrom pyspark.sql.types import *\nimport pyspark.sql.functions as F\n\nclass MetricAggregationPipeline:\n    \"\"\"Spark-based metric a...",
+    "recommendation": "Use specific imports instead of import *"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/incident-response.md",
+    "line_number": 338,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## Incident Classification Framework\n\n### Severity Assessment Matrix\n\n| Criteria \u2193 / Level \u2192 | SEV-...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/incident-response.md",
+    "line_number": 375,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## Incident Metrics\n\n### Key Performance Indicators\n- **MTTA** (Mean Time To Acknowledge)\n- **MTTD*...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/incident-response.md",
+    "line_number": 411,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## Communication Strategy Matrix\n\n### Stakeholder Communication Plan\n\n| Stakeholder | SEV-1 | SEV-2...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/oncall-culture.md",
+    "line_number": 359,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "        Mon  Tue  Wed  Thu  Fri  Sat  Sun\n00-04   \ud83d\udfe2   \ud83d\udfe2   \ud83d\udfe2   \ud83d\udfe2   \ud83d\udfe2   \ud83d\udfe1   \ud83d\udfe1\n04-08   \ud83d\udfe2   \ud83d\udfe2   \ud83d\udfe2   \ud83d\udfe2   ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/oncall-culture.md",
+    "line_number": 383,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502                    Alert Quality S...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/blameless-postmortems.md",
+    "line_number": 233,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510 \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502   Process   \u2502 \u2502   Tools     \u2502 \u2502   ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/human-factors/blameless-postmortems.md",
+    "line_number": 269,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n\u2502                  Postmortem Qualit...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/reference/security.md",
+    "line_number": 246,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "class OAuth2Handler:\n    def __init__(self, client_id, client_secret, auth_server_url):\n        self.client_id = client_id\n        self.client_secret = client_secret\n        self.auth_server_url = aut...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom6-observability/index.md",
+    "line_number": 680,
+    "issue_type": "security_issue",
+    "severity": "high",
+    "description": "Security issue: Hardcoded password detected",
+    "code_snippet": "class SyntheticMonitor:\n    \"\"\"Probe your system continuously\"\"\"\n    \n    @every(60)  # Every minute\n    def probe_critical_path(self):\n        # Create synthetic user journey\n        trace_id = gener...",
+    "recommendation": "Remove or replace: Hardcoded password detected"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/examples.md",
+    "line_number": 668,
+    "issue_type": "security_issue",
+    "severity": "high",
+    "description": "Security issue: eval() can be dangerous",
+    "code_snippet": "class RedisDistributedLock:\n    \"\"\"Distributed lock with safety properties\"\"\"\n    \n    def __init__(self, redis_client, key, timeout=10):\n        self.redis = redis_client\n        self.key = f\"lock:{k...",
+    "recommendation": "Remove or replace: eval() can be dangerous"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/index.md",
+    "line_number": 949,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Facebook's TAO: Optimistic Concurrency at Scale\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/index.md",
+    "line_number": 1076,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Uber's Ringpop: Consistent Hashing with Concurrent Updates\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/index.md",
+    "line_number": 1238,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## Level 5: Mastery (The Art of Concurrency) \ud83c\udf34\n\n### The Linux Kernel: RCU (Read-Copy-Update)\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/index.md",
+    "line_number": 1331,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### CockroachDB: Distributed SQL Transactions\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/index.md",
+    "line_number": 1503,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### The Art of Lock-Free Programming\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom4-concurrency/index.md",
+    "line_number": 1677,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### The Disruptor Pattern: Mechanical Sympathy\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 22,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "    L1 cache reference ......................... 0.5 ns\n    L2 cache reference ........................",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 60,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\nThe practical manifestation of this constraint:\n- **Theoretical basis**: Einstein's special relativ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 79,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**Quick Reference Table**:\n\n| Route | Distance | Theoretical Min | Typical Reality | Why the Differ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 118,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Why This Constraint Exists\n\nUnlike software bugs or implementation details, this is a fundament...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 203,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \u2699\ufe0f Practical Implications\n\nHow this constraint shapes real system design:\n\n### Quantitative...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 230,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Engineering Guidelines\n\nWhen designing systems, always:\n\n1. **Measure First**: Use tools like `...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 273,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\nThis is latency in distributed systems: **the fundamental time it takes for information to travel f...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 334,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Impact on System Architecture\n\nDifferent latency tolerances drive different architectures:\n\n| L...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 363,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\nThis creates a latency-bandwidth product limit:\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 371,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Little's Law Applied\n\nFor distributed systems\u00b2\u00b3:\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 388,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83d\udee0\ufe0f Mitigation Strategies\n\nSince we can't beat physics, we work around it:\n\n### 1. Proximity...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 407,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### 2. Predictive Prefetching",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 420,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### 3. Protocol Optimization",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 433,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### 4. Asynchronous Design",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom1-latency/index-enhanced.md",
+    "line_number": 446,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n---\n\n## \ud83c\udfaf Quick Decision Guide\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom5-coordination/examples.md",
+    "line_number": 1231,
+    "issue_type": "missing_error_handling",
+    "severity": "medium",
+    "description": "Network calls without exception handling",
+    "code_snippet": "class UberMarketplace:\n    \"\"\"City-level sharding to minimize coordination\"\"\"\n    \n    def __init__(self):\n        self.cities = {}  # city -> local marketplace\n        self.cross_city_trips = 0.001  ...",
+    "recommendation": "Add try/except blocks for network operations"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/examples.md",
+    "line_number": 665,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## COMMON ISSUES AND FIXES\n\n### Issue 1: Database Connection Pool Exhausted\n**Symptoms**: \"connecti...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/examples.md",
+    "line_number": 678,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Issue 2: Memory Leak After 7 Days Uptime\n**Symptoms**: Gradually increasing memory, OOM kills\n*...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/examples.md",
+    "line_number": 689,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## ESCALATION\n\nIf service not recovered in 15 minutes:\n\n1. Page secondary: @payments-oncall-seconda...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/index.md",
+    "line_number": 235,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Capacity = Base Capacity \n         - Intrinsic Load (can't reduce)\n         - Extraneous Load (MUST ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/index.md",
+    "line_number": 380,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Step 2: Examine Recent Changes",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/index.md",
+    "line_number": 386,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## \ud83d\udea8 Mitigation Paths\n\n### Path A: High CPU (if CPU > 80%)\n1. Enable rate limiting:\n   ```bash\n   k...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom7-human/index.md",
+    "line_number": 416,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n## \u2705 Resolution Confirmation\n- [ ] Metrics returned to normal\n- [ ] Alerts cleared\n- [ ] Synthetic ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom2-capacity/examples.md",
+    "line_number": 130,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "00:00 - Black Friday sale starts\n00:02 - Traffic spike begins (10x normal)\n00:05 - Database connecti...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom2-capacity/examples.md",
+    "line_number": 660,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Connection Pool Full \u2192 Threads Block \u2192 \nCPU Idle \u2192 Requests Queue \u2192 \nTimeouts \u2192 Retries \u2192 More Load ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part1-axioms/axiom2-capacity/exercises.md",
+    "line_number": 388,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Load Balancer (10K RPS capacity)\n    \u2193\nWeb Servers (100 instances, 100 RPS each)\n    \u2193\nCache Layer (...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/intelligence/exercises.md",
+    "line_number": 170,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Score = 0.5 \u00d7 (1 - ErrorRate) + 0.3 \u00d7 LatencyScore + 0.2 \u00d7 VariancePenalty",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/state/exercises.md",
+    "line_number": 346,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n</details>\n\n## Exercise 2: Design Vector Clock Visualization\n\n**Challenge**: Create visual represen...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 71,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Dimension        Options              Trade-offs                Real Example\n---------        ------...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 209,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "Speedup = 1 / (S + P/N)\n\nWhere:\nS = Sequential fraction (can't be parallelized)\nP = Parallel fractio...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 518,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**MapReduce Phases Overview:**\n\n| Phase | Operation | Parallelism | Data Structure | Purpose |\n|---...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 573,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n**MapReduce Usage Pattern:**\n\n| Step | Function | Description | Example |\n|------|----------|------...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 847,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"truth-box\">\n<h4>Consistent Hashing Algorithm Flow</h4>\n\n<b>Ring Construction:</b>\n<ol>\n...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 918,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"axiom-box\">\n<h4>Two-Phase Commit Protocol</h4>\n\n<b>Protocol Guarantees:</b>\n<ul>\n<li><b...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 970,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"decision-box\">\n<h4>Speculative Execution Strategy</h4>\n\n<b>When to Use Speculation:</b>...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1057,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"truth-box\">\n<h4>Distributed Task Scheduler Implementation</h4>\n\n<b>Task State Machine:<...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1556,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "### Production War Stories\n\n#### Story 1: The 100x Speed-Up That Almost Broke Everything\n\n**Company*...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1601,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "**What Went Wrong**:\n1. Database connection pool exhausted (max 100 connections)\n2. Memory usage: 10...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1638,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"decision-box\">\n<h4>Smart Processing Strategy</h4>\n<table>\n<tr><th>Component</th><th>Set...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1669,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "**The Solution**: Implemented work stealing\n",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1698,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"truth-box\">\n<h4>Work Stealing Algorithm</h4>\n\n<b>Rebalancing Logic:</b>\n<ol>\n<li>Calcul...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1746,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"decision-box\">\n<h4>Batch Accumulator Pattern</h4>\n\n<b>Configuration:</b>\n<table>\n<tr><t...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/work/index.md",
+    "line_number": 1800,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n<div class=\"axiom-box\">\n<h4>Priority Queue with Anti-Starvation</h4>\n\n<b>Priority Levels:</b>\n<tabl...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/truth/exercises.md",
+    "line_number": 68,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "   [Idle] --Local Event--> [Processing] --Complete--> [Idle]\n     |                                 ...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/truth/exercises.md",
+    "line_number": 120,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Protocol Design Options\n\n<div class=\"decision-box\">\n<h4>Election Algorithm Comparison</h4>\n\nDes...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/truth/exercises.md",
+    "line_number": 234,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Protocol State Machines\n\n<div class=\"truth-box\">\n<h4>2PC State Transitions</h4>\n\nDesign state m...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/truth/exercises.md",
+    "line_number": 352,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Byzantine Agreement Protocol\n\n<div class=\"decision-box\">\n<h4>Byzantine Fault Tolerance Rules</h...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/truth/exercises.md",
+    "line_number": 502,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Raft Protocol Components\n\n<div class=\"truth-box\">\n<h4>Raft Design Principles</h4>\n\nCreate visua...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/truth/exercises.md",
+    "line_number": 651,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n### Snapshot Algorithm Components\n\n<div class=\"truth-box\">\n<h4>Chandy-Lamport Rules</h4>\n\nDesign vi...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  },
+  {
+    "file_path": "/Users/deepaksharma/syc/DStudio/docs/part2-pillars/control/exercises.md",
+    "line_number": 341,
+    "issue_type": "missing_language",
+    "severity": "medium",
+    "description": "Code block missing language specification",
+    "code_snippet": "\n</details>\n\n## Exercise 2: Design Rate Limiting Systems\n\n**Challenge**: Create visual designs for m...",
+    "recommendation": "Add language identifier to code block (e.g., ```python)"
+  }
+]
