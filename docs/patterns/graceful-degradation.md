@@ -33,6 +33,34 @@ Graceful degradation is like airplane safety systems:
 
 Your system should similarly continue operating with reduced functionality rather than crashing completely.
 
+### Degradation Flow
+
+```mermaid
+flowchart TD
+    R[Request] --> ML{ML Service Available?}
+    ML -->|Yes| MLP[Personalized ML Recommendations]
+    ML -->|No| C{Cache Available?}
+    
+    C -->|Yes| CR{Cached Recommendations?}
+    CR -->|Found| CRR[Return Cached]
+    CR -->|Not Found| P{Popular Items?}
+    C -->|No| P
+    
+    P -->|Available| PR[Return Popular Items]
+    P -->|Not Available| SD[Return Static Defaults]
+    
+    MLP --> Result[Response]
+    CRR --> Result
+    PR --> Result
+    SD --> Result
+    
+    style ML decision
+    style C decision
+    style CR decision
+    style P decision
+    style SD fill:#f96,stroke:#333,stroke-width:2px
+```
+
 ### Basic Graceful Degradation
 
 ```python
@@ -88,6 +116,49 @@ class RecommendationService:
 | **Functionality Limiting** | Reduce scope | Show only recent data |
 | **Static Fallback** | Pre-computed results | Cached homepage |
 | **Read-Only Mode** | Disable writes | Browse but can't purchase |
+
+### Degradation State Transitions
+
+```mermaid
+stateDiagram-v2
+    [*] --> Normal: System Start
+    
+    Normal --> Minor: Load > 70%
+    Minor --> Normal: Load < 60%
+    
+    Minor --> Moderate: Load > 80%
+    Moderate --> Minor: Load < 70%
+    
+    Moderate --> Severe: Load > 90%
+    Severe --> Moderate: Load < 80%
+    
+    Severe --> Emergency: Load > 95%
+    Emergency --> Severe: Load < 85%
+    
+    Emergency --> [*]: System Shutdown
+    
+    note right of Normal
+        All features enabled
+    end note
+    
+    note right of Emergency
+        Core functions only
+        Read-only mode
+    end note
+```
+
+### Feature Availability Matrix
+
+| Feature | Normal | Minor | Moderate | Severe | Emergency |
+|---------|--------|-------|----------|--------|----------|
+| Search | ✓ Full | ✓ Full | ✓ Full | ✓ Basic | ✗ |
+| Recommendations | ✓ Real-time | ✓ Real-time | ✗ Cached | ✗ | ✗ |
+| Inventory | ✓ Real-time | ✓ Real-time | ✗ Cached | ✗ | ✗ |
+| Reviews | ✓ Full | ✓ Full | ✓ Cached | ✗ | ✗ |
+| Social | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Analytics | ✓ | ✗ | ✗ | ✗ | ✗ |
+| Images | High | Medium | Low | Text only | None |
+| Cache TTL | 60s | 5m | 1h | 24h | ∞ |
 
 ### Implementing Service Degradation Levels
 
@@ -291,6 +362,36 @@ class CircuitBreakerWithDegradation:
                 self.state = 'open'
                 self.open_time = time.time()
                 return self.degraded(*args, **kwargs)
+```
+
+#### Content Degradation Strategy
+
+```mermaid
+graph LR
+    subgraph "Image Degradation"
+        I1[Original 4K] --> I2[HD 1080p]
+        I2 --> I3[SD 720p]
+        I3 --> I4[Thumbnail]
+        I4 --> I5[Placeholder]
+    end
+    
+    subgraph "Video Degradation"
+        V1[4K Streaming] --> V2[1080p]
+        V2 --> V3[720p]
+        V3 --> V4[480p]
+        V4 --> V5[Audio Only]
+    end
+    
+    subgraph "Data Degradation"
+        D1[Real-time] --> D2[1min Cache]
+        D2 --> D3[5min Cache]
+        D3 --> D4[Hourly Snapshot]
+        D4 --> D5[Daily Summary]
+    end
+    
+    style I5 fill:#f96
+    style V5 fill:#f96
+    style D5 fill:#f96
 ```
 
 #### Content Degradation

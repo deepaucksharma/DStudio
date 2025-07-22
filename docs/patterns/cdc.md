@@ -34,80 +34,64 @@ Traditional: Database → Batch ETL → Target (hourly snapshots, high latency)
 CDC:         Database → Change Stream → Multiple Targets (real-time, complete history)
 ```
 
-### Basic Implementation
+### CDC Architecture Overview
 
-```python
-from abc import ABC, abstractmethod
-from typing import Dict, List, Callable, Any
-import json
-import time
-from dataclasses import dataclass
-from enum import Enum
-
-class ChangeType(Enum):
-    INSERT = "INSERT"
-    UPDATE = "UPDATE"
-    DELETE = "DELETE"
-
-@dataclass
-class ChangeEvent:
-    """Represents a single database change"""
-    table: str
-    change_type: ChangeType
-    key: Dict[str, Any]
-    before: Dict[str, Any] = None  # Previous values (for UPDATE/DELETE)
-    after: Dict[str, Any] = None   # New values (for INSERT/UPDATE)
-    timestamp: float = None
-    transaction_id: str = None
+```mermaid
+graph TB
+    subgraph "Database"
+        T[Transaction] --> WAL[Write-Ahead Log]
+        T --> TB[(Tables)]
+    end
     
-    def __post_init__(self):
-        if self.timestamp is None:
-            self.timestamp = time.time()
-
-class SimpleCDC:
-    """Basic CDC implementation using database triggers"""
+    subgraph "CDC Layer"
+        CDC[CDC Processor]
+        Q[Change Queue]
+    end
     
-    def __init__(self):
-        self.subscribers: List[Callable] = []
-        self.change_log = []
-        
-    def capture_change(self, event: ChangeEvent):
-        """Capture a database change"""
-        self.change_log.append(event)
-        for subscriber in self.subscribers:
-            try:
-                subscriber(event)
-            except Exception as e:
-                print(f"Subscriber error: {e}")
+    subgraph "Consumers"
+        C1[Search Index]
+        C2[Cache Invalidator]
+        C3[Analytics]
+        C4[Audit Log]
+    end
     
-    def subscribe(self, handler: Callable):
-        """Subscribe to change events"""
-        self.subscribers.append(handler)
-        
-    def get_changes_since(self, timestamp: float) -> List[ChangeEvent]:
-        """Get all changes since a given timestamp"""
-        return [c for c in self.change_log if c.timestamp > timestamp]
+    WAL -.->|Read Changes| CDC
+    CDC --> Q
+    Q --> C1
+    Q --> C2
+    Q --> C3
+    Q --> C4
+    
+    style CDC fill:#ffd,stroke:#333,stroke-width:4px
+    style Q fill:#9f6,stroke:#333,stroke-width:2px
+```
 
-# Example usage
-cdc = SimpleCDC()
+### CDC Event Flow
 
-# Subscribe handlers
-def update_search_index(event: ChangeEvent):
-    if event.table == "products":
-        action = "Removing" if event.change_type == ChangeType.DELETE else "Indexing"
-        print(f"{action} product: {event.key}")
-
-def invalidate_cache(event: ChangeEvent):
-    print(f"Invalidating cache: {event.table}:{event.key}")
-
-cdc.subscribe(update_search_index)
-cdc.subscribe(invalidate_cache)
-
-# Capture change
-cdc.capture_change(ChangeEvent(
-    table="products", change_type=ChangeType.INSERT,
-    key={"id": 123}, after={"id": 123, "name": "Widget", "price": 29.99}
-))
+```mermaid
+sequenceDiagram
+    participant App
+    participant DB as Database
+    participant CDC as CDC System
+    participant ES as Event Stream
+    participant C1 as Consumer 1
+    participant C2 as Consumer 2
+    
+    App->>DB: INSERT Product
+    DB->>DB: Write to table
+    DB->>DB: Write to WAL
+    
+    CDC->>DB: Read WAL
+    CDC->>CDC: Parse change
+    CDC->>ES: Publish event
+    
+    par Parallel Processing
+        ES->>C1: Product created event
+        C1->>C1: Update search index
+    and
+        ES->>C2: Product created event
+        C2->>C2: Invalidate cache
+    end
 ```
 
 ---
@@ -123,166 +107,124 @@ cdc.capture_change(ChangeEvent(
 | **Query-Based** | Poll with timestamps | Works everywhere | Misses deletes, high latency | Legacy systems |
 | **Application-Based** | Emit from app code | Full control | Requires discipline, dual writes | Greenfield projects |
 
-### Implementing Log-Based CDC
+### CDC Implementation Comparison
 
-```python
-import struct
-from typing import Generator, Optional
-import psycopg2
-from psycopg2.extras import LogicalReplicationConnection
-
-class PostgresCDC:
-    """PostgreSQL logical replication CDC"""
+```mermaid
+graph TB
+    subgraph "Log-Based CDC"
+        L1[Database WAL] --> L2[CDC Reader]
+        L2 --> L3[Parse Binary Log]
+        L3 --> L4[Event Stream]
+        
+        style L1 fill:#f96,stroke:#333,stroke-width:2px
+        style L2 fill:#9f6,stroke:#333,stroke-width:2px
+    end
     
-    def __init__(self, connection_params: Dict):
-        self.conn_params = connection_params
-        self.connection = None
-        self.replication_cursor = None
+    subgraph "Trigger-Based CDC"
+        T1[Database Table] --> T2[Trigger]
+        T2 --> T3[CDC Table]
+        T3 --> T4[Event Stream]
         
-    def start_replication(self, slot_name: str, publication: str):
-        """Start logical replication"""
-        self.connection = psycopg2.connect(
-            **self.conn_params,
-            connection_factory=LogicalReplicationConnection
-        )
-        self.replication_cursor = self.connection.cursor()
-        
-        try:
-            self.replication_cursor.create_replication_slot(
-                slot_name, output_plugin='pgoutput'
-            )
-        except psycopg2.ProgrammingError:
-            pass  # Slot already exists
-        
-        self.replication_cursor.start_replication(
-            slot_name=slot_name,
-            options={'publication_names': publication}
-        )
+        style T1 fill:#f96,stroke:#333,stroke-width:2px
+        style T2 fill:#ff9,stroke:#333,stroke-width:2px
+    end
     
-    def stream_changes(self) -> Generator[ChangeEvent, None, None]:
-        """Stream database changes"""
-        while True:
-            msg = self.replication_cursor.read_message()
-            if msg:
-                change = self._parse_wal_message(msg)
-                if change:
-                    yield change
-                self.replication_cursor.send_feedback(flush_lsn=msg.data_start)
-    
-    def _parse_wal_message(self, msg) -> Optional[ChangeEvent]:
-        """Parse WAL message into ChangeEvent"""
-        data = msg.payload
-        # Simplified parsing - use wal2json in production
-        if data.startswith(b'I'):  # Insert
-            return ChangeEvent(
-                table=self._extract_table(data),
-                change_type=ChangeType.INSERT,
-                key=self._extract_key(data),
-                after=self._extract_tuple(data)
-            )
-
-class TriggerBasedCDC:
-    """CDC using database triggers"""
-    
-    def setup_triggers(self, connection, table: str):
-        """Create CDC triggers for a table"""
-        cursor = connection.cursor()
+    subgraph "Query-Based CDC"
+        Q1[Database Table] --> Q2[Polling Process]
+        Q2 --> Q3[Detect Changes]
+        Q3 --> Q4[Event Stream]
         
-        cursor.execute(f"""
-            CREATE TABLE IF NOT EXISTS cdc_log_{table} (
-                id SERIAL PRIMARY KEY,
-                operation VARCHAR(10),
-                changed_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                key_values JSONB,
-                old_values JSONB,
-                new_values JSONB,
-                transaction_id BIGINT DEFAULT txid_current()
-            )
-        """)
-        
-        cursor.execute(f"""
-            CREATE OR REPLACE FUNCTION cdc_trigger_{table}()
-            RETURNS TRIGGER AS $$
-            BEGIN
-                IF TG_OP = 'INSERT' THEN
-                    INSERT INTO cdc_log_{table} (operation, key_values, new_values)
-                    VALUES ('INSERT', row_to_json(NEW)::jsonb, row_to_json(NEW)::jsonb);
-                    RETURN NEW;
-                ELSIF TG_OP = 'UPDATE' THEN
-                    INSERT INTO cdc_log_{table} (operation, key_values, old_values, new_values)
-                    VALUES ('UPDATE', row_to_json(NEW)::jsonb, row_to_json(OLD)::jsonb, row_to_json(NEW)::jsonb);
-                    RETURN NEW;
-                ELSIF TG_OP = 'DELETE' THEN
-                    INSERT INTO cdc_log_{table} (operation, key_values, old_values)
-                    VALUES ('DELETE', row_to_json(OLD)::jsonb, row_to_json(OLD)::jsonb);
-                    RETURN OLD;
-                END IF;
-            END;
-            $$ LANGUAGE plpgsql;
-        """)
-        
-        cursor.execute(f"""
-            CREATE TRIGGER cdc_trigger_{table}
-            AFTER INSERT OR UPDATE OR DELETE ON {table}
-            FOR EACH ROW EXECUTE FUNCTION cdc_trigger_{table}();
-        """)
-        
-        connection.commit()
+        style Q1 fill:#f96,stroke:#333,stroke-width:2px
+        style Q2 fill:#fdd,stroke:#333,stroke-width:2px
+    end
 ```
 
-### CDC Event Processing Pipeline
+### CDC Strategy Decision Tree
 
-```python
-from concurrent.futures import ThreadPoolExecutor
-import asyncio
-from collections import defaultdict
-
-class CDCEventProcessor:
-    """Process CDC events with guaranteed delivery"""
+```mermaid
+flowchart TD
+    START[Need CDC?] --> Q1{Database Type?}
     
-    def __init__(self):
-        self.handlers = defaultdict(list)
-        self.dead_letter_queue = []
-        self.processing_stats = defaultdict(int)
-        
-    def register_handler(self, table: str, handler: Callable):
-        """Register handler for specific table"""
-        self.handlers[table].append(handler)
-        
-    async def process_event(self, event: ChangeEvent):
-        """Process single event through all handlers"""
-        handlers = self.handlers.get(event.table, [])
-        
-        if not handlers:
-            self.processing_stats['no_handler'] += 1
-            return
-        
-        results = await asyncio.gather(
-            *[self._safe_handle(handler, event) for handler in handlers],
-            return_exceptions=True
-        )
-        
-        failures = [r for r in results if isinstance(r, Exception)]
-        if failures:
-            self.dead_letter_queue.append({
-                'event': event, 'failures': failures, 'timestamp': time.time()
-            })
-            self.processing_stats['failures'] += len(failures)
-        else:
-            self.processing_stats['success'] += 1
+    Q1 -->|PostgreSQL/MySQL| Q2{Performance Critical?}
+    Q1 -->|Legacy/Limited| QUERY[Use Query-Based]
     
-    async def _safe_handle(self, handler: Callable, event: ChangeEvent):
-        """Safely execute handler with timeout"""
-        try:
-            if asyncio.iscoroutinefunction(handler):
-                return await asyncio.wait_for(handler(event), timeout=30.0)
-            else:
-                loop = asyncio.get_event_loop()
-                return await loop.run_in_executor(None, handler, event)
-        except Exception as e:
-            print(f"Handler failed: {e}")
-            raise
+    Q2 -->|Yes| LOG[Use Log-Based CDC]
+    Q2 -->|No| Q3{Simple Implementation?}
+    
+    Q3 -->|Yes| TRIGGER[Use Trigger-Based]
+    Q3 -->|No| LOG
+    
+    LOG --> ADV1[Advantages:<br/>- Low overhead<br/>- No schema changes<br/>- Captures all changes]
+    
+    TRIGGER --> ADV2[Advantages:<br/>- Simple setup<br/>- Database agnostic<br/>- Clear audit trail]
+    
+    QUERY --> ADV3[Advantages:<br/>- Works anywhere<br/>- No DB changes<br/>- Easy to understand]
+    
+    style Q1 fill:#ffd,stroke:#333,stroke-width:2px
+    style LOG fill:#9f9,stroke:#333,stroke-width:2px
+    style TRIGGER fill:#ff9,stroke:#333,stroke-width:2px
+    style QUERY fill:#f99,stroke:#333,stroke-width:2px
 ```
+
+### CDC Event Processing Architecture
+
+```mermaid
+graph TB
+    subgraph "Event Source"
+        S[CDC Stream]
+    end
+    
+    subgraph "Processing Layer"
+        EP[Event Processor]
+        R[Router]
+        H1[Handler Pool 1]
+        H2[Handler Pool 2]
+        H3[Handler Pool 3]
+    end
+    
+    subgraph "Error Handling"
+        DLQ[Dead Letter Queue]
+        RETRY[Retry Logic]
+    end
+    
+    subgraph "Destinations"
+        D1[Search Index]
+        D2[Cache]
+        D3[Analytics]
+        D4[Notifications]
+    end
+    
+    S --> EP
+    EP --> R
+    R --> H1
+    R --> H2
+    R --> H3
+    
+    H1 --> D1
+    H1 --> D2
+    H2 --> D3
+    H3 --> D4
+    
+    H1 -.->|Failures| DLQ
+    H2 -.->|Failures| DLQ
+    H3 -.->|Failures| DLQ
+    
+    DLQ --> RETRY
+    RETRY -.-> EP
+    
+    style EP fill:#ffd,stroke:#333,stroke-width:4px
+    style DLQ fill:#f99,stroke:#333,stroke-width:2px
+```
+
+### CDC Processing Patterns
+
+| Pattern | Description | Use Case | Considerations |
+|---------|-------------|----------|----------------|
+| **Fan-out** | One event → Multiple handlers | Update multiple systems | Parallel processing |
+| **Filtering** | Process subset of events | Table/operation specific | Reduce noise |
+| **Transformation** | Modify event format | System integration | Schema mapping |
+| **Aggregation** | Combine multiple events | Analytics, summaries | State management |
+| **Deduplication** | Remove duplicate events | Exactly-once processing | Event ID tracking |
 
 ---
 

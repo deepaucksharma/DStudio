@@ -25,8 +25,6 @@ last_updated: 2025-07-21
 
 ### The Elevator Button Analogy
 
-Think of idempotent operations like pressing an elevator button:
-
 ```
 Without Idempotency:               With Idempotency:
 Person presses UP button           Person presses UP button
@@ -38,8 +36,6 @@ Person's friend presses            Friend presses too
 
 Result: 3 elevators wasted!        Result: 1 elevator, as intended
 ```
-
-### Visual Metaphor
 
 ```
 The Duplicate Message Problem:
@@ -73,24 +69,19 @@ Without Idempotency:              With Idempotency:
 ```python
 # The problem: Non-idempotent operations
 def charge_credit_card(amount, card_number):
-    # Every call charges the card!
     payment_gateway.charge(card_number, amount)
     return {"status": "charged", "amount": amount}
-
-# Customer's retry due to timeout = double charge!
+# Retry = double charge!
 
 # The solution: Idempotent operations
 def charge_credit_card_idempotent(amount, card_number, transaction_id):
-    # Check if we've seen this transaction before
     if already_processed(transaction_id):
         return get_previous_result(transaction_id)
     
-    # First time seeing this transaction
     result = payment_gateway.charge(card_number, amount)
     save_result(transaction_id, result)
     return result
-
-# Customer's retry with same ID = safe!
+# Retry with same ID = safe!
 ```
 
 ---
@@ -131,6 +122,50 @@ graph TB
     style DS fill:#69f,stroke:#333,stroke-width:4px
 ```
 
+### Idempotency Flow Sequence
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant R as Receiver
+    participant S as Dedup Store
+    participant B as Business Logic
+    
+    Note over C,B: First Request
+    C->>R: Request(id=tx-123, data)
+    R->>S: Check if tx-123 exists
+    S-->>R: Not found
+    R->>S: Acquire lock(tx-123)
+    R->>B: Process request
+    B-->>R: Result
+    R->>S: Store(tx-123, result, TTL)
+    R-->>C: Return result
+    
+    Note over C,B: Duplicate Request (Retry)
+    C->>R: Request(id=tx-123, data)
+    R->>S: Check if tx-123 exists
+    S-->>R: Found with result
+    R-->>C: Return cached result
+    
+    Note over C,B: Concurrent Duplicate
+    C->>R: Request(id=tx-123, data)
+    R->>S: Check if tx-123 exists
+    S-->>R: Processing (locked)
+    R->>R: Wait for completion
+    R->>S: Get result
+    R-->>C: Return result
+```
+
+### Idempotency Strategies
+
+| Strategy | Description | Use Case | Pros | Cons |
+|----------|-------------|----------|------|------|
+| **Client-Generated ID** | Client provides unique ID | API requests | Full control | Client complexity |
+| **Content Hash** | Hash of request payload | Deterministic ops | Automatic | No request variation |
+| **Timestamp + ID** | Time-based uniqueness | Event processing | Natural ordering | Clock sync issues |
+| **Database Sequence** | Server-generated ID | Internal processing | Guaranteed unique | Extra round trip |
+| **UUID** | Universally unique ID | Distributed systems | No coordination | Not deterministic |
+
 ### Key Components
 
 ```python
@@ -146,11 +181,9 @@ class IdempotencyKey:
     @staticmethod
     def from_request(request: Dict[str, Any]) -> str:
         """Generate deterministic key from request"""
-        # Option 1: Client-provided ID
         if 'idempotency_key' in request:
             return request['idempotency_key']
         
-        # Option 2: Content-based hash
         content = json.dumps(request, sort_keys=True)
         return hashlib.sha256(content.encode()).hexdigest()
     
@@ -358,6 +391,33 @@ class IdempotentAPIHandler:
 ---
 
 ## 🔧 Level 3: Deep Dive
+
+### Processing State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Pending: Request Received
+    Pending --> Processing: Lock Acquired
+    Processing --> Completed: Success
+    Processing --> Failed: Error
+    
+    Failed --> Processing: Retry
+    Failed --> [*]: Max Retries
+    
+    Completed --> [*]: Return Result
+    
+    Processing --> Processing: Concurrent Wait
+    
+    note right of Processing
+        Locked to prevent
+        concurrent execution
+    end note
+    
+    note right of Failed
+        Can retry with
+        exponential backoff
+    end note
+```
 
 ### Advanced Implementation Strategies
 

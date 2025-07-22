@@ -51,69 +51,78 @@ Consistency levels are like restaurant service tiers:
 
 ### Basic Implementation
 
-```python
-from enum import Enum
-from typing import Any, Optional
-import time
-
-class ConsistencyLevel(Enum):
-    STRONG = "strong"           # See all previous writes
-    BOUNDED = "bounded"         # See writes within time bound
-    SESSION = "session"         # See your own writes
-    EVENTUAL = "eventual"       # See writes eventually
-
-class TunableStore:
-    def __init__(self):
-        self.primary = PrimaryNode()
-        self.replicas = [ReplicaNode() for _ in range(3)]
-        self.replication_lag = {}
+```mermaid
+flowchart TB
+    subgraph "Consistency Level Selection"
+        Client[Client Request]
+        Type{Data Type?}
         
-    async def read(self, key: str, consistency: ConsistencyLevel) -> Any:
-        """Read with chosen consistency level"""
+        Strong[STRONG<br/>Read from primary<br/>Wait for all replicas]
+        Bounded[BOUNDED<br/>Read from replica<br/>Max 5s lag]
+        Session[SESSION<br/>Read your writes<br/>Track versions]
+        Eventual[EVENTUAL<br/>Any replica<br/>Best effort]
         
-        if consistency == ConsistencyLevel.STRONG:
-            return await self.primary.read(key)
-            
-        elif consistency == ConsistencyLevel.BOUNDED:
-            for replica in self.replicas:
-                if self.get_replication_lag(replica) < 5000:  # 5s bound
-                    return await replica.read(key)
-            return await self.primary.read(key)
-            
-        elif consistency == ConsistencyLevel.SESSION:
-            session_version = self.get_session_version()
-            for replica in self.replicas:
-                if replica.version >= session_version:
-                    return await replica.read(key)
-            return await self.primary.read(key)
-            
-        else:  # EVENTUAL
-            return await self.replicas[0].read(key)
+        Client --> Type
+        Type -->|Financial| Strong
+        Type -->|Analytics| Bounded
+        Type -->|User Profile| Session
+        Type -->|Social Stats| Eventual
+    end
     
-    async def write(self, key: str, value: Any, consistency: ConsistencyLevel):
-        """Write with chosen consistency level"""
-        version = await self.primary.write(key, value)
+    subgraph "Read Path"
+        R1[Primary]
+        R2[Replica 1<br/>Lag: 2s]
+        R3[Replica 2<br/>Lag: 4s]
+        R4[Replica 3<br/>Lag: 8s]
         
-        if consistency == ConsistencyLevel.STRONG:
-            await self.wait_for_all_replicas(version)
-        elif consistency == ConsistencyLevel.BOUNDED:
-            await self.wait_for_bounded_replicas(version, timeout=5000)
-        elif consistency == ConsistencyLevel.SESSION:
-            self.set_session_version(version)
-            self.replicate_async(version)
-        else:  # EVENTUAL
-            self.replicate_async(version)
+        Strong --> R1
+        Bounded --> R2
+        Session --> R3
+        Eventual --> R4
+    end
+    
+    style Strong fill:#ef4444,stroke:#dc2626,stroke-width:2px
+    style Bounded fill:#f59e0b,stroke:#d97706,stroke-width:2px
+    style Session fill:#3b82f6,stroke:#2563eb,stroke-width:2px
+    style Eventual fill:#10b981,stroke:#059669,stroke-width:2px
+```
+
+### Consistency Trade-offs Visualization
+
+```mermaid
+graph LR
+    subgraph "Consistency Spectrum"
+        S[Strong]
+        B[Bounded]
+        SE[Session]
+        E[Eventual]
         
-        return version
-
-# Example usage
-store = TunableStore()
-
-# Financial: strong consistency
-await store.write("account:123", {"balance": 1000}, ConsistencyLevel.STRONG)
-
-# Social: eventual consistency  
-await store.write("post:456:likes", 42, ConsistencyLevel.EVENTUAL)
+        S -->|Relax| B
+        B -->|Relax| SE
+        SE -->|Relax| E
+    end
+    
+    subgraph "Trade-offs"
+        subgraph "Strong"
+            S1[Latency: High]
+            S2[Availability: Low]
+            S3[Cost: High]
+        end
+        
+        subgraph "Eventual"
+            E1[Latency: Low]
+            E2[Availability: High]
+            E3[Cost: Low]
+        end
+    end
+    
+    S -.-> S1
+    S -.-> S2
+    S -.-> S3
+    
+    E -.-> E1
+    E -.-> E2
+    E -.-> E3
 ```
 
 ---
@@ -160,120 +169,188 @@ graph LR
 
 ### Implementation Patterns
 
-```python
-class ConsistencyManager:
-    """Manages consistency levels for different operations"""
+```mermaid
+flowchart LR
+    subgraph "Consistency Rules Engine"
+        Op[Operation Request]
+        
+        subgraph "Pattern Matching"
+            F[Financial?]
+            U[User Profile?]
+            A[Analytics?]
+            S[Social?]
+        end
+        
+        subgraph "Consistency Decision"
+            CL[LINEARIZABLE<br/>Regulatory requirement]
+            RYW[READ_YOUR_WRITE<br/>User experience]
+            BS[BOUNDED_STALENESS<br/>Fresh enough]
+            EV[EVENTUAL<br/>Best performance]
+        end
+        
+        Op --> F
+        Op --> U
+        Op --> A
+        Op --> S
+        
+        F -->|Match| CL
+        U -->|Match| RYW
+        A -->|Match| BS
+        S -->|Match| EV
+    end
     
-    def __init__(self):
-        self.rules = []
-        self.metrics = ConsistencyMetrics()
-        
-    def configure_consistency_rules(self):
-        """Set consistency requirements by data type"""
-        
-        self.add_rule(
-            pattern={"type": "financial", "operation": "*"},
-            consistency=ConsistencyLevel.LINEARIZABLE,
-            rationale="Regulatory compliance"
-        )
-        
-        self.add_rule(
-            pattern={"type": "user_profile", "operation": "write"},
-            consistency=ConsistencyLevel.READ_YOUR_WRITE,
-            rationale="User experience"
-        )
-        
-        self.add_rule(
-            pattern={"type": "analytics", "operation": "read"},
-            consistency=ConsistencyLevel.BOUNDED_STALENESS,
-            max_staleness_ms=60000,
-            rationale="Performance over precision"
-        )
-        
-        self.add_rule(
-            pattern={"type": "social", "operation": "*"},
-            consistency=ConsistencyLevel.EVENTUAL,
-            rationale="Scale and performance"
-        )
+    subgraph "Metrics Collection"
+        M1[Decision Count]
+        M2[Latency by Level]
+        M3[Violation Rate]
+        M4[Cost Analysis]
+    end
     
-    def determine_consistency(self, operation: dict) -> ConsistencyLevel:
-        """Determine appropriate consistency level"""
-        
-        for rule in self.rules:
-            if self.matches_pattern(operation, rule.pattern):
-                self.metrics.record_decision(rule)
-                return rule.consistency
-        
-        # Default to sequential consistency
-        return ConsistencyLevel.SEQUENTIAL
+    CL --> M1
+    RYW --> M2
+    BS --> M3
+    EV --> M4
+```
 
-class QuorumManager:
-    """Manages read/write quorums for consistency"""
-    
-    def __init__(self, replication_factor: int = 3):
-        self.n = replication_factor  # Total replicas
-        self.w = 2  # Write quorum
-        self.r = 2  # Read quorum
-        # Note: w + r > n ensures strong consistency
+### Consistency Configuration Matrix
+
+| Data Type | Operation | Consistency | Max Staleness | Rationale |
+|-----------|-----------|-------------|---------------|-----------|  
+| **Financial** | All | Linearizable | 0ms | Regulatory compliance |
+| **User Profile** | Write | Read-Your-Write | - | Immediate feedback |
+| **User Profile** | Read | Session | - | See own changes |
+| **Analytics** | Read | Bounded | 60s | Fresh enough data |
+| **Social Stats** | All | Eventual | - | Scale over precision |
+| **Inventory** | Write | Strong | 0ms | Prevent oversell |
+| **Recommendations** | Read | Eventual | - | Performance critical |
+
+### Quorum Configuration
+
+```mermaid
+graph TB
+    subgraph "Quorum Calculations (N=5 replicas)"
+        subgraph "Strong Consistency"
+            SW[Write Quorum: 3]
+            SR[Read Quorum: 3]
+            SC[W + R > N<br/>3 + 3 > 5 ✓]
+            
+            SW --> SC
+            SR --> SC
+        end
         
-    def calculate_quorum(self, consistency: ConsistencyLevel) -> dict:
-        """Calculate required quorum for consistency level"""
+        subgraph "Bounded Consistency"
+            BW[Write Quorum: 3]
+            BR[Read Quorum: 1]
+            BC[Fresh replica<br/>within bound]
+            
+            BW --> BC
+            BR --> BC
+        end
         
-        if consistency == ConsistencyLevel.STRONG:
-            return {"write": (self.n // 2) + 1, "read": (self.n // 2) + 1}
+        subgraph "Eventual Consistency"
+            EW[Write Quorum: 1]
+            ER[Read Quorum: 1]
+            EC[Any available<br/>node]
             
-        elif consistency == ConsistencyLevel.BOUNDED:
-            return {"write": (self.n // 2) + 1, "read": 1}
-            
-        elif consistency == ConsistencyLevel.SESSION:
-            return {"write": 1, "read": 1}
-            
-        else:  # EVENTUAL
-            return {"write": 1, "read": 1}
+            EW --> EC
+            ER --> EC
+        end
+    end
     
-    def is_consistent(self, write_nodes: int, read_nodes: int) -> bool:
-        """Check if configuration provides consistency"""
-        return write_nodes + read_nodes > self.n
+    style SC fill:#ef4444,stroke:#dc2626
+    style BC fill:#f59e0b,stroke:#d97706
+    style EC fill:#10b981,stroke:#059669
+```
+
+### Quorum Overlap Visualization
+
+```mermaid
+graph LR
+    subgraph "Write Quorum (W=3)"
+        W1[Node 1]
+        W2[Node 2]
+        W3[Node 3]
+    end
+    
+    subgraph "Read Quorum (R=3)"
+        R3[Node 3]
+        R4[Node 4]
+        R5[Node 5]
+    end
+    
+    W3 -.->|Overlap| R3
+    
+    Note[At least one node<br/>sees the write]
+    
+    style W3 fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px
+    style R3 fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px
 ```
 
 ### Session Consistency Implementation
 
-```python
-class SessionConsistencyTracker:
-    """Track consistency per user session"""
+```mermaid
+sequenceDiagram
+    participant U as User Session
+    participant T as Session Tracker
+    participant P as Primary
+    participant R1 as Replica 1
+    participant R2 as Replica 2
+    participant R3 as Replica 3
     
-    def __init__(self):
-        self.session_vectors = {}  # session_id -> vector_clock
-        self.session_writes = {}   # session_id -> write_timestamps
-        
-    async def write_with_session(self, session_id: str, key: str, value: Any):
-        """Track writes per session"""
-        timestamp = time.time()
-        version = await self.store.write(key, value)
-        
-        if session_id not in self.session_writes:
-            self.session_writes[session_id] = []
-        
-        self.session_writes[session_id].append({
-            'key': key,
-            'version': version,
-            'timestamp': timestamp
-        })
-        
-        self.session_vectors[session_id] = version
-        return version
+    U->>T: Write(key=profile, value=newName)
+    T->>P: Write to primary
+    P-->>T: Version: 42
+    T->>T: Track: session_123 -> v42
+    T-->>U: Write confirmed
     
-    async def read_with_session(self, session_id: str, key: str):
-        """Ensure session sees its own writes"""
-        min_version = self.session_vectors.get(session_id, 0)
+    Note over P,R3: Async replication in progress...
+    
+    P->>R1: Replicate v42
+    P->>R2: Replicate v42
+    P->>R3: Replicate v42 (delayed)
+    
+    U->>T: Read(key=profile)
+    T->>T: Check: need v42 or higher
+    
+    T->>R1: Get version
+    R1-->>T: v42 ✓
+    T->>R1: Read profile
+    R1-->>T: newName
+    T-->>U: Return: newName
+    
+    Note over U: User sees their own write!
+```
+
+### Session Vector Tracking
+
+```mermaid
+graph TB
+    subgraph "Session State"
+        S1[Session: user_123]
+        V1[Vector: {db1: 42, db2: 37}]
+        W1[Writes: [(t1, v42), (t2, v43)]]
         
-        for replica in self.replicas:
-            replica_version = await replica.get_version()
-            
-            if replica_version >= min_version:
-                return await replica.read(key)
+        S1 --> V1
+        S1 --> W1
+    end
+    
+    subgraph "Replica Selection"
+        R1[Replica 1<br/>Vector: {db1: 45, db2: 40}]
+        R2[Replica 2<br/>Vector: {db1: 41, db2: 38}]
+        R3[Replica 3<br/>Vector: {db1: 40, db2: 35}]
         
-        return await self.primary.read(key)
+        Check{v >= session?}
+        
+        R1 -->|45 >= 42 ✓| Check
+        R2 -->|41 < 42 ✗| Check
+        R3 -->|40 < 42 ✗| Check
+        
+        Check -->|Select R1| Read[Read from R1]
+    end
+    
+    style R1 fill:#10b981,stroke:#059669,stroke-width:3px
+    style R2 fill:#ef4444,stroke:#dc2626
+    style R3 fill:#ef4444,stroke:#dc2626
 ```
 
 ---
@@ -284,153 +361,216 @@ class SessionConsistencyTracker:
 
 #### Causal Consistency Implementation
 
-```python
-class CausalConsistency:
-    """Track causal dependencies between operations"""
+```mermaid
+graph TB
+    subgraph "Causal Dependency Tracking"
+        Op1[Write A = 1]
+        Op2[Read A → 1]
+        Op3[Write B = A + 1]
+        Op4[Read B → 2]
+        Op5[Write C = B * 2]
+        
+        Op1 -->|causes| Op2
+        Op2 -->|causes| Op3
+        Op3 -->|causes| Op4
+        Op4 -->|causes| Op5
+        
+        Deps[Op5 dependencies:<br/>{Op1, Op2, Op3, Op4}]
+        
+        Op5 -.-> Deps
+    end
     
-    def __init__(self):
-        self.dependency_graph = {}  # operation -> dependencies
-        self.vector_clocks = {}     # node -> vector_clock
+    subgraph "Replica Selection"
+        R1[Replica 1<br/>Has: {Op1, Op2}]
+        R2[Replica 2<br/>Has: {Op1, Op2, Op3, Op4}]
+        R3[Replica 3<br/>Has: {Op1}]
         
-    def track_causality(self, operation: dict) -> set:
-        """Determine causal dependencies"""
-        dependencies = set()
+        Check{Has all<br/>dependencies?}
         
-        if operation['type'] == 'read':
-            dependencies.add(operation['source_write'])
+        R1 -->|Missing Op3, Op4| Check
+        R2 -->|Has all ✓| Check
+        R3 -->|Missing many| Check
         
-        if operation['type'] == 'write':
-            session = operation['session_id']
-            prev_reads = self.get_session_reads(session)
-            dependencies.update(prev_reads)
-        
-        # Transitive dependencies
-        for dep in list(dependencies):
-            dependencies.update(self.dependency_graph.get(dep, set()))
-        
-        self.dependency_graph[operation['id']] = dependencies
-        return dependencies
+        Check -->|Select R2| Result[Read from R2]
+    end
     
-    async def read_causally_consistent(self, key: str, dependencies: set):
-        """Read ensuring all dependencies are visible"""
-        for replica in self.replicas:
-            replica_deps = await replica.get_satisfied_dependencies()
-            
-            if dependencies.issubset(replica_deps):
-                return await replica.read(key)
-        
-        await self.wait_for_dependencies(dependencies)
-        return await self.read_causally_consistent(key, dependencies)
+    style Op1 fill:#e0e7ff,stroke:#6366f1
+    style Op3 fill:#e0e7ff,stroke:#6366f1
+    style Op5 fill:#e0e7ff,stroke:#6366f1
+    style R2 fill:#10b981,stroke:#059669,stroke-width:3px
+```
+
+### Causal Consistency Example
+
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Bob
+    participant R1 as Replica 1
+    participant R2 as Replica 2
+    
+    Alice->>R1: Write: status = "Leaving for lunch"
+    R1-->>Alice: OK (version: v1)
+    
+    Alice->>R1: Write: location = "Cafe XYZ"  
+    Note over Alice,R1: Causal dependency: v1 → v2
+    R1-->>Alice: OK (version: v2)
+    
+    R1->>R2: Replicate v1
+    Note over R2: Has v1, missing v2
+    
+    Bob->>R2: Read: status
+    R2-->>Bob: "Leaving for lunch"
+    
+    Bob->>R2: Read: location
+    Note over R2: Check dependencies
+    Note over R2: Need v2 (causally after v1)
+    R2->>R2: Wait for v2...
+    
+    R1->>R2: Replicate v2
+    R2-->>Bob: "Cafe XYZ"
+    
+    Note over Bob: Sees consistent view!
 ```
 
 #### Bounded Staleness with Hybrid Logical Clocks
 
-```python
-import struct
-from dataclasses import dataclass
+```mermaid
+graph LR
+    subgraph "Hybrid Logical Clock"
+        HLC[HLC Timestamp]
+        PT[Physical Time<br/>1234567890]
+        LC[Logical Counter<br/>42]
+        
+        HLC --> PT
+        HLC --> LC
+        
+        Format[Format: (PT, LC)<br/>Example: (1234567890, 42)]
+    end
+    
+    subgraph "Bounded Staleness Check"
+        Now[Current Time<br/>1234567900]
+        Bound[Max Staleness<br/>5000ms (5s)]
+        
+        R1[Replica 1<br/>HLC: (1234567898, 10)<br/>Lag: 2s ✓]
+        R2[Replica 2<br/>HLC: (1234567895, 23)<br/>Lag: 5s ✓]
+        R3[Replica 3<br/>HLC: (1234567890, 5)<br/>Lag: 10s ✗]
+        
+        Check{Within<br/>bound?}
+        
+        R1 -->|2s < 5s| Check
+        R2 -->|5s = 5s| Check
+        R3 -->|10s > 5s| Check
+        
+        Check -->|Eligible| Select[Select R1<br/>(freshest)]
+    end
+    
+    style R1 fill:#10b981,stroke:#059669,stroke-width:3px
+    style R2 fill:#f59e0b,stroke:#d97706,stroke-width:2px
+    style R3 fill:#ef4444,stroke:#dc2626,stroke-width:2px
+```
 
-@dataclass
-class HybridTimestamp:
-    """Hybrid Logical Clock timestamp"""
-    physical_time: int  # Milliseconds
-    logical_counter: int
-    
-    def __gt__(self, other):
-        if self.physical_time > other.physical_time:
-            return True
-        if self.physical_time == other.physical_time:
-            return self.logical_counter > other.logical_counter
-        return False
-    
-    def is_within_bound(self, bound_ms: int) -> bool:
-        """Check if timestamp is within staleness bound"""
-        current_time = int(time.time() * 1000)
-        return (current_time - self.physical_time) <= bound_ms
+### Staleness Monitoring Dashboard
 
-class BoundedStalenessManager:
-    """Manage bounded staleness guarantees"""
+```mermaid
+graph TB
+    subgraph "Replication Lag Monitor"
+        subgraph "Replica Health"
+            M1[Replica 1<br/>Lag: 1.2s<br/>Status: Healthy]
+            M2[Replica 2<br/>Lag: 3.8s<br/>Status: Warning]
+            M3[Replica 3<br/>Lag: 8.5s<br/>Status: Critical]
+        end
+        
+        subgraph "Alerts"
+            A1[⚠️ R2 approaching bound]
+            A2[🚨 R3 exceeds bound]
+        end
+        
+        subgraph "Actions"
+            AC1[Increase replication<br/>bandwidth]
+            AC2[Investigate network<br/>latency]
+            AC3[Temporarily exclude<br/>R3 from reads]
+        end
+        
+        M2 --> A1
+        M3 --> A2
+        
+        A1 --> AC1
+        A2 --> AC2
+        A2 --> AC3
+    end
     
-    def __init__(self, max_staleness_ms: int = 5000):
-        self.max_staleness_ms = max_staleness_ms
-        self.replica_timestamps = {}  # replica -> latest_timestamp
-        
-    async def select_replica_for_bounded_read(self, staleness_bound: int = None):
-        """Select replica that meets staleness bound"""
-        bound = staleness_bound or self.max_staleness_ms
-        current_time = int(time.time() * 1000)
-        
-        eligible_replicas = []
-        
-        for replica, timestamp in self.replica_timestamps.items():
-            staleness = current_time - timestamp.physical_time
-            
-            if staleness <= bound:
-                eligible_replicas.append({
-                    'replica': replica,
-                    'staleness': staleness,
-                    'timestamp': timestamp
-                })
-        
-        if not eligible_replicas:
-            return self.primary
-        
-        best = min(eligible_replicas, key=lambda x: x['staleness'])
-        return best['replica']
-    
-    def monitor_replication_lag(self):
-        """Monitor and alert on replication lag"""
-        for replica, timestamp in self.replica_timestamps.items():
-            lag = int(time.time() * 1000) - timestamp.physical_time
-            
-            if lag > self.max_staleness_ms * 0.8:  # 80% of bound
-                self.alert(f"Replica {replica} approaching staleness bound: {lag}ms")
-            
-            if lag > self.max_staleness_ms:
-                self.alert(f"Replica {replica} violating staleness bound: {lag}ms")
-                self.mark_replica_stale(replica)
+    style M1 fill:#10b981,stroke:#059669
+    style M2 fill:#f59e0b,stroke:#d97706
+    style M3 fill:#ef4444,stroke:#dc2626
+    style A2 fill:#ef4444,stroke:#dc2626
 ```
 
 #### Dynamic Consistency Adjustment
 
-```python
-class DynamicConsistencyController:
-    """Adjust consistency based on system conditions"""
+```mermaid
+flowchart TB
+    subgraph "Dynamic Controller"
+        Start[Operation Request]
+        Base[Base Consistency<br/>from Rules]
+        
+        subgraph "System Metrics"
+            Load[System Load: 85%]
+            SLA[SLA Status: At Risk]
+            Cost[Cost Analysis]
+        end
+        
+        Decision{Adjust?}
+        
+        Relax[Relax Consistency<br/>STRONG → BOUNDED]
+        Strengthen[Strengthen<br/>BOUNDED → STRONG]
+        Keep[Keep Original]
+        
+        Start --> Base
+        Base --> Load
+        Base --> SLA
+        Base --> Cost
+        
+        Load --> Decision
+        SLA --> Decision
+        Cost --> Decision
+        
+        Decision -->|High load +<br/>SLA risk| Relax
+        Decision -->|Low load +<br/>Low cost| Strengthen
+        Decision -->|Normal| Keep
+    end
     
-    def __init__(self):
-        self.load_monitor = LoadMonitor()
-        self.sla_monitor = SLAMonitor()
-        self.cost_calculator = CostCalculator()
+    style Relax fill:#10b981,stroke:#059669
+    style Strengthen fill:#ef4444,stroke:#dc2626
+    style Keep fill:#3b82f6,stroke:#2563eb
+```
+
+### Consistency Relaxation Strategy
+
+```mermaid
+graph TB
+    subgraph "Progressive Relaxation"
+        L[LINEARIZABLE<br/>Latency: 100ms]
+        S[SEQUENTIAL<br/>Latency: 50ms]
+        RYW[READ_YOUR_WRITE<br/>Latency: 20ms]
+        BS[BOUNDED_STALENESS<br/>Latency: 10ms]
+        E[EVENTUAL<br/>Latency: 5ms]
         
-    def determine_optimal_consistency(self, operation: dict) -> ConsistencyLevel:
-        """Dynamically choose consistency level"""
-        base_consistency = self.get_base_consistency(operation)
-        current_load = self.load_monitor.get_system_load()
-        sla_status = self.sla_monitor.get_status()
-        
-        costs = {
-            level: self.cost_calculator.calculate(level, current_load)
-            for level in ConsistencyLevel
-        }
-        
-        if current_load > 0.8 and sla_status == 'at_risk':
-            return self.relax_consistency(base_consistency)
-        
-        elif current_load < 0.3 and costs[base_consistency] < costs[ConsistencyLevel.EVENTUAL] * 1.2:
-            return self.strengthen_consistency(base_consistency)
-        
-        else:
-            return base_consistency
+        L -->|Load > 80%| S
+        S -->|Load > 85%| RYW
+        RYW -->|Load > 90%| BS
+        BS -->|Load > 95%| E
+    end
     
-    def relax_consistency(self, level: ConsistencyLevel) -> ConsistencyLevel:
-        """Relax consistency by one level"""
-        relaxation_map = {
-            ConsistencyLevel.LINEARIZABLE: ConsistencyLevel.SEQUENTIAL,
-            ConsistencyLevel.SEQUENTIAL: ConsistencyLevel.READ_YOUR_WRITE,
-            ConsistencyLevel.READ_YOUR_WRITE: ConsistencyLevel.BOUNDED_STALENESS,
-            ConsistencyLevel.BOUNDED_STALENESS: ConsistencyLevel.EVENTUAL,
-            ConsistencyLevel.EVENTUAL: ConsistencyLevel.EVENTUAL
-        }
-        return relaxation_map[level]
+    subgraph "Load vs Consistency"
+        Graph["📊 Dynamic Adjustment<br/><br/>Load: 0% ────────── 100%<br/>Level: Strong ──── Eventual"]
+    end
+    
+    subgraph "Benefits"
+        B1[Maintain SLAs<br/>under load]
+        B2[Optimal resource<br/>utilization]
+        B3[Cost-effective<br/>operations]
+    end
 ```
 
 ---
@@ -441,110 +581,156 @@ class DynamicConsistencyController:
 
 Azure Cosmos DB offers 5 consistency levels, serving millions of requests per second globally.
 
-```python
-class CosmosDBConsistency:
-    """Azure Cosmos DB consistency implementation - 100M+ requests/sec globally"""
+```mermaid
+graph TB
+    subgraph "Cosmos DB Global Distribution"
+        subgraph "Write Region (Primary)"
+            P[East US<br/>Primary]
+        end
+        
+        subgraph "Read Regions"
+            R1[West US<br/>Replica]
+            R2[Europe<br/>Replica]
+            R3[Asia<br/>Replica]
+        end
+        
+        P -->|Replication| R1
+        P -->|Replication| R2
+        P -->|Replication| R3
+    end
     
-    def __init__(self):
-        self.regions = ['east-us', 'west-us', 'europe', 'asia']
-        self.consistency_slas = {
-            'strong': {'latency_p99': 10, 'availability': 99.99},
-            'bounded_staleness': {'latency_p99': 5, 'availability': 99.99},
-            'session': {'latency_p99': 3, 'availability': 99.99},
-            'consistent_prefix': {'latency_p99': 2, 'availability': 99.99},
-            'eventual': {'latency_p99': 1, 'availability': 99.999}
-        }
-        
-    def implement_bounded_staleness(self, max_lag_items: int = 100000, max_lag_time: int = 5):
-        """Cosmos DB's bounded staleness: Max 100K items or 5 seconds lag"""
-        
-        class BoundedStalenessRegion:
-            def __init__(self, region: str):
-                self.region = region
-                self.write_timestamp = 0
-                self.write_counter = 0
-                self.pending_writes = asyncio.Queue(maxsize=max_lag_items)
-                
-            async def apply_write(self, write_op: dict):
-                """Apply write with bounded lag tracking"""
-                self.write_counter += 1
-                self.write_timestamp = time.time()
-                
-                await self.pending_writes.put({
-                    'operation': write_op,
-                    'timestamp': self.write_timestamp,
-                    'sequence': self.write_counter
-                })
-                
-                await self.local_storage.apply(write_op)
-                
-                if self.pending_writes.qsize() > max_lag_items:
-                    await self.force_sync()
-                
-            async def check_staleness_bound(self) -> bool:
-                """Verify replica is within staleness bound"""
-                if self.pending_writes.empty():
-                    return True
-                
-                oldest = await self.pending_writes.get()
-                await self.pending_writes.put(oldest)  # Put back
-                
-                time_lag = time.time() - oldest['timestamp']
-                if time_lag > max_lag_time:
-                    return False
-                
-                item_lag = self.write_counter - oldest['sequence']
-                if item_lag > max_lag_items:
-                    return False
-                
-                return True
-        
-        return BoundedStalenessRegion
+    subgraph "5 Consistency Levels"
+        Strong[Strong<br/>P99: 10ms<br/>99.99%]
+        Bounded[Bounded Staleness<br/>P99: 5ms<br/>99.99%]
+        Session[Session<br/>P99: 3ms<br/>99.99%]
+        Prefix[Consistent Prefix<br/>P99: 2ms<br/>99.99%]
+        Eventual[Eventual<br/>P99: 1ms<br/>99.999%]
+    end
     
-    def implement_session_consistency(self):
-        """Session consistency with session tokens"""
+    style P fill:#10b981,stroke:#059669,stroke-width:3px
+    style Strong fill:#ef4444,stroke:#dc2626
+    style Eventual fill:#10b981,stroke:#059669
+```
+### Cosmos DB Bounded Staleness Implementation
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant P as Primary (East US)
+    participant R1 as Replica (West US)
+    participant R2 as Replica (Europe)
+    
+    Note over P,R2: Bounded Staleness: Max 100K ops or 5 seconds
+    
+    C->>P: Write Operation #1
+    P->>P: Counter: 1, Time: T0
+    P-->>C: Acknowledged
+    
+    P->>R1: Replicate Op #1
+    P->>R2: Replicate Op #1
+    
+    loop Every write
+        C->>P: Write Op #N
+        P->>P: Counter++, Update timestamp
+        P->>R1: Async replicate
+        P->>R2: Async replicate
+    end
+    
+    Note over R1: Lag: 50K ops, 3 seconds
+    Note over R2: Lag: 90K ops, 4.5 seconds
+    
+    C->>R2: Read request
+    R2->>R2: Check: 90K < 100K ✓<br/>4.5s < 5s ✓
+    R2-->>C: Return data (within bounds)
+    
+    Note over R2: If lag > bounds,<br/>redirect to primary
+```
+
+### Bounded Staleness Monitoring
+
+```mermaid
+graph LR
+    subgraph "Staleness Tracking"
+        subgraph "Item Lag"
+            IL[Current: 75,432 items<br/>Limit: 100,000 items<br/>Usage: 75%]
+        end
         
-        class SessionToken:
-            def __init__(self):
-                self.region_versions = {}  # region -> version
-                self.global_sequence = 0
-                
-            def update(self, region: str, version: int):
-                """Update token after write"""
-                self.region_versions[region] = version
-                self.global_sequence += 1
-                
-            def serialize(self) -> str:
-                """Serialize for client storage"""
-                return base64.b64encode(
-                    json.dumps({
-                        'v': self.region_versions,
-                        's': self.global_sequence
-                    }).encode()
-                ).decode()
-            
-            @classmethod
-            def deserialize(cls, token_str: str):
-                """Reconstruct from client token"""
-                data = json.loads(base64.b64decode(token_str))
-                token = cls()
-                token.region_versions = data['v']
-                token.global_sequence = data['s']
-                return token
+        subgraph "Time Lag"
+            TL[Current: 3.8 seconds<br/>Limit: 5 seconds<br/>Usage: 76%]
+        end
         
-        class SessionConsistencyManager:
-            async def read_with_session(self, key: str, session_token: SessionToken):
-                """Read ensuring session consistency"""
-                for region in self.get_regions_by_proximity():
-                    region_version = await self.get_region_version(region)
-                    required_version = session_token.region_versions.get(region, 0)
-                    
-                    if region_version >= required_version:
-                        return await self.read_from_region(region, key)
-                
-                return await self.read_from_primary(key)
+        Alert{Alert if<br/>> 80%}
         
-        return SessionConsistencyManager()
+        IL --> Alert
+        TL --> Alert
+        
+        Alert -->|Yes| Action[Force sync<br/>Increase bandwidth]
+    end
+    
+    style IL fill:#f59e0b,stroke:#d97706
+    style TL fill:#f59e0b,stroke:#d97706
+```
+### Cosmos DB Session Consistency
+
+```mermaid
+flowchart TB
+    subgraph "Session Token Flow"
+        Write[Client Write]
+        Token[Session Token<br/>Generated]
+        Store[Client Stores<br/>Token]
+        Read[Client Read<br/>with Token]
+        
+        Write --> Token
+        Token --> Store
+        Store --> Read
+    end
+    
+    subgraph "Token Structure"
+        ST[Session Token]
+        RV[Region Versions<br/>east-us: 142<br/>west-us: 138<br/>europe: 135]
+        GS[Global Sequence<br/>4521]
+        
+        ST --> RV
+        ST --> GS
+    end
+    
+    subgraph "Read Logic"
+        CheckRegion{Check closest<br/>region version}
+        Regional[Read from<br/>regional replica]
+        Primary[Read from<br/>primary]
+        
+        Read --> CheckRegion
+        CheckRegion -->|Version OK| Regional
+        CheckRegion -->|Version too old| Primary
+    end
+```
+
+### Session Token Example
+
+```mermaid
+sequenceDiagram
+    participant App
+    participant SDK as Cosmos SDK
+    participant East as East US (Primary)
+    participant West as West US
+    
+    App->>SDK: Write document
+    SDK->>East: Write
+    East-->>SDK: Success + version 142
+    SDK->>SDK: Update session token
+    SDK-->>App: Token: {east:142, west:138}
+    
+    Note over App: Client stores token
+    
+    App->>SDK: Read (from West US)<br/>Token: {east:142, west:138}
+    SDK->>West: Check version
+    West-->>SDK: Current version: 140
+    
+    Note over SDK: 140 >= 138 ✓<br/>Safe to read
+    
+    SDK->>West: Read document
+    West-->>SDK: Document data
+    SDK-->>App: Return data
 ```
 
 ### Advanced Monitoring and Optimization
@@ -665,130 +851,157 @@ class ConsistencyOptimizer:
 
 #### CAP Theorem and Consistency Spectrum
 
-```python
-class CAPConsistencyAnalysis:
-    """Analyze consistency choices through CAP theorem lens"""
-    
-    def map_consistency_to_cap(self) -> dict:
-        """Map consistency levels to CAP trade-offs"""
-        return {
-            'linearizable': {
-                'choice': 'CP',  # Consistency + Partition tolerance
-                'sacrifice': 'availability',
-                'partition_behavior': 'refuse_writes',
-                'use_when': 'correctness > availability'
-            },
-            
-            'bounded_staleness': {
-                'choice': 'CAP-flexible',  # Tunable based on bounds
-                'sacrifice': 'consistency_during_partition',
-                'partition_behavior': 'degrade_to_eventual',
-                'use_when': 'need_predictable_staleness'
-            },
-            
-            'eventual': {
-                'choice': 'AP',  # Availability + Partition tolerance
-                'sacrifice': 'consistency',
-                'partition_behavior': 'continue_operating',
-                'use_when': 'availability > correctness'
-            }
-        }
-    
-    def analyze_partition_strategies(self):
-        """Strategies during network partition"""
+```mermaid
+graph TB
+    subgraph "CAP Theorem Trade-offs"
+        CAP[CAP Theorem]
+        C[Consistency]
+        A[Availability]
+        P[Partition Tolerance]
         
-        class PartitionStrategy:
-            def __init__(self, consistency: ConsistencyLevel):
-                self.consistency = consistency
-                
-            def handle_partition(self, partition_info: dict):
-                if self.consistency == ConsistencyLevel.STRONG:
-                    if partition_info['minority_side']:
-                        return 'reject_all_operations'
-                    else:
-                        return 'continue_if_majority'
-                
-                elif self.consistency == ConsistencyLevel.BOUNDED:
-                    if partition_info['can_maintain_bound']:
-                        return 'continue_with_bound'
-                    else:
-                        return 'switch_to_eventual'
-                
-                else:  # EVENTUAL
-                    return 'accept_all_operations'
+        CAP --> C
+        CAP --> A
+        CAP --> P
+        
+        Note1[Pick 2 of 3]
+        CAP -.-> Note1
+    end
+    
+    subgraph "Consistency Levels & CAP"
+        subgraph "CP Systems"
+            Linear[Linearizable<br/>Sacrifice: Availability<br/>Behavior: Refuse writes]
+            Strong[Strong<br/>Sacrifice: Availability<br/>Behavior: Majority only]
+        end
+        
+        subgraph "AP Systems"
+            Eventual[Eventual<br/>Sacrifice: Consistency<br/>Behavior: Always available]
+        end
+        
+        subgraph "Flexible"
+            Bounded[Bounded Staleness<br/>Tunable CP↔AP<br/>Behavior: Degrade gracefully]
+            Session[Session<br/>Client-centric<br/>Behavior: Best effort]
+        end
+    end
+    
+    style Linear fill:#ef4444,stroke:#dc2626
+    style Eventual fill:#10b981,stroke:#059669
+    style Bounded fill:#f59e0b,stroke:#d97706
+```
+
+### Partition Behavior by Consistency Level
+
+```mermaid
+flowchart TB
+    subgraph "Network Partition Scenario"
+        Part[Network Partition Detected]
+        
+        subgraph "Linearizable"
+            L1{Majority side?}
+            L2[Continue operations]
+            L3[Refuse all ops]
+            
+            Part --> L1
+            L1 -->|Yes| L2
+            L1 -->|No| L3
+        end
+        
+        subgraph "Bounded Staleness"
+            B1{Within bound?}
+            B2[Continue with bound]
+            B3[Degrade to eventual]
+            
+            Part --> B1
+            B1 -->|Yes| B2
+            B1 -->|No| B3
+        end
+        
+        subgraph "Eventual"
+            E1[Continue all ops]
+            E2[Reconcile later]
+            
+            Part --> E1
+            E1 --> E2
+        end
+    end
+    
+    style L3 fill:#ef4444,stroke:#dc2626
+    style B3 fill:#f59e0b,stroke:#d97706
+    style E1 fill:#10b981,stroke:#059669
 ```
 
 #### Mathematical Models
 
-```python
-import numpy as np
-from scipy.optimize import minimize
+```mermaid
+graph LR
+    subgraph "Latency Modeling"
+        subgraph "Queueing Theory"
+            Lambda[λ = Arrival Rate]
+            Mu[μ = Service Rate]
+            K[k = Replicas]
+            Rho[ρ = λ/(kμ)]
+            
+            Lambda --> Rho
+            Mu --> Rho
+            K --> Rho
+        end
+        
+        subgraph "Consistency Latency"
+            Strong[Strong: Wait for k/2+1<br/>Latency: O(log k)]
+            Bounded[Bounded: Any fresh replica<br/>Latency: O(1)]
+            Eventual[Eventual: First replica<br/>Latency: O(1)]
+        end
+    end
+    
+    subgraph "Optimization"
+        Objective[Minimize:<br/>Σ(fraction_i × latency_i)]
+        
+        Constraints[Constraints:<br/>- Σ fractions = 1<br/>- strong ≥ 20%<br/>- SLA compliance]
+        
+        Result[Optimal Mix:<br/>Strong: 20%<br/>Bounded: 50%<br/>Eventual: 30%]
+        
+        Objective --> Result
+        Constraints --> Result
+    end
+```
 
-class ConsistencyMathModel:
-    """Mathematical models for consistency optimization"""
-    
-    def model_consistency_latency(self, params: dict) -> dict:
-        """Model latency using M/M/k queuing theory"""
-        λ = params['arrival_rate']  # requests/second
-        μ = params['service_rate']  # requests/second/server
-        k = params['num_replicas']
-        
-        results = {}
-        
-        for consistency, quorum in [
-            ('strong', (k // 2) + 1),
-            ('bounded', 1),
-            ('eventual', 1)
-        ]:
-            ρ = λ / (k * μ)  # Utilization
+### Consistency Cost Analysis
+
+```mermaid
+graph TB
+    subgraph "Cost Components"
+        subgraph "Strong Consistency"
+            SC1[Compute: 3x]
+            SC2[Network: 2.5x]
+            SC3[Storage: 1.5x]
+            SC4[Latency: 50ms]
+            SCT[Total: High]
             
-            if consistency == 'strong':
-                latency = self.calculate_quorum_latency(quorum, k, μ, λ)
-            else:
-                latency = 1 / (μ - λ/k)
+            SC1 --> SCT
+            SC2 --> SCT
+            SC3 --> SCT
+            SC4 --> SCT
+        end
+        
+        subgraph "Eventual Consistency"
+            EC1[Compute: 1x]
+            EC2[Network: 1x]
+            EC3[Storage: 1x]
+            EC4[Latency: 5ms]
+            ECT[Total: Low]
             
-            results[consistency] = {
-                'mean_latency': latency,
-                'p99_latency': latency * np.log(100),  # Exponential distribution
-                'throughput': λ if ρ < 1 else k * μ
-            }
-        
-        return results
+            EC1 --> ECT
+            EC2 --> ECT
+            EC3 --> ECT
+            EC4 --> ECT
+        end
+    end
     
-    def optimize_consistency_mix(self, constraints: dict) -> dict:
-        """Optimize mix of consistency levels for workload"""
-        
-        def objective(x):
-            # x = [fraction_strong, fraction_bounded, fraction_eventual]
-            latencies = [10, 5, 1]  # ms
-            return sum(x[i] * latencies[i] for i in range(3))
-        
-        def constraint_sla(x):
-            return x[0] - 0.2  # At least 20% strong consistency
-        
-        def constraint_sum(x):
-            return sum(x) - 1  # Fractions must sum to 1
-        
-        result = minimize(
-            objective,
-            x0=[0.3, 0.4, 0.3],
-            method='SLSQP',
-            bounds=[(0, 1), (0, 1), (0, 1)],
-            constraints=[
-                {'type': 'eq', 'fun': constraint_sum},
-                {'type': 'gte', 'fun': constraint_sla}
-            ]
-        )
-        
-        return {
-            'optimal_mix': {
-                'strong': result.x[0],
-                'bounded': result.x[1],
-                'eventual': result.x[2]
-            },
-            'expected_latency': result.fun,
-            'improvement': '40% reduction in average latency'
-        }
+    subgraph "Trade-off"
+        Graph["Cost vs Consistency<br/><br/>$    ↑<br/>     |  Strong<br/>     |    /<br/>     |   /<br/>     |  / Bounded<br/>     | /<br/>     |/ Eventual<br/>     +───────→<br/>     Consistency"]
+    end
+    
+    style SCT fill:#ef4444,stroke:#dc2626
+    style ECT fill:#10b981,stroke:#059669
 ```
 
 ### Future Directions

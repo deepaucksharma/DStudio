@@ -30,6 +30,40 @@ Load shedding is like managing a lifeboat:
 - **Priority system**: Women and children first
 - **Survival focus**: Better to save some than lose all
 
+### Load Shedding Decision Flow
+
+```mermaid
+flowchart TD
+    R[Incoming Request] --> P{Determine Priority}
+    
+    P -->|Critical| C{Load < 95%?}
+    P -->|High| H{Load < 80%?}
+    P -->|Normal| N{Load < 60%?}
+    P -->|Low| L{Load < 40%?}
+    
+    C -->|Yes| Accept1[Accept Request]
+    C -->|No| Reject1[Reject: Overload]
+    
+    H -->|Yes| Accept2[Accept Request]
+    H -->|No| Reject2[Reject: Overload]
+    
+    N -->|Yes| Accept3[Accept Request]
+    N -->|No| Reject3[Reject: Overload]
+    
+    L -->|Yes| Accept4[Accept Request]
+    L -->|No| Reject4[Reject: Overload]
+    
+    Accept1 --> Process[Process Request]
+    Accept2 --> Process
+    Accept3 --> Process
+    Accept4 --> Process
+    
+    style Reject1 fill:#f96
+    style Reject2 fill:#f96
+    style Reject3 fill:#f96
+    style Reject4 fill:#f96
+```
+
 ### Basic Load Shedding
 
 ```python
@@ -90,6 +124,47 @@ class SimpleLoadShedder:
 | **Cost-based** | Drop expensive operations | Resource optimization |
 | **User-based** | Drop by user tier | SaaS with tiers |
 | **Age-based** | Drop oldest requests | Real-time systems |
+
+### Load Shedding State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Normal: System Start
+    
+    Normal --> LightLoad: Load > 50%
+    LightLoad --> Normal: Load < 40%
+    
+    LightLoad --> ModerateLoad: Load > 70%
+    ModerateLoad --> LightLoad: Load < 60%
+    
+    ModerateLoad --> HeavyLoad: Load > 85%
+    HeavyLoad --> ModerateLoad: Load < 75%
+    
+    HeavyLoad --> Critical: Load > 95%
+    Critical --> HeavyLoad: Load < 85%
+    
+    Critical --> Emergency: System Failure
+    Emergency --> [*]: Restart
+    
+    note right of Normal
+        Accept all requests
+    end note
+    
+    note right of Critical
+        Essential traffic only
+        99% rejection rate
+    end note
+```
+
+### Priority-Based Shedding Strategy
+
+| Load Level | Critical | High | Normal | Low | Strategy |
+|------------|----------|------|--------|-----|----------|
+| 0-50% | 100% | 100% | 100% | 100% | Accept all |
+| 50-70% | 100% | 100% | 100% | 60% | Throttle low priority |
+| 70-85% | 100% | 90% | 50% | 10% | Active shedding |
+| 85-95% | 100% | 50% | 10% | 0% | Essential only |
+| >95% | 80% | 10% | 0% | 0% | Emergency mode |
 
 ### Implementing Priority-Based Load Shedding
 
@@ -199,6 +274,35 @@ class AdvancedLoadShedder:
 ## 🔧 Level 3: Deep Dive
 
 ### Advanced Load Shedding Patterns
+
+#### Adaptive Load Shedding Flow
+
+```mermaid
+sequenceDiagram
+    participant R as Request
+    participant ALS as Adaptive Load Shedder
+    participant ML as ML Model
+    participant S as System
+    participant M as Metrics
+    
+    R->>ALS: Incoming Request
+    ALS->>ML: Predict Success Probability
+    ML->>ML: Analyze Features
+    Note over ML: Priority, Cost, Load,<br/>Queue Depth, Response Time
+    ML-->>ALS: Success Probability
+    
+    alt High Probability
+        ALS->>S: Accept & Process
+        S-->>ALS: Result
+        ALS->>M: Record Outcome
+    else Low Probability
+        ALS-->>R: Reject (503)
+        ALS->>M: Record Rejection
+    end
+    
+    M->>ML: Retrain Model
+    Note over ML: Learn from outcomes
+```
 
 #### Adaptive Load Shedding
 ```python

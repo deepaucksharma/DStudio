@@ -52,144 +52,66 @@ Optimization Techniques:
 - Batch generation
 ```
 
-**Implementation:**
-```python
-import time
-import threading
-from typing import Optional, List
-import struct
+**Architecture Overview:**
 
-class SnowflakeIDGenerator:
-    """
-    64-bit ID Layout:
-    - 1 bit: Always 0 (reserved for signed integers)
-    - 41 bits: Timestamp (milliseconds since epoch)
-    - 10 bits: Machine ID
-    - 12 bits: Sequence number
-    """
+```mermaid
+graph TB
+    subgraph "ID Structure (64-bit)"
+        B1[Sign Bit<br/>1 bit: 0]
+        B2[Timestamp<br/>41 bits]
+        B3[Datacenter<br/>5 bits] 
+        B4[Machine<br/>5 bits]
+        B5[Sequence<br/>12 bits]
+    end
     
-    def __init__(self, machine_id: int, datacenter_id: int = 0):
-        # Bit allocation
-        self.TIMESTAMP_BITS = 41
-        self.DATACENTER_BITS = 5
-        self.MACHINE_BITS = 5
-        self.SEQUENCE_BITS = 12
-        
-        # Max values
-        self.MAX_DATACENTER_ID = (1 << self.DATACENTER_BITS) - 1
-        self.MAX_MACHINE_ID = (1 << self.MACHINE_BITS) - 1
-        self.MAX_SEQUENCE = (1 << self.SEQUENCE_BITS) - 1
-        
-        # Bit shifts
-        self.TIMESTAMP_SHIFT = self.DATACENTER_BITS + self.MACHINE_BITS + self.SEQUENCE_BITS
-        self.DATACENTER_SHIFT = self.MACHINE_BITS + self.SEQUENCE_BITS
-        self.MACHINE_SHIFT = self.SEQUENCE_BITS
-        
-        # Validation
-        if datacenter_id > self.MAX_DATACENTER_ID:
-            raise ValueError(f"Datacenter ID > {self.MAX_DATACENTER_ID}")
-        if machine_id > self.MAX_MACHINE_ID:
-            raise ValueError(f"Machine ID > {self.MAX_MACHINE_ID}")
-        
-        # Instance state
-        self.datacenter_id = datacenter_id
-        self.machine_id = machine_id
-        self.sequence = 0
-        self.last_timestamp = -1
-        
-        # Custom epoch (e.g., 2020-01-01)
-        self.EPOCH = 1577836800000
-        
-        # Thread safety
-        self.lock = threading.Lock()
-        
-        # Performance optimization
-        self._preallocated_ids = []
-        self._prealloc_size = 1000
+    B1 --> B2 --> B3 --> B4 --> B5
     
-    def generate(self) -> int:
-        """Generate a unique ID with ~1μs latency"""
-        # Try pre-allocated first (no lock needed)
-        if self._preallocated_ids:
-            return self._preallocated_ids.pop()
-        
-        with self.lock:
-            timestamp = self._current_millis()
-            
-            # Clock moved backwards
-            if timestamp < self.last_timestamp:
-                raise Exception(f"Clock moved backwards! Refusing to generate ID for {self.last_timestamp - timestamp} milliseconds")
-            
-            # Same millisecond
-            if timestamp == self.last_timestamp:
-                self.sequence = (self.sequence + 1) & self.MAX_SEQUENCE
-                
-                # Sequence overflow - wait for next millisecond
-                if self.sequence == 0:
-                    timestamp = self._wait_next_millis(self.last_timestamp)
-            else:
-                self.sequence = 0
-            
-            self.last_timestamp = timestamp
-            
-            # Generate ID
-            id_value = ((timestamp - self.EPOCH) << self.TIMESTAMP_SHIFT) | \
-                      (self.datacenter_id << self.DATACENTER_SHIFT) | \
-                      (self.machine_id << self.MACHINE_SHIFT) | \
-                      self.sequence
-            
-            # Pre-allocate next batch if sequence is low
-            if self.sequence < 100:
-                self._preallocate_batch()
-            
-            return id_value
+    subgraph "Generation Flow"
+        G1[Check Pre-allocated Pool]
+        G2{Pool Empty?}
+        G3[Return ID]
+        G4[Acquire Lock]
+        G5[Get Timestamp]
+        G6{Clock OK?}
+        G7[Generate ID]
+        G8[Pre-allocate Batch]
+    end
     
-    def _preallocate_batch(self):
-        """Pre-generate IDs for better performance"""
-        batch = []
-        current_seq = self.sequence
-        current_ts = self.last_timestamp
-        
-        for i in range(self._prealloc_size):
-            current_seq += 1
-            if current_seq > self.MAX_SEQUENCE:
-                current_seq = 0
-                current_ts += 1
-            
-            id_value = ((current_ts - self.EPOCH) << self.TIMESTAMP_SHIFT) | \
-                      (self.datacenter_id << self.DATACENTER_SHIFT) | \
-                      (self.machine_id << self.MACHINE_SHIFT) | \
-                      current_seq
-            
-            batch.append(id_value)
-        
-        self._preallocated_ids = batch
+    G1 --> G2
+    G2 -->|No| G3
+    G2 -->|Yes| G4
+    G4 --> G5
+    G5 --> G6
+    G6 -->|Yes| G7
+    G6 -->|No| G5
+    G7 --> G8
+    G8 --> G3
+```
+
+**Key Design Decisions:**
+
+| Component | Design Choice | Rationale |
+|-----------|--------------|------------|
+| ID Size | 64-bit | Fits in standard integer types, efficient storage |
+| Time Precision | Millisecond (41 bits) | 69-year lifespan, 4096 IDs/ms capacity |
+| Machine Bits | 10 bits total (5+5) | Supports 1024 unique generators |
+| Sequence | 12 bits | 4096 IDs per millisecond per machine |
+| Pre-allocation | 1000 IDs batch | Reduces lock contention, improves throughput |
+| Epoch | Custom (2020-01-01) | Maximizes ID lifespan for modern systems |
+
+**Performance Characteristics:**
+
+```mermaid
+graph LR
+    subgraph "Latency Breakdown"
+        L1[Pre-allocated: 0.1μs]
+        L2[Lock Acquisition: 1μs]
+        L3[ID Generation: 0.5μs]
+        L4[Total: ~1μs typical]
+    end
     
-    def _current_millis(self) -> int:
-        """Get current time in milliseconds"""
-        return int(time.time() * 1000)
-    
-    def _wait_next_millis(self, last_timestamp: int) -> int:
-        """Spin-wait for next millisecond"""
-        timestamp = self._current_millis()
-        while timestamp <= last_timestamp:
-            timestamp = self._current_millis()
-        return timestamp
-    
-    def parse_id(self, id_value: int) -> dict:
-        """Extract components from ID for debugging"""
-        timestamp = ((id_value >> self.TIMESTAMP_SHIFT) & ((1 << self.TIMESTAMP_BITS) - 1)) + self.EPOCH
-        datacenter = (id_value >> self.DATACENTER_SHIFT) & ((1 << self.DATACENTER_BITS) - 1)
-        machine = (id_value >> self.MACHINE_SHIFT) & ((1 << self.MACHINE_BITS) - 1)
-        sequence = id_value & ((1 << self.SEQUENCE_BITS) - 1)
-        
-        return {
-            'timestamp': timestamp,
-            'timestamp_readable': time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(timestamp/1000)),
-            'datacenter_id': datacenter,
-            'machine_id': machine,
-            'sequence': sequence
-        }
+    L1 --> L4
+    L2 --> L3 --> L4
 ```
 
 #### 💾 Axiom 2 (Capacity): ID Space Management
@@ -213,91 +135,58 @@ Extension Strategies:
 - Hierarchical ID schemes
 ```
 
-**Implementation:**
-```python
-class ExtendedIDGenerator:
-    """128-bit ID generator for extended capacity"""
-    
-    def __init__(self, node_id: bytes):
-        # 128-bit layout:
-        # - 64 bits: Nanosecond timestamp
-        # - 48 bits: Node ID (MAC address style)
-        # - 16 bits: Sequence counter
-        
-        self.node_id = node_id[:6]  # 48 bits
-        self.sequence = 0
-        self.last_nanos = 0
-        self.lock = threading.Lock()
-        
-        # Performance counters
-        self.ids_generated = 0
-        self.sequence_overflows = 0
-        
-    def generate_128bit(self) -> bytes:
-        """Generate 128-bit unique ID"""
-        with self.lock:
-            nanos = time.time_ns()
-            
-            if nanos == self.last_nanos:
-                self.sequence += 1
-                if self.sequence > 0xFFFF:
-                    # Sequence overflow - wait
-                    self.sequence_overflows += 1
-                    while time.time_ns() == nanos:
-                        pass
-                    nanos = time.time_ns()
-                    self.sequence = 0
-            else:
-                self.sequence = 0
-            
-            self.last_nanos = nanos
-            self.ids_generated += 1
-            
-            # Pack into 128 bits
-            return struct.pack('>QHH', nanos, int.from_bytes(self.node_id, 'big'), self.sequence)
-    
-    def analyze_capacity(self, target_qps: int) -> dict:
-        """Analyze ID generation capacity"""
-        # Current utilization
-        current_rate = self.ids_generated / (time.time() - self.start_time)
-        
-        # Capacity analysis
-        max_ids_per_nano = 65536  # 16-bit sequence
-        max_ids_per_second = max_ids_per_nano * 1_000_000_000
-        
-        # Timestamp capacity (64-bit nanoseconds)
-        nanos_until_overflow = 2**64 - time.time_ns()
-        years_until_overflow = nanos_until_overflow / (365.25 * 24 * 3600 * 1_000_000_000)
-        
-        return {
-            'current_rate': current_rate,
-            'max_rate': max_ids_per_second,
-            'utilization': current_rate / max_ids_per_second,
-            'years_until_overflow': years_until_overflow,
-            'sequence_overflow_rate': self.sequence_overflows / (time.time() - self.start_time),
-            'can_support_target_qps': target_qps <= max_ids_per_second
-        }
+**Extended ID Schemes:**
 
-class ShardedIDGenerator:
-    """Shard ID space across multiple generators"""
+```mermaid
+graph TB
+    subgraph "128-bit ID Layout"
+        E1[Nanosecond Timestamp<br/>64 bits]
+        E2[Node ID<br/>48 bits]
+        E3[Sequence<br/>16 bits]
+    end
     
-    def __init__(self, shard_bits: int = 16):
-        self.shard_bits = shard_bits
-        self.num_shards = 1 << shard_bits
-        self.generators = []
-        
-        # Create generator per shard
-        for shard_id in range(self.num_shards):
-            gen = SnowflakeIDGenerator(
-                machine_id=shard_id & 0x1F,  # 5 bits
-                datacenter_id=(shard_id >> 5) & 0x1F  # 5 bits
-            )
-            self.generators.append(gen)
+    E1 --> E2 --> E3
     
-    def generate_sharded(self, shard_key: str) -> int:
-        """Generate ID using consistent sharding"""
-        shard_id = hash(shard_key) % self.num_shards
-        return self.generators[shard_id].generate()
+    subgraph "Sharded Architecture"
+        S1[Shard Router]
+        S2[Shard 0<br/>IDs: 0-999]
+        S3[Shard 1<br/>IDs: 1000-1999]
+        SN[Shard N<br/>IDs: N000-N999]
+    end
+    
+    S1 -->|Hash(key)| S2
+    S1 -->|Hash(key)| S3
+    S1 -->|Hash(key)| SN
+```
+
+**Capacity Analysis Table:**
+
+| ID Scheme | Total IDs | IDs/Second | Lifespan | Use Case |
+|-----------|-----------|------------|----------|----------|
+| 64-bit Snowflake | 2^63 | 4M/machine | 69 years | General purpose |
+| 128-bit Extended | 2^127 | 65B/machine | 5B years | Future-proof |
+| Sharded (1K shards) | 2^63 × 1K | 4B total | 69 years | Massive scale |
+| UUID v4 | 2^122 | Unlimited | Unlimited | No coordination |
+
+**Capacity Planning Calculator:**
+
+```mermaid
+graph LR
+    subgraph "Input Parameters"
+        I1[QPS Required]
+        I2[Years of Operation]
+        I3[Number of Nodes]
+    end
+    
+    subgraph "Calculations"
+        C1[IDs per Year]
+        C2[Bits Needed]
+        C3[Recommended Scheme]
+    end
+    
+    I1 & I2 & I3 --> C1
+    C1 --> C2
+    C2 --> C3
 ```
 
 #### 🔥 Axiom 3 (Failure): Clock and Node Failures
@@ -317,160 +206,58 @@ Mitigation Strategies:
 - Graceful degradation
 ```
 
-**Implementation:**
-```python
-import os
-import pickle
-from datetime import datetime, timedelta
+**Failure Handling Architecture:**
 
-class ResilientIDGenerator:
-    def __init__(self, node_id: int, state_file: str = None):
-        self.node_id = node_id
-        self.state_file = state_file or f"/var/lib/idgen/node_{node_id}.state"
-        
-        # Clock management
-        self.max_clock_skew_ms = 5000  # 5 seconds
-        self.last_timestamp = 0
-        self.clock_offset = 0  # Adjustment for clock skew
-        
-        # Persistence
-        self.checkpoint_interval = 10000  # IDs
-        self.ids_since_checkpoint = 0
-        
-        # Load persisted state
-        self._load_state()
-        
-        # NTP monitoring
-        self.ntp_monitor = NTPMonitor()
-        self.ntp_monitor.start()
+```mermaid
+stateDiagram-v2
+    [*] --> Normal: Start
+    Normal --> ClockRegression: Time < LastTime
+    Normal --> ClockSkew: |Time - WallClock| > Threshold
+    Normal --> Checkpoint: Every 10K IDs
     
-    def generate_safe(self) -> int:
-        """Generate ID with safety checks"""
-        timestamp = self._get_adjusted_timestamp()
-        
-        # Detect clock regression
-        if timestamp < self.last_timestamp:
-            self._handle_clock_regression(timestamp)
-        
-        # Check for excessive clock skew
-        if abs(timestamp - self._wall_clock_millis()) > self.max_clock_skew_ms:
-            self._handle_clock_skew(timestamp)
-        
-        # Normal generation
-        id_value = self._generate_with_timestamp(timestamp)
-        
-        # Periodic checkpoint
-        self.ids_since_checkpoint += 1
-        if self.ids_since_checkpoint >= self.checkpoint_interval:
-            self._save_checkpoint()
-        
-        return id_value
+    ClockRegression --> WaitForTime: Small (<1s)
+    ClockRegression --> ApplyOffset: Large (>1s)
     
-    def _handle_clock_regression(self, current_timestamp: int):
-        """Handle clock moving backwards"""
-        regression_ms = self.last_timestamp - current_timestamp
-        
-        logger.error(f"Clock regression detected: {regression_ms}ms")
-        metrics.increment('idgen.clock_regression', regression_ms)
-        
-        if regression_ms < 1000:  # Small regression - wait it out
-            time.sleep(regression_ms / 1000.0)
-        else:  # Large regression - use offset
-            self.clock_offset = regression_ms
-            logger.warning(f"Applied clock offset: {self.clock_offset}ms")
+    ClockSkew --> GradualAdjust: Skew < 30s
+    ClockSkew --> AlertOps: Skew > 30s
     
-    def _handle_clock_skew(self, timestamp: int):
-        """Handle excessive clock skew"""
-        wall_clock = self._wall_clock_millis()
-        skew = timestamp - wall_clock
-        
-        logger.warning(f"Clock skew detected: {skew}ms")
-        
-        # Gradual adjustment to avoid ID collisions
-        adjustment_rate = 0.1  # 10% per iteration
-        self.clock_offset += int(skew * adjustment_rate)
-        
-        # Alert operations team
-        if abs(skew) > 30000:  # 30 seconds
-            alerts.send("Critical clock skew detected", {
-                'node_id': self.node_id,
-                'skew_ms': skew,
-                'action': 'Manual intervention required'
-            })
+    WaitForTime --> Normal
+    ApplyOffset --> Normal
+    GradualAdjust --> Normal
+    AlertOps --> Manual
     
-    def _save_checkpoint(self):
-        """Persist generator state"""
-        state = {
-            'node_id': self.node_id,
-            'last_timestamp': self.last_timestamp,
-            'sequence': self.sequence,
-            'clock_offset': self.clock_offset,
-            'checkpoint_time': datetime.utcnow()
-        }
-        
-        # Atomic write
-        temp_file = f"{self.state_file}.tmp"
-        with open(temp_file, 'wb') as f:
-            pickle.dump(state, f)
-        os.rename(temp_file, self.state_file)
-        
-        self.ids_since_checkpoint = 0
-    
-    def _load_state(self):
-        """Restore from checkpoint"""
-        try:
-            if os.path.exists(self.state_file):
-                with open(self.state_file, 'rb') as f:
-                    state = pickle.load(f)
-                
-                # Validate checkpoint age
-                age = datetime.utcnow() - state['checkpoint_time']
-                if age < timedelta(hours=24):
-                    self.last_timestamp = state['last_timestamp']
-                    self.sequence = state.get('sequence', 0)
-                    self.clock_offset = state.get('clock_offset', 0)
-                    logger.info(f"Restored ID generator state from {age} ago")
-                else:
-                    logger.warning(f"Checkpoint too old ({age}), starting fresh")
-        except Exception as e:
-            logger.error(f"Failed to load state: {e}")
+    Checkpoint --> SaveState
+    SaveState --> Normal
+```
 
-class NTPMonitor:
-    """Monitor NTP synchronization status"""
+**Clock Safety Mechanisms:**
+
+| Issue | Detection | Response | Recovery |
+|-------|-----------|----------|----------|
+| Clock Regression | timestamp < last_timestamp | Wait (small) or Offset (large) | Automatic |
+| Clock Skew | abs(time - wall_clock) > 5s | Gradual adjustment (10% rate) | Automatic |
+| NTP Drift | NTP offset > 100ms | Alert + metric | Manual review |
+| State Loss | Missing checkpoint file | Use defaults if > 24h old | Start fresh |
+
+**Persistence Strategy:**
+
+```mermaid
+sequenceDiagram
+    participant G as Generator
+    participant M as Memory State
+    participant D as Disk
+    participant B as Backup
     
-    def __init__(self):
-        self.last_sync_time = None
-        self.max_drift_ms = 100
-        
-    def check_sync_status(self) -> dict:
-        """Check NTP synchronization health"""
-        try:
-            # Query NTP status
-            output = subprocess.check_output(['ntpq', '-p'], text=True)
-            
-            # Parse synchronization status
-            sync_peer = None
-            max_offset = 0
-            
-            for line in output.split('\n'):
-                if line.startswith('*'):  # Synchronized peer
-                    parts = line.split()
-                    sync_peer = parts[0][1:]  # Remove *
-                    offset = float(parts[8])
-                    max_offset = max(max_offset, abs(offset))
-            
-            return {
-                'synchronized': sync_peer is not None,
-                'sync_peer': sync_peer,
-                'max_offset_ms': max_offset,
-                'healthy': max_offset < self.max_drift_ms
-            }
-        except Exception as e:
-            return {
-                'synchronized': False,
-                'error': str(e),
-                'healthy': False
-            }
+    loop Every 10K IDs
+        G->>M: Update counters
+        M->>D: Write checkpoint (atomic)
+        D->>B: Replicate state
+    end
+    
+    Note over G,B: On restart:
+    D->>M: Load checkpoint
+    M->>G: Restore state
+    G->>G: Validate age < 24h
 ```
 
 #### 🔀 Axiom 4 (Concurrency): Lock-Free Generation
@@ -489,114 +276,65 @@ Optimization Strategies:
 - Atomic operations
 ```
 
-**Implementation:**
-```python
-import multiprocessing
-from concurrent.futures import ThreadPoolExecutor
-import ctypes
+**Concurrency Optimization Strategies:**
 
-class LockFreeIDGenerator:
-    """Lock-free ID generator using atomics"""
+```mermaid
+graph TB
+    subgraph "Lock-Free Architecture"
+        T1[Thread 1<br/>Local Sequence]
+        T2[Thread 2<br/>Local Sequence]
+        T3[Thread N<br/>Local Sequence]
+        AC[Atomic Counter<br/>Fallback]
+    end
     
-    def __init__(self, machine_id: int):
-        self.machine_id = machine_id
-        
-        # Atomic counter using ctypes
-        self.counter = multiprocessing.Value(ctypes.c_uint64, 0)
-        
-        # Thread-local state
-        self.thread_local = threading.local()
-        
-        # CPU affinity for reduced contention
-        self.cpu_count = multiprocessing.cpu_count()
-        
-    def generate_lockfree(self) -> int:
-        """Generate ID without locks"""
-        # Get thread-local generator
-        if not hasattr(self.thread_local, 'sequence'):
-            self.thread_local.sequence = 0
-            self.thread_local.last_timestamp = 0
-            # Assign CPU core based on thread ID
-            self.thread_local.cpu_id = threading.get_ident() % self.cpu_count
-        
-        timestamp = self._current_millis()
-        
-        # Fast path - same millisecond
-        if timestamp == self.thread_local.last_timestamp:
-            self.thread_local.sequence += 1
-            if self.thread_local.sequence > 0xFFF:
-                # Overflow - use atomic counter
-                return self._generate_with_atomic(timestamp)
-        else:
-            self.thread_local.sequence = 0
-            self.thread_local.last_timestamp = timestamp
-        
-        # Compose ID
-        return (timestamp << 22) | (self.machine_id << 12) | self.thread_local.sequence
+    T1 -->|Overflow| AC
+    T2 -->|Overflow| AC
+    T3 -->|Overflow| AC
     
-    def _generate_with_atomic(self, timestamp: int) -> int:
-        """Fall back to atomic counter on sequence overflow"""
-        # Atomic increment
-        with self.counter.get_lock():
-            global_sequence = self.counter.value
-            self.counter.value = (global_sequence + 1) & 0xFFF
-        
-        return (timestamp << 22) | (self.machine_id << 12) | global_sequence
+    subgraph "CPU Affinity"
+        C1[Core 0<br/>Thread 1]
+        C2[Core 1<br/>Thread 2]
+        CN[Core N<br/>Thread N]
+    end
+    
+    T1 -.->|Pinned| C1
+    T2 -.->|Pinned| C2
+    T3 -.->|Pinned| CN
+```
 
-class ThreadPoolIDGenerator:
-    """Dedicated thread pools for ID generation"""
+**Concurrency Performance Comparison:**
+
+| Strategy | Throughput | Latency | CPU Efficiency | Complexity |
+|----------|------------|---------|----------------|------------|
+| Single Lock | 1M IDs/s | 1μs | Low (contention) | Simple |
+| Lock-Free | 10M IDs/s | 0.1μs | High | Medium |
+| Thread Pool | 50M IDs/s | 0.5μs | Very High | Complex |
+| CPU Affinity | 100M IDs/s | 0.1μs | Maximum | Complex |
+
+**Batch Generation Flow:**
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Pool as Thread Pool
+    participant W1 as Worker 1
+    participant W2 as Worker 2
+    participant WN as Worker N
     
-    def __init__(self, num_workers: int = None):
-        self.num_workers = num_workers or multiprocessing.cpu_count()
-        self.executors = []
-        
-        # Create dedicated generator per worker
-        for i in range(self.num_workers):
-            executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix=f"idgen-{i}")
-            generator = SnowflakeIDGenerator(machine_id=i, datacenter_id=0)
-            
-            self.executors.append({
-                'executor': executor,
-                'generator': generator,
-                'generated_count': 0
-            })
+    Client->>Pool: generate_batch(1000)
+    Pool->>Pool: Divide work
     
-    async def generate_batch_async(self, count: int) -> List[int]:
-        """Generate batch of IDs in parallel"""
-        # Distribute across workers
-        per_worker = count // self.num_workers
-        remainder = count % self.num_workers
-        
-        futures = []
-        for i, worker in enumerate(self.executors):
-            worker_count = per_worker + (1 if i < remainder else 0)
-            if worker_count > 0:
-                future = worker['executor'].submit(
-                    self._generate_worker_batch,
-                    worker['generator'],
-                    worker_count
-                )
-                futures.append(future)
-        
-        # Collect results
-        all_ids = []
-        for future in futures:
-            ids = await asyncio.wrap_future(future)
-            all_ids.extend(ids)
-        
-        return all_ids
+    par Parallel Execution
+        Pool->>W1: Generate 334 IDs
+        Pool->>W2: Generate 333 IDs
+        Pool->>WN: Generate 333 IDs
+    end
     
-    def _generate_worker_batch(self, generator: SnowflakeIDGenerator, count: int) -> List[int]:
-        """Worker function to generate IDs"""
-        # Pin to CPU core for cache locality
-        cpu_id = int(threading.current_thread().name.split('-')[-1])
-        os.sched_setaffinity(0, {cpu_id})
-        
-        ids = []
-        for _ in range(count):
-            ids.append(generator.generate())
-        
-        return ids
+    W1-->>Pool: [IDs 1-334]
+    W2-->>Pool: [IDs 335-667]
+    WN-->>Pool: [IDs 668-1000]
+    
+    Pool->>Client: Combined [1-1000]
 ```
 
 #### 🤝 Axiom 5 (Coordination): Distributed Agreement
@@ -616,190 +354,86 @@ Coordination Strategies:
 - Kubernetes operators
 ```
 
-**Implementation:**
-```python
-import asyncio
-import aioredis
-from kazoo.client import KazooClient
+**Distributed Coordination Architecture:**
 
-class CoordinatedIDGenerator:
-    """ID generator with distributed coordination"""
+```mermaid
+graph TB
+    subgraph "Zookeeper Coordination"
+        ZK[Zookeeper Cluster]
+        N1[Node 1<br/>ID: 001]
+        N2[Node 2<br/>ID: 002]
+        NN[Node N<br/>ID: N]
+        
+        ZK -->|Ephemeral Node| N1
+        ZK -->|Ephemeral Node| N2
+        ZK -->|Ephemeral Node| NN
+    end
     
-    def __init__(self, zk_hosts: str):
-        self.zk = KazooClient(hosts=zk_hosts)
-        self.zk.start()
-        
-        self.node_id = None
-        self.generator = None
-        self.config_version = 0
-        
-        # Paths in Zookeeper
-        self.ZK_ROOT = "/idgen"
-        self.ZK_CONFIG = f"{self.ZK_ROOT}/config"
-        self.ZK_NODES = f"{self.ZK_ROOT}/nodes"
-        self.ZK_EPOCH = f"{self.ZK_ROOT}/epoch"
-        
-        # Initialize
-        self._ensure_paths()
-        self._acquire_node_id()
-        self._watch_config()
+    subgraph "Configuration Management"
+        CF[Config Node]
+        EP[Epoch Node]
+        PR[Proposals]
+    end
     
-    def _acquire_node_id(self):
-        """Acquire unique node ID via Zookeeper"""
-        # Create ephemeral sequential node
-        node_path = self.zk.create(
-            f"{self.ZK_NODES}/node-",
-            ephemeral=True,
-            sequence=True,
-            makepath=True
-        )
-        
-        # Extract assigned ID
-        self.node_id = int(node_path.split('-')[-1])
-        
-        # Validate uniqueness
-        all_nodes = self.zk.get_children(self.ZK_NODES)
-        if len(all_nodes) != len(set(all_nodes)):
-            raise Exception("Node ID collision detected!")
-        
-        # Initialize generator with unique ID
-        datacenter_id = self._get_datacenter_id()
-        self.generator = SnowflakeIDGenerator(
-            machine_id=self.node_id % 32,
-            datacenter_id=datacenter_id
-        )
-        
-        logger.info(f"Acquired node ID: {self.node_id}")
+    ZK --> CF
+    ZK --> EP
+    ZK --> PR
     
-    def _watch_config(self):
-        """Watch for configuration changes"""
-        @self.zk.DataWatch(self.ZK_CONFIG)
-        def config_changed(data, stat):
-            if data:
-                config = json.loads(data.decode())
-                self._apply_config(config)
+    subgraph "Database Coordination"
+        DB[(Node Registry)]
+        L1[Lease 1<br/>60s TTL]
+        L2[Lease 2<br/>60s TTL]
+    end
     
-    def _apply_config(self, config: dict):
-        """Apply dynamic configuration"""
-        # Check version
-        new_version = config.get('version', 0)
-        if new_version <= self.config_version:
-            return
-        
-        self.config_version = new_version
-        
-        # Apply changes
-        if 'epoch' in config:
-            self.generator.EPOCH = config['epoch']
-            
-        if 'max_clock_skew_ms' in config:
-            self.generator.max_clock_skew_ms = config['max_clock_skew_ms']
-        
-        if 'bits_allocation' in config:
-            # Dangerous - requires careful migration
-            self._migrate_bit_allocation(config['bits_allocation'])
-        
-        logger.info(f"Applied configuration version {new_version}")
-    
-    async def coordinate_epoch_change(self, new_epoch: int):
-        """Coordinate epoch change across all nodes"""
-        # Phase 1: Propose change
-        proposal = {
-            'new_epoch': new_epoch,
-            'proposed_by': self.node_id,
-            'timestamp': time.time()
-        }
-        
-        self.zk.create(
-            f"{self.ZK_ROOT}/proposals/epoch-",
-            json.dumps(proposal).encode(),
-            sequence=True
-        )
-        
-        # Phase 2: Gather votes
-        nodes = self.zk.get_children(self.ZK_NODES)
-        votes_needed = len(nodes) // 2 + 1
-        votes_received = 1  # Self vote
-        
-        # Wait for votes
-        vote_timeout = 30  # seconds
-        start_time = time.time()
-        
-        while votes_received < votes_needed:
-            if time.time() - start_time > vote_timeout:
-                raise Exception("Epoch change timeout")
-            
-            votes = self.zk.get_children(f"{self.ZK_ROOT}/votes/epoch-{new_epoch}")
-            votes_received = len(votes)
-            await asyncio.sleep(0.1)
-        
-        # Phase 3: Commit change
-        self.zk.set(self.ZK_EPOCH, str(new_epoch).encode())
-        
-        # Phase 4: Apply locally
-        self.generator.EPOCH = new_epoch
-        
-        logger.info(f"Epoch changed to {new_epoch}")
+    DB --> L1
+    DB --> L2
+```
 
-class DatabaseBackedIDGenerator:
-    """Use database for coordination (simpler but less scalable)"""
+**Coordination Strategies Comparison:**
+
+| Strategy | Consistency | Availability | Partition Tolerance | Complexity |
+|----------|-------------|--------------|-------------------|------------|
+| Static Config | Strong | High | High | Very Low |
+| Zookeeper | Strong | Medium | Medium | High |
+| Database Lease | Strong | Low | Low | Medium |
+| Gossip Protocol | Eventual | High | High | High |
+| Kubernetes | Strong | High | Medium | Low |
+
+**Node ID Assignment Flow:**
+
+```mermaid
+sequenceDiagram
+    participant Node
+    participant ZK as Zookeeper
+    participant Gen as Generator
     
-    def __init__(self, db_url: str):
-        self.db = DatabaseConnection(db_url)
-        self.node_id = None
-        self.lease_duration = 60  # seconds
-        self.lease_renewer = None
-        
-        # Acquire node ID
-        self._acquire_node_lease()
+    Node->>ZK: Create ephemeral sequential node
+    ZK-->>Node: /idgen/nodes/node-0042
+    Node->>Node: Extract ID (42)
+    Node->>ZK: Check for duplicates
+    ZK-->>Node: All unique ✓
+    Node->>Gen: Initialize with ID
     
-    def _acquire_node_lease(self):
-        """Acquire node ID via database lease"""
-        while self.node_id is None:
-            try:
-                # Try to acquire unused node ID
-                result = self.db.execute("""
-                    UPDATE node_registry 
-                    SET lease_holder = %s, 
-                        lease_expiry = NOW() + INTERVAL %s SECOND
-                    WHERE lease_expiry < NOW()
-                    ORDER BY node_id
-                    LIMIT 1
-                    RETURNING node_id
-                """, [socket.gethostname(), self.lease_duration])
-                
-                if result:
-                    self.node_id = result[0]['node_id']
-                    self._start_lease_renewal()
-                else:
-                    # All nodes taken - wait and retry
-                    time.sleep(1)
-                    
-            except Exception as e:
-                logger.error(f"Failed to acquire node lease: {e}")
-                time.sleep(5)
+    loop Every 30s
+        Node->>ZK: Heartbeat
+    end
     
-    def _start_lease_renewal(self):
-        """Renew lease periodically"""
-        def renew_lease():
-            while True:
-                try:
-                    self.db.execute("""
-                        UPDATE node_registry
-                        SET lease_expiry = NOW() + INTERVAL %s SECOND
-                        WHERE node_id = %s AND lease_holder = %s
-                    """, [self.lease_duration, self.node_id, socket.gethostname()])
-                    
-                    time.sleep(self.lease_duration / 2)
-                except Exception as e:
-                    logger.error(f"Lease renewal failed: {e}")
-                    # Lost lease - need to re-acquire
-                    self.node_id = None
-                    self._acquire_node_lease()
-                    break
-        
-        self.lease_renewer = threading.Thread(target=renew_lease, daemon=True)
-        self.lease_renewer.start()
+    Note over Node,ZK: On disconnect:
+    ZK->>ZK: Remove ephemeral node
+    Note over ZK: ID 42 available again
+```
+
+**Configuration Change Protocol:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Propose: Admin initiates
+    Propose --> Vote: Nodes review
+    Vote --> Commit: Majority agrees
+    Vote --> Abort: Insufficient votes
+    Commit --> Apply: All nodes update
+    Apply --> [*]: Complete
+    Abort --> [*]: Cancelled
 ```
 
 #### 👁️ Axiom 6 (Observability): ID Analytics
@@ -819,185 +453,93 @@ Debugging Capabilities:
 - Anomaly detection
 ```
 
-**Implementation:**
-```python
-class ObservableIDGenerator:
-    def __init__(self):
-        self.generator = SnowflakeIDGenerator(machine_id=1)
-        
-        # Metrics
-        self.metrics = {
-            'generated_total': Counter('idgen_generated_total'),
-            'generation_rate': Gauge('idgen_generation_rate'),
-            'sequence_overflows': Counter('idgen_sequence_overflows'),
-            'clock_skew_ms': Histogram('idgen_clock_skew_ms'),
-            'id_space_used': Gauge('idgen_space_used_ratio')
-        }
-        
-        # Analytics
-        self.id_analyzer = IDAnalyzer()
-        self.collision_detector = CollisionDetector()
-        
-        # Start background monitoring
-        self._start_monitoring()
-    
-    def generate_with_telemetry(self) -> int:
-        """Generate ID with full telemetry"""
-        start_time = time.perf_counter()
-        
-        # Check clock health
-        clock_skew = self._measure_clock_skew()
-        self.metrics['clock_skew_ms'].observe(clock_skew)
-        
-        # Generate ID
-        id_value = self.generator.generate()
-        
-        # Record metrics
-        self.metrics['generated_total'].inc()
-        generation_time = (time.perf_counter() - start_time) * 1000000  # microseconds
-        
-        # Analyze ID
-        self.id_analyzer.analyze(id_value)
-        
-        # Check for collisions (sampling)
-        if random.random() < 0.001:  # 0.1% sampling
-            if self.collision_detector.check(id_value):
-                logger.error(f"COLLISION DETECTED: {id_value}")
-                self.metrics['collisions_detected'].inc()
-        
-        return id_value
-    
-    def get_diagnostics(self) -> dict:
-        """Comprehensive diagnostic information"""
-        parsed_recent = []
-        for id_val in self.id_analyzer.recent_ids[-10:]:
-            parsed_recent.append(self.generator.parse_id(id_val))
-        
-        return {
-            'generator_info': {
-                'machine_id': self.generator.machine_id,
-                'datacenter_id': self.generator.datacenter_id,
-                'epoch': self.generator.EPOCH,
-                'uptime_seconds': time.time() - self.start_time
-            },
-            'performance': {
-                'total_generated': self.metrics['generated_total']._value.get(),
-                'generation_rate': self._calculate_rate(),
-                'avg_latency_us': self.id_analyzer.avg_latency,
-                'sequence_overflows': self.metrics['sequence_overflows']._value.get()
-            },
-            'id_space': {
-                'bits_used': {
-                    'timestamp': 41,
-                    'datacenter': 5,
-                    'machine': 5,
-                    'sequence': 12
-                },
-                'timestamp_exhaustion': self._calculate_exhaustion_date(),
-                'current_utilization': self._calculate_space_utilization()
-            },
-            'clock_health': {
-                'current_skew_ms': self._measure_clock_skew(),
-                'max_skew_seen_ms': max(self.clock_skew_history),
-                'ntp_status': self._get_ntp_status()
-            },
-            'recent_ids': parsed_recent,
-            'patterns': self.id_analyzer.detect_patterns()
-        }
+**Observability Architecture:**
 
-class IDAnalyzer:
-    """Analyze ID generation patterns"""
+```mermaid
+graph TB
+    subgraph "Metrics Collection"
+        G[Generator]
+        M1[Generation Rate]
+        M2[Latency Histogram]
+        M3[Clock Skew]
+        M4[Sequence Overflows]
+    end
     
-    def __init__(self, window_size: int = 10000):
-        self.window_size = window_size
-        self.recent_ids = deque(maxlen=window_size)
-        self.timestamp_gaps = []
-        self.sequence_distributions = defaultdict(int)
-        
-    def analyze(self, id_value: int):
-        """Analyze generated ID"""
-        self.recent_ids.append(id_value)
-        
-        if len(self.recent_ids) > 1:
-            # Extract components
-            prev_id = self.recent_ids[-2]
-            curr_ts = (id_value >> 22) & 0x1FFFFFFFFFF
-            prev_ts = (prev_id >> 22) & 0x1FFFFFFFFFF
-            
-            # Timestamp analysis
-            ts_gap = curr_ts - prev_ts
-            if ts_gap > 0:
-                self.timestamp_gaps.append(ts_gap)
-            
-            # Sequence analysis
-            curr_seq = id_value & 0xFFF
-            self.sequence_distributions[curr_seq] += 1
+    G --> M1 & M2 & M3 & M4
     
-    def detect_patterns(self) -> dict:
-        """Detect anomalous patterns"""
-        patterns = {
-            'timestamp_anomalies': [],
-            'sequence_anomalies': [],
-            'generation_bursts': []
-        }
-        
-        # Detect timestamp jumps
-        if self.timestamp_gaps:
-            avg_gap = sum(self.timestamp_gaps) / len(self.timestamp_gaps)
-            for i, gap in enumerate(self.timestamp_gaps):
-                if gap > avg_gap * 10:  # 10x average
-                    patterns['timestamp_anomalies'].append({
-                        'position': i,
-                        'gap_ms': gap,
-                        'expected_ms': avg_gap
-                    })
-        
-        # Detect sequence distribution anomalies
-        total_sequences = sum(self.sequence_distributions.values())
-        expected_per_seq = total_sequences / 4096  # Even distribution
-        
-        for seq, count in self.sequence_distributions.items():
-            if count > expected_per_seq * 5:  # 5x expected
-                patterns['sequence_anomalies'].append({
-                    'sequence': seq,
-                    'count': count,
-                    'expected': expected_per_seq
-                })
-        
-        return patterns
+    subgraph "Analytics Pipeline"
+        A1[ID Analyzer]
+        A2[Pattern Detection]
+        A3[Collision Detection]
+    end
+    
+    G --> A1
+    A1 --> A2
+    A1 --> A3
+    
+    subgraph "Monitoring Dashboard"
+        D1[Real-time Metrics]
+        D2[Health Status]
+        D3[Anomaly Alerts]
+    end
+    
+    M1 & M2 & M3 & M4 --> D1
+    A2 & A3 --> D3
+```
 
-class CollisionDetector:
-    """Probabilistic collision detection using Bloom filter"""
+**Key Observability Metrics:**
+
+| Metric | Type | Purpose | Alert Threshold |
+|--------|------|---------|----------------|
+| generation_rate | Gauge | Current IDs/sec | < 1000 or > 10M |
+| latency_p99 | Histogram | Generation time | > 10μs |
+| clock_skew_ms | Histogram | Time sync health | > 1000ms |
+| sequence_overflows | Counter | Capacity issues | > 100/min |
+| collision_detected | Counter | Uniqueness failures | > 0 |
+| id_space_used | Gauge | Capacity planning | > 80% |
+
+**Pattern Detection Examples:**
+
+```mermaid
+graph LR
+    subgraph "Normal Pattern"
+        N1[Steady Rate]
+        N2[Even Distribution]
+        N3[Regular Gaps]
+    end
     
-    def __init__(self, expected_ids: int = 1_000_000_000):
-        self.bloom_filter = ScalableBloomFilter(
-            initial_capacity=expected_ids,
-            error_rate=0.001,
-            growth_factor=2
-        )
-        self.exact_check_sample = set()  # Small sample for exact checking
-        self.sample_size = 10000
-        
-    def check(self, id_value: int) -> bool:
-        """Check for potential collision"""
-        # Bloom filter check (fast, probabilistic)
-        if id_value in self.bloom_filter:
-            # Possible collision - do exact check on sample
-            if id_value in self.exact_check_sample:
-                return True  # Definite collision!
-        
-        # Add to structures
-        self.bloom_filter.add(id_value)
-        
-        # Maintain exact sample
-        if len(self.exact_check_sample) < self.sample_size:
-            self.exact_check_sample.add(id_value)
-        elif random.random() < 0.01:  # 1% replacement rate
-            # Reservoir sampling
-            self.exact_check_sample.pop()
-            self.exact_check_sample.add(id_value)
-        
-        return False
+    subgraph "Anomaly Patterns"
+        A1[Burst Traffic<br/>Sequence clustering]
+        A2[Clock Jump<br/>Large timestamp gap]
+        A3[Hot Shard<br/>Uneven distribution]
+    end
+    
+    N1 -.->|Deviation| A1
+    N2 -.->|Deviation| A3
+    N3 -.->|Deviation| A2
+```
+
+**Diagnostic Dashboard Layout:**
+
+```mermaid
+graph TB
+    subgraph "System Health"
+        H1[Generator Status: ✓]
+        H2[Clock Sync: ✓]
+        H3[Capacity: 42%]
+    end
+    
+    subgraph "Performance"
+        P1[Rate: 125K/s]
+        P2[Latency: 0.8μs]
+        P3[Errors: 0.001%]
+    end
+    
+    subgraph "ID Analysis"
+        I1[Recent IDs Table]
+        I2[Bit Usage Chart]
+        I3[Time Series Graph]
+    end
 ```
 
 #### 👤 Axiom 7 (Human Interface): Developer Experience
@@ -1016,232 +558,84 @@ Operational Needs:
 - Debugging tools
 ```
 
-**Implementation:**
-```python
-class DeveloperFriendlyIDGenerator:
-    """ID generator with excellent developer experience"""
-    
-    def __init__(self, config: Optional[dict] = None):
-        self.config = config or self._load_default_config()
-        self.generator = self._create_generator()
-        
-        # Developer tools
-        self.inspector = IDInspector()
-        self.migrator = IDMigrator()
-        self.tester = IDTester()
-    
-    def generate(self) -> int:
-        """Generate a unique ID
-        
-        Returns:
-            int: 64-bit unique identifier
-            
-        Raises:
-            ClockSkewError: If system clock is unreliable
-            SequenceOverflowError: If generating too fast
-            
-        Example:
-            >>> gen = DeveloperFriendlyIDGenerator()
-            >>> id1 = gen.generate()
-            >>> id2 = gen.generate()
-            >>> assert id2 > id1  # IDs are time-ordered
-        """
-        try:
-            return self.generator.generate()
-        except Exception as e:
-            # Provide helpful error messages
-            if "Clock moved backwards" in str(e):
-                raise ClockSkewError(
-                    "System clock moved backwards. "
-                    "Check NTP configuration: sudo ntpq -p"
-                ) from e
-            elif "Sequence overflow" in str(e):
-                raise SequenceOverflowError(
-                    "Generating IDs too quickly. "
-                    "Consider using batch generation or multiple generators."
-                ) from e
-            else:
-                raise
-    
-    def generate_batch(self, count: int) -> List[int]:
-        """Generate multiple IDs efficiently
-        
-        Args:
-            count: Number of IDs to generate
-            
-        Returns:
-            List of unique IDs
-            
-        Example:
-            >>> ids = gen.generate_batch(1000)
-            >>> assert len(ids) == len(set(ids))  # All unique
-        """
-        if count <= 0:
-            raise ValueError("Count must be positive")
-        
-        if count > 1_000_000:
-            logger.warning(f"Generating {count:,} IDs may take time")
-        
-        ids = []
-        for _ in range(count):
-            ids.append(self.generate())
-        
-        return ids
-    
-    def inspect(self, id_value: int) -> dict:
-        """Inspect ID components for debugging
-        
-        Args:
-            id_value: ID to inspect
-            
-        Returns:
-            Dictionary with parsed components
-            
-        Example:
-            >>> info = gen.inspect(431963606540398592)
-            >>> print(info)
-            {
-                'timestamp': 1635360000000,
-                'datetime': '2021-10-28 00:00:00 UTC',
-                'datacenter_id': 1,
-                'machine_id': 5,
-                'sequence': 0,
-                'binary': '0101111110110010...'
-            }
-        """
-        return self.inspector.inspect_id(id_value)
-    
-    def validate_config(self, config: dict) -> List[str]:
-        """Validate configuration with helpful messages"""
-        errors = []
-        
-        # Check machine ID
-        machine_id = config.get('machine_id')
-        if machine_id is None:
-            errors.append(
-                "machine_id is required. "
-                "Use a unique ID per instance (0-1023)"
-            )
-        elif not 0 <= machine_id <= 1023:
-            errors.append(
-                f"machine_id {machine_id} out of range. "
-                "Must be between 0 and 1023"
-            )
-        
-        # Check epoch
-        epoch = config.get('epoch')
-        if epoch and epoch > time.time() * 1000:
-            errors.append(
-                f"epoch {epoch} is in the future. "
-                "Use a past timestamp like 1609459200000 (2021-01-01)"
-            )
-        
-        return errors
-    
-    def create_test_generator(self) -> 'MockIDGenerator':
-        """Create generator for testing
-        
-        Example:
-            >>> test_gen = gen.create_test_generator()
-            >>> test_gen.set_time(1635360000000)
-            >>> id1 = test_gen.generate()
-            >>> test_gen.advance_time(1000)  # +1 second
-            >>> id2 = test_gen.generate()
-        """
-        return MockIDGenerator(self.config)
+**Developer Experience Design:**
 
-class IDInspector:
-    """Interactive ID inspector"""
+```mermaid
+graph TB
+    subgraph "API Surface"
+        A1[generate()<br/>Simple single ID]
+        A2[generate_batch()<br/>Efficient bulk]
+        A3[inspect()<br/>Debug tool]
+        A4[validate_config()<br/>Setup helper]
+    end
     
-    def inspect_id(self, id_value: int) -> dict:
-        """Detailed ID inspection"""
-        # Binary representation
-        binary = format(id_value, '064b')
-        
-        # Parse components (assuming Snowflake layout)
-        timestamp = ((id_value >> 22) & 0x1FFFFFFFFFF) + EPOCH
-        datacenter = (id_value >> 17) & 0x1F
-        machine = (id_value >> 12) & 0x1F
-        sequence = id_value & 0xFFF
-        
-        # Human-readable format
-        dt = datetime.fromtimestamp(timestamp / 1000, tz=timezone.utc)
-        
-        return {
-            'id': id_value,
-            'id_hex': hex(id_value),
-            'binary': binary,
-            'binary_formatted': f"{binary[:1]} {binary[1:42]} {binary[42:47]} {binary[47:52]} {binary[52:]}",
-            'components': {
-                'timestamp': timestamp,
-                'datetime': dt.strftime('%Y-%m-%d %H:%M:%S.%f')[:-3] + ' UTC',
-                'datacenter_id': datacenter,
-                'machine_id': machine,
-                'sequence': sequence
-            },
-            'bit_allocation': {
-                'sign_bit': binary[:1],
-                'timestamp_bits': binary[1:42],
-                'datacenter_bits': binary[42:47],
-                'machine_bits': binary[47:52],
-                'sequence_bits': binary[52:]
-            }
-        }
+    subgraph "Error Handling"
+        E1[ClockSkewError<br/>With NTP hints]
+        E2[SequenceOverflowError<br/>With solutions]
+        E3[ConfigError<br/>With examples]
+    end
     
-    def compare_ids(self, id1: int, id2: int) -> dict:
-        """Compare two IDs"""
-        info1 = self.inspect_id(id1)
-        info2 = self.inspect_id(id2)
-        
-        time_diff = info2['components']['timestamp'] - info1['components']['timestamp']
-        
-        return {
-            'id1': info1,
-            'id2': info2,
-            'comparison': {
-                'time_difference_ms': time_diff,
-                'same_machine': info1['components']['machine_id'] == info2['components']['machine_id'],
-                'same_datacenter': info1['components']['datacenter_id'] == info2['components']['datacenter_id'],
-                'sequence_diff': info2['components']['sequence'] - info1['components']['sequence']
-            }
-        }
+    subgraph "Developer Tools"
+        T1[ID Inspector<br/>Visual breakdown]
+        T2[Test Generator<br/>Deterministic]
+        T3[Migration Planner<br/>Step-by-step]
+    end
+```
 
-class IDMigrator:
-    """Tools for ID scheme migration"""
+**Common Operations Guide:**
+
+| Task | Code Example | Notes |
+|------|--------------|-------|
+| Generate ID | `id = gen.generate()` | Thread-safe, ~1μs |
+| Batch Generate | `ids = gen.generate_batch(1000)` | Pre-allocated, faster |
+| Debug ID | `info = gen.inspect(id)` | Shows all components |
+| Test Setup | `test_gen = gen.create_test_generator()` | Deterministic for tests |
+| Validate Config | `errors = gen.validate_config(cfg)` | Pre-deployment check |
+
+**ID Inspector Output Example:**
+
+```mermaid
+graph LR
+    subgraph "ID: 431963606540398592"
+        I1[Timestamp<br/>2021-10-28 00:00:00]
+        I2[Datacenter<br/>1]
+        I3[Machine<br/>5]
+        I4[Sequence<br/>0]
+    end
     
-    def plan_migration(self, from_scheme: str, to_scheme: str) -> dict:
-        """Plan migration between ID schemes"""
-        plans = {
-            ('uuid', 'snowflake'): self._uuid_to_snowflake,
-            ('sequential', 'snowflake'): self._sequential_to_snowflake,
-            ('snowflake', 'uuid'): self._snowflake_to_uuid
-        }
-        
-        if (from_scheme, to_scheme) not in plans:
-            raise ValueError(f"No migration path from {from_scheme} to {to_scheme}")
-        
-        return plans[(from_scheme, to_scheme)]()
-    
-    def _uuid_to_snowflake(self) -> dict:
-        return {
-            'steps': [
-                "1. Deploy Snowflake generators alongside UUID",
-                "2. Start dual-writing: save both UUID and Snowflake ID",
-                "3. Backfill Snowflake IDs for existing records",
-                "4. Update queries to use Snowflake IDs",
-                "5. Stop writing UUIDs",
-                "6. Drop UUID columns"
-            ],
-            'considerations': [
-                "- UUIDs are 128-bit, Snowflake IDs are 64-bit",
-                "- Snowflake IDs are time-ordered, UUIDs are not",
-                "- Need unique machine IDs for each generator"
-            ],
-            'rollback_plan': [
-                "Keep UUID columns for 30 days",
-                "Can revert by switching queries back to UUID"
-            ]
-        }
+    subgraph "Binary View"
+        B1[0 | 41 bits timestamp | 5 DC | 5 Machine | 12 Seq]
+    end
+```
+
+**Migration Planning Matrix:**
+
+| From → To | Complexity | Downtime | Risk | Duration |
+|-----------|------------|----------|------|----------|
+| UUID → Snowflake | High | Zero | Low | 2-4 weeks |
+| Sequential → Snowflake | Medium | Zero | Low | 1-2 weeks |
+| Snowflake → UUID | Low | Zero | Low | 1 week |
+| Database → Snowflake | High | Minutes | Medium | 2-3 weeks |
+
+**Migration Steps Visualization:**
+
+```mermaid
+gantt
+    title UUID to Snowflake Migration
+    dateFormat YYYY-MM-DD
+    section Phase 1
+    Deploy Generators    :2024-01-01, 3d
+    section Phase 2
+    Dual Writing        :3d
+    Monitor & Verify    :7d
+    section Phase 3
+    Backfill IDs       :5d
+    section Phase 4
+    Switch Reads       :2d
+    section Phase 5
+    Stop UUID Writes   :1d
+    section Phase 6
+    Drop UUID Column   :after 30d, 1d
 ```
 
 #### 💰 Axiom 8 (Economics): Cost Optimization
@@ -1260,141 +654,83 @@ Optimization Strategies:
 - Caching ID ranges
 ```
 
-**Implementation:**
-```python
-class EconomicalIDGenerator:
-    """Cost-optimized ID generation"""
-    
-    def __init__(self):
-        self.cost_model = {
-            'server_hour': 0.10,  # $/hour
-            'network_request': 0.0001,  # $/request
-            'storage_gb_month': 0.10,  # $/GB/month
-            'developer_hour': 100  # $/hour
-        }
-        
-        # Optimization strategies
-        self.batch_size = 1000
-        self.cache_size = 10000
-        self.compression_enabled = True
-    
-    def calculate_tco(self, config: dict) -> dict:
-        """Calculate Total Cost of Ownership"""
-        qps = config['expected_qps']
-        retention_days = config.get('id_retention_days', 365)
-        
-        # Infrastructure cost
-        servers_needed = max(1, qps // 1_000_000)  # 1M QPS per server
-        infra_cost_month = servers_needed * self.cost_model['server_hour'] * 24 * 30
-        
-        # Network cost (if centralized)
-        if config.get('architecture') == 'centralized':
-            network_cost_month = qps * 86400 * 30 * self.cost_model['network_request']
-        else:
-            network_cost_month = 0
-        
-        # Storage cost
-        ids_per_month = qps * 86400 * 30
-        bytes_per_id = 8 if config.get('id_size') == 64 else 16
-        storage_gb = (ids_per_month * bytes_per_id * retention_days / 30) / 1e9
-        storage_cost_month = storage_gb * self.cost_model['storage_gb_month']
-        
-        # Development cost (amortized over 1 year)
-        complexity_hours = {
-            'uuid': 10,
-            'database_sequence': 20,
-            'snowflake': 100,
-            'custom': 200
-        }
-        dev_hours = complexity_hours.get(config.get('algorithm', 'custom'), 200)
-        dev_cost_month = (dev_hours * self.cost_model['developer_hour']) / 12
-        
-        total_cost_month = infra_cost_month + network_cost_month + storage_cost_month + dev_cost_month
-        
-        return {
-            'infrastructure_cost': infra_cost_month,
-            'network_cost': network_cost_month,
-            'storage_cost': storage_cost_month,
-            'development_cost': dev_cost_month,
-            'total_monthly_cost': total_cost_month,
-            'cost_per_million_ids': total_cost_month / (qps * 86400 * 30 / 1e6),
-            'recommendations': self._cost_recommendations(config, total_cost_month)
-        }
-    
-    def _cost_recommendations(self, config: dict, monthly_cost: float) -> List[str]:
-        """Generate cost optimization recommendations"""
-        recommendations = []
-        
-        if config.get('architecture') == 'centralized' and monthly_cost > 1000:
-            recommendations.append(
-                "Consider distributed generation to eliminate network costs"
-            )
-        
-        if config.get('id_size') == 128 and config.get('expected_years') < 50:
-            recommendations.append(
-                "64-bit IDs sufficient for your timeline, could halve storage"
-            )
-        
-        if config.get('qps') > 1_000_000:
-            recommendations.append(
-                "Implement client-side ID caching to reduce server load"
-            )
-        
-        return recommendations
+**Cost Optimization Strategies:**
 
-class BatchOptimizedGenerator:
-    """Optimize for batch generation scenarios"""
+```mermaid
+graph TB
+    subgraph "Cost Components"
+        C1[Infrastructure<br/>$0.10/hour]
+        C2[Network<br/>$0.0001/request]
+        C3[Storage<br/>$0.10/GB/month]
+        C4[Development<br/>$100/hour]
+    end
     
-    def __init__(self, base_generator):
-        self.base_generator = base_generator
-        self.pre_allocated_ranges = []
-        self.range_size = 10000
-        
-    async def allocate_range(self) -> Tuple[int, int]:
-        """Pre-allocate ID range for batch generation"""
-        # Reserve range atomically
-        start_id = await self._reserve_range_start()
-        end_id = start_id + self.range_size
-        
-        self.pre_allocated_ranges.append({
-            'start': start_id,
-            'end': end_id,
-            'current': start_id,
-            'allocated_at': time.time()
-        })
-        
-        return start_id, end_id
+    subgraph "Architecture Impact"
+        A1[Centralized<br/>High network cost]
+        A2[Distributed<br/>Zero network cost]
+        A3[Serverless<br/>Pay per use]
+    end
     
-    def generate_from_range(self) -> Optional[int]:
-        """Generate from pre-allocated range (no coordination needed)"""
-        for range_info in self.pre_allocated_ranges:
-            if range_info['current'] < range_info['end']:
-                id_value = range_info['current']
-                range_info['current'] += 1
-                return id_value
-        
-        # No available range
-        return None
+    subgraph "Optimizations"
+        O1[Client-side<br/>generation]
+        O2[Batch allocation]
+        O3[ID caching]
+        O4[Compression]
+    end
+```
+
+**Total Cost of Ownership Calculator:**
+
+| Parameter | Value | Monthly Cost | Optimization |
+|-----------|-------|--------------|-------------|
+| QPS | 1M | - | - |
+| Architecture | Centralized | $2,592 | Switch to distributed |
+| ID Size | 128-bit | $200 | Use 64-bit if possible |
+| Storage | 1 year retention | $360 | Compress or archive |
+| Development | Custom (200h) | $1,667 | Use standard Snowflake |
+| **Total** | - | **$4,819** | **Potential: $500** |
+
+**Cost Optimization Decision Tree:**
+
+```mermaid
+graph TD
+    Start[Monthly Cost > $1000?]
+    Start -->|Yes| A1[Architecture Check]
+    Start -->|No| Done[Acceptable]
     
-    async def _reserve_range_start(self) -> int:
-        """Reserve starting ID for range"""
-        # Use atomic operation to reserve
-        # This is the only coordination point
-        timestamp = int(time.time() * 1000)
-        
-        # Ensure we get a unique starting point
-        async with aioredis.create_redis_pool('redis://localhost') as redis:
-            # Atomic increment by range size
-            sequence = await redis.incrby(
-                f"idgen:range:{timestamp}", 
-                self.range_size
-            )
-            
-            # Construct base ID
-            base_id = (timestamp << 22) | (self.base_generator.machine_id << 12)
-            
-            # Starting ID is base + reserved sequence
-            return base_id + (sequence - self.range_size)
+    A1 -->|Centralized| R1[Go Distributed<br/>Save 90% network]
+    A1 -->|Distributed| A2[ID Size Check]
+    
+    A2 -->|128-bit| R2[Use 64-bit<br/>Save 50% storage]
+    A2 -->|64-bit| A3[Scale Check]
+    
+    A3 -->|>1M QPS| R3[Client caching<br/>Save 80% compute]
+    A3 -->|<1M QPS| R4[Batch generation<br/>Save 60% overhead]
+```
+
+**Batch Allocation Architecture:**
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Local as Local Pool
+    participant Redis
+    participant Gen as Generator
+    
+    Client->>Local: Need ID
+    Local->>Local: Check pool
+    
+    alt Pool Empty
+        Local->>Redis: Reserve range (10K)
+        Redis->>Gen: Atomic increment
+        Gen-->>Redis: Range [N to N+10K]
+        Redis-->>Local: Reserved range
+        Local->>Local: Fill pool
+    end
+    
+    Local-->>Client: Return ID
+    
+    Note over Client,Gen: Only 1 network call per 10K IDs
 ```
 
 ### 🔍 Comprehensive Axiom Mapping

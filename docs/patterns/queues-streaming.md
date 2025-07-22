@@ -129,6 +129,30 @@ graph LR
     style L fill:#9f9,stroke:#333,stroke-width:2px
 ```
 
+### Message Flow Patterns
+
+```mermaid
+sequenceDiagram
+    participant P as Producer
+    participant Q as Queue
+    participant C1 as Consumer 1
+    participant C2 as Consumer 2
+    
+    Note over P,C2: Point-to-Point Pattern
+    P->>Q: Send Message A
+    P->>Q: Send Message B
+    Q->>C1: Deliver Message A
+    Q->>C2: Deliver Message B
+    C1->>Q: ACK Message A
+    C2->>Q: ACK Message B
+    
+    Note over P,C2: Load Distribution
+    P->>Q: Send Message C
+    P->>Q: Send Message D
+    Q->>C1: Deliver Message C (Round Robin)
+    Q->>C2: Deliver Message D (Round Robin)
+```
+
 ### Key Benefits
 
 1. **Resilience**: Works despite consumer downtime
@@ -220,7 +244,61 @@ graph TB
 
 ### Implementation Patterns
 
-#### Basic Queue Implementation
+#### Queue Implementation Patterns
+
+##### Message Flow Sequence
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant Q as Queue Manager
+    participant S as Storage
+    participant C as Consumer
+    
+    App->>Q: send(message)
+    Q->>Q: Generate Message ID
+    Q->>S: Store Message
+    Q-->>App: Return Message ID
+    
+    C->>Q: receive()
+    Q->>S: Get Next Message
+    S-->>Q: Message Data
+    Q->>Q: Set Visibility Timeout
+    Q-->>C: Return Message
+    
+    alt Success
+        C->>Q: delete(messageId)
+        Q->>S: Remove Message
+    else Failure
+        Note over Q,S: Visibility timeout expires
+        Q->>Q: Make message available again
+    end
+```
+
+##### Queue State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Available: Message Sent
+    Available --> InFlight: Consumer Receives
+    InFlight --> Processed: ACK Received
+    InFlight --> Available: Visibility Timeout
+    InFlight --> DeadLetter: Max Retries Exceeded
+    Processed --> [*]: Deleted
+    DeadLetter --> [*]: Manual Intervention
+    
+    note right of InFlight
+        Message locked for
+        visibility timeout period
+    end note
+    
+    note right of DeadLetter
+        Poison messages that
+        repeatedly fail processing
+    end note
+```
+
+##### Core Queue Operations
 
 ```python
 from abc import ABC, abstractmethod
@@ -368,6 +446,61 @@ class InMemoryQueue(Queue):
         with self.lock:
             return len(self.queue)
 
+##### Stream Processing Architecture
+
+```mermaid
+graph TB
+    subgraph "Stream Processing Flow"
+        P[Producers] --> PS[Partitioned Stream]
+        PS --> CG1[Consumer Group 1]
+        PS --> CG2[Consumer Group 2]
+        
+        subgraph "Partitions"
+            PS --> P0[Partition 0]
+            PS --> P1[Partition 1]
+            PS --> P2[Partition 2]
+        end
+        
+        subgraph "Consumer Group 1"
+            P0 --> C1A[Consumer 1A]
+            P1 --> C1B[Consumer 1B]
+            P2 --> C1C[Consumer 1C]
+        end
+        
+        subgraph "Consumer Group 2"
+            P0 --> C2A[Consumer 2A]
+            P1 --> C2A
+            P2 --> C2B[Consumer 2B]
+        end
+    end
+```
+
+##### Stream Event Flow
+
+```mermaid
+sequenceDiagram
+    participant P as Producer
+    participant S as Stream
+    participant Part as Partition Router
+    participant P0 as Partition 0
+    participant P1 as Partition 1
+    participant CG as Consumer Group
+    
+    P->>S: Produce(key=user123, value=event)
+    S->>Part: Route by key hash
+    Part->>Part: hash(user123) % 2 = 1
+    Part->>P1: Append to Partition 1
+    P1->>P1: Assign offset=42
+    P1-->>S: Return (partition=1, offset=42)
+    S-->>P: ACK with position
+    
+    CG->>S: Poll for new events
+    S->>P1: Read from last offset
+    P1-->>CG: Events from offset 41
+    CG->>CG: Process events
+    CG->>S: Commit offset 42
+```
+
 # Stream Processing Implementation
 class StreamPartition:
     """Single partition of an event stream"""
@@ -453,6 +586,28 @@ class EventStream:
         
         return events
 ```
+
+### Queue Technology Comparison
+
+| Technology | Type | Throughput | Latency | Durability | Best For |
+|------------|------|------------|---------|------------|----------|
+| **RabbitMQ** | Message Queue | 50K msg/s | <1ms | Configurable | Traditional enterprise |
+| **Kafka** | Event Stream | 1M+ msg/s | 2-5ms | Replicated | High-volume streaming |
+| **SQS** | Managed Queue | 3K msg/s | 10-100ms | High | AWS integration |
+| **Redis Streams** | In-memory Stream | 100K msg/s | <1ms | Optional | Real-time, cache |
+| **Pulsar** | Multi-tenant Stream | 1M+ msg/s | 5-10ms | Tiered | Multi-tenancy |
+| **NATS** | Message Queue | 200K msg/s | <1ms | Optional | Microservices |
+
+### Message Pattern Decision Matrix
+
+| Requirement | Queue | Pub/Sub | Stream | Recommendation |
+|-------------|-------|---------|--------|----------------|
+| Task distribution | ✓✓✓ | ✓ | ✓ | Use Queue |
+| Event broadcasting | ✓ | ✓✓✓ | ✓✓ | Use Pub/Sub |
+| Event replay | ✗ | ✗ | ✓✓✓ | Use Stream |
+| Ordered processing | ✓ | ✓ | ✓✓✓ | Use Stream with partitions |
+| At-most-once | ✓✓✓ | ✓✓✓ | ✓ | Use Queue/Pub/Sub |
+| Exactly-once | ✓ | ✓ | ✓✓✓ | Use Stream with transactions |
 
 #### Production-Ready Implementation
 
@@ -753,6 +908,19 @@ stateDiagram-v2
         for poison messages
     end note
 ```
+
+### Queue vs Stream Comparison
+
+| Aspect | Message Queue | Event Stream |
+|--------|--------------|-------------|
+| **Message Retention** | Deleted after consumption | Retained for configured period |
+| **Consumer Model** | Competing consumers | Consumer groups with offsets |
+| **Message Order** | Best effort (FIFO) | Guaranteed within partition |
+| **Replay** | Not supported | Full replay from any offset |
+| **Scaling** | Add more consumers | Add partitions and consumers |
+| **Use Cases** | Task distribution, commands | Event sourcing, audit logs |
+| **Delivery** | At-least-once typical | Exactly-once possible |
+| **Performance** | Lower latency | Higher throughput |
 
 ### Common Variations
 

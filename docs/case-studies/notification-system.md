@@ -734,204 +734,123 @@ Mitigation Strategies:
 - At-least-once delivery
 ```
 
-**Implementation:**
-```python
-import uuid
-from tenacity import retry, stop_after_attempt, wait_exponential
-import aiohttp
+**Failure Handling & Recovery:**
 
-class ReliableNotificationDelivery:
-    def __init__(self):
-        # Provider pools with failover
-        self.email_providers = [
-            SendGridProvider(),
-            SESProvider(),
-            MailgunProvider()
-        ]
-        
-        self.sms_providers = [
-            TwilioProvider(),
-            SNSProvider(),
-            NexmoProvider()
-        ]
-        
-        self.push_providers = [
-            FCMProvider(),
-            APNSProvider()
-        ]
-        
-        # Circuit breakers per provider
-        self.circuit_breakers = {}
-        
-        # Retry configuration
-        self.retry_config = {
-            'max_attempts': 3,
-            'backoff_base': 2,
-            'max_delay': 300  # 5 minutes
-        }
-        
-        # Dead letter queue
-        self.dlq = DeadLetterQueue()
-        
-        # Idempotency tracking
-        self.idempotency_cache = TTLCache(maxsize=1_000_000, ttl=3600)
-        
-    async def send_with_reliability(self, notification: Notification, 
-                                   channel: Channel) -> DeliveryResult:
-        """Send notification with reliability guarantees"""
-        # Generate idempotency key
-        idempotency_key = self._generate_idempotency_key(notification, channel)
-        
-        # Check if already sent
-        if idempotency_key in self.idempotency_cache:
-            cached_result = self.idempotency_cache[idempotency_key]
-            return DeliveryResult(
-                status='duplicate',
-                original_result=cached_result
-            )
-        
-        # Get providers for channel
-        providers = self._get_providers(channel)
-        
-        # Try each provider with circuit breaker
-        last_error = None
-        
-        for provider in providers:
-            # Check circuit breaker
-            cb = self._get_circuit_breaker(provider)
-            
-            if cb.is_open():
-                logger.warning(f"Circuit breaker open for {provider.name}")
-                continue
-            
-            try:
-                # Attempt delivery with retry
-                result = await self._send_with_retry(
-                    provider,
-                    notification,
-                    channel
-                )
-                
-                # Success - record in cache
-                self.idempotency_cache[idempotency_key] = result
-                cb.record_success()
-                
-                return result
-                
-            except Exception as e:
-                last_error = e
-                cb.record_failure()
-                logger.error(f"Provider {provider.name} failed: {e}")
-                
-                # Continue to next provider
-                continue
-        
-        # All providers failed - send to DLQ
-        await self._send_to_dlq(notification, channel, last_error)
-        
-        return DeliveryResult(
-            status='failed',
-            error=str(last_error),
-            sent_to_dlq=True
-        )
+```mermaid
+stateDiagram-v2
+    [*] --> SendAttempt
     
-    @retry(
-        stop=stop_after_attempt(3),
-        wait=wait_exponential(multiplier=2, min=1, max=60),
-        reraise=True
-    )
-    async def _send_with_retry(self, provider, notification, channel):
-        """Send with exponential backoff retry"""
-        try:
-            result = await provider.send(notification, channel)
-            
-            # Check for soft failures that should be retried
-            if result.status in ['rate_limited', 'temporary_failure']:
-                raise TemporaryFailure(result.error)
-            
-            return result
-            
-        except aiohttp.ClientError as e:
-            # Network errors - retry
-            raise TemporaryFailure(f"Network error: {e}")
-        
-        except InvalidTokenError as e:
-            # Don't retry invalid tokens
-            return DeliveryResult(
-                status='invalid_recipient',
-                error=str(e)
-            )
+    SendAttempt --> CheckIdempotency
+    CheckIdempotency --> Duplicate: Already Sent
+    CheckIdempotency --> TryProvider1: New
     
-    def _get_circuit_breaker(self, provider):
-        """Get or create circuit breaker for provider"""
-        key = f"{provider.__class__.__name__}"
-        
-        if key not in self.circuit_breakers:
-            self.circuit_breakers[key] = CircuitBreaker(
-                failure_threshold=5,
-                recovery_timeout=60,
-                half_open_requests=3
-            )
-        
-        return self.circuit_breakers[key]
+    TryProvider1 --> Success: Delivered
+    TryProvider1 --> CircuitOpen: CB Open
+    TryProvider1 --> Failed: Error
     
-    async def _send_to_dlq(self, notification, channel, error):
-        """Send failed notification to dead letter queue"""
-        dlq_message = {
-            'notification': notification,
-            'channel': channel,
-            'error': str(error),
-            'timestamp': time.time(),
-            'retry_count': notification.metadata.get('retry_count', 0)
-        }
-        
-        await self.dlq.add(dlq_message)
-        
-        # Alert if DLQ is growing
-        dlq_size = await self.dlq.size()
-        if dlq_size > 10000:
-            await self._alert_dlq_overflow(dlq_size)
+    CircuitOpen --> TryProvider2
+    Failed --> TryProvider2
     
-    async def process_dlq(self):
-        """Process dead letter queue periodically"""
-        while True:
-            # Get batch from DLQ
-            messages = await self.dlq.get_batch(100)
-            
-            for message in messages:
-                notification = message['notification']
-                channel = message['channel']
-                retry_count = message['retry_count']
-                
-                # Check if should retry
-                if retry_count < 5 and self._should_retry(message):
-                    # Increment retry count
-                    notification.metadata['retry_count'] = retry_count + 1
-                    
-                    # Re-queue with lower priority
-                    notification.priority = NotificationPriority.LOW
-                    
-                    await self.send_with_reliability(notification, channel)
-                else:
-                    # Max retries exceeded - log and discard
-                    logger.error(
-                        f"Notification {notification.id} permanently failed",
-                        extra={
-                            'user_id': notification.user_id,
-                            'channel': channel,
-                            'retry_count': retry_count
-                        }
-                    )
-                    
-                    # Record permanent failure
-                    await self._record_permanent_failure(notification, channel)
-            
-            # Wait before next batch
-            await asyncio.sleep(60)  # 1 minute
+    TryProvider2 --> Success: Delivered
+    TryProvider2 --> Failed2: Error
     
-    def _should_retry(self, dlq_message):
-        """Determine if notification should be retried"""
-        error = dlq_message['error']
+    Failed2 --> TryProvider3
+    TryProvider3 --> Success: Delivered
+    TryProvider3 --> AllFailed: Error
+    
+    AllFailed --> DLQ: Send to DLQ
+    DLQ --> Retry: Process Later
+    Retry --> SendAttempt: Retry < 5
+    Retry --> PermanentFailure: Retry >= 5
+    
+    Success --> [*]
+    Duplicate --> [*]
+    PermanentFailure --> [*]
+```
+
+**Provider Failover Strategy:**
+
+```mermaid
+graph TB
+    subgraph "Email Providers"
+        E1[SendGrid<br/>Primary]
+        E2[AWS SES<br/>Secondary]
+        E3[Mailgun<br/>Tertiary]
+    end
+    
+    subgraph "SMS Providers"
+        S1[Twilio<br/>Primary]
+        S2[AWS SNS<br/>Secondary]
+        S3[Nexmo<br/>Tertiary]
+    end
+    
+    subgraph "Push Providers"
+        P1[FCM<br/>Android]
+        P2[APNS<br/>iOS]
+    end
+    
+    subgraph "Circuit Breakers"
+        CB1[5 failures = Open]
+        CB2[60s recovery]
+        CB3[3 test requests]
+    end
+```
+
+**Retry Configuration:**
+
+| Attempt | Delay | Total Time | Action |
+|---------|-------|------------|--------|
+| 1 | 0s | 0s | Immediate send |
+| 2 | 2s | 2s | First retry |
+| 3 | 4s | 6s | Second retry |
+| 4 | 8s | 14s | Third retry |
+| 5 | 16s | 30s | To DLQ |
+| DLQ | 60s | - | Background retry |
+
+**Dead Letter Queue Processing:**
+
+```mermaid
+sequenceDiagram
+    participant N as Notification
+    participant S as Sender
+    participant D as DLQ
+    participant P as Processor
+    
+    N->>S: Send notification
+    S->>S: All providers fail
+    S->>D: Add to DLQ
+    
+    loop Every 60s
+        P->>D: Get batch (100)
+        
+        alt Retry Count < 5
+            P->>S: Retry with LOW priority
+        else Max Retries
+            P->>P: Log permanent failure
+            P->>P: Alert ops team
+        end
+    end
+```
+
+**Idempotency & Deduplication:**
+
+```mermaid
+graph LR
+    subgraph "Idempotency Key Generation"
+        N[Notification] --> K[Key = Hash(ID + Channel + Version)]
+    end
+    
+    subgraph "Cache Check"
+        K --> C{In Cache?}
+        C -->|Yes| D[Return Duplicate]
+        C -->|No| S[Send & Cache]
+    end
+    
+    subgraph "TTL Management"
+        S --> T[TTL = 1 hour]
+        T --> E[Auto-expire]
+    end
+```
         age = time.time() - dlq_message['timestamp']
         
         # Don't retry old messages
@@ -1031,262 +950,143 @@ Optimization Strategies:
 - Connection multiplexing
 ```
 
-**Implementation:**
-```python
-import asyncio
-from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor
-import uvloop
-from asyncio import Semaphore
+**Concurrent Processing Architecture:**
 
-class ConcurrentNotificationProcessor:
-    def __init__(self, num_workers=100):
-        # Use uvloop for better performance
-        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
+```mermaid
+graph TB
+    subgraph "Notification Processor"
+        NP[Notification Processor<br/>100 Workers]
         
-        self.num_workers = num_workers
+        subgraph "Channel Worker Pools"
+            PW[Push Workers<br/>50 workers<br/>1000 concurrent]
+            EW[Email Workers<br/>30 workers<br/>500 concurrent]
+            SW[SMS Workers<br/>20 workers<br/>200 concurrent]
+            IW[In-App Workers<br/>40 workers<br/>5000 concurrent]
+            WW[Webhook Workers<br/>10 workers<br/>100 concurrent]
+        end
         
-        # Channel-specific worker pools
-        self.channel_workers = {
-            Channel.PUSH: WorkerPool(num_workers=50, max_concurrent=1000),
-            Channel.EMAIL: WorkerPool(num_workers=30, max_concurrent=500),
-            Channel.SMS: WorkerPool(num_workers=20, max_concurrent=200),
-            Channel.IN_APP: WorkerPool(num_workers=40, max_concurrent=5000),
-            Channel.WEBHOOK: WorkerPool(num_workers=10, max_concurrent=100)
-        }
+        subgraph "Execution Pools"
+            PP[Process Pool<br/>8 workers<br/>CPU-intensive]
+            TP[Thread Pool<br/>20 workers<br/>I/O-bound]
+        end
         
-        # Process pool for CPU-intensive tasks
-        self.process_pool = ProcessPoolExecutor(max_workers=8)
-        
-        # Thread pool for I/O-bound tasks
-        self.thread_pool = ThreadPoolExecutor(max_workers=20)
-        
-        # Semaphores for rate limiting
-        self.rate_limiters = {
-            Channel.PUSH: RateLimiter(limit=10000, window=1),  # 10K/sec
-            Channel.EMAIL: RateLimiter(limit=1000, window=1),   # 1K/sec
-            Channel.SMS: RateLimiter(limit=100, window=1),      # 100/sec
-            Channel.IN_APP: RateLimiter(limit=50000, window=1), # 50K/sec
-            Channel.WEBHOOK: RateLimiter(limit=500, window=1)   # 500/sec
-        }
-        
-        # Lock manager for user preferences
-        self.lock_manager = DistributedLockManager()
-        
-    async def process_notification_batch(self, notifications: List[Notification]):
-        """Process batch of notifications concurrently"""
-        # Group by priority and channel
-        priority_groups = defaultdict(lambda: defaultdict(list))
-        
-        for notification in notifications:
-            priority_groups[notification.priority][notification.channels[0]].append(notification)
-        
-        # Process each priority level
-        for priority in sorted(priority_groups.keys()):
-            channel_groups = priority_groups[priority]
-            
-            # Process channels in parallel
-            tasks = []
-            for channel, channel_notifications in channel_groups.items():
-                task = self._process_channel_batch(channel, channel_notifications)
-                tasks.append(task)
-            
-            # Wait for priority level to complete before moving to next
-            await asyncio.gather(*tasks, return_exceptions=True)
+        subgraph "Rate Limiters"
+            PRL[Push: 10K/sec]
+            ERL[Email: 1K/sec]
+            SRL[SMS: 100/sec]
+            IRL[In-App: 50K/sec]
+            WRL[Webhook: 500/sec]
+        end
+    end
     
-    async def _process_channel_batch(self, channel: Channel, 
-                                   notifications: List[Notification]):
-        """Process notifications for specific channel"""
-        worker_pool = self.channel_workers[channel]
-        rate_limiter = self.rate_limiters[channel]
-        
-        # Process with rate limiting
-        semaphore = Semaphore(100)  # Limit concurrent processing
-        
-        async def process_single(notification):
-            async with semaphore:
-                # Rate limiting
-                await rate_limiter.acquire()
-                
-                try:
-                    # Check user preferences with read lock
-                    preferences = await self._get_user_preferences_concurrent(
-                        notification.user_id
-                    )
-                    
-                    if not self._should_send(notification, preferences, channel):
-                        return
-                    
-                    # Render template in process pool (CPU-intensive)
-                    rendered = await self._render_template_concurrent(
-                        notification
-                    )
-                    
-                    # Send via worker pool
-                    await worker_pool.send(notification, rendered)
-                    
-                except Exception as e:
-                    logger.error(f"Failed to process notification: {e}")
-        
-        # Process all notifications
-        tasks = [process_single(n) for n in notifications]
-        await asyncio.gather(*tasks, return_exceptions=True)
+    NP --> PW
+    NP --> EW
+    NP --> SW
+    NP --> IW
+    NP --> WW
     
-    async def _get_user_preferences_concurrent(self, user_id: str) -> dict:
-        """Get user preferences with minimal locking"""
-        # Try cache first (no lock needed)
-        preferences = self.preference_cache.get(user_id)
-        if preferences:
-            return preferences
-        
-        # Acquire read lock
-        async with self.lock_manager.read_lock(f"user_pref:{user_id}"):
-            # Double-check cache
-            preferences = self.preference_cache.get(user_id)
-            if preferences:
-                return preferences
-            
-            # Load from database
-            preferences = await self.db.get_user_preferences(user_id)
-            
-            # Cache result
-            self.preference_cache.put(user_id, preferences)
-            
-            return preferences
+    PW --> PRL
+    EW --> ERL
+    SW --> SRL
+    IW --> IRL
+    WW --> WRL
     
-    async def _render_template_concurrent(self, notification: Notification) -> dict:
-        """Render template using process pool for CPU-intensive work"""
-        loop = asyncio.get_event_loop()
-        
-        # Offload to process pool
-        rendered = await loop.run_in_executor(
-            self.process_pool,
-            render_template_sync,  # CPU-bound function
-            notification.template_id,
-            notification.data,
-            notification.channels
-        )
-        
-        return rendered
-    
-    async def update_user_preferences(self, user_id: str, preferences: dict):
-        """Update user preferences with write lock"""
-        async with self.lock_manager.write_lock(f"user_pref:{user_id}"):
-            # Update database
-            await self.db.update_user_preferences(user_id, preferences)
-            
-            # Invalidate cache
-            self.preference_cache.invalidate(user_id)
-            
-            # Publish change event
-            await self.publish_preference_change(user_id, preferences)
+    NP --> PP
+    NP --> TP
+```
 
-class WorkerPool:
-    """Channel-specific worker pool"""
-    
-    def __init__(self, num_workers: int, max_concurrent: int):
-        self.num_workers = num_workers
-        self.max_concurrent = max_concurrent
-        self.queue = asyncio.Queue(maxsize=max_concurrent * 2)
-        self.workers = []
-        self.semaphore = Semaphore(max_concurrent)
-        
-    async def start(self):
-        """Start worker tasks"""
-        for i in range(self.num_workers):
-            worker = asyncio.create_task(self._worker(i))
-            self.workers.append(worker)
-    
-    async def send(self, notification: Notification, rendered: dict):
-        """Queue notification for sending"""
-        await self.queue.put((notification, rendered))
-    
-    async def _worker(self, worker_id: int):
-        """Worker task"""
-        while True:
-            try:
-                notification, rendered = await self.queue.get()
-                
-                async with self.semaphore:
-                    await self._send_notification(notification, rendered)
-                    
-            except Exception as e:
-                logger.error(f"Worker {worker_id} error: {e}")
+**Processing Flow Diagram:**
 
-class RateLimiter:
-    """Token bucket rate limiter"""
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant P as Processor
+    participant PG as Priority Groups
+    participant WP as Worker Pool
+    participant RL as Rate Limiter
+    participant PP as Process Pool
+    participant DB as Database
     
-    def __init__(self, limit: int, window: float):
-        self.limit = limit
-        self.window = window
-        self.tokens = limit
-        self.last_update = time.time()
-        self.lock = asyncio.Lock()
-        
-    async def acquire(self, tokens: int = 1):
-        """Acquire tokens, waiting if necessary"""
-        async with self.lock:
-            # Refill tokens
-            now = time.time()
-            elapsed = now - self.last_update
-            self.tokens = min(
-                self.limit,
-                self.tokens + elapsed * (self.limit / self.window)
-            )
-            self.last_update = now
-            
-            # Wait for tokens if needed
-            while self.tokens < tokens:
-                wait_time = (tokens - self.tokens) * (self.window / self.limit)
-                await asyncio.sleep(wait_time)
-                
-                # Refill again
-                now = time.time()
-                elapsed = now - self.last_update
-                self.tokens = min(
-                    self.limit,
-                    self.tokens + elapsed * (self.limit / self.window)
-                )
-                self.last_update = now
-            
-            # Consume tokens
-            self.tokens -= tokens
+    C->>P: process_notification_batch()
+    P->>PG: Group by priority & channel
+    
+    loop Each Priority Level
+        P->>P: Process priority in order
+        par Process Channels
+            P->>WP: _process_channel_batch()
+            WP->>RL: acquire() rate limit
+            WP->>DB: Get user preferences<br/>(with read lock)
+            WP->>PP: Render template<br/>(CPU-intensive)
+            PP-->>WP: Rendered content
+            WP->>WP: Queue for sending
+        end
+    end
+    
+    P-->>C: Batch processed
+```
 
-def render_template_sync(template_id: str, data: dict, channels: List[str]) -> dict:
-    """CPU-intensive template rendering for process pool"""
-    # This runs in a separate process
-    from jinja2 import Template
-    import markdown
+**Worker Pool Architecture:**
+
+| Component | Configuration | Purpose |
+|-----------|--------------|---------|
+| **Channel Workers** | | |
+| Push | 50 workers, 1000 concurrent | High-volume mobile notifications |
+| Email | 30 workers, 500 concurrent | SMTP delivery with attachments |
+| SMS | 20 workers, 200 concurrent | Limited by carrier rates |
+| In-App | 40 workers, 5000 concurrent | WebSocket/SSE delivery |
+| Webhook | 10 workers, 100 concurrent | External API calls |
+| **Execution Pools** | | |
+| Process Pool | 8 workers | Template rendering, Markdown processing |
+| Thread Pool | 20 workers | Database queries, API calls |
+| **Rate Limiters** | | |
+| Token Bucket | Per-channel limits | Prevent provider throttling |
+
+**Concurrency Control Patterns:**
+
+```mermaid
+graph LR
+    subgraph "Rate Limiting"
+        TB[Token Bucket]
+        TB --> RC[Refill Calculation]
+        RC --> WT[Wait if Needed]
+        WT --> CT[Consume Tokens]
+    end
     
-    rendered = {}
+    subgraph "Lock Management"
+        RL[Read Lock<br/>Preferences]
+        WL[Write Lock<br/>Updates]
+        DC[Double-Check<br/>Pattern]
+    end
     
-    # Load template
-    template_data = load_template(template_id)
+    subgraph "Queueing"
+        AQ[Async Queue<br/>2x capacity]
+        S[Semaphore<br/>Concurrency limit]
+        W[Worker Tasks]
+    end
     
-    for channel in channels:
-        channel_template = template_data.get(channel, {})
-        
-        if channel == 'email':
-            # Render HTML with Markdown
-            html_template = Template(channel_template.get('html_body', ''))
-            html_content = html_template.render(**data)
-            
-            # Convert markdown sections
-            html_content = markdown.markdown(html_content)
-            
-            rendered['email'] = {
-                'subject': Template(channel_template.get('subject', '')).render(**data),
-                'html_body': html_content,
-                'text_body': html2text(html_content)
-            }
-        else:
-            # Simple template rendering
-            rendered[channel] = {}
-            for key, template_str in channel_template.items():
-                if isinstance(template_str, str):
-                    template = Template(template_str)
-                    rendered[channel][key] = template.render(**data)
+    TB --> AQ
+    RL --> DC
+    AQ --> S
+    S --> W
+```
+
+**Template Rendering Optimization:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> CheckChannel
+    CheckChannel --> EmailChannel: channel == 'email'
+    CheckChannel --> OtherChannel: channel != 'email'
     
-    return rendered
+    EmailChannel --> LoadTemplate
+    LoadTemplate --> RenderHTML
+    RenderHTML --> ProcessMarkdown
+    ProcessMarkdown --> GenerateText
+    GenerateText --> [*]
+    
+    OtherChannel --> LoadTemplate
+    LoadTemplate --> SimpleRender
+    SimpleRender --> [*]
 ```
 
 #### 🤝 Axiom 5 (Coordination): Multi-Channel Orchestration
@@ -1307,275 +1107,180 @@ Coordination Strategies:
 - Leader election for schedulers
 ```
 
-**Implementation:**
-```python
-from kazoo.client import KazooClient
-import aioredis
+**Multi-Channel Orchestration Architecture:**
 
-class NotificationOrchestrator:
-    def __init__(self, node_id: str):
-        self.node_id = node_id
+```mermaid
+graph TB
+    subgraph "Orchestrator Components"
+        NO[Notification Orchestrator]
+        ZK[Zookeeper<br/>Coordination]
+        R[Redis<br/>State & Dedup]
         
-        # Coordination services
-        self.zk = KazooClient(hosts='localhost:2181')
-        self.zk.start()
+        subgraph "Channel Coordinators"
+            PC[Push Coordinator]
+            EC[Email Coordinator]
+            SC[SMS Coordinator]
+            IC[In-App Coordinator]
+            WC[Webhook Coordinator]
+        end
         
-        self.redis = None  # Initialized async
-        
-        # Channel coordinators
-        self.channel_coordinators = {
-            Channel.PUSH: PushCoordinator(),
-            Channel.EMAIL: EmailCoordinator(),
-            Channel.SMS: SMSCoordinator(),
-            Channel.IN_APP: InAppCoordinator(),
-            Channel.WEBHOOK: WebhookCoordinator()
-        }
-        
-        # Global rules engine
-        self.rules_engine = NotificationRulesEngine()
-        
-        # Deduplication manager
-        self.dedup_manager = DeduplicationManager()
-        
-    async def orchestrate_notification(self, notification: Notification) -> OrchestratorResult:
-        """Orchestrate multi-channel notification delivery"""
-        # Get user preferences and global rules
-        user_prefs = await self.get_user_preferences(notification.user_id)
-        global_rules = await self.rules_engine.get_applicable_rules(notification)
-        
-        # Determine eligible channels
-        eligible_channels = await self._determine_eligible_channels(
-            notification,
-            user_prefs,
-            global_rules
-        )
-        
-        if not eligible_channels:
-            return OrchestratorResult(
-                status='skipped',
-                reason='no_eligible_channels'
-            )
-        
-        # Check for duplicates
-        is_duplicate = await self.dedup_manager.check_and_mark(
-            notification,
-            eligible_channels
-        )
-        
-        if is_duplicate:
-            return OrchestratorResult(
-                status='duplicate',
-                duplicate_id=is_duplicate
-            )
-        
-        # Order channels by priority
-        ordered_channels = self._order_channels(eligible_channels, user_prefs)
-        
-        # Coordinate delivery
-        delivery_plan = await self._create_delivery_plan(
-            notification,
-            ordered_channels,
-            user_prefs
-        )
-        
-        # Execute delivery plan
-        results = await self._execute_delivery_plan(delivery_plan)
-        
-        return OrchestratorResult(
-            status='delivered',
-            channel_results=results
-        )
+        RE[Rules Engine]
+        DM[Dedup Manager]
+    end
     
-    async def _determine_eligible_channels(self, notification, user_prefs, global_rules):
-        """Determine which channels can receive the notification"""
-        eligible = []
-        
-        for channel in notification.channels:
-            # Check user preferences
-            if not user_prefs.get(f'{channel.value}_enabled', True):
-                continue
-            
-            # Check channel-specific preferences
-            channel_prefs = user_prefs.get(channel.value, {})
-            
-            # Check notification type preferences
-            notif_type = notification.metadata.get('type', 'general')
-            if not channel_prefs.get(f'{notif_type}_enabled', True):
-                continue
-            
-            # Check global rules
-            if not await self._check_global_rules(notification, channel, global_rules):
-                continue
-            
-            # Check do-not-disturb
-            if await self._is_dnd_active(notification.user_id, channel):
-                continue
-            
-            eligible.append(channel)
-        
-        return eligible
-    
-    async def _check_global_rules(self, notification, channel, rules):
-        """Check global notification rules"""
-        for rule in rules:
-            if rule['type'] == 'rate_limit':
-                # Check global rate limits
-                limit_key = f"{rule['scope']}:{notification.user_id}:{channel.value}"
-                current_count = await self.redis.incr(limit_key)
-                
-                if current_count == 1:
-                    # First increment - set expiry
-                    await self.redis.expire(limit_key, rule['window'])
-                
-                if current_count > rule['limit']:
-                    return False
-            
-            elif rule['type'] == 'quiet_hours':
-                # Check quiet hours for user's timezone
-                user_tz = await self._get_user_timezone(notification.user_id)
-                if self._in_quiet_hours(user_tz, rule['start'], rule['end']):
-                    return False
-            
-            elif rule['type'] == 'content_filter':
-                # Check content filters
-                if not self._passes_content_filter(notification, rule):
-                    return False
-        
-        return True
-    
-    def _order_channels(self, channels, user_prefs):
-        """Order channels by user preference and effectiveness"""
-        # Get user's channel priority
-        channel_priority = user_prefs.get('channel_priority', {})
-        
-        # Default priorities if not specified
-        default_priority = {
-            Channel.IN_APP: 1,
-            Channel.PUSH: 2,
-            Channel.EMAIL: 3,
-            Channel.SMS: 4,
-            Channel.WEBHOOK: 5
-        }
-        
-        # Sort channels
-        return sorted(channels, key=lambda c: channel_priority.get(
-            c.value,
-            default_priority.get(c, 999)
-        ))
-    
-    async def _create_delivery_plan(self, notification, channels, user_prefs):
-        """Create coordinated delivery plan"""
-        plan = DeliveryPlan(notification_id=notification.id)
-        
-        # Determine delivery strategy
-        strategy = user_prefs.get('delivery_strategy', 'parallel')
-        
-        if strategy == 'parallel':
-            # Send to all channels simultaneously
-            for channel in channels:
-                plan.add_step(
-                    channel=channel,
-                    delay=0,
-                    condition=None
-                )
-        
-        elif strategy == 'cascade':
-            # Send to channels in sequence with delays
-            delay = 0
-            for i, channel in enumerate(channels):
-                plan.add_step(
-                    channel=channel,
-                    delay=delay,
-                    condition=f"channel_{i-1}_failed" if i > 0 else None
-                )
-                delay += user_prefs.get('cascade_delay', 60)  # 60 seconds default
-        
-        elif strategy == 'fallback':
-            # Only send to next channel if previous failed
-            for i, channel in enumerate(channels):
-                plan.add_step(
-                    channel=channel,
-                    delay=0,
-                    condition=f"channel_{i-1}_failed" if i > 0 else None,
-                    stop_on_success=True
-                )
-        
-        return plan
-    
-    async def _execute_delivery_plan(self, plan: DeliveryPlan):
-        """Execute the delivery plan with coordination"""
-        results = {}
-        
-        for step in plan.steps:
-            # Check condition
-            if step.condition and not self._evaluate_condition(step.condition, results):
-                continue
-            
-            # Apply delay
-            if step.delay > 0:
-                await asyncio.sleep(step.delay)
-            
-            # Send via channel
-            coordinator = self.channel_coordinators[step.channel]
-            result = await coordinator.send(plan.notification_id, step.channel)
-            
-            results[step.channel] = result
-            
-            # Stop if successful and configured to do so
-            if step.stop_on_success and result.success:
-                break
-        
-        return results
+    NO --> ZK
+    NO --> R
+    NO --> PC
+    NO --> EC
+    NO --> SC
+    NO --> IC
+    NO --> WC
+    NO --> RE
+    NO --> DM
+```
 
-class DeduplicationManager:
-    """Manage cross-channel deduplication"""
-    
-    def __init__(self):
-        self.redis = None
-        self.window = 3600  # 1 hour dedup window
-        
-    async def check_and_mark(self, notification: Notification, 
-                           channels: List[Channel]) -> Optional[str]:
-        """Check for duplicate and mark if not exists"""
-        # Create dedup key based on content
-        dedup_key = self._create_dedup_key(notification)
-        
-        # Try to set with NX (only if not exists)
-        set_result = await self.redis.set(
-            f"dedup:{dedup_key}",
-            notification.id,
-            ex=self.window,
-            nx=True
-        )
-        
-        if not set_result:
-            # Duplicate exists - get original ID
-            original_id = await self.redis.get(f"dedup:{dedup_key}")
-            return original_id
-        
-        # Also track per-channel dedup
-        for channel in channels:
-            channel_key = f"dedup:{channel.value}:{notification.user_id}:{dedup_key}"
-            await self.redis.set(channel_key, notification.id, ex=self.window)
-        
-        return None
-    
-    def _create_dedup_key(self, notification: Notification) -> str:
-        """Create deduplication key from notification content"""
-        # Hash based on user, template, and key data points
-        content = f"{notification.user_id}:{notification.template_id}"
-        
-        # Include key data fields for dedup
-        dedup_fields = notification.metadata.get('dedup_fields', ['id', 'type'])
-        for field in dedup_fields:
-            if field in notification.data:
-                content += f":{field}={notification.data[field]}"
-        
-        return hashlib.sha256(content.encode()).hexdigest()[:16]
+**Orchestration Flow:**
 
-class NotificationRulesEngine:
-    """Global notification rules engine"""
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant O as Orchestrator
+    participant UP as User Preferences
+    participant RE as Rules Engine
+    participant DM as Dedup Manager
+    participant CC as Channel Coordinators
     
+    C->>O: orchestrate_notification()
+    O->>UP: Get user preferences
+    O->>RE: Get applicable rules
+    
+    O->>O: Determine eligible channels
+    Note over O: Check preferences<br/>Check rules<br/>Check DND
+    
+    O->>DM: Check & mark duplicate
+    alt Is Duplicate
+        DM-->>O: Duplicate ID
+        O-->>C: Return duplicate result
+    else Not Duplicate
+        DM-->>O: OK
+        O->>O: Order channels by priority
+        O->>O: Create delivery plan
+        
+        loop Execute Plan
+            O->>CC: Send via channel
+            CC-->>O: Delivery result
+        end
+        
+        O-->>C: Return delivery results
+    end
+```
+
+**Channel Eligibility Decision Tree:**
+
+```mermaid
+graph TD
+    Start[Channel Check] --> E1{Channel Enabled?}
+    E1 -->|No| Skip[Skip Channel]
+    E1 -->|Yes| E2{Type Enabled?}
+    
+    E2 -->|No| Skip
+    E2 -->|Yes| E3{Global Rules Pass?}
+    
+    E3 -->|No| Skip
+    E3 -->|Yes| E4{DND Active?}
+    
+    E4 -->|Yes| Skip
+    E4 -->|No| Add[Add to Eligible]
+    
+    subgraph "Global Rules"
+        R1[Rate Limit Check]
+        R2[Quiet Hours Check]
+        R3[Content Filter Check]
+    end
+    
+    E3 -.-> R1
+    E3 -.-> R2
+    E3 -.-> R3
+```
+
+**Delivery Strategy Patterns:**
+
+| Strategy | Behavior | Use Case |
+|----------|----------|----------|
+| **Parallel** | Send to all channels simultaneously | Time-critical notifications |
+| **Cascade** | Send with delays between channels | Gradual escalation |
+| **Fallback** | Only send to next if previous fails | Cost optimization |
+
+**Delivery Plan Execution:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> CheckCondition
+    
+    CheckCondition --> Skip: Condition not met
+    CheckCondition --> ApplyDelay: Condition met
+    
+    ApplyDelay --> Send: Delay elapsed
+    Send --> RecordResult
+    
+    RecordResult --> CheckStop: Success & stop_on_success
+    RecordResult --> NextStep: Continue
+    
+    CheckStop --> [*]: Stop execution
+    NextStep --> CheckCondition: More steps
+    NextStep --> [*]: No more steps
+```
+
+**Deduplication Mechanism:**
+
+```mermaid
+graph LR
+    subgraph "Dedup Key Generation"
+        N[Notification] --> H[Hash Components]
+        H --> UK[User ID]
+        H --> TK[Template ID]
+        H --> DF[Dedup Fields]
+        UK --> SHA[SHA256]
+        TK --> SHA
+        DF --> SHA
+        SHA --> DK[Dedup Key]
+    end
+    
+    subgraph "Redis Operations"
+        DK --> SET[SET NX<br/>If not exists]
+        SET -->|Success| Mark[Mark as sent]
+        SET -->|Fail| Dup[Return duplicate]
+        
+        Mark --> PC[Per-channel keys]
+    end
+```
+
+**Coordination Services Integration:**
+
+```mermaid
+graph TB
+    subgraph "Service Discovery"
+        ZK[Zookeeper]
+        ZK --> SD[Service Registry]
+        SD --> PC[Push Services]
+        SD --> EC[Email Services]
+        SD --> SC[SMS Services]
+    end
+    
+    subgraph "State Management"
+        R[Redis]
+        R --> DQ[Dedup Queue]
+        R --> RL[Rate Limits]
+        R --> UP[User Preferences]
+        R --> GR[Global Rules]
+    end
+    
+    subgraph "Leader Election"
+        ZK --> LE[Leader Election]
+        LE --> PS[Primary Scheduler]
+        LE --> BS[Backup Scheduler]
+    end
+```
     def __init__(self):
         self.rules = []
         self._load_rules()
@@ -1637,191 +1342,194 @@ Analytics Pipeline:
 - A/B testing results
 ```
 
-**Implementation:**
-```python
-import prometheus_client
-from prometheus_client import Counter, Histogram, Gauge
-import structlog
+**Analytics Architecture:**
 
-class NotificationAnalytics:
-    def __init__(self):
-        # Prometheus metrics
-        self.notifications_sent = Counter(
-            'notifications_sent_total',
-            'Total notifications sent',
-            ['channel', 'priority', 'status']
-        )
-        
-        self.delivery_latency = Histogram(
-            'notification_delivery_latency_seconds',
-            'Time to deliver notification',
-            ['channel', 'priority'],
-            buckets=[0.1, 0.5, 1.0, 2.0, 5.0, 10.0, 30.0, 60.0]
-        )
-        
-        self.channel_errors = Counter(
-            'notification_channel_errors_total',
-            'Channel delivery errors',
-            ['channel', 'error_type', 'provider']
-        )
-        
-        self.active_connections = Gauge(
-            'notification_active_connections',
-            'Active WebSocket connections',
-            ['region']
-        )
-        
-        self.queue_depth = Gauge(
-            'notification_queue_depth',
-            'Current queue depth',
-            ['priority', 'channel']
-        )
-        
-        # Structured logging
-        self.logger = structlog.get_logger()
-        
-        # Analytics storage
-        self.analytics_store = AnalyticsStore()
-        
-        # Real-time aggregator
-        self.realtime_aggregator = RealtimeAggregator()
-        
-    async def track_notification(self, notification: Notification, 
-                               delivery_result: DeliveryResult):
-        """Track notification delivery"""
-        # Update Prometheus metrics
-        self.notifications_sent.labels(
-            channel=delivery_result.channel.value,
-            priority=notification.priority.value,
-            status=delivery_result.status
-        ).inc()
-        
-        # Track latency
-        if delivery_result.delivered_at:
-            latency = delivery_result.delivered_at - notification.created_at
-            self.delivery_latency.labels(
-                channel=delivery_result.channel.value,
-                priority=notification.priority.value
-            ).observe(latency)
-        
-        # Log structured event
-        self.logger.info(
-            "notification_delivered",
-            notification_id=notification.id,
-            user_id=notification.user_id,
-            channel=delivery_result.channel.value,
-            status=delivery_result.status,
-            provider=delivery_result.provider,
-            latency_ms=latency * 1000 if delivery_result.delivered_at else None,
-            metadata=notification.metadata
-        )
-        
-        # Store for analytics
-        await self._store_analytics_event({
-            'event_type': 'delivery',
-            'notification_id': notification.id,
-            'user_id': notification.user_id,
-            'channel': delivery_result.channel.value,
-            'status': delivery_result.status,
-            'timestamp': time.time(),
-            'latency_ms': latency * 1000 if delivery_result.delivered_at else None,
-            'provider': delivery_result.provider,
-            'priority': notification.priority.value,
-            'template_id': notification.template_id,
-            'metadata': notification.metadata
-        })
-        
-        # Update real-time aggregates
-        await self.realtime_aggregator.update(
-            'delivery',
-            delivery_result.channel,
-            delivery_result.status
-        )
+```mermaid
+graph TB
+    subgraph "Metrics Collection"
+        PM[Prometheus Metrics]
+        SL[Structured Logs]
+        AS[Analytics Store]
+        RA[Real-time Aggregator]
+    end
     
-    async def track_engagement(self, event_type: str, notification_id: str, 
-                             user_id: str, metadata: dict = None):
-        """Track user engagement (clicks, opens, etc)"""
-        # Get original notification details
-        notification_data = await self._get_notification_data(notification_id)
-        
-        if not notification_data:
-            logger.warning(f"Notification {notification_id} not found for engagement tracking")
-            return
-        
-        # Store engagement event
-        await self._store_analytics_event({
-            'event_type': event_type,
-            'notification_id': notification_id,
-            'user_id': user_id,
-            'channel': notification_data.get('channel'),
-            'timestamp': time.time(),
-            'metadata': metadata or {},
-            'template_id': notification_data.get('template_id'),
-            'time_to_engagement': time.time() - notification_data.get('sent_at', 0)
-        })
-        
-        # Update engagement metrics
-        if event_type == 'click':
-            self.click_rate.labels(
-                channel=notification_data.get('channel'),
-                template_id=notification_data.get('template_id')
-            ).inc()
-        elif event_type == 'open':
-            self.open_rate.labels(
-                channel=notification_data.get('channel'),
-                template_id=notification_data.get('template_id')
-            ).inc()
+    subgraph "Metric Types"
+        C[Counters<br/>notifications_sent<br/>channel_errors]
+        H[Histograms<br/>delivery_latency<br/>processing_time]
+        G[Gauges<br/>active_connections<br/>queue_depth]
+    end
     
-    async def get_channel_analytics(self, channel: Channel, 
-                                  time_range: TimeRange) -> dict:
-        """Get analytics for specific channel"""
-        end_time = time.time()
-        start_time = end_time - time_range.total_seconds()
+    subgraph "Analytics Pipeline"
+        ET[Event Tracking]
+        EP[Event Processing]
+        ES[Event Storage]
+        EQ[Event Query]
+    end
+    
+    PM --> C
+    PM --> H
+    PM --> G
+    
+    ET --> EP
+    EP --> ES
+    ES --> EQ
+```
+
+**Notification Tracking Flow:**
+
+```mermaid
+sequenceDiagram
+    participant N as Notification
+    participant A as Analytics
+    participant P as Prometheus
+    participant L as Logger
+    participant S as Storage
+    participant RA as Real-time Aggregator
+    
+    N->>A: track_notification()
+    
+    par Update Metrics
+        A->>P: Increment counters
+        A->>P: Record latency
+    and Log Event
+        A->>L: Structured log entry
+    and Store Analytics
+        A->>S: Store event data
+    and Update Aggregates
+        A->>RA: Update real-time stats
+    end
+    
+    Note over A: Async operations complete
+```
+
+**Metrics Dashboard Layout:**
+
+| Metric | Type | Labels | Purpose |
+|--------|------|--------|---------|
+| **notifications_sent_total** | Counter | channel, priority, status | Track delivery volume |
+| **delivery_latency_seconds** | Histogram | channel, priority | Monitor performance |
+| **channel_errors_total** | Counter | channel, error_type, provider | Error tracking |
+| **active_connections** | Gauge | region | WebSocket monitoring |
+| **queue_depth** | Gauge | priority, channel | Backlog monitoring |
+| **click_rate** | Counter | channel, template_id | Engagement tracking |
+| **open_rate** | Counter | channel, template_id | Email effectiveness |
+
+**Analytics Data Flow:**
+
+```mermaid
+graph LR
+    subgraph "Event Sources"
+        DE[Delivery Events]
+        EE[Engagement Events]
+        FE[Failure Events]
+        UE[Unsubscribe Events]
+    end
+    
+    subgraph "Processing"
+        EP[Event Processor]
+        AG[Aggregator]
+        EN[Enrichment]
+    end
+    
+    subgraph "Storage"
+        TS[Time Series DB]
+        AS[Analytics Store]
+        CS[Cache Store]
+    end
+    
+    subgraph "Consumption"
+        RT[Real-time Dashboard]
+        AR[Analytics Reports]
+        AL[Alerting]
+    end
+    
+    DE --> EP
+    EE --> EP
+    FE --> EP
+    UE --> EP
+    
+    EP --> AG
+    EP --> EN
+    
+    AG --> TS
+    EN --> AS
+    AG --> CS
+    
+    TS --> RT
+    AS --> AR
+    TS --> AL
+```
+
+**Engagement Tracking:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> ReceiveEvent
+    
+    ReceiveEvent --> ValidateNotification
+    ValidateNotification --> NotFound: Invalid
+    ValidateNotification --> EnrichData: Valid
+    
+    EnrichData --> StoreEvent
+    StoreEvent --> UpdateMetrics
+    
+    UpdateMetrics --> ClickMetric: event_type == 'click'
+    UpdateMetrics --> OpenMetric: event_type == 'open'
+    UpdateMetrics --> UnsubMetric: event_type == 'unsubscribe'
+    
+    ClickMetric --> [*]
+    OpenMetric --> [*]
+    UnsubMetric --> [*]
+    NotFound --> [*]
+```
+
+**Analytics Query Performance:**
+
+```mermaid
+graph TB
+    subgraph "Query Optimization"
+        Q[Query Request]
+        CI[Check Index]
+        CC[Check Cache]
         
-        # Query analytics store
-        events = await self.analytics_store.query(
-            channel=channel.value,
-            start_time=start_time,
-            end_time=end_time
-        )
+        CI -->|Hit| RI[Read Index]
+        CI -->|Miss| FS[Full Scan]
         
-        # Calculate metrics
-        total_sent = len([e for e in events if e['event_type'] == 'delivery'])
-        successful = len([e for e in events if e.get('status') == 'delivered'])
-        failed = len([e for e in events if e.get('status') == 'failed'])
+        CC -->|Hit| RC[Return Cached]
+        CC -->|Miss| EQ[Execute Query]
         
-        # Engagement metrics
-        clicks = len([e for e in events if e['event_type'] == 'click'])
-        opens = len([e for e in events if e['event_type'] == 'open'])
-        unsubscribes = len([e for e in events if e['event_type'] == 'unsubscribe'])
-        
-        # Calculate rates
-        delivery_rate = successful / total_sent if total_sent > 0 else 0
-        click_rate = clicks / successful if successful > 0 else 0
-        open_rate = opens / successful if successful > 0 else 0
-        
-        # Latency percentiles
-        latencies = [e['latency_ms'] for e in events 
-                    if e.get('latency_ms') is not None]
-        
-        return {
-            'channel': channel.value,
-            'time_range': time_range,
-            'total_sent': total_sent,
-            'successful': successful,
-            'failed': failed,
-            'delivery_rate': delivery_rate,
-            'click_rate': click_rate,
-            'open_rate': open_rate,
-            'unsubscribe_rate': unsubscribes / successful if successful > 0 else 0,
-            'latency_percentiles': {
-                'p50': np.percentile(latencies, 50) if latencies else 0,
-                'p95': np.percentile(latencies, 95) if latencies else 0,
-                'p99': np.percentile(latencies, 99) if latencies else 0
-            },
-            'provider_breakdown': self._get_provider_breakdown(events),
-            'error_breakdown': self._get_error_breakdown(events)
-        }
+        EQ --> AG[Aggregate Data]
+        AG --> CP[Calculate Percentiles]
+        CP --> UC[Update Cache]
+        UC --> RR[Return Results]
+    end
+```
+
+**Real-time Analytics Dashboard:**
+
+```mermaid
+graph LR
+    subgraph "Channel Performance"
+        CP[Channel Metrics]
+        CP --> DR[Delivery Rate]
+        CP --> LT[Latency]
+        CP --> ER[Error Rate]
+    end
+    
+    subgraph "Engagement Metrics"
+        EM[User Engagement]
+        EM --> CTR[Click Rate]
+        EM --> OR[Open Rate]
+        EM --> UR[Unsub Rate]
+    end
+    
+    subgraph "System Health"
+        SH[System Status]
+        SH --> QD[Queue Depth]
+        SH --> AC[Active Connections]
+        SH --> PU[Provider Uptime]
+    end
+```
     
     async def generate_dashboard_data(self) -> dict:
         """Generate real-time dashboard data"""
@@ -1950,321 +1658,233 @@ Admin Requirements:
 - A/B testing
 ```
 
-**Implementation:**
-```python
-from fastapi import FastAPI, HTTPException, Query
-from pydantic import BaseModel
-import jwt
+**User Interface Architecture:**
 
-class NotificationUserAPI:
-    def __init__(self):
-        self.app = FastAPI(title="Notification Preferences API")
-        self.auth = AuthManager()
-        self._setup_routes()
-        
-    def _setup_routes(self):
-        """Setup user-facing API routes"""
-        
-        @self.app.get("/api/v1/preferences")
-        async def get_preferences(user: User = Depends(self.auth.get_current_user)):
-            """Get user notification preferences"""
-            preferences = await self.preference_service.get_user_preferences(user.id)
-            
-            return {
-                'user_id': user.id,
-                'preferences': preferences,
-                'available_channels': [c.value for c in Channel],
-                'notification_types': await self._get_notification_types()
-            }
-        
-        @self.app.put("/api/v1/preferences")
-        async def update_preferences(
-            request: PreferenceUpdateRequest,
-            user: User = Depends(self.auth.get_current_user)
-        ):
-            """Update notification preferences"""
-            # Validate preferences
-            validation_errors = self._validate_preferences(request.preferences)
-            if validation_errors:
-                raise HTTPException(400, {"errors": validation_errors})
-            
-            # Update preferences
-            updated = await self.preference_service.update_preferences(
-                user.id,
-                request.preferences
-            )
-            
-            # Log preference change
-            await self._log_preference_change(user.id, request.preferences)
-            
-            return {
-                'status': 'updated',
-                'preferences': updated
-            }
-        
-        @self.app.post("/api/v1/unsubscribe")
-        async def unsubscribe(request: UnsubscribeRequest):
-            """Unsubscribe from notifications"""
-            # Verify token
-            payload = self._verify_unsubscribe_token(request.token)
-            
-            if request.channel:
-                # Unsubscribe from specific channel
-                await self.preference_service.disable_channel(
-                    payload['user_id'],
-                    request.channel
-                )
-                message = f"Unsubscribed from {request.channel} notifications"
-            else:
-                # Unsubscribe from all
-                await self.preference_service.disable_all_notifications(
-                    payload['user_id']
-                )
-                message = "Unsubscribed from all notifications"
-            
-            # Track unsubscribe
-            await self.analytics.track_engagement(
-                'unsubscribe',
-                payload.get('notification_id'),
-                payload['user_id'],
-                {'channel': request.channel}
-            )
-            
-            return {
-                'status': 'unsubscribed',
-                'message': message,
-                'resubscribe_url': f"/api/v1/resubscribe?token={request.token}"
-            }
-        
-        @self.app.get("/api/v1/history")
-        async def get_notification_history(
-            user: User = Depends(self.auth.get_current_user),
-            channel: Optional[str] = None,
-            limit: int = Query(50, le=200),
-            offset: int = 0
-        ):
-            """Get notification history"""
-            history = await self.history_service.get_user_history(
-                user.id,
-                channel=channel,
-                limit=limit,
-                offset=offset
-            )
-            
-            return {
-                'notifications': history,
-                'total': await self.history_service.count_user_notifications(user.id),
-                'limit': limit,
-                'offset': offset
-            }
-        
-        @self.app.post("/api/v1/dnd")
-        async def set_do_not_disturb(
-            request: DNDRequest,
-            user: User = Depends(self.auth.get_current_user)
-        ):
-            """Set do not disturb"""
-            # Validate time range
-            if request.end_time and request.end_time < time.time():
-                raise HTTPException(400, "End time must be in the future")
-            
-            # Set DND
-            await self.dnd_service.set_dnd(
-                user.id,
-                enabled=request.enabled,
-                start_time=request.start_time,
-                end_time=request.end_time,
-                channels=request.channels
-            )
-            
-            return {
-                'status': 'updated',
-                'dnd_enabled': request.enabled,
-                'expires_at': request.end_time
-            }
-        
-        @self.app.get("/api/v1/stats")
-        async def get_user_stats(
-            user: User = Depends(self.auth.get_current_user),
-            time_range: str = "7d"
-        ):
-            """Get user notification statistics"""
-            stats = await self.analytics.get_user_stats(user.id, time_range)
-            
-            return {
-                'user_id': user.id,
-                'time_range': time_range,
-                'total_received': stats['total'],
-                'by_channel': stats['by_channel'],
-                'by_type': stats['by_type'],
-                'engagement': {
-                    'click_rate': stats['click_rate'],
-                    'open_rate': stats['open_rate']
-                },
-                'peak_hours': stats['peak_hours']
-            }
+```mermaid
+graph TB
+    subgraph "User APIs"
+        UA[User API]
+        PA[Preferences API]
+        HA[History API]
+        SA[Settings API]
+    end
+    
+    subgraph "Admin APIs"
+        AA[Admin API]
+        TA[Template API]
+        CA[Campaign API]
+        AN[Analytics API]
+    end
+    
+    subgraph "Core Services"
+        PS[Preference Service]
+        HS[History Service]
+        TS[Template Service]
+        AS[Analytics Service]
+    end
+    
+    UA --> PA
+    UA --> HA
+    UA --> SA
+    
+    AA --> TA
+    AA --> CA
+    AA --> AN
+    
+    PA --> PS
+    HA --> HS
+    TA --> TS
+    AN --> AS
+```
 
-class NotificationAdminAPI:
-    """Admin API for notification management"""
-    
-    def __init__(self):
-        self.app = FastAPI(title="Notification Admin API")
-        self._setup_routes()
-        
-    def _setup_routes(self):
-        """Setup admin API routes"""
-        
-        @self.app.post("/api/v1/templates")
-        async def create_template(
-            request: TemplateRequest,
-            admin: Admin = Depends(self.auth.require_admin)
-        ):
-            """Create notification template"""
-            # Validate template
-            validation_errors = self._validate_template(request.template)
-            if validation_errors:
-                raise HTTPException(400, {"errors": validation_errors})
-            
-            # Create template
-            template_id = await self.template_service.create_template(
-                name=request.name,
-                template=request.template,
-                created_by=admin.id
-            )
-            
-            # Test render
-            test_result = await self._test_template(template_id, request.test_data)
-            
-            return {
-                'template_id': template_id,
-                'status': 'created',
-                'test_result': test_result
-            }
-        
-        @self.app.post("/api/v1/campaigns")
-        async def create_campaign(
-            request: CampaignRequest,
-            admin: Admin = Depends(self.auth.require_admin)
-        ):
-            """Create notification campaign"""
-            # Validate campaign
-            validation_errors = await self._validate_campaign(request)
-            if validation_errors:
-                raise HTTPException(400, {"errors": validation_errors})
-            
-            # Create campaign
-            campaign = await self.campaign_service.create_campaign(
-                name=request.name,
-                template_id=request.template_id,
-                segment=request.segment,
-                channels=request.channels,
-                scheduled_at=request.scheduled_at,
-                created_by=admin.id
-            )
-            
-            # Estimate reach
-            reach = await self._estimate_campaign_reach(campaign)
-            
-            return {
-                'campaign_id': campaign.id,
-                'status': 'created',
-                'estimated_reach': reach,
-                'scheduled_at': campaign.scheduled_at
-            }
-        
-        @self.app.get("/api/v1/analytics/overview")
-        async def get_analytics_overview(
-            time_range: str = "24h",
-            admin: Admin = Depends(self.auth.require_admin)
-        ):
-            """Get analytics overview"""
-            overview = await self.analytics.generate_dashboard_data()
-            
-            return overview
-        
-        @self.app.post("/api/v1/segments")
-        async def create_segment(
-            request: SegmentRequest,
-            admin: Admin = Depends(self.auth.require_admin)
-        ):
-            """Create user segment"""
-            segment = await self.segment_service.create_segment(
-                name=request.name,
-                rules=request.rules,
-                created_by=admin.id
-            )
-            
-            # Calculate segment size
-            size = await self.segment_service.calculate_segment_size(segment.id)
-            
-            return {
-                'segment_id': segment.id,
-                'name': segment.name,
-                'size': size,
-                'rules': segment.rules
-            }
-        
-        @self.app.post("/api/v1/ab-tests")
-        async def create_ab_test(
-            request: ABTestRequest,
-            admin: Admin = Depends(self.auth.require_admin)
-        ):
-            """Create A/B test"""
-            test = await self.ab_test_service.create_test(
-                name=request.name,
-                hypothesis=request.hypothesis,
-                variants=request.variants,
-                metrics=request.metrics,
-                segment=request.segment,
-                duration=request.duration,
-                created_by=admin.id
-            )
-            
-            return {
-                'test_id': test.id,
-                'status': 'created',
-                'variants': test.variants,
-                'expected_duration': test.duration
-            }
+**User Preference Management Flow:**
 
-class NotificationWebUI:
-    """Web UI for notification management"""
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant API as API Gateway
+    participant Auth as Auth Service
+    participant PS as Preference Service
+    participant DB as Database
+    participant Cache as Cache
     
-    def __init__(self):
-        self.app = FastAPI()
-        self.templates = Jinja2Templates(directory="templates")
-        
-    @self.app.get("/preferences")
-    async def preferences_page(request: Request):
-        """User preferences page"""
-        user = await get_current_user(request)
-        preferences = await get_user_preferences(user.id)
-        
-        return templates.TemplateResponse(
-            "preferences.html",
-            {
-                "request": request,
-                "user": user,
-                "preferences": preferences,
-                "channels": Channel,
-                "notification_types": await get_notification_types()
-            }
-        )
+    U->>API: GET /preferences
+    API->>Auth: Validate token
+    Auth-->>API: User context
     
-    @self.app.get("/admin/dashboard")
-    async def admin_dashboard(request: Request):
-        """Admin dashboard"""
-        analytics = await get_dashboard_data()
-        
-        return templates.TemplateResponse(
-            "admin/dashboard.html",
-            {
-                "request": request,
-                "analytics": analytics,
-                "active_campaigns": await get_active_campaigns(),
-                "recent_alerts": await get_recent_alerts()
-            }
-        )
+    API->>PS: Get preferences
+    PS->>Cache: Check cache
+    
+    alt Cache Hit
+        Cache-->>PS: Return preferences
+    else Cache Miss
+        PS->>DB: Query preferences
+        DB-->>PS: Preference data
+        PS->>Cache: Update cache
+    end
+    
+    PS-->>API: Preferences
+    API-->>U: Return preferences
+```
+**API Endpoint Structure:**
+
+| Endpoint | Method | Purpose | Auth Required |
+|----------|--------|---------|---------------|
+| **User APIs** | | | |
+| `/api/v1/preferences` | GET | Get notification preferences | Yes |
+| `/api/v1/preferences` | PUT | Update preferences | Yes |
+| `/api/v1/unsubscribe` | POST | Unsubscribe from notifications | Token |
+| `/api/v1/history` | GET | Get notification history | Yes |
+| `/api/v1/dnd` | POST | Set do not disturb | Yes |
+| `/api/v1/stats` | GET | Get user statistics | Yes |
+| **Admin APIs** | | | |
+| `/api/v1/templates` | POST | Create notification template | Admin |
+| `/api/v1/campaigns` | POST | Create campaign | Admin |
+| `/api/v1/analytics/overview` | GET | Get analytics overview | Admin |
+| `/api/v1/segments` | POST | Create user segment | Admin |
+| `/api/v1/ab-tests` | POST | Create A/B test | Admin |
+
+**Preference Update Flow:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> ValidateAuth
+    ValidateAuth --> ValidatePrefs: Authenticated
+    ValidateAuth --> Unauthorized: Failed
+    
+    ValidatePrefs --> UpdateDB: Valid
+    ValidatePrefs --> BadRequest: Invalid
+    
+    UpdateDB --> InvalidateCache
+    InvalidateCache --> LogChange
+    LogChange --> ReturnSuccess
+    
+    ReturnSuccess --> [*]
+    Unauthorized --> [*]
+    BadRequest --> [*]
+```
+
+**Unsubscribe Mechanism:**
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant E as Email Link
+    participant API as API
+    participant T as Token Validator
+    participant PS as Preference Service
+    participant A as Analytics
+    
+    U->>E: Click unsubscribe
+    E->>API: POST /unsubscribe
+    API->>T: Verify token
+    
+    alt Valid Token
+        T-->>API: User context
+        API->>PS: Disable channel/all
+        PS-->>API: Updated
+        API->>A: Track event
+        API-->>U: Success + resubscribe link
+    else Invalid Token
+        T-->>API: Invalid
+        API-->>U: Error
+    end
+```
+
+**Admin Dashboard Components:**
+
+```mermaid
+graph TB
+    subgraph "Template Management"
+        TL[Template List]
+        TC[Template Creator]
+        TP[Template Preview]
+        TV[Variable Editor]
+    end
+    
+    subgraph "Campaign Management"
+        CL[Campaign List]
+        CC[Campaign Creator]
+        CS[Segment Selector]
+        CR[Reach Estimator]
+    end
+    
+    subgraph "Analytics Dashboard"
+        OV[Overview Metrics]
+        CH[Channel Performance]
+        EN[Engagement Rates]
+        AL[Active Alerts]
+    end
+    
+    subgraph "A/B Testing"
+        TT[Test Creator]
+        VM[Variant Manager]
+        MT[Metric Tracker]
+        RS[Result Analyzer]
+    end
+```
+
+**User Preference UI:**
+
+```mermaid
+graph LR
+    subgraph "Preference Categories"
+        CP[Channel Preferences]
+        TP[Type Preferences]
+        FP[Frequency Preferences]
+        DP[DND Settings]
+    end
+    
+    subgraph "Channel Controls"
+        EC[Email<br/>On/Off]
+        PC[Push<br/>On/Off]
+        SC[SMS<br/>On/Off]
+        IC[In-App<br/>On/Off]
+    end
+    
+    subgraph "Notification Types"
+        TR[Transactional]
+        MK[Marketing]
+        UP[Updates]
+        AL[Alerts]
+    end
+    
+    CP --> EC
+    CP --> PC
+    CP --> SC
+    CP --> IC
+    
+    TP --> TR
+    TP --> MK
+    TP --> UP
+    TP --> AL
+```
+
+**Web UI Page Structure:**
+
+```mermaid
+graph TD
+    subgraph "User Pages"
+        UP[/preferences]
+        UH[/history]
+        US[/settings]
+        UU[/unsubscribe]
+    end
+    
+    subgraph "Admin Pages"
+        AD[/admin/dashboard]
+        AT[/admin/templates]
+        AC[/admin/campaigns]
+        AA[/admin/analytics]
+        AS[/admin/segments]
+    end
+    
+    subgraph "Common Components"
+        NAV[Navigation Bar]
+        AUTH[Auth Modal]
+        NOT[Notification Toast]
+        CONF[Confirmation Dialog]
+    end
 ```
 
 #### 💰 Axiom 8 (Economics): Cost Optimization
@@ -2286,259 +1906,198 @@ Optimization Strategies:
 - Compression
 ```
 
-**Implementation:**
-```python
-class CostOptimizedNotificationSystem:
-    def __init__(self):
-        self.cost_tracker = CostTracker()
-        
-        # Provider costs
-        self.channel_costs = {
-            Channel.PUSH: 0.001,
-            Channel.EMAIL: 0.0001,
-            Channel.SMS: 0.01,
-            Channel.IN_APP: 0.00001,  # Just infrastructure
-            Channel.WEBHOOK: 0.00005   # Bandwidth cost
-        }
-        
-        # Provider tiers and volume discounts
-        self.provider_tiers = {
-            'fcm': [
-                {'volume': 1_000_000, 'cost': 0.001},
-                {'volume': 10_000_000, 'cost': 0.0008},
-                {'volume': 100_000_000, 'cost': 0.0005}
-            ],
-            'ses': [
-                {'volume': 10_000, 'cost': 0.0001},
-                {'volume': 1_000_000, 'cost': 0.00008},
-                {'volume': 10_000_000, 'cost': 0.00005}
-            ],
-            'twilio': [
-                {'volume': 10_000, 'cost': 0.01},
-                {'volume': 100_000, 'cost': 0.008},
-                {'volume': 1_000_000, 'cost': 0.006}
-            ]
-        }
-        
-        # Budget management
-        self.monthly_budget = 50000  # $50K
-        self.daily_budget = self.monthly_budget / 30
-        
-    async def optimize_channel_selection(self, notification: Notification, 
-                                       user_prefs: dict) -> List[Channel]:
-        """Select channels based on cost and effectiveness"""
-        eligible_channels = notification.channels
-        
-        # Get user engagement history
-        engagement = await self._get_user_engagement(notification.user_id)
-        
-        # Calculate cost-effectiveness for each channel
-        channel_scores = []
-        
-        for channel in eligible_channels:
-            # Skip if user disabled
-            if not user_prefs.get(f'{channel.value}_enabled', True):
-                continue
-            
-            # Calculate effectiveness score
-            effectiveness = engagement.get(channel.value, {}).get('click_rate', 0.1)
-            
-            # Get current cost
-            cost = self._get_current_channel_cost(channel)
-            
-            # Value score = effectiveness / cost
-            value_score = effectiveness / cost if cost > 0 else float('inf')
-            
-            channel_scores.append({
-                'channel': channel,
-                'cost': cost,
-                'effectiveness': effectiveness,
-                'value_score': value_score
-            })
-        
-        # Sort by value score
-        channel_scores.sort(key=lambda x: x['value_score'], reverse=True)
-        
-        # Select channels within budget
-        selected_channels = []
-        total_cost = 0
-        
-        for score in channel_scores:
-            if total_cost + score['cost'] <= self._get_remaining_budget():
-                selected_channels.append(score['channel'])
-                total_cost += score['cost']
-        
-        return selected_channels
+**Cost Optimization Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Cost Components"
+        CC[Channel Costs]
+        PT[Provider Tiers]
+        BM[Budget Manager]
+        CT[Cost Tracker]
+    end
     
-    def _get_current_channel_cost(self, channel: Channel) -> float:
-        """Get current cost based on volume tiers"""
-        if channel == Channel.PUSH:
-            volume = self.cost_tracker.get_monthly_volume('fcm')
-            tiers = self.provider_tiers['fcm']
-        elif channel == Channel.EMAIL:
-            volume = self.cost_tracker.get_monthly_volume('ses')
-            tiers = self.provider_tiers['ses']
-        elif channel == Channel.SMS:
-            volume = self.cost_tracker.get_monthly_volume('twilio')
-            tiers = self.provider_tiers['twilio']
-        else:
-            return self.channel_costs[channel]
-        
-        # Find applicable tier
-        for tier in reversed(tiers):
-            if volume >= tier['volume']:
-                return tier['cost']
-        
-        return tiers[0]['cost']
+    subgraph "Optimization Strategies"
+        CS[Channel Selection]
+        BN[Batch Notifications]
+        TO[Timing Optimization]
+        VD[Volume Discounts]
+    end
     
-    async def batch_notifications_for_cost(self, notifications: List[Notification]):
-        """Batch notifications to reduce costs"""
-        # Group by channel and provider
-        batches = defaultdict(list)
-        
-        for notification in notifications:
-            for channel in notification.channels:
-                # Determine optimal batch key
-                if channel == Channel.EMAIL:
-                    # Batch emails by template for SES efficiency
-                    batch_key = f"email:{notification.template_id}"
-                elif channel == Channel.PUSH:
-                    # Batch push by platform
-                    platform = await self._get_user_platform(notification.user_id)
-                    batch_key = f"push:{platform}"
-                else:
-                    # Default batching by channel
-                    batch_key = channel.value
-                
-                batches[batch_key].append(notification)
-        
-        # Process batches with cost optimization
-        for batch_key, batch in batches.items():
-            if batch_key.startswith('email:'):
-                # Use SES batch API (up to 50 destinations)
-                for i in range(0, len(batch), 50):
-                    sub_batch = batch[i:i+50]
-                    await self._send_email_batch(sub_batch)
-                    
-                    # Track cost savings
-                    cost_saved = (len(sub_batch) - 1) * 0.00002  # API call overhead
-                    self.cost_tracker.record_savings('batching', cost_saved)
-            
-            elif batch_key.startswith('push:'):
-                # Use FCM multicast (up to 1000)
-                for i in range(0, len(batch), 1000):
-                    sub_batch = batch[i:i+1000]
-                    await self._send_push_batch(sub_batch)
-                    
-                    cost_saved = (len(sub_batch) - 1) * 0.00005
-                    self.cost_tracker.record_savings('batching', cost_saved)
+    subgraph "Reporting"
+        CR[Cost Reports]
+        SA[Savings Analysis]
+        RC[Recommendations]
+        PR[Projections]
+    end
     
-    async def optimize_delivery_timing(self, notification: Notification) -> float:
-        """Optimize delivery time for cost"""
-        # Non-urgent notifications can be delayed for batching
-        if notification.priority in [NotificationPriority.MEDIUM, NotificationPriority.LOW]:
-            # Check provider rate limits and costs
-            current_hour = datetime.now().hour
-            
-            # Off-peak hours have lower costs for some providers
-            off_peak_hours = [0, 1, 2, 3, 4, 5, 22, 23]
-            
-            if current_hour not in off_peak_hours:
-                # Delay to next off-peak window
-                if current_hour < 22:
-                    delay_hours = 22 - current_hour
-                else:
-                    delay_hours = 24 - current_hour
-                
-                # Only delay if within reasonable time
-                if delay_hours <= 6 and notification.priority == NotificationPriority.LOW:
-                    delay_seconds = delay_hours * 3600
-                    
-                    # Calculate cost savings (10% discount for off-peak)
-                    base_cost = self._calculate_notification_cost(notification)
-                    savings = base_cost * 0.1
-                    
-                    self.cost_tracker.record_planned_savings('off_peak', savings)
-                    
-                    return delay_seconds
-        
-        return 0  # No delay
+    CC --> CS
+    PT --> VD
+    BM --> CS
     
-    def generate_cost_report(self) -> dict:
-        """Generate detailed cost report"""
-        report = {
-            'period': 'current_month',
-            'total_cost': self.cost_tracker.get_total_cost(),
-            'budget_remaining': self.monthly_budget - self.cost_tracker.get_total_cost(),
-            'budget_utilization': self.cost_tracker.get_total_cost() / self.monthly_budget,
-            
-            'by_channel': {
-                channel.value: {
-                    'volume': self.cost_tracker.get_channel_volume(channel),
-                    'cost': self.cost_tracker.get_channel_cost(channel),
-                    'avg_cost': self.cost_tracker.get_channel_avg_cost(channel)
-                }
-                for channel in Channel
-            },
-            
-            'by_provider': self.cost_tracker.get_provider_breakdown(),
-            
-            'savings': {
-                'batching': self.cost_tracker.get_savings('batching'),
-                'off_peak': self.cost_tracker.get_savings('off_peak'),
-                'channel_optimization': self.cost_tracker.get_savings('channel_optimization'),
-                'total_savings': self.cost_tracker.get_total_savings()
-            },
-            
-            'projections': {
-                'month_end': self._project_month_end_cost(),
-                'next_tier_volume': self._calculate_next_tier_targets()
-            },
-            
-            'recommendations': self._generate_cost_recommendations()
-        }
-        
-        return report
+    CS --> CT
+    BN --> CT
+    TO --> CT
+    VD --> CT
     
-    def _generate_cost_recommendations(self) -> List[dict]:
-        """Generate cost optimization recommendations"""
-        recommendations = []
+    CT --> CR
+    CT --> SA
+    SA --> RC
+    CR --> PR
+```
+
+**Channel Cost Structure:**
+
+| Channel | Base Cost | Volume Tiers | Off-Peak Discount |
+|---------|-----------|--------------|-------------------|
+| **Push** | $0.001 | 1M: $0.001<br/>10M: $0.0008<br/>100M: $0.0005 | N/A |
+| **Email** | $0.0001 | 10K: $0.0001<br/>1M: $0.00008<br/>10M: $0.00005 | 10% |
+| **SMS** | $0.01 | 10K: $0.01<br/>100K: $0.008<br/>1M: $0.006 | 15% |
+| **In-App** | $0.00001 | Infrastructure only | N/A |
+| **Webhook** | $0.00005 | Bandwidth cost | N/A |
+
+**Cost-Based Channel Selection:**
+
+```mermaid
+graph LR
+    subgraph "Evaluation"
+        N[Notification] --> EH[Engagement History]
+        EH --> ES[Effectiveness Score]
         
-        # Check if close to volume tiers
-        for provider, tiers in self.provider_tiers.items():
-            current_volume = self.cost_tracker.get_monthly_volume(provider)
-            
-            for tier in tiers:
-                if current_volume < tier['volume'] * 0.9:  # Within 10% of tier
-                    potential_savings = self._calculate_tier_savings(
-                        provider,
-                        current_volume,
-                        tier['volume']
-                    )
-                    
-                    recommendations.append({
-                        'type': 'volume_tier',
-                        'provider': provider,
-                        'action': f"Increase {provider} volume to {tier['volume']:,}",
-                        'potential_savings': potential_savings,
-                        'priority': 'high' if potential_savings > 1000 else 'medium'
-                    })
-                    break
+        N --> CC[Channel Cost]
+        CC --> CT[Current Tier]
         
-        # Check channel effectiveness
-        channel_effectiveness = self.cost_tracker.get_channel_effectiveness()
-        
-        for channel, metrics in channel_effectiveness.items():
-            if metrics['cost_per_engagement'] > self.channel_costs[channel] * 10:
-                recommendations.append({
-                    'type': 'channel_optimization',
-                    'channel': channel,
-                    'action': f"Consider reducing {channel} usage due to low engagement",
-                    'current_cpe': metrics['cost_per_engagement'],
-                    'priority': 'medium'
-                })
-        
-        return recommendations
+        ES --> VS[Value Score<br/>Effectiveness/Cost]
+        CT --> VS
+    end
+    
+    subgraph "Selection"
+        VS --> SO[Sort by Value]
+        SO --> BC[Budget Check]
+        BC --> SC[Selected Channels]
+    end
+    
+    subgraph "Tracking"
+        SC --> TC[Track Cost]
+        TC --> US[Update Savings]
+    end
+```
+
+**Batching Strategy:**
+
+```mermaid
+sequenceDiagram
+    participant N as Notifications
+    participant B as Batcher
+    participant E as Email Batch
+    participant P as Push Batch
+    participant T as Cost Tracker
+    
+    N->>B: Incoming notifications
+    B->>B: Group by channel/template
+    
+    par Email Batching
+        B->>E: Create email batches (50 max)
+        E->>E: Send via SES batch API
+        E->>T: Record savings
+    and Push Batching
+        B->>P: Create push batches (1000 max)
+        P->>P: Send via FCM multicast
+        P->>T: Record savings
+    end
+    
+    T->>T: Calculate total savings
+```
+
+**Delivery Time Optimization:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> CheckPriority
+    
+    CheckPriority --> HighPriority: Critical/High
+    CheckPriority --> CheckTime: Medium/Low
+    
+    HighPriority --> SendNow
+    
+    CheckTime --> PeakHours: 6AM-10PM
+    CheckTime --> OffPeak: 10PM-6AM
+    
+    PeakHours --> CalculateDelay
+    OffPeak --> SendNow
+    
+    CalculateDelay --> DelayValid: Delay <= 6hrs
+    CalculateDelay --> SendNow: Delay > 6hrs
+    
+    DelayValid --> ScheduleOffPeak
+    ScheduleOffPeak --> RecordSavings
+    
+    SendNow --> [*]
+    RecordSavings --> [*]
+```
+
+**Cost Report Dashboard:**
+
+```mermaid
+graph TB
+    subgraph "Current Month"
+        TC[Total Cost: $X]
+        BR[Budget Remaining: $Y]
+        BU[Utilization: Z%]
+    end
+    
+    subgraph "Channel Breakdown"
+        CB[Channel Costs]
+        CV[Channel Volume]
+        CA[Avg Cost/Message]
+    end
+    
+    subgraph "Savings"
+        BS[Batching: $A]
+        OS[Off-peak: $B]
+        CO[Optimization: $C]
+        TS[Total Saved: $D]
+    end
+    
+    subgraph "Recommendations"
+        VT[Volume Tier<br/>Opportunities]
+        CE[Channel<br/>Effectiveness]
+        PA[Provider<br/>Alternatives]
+    end
+```
+
+**Volume Tier Optimization:**
+
+```mermaid
+graph LR
+    subgraph "Current State"
+        CV[Current Volume]
+        CC[Current Cost]
+        CT[Current Tier]
+    end
+    
+    subgraph "Analysis"
+        NT[Next Tier]
+        VG[Volume Gap]
+        PS[Potential Savings]
+    end
+    
+    subgraph "Recommendation"
+        RA[Required Action]
+        ES[Expected Savings]
+        PR[Priority Level]
+    end
+    
+    CV --> VG
+    CT --> NT
+    NT --> VG
+    
+    VG --> PS
+    CC --> PS
+    
+    PS --> RA
+    PS --> ES
+    ES --> PR
 ```
 
 ### 📊 Comprehensive Axiom Mapping

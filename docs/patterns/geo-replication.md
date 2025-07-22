@@ -25,8 +25,6 @@ last_updated: 2025-07-21
 
 ### The Global Library Analogy
 
-Think of geo-replication like a global library system:
-
 ```
 Single Library:                       Global Library Network:
 
@@ -44,8 +42,6 @@ Problems:                             📚 Tokyo Branch ←→ 📚 Sydney Branc
                                      - Follow-the-sun ops
                                      - Regional compliance
 ```
-
-### Visual Metaphor
 
 ```
 Without Geo-Replication:              With Geo-Replication:
@@ -69,116 +65,75 @@ The Challenge: Keeping all copies synchronized!
 | **GitHub** | Code replicated across 3 regions | Survives region failures |
 | **Spotify** | Music catalog geo-distributed | Instant playback worldwide |
 
-### Basic Implementation
+### Geo-Replication Architecture
 
-```python
-class GeoReplicatedDatabase:
-    def __init__(self):
-        self.regions = {
-            'us-east': Region('us-east-1', primary=True),
-            'eu-west': Region('eu-west-1'),
-            'ap-south': Region('ap-south-1')
-        }
-        self.replication_lag = {}  # Track lag between regions
-        
-    def write(self, key: str, value: any, consistency: str = 'eventual'):
-        """Write with configurable consistency"""
-        
-        # Always write to primary first
-        primary = self.get_primary_region()
-        primary.write(key, value)
-        
-        if consistency == 'strong':
-            # Wait for all regions (slow but consistent)
-            return self.replicate_sync(key, value)
-            
-        elif consistency == 'quorum':
-            # Wait for majority (balanced)
-            return self.replicate_quorum(key, value)
-            
-        else:  # eventual
-            # Fire and forget (fast but eventually consistent)
-            self.replicate_async(key, value)
-            return True
+```mermaid
+graph TB
+    subgraph "US East (Primary)"
+        USE[US-East Region]
+        USEDB[(Primary DB)]
+    end
     
-    def read(self, key: str, user_region: str = None):
-        """Read from optimal region"""
-        
-        if user_region:
-            # Read from user's local region (fast!)
-            local_region = self.regions.get(user_region)
-            if local_region:
-                value = local_region.read(key)
-                staleness = self.get_staleness(user_region)
-                
-                return {
-                    'value': value,
-                    'region': user_region,
-                    'staleness_ms': staleness,
-                    'warning': 'May be stale' if staleness > 1000 else None
-                }
-        
-        # Fallback to primary (always fresh)
-        return {
-            'value': self.get_primary_region().read(key),
-            'region': 'primary',
-            'staleness_ms': 0
-        }
+    subgraph "EU West"
+        EUW[EU-West Region]
+        EUWDB[(Replica DB)]
+    end
     
-    def replicate_sync(self, key: str, value: any):
-        """Synchronous replication - wait for all"""
-        
-        replicas = [r for r in self.regions.values() if not r.is_primary]
-        results = []
-        
-        for replica in replicas:
-            start = time.time()
-            success = replica.write(key, value)
-            latency = (time.time() - start) * 1000
-            
-            results.append({
-                'region': replica.name,
-                'success': success,
-                'latency_ms': latency
-            })
-            
-            if not success:
-                raise ReplicationError(f"Failed to replicate to {replica.name}")
-        
-        return {'status': 'success', 'regions': results}
+    subgraph "Asia Pacific"
+        APS[AP-South Region]
+        APSDB[(Replica DB)]
+    end
     
-    def handle_region_failure(self, failed_region: str):
-        """Handle region going offline"""
-        
-        if self.regions[failed_region].is_primary:
-            # Primary failed! Elect new primary
-            self.elect_new_primary()
-        
-        # Mark region as unavailable
-        self.regions[failed_region].available = False
-        
-        # Reroute traffic
-        self.update_routing_table()
-        
-        return {
-            'failed_region': failed_region,
-            'new_primary': self.get_primary_region().name,
-            'available_regions': [r for r in self.regions if r.available]
-        }
-
-# Example usage
-db = GeoReplicatedDatabase()
-
-# Write with eventual consistency (fast)
-db.write('user:123', {'name': 'Alice', 'location': 'NYC'})
-
-# Read from nearest region
-result = db.read('user:123', user_region='eu-west')
-print(f"Value: {result['value']}, Staleness: {result['staleness_ms']}ms")
-
-# Write with strong consistency (slow but guaranteed)
-db.write('payment:456', {'amount': 100}, consistency='strong')
+    USE --> USEDB
+    EUW --> EUWDB
+    APS --> APSDB
+    
+    USEDB -.->|Replication| EUWDB
+    USEDB -.->|Replication| APSDB
+    EUWDB -.->|Cross-Region Sync| APSDB
+    
+    U1[US Users] --> USE
+    U2[EU Users] --> EUW
+    U3[Asia Users] --> APS
+    
+    style USEDB fill:#f96,stroke:#333,stroke-width:4px
+    style EUWDB fill:#69f,stroke:#333,stroke-width:2px
+    style APSDB fill:#69f,stroke:#333,stroke-width:2px
 ```
+
+### Consistency Models Flow
+
+```mermaid
+flowchart LR
+    subgraph "Write Operation"
+        W[Write Request] --> C{Consistency Level?}
+        
+        C -->|Strong| S[Write to Primary]
+        S --> SW[Wait for ALL Replicas]
+        SW --> SR[Return Success]
+        
+        C -->|Quorum| Q[Write to Primary]
+        Q --> QW[Wait for MAJORITY]
+        QW --> QR[Return Success]
+        
+        C -->|Eventual| E[Write to Primary]
+        E --> EA[Async Replication]
+        EA --> ER[Return Immediately]
+    end
+    
+    style C fill:#ffd,stroke:#333,stroke-width:2px
+    style S fill:#f99,stroke:#333,stroke-width:2px
+    style Q fill:#ff9,stroke:#333,stroke-width:2px
+    style E fill:#9f9,stroke:#333,stroke-width:2px
+```
+
+### Replication Latency Matrix
+
+| From → To | US-East | EU-West | AP-South |
+|-----------|---------|---------|----------|
+| **US-East** | - | ~80ms | ~250ms |
+| **EU-West** | ~80ms | - | ~150ms |
+| **AP-South** | ~250ms | ~150ms | - |
 
 ---
 
@@ -213,223 +168,115 @@ graph TB
 
 ### Core Concepts
 
-#### 1. Replication Strategies
+#### 1. Replication Strategy Comparison
 
-```python
-class ReplicationStrategy:
-    """Different strategies for geo-replication"""
+```mermaid
+graph TB
+    subgraph "Async Replication"
+        A1[Write Primary] --> A2[Queue Replication]
+        A2 --> A3[Return Immediately]
+        A2 -.->|Background| A4[Replicate to Secondary]
+    end
     
-    def __init__(self):
-        self.strategies = {
-            'async': AsyncReplication(),
-            'sync': SyncReplication(),
-            'semi_sync': SemiSyncReplication(),
-            'quorum': QuorumReplication()
-        }
+    subgraph "Sync Replication"
+        S1[Write Primary] --> S2[Replicate to ALL]
+        S2 --> S3[Wait for ALL ACKs]
+        S3 --> S4[Return Success]
+    end
     
-    def replicate(self, data: dict, strategy: str = 'async'):
-        """Replicate using chosen strategy"""
-        return self.strategies[strategy].replicate(data)
-
-class AsyncReplication:
-    """Fire-and-forget replication"""
+    subgraph "Semi-Sync Replication"
+        SS1[Write Primary] --> SS2[Replicate to ONE]
+        SS2 --> SS3[Wait for ONE ACK]
+        SS3 --> SS4[Return Success]
+        SS3 -.->|Background| SS5[Replicate to Others]
+    end
     
-    def replicate(self, data: dict):
-        # Queue for replication
-        replication_queue.put(data)
-        
-        # Return immediately (fast!)
-        return {'status': 'queued', 'guarantee': 'eventual'}
-
-class SyncReplication:
-    """Wait for all replicas"""
-    
-    def replicate(self, data: dict):
-        regions = get_all_regions()
-        
-        # Wait for all (slow but consistent)
-        for region in regions:
-            result = region.write_sync(data)
-            if not result.success:
-                raise ReplicationError(f"Failed: {region}")
-        
-        return {'status': 'completed', 'guarantee': 'strong'}
-
-class SemiSyncReplication:
-    """Wait for at least one replica"""
-    
-    def replicate(self, data: dict):
-        regions = get_all_regions()
-        
-        # Wait for first success
-        for region in regions:
-            if region.write_sync(data).success:
-                # Continue async for others
-                replicate_async_to_remaining(regions, data)
-                return {'status': 'partial', 'guarantee': 'semi_strong'}
-        
-        raise ReplicationError("No replicas available")
-
-class QuorumReplication:
-    """Wait for majority"""
-    
-    def replicate(self, data: dict):
-        regions = get_all_regions()
-        required = len(regions) // 2 + 1
-        successful = 0
-        
-        # Replicate in parallel
-        futures = [region.write_async(data) for region in regions]
-        
-        for future in futures:
-            if future.result().success:
-                successful += 1
-                if successful >= required:
-                    return {'status': 'quorum', 'guarantee': 'strong'}
-        
-        raise ReplicationError("Quorum not reached")
+    subgraph "Quorum Replication"
+        Q1[Write Primary] --> Q2[Replicate to ALL]
+        Q2 --> Q3[Wait for MAJORITY]
+        Q3 --> Q4[Return Success]
+    end
 ```
 
-#### 2. Conflict Resolution
+### Replication Strategy Trade-offs
 
-```python
-class ConflictResolver:
-    """Handle conflicts in multi-master replication"""
+| Strategy | Write Latency | Consistency | Durability | Availability | Use Case |
+|----------|--------------|-------------|------------|--------------|----------|
+| **Async** | Lowest (~5ms) | Eventual | Risk of loss | Highest | Caching, Analytics |
+| **Sync** | Highest (~300ms) | Strong | Guaranteed | Lowest | Financial data |
+| **Semi-Sync** | Medium (~100ms) | Good | High | High | User data |
+| **Quorum** | Medium (~150ms) | Strong | High | Good | Critical data |
+
+#### 2. Conflict Resolution Strategies
+
+```mermaid
+flowchart TB
+    subgraph "Conflict Detection"
+        C[Concurrent Updates] --> D{Same Key?}
+        D -->|Yes| CF[Conflict!]
+        D -->|No| NC[No Conflict]
+    end
     
-    def __init__(self):
-        self.strategies = {
-            'last_write_wins': self.last_write_wins,
-            'vector_clock': self.vector_clock_resolution,
-            'crdt': self.crdt_merge,
-            'custom': self.custom_resolution
-        }
+    subgraph "Resolution Strategies"
+        CF --> R{Strategy?}
+        
+        R -->|LWW| LWW[Last Write Wins<br/>Compare timestamps]
+        R -->|Vector Clock| VC[Vector Clock<br/>Track causality]
+        R -->|CRDT| CRDT[CRDT Merge<br/>Automatic resolution]
+        R -->|Custom| CUS[Custom Logic<br/>App-specific]
+    end
     
-    def resolve(self, conflicts: list, strategy: str = 'vector_clock'):
-        """Resolve conflicts using chosen strategy"""
-        
-        return self.strategies[strategy](conflicts)
-    
-    def last_write_wins(self, conflicts: list):
-        """Simple: latest timestamp wins"""
-        
-        return max(conflicts, key=lambda x: x.timestamp)
-    
-    def vector_clock_resolution(self, conflicts: list):
-        """Use vector clocks to detect true conflicts"""
-        
-        # Group by causal relationship
-        groups = []
-        
-        for c1 in conflicts:
-            placed = False
-            for group in groups:
-                if any(self.causally_related(c1, c2) for c2 in group):
-                    group.append(c1)
-                    placed = True
-                    break
-            
-            if not placed:
-                groups.append([c1])
-        
-        # Resolve within groups
-        resolved = []
-        for group in groups:
-            if len(group) == 1:
-                resolved.append(group[0])
-            else:
-                # True conflict - need application logic
-                resolved.append(self.application_resolve(group))
-        
-        return resolved
-    
-    def crdt_merge(self, conflicts: list):
-        """Conflict-free merge for CRDTs"""
-        
-        # CRDTs merge without conflicts
-        result = conflicts[0]
-        
-        for conflict in conflicts[1:]:
-            result = result.merge(conflict)
-        
-        return result
-    
-    def custom_resolution(self, conflicts: list):
-        """Application-specific resolution"""
-        
-        # Example: Shopping cart - union of all items
-        if conflicts[0].type == 'shopping_cart':
-            all_items = set()
-            for conflict in conflicts:
-                all_items.update(conflict.items)
-            
-            return ShoppingCart(items=all_items)
-        
-        # Example: Counter - sum all increments
-        elif conflicts[0].type == 'counter':
-            total = sum(c.value for c in conflicts)
-            return Counter(value=total)
-        
-        # Fallback to last-write-wins
-        return self.last_write_wins(conflicts)
+    subgraph "Examples"
+        LWW --> E1[timestamp: 1000 wins over 999]
+        VC --> E2[A→B concurrent with C→D]
+        CRDT --> E3[Set Union: {A,B} ∪ {B,C} = {A,B,C}]
+        CUS --> E4[Shopping Cart: Merge all items]
+    end
 ```
 
-#### 3. Geo-Aware Routing
+### Conflict Resolution Examples
 
-```python
-class GeoRouter:
-    """Route requests to optimal regions"""
+| Data Type | Conflict Scenario | Resolution Strategy | Result |
+|-----------|------------------|--------------------|---------|
+| **User Profile** | Name changed in 2 regions | Last Write Wins | Latest timestamp |
+| **Shopping Cart** | Items added in 2 regions | Set Union (CRDT) | All items kept |
+| **Counter** | Incremented in 3 regions | Sum All | Total of all increments |
+| **Document** | Edited concurrently | Vector Clock + UI | Show conflicts to user |
+| **Inventory** | Stock decremented | Custom Business Logic | Check constraints |
+
+#### 3. Geo-Aware Routing Logic
+
+```mermaid
+flowchart TD
+    REQ[User Request] --> GEO[Geolocate User]
+    GEO --> CALC[Calculate Scores]
     
-    def __init__(self):
-        self.regions = self.load_regions()
-        self.latency_map = self.build_latency_map()
-        
-    def route_request(self, request: Request) -> Region:
-        """Find best region for request"""
-        
-        user_location = self.geolocate(request.ip)
-        
-        # Consider multiple factors
-        candidates = []
-        
-        for region in self.regions:
-            score = self.calculate_score(
-                region,
-                user_location,
-                request.consistency_requirement,
-                request.data_locality
-            )
-            candidates.append((region, score))
-        
-        # Return highest scoring region
-        best_region = max(candidates, key=lambda x: x[1])
-        
-        return best_region[0]
+    CALC --> F1[Factor: Network Latency]
+    CALC --> F2[Factor: Data Freshness]
+    CALC --> F3[Factor: Compliance]
+    CALC --> F4[Factor: Region Health]
     
-    def calculate_score(self, region, user_location, consistency, locality):
-        """Score region based on multiple factors"""
-        
-        score = 0
-        
-        # Network latency (most important)
-        latency = self.get_latency(user_location, region.location)
-        score += 1000 / (latency + 1)  # Lower latency = higher score
-        
-        # Data freshness
-        if consistency == 'strong' and region.is_primary:
-            score += 500
-        elif consistency == 'eventual':
-            lag = region.get_replication_lag()
-            score += 100 / (lag + 1)
-        
-        # Data locality (regulatory compliance)
-        if locality and region.location in locality:
-            score += 200
-        
-        # Region health
-        score *= region.health_score
-        
-        return score
+    F1 --> SCORE[Composite Score]
+    F2 --> SCORE
+    F3 --> SCORE
+    F4 --> SCORE
+    
+    SCORE --> SELECT[Select Best Region]
+    SELECT --> ROUTE[Route Request]
+    
+    style CALC fill:#ffd,stroke:#333,stroke-width:2px
+    style SCORE fill:#9f6,stroke:#333,stroke-width:2px
 ```
+
+### Geo-Routing Decision Matrix
+
+| User Location | Consistency Need | Compliance | Selected Region | Reasoning |
+|---------------|-----------------|------------|-----------------|------------|
+| New York | Strong | - | US-East (Primary) | Lowest latency + strong consistency |
+| London | Eventual | GDPR | EU-West | Compliance + acceptable lag |
+| Tokyo | Eventual | - | AP-South | Nearest region |
+| São Paulo | Strong | - | US-East (Primary) | No local region, need primary |
+| Sydney | Quorum | - | AP-South + US-East | Multi-region read |
 
 ### Advanced Patterns
 

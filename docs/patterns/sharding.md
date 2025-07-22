@@ -39,74 +39,54 @@ Unsharded:                    Sharded:
     Bottleneck!               Distributed Load!
 ```
 
-### Basic Implementation
+### Sharding Architecture Overview
 
-```python
-import hashlib
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass
-
-@dataclass
-class ShardConfig:
-    """Configuration for a single shard"""
-    shard_id: int
-    host: str
-    port: int
-    db_name: str
-    weight: float = 1.0  # For weighted sharding
-
-class SimpleShardRouter:
-    """Basic sharding router using consistent hashing"""
+```mermaid
+graph TB
+    subgraph "Application Layer"
+        APP[Application]
+        ROUTER[Shard Router]
+    end
     
-    def __init__(self, shards: List[ShardConfig]):
-        self.shards = {s.shard_id: s for s in shards}
-        self.shard_count = len(shards)
-        
-    def get_shard(self, key: str) -> ShardConfig:
-        """Route key to appropriate shard"""
-        hash_value = int(hashlib.md5(key.encode()).hexdigest(), 16)
-        shard_id = hash_value % self.shard_count
-        return self.shards[shard_id]
+    subgraph "Sharding Logic"
+        HASH[Hash Function]
+        MAP[Shard Mapping]
+    end
     
-    def get_connection(self, key: str):
-        """Get database connection for key"""
-        shard = self.get_shard(key)
-        return self._connect_to_shard(shard)
+    subgraph "Data Shards"
+        S0[(Shard 0<br/>Users A-F)]
+        S1[(Shard 1<br/>Users G-M)]
+        S2[(Shard 2<br/>Users N-S)]
+        S3[(Shard 3<br/>Users T-Z)]
+    end
     
-    def _connect_to_shard(self, shard: ShardConfig):
-        """Create connection to specific shard"""
-        import psycopg2
-        return psycopg2.connect(
-            host=shard.host,
-            port=shard.port,
-            database=shard.db_name
-        )
+    APP --> ROUTER
+    ROUTER --> HASH
+    HASH --> MAP
+    MAP --> S0
+    MAP --> S1
+    MAP --> S2
+    MAP --> S3
+    
+    style ROUTER fill:#ffd,stroke:#333,stroke-width:2px
+    style S0 fill:#9f6,stroke:#333,stroke-width:2px
+    style S1 fill:#9f6,stroke:#333,stroke-width:2px
+    style S2 fill:#9f6,stroke:#333,stroke-width:2px
+    style S3 fill:#9f6,stroke:#333,stroke-width:2px
+```
 
-# Example usage
-shards = [
-    ShardConfig(0, "shard0.db.com", 5432, "users_0"),
-    ShardConfig(1, "shard1.db.com", 5432, "users_1"),
-    ShardConfig(2, "shard2.db.com", 5432, "users_2"),
-    ShardConfig(3, "shard3.db.com", 5432, "users_3")
-]
+### Sharding Request Flow
 
-router = SimpleShardRouter(shards)
-
-# Route user operations to correct shard
-def get_user(user_id: str) -> Dict:
-    conn = router.get_connection(user_id)
-    cursor = conn.cursor()
-    cursor.execute("SELECT * FROM users WHERE id = %s", (user_id,))
-    return cursor.fetchone()
-
-def create_user(user_id: str, data: Dict):
-    conn = router.get_connection(user_id)
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO users (id, name, email) VALUES (%s, %s, %s)",
-        (user_id, data['name'], data['email'])
-    )
-    conn.commit()
+```mermaid
+flowchart LR
+    REQ[Request: Get User 123] --> ROUTE{Router}
+    ROUTE --> CALC[Calculate: hash(123) % 4 = 2]
+    CALC --> SHARD[Connect to Shard 2]
+    SHARD --> QUERY[Execute Query]
+    QUERY --> RESULT[Return Data]
+    
+    style ROUTE fill:#ffd,stroke:#333,stroke-width:2px
+    style SHARD fill:#9f6,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -123,184 +103,147 @@ def create_user(user_id: str, data: Dict):
 | **Directory-Based** | Lookup table for mapping | Flexible | Additional hop | Dynamic sharding |
 | **Composite** | Multiple shard keys | Fine-grained control | Complex routing | Multi-tenant |
 
-### Implementing Different Sharding Strategies
+### Sharding Strategy Visualizations
 
-```python
-from abc import ABC, abstractmethod
-from datetime import datetime
-import bisect
-
-class ShardingStrategy(ABC):
-    """Base class for sharding strategies"""
+#### Range-Based Sharding
+```mermaid
+graph LR
+    subgraph "Key Space"
+        K1[Keys 0-999]
+        K2[Keys 1000-1999]
+        K3[Keys 2000-2999]
+        K4[Keys 3000-3999]
+    end
     
-    @abstractmethod
-    def get_shard_id(self, key: Any) -> int:
-        pass
-
-class RangeSharding(ShardingStrategy):
-    """Range-based sharding strategy"""
+    subgraph "Shards"
+        S0[(Shard 0)]
+        S1[(Shard 1)]
+        S2[(Shard 2)]
+        S3[(Shard 3)]
+    end
     
-    def __init__(self, ranges: List[tuple]):
-        # ranges = [(start, end, shard_id)]
-        self.ranges = sorted(ranges, key=lambda x: x[0])
-        self.boundaries = [r[0] for r in ranges]
-        
-    def get_shard_id(self, key: int) -> int:
-        idx = bisect.bisect_right(self.boundaries, key) - 1
-        if idx < 0 or idx >= len(self.ranges):
-            raise ValueError(f"Key {key} out of range")
-        
-        start, end, shard_id = self.ranges[idx]
-        if key >= start and key < end:
-            return shard_id
-        raise ValueError(f"Key {key} not in any range")
-
-class HashSharding(ShardingStrategy):
-    """Consistent hash-based sharding"""
+    K1 --> S0
+    K2 --> S1
+    K3 --> S2
+    K4 --> S3
     
-    def __init__(self, shard_count: int, virtual_nodes: int = 150):
-        self.shard_count = shard_count
-        self.virtual_nodes = virtual_nodes
-        self._build_hash_ring()
-        
-    def _build_hash_ring(self):
-        """Build consistent hash ring with virtual nodes"""
-        self.ring = {}
-        for shard_id in range(self.shard_count):
-            for vnode in range(self.virtual_nodes):
-                hash_key = hashlib.md5(
-                    f"{shard_id}:{vnode}".encode()
-                ).hexdigest()
-                self.ring[hash_key] = shard_id
-        self.sorted_keys = sorted(self.ring.keys())
-    
-    def get_shard_id(self, key: str) -> int:
-        """Get shard using consistent hashing"""
-        hash_key = hashlib.md5(str(key).encode()).hexdigest()
-        idx = bisect.bisect_right(self.sorted_keys, hash_key)
-        if idx == len(self.sorted_keys):
-            idx = 0
-        return self.ring[self.sorted_keys[idx]]
-
-class GeographicSharding(ShardingStrategy):
-    """Geography-based sharding"""
-    
-    def __init__(self, region_mapping: Dict[str, int]):
-        self.region_mapping = region_mapping
-        
-    def get_shard_id(self, location: Dict) -> int:
-        """Route based on geographic location"""
-        # Simple region-based routing
-        region = self._get_region(location['latitude'], location['longitude'])
-        return self.region_mapping.get(region, 0)
-    
-    def _get_region(self, lat: float, lon: float) -> str:
-        """Determine region from coordinates"""
-        if lat > 0:
-            if lon < -30: return "north_america"
-            if lon < 60: return "europe"
-            return "asia"
-        return "other"
-
-class CompositeSharding(ShardingStrategy):
-    """Multi-dimensional sharding"""
-    
-    def __init__(self, tenant_shards: int, data_shards_per_tenant: int):
-        self.tenant_shards = tenant_shards
-        self.data_shards_per_tenant = data_shards_per_tenant
-        self.total_shards = tenant_shards * data_shards_per_tenant
-        
-    def get_shard_id(self, tenant_id: str, data_key: str) -> int:
-        """Route based on tenant and data key"""
-        # First level: tenant sharding
-        tenant_shard = hash(tenant_id) % self.tenant_shards
-        
-        # Second level: data sharding within tenant
-        data_shard = hash(data_key) % self.data_shards_per_tenant
-        
-        # Combine to get final shard
-        return tenant_shard * self.data_shards_per_tenant + data_shard
+    style K1 fill:#ffd,stroke:#333,stroke-width:2px
+    style K2 fill:#ffd,stroke:#333,stroke-width:2px
+    style K3 fill:#ffd,stroke:#333,stroke-width:2px
+    style K4 fill:#ffd,stroke:#333,stroke-width:2px
 ```
 
-### Cross-Shard Query Handling
+#### Consistent Hash Ring
+```mermaid
+graph TB
+    subgraph "Hash Ring"
+        R((Ring))
+        N0[Node 0<br/>+ Virtual Nodes]
+        N1[Node 1<br/>+ Virtual Nodes]
+        N2[Node 2<br/>+ Virtual Nodes]
+        N3[Node 3<br/>+ Virtual Nodes]
+    end
+    
+    R --> N0
+    R --> N1
+    R --> N2
+    R --> N3
+    
+    K1[Key: user123] -.->|hash| R
+    K2[Key: order456] -.->|hash| R
+    
+    style R fill:#9f6,stroke:#333,stroke-width:4px
+```
 
-```python
-import asyncio
-from concurrent.futures import ThreadPoolExecutor
+#### Geographic Sharding
+```mermaid
+graph TB
+    subgraph "Regions"
+        NA[North America]
+        EU[Europe]
+        AS[Asia]
+        OT[Other]
+    end
+    
+    subgraph "Data Centers"
+        DC1[(US-East Shard)]
+        DC2[(EU-West Shard)]
+        DC3[(Asia-Pacific Shard)]
+        DC4[(Global Shard)]
+    end
+    
+    NA --> DC1
+    EU --> DC2
+    AS --> DC3
+    OT --> DC4
+    
+    U1[US User] -.-> NA
+    U2[UK User] -.-> EU
+    U3[Japan User] -.-> AS
+```
 
-class CrossShardQueryExecutor:
-    """Execute queries across multiple shards"""
-    
-    def __init__(self, shard_router):
-        self.router = shard_router
-        self.executor = ThreadPoolExecutor(max_workers=10)
-        
-    async def scatter_gather_query(
-        self, 
-        query: str, 
-        params: tuple = None,
-        aggregate_func=None
-    ) -> List[Any]:
-        """Execute query on all shards and gather results"""
-        tasks = []
-        for shard_id, shard in self.router.shards.items():
-            task = asyncio.create_task(
-                self._execute_on_shard(shard, query, params)
-            )
-            tasks.append(task)
-        
-        results = await asyncio.gather(*tasks, return_exceptions=True)
-        
-        valid_results = []
-        for i, result in enumerate(results):
-            if isinstance(result, Exception):
-                print(f"Shard {i} failed: {result}")
-            else:
-                valid_results.extend(result)
-        
-        if aggregate_func:
-            return aggregate_func(valid_results)
-        return valid_results
-    
-    async def _execute_on_shard(
-        self, 
-        shard: ShardConfig, 
-        query: str, 
-        params: tuple
-    ):
-        """Execute query on single shard"""
-        loop = asyncio.get_event_loop()
-        return await loop.run_in_executor(
-            self.executor,
-            self._sync_execute,
-            shard,
-            query,
-            params
-        )
-    
-    def _sync_execute(self, shard: ShardConfig, query: str, params: tuple):
-        """Synchronous query execution"""
-        conn = self.router._connect_to_shard(shard)
-        cursor = conn.cursor()
-        cursor.execute(query, params)
-        results = cursor.fetchall()
-        conn.close()
-        return results
+### Sharding Strategy Comparison
 
-# Example: Get top users across all shards
-async def get_top_users_global(limit: int = 10):
-    executor = CrossShardQueryExecutor(router)
+| Strategy | Distribution | Query Complexity | Rebalancing | Best For |
+|----------|--------------|------------------|-------------|----------|
+| **Range** | Can be uneven | Simple range queries | Hard | Sequential IDs |
+| **Hash** | Even | No range queries | Hard | Random access |
+| **Geographic** | By location | Region-aware | Natural | Global apps |
+| **Composite** | Multi-dimensional | Complex | Flexible | Multi-tenant |
+| **Directory** | Flexible | Extra lookup | Easy | Dynamic data |
+
+### Cross-Shard Query Patterns
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant QE as Query Executor
+    participant S0 as Shard 0
+    participant S1 as Shard 1
+    participant S2 as Shard 2
+    participant S3 as Shard 3
     
-    shard_results = await executor.scatter_gather_query(
-        "SELECT id, name, score FROM users ORDER BY score DESC LIMIT %s",
-        (limit * 2,)  # Get more than needed from each shard
-    )
+    App->>QE: Get top 10 users globally
     
-    def aggregate_top_users(results):
-        all_users = sorted(results, key=lambda x: x[2], reverse=True)
-        return all_users[:limit]
+    par Parallel Execution
+        QE->>S0: SELECT TOP 20
+        QE->>S1: SELECT TOP 20
+        QE->>S2: SELECT TOP 20
+        QE->>S3: SELECT TOP 20
+    end
     
-    return aggregate_top_users(shard_results)
+    S0-->>QE: 20 users
+    S1-->>QE: 20 users
+    S2-->>QE: 20 users
+    S3-->>QE: 20 users
+    
+    QE->>QE: Merge & Sort 80 users
+    QE->>QE: Take top 10
+    QE-->>App: Final top 10 users
+```
+
+### Cross-Shard Query Types
+
+| Query Type | Pattern | Performance Impact | Example |
+|------------|---------|-------------------|----------|
+| **Scatter-Gather** | Query all shards | O(n) shards | Global search |
+| **Targeted Multi-Shard** | Query subset | O(k) shards | Region-specific |
+| **Fan-out Aggregation** | Parallel aggregates | Network bound | SUM, COUNT |
+| **Sorted Merge** | Order across shards | Memory intensive | Top-K queries |
+| **Two-Phase Query** | Locate then fetch | 2x latency | Secondary index |
+
+```mermaid
+graph TB
+    subgraph "Query Patterns"
+        Q[Cross-Shard Query]
+        
+        Q --> SG[Scatter-Gather<br/>All shards]
+        Q --> TM[Targeted Multi<br/>Specific shards]
+        Q --> FA[Fan-out<br/>Aggregation]
+        Q --> SM[Sorted Merge<br/>Ordering]
+    end
+    
+    style Q fill:#ffd,stroke:#333,stroke-width:2px
 ```
 
 ---

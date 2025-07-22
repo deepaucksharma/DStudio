@@ -25,8 +25,6 @@ last_updated: 2025-07-21
 
 ### The Restaurant Kitchen Analogy
 
-Think of serverless like different restaurant service models:
-
 ```
 Traditional Server (Restaurant):          Serverless (Food Truck Rally):
 
@@ -42,8 +40,6 @@ Your Server:                             Serverless:
 - Scale: Buy more servers               - Scale: Automatic
 - Ops team: Required                    - Ops team: Not needed
 ```
-
-### Visual Metaphor
 
 ```
 Traditional Architecture:                 Serverless Architecture:
@@ -80,17 +76,12 @@ def lambda_handler(event, context):
     Billed by millisecond of execution
     """
     
-    # Parse the incoming request
     name = event.get('name', 'World')
-    
-    # Do something useful (billed time starts here)
     greeting = f"Hello, {name}!"
     
-    # Add some business logic
     if 'premium' in event:
         greeting += " 🌟 Welcome, premium user!"
     
-    # Return response (billing stops here)
     return {
         'statusCode': 200,
         'body': json.dumps({
@@ -100,39 +91,27 @@ def lambda_handler(event, context):
         })
     }
 
-# That's it! No server setup, no scaling config, no ops
-
 # Example: Image thumbnail service
 def create_thumbnail(event, context):
     """Automatically scales with S3 uploads"""
     
-    # Triggered by S3 upload
     bucket = event['Records'][0]['s3']['bucket']['name']
     key = event['Records'][0]['s3']['object']['key']
     
-    # Download image
     s3 = boto3.client('s3')
     image = s3.get_object(Bucket=bucket, Key=key)
     
-    # Create thumbnail
     img = Image.open(image['Body'])
     img.thumbnail((128, 128))
     
-    # Save thumbnail
     thumbnail_key = f"thumbnails/{key}"
     img.save(f"/tmp/{thumbnail_key}")
     s3.upload_file(f"/tmp/{thumbnail_key}", bucket, thumbnail_key)
     
-    # Only pay for execution time!
     return {'statusCode': 200, 'body': 'Thumbnail created'}
 
-# Deploy with one command:
-# serverless deploy
-
-# Now it handles:
-# - 0 uploads/day = $0
-# - 1M uploads/day = ~$20
-# - Auto-scales instantly
+# Deploy: serverless deploy
+# Pricing: 0 uploads = $0, 1M uploads = ~$20
 ```
 
 ---

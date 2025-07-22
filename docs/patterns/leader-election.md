@@ -47,43 +47,73 @@ Chaos: Conflicts                      Order: Coordinated decisions
 
 ### Basic Implementation
 
-```python
-class SimpleLeaderElection:
-    def __init__(self, node_id: str, peers: list):
-        self.node_id = node_id
-        self.peers = peers
-        self.state = "FOLLOWER"
-        self.current_term = 0
-        self.voted_for = None
-        self.leader_id = None
+```mermaid
+flowchart TB
+    subgraph "Leader Election Flow"
+        Start([Node Starts])
+        Follower[FOLLOWER STATE<br/>- Wait for heartbeat<br/>- Reset timer]
+        Timeout{Election<br/>Timeout?}
+        Candidate[CANDIDATE STATE<br/>- Increment term<br/>- Vote for self<br/>- Request votes]
+        Votes{Majority<br/>Votes?}
+        Leader[LEADER STATE<br/>- Send heartbeats<br/>- Handle requests]
+        HigherTerm{Higher<br/>Term?}
         
-    def start_election(self):
-        """Become candidate and request votes"""
-        self.state = "CANDIDATE"
-        self.current_term += 1
-        self.voted_for = self.node_id
-        
-        votes = 1  # Vote for self
-        
-        # Request votes from peers
-        for peer in self.peers:
-            if self.request_vote(peer, self.current_term):
-                votes += 1
-        
-        # Check majority
-        if votes > len(self.peers) / 2:
-            self.become_leader()
-        else:
-            self.state = "FOLLOWER"
+        Start --> Follower
+        Follower --> Timeout
+        Timeout -->|Yes| Candidate
+        Timeout -->|No| Follower
+        Candidate --> Votes
+        Votes -->|Yes| Leader
+        Votes -->|No| Follower
+        Leader --> HigherTerm
+        HigherTerm -->|Yes| Follower
+        HigherTerm -->|No| Leader
+        Candidate --> HigherTerm
+    end
     
-    def become_leader(self):
-        self.state = "LEADER"
-        self.leader_id = self.node_id
-        self.send_heartbeats()
+    style Follower fill:#94a3b8,stroke:#475569
+    style Candidate fill:#f59e0b,stroke:#d97706
+    style Leader fill:#10b981,stroke:#059669,stroke-width:3px
+```
+
+### Election Process Visualization
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1
+    participant N2 as Node 2
+    participant N3 as Node 3
+    participant N4 as Node 4
+    participant N5 as Node 5
     
-    def request_vote(self, peer: str, term: int) -> bool:
-        # Simplified - in reality this is an RPC
-        return random.random() < 0.7
+    Note over N1,N5: All nodes start as Followers
+    
+    Note over N2: Election timeout!
+    N2->>N2: State = CANDIDATE<br/>Term = 1<br/>Vote for self
+    
+    par Vote Request
+        N2->>N1: RequestVote(term=1)
+        N2->>N3: RequestVote(term=1)
+        N2->>N4: RequestVote(term=1)
+        N2->>N5: RequestVote(term=1)
+    end
+    
+    par Vote Response
+        N1-->>N2: VoteGranted
+        N3-->>N2: VoteGranted
+        N4-->>N2: VoteDenied
+        N5-->>N2: VoteGranted
+    end
+    
+    Note over N2: Votes = 4/5 (majority!)
+    N2->>N2: State = LEADER
+    
+    loop Heartbeats
+        N2->>N1: AppendEntries(heartbeat)
+        N2->>N3: AppendEntries(heartbeat)
+        N2->>N4: AppendEntries(heartbeat)
+        N2->>N5: AppendEntries(heartbeat)
+    end
 ```
 
 ---
@@ -134,6 +164,39 @@ stateDiagram-v2
     end note
 ```
 
+### Term Progression Example
+
+```mermaid
+gantt
+    title Leader Election Terms Over Time
+    dateFormat X
+    axisFormat Term %d
+    
+    section Node 1
+    Follower (T0)    :0, 1
+    Candidate (T1)   :crit, 1, 1  
+    Leader (T1)      :active, 2, 3
+    Follower (T2)    :5, 2
+    
+    section Node 2
+    Follower (T0)    :0, 1
+    Follower (T1)    :1, 4
+    Candidate (T2)   :crit, 5, 1
+    Leader (T2)      :active, 6, 1
+    
+    section Node 3
+    Follower (T0)    :0, 1
+    Follower (T1)    :1, 4
+    Follower (T2)    :5, 2
+    
+    section Events
+    Election 1       :milestone, 1, 0
+    Node1 Wins       :milestone, 2, 0
+    Node1 Fails      :milestone, 5, 0
+    Election 2       :milestone, 5, 0
+    Node2 Wins       :milestone, 6, 0
+```
+
 ### Consensus Requirements
 
 #### Majority Quorum
@@ -153,92 +216,133 @@ stateDiagram-v2
 
 ### Raft Algorithm Implementation
 
-```python
-class RaftNode:
-    """Simplified Raft implementation"""
-    def __init__(self, node_id: str, peers: List[str]):
-        self.node_id = node_id
-        self.peers = peers
-        self.state = "FOLLOWER"
-        self.current_term = 0
-        self.voted_for = None
-        self.leader_id = None
-        self.election_timeout = self._random_timeout()
-        self.last_heartbeat = time.time()
+```mermaid
+graph TB
+    subgraph "Raft Node Structure"
+        subgraph "Persistent State"
+            Term[Current Term]
+            Vote[Voted For]
+            Log[Log Entries]
+        end
+        
+        subgraph "Volatile State"
+            State[State: F/C/L]
+            Leader[Current Leader]
+            Timeout[Election Timeout]
+        end
+        
+        subgraph "Leader Only"
+            NextIdx[Next Index[]]
+            MatchIdx[Match Index[]]
+        end
+    end
+    
+    subgraph "Core Operations"
+        Election[Start Election]
+        Heartbeat[Send Heartbeats]
+        Replicate[Replicate Entries]
+        Vote[Request Votes]
+    end
+    
+    State -->|CANDIDATE| Election
+    State -->|LEADER| Heartbeat
+    State -->|LEADER| Replicate
+    Election --> Vote
+```
 
-class LeaderElection:
-    """Implements leader election using a Raft-like algorithm"""
+### Election Algorithm Flow
 
-    def __init__(self,
-                 node_id: str,
-                 peers: List[NodeInfo],
-                 redis_client: aioredis.Redis,
-                 election_timeout_range: tuple = (150, 300),
-                 heartbeat_interval: float = 50):
-        self.node_id = node_id
-        self.peers = {p.node_id: p for p in peers}
-        self.redis = redis_client
-        self.election_timeout_range = election_timeout_range  # milliseconds
-        self.heartbeat_interval = heartbeat_interval  # milliseconds
+```mermaid
+flowchart LR
+    subgraph "Follower Loop"
+        F1[Check heartbeat]
+        F2{Timeout?}
+        F3[Reset timer]
+        F4[Become candidate]
+        
+        F1 --> F2
+        F2 -->|No heartbeat| F1
+        F2 -->|Heartbeat received| F3
+        F3 --> F1
+        F2 -->|Election timeout| F4
+    end
+    
+    subgraph "Candidate Loop"
+        C1[Increment term]
+        C2[Vote for self]
+        C3[Request votes]
+        C4{Majority?}
+        C5[Become leader]
+        C6[Back to follower]
+        
+        F4 --> C1
+        C1 --> C2
+        C2 --> C3
+        C3 --> C4
+        C4 -->|Yes| C5
+        C4 -->|No| C6
+        C6 --> F1
+    end
+    
+    subgraph "Leader Loop"
+        L1[Send heartbeats]
+        L2[Process requests]
+        L3{Higher term?}
+        L4[Step down]
+        
+        C5 --> L1
+        L1 --> L2
+        L2 --> L3
+        L3 -->|No| L1
+        L3 -->|Yes| L4
+        L4 --> F1
+    end
+```
 
-        self.state = NodeState.FOLLOWER
-        self.current_term = Term(0)
-        self.leader_id: Optional[str] = None
-        self.votes_received: Set[str] = set()
+### Leader Election Communication Pattern
 
-        self.election_timeout = self._random_timeout()
-        self.last_heartbeat = time.time() * 1000
-
-        self.leader_callback: Optional[Callable] = None
-        self.follower_callback: Optional[Callable] = None
-
-        self.logger = logging.getLogger(f"Election[{node_id}]")
-        self._running = False
-
-    def _random_timeout(self) -> float:
-        """Generate random election timeout to prevent split votes"""
-        return random.uniform(*self.election_timeout_range)
-
-    async def start(self):
-        """Start the election process"""
-        self._running = True
-        self.logger.info(f"Starting election process")
-
-        # Run main loop
-        asyncio.create_task(self._election_loop())
-
-        # If leader, run heartbeat loop
-        asyncio.create_task(self._heartbeat_loop())
-
-    async def stop(self):
-        """Stop the election process"""
-        self._running = False
-
-        # Step down if leader
-        if self.state == NodeState.LEADER:
-            await self._step_down()
-
-    async def _election_loop(self):
-        """Main election loop"""
-        while self._running:
-            try:
-                current_time = time.time() * 1000
-
-                if self.state == NodeState.FOLLOWER:
-                    # Check for election timeout
-                    if current_time - self.last_heartbeat > self.election_timeout:
-                        self.logger.info("Election timeout, becoming candidate")
-                        await self._become_candidate()
-
-                elif self.state == NodeState.CANDIDATE:
-                    # Already handled in become_candidate
-                    pass
-
-                await asyncio.sleep(0.01)  # 10ms loop
-
-            except Exception as e:
-                self.logger.error(f"Election loop error: {e}")
-                await asyncio.sleep(1)
+```mermaid
+sequenceDiagram
+    participant F as Follower
+    participant C as Candidate  
+    participant L as Leader
+    participant P1 as Peer 1
+    participant P2 as Peer 2
+    
+    rect rgb(240, 240, 255)
+        Note over F: Election Timeout
+        F->>C: Become Candidate
+        C->>C: term++, vote for self
+        
+        par Request Votes
+            C->>P1: RequestVote(term, lastLog)
+            C->>P2: RequestVote(term, lastLog)
+        end
+        
+        P1-->>C: Vote granted
+        P2-->>C: Vote granted
+        
+        Note over C: Majority achieved (3/3)
+        C->>L: Become Leader
+    end
+    
+    rect rgb(240, 255, 240)
+        Note over L: Leader Operations
+        loop Every 50ms
+            L->>P1: Heartbeat
+            L->>P2: Heartbeat
+            P1-->>L: Success
+            P2-->>L: Success
+        end
+    end
+    
+    rect rgb(255, 240, 240)
+        Note over L: Discover higher term
+        P1->>L: Response(term=5)
+        Note over L: My term=3, their term=5
+        L->>F: Step down to Follower
+    end
+```
 
     async def _heartbeat_loop(self):
         """Send heartbeats if leader"""
@@ -642,24 +746,79 @@ class ShardManager(LeaderElectedService):
 ### Advanced Election Scenarios
 
 #### Split Vote Handling
-```python
-class AdvancedElection:
-    def handle_split_vote(self):
-        """
-        Split vote scenario:
-        - 5 nodes: A, B, C, D, E
-        - A votes for A, B votes for B
-        - C votes for A, D votes for B  
-        - E's vote decides, but E is slow
+
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant B as Node B
+    participant C as Node C
+    participant D as Node D
+    participant E as Node E
+    
+    Note over A,E: Split Vote Scenario (Term 3)
+    
+    par Simultaneous Elections
+        A->>A: Timeout! Become candidate
+        B->>B: Timeout! Become candidate
+    end
+    
+    par A requests votes
+        A->>C: Vote for me (Term 3)
+        A->>D: Vote for me (Term 3)
+        A->>E: Vote for me (Term 3)
+    and B requests votes
+        B->>C: Vote for me (Term 3)
+        B->>D: Vote for me (Term 3)
+        B->>E: Vote for me (Term 3)
+    end
+    
+    C-->>A: Vote granted (first request)
+    D-->>B: Vote granted (first request)
+    
+    Note over E: Network delay...
+    
+    Note over A: Votes: 2/5 (self + C)
+    Note over B: Votes: 2/5 (self + D)
+    
+    E-->>A: Vote granted (or timeout)
+    
+    Note over A,E: No majority! New election needed
+    
+    rect rgb(255, 240, 240)
+        Note over A,E: Randomized timeouts prevent repeat
+        Note over A: Timeout = 172ms
+        Note over B: Timeout = 251ms
+        A->>A: Start election (Term 4) first!
+    end
+```
+
+### Split Vote Prevention
+
+```mermaid
+graph LR
+    subgraph "Timeout Randomization"
+        Base[Base: 150-300ms]
+        Random[+Random: 0-150ms]
+        Final[Final: 150-450ms]
         
-        Result: No majority, new election needed
-        """
-        # Use randomized timeouts to break ties
-        self.election_timeout = random.randint(150, 300)
+        Base --> Random
+        Random --> Final
+    end
+    
+    subgraph "Exponential Backoff"
+        Split1[1st split: 1x timeout]
+        Split2[2nd split: 2x timeout]
+        Split3[3rd split: 4x timeout]
         
-        # Exponential backoff on repeated splits
-        if self.split_vote_count > 0:
-            self.election_timeout *= (2 ** self.split_vote_count)
+        Split1 --> Split2
+        Split2 --> Split3
+    end
+    
+    Note1[Reduces probability of<br/>simultaneous elections]
+    Note2[Gives network time<br/>to stabilize]
+    
+    Final -.-> Note1
+    Split3 -.-> Note2
 ```
 
 #### Network Partition Scenarios
@@ -686,58 +845,118 @@ A ←→ B ←X→ C ←→ D ←→ E
 
 ### Pre-Vote Optimization
 
-```python
-class PreVoteElection:
-    """Prevent disruption from isolated nodes"""
+```mermaid
+sequenceDiagram
+    participant I as Isolated Node
+    participant L as Current Leader
+    participant F1 as Follower 1
+    participant F2 as Follower 2
     
-    def should_start_election(self) -> bool:
-        """Check if election is likely to succeed"""
-        # First do pre-vote phase
-        pre_votes = self.request_pre_votes()
-        
-        # Only start real election if pre-vote succeeds
-        if pre_votes > len(self.peers) / 2:
-            return True
-        
-        # Don't disrupt stable leader
-        return False
+    Note over I: Network issue, missed heartbeats
     
-    def request_pre_votes(self) -> int:
-        """Non-disruptive vote check"""
-        votes = 1  # Self vote
+    rect rgb(255, 250, 240)
+        Note over I,F2: Pre-Vote Phase (no term increment)
+        I->>L: PreVote Request (hypothetical term 5)
+        I->>F1: PreVote Request (hypothetical term 5)
+        I->>F2: PreVote Request (hypothetical term 5)
         
-        for peer in self.peers:
-            # Ask: "Would you vote for me?"
-            # Without actually incrementing terms
-            if peer.would_vote_for(self.node_id, self.current_term + 1):
-                votes += 1
+        L-->>I: No (I'm still leader)
+        F1-->>I: No (leader is alive)
+        F2-->>I: No (leader is alive)
         
-        return votes
+        Note over I: Pre-vote failed (1/4 votes)
+        Note over I: Don't start real election
+    end
+    
+    Note over L,F2: System remains stable!
+    
+    loop Leader continues
+        L->>F1: Heartbeat
+        L->>F2: Heartbeat
+    end
+```
+
+### Pre-Vote Benefits
+
+```mermaid
+graph TB
+    subgraph "Without Pre-Vote"
+        WO1[Isolated node]
+        WO2[Increment term]
+        WO3[Force new election]
+        WO4[Disrupt stable cluster]
+        
+        WO1 --> WO2 --> WO3 --> WO4
+        
+        style WO4 fill:#ef4444,stroke:#dc2626
+    end
+    
+    subgraph "With Pre-Vote"
+        W1[Isolated node]
+        W2[Check if election viable]
+        W3{Would win?}
+        W4[Start election]
+        W5[Stay follower]
+        
+        W1 --> W2 --> W3
+        W3 -->|Yes| W4
+        W3 -->|No| W5
+        
+        style W5 fill:#10b981,stroke:#059669
+    end
 ```
 
 ### Leadership Transfer
 
-```python
-class GracefulLeaderTransfer:
-    """Transfer leadership without election"""
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant L as Current Leader
+    participant T as Target Node
+    participant F1 as Follower 1
+    participant F2 as Follower 2
     
-    def transfer_leadership(self, target_node: str):
-        """Gracefully hand over leadership"""
-        if self.state != NodeState.LEADER:
-            raise Exception("Only leader can transfer")
+    Note over L: Decide to transfer leadership
+    
+    rect rgb(240, 250, 255)
+        Note over L,T: Phase 1: Preparation
+        L->>L: Stop accepting new writes
+        C->>L: Write request
+        L-->>C: Redirect to new leader (pending)
         
-        # 1. Stop accepting new requests
-        self.accepting_requests = False
+        L->>T: Sync missing entries
+        T-->>L: Acknowledge sync
         
-        # 2. Ensure target is up-to-date
-        self.sync_node(target_node)
+        Note over L,T: Target is now up-to-date
+    end
+    
+    rect rgb(240, 255, 240)
+        Note over L,T: Phase 2: Transfer
+        L->>T: TimeoutNow RPC
+        T->>T: Immediately timeout
+        T->>T: Start election (Term++)
         
-        # 3. Send TimeoutNow RPC to target
-        self.send_timeout_now(target_node)
+        par Request votes
+            T->>L: RequestVote
+            T->>F1: RequestVote  
+            T->>F2: RequestVote
+        end
         
-        # 4. Target immediately starts election
-        # 5. Others vote for target (it's up-to-date)
-        # 6. Leadership transfers smoothly
+        Note over L: Support transfer
+        L-->>T: Vote granted
+        F1-->>T: Vote granted
+        F2-->>T: Vote granted
+        
+        T->>T: Become leader
+    end
+    
+    T->>L: AppendEntries (as new leader)
+    T->>F1: AppendEntries
+    T->>F2: AppendEntries
+    
+    L->>L: Become follower
+    
+    Note over C,F2: Smooth transition complete!
 ```
 
 ### Joint Consensus for Membership Changes
@@ -772,31 +991,72 @@ class MembershipChange:
 
 **Scale**: 2M+ partitions, 100s of brokers
 
-```python
-def kafka_controller_election(zk_client, broker_id: int):
-    """Kafka's ZooKeeper-based controller election"""
-    controller_path = "/controller"
+```mermaid
+graph TB
+    subgraph "Kafka Controller Architecture"
+        ZK[ZooKeeper<br/>Ensemble]
+        
+        subgraph "Controller Election"
+            Path["/controller"<br/>ephemeral node]
+            Controller[Controller Broker<br/>ID: 101]
+        end
+        
+        subgraph "Brokers"
+            B1[Broker 101<br/>CONTROLLER]
+            B2[Broker 102]
+            B3[Broker 103]
+            B4[Broker 104]
+        end
+        
+        subgraph "Partitions"
+            P1[Topic-A-0<br/>Leader: 102]
+            P2[Topic-A-1<br/>Leader: 103]
+            P3[Topic-B-0<br/>Leader: 104]
+        end
+        
+        ZK --> Path
+        Path --> Controller
+        Controller --> B1
+        
+        B1 -->|Manages| P1
+        B1 -->|Manages| P2
+        B1 -->|Manages| P3
+        
+        B2 -.->|ISR| P1
+        B3 -.->|ISR| P2
+        B4 -.->|ISR| P3
+    end
     
-    try:
-        # Create ephemeral node (auto-deleted on disconnect)
-        zk_client.create(
-            controller_path,
-            data={"brokerid": broker_id, "timestamp": time.time()},
-            ephemeral=True
-        )
-        return True  # Became controller
-    except NodeExistsError:
-        return False  # Another broker is controller
+    style B1 fill:#10b981,stroke:#059669,stroke-width:3px
+    style Path fill:#fbbf24,stroke:#f59e0b
+```
 
-def handle_broker_failure(controller, failed_broker: int):
-    """Reassign partitions from failed broker"""
-    affected_partitions = get_partitions_on_broker(failed_broker)
+### Kafka Controller Responsibilities
+
+```mermaid
+flowchart LR
+    subgraph "Controller Duties"
+        PE[Partition<br/>Election]
+        BR[Broker<br/>Registration]
+        ISR[ISR<br/>Management]
+        RM[Replica<br/>Management]
+        MD[Metadata<br/>Updates]
+    end
     
-    for partition in affected_partitions:
-        # Elect new leader from in-sync replicas (ISR)
-        new_leader = elect_from_isr(partition, exclude=[failed_broker])
-        update_partition_metadata(partition, leader=new_leader)
-        broadcast_metadata_update(partition)
+    subgraph "Failure Scenarios"
+        BF[Broker Failure]
+        CF[Controller Failure]
+        PF[Partition Leader Failure]
+    end
+    
+    BF -->|Trigger| PE
+    CF -->|New Election| ZK[ZooKeeper]
+    PF -->|Elect from ISR| PE
+    
+    PE --> MD
+    BR --> MD
+    ISR --> MD
+    RM --> MD
 ```
 
 ### Real-World Challenges
@@ -805,35 +1065,106 @@ def handle_broker_failure(controller, failed_broker: int):
 - **Problem**: Single controller bottleneck at scale
 - **Solution**: Delegate to partition coordinators
 
-```python
-def delegate_partition_management(partitions: list) -> dict:
-    """Split work across multiple coordinators"""
-    groups = shard_partitions(partitions, num_groups=10)
-    coordinators = {}
+```mermaid
+graph TB
+    subgraph "Before: Controller Bottleneck"
+        C1[Controller]
+        P1[1M Partitions]
+        P2[1M Partitions]
+        
+        C1 -->|Manages all| P1
+        C1 -->|Manages all| P2
+        
+        Note1[CPU: 95%<br/>Latency: High]
+        C1 -.-> Note1
+        
+        style C1 fill:#ef4444,stroke:#dc2626
+    end
     
-    for group_id, partition_list in groups.items():
-        coordinator = elect_coordinator(group_id)
-        coordinators[group_id] = coordinator
-        delegate_work(coordinator, partition_list)
-    
-    return coordinators
+    subgraph "After: Delegated Coordinators"
+        C2[Controller]
+        
+        subgraph "Group Coordinators"
+            GC1[Consumer<br/>Coordinator]
+            GC2[Transaction<br/>Coordinator]
+            GC3[Partition<br/>Coordinator 1]
+            GC4[Partition<br/>Coordinator 2]
+        end
+        
+        C2 -->|Delegates| GC1
+        C2 -->|Delegates| GC2
+        C2 -->|Delegates| GC3
+        C2 -->|Delegates| GC4
+        
+        GC1 -->|200K parts| G1[Group 1]
+        GC2 -->|Transactions| TX[TX Log]
+        GC3 -->|500K parts| G3[Group 3]
+        GC4 -->|500K parts| G4[Group 4]
+        
+        Note2[CPU: 40%<br/>Latency: Low]
+        C2 -.-> Note2
+        
+        style C2 fill:#10b981,stroke:#059669
+    end
 ```
 
 #### ZooKeeper Removal (KRaft)
 - **Problem**: External dependency on ZooKeeper
 - **Solution**: Built-in Raft consensus
 
-```python
-def kraft_election(node_id: str, controller_nodes: list):
-    """Kafka's new built-in consensus"""
-    raft = RaftManager(node_id, controller_nodes)
+```mermaid
+graph LR
+    subgraph "Legacy: With ZooKeeper"
+        K1[Kafka Cluster]
+        Z1[ZooKeeper<br/>Ensemble]
+        E1[External<br/>Dependency]
+        
+        K1 <-->|Controller election<br/>Metadata storage| Z1
+        Z1 --> E1
+        
+        style E1 fill:#ef4444,stroke:#dc2626
+    end
     
-    if raft.become_candidate():
-        votes = raft.request_votes()
-        if votes > len(controller_nodes) / 2:
-            return "LEADER"
+    subgraph "KRaft: Built-in Consensus"
+        subgraph "Kafka Cluster"
+            KR1[Controller 1<br/>Raft Node]
+            KR2[Controller 2<br/>Raft Node]
+            KR3[Controller 3<br/>Raft Node]
+            
+            KR1 <-->|Raft Protocol| KR2
+            KR2 <-->|Raft Protocol| KR3
+            KR1 <-->|Raft Protocol| KR3
+        end
+        
+        Benefits[No external deps<br/>Simpler ops<br/>Better performance]
+        
+        style Benefits fill:#10b981,stroke:#059669
+    end
+```
+
+### KRaft Metadata Log
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant L as Leader Controller
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    participant ML as Metadata Log
     
-    return "FOLLOWER"
+    C->>L: Create Topic
+    
+    L->>ML: Append: CreateTopic
+    L->>F1: Replicate entry
+    L->>F2: Replicate entry
+    
+    F1-->>L: Ack
+    F2-->>L: Ack
+    
+    L->>ML: Commit
+    L-->>C: Topic created
+    
+    Note over ML: Metadata changes are<br/>ordered log entries
 ```
 
 ### Production Monitoring
@@ -891,31 +1222,118 @@ ALERTS = [
 
 Used by Microsoft Azure Cosmos DB for global scale:
 
-```python
-def elect_hierarchy(datacenters: dict) -> dict:
-    """Multi-level leader election"""
-    # Level 1: Local leaders per datacenter
-    local_leaders = {dc: elect_local(nodes) for dc, nodes in datacenters.items()}
+```mermaid
+graph TB
+    subgraph "Global Scale Hierarchical Election"
+        subgraph "Level 3: Global"
+            GL[Global Leader<br/>Region: US-East]
+        end
+        
+        subgraph "Level 2: Regional"
+            RL1[Regional Leader<br/>Americas]
+            RL2[Regional Leader<br/>Europe]
+            RL3[Regional Leader<br/>Asia]
+        end
+        
+        subgraph "Level 1: Datacenter"
+            subgraph "US-East"
+                DC1L[DC Leader]
+                DC1N1[Node 1]
+                DC1N2[Node 2]
+            end
+            
+            subgraph "EU-West"
+                DC2L[DC Leader]
+                DC2N1[Node 1]
+                DC2N2[Node 2]
+            end
+            
+            subgraph "Asia-SE"
+                DC3L[DC Leader]
+                DC3N1[Node 1]
+                DC3N2[Node 2]
+            end
+        end
+        
+        GL -.->|Coordinates| RL1
+        GL -.->|Coordinates| RL2
+        GL -.->|Coordinates| RL3
+        
+        RL1 -->|Manages| DC1L
+        RL2 -->|Manages| DC2L
+        RL3 -->|Manages| DC3L
+        
+        DC1L --> DC1N1
+        DC1L --> DC1N2
+        DC2L --> DC2N1
+        DC2L --> DC2N2
+        DC3L --> DC3N1
+        DC3L --> DC3N2
+    end
     
-    # Level 2: Regional leaders
-    regional_leaders = elect_regional(local_leaders)
-    
-    # Level 3: Global leader
-    global_leader = elect_global(regional_leaders)
-    
-    return {'local': local_leaders, 'regional': regional_leaders, 'global': global_leader}
+    style GL fill:#10b981,stroke:#059669,stroke-width:4px
+    style RL1 fill:#3b82f6,stroke:#2563eb,stroke-width:3px
+    style RL2 fill:#3b82f6,stroke:#2563eb,stroke-width:3px
+    style RL3 fill:#3b82f6,stroke:#2563eb,stroke-width:3px
+    style DC1L fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
+    style DC2L fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
+    style DC3L fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
 ```
+
+### Benefits of Hierarchical Election
+
+| Level | Latency | Scope | Failure Impact |
+|-------|---------|-------|----------------|
+| **Local** | <1ms | Datacenter | Minimal |
+| **Regional** | <50ms | Continent | Regional failover |
+| **Global** | <200ms | Worldwide | Full re-election |
 
 #### Witness Nodes
 
-```python
-# 2 data nodes + 1 witness = cheap odd quorum
-WITNESS_CONFIG = {
-    'role': 'voting_only',  # No data storage
-    'resources': 'minimal',  # Small instance
-    'purpose': 'prevent_split_brain'
-}
+```mermaid
+graph LR
+    subgraph "Without Witness (4 nodes)"
+        WO1[Data Node 1]
+        WO2[Data Node 2]
+        WO3[Data Node 3]
+        WO4[Data Node 4]
+        
+        WO1 <--> WO2
+        WO2 <--> WO3
+        WO3 <--> WO4
+        WO1 <--> WO4
+        
+        Cost1[Cost: 4 × $100 = $400/mo]
+        Problem1[Problem: Even number<br/>No clear majority]
+        
+        style Problem1 fill:#ef4444,stroke:#dc2626
+    end
+    
+    subgraph "With Witness (2+1 nodes)"
+        W1[Data Node 1<br/>Full replica]
+        W2[Data Node 2<br/>Full replica]
+        W3[Witness Node<br/>Vote only]
+        
+        W1 <--> W2
+        W2 <--> W3
+        W1 <--> W3
+        
+        Cost2[Cost: 2 × $100 + $10 = $210/mo]
+        Benefit[Benefit: Odd quorum<br/>47% cost savings]
+        
+        style W3 fill:#fbbf24,stroke:#f59e0b,stroke-width:2px
+        style Benefit fill:#10b981,stroke:#059669
+    end
 ```
+
+### Witness Node Properties
+
+| Property | Value | Purpose |
+|----------|-------|---------|  
+| **Storage** | None | Only participates in voting |
+| **CPU** | Minimal | Just heartbeat processing |
+| **Network** | Low bandwidth | Only election traffic |
+| **Cost** | ~5% of data node | Economical quorum |
 
 ### Economic Impact
 

@@ -25,8 +25,6 @@ last_updated: 2025-07-21
 
 ### The Hospital Network Analogy
 
-Think of edge computing like a hospital's emergency response system:
-
 ```
 Traditional Cloud (Central Hospital):        Edge Computing (Distributed Care):
 
@@ -43,8 +41,6 @@ Traditional Cloud (Central Hospital):        Edge Computing (Distributed Care):
 Result: Every emergency                     Result: Most cases handled
 goes to main hospital                       locally, faster response
 ```
-
-### Visual Metaphor
 
 ```
 The Edge Computing Hierarchy:
@@ -84,13 +80,10 @@ class EdgeComputingSystem:
     def process_iot_data(self, device_id: str, data: dict) -> dict:
         """Process IoT data with edge intelligence"""
         
-        # 1. Immediate edge processing
         if self.requires_immediate_action(data):
-            # Critical decisions at the edge (< 1ms)
             action = self.make_edge_decision(data)
             self.execute_locally(action)
             
-            # Async notification to cloud
             self.notify_cloud_async({
                 'device': device_id,
                 'action': action,
@@ -99,52 +92,40 @@ class EdgeComputingSystem:
             
             return {'processed_at': 'edge', 'latency_ms': 0.8}
         
-        # 2. Edge aggregation and filtering
         if self.can_process_at_edge(data):
-            # Filter, aggregate, compress (< 10ms)
             processed = self.edge_analytics(data)
             
-            # Only send insights to cloud
             if processed['significance'] > 0.7:
                 self.cloud_endpoint.send_insight(processed)
             
             return {'processed_at': 'edge', 'latency_ms': 5}
         
-        # 3. Cloud processing for complex analysis
         return self.cloud_endpoint.process(data)
     
     def make_edge_decision(self, data: dict) -> str:
         """Ultra-low latency decision making"""
         
-        # Example: Autonomous vehicle obstacle detection
         if data['type'] == 'lidar':
             obstacles = self.detect_obstacles_locally(data['point_cloud'])
-            if obstacles['distance'] < 10:  # meters
+            if obstacles['distance'] < 10:
                 return 'EMERGENCY_BRAKE'
             elif obstacles['distance'] < 30:
                 return 'SLOW_DOWN'
-        
-        # Example: Industrial safety
-        elif data['type'] == 'temperature':
-            if data['value'] > 100:  # Celsius
-                return 'SHUTDOWN_EQUIPMENT'
+        elif data['type'] == 'temperature' and data['value'] > 100:
+            return 'SHUTDOWN_EQUIPMENT'
         
         return 'CONTINUE'
     
     def edge_analytics(self, data: dict) -> dict:
         """Process data at edge before cloud"""
         
-        # Load model if not cached
         model_name = f"{data['type']}_edge_model"
         if model_name not in self.local_ml_models:
             self.local_ml_models[model_name] = self.load_edge_model(model_name)
         
         model = self.local_ml_models[model_name]
-        
-        # Run inference
         prediction = model.predict(data['values'])
         
-        # Return only significant findings
         return {
             'type': data['type'],
             'prediction': prediction,
@@ -156,14 +137,12 @@ class EdgeComputingSystem:
 # Example usage
 edge_system = EdgeComputingSystem()
 
-# IoT sensor data
 sensor_data = {
     'type': 'vibration',
-    'values': [0.1, 0.2, 0.8, 2.5, 0.3],  # Anomaly at index 3
+    'values': [0.1, 0.2, 0.8, 2.5, 0.3],
     'timestamp': time.time()
 }
 
-# Process at edge
 result = edge_system.process_iot_data('sensor_001', sensor_data)
 print(f"Processed at: {result['processed_at']}, Latency: {result['latency_ms']}ms")
 ```
@@ -533,47 +512,25 @@ class FederatedLearningCoordinator:
         
         self.round_number += 1
         
-        # 1. Select participating nodes
         participants = self.select_participants(
             min_data_points=1000,
-            min_battery=20,  # percentage
+            min_battery=20,
             max_nodes=100
         )
         
-        # 2. Distribute current global model
         model_version = self.get_model_version()
         
-        tasks = []
-        for node_id in participants:
-            task = self.send_model_to_node(
-                node_id,
-                self.global_model,
-                model_version
-            )
-            tasks.append(task)
-        
+        tasks = [
+            self.send_model_to_node(node_id, self.global_model, model_version)
+            for node_id in participants
+        ]
         await asyncio.gather(*tasks)
         
-        # 3. Local training at each edge node
-        updates = await self.collect_updates(
-            participants,
-            timeout=300  # 5 minutes
-        )
-        
-        # 4. Secure aggregation
+        updates = await self.collect_updates(participants, timeout=300)
         aggregated_update = self.secure_aggregate(updates)
         
-        # 5. Update global model
-        self.global_model = self.apply_update(
-            self.global_model,
-            aggregated_update
-        )
-        
-        # 6. Differential privacy
-        self.global_model = self.add_privacy_noise(
-            self.global_model,
-            epsilon=1.0
-        )
+        self.global_model = self.apply_update(self.global_model, aggregated_update)
+        self.global_model = self.add_privacy_noise(self.global_model, epsilon=1.0)
         
         return {
             'round': self.round_number,
@@ -585,22 +542,14 @@ class FederatedLearningCoordinator:
     def secure_aggregate(self, updates: list) -> dict:
         """Aggregate updates with privacy preservation"""
         
-        # Weighted averaging based on data points
         total_examples = sum(u['num_examples'] for u in updates)
         
         aggregated = {}
         for layer_name in updates[0]['weights'].keys():
-            weighted_sum = None
-            
-            for update in updates:
-                weight = update['num_examples'] / total_examples
-                layer_weights = update['weights'][layer_name]
-                
-                if weighted_sum is None:
-                    weighted_sum = layer_weights * weight
-                else:
-                    weighted_sum += layer_weights * weight
-            
+            weighted_sum = sum(
+                update['weights'][layer_name] * (update['num_examples'] / total_examples)
+                for update in updates
+            )
             aggregated[layer_name] = weighted_sum
         
         return aggregated
@@ -611,13 +560,9 @@ class EdgeNode:
     async def train_local_model(self, global_model, config: dict):
         """Train on local data"""
         
-        # 1. Load local dataset
         local_data = self.load_private_data()
-        
-        # 2. Initialize from global model
         local_model = copy.deepcopy(global_model)
         
-        # 3. Local training
         optimizer = torch.optim.SGD(
             local_model.parameters(),
             lr=config['learning_rate']
@@ -625,25 +570,13 @@ class EdgeNode:
         
         for epoch in range(config['local_epochs']):
             for batch in self.get_batches(local_data):
-                # Forward pass
                 loss = local_model(batch)
-                
-                # Backward pass
                 optimizer.zero_grad()
                 loss.backward()
-                
-                # Gradient clipping for stability
-                torch.nn.utils.clip_grad_norm_(
-                    local_model.parameters(),
-                    max_norm=1.0
-                )
-                
+                torch.nn.utils.clip_grad_norm_(local_model.parameters(), max_norm=1.0)
                 optimizer.step()
         
-        # 4. Compute update (difference from global model)
         update = self.compute_update(global_model, local_model)
-        
-        # 5. Add local differential privacy
         update = self.add_local_noise(update, sensitivity=0.1)
         
         return {
@@ -668,7 +601,6 @@ class EdgeOrchestrator:
     def place_workload(self, workload: Workload) -> Placement:
         """Optimally place workload on edge infrastructure"""
         
-        # 1. Get workload requirements
         requirements = {
             'compute': workload.cpu_requirements,
             'memory': workload.memory_requirements,
@@ -677,74 +609,48 @@ class EdgeOrchestrator:
             'data_locality': workload.data_sources
         }
         
-        # 2. Score each potential node
-        scores = {}
-        for node_id, node in self.nodes.items():
-            score = self.calculate_placement_score(
-                node,
-                requirements,
-                current_load=self.get_node_load(node_id)
+        scores = {
+            node_id: self.calculate_placement_score(
+                node, requirements, current_load=self.get_node_load(node_id)
             )
-            scores[node_id] = score
+            for node_id, node in self.nodes.items()
+        }
         
-        # 3. Consider anti-affinity rules
         if workload.anti_affinity:
             self.apply_anti_affinity(scores, workload.anti_affinity)
         
-        # 4. Network-aware placement
         self.apply_network_costs(scores, workload)
         
-        # 5. Select best node(s)
-        if workload.replicas > 1:
-            selected_nodes = self.select_multiple_nodes(
-                scores,
-                count=workload.replicas,
-                spread_across_zones=True
-            )
-        else:
-            selected_nodes = [max(scores, key=scores.get)]
+        selected_nodes = (
+            self.select_multiple_nodes(scores, count=workload.replicas, spread_across_zones=True)
+            if workload.replicas > 1
+            else [max(scores, key=scores.get)]
+        )
         
-        # 6. Create placement decision
-        placement = Placement(
+        return Placement(
             workload_id=workload.id,
             nodes=selected_nodes,
             strategy='network_optimized',
             estimated_latency=self.estimate_latency(selected_nodes, workload)
         )
-        
-        return placement
     
     def calculate_placement_score(self, node: Node, requirements: dict, current_load: dict) -> float:
         """Multi-criteria scoring for placement"""
         
         scores = {
-            # Resource availability (0-1)
             'cpu': (node.cpu_capacity - current_load['cpu']) / requirements['compute'],
             'memory': (node.memory_capacity - current_load['memory']) / requirements['memory'],
-            
-            # Network proximity (0-1)
             'latency': 1 - (self.estimate_latency_to_node(node) / requirements['latency']),
             'bandwidth': min(1, node.available_bandwidth / requirements['bandwidth']),
-            
-            # Data locality (0-1)
             'data_locality': self.calculate_data_locality_score(node, requirements['data_locality']),
-            
-            # Node reliability (0-1)
             'reliability': node.uptime_percentage / 100,
-            
-            # Cost efficiency (0-1)
             'cost': 1 - (node.cost_per_hour / self.max_acceptable_cost)
         }
         
-        # Weighted scoring
         weights = {
-            'cpu': 0.2,
-            'memory': 0.2,
-            'latency': 0.25,
-            'bandwidth': 0.15,
-            'data_locality': 0.1,
-            'reliability': 0.05,
-            'cost': 0.05
+            'cpu': 0.2, 'memory': 0.2, 'latency': 0.25,
+            'bandwidth': 0.15, 'data_locality': 0.1,
+            'reliability': 0.05, 'cost': 0.05
         }
         
         return sum(scores[k] * weights[k] for k in scores)
@@ -763,50 +669,35 @@ class EdgeSecurityManager:
     def secure_edge_node(self, node_id: str) -> dict:
         """Complete security hardening for edge node"""
         
-        # 1. Hardware-based security
-        security_config = {
-            'secure_boot': self.enable_secure_boot(node_id),
-            'tpm_enabled': self.tpm.initialize(node_id),
-            'encrypted_storage': self.setup_encrypted_storage(node_id)
-        }
-        
-        # 2. Runtime protection
-        runtime_security = {
-            'container_isolation': self.setup_container_security(node_id),
-            'network_policies': self.configure_network_policies(node_id),
-            'intrusion_detection': self.deploy_ids(node_id)
-        }
-        
-        # 3. Data protection
-        data_security = {
-            'encryption_at_rest': self.configure_encryption_at_rest(node_id),
-            'encryption_in_transit': self.setup_mtls(node_id),
-            'data_sanitization': self.configure_secure_deletion(node_id)
-        }
-        
-        # 4. Access control
-        access_control = {
-            'identity_management': self.setup_edge_identity(node_id),
-            'rbac_policies': self.configure_rbac(node_id),
-            'api_authentication': self.setup_api_security(node_id)
-        }
-        
-        # 5. Monitoring and compliance
-        monitoring = {
-            'security_monitoring': self.deploy_security_monitoring(node_id),
-            'audit_logging': self.configure_audit_logs(node_id),
-            'compliance_scanning': self.setup_compliance_checks(node_id)
-        }
-        
         return {
             'node_id': node_id,
             'security_score': self.calculate_security_score(node_id),
             'configurations': {
-                'hardware': security_config,
-                'runtime': runtime_security,
-                'data': data_security,
-                'access': access_control,
-                'monitoring': monitoring
+                'hardware': {
+                    'secure_boot': self.enable_secure_boot(node_id),
+                    'tpm_enabled': self.tpm.initialize(node_id),
+                    'encrypted_storage': self.setup_encrypted_storage(node_id)
+                },
+                'runtime': {
+                    'container_isolation': self.setup_container_security(node_id),
+                    'network_policies': self.configure_network_policies(node_id),
+                    'intrusion_detection': self.deploy_ids(node_id)
+                },
+                'data': {
+                    'encryption_at_rest': self.configure_encryption_at_rest(node_id),
+                    'encryption_in_transit': self.setup_mtls(node_id),
+                    'data_sanitization': self.configure_secure_deletion(node_id)
+                },
+                'access': {
+                    'identity_management': self.setup_edge_identity(node_id),
+                    'rbac_policies': self.configure_rbac(node_id),
+                    'api_authentication': self.setup_api_security(node_id)
+                },
+                'monitoring': {
+                    'security_monitoring': self.deploy_security_monitoring(node_id),
+                    'audit_logging': self.configure_audit_logs(node_id),
+                    'compliance_scanning': self.setup_compliance_checks(node_id)
+                }
             }
         }
     

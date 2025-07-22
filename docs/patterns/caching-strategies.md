@@ -29,66 +29,84 @@ Cache is like keeping frequently used books at your desk instead of walking to a
 
 ### Visual Metaphor
 
+```mermaid
+graph LR
+    subgraph "Without Cache"
+        U1[User Request 1] -->|500ms| DB1[(Database)]
+        U2[User Request 2] -->|500ms| DB1
+        U3[User Request 3] -->|500ms| DB1
+        U10[... Request 10] -->|500ms| DB1
+    end
+    
+    subgraph "With Cache"
+        V1[User Request 1] -->|500ms| DB2[(Database)]
+        DB2 --> C[Cache]
+        V2[User Request 2] -->|10ms| C
+        V3[User Request 3] -->|10ms| C
+        V10[... Request 10] -->|10ms| C
+    end
+    
+    style DB1 fill:#f96,stroke:#333,stroke-width:2px
+    style DB2 fill:#f96,stroke:#333,stroke-width:2px
+    style C fill:#9f6,stroke:#333,stroke-width:2px
 ```
-Without Cache: Every request → Database (500ms each) = 5,000ms for 10 requests
-With Cache: First → Database → Cache, Rest → Cache (10ms) = 590ms total (8.5x faster!)
+
+**Performance Impact:**
+- Without Cache: 10 requests × 500ms = 5,000ms total
+- With Cache: 500ms (first) + 9 × 10ms = 590ms total (8.5x faster!)
+
+### Cache-Aside Pattern Flow
+
+```mermaid
+flowchart TB
+    subgraph "Read Flow"
+        R1[Application Request] --> R2{Cache Hit?}
+        R2 -->|Yes| R3[Return Cached Data]
+        R2 -->|No| R4[Query Database]
+        R4 --> R5[Update Cache]
+        R5 --> R6[Return Data]
+    end
+    
+    subgraph "Write Flow"
+        W1[Update Request] --> W2[Update Database]
+        W2 --> W3[Invalidate Cache]
+        W3 --> W4[Confirm Update]
+    end
+    
+    style R2 fill:#ffd,stroke:#333,stroke-width:2px
+    style R3 fill:#9f9,stroke:#333,stroke-width:2px
+    style R4 fill:#f99,stroke:#333,stroke-width:2px
 ```
 
-### Basic Implementation
+### Cache Implementation Architecture
 
-```python
-import time
-from typing import Optional, Dict, Any, Callable
-from datetime import datetime, timedelta
-
-class SimpleCache:
-    """Basic in-memory cache with TTL support"""
+```mermaid
+graph TB
+    subgraph "Application Layer"
+        APP[User Service]
+    end
     
-    def __init__(self):
-        self.cache: Dict[str, Dict[str, Any]] = {}
+    subgraph "Cache Layer"
+        CACHE[In-Memory Cache]
+        TTL[TTL Manager]
+        EVICT[Eviction Policy]
+    end
     
-    def get(self, key: str) -> Optional[Any]:
-        """Get value from cache if not expired"""
-        if key in self.cache:
-            entry = self.cache[key]
-            if datetime.now() < entry['expires_at']:
-                return entry['value']
-            del self.cache[key]
-        return None
+    subgraph "Data Layer"
+        DB[(Database)]
+    end
     
-    def set(self, key: str, value: Any, ttl_seconds: int = 300):
-        """Store value in cache with TTL"""
-        self.cache[key] = {
-            'value': value,
-            'expires_at': datetime.now() + timedelta(seconds=ttl_seconds),
-            'created_at': datetime.now()
-        }
+    APP -->|1. Check| CACHE
+    CACHE -->|2. Miss| APP
+    APP -->|3. Query| DB
+    DB -->|4. Data| APP
+    APP -->|5. Store| CACHE
     
-    def delete(self, key: str):
-        """Remove key from cache"""
-        self.cache.pop(key, None)
-
-# Example: Cache-aside pattern
-class UserService:
-    def __init__(self):
-        self.cache = SimpleCache()
-        self.db = Database()
+    TTL --> CACHE
+    EVICT --> CACHE
     
-    async def get_user(self, user_id: str) -> Optional[Dict]:
-        # Check cache first
-        user = self.cache.get(f"user:{user_id}")
-        if user:
-            return user
-        
-        # Cache miss - fetch from database
-        user = await self.db.get_user(user_id)
-        if user:
-            self.cache.set(f"user:{user_id}", user, ttl_seconds=300)
-        return user
-    
-    async def update_user(self, user_id: str, data: Dict):
-        await self.db.update_user(user_id, data)
-        self.cache.delete(f"user:{user_id}")  # Invalidate cache
+    style CACHE fill:#9f6,stroke:#333,stroke-width:2px
+    style DB fill:#69f,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -105,179 +123,114 @@ class UserService:
 | **Refresh-Ahead** | Complex | Ultra-fast | Strong | Predictable |
 | **Read-Through** | Medium | Fast after warm | Strong | Transparent |
 
-### Implementation Patterns
+### Caching Strategy Flows
 
-```python
-from abc import ABC, abstractmethod
-import asyncio
-from typing import Optional, Dict, Any
-import hashlib
-
-class CacheStrategy(ABC):
-    """Base class for caching strategies"""
+```mermaid
+flowchart TB
+    subgraph "Cache-Aside"
+        CA1[Read Request] --> CA2{In Cache?}
+        CA2 -->|Yes| CA3[Return]
+        CA2 -->|No| CA4[Read DB]
+        CA4 --> CA5[Update Cache]
+        CA5 --> CA3
+    end
     
-    @abstractmethod
-    async def get(self, key: str) -> Optional[Any]:
-        pass
+    subgraph "Write-Through"
+        WT1[Write Request] --> WT2[Write Cache]
+        WT2 --> WT3[Write DB]
+        WT3 -->|Both Success| WT4[Return]
+    end
     
-    @abstractmethod
-    async def set(self, key: str, value: Any) -> None:
-        pass
-
-class CacheAsideStrategy(CacheStrategy):
-    """Lazy loading - application manages cache"""
+    subgraph "Write-Behind"
+        WB1[Write Request] --> WB2[Write Cache]
+        WB2 --> WB3[Queue Write]
+        WB3 --> WB4[Return Fast]
+        WB5[Background Process] --> WB6[Batch Write DB]
+    end
     
-    def __init__(self, cache, database):
-        self.cache = cache
-        self.db = database
-    
-    async def get(self, key: str) -> Optional[Any]:
-        value = await self.cache.get(key)
-        if value is not None:
-            return value
-        
-        value = await self.db.get(key)
-        if value is not None:
-            await self.cache.set(key, value, ttl=300)
-        return value
-    
-    async def set(self, key: str, value: Any) -> None:
-        await self.db.set(key, value)
-        await self.cache.delete(key)
-
-class WriteThroughStrategy(CacheStrategy):
-    """Write to cache and database together"""
-    
-    def __init__(self, cache, database):
-        self.cache = cache
-        self.db = database
-    
-    async def get(self, key: str) -> Optional[Any]:
-        value = await self.cache.get(key)
-        if value is not None:
-            return value
-        
-        value = await self.db.get(key)
-        if value is not None:
-            await self.cache.set(key, value, ttl=300)
-        return value
-    
-    async def set(self, key: str, value: Any) -> None:
-        await asyncio.gather(
-            self.cache.set(key, value, ttl=300),
-            self.db.set(key, value)
-        )
-
-class WriteBackStrategy(CacheStrategy):
-    """Write to cache immediately, database eventually"""
-    
-    def __init__(self, cache, database):
-        self.cache = cache
-        self.db = database
-        self.write_queue = asyncio.Queue()
-        self.batch_size = 100
-        self.flush_interval = 5.0
-        asyncio.create_task(self._background_writer())
-    
-    async def get(self, key: str) -> Optional[Any]:
-        return await self.cache.get(key)
-    
-    async def set(self, key: str, value: Any) -> None:
-        await self.cache.set(key, value, ttl=3600)
-        await self.write_queue.put((key, value))
-    
-    async def _background_writer(self):
-        """Flush writes to database in batches"""
-        batch = []
-        
-        while True:
-            try:
-                while len(batch) < self.batch_size:
-                    key, value = await asyncio.wait_for(
-                        self.write_queue.get(),
-                        timeout=self.flush_interval
-                    )
-                    batch.append((key, value))
-                
-                if batch:
-                    await self._flush_batch(batch)
-                    batch = []
-                    
-            except asyncio.TimeoutError:
-                if batch:
-                    await self._flush_batch(batch)
-                    batch = []
-    
-    async def _flush_batch(self, batch):
-        """Write batch to database"""
-        try:
-            await self.db.batch_write(batch)
-        except Exception as e:
-            print(f"Failed to flush batch: {e}")
-
-class RefreshAheadStrategy(CacheStrategy):
-    """Proactively refresh cache before expiration"""
-    
-    def __init__(self, cache, database):
-        self.cache = cache
-        self.db = database
-        self.refresh_threshold = 0.8  # Refresh at 80% of TTL
-    
-    async def get(self, key: str) -> Optional[Any]:
-        result = await self.cache.get_with_metadata(key)
-        
-        if result is None:
-            value = await self.db.get(key)
-            if value:
-                await self.cache.set(key, value, ttl=300)
-            return value
-        
-        value, metadata = result
-        
-        # Check if approaching expiration
-        age_ratio = metadata['age'] / metadata['ttl']
-        if age_ratio > self.refresh_threshold:
-            asyncio.create_task(self._refresh_cache(key))
-        
-        return value
-    
-    async def _refresh_cache(self, key: str):
-        """Background cache refresh"""
-        try:
-            fresh_value = await self.db.get(key)
-            if fresh_value:
-                await self.cache.set(key, fresh_value, ttl=300)
-        except Exception:
-            pass
+    subgraph "Refresh-Ahead"
+        RA1[Read Request] --> RA2{Near Expiry?}
+        RA2 -->|No| RA3[Return Cached]
+        RA2 -->|Yes| RA4[Trigger Refresh]
+        RA4 --> RA3
+        RA5[Background] --> RA6[Refresh Cache]
+    end
 ```
 
-### Cache Key Design
+### Cache Pattern Architecture
 
-```python
-class CacheKeyBuilder:
-    """Build consistent cache keys"""
+```mermaid
+graph TB
+    subgraph "Application"
+        A[Cache Strategy Interface]
+    end
     
-    @staticmethod
-    def build_key(*parts: Any) -> str:
-        """Build cache key from parts"""
-        return ":".join(str(part) for part in parts)
+    subgraph "Strategies"
+        S1[Cache-Aside]
+        S2[Write-Through]
+        S3[Write-Behind]
+        S4[Refresh-Ahead]
+    end
     
-    @staticmethod
-    def build_versioned_key(base_key: str, version: int) -> str:
-        """Add version to key for cache busting"""
-        return f"{base_key}:v{version}"
+    subgraph "Components"
+        C[Cache Layer]
+        Q[Write Queue]
+        R[Refresh Manager]
+        B[Batch Processor]
+    end
     
-    @staticmethod
-    def build_hash_key(data: Dict) -> str:
-        """Build key from complex data using hash"""
-        sorted_data = json.dumps(data, sort_keys=True)
-        hash_value = hashlib.md5(sorted_data.encode()).hexdigest()
-        return f"hash:{hash_value}"
+    subgraph "Storage"
+        DB[(Database)]
+    end
     
-    @staticmethod
-    def build_tagged_key(base_key: str, tags: List[str]) -> str:
-        """Build key with tags for group invalidation"""
-        return f"{base_key}:tags:{','.join(sorted(tags))}"
+    A --> S1
+    A --> S2
+    A --> S3
+    A --> S4
+    
+    S1 --> C
+    S2 --> C
+    S3 --> C
+    S3 --> Q
+    S4 --> C
+    S4 --> R
+    
+    Q --> B
+    B --> DB
+    C --> DB
+    R --> DB
+    
+    style A fill:#ffd,stroke:#333,stroke-width:2px
+    style C fill:#9f6,stroke:#333,stroke-width:2px
+    style DB fill:#69f,stroke:#333,stroke-width:2px
+```
+
+### Cache Key Design Patterns
+
+| Key Pattern | Example | Use Case | Benefits |
+|-------------|---------|----------|----------|
+| **Hierarchical** | `user:123:profile` | Nested data | Easy invalidation |
+| **Versioned** | `product:456:v2` | Schema changes | Cache busting |
+| **Hash-based** | `hash:a1b2c3d4` | Complex queries | Consistent keys |
+| **Tagged** | `post:789:tags:news,tech` | Group operations | Bulk invalidation |
+| **Time-based** | `stats:2024-01:daily` | Time-series data | Auto-expiration |
+
+```mermaid
+graph LR
+    subgraph "Key Components"
+        A[Namespace] --> B[Entity ID]
+        B --> C[Sub-resource]
+        C --> D[Version/Tags]
+    end
+    
+    E[user:123:profile:v2]
+    
+    A -.->|user| E
+    B -.->|123| E
+    C -.->|profile| E
+    D -.->|v2| E
+    
+    style E fill:#9f6,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -286,205 +239,158 @@ class CacheKeyBuilder:
 
 ### Advanced Caching Patterns
 
-#### 1. Multi-Level Caching
-```python
-class MultiLevelCache:
-    """Hierarchical cache with multiple levels"""
+#### 1. Multi-Level Caching Architecture
+
+```mermaid
+graph TB
+    subgraph "Client"
+        REQ[Request]
+    end
     
-    def __init__(self):
-        self.l1_cache = ProcessMemoryCache(max_size_mb=100)  # Process memory
-        self.l2_cache = RedisCache(host='localhost', max_memory='1gb')  # Redis
-        self.l3_cache = CDNCache(provider='cloudflare')  # CDN
-        self.origin = Database()
-        self.metrics = CacheMetrics()
+    subgraph "L1: Process Memory"
+        L1[Local Cache<br/>100MB<br/>~1µs]
+    end
     
-    async def get(self, key: str) -> Optional[Any]:
-        """Try each cache level in order"""
-        
-        # L1 lookup
-        value = self.l1_cache.get(key)
-        if value is not None:
-            self.metrics.record_hit('l1', key)
-            return value
-        
-        # L2 lookup
-        value = await self.l2_cache.get(key)
-        if value is not None:
-            self.metrics.record_hit('l2', key)
-            self.l1_cache.set(key, value)
-            return value
-        
-        # L3 lookup
-        value = await self.l3_cache.get(key)
-        if value is not None:
-            self.metrics.record_hit('l3', key)
-            self.l1_cache.set(key, value)
-            await self.l2_cache.set(key, value, ttl=3600)
-            return value
-        
-        # Origin lookup
-        self.metrics.record_miss(key)
-        value = await self.origin.get(key)
-        
-        if value is not None:
-            await self._populate_caches(key, value)
-        
-        return value
+    subgraph "L2: Redis"
+        L2[Redis Cache<br/>1GB<br/>~1ms]
+    end
     
-    async def _populate_caches(self, key: str, value: Any):
-        """Populate all cache levels"""
-        ttl = self._calculate_ttl(key, value)
-        
-        await asyncio.gather(
-            self.l1_cache.set(key, value),
-            self.l2_cache.set(key, value, ttl=ttl),
-            self.l3_cache.set(key, value, ttl=ttl * 2),
-            return_exceptions=True
-        )
+    subgraph "L3: CDN"
+        L3[CDN Cache<br/>Unlimited<br/>~10ms]
+    end
     
-    def _calculate_ttl(self, key: str, value: Any) -> int:
-        """Calculate TTL based on data characteristics"""
-        if key.startswith('static:'):
-            return 86400  # 24 hours
-        elif key.startswith('user:'):
-            return 3600  # 1 hour
-        return 300  # 5 minutes
+    subgraph "Origin"
+        DB[(Database<br/>~100ms)]
+    end
+    
+    REQ --> L1
+    L1 -->|Miss| L2
+    L2 -->|Miss| L3
+    L3 -->|Miss| DB
+    
+    DB -.->|Populate| L3
+    L3 -.->|Populate| L2
+    L2 -.->|Populate| L1
+    
+    style L1 fill:#9f9,stroke:#333,stroke-width:2px
+    style L2 fill:#9f6,stroke:#333,stroke-width:2px
+    style L3 fill:#69f,stroke:#333,stroke-width:2px
+    style DB fill:#f96,stroke:#333,stroke-width:2px
 ```
+
+### Multi-Level Cache Characteristics
+
+| Level | Type | Size | Latency | Use Case |
+|-------|------|------|---------|----------|
+| **L1** | Process Memory | 100MB | <1µs | Hot data, frequent access |
+| **L2** | Redis/Memcached | 1-10GB | ~1ms | Shared across processes |
+| **L3** | CDN | Unlimited | ~10ms | Global distribution |
+| **Origin** | Database | - | ~100ms | Source of truth |
 
 #### 2. Distributed Cache Coordination
-```python
-class DistributedCacheCoordinator:
-    """Coordinate cache across multiple nodes"""
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1
+    participant LC1 as Local Cache 1
+    participant R as Redis
+    participant PS as Pub/Sub
+    participant LC2 as Local Cache 2
+    participant N2 as Node 2
     
-    def __init__(self, node_id: str, redis_client):
-        self.node_id = node_id
-        self.redis = redis_client
-        self.local_cache = {}
-        self.invalidation_channel = 'cache:invalidations'
-        
-        self.pubsub = self.redis.pubsub()
-        self.pubsub.subscribe(self.invalidation_channel)
-        asyncio.create_task(self._listen_for_invalidations())
+    N1->>LC1: Check local cache
+    LC1-->>N1: Miss
+    N1->>R: Get from Redis
+    R-->>N1: Return data + version
+    N1->>LC1: Store locally
     
-    async def get(self, key: str) -> Optional[Any]:
-        """Get with distributed cache coherence"""
-        
-        if key in self.local_cache:
-            entry = self.local_cache[key]
-            if entry['version'] == await self._get_global_version(key):
-                return entry['value']
-            del self.local_cache[key]
-        
-        data = await self.redis.get(f"cache:{key}")
-        version = await self.redis.get(f"version:{key}")
-        
-        if data is not None:
-            self.local_cache[key] = {
-                'value': data,
-                'version': version
-            }
-            return data
-        
-        return None
-    
-    async def set(self, key: str, value: Any, ttl: int = 300):
-        """Set with distributed invalidation"""
-        version = str(uuid.uuid4())
-        
-        pipe = self.redis.pipeline()
-        pipe.setex(f"cache:{key}", ttl, value)
-        pipe.setex(f"version:{key}", ttl, version)
-        await pipe.execute()
-        
-        self.local_cache[key] = {
-            'value': value,
-            'version': version
-        }
-        
-        await self._broadcast_invalidation(key, version)
-    
-    async def _broadcast_invalidation(self, key: str, new_version: str):
-        """Notify other nodes about cache update"""
-        message = {
-            'key': key,
-            'version': new_version,
-            'node_id': self.node_id,
-            'timestamp': time.time()
-        }
-        await self.redis.publish(
-            self.invalidation_channel,
-            json.dumps(message)
-        )
-    
-    async def _listen_for_invalidations(self):
-        """Listen for cache invalidation messages"""
-        async for message in self.pubsub.listen():
-            if message['type'] == 'message':
-                data = json.loads(message['data'])
-                
-                if data['node_id'] != self.node_id:
-                    key = data['key']
-                    if key in self.local_cache:
-                        if self.local_cache[key]['version'] != data['version']:
-                            del self.local_cache[key]
+    Note over N1: Update occurs
+    N1->>R: Set new value + version
+    N1->>PS: Broadcast invalidation
+    PS->>N2: Invalidation message
+    N2->>LC2: Remove old version
 ```
 
-#### 3. Smart Cache Warming
-```python
-class IntelligentCacheWarmer:
-    """Predictive cache warming based on access patterns"""
+### Distributed Cache Architecture
+
+```mermaid
+graph TB
+    subgraph "Node 1"
+        A1[App] --> LC1[Local Cache]
+        LC1 --> IN1[Invalidator]
+    end
     
-    def __init__(self, cache, database):
-        self.cache = cache
-        self.db = database
-        self.access_predictor = AccessPatternPredictor()
-        self.warming_scheduler = AsyncIOScheduler()
+    subgraph "Node 2"
+        A2[App] --> LC2[Local Cache]
+        LC2 --> IN2[Invalidator]
+    end
     
-    async def analyze_and_warm(self):
-        """Analyze patterns and warm cache intelligently"""
-        patterns = await self.access_predictor.analyze_historical_data()
-        
-        for pattern in patterns:
-            if pattern['type'] == 'time_based':
-                self.warming_scheduler.add_job(
-                    self._warm_time_based,
-                    'cron',
-                    hour=pattern['hour'] - 1,
-                    minute=30,
-                    args=[pattern['keys']]
-                )
-            elif pattern['type'] == 'correlation':
-                await self._setup_correlation_warming(pattern)
-            elif pattern['type'] == 'predictive':
-                await self._setup_predictive_warming(pattern)
+    subgraph "Node 3"
+        A3[App] --> LC3[Local Cache]
+        LC3 --> IN3[Invalidator]
+    end
     
-    async def _warm_time_based(self, key_patterns: List[str]):
-        """Warm cache for time-based patterns"""
-        for pattern in key_patterns:
-            keys = await self.db.get_keys_matching(pattern)
-            
-            batch_size = 100
-            for i in range(0, len(keys), batch_size):
-                batch = keys[i:i + batch_size]
-                values = await self.db.multi_get(batch)
-                
-                warm_tasks = []
-                for key, value in values.items():
-                    if value is not None:
-                        warm_tasks.append(self.cache.set(key, value, ttl=3600))
-                
-                await asyncio.gather(*warm_tasks)
+    subgraph "Shared Infrastructure"
+        R[(Redis)]
+        PS[Pub/Sub Channel]
+    end
     
-    async def _setup_correlation_warming(self, pattern: Dict):
-        """Set up correlation-based warming"""
-        correlations = pattern['correlations']
-        
-        async def correlation_handler(accessed_key: str):
-            correlated = correlations.get(accessed_key, [])
-            asyncio.create_task(self._warm_correlated_keys(correlated))
-        
-        self.cache.add_access_handler(correlation_handler)
+    LC1 <--> R
+    LC2 <--> R
+    LC3 <--> R
+    
+    IN1 --> PS
+    IN2 --> PS
+    IN3 --> PS
+    
+    PS -.->|Invalidation| IN1
+    PS -.->|Invalidation| IN2
+    PS -.->|Invalidation| IN3
+    
+    style R fill:#f96,stroke:#333,stroke-width:2px
+    style PS fill:#9f6,stroke:#333,stroke-width:2px
 ```
+
+#### 3. Smart Cache Warming Strategies
+
+```mermaid
+graph TB
+    subgraph "Pattern Analysis"
+        H[Historical Data] --> AP[Access Predictor]
+        AP --> TP[Time Patterns]
+        AP --> CP[Correlation Patterns]
+        AP --> PP[Predictive Patterns]
+    end
+    
+    subgraph "Warming Strategies"
+        TP --> TW[Time-Based Warming<br/>Pre-load before peak hours]
+        CP --> CW[Correlation Warming<br/>Load related items together]
+        PP --> PW[Predictive Warming<br/>ML-based predictions]
+    end
+    
+    subgraph "Execution"
+        TW --> S[Scheduler]
+        CW --> E[Event Handler]
+        PW --> M[ML Model]
+        
+        S --> C[Cache Population]
+        E --> C
+        M --> C
+    end
+    
+    style AP fill:#ffd,stroke:#333,stroke-width:2px
+    style C fill:#9f6,stroke:#333,stroke-width:2px
+```
+
+### Cache Warming Patterns
+
+| Pattern | Detection Method | Warming Strategy | Example |
+|---------|-----------------|------------------|----------|
+| **Time-based** | Access logs analysis | Cron schedule | News site: warm at 7 AM |
+| **Correlation** | Item association | Chain loading | Product + reviews + images |
+| **Predictive** | Machine learning | Probability-based | User likely to view X next |
+| **Geographic** | Location patterns | Regional pre-load | Content for timezone |
+| **Event-driven** | External triggers | Hook-based | Sale starts: warm catalog |
 
 ---
 

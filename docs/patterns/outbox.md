@@ -68,36 +68,57 @@ Later: Background worker sends all pending tasks
 | **Uber** | Ride assigned, driver not notified | Guaranteed notifications |
 | **Netflix** | Show watched, recommendations not updated | Consistent experience |
 
-### Basic Implementation
+### Outbox Pattern Flow
 
-```python
-# The problem: Dual writes
-def create_order_problematic(order_data):
-    order = save_to_database(order_data)  # What if this succeeds...
-    publish_event("OrderCreated", order)   # ...but this fails?
-
-# The solution: Outbox pattern
-def create_order_with_outbox(order_data):
-    with database.transaction() as tx:
-        # Both happen in same transaction
-        order = save_order(order_data, tx)
-        save_outbox_message({
-            "event": "OrderCreated",
-            "data": order,
-            "status": "PENDING"
-        }, tx)
-    # Transaction ensures both succeed or both fail!
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant TX as Transaction
+    participant BT as Business Table
+    participant OT as Outbox Table
+    participant PUB as Publisher
+    participant Q as Message Queue
     
-# Background process
-def outbox_publisher():
-    while True:
-        messages = get_pending_messages()
-        for msg in messages:
-            if publish_to_queue(msg):
-                mark_as_sent(msg)
-            else:
-                retry_later(msg)
-        sleep(1)
+    App->>TX: Begin Transaction
+    TX->>BT: Save Business Data
+    TX->>OT: Save Outbox Event
+    TX->>App: Commit (Atomic)
+    
+    Note over PUB: Background Process
+    loop Every Second
+        PUB->>OT: Poll Pending Messages
+        OT-->>PUB: Return Messages
+        PUB->>Q: Publish Event
+        Q-->>PUB: Acknowledge
+        PUB->>OT: Mark as Sent
+    end
+```
+
+### Dual Write Problem vs Outbox Solution
+
+```mermaid
+graph TB
+    subgraph "Dual Write Problem"
+        P1[Save Order] -->|Success| P2[Publish Event]
+        P2 -->|Fails| P3[Inconsistent State!]
+        
+        P4[Save Order] -->|Fails| P5[No Event]
+        P5 --> P6[Consistent]
+        
+        style P3 fill:#f99,stroke:#333,stroke-width:4px
+    end
+    
+    subgraph "Outbox Solution"
+        O1[Begin Transaction] --> O2[Save Order]
+        O2 --> O3[Save to Outbox]
+        O3 --> O4[Commit]
+        O4 -->|All or Nothing| O5[Consistent State]
+        
+        O6[Publisher] -.->|Async| O7[Read Outbox]
+        O7 --> O8[Publish Events]
+        
+        style O5 fill:#9f9,stroke:#333,stroke-width:4px
+    end
 ```
 
 ---
@@ -168,162 +189,114 @@ CREATE TABLE outbox (
 );
 ```
 
-### Implementation Patterns
+### Outbox Implementation Architecture
 
-```python
-from dataclasses import dataclass
-from datetime import datetime, timedelta
-from typing import List, Optional, Dict, Any
-import asyncio
-import json
-
-@dataclass
-class OutboxMessage:
-    """Represents a message in the outbox"""
-    aggregate_id: str
-    aggregate_type: str
-    event_type: str
-    payload: Dict[str, Any]
-    id: Optional[str] = None
-    status: str = "PENDING"
-    attempts: int = 0
-    created_at: Optional[datetime] = None
+```mermaid
+graph TB
+    subgraph "Application Layer"
+        APP[Business Logic]
+        TX[Transaction Manager]
+    end
     
-class TransactionalOutbox:
-    """Core outbox implementation"""
+    subgraph "Persistence Layer"
+        BT[(Business Tables)]
+        OT[(Outbox Table)]
+    end
     
-    def __init__(self, db_pool, config):
-        self.db = db_pool
-        self.config = config
-        
-    async def with_transaction(self, business_op, events: List[OutboxMessage]):
-        """Execute business operation and save events atomically"""
-        async with self.db.transaction() as tx:
-            # Execute business logic
-            result = await business_op(tx)
-            
-            # Save all events to outbox
-            for event in events:
-                await self._save_to_outbox(tx, event)
-            
-            # Transaction commits here - all or nothing!
-            return result
+    subgraph "Publishing Layer"
+        PUB[Publisher Service]
+        CLAIM[Message Claimer]
+        RETRY[Retry Manager]
+    end
     
-    async def _save_to_outbox(self, tx, message: OutboxMessage):
-        """Save message to outbox within transaction"""
-        await tx.execute("""
-            INSERT INTO outbox (
-                aggregate_id, aggregate_type, event_type,
-                payload, status, created_at
-            ) VALUES ($1, $2, $3, $4, $5, $6)
-        """, 
-            message.aggregate_id, message.aggregate_type,
-            message.event_type, json.dumps(message.payload),
-            message.status, datetime.utcnow()
-        )
-
-class OutboxPublisher:
-    """Publishes messages from outbox"""
+    subgraph "Message Infrastructure"
+        Q[Message Queue/Kafka]
+        DLQ[Dead Letter Queue]
+    end
     
-    def __init__(self, outbox_store, message_bus):
-        self.store = outbox_store
-        self.bus = message_bus
-        self.config = {
-            'batch_size': 100,
-            'poll_interval': 1.0,
-            'max_attempts': 3,
-            'backoff_multiplier': 2
-        }
-        
-    async def run(self):
-        """Main publisher loop"""
-        while True:
-            try:
-                count = await self._publish_batch()
-                if count == 0:
-                    await asyncio.sleep(self.config['poll_interval'])
-            except Exception as e:
-                logger.error(f"Publisher error: {e}")
-                await asyncio.sleep(self.config['poll_interval'])
+    APP --> TX
+    TX --> BT
+    TX --> OT
     
-    async def _publish_batch(self):
-        """Publish a batch of messages"""
-        messages = await self.store.claim_messages(
-            batch_size=self.config['batch_size']
-        )
-        
-        published_count = 0
-        for message in messages:
-            try:
-                await self.bus.publish(
-                    topic=f"{message.aggregate_type}.{message.event_type}",
-                    key=message.aggregate_id,
-                    value=message.payload
-                )
-                
-                await self.store.mark_published(message.id)
-                published_count += 1
-                
-            except Exception as e:
-                await self._handle_failure(message, e)
-        
-        return published_count
+    PUB --> CLAIM
+    CLAIM --> OT
+    PUB --> Q
+    PUB --> RETRY
+    RETRY --> OT
+    RETRY --> DLQ
     
-    async def _handle_failure(self, message, error):
-        """Handle publishing failure"""
-        message.attempts += 1
-        
-        if message.attempts >= self.config['max_attempts']:
-            await self.store.mark_failed(message.id, str(error))
-        else:
-            retry_delay = self.config['backoff_multiplier'] ** message.attempts
-            await self.store.schedule_retry(message.id, retry_delay)
+    style TX fill:#ffd,stroke:#333,stroke-width:4px
+    style OT fill:#9f6,stroke:#333,stroke-width:2px
+    style PUB fill:#69f,stroke:#333,stroke-width:2px
 ```
 
-### Advanced Features
+### Outbox State Machine
 
-```python
-class PartitionedOutbox:
-    """High-performance outbox with partitioning"""
+```mermaid
+stateDiagram-v2
+    [*] --> PENDING: Event Created
+    PENDING --> PROCESSING: Claimed by Publisher
+    PROCESSING --> PUBLISHED: Success
+    PROCESSING --> RETRY: Failure (attempts < max)
+    RETRY --> PROCESSING: Retry Delay Elapsed
+    PROCESSING --> FAILED: Max Attempts Reached
+    PUBLISHED --> [*]
+    FAILED --> [*]
     
-    async def setup_partitions(self):
-        """Create time-based partitions"""
-        await self._create_partition(datetime.utcnow())
-        
-        next_month = datetime.utcnow() + timedelta(days=32)
-        await self._create_partition(next_month)
+    note right of RETRY
+        Exponential backoff:
+        1st: 2s
+        2nd: 4s
+        3rd: 8s
+    end note
     
-    async def _create_partition(self, date):
-        """Create monthly partition"""
-        table_name = f"outbox_{date.strftime('%Y_%m')}"
-        start = date.replace(day=1)
-        end = (start + timedelta(days=32)).replace(day=1)
-        
-        await self.db.execute(f"""
-            CREATE TABLE IF NOT EXISTS {table_name}
-            PARTITION OF outbox
-            FOR VALUES FROM ('{start}') TO ('{end}')
-        """)
-
-class IdempotentPublisher:
-    """Ensures exactly-once delivery"""
-    
-    async def publish_with_deduplication(self, message):
-        """Publish with idempotency key"""
-        idempotency_key = f"{message.aggregate_id}:{message.id}"
-        
-        if await self.cache.exists(idempotency_key):
-            logger.info(f"Message {message.id} already published")
-            return
-        
-        await self.bus.publish(message)
-        
-        await self.cache.set(
-            idempotency_key, 
-            "1", 
-            ttl=86400  # 24 hours
-        )
+    note right of FAILED
+        Sent to DLQ for
+        manual investigation
+    end note
 ```
+
+### Outbox Advanced Features
+
+```mermaid
+graph TB
+    subgraph "Partitioning Strategy"
+        OT[Outbox Table] --> P1[Partition 2024_01]
+        OT --> P2[Partition 2024_02]
+        OT --> P3[Partition 2024_03]
+        OT --> PN[...]
+        
+        P1 --> AUTO[Auto-cleanup after 30 days]
+    end
+    
+    subgraph "Idempotency Protection"
+        MSG[Message] --> KEY[Generate Key]
+        KEY --> CHECK{Already Sent?}
+        CHECK -->|Yes| SKIP[Skip]
+        CHECK -->|No| SEND[Publish]
+        SEND --> CACHE[Cache Key 24h]
+    end
+    
+    subgraph "Performance Optimizations"
+        BATCH[Batch Processing]
+        COMPRESS[Compression]
+        INDEX[Smart Indexing]
+        PARALLEL[Parallel Publishers]
+    end
+    
+    style OT fill:#9f6,stroke:#333,stroke-width:2px
+    style CHECK fill:#ffd,stroke:#333,stroke-width:2px
+```
+
+### Outbox Table Partitioning Benefits
+
+| Feature | Benefit | Implementation |
+|---------|---------|----------------|
+| **Time-based Partitions** | Fast cleanup | Monthly partitions, DROP old |
+| **Size Management** | Bounded growth | Auto-rotation |
+| **Query Performance** | Partition pruning | Date-based queries |
+| **Maintenance** | Online operations | Per-partition vacuum |
+| **Archival** | Easy backup | Detach & archive |
 
 ---
 

@@ -35,49 +35,77 @@ The challenge: What if someone passes out inside? (node failure while holding lo
 
 ### Basic Distributed Lock
 
-```python
-import redis
-import time
-import uuid
-
-class SimpleDistributedLock:
-    def __init__(self, redis_client: redis.Redis):
-        self.redis = redis_client
-
-    def acquire(self, resource: str, timeout_ms: int = 5000) -> Optional[str]:
-        """Try to acquire lock"""
-        lock_id = str(uuid.uuid4())
-
-        # SET NX EX - atomic set if not exists with expiry
-        acquired = self.redis.set(
-            f"lock:{resource}",
-            lock_id,
-            nx=True,  # Only set if not exists
-            px=timeout_ms  # Expire after milliseconds
-        )
-
-        return lock_id if acquired else None
-
-    def release(self, resource: str, lock_id: str) -> bool:
-        """Release lock if we own it"""
-        # Lua script for atomic check-and-delete
-        lua_script = """
-        if redis.call("get", KEYS[1]) == ARGV[1] then
-            return redis.call("del", KEYS[1])
-        else
-            return 0
-        end
-        """
-
-        result = self.redis.eval(
-            lua_script,
-            1,
-            f"lock:{resource}",
-            lock_id
-        )
-
-        return bool(result)
+```mermaid
+flowchart LR
+    subgraph "Lock Acquisition Flow"
+        Client[Client Request]
+        Check{Lock Available?}
+        Acquire[Acquire Lock<br/>SET NX EX]
+        Success[Return Lock ID]
+        Failed[Return None]
+        
+        Client --> Check
+        Check -->|Yes| Acquire
+        Check -->|No| Failed
+        Acquire --> Success
+    end
+    
+    subgraph "Lock Release Flow"
+        Release[Release Request]
+        Verify{Own Lock?}
+        Delete[Delete Lock Key]
+        Released[Lock Released]
+        Denied[Release Denied]
+        
+        Release --> Verify
+        Verify -->|Yes| Delete
+        Verify -->|No| Denied
+        Delete --> Released
+    end
+    
+    style Success fill:#10b981,stroke:#059669
+    style Failed fill:#ef4444,stroke:#dc2626
+    style Released fill:#10b981,stroke:#059669
+    style Denied fill:#ef4444,stroke:#dc2626
 ```
+
+### Distributed Lock State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Available: Initial State
+    
+    Available --> Locked: Client acquires<br/>(SET NX EX)
+    
+    Locked --> Available: Lock released<br/>(DEL if owner)
+    
+    Locked --> Available: Lock expires<br/>(TTL timeout)
+    
+    Locked --> Locked: Renew lease<br/>(EXPIRE)
+    
+    note right of Locked
+        Lock Info:
+        • Owner ID
+        • Expiry time
+        • Resource name
+    end note
+    
+    note left of Available
+        Properties:
+        • Mutual exclusion
+        • Deadlock free
+        • Fault tolerant
+    end note
+```
+
+### Redis Lock Commands
+
+| Operation | Redis Command | Purpose |
+|-----------|---------------|----------|  
+| **Acquire** | `SET lock:name uuid NX PX 5000` | Atomic set-if-not-exists with expiry |
+| **Release** | Lua script | Atomic check-and-delete |
+| **Extend** | `EXPIRE lock:name 5` | Extend TTL if still owner |
+| **Check** | `GET lock:name` | Check current owner |
 
 ---
 
@@ -95,115 +123,161 @@ class SimpleDistributedLock:
 ### Lock Implementation Strategies
 
 #### 1. Database-Based Locks
-```sql
--- Acquire lock
-INSERT INTO distributed_locks
-    (resource_name, lock_holder, acquired_at, expires_at)
-VALUES
-    ('inventory-update', 'node-123', NOW(), NOW() + INTERVAL '30 seconds')
-ON CONFLICT (resource_name) DO NOTHING
-RETURNING lock_id;
 
--- Release lock
-DELETE FROM distributed_locks
-WHERE resource_name = 'inventory-update'
-  AND lock_holder = 'node-123';
+```mermaid
+graph TB
+    subgraph "Database Lock Table"
+        Table[distributed_locks]
+        C1[resource_name<br/>UNIQUE]
+        C2[lock_holder]
+        C3[acquired_at]
+        C4[expires_at]
+        
+        Table --> C1
+        Table --> C2
+        Table --> C3
+        Table --> C4
+    end
+    
+    subgraph "Lock Operations"
+        Insert[INSERT ... ON CONFLICT DO NOTHING]
+        Delete[DELETE WHERE holder = me]
+        Cleanup[DELETE WHERE expires_at < NOW()]
+        
+        Insert -->|Success| Acquired
+        Insert -->|Conflict| NotAcquired
+        Delete --> Released
+        Cleanup --> ExpiredLocks
+    end
+    
+    style C1 fill:#fbbf24,stroke:#f59e0b,stroke-width:2px
+    style Acquired fill:#10b981,stroke:#059669
+    style NotAcquired fill:#ef4444,stroke:#dc2626
 ```
 
 #### 2. ZooKeeper-Based Locks
-```python
-from kazoo.client import KazooClient
-from kazoo.recipe.lock import Lock
 
-class ZooKeeperLock:
-    def __init__(self, zk_hosts: str):
-        self.zk = KazooClient(hosts=zk_hosts)
-        self.zk.start()
-
-    def with_lock(self, path: str, func, *args, **kwargs):
-        """Execute function with distributed lock"""
-        lock = Lock(self.zk, f"/locks/{path}")
-
-        with lock:
-            # Lock acquired
-            return func(*args, **kwargs)
-        # Lock automatically released
+```mermaid
+graph TB
+    subgraph "ZooKeeper Lock Structure"
+        Root["/locks"]
+        Resource["/locks/resource-1"]
+        
+        subgraph "Sequential Nodes"
+            N1["lock-0000000001<br/>(holder)"]
+            N2["lock-0000000002<br/>(waiting)"]
+            N3["lock-0000000003<br/>(waiting)"]
+        end
+        
+        Root --> Resource
+        Resource --> N1
+        Resource --> N2
+        Resource --> N3
+        
+        N1 -.->|watches| N2
+        N2 -.->|watches| N3
+    end
+    
+    subgraph "Lock Algorithm"
+        Create[Create sequential<br/>ephemeral node]
+        Check{Lowest<br/>sequence?}
+        Hold[Hold lock]
+        Watch[Watch previous node]
+        
+        Create --> Check
+        Check -->|Yes| Hold
+        Check -->|No| Watch
+        Watch -->|Node deleted| Check
+    end
+    
+    style N1 fill:#10b981,stroke:#059669,stroke-width:3px
+    style Hold fill:#10b981,stroke:#059669
 ```
 
 #### 3. Consensus-Based Locks
-```python
-class ConsensusLock:
-    """Lock using consensus algorithm like Raft"""
 
-    def __init__(self, nodes: List[str]):
-        self.nodes = nodes
-        self.lock_state = {}
-
-    def acquire(self, resource: str, node_id: str) -> bool:
-        # Propose lock acquisition to cluster
-        proposal = {
-            'type': 'acquire_lock',
-            'resource': resource,
-            'holder': node_id,
-            'timestamp': time.time()
-        }
-
-        # Get consensus on proposal
-        if self.propose_to_cluster(proposal):
-            self.lock_state[resource] = node_id
-            return True
-
-        return False
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Leader
+    participant Follower1
+    participant Follower2
+    participant LockTable
+    
+    Client->>Leader: Acquire lock "resource-X"
+    
+    rect rgb(240, 240, 255)
+        Note over Leader,Follower2: Consensus Protocol
+        Leader->>Leader: Create proposal
+        Leader->>Follower1: Replicate: LOCK(resource-X, client-1)
+        Leader->>Follower2: Replicate: LOCK(resource-X, client-1)
+        
+        Follower1-->>Leader: Ack
+        Follower2-->>Leader: Ack
+        
+        Note over Leader: Majority achieved
+    end
+    
+    Leader->>LockTable: Update: resource-X → client-1
+    Leader-->>Client: Lock acquired
+    
+    Note over Client: Perform work...
+    
+    Client->>Leader: Release lock "resource-X"
+    
+    rect rgb(240, 255, 240)
+        Note over Leader,Follower2: Consensus for release
+        Leader->>Follower1: Replicate: UNLOCK(resource-X)
+        Leader->>Follower2: Replicate: UNLOCK(resource-X)
+        Follower1-->>Leader: Ack
+        Follower2-->>Leader: Ack
+    end
+    
+    Leader->>LockTable: Remove: resource-X
+    Leader-->>Client: Lock released
 ```
 
 ### Lock Safety Properties
 
-```python
-class SafeDistributedLock:
-    """Lock with safety guarantees"""
-
-    def __init__(self, storage_backend):
-        self.storage = storage_backend
-        self.clock = LogicalClock()
-
-    def acquire_with_fencing(self, resource: str) -> Optional[dict]:
-        """Acquire lock with fencing token"""
-        token = self.clock.increment()
-        lock_info = {
-            'holder': self.node_id,
-            'token': token,
-            'acquired_at': time.time(),
-            'ttl': 30  # seconds
-        }
-
-        # Store with compare-and-swap
-        if self.storage.compare_and_set(
-            f"lock:{resource}",
-            expected=None,
-            new_value=lock_info
-        ):
-            return lock_info
-
-        return None
-
-    def validate_lock(self, resource: str, lock_info: dict) -> bool:
-        """Check if lock is still valid"""
-        current = self.storage.get(f"lock:{resource}")
-
-        if not current:
-            return False
-
-        # Check token hasn't been superseded
-        if current['token'] > lock_info['token']:
-            return False
-
-        # Check TTL hasn't expired
-        elapsed = time.time() - current['acquired_at']
-        if elapsed > current['ttl']:
-            return False
-
-        return current['holder'] == lock_info['holder']
+```mermaid
+graph TB
+    subgraph "Fencing Token Mechanism"
+        Client1[Client 1<br/>Token: 42]
+        Client2[Client 2<br/>Token: 43]
+        Lock[Lock Service]
+        Storage[Storage Service]
+        
+        Client1 -->|1. Acquire lock| Lock
+        Lock -->|2. Token: 42| Client1
+        
+        Client1 -->|3. Write with token 42| Storage
+        
+        Note1[Network delay/GC pause]
+        Note1 -.-> Client1
+        
+        Client2 -->|4. Acquire lock| Lock
+        Lock -->|5. Token: 43| Client2
+        
+        Client1 -->|6. Write with token 42| Storage
+        Storage -->|7. Reject: token 42 < 43| Client1
+        
+        Client2 -->|8. Write with token 43| Storage
+        Storage -->|9. Accept| Client2
+    end
+    
+    style Client1 fill:#fbbf24,stroke:#f59e0b
+    style Client2 fill:#10b981,stroke:#059669
+    style Note1 fill:#ef4444,stroke:#dc2626
 ```
+
+### Lock Safety Guarantees
+
+| Property | Without Fencing | With Fencing | Implementation |
+|----------|-----------------|--------------|----------------|
+| **Mutual Exclusion** | ✓ (mostly) | ✓ | One holder at a time |
+| **Deadlock Free** | ✓ | ✓ | TTL expiration |
+| **Fault Tolerant** | ✗ | ✓ | Survives delays |
+| **Protection from Delays** | ✗ | ✓ | Monotonic tokens |
 
 ---
 
@@ -213,100 +287,140 @@ class SafeDistributedLock:
 
 Martin Kleppmann's analysis of Redis Redlock revealed important limitations:
 
-```python
-class Redlock:
-    """
-    Redis Redlock implementation
-    Note: Has known safety issues in distributed systems!
-    """
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Redis1
+    participant Redis2  
+    participant Redis3
+    participant Redis4
+    participant Redis5
+    
+    Note over Client: Start time T0
+    
+    Client->>Redis1: SET lock:X uuid NX PX 30000
+    Redis1-->>Client: OK
+    
+    Client->>Redis2: SET lock:X uuid NX PX 30000
+    Redis2-->>Client: OK
+    
+    Client->>Redis3: SET lock:X uuid NX PX 30000
+    Note over Redis3: Network delay
+    
+    Client->>Redis4: SET lock:X uuid NX PX 30000
+    Redis4-->>Client: OK
+    
+    Client->>Redis5: SET lock:X uuid NX PX 30000
+    Redis5-->>Client: FAIL (timeout)
+    
+    Redis3-->>Client: OK (delayed)
+    
+    Note over Client: End time T1
+    Note over Client: Acquired on 4/5 nodes
+    Note over Client: Validity = TTL - (T1-T0) - drift
+    
+    rect rgb(255, 240, 240)
+        Note over Client,Redis5: DANGER ZONE
+        Note over Client: GC pause / clock jump
+        Note over Redis1,Redis5: Locks expire!
+        Note over Client: Client thinks it has lock
+    end
+```
 
-    def __init__(self, redis_nodes: List[Redis]):
-        self.nodes = redis_nodes
-        self.quorum = len(redis_nodes) // 2 + 1
-        self.lock_ttl = 30000  # 30 seconds
-        self.clock_drift = 0.01  # 1% clock drift
+### Redlock Problems
 
-    def acquire(self, resource: str) -> Optional[str]:
-        lock_id = str(uuid.uuid4())
-        start_time = time.time() * 1000  # milliseconds
-
-        # Try to acquire lock on majority of nodes
-        locked_nodes = 0
-
-        for node in self.nodes:
-            try:
-                if self._acquire_on_node(node, resource, lock_id):
-                    locked_nodes += 1
-            except:
-                # Node failure, continue
-                pass
-
-        # Calculate validity time
-        elapsed = (time.time() * 1000) - start_time
-        validity_time = self.lock_ttl - elapsed - (self.lock_ttl * self.clock_drift)
-
-        # Check if we have quorum and time remaining
-        if locked_nodes >= self.quorum and validity_time > 0:
-            return lock_id
-
-        # Failed to acquire, release any partial locks
-        self._release_all(resource, lock_id)
-        return None
-
-    def _acquire_on_node(self, node: Redis, resource: str, lock_id: str) -> bool:
-        return node.set(
-            f"lock:{resource}",
-            lock_id,
-            nx=True,
-            px=self.lock_ttl
-        )
+```mermaid
+graph TB
+    subgraph "Timing Assumptions"
+        P1[Process pauses<br/>unbounded]
+        P2[Clock jumps<br/>NTP sync]
+        P3[Network delays<br/>unbounded]
+    end
+    
+    subgraph "Safety Violations"  
+        V1[Lock expires during pause]
+        V2[Clock drift calculation wrong]
+        V3[Split brain possible]
+    end
+    
+    subgraph "Better Alternatives"
+        A1[Use consensus<br/>etcd/ZooKeeper]
+        A2[Use fencing tokens]
+        A3[Design for eventual<br/>consistency]
+    end
+    
+    P1 --> V1
+    P2 --> V2
+    P3 --> V3
+    
+    V1 --> A1
+    V2 --> A2
+    V3 --> A3
+    
+    style P1 fill:#ef4444,stroke:#dc2626
+    style P2 fill:#ef4444,stroke:#dc2626
+    style P3 fill:#ef4444,stroke:#dc2626
 ```
 
 ### Problems with Distributed Locks
 
 ### Fencing Tokens for Safety
 
-```python
-class FencedLock:
-    """Lock with monotonically increasing fence tokens"""
+```mermaid
+sequenceDiagram
+    participant C1 as Client 1
+    participant C2 as Client 2
+    participant LM as Lock Manager
+    participant DB as Database
+    
+    C1->>LM: Acquire lock(resource)
+    LM->>LM: token = 42
+    LM-->>C1: Lock + Token(42)
+    
+    C1->>DB: Write(data, token=42)
+    DB->>DB: Store max_token=42
+    DB-->>C1: Success
+    
+    Note over C1: GC pause / network issue
+    
+    C2->>LM: Acquire lock(resource)
+    Note over LM: C1's lock expired
+    LM->>LM: token = 43
+    LM-->>C2: Lock + Token(43)
+    
+    C2->>DB: Write(data, token=43)
+    DB->>DB: 43 > 42 ✓
+    DB->>DB: Store max_token=43
+    DB-->>C2: Success
+    
+    Note over C1: Resume from pause
+    C1->>DB: Write(data, token=42)
+    DB->>DB: 42 < 43 ✗
+    DB-->>C1: Rejected - stale token
+```
 
-    def __init__(self, coordinator):
-        self.coordinator = coordinator
-        self.token_counter = 0
+### Fencing Token Flow
 
-    def acquire(self, resource: str) -> Optional[FencedLockHandle]:
-        # Get next token from coordinator
-        token = self.coordinator.get_next_token()
-
-        # Try to acquire lock with token
-        lock_data = {
-            'holder': self.node_id,
-            'token': token,
-            'resource': resource,
-            'acquired_at': time.time()
-        }
-
-        if self.coordinator.try_acquire(resource, lock_data):
-            return FencedLockHandle(resource, token, self)
-
-        return None
-
-class FencedLockHandle:
-    """Handle for a fenced lock"""
-
-    def __init__(self, resource: str, token: int, lock_manager):
-        self.resource = resource
-        self.token = token
-        self.lock_manager = lock_manager
-
-    def execute_with_fence(self, storage, operation):
-        """Execute operation only if fence token is valid"""
-        # Storage checks fence token before applying operation
-        return storage.conditional_execute(
-            operation,
-            fence_token=self.token
-        )
-```yaml
+```mermaid
+graph LR
+    subgraph "Lock Service"
+        Counter[Token Counter<br/>Current: 43]
+        LockTable[Lock Table]
+    end
+    
+    subgraph "Protected Resource"
+        MaxToken[Max Token Seen: 43]
+        Data[Protected Data]
+    end
+    
+    Client -->|1. Request lock| Counter
+    Counter -->|2. Increment & return| Client
+    Client -->|3. Operation + token| MaxToken
+    MaxToken -->|4. If token >= max| Data
+    MaxToken -->|5. If token < max| Reject
+    
+    style Reject fill:#ef4444,stroke:#dc2626
+```
 ---
 
 ## 🚀 Level 4: Expert
@@ -314,158 +428,212 @@ class FencedLockHandle:
 ### Production Distributed Lock Systems
 
 #### Google's Chubby Lock Service
-```python
-class ChubbyLockService:
-    """
-    Simplified version of Google's Chubby
-    """
 
-    def __init__(self):
-        self.paxos_group = PaxosGroup()
-        self.lock_table = {}
-        self.sessions = {}
+```mermaid
+graph TB
+    subgraph "Chubby Architecture"
+        subgraph "Chubby Cell (5 replicas)"
+            Master[Master<br/>Elected via Paxos]
+            R1[Replica 1]
+            R2[Replica 2] 
+            R3[Replica 3]
+            R4[Replica 4]
+            
+            Master <-->|Paxos| R1
+            Master <-->|Paxos| R2
+            Master <-->|Paxos| R3
+            Master <-->|Paxos| R4
+        end
+        
+        subgraph "Client Library"
+            Cache[Local Cache]
+            Session[Session Manager]
+            KeepAlive[KeepAlive Thread]
+        end
+        
+        Client[Application] --> Session
+        Session --> Master
+        KeepAlive -->|Periodic| Master
+    end
+    
+    subgraph "Lock Hierarchy"
+        Root["/ls"]
+        Cell["/ls/cell"]
+        Lock1["/ls/cell/service/master"]
+        Lock2["/ls/cell/service/config"]
+        
+        Root --> Cell
+        Cell --> Lock1
+        Cell --> Lock2
+    end
+    
+    style Master fill:#10b981,stroke:#059669,stroke-width:3px
+```
 
-    def create_session(self, client_id: str) -> str:
-        """Create client session with keepalive"""
-        session_id = uuid.uuid4().hex
+### Chubby Session & Lock Flow
 
-        self.sessions[session_id] = {
-            'client_id': client_id,
-            'last_keepalive': time.time(),
-            'locks_held': set()
-        }
-
-        return session_id
-
-    def acquire_lock(self, session_id: str, lock_path: str, mode: str = 'exclusive'):
-        """Acquire lock with session"""
-        if session_id not in self.sessions:
-            raise InvalidSessionError()
-
-        # Propose lock acquisition through Paxos
-        proposal = {
-            'operation': 'acquire_lock',
-            'session_id': session_id,
-            'lock_path': lock_path,
-            'mode': mode,
-            'timestamp': time.time()
-        }
-
-        if self.paxos_group.propose(proposal):
-            self.lock_table[lock_path] = {
-                'holder': session_id,
-                'mode': mode,
-                'acquired_at': time.time()
-            }
-            self.sessions[session_id]['locks_held'].add(lock_path)
-            return True
-
-        return False
-
-    def handle_session_timeout(self, session_id: str):
-        """Release all locks held by timed-out session"""
-        if session_id in self.sessions:
-            locks_to_release = self.sessions[session_id]['locks_held'].copy()
-
-            for lock_path in locks_to_release:
-                self.release_lock_internal(session_id, lock_path)
-
-            del self.sessions[session_id]
-```bash
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant Lib as Chubby Library
+    participant Master as Chubby Master
+    participant Paxos as Paxos Group
+    
+    App->>Lib: Open("/ls/cell/lock")
+    Lib->>Master: CreateSession()
+    Master-->>Lib: SessionID + lease
+    
+    loop KeepAlive
+        Lib->>Master: KeepAlive(SessionID)
+        Master-->>Lib: Lease extension
+    end
+    
+    App->>Lib: Acquire("/ls/cell/lock")
+    Lib->>Master: AcquireLock(SessionID, path)
+    
+    Master->>Paxos: Propose lock acquisition
+    Paxos-->>Master: Consensus achieved
+    
+    Master->>Master: Update lock table
+    Master-->>Lib: Lock acquired
+    Lib-->>App: Success
+    
+    Note over App: Hold lock...
+    
+    alt Session timeout
+        Master->>Master: Detect missed KeepAlive
+        Master->>Paxos: Propose session cleanup
+        Master->>Master: Release all session locks
+    else Normal release
+        App->>Lib: Release("/ls/cell/lock")
+        Lib->>Master: ReleaseLock(SessionID, path)
+    end
+```
 #### etcd Distributed Locks
-```python
-import etcd3
 
-class EtcdDistributedLock:
-    """Production-ready lock using etcd"""
+```mermaid
+graph TB
+    subgraph "etcd Lock Implementation"
+        subgraph "Lock Components"
+            Lease[Lease (TTL)]
+            Key[Lock Key]
+            Rev[Revision Number]
+            
+            Lease --> Key
+            Key --> Rev
+        end
+        
+        subgraph "Lock Algorithm"
+            Create[Create key with<br/>lowest revision]
+            Wait[Wait for lower<br/>revisions to delete]
+            Hold[Hold lock]
+            Delete[Delete key]
+            
+            Create --> Wait
+            Wait --> Hold
+            Hold --> Delete
+        end
+    end
+    
+    subgraph "Example Lock Queue"
+        K1[key: /locks/x/000001<br/>holder: client-A]
+        K2[key: /locks/x/000002<br/>holder: client-B]
+        K3[key: /locks/x/000003<br/>holder: client-C]
+        
+        K1 -->|watches| K2
+        K2 -->|watches| K3
+        
+        Note1[Client-A holds lock]
+        Note2[Client-B waiting]
+        Note3[Client-C waiting]
+    end
+    
+    style K1 fill:#10b981,stroke:#059669,stroke-width:3px
+    style Hold fill:#10b981,stroke:#059669
+```
 
-    def __init__(self, etcd_host='localhost', etcd_port=2379):
-        self.etcd = etcd3.client(host=etcd_host, port=etcd_port)
+### etcd Lock Operations
 
-    def acquire_lock(self, name: str, ttl: int = 60) -> etcd3.Lock:
-        """Acquire distributed lock with TTL"""
-        # etcd uses leases for TTL
-        lease = self.etcd.lease(ttl)
-
-        # Create lock associated with lease
-        lock = self.etcd.lock(name, lease=lease)
-
-        # Acquire lock (blocks until available)
-        lock.acquire()
-
-        return lock
-
-    def with_lock(self, name: str, func, *args, **kwargs):
-        """Context manager for lock"""
-        lock = self.acquire_lock(name)
-        try:
-            return func(*args, **kwargs)
-        finally:
-            lock.release()
-
-    def try_acquire_with_timeout(self, name: str, timeout: float) -> Optional[etcd3.Lock]:
-        """Try to acquire lock with timeout"""
-        lock = self.etcd.lock(name)
-
-        acquired = lock.acquire(timeout=timeout)
-
-        if acquired:
-            return lock
-        return None
-```bash
+| Operation | etcd Command | Description |
+|-----------|--------------|-------------|  
+| **Create Lock** | `PUT /locks/name/uuid --lease=id` | Create with lease |
+| **List Waiters** | `GET /locks/name --prefix` | See all waiting |
+| **Watch Previous** | `WATCH /locks/name/prev_uuid` | Wait for turn |
+| **Release** | `DELETE /locks/name/uuid` | Explicit release |
+| **Auto-Release** | Lease expires | Automatic on TTL |
 ### Real-World Case Study: Uber's Distributed Lock
 
-```python
-class UberDistributedLockManager:
-    """
-    Uber's approach to distributed locking at scale
-    """
+```mermaid
+graph TB
+    subgraph "Uber's Lock Architecture"
+        subgraph "Client Tier"
+            App[Application]
+            LocalCache[Local Cache<br/>Read Locks]
+            Client[Lock Client]
+        end
+        
+        subgraph "Lock Service Tier"
+            LB[Load Balancer]
+            LS1[Lock Server 1]
+            LS2[Lock Server 2]
+            LS3[Lock Server 3]
+        end
+        
+        subgraph "Storage Tier"
+            subgraph "Read Locks"
+                Redis1[Redis Cluster]
+            end
+            subgraph "Write Locks"
+                ZK[ZooKeeper Ensemble]
+            end
+        end
+        
+        App --> LocalCache
+        LocalCache -->|miss| Client
+        Client --> LB
+        LB --> LS1
+        LB --> LS2
+        LB --> LS3
+        
+        LS1 --> Redis1
+        LS2 --> ZK
+        LS3 --> Redis1
+    end
+    
+    subgraph "Optimization Strategies"
+        O1[Read lock caching]
+        O2[Write lock queueing]
+        O3[Priority-based scheduling]
+        O4[Deadlock detection]
+    end
+    
+    style LocalCache fill:#10b981,stroke:#059669
+    style O1 fill:#fbbf24,stroke:#f59e0b
+```
 
-    def __init__(self):
-        self.local_cache = {}  # Fast path for read locks
-        self.lock_service = RemoteLockService()
-        self.metrics = LockMetrics()
+### Lock Performance Metrics
 
-    def acquire_read_lock(self, resource: str) -> Optional[ReadLock]:
-        """Optimized read lock acquisition"""
-        # Check local cache first
-        if self.is_cached_valid(resource):
-            self.metrics.cache_hit()
-            return ReadLock(resource, cached=True)
-
-        # Fall back to distributed lock
-        self.metrics.cache_miss()
-
-        lock = self.lock_service.acquire_read(resource)
-        if lock:
-            self.update_cache(resource, lock)
-
-        return lock
-
-    def acquire_write_lock(self, resource: str, priority: int = 0) -> Optional[WriteLock]:
-        """Write lock with priority queuing"""
-        # Invalidate cache
-        self.invalidate_cache(resource)
-
-        # Use priority queue for fairness
-        request = LockRequest(
-            resource=resource,
-            mode='write',
-            priority=priority,
-            timestamp=time.time()
-        )
-
-        return self.lock_service.acquire_with_queue(request)
-
-    def monitor_lock_health(self):
-        """Track lock system health"""
-        return {
-            'acquisition_latency_p99': self.metrics.get_latency_p99(),
-            'lock_contention_rate': self.metrics.get_contention_rate(),
-            'timeout_rate': self.metrics.get_timeout_rate(),
-            'deadlock_detected': self.detect_deadlocks()
-        }
-```yaml
+```mermaid
+graph LR
+    subgraph "Key Metrics"
+        Latency[Acquisition Latency<br/>P50: 1ms<br/>P99: 10ms]
+        Contention[Lock Contention<br/>Rate: 5%]
+        Timeouts[Timeout Rate<br/>0.1%]
+        Cache[Cache Hit Rate<br/>Read: 95%]
+    end
+    
+    subgraph "Monitoring"
+        M1[Grafana Dashboard]
+        M2[Alert on P99 > 50ms]
+        M3[Alert on contention > 20%]
+        M4[Deadlock detection]
+    end
+    
+    Latency --> M1
+    Contention --> M2
+    Timeouts --> M3
+    Cache --> M1
+```
 ---
 
 ## 🎯 Level 5: Mastery
@@ -473,86 +641,101 @@ class UberDistributedLockManager:
 ### Theoretical Foundations
 
 #### The FLP Impossibility Result
-```python
-class FLPImpossibility:
-    """
-    Fischer-Lynch-Paterson impossibility result:
-    No consensus algorithm can guarantee both safety and liveness
-    in an asynchronous system with one faulty process
-    """
 
-    def demonstrate_impossibility(self):
-        """
-        Show why perfect distributed locks are impossible
-        """
-        scenarios = []
-
-        # Scenario 1: Network delay indistinguishable from failure
-        scenarios.append({
-            'situation': 'Node holding lock is slow',
-            'observer_view': 'Node appears failed',
-            'dilemma': 'Revoke lock (unsafe) or wait forever (no progress)?'
-        })
-
-        # Scenario 2: Clock skew
-        scenarios.append({
-            'situation': 'Lock expires by wall clock',
-            'observer_view': 'Different nodes see different times',
-            'dilemma': 'Who decides when lock truly expired?'
-        })
-
-        return scenarios
-```bash
-#### Optimal Lock Algorithms
-```python
-class OptimalDistributedLock:
-    """
-    Theoretically optimal distributed lock based on:
-    - Lamport's happens-before relation
-    - Vector clocks for causality
-    - Quorum systems for fault tolerance
-    """
-
-    def __init__(self, nodes: int):
-        self.nodes = nodes
-        self.vector_clock = VectorClock(nodes)
-        self.quorum_size = (nodes // 2) + 1
-
-    def acquire_optimal(self, resource: str) -> OptimalLockHandle:
-        # Step 1: Increment local vector clock
-        my_timestamp = self.vector_clock.increment(self.node_id)
-
-        # Step 2: Send request to all nodes
-        request = LockRequest(
-            resource=resource,
-            requester=self.node_id,
-            timestamp=my_timestamp,
-            request_id=uuid.uuid4()
-        )
-
-        # Step 3: Collect acknowledgments
-        acks = self.broadcast_request(request)
-
-        # Step 4: Check if we have quorum
-        if len(acks) >= self.quorum_size:
-            # Step 5: Verify causality
-            if self.verify_causality(acks, my_timestamp):
-                return OptimalLockHandle(
-                    resource=resource,
-                    timestamp=my_timestamp,
-                    quorum=acks
-                )
-
-        return None
-
-    def verify_causality(self, acks, my_timestamp):
-        """Ensure no concurrent conflicting operations"""
-        for ack in acks:
-            if self.vector_clock.concurrent(ack.timestamp, my_timestamp):
-                # Concurrent operation detected
-                return False
-        return True
+```mermaid
+graph TB
+    subgraph "FLP Impossibility for Locks"
+        FLP["No perfect distributed lock<br/>in asynchronous systems"]
+        
+        subgraph "Fundamental Problems"
+            P1[Cannot distinguish<br/>slow from dead]
+            P2[No synchronized<br/>clocks]
+            P3[Network delays<br/>unbounded]
+        end
+        
+        FLP --> P1
+        FLP --> P2  
+        FLP --> P3
+    end
+    
+    subgraph "Real-World Implications"
+        subgraph "Scenario 1: Process Pause"
+            S1A[Client acquires lock]
+            S1B[GC pause for 30s]
+            S1C[Lock expires (TTL=10s)]
+            S1D[Other client gets lock]
+            S1E[Original client resumes]
+            S1F[Two clients think they have lock!]
+            
+            S1A --> S1B --> S1C --> S1D --> S1E --> S1F
+        end
+        
+        subgraph "Scenario 2: Clock Skew"
+            S2A[Lock expires at T+30s]
+            S2B[Node A: time is T+35s]
+            S2C[Node B: time is T+25s]
+            S2D[Who is right?]
+            
+            S2A --> S2B
+            S2A --> S2C
+            S2B --> S2D
+            S2C --> S2D
+        end
+    end
+    
+    style FLP fill:#ef4444,stroke:#dc2626,stroke-width:3px
+    style S1F fill:#ef4444,stroke:#dc2626
+    style S2D fill:#f59e0b,stroke:#d97706
 ```
+#### Optimal Lock Algorithms
+
+```mermaid
+graph TB
+    subgraph "Theoretical Optimal Lock Design"
+        subgraph "Components"
+            VC[Vector Clocks<br/>Track causality]
+            QS[Quorum System<br/>Fault tolerance]
+            FT[Fencing Tokens<br/>Monotonic ordering]
+            HB[Happens-Before<br/>Lamport ordering]
+        end
+        
+        subgraph "Algorithm Flow"
+            A1[Increment vector clock]
+            A2[Broadcast to quorum]
+            A3[Collect ACKs]
+            A4{Quorum<br/>reached?}
+            A5{Causality<br/>preserved?}
+            A6[Grant lock]
+            A7[Deny lock]
+            
+            A1 --> A2 --> A3 --> A4
+            A4 -->|Yes| A5
+            A4 -->|No| A7
+            A5 -->|Yes| A6
+            A5 -->|No| A7
+        end
+    end
+    
+    subgraph "Trade-offs"
+        T1[Safety: ✓✓✓<br/>Never two holders]
+        T2[Liveness: ✓✓<br/>Progress with quorum]
+        T3[Performance: ✓<br/>O(n) messages]
+        T4[Complexity: ✗<br/>Hard to implement]
+    end
+    
+    style A6 fill:#10b981,stroke:#059669
+    style A7 fill:#ef4444,stroke:#dc2626
+```
+
+### Lock Algorithm Comparison
+
+| Algorithm | Safety | Liveness | Performance | Complexity |
+|-----------|--------|----------|-------------|------------|
+| **Simple TTL** | ✗ (process pauses) | ✓✓✓ | ✓✓✓ | ✓✓✓ |
+| **Redlock** | ✗ (timing assumptions) | ✓✓ | ✓✓ | ✓✓ |
+| **ZooKeeper** | ✓✓ | ✓✓ | ✓ | ✓ |
+| **Chubby/etcd** | ✓✓✓ | ✓✓ | ✓ | ✓ |
+| **Optimal + Fencing** | ✓✓✓ | ✓ | ✗ | ✗ |
 
 ### Future Directions
 
@@ -597,126 +780,3 @@ class OptimalDistributedLock:
 **Previous**: [← CQRS (Command Query Responsibility Segregation)](cqrs.md) | **Next**: [Edge Computing/IoT Patterns →](edge-computing.md)
 
 **Related**: [Leader Election](leader-election.md) • [Consensus](consensus.md)
-## 🌟 Real Examples
-
-### Production Implementations
-
-**Major Cloud Provider**: Uses this pattern for service reliability across global infrastructure
-
-**Popular Framework**: Implements this pattern by default in their distributed systems toolkit
-
-**Enterprise System**: Applied this pattern to improve uptime from 99% to 99.9%
-
-### Open Source Examples
-- **Libraries**: Resilience4j, Polly, circuit-breaker-js
-- **Frameworks**: Spring Cloud, Istio, Envoy
-- **Platforms**: Kubernetes, Docker Swarm, Consul
-
-### Case Study: E-commerce Platform
-A major e-commerce platform implemented Distributed Lock Pattern to handle critical user flows:
-
-**Challenge**: System failures affected user experience and revenue
-
-**Implementation**:
-- Applied Distributed Lock Pattern pattern to critical service calls
-- Added fallback mechanisms for degraded operation
-- Monitored service health continuously
-
-**Results**:
-- 99.9% availability during service disruptions
-- Customer satisfaction improved due to reliable experience
-- Revenue protected during partial outages
-
-### Lessons Learned
-- Start with conservative thresholds and tune based on data
-- Monitor the pattern itself, not just the protected service
-- Have clear runbooks for when the pattern activates
-- Test failure scenarios regularly in production
-
-## 💻 Code Sample
-
-### Basic Implementation
-
-```python
-class Distributed_LockPattern:
-    def __init__(self, config):
-        self.config = config
-        self.metrics = Metrics()
-        self.state = "ACTIVE"
-
-    def process(self, request):
-        """Main processing logic with pattern protection"""
-        if not self._is_healthy():
-            return self._fallback(request)
-
-        try:
-            result = self._protected_operation(request)
-            self._record_success()
-            return result
-        except Exception as e:
-            self._record_failure(e)
-            return self._fallback(request)
-
-    def _is_healthy(self):
-        """Check if the protected resource is healthy"""
-        return self.metrics.error_rate < self.config.threshold
-
-    def _protected_operation(self, request):
-        """The operation being protected by this pattern"""
-        # Implementation depends on specific use case
-        pass
-
-    def _fallback(self, request):
-        """Fallback behavior when protection activates"""
-        return {"status": "fallback", "message": "Service temporarily unavailable"}
-
-    def _record_success(self):
-        self.metrics.record_success()
-
-    def _record_failure(self, error):
-        self.metrics.record_failure(error)
-
-# Usage example
-pattern = Distributed_LockPattern(config)
-result = pattern.process(user_request)
-```
-
-### Configuration Example
-
-```yaml
-distributed_lock:
-  enabled: true
-  thresholds:
-    failure_rate: 50%
-    response_time: 5s
-    error_count: 10
-  timeouts:
-    operation: 30s
-    recovery: 60s
-  fallback:
-    enabled: true
-    strategy: "cached_response"
-  monitoring:
-    metrics_enabled: true
-    health_check_interval: 30s
-```
-
-### Testing the Implementation
-
-```python
-def test_distributed_lock_behavior():
-    pattern = Distributed_LockPattern(test_config)
-
-    # Test normal operation
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-
-    # Test failure handling
-    with mock.patch('external_service.call', side_effect=Exception):
-        result = pattern.process(failing_request)
-        assert result['status'] == 'fallback'
-
-    # Test recovery
-    result = pattern.process(normal_request)
-    assert result['status'] == 'success'
-```

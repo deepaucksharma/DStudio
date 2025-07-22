@@ -54,167 +54,133 @@ Optimization Strategies:
 - Async I/O everywhere
 ```
 
-**Implementation:**
-```python
-import asyncio
-import aiohttp
-import aiodns
-from urllib.parse import urlparse, urljoin
-from collections import defaultdict
-import time
-import ssl
+**High-Performance Crawler Architecture:**
 
-class HighPerformanceCrawler:
-    def __init__(self, max_connections_per_host=10, total_connections=1000):
-        # Connection management
-        self.max_connections_per_host = max_connections_per_host
-        self.total_connections = total_connections
-        
-        # Performance optimization
-        self.dns_cache = {}
-        self.connection_pools = {}
-        self.ssl_context = ssl.create_default_context()
-        
-        # DNS resolver with caching
-        self.dns_resolver = aiodns.DNSResolver()
-        
-        # Metrics
-        self.crawl_stats = defaultdict(int)
-        
-    async def create_session(self):
-        """Create optimized aiohttp session"""
-        # Custom connector for connection pooling
-        connector = aiohttp.TCPConnector(
-            limit=self.total_connections,
-            limit_per_host=self.max_connections_per_host,
-            ttl_dns_cache=300,  # 5 min DNS cache
-            enable_cleanup_closed=True,
-            force_close=False,  # Keep connections alive
-            ssl=self.ssl_context
-        )
-        
-        # Session with optimizations
-        timeout = aiohttp.ClientTimeout(
-            total=30,  # Total timeout
-            connect=5,  # Connection timeout
-            sock_connect=5,
-            sock_read=20
-        )
-        
-        return aiohttp.ClientSession(
-            connector=connector,
-            timeout=timeout,
-            headers={
-                'User-Agent': 'DistributedCrawler/1.0 (+http://example.com/bot)',
-                'Accept-Encoding': 'gzip, deflate, br',
-                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-                'Accept-Language': 'en-US,en;q=0.5',
-                'Cache-Control': 'no-cache',
-                'Connection': 'keep-alive'
-            }
-        )
+```mermaid
+graph TB
+    subgraph "Connection Management"
+        CP[Connection Pool<br/>1000 total<br/>10 per host]
+        DC[DNS Cache<br/>5 min TTL]
+        SSL[SSL Context]
+        HTTP2[HTTP/2 Multiplexing]
+    end
     
-    async def fetch_url(self, session: aiohttp.ClientSession, url: str) -> dict:
-        """Fetch URL with performance tracking"""
-        start_time = time.perf_counter()
-        
-        # Parse domain for rate limiting
-        domain = urlparse(url).netloc
-        
-        # DNS prefetch if not cached
-        if domain not in self.dns_cache:
-            await self._prefetch_dns(domain)
-        
-        try:
-            # Use existing connection if available
-            async with session.get(url, allow_redirects=True) as response:
-                # Track metrics
-                self.crawl_stats['total_requests'] += 1
-                self.crawl_stats[f'status_{response.status}'] += 1
-                
-                # Stream content for large files
-                content = await self._read_content_streaming(response)
-                
-                fetch_time = time.perf_counter() - start_time
-                self.crawl_stats['total_fetch_time'] += fetch_time
-                
-                return {
-                    'url': str(response.url),  # Final URL after redirects
-                    'status': response.status,
-                    'headers': dict(response.headers),
-                    'content': content,
-                    'fetch_time': fetch_time,
-                    'content_type': response.content_type,
-                    'encoding': response.charset
-                }
-                
-        except asyncio.TimeoutError:
-            self.crawl_stats['timeouts'] += 1
-            return {'url': url, 'error': 'timeout'}
-        except Exception as e:
-            self.crawl_stats['errors'] += 1
-            return {'url': url, 'error': str(e)}
+    subgraph "Async Components"
+        AS[Async Session]
+        AR[Async Resolver]
+        SC[Stream Content]
+        PC[Parallel Crawl]
+    end
     
-    async def _prefetch_dns(self, domain: str):
-        """Prefetch and cache DNS"""
-        try:
-            # Resolve DNS
-            result = await self.dns_resolver.query(domain, 'A')
-            
-            # Cache results
-            self.dns_cache[domain] = {
-                'ips': [r.host for r in result],
-                'ttl': min(r.ttl for r in result),
-                'cached_at': time.time()
-            }
-            
-            # Prefetch AAAA (IPv6) in background
-            asyncio.create_task(self._prefetch_ipv6(domain))
-            
-        except Exception as e:
-            self.crawl_stats['dns_failures'] += 1
+    subgraph "Performance Tracking"
+        CS[Crawl Stats]
+        MT[Metrics]
+        PS[Performance Stats]
+    end
     
-    async def _read_content_streaming(self, response, chunk_size=8192, max_size=10*1024*1024):
-        """Stream content with size limits"""
-        content = []
-        size = 0
-        
-        async for chunk in response.content.iter_chunked(chunk_size):
-            size += len(chunk)
-            if size > max_size:
-                self.crawl_stats['oversized_responses'] += 1
-                break
-            content.append(chunk)
-        
-        return b''.join(content)
+    CP --> AS
+    DC --> AR
+    SSL --> AS
+    AS --> SC
+    AS --> PC
     
-    async def parallel_crawl(self, urls: list, max_concurrent=100):
-        """Crawl multiple URLs in parallel"""
-        semaphore = asyncio.Semaphore(max_concurrent)
-        
-        async def bounded_fetch(session, url):
-            async with semaphore:
-                return await self.fetch_url(session, url)
-        
-        async with self.create_session() as session:
-            tasks = [bounded_fetch(session, url) for url in urls]
-            return await asyncio.gather(*tasks, return_exceptions=True)
+    SC --> CS
+    PC --> MT
+    CS --> PS
+```
+
+**Crawl Request Flow:**
+
+```mermaid
+sequenceDiagram
+    participant C as Crawler
+    participant DNS as DNS Cache
+    participant S as Session
+    participant T as Target Site
+    participant M as Metrics
     
-    def get_performance_stats(self):
-        """Get crawler performance statistics"""
-        total_requests = self.crawl_stats['total_requests']
-        if total_requests == 0:
-            return {}
-        
-        return {
-            'requests_per_second': total_requests / (time.time() - self.start_time),
-            'average_fetch_time': self.crawl_stats['total_fetch_time'] / total_requests,
-            'success_rate': self.crawl_stats['status_200'] / total_requests,
-            'timeout_rate': self.crawl_stats['timeouts'] / total_requests,
-            'error_rate': self.crawl_stats['errors'] / total_requests,
-            'dns_cache_size': len(self.dns_cache),
-            'active_connections': sum(len(pool) for pool in self.connection_pools.values())
-        }
+    C->>DNS: Check DNS cache
+    
+    alt Cache Miss
+        DNS->>DNS: Prefetch DNS
+        DNS->>DNS: Cache IPs
+    end
+    
+    C->>S: Create connection
+    Note over S: Reuse existing or<br/>create new from pool
+    
+    S->>T: HTTP request
+    T-->>S: Stream response
+    
+    S->>S: Check size limits
+    S->>M: Update metrics
+    
+    S-->>C: Return content
+    C->>M: Record stats
+```
+
+**Performance Optimizations:**
+
+| Component | Optimization | Impact |
+|-----------|-------------|--------|
+| **DNS** | Caching & Prefetching | -50ms per request |
+| **Connections** | Pooling & Keep-alive | -100ms handshake |
+| **SSL/TLS** | Context reuse | -200ms per connection |
+| **HTTP/2** | Multiplexing | 3x throughput |
+| **Content** | Streaming with limits | Memory efficient |
+| **Parallelism** | Async I/O | 100x concurrency |
+
+**Connection Pool Management:**
+
+```mermaid
+graph LR
+    subgraph "Per-Host Pools"
+        H1[Host A<br/>10 connections]
+        H2[Host B<br/>10 connections]
+        H3[Host C<br/>10 connections]
+    end
+    
+    subgraph "Global Pool"
+        GP[Total: 1000<br/>Available: 970]
+    end
+    
+    subgraph "Connection States"
+        A[Active]
+        I[Idle]
+        C[Closing]
+    end
+    
+    GP --> H1
+    GP --> H2
+    GP --> H3
+    
+    H1 --> A
+    H1 --> I
+    H2 --> A
+    H3 --> I
+```
+
+**Latency Breakdown:**
+
+```mermaid
+gantt
+    title Request Latency Components
+    dateFormat X
+    axisFormat %Lms
+    
+    section Without Optimization
+    DNS Resolution    :dns1, 0, 50
+    TCP Connect      :tcp1, 50, 100
+    TLS Handshake    :tls1, 150, 200
+    HTTP Request     :http1, 350, 50
+    Content Download :cont1, 400, 500
+    
+    section With Optimization
+    DNS (Cached)     :dns2, 0, 5
+    TCP (Pooled)     :tcp2, 5, 10
+    TLS (Reused)     :tls2, 15, 5
+    HTTP Request     :http2, 20, 50
+    Content Stream   :cont2, 70, 300
 ```
 
 #### 💾 Axiom 2 (Capacity): URL Frontier Management
@@ -233,284 +199,239 @@ Capacity Challenges:
 - Bandwidth limits
 ```
 
-**Implementation:**
-```python
-import rocksdb
-import mmh3
-from urllib.parse import urlparse
-import heapq
-from collections import defaultdict
-import struct
+**URL Frontier Architecture:**
 
-class ScalableURLFrontier:
-    def __init__(self, num_priority_queues=1000):
-        self.num_priority_queues = num_priority_queues
-        
-        # RocksDB for persistent storage
-        opts = rocksdb.Options()
-        opts.create_if_missing = True
-        opts.max_open_files = 300000
-        opts.write_buffer_size = 67108864  # 64MB
-        opts.max_write_buffer_number = 3
-        opts.target_file_size_base = 67108864
-        
-        # Multiple DBs for sharding
-        self.url_db = rocksdb.DB("frontier_urls.db", opts)
-        self.seen_db = rocksdb.DB("seen_urls.db", opts)
-        self.metadata_db = rocksdb.DB("url_metadata.db", opts)
-        
-        # In-memory priority queues
-        self.priority_queues = [[] for _ in range(num_priority_queues)]
-        self.domain_queues = defaultdict(list)
-        
-        # Bloom filter for quick duplicate check
-        self.bloom_filter = BloomFilter(capacity=10_000_000_000, error_rate=0.001)
-        
-        # Domain-based rate limiting
-        self.domain_last_access = {}
-        self.domain_crawl_delay = {}
-        
-    def add_url(self, url: str, priority: float = 0.5, metadata: dict = None):
-        """Add URL to frontier with priority"""
-        # Normalize URL
-        normalized_url = self._normalize_url(url)
-        
-        # Check if already seen
-        if self._is_duplicate(normalized_url):
-            return False
-        
-        # Extract domain for politeness
-        domain = urlparse(normalized_url).netloc
-        
-        # Calculate queue assignment
-        queue_id = self._calculate_queue_id(domain, priority)
-        
-        # Prepare URL entry
-        url_entry = {
-            'url': normalized_url,
-            'domain': domain,
-            'priority': priority,
-            'discovered_at': time.time(),
-            'metadata': metadata or {}
-        }
-        
-        # Store in RocksDB
-        url_key = f"url:{normalized_url}".encode()
-        self.url_db.put(url_key, json.dumps(url_entry).encode())
-        
-        # Add to priority queue
-        heapq.heappush(
-            self.priority_queues[queue_id],
-            (-priority, time.time(), normalized_url)  # Negative for max heap
-        )
-        
-        # Add to domain queue for politeness
-        self.domain_queues[domain].append(normalized_url)
-        
-        # Mark as seen
-        self._mark_seen(normalized_url)
-        
-        return True
+```mermaid
+graph TB
+    subgraph "Storage Layer"
+        RDB[RocksDB<br/>Persistent Storage]
+        URL[URL DB<br/>10TB capacity]
+        SEEN[Seen DB<br/>Deduplication]
+        META[Metadata DB<br/>URL properties]
+    end
     
-    def get_urls_to_crawl(self, count: int = 100) -> list:
-        """Get batch of URLs respecting politeness"""
-        urls_to_crawl = []
-        domains_in_batch = set()
-        
-        # Try each priority queue
-        for queue_id in range(self.num_priority_queues):
-            if len(urls_to_crawl) >= count:
-                break
-                
-            queue = self.priority_queues[queue_id]
-            
-            # Process queue
-            temp_items = []
-            
-            while queue and len(urls_to_crawl) < count:
-                priority, timestamp, url = heapq.heappop(queue)
-                domain = urlparse(url).netloc
-                
-                # Check politeness constraints
-                if self._can_crawl_domain(domain, domains_in_batch):
-                    urls_to_crawl.append(url)
-                    domains_in_batch.add(domain)
-                    self._update_domain_access(domain)
-                else:
-                    # Re-queue for later
-                    temp_items.append((priority, timestamp, url))
-            
-            # Re-add items that couldn't be crawled
-            for item in temp_items:
-                heapq.heappush(queue, item)
-        
-        return urls_to_crawl
+    subgraph "Memory Layer"
+        BF[Bloom Filter<br/>10B URLs<br/>0.1% error]
+        PQ[Priority Queues<br/>1000 queues]
+        DQ[Domain Queues<br/>Politeness]
+    end
     
-    def _is_duplicate(self, url: str) -> bool:
-        """Check if URL has been seen before"""
-        # Quick bloom filter check
-        if url not in self.bloom_filter:
-            return False
-        
-        # Definitive check in RocksDB
-        seen_key = f"seen:{url}".encode()
-        return self.seen_db.get(seen_key) is not None
+    subgraph "Processing"
+        NORM[URL Normalizer]
+        DUP[Duplicate Checker]
+        POL[Politeness Enforcer]
+    end
     
-    def _mark_seen(self, url: str):
-        """Mark URL as seen"""
-        # Add to bloom filter
-        self.bloom_filter.add(url)
-        
-        # Store in RocksDB with timestamp
-        seen_key = f"seen:{url}".encode()
-        self.seen_db.put(seen_key, str(time.time()).encode())
+    NORM --> DUP
+    DUP --> BF
+    BF --> SEEN
     
-    def _normalize_url(self, url: str) -> str:
-        """Normalize URL for deduplication"""
-        # Parse URL
-        parsed = urlparse(url.lower())
-        
-        # Remove default ports
-        netloc = parsed.netloc
-        if ':80' in netloc and parsed.scheme == 'http':
-            netloc = netloc.replace(':80', '')
-        elif ':443' in netloc and parsed.scheme == 'https':
-            netloc = netloc.replace(':443', '')
-        
-        # Sort query parameters
-        if parsed.query:
-            params = sorted(parsed.query.split('&'))
-            query = '&'.join(params)
-        else:
-            query = ''
-        
-        # Remove fragment
-        normalized = f"{parsed.scheme}://{netloc}{parsed.path}"
-        if query:
-            normalized += f"?{query}"
-        
-        # Remove trailing slash
-        if normalized.endswith('/') and normalized.count('/') > 3:
-            normalized = normalized[:-1]
-        
-        return normalized
-    
-    def _calculate_queue_id(self, domain: str, priority: float) -> int:
-        """Calculate queue assignment based on domain and priority"""
-        # Hash domain for distribution
-        domain_hash = mmh3.hash(domain) % (self.num_priority_queues // 2)
-        
-        # Adjust based on priority
-        priority_offset = int(priority * (self.num_priority_queues // 2))
-        
-        return (domain_hash + priority_offset) % self.num_priority_queues
-    
-    def _can_crawl_domain(self, domain: str, domains_in_batch: set) -> bool:
-        """Check if domain can be crawled respecting politeness"""
-        # Not in current batch (parallel crawling of same domain)
-        if domain in domains_in_batch:
-            return False
-        
-        # Check crawl delay
-        last_access = self.domain_last_access.get(domain, 0)
-        crawl_delay = self.domain_crawl_delay.get(domain, 1.0)  # Default 1 second
-        
-        if time.time() - last_access < crawl_delay:
-            return False
-        
-        return True
-    
-    def update_crawl_delay(self, domain: str, delay: float):
-        """Update crawl delay for domain (from robots.txt)"""
-        self.domain_crawl_delay[domain] = max(0.1, min(delay, 60.0))  # Between 0.1 and 60 seconds
-    
-    def get_frontier_stats(self) -> dict:
-        """Get frontier statistics"""
-        total_urls = sum(len(q) for q in self.priority_queues)
-        
-        # Domain distribution
-        domain_counts = defaultdict(int)
-        for domain, urls in self.domain_queues.items():
-            domain_counts[domain] = len(urls)
-        
-        # Top domains
-        top_domains = sorted(domain_counts.items(), key=lambda x: x[1], reverse=True)[:10]
-        
-        return {
-            'total_urls': total_urls,
-            'seen_urls': self.bloom_filter.count,
-            'active_domains': len(self.domain_queues),
-            'top_domains': top_domains,
-            'queue_distribution': [len(q) for q in self.priority_queues[:10]],  # First 10 queues
-            'memory_usage_mb': self._estimate_memory_usage() / 1024 / 1024
-        }
-
-class ContentDeduplicator:
-    """Detect duplicate content using multiple strategies"""
-    
-    def __init__(self):
-        # SimHash for near-duplicate detection
-        self.simhash_index = SimHashIndex()
-        
-        # Exact hash for identical content
-        self.content_hashes = rocksdb.DB("content_hashes.db", rocksdb.Options())
-        
-        # Shingle-based similarity
-        self.shingle_size = 5
-        self.shingle_index = defaultdict(set)
-    
-    def is_duplicate(self, url: str, content: str, threshold: float = 0.9) -> tuple:
-        """Check if content is duplicate"""
-        # Quick exact match
-        content_hash = hashlib.sha256(content.encode()).hexdigest()
-        existing_url = self.content_hashes.get(content_hash.encode())
-        
-        if existing_url:
-            return True, existing_url.decode(), 1.0  # Exact match
-        
-        # Near-duplicate detection with SimHash
-        simhash = self._calculate_simhash(content)
-        similar_urls = self.simhash_index.find_similar(simhash, max_distance=3)
-        
-        if similar_urls:
-            # Calculate actual similarity
-            for similar_url, similar_hash in similar_urls:
-                similarity = self._calculate_similarity(content, similar_url)
-                if similarity >= threshold:
-                    return True, similar_url, similarity
-        
-        # Not a duplicate - index it
-        self.content_hashes.put(content_hash.encode(), url.encode())
-        self.simhash_index.add(url, simhash)
-        
-        return False, None, 0.0
-    
-    def _calculate_simhash(self, content: str) -> int:
-        """Calculate SimHash of content"""
-        # Tokenize
-        tokens = content.lower().split()
-        
-        # Initialize hash vector
-        hash_bits = 64
-        v = [0] * hash_bits
-        
-        # Calculate weighted sum
-        for token in tokens:
-            token_hash = mmh3.hash64(token)[0]
-            for i in range(hash_bits):
-                if token_hash & (1 << i):
-                    v[i] += 1
-                else:
-                    v[i] -= 1
-        
-        # Create fingerprint
-        fingerprint = 0
-        for i in range(hash_bits):
-            if v[i] >= 0:
-                fingerprint |= (1 << i)
-        
-        return fingerprint
+    URL --> PQ
+    PQ --> DQ
+    DQ --> POL
 ```
+
+**URL Processing Flow:**
+
+```mermaid
+sequenceDiagram
+    participant U as New URL
+    participant N as Normalizer
+    participant B as Bloom Filter
+    participant D as Duplicate Check
+    participant Q as Queue Manager
+    participant P as Priority Queue
+    participant R as RocksDB
+    
+    U->>N: Normalize URL
+    N->>B: Check bloom filter
+    
+    alt Not in Bloom
+        B->>D: Not seen
+        D->>Q: Calculate queue ID
+        Q->>P: Add to priority queue
+        Q->>R: Store in RocksDB
+        Q->>B: Add to bloom filter
+    else In Bloom
+        B->>D: Possible duplicate
+        D->>R: Check RocksDB
+        alt Confirmed Duplicate
+            R-->>U: Reject (duplicate)
+        else False Positive
+            R->>Q: Process as new
+        end
+    end
+```
+
+**Frontier Data Structure:**
+
+| Component | Implementation | Capacity | Purpose |
+|-----------|---------------|----------|---------|
+| **Bloom Filter** | Bit array | 10B URLs | Fast duplicate check |
+| **Priority Queues** | Min heap × 1000 | 100M URLs/queue | Priority scheduling |
+| **Domain Queues** | HashMap | 10M domains | Politeness tracking |
+| **RocksDB URLs** | LSM tree | 100B URLs | Persistent storage |
+| **RocksDB Seen** | LSM tree | 10B entries | Deduplication |
+| **RocksDB Meta** | LSM tree | 10B entries | URL metadata |
+
+**Politeness Enforcement:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> CheckDomain
+    
+    CheckDomain --> InBatch: Domain in current batch
+    CheckDomain --> CheckDelay: Domain not in batch
+    
+    InBatch --> Reject: Cannot crawl parallel
+    
+    CheckDelay --> CheckTime: Get last access time
+    CheckTime --> TooSoon: Time < crawl_delay
+    CheckTime --> OK: Time >= crawl_delay
+    
+    TooSoon --> Requeue: Re-queue for later
+    OK --> Crawl: Add to batch
+    
+    Crawl --> UpdateTime: Update last access
+    UpdateTime --> [*]
+    
+    Reject --> [*]
+    Requeue --> [*]
+```
+
+**URL Normalization Process:**
+
+```mermaid
+graph LR
+    U[Raw URL] --> LC[Lowercase]
+    LC --> RP[Remove Port<br/>:80 :443]
+    RP --> SQ[Sort Query<br/>Parameters]
+    SQ --> RF[Remove<br/>Fragment]
+    RF --> RT[Remove Trailing<br/>Slash]
+    RT --> N[Normalized URL]
+```
+
+**Queue Distribution Strategy:**
+
+```mermaid
+graph TB
+    subgraph "Queue Assignment"
+        URL[URL Input]
+        DH[Domain Hash]
+        PR[Priority Score]
+        QID[Queue ID]
+    end
+    
+    subgraph "1000 Priority Queues"
+        Q1[Queue 0-99<br/>High Priority]
+        Q2[Queue 100-499<br/>Medium Priority]
+        Q3[Queue 500-999<br/>Low Priority]
+    end
+    
+    URL --> DH
+    URL --> PR
+    DH --> QID
+    PR --> QID
+    
+    QID --> Q1
+    QID --> Q2
+    QID --> Q3
+```
+
+**Content Deduplication System:**
+
+```mermaid
+graph TB
+    subgraph "Deduplication Methods"
+        EH[Exact Hash<br/>SHA256]
+        SH[SimHash<br/>Near-duplicate]
+        SG[Shingles<br/>Similarity]
+    end
+    
+    subgraph "Storage"
+        CH[Content Hashes<br/>RocksDB]
+        SI[SimHash Index<br/>LSH]
+        SX[Shingle Index]
+    end
+    
+    subgraph "Processing"
+        C[Content] --> EH
+        C --> SH
+        C --> SG
+        
+        EH --> CH
+        SH --> SI
+        SG --> SX
+    end
+```
+
+**Duplicate Detection Flow:**
+
+```mermaid
+sequenceDiagram
+    participant C as Content
+    participant E as Exact Hash
+    participant S as SimHash
+    participant I as Index
+    participant R as Result
+    
+    C->>E: Calculate SHA256
+    E->>I: Check exact match
+    
+    alt Exact Match Found
+        I-->>R: Return duplicate (100%)
+    else No Exact Match
+        C->>S: Calculate SimHash
+        S->>I: Find similar (distance ≤ 3)
+        
+        alt Similar Found
+            S->>S: Calculate similarity
+            alt Similarity ≥ 90%
+                S-->>R: Return near-duplicate
+            else Similarity < 90%
+                S->>I: Index as new
+                I-->>R: Not duplicate
+            end
+        else No Similar
+            S->>I: Index content
+            I-->>R: Not duplicate
+        end
+    end
+```
+
+**SimHash Algorithm Visualization:**
+
+```mermaid
+graph LR
+    subgraph "Tokenization"
+        T[Text] --> TK[Tokens]
+    end
+    
+    subgraph "Hash Calculation"
+        TK --> H1[Hash Token 1]
+        TK --> H2[Hash Token 2]
+        TK --> H3[Hash Token N]
+    end
+    
+    subgraph "Vector Accumulation"
+        H1 --> V[64-bit Vector<br/>+1/-1 weights]
+        H2 --> V
+        H3 --> V
+    end
+    
+    subgraph "Fingerprint"
+        V --> F[Binary Fingerprint<br/>Positive→1, Negative→0]
+    end
+```
+
+**Deduplication Strategies Comparison:**
+
+| Method | Detection Type | Speed | Accuracy | Storage |
+|--------|---------------|--------|----------|---------|
+| **Exact Hash** | Identical content | O(1) | 100% | 32 bytes/URL |
+| **SimHash** | Near-duplicates | O(log n) | 95%+ | 8 bytes/URL |
+| **Shingles** | Text similarity | O(n) | Variable | ~1KB/doc |
+| **MinHash** | Set similarity | O(k) | 90%+ | 128 bytes/URL |
 
 #### 🔥 Axiom 3 (Failure): Robust Crawling
 ```text
@@ -533,176 +454,155 @@ Mitigation Strategies:
 - Distributed coordination
 ```
 
-**Implementation:**
-```python
-import asyncio
-from urllib.robotparser import RobotFileParser
-from collections import deque
-import re
+**Resilient Crawler Architecture:**
 
-class ResilientCrawler:
-    def __init__(self):
-        # Failure tracking
-        self.domain_failures = defaultdict(lambda: {'count': 0, 'last_failure': 0})
-        self.circuit_breakers = {}
-        
-        # Spider trap detection
-        self.url_patterns = defaultdict(list)
-        self.max_similar_urls = 1000
-        
-        # Robots.txt cache
-        self.robots_cache = {}
-        self.robots_cache_ttl = 86400  # 24 hours
-        
-        # Redirect tracking
-        self.redirect_chains = {}
-        self.max_redirects = 10
-        
-        # Checkpointing
-        self.checkpoint_interval = 1000  # URLs
-        self.last_checkpoint = time.time()
-        
-    async def crawl_with_retry(self, url: str, max_retries: int = 3) -> dict:
-        """Crawl URL with retry logic"""
-        domain = urlparse(url).netloc
-        
-        # Check circuit breaker
-        if not self._is_domain_available(domain):
-            return {'url': url, 'error': 'circuit_breaker_open'}
-        
-        # Check robots.txt
-        if not await self._can_fetch(url):
-            return {'url': url, 'error': 'robots_txt_disallowed'}
-        
-        # Check for spider traps
-        if self._is_spider_trap(url):
-            return {'url': url, 'error': 'spider_trap_detected'}
-        
-        # Attempt crawling with retries
-        for attempt in range(max_retries):
-            try:
-                result = await self._crawl_single(url)
-                
-                # Success - reset failure count
-                self._record_success(domain)
-                
-                # Check for crawler traps in content
-                if self._is_crawler_trap(result.get('content', '')):
-                    return {'url': url, 'error': 'crawler_trap_detected'}
-                
-                return result
-                
-            except Exception as e:
-                self._record_failure(domain, str(e))
-                
-                if attempt < max_retries - 1:
-                    # Exponential backoff
-                    wait_time = (2 ** attempt) + random.uniform(0, 1)
-                    await asyncio.sleep(wait_time)
-                else:
-                    # Final failure
-                    return {'url': url, 'error': str(e), 'attempts': attempt + 1}
+```mermaid
+graph TB
+    subgraph "Failure Handling"
+        CB[Circuit Breakers<br/>Per Domain]
+        RT[Retry Logic<br/>Exponential Backoff]
+        FT[Failure Tracking]
+        CP[Checkpointing]
+    end
     
-    def _is_domain_available(self, domain: str) -> bool:
-        """Check if domain circuit breaker allows crawling"""
-        if domain not in self.circuit_breakers:
-            self.circuit_breakers[domain] = CircuitBreaker(
-                failure_threshold=5,
-                recovery_timeout=300,  # 5 minutes
-                half_open_attempts=2
-            )
-        
-        return self.circuit_breakers[domain].is_available()
+    subgraph "Trap Detection"
+        ST[Spider Trap<br/>Detection]
+        CT[Crawler Trap<br/>Detection]
+        UP[URL Pattern<br/>Analysis]
+    end
     
-    async def _can_fetch(self, url: str) -> bool:
-        """Check robots.txt permission"""
-        domain = urlparse(url).netloc
-        robots_url = f"http://{domain}/robots.txt"
-        
-        # Check cache
-        if domain in self.robots_cache:
-            cached = self.robots_cache[domain]
-            if time.time() - cached['timestamp'] < self.robots_cache_ttl:
-                return cached['parser'].can_fetch("*", url)
-        
-        # Fetch robots.txt
-        try:
-            async with aiohttp.ClientSession() as session:
-                async with session.get(robots_url, timeout=5) as response:
-                    if response.status == 200:
-                        content = await response.text()
-                        parser = RobotFileParser()
-                        parser.parse(content.splitlines())
-                        
-                        # Cache result
-                        self.robots_cache[domain] = {
-                            'parser': parser,
-                            'timestamp': time.time()
-                        }
-                        
-                        # Extract crawl delay
-                        crawl_delay = parser.crawl_delay("*")
-                        if crawl_delay:
-                            self.frontier.update_crawl_delay(domain, crawl_delay)
-                        
-                        return parser.can_fetch("*", url)
-        except:
-            # If robots.txt fails, assume we can crawl
-            pass
-        
-        return True
+    subgraph "Compliance"
+        RC[Robots.txt<br/>Cache]
+        CD[Crawl Delay<br/>Enforcement]
+        UA[User Agent<br/>Identification]
+    end
     
-    def _is_spider_trap(self, url: str) -> bool:
-        """Detect potential spider traps"""
-        # Check URL depth
-        path_segments = urlparse(url).path.strip('/').split('/')
-        if len(path_segments) > 10:
-            return True
+    CB --> RT
+    ST --> UP
+    RC --> CD
+```
+
+**Crawl Failure Recovery Flow:**
+
+```mermaid
+sequenceDiagram
+    participant C as Crawler
+    participant CB as Circuit Breaker
+    participant R as Robots Check
+    participant T as Trap Detection
+    participant F as Fetch
+    participant RT as Retry Logic
+    
+    C->>CB: Check domain availability
+    
+    alt Circuit Open
+        CB-->>C: Return error
+    else Circuit Closed
+        CB->>R: Check robots.txt
         
-        # Check for repeating patterns
-        if len(path_segments) > 3:
-            # Look for repeating segments
-            for i in range(1, len(path_segments) // 2 + 1):
-                pattern = path_segments[:i]
-                if path_segments == pattern * (len(path_segments) // i):
-                    return True
-        
-        # Check for excessive parameters
-        query_params = urlparse(url).query.split('&')
-        if len(query_params) > 20:
-            return True
-        
-        # Check against known patterns
-        trap_patterns = [
-            r'/page/\d+/page/\d+',  # Infinite pagination
-            r'/(index\.php\?){2,}',  # Repeated index.php
-            r'/\.\./\.\.',  # Path traversal attempts
-            r'/(test|debug|admin).*\1',  # Repeated debug paths
-        ]
-        
-        for pattern in trap_patterns:
-            if re.search(pattern, url):
-                return True
-        
-        # Track similar URL patterns
-        url_pattern = self._extract_url_pattern(url)
-        domain = urlparse(url).netloc
-        
-        self.url_patterns[domain].append(url_pattern)
-        
-        # Too many similar URLs from same domain
-        if len(self.url_patterns[domain]) > self.max_similar_urls:
-            pattern_counts = defaultdict(int)
-            for pattern in self.url_patterns[domain]:
-                pattern_counts[pattern] += 1
+        alt Disallowed
+            R-->>C: Return robots error
+        else Allowed
+            R->>T: Check spider traps
             
-            # If any pattern appears too often, it's likely a trap
-            max_count = max(pattern_counts.values())
-            if max_count > self.max_similar_urls * 0.5:
-                return True
-        
-        return False
+            alt Trap Detected
+                T-->>C: Return trap error
+            else Safe
+                T->>F: Attempt fetch
+                
+                alt Success
+                    F-->>C: Return content
+                else Failure
+                    F->>RT: Retry with backoff
+                    RT->>F: Retry attempts
+                    RT-->>C: Final result
+                end
+            end
+        end
+    end
+```
+
+**Circuit Breaker States:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Closed
     
+    Closed --> Open: Failures > Threshold
+    Open --> HalfOpen: After timeout
+    HalfOpen --> Closed: Success
+    HalfOpen --> Open: Failure
+    
+    state Closed {
+        [*] --> Monitoring
+        Monitoring --> Counting: Request
+        Counting --> Monitoring: Success
+        Counting --> Failed: Failure
+        Failed --> Monitoring: Count++
+    }
+    
+    state Open {
+        [*] --> Rejecting
+        Rejecting --> WaitTimeout: All requests
+    }
+    
+    state HalfOpen {
+        [*] --> Testing
+        Testing --> Limited: Allow few
+    }
+```
+
+**Spider Trap Detection Patterns:**
+
+| Pattern Type | Detection Method | Example |
+|-------------|-----------------|---------|
+| **Deep URLs** | Path depth > 10 | `/a/b/c/d/e/f/g/h/i/j/k` |
+| **Repeating Paths** | Pattern detection | `/page/1/page/2/page/3` |
+| **Excessive Parameters** | Query count > 20 | `?p1=v1&p2=v2&...&p20=v20` |
+| **Known Patterns** | Regex matching | `/test/test/test/` |
+| **Similar URLs** | Pattern frequency | 500+ URLs with same structure |
+| **Infinite Loops** | Redirect chains | A→B→C→A |
+
+**Retry Strategy:**
+
+```mermaid
+graph LR
+    subgraph "Retry Timing"
+        A1[Attempt 1<br/>Immediate]
+        A2[Attempt 2<br/>2s + random]
+        A3[Attempt 3<br/>4s + random]
+        A4[Final Failure]
+    end
+    
+    A1 -->|Fail| A2
+    A2 -->|Fail| A3
+    A3 -->|Fail| A4
+    
+    A1 -->|Success| S[Return]
+    A2 -->|Success| S
+    A3 -->|Success| S
+```
+
+**Robots.txt Caching:**
+
+```mermaid
+graph TB
+    subgraph "Cache Strategy"
+        URL[URL Request]
+        CC[Check Cache]
+        CV[Validate TTL<br/>24 hours]
+        
+        CC -->|Hit| CV
+        CV -->|Valid| USE[Use Cached]
+        CV -->|Expired| FETCH[Fetch New]
+        CC -->|Miss| FETCH
+        
+        FETCH --> PARSE[Parse Rules]
+        PARSE --> CACHE[Update Cache]
+        PARSE --> DELAY[Extract Delay]
+    end
+```
+
     def _extract_url_pattern(self, url: str) -> str:
         """Extract URL pattern for trap detection"""
         parsed = urlparse(url)
@@ -828,263 +728,189 @@ Optimization Strategies:
 - Zero-copy techniques
 ```
 
-**Implementation:**
-```python
-import asyncio
-import uvloop
-from concurrent.futures import ProcessPoolExecutor
-import multiprocessing as mp
-import numpy as np
-from asyncio import Queue
+**Massively Parallel Crawler Architecture:**
 
-class MassivelyParallelCrawler:
-    def __init__(self, num_workers=100, num_processes=None):
-        # Use uvloop for better async performance
-        asyncio.set_event_loop_policy(uvloop.EventLoopPolicy())
-        
-        self.num_workers = num_workers
-        self.num_processes = num_processes or mp.cpu_count()
-        
-        # Distributed queues
-        self.url_queue = Queue(maxsize=10000)
-        self.result_queue = Queue(maxsize=10000)
-        
-        # Domain-based semaphores for politeness
-        self.domain_semaphores = {}
-        self.domain_locks = {}
-        
-        # Process pool for CPU-intensive tasks
-        self.process_pool = ProcessPoolExecutor(max_workers=self.num_processes)
-        
-        # Memory-mapped shared state
-        self.shared_memory = mp.Manager()
-        self.shared_stats = self.shared_memory.dict()
-        
-    async def start_crawling(self):
-        """Start the parallel crawling system"""
-        # Start worker coroutines
-        workers = []
-        for i in range(self.num_workers):
-            worker = asyncio.create_task(self._worker(i))
-            workers.append(worker)
-        
-        # Start result processor
-        result_processor = asyncio.create_task(self._process_results())
-        
-        # Start URL feeder
-        url_feeder = asyncio.create_task(self._feed_urls())
-        
-        # Monitor performance
-        monitor = asyncio.create_task(self._monitor_performance())
-        
-        # Wait for all tasks
-        await asyncio.gather(
-            *workers,
-            result_processor,
-            url_feeder,
-            monitor,
-            return_exceptions=True
-        )
+```mermaid
+graph TB
+    subgraph "Worker Pool"
+        W1[Worker 1]
+        W2[Worker 2]
+        W3[Worker N<br/>100 workers]
+    end
     
-    async def _worker(self, worker_id: int):
-        """Worker coroutine for crawling"""
-        session = await self.create_session()
-        
-        while True:
-            try:
-                # Get URL from queue
-                url = await asyncio.wait_for(
-                    self.url_queue.get(),
-                    timeout=5.0
-                )
-                
-                if url is None:  # Poison pill
-                    break
-                
-                # Enforce politeness
-                domain = urlparse(url).netloc
-                async with self._get_domain_semaphore(domain):
-                    # Crawl URL
-                    result = await self.fetch_url(session, url)
-                    
-                    # Process in separate process for CPU-intensive work
-                    if result.get('content'):
-                        extracted = await self._extract_data_parallel(result)
-                        result['extracted'] = extracted
-                    
-                    # Queue result
-                    await self.result_queue.put(result)
-                
-            except asyncio.TimeoutError:
-                continue
-            except Exception as e:
-                logger.error(f"Worker {worker_id} error: {e}")
-        
-        await session.close()
+    subgraph "Queue System"
+        UQ[URL Queue<br/>10K capacity]
+        RQ[Result Queue<br/>10K capacity]
+    end
     
-    def _get_domain_semaphore(self, domain: str):
-        """Get or create domain semaphore for politeness"""
-        if domain not in self.domain_semaphores:
-            # Allow 10 concurrent connections per domain
-            self.domain_semaphores[domain] = asyncio.Semaphore(10)
-        return self.domain_semaphores[domain]
+    subgraph "Processing"
+        PP[Process Pool<br/>CPU cores]
+        DS[Domain Semaphores<br/>Politeness]
+        MM[Memory Mapping<br/>Zero-copy]
+    end
     
-    async def _extract_data_parallel(self, crawl_result: dict) -> dict:
-        """Extract data using process pool"""
-        loop = asyncio.get_event_loop()
-        
-        # Run CPU-intensive extraction in process pool
-        extracted = await loop.run_in_executor(
-            self.process_pool,
-            extract_links_and_text,  # CPU-bound function
-            crawl_result['content'],
-            crawl_result['url']
-        )
-        
-        return extracted
+    subgraph "Components"
+        UF[URL Feeder]
+        RP[Result Processor]
+        PM[Performance Monitor]
+    end
     
-    async def _process_results(self):
-        """Process crawled results"""
-        batch = []
-        batch_size = 100
-        
-        while True:
-            try:
-                # Collect results into batches
-                result = await asyncio.wait_for(
-                    self.result_queue.get(),
-                    timeout=1.0
-                )
-                
-                batch.append(result)
-                
-                # Process batch when full or on timeout
-                if len(batch) >= batch_size:
-                    await self._store_batch(batch)
-                    batch = []
-                
-            except asyncio.TimeoutError:
-                # Timeout - process partial batch
-                if batch:
-                    await self._store_batch(batch)
-                    batch = []
+    UF --> UQ
+    UQ --> W1
+    UQ --> W2
+    UQ --> W3
     
-    async def _store_batch(self, batch: list):
-        """Store batch of results efficiently"""
-        # Group by storage destination
-        pages_batch = []
-        links_batch = []
-        
-        for result in batch:
-            if 'error' not in result:
-                pages_batch.append({
-                    'url': result['url'],
-                    'content': result.get('content', ''),
-                    'headers': result.get('headers', {}),
-                    'crawled_at': time.time()
-                })
-                
-                if 'extracted' in result:
-                    links = result['extracted'].get('links', [])
-                    for link in links:
-                        links_batch.append({
-                            'from_url': result['url'],
-                            'to_url': link,
-                            'anchor_text': link.get('text', '')
-                        })
-        
-        # Bulk insert
-        if pages_batch:
-            await self.storage.insert_pages_bulk(pages_batch)
-        
-        if links_batch:
-            await self.storage.insert_links_bulk(links_batch)
-            
-            # Add new URLs to frontier
-            new_urls = [link['to_url'] for link in links_batch]
-            await self._add_to_frontier_batch(new_urls)
+    W1 --> DS
+    W2 --> DS
+    W3 --> DS
     
-    def _setup_memory_mapping(self):
-        """Setup memory-mapped files for zero-copy operations"""
-        # Create memory-mapped file for URL buffer
-        self.url_buffer_size = 1024 * 1024 * 1024  # 1GB
-        self.url_buffer = np.memmap(
-            'url_buffer.dat',
-            dtype='S200',  # 200 byte strings
-            mode='w+',
-            shape=(self.url_buffer_size // 200,)
-        )
-        
-        # Create memory-mapped bloom filter
-        self.bloom_size = 1024 * 1024 * 1024 * 4  # 4GB
-        self.bloom_buffer = np.memmap(
-            'bloom_filter.dat',
-            dtype='uint8',
-            mode='w+',
-            shape=(self.bloom_size,)
-        )
-    
-    async def _monitor_performance(self):
-        """Monitor and optimize performance"""
-        while True:
-            await asyncio.sleep(10)
-            
-            # Collect metrics
-            metrics = {
-                'queue_size': self.url_queue.qsize(),
-                'result_queue_size': self.result_queue.qsize(),
-                'active_domains': len(self.domain_semaphores),
-                'memory_usage_mb': self._get_memory_usage() / 1024 / 1024,
-                'crawl_rate': self._calculate_crawl_rate()
-            }
-            
-            # Auto-tune based on metrics
-            if metrics['queue_size'] < 100:
-                # Queue running low - increase URL feeding rate
-                self.url_feed_rate *= 1.1
-            elif metrics['queue_size'] > 5000:
-                # Queue building up - decrease feeding rate
-                self.url_feed_rate *= 0.9
-            
-            # Log metrics
-            logger.info(f"Crawler metrics: {metrics}")
+    DS --> PP
+    PP --> RQ
+    RQ --> RP
+```
 
-def extract_links_and_text(content: bytes, base_url: str) -> dict:
-    """CPU-intensive extraction function for process pool"""
-    from bs4 import BeautifulSoup
-    from urllib.parse import urljoin
+**Parallel Crawling Flow:**
+
+```mermaid
+sequenceDiagram
+    participant F as URL Feeder
+    participant Q as URL Queue
+    participant W as Worker
+    participant S as Semaphore
+    participant P as Process Pool
+    participant R as Result Queue
+    participant B as Batch Processor
     
-    soup = BeautifulSoup(content, 'lxml')
+    F->>Q: Feed URLs
     
-    # Extract links
-    links = []
-    for tag in soup.find_all(['a', 'link']):
-        href = tag.get('href')
-        if href:
-            absolute_url = urljoin(base_url, href)
-            links.append({
-                'url': absolute_url,
-                'text': tag.get_text(strip=True)[:100],
-                'rel': tag.get('rel', [])
-            })
+    par Worker Operations
+        W->>Q: Get URL
+        W->>S: Acquire domain lock
+        W->>W: Fetch content
+        W->>P: Extract data (CPU)
+        P-->>W: Extracted info
+        W->>R: Queue result
+        W->>S: Release lock
+    end
     
-    # Extract text
-    text = soup.get_text(separator=' ', strip=True)
+    R->>B: Collect batch
+    B->>B: Store pages
+    B->>B: Store links
+    B->>F: New URLs to frontier
+```
+
+**Concurrency Control Mechanisms:**
+
+| Component | Strategy | Purpose |
+|-----------|----------|---------|
+| **URL Queue** | Async Queue | Work distribution |
+| **Domain Semaphores** | Per-domain limits | Politeness control |
+| **Process Pool** | CPU workers | Parallel extraction |
+| **Memory Mapping** | Zero-copy buffers | Efficient data sharing |
+| **Batch Processing** | Bulk operations | Reduce I/O overhead |
+
+**Domain-Based Politeness:**
+
+```mermaid
+graph LR
+    subgraph "Domain Semaphores"
+        D1[example.com<br/>10 concurrent]
+        D2[site.org<br/>10 concurrent]
+        D3[blog.net<br/>10 concurrent]
+    end
     
-    # Extract metadata
-    metadata = {}
-    for meta in soup.find_all('meta'):
-        name = meta.get('name') or meta.get('property')
-        content = meta.get('content')
-        if name and content:
-            metadata[name] = content
+    subgraph "Workers"
+        W1[Worker 1]
+        W2[Worker 2]
+        W3[Worker 3]
+        W4[Worker 4]
+    end
     
-    return {
-        'links': links,
-        'text': text[:10000],  # First 10K chars
-        'metadata': metadata,
-        'title': soup.title.string if soup.title else None
-    }
+    W1 --> D1
+    W2 --> D1
+    W3 --> D2
+    W4 --> D3
+    
+    D1 --> L1[Limit: 10]
+    D2 --> L2[Limit: 10]
+    D3 --> L3[Limit: 10]
+```
+
+**Memory-Mapped Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Memory-Mapped Files"
+        UB[URL Buffer<br/>1GB capacity<br/>5M URLs]
+        BF[Bloom Filter<br/>4GB capacity<br/>10B items]
+    end
+    
+    subgraph "Process Access"
+        P1[Process 1]
+        P2[Process 2]
+        P3[Process N]
+    end
+    
+    P1 --> UB
+    P2 --> UB
+    P3 --> UB
+    
+    P1 --> BF
+    P2 --> BF
+    P3 --> BF
+    
+    Note over UB,BF: Zero-copy shared memory
+```
+
+**Performance Auto-Tuning:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Monitor
+    
+    Monitor --> CheckQueue: Every 10s
+    
+    CheckQueue --> LowQueue: Queue < 100
+    CheckQueue --> HighQueue: Queue > 5000
+    CheckQueue --> Normal: 100 ≤ Queue ≤ 5000
+    
+    LowQueue --> IncreaseFeed: Feed rate × 1.1
+    HighQueue --> DecreaseFeed: Feed rate × 0.9
+    Normal --> Maintain: No change
+    
+    IncreaseFeed --> Monitor
+    DecreaseFeed --> Monitor
+    Maintain --> Monitor
+```
+
+**Batch Processing Strategy:**
+
+```mermaid
+graph LR
+    subgraph "Result Collection"
+        R1[Result 1]
+        R2[Result 2]
+        R3[Result N]
+    end
+    
+    subgraph "Batching"
+        B[Batch Buffer<br/>Size: 100]
+        T[Timeout: 1s]
+    end
+    
+    subgraph "Storage Operations"
+        SP[Store Pages<br/>Bulk Insert]
+        SL[Store Links<br/>Bulk Insert]
+        UF[Update Frontier<br/>Batch Add]
+    end
+    
+    R1 --> B
+    R2 --> B
+    R3 --> B
+    
+    B -->|Full or Timeout| SP
+    B --> SL
+    SL --> UF
 ```
 
 #### 🤝 Axiom 5 (Coordination): Distributed Crawling
@@ -1104,291 +930,178 @@ Coordination Strategies:
 - Checkpointing for recovery
 ```
 
-**Implementation:**
-```python
-from kazoo.client import KazooClient
-import consul
-from hashlib import md5
+**Distributed Crawler Coordination Architecture:**
 
-class DistributedCrawlerCoordinator:
-    def __init__(self, node_id: str, zk_hosts: str):
-        self.node_id = node_id
-        self.zk = KazooClient(hosts=zk_hosts)
-        self.zk.start()
+```mermaid
+graph TB
+    subgraph "Zookeeper Coordination"
+        ZK[Zookeeper Cluster]
         
-        # Paths in Zookeeper
-        self.BASE_PATH = "/crawler"
-        self.NODES_PATH = f"{self.BASE_PATH}/nodes"
-        self.ASSIGNMENTS_PATH = f"{self.BASE_PATH}/assignments"
-        self.CHECKPOINTS_PATH = f"{self.BASE_PATH}/checkpoints"
-        self.RATE_LIMITS_PATH = f"{self.BASE_PATH}/rate_limits"
-        
-        # Local state
-        self.assigned_domains = set()
-        self.peer_nodes = {}
-        
-        # Initialize paths
-        self._ensure_paths()
-        
-        # Register node
-        self._register_node()
-        
-        # Watch for changes
-        self._setup_watches()
+        subgraph "ZK Paths"
+            NP[/crawler/nodes<br/>Active nodes]
+            AP[/crawler/assignments<br/>Domain ownership]
+            CP[/crawler/checkpoints<br/>Progress tracking]
+            RP[/crawler/rate_limits<br/>Politeness]
+            LP[/crawler/leader<br/>Leader election]
+        end
+    end
     
-    def _ensure_paths(self):
-        """Ensure required Zookeeper paths exist"""
-        for path in [self.BASE_PATH, self.NODES_PATH, self.ASSIGNMENTS_PATH, 
-                    self.CHECKPOINTS_PATH, self.RATE_LIMITS_PATH]:
-            self.zk.ensure_path(path)
+    subgraph "Crawler Nodes"
+        N1[Node 1<br/>Domains A-F]
+        N2[Node 2<br/>Domains G-M]
+        N3[Node 3<br/>Domains N-Z]
+    end
     
-    def _register_node(self):
-        """Register crawler node in Zookeeper"""
-        node_data = {
-            'id': self.node_id,
-            'host': socket.gethostname(),
-            'port': 8080,
-            'capacity': self._calculate_capacity(),
-            'started_at': time.time(),
-            'status': 'active'
-        }
-        
-        # Create ephemeral node
-        node_path = f"{self.NODES_PATH}/{self.node_id}"
-        self.zk.create(
-            node_path,
-            json.dumps(node_data).encode(),
-            ephemeral=True
-        )
-        
-        logger.info(f"Registered node {self.node_id}")
+    N1 --> ZK
+    N2 --> ZK
+    N3 --> ZK
     
-    def _setup_watches(self):
-        """Setup watches for coordination"""
-        # Watch nodes for changes
-        @self.zk.ChildrenWatch(self.NODES_PATH)
-        def watch_nodes(children):
-            self._handle_node_changes(children)
-        
-        # Watch assignments
-        @self.zk.DataWatch(f"{self.ASSIGNMENTS_PATH}/{self.node_id}")
-        def watch_assignments(data, stat):
-            if data:
-                self._handle_assignment_change(data)
-    
-    def _handle_node_changes(self, nodes: list):
-        """Handle node additions/removals"""
-        current_nodes = set(nodes)
-        previous_nodes = set(self.peer_nodes.keys())
-        
-        # New nodes
-        new_nodes = current_nodes - previous_nodes
-        for node in new_nodes:
-            logger.info(f"New node joined: {node}")
-            
-        # Removed nodes
-        removed_nodes = previous_nodes - current_nodes
-        for node in removed_nodes:
-            logger.info(f"Node left: {node}")
-            # Trigger rebalancing
-            asyncio.create_task(self._rebalance_assignments(removed_node=node))
-        
-        # Update peer list
-        self.peer_nodes = {node: {} for node in current_nodes}
-    
-    async def _rebalance_assignments(self, removed_node: str = None):
-        """Rebalance domain assignments after node change"""
-        if removed_node:
-            # Get failed node's assignments
-            try:
-                failed_path = f"{self.ASSIGNMENTS_PATH}/{removed_node}"
-                data, _ = self.zk.get(failed_path)
-                failed_assignments = json.loads(data.decode()) if data else {}
-                
-                # Redistribute domains
-                orphaned_domains = failed_assignments.get('domains', [])
-                await self._redistribute_domains(orphaned_domains)
-                
-            except Exception as e:
-                logger.error(f"Failed to recover assignments: {e}")
-    
-    async def _redistribute_domains(self, domains: list):
-        """Redistribute domains among active nodes"""
-        active_nodes = list(self.peer_nodes.keys())
-        if not active_nodes:
-            return
-        
-        # Use consistent hashing for distribution
-        for domain in domains:
-            assigned_node = self._consistent_hash_assignment(domain, active_nodes)
-            
-            # Update assignment in Zookeeper
-            assignment_path = f"{self.ASSIGNMENTS_PATH}/{assigned_node}"
-            
-            # Use transaction for atomic update
-            trans = self.zk.transaction()
-            
-            # Read current assignments
-            try:
-                data, stat = self.zk.get(assignment_path)
-                current = json.loads(data.decode()) if data else {'domains': []}
-            except:
-                current = {'domains': []}
-            
-            # Add domain
-            current['domains'].append(domain)
-            current['updated_at'] = time.time()
-            
-            # Update
-            trans.set_data(assignment_path, json.dumps(current).encode())
-            trans.commit()
-            
-            logger.info(f"Assigned {domain} to {assigned_node}")
-    
-    def _consistent_hash_assignment(self, domain: str, nodes: list) -> str:
-        """Assign domain to node using consistent hashing"""
-        # Create hash ring
-        ring = {}
-        for node in nodes:
-            # Multiple virtual nodes for better distribution
-            for i in range(100):
-                hash_key = md5(f"{node}:{i}".encode()).hexdigest()
-                ring[hash_key] = node
-        
-        # Sort ring
-        sorted_hashes = sorted(ring.keys())
-        
-        # Find node for domain
-        domain_hash = md5(domain.encode()).hexdigest()
-        
-        # Binary search for next highest hash
-        idx = bisect.bisect_left(sorted_hashes, domain_hash)
-        if idx == len(sorted_hashes):
-            idx = 0
-        
-        selected_hash = sorted_hashes[idx]
-        return ring[selected_hash]
-    
-    def should_crawl_url(self, url: str) -> bool:
-        """Check if this node should crawl the URL"""
-        domain = urlparse(url).netloc
-        return domain in self.assigned_domains
-    
-    async def coordinate_rate_limit(self, domain: str, request_made: bool = False):
-        """Coordinate rate limiting across nodes"""
-        rate_limit_path = f"{self.RATE_LIMITS_PATH}/{domain}"
-        
-        while True:
-            try:
-                # Try to acquire rate limit slot
-                data, stat = self.zk.get(rate_limit_path)
-                
-                if data:
-                    rate_info = json.loads(data.decode())
-                    last_access = rate_info.get('last_access', 0)
-                    crawl_delay = rate_info.get('crawl_delay', 1.0)
-                    
-                    # Check if enough time has passed
-                    if time.time() - last_access >= crawl_delay:
-                        # Try to update with our access
-                        rate_info['last_access'] = time.time()
-                        rate_info['accessed_by'] = self.node_id
-                        
-                        # Use version for optimistic locking
-                        try:
-                            self.zk.set(
-                                rate_limit_path,
-                                json.dumps(rate_info).encode(),
-                                version=stat.version
-                            )
-                            return True  # Got the slot
-                        except:
-                            # Someone else got it, retry
-                            await asyncio.sleep(0.1)
-                    else:
-                        # Need to wait
-                        wait_time = crawl_delay - (time.time() - last_access)
-                        await asyncio.sleep(wait_time)
-                else:
-                    # First access to this domain
-                    rate_info = {
-                        'last_access': time.time() if request_made else 0,
-                        'crawl_delay': 1.0,
-                        'accessed_by': self.node_id
-                    }
-                    
-                    try:
-                        self.zk.create(
-                            rate_limit_path,
-                            json.dumps(rate_info).encode()
-                        )
-                        return True
-                    except:
-                        # Someone else created it, retry
-                        continue
-                        
-            except Exception as e:
-                logger.error(f"Rate limit coordination error: {e}")
-                return True  # Fail open
-    
-    async def checkpoint_progress(self, stats: dict):
-        """Save crawling progress to Zookeeper"""
-        checkpoint = {
-            'node_id': self.node_id,
-            'timestamp': time.time(),
-            'stats': stats,
-            'assigned_domains': list(self.assigned_domains)
-        }
-        
-        checkpoint_path = f"{self.CHECKPOINTS_PATH}/{self.node_id}"
-        
-        # Atomic write
-        trans = self.zk.transaction()
-        trans.check(self.NODES_PATH, version=-1)  # Ensure we're still registered
-        trans.set_data(checkpoint_path, json.dumps(checkpoint).encode())
-        
-        try:
-            trans.commit()
-        except Exception as e:
-            logger.error(f"Checkpoint failed: {e}")
+    ZK --> NP
+    ZK --> AP
+    ZK --> CP
+    ZK --> RP
+    ZK --> LP
+```
 
-class CrawlerLeaderElection:
-    """Leader election for crawler scheduling"""
+**Consistent Hashing for Domain Assignment:**
+
+```mermaid
+graph LR
+    subgraph "Hash Ring"
+        H1[Node1:0-99<br/>Virtual nodes]
+        H2[Node2:0-99<br/>Virtual nodes]
+        H3[Node3:0-99<br/>Virtual nodes]
+    end
     
-    def __init__(self, zk_client, node_id: str):
-        self.zk = zk_client
-        self.node_id = node_id
-        self.is_leader = False
-        self.election_path = "/crawler/leader_election"
+    subgraph "Domain Mapping"
+        D1[example.com<br/>Hash: 0x3F...]
+        D2[site.org<br/>Hash: 0x7A...]
+        D3[blog.net<br/>Hash: 0xB2...]
+    end
+    
+    D1 --> H1
+    D2 --> H2
+    D3 --> H3
+    
+    Note over H1,H3: 100 virtual nodes per physical node<br/>for better distribution
+```
+
+**Node Failure Recovery Flow:**
+
+```mermaid
+sequenceDiagram
+    participant ZK as Zookeeper
+    participant N1 as Node 1
+    participant N2 as Node 2 (Healthy)
+    participant N3 as Node 3 (Healthy)
+    
+    Note over N1: Node 1 fails
+    ZK->>ZK: Ephemeral node expires
+    ZK->>N2: Node change notification
+    ZK->>N3: Node change notification
+    
+    N2->>ZK: Get failed assignments
+    N3->>ZK: Get failed assignments
+    
+    par Redistribution
+        N2->>N2: Calculate new assignments
+        N3->>N3: Calculate new assignments
+    end
+    
+    N2->>ZK: Update assignments
+    N3->>ZK: Update assignments
+    
+    Note over N2,N3: Domains redistributed<br/>using consistent hashing
+```
+
+**Distributed Rate Limiting:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> CheckRateLimit
+    
+    CheckRateLimit --> GetDomainInfo: Read from ZK
+    
+    GetDomainInfo --> CheckDelay: Info exists
+    GetDomainInfo --> CreateNew: First access
+    
+    CheckDelay --> Wait: Too soon
+    CheckDelay --> TryAcquire: Delay passed
+    
+    TryAcquire --> UpdateZK: Optimistic lock
+    UpdateZK --> Success: Version match
+    UpdateZK --> Retry: Version conflict
+    
+    Wait --> CheckDelay: After delay
+    Retry --> CheckRateLimit
+    
+    Success --> [*]
+    CreateNew --> [*]
+```
+
+**Leader Election Process:**
+
+```mermaid
+graph TD
+    subgraph "Election Process"
+        CN[Create Node<br/>/leader/node_0001]
+        GC[Get Children]
+        CL[Check Lowest]
         
-    def participate_in_election(self):
-        """Participate in leader election"""
-        # Create election znode
-        self.zk.ensure_path(self.election_path)
+        CN --> GC
+        GC --> CL
         
-        # Create ephemeral sequential node
-        node_path = self.zk.create(
-            f"{self.election_path}/node_",
-            self.node_id.encode(),
-            ephemeral=True,
-            sequence=True
-        )
+        CL -->|Is Lowest| BL[Become Leader]
+        CL -->|Not Lowest| WP[Watch Previous]
         
-        # Get all election nodes
-        while True:
-            children = sorted(self.zk.get_children(self.election_path))
-            
-            # Check if we're the leader (lowest sequence number)
-            if node_path.endswith(children[0]):
-                self.is_leader = True
-                logger.info(f"Node {self.node_id} became leader")
-                self._perform_leader_duties()
-            else:
-                # Watch the node before us
-                prev_seq = children[children.index(node_path.split('/')[-1]) - 1]
-                prev_path = f"{self.election_path}/{prev_seq}"
-                
-                # Wait for predecessor to disappear
+        WP --> GC
+    end
+    
+    subgraph "Leader Duties"
+        BL --> SD[Schedule Domains]
+        BL --> MH[Monitor Health]
+        BL --> RB[Rebalance Load]
+    end
+```
+
+**Coordination State Management:**
+
+```mermaid
+graph TB
+    subgraph "Node Registration"
+        R[Register Node]
+        R --> EN[Ephemeral Node<br/>Auto-cleanup]
+        R --> ND[Node Data<br/>ID, Host, Capacity]
+    end
+    
+    subgraph "Assignment Tracking"
+        AD[Assigned Domains]
+        AD --> ZS[ZK Storage]
+        AD --> LC[Local Cache]
+        AD --> VU[Version Updates]
+    end
+    
+    subgraph "Progress Checkpointing"
+        CP[Checkpoint Data]
+        CP --> ST[Stats]
+        CP --> TS[Timestamp]
+        CP --> DL[Domain List]
+    end
+    
+    EN --> AD
+    AD --> CP
+```
+
+**Distributed Crawler Communication:**
+
+| Component | Purpose | Implementation |
+|-----------|---------|----------------|
+| **Node Registry** | Track active crawlers | Ephemeral ZK nodes |
+| **Domain Assignment** | Distribute work | Consistent hashing |
+| **Rate Limiting** | Global politeness | Distributed locks |
+| **Checkpointing** | Failure recovery | Periodic ZK writes |
+| **Leader Election** | Central coordination | Sequential ZK nodes |
+| **Health Monitoring** | Detect failures | ZK watches |
                 if self.zk.exists(prev_path, watch=True):
                     time.sleep(1)
 ```
@@ -1411,284 +1124,170 @@ Observability Stack:
 - Alerting rules
 ```
 
-**Implementation:**
-```python
-import prometheus_client
-from prometheus_client import Counter, Histogram, Gauge, Summary
-import logging
-import structlog
+**Crawler Observability Architecture:**
 
-class ObservableCrawler:
-    def __init__(self):
-        # Metrics
-        self.urls_crawled = Counter(
-            'crawler_urls_crawled_total',
-            'Total URLs crawled',
-            ['status_code', 'domain']
-        )
-        
-        self.crawl_duration = Histogram(
-            'crawler_fetch_duration_seconds',
-            'Time to fetch URL',
-            ['domain'],
-            buckets=[0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
-        )
-        
-        self.frontier_size = Gauge(
-            'crawler_frontier_size',
-            'Number of URLs in frontier',
-            ['priority']
-        )
-        
-        self.duplicate_rate = Summary(
-            'crawler_duplicate_rate',
-            'Rate of duplicate URLs detected'
-        )
-        
-        self.robots_violations = Counter(
-            'crawler_robots_violations_total',
-            'Robots.txt violations detected'
-        )
-        
-        self.content_metrics = {
-            'page_size': Histogram(
-                'crawler_page_size_bytes',
-                'Size of crawled pages',
-                buckets=[1000, 10000, 100000, 1000000, 10000000]
-            ),
-            'link_count': Histogram(
-                'crawler_links_per_page',
-                'Number of links extracted',
-                buckets=[0, 10, 50, 100, 500, 1000, 5000]
-            )
-        }
-        
-        # Structured logging
-        self.logger = structlog.get_logger()
-        
-        # Tracing
-        self.tracer = self._init_tracer()
+```mermaid
+graph TB
+    subgraph "Metrics Collection"
+        PM[Prometheus Metrics]
+        SL[Structured Logs]
+        DT[Distributed Tracing]
+        HC[Health Checks]
+    end
     
-    def _init_tracer(self):
-        """Initialize distributed tracing"""
-        from opentelemetry import trace
-        from opentelemetry.exporter.jaeger import JaegerExporter
-        from opentelemetry.sdk.trace import TracerProvider
-        from opentelemetry.sdk.trace.export import BatchSpanProcessor
-        
-        trace.set_tracer_provider(TracerProvider())
-        tracer = trace.get_tracer(__name__)
-        
-        # Jaeger exporter
-        jaeger_exporter = JaegerExporter(
-            agent_host_name="localhost",
-            agent_port=6831,
-        )
-        
-        span_processor = BatchSpanProcessor(jaeger_exporter)
-        trace.get_tracer_provider().add_span_processor(span_processor)
-        
-        return tracer
+    subgraph "Metric Types"
+        C[Counters<br/>URLs crawled<br/>Violations]
+        H[Histograms<br/>Latency<br/>Page size]
+        G[Gauges<br/>Frontier size<br/>Active workers]
+        S[Summary<br/>Duplicate rate]
+    end
     
-    async def crawl_with_observability(self, url: str) -> dict:
-        """Crawl URL with full observability"""
-        # Start trace span
-        with self.tracer.start_as_current_span("crawl_url") as span:
-            span.set_attribute("url", url)
-            span.set_attribute("domain", urlparse(url).netloc)
-            
-            start_time = time.time()
-            
-            try:
-                # Crawl
-                result = await self.fetch_url(url)
-                
-                # Record metrics
-                domain = urlparse(url).netloc
-                self.urls_crawled.labels(
-                    status_code=result.get('status', 0),
-                    domain=domain
-                ).inc()
-                
-                duration = time.time() - start_time
-                self.crawl_duration.labels(domain=domain).observe(duration)
-                
-                # Content metrics
-                if 'content' in result:
-                    self.content_metrics['page_size'].observe(len(result['content']))
-                    
-                    # Extract links for metrics
-                    links = self._extract_links(result['content'], url)
-                    self.content_metrics['link_count'].observe(len(links))
-                
-                # Log structured event
-                self.logger.info(
-                    "url_crawled",
-                    url=url,
-                    status=result.get('status'),
-                    duration=duration,
-                    size=len(result.get('content', '')),
-                    links_found=len(links) if 'content' in result else 0
-                )
-                
-                # Add to trace
-                span.set_attribute("status_code", result.get('status', 0))
-                span.set_attribute("duration_ms", duration * 1000)
-                
-                return result
-                
-            except Exception as e:
-                # Record error
-                span.record_exception(e)
-                span.set_status(trace.Status(trace.StatusCode.ERROR))
-                
-                self.logger.error(
-                    "crawl_error",
-                    url=url,
-                    error=str(e),
-                    duration=time.time() - start_time
-                )
-                
-                raise
+    subgraph "Visualization"
+        GD[Grafana Dashboards]
+        JU[Jaeger UI]
+        AL[Alert Manager]
+    end
     
-    def update_frontier_metrics(self):
-        """Update frontier size metrics"""
-        stats = self.frontier.get_frontier_stats()
-        
-        # Update by priority
-        for priority, size in stats.get('priority_distribution', {}).items():
-            self.frontier_size.labels(priority=priority).set(size)
+    PM --> C
+    PM --> H
+    PM --> G
+    PM --> S
     
-    def check_robots_compliance(self, url: str, robots_allowed: bool):
-        """Track robots.txt compliance"""
-        if not robots_allowed:
-            domain = urlparse(url).netloc
-            self.robots_violations.labels(domain=domain).inc()
-            
-            self.logger.warning(
-                "robots_violation",
-                url=url,
-                domain=domain,
-                action="skipped"
-            )
+    C --> GD
+    H --> GD
+    G --> GD
     
-    def export_dashboards(self):
-        """Export Grafana dashboard configuration"""
-        dashboard = {
-            "dashboard": {
-                "title": "Web Crawler Metrics",
-                "panels": [
-                    {
-                        "title": "Crawl Rate",
-                        "targets": [{
-                            "expr": "rate(crawler_urls_crawled_total[5m])"
-                        }]
-                    },
-                    {
-                        "title": "Error Rate by Domain",
-                        "targets": [{
-                            "expr": "rate(crawler_urls_crawled_total{status_code!~\"2..\"}[5m]) by (domain)"
-                        }]
-                    },
-                    {
-                        "title": "Frontier Size",
-                        "targets": [{
-                            "expr": "crawler_frontier_size"
-                        }]
-                    },
-                    {
-                        "title": "Crawl Latency",
-                        "targets": [{
-                            "expr": "histogram_quantile(0.95, crawler_fetch_duration_seconds_bucket)"
-                        }]
-                    },
-                    {
-                        "title": "Content Size Distribution",
-                        "targets": [{
-                            "expr": "histogram_quantile(0.5, crawler_page_size_bytes_bucket)"
-                        }]
-                    }
-                ]
-            }
-        }
-        
-        return dashboard
+    DT --> JU
+    PM --> AL
+```
+
+**Observability Flow:**
+
+```mermaid
+sequenceDiagram
+    participant C as Crawler
+    participant T as Tracer
+    participant M as Metrics
+    participant L as Logger
+    participant G as Grafana
     
-    def setup_alerts(self):
-        """Setup alerting rules"""
-        alerts = [
-            {
-                "alert": "HighErrorRate",
-                "expr": "rate(crawler_urls_crawled_total{status_code!~\"2..\"}[5m]) > 0.1",
-                "for": "5m",
-                "annotations": {
-                    "summary": "High crawl error rate detected"
-                }
-            },
-            {
-                "alert": "FrontierEmpty",
-                "expr": "crawler_frontier_size == 0",
-                "for": "10m",
-                "annotations": {
-                    "summary": "URL frontier is empty"
-                }
-            },
-            {
-                "alert": "RobotsViolations",
-                "expr": "rate(crawler_robots_violations_total[5m]) > 0",
-                "for": "1m",
-                "annotations": {
-                    "summary": "Robots.txt violations detected"
-                }
-            },
-            {
-                "alert": "SlowCrawling",
-                "expr": "histogram_quantile(0.95, crawler_fetch_duration_seconds_bucket) > 5",
-                "for": "10m",
-                "annotations": {
-                    "summary": "Crawling is slow (p95 > 5s)"
-                }
-            }
-        ]
-        
-        return alerts
+    C->>T: Start span
+    T->>T: Set attributes
     
-    async def health_check(self) -> dict:
-        """Comprehensive health check"""
-        health = {
-            'status': 'healthy',
-            'timestamp': time.time(),
-            'checks': {}
-        }
+    C->>C: Fetch URL
+    
+    par Collect Metrics
+        C->>M: Record counters
+        C->>M: Record latency
+        C->>M: Record content size
+    and Log Events
+        C->>L: Structured log
+    and Trace
+        C->>T: Add span data
+    end
+    
+    M->>G: Export metrics
+    T->>T: End span
+```
+
+**Key Metrics Dashboard:**
+
+| Metric | Type | Description | Alert Threshold |
+|--------|------|-------------|-----------------|
+| **Crawl Rate** | Counter | URLs/second | < 10 URLs/min |
+| **Error Rate** | Counter | Failed requests | > 10% |
+| **Latency P95** | Histogram | 95th percentile | > 5 seconds |
+| **Frontier Size** | Gauge | Queued URLs | = 0 for 10min |
+| **Page Size P50** | Histogram | Median size | - |
+| **Links/Page** | Histogram | Extracted links | - |
+| **Robots Violations** | Counter | Disallowed URLs | > 0 |
+
+**Grafana Dashboard Panels:**
+
+```mermaid
+graph LR
+    subgraph "Row 1: Overview"
+        CR[Crawl Rate<br/>Line Graph]
+        ER[Error Rate<br/>Line Graph]
+        FS[Frontier Size<br/>Gauge]
+    end
+    
+    subgraph "Row 2: Performance"
+        LH[Latency Heatmap]
+        PS[Page Size<br/>Distribution]
+        LC[Links Count<br/>Histogram]
+    end
+    
+    subgraph "Row 3: Domains"
+        TD[Top Domains<br/>Table]
+        ED[Errors by Domain<br/>Bar Chart]
+        RV[Violations<br/>Counter]
+    end
+```
+
+**Distributed Tracing Example:**
+
+```mermaid
+gantt
+    title Crawl Request Trace
+    dateFormat X
+    axisFormat %Lms
+    
+    section Main Span
+    crawl_url           :done, main, 0, 500
+    
+    section Sub-spans
+    DNS Lookup          :done, dns, 0, 50
+    Robots Check        :done, robot, 50, 30
+    HTTP Request        :done, http, 80, 200
+    Content Parse       :done, parse, 280, 100
+    Link Extract        :done, links, 380, 50
+    Store Result        :done, store, 430, 70
+```
+
+**Alert Configuration:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> Monitoring
+    
+    Monitoring --> CheckMetrics
+    
+    CheckMetrics --> HighError: Error > 10%
+    CheckMetrics --> EmptyFrontier: Size = 0
+    CheckMetrics --> SlowCrawl: P95 > 5s
+    CheckMetrics --> RobotsViolation: Count > 0
+    
+    HighError --> FireAlert
+    EmptyFrontier --> FireAlert
+    SlowCrawl --> FireAlert
+    RobotsViolation --> FireAlert
+    
+    FireAlert --> Notification
+    Notification --> [*]
+```
+
+**Health Check Components:**
+
+```mermaid
+graph TB
+    subgraph "Health Checks"
+        HC[Health Endpoint]
         
-        # Check frontier
-        frontier_stats = self.frontier.get_frontier_stats()
-        health['checks']['frontier'] = {
-            'status': 'healthy' if frontier_stats['total_urls'] > 0 else 'warning',
-            'urls': frontier_stats['total_urls']
-        }
-        
-        # Check crawl rate
-        crawl_rate = self.get_crawl_rate()
-        health['checks']['crawl_rate'] = {
-            'status': 'healthy' if crawl_rate > 0 else 'unhealthy',
-            'rate': crawl_rate
-        }
-        
-        # Check error rate
-        error_rate = self.get_error_rate()
-        health['checks']['error_rate'] = {
-            'status': 'healthy' if error_rate < 0.1 else 'warning',
-            'rate': error_rate
-        }
-        
-        # Overall status
-        if any(check['status'] == 'unhealthy' for check in health['checks'].values()):
-            health['status'] = 'unhealthy'
-        elif any(check['status'] == 'warning' for check in health['checks'].values()):
-            health['status'] = 'warning'
-        
-        return health
+        FC[Frontier Check<br/>URLs > 0]
+        RC[Rate Check<br/>Crawl rate > 0]
+        EC[Error Check<br/>Error < 10%]
+        CC[Connection Check<br/>Workers active]
+    end
+    
+    HC --> FC
+    HC --> RC
+    HC --> EC
+    HC --> CC
+    
+    FC -->|All Pass| H[Healthy]
+    FC -->|Some Fail| W[Warning]
+    FC -->|Critical Fail| U[Unhealthy]
 ```
 
 #### 👤 Axiom 7 (Human Interface): Crawler Management
@@ -1708,276 +1307,200 @@ Interfaces:
 - Configuration files
 ```
 
-**Implementation:**
-```python
-from fastapi import FastAPI, HTTPException, BackgroundTasks
-from pydantic import BaseModel, HttpUrl
-import click
+**Crawler Management Architecture:**
 
-class CrawlerManagementAPI:
-    def __init__(self, crawler):
-        self.crawler = crawler
-        self.app = FastAPI(title="Web Crawler Management API")
-        self._setup_routes()
-        
-    def _setup_routes(self):
-        """Setup management API routes"""
-        
-        @self.app.get("/api/v1/status")
-        async def get_status():
-            """Get crawler status"""
-            return {
-                'status': self.crawler.get_status(),
-                'stats': {
-                    'urls_crawled': self.crawler.urls_crawled_count,
-                    'urls_in_frontier': self.crawler.frontier.size(),
-                    'active_workers': self.crawler.active_workers,
-                    'crawl_rate': self.crawler.get_crawl_rate(),
-                    'error_rate': self.crawler.get_error_rate()
-                },
-                'uptime': time.time() - self.crawler.start_time
-            }
-        
-        @self.app.post("/api/v1/control/{action}")
-        async def control_crawler(action: str):
-            """Control crawler execution"""
-            if action == "start":
-                await self.crawler.start()
-                return {"status": "started"}
-            elif action == "stop":
-                await self.crawler.stop()
-                return {"status": "stopped"}
-            elif action == "pause":
-                await self.crawler.pause()
-                return {"status": "paused"}
-            elif action == "resume":
-                await self.crawler.resume()
-                return {"status": "resumed"}
-            else:
-                raise HTTPException(400, f"Unknown action: {action}")
-        
-        @self.app.post("/api/v1/seeds")
-        async def add_seed_urls(request: SeedUrlsRequest):
-            """Add seed URLs to crawler"""
-            added = 0
-            errors = []
-            
-            for url in request.urls:
-                try:
-                    if self.crawler.add_url(url, priority=request.priority):
-                        added += 1
-                except Exception as e:
-                    errors.append({"url": url, "error": str(e)})
-            
-            return {
-                "added": added,
-                "errors": errors,
-                "frontier_size": self.crawler.frontier.size()
-            }
-        
-        @self.app.get("/api/v1/frontier")
-        async def get_frontier_stats():
-            """Get frontier statistics"""
-            return self.crawler.frontier.get_frontier_stats()
-        
-        @self.app.get("/api/v1/domain/{domain}")
-        async def get_domain_info(domain: str):
-            """Get information about specific domain"""
-            return {
-                "domain": domain,
-                "crawl_delay": self.crawler.get_crawl_delay(domain),
-                "robots_txt": await self.crawler.get_robots_txt(domain),
-                "urls_crawled": self.crawler.get_domain_crawl_count(domain),
-                "last_crawled": self.crawler.get_domain_last_crawl(domain),
-                "errors": self.crawler.get_domain_errors(domain)
-            }
-        
-        @self.app.post("/api/v1/config")
-        async def update_configuration(config: CrawlerConfig):
-            """Update crawler configuration"""
-            # Validate configuration
-            validation_errors = self._validate_config(config)
-            if validation_errors:
-                raise HTTPException(400, {"errors": validation_errors})
-            
-            # Apply configuration
-            self.crawler.update_config(config.dict())
-            
-            return {"status": "updated", "config": config}
-        
-        @self.app.get("/api/v1/export")
-        async def export_data(
-            format: str = "jsonl",
-            start_time: float = None,
-            end_time: float = None,
-            domain: str = None,
-            background_tasks: BackgroundTasks = BackgroundTasks()
-        ):
-            """Export crawled data"""
-            # Start export job
-            job_id = str(uuid.uuid4())
-            
-            background_tasks.add_task(
-                self._export_data,
-                job_id,
-                format,
-                start_time,
-                end_time,
-                domain
-            )
-            
-            return {
-                "job_id": job_id,
-                "status": "started",
-                "check_url": f"/api/v1/export/{job_id}"
-            }
-        
-        @self.app.get("/api/v1/debug/{url:path}")
-        async def debug_url(url: str):
-            """Debug specific URL crawling"""
-            # Validate URL
-            parsed = urlparse(url)
-            if not parsed.scheme or not parsed.netloc:
-                raise HTTPException(400, "Invalid URL")
-            
-            debug_info = {
-                "url": url,
-                "normalized": self.crawler.normalize_url(url),
-                "domain": parsed.netloc,
-                "robots_allowed": await self.crawler.can_fetch(url),
-                "crawl_delay": self.crawler.get_crawl_delay(parsed.netloc),
-                "in_frontier": self.crawler.is_in_frontier(url),
-                "already_crawled": self.crawler.is_already_crawled(url),
-                "duplicate_check": self.crawler.check_duplicate(url)
-            }
-            
-            # Try crawling
-            try:
-                result = await self.crawler.crawl_single_url(url)
-                debug_info["crawl_result"] = result
-            except Exception as e:
-                debug_info["crawl_error"] = str(e)
-            
-            return debug_info
+```mermaid
+graph TB
+    subgraph "Management Interfaces"
+        API[REST API]
+        CLI[CLI Tool]
+        WEB[Web Dashboard]
+        WS[WebSocket]
+    end
+    
+    subgraph "Control Functions"
+        CS[Crawler Status]
+        CC[Crawler Control]
+        CF[Configuration]
+        EX[Data Export]
+    end
+    
+    subgraph "Monitoring"
+        RT[Real-time Metrics]
+        FV[Frontier Viewer]
+        DI[Domain Inspector]
+        DB[Debug Tools]
+    end
+    
+    API --> CS
+    API --> CC
+    CLI --> CF
+    WEB --> RT
+    WS --> RT
+```
 
-class CrawlerCLI:
-    """Command-line interface for crawler management"""
-    
-    def __init__(self, crawler):
-        self.crawler = crawler
-        
-    @click.group()
-    def cli():
-        """Web Crawler Management CLI"""
-        pass
-    
-    @cli.command()
-    @click.option('--seeds-file', help='File containing seed URLs')
-    @click.option('--max-pages', default=10000, help='Maximum pages to crawl')
-    @click.option('--max-depth', default=5, help='Maximum crawl depth')
-    def start(seeds_file, max_pages, max_depth):
-        """Start crawling"""
-        click.echo(f"Starting crawler with max_pages={max_pages}, max_depth={max_depth}")
-        
-        # Load seed URLs
-        if seeds_file:
-            with open(seeds_file, 'r') as f:
-                seeds = [line.strip() for line in f if line.strip()]
-            click.echo(f"Loaded {len(seeds)} seed URLs")
-            
-            for url in seeds:
-                crawler.add_url(url)
-        
-        # Start crawling
-        asyncio.run(crawler.start())
-    
-    @cli.command()
-    def status():
-        """Show crawler status"""
-        status = crawler.get_status()
-        stats = crawler.get_stats()
-        
-        click.echo(f"Status: {status}")
-        click.echo(f"URLs crawled: {stats['urls_crawled']:,}")
-        click.echo(f"URLs in frontier: {stats['frontier_size']:,}")
-        click.echo(f"Active workers: {stats['active_workers']}")
-        click.echo(f"Crawl rate: {stats['crawl_rate']:.1f} pages/sec")
-        click.echo(f"Error rate: {stats['error_rate']:.1%}")
-    
-    @cli.command()
-    @click.argument('url')
-    def debug(url):
-        """Debug URL crawling"""
-        click.echo(f"Debugging {url}...")
-        
-        debug_info = asyncio.run(crawler.debug_url(url))
-        
-        for key, value in debug_info.items():
-            click.echo(f"{key}: {value}")
-    
-    @cli.command()
-    @click.option('--domain', help='Filter by domain')
-    @click.option('--format', default='jsonl', help='Export format')
-    @click.option('--output', default='crawled_data.jsonl', help='Output file')
-    def export(domain, format, output):
-        """Export crawled data"""
-        click.echo(f"Exporting to {output} in {format} format...")
-        
-        with click.progressbar(
-            crawler.export_data(domain=domain, format=format),
-            label='Exporting data'
-        ) as items:
-            with open(output, 'w') as f:
-                for item in items:
-                    f.write(json.dumps(item) + '\n')
-        
-        click.echo(f"Export complete: {output}")
+**Management API Endpoints:**
 
-class CrawlerWebDashboard:
-    """Web-based monitoring dashboard"""
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `/api/v1/status` | GET | Crawler status and stats |
+| `/api/v1/control/{action}` | POST | Start/stop/pause/resume |
+| `/api/v1/seeds` | POST | Add seed URLs |
+| `/api/v1/frontier` | GET | Frontier statistics |
+| `/api/v1/domain/{domain}` | GET | Domain-specific info |
+| `/api/v1/config` | POST | Update configuration |
+| `/api/v1/export` | GET | Export crawled data |
+| `/api/v1/debug/{url}` | GET | Debug URL crawling |
+
+**Control Flow:**
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant API as API
+    participant C as Crawler
+    participant F as Frontier
+    participant W as Workers
     
-    def __init__(self, crawler):
-        self.crawler = crawler
-        self.app = FastAPI()
-        self.templates = Jinja2Templates(directory="templates")
-        
-    @self.app.get("/")
-    async def dashboard(request: Request):
-        """Main dashboard view"""
-        return self.templates.TemplateResponse(
-            "dashboard.html",
-            {
-                "request": request,
-                "stats": crawler.get_stats(),
-                "frontier_chart": crawler.get_frontier_chart_data(),
-                "performance_chart": crawler.get_performance_chart_data(),
-                "domain_stats": crawler.get_top_domains(20)
-            }
-        )
+    U->>API: POST /control/start
+    API->>C: start()
+    C->>F: Load URLs
+    C->>W: Start workers
+    C-->>API: Status: started
     
-    @self.app.websocket("/ws/metrics")
-    async def metrics_websocket(websocket: WebSocket):
-        """Real-time metrics via WebSocket"""
-        await websocket.accept()
+    U->>API: POST /seeds
+    API->>F: Add URLs
+    F-->>API: Added count
+    
+    U->>API: GET /status
+    API->>C: Get stats
+    C-->>API: Current metrics
+```
+
+**CLI Interface:**
+
+```mermaid
+graph LR
+    subgraph "CLI Commands"
+        ST[crawler start<br/>--seeds-file<br/>--max-pages]
+        SU[crawler status]
+        DB[crawler debug URL]
+        EX[crawler export<br/>--domain<br/>--format]
+    end
+    
+    subgraph "Actions"
+        LS[Load Seeds]
+        SC[Start Crawling]
+        SS[Show Stats]
+        DD[Debug Details]
+        ED[Export Data]
+    end
+    
+    ST --> LS
+    ST --> SC
+    SU --> SS
+    DB --> DD
+    EX --> ED
+```
+
+**Web Dashboard Components:**
+
+```mermaid
+graph TB
+    subgraph "Dashboard Layout"
+        H[Header<br/>Status & Controls]
         
-        try:
-            while True:
-                # Send metrics every second
-                metrics = {
-                    "timestamp": time.time(),
-                    "crawl_rate": crawler.get_crawl_rate(),
-                    "frontier_size": crawler.frontier.size(),
-                    "active_workers": crawler.active_workers,
-                    "error_rate": crawler.get_error_rate()
-                }
-                
-                await websocket.send_json(metrics)
-                await asyncio.sleep(1)
-                
-        except Exception as e:
-            logger.error(f"WebSocket error: {e}")
-        finally:
-            await websocket.close()
+        subgraph "Metrics Row"
+            CR[Crawl Rate<br/>Gauge]
+            FS[Frontier Size<br/>Counter]
+            ER[Error Rate<br/>Percentage]
+        end
+        
+        subgraph "Charts"
+            PC[Performance Chart<br/>Time Series]
+            FC[Frontier Chart<br/>Priority Distribution]
+        end
+        
+        subgraph "Tables"
+            DT[Domain Stats<br/>Top 20]
+            ET[Error Log<br/>Recent]
+        end
+    end
+```
+
+**Real-time WebSocket Updates:**
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant WS as WebSocket
+    participant C as Crawler
+    participant M as Metrics
+    
+    B->>WS: Connect /ws/metrics
+    WS->>B: Accept connection
+    
+    loop Every 1 second
+        WS->>C: Get metrics
+        C->>M: Collect stats
+        M-->>C: Current values
+        C-->>WS: Metric data
+        WS->>B: Send JSON
+        B->>B: Update UI
+    end
+    
+    B->>WS: Close connection
+```
+
+**Debug Interface Flow:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> InputURL
+    
+    InputURL --> Validate
+    Validate --> CheckRobots: Valid
+    Validate --> Error: Invalid
+    
+    CheckRobots --> CheckFrontier
+    CheckFrontier --> CheckDuplicate
+    CheckDuplicate --> TryCrawl
+    
+    TryCrawl --> Success: OK
+    TryCrawl --> Failure: Error
+    
+    Success --> ShowResult
+    Failure --> ShowError
+    
+    ShowResult --> [*]
+    ShowError --> [*]
+    Error --> [*]
+```
+
+**Export Functionality:**
+
+```mermaid
+graph LR
+    subgraph "Export Options"
+        FO[Format<br/>JSONL, CSV, Parquet]
+        FI[Filters<br/>Domain, Time Range]
+        BG[Background Job]
+    end
+    
+    subgraph "Export Process"
+        QD[Query Data]
+        TF[Transform Format]
+        WF[Write File]
+        NF[Notify Complete]
+    end
+    
+    FO --> QD
+    FI --> QD
+    QD --> TF
+    TF --> WF
+    WF --> NF
+    
+    BG -.-> QD
 ```
 
 #### 💰 Axiom 8 (Economics): Cost Optimization
@@ -1997,184 +1520,187 @@ Optimization Strategies:
 - Spot instances
 ```
 
-**Implementation:**
-```python
-class CostOptimizedCrawler:
-    def __init__(self):
-        self.cost_tracker = CostTracker()
-        self.bandwidth_used = 0
-        self.storage_used = 0
-        self.compute_hours = 0
-        
-        # Cost limits
-        self.daily_budget = 1000  # $1000/day
-        self.bandwidth_limit_gb = 10000  # 10TB/day
-        
-    def calculate_crawl_cost(self, url: str, content_size: int) -> float:
-        """Calculate cost of crawling a URL"""
-        costs = {
-            'bandwidth': content_size / 1_000_000_000 * 0.05,  # $0.05/GB
-            'dns': 0.40 / 1_000_000,  # $0.40/million queries
-            'processing': 0.10 / 3600 * 0.1,  # 0.1 seconds of compute
-            'storage': content_size / 1_000_000_000 * 0.023 / 30  # Daily storage cost
-        }
-        
-        return sum(costs.values())
+**Cost Optimization Architecture:**
+
+```mermaid
+graph TB
+    subgraph "Cost Components"
+        BW[Bandwidth<br/>$0.05/GB]
+        ST[Storage<br/>$0.023/GB/month]
+        CM[Compute<br/>$0.10/hour]
+        DN[DNS<br/>$0.40/million]
+        IP[IP Rotation<br/>$0.001/req]
+    end
     
-    async def crawl_with_budget(self, url: str) -> dict:
-        """Crawl URL respecting budget constraints"""
-        # Check daily budget
-        if self.cost_tracker.get_daily_cost() >= self.daily_budget:
-            raise BudgetExceededException("Daily budget exceeded")
-        
-        # Check bandwidth limit
-        if self.bandwidth_used >= self.bandwidth_limit_gb * 1_000_000_000:
-            raise BandwidthLimitException("Bandwidth limit exceeded")
-        
-        # Estimate content size for budgeting
-        estimated_size = await self._estimate_content_size(url)
-        estimated_cost = self.calculate_crawl_cost(url, estimated_size)
-        
-        # Check if we can afford it
-        if self.cost_tracker.get_daily_cost() + estimated_cost > self.daily_budget:
-            return {'url': url, 'error': 'would_exceed_budget'}
-        
-        # Crawl with compression
-        result = await self.crawl_with_compression(url)
-        
-        # Track actual costs
-        actual_size = len(result.get('content', b''))
-        actual_cost = self.calculate_crawl_cost(url, actual_size)
-        
-        self.cost_tracker.record_cost('crawl', actual_cost)
-        self.bandwidth_used += actual_size
-        
-        return result
+    subgraph "Optimization Strategies"
+        CP[Compression]
+        DD[Deduplication]
+        SI[Spot Instances]
+        VS[Value Selection]
+        TH[Throttling]
+    end
     
-    async def crawl_with_compression(self, url: str) -> dict:
-        """Crawl with compression to save bandwidth"""
-        headers = {
-            'Accept-Encoding': 'gzip, deflate, br',
-            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8'
-        }
-        
-        async with aiohttp.ClientSession() as session:
-            async with session.get(url, headers=headers) as response:
-                # Response is automatically decompressed
-                content = await response.read()
-                
-                # Track compression savings
-                if 'content-encoding' in response.headers:
-                    compressed_size = int(response.headers.get('content-length', 0))
-                    uncompressed_size = len(content)
-                    
-                    savings = uncompressed_size - compressed_size
-                    self.cost_tracker.record_savings('compression', savings * 0.05 / 1_000_000_000)
-                
-                return {
-                    'url': url,
-                    'content': content,
-                    'compressed': 'content-encoding' in response.headers
-                }
+    subgraph "Budget Control"
+        DB[Daily Budget<br/>$1000]
+        BL[Bandwidth Limit<br/>10TB]
+        CT[Cost Tracking]
+    end
     
-    def optimize_crawl_selection(self, urls: list) -> list:
-        """Select URLs to crawl based on value/cost ratio"""
-        scored_urls = []
-        
-        for url in urls:
-            # Calculate value score
-            value_score = self._calculate_url_value(url)
-            
-            # Estimate cost
-            estimated_size = self._estimate_content_size(url)
-            estimated_cost = self.calculate_crawl_cost(url, estimated_size)
-            
-            # Value per dollar
-            if estimated_cost > 0:
-                value_per_dollar = value_score / estimated_cost
-            else:
-                value_per_dollar = float('inf')
-            
-            scored_urls.append({
-                'url': url,
-                'value': value_score,
-                'cost': estimated_cost,
-                'value_per_dollar': value_per_dollar
-            })
-        
-        # Sort by value per dollar
-        scored_urls.sort(key=lambda x: x['value_per_dollar'], reverse=True)
-        
-        # Select URLs within budget
-        selected = []
-        remaining_budget = self.daily_budget - self.cost_tracker.get_daily_cost()
-        
-        for item in scored_urls:
-            if item['cost'] <= remaining_budget:
-                selected.append(item['url'])
-                remaining_budget -= item['cost']
-        
-        return selected
+    BW --> CP
+    ST --> DD
+    CM --> SI
     
-    def _calculate_url_value(self, url: str) -> float:
-        """Calculate value score for URL"""
-        domain = urlparse(url).netloc
-        
-        # Factors for value calculation
-        factors = {
-            'domain_authority': self._get_domain_authority(domain),
-            'content_freshness': self._estimate_freshness(url),
-            'link_value': self._estimate_link_value(url),
-            'uniqueness': self._estimate_uniqueness(url)
-        }
-        
-        # Weighted sum
-        weights = {
-            'domain_authority': 0.3,
-            'content_freshness': 0.3,
-            'link_value': 0.2,
-            'uniqueness': 0.2
-        }
-        
-        value = sum(factors[k] * weights[k] for k in factors)
-        return value
+    CP --> CT
+    DD --> CT
+    SI --> CT
     
-    def implement_smart_scheduling(self):
-        """Schedule crawling for cost optimization"""
-        # Use spot instances during off-peak hours
-        current_hour = datetime.now().hour
-        
-        if 2 <= current_hour <= 6:  # Off-peak hours
-            # Scale up with spot instances
-            self.scale_spot_instances(increase=True)
-            self.cost_tracker.record_savings('spot_instances', 0.7 * self.compute_hours * 0.10)
-        else:
-            # Scale down during peak hours
-            self.scale_spot_instances(increase=False)
+    CT --> DB
+    CT --> BL
+```
+
+**Cost Calculation Flow:**
+
+```mermaid
+sequenceDiagram
+    participant U as URL
+    participant CE as Cost Estimator
+    participant BC as Budget Check
+    participant C as Crawler
+    participant CT as Cost Tracker
     
-    def generate_cost_report(self) -> dict:
-        """Generate detailed cost report"""
-        return {
-            'daily_cost': self.cost_tracker.get_daily_cost(),
-            'monthly_projection': self.cost_tracker.get_daily_cost() * 30,
-            'cost_breakdown': {
-                'bandwidth': self.bandwidth_used / 1_000_000_000 * 0.05,
-                'storage': self.storage_used / 1_000_000_000 * 0.023,
-                'compute': self.compute_hours * 0.10,
-                'dns': self.cost_tracker.get_component_cost('dns'),
-                'ip_rotation': self.cost_tracker.get_component_cost('ip_rotation')
-            },
-            'savings': {
-                'compression': self.cost_tracker.get_savings('compression'),
-                'deduplication': self.cost_tracker.get_savings('deduplication'),
-                'spot_instances': self.cost_tracker.get_savings('spot_instances')
-            },
-            'efficiency_metrics': {
-                'cost_per_url': self.cost_tracker.get_daily_cost() / self.urls_crawled_count,
-                'cost_per_gb': self.cost_tracker.get_daily_cost() / (self.bandwidth_used / 1_000_000_000),
-                'value_per_dollar': self._calculate_total_value() / self.cost_tracker.get_daily_cost()
-            }
-        }
+    U->>CE: Estimate size
+    CE->>CE: Calculate costs
+    
+    CE->>BC: Check budget
+    
+    alt Within Budget
+        BC->>C: Crawl with compression
+        C->>CT: Track actual cost
+        CT->>CT: Update daily total
+    else Exceeds Budget
+        BC-->>U: Reject (budget exceeded)
+    end
+```
+
+**Cost Breakdown Structure:**
+
+| Component | Cost | Optimization |
+|-----------|------|--------------|
+| **Bandwidth** | $0.05/GB | Compression (70% savings) |
+| **Storage** | $0.023/GB/month | Deduplication (90% savings) |
+| **Compute** | $0.10/hour | Spot instances (70% savings) |
+| **DNS** | $0.40/million | Caching (95% reduction) |
+| **IP Rotation** | $0.001/request | Smart rotation (50% reduction) |
+
+**Value-Based URL Selection:**
+
+```mermaid
+graph LR
+    subgraph "Value Factors"
+        DA[Domain Authority<br/>30%]
+        CF[Content Freshness<br/>30%]
+        LV[Link Value<br/>20%]
+        UN[Uniqueness<br/>20%]
+    end
+    
+    subgraph "Cost Factors"
+        ES[Estimated Size]
+        BC[Bandwidth Cost]
+        SC[Storage Cost]
+    end
+    
+    subgraph "Selection"
+        VS[Value Score]
+        CS[Cost Score]
+        VPD[Value per Dollar]
+    end
+    
+    DA --> VS
+    CF --> VS
+    LV --> VS
+    UN --> VS
+    
+    ES --> CS
+    BC --> CS
+    SC --> CS
+    
+    VS --> VPD
+    CS --> VPD
+```
+
+**Compression Savings:**
+
+```mermaid
+gantt
+    title Bandwidth Usage Comparison
+    dateFormat X
+    axisFormat %s
+    
+    section Without Compression
+    HTML (10MB)      :done, html1, 0, 10
+    CSS/JS (5MB)     :done, css1, 10, 5
+    Images (20MB)    :done, img1, 15, 20
+    
+    section With Compression
+    HTML (3MB)       :done, html2, 0, 3
+    CSS/JS (1MB)     :done, css2, 3, 1
+    Images (18MB)    :done, img2, 4, 18
+    
+    section Savings
+    Saved (13MB)     :active, save, 22, 13
+```
+
+**Smart Scheduling Strategy:**
+
+```mermaid
+stateDiagram-v2
+    [*] --> CheckTime
+    
+    CheckTime --> OffPeak: 2AM-6AM
+    CheckTime --> Peak: Other hours
+    
+    OffPeak --> ScaleUp: Use spot instances
+    Peak --> ScaleDown: Use on-demand
+    
+    ScaleUp --> HighThroughput: 70% cost savings
+    ScaleDown --> NormalThroughput: Reliable but costly
+    
+    HighThroughput --> RecordSavings
+    NormalThroughput --> RecordCost
+    
+    RecordSavings --> [*]
+    RecordCost --> [*]
+```
+
+**Cost Report Dashboard:**
+
+```mermaid
+graph TB
+    subgraph "Daily Metrics"
+        DC[Daily Cost: $X]
+        MP[Monthly Projection: $Y]
+        BR[Budget Remaining: $Z]
+    end
+    
+    subgraph "Cost Breakdown"
+        BW[Bandwidth: $A]
+        ST[Storage: $B]
+        CM[Compute: $C]
+        OT[Other: $D]
+    end
+    
+    subgraph "Savings"
+        CS[Compression: $E]
+        DS[Dedup: $F]
+        SS[Spot: $G]
+        TS[Total Saved: $H]
+    end
+    
+    subgraph "Efficiency"
+        CPU[Cost/URL: $I]
+        CPG[Cost/GB: $J]
+        VPD[Value/$: K]
+    end
 ```
 
 ### 🔍 Comprehensive Axiom Mapping

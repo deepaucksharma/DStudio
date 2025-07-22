@@ -25,8 +25,6 @@ last_updated: 2025-07-21
 
 ### The News Broadcasting Analogy
 
-Think of event-driven architecture like a news broadcasting system:
-
 ```
 Traditional (Request-Response):          Event-Driven:
 
@@ -41,8 +39,6 @@ Problems:                               Benefits:
 - If B is busy, A waits                - Parallel, fast
 - Tight coupling                        - Loose coupling
 ```
-
-### Visual Metaphor
 
 ```
 Synchronous Architecture:               Event-Driven Architecture:
@@ -66,6 +62,49 @@ Chain of dependencies                 Independent reactions
 | **Uber** | Trip requested, driver assigned, trip completed | 50M trips/day |
 | **LinkedIn** | Post created, connection made, message sent | 1B+ events/day |
 | **Spotify** | Song played, playlist created, artist followed | 100M+ users |
+
+### Event Flow Visualization
+
+```mermaid
+sequenceDiagram
+    participant OS as Order Service
+    participant EB as Event Bus
+    participant PS as Payment Service
+    participant IS as Inventory Service
+    participant ES as Email Service
+    participant AS as Analytics Service
+    
+    OS->>EB: Publish(OrderPlaced)
+    Note over EB: Event Router
+    
+    par Parallel Processing
+        EB->>PS: OrderPlaced Event
+        PS->>PS: Process Payment
+        PS->>EB: Publish(PaymentCompleted)
+    and
+        EB->>IS: OrderPlaced Event
+        IS->>IS: Reserve Inventory
+        IS->>EB: Publish(InventoryReserved)
+    and
+        EB->>ES: OrderPlaced Event
+        ES->>ES: Send Confirmation
+    and
+        EB->>AS: OrderPlaced Event
+        AS->>AS: Update Metrics
+    end
+    
+    Note over OS,AS: All handlers process independently
+```
+
+### Event-Driven Patterns
+
+| Pattern | Description | Use Case |
+|---------|-------------|----------|
+| **Event Notification** | Simple "something happened" | User logged in |
+| **Event-Carried State Transfer** | Full data in event | Order details in OrderPlaced |
+| **Event Sourcing** | Events as source of truth | Audit trail, replay |
+| **CQRS** | Separate read/write models | High-performance queries |
+| **Saga** | Distributed transactions | Multi-service workflows |
 
 ### Basic Implementation
 
@@ -103,13 +142,11 @@ class SimpleEventBus:
         """Publish event to all subscribers"""
         handlers = self.subscribers.get(event.event_type, [])
         
-        # Notify all subscribers asynchronously
-        tasks = []
-        for handler in handlers:
-            task = asyncio.create_task(self._handle_event(handler, event))
-            tasks.append(task)
+        tasks = [
+            asyncio.create_task(self._handle_event(handler, event))
+            for handler in handlers
+        ]
         
-        # Wait for all handlers to complete
         await asyncio.gather(*tasks, return_exceptions=True)
     
     async def _handle_event(self, handler: Callable, event: Event):
@@ -124,25 +161,22 @@ class SimpleEventBus:
 async def main():
     bus = SimpleEventBus()
     
-    # Define event handlers
     async def send_order_confirmation(event: Event):
-        await asyncio.sleep(0.1)  # Simulate email sending
+        await asyncio.sleep(0.1)
         print(f"  Email sent for order {event.aggregate_id}")
     
     async def update_inventory(event: Event):
-        await asyncio.sleep(0.2)  # Simulate inventory update
+        await asyncio.sleep(0.2)
         print(f"  Inventory updated for order {event.aggregate_id}")
     
     async def process_payment(event: Event):
-        await asyncio.sleep(0.3)  # Simulate payment processing
+        await asyncio.sleep(0.3)
         print(f"  Payment processed: ${event.payload['total']}")
     
-    # Subscribe handlers
     bus.subscribe("OrderPlaced", send_order_confirmation)
     bus.subscribe("OrderPlaced", update_inventory)
     bus.subscribe("OrderPlaced", process_payment)
     
-    # Publish event
     order_event = Event(
         event_id="evt-123",
         event_type="OrderPlaced",
@@ -205,6 +239,32 @@ graph TD
 | **Time-Ordered** | Clear temporal sequence | Use timestamps/versions |
 | **Business-Focused** | Model domain concepts | OrderShipped not RecordUpdated |
 | **Versioned** | Support schema evolution | Include version in metadata |
+
+### Event Store Architecture
+
+```mermaid
+graph TB
+    subgraph "Event Store Pattern"
+        CMD[Command] --> AGG[Aggregate]
+        AGG --> EVT[Events]
+        EVT --> ES[(Event Store)]
+        ES --> PROJ[Projections]
+        PROJ --> READ[Read Models]
+        
+        ES --> REPLAY[Event Replay]
+        REPLAY --> AGG
+        
+        subgraph "Event Stream"
+            ES --> E1[Event 1: OrderCreated]
+            E1 --> E2[Event 2: ItemAdded]
+            E2 --> E3[Event 3: PaymentReceived]
+            E3 --> E4[Event 4: OrderShipped]
+        end
+    end
+    
+    style ES fill:#bbf,stroke:#333,stroke-width:3px
+    style AGG fill:#f9f,stroke:#333,stroke-width:2px
+```
 
 ### Implementation Patterns
 
@@ -331,6 +391,58 @@ class EventDrivenAggregate(ABC):
         events = self.pending_events
         self.pending_events = []
         return events
+```
+
+### Event-Driven Saga Pattern
+
+```mermaid
+stateDiagram-v2
+    [*] --> Started: Saga Initiated
+    Started --> Processing: Begin Execution
+    
+    Processing --> InventoryReserved: Reserve Inventory
+    InventoryReserved --> PaymentProcessed: Process Payment
+    PaymentProcessed --> OrderConfirmed: Confirm Order
+    OrderConfirmed --> Completed: Success
+    
+    Processing --> Compensating: Any Step Fails
+    InventoryReserved --> Compensating: Payment Fails
+    PaymentProcessed --> Compensating: Confirmation Fails
+    
+    Compensating --> Failed: After Compensation
+    Completed --> [*]: Success End
+    Failed --> [*]: Failure End
+    
+    note right of Compensating
+        Reverse all completed
+        steps in order
+    end note
+```
+
+```mermaid
+sequenceDiagram
+    participant S as Saga Coordinator
+    participant IS as Inventory Service
+    participant PS as Payment Service
+    participant OS as Order Service
+    
+    S->>IS: ReserveInventory Command
+    IS-->>S: InventoryReserved Event
+    
+    S->>PS: ProcessPayment Command
+    PS-->>S: PaymentProcessed Event
+    
+    S->>OS: ConfirmOrder Command
+    
+    alt Success
+        OS-->>S: OrderConfirmed Event
+        S->>S: Mark Completed
+    else Failure
+        OS-->>S: OrderFailed Event
+        S->>S: Begin Compensation
+        S->>PS: RefundPayment Command
+        S->>IS: ReleaseInventory Command
+    end
 ```
 
 ### Event-Driven Saga Implementation
