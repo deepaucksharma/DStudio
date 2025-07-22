@@ -26,14 +26,9 @@ Design a system that can enforce rate limits across multiple servers, handling m
 ## Part 1: Concept Map
 
 ### 🗺️ System Overview
-A distributed rate limiter controls the rate of requests to protect backend services from being overwhelmed. It must work across multiple servers, handle various rate limiting strategies (per-user, per-IP, per-API), and provide consistent enforcement even during network partitions.
+Distributed rate limiter protecting backend services across multiple servers with per-user/per-IP/per-API strategies.
 
-**Key Requirements:**
-- Sub-millisecond latency for rate limit checks
-- Support for multiple rate limiting strategies
-- Accurate counting across distributed nodes
-- Graceful degradation during failures
-- Configurable limits without restarts
+**Requirements:** Sub-ms latency, multiple strategies, accurate distributed counting, graceful degradation, hot configuration
 
 ### 📐 Axiom Analysis
 
@@ -595,42 +590,22 @@ graph LR
     B --> C[Redis Slave 1]
     B --> D[Redis Slave 2]
 ```
+**Pros**: Simple, exact counting, easy debugging
+**Cons**: SPOF, high latency, scaling limits
+**Use**: Small scale, single region
 
-**Approach**: All rate limit checks go through central Redis
-**Pros**: 
-- Simple implementation
-- Exact counting
-- Easy to reason about
-
-**Cons**: 
-- Single point of failure
-- High latency for distributed systems
-- Scaling limitations
-
-**When to use**: Small scale, single region deployments
-
-#### Option 2: Fully Distributed (No Shared State)
+#### Option 2: Fully Distributed
 ```mermaid
 graph LR
     A[Client] --> B[Node 1<br/>Local State]
     A --> C[Node 2<br/>Local State]
     B <--> C
 ```
+**Pros**: No dependencies, ultra-low latency, highly available
+**Cons**: Partition inaccuracy, complex conflicts, hard debugging
+**Use**: Edge deployments, extreme latency needs
 
-**Approach**: Each node maintains local counters, gossip for sync
-**Pros**: 
-- No external dependencies
-- Extremely low latency
-- Highly available
-
-**Cons**: 
-- Inaccurate during network partitions
-- Complex conflict resolution
-- Difficult debugging
-
-**When to use**: Edge deployments, extreme latency requirements
-
-#### Option 3: Hierarchical (Local + Regional + Global)
+#### Option 3: Hierarchical
 ```mermaid
 graph TB
     subgraph "Edge"
@@ -649,21 +624,11 @@ graph TB
     E1 & E2 --> R1
     R1 --> G
 ```
+**Pros**: Balanced accuracy/performance, geo-distributed, flexible consistency
+**Cons**: Complex implementation, multiple failure modes, operational overhead
+**Use**: Global deployments with regional requirements
 
-**Approach**: Multi-tier aggregation with different consistency levels
-**Pros**: 
-- Balances accuracy and performance
-- Natural geo-distribution
-- Flexible consistency
-
-**Cons**: 
-- Complex implementation
-- Multiple failure modes
-- Operational overhead
-
-**When to use**: Global deployments with regional regulations
-
-#### Option 4: Token Bucket with Reservation
+#### Option 4: Token Bucket
 ```mermaid
 graph LR
     A[Client] --> B[Token Distributor]
@@ -672,19 +637,9 @@ graph LR
     C --> E[Backend]
     D --> E
 ```
-
-**Approach**: Pre-allocate tokens to nodes for local consumption
-**Pros**: 
-- Guaranteed accuracy
-- No hot paths
-- Predictable performance
-
-**Cons**: 
-- Token redistribution complexity
-- Waste during low usage
-- Slower to adapt to load changes
-
-**When to use**: Strict rate limit requirements, predictable load
+**Pros**: Guaranteed accuracy, no hot paths, predictable
+**Cons**: Token redistribution complexity, waste at low usage, slow adaptation
+**Use**: Strict limits, predictable load
 
 ### 📊 Performance Characteristics
 
@@ -738,20 +693,15 @@ Cost per billion requests: $0.34
 
 ## Axiom Mapping Matrix
 
-### Comprehensive Design Decision Mapping
-
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
-|----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
-| **Local Caching** | ✅ <0.01ms checks | ✅ Reduces Redis load 80% | ✅ Works during failures | ✅ Lock-free design | ⚪ | ✅ Cache hit metrics | ✅ Fast API response | ✅ 80% cost reduction |
-| **Sliding Window** | ✅ O(log n) operations | ✅ Fixed memory usage | ⚪ | ✅ Atomic operations | ✅ Consistent counting | ✅ Accurate tracking | ✅ Fair rate limiting | ⚪ |
-| **Circuit Breaker** | ✅ Fast fail | ⚪ | ✅ Prevents cascades | ✅ Thread-safe | ✅ State coordination | ✅ Failure tracking | ✅ Service stability | ✅ Prevents waste |
-| **Consistent Hashing** | ✅ O(log n) routing | ✅ Even distribution | ✅ Minimal resharding | ⚪ | ✅ Node membership | ✅ Load distribution | ⚪ | ✅ Efficient scaling |
-| **Gossip Protocol** | ⚪ | ✅ Scalable state sync | ✅ Partition tolerant | ✅ Async updates | ✅ Eventually consistent | ✅ Convergence tracking | ⚪ | ✅ Low bandwidth |
-| **Bloom Filters** | ✅ O(1) negative checks | ✅ 1MB for 1M items | ⚪ | ✅ Lock-free | ⚪ | ✅ False positive rate | ⚪ | ✅ Memory efficient |
-| **Fallback Strategy** | ✅ No blocking | ⚪ | ✅ Graceful degradation | ⚪ | ✅ Mode switching | ✅ Fallback metrics | ✅ Always available | ✅ SLA compliance |
-| **Virtual Nodes** | ⚪ | ✅ Better distribution | ✅ Smoother failover | ⚪ | ✅ Ring topology | ✅ Balance metrics | ⚪ | ⚪ |
-
-**Legend**: ✅ Primary impact | ⚪ Secondary/No impact
+| Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
+|----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
+| **Local Caching** | <0.01ms | -80% Redis | Works offline | Lock-free | - | Hit metrics | Fast API | -80% cost |
+| **Sliding Window** | O(log n) | Fixed memory | - | Atomic ops | Consistent | Accurate | Fair limits | - |
+| **Circuit Breaker** | Fast fail | - | No cascades | Thread-safe | State sync | Failure track | Stable | No waste |
+| **Consistent Hash** | O(log n) | Even dist | Min reshard | - | Node mgmt | Load metrics | - | Efficient |
+| **Gossip Protocol** | - | Scalable | Partition OK | Async | Eventually consistent | Convergence | - | Low bandwidth |
+| **Bloom Filters** | O(1) | 1MB/1M items | - | Lock-free | - | FP rate | - | Memory efficient |
+| **Fallback** | No block | - | Graceful | - | Mode switch | Metrics | Available | SLA compliant |
 
 ### Axiom Implementation Priority
 

@@ -14,44 +14,23 @@ last_updated: 2025-07-21
 
 # 👥 Nearby Friends System Design
 
-**The Challenge**: Track friend locations in real-time while preserving privacy and minimizing battery drain
-
-!!! info "Case Study Overview"
-    **System**: Real-time location sharing for finding friends nearby  
-    **Scale**: 500M+ users, continuous location updates, privacy-first  
-    **Challenges**: Real-time updates, battery efficiency, privacy controls, scale  
-    **Key Patterns**: Pub/sub, geofencing, location quantization, privacy zones
+**Challenge**: Track friend locations in real-time while preserving privacy and minimizing battery drain
 
 !!! info "Case Study Sources"
-    This analysis is based on:
-    - Facebook Engineering: "Building Nearby Friends"¹
-    - Snap Map Technical Overview²
-    - Google Location Sharing Architecture³
-    - Apple Find My Technical Details⁴
-    - Academic Paper: "Privacy-Preserving Location Sharing"⁵
+    Based on: Facebook Nearby Friends¹, Snap Map², Google Location Sharing³, Apple Find My⁴, Privacy-Preserving Location Paper⁵
 
-## Introduction
+## Overview
 
-Nearby Friends represents one of the most challenging location-based services: continuously tracking and sharing user locations while maintaining privacy, battery efficiency, and real-time performance. Unlike static POI searches, this system must handle hundreds of millions of users constantly moving, with friend relationships creating a complex graph of who can see whom. From Snapchat's Snap Map to Facebook's Nearby Friends, these systems must balance the physics of continuous location updates with the human need for privacy and control. Let's explore how distributed systems principles enable finding friends in real-time while respecting boundaries.
+Nearby Friends tracks and shares user locations while maintaining privacy, battery efficiency, and real-time performance. Systems must handle millions of moving users with complex friend graphs, balancing continuous updates with privacy controls.
 
 ## 🏗️ Architecture Evolution
 
 ### Phase 1: Continuous Polling (2012-2013)
-
 ```text
 Mobile App → Poll every 30s → Server → Database → Friend Locations
 ```
-
-**Problems Encountered:**
-- Battery drain (>20% per hour)
-- High server load
-- Stale location data
-- No privacy controls
-
-**Patterns Violated**: 
-- ❌ No [Push Notifications](../patterns/push-notifications.md)
-- ❌ No [Location Privacy](../patterns/location-privacy.md)
-- ❌ No [Battery Optimization](../patterns/mobile-battery.md)
+**Problems**: Battery drain >20%/hour, high server load, stale data, no privacy
+**Patterns Violated**: No push notifications, location privacy, or battery optimization
 
 ### Phase 2: Push-Based Architecture (2013-2015)
 
