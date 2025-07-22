@@ -634,7 +634,7 @@ graph TB
 
 ### Queue Behavior Visualization
 
-```dockerfile
+```text
 Utilization: 50%
 Queue: [█░░░░░░░░░] 1 item avg
 Wait:  ▁▁▁▁▂▁▁▁▁▁  Stable

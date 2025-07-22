@@ -58,26 +58,41 @@ With Observability (Modern Hospital):
 
 ### The Three Pillars Explained
 
+```mermaid
+graph TB
+    subgraph "Three Pillars of Observability"
+        subgraph "METRICS 📊"
+            M1[Request Rate: 1000/sec]
+            M2[Error Rate: 0.1%]
+            M3[Response Time: 45ms]
+            M4[CPU Usage: 75%]
+        end
+        
+        subgraph "LOGS 📝"
+            L1[2024-01-22 10:15:23 User 123 logged in]
+            L2[2024-01-22 10:15:24 Payment processed $49.99]
+            L3[2024-01-22 10:15:25 ERROR: Database timeout]
+            L4[2024-01-22 10:15:26 Retry attempted]
+        end
+        
+        subgraph "TRACES 🔍"
+            T1[Request ID: abc-123]
+            T1 --> T2[Gateway: 5ms]
+            T2 --> T3[Auth Service: 10ms]
+            T3 --> T4[Database: 35ms]
+            T4 --> T5[Total: 50ms]
+        end
+    end
+    
+    style M1 fill:#95e1d3
+    style L3 fill:#ff6b6b
+    style T1 fill:#4ecdc4
 ```
-METRICS: The Speedometer
-"How fast are we going?"
-- Request rate: 1000/sec
-- Error rate: 0.1%
-- Response time: 45ms
 
-LOGS: The Black Box
-"What happened in the crash?"
-- User 123 logged in
-- Payment processed $49.99
-- Error: Database timeout
-
-TRACES: The GPS Journey
-"How did we get here?"
-- Request started at Gateway
-- Waited 10ms for Auth service
-- Database query took 35ms
-- Total journey: 50ms
-```
+**Analogy Summary**:
+- **METRICS**: The Speedometer - "How fast are we going?"
+- **LOGS**: The Black Box - "What happened in the crash?"
+- **TRACES**: The GPS Journey - "How did we get here?"
 
 ---
 
@@ -86,6 +101,40 @@ TRACES: The GPS Journey
 ### Core Concepts
 
 #### The Three Pillars of Observability
+
+```mermaid
+graph LR
+    subgraph "System Under Observation"
+        APP[Application]
+        DB[Database]
+        API[API Gateway]
+        CACHE[Cache]
+    end
+    
+    subgraph "Observability Pipeline"
+        COL[Collectors]
+        AGG[Aggregators]
+        STORE[Storage]
+        VIZ[Visualization]
+        ALERT[Alerting]
+    end
+    
+    APP -->|Metrics| COL
+    APP -->|Logs| COL
+    APP -->|Traces| COL
+    DB -->|Metrics| COL
+    API -->|All 3| COL
+    CACHE -->|Metrics| COL
+    
+    COL --> AGG
+    AGG --> STORE
+    STORE --> VIZ
+    STORE --> ALERT
+    
+    style COL fill:#f7dc6f
+    style VIZ fill:#95e1d3
+    style ALERT fill:#ff6b6b
+```
 
 ```python
 from dataclasses import dataclass
@@ -337,6 +386,35 @@ class ObservableService:
 ```
 
 ### The Four Golden Signals
+
+```mermaid
+graph TB
+    subgraph "Google's Four Golden Signals"
+        L["🕐 LATENCY<br/>How long does it take?<br/>P50: 45ms, P99: 200ms"]
+        T["📊 TRAFFIC<br/>How much demand?<br/>1000 req/sec"]
+        E["❌ ERRORS<br/>How often do things fail?<br/>0.1% error rate"]
+        S["🔥 SATURATION<br/>How full is the system?<br/>CPU: 75%, Memory: 60%"]
+    end
+    
+    subgraph "What They Tell You"
+        L -->|Too High| SLOW[System is slow]
+        T -->|Spike| LOAD[High load event]
+        E -->|Increase| FAIL[Something broke]
+        S -->|Near 100%| LIMIT[Hitting limits]
+    end
+    
+    subgraph "Actions to Take"
+        SLOW --> A1[Optimize code<br/>Add caching]
+        LOAD --> A2[Scale out<br/>Load balance]
+        FAIL --> A3[Check logs<br/>Fix bugs]
+        LIMIT --> A4[Add capacity<br/>Optimize usage]
+    end
+    
+    style L fill:#95e1d3
+    style T fill:#4ecdc4
+    style E fill:#ff6b6b
+    style S fill:#f7dc6f
+```
 
 ```python
 class GoldenSignals:

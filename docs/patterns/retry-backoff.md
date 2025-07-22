@@ -35,14 +35,31 @@ Like a professional waiter who knows when to check on orders (not constantly pes
 
 ### Simple Example
 
-```text
-Bad (Immediate Retry):
-  Fail → Retry → Fail → Retry → Fail → System overload
-
-Good (Exponential Backoff + Jitter):
-  Fail → Wait 1s → Retry → Wait 2s → Retry → Wait 4s → Success
-  
-With Jitter: Multiple clients wait 0.8-1.2s, 1.6-2.4s, etc. (avoid thundering herd)
+```mermaid
+graph LR
+    subgraph "Bad: Immediate Retry"
+        F1[Fail] -->|0ms| R1[Retry]
+        R1 -->|0ms| F2[Fail]
+        F2 -->|0ms| R2[Retry]
+        R2 -->|0ms| F3[Fail]
+        F3 --> O1[System Overload!]
+    end
+    
+    subgraph "Good: Exponential Backoff"
+        G1[Fail] -->|Wait 1s| GR1[Retry]
+        GR1 -->|Wait 2s| GR2[Retry]
+        GR2 -->|Wait 4s| GR3[Retry]
+        GR3 --> S[Success!]
+    end
+    
+    subgraph "Best: With Jitter"
+        J1[Client 1] -->|0.8-1.2s| JR1[Retry]
+        J2[Client 2] -->|0.9-1.3s| JR2[Retry]
+        J3[Client 3] -->|0.7-1.1s| JR3[Retry]
+    end
+    
+    style O1 fill:#ff6b6b
+    style S fill:#95e1d3
 ```
 
 ---
@@ -61,9 +78,29 @@ With Jitter: Multiple clients wait 0.8-1.2s, 1.6-2.4s, etc. (avoid thundering he
 
 ### Timing Patterns
 
-- **Fixed**: 1s → 1s → 1s → 1s
-- **Exponential**: 1s → 2s → 4s → 8s
-- **With Jitter**: 0.8-1.2s → 1.6-2.4s → 3.2-4.8s → 6.4-9.6s
+```mermaid
+graph TB
+    subgraph "Retry Timing Patterns"
+        subgraph "Fixed Backoff"
+            F1[Attempt 1] -->|1s| F2[Attempt 2]
+            F2 -->|1s| F3[Attempt 3]
+            F3 -->|1s| F4[Attempt 4]
+        end
+        
+        subgraph "Exponential Backoff"
+            E1[Attempt 1] -->|1s| E2[Attempt 2]
+            E2 -->|2s| E3[Attempt 3]
+            E3 -->|4s| E4[Attempt 4]
+            E4 -->|8s| E5[Attempt 5]
+        end
+        
+        subgraph "With Jitter (±20%)"
+            J1[Attempt 1] -->|0.8-1.2s| J2[Attempt 2]
+            J2 -->|1.6-2.4s| J3[Attempt 3]
+            J3 -->|3.2-4.8s| J4[Attempt 4]
+        end
+    end
+```
 
 ### Backoff Formulas
 
@@ -73,9 +110,27 @@ With Jitter: Multiple clients wait 0.8-1.2s, 1.6-2.4s, etc. (avoid thundering he
 
 ### The Thundering Herd Problem
 
-**Without Jitter**: 100 clients fail → All wait 1s → All retry together → Server crashes
-
-**With Jitter**: 100 clients fail → Wait 0.5-1.5s → Retry spread over time → Server survives
+```mermaid
+graph TB
+    subgraph "Without Jitter: Thundering Herd"
+        WF[100 Clients Fail<br/>at T=0] --> WW[All Wait Exactly 1s]
+        WW --> WR[All Retry at T=1s]
+        WR --> WC[Server Crashes!<br/>100 requests at once]
+    end
+    
+    subgraph "With Jitter: Distributed Load"
+        JF[100 Clients Fail<br/>at T=0] --> JW[Wait 0.5-1.5s<br/>Random Distribution]
+        JW --> JR1[10 retry at T=0.5s]
+        JW --> JR2[15 retry at T=0.7s]
+        JW --> JR3[20 retry at T=1.0s]
+        JW --> JR4[15 retry at T=1.3s]
+        JW --> JR5[10 retry at T=1.5s]
+        JR1 & JR2 & JR3 & JR4 & JR5 --> JS[Server Handles Load!]
+    end
+    
+    style WC fill:#ff6b6b
+    style JS fill:#95e1d3
+```
 
 ### Production-Ready Implementation
 

@@ -789,7 +789,7 @@ graph TB
 
 ### System State Visualization
 
-```dockerfile
+```text
 Low Load (λ=10/s, W=0.1s):
 Queue: [█░░░░░░░░░] L=1
 Flow:  →→→→→→→→→→ Smooth
@@ -907,7 +907,7 @@ graph TB
 
 ### Little's Law Dashboard
 
-```dockerfile
+```text
 System Metrics Dashboard
 ========================
 Current State:

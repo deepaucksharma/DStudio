@@ -55,19 +55,33 @@ With FinOps:
 
 ### The Cloud Cost Iceberg
 
-```
-Visible (10%): Compute (EC2) - $10K/month
-
-Hidden (90%):
-├── Data Transfer ($3K)
-├── Storage ($2K)
-├── Idle Resources ($4K)
-├── Overprovisioning ($5K)
-├── API Calls ($1K)
-├── Snapshots ($2K)
-└── Support Plans ($3K)
-
-Real cost: $30K/month!
+```mermaid
+graph TB
+    subgraph "The Cost Iceberg"
+        subgraph "Visible Costs (10%)"
+            VC[Compute EC2<br/>$10K/month]
+        end
+        
+        subgraph "Hidden Costs (90%)"
+            HC1[Data Transfer<br/>$3K]
+            HC2[Storage<br/>$2K]
+            HC3[Idle Resources<br/>$4K]
+            HC4[Overprovisioning<br/>$5K]
+            HC5[API Calls<br/>$1K]
+            HC6[Snapshots<br/>$2K]
+            HC7[Support Plans<br/>$3K]
+        end
+        
+        TOTAL[Total Real Cost<br/>$30K/month!]
+        
+        VC --> TOTAL
+        HC1 & HC2 & HC3 & HC4 & HC5 & HC6 & HC7 --> TOTAL
+    end
+    
+    style VC fill:#95e1d3
+    style HC3 fill:#ff6b6b
+    style HC4 fill:#ff6b6b
+    style TOTAL fill:#f7dc6f,stroke:#333,stroke-width:4px
 ```
 
 ---
@@ -77,6 +91,48 @@ Real cost: $30K/month!
 ### Core Concepts
 
 #### The Three Pillars of FinOps
+
+```mermaid
+graph LR
+    subgraph "FinOps Lifecycle"
+        I[INFORM<br/>Make costs visible]
+        O[OPTIMIZE<br/>Eliminate waste]
+        OP[OPERATE<br/>Build culture]
+        
+        I -->|Data drives| O
+        O -->|Continuous| OP
+        OP -->|Feedback| I
+    end
+    
+    subgraph "Inform Activities"
+        I1[Cost Tagging]
+        I2[Dashboards]
+        I3[Allocation]
+        I4[Showback]
+    end
+    
+    subgraph "Optimize Activities"
+        O1[Rightsizing]
+        O2[Scheduling]
+        O3[Reserved Instances]
+        O4[Architecture]
+    end
+    
+    subgraph "Operate Activities"
+        OP1[Automation]
+        OP2[Governance]
+        OP3[Culture]
+        OP4[Metrics]
+    end
+    
+    I --> I1 & I2 & I3 & I4
+    O --> O1 & O2 & O3 & O4
+    OP --> OP1 & OP2 & OP3 & OP4
+    
+    style I fill:#4ecdc4
+    style O fill:#95e1d3
+    style OP fill:#f7dc6f
+```
 
 ```python
 class FinOpsPillars:

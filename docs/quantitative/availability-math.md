@@ -252,7 +252,7 @@ graph LR
 
 ### The Nines Visualization
 
-```dockerfile
+```text
 99% (2 nines):    ████████████████████░ 3.65 days/year
 99.9% (3 nines):  ███████████████████▉░ 8.76 hours/year  
 99.99% (4 nines): ████████████████████░ 52.6 minutes/year
