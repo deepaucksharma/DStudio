@@ -1521,7 +1521,7 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ### 📊 Quantitative Models
 - **[CAP Theorem](../quantitative/cap-theorem.md)** - Sync consistency trade-offs
 - **[Information Theory](../quantitative/information-theory.md)** - Compression limits
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - Upload/download capacity
+- **[Queueing Theory](../quantitative/queueing-models.md)** - Upload/download capacity
 - **[Storage Economics](../quantitative/storage-economics.md)** - Cost optimization
 
 ### 🔄 Similar Case Studies

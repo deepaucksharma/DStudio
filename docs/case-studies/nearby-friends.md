@@ -1685,7 +1685,7 @@ class PrivacyDashboard:
 ### 🏛️ Related Patterns
 - **[Location Privacy](../patterns/location-privacy.md)** - K-anonymity, fuzzing
 - **[Consent Management](../patterns/consent-management.md)** - GDPR compliance
-- **[Stream Processing](../patterns/stream-processing.md)** - Real-time events
+- **[Stream Processing](../patterns/queues-streaming.md)** - Real-time events
 - **[Edge Computing](../patterns/edge-computing.md)** - Regional processing
 - **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
 - **[Geofencing](../patterns/geofencing.md)** - Location triggers

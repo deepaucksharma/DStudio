@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn distributed systems from first principles through physics and mathematics">
+        <meta name="description" content="Build a real-time search suggestion system handling millions of queries per second">
       
       
       
@@ -16,7 +16,7 @@
         <link rel="prev" href="../news-feed/">
       
       
-        <link rel="next" href="../search-autocomplete-enhanced/">
+        <link rel="next" href="../web-crawler/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Search Autocomplete - The Compendium of Distributed Systems</title>
+        <title>Search Autocomplete System Design - The Compendium of Distributed Systems</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#design-a-search-autocomplete-system" class="md-skip">
+        <a href="#search-autocomplete-system-design" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Search Autocomplete
+              Search Autocomplete System Design
             
           </span>
         </div>
@@ -5556,6 +5556,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -5736,6 +5743,13 @@
     Chaos Engineering
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6687,6 +6701,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -6709,6 +6730,13 @@
     Google Drive
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6733,6 +6761,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -6756,8 +6791,6 @@
   
     
     
-      
-        
       
         
       
@@ -6821,29 +6854,6 @@
   
   <span class="md-ellipsis">
     Chat System
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chat-system-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Chat System Enhanced
     
   </span>
   
@@ -6967,8 +6977,6 @@
       
         
       
-        
-      
     
     
     
@@ -7033,6 +7041,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -7045,6 +7060,13 @@
     Search Autocomplete
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -7065,22 +7087,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
+      Overview
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-1-concept-map-the-physics-of-predictive-search" class="md-nav__link">
+  <a href="#core-concepts" class="md-nav__link">
     <span class="md-ellipsis">
-      Part 1: Concept Map - The Physics of Predictive Search
+      Core Concepts
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Part 1: Concept Map - The Physics of Predictive Search">
+    <nav class="md-nav" aria-label="Core Concepts">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -7161,13 +7183,73 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#part-2-architecture-building-typeahead-at-scale" class="md-nav__link">
+  <a href="#architecture-evolution" class="md-nav__link">
     <span class="md-ellipsis">
-      Part 2: Architecture - Building Typeahead at Scale
+      Architecture Evolution
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Part 2: Architecture - Building Typeahead at Scale">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-evolution_1" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Architecture Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Architecture Evolution">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-simple-prefix-matching-2004-2006" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Simple Prefix Matching (2004-2006)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-trie-based-in-memory-solution-2006-2010" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Trie-Based In-Memory Solution (2006-2010)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-distributed-architecture-2010-2015" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Distributed Architecture (2010-2015)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-modern-multi-model-architecture-2015-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Modern Multi-Model Architecture (2015-Present)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Core Components Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Core Components Deep Dive">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -7215,6 +7297,30 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#axiom-mapping-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Axiom Mapping &amp; Design Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Axiom Mapping &amp; Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-design-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Design Decision Matrix
+    </span>
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#recommended-hybrid-architecture" class="md-nav__link">
     <span class="md-ellipsis">
@@ -7239,6 +7345,141 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#performance-optimization-techniques" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Performance Optimization Techniques
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Performance Optimization Techniques">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-query-processing-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Query Processing Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-memory-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Memory Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-distributed-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Distributed Coordination
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-handling-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Failure Handling &amp; Recovery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Failure Handling &amp; Recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-failure-scenarios" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Failure Scenarios
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Key Design Insights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-concepts-deep-dives" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔍 Related Concepts &amp; Deep Dives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔍 Related Concepts &amp; Deep Dives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#relevant-axioms" class="md-nav__link">
+    <span class="md-ellipsis">
+      📚 Relevant Axioms
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏛️ Related Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantitative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Quantitative Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#similar-case-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Similar Case Studies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#conclusion" class="md-nav__link">
     <span class="md-ellipsis">
       Conclusion
@@ -7251,36 +7492,6 @@
   
 </nav>
       
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../search-autocomplete-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Search Autocomplete Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
     </li>
   
 
@@ -7337,14 +7548,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -7393,95 +7596,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../uber-location-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Uber Location Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../google-maps-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Google Maps Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../nearby-friends/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Nearby Friends
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../nearby-friends-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Nearby Friends Enhanced
     
   </span>
   
@@ -7515,29 +7635,6 @@
     
   </span>
   
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../proximity-service-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Proximity Service Enhanced
-    
-  </span>
-  
     
   
   
@@ -7568,8 +7665,6 @@
   
     
     
-      
-        
       
         
       
@@ -7710,36 +7805,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../google-drive-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Google Drive Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../consistent-hashing/" class="md-nav__link">
         
   
@@ -7779,12 +7844,6 @@
   
     
     
-      
-        
-      
-        
-      
-        
       
         
       
@@ -7872,29 +7931,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../payment-system-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Payment System Enhanced
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../digital-wallet-enhanced/" class="md-nav__link">
         
   
@@ -7948,29 +7984,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../hotel-reservation-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Hotel Reservation Enhanced
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../stock-exchange/" class="md-nav__link">
         
   
@@ -7986,29 +7999,6 @@
     <span class="md-status md-status--complete"></span>
   
 
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../stock-exchange-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Stock Exchange Enhanced
-    
-  </span>
   
 
       </a>
@@ -8187,8 +8177,6 @@
       
         
       
-        
-      
     
     
     
@@ -8320,36 +8308,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../distributed-message-queue-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Distributed Message Queue Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -8366,8 +8324,6 @@
   
     
     
-      
-        
       
         
       
@@ -8427,36 +8383,6 @@
     Gaming Leaderboard Enhanced
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../youtube-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    YouTube Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
   
 
       </a>
@@ -8952,13 +8878,18 @@
   
 
 
-<h1 id="design-a-search-autocomplete-system">Design a Search Autocomplete System<a class="headerlink" href="#design-a-search-autocomplete-system" title="Permanent link">&para;</a></h1>
-<p><em>Estimated reading time: 40 minutes</em></p>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>Search autocomplete, also known as typeahead or search suggestions, is one of the most latency-sensitive distributed systems in production. When users type "app" and see "apple", "application", and "appointment" appear within 50 milliseconds, they're witnessing a complex dance of tries, caches, and predictive algorithms. From Google's instant search processing 3.5 billion queries daily to e-commerce sites predicting purchase intent, these systems must balance sub-100ms latency with relevance and scale. Let's explore how physics and information theory shape these seemingly simple suggestion boxes.</p>
-<h2 id="part-1-concept-map-the-physics-of-predictive-search">Part 1: Concept Map - The Physics of Predictive Search<a class="headerlink" href="#part-1-concept-map-the-physics-of-predictive-search" title="Permanent link">&para;</a></h2>
+<!-- Navigation -->
+<p><a href="../../">Home</a> → <a href="../">Case Studies</a> → <strong>Search Autocomplete System Design</strong></p>
+<h1 id="search-autocomplete-system-design">🔍 Search Autocomplete System Design<a class="headerlink" href="#search-autocomplete-system-design" title="Permanent link">&para;</a></h1>
+<p><strong>Challenge</strong>: Provide real-time search suggestions for billions of queries with &lt;100ms latency</p>
+<div class="admonition info">
+<p class="admonition-title">Case Study Sources</p>
+<p>Based on: Google Autocomplete¹, Facebook Typeahead², LinkedIn Search³, Twitter Typeahead⁴, Elasticsearch Suggesters⁵</p>
+</div>
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Typeahead requires &lt;50ms response. Google: 3.5B queries/day, sub-100ms latency with relevance.</p>
+<h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
 <h3 id="axiom-1-latency-the-100ms-perception-barrier">Axiom 1: Latency - The 100ms Perception Barrier<a class="headerlink" href="#axiom-1-latency-the-100ms-perception-barrier" title="Permanent link">&para;</a></h3>
-<p>Human perception requires search suggestions to appear within 100ms to feel "instant". This creates extreme latency pressure.</p>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
 </span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Dict</span><span class="p">,</span> <span class="n">Set</span><span class="p">,</span> <span class="n">Tuple</span><span class="p">,</span> <span class="n">Optional</span>
@@ -9867,7 +9798,169 @@
 </span><span id="__span-7-83"><a id="__codelineno-7-83" name="__codelineno-7-83" href="#__codelineno-7-83"></a>            <span class="s1">&#39;use_ml_ranking&#39;</span><span class="p">:</span> <span class="n">selected_level</span> <span class="o">==</span> <span class="s1">&#39;premium&#39;</span>
 </span><span id="__span-7-84"><a id="__codelineno-7-84" name="__codelineno-7-84" href="#__codelineno-7-84"></a>        <span class="p">}</span>
 </span></code></pre></div>
-<h2 id="part-2-architecture-building-typeahead-at-scale">Part 2: Architecture - Building Typeahead at Scale<a class="headerlink" href="#part-2-architecture-building-typeahead-at-scale" title="Permanent link">&para;</a></h2>
+<h2 id="architecture-evolution">Architecture Evolution<a class="headerlink" href="#architecture-evolution" title="Permanent link">&para;</a></h2>
+<h2 id="architecture-evolution_1">🏗️ Architecture Evolution<a class="headerlink" href="#architecture-evolution_1" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-simple-prefix-matching-2004-2006">Phase 1: Simple Prefix Matching (2004-2006)<a class="headerlink" href="#phase-1-simple-prefix-matching-2004-2006" title="Permanent link">&para;</a></h3>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Browser → Web Server → SQL Database (LIKE queries) → Results
+</span></code></pre></div>
+<strong>Problems</strong>: LIKE queries &gt;1s, no ranking, CPU overload, no typo tolerance
+<strong>Patterns Violated</strong>: No indexing, caching, or load distribution</p>
+<h3 id="phase-2-trie-based-in-memory-solution-2006-2010">Phase 2: Trie-Based In-Memory Solution (2006-2010)<a class="headerlink" href="#phase-2-trie-based-in-memory-solution-2006-2010" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Client"
+        B[Browser&lt;br/&gt;Debounced Input]
+    end
+
+    subgraph "Application Layer"
+        LB[Load Balancer]
+        AS1[App Server 1&lt;br/&gt;Trie in Memory]
+        AS2[App Server 2&lt;br/&gt;Trie in Memory]
+        ASN[App Server N&lt;br/&gt;Trie in Memory]
+    end
+
+    subgraph "Data Layer"
+        MDB[(Master DB&lt;br/&gt;Query Logs)]
+        BATCH[Batch Job&lt;br/&gt;Trie Builder]
+    end
+
+    B --&gt; LB
+    LB --&gt; AS1 &amp; AS2 &amp; ASN
+    MDB --&gt; BATCH
+    BATCH --&gt; AS1 &amp; AS2 &amp; ASN
+
+    style AS1 fill:#ff9999</code></pre>
+<p><strong>Key Decision</strong>: In-memory trie data structure
+<strong>Result</strong>: &lt;50ms response time (95% latency reduction per reports¹)</p>
+<h3 id="phase-3-distributed-architecture-2010-2015">Phase 3: Distributed Architecture (2010-2015)<a class="headerlink" href="#phase-3-distributed-architecture-2010-2015" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Data Collection"
+        QL[Query Logs&lt;br/&gt;1B+ queries/day]
+        CT[Click Through Data]
+        UB[User Behavior]
+    end
+
+    subgraph "Processing Pipeline"
+        KAFKA[Kafka&lt;br/&gt;Event Stream]
+        SPARK[Spark&lt;br/&gt;Aggregation]
+        ML[ML Pipeline&lt;br/&gt;Ranking]
+    end
+
+    subgraph "Serving Layer"
+        subgraph "Shard 1"
+            T1[Trie Shard A-F]
+            C1[Redis Cache]
+        end
+        subgraph "Shard 2"
+            T2[Trie Shard G-M]
+            C2[Redis Cache]
+        end
+        subgraph "Shard 3"
+            T3[Trie Shard N-Z]
+            C3[Redis Cache]
+        end
+    end
+
+    subgraph "API Gateway"
+        GW[Gateway&lt;br/&gt;Route by Prefix]
+        AGG[Result Aggregator]
+    end
+
+    QL &amp; CT &amp; UB --&gt; KAFKA
+    KAFKA --&gt; SPARK --&gt; ML
+    ML --&gt; T1 &amp; T2 &amp; T3
+
+    GW --&gt; T1 &amp; T2 &amp; T3
+    T1 &amp; T2 &amp; T3 --&gt; AGG
+    C1 &amp; C2 &amp; C3 --&gt; AGG</code></pre>
+<p>**Innovation: Sharded Trie with ML Ranking**³
+- Distributed trie across multiple servers
+- Machine learning for relevance ranking
+- Real-time updates from query stream
+- Personalized suggestions</p>
+<p><strong>Patterns &amp; Pillars Applied</strong>:
+- 🔧 Pattern: <a href="../../patterns/sharding/">Sharding</a> - Prefix-based partitioning
+- 🔧 Pattern: <a href="../../patterns/caching-strategies/">Cache-Aside</a> - Redis for hot queries
+- 🏛️ Pillar: <a href="../../part2-pillars/work/">Work Distribution</a> - Parallel prefix search
+- 🏛️ Pillar: <a href="../../part2-pillars/intelligence/">Intelligence</a> - ML ranking</p>
+<h3 id="phase-4-modern-multi-model-architecture-2015-present">Phase 4: Modern Multi-Model Architecture (2015-Present)<a class="headerlink" href="#phase-4-modern-multi-model-architecture-2015-present" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Client Layer"
+        WEB[Web Browser&lt;br/&gt;Progressive Enhancement]
+        MOB[Mobile App&lt;br/&gt;Offline Cache]
+        API[API Clients]
+    end
+
+    subgraph "Edge Layer"
+        CDN[CDN&lt;br/&gt;Static Suggestions]
+        EDGE[Edge Compute&lt;br/&gt;Popular Queries]
+    end
+
+    subgraph "Gateway"
+        APIGW[API Gateway&lt;br/&gt;Rate Limiting]
+        AUTH[Auth Service]
+        ROUTE[Smart Router&lt;br/&gt;A/B Testing]
+    end
+
+    subgraph "Search Services"
+        subgraph "Real-time"
+            PREFIX[Prefix Service&lt;br/&gt;Trie-based]
+            FUZZY[Fuzzy Service&lt;br/&gt;Edit Distance]
+            SEMANTIC[Semantic Service&lt;br/&gt;Word2Vec]
+        end
+
+        subgraph "ML Services"
+            RANK[Ranking Service&lt;br/&gt;XGBoost]
+            PERSONAL[Personalization&lt;br/&gt;User Context]
+            INTENT[Intent Detection&lt;br/&gt;BERT]
+        end
+    end
+
+    subgraph "Data Infrastructure"
+        subgraph "Hot Storage"
+            REDIS[Redis Cluster&lt;br/&gt;Top 10M queries]
+            MEMCACHE[Memcached&lt;br/&gt;Session Data]
+        end
+
+        subgraph "Search Indices"
+            ES[Elasticsearch&lt;br/&gt;Full Text]
+            SOLR[Solr&lt;br/&gt;Faceted Search]
+            TRIE[Distributed Trie&lt;br/&gt;100M+ terms]
+        end
+
+        subgraph "Analytics"
+            CLICK[Clickstream&lt;br/&gt;Kafka]
+            DW[Data Warehouse&lt;br/&gt;BigQuery]
+            FEATURE[Feature Store&lt;br/&gt;Real-time]
+        end
+    end
+
+    subgraph "ML Platform"
+        TRAIN[Training Pipeline&lt;br/&gt;TensorFlow]
+        SERVE[Model Serving&lt;br/&gt;TensorFlow Serving]
+        MONITOR[Model Monitor&lt;br/&gt;Drift Detection]
+    end
+
+    WEB &amp; MOB &amp; API --&gt; CDN &amp; EDGE
+    CDN &amp; EDGE --&gt; APIGW
+    APIGW --&gt; AUTH --&gt; ROUTE
+
+    ROUTE --&gt; PREFIX &amp; FUZZY &amp; SEMANTIC
+    PREFIX --&gt; TRIE &amp; REDIS
+    FUZZY --&gt; ES
+    SEMANTIC --&gt; SERVE
+
+    PREFIX &amp; FUZZY &amp; SEMANTIC --&gt; RANK
+    RANK --&gt; PERSONAL --&gt; INTENT
+
+    CLICK --&gt; DW --&gt; TRAIN
+    TRAIN --&gt; SERVE
+    PERSONAL --&gt; FEATURE
+
+    style PREFIX fill:#ff6b6b
+    style RANK fill:#4ecdc4
+    style REDIS fill:#95e1d3</code></pre>
+<p><strong>Current Scale</strong>: 1M+ QPS, &lt;50ms P99 latency, 40+ languages, typo correction, voice search, context-aware</p>
+<h2 id="core-components-deep-dive">📊 Core Components Deep Dive<a class="headerlink" href="#core-components-deep-dive" title="Permanent link">&para;</a></h2>
 <h3 id="current-architecture-the-distributed-trie-system">Current Architecture: The Distributed Trie System<a class="headerlink" href="#current-architecture-the-distributed-trie-system" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TB
     subgraph "Client Layer"
@@ -9907,23 +10000,23 @@
     end</code></pre>
 <h3 id="alternative-architecture-1-bloom-filter-database">Alternative Architecture 1: Bloom Filter + Database<a class="headerlink" href="#alternative-architecture-1-bloom-filter-database" title="Permanent link">&para;</a></h3>
 <p><strong>Design</strong>: Use Bloom filters for existence checking, then query database.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">BloomFilterArchitecture</span><span class="p">:</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filters</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># prefix_length -&gt; bloom filter</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Full suggestion data</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="c1"># Check bloom filter first</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>            <span class="n">sub_prefix</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>            <span class="k">if</span> <span class="n">sub_prefix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filters</span><span class="p">:</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>                <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># No suggestions possible</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filters</span><span class="p">[</span><span class="n">sub_prefix</span><span class="p">]</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>                <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># Definitely no suggestions</span>
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        <span class="c1"># Query database</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_database</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">BloomFilterArchitecture</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filters</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># prefix_length -&gt; bloom filter</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">database</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Full suggestion data</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="c1"># Check bloom filter first</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">):</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>            <span class="n">sub_prefix</span> <span class="o">=</span> <span class="n">prefix</span><span class="p">[:</span><span class="n">i</span><span class="p">]</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>            <span class="k">if</span> <span class="n">sub_prefix</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filters</span><span class="p">:</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>                <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># No suggestions possible</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filters</span><span class="p">[</span><span class="n">sub_prefix</span><span class="p">]</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="n">prefix</span><span class="p">):</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>                <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># Definitely no suggestions</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>        <span class="c1"># Query database</span>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">query_database</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong>Trade-offs</strong>:
 - ✅ Memory efficient
@@ -9955,36 +10048,36 @@
 <p><strong>Use case</strong>: Static or slowly changing vocabularies with memory constraints.</p>
 <h3 id="alternative-architecture-3-elasticsearch-based">Alternative Architecture 3: Elasticsearch-Based<a class="headerlink" href="#alternative-architecture-3-elasticsearch-based" title="Permanent link">&para;</a></h3>
 <p><strong>Design</strong>: Use Elasticsearch's built-in completion suggester.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ElasticsearchArchitecture</span><span class="p">:</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">es_client</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">()</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">index_suggestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            <span class="n">index</span><span class="o">=</span><span class="s1">&#39;suggestions&#39;</span><span class="p">,</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            <span class="n">body</span><span class="o">=</span><span class="p">{</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>                <span class="s1">&#39;suggest&#39;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>                    <span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>                    <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="n">weight</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>                <span class="p">}</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            <span class="p">}</span>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        <span class="p">)</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>            <span class="n">index</span><span class="o">=</span><span class="s1">&#39;suggestions&#39;</span><span class="p">,</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>            <span class="n">body</span><span class="o">=</span><span class="p">{</span>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>                <span class="s1">&#39;suggest&#39;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>                    <span class="s1">&#39;suggestion&#39;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>                        <span class="s1">&#39;prefix&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="p">,</span>
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>                        <span class="s1">&#39;completion&#39;</span><span class="p">:</span> <span class="p">{</span>
-</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>                            <span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;suggest&#39;</span>
-</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>                        <span class="p">}</span>
-</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>                    <span class="p">}</span>
-</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>                <span class="p">}</span>
-</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>            <span class="p">}</span>
-</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>        <span class="p">)</span>
-</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_suggestions</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ElasticsearchArchitecture</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">es_client</span> <span class="o">=</span> <span class="n">Elasticsearch</span><span class="p">()</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">index_suggestion</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">weight</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_client</span><span class="o">.</span><span class="n">index</span><span class="p">(</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>            <span class="n">index</span><span class="o">=</span><span class="s1">&#39;suggestions&#39;</span><span class="p">,</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            <span class="n">body</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>                <span class="s1">&#39;suggest&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>                    <span class="s1">&#39;input&#39;</span><span class="p">:</span> <span class="n">text</span><span class="p">,</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>                    <span class="s1">&#39;weight&#39;</span><span class="p">:</span> <span class="n">weight</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>                <span class="p">}</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>            <span class="p">}</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="p">)</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">search</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        <span class="n">response</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">es_client</span><span class="o">.</span><span class="n">search</span><span class="p">(</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>            <span class="n">index</span><span class="o">=</span><span class="s1">&#39;suggestions&#39;</span><span class="p">,</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>            <span class="n">body</span><span class="o">=</span><span class="p">{</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>                <span class="s1">&#39;suggest&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>                    <span class="s1">&#39;suggestion&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>                        <span class="s1">&#39;prefix&#39;</span><span class="p">:</span> <span class="n">prefix</span><span class="p">,</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>                        <span class="s1">&#39;completion&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>                            <span class="s1">&#39;field&#39;</span><span class="p">:</span> <span class="s1">&#39;suggest&#39;</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>                        <span class="p">}</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>                    <span class="p">}</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>                <span class="p">}</span>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>            <span class="p">}</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>        <span class="p">)</span>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_parse_suggestions</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
 </span></code></pre></div>
 <p><strong>Trade-offs</strong>:
 - ✅ Built-in functionality
@@ -9995,24 +10088,24 @@
 <p><strong>Use case</strong>: Systems already using Elasticsearch, moderate latency requirements.</p>
 <h3 id="alternative-architecture-4-neural-language-model">Alternative Architecture 4: Neural Language Model<a class="headerlink" href="#alternative-architecture-4-neural-language-model" title="Permanent link">&para;</a></h3>
 <p><strong>Design</strong>: Use transformer models for suggestion generation.</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">NeuralAutocomplete</span><span class="p">:</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;gpt2-autocomplete&#39;</span><span class="p">)</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">:</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>        <span class="c1"># Generate using neural model</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>        <span class="n">suggestions</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>            <span class="n">prefix</span><span class="p">,</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>            <span class="n">num_suggestions</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>            <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        <span class="p">)</span>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">suggestions</span>
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        <span class="k">return</span> <span class="n">suggestions</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">NeuralAutocomplete</span><span class="p">:</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">model</span> <span class="o">=</span> <span class="n">load_model</span><span class="p">(</span><span class="s1">&#39;gpt2-autocomplete&#39;</span><span class="p">)</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">generate_suggestions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="k">if</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">:</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>        <span class="c1"># Generate using neural model</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>        <span class="n">suggestions</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">model</span><span class="o">.</span><span class="n">complete</span><span class="p">(</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>            <span class="n">prefix</span><span class="p">,</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>            <span class="n">num_suggestions</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>            <span class="n">max_length</span><span class="o">=</span><span class="mi">50</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>        <span class="p">)</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="p">[</span><span class="n">prefix</span><span class="p">]</span> <span class="o">=</span> <span class="n">suggestions</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>        <span class="k">return</span> <span class="n">suggestions</span>
 </span></code></pre></div>
 <p><strong>Trade-offs</strong>:
 - ✅ Generates novel suggestions
@@ -10021,6 +10114,114 @@
 - ❌ High latency (100ms+)
 - ❌ Expensive compute
 - ❌ May generate inappropriate content</p>
+<h2 id="axiom-mapping-design-decisions">🎯 Axiom Mapping &amp; Design Decisions<a class="headerlink" href="#axiom-mapping-design-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="comprehensive-design-decision-matrix">Comprehensive Design Decision Matrix<a class="headerlink" href="#comprehensive-design-decision-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Design Decision</th>
+<th>Axiom 1<br/>🚀 Latency</th>
+<th>Axiom 2<br/>💾 Capacity</th>
+<th>Axiom 3<br/>🔥 Failure</th>
+<th>Axiom 4<br/>🔀 Concurrency</th>
+<th>Axiom 5<br/>🤝 Coordination</th>
+<th>Axiom 6<br/>👁️ Observability</th>
+<th>Axiom 7<br/>👤 Human</th>
+<th>Axiom 8<br/>💰 Economics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>In-Memory Trie</strong></td>
+<td>✅ &lt;10ms lookup</td>
+<td>✅ Compact structure</td>
+<td>✅ Replicated copies</td>
+<td>✅ Lock-free reads</td>
+<td>⚪</td>
+<td>✅ Memory metrics</td>
+<td>✅ Instant response</td>
+<td>✅ RAM vs disk trade-off</td>
+</tr>
+<tr>
+<td><strong>Pre-computed Suggestions</strong></td>
+<td>✅ No computation</td>
+<td>✅ Storage for top-N</td>
+<td>⚪</td>
+<td>✅ Read-only access</td>
+<td>✅ Batch updates</td>
+<td>✅ Hit rate tracking</td>
+<td>✅ Relevant results</td>
+<td>✅ Compute once</td>
+</tr>
+<tr>
+<td><strong>Sharding by Prefix</strong></td>
+<td>✅ Parallel lookup</td>
+<td>✅ Horizontal scale</td>
+<td>✅ Shard isolation</td>
+<td>✅ Distributed search</td>
+<td>✅ Consistent hashing</td>
+<td>✅ Shard metrics</td>
+<td>⚪</td>
+<td>✅ Linear scaling</td>
+</tr>
+<tr>
+<td><strong>Multi-level Cache</strong></td>
+<td>✅ Edge caching</td>
+<td>✅ Tiered storage</td>
+<td>✅ Cache fallback</td>
+<td>⚪</td>
+<td>✅ Cache coherence</td>
+<td>✅ Cache hit rates</td>
+<td>✅ Fast everywhere</td>
+<td>✅ Bandwidth savings</td>
+</tr>
+<tr>
+<td><strong>Fuzzy Matching</strong></td>
+<td>⚪ Extra computation</td>
+<td>✅ Reuse indices</td>
+<td>✅ Graceful degradation</td>
+<td>✅ Parallel candidates</td>
+<td>⚪</td>
+<td>✅ Typo metrics</td>
+<td>✅ Forgives mistakes</td>
+<td>⚪</td>
+</tr>
+<tr>
+<td><strong>ML Ranking</strong></td>
+<td>⚪ Inference time</td>
+<td>✅ Model caching</td>
+<td>✅ Fallback ranking</td>
+<td>✅ Batch inference</td>
+<td>✅ A/B testing</td>
+<td>✅ Ranking quality</td>
+<td>✅ Personalization</td>
+<td>✅ Better CTR = revenue</td>
+</tr>
+<tr>
+<td><strong>Real-time Updates</strong></td>
+<td>✅ Fresh suggestions</td>
+<td>✅ Incremental updates</td>
+<td>✅ Eventually consistent</td>
+<td>✅ Stream processing</td>
+<td>✅ Event ordering</td>
+<td>✅ Lag monitoring</td>
+<td>✅ Current trends</td>
+<td>⚪</td>
+</tr>
+<tr>
+<td><strong>Client-side Caching</strong></td>
+<td>✅ Zero latency</td>
+<td>✅ Reduce requests</td>
+<td>✅ Offline capable</td>
+<td>⚪</td>
+<td>✅ Cache invalidation</td>
+<td>✅ Client metrics</td>
+<td>✅ Instant feel</td>
+<td>✅ Bandwidth savings</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Legend</strong>: ✅ Primary impact | ⚪ Secondary/No impact</p>
 <h3 id="recommended-hybrid-architecture">Recommended Hybrid Architecture<a class="headerlink" href="#recommended-hybrid-architecture" title="Permanent link">&para;</a></h3>
 <p>Combining trie efficiency with ML ranking and fallback strategies:</p>
 <pre class="mermaid"><code>graph TB
@@ -10056,77 +10257,309 @@
         TRAINER --&gt; MLRANKER
     end</code></pre>
 <h3 id="implementation-details">Implementation Details<a class="headerlink" href="#implementation-details" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">HybridAutocompleteSystem</span><span class="p">:</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Production-ready hybrid autocomplete&quot;&quot;&quot;</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">hot_trie</span> <span class="o">=</span> <span class="n">OptimizedTrie</span><span class="p">()</span>  <span class="c1"># Top 1M queries</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cold_storage</span> <span class="o">=</span> <span class="n">DistributedIndex</span><span class="p">()</span>  <span class="c1"># Everything else</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ml_ranker</span> <span class="o">=</span> <span class="n">MLRanker</span><span class="p">()</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cache_layers</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>            <span class="s1">&#39;client&#39;</span><span class="p">:</span> <span class="n">ClientCache</span><span class="p">(</span><span class="n">ttl</span><span class="o">=</span><span class="mi">3600</span><span class="p">),</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>            <span class="s1">&#39;edge&#39;</span><span class="p">:</span> <span class="n">EdgeCache</span><span class="p">(</span><span class="n">ttl</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="n">ServiceCache</span><span class="p">(</span><span class="n">ttl</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>        <span class="p">}</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">suggest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">SearchQuery</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Suggestion</span><span class="p">]:</span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get suggestions with &lt;100ms latency&quot;&quot;&quot;</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>        <span class="c1"># 1. Check client cache (0ms)</span>
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>        <span class="n">client_cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_layers</span><span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>        <span class="k">if</span> <span class="n">client_cached</span><span class="p">:</span>
-</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>            <span class="k">return</span> <span class="n">client_cached</span>
-</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>
-</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23" href="#__codelineno-11-23"></a>        <span class="c1"># 2. Check edge cache (5ms)</span>
-</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24" href="#__codelineno-11-24"></a>        <span class="n">edge_cached</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_layers</span><span class="p">[</span><span class="s1">&#39;edge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25" href="#__codelineno-11-25"></a>        <span class="k">if</span> <span class="n">edge_cached</span><span class="p">:</span>
-</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26" href="#__codelineno-11-26"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_update_client_cache</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">edge_cached</span><span class="p">)</span>
-</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27" href="#__codelineno-11-27"></a>            <span class="k">return</span> <span class="n">edge_cached</span>
-</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28" href="#__codelineno-11-28"></a>
-</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29" href="#__codelineno-11-29"></a>        <span class="c1"># 3. Hot path - common queries (10ms)</span>
-</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30" href="#__codelineno-11-30"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_common_query</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">):</span>
-</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31" href="#__codelineno-11-31"></a>            <span class="n">suggestions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot_trie</span><span class="o">.</span><span class="n">search_prefix</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32" href="#__codelineno-11-32"></a>            <span class="k">if</span> <span class="n">suggestions</span><span class="p">:</span>
-</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33" href="#__codelineno-11-33"></a>                <span class="n">ranked</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_rank</span><span class="p">(</span><span class="n">suggestions</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
-</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34" href="#__codelineno-11-34"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_update_caches</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">ranked</span><span class="p">)</span>
-</span><span id="__span-11-35"><a id="__codelineno-11-35" name="__codelineno-11-35" href="#__codelineno-11-35"></a>                <span class="k">return</span> <span class="n">ranked</span>
-</span><span id="__span-11-36"><a id="__codelineno-11-36" name="__codelineno-11-36" href="#__codelineno-11-36"></a>
-</span><span id="__span-11-37"><a id="__codelineno-11-37" name="__codelineno-11-37" href="#__codelineno-11-37"></a>        <span class="c1"># 4. Cold path - distributed search (50ms)</span>
-</span><span id="__span-11-38"><a id="__codelineno-11-38" name="__codelineno-11-38" href="#__codelineno-11-38"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-11-39"><a id="__codelineno-11-39" name="__codelineno-11-39" href="#__codelineno-11-39"></a>            <span class="n">suggestions</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span>
-</span><span id="__span-11-40"><a id="__codelineno-11-40" name="__codelineno-11-40" href="#__codelineno-11-40"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">cold_storage</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">),</span>
-</span><span id="__span-11-41"><a id="__codelineno-11-41" name="__codelineno-11-41" href="#__codelineno-11-41"></a>                <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span>  <span class="c1"># 50ms timeout</span>
-</span><span id="__span-11-42"><a id="__codelineno-11-42" name="__codelineno-11-42" href="#__codelineno-11-42"></a>            <span class="p">)</span>
-</span><span id="__span-11-43"><a id="__codelineno-11-43" name="__codelineno-11-43" href="#__codelineno-11-43"></a>
-</span><span id="__span-11-44"><a id="__codelineno-11-44" name="__codelineno-11-44" href="#__codelineno-11-44"></a>            <span class="c1"># ML ranking</span>
-</span><span id="__span-11-45"><a id="__codelineno-11-45" name="__codelineno-11-45" href="#__codelineno-11-45"></a>            <span class="n">ranked</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ml_ranker</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">suggestions</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
-</span><span id="__span-11-46"><a id="__codelineno-11-46" name="__codelineno-11-46" href="#__codelineno-11-46"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_update_caches</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">ranked</span><span class="p">)</span>
-</span><span id="__span-11-47"><a id="__codelineno-11-47" name="__codelineno-11-47" href="#__codelineno-11-47"></a>            <span class="k">return</span> <span class="n">ranked</span>
-</span><span id="__span-11-48"><a id="__codelineno-11-48" name="__codelineno-11-48" href="#__codelineno-11-48"></a>
-</span><span id="__span-11-49"><a id="__codelineno-11-49" name="__codelineno-11-49" href="#__codelineno-11-49"></a>        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
-</span><span id="__span-11-50"><a id="__codelineno-11-50" name="__codelineno-11-50" href="#__codelineno-11-50"></a>            <span class="c1"># 5. Fallback - static suggestions</span>
-</span><span id="__span-11-51"><a id="__codelineno-11-51" name="__codelineno-11-51" href="#__codelineno-11-51"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fallback_suggestions</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
-</span><span id="__span-11-52"><a id="__codelineno-11-52" name="__codelineno-11-52" href="#__codelineno-11-52"></a>
-</span><span id="__span-11-53"><a id="__codelineno-11-53" name="__codelineno-11-53" href="#__codelineno-11-53"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_is_common_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="__span-11-54"><a id="__codelineno-11-54" name="__codelineno-11-54" href="#__codelineno-11-54"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if query is in hot dataset&quot;&quot;&quot;</span>
-</span><span id="__span-11-55"><a id="__codelineno-11-55" name="__codelineno-11-55" href="#__codelineno-11-55"></a>        <span class="c1"># First few characters determine if likely common</span>
-</span><span id="__span-11-56"><a id="__codelineno-11-56" name="__codelineno-11-56" href="#__codelineno-11-56"></a>        <span class="n">prefix</span> <span class="o">=</span> <span class="n">query</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">query</span>
-</span><span id="__span-11-57"><a id="__codelineno-11-57" name="__codelineno-11-57" href="#__codelineno-11-57"></a>        <span class="n">common_prefixes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="s1">&#39;fa&#39;</span><span class="p">,</span> <span class="s1">&#39;yo&#39;</span><span class="p">,</span> <span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;ne&#39;</span><span class="p">,</span> <span class="s1">&#39;tw&#39;</span><span class="p">}</span>
-</span><span id="__span-11-58"><a id="__codelineno-11-58" name="__codelineno-11-58" href="#__codelineno-11-58"></a>        <span class="k">return</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">common_prefixes</span>
-</span><span id="__span-11-59"><a id="__codelineno-11-59" name="__codelineno-11-59" href="#__codelineno-11-59"></a>
-</span><span id="__span-11-60"><a id="__codelineno-11-60" name="__codelineno-11-60" href="#__codelineno-11-60"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_fast_rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">suggestions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> 
-</span><span id="__span-11-61"><a id="__codelineno-11-61" name="__codelineno-11-61" href="#__codelineno-11-61"></a>                        <span class="n">query</span><span class="p">:</span> <span class="n">SearchQuery</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Suggestion</span><span class="p">]:</span>
-</span><span id="__span-11-62"><a id="__codelineno-11-62" name="__codelineno-11-62" href="#__codelineno-11-62"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Simple frequency-based ranking&quot;&quot;&quot;</span>
-</span><span id="__span-11-63"><a id="__codelineno-11-63" name="__codelineno-11-63" href="#__codelineno-11-63"></a>        <span class="k">return</span> <span class="p">[</span>
-</span><span id="__span-11-64"><a id="__codelineno-11-64" name="__codelineno-11-64" href="#__codelineno-11-64"></a>            <span class="n">Suggestion</span><span class="p">(</span>
-</span><span id="__span-11-65"><a id="__codelineno-11-65" name="__codelineno-11-65" href="#__codelineno-11-65"></a>                <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
-</span><span id="__span-11-66"><a id="__codelineno-11-66" name="__codelineno-11-66" href="#__codelineno-11-66"></a>                <span class="n">score</span><span class="o">=</span><span class="n">freq</span> <span class="o">/</span> <span class="mi">1000000</span><span class="p">,</span>  <span class="c1"># Normalize</span>
-</span><span id="__span-11-67"><a id="__codelineno-11-67" name="__codelineno-11-67" href="#__codelineno-11-67"></a>                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;hot&#39;</span><span class="p">}</span>
-</span><span id="__span-11-68"><a id="__codelineno-11-68" name="__codelineno-11-68" href="#__codelineno-11-68"></a>            <span class="p">)</span>
-</span><span id="__span-11-69"><a id="__codelineno-11-69" name="__codelineno-11-69" href="#__codelineno-11-69"></a>            <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
-</span><span id="__span-11-70"><a id="__codelineno-11-70" name="__codelineno-11-70" href="#__codelineno-11-70"></a>        <span class="p">]</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">HybridAutocompleteSystem</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Production-ready hybrid autocomplete&quot;&quot;&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">hot_trie</span> <span class="o">=</span> <span class="n">OptimizedTrie</span><span class="p">()</span>  <span class="c1"># Top 1M queries</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cold_storage</span> <span class="o">=</span> <span class="n">DistributedIndex</span><span class="p">()</span>  <span class="c1"># Everything else</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ml_ranker</span> <span class="o">=</span> <span class="n">MLRanker</span><span class="p">()</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">cache_layers</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>            <span class="s1">&#39;client&#39;</span><span class="p">:</span> <span class="n">ClientCache</span><span class="p">(</span><span class="n">ttl</span><span class="o">=</span><span class="mi">3600</span><span class="p">),</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>            <span class="s1">&#39;edge&#39;</span><span class="p">:</span> <span class="n">EdgeCache</span><span class="p">(</span><span class="n">ttl</span><span class="o">=</span><span class="mi">300</span><span class="p">),</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="n">ServiceCache</span><span class="p">(</span><span class="n">ttl</span><span class="o">=</span><span class="mi">60</span><span class="p">)</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>        <span class="p">}</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">suggest</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="n">SearchQuery</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Suggestion</span><span class="p">]:</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get suggestions with &lt;100ms latency&quot;&quot;&quot;</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>        <span class="n">start_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>        <span class="c1"># 1. Check client cache (0ms)</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>        <span class="n">client_cached</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_layers</span><span class="p">[</span><span class="s1">&#39;client&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>        <span class="k">if</span> <span class="n">client_cached</span><span class="p">:</span>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>            <span class="k">return</span> <span class="n">client_cached</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>        <span class="c1"># 2. Check edge cache (5ms)</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>        <span class="n">edge_cached</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache_layers</span><span class="p">[</span><span class="s1">&#39;edge&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>        <span class="k">if</span> <span class="n">edge_cached</span><span class="p">:</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_update_client_cache</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">edge_cached</span><span class="p">)</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>            <span class="k">return</span> <span class="n">edge_cached</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>        <span class="c1"># 3. Hot path - common queries (10ms)</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_common_query</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">):</span>
+</span><span id="__span-12-31"><a id="__codelineno-12-31" name="__codelineno-12-31" href="#__codelineno-12-31"></a>            <span class="n">suggestions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hot_trie</span><span class="o">.</span><span class="n">search_prefix</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</span><span id="__span-12-32"><a id="__codelineno-12-32" name="__codelineno-12-32" href="#__codelineno-12-32"></a>            <span class="k">if</span> <span class="n">suggestions</span><span class="p">:</span>
+</span><span id="__span-12-33"><a id="__codelineno-12-33" name="__codelineno-12-33" href="#__codelineno-12-33"></a>                <span class="n">ranked</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fast_rank</span><span class="p">(</span><span class="n">suggestions</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+</span><span id="__span-12-34"><a id="__codelineno-12-34" name="__codelineno-12-34" href="#__codelineno-12-34"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_update_caches</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">ranked</span><span class="p">)</span>
+</span><span id="__span-12-35"><a id="__codelineno-12-35" name="__codelineno-12-35" href="#__codelineno-12-35"></a>                <span class="k">return</span> <span class="n">ranked</span>
+</span><span id="__span-12-36"><a id="__codelineno-12-36" name="__codelineno-12-36" href="#__codelineno-12-36"></a>
+</span><span id="__span-12-37"><a id="__codelineno-12-37" name="__codelineno-12-37" href="#__codelineno-12-37"></a>        <span class="c1"># 4. Cold path - distributed search (50ms)</span>
+</span><span id="__span-12-38"><a id="__codelineno-12-38" name="__codelineno-12-38" href="#__codelineno-12-38"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-12-39"><a id="__codelineno-12-39" name="__codelineno-12-39" href="#__codelineno-12-39"></a>            <span class="n">suggestions</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span>
+</span><span id="__span-12-40"><a id="__codelineno-12-40" name="__codelineno-12-40" href="#__codelineno-12-40"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">cold_storage</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">),</span>
+</span><span id="__span-12-41"><a id="__codelineno-12-41" name="__codelineno-12-41" href="#__codelineno-12-41"></a>                <span class="n">timeout</span><span class="o">=</span><span class="mf">0.05</span>  <span class="c1"># 50ms timeout</span>
+</span><span id="__span-12-42"><a id="__codelineno-12-42" name="__codelineno-12-42" href="#__codelineno-12-42"></a>            <span class="p">)</span>
+</span><span id="__span-12-43"><a id="__codelineno-12-43" name="__codelineno-12-43" href="#__codelineno-12-43"></a>
+</span><span id="__span-12-44"><a id="__codelineno-12-44" name="__codelineno-12-44" href="#__codelineno-12-44"></a>            <span class="c1"># ML ranking</span>
+</span><span id="__span-12-45"><a id="__codelineno-12-45" name="__codelineno-12-45" href="#__codelineno-12-45"></a>            <span class="n">ranked</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ml_ranker</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">suggestions</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+</span><span id="__span-12-46"><a id="__codelineno-12-46" name="__codelineno-12-46" href="#__codelineno-12-46"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_update_caches</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">,</span> <span class="n">ranked</span><span class="p">)</span>
+</span><span id="__span-12-47"><a id="__codelineno-12-47" name="__codelineno-12-47" href="#__codelineno-12-47"></a>            <span class="k">return</span> <span class="n">ranked</span>
+</span><span id="__span-12-48"><a id="__codelineno-12-48" name="__codelineno-12-48" href="#__codelineno-12-48"></a>
+</span><span id="__span-12-49"><a id="__codelineno-12-49" name="__codelineno-12-49" href="#__codelineno-12-49"></a>        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+</span><span id="__span-12-50"><a id="__codelineno-12-50" name="__codelineno-12-50" href="#__codelineno-12-50"></a>            <span class="c1"># 5. Fallback - static suggestions</span>
+</span><span id="__span-12-51"><a id="__codelineno-12-51" name="__codelineno-12-51" href="#__codelineno-12-51"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_fallback_suggestions</span><span class="p">(</span><span class="n">query</span><span class="o">.</span><span class="n">query</span><span class="p">)</span>
+</span><span id="__span-12-52"><a id="__codelineno-12-52" name="__codelineno-12-52" href="#__codelineno-12-52"></a>
+</span><span id="__span-12-53"><a id="__codelineno-12-53" name="__codelineno-12-53" href="#__codelineno-12-53"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_is_common_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="__span-12-54"><a id="__codelineno-12-54" name="__codelineno-12-54" href="#__codelineno-12-54"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if query is in hot dataset&quot;&quot;&quot;</span>
+</span><span id="__span-12-55"><a id="__codelineno-12-55" name="__codelineno-12-55" href="#__codelineno-12-55"></a>        <span class="c1"># First few characters determine if likely common</span>
+</span><span id="__span-12-56"><a id="__codelineno-12-56" name="__codelineno-12-56" href="#__codelineno-12-56"></a>        <span class="n">prefix</span> <span class="o">=</span> <span class="n">query</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">query</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">2</span> <span class="k">else</span> <span class="n">query</span>
+</span><span id="__span-12-57"><a id="__codelineno-12-57" name="__codelineno-12-57" href="#__codelineno-12-57"></a>        <span class="n">common_prefixes</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;go&#39;</span><span class="p">,</span> <span class="s1">&#39;fa&#39;</span><span class="p">,</span> <span class="s1">&#39;yo&#39;</span><span class="p">,</span> <span class="s1">&#39;am&#39;</span><span class="p">,</span> <span class="s1">&#39;ne&#39;</span><span class="p">,</span> <span class="s1">&#39;tw&#39;</span><span class="p">}</span>
+</span><span id="__span-12-58"><a id="__codelineno-12-58" name="__codelineno-12-58" href="#__codelineno-12-58"></a>        <span class="k">return</span> <span class="n">prefix</span> <span class="ow">in</span> <span class="n">common_prefixes</span>
+</span><span id="__span-12-59"><a id="__codelineno-12-59" name="__codelineno-12-59" href="#__codelineno-12-59"></a>
+</span><span id="__span-12-60"><a id="__codelineno-12-60" name="__codelineno-12-60" href="#__codelineno-12-60"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_fast_rank</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">suggestions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Tuple</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">int</span><span class="p">]],</span> 
+</span><span id="__span-12-61"><a id="__codelineno-12-61" name="__codelineno-12-61" href="#__codelineno-12-61"></a>                        <span class="n">query</span><span class="p">:</span> <span class="n">SearchQuery</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Suggestion</span><span class="p">]:</span>
+</span><span id="__span-12-62"><a id="__codelineno-12-62" name="__codelineno-12-62" href="#__codelineno-12-62"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Simple frequency-based ranking&quot;&quot;&quot;</span>
+</span><span id="__span-12-63"><a id="__codelineno-12-63" name="__codelineno-12-63" href="#__codelineno-12-63"></a>        <span class="k">return</span> <span class="p">[</span>
+</span><span id="__span-12-64"><a id="__codelineno-12-64" name="__codelineno-12-64" href="#__codelineno-12-64"></a>            <span class="n">Suggestion</span><span class="p">(</span>
+</span><span id="__span-12-65"><a id="__codelineno-12-65" name="__codelineno-12-65" href="#__codelineno-12-65"></a>                <span class="n">text</span><span class="o">=</span><span class="n">text</span><span class="p">,</span>
+</span><span id="__span-12-66"><a id="__codelineno-12-66" name="__codelineno-12-66" href="#__codelineno-12-66"></a>                <span class="n">score</span><span class="o">=</span><span class="n">freq</span> <span class="o">/</span> <span class="mi">1000000</span><span class="p">,</span>  <span class="c1"># Normalize</span>
+</span><span id="__span-12-67"><a id="__codelineno-12-67" name="__codelineno-12-67" href="#__codelineno-12-67"></a>                <span class="n">metadata</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;source&#39;</span><span class="p">:</span> <span class="s1">&#39;hot&#39;</span><span class="p">}</span>
+</span><span id="__span-12-68"><a id="__codelineno-12-68" name="__codelineno-12-68" href="#__codelineno-12-68"></a>            <span class="p">)</span>
+</span><span id="__span-12-69"><a id="__codelineno-12-69" name="__codelineno-12-69" href="#__codelineno-12-69"></a>            <span class="k">for</span> <span class="n">text</span><span class="p">,</span> <span class="n">freq</span> <span class="ow">in</span> <span class="n">suggestions</span><span class="p">[:</span><span class="mi">10</span><span class="p">]</span>
+</span><span id="__span-12-70"><a id="__codelineno-12-70" name="__codelineno-12-70" href="#__codelineno-12-70"></a>        <span class="p">]</span>
 </span></code></pre></div>
+<h2 id="performance-optimization-techniques">📊 Performance Optimization Techniques<a class="headerlink" href="#performance-optimization-techniques" title="Permanent link">&para;</a></h2>
+<h3 id="1-query-processing-pipeline">1. Query Processing Pipeline<a class="headerlink" href="#1-query-processing-pipeline" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">OptimizedQueryProcessor</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;High-performance query processing&quot;&quot;&quot;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">min_prefix_length</span> <span class="o">=</span> <span class="mi">2</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">max_suggestions</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timeout_ms</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">process_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> 
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>                          <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Process autocomplete query with optimizations&quot;&quot;&quot;</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>        <span class="c1"># 1. Input validation</span>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">min_prefix_length</span><span class="p">:</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>            <span class="k">return</span> <span class="p">[]</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>        <span class="c1"># 2. Normalize input</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>        <span class="n">normalized</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_normalize_query</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>        <span class="c1"># 3. Check bloom filter</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">bloom_filter</span><span class="o">.</span><span class="n">might_contain</span><span class="p">(</span><span class="n">normalized</span><span class="p">[:</span><span class="mi">3</span><span class="p">]):</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>            <span class="k">return</span> <span class="p">[]</span>  <span class="c1"># Early exit for non-existent prefixes</span>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>        <span class="c1"># 4. Parallel search strategies</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>        <span class="n">strategies</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_exact_prefix_search</span><span class="p">(</span><span class="n">normalized</span><span class="p">),</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_fuzzy_search</span><span class="p">(</span><span class="n">normalized</span><span class="p">),</span>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_semantic_search</span><span class="p">(</span><span class="n">normalized</span><span class="p">)</span>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>        <span class="p">]</span>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>        <span class="c1"># 5. Race with timeout</span>
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_race_with_timeout</span><span class="p">(</span>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>            <span class="n">strategies</span><span class="p">,</span> 
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">timeout_ms</span>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>        <span class="p">)</span>
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>        <span class="c1"># 6. Merge and rank</span>
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>        <span class="n">merged</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_merge_results</span><span class="p">(</span><span class="n">results</span><span class="p">)</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>        <span class="n">ranked</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_rank_results</span><span class="p">(</span><span class="n">merged</span><span class="p">,</span> <span class="n">context</span><span class="p">)</span>
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>        <span class="k">return</span> <span class="n">ranked</span><span class="p">[:</span><span class="bp">self</span><span class="o">.</span><span class="n">max_suggestions</span><span class="p">]</span>
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_race_with_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">tasks</span><span class="p">:</span> <span class="n">List</span><span class="p">,</span> 
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>                                <span class="n">timeout_ms</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">:</span>
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute tasks with timeout&quot;&quot;&quot;</span>
+</span><span id="__span-13-45"><a id="__codelineno-13-45" name="__codelineno-13-45" href="#__codelineno-13-45"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-13-46"><a id="__codelineno-13-46" name="__codelineno-13-46" href="#__codelineno-13-46"></a>            <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">wait_for</span><span class="p">(</span>
+</span><span id="__span-13-47"><a id="__codelineno-13-47" name="__codelineno-13-47" href="#__codelineno-13-47"></a>                <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_exceptions</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+</span><span id="__span-13-48"><a id="__codelineno-13-48" name="__codelineno-13-48" href="#__codelineno-13-48"></a>                <span class="n">timeout</span><span class="o">=</span><span class="n">timeout_ms</span> <span class="o">/</span> <span class="mi">1000</span>
+</span><span id="__span-13-49"><a id="__codelineno-13-49" name="__codelineno-13-49" href="#__codelineno-13-49"></a>            <span class="p">)</span>
+</span><span id="__span-13-50"><a id="__codelineno-13-50" name="__codelineno-13-50" href="#__codelineno-13-50"></a>
+</span><span id="__span-13-51"><a id="__codelineno-13-51" name="__codelineno-13-51" href="#__codelineno-13-51"></a>            <span class="c1"># Filter out exceptions</span>
+</span><span id="__span-13-52"><a id="__codelineno-13-52" name="__codelineno-13-52" href="#__codelineno-13-52"></a>            <span class="k">return</span> <span class="p">[</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">)]</span>
+</span><span id="__span-13-53"><a id="__codelineno-13-53" name="__codelineno-13-53" href="#__codelineno-13-53"></a>
+</span><span id="__span-13-54"><a id="__codelineno-13-54" name="__codelineno-13-54" href="#__codelineno-13-54"></a>        <span class="k">except</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">TimeoutError</span><span class="p">:</span>
+</span><span id="__span-13-55"><a id="__codelineno-13-55" name="__codelineno-13-55" href="#__codelineno-13-55"></a>            <span class="c1"># Return whatever completed</span>
+</span><span id="__span-13-56"><a id="__codelineno-13-56" name="__codelineno-13-56" href="#__codelineno-13-56"></a>            <span class="k">return</span> <span class="p">[</span>
+</span><span id="__span-13-57"><a id="__codelineno-13-57" name="__codelineno-13-57" href="#__codelineno-13-57"></a>                <span class="n">task</span><span class="o">.</span><span class="n">result</span><span class="p">()</span> 
+</span><span id="__span-13-58"><a id="__codelineno-13-58" name="__codelineno-13-58" href="#__codelineno-13-58"></a>                <span class="k">for</span> <span class="n">task</span> <span class="ow">in</span> <span class="n">tasks</span> 
+</span><span id="__span-13-59"><a id="__codelineno-13-59" name="__codelineno-13-59" href="#__codelineno-13-59"></a>                <span class="k">if</span> <span class="n">task</span><span class="o">.</span><span class="n">done</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">task</span><span class="o">.</span><span class="n">exception</span><span class="p">()</span>
+</span><span id="__span-13-60"><a id="__codelineno-13-60" name="__codelineno-13-60" href="#__codelineno-13-60"></a>            <span class="p">]</span>
+</span></code></pre></div>
+<h3 id="2-memory-optimization">2. Memory Optimization<a class="headerlink" href="#2-memory-optimization" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CompactTrie</span><span class="p">:</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Memory-efficient trie implementation&quot;&quot;&quot;</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="c1"># Use array instead of dict for common characters</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">children_array</span> <span class="o">=</span> <span class="p">[</span><span class="kc">None</span><span class="p">]</span> <span class="o">*</span> <span class="mi">26</span>  <span class="c1"># a-z</span>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">children_dict</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># Other characters</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">suggestions</span> <span class="o">=</span> <span class="kc">None</span>  <span class="c1"># Lazy load</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">is_compressed</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">compress</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Compress trie paths with single children&quot;&quot;&quot;</span>
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_compressed</span><span class="p">:</span>
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>            <span class="k">return</span>
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        <span class="c1"># Find chains of single-child nodes</span>
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>        <span class="n">compressed_children</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>        <span class="k">for</span> <span class="n">char</span><span class="p">,</span> <span class="n">child</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_iterate_children</span><span class="p">():</span>
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>            <span class="n">chain</span> <span class="o">=</span> <span class="p">[</span><span class="n">char</span><span class="p">]</span>
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>            <span class="n">current</span> <span class="o">=</span> <span class="n">child</span>
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>            <span class="c1"># Follow single-child chain</span>
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>            <span class="k">while</span> <span class="n">current</span><span class="o">.</span><span class="n">_child_count</span><span class="p">()</span> <span class="o">==</span> <span class="mi">1</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">current</span><span class="o">.</span><span class="n">suggestions</span><span class="p">:</span>
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>                <span class="n">next_char</span><span class="p">,</span> <span class="n">next_child</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">current</span><span class="o">.</span><span class="n">_iterate_children</span><span class="p">())</span>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>                <span class="n">chain</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">next_char</span><span class="p">)</span>
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>                <span class="n">current</span> <span class="o">=</span> <span class="n">next_child</span>
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>            <span class="c1"># Store compressed path</span>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">chain</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>                <span class="n">compressed_children</span><span class="p">[</span><span class="s1">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">chain</span><span class="p">)]</span> <span class="o">=</span> <span class="n">current</span>
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>                <span class="n">compressed_children</span><span class="p">[</span><span class="n">char</span><span class="p">]</span> <span class="o">=</span> <span class="n">child</span>
+</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>
+</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_replace_children</span><span class="p">(</span><span class="n">compressed_children</span><span class="p">)</span>
+</span><span id="__span-14-36"><a id="__codelineno-14-36" name="__codelineno-14-36" href="#__codelineno-14-36"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">is_compressed</span> <span class="o">=</span> <span class="kc">True</span>
+</span></code></pre></div>
+<h3 id="3-distributed-coordination">3. Distributed Coordination<a class="headerlink" href="#3-distributed-coordination" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">DistributedAutocomplete</span><span class="p">:</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Coordinate distributed autocomplete services&quot;&quot;&quot;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">consistent_hash</span> <span class="o">=</span> <span class="n">ConsistentHash</span><span class="p">(</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>            <span class="n">virtual_nodes</span><span class="o">=</span><span class="mi">150</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>        <span class="p">)</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">service_registry</span> <span class="o">=</span> <span class="n">ServiceRegistry</span><span class="p">()</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">circuit_breakers</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">route_query</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">prefix</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Route query to appropriate service&quot;&quot;&quot;</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13" href="#__codelineno-15-13"></a>        <span class="c1"># 1. Find responsible nodes</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14" href="#__codelineno-15-14"></a>        <span class="n">primary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consistent_hash</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15" href="#__codelineno-15-15"></a>        <span class="n">replicas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consistent_hash</span><span class="o">.</span><span class="n">get_replicas</span><span class="p">(</span><span class="n">prefix</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16" href="#__codelineno-15-16"></a>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17" href="#__codelineno-15-17"></a>        <span class="c1"># 2. Try primary with circuit breaker</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18" href="#__codelineno-15-18"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_healthy</span><span class="p">(</span><span class="n">primary</span><span class="p">):</span>
+</span><span id="__span-15-19"><a id="__codelineno-15-19" name="__codelineno-15-19" href="#__codelineno-15-19"></a>            <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-15-20"><a id="__codelineno-15-20" name="__codelineno-15-20" href="#__codelineno-15-20"></a>                <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_node</span><span class="p">(</span><span class="n">primary</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+</span><span id="__span-15-21"><a id="__codelineno-15-21" name="__codelineno-15-21" href="#__codelineno-15-21"></a>            <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+</span><span id="__span-15-22"><a id="__codelineno-15-22" name="__codelineno-15-22" href="#__codelineno-15-22"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_record_failure</span><span class="p">(</span><span class="n">primary</span><span class="p">)</span>
+</span><span id="__span-15-23"><a id="__codelineno-15-23" name="__codelineno-15-23" href="#__codelineno-15-23"></a>
+</span><span id="__span-15-24"><a id="__codelineno-15-24" name="__codelineno-15-24" href="#__codelineno-15-24"></a>        <span class="c1"># 3. Fallback to replicas</span>
+</span><span id="__span-15-25"><a id="__codelineno-15-25" name="__codelineno-15-25" href="#__codelineno-15-25"></a>        <span class="k">for</span> <span class="n">replica</span> <span class="ow">in</span> <span class="n">replicas</span><span class="p">:</span>
+</span><span id="__span-15-26"><a id="__codelineno-15-26" name="__codelineno-15-26" href="#__codelineno-15-26"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_is_healthy</span><span class="p">(</span><span class="n">replica</span><span class="p">):</span>
+</span><span id="__span-15-27"><a id="__codelineno-15-27" name="__codelineno-15-27" href="#__codelineno-15-27"></a>                <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-15-28"><a id="__codelineno-15-28" name="__codelineno-15-28" href="#__codelineno-15-28"></a>                    <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_query_node</span><span class="p">(</span><span class="n">replica</span><span class="p">,</span> <span class="n">prefix</span><span class="p">)</span>
+</span><span id="__span-15-29"><a id="__codelineno-15-29" name="__codelineno-15-29" href="#__codelineno-15-29"></a>                <span class="k">except</span> <span class="ne">Exception</span><span class="p">:</span>
+</span><span id="__span-15-30"><a id="__codelineno-15-30" name="__codelineno-15-30" href="#__codelineno-15-30"></a>                    <span class="bp">self</span><span class="o">.</span><span class="n">_record_failure</span><span class="p">(</span><span class="n">replica</span><span class="p">)</span>
+</span><span id="__span-15-31"><a id="__codelineno-15-31" name="__codelineno-15-31" href="#__codelineno-15-31"></a>
+</span><span id="__span-15-32"><a id="__codelineno-15-32" name="__codelineno-15-32" href="#__codelineno-15-32"></a>        <span class="c1"># 4. Use degraded mode</span>
+</span><span id="__span-15-33"><a id="__codelineno-15-33" name="__codelineno-15-33" href="#__codelineno-15-33"></a>        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_degraded_suggestions</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+</span></code></pre></div>
+<h2 id="failure-handling-recovery">🚨 Failure Handling &amp; Recovery<a class="headerlink" href="#failure-handling-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="common-failure-scenarios">Common Failure Scenarios<a class="headerlink" href="#common-failure-scenarios" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Trie Server Crash</strong>
+   <div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">TrieServerRecovery</span><span class="p">:</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_server_failure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">failed_server</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>        <span class="c1"># 1. Remove from rotation</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">load_balancer</span><span class="o">.</span><span class="n">remove_server</span><span class="p">(</span><span class="n">failed_server</span><span class="p">)</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>        <span class="c1"># 2. Redistribute load</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">consistent_hash</span><span class="o">.</span><span class="n">remove_node</span><span class="p">(</span><span class="n">failed_server</span><span class="p">)</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a>        <span class="c1"># 3. Trigger rebuild on new server</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">rebuild_trie_on_standby</span><span class="p">()</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Cache Stampede</strong>
+   <div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CacheStampedeProtection</span><span class="p">:</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_with_protection</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>        <span class="c1"># Use probabilistic early expiration</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>        <span class="n">value</span><span class="p">,</span> <span class="n">expiry</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">cache</span><span class="o">.</span><span class="n">get_with_expiry</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>        <span class="k">if</span> <span class="n">value</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_refresh</span><span class="p">(</span><span class="n">expiry</span><span class="p">):</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>            <span class="c1"># Refresh in background</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>            <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_refresh_cache</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>        <span class="k">return</span> <span class="n">value</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>ML Model Failure</strong>
+   <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MLFailureHandler</span><span class="p">:</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">rank_with_fallback</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">suggestions</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">ml_ranker</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">suggestions</span><span class="p">)</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>        <span class="k">except</span> <span class="n">ModelException</span><span class="p">:</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>            <span class="c1"># Fallback to frequency-based ranking</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">frequency_ranker</span><span class="o">.</span><span class="n">rank</span><span class="p">(</span><span class="n">suggestions</span><span class="p">)</span>
+</span></code></pre></div></p>
+</li>
+</ol>
+<h2 id="key-design-insights">💡 Key Design Insights<a class="headerlink" href="#key-design-insights" title="Permanent link">&para;</a></h2>
+<ol>
+<li><strong>Pre-computation</strong>: Pre-compute top suggestions per prefix, trade storage for latency</li>
+<li><strong>Multiple Strategies</strong>: Exact prefix (speed), fuzzy (typos), semantic (intent)</li>
+<li><strong>Real-time Learning</strong>: Process CTR immediately, update popular queries, detect trends</li>
+<li><strong>Localization</strong>: Regional suggestions, language-specific processing, cultural context</li>
+<li><strong>Storage Tiers</strong>: Hot (memory) → Warm (SSD) → Cold (disk) for long tail</li>
+</ol>
+<h2 id="related-concepts-deep-dives">🔍 Related Concepts &amp; Deep Dives<a class="headerlink" href="#related-concepts-deep-dives" title="Permanent link">&para;</a></h2>
+<h3 id="relevant-axioms">📚 Relevant Axioms<a class="headerlink" href="#relevant-axioms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a></strong> - Sub-100ms response critical for UX</li>
+<li><strong><a href="../../part1-axioms/axiom2-capacity/">Axiom 2: Finite Capacity</a></strong> - Memory limits drive sharding</li>
+<li><strong><a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure is Normal</a></strong> - Graceful degradation strategies</li>
+<li><strong><a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a></strong> - Lock-free trie operations</li>
+<li><strong><a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a></strong> - Distributed trie updates</li>
+<li><strong><a href="../../part1-axioms/axiom6-observability/">Axiom 6: Observability</a></strong> - Query performance tracking</li>
+<li><strong><a href="../../part1-axioms/axiom7-human/">Axiom 7: Human Interface</a></strong> - Typo tolerance, personalization</li>
+<li><strong><a href="../../part1-axioms/axiom8-economics/">Axiom 8: Economics</a></strong> - Memory cost vs latency</li>
+</ul>
+<h3 id="related-patterns">🏛️ Related Patterns<a class="headerlink" href="#related-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../patterns/trie.md">Trie Data Structure</a></strong> - Core search structure</li>
+<li><strong><a href="../../patterns/caching-strategies/">Caching Strategies</a></strong> - Multi-level caching</li>
+<li><strong><a href="../../patterns/sharding/">Sharding</a></strong> - Distribute by prefix</li>
+<li><strong><a href="../../patterns/circuit-breaker/">Circuit Breaker</a></strong> - Service protection</li>
+<li><strong><a href="../../patterns/load-balancing/">Load Balancing</a></strong> - Distribute queries</li>
+<li><strong><a href="../patterns/event-streaming.md">Event Streaming</a></strong> - Real-time updates</li>
+<li><strong><a href="../../patterns/edge-computing/">Edge Computing</a></strong> - Global latency optimization</li>
+</ul>
+<h3 id="quantitative-models">📊 Quantitative Models<a class="headerlink" href="#quantitative-models" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../quantitative/information-theory.md">Information Theory</a></strong> - Entropy in prefix trees</li>
+<li><strong><a href="../quantitative/queueing-theory.md">Queueing Theory</a></strong> - Server capacity planning</li>
+<li><strong><a href="../quantitative/probability.md">Probability Theory</a></strong> - Bloom filter false positives</li>
+<li><strong><a href="../quantitative/ml-ranking.md">Machine Learning</a></strong> - Learning to rank</li>
+</ul>
+<h3 id="similar-case-studies">🔄 Similar Case Studies<a class="headerlink" href="#similar-case-studies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="google-search.md">Google Search</a></strong> - Full search architecture</li>
+<li><strong><a href="elasticsearch-internals.md">Elasticsearch</a></strong> - Search engine internals</li>
+<li><strong><a href="facebook-typeahead.md">Facebook Typeahead</a></strong> - Social search</li>
+<li><strong><a href="amazon-search.md">Amazon Product Search</a></strong> - E-commerce search</li>
+</ul>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Google Search Blog: "How Google Autocomplete Works" (2021)</li>
+<li>Facebook Engineering: "The Life of a Typeahead Query" (2020)</li>
+<li>LinkedIn Engineering: "The Evolution of LinkedIn's Search Architecture" (2019)</li>
+<li>Twitter Engineering: "Implementing Typeahead Search" (2018)</li>
+<li>Elasticsearch Documentation: "Suggesters and Completion" (2023)</li>
+</ol>
 <h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
 <p>Search autocomplete systems push the boundaries of latency-sensitive distributed systems. By leveraging tries for sub-millisecond prefix matching, multi-level caching for global scale, and ML for personalization, these systems deliver suggestions that feel instantaneous. The hybrid architecture balances the speed of in-memory tries with the sophistication of ML ranking, while maintaining fallback strategies for resilience. The key insight is that different query types (common vs. rare, short vs. long) benefit from different architectural paths, and a production system must intelligently route queries to optimize both latency and relevance.</p>
 
@@ -10135,6 +10568,9 @@
 
 
 
+
+  
+  
 
 
 

@@ -6,14 +6,14 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Design a high-throughput, fault-tolerant message broker system like Apache Kafka or RabbitMQ">
+        <meta name="description" content="Build a scalable message broker handling millions of messages per second">
       
       
       
         <link rel="canonical" href="https://deepaucksharma.github.io/DStudio/case-studies/distributed-message-queue/">
       
       
-        <link rel="prev" href="../chat-system-enhanced/">
+        <link rel="prev" href="../chat-system/">
       
       
         <link rel="next" href="../notification-system/">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Distributed Message Queue - The Compendium of Distributed Systems</title>
+        <title>Distributed Message Queue Design (Kafka/RabbitMQ) - The Compendium of Distributed Systems</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#design-a-distributed-message-queue" class="md-skip">
+        <a href="#distributed-message-queue-design-kafkarabbitmq" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Distributed Message Queue
+              Distributed Message Queue Design (Kafka/RabbitMQ)
             
           </span>
         </div>
@@ -5556,6 +5556,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -5736,6 +5743,13 @@
     Chaos Engineering
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6687,6 +6701,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -6710,6 +6731,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -6732,6 +6760,13 @@
     Google Maps
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6758,8 +6793,6 @@
   
     
     
-      
-        
       
         
       
@@ -6821,29 +6854,6 @@
   
   <span class="md-ellipsis">
     Chat System
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chat-system-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Chat System Enhanced
     
   </span>
   
@@ -6932,18 +6942,9 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#introduction" class="md-nav__link">
+  <a href="#overview" class="md-nav__link">
     <span class="md-ellipsis">
-      Introduction
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#challenge-statement" class="md-nav__link">
-    <span class="md-ellipsis">
-      Challenge Statement
+      Overview
     </span>
   </a>
   
@@ -6952,26 +6953,44 @@
         <li class="md-nav__item">
   <a href="#architecture-evolution" class="md-nav__link">
     <span class="md-ellipsis">
-      Architecture Evolution
+      🏗️ Architecture Evolution
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Architecture Evolution">
+    <nav class="md-nav" aria-label="🏗️ Architecture Evolution">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#phase-1-single-server-queue-day-1" class="md-nav__link">
+  <a href="#phase-1-simple-in-memory-queue-2008-2010" class="md-nav__link">
     <span class="md-ellipsis">
-      Phase 1: Single-Server Queue (Day 1)
+      Phase 1: Simple In-Memory Queue (2008-2010)
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#phase-2-distributed-architecture-current" class="md-nav__link">
+  <a href="#phase-2-persistent-queue-with-wal-2010-2011" class="md-nav__link">
     <span class="md-ellipsis">
-      Phase 2: Distributed Architecture (Current)
+      Phase 2: Persistent Queue with WAL (2010-2011)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-distributed-architecture-2011-2014" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Distributed Architecture (2011-2014)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-modern-streaming-platform-2014-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Modern Streaming Platform (2014-Present)
     </span>
   </a>
   
@@ -7074,6 +7093,66 @@
   <a href="#exactly-once-semantics" class="md-nav__link">
     <span class="md-ellipsis">
       Exactly-Once Semantics
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Core Components Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Core Components Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-log-structured-storage-engine" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Log-Structured Storage Engine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-replication-protocol" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Replication Protocol
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-consumer-group-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. Consumer Group Coordination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-stream-processing-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Stream Processing Integration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-performance-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Performance Optimization
     </span>
   </a>
   
@@ -7253,11 +7332,317 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#axiom-mapping-design-decisions" class="md-nav__link">
+    <span class="md-ellipsis">
+      🎯 Axiom Mapping &amp; Design Decisions
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🎯 Axiom Mapping &amp; Design Decisions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#comprehensive-design-decision-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Comprehensive Design Decision Matrix
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#alternative-architectures" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Alternative Architectures
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Alternative Architectures">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#alternative-1-traditional-message-queue-rabbitmq-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative 1: Traditional Message Queue (RabbitMQ Style)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-2-in-memory-pubsub-redis-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative 2: In-Memory Pub/Sub (Redis Style)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-3-cloud-native-aws-sqssns-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative 3: Cloud-Native (AWS SQS/SNS Style)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#alternative-4-event-store-eventstoreaxon-style" class="md-nav__link">
+    <span class="md-ellipsis">
+      Alternative 4: Event Store (EventStore/Axon Style)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#performance-monitoring" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Performance &amp; Monitoring
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Performance &amp; Monitoring">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-performance-metrics" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Performance Metrics
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#monitoring-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Monitoring Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#consistency-deep-dive-for-message-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔄 Consistency Deep Dive for Message Queues
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔄 Consistency Deep Dive for Message Queues">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#consistency-challenges-in-distributed-queues" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency Challenges in Distributed Queues
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-ordering-guarantees" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Ordering Guarantees
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consistency-models-by-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency Models by Use Case
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#kafkas-consistency-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      Kafka's Consistency Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consumer-group-coordination" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consumer Group Coordination
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#exactly-once-semantics-implementation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Exactly-Once Semantics Implementation
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multi-dc-replication-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multi-DC Replication Consistency
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-network-partitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Handling Network Partitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#consistency-monitoring-dashboard" class="md-nav__link">
+    <span class="md-ellipsis">
+      Consistency Monitoring Dashboard
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#message-queue-consistency-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Message Queue Consistency Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#best-practices-for-queue-consistency" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices for Queue Consistency
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#failure-scenarios-recovery" class="md-nav__link">
+    <span class="md-ellipsis">
+      🚨 Failure Scenarios &amp; Recovery
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🚨 Failure Scenarios &amp; Recovery">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#common-failure-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Failure Modes
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#trade-offs-and-decisions" class="md-nav__link">
     <span class="md-ellipsis">
       Trade-offs and Decisions
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Key Design Insights
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#related-concepts-deep-dives" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔗 Related Concepts &amp; Deep Dives
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔗 Related Concepts &amp; Deep Dives">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#axioms-applied" class="md-nav__link">
+    <span class="md-ellipsis">
+      Axioms Applied
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#quantitative-models" class="md-nav__link">
+    <span class="md-ellipsis">
+      Quantitative Models
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#similar-case-studies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Similar Case Studies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7353,8 +7738,6 @@
       
         
       
-        
-      
     
     
     
@@ -7409,29 +7792,6 @@
   
   <span class="md-ellipsis">
     Search Autocomplete
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../search-autocomplete-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Search Autocomplete Enhanced
     
   </span>
   
@@ -7500,14 +7860,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -7556,95 +7908,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../uber-location-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Uber Location Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../google-maps-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Google Maps Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../nearby-friends/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Nearby Friends
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../nearby-friends-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Nearby Friends Enhanced
     
   </span>
   
@@ -7678,29 +7947,6 @@
     
   </span>
   
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../proximity-service-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Proximity Service Enhanced
-    
-  </span>
-  
     
   
   
@@ -7731,8 +7977,6 @@
   
     
     
-      
-        
       
         
       
@@ -7873,36 +8117,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../google-drive-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Google Drive Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../consistent-hashing/" class="md-nav__link">
         
   
@@ -7942,12 +8156,6 @@
   
     
     
-      
-        
-      
-        
-      
-        
       
         
       
@@ -8035,29 +8243,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../payment-system-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Payment System Enhanced
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../digital-wallet-enhanced/" class="md-nav__link">
         
   
@@ -8111,29 +8296,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../hotel-reservation-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Hotel Reservation Enhanced
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../stock-exchange/" class="md-nav__link">
         
   
@@ -8149,29 +8311,6 @@
     <span class="md-status md-status--complete"></span>
   
 
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../stock-exchange-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Stock Exchange Enhanced
-    
-  </span>
   
 
       </a>
@@ -8350,8 +8489,6 @@
       
         
       
-        
-      
     
     
     
@@ -8483,36 +8620,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../distributed-message-queue-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Distributed Message Queue Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -8529,8 +8636,6 @@
   
     
     
-      
-        
       
         
       
@@ -8590,36 +8695,6 @@
     Gaming Leaderboard Enhanced
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../youtube-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    YouTube Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
   
 
       </a>
@@ -9116,71 +9191,198 @@
 
 
 <!-- Navigation -->
-<p><a href="../../">Home</a> → <a href="../">Case Studies</a> → <strong>Distributed Message Queue</strong></p>
-<h1 id="design-a-distributed-message-queue">Design a Distributed Message Queue<a class="headerlink" href="#design-a-distributed-message-queue" title="Permanent link">&para;</a></h1>
+<p><a href="../../">Home</a> → <a href="../">Case Studies</a> → <strong>Distributed Message Queue Design</strong></p>
+<h1 id="distributed-message-queue-design-kafkarabbitmq">📨 Distributed Message Queue Design (Kafka/RabbitMQ)<a class="headerlink" href="#distributed-message-queue-design-kafkarabbitmq" title="Permanent link">&para;</a></h1>
+<p><strong>Challenge</strong>: Build a distributed message broker handling millions of messages/sec with durability</p>
 <div class="admonition info">
-<p class="admonition-title">Case Study Overview</p>
-<p><strong>System</strong>: Apache Kafka / RabbitMQ<br />
-<strong>Scale</strong>: 7 trillion messages/day (LinkedIn Kafka), 1M+ messages/second<br />
-<strong>Challenges</strong>: Ordering guarantees, durability, high throughput, low latency<br />
-<strong>Key Patterns</strong>: Partitioning, replication, zero-copy, sequential I/O</p>
+<p class="admonition-title">Case Study Sources</p>
+<p>Based on: Apache Kafka Docs¹, LinkedIn Engineering², RabbitMQ in Depth³, Kafka Definitive Guide⁴, Kafka Academic Paper⁵</p>
 </div>
-<p><em>Estimated reading time: 25 minutes</em></p>
-<h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>Message queues are the backbone of modern distributed systems, enabling asynchronous communication, decoupling services, and handling traffic spikes. This case study examines how to build a distributed message queue that can handle millions of messages per second while maintaining durability and ordering guarantees.</p>
-<h2 id="challenge-statement">Challenge Statement<a class="headerlink" href="#challenge-statement" title="Permanent link">&para;</a></h2>
-<p>Design a distributed message queue system that can:
-- Process 1M+ messages per second
-- Guarantee message durability (no data loss)
-- Provide configurable delivery semantics (at-least-once, at-most-once, exactly-once)
-- Scale horizontally to handle growing traffic
-- Maintain message ordering within partitions
-- Support multiple consumer groups
-- Handle producer and consumer failures gracefully</p>
-<h2 id="architecture-evolution">Architecture Evolution<a class="headerlink" href="#architecture-evolution" title="Permanent link">&para;</a></h2>
-<h3 id="phase-1-single-server-queue-day-1">Phase 1: Single-Server Queue (Day 1)<a class="headerlink" href="#phase-1-single-server-queue-day-1" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
-    P1[Producer 1] --&gt; Q[Message Queue Server]
-    P2[Producer 2] --&gt; Q
-    Q --&gt; C1[Consumer 1]
-    Q --&gt; C2[Consumer 2]
-    Q --&gt; D[(Local Disk)]</code></pre>
-<p><strong>Limitations</strong>:
-- Single point of failure
-- Limited by single server capacity
-- No horizontal scaling</p>
-<h3 id="phase-2-distributed-architecture-current">Phase 2: Distributed Architecture (Current)<a class="headerlink" href="#phase-2-distributed-architecture-current" title="Permanent link">&para;</a></h3>
-<pre class="mermaid"><code>graph TD
-    subgraph Producers
+<h2 id="overview">Overview<a class="headerlink" href="#overview" title="Permanent link">&para;</a></h2>
+<p>Message queues enable async communication and service decoupling. Handle 1M+ msg/sec with durability, configurable delivery, horizontal scaling, partition ordering, consumer groups.</p>
+<h2 id="architecture-evolution">🏗️ Architecture Evolution<a class="headerlink" href="#architecture-evolution" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-simple-in-memory-queue-2008-2010">Phase 1: Simple In-Memory Queue (2008-2010)<a class="headerlink" href="#phase-1-simple-in-memory-queue-2008-2010" title="Permanent link">&para;</a></h3>
+<p><div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Producer → In-Memory Queue → Consumer
+</span></code></pre></div>
+<strong>Problems</strong>: Messages lost on crash, no persistence, SPOF, memory limits</p>
+<h3 id="phase-2-persistent-queue-with-wal-2010-2011">Phase 2: Persistent Queue with WAL (2010-2011)<a class="headerlink" href="#phase-2-persistent-queue-with-wal-2010-2011" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Producers"
+        P1[Producer 1]
+        P2[Producer 2]
+        PN[Producer N]
+    end
+
+    subgraph "Message Broker"
+        API[API Layer]
+        WAL[Write-Ahead Log]
+        MEM[Memory Cache]
+        DISK[(Disk Storage)]
+    end
+
+    subgraph "Consumers"
+        C1[Consumer 1]
+        C2[Consumer 2]
+        CN[Consumer N]
+    end
+
+    P1 &amp; P2 &amp; PN --&gt; API
+    API --&gt; WAL --&gt; DISK
+    WAL --&gt; MEM
+    MEM --&gt; C1 &amp; C2 &amp; CN
+
+    style WAL fill:#ff9999</code></pre>
+<p><strong>Key Decision</strong>: Write-Ahead Logging
+<strong>Result</strong>: 100x durability, 600MB/sec sequential disk writes²
+<strong>Pattern</strong>: WAL</p>
+<h3 id="phase-3-distributed-architecture-2011-2014">Phase 3: Distributed Architecture (2011-2014)<a class="headerlink" href="#phase-3-distributed-architecture-2011-2014" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Producers"
         P1[Producer 1]
         P2[Producer 2]
         P3[Producer 3]
     end
 
-    subgraph Brokers
-        B1[Broker 1&lt;br/&gt;Partition 1,4]
-        B2[Broker 2&lt;br/&gt;Partition 2,5]
-        B3[Broker 3&lt;br/&gt;Partition 3,6]
+    subgraph "Broker Cluster"
+        subgraph "Broker 1"
+            B1_L[Leader Partitions]
+            B1_F[Follower Partitions]
+        end
+        subgraph "Broker 2"
+            B2_L[Leader Partitions]
+            B2_F[Follower Partitions]
+        end
+        subgraph "Broker 3"
+            B3_L[Leader Partitions]
+            B3_F[Follower Partitions]
+        end
     end
 
-    subgraph Consumer Group A
-        CA1[Consumer A1]
-        CA2[Consumer A2]
+    subgraph "Coordination"
+        ZK[ZooKeeper&lt;br/&gt;Metadata &amp; Leader Election]
     end
 
-    subgraph Consumer Group B
-        CB1[Consumer B1]
-        CB2[Consumer B2]
+    subgraph "Consumer Groups"
+        CG1[Consumer Group 1]
+        CG2[Consumer Group 2]
     end
 
-    P1 --&gt; B1
-    P2 --&gt; B2
-    P3 --&gt; B3
+    P1 &amp; P2 &amp; P3 --&gt; B1_L &amp; B2_L &amp; B3_L
+    B1_L -.-&gt; B2_F &amp; B3_F
+    B2_L -.-&gt; B1_F &amp; B3_F
+    B3_L -.-&gt; B1_F &amp; B2_F
 
-    B1 --&gt; CA1
-    B2 --&gt; CA2
-    B3 --&gt; CB1
-    B1 --&gt; CB2</code></pre>
+    B1_L &amp; B2_L &amp; B3_L --&gt; CG1 &amp; CG2
+
+    ZK --&gt; B1_L &amp; B2_L &amp; B3_L</code></pre>
+<p>**Innovation: Log-Structured Storage**⁵
+- Append-only commit log
+- Zero-copy sends
+- Batch compression
+- Pagecache usage</p>
+<p><strong>Patterns &amp; Pillars Applied</strong>:
+- 🔧 Pattern: <a href="../patterns/leader-follower.md">Leader-Follower Replication</a>
+- 🔧 Pattern: <a href="../patterns/partitioning.md">Partitioning</a> - Topic partitions
+- 🏛️ Pillar: <a href="../../part2-pillars/state/">State Distribution</a> - Distributed logs
+- 🏛️ Pillar: <a href="../../part2-pillars/truth/">Truth &amp; Consistency</a> - Ordered delivery</p>
+<h3 id="phase-4-modern-streaming-platform-2014-present">Phase 4: Modern Streaming Platform (2014-Present)<a class="headerlink" href="#phase-4-modern-streaming-platform-2014-present" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Data Sources"
+        subgraph "Applications"
+            APP1[Microservice 1]
+            APP2[Microservice 2]
+            APPN[Microservice N]
+        end
+        subgraph "Databases"
+            DB1[MySQL CDC]
+            DB2[PostgreSQL CDC]
+            DB3[MongoDB CDC]
+        end
+        subgraph "External"
+            IOT[IoT Devices]
+            WEB[Web Events]
+            LOGS[Log Aggregators]
+        end
+    end
+
+    subgraph "Kafka Ecosystem"
+        subgraph "Core Infrastructure"
+            subgraph "Brokers"
+                B1[Broker 1&lt;br/&gt;8 cores, 64GB]
+                B2[Broker 2&lt;br/&gt;8 cores, 64GB]
+                B3[Broker 3&lt;br/&gt;8 cores, 64GB]
+                BN[Broker N]
+            end
+
+            subgraph "Storage"
+                TIER1[Hot Storage&lt;br/&gt;NVMe SSD]
+                TIER2[Warm Storage&lt;br/&gt;HDD JBOD]
+                TIER3[Cold Storage&lt;br/&gt;Object Store]
+            end
+
+            ZK[ZooKeeper Cluster&lt;br/&gt;3-5 nodes]
+        end
+
+        subgraph "Stream Processing"
+            KSQL[KSQL&lt;br/&gt;SQL on Streams]
+            KSTREAMS[Kafka Streams&lt;br/&gt;Java Library]
+            FLINK[Apache Flink&lt;br/&gt;Stateful Processing]
+        end
+
+        subgraph "Connectors"
+            SRC[Source Connectors&lt;br/&gt;100+ types]
+            SINK[Sink Connectors&lt;br/&gt;100+ types]
+        end
+
+        subgraph "Management"
+            SR[Schema Registry&lt;br/&gt;Avro/Protobuf]
+            REST[REST Proxy]
+            CTRL[Control Center&lt;br/&gt;Monitoring]
+        end
+    end
+
+    subgraph "Data Sinks"
+        subgraph "Analytics"
+            SPARK[Spark Streaming]
+            DRUID[Apache Druid]
+            CH[ClickHouse]
+        end
+        subgraph "Storage"
+            HDFS[HDFS/S3]
+            ES[Elasticsearch]
+            REDIS[Redis Cache]
+        end
+        subgraph "Applications"
+            RT[Real-time Apps]
+            BATCH[Batch Processing]
+            ML[ML Pipelines]
+        end
+    end
+
+    APP1 &amp; APP2 &amp; APPN --&gt; B1 &amp; B2 &amp; B3
+    DB1 &amp; DB2 &amp; DB3 --&gt; SRC --&gt; B1 &amp; B2 &amp; B3
+    IOT &amp; WEB &amp; LOGS --&gt; B1 &amp; B2 &amp; B3
+
+    B1 &amp; B2 &amp; B3 --&gt; TIER1 --&gt; TIER2 --&gt; TIER3
+    B1 &amp; B2 &amp; B3 &lt;--&gt; ZK
+
+    B1 &amp; B2 &amp; B3 --&gt; KSQL &amp; KSTREAMS &amp; FLINK
+    B1 &amp; B2 &amp; B3 --&gt; SINK --&gt; HDFS &amp; ES &amp; REDIS
+
+    KSQL &amp; KSTREAMS &amp; FLINK --&gt; RT &amp; BATCH &amp; ML
+
+    SR --&gt; B1 &amp; B2 &amp; B3
+    REST --&gt; B1 &amp; B2 &amp; B3
+    CTRL --&gt; B1 &amp; B2 &amp; B3 &amp; ZK
+
+    style B1 fill:#ff6b6b
+    style TIER1 fill:#4ecdc4
+    style KSTREAMS fill:#95e1d3</code></pre>
+<p><strong>Current Capabilities</strong>:
+- 7 trillion+ messages/day at LinkedIn
+- 2M+ messages/second sustained
+- PB/day data ingestion
+- &lt;10ms end-to-end latency</p>
 <h2 id="concept-map">Concept Map<a class="headerlink" href="#concept-map" title="Permanent link">&para;</a></h2>
 <pre class="mermaid"><code>graph TD
     MQ[Message Queue System]
@@ -9213,25 +9415,25 @@
 <h2 id="key-design-decisions">Key Design Decisions<a class="headerlink" href="#key-design-decisions" title="Permanent link">&para;</a></h2>
 <h3 id="1-storage-architecture">1. Storage Architecture<a class="headerlink" href="#1-storage-architecture" title="Permanent link">&para;</a></h3>
 <p><strong>Sequential Append-Only Log</strong>:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Partition 0:
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>[Offset 0][Offset 1][Offset 2][Offset 3]...[Offset N]
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>   |         |         |         |
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>   Msg1      Msg2      Msg3      Msg4
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>Benefits:
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>- O(1) writes (append only)
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>- Sequential disk I/O (600MB/s vs 100KB/s random)
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>- Natural ordering by offset
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Partition 0:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>[Offset 0][Offset 1][Offset 2][Offset 3]...[Offset N]
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>   |         |         |         |
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>   Msg1      Msg2      Msg3      Msg4
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>Benefits:
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>- O(1) writes (append only)
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>- Sequential disk I/O (600MB/s vs 100KB/s random)
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>- Natural ordering by offset
 </span></code></pre></div></p>
 <h3 id="2-partitioning-strategy">2. Partitioning Strategy<a class="headerlink" href="#2-partitioning-strategy" title="Permanent link">&para;</a></h3>
 <p><strong>Topic Partitioning</strong>:
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_partition</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">num_partitions</span><span class="p">):</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="c1"># Round-robin for keyless messages</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="k">return</span> <span class="n">round_robin_counter</span> <span class="o">%</span> <span class="n">num_partitions</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="c1"># Hash-based partitioning for keyed messages</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_partitions</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_partition</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">num_partitions</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>        <span class="c1"># Round-robin for keyless messages</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="k">return</span> <span class="n">round_robin_counter</span> <span class="o">%</span> <span class="n">num_partitions</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>        <span class="c1"># Hash-based partitioning for keyed messages</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>        <span class="k">return</span> <span class="nb">hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span> <span class="o">%</span> <span class="n">num_partitions</span>
 </span></code></pre></div></p>
 <p><strong>Benefits</strong>:
 - Horizontal scaling
@@ -9254,75 +9456,229 @@
     L-&gt;&gt;P: ACK (after ISR confirms)</code></pre></p>
 <h3 id="4-consumer-group-coordination">4. Consumer Group Coordination<a class="headerlink" href="#4-consumer-group-coordination" title="Permanent link">&para;</a></h3>
 <p><strong>Partition Assignment</strong>:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Topic: Orders (6 partitions)
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>Consumer Group: OrderProcessors (3 consumers)
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Assignment:
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>- Consumer 1: Partitions 0, 1
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>- Consumer 2: Partitions 2, 3  
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>- Consumer 3: Partitions 4, 5
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>Rebalancing triggered when:
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>- Consumer joins/leaves
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>- Partition count changes
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Topic: Orders (6 partitions)
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>Consumer Group: OrderProcessors (3 consumers)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>Assignment:
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>- Consumer 1: Partitions 0, 1
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>- Consumer 2: Partitions 2, 3  
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>- Consumer 3: Partitions 4, 5
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>Rebalancing triggered when:
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>- Consumer joins/leaves
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>- Partition count changes
 </span></code></pre></div></p>
 <h2 id="technical-deep-dives">Technical Deep Dives<a class="headerlink" href="#technical-deep-dives" title="Permanent link">&para;</a></h2>
 <h3 id="zero-copy-transfer">Zero-Copy Transfer<a class="headerlink" href="#zero-copy-transfer" title="Permanent link">&para;</a></h3>
 <p>Traditional approach:
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>1. Read data from disk to OS buffer
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>2. Copy from OS buffer to application buffer
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>3. Copy from application buffer to socket buffer
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>4. Send from socket buffer to NIC
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>1. Read data from disk to OS buffer
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>2. Copy from OS buffer to application buffer
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>3. Copy from application buffer to socket buffer
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>4. Send from socket buffer to NIC
 </span></code></pre></div></p>
 <p>Zero-copy with sendfile():
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>1. Read data from disk to OS buffer
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>2. Send directly from OS buffer to NIC
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>1. Read data from disk to OS buffer
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>2. Send directly from OS buffer to NIC
 </span></code></pre></div></p>
 <p><strong>Performance Impact</strong>: 65% reduction in CPU usage</p>
 <h3 id="write-path-optimization">Write Path Optimization<a class="headerlink" href="#write-path-optimization" title="Permanent link">&para;</a></h3>
-<div class="language-java highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="kd">class</span> <span class="nc">MessageWriter</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">FileChannel</span><span class="w"> </span><span class="n">channel</span><span class="p">;</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ByteBuffer</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ByteBuffer</span><span class="p">.</span><span class="na">allocateDirect</span><span class="p">(</span><span class="mi">1_048_576</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1MB</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">batchWrite</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="w"> </span><span class="n">messages</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">        </span><span class="n">buffer</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">        </span><span class="c1">// Batch messages into buffer</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Message</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">messages</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="na">remaining</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">                </span><span class="n">flush</span><span class="p">();</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">                </span><span class="n">buffer</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">            </span><span class="p">}</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">            </span><span class="n">buffer</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">serialize</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="p">}</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="w">        </span><span class="n">flush</span><span class="p">();</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">flush</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a><span class="w">        </span><span class="n">buffer</span><span class="p">.</span><span class="na">flip</span><span class="p">();</span>
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a><span class="w">        </span><span class="n">channel</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a><span class="w">        </span><span class="n">channel</span><span class="p">.</span><span class="na">force</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w"> </span><span class="c1">// Flush to disk</span>
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a><span class="p">}</span>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kd">class</span> <span class="nc">MessageWriter</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">FileChannel</span><span class="w"> </span><span class="n">channel</span><span class="p">;</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">ByteBuffer</span><span class="w"> </span><span class="n">buffer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ByteBuffer</span><span class="p">.</span><span class="na">allocateDirect</span><span class="p">(</span><span class="mi">1_048_576</span><span class="p">);</span><span class="w"> </span><span class="c1">// 1MB</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">batchWrite</span><span class="p">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">Message</span><span class="o">&gt;</span><span class="w"> </span><span class="n">messages</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">        </span><span class="n">buffer</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">        </span><span class="c1">// Batch messages into buffer</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">        </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">Message</span><span class="w"> </span><span class="n">msg</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="n">messages</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">buffer</span><span class="p">.</span><span class="na">remaining</span><span class="p">()</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">msg</span><span class="p">.</span><span class="na">size</span><span class="p">())</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">                </span><span class="n">flush</span><span class="p">();</span>
+</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="w">                </span><span class="n">buffer</span><span class="p">.</span><span class="na">clear</span><span class="p">();</span>
+</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="w">            </span><span class="n">buffer</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">serialize</span><span class="p">(</span><span class="n">msg</span><span class="p">));</span>
+</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a><span class="w">        </span><span class="p">}</span>
+</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">        </span><span class="n">flush</span><span class="p">();</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>
+</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">flush</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a><span class="w">        </span><span class="n">buffer</span><span class="p">.</span><span class="na">flip</span><span class="p">();</span>
+</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">        </span><span class="n">channel</span><span class="p">.</span><span class="na">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">);</span>
+</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a><span class="w">        </span><span class="n">channel</span><span class="p">.</span><span class="na">force</span><span class="p">(</span><span class="kc">false</span><span class="p">);</span><span class="w"> </span><span class="c1">// Flush to disk</span>
+</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a><span class="p">}</span>
 </span></code></pre></div>
 <h3 id="exactly-once-semantics">Exactly-Once Semantics<a class="headerlink" href="#exactly-once-semantics" title="Permanent link">&para;</a></h3>
 <p><strong>Idempotent Producer</strong>:
-<div class="language-java highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">ProducerConfig</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProducerConfig</span><span class="p">()</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="w">    </span><span class="p">.</span><span class="na">setIdempotenceEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="w">    </span><span class="p">.</span><span class="na">setTransactionalId</span><span class="p">(</span><span class="s">&quot;order-processor-1&quot;</span><span class="p">);</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">producer</span><span class="p">.</span><span class="na">beginTransaction</span><span class="p">();</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="w">    </span><span class="c1">// Process and produce messages</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ProducerRecord</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="s">&quot;orders&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">order</span><span class="p">));</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ProducerRecord</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="s">&quot;inventory&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">update</span><span class="p">));</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">commitTransaction</span><span class="p">();</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">abortTransaction</span><span class="p">();</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a><span class="p">}</span>
+<div class="language-java highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">ProducerConfig</span><span class="w"> </span><span class="n">config</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">ProducerConfig</span><span class="p">()</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="w">    </span><span class="p">.</span><span class="na">setIdempotenceEnabled</span><span class="p">(</span><span class="kc">true</span><span class="p">)</span>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="w">    </span><span class="p">.</span><span class="na">setTransactionalId</span><span class="p">(</span><span class="s">&quot;order-processor-1&quot;</span><span class="p">);</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="n">producer</span><span class="p">.</span><span class="na">beginTransaction</span><span class="p">();</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">try</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="w">    </span><span class="c1">// Process and produce messages</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ProducerRecord</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="s">&quot;orders&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">order</span><span class="p">));</span>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">send</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">ProducerRecord</span><span class="o">&lt;&gt;</span><span class="p">(</span><span class="s">&quot;inventory&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">update</span><span class="p">));</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">commitTransaction</span><span class="p">();</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="p">}</span><span class="w"> </span><span class="k">catch</span><span class="w"> </span><span class="p">(</span><span class="n">Exception</span><span class="w"> </span><span class="n">e</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">    </span><span class="n">producer</span><span class="p">.</span><span class="na">abortTransaction</span><span class="p">();</span>
+</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a><span class="p">}</span>
 </span></code></pre></div></p>
+<h2 id="core-components-deep-dive">📊 Core Components Deep Dive<a class="headerlink" href="#core-components-deep-dive" title="Permanent link">&para;</a></h2>
+<h3 id="1-log-structured-storage-engine">1. Log-Structured Storage Engine<a class="headerlink" href="#1-log-structured-storage-engine" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">LogSegment</span><span class="p">:</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Immutable log segment with index&quot;&quot;&quot;</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">base_offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span> <span class="n">log_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">base_offset</span> <span class="o">=</span> <span class="n">base_offset</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">log_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">base_offset</span><span class="si">}</span><span class="s2">.log&quot;</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">index_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">base_offset</span><span class="si">}</span><span class="s2">.index&quot;</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">timeindex_file</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">log_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">base_offset</span><span class="si">}</span><span class="s2">.timeindex&quot;</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        <span class="c1"># Memory-mapped files for performance</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">log_mmap</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">index_mmap</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">current_position</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">current_offset</span> <span class="o">=</span> <span class="n">base_offset</span>
+</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>
+</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Message</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Append messages to log segment&quot;&quot;&quot;</span>
+</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>        <span class="n">batch</span> <span class="o">=</span> <span class="n">MessageBatch</span><span class="p">()</span>
+</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>
+</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a>        <span class="c1"># Add messages to batch</span>
+</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>        <span class="k">for</span> <span class="n">msg</span> <span class="ow">in</span> <span class="n">messages</span><span class="p">:</span>
+</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>            <span class="n">batch</span><span class="o">.</span><span class="n">add</span><span class="p">(</span>
+</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>                <span class="n">offset</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">current_offset</span><span class="p">,</span>
+</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>                <span class="n">timestamp</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span>
+</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>                <span class="n">key</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">key</span><span class="p">,</span>
+</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>                <span class="n">value</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">value</span><span class="p">,</span>
+</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>                <span class="n">headers</span><span class="o">=</span><span class="n">msg</span><span class="o">.</span><span class="n">headers</span>
+</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>            <span class="p">)</span>
+</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">current_offset</span> <span class="o">+=</span> <span class="mi">1</span>
+</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>
+</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>        <span class="c1"># Compress batch</span>
+</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>        <span class="n">compressed</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_compress_batch</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
+</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>
+</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>        <span class="c1"># Write to log file</span>
+</span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>        <span class="n">start_position</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">current_position</span>
+</span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a>        <span class="n">bytes_written</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_write_to_log</span><span class="p">(</span><span class="n">compressed</span><span class="p">)</span>
+</span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">current_position</span> <span class="o">+=</span> <span class="n">bytes_written</span>
+</span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>
+</span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>        <span class="c1"># Update indices</span>
+</span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_update_indices</span><span class="p">(</span>
+</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a>            <span class="n">batch</span><span class="o">.</span><span class="n">first_offset</span><span class="p">,</span>
+</span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a>            <span class="n">batch</span><span class="o">.</span><span class="n">last_offset</span><span class="p">,</span>
+</span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a>            <span class="n">start_position</span><span class="p">,</span>
+</span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a>            <span class="n">batch</span><span class="o">.</span><span class="n">max_timestamp</span>
+</span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a>        <span class="p">)</span>
+</span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a>
+</span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a>        <span class="k">return</span> <span class="n">batch</span><span class="o">.</span><span class="n">last_offset</span>
+</span></code></pre></div>
+<h3 id="2-replication-protocol">2. Replication Protocol<a class="headerlink" href="#2-replication-protocol" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ReplicationManager</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Manages replication across brokers&quot;&quot;&quot;</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">broker_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">broker_id</span> <span class="o">=</span> <span class="n">broker_id</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">replica_fetchers</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">leader_replicas</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">follower_replicas</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">become_leader</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topic_partition</span><span class="p">:</span> <span class="n">TopicPartition</span><span class="p">):</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle leader election&quot;&quot;&quot;</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>        <span class="c1"># 1. Stop fetching as follower</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="k">if</span> <span class="n">topic_partition</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">replica_fetchers</span><span class="p">:</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">replica_fetchers</span><span class="p">[</span><span class="n">topic_partition</span><span class="p">]</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">replica_fetchers</span><span class="p">[</span><span class="n">topic_partition</span><span class="p">]</span>
+</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="c1"># 2. Initialize leader state</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>        <span class="n">leader_replica</span> <span class="o">=</span> <span class="n">LeaderReplica</span><span class="p">(</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>            <span class="n">topic_partition</span><span class="p">,</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">broker_id</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>        <span class="p">)</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">leader_replicas</span><span class="p">[</span><span class="n">topic_partition</span><span class="p">]</span> <span class="o">=</span> <span class="n">leader_replica</span>
+</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>        <span class="c1"># 3. Start accepting produces</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>        <span class="k">await</span> <span class="n">leader_replica</span><span class="o">.</span><span class="n">start_accepting_produces</span><span class="p">()</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>        <span class="c1"># 4. Wait for ISR to catch up</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>        <span class="k">await</span> <span class="n">leader_replica</span><span class="o">.</span><span class="n">wait_for_isr_catchup</span><span class="p">()</span>
+</span></code></pre></div>
+<h3 id="3-consumer-group-coordination">3. Consumer Group Coordination<a class="headerlink" href="#3-consumer-group-coordination" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ConsumerGroupCoordinator</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Coordinates consumer group membership and assignment&quot;&quot;&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">group_id</span> <span class="o">=</span> <span class="n">group_id</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">members</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># member_id -&gt; metadata</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">generation_id</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">leader_id</span> <span class="o">=</span> <span class="kc">None</span>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">assignment_strategy</span> <span class="o">=</span> <span class="n">RangeAssignor</span><span class="p">()</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_join_group</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">member_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>                               <span class="n">metadata</span><span class="p">:</span> <span class="n">ConsumerMetadata</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">JoinGroupResponse</span><span class="p">:</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Handle consumer joining group&quot;&quot;&quot;</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>        <span class="c1"># 1. Add/update member</span>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">members</span><span class="p">[</span><span class="n">member_id</span><span class="p">]</span> <span class="o">=</span> <span class="n">metadata</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        <span class="c1"># 2. Trigger rebalance if needed</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_should_rebalance</span><span class="p">():</span>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_rebalance</span><span class="p">()</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>        <span class="c1"># 3. Elect leader if needed</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">leader_id</span><span class="p">:</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">leader_id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_elect_leader</span><span class="p">()</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>        <span class="c1"># 4. Wait for all members</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_members</span><span class="p">()</span>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>        <span class="c1"># 5. Return response</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>        <span class="k">return</span> <span class="n">JoinGroupResponse</span><span class="p">(</span>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>            <span class="n">generation_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">generation_id</span><span class="p">,</span>
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>            <span class="n">leader_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">leader_id</span><span class="p">,</span>
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>            <span class="n">member_id</span><span class="o">=</span><span class="n">member_id</span><span class="p">,</span>
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>            <span class="n">members</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">members</span> <span class="k">if</span> <span class="n">member_id</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">leader_id</span> <span class="k">else</span> <span class="kc">None</span>
+</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34" href="#__codelineno-10-34"></a>        <span class="p">)</span>
+</span></code></pre></div>
+<h3 id="4-stream-processing-integration">4. Stream Processing Integration<a class="headerlink" href="#4-stream-processing-integration" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">KafkaStreamsProcessor</span><span class="p">:</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Stream processing with exactly-once semantics&quot;&quot;&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">app_id</span> <span class="o">=</span> <span class="n">app_id</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">topology</span> <span class="o">=</span> <span class="n">StreamTopology</span><span class="p">()</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">state_stores</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">stream</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">topics</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">KStream</span><span class="p">:</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Create stream from topics&quot;&quot;&quot;</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>        <span class="n">source_node</span> <span class="o">=</span> <span class="n">SourceNode</span><span class="p">(</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>            <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;source-</span><span class="si">{</span><span class="s1">&#39;-&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">topics</span><span class="p">)</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>            <span class="n">topics</span><span class="o">=</span><span class="n">topics</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>        <span class="p">)</span>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">topology</span><span class="o">.</span><span class="n">add_source</span><span class="p">(</span><span class="n">source_node</span><span class="p">)</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>        <span class="k">return</span> <span class="n">KStream</span><span class="p">(</span><span class="n">source_node</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">topology</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="5-performance-optimization">5. Performance Optimization<a class="headerlink" href="#5-performance-optimization" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ZeroCopyTransfer</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Zero-copy data transfer using sendfile&quot;&quot;&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">transfer_to_socket</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">log_segment</span><span class="p">:</span> <span class="n">LogSegment</span><span class="p">,</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>                                <span class="n">socket</span><span class="p">:</span> <span class="n">Socket</span><span class="p">,</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>                                <span class="n">offset</span><span class="p">:</span> <span class="nb">int</span><span class="p">,</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>                                <span class="n">length</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Transfer log data directly to socket&quot;&quot;&quot;</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>        <span class="c1"># Open log file</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">log_segment</span><span class="o">.</span><span class="n">log_file</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>            <span class="c1"># Seek to offset</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>            <span class="n">position</span> <span class="o">=</span> <span class="n">log_segment</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">lookup</span><span class="p">(</span><span class="n">offset</span><span class="p">)</span>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>            <span class="n">f</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="n">position</span><span class="p">)</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>            <span class="c1"># Use sendfile for zero-copy transfer</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>            <span class="k">await</span> <span class="n">socket</span><span class="o">.</span><span class="n">sendfile</span><span class="p">(</span><span class="n">f</span><span class="p">,</span> <span class="n">position</span><span class="p">,</span> <span class="n">length</span><span class="p">)</span>
+</span></code></pre></div>
 <h2 id="performance-characteristics">Performance Characteristics<a class="headerlink" href="#performance-characteristics" title="Permanent link">&para;</a></h2>
 <h3 id="throughput-benchmarks">Throughput Benchmarks<a class="headerlink" href="#throughput-benchmarks" title="Permanent link">&para;</a></h3>
 <table>
@@ -9362,15 +9718,15 @@
 </tbody>
 </table>
 <h3 id="storage-efficiency">Storage Efficiency<a class="headerlink" href="#storage-efficiency" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Message size: 1KB
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Retention: 7 days
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Throughput: 100K messages/sec
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Daily storage = 100K * 1KB * 86400 = 8.64TB
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Weekly storage = 60.48TB
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>With compression (Snappy, 50% ratio): 30.24TB
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>With replication factor 3: 90.72TB total
+<div class="language-text highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a>Message size: 1KB
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>Retention: 7 days
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>Throughput: 100K messages/sec
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>Daily storage = 100K * 1KB * 86400 = 8.64TB
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>Weekly storage = 60.48TB
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>With compression (Snappy, 50% ratio): 30.24TB
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>With replication factor 3: 90.72TB total
 </span></code></pre></div>
 <h2 id="failure-scenarios">Failure Scenarios<a class="headerlink" href="#failure-scenarios" title="Permanent link">&para;</a></h2>
 <h3 id="1-broker-failure">1. Broker Failure<a class="headerlink" href="#1-broker-failure" title="Permanent link">&para;</a></h3>
@@ -9390,23 +9746,23 @@
     B1L --&gt;|Failure| B1X
     B2F --&gt;|Promotion| B2L</code></pre>
 <h3 id="2-network-partition">2. Network Partition<a class="headerlink" href="#2-network-partition" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Partition Scenario:
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>[Broker 1, 2] &lt;--X--&gt; [Broker 3, 4, 5]
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>With min.insync.replicas = 2:
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>- Minority side becomes read-only
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>- Majority side continues operations
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>- Automatic recovery when partition heals
+<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Partition Scenario:
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>[Broker 1, 2] &lt;--X--&gt; [Broker 3, 4, 5]
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>With min.insync.replicas = 2:
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>- Minority side becomes read-only
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>- Majority side continues operations
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>- Automatic recovery when partition heals
 </span></code></pre></div>
 <h3 id="3-consumer-failure">3. Consumer Failure<a class="headerlink" href="#3-consumer-failure" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Consumer Group Before:
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>- C1: Partitions 0,1,2
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>- C2: Partitions 3,4,5
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>C1 Fails →
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>Rebalancing Result:
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>- C2: Partitions 0,1,2,3,4,5
+<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Consumer Group Before:
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>- C1: Partitions 0,1,2
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>- C2: Partitions 3,4,5
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>C1 Fails →
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>Rebalancing Result:
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>- C2: Partitions 0,1,2,3,4,5
 </span></code></pre></div>
 <h2 id="monitoring-and-operations">Monitoring and Operations<a class="headerlink" href="#monitoring-and-operations" title="Permanent link">&para;</a></h2>
 <h3 id="key-metrics">Key Metrics<a class="headerlink" href="#key-metrics" title="Permanent link">&para;</a></h3>
@@ -9427,18 +9783,18 @@
 - Processing time</p>
 <h3 id="operational-playbook">Operational Playbook<a class="headerlink" href="#operational-playbook" title="Permanent link">&para;</a></h3>
 <p><strong>Adding Capacity</strong>:
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># 1. Add new broker</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>kafka-server-start.sh<span class="w"> </span>config/server-new.properties
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="c1"># 2. Reassign partitions</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>kafka-reassign-partitions.sh<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">  </span>--reassignment-json-file<span class="w"> </span>expand-cluster-plan.json<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="w">  </span>--execute
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># 3. Monitor progress</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>kafka-reassign-partitions.sh<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">  </span>--reassignment-json-file<span class="w"> </span>expand-cluster-plan.json<span class="w"> </span><span class="se">\</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="w">  </span>--verify
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># 1. Add new broker</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>kafka-server-start.sh<span class="w"> </span>config/server-new.properties
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="c1"># 2. Reassign partitions</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>kafka-reassign-partitions.sh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="w">  </span>--reassignment-json-file<span class="w"> </span>expand-cluster-plan.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">  </span>--execute
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="c1"># 3. Monitor progress</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>kafka-reassign-partitions.sh<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a><span class="w">  </span>--reassignment-json-file<span class="w"> </span>expand-cluster-plan.json<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a><span class="w">  </span>--verify
 </span></code></pre></div></p>
 <h2 id="lessons-learned">Lessons Learned<a class="headerlink" href="#lessons-learned" title="Permanent link">&para;</a></h2>
 <h3 id="1-sequential-io-is-king">1. Sequential I/O is King<a class="headerlink" href="#1-sequential-io-is-king" title="Permanent link">&para;</a></h3>
@@ -9471,6 +9827,650 @@
 <li>Set alerts on increasing lag</li>
 <li>Investigate root cause (slow processing vs. high load)</li>
 </ul>
+<h2 id="axiom-mapping-design-decisions">🎯 Axiom Mapping &amp; Design Decisions<a class="headerlink" href="#axiom-mapping-design-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="comprehensive-design-decision-matrix">Comprehensive Design Decision Matrix<a class="headerlink" href="#comprehensive-design-decision-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Design Decision</th>
+<th>Axiom 1<br/>🚀 Latency</th>
+<th>Axiom 2<br/>💾 Capacity</th>
+<th>Axiom 3<br/>🔥 Failure</th>
+<th>Axiom 4<br/>🔀 Concurrency</th>
+<th>Axiom 5<br/>🤝 Coordination</th>
+<th>Axiom 6<br/>👁️ Observability</th>
+<th>Axiom 7<br/>👤 Human</th>
+<th>Axiom 8<br/>💰 Economics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Log-Structured Storage</strong></td>
+<td>✅ Sequential writes</td>
+<td>✅ Efficient storage</td>
+<td>✅ Crash recovery</td>
+<td>✅ Append-only</td>
+<td>⚪</td>
+<td>✅ Offset tracking</td>
+<td>⚪</td>
+<td>✅ Disk efficiency</td>
+</tr>
+<tr>
+<td><strong>Partitioning</strong></td>
+<td>✅ Parallel access</td>
+<td>✅ Horizontal scale</td>
+<td>✅ Partition isolation</td>
+<td>✅ Consumer parallelism</td>
+<td>✅ Ordered per partition</td>
+<td>✅ Per-partition metrics</td>
+<td>✅ Scalable topics</td>
+<td>✅ Linear scaling</td>
+</tr>
+<tr>
+<td><strong>Replication</strong></td>
+<td>⚪ Sync overhead</td>
+<td>✅ Fault tolerance</td>
+<td>✅ Automatic failover</td>
+<td>✅ Parallel replication</td>
+<td>✅ ISR protocol</td>
+<td>✅ Replication lag</td>
+<td>✅ Durability control</td>
+<td>✅ Tunable redundancy</td>
+</tr>
+<tr>
+<td><strong>Zero-Copy</strong></td>
+<td>✅ Minimal CPU</td>
+<td>✅ High throughput</td>
+<td>⚪</td>
+<td>✅ Kernel bypass</td>
+<td>⚪</td>
+<td>✅ Transfer metrics</td>
+<td>⚪</td>
+<td>✅ 5x efficiency</td>
+</tr>
+<tr>
+<td><strong>Batch Processing</strong></td>
+<td>✅ Amortized overhead</td>
+<td>✅ Compression</td>
+<td>⚪</td>
+<td>✅ Batch operations</td>
+<td>⚪</td>
+<td>✅ Batch metrics</td>
+<td>✅ Throughput control</td>
+<td>✅ Network efficiency</td>
+</tr>
+<tr>
+<td><strong>Consumer Groups</strong></td>
+<td>⚪ Coordination overhead</td>
+<td>✅ Work distribution</td>
+<td>✅ Automatic rebalance</td>
+<td>✅ Parallel consumption</td>
+<td>✅ Group coordination</td>
+<td>✅ Lag monitoring</td>
+<td>✅ Simple scaling</td>
+<td>✅ Resource sharing</td>
+</tr>
+<tr>
+<td><strong>Exactly-Once</strong></td>
+<td>⚪ Transaction overhead</td>
+<td>⚪</td>
+<td>✅ No duplicates/loss</td>
+<td>✅ Idempotent ops</td>
+<td>✅ Transaction protocol</td>
+<td>✅ Transaction metrics</td>
+<td>✅ Correctness</td>
+<td>⚪</td>
+</tr>
+<tr>
+<td><strong>Tiered Storage</strong></td>
+<td>⚪ Tier latency</td>
+<td>✅ Infinite retention</td>
+<td>✅ Cost-effective backup</td>
+<td>⚪</td>
+<td>✅ Tier migration</td>
+<td>✅ Storage metrics</td>
+<td>✅ Long retention</td>
+<td>✅ 80% cost savings</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Legend</strong>: ✅ Primary impact | ⚪ Secondary/No impact</p>
+<h2 id="alternative-architectures">🔄 Alternative Architectures<a class="headerlink" href="#alternative-architectures" title="Permanent link">&para;</a></h2>
+<h3 id="alternative-1-traditional-message-queue-rabbitmq-style">Alternative 1: Traditional Message Queue (RabbitMQ Style)<a class="headerlink" href="#alternative-1-traditional-message-queue-rabbitmq-style" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "AMQP Architecture"
+        P[Producers] --&gt; EX[Exchange]
+        EX --&gt;|Routing| Q1[Queue 1]
+        EX --&gt;|Routing| Q2[Queue 2]
+        EX --&gt;|Routing| Q3[Queue 3]
+
+        Q1 --&gt; C1[Consumer 1]
+        Q2 --&gt; C2[Consumer 2]
+        Q3 --&gt; C3[Consumer 3]
+
+        Q1 &amp; Q2 &amp; Q3 --&gt; DISK[(Persistent Storage)]
+    end
+
+    style EX fill:#ff6b6b</code></pre>
+<p><strong>Trade-offs</strong>:
+- ✅ Rich routing (topic, fanout, headers)
+- ✅ Message acknowledgment
+- ✅ Priority queues
+- ❌ Limited scalability
+- ❌ Not built for streaming
+- ❌ Complex clustering</p>
+<h3 id="alternative-2-in-memory-pubsub-redis-style">Alternative 2: In-Memory Pub/Sub (Redis Style)<a class="headerlink" href="#alternative-2-in-memory-pubsub-redis-style" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "In-Memory Pub/Sub"
+        P1[Publisher 1] --&gt; CH1[Channel 1]
+        P2[Publisher 2] --&gt; CH2[Channel 2]
+
+        CH1 --&gt; S1[Subscriber 1]
+        CH1 --&gt; S2[Subscriber 2]
+        CH2 --&gt; S3[Subscriber 3]
+
+        MEM[In-Memory Only]
+        CH1 &amp; CH2 --&gt; MEM
+    end
+
+    style MEM fill:#4ecdc4</code></pre>
+<p><strong>Trade-offs</strong>:
+- ✅ Ultra-low latency
+- ✅ Simple pub/sub
+- ✅ No disk I/O
+- ❌ No persistence
+- ❌ Messages lost on crash
+- ❌ Limited by memory</p>
+<h3 id="alternative-3-cloud-native-aws-sqssns-style">Alternative 3: Cloud-Native (AWS SQS/SNS Style)<a class="headerlink" href="#alternative-3-cloud-native-aws-sqssns-style" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Managed Queue Service"
+        API[API Gateway]
+
+        subgraph "Queue Types"
+            STD[Standard Queue&lt;br/&gt;At-least-once]
+            FIFO[FIFO Queue&lt;br/&gt;Exactly-once]
+            DLQ[Dead Letter Queue]
+        end
+
+        subgraph "Topics"
+            SNS[Pub/Sub Topics]
+            FAN[Fanout]
+        end
+
+        STORAGE[Managed Storage]
+
+        API --&gt; STD &amp; FIFO
+        STD &amp; FIFO --&gt; DLQ
+        API --&gt; SNS --&gt; FAN
+        STD &amp; FIFO &amp; SNS --&gt; STORAGE
+    end
+
+    style API fill:#95e1d3</code></pre>
+<p><strong>Trade-offs</strong>:
+- ✅ Fully managed
+- ✅ Infinite scale
+- ✅ Pay per use
+- ❌ Vendor lock-in
+- ❌ Limited features
+- ❌ Higher latency</p>
+<h3 id="alternative-4-event-store-eventstoreaxon-style">Alternative 4: Event Store (EventStore/Axon Style)<a class="headerlink" href="#alternative-4-event-store-eventstoreaxon-style" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Event Sourcing Architecture"
+        CMD[Commands] --&gt; AGG[Aggregates]
+        AGG --&gt; EVT[Events]
+
+        EVT --&gt; ES[(Event Store)]
+        ES --&gt; PROJ[Projections]
+        ES --&gt; SNAP[Snapshots]
+
+        PROJ --&gt; READ[Read Models]
+
+        ES --&gt; SUB[Subscriptions]
+        SUB --&gt; PROC[Event Processors]
+    end
+
+    style ES fill:#f7dc6f</code></pre>
+<p><strong>Trade-offs</strong>:
+- ✅ Event sourcing native
+- ✅ Time travel
+- ✅ Complex projections
+- ❌ Learning curve
+- ❌ Storage overhead
+- ❌ Complex operations</p>
+<h2 id="performance-monitoring">📊 Performance &amp; Monitoring<a class="headerlink" href="#performance-monitoring" title="Permanent link">&para;</a></h2>
+<h3 id="key-performance-metrics">Key Performance Metrics<a class="headerlink" href="#key-performance-metrics" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MessageQueueMetrics</span><span class="p">:</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Comprehensive metrics for message queue&quot;&quot;&quot;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>            <span class="c1"># Throughput metrics</span>
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a>            <span class="s1">&#39;messages_in_rate&#39;</span><span class="p">:</span> <span class="n">Rate</span><span class="p">(</span>
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>                <span class="s1">&#39;mq_messages_in_per_sec&#39;</span><span class="p">,</span>
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a>                <span class="s1">&#39;Messages produced per second&#39;</span>
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a>            <span class="p">),</span>
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a>            <span class="s1">&#39;messages_out_rate&#39;</span><span class="p">:</span> <span class="n">Rate</span><span class="p">(</span>
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a>                <span class="s1">&#39;mq_messages_out_per_sec&#39;</span><span class="p">,</span>
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a>                <span class="s1">&#39;Messages consumed per second&#39;</span>
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a>            <span class="p">),</span>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15" href="#__codelineno-17-15"></a>
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16" href="#__codelineno-17-16"></a>            <span class="c1"># Latency metrics</span>
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17" href="#__codelineno-17-17"></a>            <span class="s1">&#39;produce_latency&#39;</span><span class="p">:</span> <span class="n">Histogram</span><span class="p">(</span>
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18" href="#__codelineno-17-18"></a>                <span class="s1">&#39;mq_produce_latency_ms&#39;</span><span class="p">,</span>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19" href="#__codelineno-17-19"></a>                <span class="s1">&#39;Time to produce message&#39;</span><span class="p">,</span>
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20" href="#__codelineno-17-20"></a>                <span class="n">buckets</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">]</span>
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21" href="#__codelineno-17-21"></a>            <span class="p">),</span>
+</span><span id="__span-17-22"><a id="__codelineno-17-22" name="__codelineno-17-22" href="#__codelineno-17-22"></a>            <span class="s1">&#39;end_to_end_latency&#39;</span><span class="p">:</span> <span class="n">Histogram</span><span class="p">(</span>
+</span><span id="__span-17-23"><a id="__codelineno-17-23" name="__codelineno-17-23" href="#__codelineno-17-23"></a>                <span class="s1">&#39;mq_end_to_end_latency_ms&#39;</span><span class="p">,</span>
+</span><span id="__span-17-24"><a id="__codelineno-17-24" name="__codelineno-17-24" href="#__codelineno-17-24"></a>                <span class="s1">&#39;Time from produce to consume&#39;</span><span class="p">,</span>
+</span><span id="__span-17-25"><a id="__codelineno-17-25" name="__codelineno-17-25" href="#__codelineno-17-25"></a>                <span class="n">buckets</span><span class="o">=</span><span class="p">[</span><span class="mi">10</span><span class="p">,</span> <span class="mi">50</span><span class="p">,</span> <span class="mi">100</span><span class="p">,</span> <span class="mi">500</span><span class="p">,</span> <span class="mi">1000</span><span class="p">,</span> <span class="mi">5000</span><span class="p">]</span>
+</span><span id="__span-17-26"><a id="__codelineno-17-26" name="__codelineno-17-26" href="#__codelineno-17-26"></a>            <span class="p">),</span>
+</span><span id="__span-17-27"><a id="__codelineno-17-27" name="__codelineno-17-27" href="#__codelineno-17-27"></a>
+</span><span id="__span-17-28"><a id="__codelineno-17-28" name="__codelineno-17-28" href="#__codelineno-17-28"></a>            <span class="c1"># Consumer metrics</span>
+</span><span id="__span-17-29"><a id="__codelineno-17-29" name="__codelineno-17-29" href="#__codelineno-17-29"></a>            <span class="s1">&#39;consumer_lag&#39;</span><span class="p">:</span> <span class="n">Gauge</span><span class="p">(</span>
+</span><span id="__span-17-30"><a id="__codelineno-17-30" name="__codelineno-17-30" href="#__codelineno-17-30"></a>                <span class="s1">&#39;mq_consumer_lag_messages&#39;</span><span class="p">,</span>
+</span><span id="__span-17-31"><a id="__codelineno-17-31" name="__codelineno-17-31" href="#__codelineno-17-31"></a>                <span class="s1">&#39;Consumer lag in messages&#39;</span><span class="p">,</span>
+</span><span id="__span-17-32"><a id="__codelineno-17-32" name="__codelineno-17-32" href="#__codelineno-17-32"></a>                <span class="p">[</span><span class="s1">&#39;group&#39;</span><span class="p">,</span> <span class="s1">&#39;topic&#39;</span><span class="p">,</span> <span class="s1">&#39;partition&#39;</span><span class="p">]</span>
+</span><span id="__span-17-33"><a id="__codelineno-17-33" name="__codelineno-17-33" href="#__codelineno-17-33"></a>            <span class="p">)</span>
+</span><span id="__span-17-34"><a id="__codelineno-17-34" name="__codelineno-17-34" href="#__codelineno-17-34"></a>        <span class="p">}</span>
+</span></code></pre></div>
+<h3 id="monitoring-dashboard">Monitoring Dashboard<a class="headerlink" href="#monitoring-dashboard" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Kafka Monitoring Stack"
+        subgraph "Metrics Collection"
+            JMX[JMX Metrics]
+            CUSTOM[Custom Metrics]
+            LOG[Log Analysis]
+        end
+
+        subgraph "Processing"
+            PROM[Prometheus]
+            ALERT[AlertManager]
+            ELK[ELK Stack]
+        end
+
+        subgraph "Visualization"
+            GRAF[Grafana&lt;br/&gt;Dashboards]
+            KIB[Kibana&lt;br/&gt;Logs]
+            CTRL[Control Center&lt;br/&gt;Kafka UI]
+        end
+
+        JMX &amp; CUSTOM --&gt; PROM
+        LOG --&gt; ELK
+        PROM --&gt; ALERT &amp; GRAF
+        ELK --&gt; KIB
+        PROM --&gt; CTRL
+    end</code></pre>
+<h2 id="consistency-deep-dive-for-message-queues">🔄 Consistency Deep Dive for Message Queues<a class="headerlink" href="#consistency-deep-dive-for-message-queues" title="Permanent link">&para;</a></h2>
+<h3 id="consistency-challenges-in-distributed-queues">Consistency Challenges in Distributed Queues<a class="headerlink" href="#consistency-challenges-in-distributed-queues" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Core Consistency Requirements"
+        M1[Message Ordering&lt;br/&gt;FIFO/Total Order]
+        M2[Exactly-Once Delivery&lt;br/&gt;No duplicates/loss]
+        M3[Durability Guarantees&lt;br/&gt;Survive failures]
+        M4[Consumer Group Coordination&lt;br/&gt;Fair distribution]
+    end
+
+    subgraph "Implementation Challenges"
+        C1[Network Partitions]
+        C2[Broker Failures]
+        C3[Consumer Rebalancing]
+        C4[Cross-DC Replication]
+    end
+
+    M1 --&gt; C1
+    M2 --&gt; C2
+    M3 --&gt; C3
+    M4 --&gt; C4
+
+    style M1 fill:#ff6b6b
+    style M2 fill:#4ecdc4</code></pre>
+<h3 id="message-ordering-guarantees">Message Ordering Guarantees<a class="headerlink" href="#message-ordering-guarantees" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant P1 as Producer 1
+    participant P2 as Producer 2
+    participant B as Broker (Partition 0)
+    participant C as Consumer
+
+    Note over B: Single Partition = Total Order
+
+    P1-&gt;&gt;B: Msg A (offset 100)
+    P2-&gt;&gt;B: Msg B (offset 101)
+    P1-&gt;&gt;B: Msg C (offset 102)
+
+    B-&gt;&gt;B: Append to Log
+    Note over B: Log: [A:100, B:101, C:102]
+
+    C-&gt;&gt;B: Poll from offset 100
+    B-&gt;&gt;C: Msgs [A, B, C] in order
+
+    Note over C: Consumer sees same order&lt;br/&gt;as written to log</code></pre>
+<h3 id="consistency-models-by-use-case">Consistency Models by Use Case<a class="headerlink" href="#consistency-models-by-use-case" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Use Case</th>
+<th>Consistency Model</th>
+<th>Implementation</th>
+<th>Trade-offs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Financial Transactions</strong></td>
+<td>Exactly-Once + Total Order</td>
+<td>Idempotent producer + Transactions</td>
+<td>Higher latency, Lower throughput</td>
+</tr>
+<tr>
+<td><strong>Log Aggregation</strong></td>
+<td>At-Least-Once</td>
+<td>Async commits + Retries</td>
+<td>Possible duplicates</td>
+</tr>
+<tr>
+<td><strong>Real-time Analytics</strong></td>
+<td>At-Most-Once</td>
+<td>Fire-and-forget</td>
+<td>Possible message loss</td>
+</tr>
+<tr>
+<td><strong>Event Sourcing</strong></td>
+<td>Exactly-Once + Causal Order</td>
+<td>Transactional outbox</td>
+<td>Complex implementation</td>
+</tr>
+<tr>
+<td><strong>IoT Telemetry</strong></td>
+<td>Best Effort</td>
+<td>UDP-like semantics</td>
+<td>High throughput</td>
+</tr>
+<tr>
+<td><strong>CDC (Change Data Capture)</strong></td>
+<td>Exactly-Once + Order</td>
+<td>Log-based replication</td>
+<td>Requires source support</td>
+</tr>
+</tbody>
+</table>
+<h3 id="kafkas-consistency-architecture">Kafka's Consistency Architecture<a class="headerlink" href="#kafkas-consistency-architecture" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Write Path"
+        P[Producer] --&gt;|1. Send| L[Leader Broker]
+        L --&gt;|2. Replicate| F1[Follower 1]
+        L --&gt;|2. Replicate| F2[Follower 2]
+        F1 --&gt;|3. ACK| L
+        F2 --&gt;|3. ACK| L
+        L --&gt;|4. Commit| LOG[(Commit Log)]
+        L --&gt;|5. Response| P
+    end
+
+    subgraph "Consistency Settings"
+        ACK0[acks=0&lt;br/&gt;No waiting]
+        ACK1[acks=1&lt;br/&gt;Leader only]
+        ACKALL[acks=all&lt;br/&gt;All ISR]
+    end
+
+    subgraph "Read Path"
+        C[Consumer] --&gt;|Fetch| L
+        L --&gt;|Return| C
+        C --&gt;|Commit Offset| OT[(Offset Topic)]
+    end
+
+    style L fill:#ff6b6b
+    style ACKALL fill:#4ecdc4</code></pre>
+<h3 id="consumer-group-coordination">Consumer Group Coordination<a class="headerlink" href="#consumer-group-coordination" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Joining: Consumer Starts
+
+    Joining --&gt; Rebalancing: Join Group Request
+
+    Rebalancing --&gt; SyncGroup: Leader Assigns Partitions
+
+    SyncGroup --&gt; Fetching: Start Consuming
+
+    Fetching --&gt; Committing: Process Messages
+
+    Committing --&gt; Fetching: Continue
+
+    Fetching --&gt; Rebalancing: Member Failure/Join
+
+    Fetching --&gt; Leaving: Shutdown
+
+    Leaving --&gt; [*]
+
+    note right of Rebalancing
+        Stop-the-world pause
+        for consistency
+    end note
+
+    note right of Committing
+        Offset commits ensure
+        at-least-once delivery
+    end note</code></pre>
+<h3 id="exactly-once-semantics-implementation">Exactly-Once Semantics Implementation<a class="headerlink" href="#exactly-once-semantics-implementation" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>sequenceDiagram
+    participant P as Producer
+    participant TC as Transaction Coordinator
+    participant B1 as Broker 1
+    participant B2 as Broker 2
+    participant OL as Offset Log
+
+    P-&gt;&gt;TC: InitTransaction(transactional.id)
+    TC-&gt;&gt;P: Producer ID + Epoch
+
+    P-&gt;&gt;TC: BeginTransaction()
+
+    P-&gt;&gt;B1: Send(msg1, producerId, epoch)
+    B1-&gt;&gt;B1: Append to Log (pending)
+
+    P-&gt;&gt;B2: Send(msg2, producerId, epoch)
+    B2-&gt;&gt;B2: Append to Log (pending)
+
+    P-&gt;&gt;OL: SendOffsets(consumer offsets)
+
+    P-&gt;&gt;TC: CommitTransaction()
+
+    TC-&gt;&gt;B1: Commit Marker
+    TC-&gt;&gt;B2: Commit Marker
+    TC-&gt;&gt;OL: Commit Marker
+
+    Note over B1,B2: Messages become visible</code></pre>
+<h3 id="multi-dc-replication-consistency">Multi-DC Replication Consistency<a class="headerlink" href="#multi-dc-replication-consistency" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "DC1 (Primary)"
+        P1[Producers] --&gt; K1[Kafka Cluster 1]
+        K1 --&gt; MM1[MirrorMaker 2]
+    end
+
+    subgraph "DC2 (Secondary)"
+        K2[Kafka Cluster 2]
+        C2[Consumers]
+        K2 --&gt; C2
+    end
+
+    subgraph "DC3 (Tertiary)"
+        K3[Kafka Cluster 3]
+        C3[Consumers]
+        K3 --&gt; C3
+    end
+
+    MM1 --&gt;|Async Replication| K2
+    MM1 --&gt;|Async Replication| K3
+
+    subgraph "Consistency Properties"
+        CP1[Eventually Consistent]
+        CP2[Preserve Partition Order]
+        CP3[At-Least-Once Delivery]
+        CP4[Offset Translation]
+    end
+
+    style K1 fill:#ff6b6b
+    style MM1 fill:#4ecdc4</code></pre>
+<h3 id="handling-network-partitions">Handling Network Partitions<a class="headerlink" href="#handling-network-partitions" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Before Partition"
+        BP[Producer] --&gt; BL[Leader]
+        BL &lt;--&gt; BF1[Follower 1&lt;br/&gt;In ISR]
+        BL &lt;--&gt; BF2[Follower 2&lt;br/&gt;In ISR]
+        BC[Consumer] --&gt; BL
+    end
+
+    subgraph "During Partition"
+        DP[Producer] --&gt; DL[Leader&lt;br/&gt;Isolated]
+        DF1[Follower 1] &lt;--&gt; DF2[Follower 2]
+        DC[Consumer] --&gt; DF1
+
+        DL -.X.-&gt; DF1
+        DL -.X.-&gt; DF2
+    end
+
+    subgraph "Resolution"
+        R1[ISR Shrinks to {Leader}]
+        R2[Producers Fail (min.insync.replicas)]
+        R3[Consumers Read from Followers]
+        R4[Wait for Partition Heal]
+    end
+
+    style DL fill:#ff6b6b
+    style R2 fill:#4ecdc4</code></pre>
+<h3 id="consistency-monitoring-dashboard">Consistency Monitoring Dashboard<a class="headerlink" href="#consistency-monitoring-dashboard" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Replication Metrics"
+        R1[Under-Replicated Partitions: 0]
+        R2[Offline Partitions: 0]
+        R3[ISR Shrink Rate: 0.1/min]
+        R4[Replica Lag: max 100ms]
+    end
+
+    subgraph "Producer Metrics"
+        P1[Record Send Rate: 1M/sec]
+        P2[Failed Sends: 0.01%]
+        P3[Average Latency: 5ms]
+        P4[Batch Size: 16KB avg]
+    end
+
+    subgraph "Consumer Metrics"
+        C1[Lag by Group: &lt;1000 msgs]
+        C2[Commit Success: 99.99%]
+        C3[Rebalance Time: 3.2s avg]
+        C4[Fetch Latency: 2ms avg]
+    end
+
+    subgraph "Alerts"
+        A1[🔴 Partition 5 Under-replicated]
+        A2[🟡 Consumer Lag &gt; 10K]
+        A3[🟠 Rebalance in Progress]
+    end</code></pre>
+<h3 id="message-queue-consistency-patterns">Message Queue Consistency Patterns<a class="headerlink" href="#message-queue-consistency-patterns" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Pattern</th>
+<th>Description</th>
+<th>Use Case</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Idempotent Producer</strong></td>
+<td>Automatic retry with dedup</td>
+<td>Exactly-once produce</td>
+<td>Kafka producer ID</td>
+</tr>
+<tr>
+<td><strong>Consumer Checkpointing</strong></td>
+<td>Save progress periodically</td>
+<td>Resume after failure</td>
+<td>Offset commits</td>
+</tr>
+<tr>
+<td><strong>Transactional Messaging</strong></td>
+<td>Atomic multi-partition writes</td>
+<td>Exactly-once processing</td>
+<td>Kafka transactions</td>
+</tr>
+<tr>
+<td><strong>Log Compaction</strong></td>
+<td>Keep latest value per key</td>
+<td>Event sourcing</td>
+<td>Changelog topics</td>
+</tr>
+<tr>
+<td><strong>Sticky Partitioning</strong></td>
+<td>Maintain consumer-partition affinity</td>
+<td>Stateful processing</td>
+<td>Kafka sticky assignor</td>
+</tr>
+<tr>
+<td><strong>Controlled Shutdown</strong></td>
+<td>Graceful leader migration</td>
+<td>Zero downtime</td>
+<td>Broker shutdown</td>
+</tr>
+<tr>
+<td><strong>Read Replicas</strong></td>
+<td>Scale read throughput</td>
+<td>Analytics workloads</td>
+<td>Follower fetching</td>
+</tr>
+</tbody>
+</table>
+<h3 id="best-practices-for-queue-consistency">Best Practices for Queue Consistency<a class="headerlink" href="#best-practices-for-queue-consistency" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Producer Best Practices"
+        PB1[Enable Idempotence]
+        PB2[Set acks=all for Critical]
+        PB3[Handle Retries Properly]
+        PB4[Use Transactions When Needed]
+    end
+
+    subgraph "Broker Configuration"
+        BB1[min.insync.replicas ≥ 2]
+        BB2[unclean.leader.election=false]
+        BB3[Replication Factor ≥ 3]
+        BB4[Enable Compression]
+    end
+
+    subgraph "Consumer Patterns"
+        CB1[Commit After Processing]
+        CB2[Handle Rebalances Gracefully]
+        CB3[Implement Idempotent Processing]
+        CB4[Monitor Consumer Lag]
+    end
+
+    PB1 --&gt; BB1 --&gt; CB1</code></pre>
+<h2 id="failure-scenarios-recovery">🚨 Failure Scenarios &amp; Recovery<a class="headerlink" href="#failure-scenarios-recovery" title="Permanent link">&para;</a></h2>
+<h3 id="common-failure-modes">Common Failure Modes<a class="headerlink" href="#common-failure-modes" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p><strong>Broker Failure</strong>
+   <div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">BrokerFailureHandler</span><span class="p">:</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_broker_failure</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">failed_broker_id</span><span class="p">:</span> <span class="nb">int</span><span class="p">):</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>        <span class="c1"># 1. Detect failed broker</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_broker_alive</span><span class="p">(</span><span class="n">failed_broker_id</span><span class="p">):</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a>            <span class="c1"># 2. Trigger leader election for affected partitions</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a>            <span class="n">affected_partitions</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_broker_partitions</span><span class="p">(</span><span class="n">failed_broker_id</span><span class="p">)</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a>            <span class="k">for</span> <span class="n">partition</span> <span class="ow">in</span> <span class="n">affected_partitions</span><span class="p">:</span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9" href="#__codelineno-18-9"></a>                <span class="k">if</span> <span class="n">partition</span><span class="o">.</span><span class="n">leader</span> <span class="o">==</span> <span class="n">failed_broker_id</span><span class="p">:</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10" href="#__codelineno-18-10"></a>                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">elect_new_leader</span><span class="p">(</span><span class="n">partition</span><span class="p">)</span>
+</span></code></pre></div></p>
+</li>
+<li>
+<p><strong>Network Partition</strong>
+   <div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">NetworkPartitionHandler</span><span class="p">:</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_network_partition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">partitioned_brokers</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">int</span><span class="p">]):</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a>        <span class="c1"># 1. Detect split brain</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_split_brain</span><span class="p">(</span><span class="n">partitioned_brokers</span><span class="p">):</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a>            <span class="c1"># 2. Fence minority partition</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a>            <span class="n">minority</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_minority_partition</span><span class="p">(</span><span class="n">partitioned_brokers</span><span class="p">)</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">fence_brokers</span><span class="p">(</span><span class="n">minority</span><span class="p">)</span>
+</span></code></pre></div></p>
+</li>
+</ol>
 <h2 id="trade-offs-and-decisions">Trade-offs and Decisions<a class="headerlink" href="#trade-offs-and-decisions" title="Permanent link">&para;</a></h2>
 <table>
 <thead>
@@ -9508,6 +10508,63 @@
 </tr>
 </tbody>
 </table>
+<h2 id="key-design-insights">💡 Key Design Insights<a class="headerlink" href="#key-design-insights" title="Permanent link">&para;</a></h2>
+<div class="truth-box">
+<h3>1. 📊 Log is the Core Abstraction</h3>
+The append-only log unifies storage, messaging, and stream processing into a single primitive.
+</div>
+
+<div class="truth-box">
+<h3>2. 🔄 Replication Must Be Async</h3>
+Synchronous replication would kill throughput. ISR provides the right balance.
+</div>
+
+<div class="truth-box">
+<h3>3. 🎯 Partitioning Enables Scale</h3>
+Without partitions, you can't scale beyond a single machine's capacity.
+</div>
+
+<div class="truth-box">
+<h3>4. ⚡ Zero-Copy is Critical</h3>
+Moving data through user space would limit throughput to ~100MB/s.
+</div>
+
+<div class="truth-box">
+<h3>5. 💾 Tiered Storage Changes Economics</h3>
+Separating hot and cold storage enables infinite retention at reasonable cost.
+</div>
+
+<h2 id="related-concepts-deep-dives">🔗 Related Concepts &amp; Deep Dives<a class="headerlink" href="#related-concepts-deep-dives" title="Permanent link">&para;</a></h2>
+<h3 id="axioms-applied">Axioms Applied<a class="headerlink" href="#axioms-applied" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🏃 <strong><a href="../part1-axioms/axiom1-latency/">Axiom 1: Latency</a></strong> - Network RTT dominates replication latency</li>
+<li>📦 <strong><a href="../part1-axioms/axiom2-capacity/">Axiom 2: Capacity</a></strong> - Partitioning for horizontal scaling</li>
+<li>💥 <strong><a href="../part1-axioms/axiom3-failure/">Axiom 3: Failure</a></strong> - Replication for fault tolerance</li>
+<li>🔄 <strong><a href="../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a></strong> - Producer and consumer parallelism</li>
+<li>🤝 <strong><a href="../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a></strong> - Consumer group coordination</li>
+<li>👁️ <strong><a href="../part1-axioms/axiom6-observability/">Axiom 6: Observability</a></strong> - Metrics and monitoring</li>
+<li>🧑 <strong><a href="../part1-axioms/axiom7-human/">Axiom 7: Human Interface</a></strong> - Simple producer/consumer API</li>
+<li>💰 <strong><a href="../part1-axioms/axiom8-economics/">Axiom 8: Economics</a></strong> - Cost-effective storage with compression</li>
+</ul>
+<h3 id="related-patterns">Related Patterns<a class="headerlink" href="#related-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📨 <strong><a href="../patterns/event-driven/">Event-Driven Architecture</a></strong> - Kafka as event backbone</li>
+<li>📚 <strong><a href="../patterns/event-sourcing/">Event Sourcing</a></strong> - Log as source of truth</li>
+<li>🔄 <strong><a href="../patterns/saga/">Saga Pattern</a></strong> - Distributed transactions over messaging</li>
+<li>🎯 <strong><a href="../patterns/cqrs/">CQRS</a></strong> - Separate read/write paths with Kafka</li>
+</ul>
+<h3 id="quantitative-models">Quantitative Models<a class="headerlink" href="#quantitative-models" title="Permanent link">&para;</a></h3>
+<ul>
+<li>📊 <strong><a href="../quantitative/littles-law/">Little's Law</a></strong> - Queue depth and latency relationship</li>
+<li>📈 <strong><a href="../quantitative/queueing-models/">Queueing Theory</a></strong> - M/M/c model for brokers</li>
+<li>🚀 <strong><a href="../quantitative/universal-scalability/">Universal Scalability Law</a></strong> - Coordination overhead in consumer groups</li>
+</ul>
+<h3 id="similar-case-studies">Similar Case Studies<a class="headerlink" href="#similar-case-studies" title="Permanent link">&para;</a></h3>
+<ul>
+<li>🔄 <strong><a href="./event-sourcing-system/">Event Sourcing System</a></strong> - Using Kafka for event store</li>
+<li>📊 <strong><a href="./real-time-analytics/">Real-time Analytics</a></strong> - Stream processing with Kafka Streams</li>
+<li>🌍 <strong><a href="./multi-region-replication/">Multi-Region Replication</a></strong> - Cross-DC messaging</li>
+</ul>
 <h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
 <ul>
 <li><a href="https://www.microsoft.com/en-us/research/publication/kafka-distributed-messaging-system-log-processing/">Kafka: A Distributed Messaging System for Log Processing</a></li>

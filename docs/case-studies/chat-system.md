@@ -2285,7 +2285,7 @@ Regional servers reduce latency; cross-region replication; compliance ready
 
 ### 📊 Quantitative Models
 - **[Little's Law](../quantitative/littles-law.md)** - Connection pool sizing
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - Message queue capacity
+- **[Queueing Theory](../quantitative/queueing-models.md)** - Message queue capacity
 - **[CAP Theorem](../quantitative/cap-theorem.md)** - Consistency vs availability
 - **[Network Theory](../quantitative/network-theory.md)** - Optimal server placement
 

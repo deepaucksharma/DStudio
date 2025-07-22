@@ -18,13 +18,7 @@ last_updated: 2025-07-20
 
 ## Overview
 
-While patterns emerge from axioms and pillars, making informed decisions requires quantitative tools. This toolkit provides the mathematical foundation for:
-
-- Calculating theoretical limits
-- Modeling system behavior
-- Predicting scaling characteristics
-- Optimizing cost-performance trade-offs
-- Capacity planning with confidence
+Quantitative tools for informed decisions: calculating limits, modeling behavior, predicting scaling, optimizing cost-performance, and capacity planning.
 
 ## Chapters
 
@@ -48,43 +42,20 @@ While patterns emerge from axioms and pillars, making informed decisions require
 
 ## Key Concepts
 
-### 1. **Know Your Constants**
-Every operation has a fundamental cost determined by physics. Understanding these constants helps set realistic performance targets.
-
-### 2. **Little's Law is Universal**
-L = λW applies everywhere there's flow - from thread pools to coffee shops. Master this for instant system insights.
-
-### 3. **Queueing Theory Predicts Collapse**
-Systems don't degrade linearly. At 80% utilization, response times start exponential growth. Plan accordingly.
-
-### 4. **Parallelization Has Limits**
-Amdahl's Law shows serial bottlenecks dominate. Gustafson's Law offers hope through problem scaling.
-
-### 5. **Coordination Costs Compound**
-Every node added increases coordination overhead quadratically. The Universal Scalability Law quantifies this precisely.
-
-### 6. **Economics Drive Architecture**
-Cache hit rates, replication costs, and availability targets should drive design decisions, not technical elegance.
+1. **Know Your Constants** - Physics determines fundamental operation costs
+2. **Little's Law is Universal** - L = λW applies everywhere there's flow
+3. **Queueing Theory Predicts Collapse** - 80% utilization → exponential slowdown
+4. **Parallelization Has Limits** - Amdahl: serial bottlenecks; Gustafson: scale the problem
+5. **Coordination Costs Compound** - USL quantifies quadratic overhead
+6. **Economics Drive Architecture** - Cost-performance beats technical elegance
 
 ## How to Use This Toolkit
 
-### For System Design
-1. Start with latency requirements
-2. Apply Little's Law for sizing
-3. Check scaling limits with USL
-4. Validate economics
+**System Design**: Latency requirements → Little's Law sizing → USL limits → Validate economics
 
-### For Debugging
-1. Measure actual latencies
-2. Compare to theoretical limits
-3. Identify bottlenecks
-4. Quantify improvement potential
+**Debugging**: Measure → Compare to theory → Identify bottlenecks → Quantify improvements
 
-### For Capacity Planning
-1. Baseline current metrics
-2. Project growth curves
-3. Apply queueing models
-4. Add safety margins
+**Capacity Planning**: Baseline → Project growth → Apply models → Add margins
 
 ## Quick Reference
 
@@ -100,69 +71,32 @@ Cache hit rates, replication costs, and availability targets should drive design
 
 ### 📚 Mathematical Background
 
-#### Required (can learn as you go):
-- Basic algebra and arithmetic
-- Elementary statistics (mean, median, percentiles)
-- Simple probability concepts
-- Graph reading and interpretation
+**Required**: Basic algebra, elementary statistics, simple probability, graph reading
 
-#### Helpful but not required:
-- Calculus for advanced optimization
-- Linear algebra for complex modeling
-- Statistics for A/B testing
-- Engineering economics
+**Helpful**: Calculus, linear algebra, advanced statistics, engineering economics
 
 ### 🔧 Tools & Skills
 
-#### Essential Skills:
-- **Measurement mindset** - "In God we trust, everyone else brings data"
-- **Healthy skepticism** - Question vendor claims and marketing numbers
-- **Approximation ability** - Back-of-envelope calculations
-- **Order of magnitude thinking** - Is it 10ms or 100ms?
+**Essential**: Measurement mindset, healthy skepticism, approximation ability, order of magnitude thinking
 
-#### Recommended Tools:
-- **Calculator/Spreadsheet** - For basic calculations
-- **Python/R** - For complex modeling (optional)
-- **Monitoring tools** - To gather real system data
-- **Load testing tools** - To validate mathematical predictions
+**Tools**: Calculator/spreadsheet, Python/R (optional), monitoring tools, load testers
 
 ### 🌱 Learning Path
 
-#### Week 1: Foundations
-1. [Latency Ladder](latency-ladder.md) - Understand basic operation costs
-2. [Little's Law](littles-law.md) - Master the universal equation
-3. **Practice with calculators** - Apply formulas to real scenarios
+**Week 1**: Latency Ladder → Little's Law → Practice calculations
 
-#### Week 2: Scaling
-1. [Queueing Theory](queueing-models.md) - Predict system saturation
-2. [Amdahl's Law](amdahl-gustafson.md) - Understand parallelization limits
-3. [Practice Problems](problem-set.md) - Solve 10 basic problems
+**Week 2**: Queueing Theory → Amdahl's Law → Problem Set
 
-#### Week 3: Advanced
-1. [Universal Scalability Law](universal-scalability.md) - Model real scaling
-2. [Availability Math](availability-math.md) - Design reliable systems
-3. **Real Applications** - See math in production systems
+**Week 3**: USL → Availability Math → Real applications
 
-#### Week 4: Application
-1. [Capacity Planning](capacity-planning.md) - Size real systems
-2. [Cache Economics](cache-economics.md) - Optimize cost/performance
-3. **Test Your Models** - Validate predictions against reality
+**Week 4**: Capacity Planning → Cache Economics → Validate models
 
 ### ⚡ Quick Start Guide
 
-#### For Immediate Impact:
-1. **Use the latency ladder** - Understand your operation costs
-2. **Apply Little's Law** - Size thread pools and queues correctly
-3. **Check utilization** - Keep below 80% to avoid exponential slowdown
-4. **Calculate availability** - Design redundancy mathematically
+**Immediate Impact**: Latency ladder → Little's Law → Keep utilization <80% → Calculate availability
 
-#### Common Mistakes to Avoid:
-- **Linear thinking** - Systems don't scale linearly
-- **Average obsession** - Percentiles matter more than averages
-- **Vendor benchmarks** - Always validate with your workload
-- **Ignoring physics** - Speed of light sets absolute limits
-- **Over-optimization** - Optimize the bottleneck, not everything
+**Avoid**: Linear thinking, average obsession, trusting vendor benchmarks, ignoring physics, over-optimization
 
 ## Next Steps
 
-After mastering the quantitative toolkit, Part V explores the human and operational factors that make or break distributed systems in production. Remember: math gives you the bounds, humans operate within them.
+Part V explores human and operational factors in production. Remember: math gives you the bounds, humans operate within them.

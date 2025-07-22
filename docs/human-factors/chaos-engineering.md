@@ -1,13 +1,9 @@
 ---
 title: Chaos Engineering
-description: 1. Build hypothesis around steady state
-2. Vary real-world events
-3. Run experiments in production
-4. Automate experiments
-5. Minimize blast radius
+description: "Scientific approach to discovering system weaknesses through controlled experiments"
 type: human-factors
 difficulty: intermediate
-reading_time: 30 min
+reading_time: 20 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
@@ -20,7 +16,7 @@ last_updated: 2025-07-20
 
 **Breaking things on purpose to build confidence**
 
-## Chaos Engineering Principles
+## Core Principles
 
 1. Build hypothesis around steady state
 2. Vary real-world events
@@ -28,22 +24,12 @@ last_updated: 2025-07-20
 4. Automate experiments
 5. Minimize blast radius
 
-Not random destruction, but scientific discovery.
-
 ## Chaos Experiment Lifecycle
 
 ### 1. Steady State Definition
 
-Key metrics that define "working":
-- Success rate > 99.9%
-- p99 latency < 100ms
-- Zero data loss
-- No customer complaints
-
-Baseline measurement:
-- Week of normal operation
-- Capture variance
-- Document assumptions
+**Key metrics**: Success rate > 99.9%, p99 < 100ms, zero data loss
+**Baseline**: Week of normal operation with documented variance
 
 ### 2. Hypothesis Formation
 
@@ -63,24 +49,15 @@ flowchart TD
     style F fill:#fff3cd
 ```
 
-Examples:
-- "Payment service can tolerate 1 database replica failure with <10ms p99 latency increase"
-- "Recommendation API can lose 50% of cache nodes with <5% error rate increase"
-- "Order system can handle primary region failure with <30 second recovery time"
+**Examples**:
+- Payment service: 1 DB replica failure → <10ms p99 increase
+- Recommendation API: 50% cache loss → <5% error increase
+- Order system: Region failover → <30s recovery
 
 ### 3. Experiment Design
 
-**Scope:**
-- Blast radius (% of traffic/users affected)
-- Duration (how long to run)
-- Severity (partial vs complete failure)
-- Rollback plan (how to stop)
-
-**Safety mechanisms:**
-- Automatic abort on SLO breach
-- Manual kill switch
-- Gradual rollout
-- Business hours only (initially)
+**Scope**: Blast radius, duration, severity, rollback plan
+**Safety**: Auto-abort on SLO breach, kill switch, gradual rollout
 
 ## Chaos Experiments Catalog
 
@@ -107,13 +84,7 @@ flowchart TD
     style D fill:#fff3cd
 ```
 
-**What This Tests:**
-- Auto-scaling responsiveness
-- Service discovery updates
-- Load balancer health checks
-- Application resilience
-
-Tests: Auto-scaling, service discovery
+**Tests**: Auto-scaling, service discovery, health checks, resilience
 
 **2. Network Partitions**
 ```mermaid
@@ -137,13 +108,7 @@ flowchart LR
     end
 ```
 
-**What This Tests:**
-- Quorum-based systems behavior
-- Split-brain prevention
-- Failover mechanisms
-- Client retry logic
-
-Tests: Quorum logic, split-brain handling
+**Tests**: Quorum behavior, split-brain prevention, failover, retry logic
 
 **3. Clock Skew**
 ```mermaid
@@ -169,13 +134,7 @@ graph TB
     style K fill:#fff3cd
 ```
 
-**What This Tests:**
-- Time synchronization dependencies
-- Certificate and token handling
-- Ordering assumptions
-- Grace period implementations
-
-Tests: Time-dependent logic, ordering
+**Tests**: Time sync dependencies, cert/token handling, ordering, grace periods
 
 **4. Resource Exhaustion**
 ```mermaid
@@ -207,7 +166,7 @@ flowchart TD
 | **CPU** | Spin loops | Throttling, queueing | Timeouts |
 | **Network** | Bandwidth limit | Backpressure | Connection drops |
 
-Tests: Degradation handling, alerts
+**Tests**: Degradation handling, alert effectiveness
 
 ### Application Chaos
 
@@ -242,7 +201,7 @@ flowchart LR
 | 5s | 5% | Circuit breakers | Breaker opens |
 | 30s | 1% | Dead detection | Failover triggered |
 
-Tests: Timeout handling, circuit breakers
+**Tests**: Timeout handling, circuit breakers
 
 **2. Error Injection**
 ```mermaid
@@ -266,7 +225,7 @@ flowchart TD
     style D fill:#c8e6c9
 ```
 
-Tests: Retry logic, fallbacks
+**Tests**: Retry logic, fallback mechanisms
 
 **3. Data Corruption**
 **Data Corruption Test Scenarios:**
@@ -297,7 +256,7 @@ flowchart TD
     style I fill:#ffcdd2
 ```
 
-Tests: Validation, error detection
+**Tests**: Validation effectiveness, error detection
 
 **4. Rate Limiting**
 ```mermaid
@@ -332,34 +291,11 @@ flowchart TD
 | 100/hr | Sliding | Sustained load | Smooth throttling |
 | 1000/day | Token | Spike traffic | Burst allowed, then throttle |
 
-Tests: Backoff, queueing
+**Tests**: Backoff behavior, queue management
 
 ## GameDay Planning
 
 ### Pre-GameDay Checklist
-
-```mermaid
-flowchart TD
-    subgraph "GameDay Preparation Flow"
-        A[Start Planning] --> B[Document Hypothesis]
-        B --> C[Define Success Criteria]
-        C --> D[Setup Monitoring]
-        D --> E[Test Abort Procedures]
-        E --> F[Assign Team Roles]
-        F --> G[Create Comm Plan]
-        G --> H[Brief Support Team]
-        H --> I[Validate Rollback]
-        I --> J[Inform Stakeholders]
-        J --> K[Update Runbooks]
-        K --> L{Ready?}
-        L -->|No| M[Address Gaps]
-        L -->|Yes| N[✅ Execute GameDay]
-        M --> B
-    end
-    
-    style N fill:#c8e6c9
-    style M fill:#fff3cd
-```
 
 **Pre-GameDay Checklist Status:**
 
@@ -378,11 +314,8 @@ flowchart TD
 
 ### GameDay Roles
 
-- **Game Master**: Runs the experiment
-- **Observer**: Watches metrics
-- **Communicator**: Updates stakeholders
-- **Fixer**: Ready to intervene
-- **Scribe**: Documents everything
+**Game Master**: Runs experiment | **Observer**: Monitors metrics | **Communicator**: Updates stakeholders
+**Fixer**: Ready to intervene | **Scribe**: Documents everything
 
 ### GameDay Timeline
 
@@ -416,95 +349,36 @@ gantt
 
 ## Real GameDay Example
 
-### Scenario: Payment Service Region Failure
+### Payment Service Region Failure
 
-**Hypothesis:**
-"Payment service can failover to secondary region within 60 seconds with zero transaction loss"
+**Hypothesis**: Failover < 60s with zero transaction loss
 
-**Experiment:**
-1. Block all traffic to us-east-1
-2. Monitor failover behavior
-3. Verify no payments lost
+**Results**: 47s failover ✓, 0 lost transactions ✓, 15% timeouts (connection pool issue)
 
-**Results:**
-- Failover time: 47 seconds ✓
-- Transactions lost: 0 ✓
-- Unexpected finding: 15% timeout errors
-- Root cause: Connection pool size
-
-**Improvements:**
-- Increase connection pool warmup
-- Add pre-flight checks
-- Reduce health check interval
+**Fixes**: Larger connection pool warmup, pre-flight checks, faster health checks
 
 ## Chaos Maturity Model
 
-### Level 1: In Development
-- Chaos in test environment only
-- Manual experiments
-- Known failures only
-- Team-initiated
-
-### Level 2: In Staging
-- Staging environment chaos
-- Some automation
-- Broader failure modes
-- Weekly schedule
-
-### Level 3: In Production
-- Production experiments
-- Automated suite
-- Business hours only
-- Monthly GameDays
-
-### Level 4: Continuous Chaos
-- Always-on chaos
-- Random scheduling
-- Full automation
-- Part of CI/CD
+**Level 1**: Dev only, manual, known failures
+**Level 2**: Staging, some automation, weekly
+**Level 3**: Production, automated, business hours
+**Level 4**: Always-on, random, fully automated
 
 ## Chaos Engineering Tools
 
-### Tool Comparison
-
-**Chaos Monkey (Netflix):**
-- Scope: AWS instances
-- Maturity: Very high
-- Use case: Instance failures
-
-**Gremlin:**
-- Scope: Full infrastructure
-- Maturity: Commercial product
-- Use case: Enterprise chaos
-
-**Litmus:**
-- Scope: Kubernetes
-- Maturity: CNCF project
-- Use case: Container chaos
-
-**Chaos Toolkit:**
-- Scope: Extensible
-- Maturity: Growing
-- Use case: Custom experiments
+**Chaos Monkey**: AWS instances, mature, instance failures
+**Gremlin**: Full infrastructure, commercial, enterprise
+**Litmus**: Kubernetes, CNCF, container chaos
+**Chaos Toolkit**: Extensible, growing, custom experiments
 
 ## Measuring Chaos Success
 
-### Metrics
-
-1. **Experiments Run**
-   - Target: 1 per service per month
-
-2. **Issues Discovered**
-   - Track: Unknown failure modes found
-
-3. **MTTR Improvement**
-   - Before/after chaos findings
-
-4. **Confidence Score**
-   - Team survey on system reliability
-
-5. **Incident Reduction**
-   - Correlation with real incidents
+**Key Metrics**:
+- Experiments run: 1/service/month
+- Unknown issues discovered
+- MTTR improvement
+- Team confidence score
+- Real incident reduction
 
 ### ROI Calculation
 
@@ -545,63 +419,25 @@ flowchart LR
 
 ## Best Practices
 
-1. **Start Small**
-   - Single service
-   - Known failures
-   - Test environment
-   - Build confidence
-
-2. **Automate Early**
-   - Reproducible experiments
-   - Consistent results
-   - Reduced toil
-
-3. **Communicate Well**
-   - Clear hypotheses
-   - Regular updates
-   - Share learnings
-   - Celebrate findings
-
-4. **Safety First**
-   - Blast radius limits
-   - Abort procedures
-   - Monitoring ready
-   - Rollback tested
-
-5. **Learn Always**
-   - Document everything
-   - Share findings
-   - Update runbooks
-   - Improve systems
+1. **Start Small**: Single service, known failures, test environment
+2. **Automate Early**: Reproducible experiments, consistent results
+3. **Communicate Well**: Clear hypotheses, share learnings
+4. **Safety First**: Limit blast radius, test abort procedures
+5. **Learn Always**: Document findings, update runbooks
 
 ## Common Pitfalls
 
-1. **Too Much Too Soon**
-   - Start with small experiments
-   - Build confidence gradually
-   - Don't break everything day 1
-
-2. **Poor Communication**
-   - Surprise chaos = angry teammates
-   - Always announce experiments
-   - Share results widely
-
-3. **No Learning**
-   - Running chaos without fixing findings
-   - Document and prioritize fixes
-   - Track improvements
-
-4. **Production Cowboy**
-   - Chaos without safety measures
-   - Always have abort procedures
-   - Start in lower environments
+1. **Too Much Too Soon**: Build confidence gradually
+2. **Poor Communication**: Announce experiments, share results
+3. **No Learning**: Fix findings, track improvements
+4. **Production Cowboy**: Always have safety measures
 
 ## Key Takeaways
 
-- **Chaos finds unknown unknowns** - You don't know what you don't know
-- **Production is different** - Test where it matters
-- **Small experiments** - Minimize blast radius
-- **Automate everything** - Manual chaos doesn't scale
-- **Culture matters** - Teams must embrace failure
+- Chaos finds unknown unknowns
+- Production testing reveals real issues
+- Small experiments minimize risk
+- Automation enables scale
+- Culture of learning from failure is essential
 
-Remember: The goal is not to break things, but to discover weaknesses before they break in production.
+**Remember**: Discover weaknesses before they break in production.

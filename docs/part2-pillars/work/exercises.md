@@ -1,7 +1,6 @@
 ---
 title: Work Distribution Exercises
-description: <details>
-<summary>Solution Approach</summary>
+description: Hands-on exercises to practice work distribution patterns in distributed systems
 type: pillar
 difficulty: beginner
 reading_time: 20 min

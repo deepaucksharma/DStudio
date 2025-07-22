@@ -1027,7 +1027,7 @@ graph TD
 
 ### 📊 Quantitative Models
 - **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for pending checks
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for rate limiter node sizing
+- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for rate limiter node sizing
 - **[CAP Theorem](../quantitative/cap-pacelc.md)** - AP choice: available during partitions with approximate counts
 - **[Bloom Filters](../quantitative/probabilistic-structures.md)** - Space-efficient first-time user detection
 

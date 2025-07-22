@@ -18,50 +18,93 @@ last_updated: 2025-07-20
 
 ## Conway's Law
 
-"Any organization that designs a system will produce a design whose structure is a copy of the organization's communication structure."
-- Melvin Conway, 1967
+"Organizations produce designs that copy their communication structures." - Conway, 1967
 
-This isn't a suggestion. It's physics.
+Not a suggestion. It's physics.
 
 ## Why Conway's Law is Inevitable
 
 ### Communication Bandwidth
 
-```text
-Team A ←──high bandwidth──→ Team A members
-   ↓
-   low bandwidth
-   ↓
-Team B ←──high bandwidth──→ Team B members
+```mermaid
+graph TB
+    subgraph "Team A"
+        A1[Member 1]
+        A2[Member 2]
+        A3[Member 3]
+    end
+    
+    subgraph "Team B"
+        B1[Member 1]
+        B2[Member 2]
+        B3[Member 3]
+    end
+    
+    A1 <--> A2
+    A2 <--> A3
+    A1 <--> A3
+    
+    B1 <--> B2
+    B2 <--> B3
+    B1 <--> B3
+    
+    A1 -.->|Low Bandwidth<br/>Meetings/Tickets| B1
+    
+    style A1 fill:#95e1d3
+    style A2 fill:#95e1d3
+    style A3 fill:#95e1d3
+    style B1 fill:#f38181
+    style B2 fill:#f38181
+    style B3 fill:#f38181
 ```
 
-Result: Natural module boundaries form at team boundaries.
+Result: Module boundaries = team boundaries.
 
 ### The Physics
 
 1. **Information flow follows org structure**
-   - Same team: Rich, frequent communication
-   - Different teams: Meetings, tickets, emails
-   - Different orgs: Contracts, SLAs, APIs
+   - Same team: Rich communication
+   - Different teams: Meetings, tickets
+   - Different orgs: Contracts, APIs
 
 2. **Interfaces emerge at boundaries**
-   - Within team: Method calls, shared memory
-   - Between teams: REST APIs, message queues
-   - Between companies: Public APIs, webhooks
+   - Within team: Method calls
+   - Between teams: REST APIs
+   - Between companies: Public APIs
 
 3. **Architecture mirrors hierarchy**
    - Monolith ← Single team
    - Services ← Multiple teams
-   - Platforms ← Organizational divisions
+   - Platforms ← Org divisions
 
 ## Organizational Patterns
 
 ### 1. Functional Organization
 
-```text
-         CTO
-      /   |   \
-   Eng   QA   Ops
+```mermaid
+graph TD
+    CTO[CTO]
+    ENG[Engineering]
+    QA[QA Team]
+    OPS[Operations]
+    
+    CTO --> ENG
+    CTO --> QA
+    CTO --> OPS
+    
+    subgraph "System Flow"
+        DEV[Development] -->|Code| WALL1[Wall]
+        WALL1 -->|Testing| TEST[QA Testing]
+        TEST -->|Bugs| WALL2[Wall]
+        WALL2 -->|Fixes| DEV
+        TEST -->|Release| WALL3[Wall]
+        WALL3 -->|Deploy| PROD[Production]
+        PROD -->|Incidents| OPS2[Ops Team]
+    end
+    
+    style WALL1 fill:#ff6b6b,stroke:#333,stroke-width:4px
+    style WALL2 fill:#ff6b6b,stroke:#333,stroke-width:4px
+    style WALL3 fill:#ff6b6b,stroke:#333,stroke-width:4px
 ```
 
 **System Architecture:**
@@ -73,12 +116,50 @@ Result: Natural module boundaries form at team boundaries.
 
 ### 2. Product Teams
 
-```text
-    Product Org
-    /    |    \
-Team A  Team B  Team C
-(Full   (Full   (Full
-Stack)  Stack)  Stack)
+```mermaid
+graph TB
+    PO[Product Organization]
+    
+    subgraph "Cross-Functional Teams"
+        subgraph "Team A"
+            A_FE[Frontend]
+            A_BE[Backend]
+            A_DB[Database]
+            A_OPS[DevOps]
+        end
+        
+        subgraph "Team B"
+            B_FE[Frontend]
+            B_BE[Backend]
+            B_DB[Database]
+            B_OPS[DevOps]
+        end
+        
+        subgraph "Team C"
+            C_FE[Frontend]
+            C_BE[Backend]
+            C_DB[Database]
+            C_OPS[DevOps]
+        end
+    end
+    
+    PO --> Team A
+    PO --> Team B
+    PO --> Team C
+    
+    subgraph "System Architecture"
+        SA[Service A] <-->|API| SB[Service B]
+        SB <-->|API| SC[Service C]
+        SA <-->|API| SC
+    end
+    
+    Team A -.->|Owns| SA
+    Team B -.->|Owns| SB
+    Team C -.->|Owns| SC
+    
+    style SA fill:#95e1d3
+    style SB fill:#f7dc6f
+    style SC fill:#bb8fce
 ```
 
 **System Architecture:**
@@ -91,12 +172,53 @@ Stack)  Stack)  Stack)
 
 ### 3. Platform Model
 
-```text
-    Product Teams
-         ↓
-    Platform Team
-         ↓
-    Infrastructure
+```mermaid
+graph TB
+    subgraph "Product Layer"
+        PT1[Product Team 1]
+        PT2[Product Team 2]
+        PT3[Product Team 3]
+        PT4[Product Team 4]
+    end
+    
+    subgraph "Platform Layer"
+        AUTH[Auth Service]
+        DATA[Data Platform]
+        MSG[Messaging]
+        MON[Monitoring]
+        DEPLOY[Deployment]
+    end
+    
+    subgraph "Infrastructure Layer"
+        K8S[Kubernetes]
+        DB[Databases]
+        NET[Network]
+        STOR[Storage]
+    end
+    
+    PT1 --> AUTH
+    PT1 --> DATA
+    PT2 --> AUTH
+    PT2 --> MSG
+    PT3 --> DATA
+    PT3 --> MSG
+    PT4 --> MON
+    PT4 --> DEPLOY
+    
+    AUTH --> K8S
+    DATA --> DB
+    MSG --> K8S
+    MON --> K8S
+    DEPLOY --> K8S
+    
+    K8S --> NET
+    DB --> STOR
+    
+    style AUTH fill:#4ecdc4
+    style DATA fill:#4ecdc4
+    style MSG fill:#4ecdc4
+    style MON fill:#4ecdc4
+    style DEPLOY fill:#4ecdc4
 ```
 
 **System Architecture:**
@@ -124,93 +246,36 @@ Stack)  Stack)  Stack)
 ## Team Topologies
 
 ### Stream-Aligned Teams
-
 **Purpose:** Deliver value streams
-
-```python
-class StreamAlignedTeam:
-    """
-    - Own entire feature/product
-    - Direct customer value
-    - Fast flow of work
-    - Minimal dependencies
-    """
-    size = "5-9 people"
-    owns = ["frontend", "backend", "database", "deployment"]
-    cognitive_load = "one domain"
-```
+- Own entire feature/product
+- Direct customer value
+- 5-9 people
+- One domain focus
 
 ### Platform Teams
-
-**Purpose:** Enable stream-aligned teams
-
-```python
-class PlatformTeam:
-    """
-    - Build internal products
-    - Hide complexity
-    - Self-service APIs
-    - Force multiplier
-    """
-    customers = "internal teams"
-    products = ["deployment platform", "monitoring", "data pipeline"]
-    success_metric = "adoption rate"
-```
+**Purpose:** Enable stream teams
+- Build internal products
+- Self-service APIs
+- Success = adoption rate
 
 ### Enabling Teams
-
-**Purpose:** Help teams adopt new practices
-
-```python
-class EnablingTeam:
-    """
-    - Coaching and facilitation
-    - Temporary engagement
-    - Knowledge transfer
-    - Best practices
-    """
-    mode = "consulting"
-    duration = "3-6 months per engagement"
-    goal = "team self-sufficiency"
-```
+**Purpose:** Help teams adopt practices
+- Coaching mode
+- 3-6 month engagements
+- Goal: self-sufficiency
 
 ### Complicated Subsystem Teams
-
 **Purpose:** Own complex domains
-
-```python
-class SubsystemTeam:
-    """
-    - Deep expertise required
-    - Mathematical/algorithmic complexity
-    - Would overload stream teams
-    - Clear interface needed
-    """
-    examples = ["ML models", "video codec", "crypto", "search"]
-    interface = "simple API hiding complexity"
-```
+- Deep expertise (ML, crypto, codecs)
+- Simple API hiding complexity
 
 ## Communication Patterns
 
 ### Team Interaction Modes
 
-**1. Collaboration**
-- Working together
-- Fuzzy boundaries
-- High bandwidth
-- Innovation mode
-
-**2. X-as-a-Service**
-- Clear API/contract
-- Consumer/provider
-- Low coupling
-- Execution mode
-
-**3. Facilitating**
-- Coaching/mentoring
-- Temporary
-- Knowledge transfer
-- Growth mode
+**1. Collaboration**: Fuzzy boundaries, innovation
+**2. X-as-a-Service**: Clear API, execution
+**3. Facilitating**: Coaching, temporary
 
 ### Choosing Interaction Modes
 
@@ -222,8 +287,6 @@ def select_interaction_mode(context):
         return "x-as-a-service"
     elif context.capability_gap:
         return "facilitating"
-    else:
-        raise ValueError("Unclear context")
 ```
 
 ## The Inverse Conway Maneuver
@@ -262,7 +325,7 @@ Deliberately structuring teams to achieve desired architecture.
 **Before:**
 ```
 Single Team → Monolith
-```text
+```
 **Transition:**
 ```python
 # 1. Identify bounded contexts
@@ -283,14 +346,15 @@ for context in contexts:
 
 # 3. Teams extract their services
 # Architecture emerges naturally
-```text
+```
+
 **After:**
 ```
 User Team → User Service
-Order Team → Order Service
+Order Team → Order Service  
 Payment Team → Payment Service
 Notification Team → Notification Service
-```bash
+```
 ## Anti-Patterns
 
 ### 1. Misaligned Architecture
@@ -301,7 +365,8 @@ Notification Team → Notification Service
 Team A owns: [ServiceA, half of ServiceB]
 Team B owns: [half of ServiceB, ServiceC]
 Result: Coordination nightmare
-```proto
+```
+
 **Fix:** Align service boundaries with team boundaries
 
 ### 2. Shared Ownership
@@ -447,30 +512,15 @@ def measure_conway_alignment(org_structure, system_architecture):
 ```proto
 ## Best Practices
 
-1. **Design Organization Intentionally**
-   - Org structure is architecture
-   - Plan both together
-   - Use Inverse Conway Maneuver
+1. **Design Organization Intentionally**: Org = architecture, plan together
 
-2. **Minimize Cognitive Load**
-   - One team, one domain
-   - Clear boundaries
-   - Limit work in progress
+2. **Minimize Cognitive Load**: One team, one domain, clear boundaries
 
-3. **Optimize Communication**
-   - Colocate when collaborating
-   - APIs when executing
-   - Documentation always
+3. **Optimize Communication**: Colocate for collab, APIs for execution
 
-4. **Enable Team Autonomy**
-   - Full ownership
-   - Minimal dependencies
-   - Self-service platforms
+4. **Enable Team Autonomy**: Full ownership, minimal dependencies
 
-5. **Evolve Thoughtfully**
-   - Team topology changes are expensive
-   - Plan transitions carefully
-   - Communicate extensively
+5. **Evolve Thoughtfully**: Changes expensive, plan carefully
 
 ## Case Study: Ride-Sharing Reorg
 

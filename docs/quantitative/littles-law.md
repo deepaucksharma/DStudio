@@ -16,10 +16,6 @@ last_updated: 2025-07-20
 
 **The most important equation in systems thinking**
 
-## The Law
-
-Little's Law is deceptively simple yet universally applicable:
-
 <div class="axiom-box">
 <h3>📐 Little's Law Formula</h3>
 
@@ -38,25 +34,15 @@ Little's Law is deceptively simple yet universally applicable:
 </div>
 </div>
 
-## Intuitive Understanding
+## Quick Example
 
-Think of a coffee shop:
-- Customers arrive: 20 per hour (λ)
-- Each stays: 30 minutes or 0.5 hours (W)
-- Customers in shop: L = 20 × 0.5 = 10 people
+**Coffee shop**: λ=20/hr, W=0.5hr → L=10 customers
+(If only 8 seats → 2 standing → bad experience)
 
-If the shop has 8 seats → 2 people standing → Bad experience
-
-!!! info "Real-World Impact"
-    **Amazon's Discovery**: In 2006, Amazon found every 100ms of latency cost them 1% in sales
-    Using Little's Law: If page load W increases by 100ms and λ (visitors) = 100M/day
-    Then L (concurrent users waiting) increases proportionally, leading to abandonment
-
-    **Twitter's Fail Whale**: During 2010 World Cup
-    - Tweet rate λ = 3,283 tweets/second (peak)
-    - Processing time W = 5 seconds (overloaded)
-    - Queue depth L = 16,415 tweets backed up
-    - Result: The infamous Fail Whale error page
+!!! info "Real Impact"
+    **Amazon (2006)**: 100ms latency = 1% sales loss. Little's Law shows why: higher W → higher L → abandonment
+    
+    **Twitter (2010)**: λ=3,283 tweets/s × W=5s → L=16,415 tweets queued → Fail Whale
 
 ## Applications in Distributed Systems
 
@@ -147,32 +133,12 @@ If the shop has 8 seats → 2 people standing → Bad experience
 
 ## Little's Law Variants
 
-### Response Time Formula
 <div class="decision-box">
-<h4>⏱️ Calculate Response Time</h4>
+<h4>📐 Three Forms</h4>
 
-<div class="formula-highlight">
-<h3 style="text-align: center; color: #4CAF50;">W = L / λ</h3>
-</div>
-
-| When You Know | Calculate | Use Case |
-|---------------|-----------|----------|
-| System occupancy (L) | Response time | SLA validation |
-| Arrival rate (λ) | | Performance tuning |
-</div>
-
-### Throughput Formula
-<div class="decision-box">
-<h4>🚀 Calculate Throughput</h4>
-
-<div class="formula-highlight">
-<h3 style="text-align: center; color: #FF9800;">λ = L / W</h3>
-</div>
-
-| When You Know | Calculate | Use Case |
-|---------------|-----------|----------|
-| Queue length (L) | Maximum throughput | Capacity planning |
-| Processing time (W) | | Bottleneck identification |
+- **L = λ × W** (queue length from rate & time)
+- **W = L / λ** (response time from queue & rate)
+- **λ = L / W** (throughput from queue & time)
 </div>
 
 ## Real Production Examples
@@ -861,29 +827,11 @@ flowchart TD
     style CalcW fill:#ff6b6b
 ```
 
-## Real-World Application: Microservice Architecture
+## Microservice Example
 
 ```mermaid
 graph LR
-    subgraph "API Gateway"
-        AG[λ=1000/s<br/>W=5ms<br/>L=5]
-    end
-    
-    subgraph "Auth Service"
-        AS[λ=1000/s<br/>W=10ms<br/>L=10]
-    end
-    
-    subgraph "Business Logic"
-        BL[λ=800/s<br/>W=50ms<br/>L=40]
-    end
-    
-    subgraph "Database"
-        DB[λ=2400/s<br/>W=20ms<br/>L=48]
-    end
-    
-    AG --> AS
-    AS --> BL
-    BL --> DB
+    AG[Gateway<br/>L=5] --> AS[Auth<br/>L=10] --> BL[Logic<br/>L=40] --> DB[Database<br/>L=48]
     
     style AG fill:#90ee90
     style DB fill:#ff6b6b
@@ -979,45 +927,20 @@ Recommendations:
 • Set up alerting at L > 450
 ```
 
-## Integration with Other Concepts
+## Connections to Other Concepts
 
-### Connection to [Queueing Models](queueing-models.md)
-- Little's Law provides the foundation for M/M/1 analysis
-- L in Little's Law = Lq + Ls in queueing theory
-- Utilization ρ = λ/μ affects W, thus affecting L
+- **[Queueing Models](queueing-models.md)**: L = Lq + Ls, utilization ρ = λ/μ affects W
+- **[Latency Ladder](latency-ladder.md)**: W includes all ladder latencies
+- **[Availability Math](availability-math.md)**: Failures spike λ (retries), predict cascades
+- **Patterns**: Rate limiting controls λ, circuit breakers prevent retry storms
 
-### Connection to [Latency Ladder](latency-ladder.md)
-- W includes all latencies in the ladder
-- Network latency, processing time, queue wait all contribute to W
-- Use latency ladder to estimate W, then calculate L
+## Key Insights & Pitfalls
 
-### Connection to [Availability Math](availability-math.md)
-- During failures, λ may spike (retries)
-- Increased W during degradation increases L
-- Can predict cascade failures using Little's Law
+**Insights**: Invariant law | Hidden queues exist | Works recursively | Predictive power
 
-### Connection to Patterns
-- [Rate Limiting](../patterns/rate-limiting.md) controls λ to keep L manageable
-- [Bulkhead](../patterns/bulkhead.md) isolates L to prevent system-wide impact
-- [Circuit Breaker](../patterns/circuit-breaker.md) prevents λ spikes during failures
+**Pitfalls**: Missing OS buffers | Using peak for average | Ignoring slow requests | Retry storms
 
-## Key Insights
-
-1. **Little's Law is invariant** - It always holds, no exceptions
-2. **Measure, don't guess** - Real systems have hidden queues
-3. **Applied recursively** - Works at every level of abstraction
-4. **Predictive power** - Change one variable, predict the others
-5. **Debugging tool** - Quickly identify system overload
-
-## Common Pitfalls
-
-1. **Forgetting hidden queues** - OS buffers, network queues
-2. **Using peak λ for average sizing** - Wastes resources
-3. **Ignoring W variations** - Slow requests dominate
-4. **Not accounting for failures** - Retries increase λ
-5. **Missing feedback loops** - High L can increase W
-
-Remember: Little's Law is like gravity - it's always there, whether you account for it or not!
+Remember: Little's Law is like gravity - always there!
 
 ## Related Concepts
 

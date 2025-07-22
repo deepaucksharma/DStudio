@@ -1,7 +1,6 @@
 ---
 title: State Management Exercises
-description: <details>
-<summary>Solution</summary>
+description: Advanced exercises for mastering distributed state management patterns
 type: pillar
 difficulty: advanced
 reading_time: 20 min

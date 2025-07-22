@@ -1,9 +1,9 @@
 ---
 title: On-Call Culture
-description: On-call culture encompasses the practices, values, and systems that make 24/7 service support sustainable and effective while maintaining team heal...
+description: "Practices and systems for sustainable 24/7 service support"
 type: human-factors
 difficulty: beginner
-reading_time: 20 min
+reading_time: 15 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
@@ -18,30 +18,11 @@ last_updated: 2025-07-20
 
 > *"On-call should be a responsibility, not a punishment."*
 
----
-
-## What is On-Call Culture?
-
-On-call culture encompasses the practices, values, and systems that make 24/7 service support sustainable and effective while maintaining team health and morale.
-
 ## Core Principles
 
-### 1. Shared Responsibility
-- Everyone who can break production should help fix it
-- Developers and operators share on-call duties
-- Leadership participates in rotation
-
-### 2. Sustainable Practices
-- Reasonable rotation schedules
-- Adequate compensation
-- Time off after rough shifts
-- Limit on consecutive incidents
-
-### 3. Continuous Improvement
-- Fix root causes, not just symptoms
-- Invest in automation
-- Improve monitoring and alerting
-- Regular rotation retrospectives
+1. **Shared Responsibility**: Those who build it, run it
+2. **Sustainable Practices**: Fair rotations, compensation, recovery time
+3. **Continuous Improvement**: Fix root causes, automate, retrospect
 
 ## Building Healthy On-Call Rotations
 
@@ -55,49 +36,16 @@ On-call culture encompasses the practices, values, and systems that make 24/7 se
 | **Team-based** | Entire team shares | Shared knowledge | Can impact whole team |
 
 ### Optimal Rotation Size
-```python
-def calculate_rotation_size(incidents_per_week, max_incidents_per_person=2):
-    """
-    Calculate optimal on-call rotation size
 
-    Factors:
-    - Each person on-call once per rotation cycle
-    - No more than max_incidents per shift
-    - Account for vacation/sick time (15%)
-    """
-    # Base calculation
-    min_people = incidents_per_week / max_incidents_per_person
-
-    # Add buffer for time off
-    vacation_buffer = 1.15
-
-    # Add buffer for burnout prevention
-    burnout_buffer = 1.25
-
-    optimal_size = int(min_people * vacation_buffer * burnout_buffer)
-
-    # Minimum viable rotation
-    return max(optimal_size, 4)
-```
+**Formula**: `(incidents/week ÷ max_per_person) × 1.15 (vacation) × 1.25 (burnout) = team size`
+**Minimum**: 4 people for viable rotation
 
 ## On-Call Compensation
 
-### Common Models
-
-1. **Time-based Compensation**
-   - Flat rate per on-call shift
-   - Different rates for weekday/weekend
-   - Additional pay for holidays
-
-2. **Incident-based Compensation**
-   - Base rate + per-incident payment
-   - Escalating rates for multiple incidents
-   - Severity-based compensation
-
-3. **Time Off in Lieu**
-   - Comp time for weekend shifts
-   - Extra PTO after difficult rotations
-   - Flexible working after incidents
+**Common Models**:
+1. **Time-based**: Flat rate (weekday/weekend/holiday differentiated)
+2. **Incident-based**: Base + per-incident + severity multiplier
+3. **Time Off**: Comp time for weekends/holidays, flex after incidents
 
 ### Example Compensation Structure
 ```yaml
@@ -269,23 +217,9 @@ class OnCallAutomation:
 
 ### Supporting On-Call Engineers
 
-1. **Pre-Incident Support**
-   - Clear runbooks and documentation
-   - Practice scenarios (game days)
-   - Shadowing before first shift
-   - Access to senior engineers
-
-2. **During Incident Support**
-   - No blame for waking people up
-   - Encouragement to escalate
-   - Clear decision-making authority
-   - Support from leadership
-
-3. **Post-Incident Support**
-   - Blameless postmortems
-   - Time to implement fixes
-   - Recognition for good incident handling
-   - Mental health resources
+**Pre-Incident**: Clear runbooks, game days, shadowing, senior access
+**During Incident**: No blame culture, escalation encouraged, clear authority
+**Post-Incident**: Blameless postmortems, fix time, recognition, mental health support
 
 ### Preventing Burnout
 ```python
@@ -475,30 +409,11 @@ graph LR
 | **Follow-the-Sun** | $$$$ | Eliminate night pages | 6 months | Low |
 | **Alert Tuning** | $ | Reduce noise 60% | 2 weeks | Critical |
 
-## Best Practices Summary
+## Best Practices
 
-1. **Make it Sustainable**
-   - Reasonable rotation sizes
-   - Fair compensation
-   - Limit consecutive incidents
-
-2. **Provide Great Tools**
-   - Effective alerting
-   - Clear runbooks
-   - Automation where possible
-
-3. **Foster Learning**
-   - Blameless culture
-   - Share knowledge
-   - Invest in improvements
-
-4. **Support Your People**
-   - Psychological safety
-   - Clear escalation paths
-   - Recognition and appreciation
-
----
-
----
+1. **Make it Sustainable**: Fair rotations, compensation, incident limits
+2. **Provide Great Tools**: Effective alerts, clear runbooks, automation
+3. **Foster Learning**: Blameless culture, knowledge sharing, continuous improvement
+4. **Support Your People**: Psychological safety, clear escalation, recognition
 
 *"The best on-call rotation is one where engineers volunteer for extra shifts."*

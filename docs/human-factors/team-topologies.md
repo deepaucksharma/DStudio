@@ -22,116 +22,198 @@ last_updated: 2025-07-20
 
 ## Understanding Team Topologies
 
-Team Topologies provides four fundamental team types and three interaction modes to help organizations design their team structures for fast flow of value.
+Four team types + three interaction modes = fast value flow.
 
 ## The Four Team Types
 
-### 1. Stream-Aligned Teams
-**Purpose**: Deliver value directly to customers or users
-
-```yaml
-stream_aligned_team:
-  characteristics:
-    - End-to-end ownership of a service/product
-    - Direct customer/user feedback loop
-    - Cross-functional capabilities
-    - Autonomous decision-making
-
-  size: 5-9 people
-
-  responsibilities:
-    - Feature development
-    - Service operations
-    - On-call rotation
-    - Customer support escalations
-
-  examples:
-    - "Checkout Team" (owns entire checkout flow)
-    - "Mobile App Team" (owns mobile experience)
-    - "Search Team" (owns search functionality)
+```mermaid
+graph TB
+    subgraph "Team Types Overview"
+        SA[Stream-Aligned Teams<br/>Customer Value]
+        PL[Platform Teams<br/>Foundation Services]
+        EN[Enabling Teams<br/>Capability Building]
+        CS[Complicated Subsystem Teams<br/>Deep Expertise]
+        
+        SA -.->|Uses| PL
+        EN -.->|Helps| SA
+        EN -.->|Helps| PL
+        CS -.->|Provides| SA
+        CS -.->|Provides| PL
+    end
+    
+    style SA fill:#95e1d3
+    style PL fill:#4ecdc4
+    style EN fill:#f7dc6f
+    style CS fill:#bb8fce
 ```
+
+### 1. Stream-Aligned Teams
+**Purpose**: Deliver value to customers
+
+```mermaid
+graph LR
+    subgraph "Stream-Aligned Team"
+        FE[Frontend Dev]
+        BE[Backend Dev]
+        QA[QA Engineer]
+        UX[UX Designer]
+        PO[Product Owner]
+        
+        FE <--> BE
+        BE <--> QA
+        UX <--> FE
+        PO <--> UX
+    end
+    
+    subgraph "Ownership"
+        FEAT[Features]
+        OPS[Operations]
+        CALL[On-Call]
+    end
+    
+    FE --> FEAT
+    BE --> OPS
+    QA --> CALL
+```
+
+- End-to-end ownership
+- Direct feedback loop
+- Cross-functional
+- 5-9 people
+- Own features, ops, on-call
+
+Examples: Checkout Team, Mobile Team, Search Team
 
 ### 2. Platform Teams
-**Purpose**: Enable stream-aligned teams to deliver value faster
+**Purpose**: Enable stream teams
 
-```yaml
-platform_team:
-  characteristics:
-    - Provides internal services
-    - Focuses on developer experience
-    - Abstracts infrastructure complexity
-    - Self-service capabilities
-
-  size: 5-9 people per platform area
-
-  services_provided:
-    - Deployment pipelines
-    - Monitoring and observability
-    - Database platforms
-    - Message queuing systems
-
-  success_metrics:
-    - Time to deploy new service
-    - Platform adoption rate
-    - Developer satisfaction scores
+```mermaid
+graph TB
+    subgraph "Platform Capabilities"
+        CICD[CI/CD Pipeline]
+        MON[Monitoring Stack]
+        DB[Database Platform]
+        MSG[Messaging Infrastructure]
+        SEC[Security Tools]
+    end
+    
+    subgraph "Stream Teams"
+        ST1[Team A]
+        ST2[Team B]
+        ST3[Team C]
+    end
+    
+    ST1 -->|Self-Service| CICD
+    ST1 -->|Self-Service| MON
+    ST2 -->|Self-Service| DB
+    ST2 -->|Self-Service| MSG
+    ST3 -->|Self-Service| SEC
+    ST3 -->|Self-Service| MON
 ```
+
+- Internal services
+- Developer experience focus
+- Self-service
+- 5-9 people per area
+
+Provides: CI/CD, monitoring, databases, messaging
+Success: Adoption rate, dev satisfaction
 
 ### 3. Enabling Teams
-**Purpose**: Help stream-aligned teams overcome obstacles
+**Purpose**: Help teams overcome obstacles
 
-```yaml
-enabling_team:
-  characteristics:
-    - Temporary engagements
-    - Knowledge transfer focus
-    - Coaching and mentoring
-    - Research and experimentation
-
-  size: 3-5 specialists
-
-  engagement_types:
-    - New technology adoption
-    - Performance optimization
-    - Security improvements
-    - Architecture evolution
-
-  duration: 3-6 months per engagement
+```mermaid
+graph LR
+    subgraph "Enabling Team Journey"
+        START[Identify Gap] --> ENGAGE[3-6 Month Engagement]
+        ENGAGE --> TRANSFER[Knowledge Transfer]
+        TRANSFER --> EXIT[Team Self-Sufficient]
+    end
+    
+    subgraph "Focus Areas"
+        TECH[New Technology]
+        PERF[Performance]
+        SEC[Security]
+        ARCH[Architecture]
+    end
+    
+    ENGAGE --> TECH
+    ENGAGE --> PERF
+    ENGAGE --> SEC
+    ENGAGE --> ARCH
 ```
+
+- Temporary (3-6 months)
+- Knowledge transfer
+- 3-5 specialists
+- Coaching focus
+
+Engagements: New tech, performance, security, architecture
 
 ### 4. Complicated Subsystem Teams
-**Purpose**: Manage technically complex subsystems
+**Purpose**: Manage complex subsystems
 
-```yaml
-complicated_subsystem_team:
-  characteristics:
-    - Deep specialist knowledge
-    - Complex domain expertise
-    - Clear interface boundaries
-    - Limited cognitive load on others
-
-  examples:
-    - Machine learning model team
-    - Video encoding team
-    - Cryptography team
-    - Real-time analytics engine team
+```mermaid
+graph TB
+    subgraph "Complex Subsystem"
+        ML[ML Platform]
+        VID[Video Encoding]
+        CRYP[Cryptography]
+        RT[Real-time Analytics]
+    end
+    
+    subgraph "Interface Layer"
+        API[Clean APIs]
+        SDK[SDKs]
+        DOC[Documentation]
+    end
+    
+    ML --> API
+    VID --> API
+    CRYP --> SDK
+    RT --> SDK
+    
+    API --> ST[Stream Teams]
+    SDK --> ST
+    DOC --> ST
 ```
+
+- Deep expertise
+- Clear interfaces
+- Reduce others' cognitive load
+
+Examples: ML models, video encoding, crypto, real-time analytics
 
 ## Team Interaction Modes
 
-### 1. Collaboration
-- **When**: Exploring new territory
-- **Duration**: Limited time (weeks to months)
-- **Goal**: Discover boundaries and interfaces
+```mermaid
+graph TB
+    subgraph "Three Interaction Modes"
+        subgraph "Collaboration"
+            COLLAB[Joint Work<br/>High Bandwidth<br/>Exploring]
+        end
+        
+        subgraph "X-as-a-Service"
+            XAS[Clear API<br/>Low Coupling<br/>Ongoing]
+        end
+        
+        subgraph "Facilitating"
+            FAC[Coaching<br/>Temporary<br/>Capability Building]
+        end
+    end
+    
+    COLLAB -->|Evolves to| XAS
+    FAC -->|Enables| XAS
+    FAC -->|Enables| COLLAB
+    
+    style COLLAB fill:#ff9999
+    style XAS fill:#99ff99
+    style FAC fill:#9999ff
+```
 
-### 2. X-as-a-Service
-- **When**: Clear boundaries exist
-- **Duration**: Ongoing
-- **Goal**: Minimal cognitive load, clear APIs
-
-### 3. Facilitating
-- **When**: Capability gaps exist
-- **Duration**: Temporary (months)
-- **Goal**: Level up team capabilities
+1. **Collaboration**: Exploring new territory (weeks-months)
+2. **X-as-a-Service**: Clear boundaries, ongoing, minimal cognitive load
+3. **Facilitating**: Capability gaps, temporary, level up teams
 
 ## Conway's Law and System Design
 

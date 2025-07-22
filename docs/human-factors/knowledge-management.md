@@ -22,18 +22,12 @@ last_updated: 2025-07-20
 
 ## Why Knowledge Management Matters
 
-In distributed systems, knowledge is distributed too. Critical information lives in:
-- Engineers' heads (tribal knowledge)
-- Scattered documentation
-- Code comments
-- Slack conversations
-- Incident postmortems
-- Runbooks
+Knowledge lives in: engineers' heads, docs, code comments, Slack, postmortems, runbooks.
 
-Without systematic knowledge management, teams face:
+Without management:
 - Repeated mistakes
 - Slow onboarding
-- Single points of failure (bus factor)
+- Bus factor risks
 - Poor incident response
 - Architectural drift
 
@@ -136,9 +130,7 @@ Negative:
 
 ```python
 class LivingDocumentation:
-    """
-    Documentation that stays in sync with code
-    """
+    """Documentation that stays in sync with code"""
 
     def generate_service_docs(self, service_name):
         docs = {
@@ -148,29 +140,15 @@ class LivingDocumentation:
             'dependencies': self.analyze_dependencies(service_name),
             'examples': self.generate_examples(service_name)
         }
-
-        # Generate markdown
         return self.render_documentation(docs)
 
-    def extract_api_docs(self, service_name):
-        """Extract from OpenAPI/Swagger annotations"""
-        swagger_spec = self.load_swagger(service_name)
-
-        return {
-            'endpoints': swagger_spec['paths'],
-            'models': swagger_spec['definitions'],
-            'authentication': swagger_spec['security']
-        }
-
     def validate_documentation(self):
-        """Ensure docs match reality"""
         validations = [
             self.check_broken_links(),
             self.verify_code_samples(),
             self.check_api_compatibility(),
             self.verify_config_defaults()
         ]
-
         return all(validations)
 ```
 
@@ -348,26 +326,22 @@ knowledge_sharing_formats:
   architecture_reviews:
     frequency: "Biweekly"
     duration: "1 hour"
-    format: "Design doc presentation + Q&A"
-    audience: "All engineers"
+    format: "Design doc + Q&A"
 
   incident_reviews:
     frequency: "Weekly"
     duration: "30 minutes"
-    format: "Recent incident learnings"
-    audience: "On-call engineers"
+    format: "Recent learnings"
 
   tech_talks:
     frequency: "Monthly"
     duration: "45 minutes"
-    format: "Deep dive on technology/pattern"
-    audience: "Optional for all"
+    format: "Deep dive"
 
   pair_programming:
     frequency: "Daily"
     duration: "2-4 hours"
-    format: "Knowledge transfer while coding"
-    audience: "Team members"
+    format: "Knowledge transfer"
 ```
 
 ### 3. Interactive Learning
@@ -470,51 +444,26 @@ class KnowledgeHealthMetrics:
 ```yaml
 knowledge_tools:
   documentation:
-    - name: "Confluence"
-      type: "Wiki"
-      pros: "Easy editing, good search"
-      cons: "Gets stale, poor versioning"
-
-    - name: "GitBook"
-      type: "Docs as code"
-      pros: "Version control, markdown"
-      cons: "Developer-focused"
-
-    - name: "Backstage"
-      type: "Developer portal"
-      pros: "Service catalog, plugins"
-      cons: "Complex setup"
+    - Confluence: Wiki, easy but gets stale
+    - GitBook: Docs as code, version control
+    - Backstage: Dev portal, complex setup
 
   diagramming:
-    - name: "Mermaid"
-      type: "Text-based"
-      pros: "Version control friendly"
-      cons: "Limited diagram types"
-
-    - name: "Draw.io"
-      type: "Visual"
-      pros: "Rich features"
-      cons: "Binary files"
+    - Mermaid: Text-based, VCS friendly
+    - Draw.io: Visual, rich but binary
 
   knowledge_base:
-    - name: "Stack Overflow Teams"
-      type: "Q&A"
-      pros: "Familiar format"
-      cons: "Another tool"
-
-    - name: "Notion"
-      type: "All-in-one"
-      pros: "Flexible, databases"
-      cons: "Lock-in risk"
+    - Stack Overflow Teams: Q&A format
+    - Notion: All-in-one, lock-in risk
 ```
 
 ## Best Practices
 
-1. **Make it Easy**: Lower the barrier to contributing
-2. **Keep it Fresh**: Regular reviews and updates
-3. **Make it Findable**: Good search and organization
-4. **Make it Trustworthy**: Accurate and up-to-date
-5. **Make it Social**: Encourage sharing and collaboration
+1. **Make it Easy**: Lower contribution barrier
+2. **Keep it Fresh**: Regular updates
+3. **Make it Findable**: Good search/organization
+4. **Make it Trustworthy**: Accurate, current
+5. **Make it Social**: Encourage sharing
 
 ---
 

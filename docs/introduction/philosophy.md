@@ -156,35 +156,21 @@ This explains the fundamental impossibility results like FLP⁹ and why we need 
 
     By reasoning from CAP theorem rather than assuming "databases must be consistent," they created a new category of data stores.
 
-## Learning Paths Aligned with Cognitive Science
-
-### The Novice → Expert Journey
-
-Based on the Dreyfus Model of Skill Acquisition¹²:
+## The Learning Journey
 
 ```mermaid
 flowchart LR
-    N[Novice<br/>Rule-based] --> A[Advanced Beginner<br/>Situational]
-    A --> C[Competent<br/>Conceptual]
-    C --> P[Proficient<br/>Intuitive]
-    P --> E[Expert<br/>Transcendent]
-
-    N -.- R1[Follows axioms<br/>as rules]
-    A -.- R2[Recognizes<br/>contexts]
-    C -.- R3[Plans using<br/>principles]
-    P -.- R4[Sees patterns<br/>intuitively]
-    E -.- R5[Knows when to<br/>break rules]
-
-    style N fill:#e1f5e1
-    style E fill:#ffe1e1
+    N[Novice] --> C[Competent] --> P[Proficient] --> E[Expert]
+    N -.- R1[Rules]
+    C -.- R2[Patterns]
+    P -.- R3[Intuition]
+    E -.- R4[Innovation]
 ```
 
-| Stage | Characteristics | Our Approach |
-|-------|----------------|--------------|
-| **Novice** | Needs rules and recipes | Start with clear axioms as rules |
-| **Competent** | Sees patterns in problems | Learn to map problems to axioms |
-| **Proficient** | Holistic understanding | See how axioms interact in systems |
-| **Expert** | Intuitive grasp | Predict system behavior from constraints |
+**Novice**: Follow axioms as rules  
+**Competent**: Map problems to axioms  
+**Proficient**: See axiom interactions  
+**Expert**: Predict from constraints
 
 ### Metacognition: Learning How to Learn
 

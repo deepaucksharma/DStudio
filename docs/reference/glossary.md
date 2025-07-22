@@ -14,60 +14,56 @@ last_updated: 2025-07-20
 
 # Distributed Systems Glossary
 
-Comprehensive definitions of terms used throughout The Compendium of Distributed Systems.
-
 ---
 
 ## A
 
 ### Axiom
-**Definition**: A fundamental constraint or law that cannot be violated in distributed systems. The Compendium identifies 8 core axioms that drive all distributed systems behavior.
+Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 8 core axioms.
 
-**Examples**: [Latency Axiom](../part1-axioms/axiom1-latency/index.md) (speed of light), [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) (finite resources)
-
-**Usage**: "All patterns emerge from the 8 axioms of distributed systems."
+**Examples**: [Latency Axiom](../part1-axioms/axiom1-latency/index.md), [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)
 
 ### At-Least-Once Delivery
-**Definition**: A message delivery guarantee where messages may be delivered multiple times but will not be lost. Requires idempotent processing.
+Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
 
-**Trade-offs**: Higher reliability vs. complexity of handling duplicates
+**Trade-offs**: Higher reliability vs. duplicate handling complexity
 
-**Related**: [Idempotent Receiver Pattern](../patterns/idempotent-receiver.md), [Outbox Pattern](../patterns/outbox.md)
+**Related**: [Idempotent Receiver](../patterns/idempotent-receiver.md), [Outbox Pattern](../patterns/outbox.md)
 
 ### Availability
-**Definition**: The percentage of time a system is operational and accessible. Often measured as "nines" (99.9% = "three nines").
+Percentage of time a system is operational. Often measured as "nines".
 
-**Calculation**: `Availability = MTBF / (MTBF + MTTR)` where MTBF = Mean Time Between Failures, MTTR = Mean Time To Repair
+**Formula**: `Availability = MTBF / (MTBF + MTTR)`
 
-**Examples**: 99.9% = 8.77 hours downtime/year, 99.99% = 52.6 minutes downtime/year
+**Examples**: 99.9% = 8.77 hours/year, 99.99% = 52.6 minutes/year
 
 ## B
 
 ### Bulkhead Pattern
-**Definition**: Isolation pattern that prevents failures in one component from affecting others, like watertight compartments in a ship.
+Isolation pattern preventing failures from spreading between components.
 
-**Implementation**: Separate thread pools, connection pools, or compute resources for different operations
+**Implementation**: Separate thread pools, connection pools, compute resources
 
 **Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Failure Axiom](../part1-axioms/axiom3-failure/index.md)
 
 ### Byzantine Fault
-**Definition**: A failure mode where components can behave arbitrarily, including sending conflicting information to different parts of the system.
+Components behave arbitrarily, sending conflicting information to different parts.
 
-**Examples**: Malicious actors, hardware corruption, software bugs causing inconsistent behavior
+**Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
 **Related**: [Failure Axiom](../part1-axioms/axiom3-failure/index.md), consensus algorithms
 
 ## C
 
 ### CAP Theorem
-**Definition**: Fundamental theorem stating that distributed systems can provide at most two of: Consistency, Availability, and Partition tolerance.
+Distributed systems can provide at most two of: Consistency, Availability, Partition tolerance.
 
-**Practical Implication**: Since network partitions are inevitable, systems must choose between consistency and availability
+**Implication**: Must choose between consistency and availability during partitions
 
 **Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)
 
 ### Circuit Breaker
-**Definition**: Pattern that prevents cascade failures by failing fast when error thresholds are exceeded, like an electrical circuit breaker.
+Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **States**: Closed (normal), Open (failing fast), Half-Open (testing recovery)
 
@@ -83,21 +79,21 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 **Related**: [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md), [Leader Election](../patterns/leader-election.md)
 
 ### Consistent Hashing
-**Definition**: Technique for distributing data across nodes where adding/removing nodes minimally disrupts existing assignments.
+Distributes data across nodes with minimal disruption when adding/removing nodes.
 
 **Benefits**: Minimal data movement, even load distribution
 
 **Use Cases**: Distributed caches, data partitioning
 
 ### CQRS (Command Query Responsibility Segregation)
-**Definition**: Pattern separating read and write operations into different models to optimize each independently.
+Separates read and write operations into different models.
 
 **Benefits**: Optimized read/write paths, scalability, flexibility
 
 **Implementation**: [CQRS Pattern](../patterns/cqrs.md)
 
 ### CRDT (Conflict-free Replicated Data Type)
-**Definition**: Data structure that can be replicated across multiple nodes and updated independently without coordination, guaranteeing eventual consistency.
+Replicated data structure updated independently without coordination.
 
 **Types**: G-Counter, PN-Counter, OR-Set, LWW-Register
 
@@ -106,11 +102,11 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## D
 
 ### Distributed Transaction
-**Definition**: Transaction that spans multiple databases or services, requiring coordination to maintain ACID properties.
+Transaction spanning multiple databases/services requiring coordination.
 
-**Patterns**: Two-Phase Commit, Saga Pattern, Outbox Pattern
+**Patterns**: Two-Phase Commit, Saga, Outbox
 
-**Challenges**: Network failures, partial commits, performance overhead
+**Challenges**: Network failures, partial commits, performance
 
 ### DynamoDB
 **Definition**: Amazon's highly available key-value database designed around the principles from the original Dynamo paper.
@@ -122,43 +118,37 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## E
 
 ### Eventually Consistent
-**Definition**: Consistency model where the system will become consistent given no new updates, but may be temporarily inconsistent.
+System becomes consistent given no new updates.
 
 **Benefits**: High availability, partition tolerance, performance
-
-**Trade-offs**: Complexity in handling temporary inconsistencies
 
 **Examples**: DNS, shopping carts, social media feeds
 
 ### Event Sourcing
-**Definition**: Pattern storing changes to application state as a sequence of events rather than storing current state.
+Stores state changes as sequence of events rather than current state.
 
-**Benefits**: Complete audit trail, temporal queries, replay capability
-
-**Challenges**: Event schema evolution, snapshot management
+**Benefits**: Audit trail, temporal queries, replay capability
 
 **Implementation**: [Event Sourcing Pattern](../patterns/event-sourcing.md)
 
 ## F
 
 ### Failure Detector
-**Definition**: Component that monitors system health and determines when nodes or services have failed.
+Monitors system health and determines node/service failures.
 
 **Types**: Perfect (impossible), Eventually Perfect, Strong, Weak
 
 **Implementation**: Heartbeats, timeouts, gossip protocols
 
 ### Fallacies of Distributed Computing
-**Definition**: Eight common but false assumptions developers make about distributed systems that lead to poor designs.
-
-**List**: Network is reliable, latency is zero, bandwidth is infinite, network is secure, topology doesn't change, one administrator, transport cost is zero, network is homogeneous
+Eight false assumptions that lead to poor designs: Network is reliable, latency is zero, bandwidth is infinite, network is secure, topology doesn't change, one administrator, transport cost is zero, network is homogeneous.
 
 **Reference**: [8 Fallacies Section](../introduction/index.md#fallacies)
 
 ## G
 
 ### Gossip Protocol
-**Definition**: Communication protocol where nodes periodically exchange state information with random peers, ensuring eventual propagation.
+Nodes periodically exchange state with random peers for eventual propagation.
 
 **Benefits**: Scalable, fault-tolerant, self-healing
 
@@ -167,7 +157,7 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## H
 
 ### Hinted Handoff
-**Definition**: Technique where a node temporarily stores data intended for a failed node, delivering it when the node recovers.
+Temporarily stores data for failed nodes, delivering upon recovery.
 
 **Benefits**: Improved availability, eventual consistency
 
@@ -183,23 +173,21 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## I
 
 ### Idempotency
-**Definition**: Property where applying an operation multiple times has the same effect as applying it once.
+Applying operation multiple times has same effect as once.
 
 **Importance**: Critical for retry mechanisms and at-least-once delivery
 
 **Implementation**: [Idempotent Receiver Pattern](../patterns/idempotent-receiver.md)
 
 ### Isolation Levels
-**Definition**: Degrees of consistency guarantees in concurrent systems.
-
-**ACID Levels**: Read Uncommitted, Read Committed, Repeatable Read, Serializable
+**ACID**: Read Uncommitted, Read Committed, Repeatable Read, Serializable
 
 **Distributed**: Eventual, Causal, Strong
 
 ## J
 
 ### Jitter
-**Definition**: Random variation in timing, often added intentionally to prevent synchronized behavior that could cause system overload.
+Random timing variation to prevent synchronized behavior.
 
 **Use Cases**: Retry backoff, heartbeat intervals, cache refresh
 
@@ -208,21 +196,21 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## L
 
 ### Leader Election
-**Definition**: Process of choosing a single coordinator node from a group of candidates to avoid split-brain scenarios.
+Choosing single coordinator node to avoid split-brain.
 
-**Algorithms**: Bully algorithm, Ring algorithm, Raft election
+**Algorithms**: Bully, Ring, Raft
 
 **Implementation**: [Leader Election Pattern](../patterns/leader-election.md)
 
 ### Little's Law
-**Definition**: Fundamental queueing theory formula: L = λW (average queue length = arrival rate × average wait time).
+**Formula**: L = λW (queue length = arrival rate × wait time)
 
 **Applications**: Capacity planning, performance analysis
 
 **Related**: [Quantitative Toolkit](../quantitative/littles-law.md)
 
 ### Logical Clock
-**Definition**: Mechanism for ordering events in distributed systems without relying on physical time synchronization.
+Orders events without physical time synchronization.
 
 **Types**: Lamport timestamps, vector clocks
 
@@ -231,30 +219,26 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## M
 
 ### Microservices
-**Definition**: Architectural pattern decomposing applications into small, independently deployable services.
+Small, independently deployable services.
 
 **Benefits**: Independent scaling, technology diversity, fault isolation
 
 **Challenges**: Network complexity, distributed debugging, data consistency
 
 ### MTBF (Mean Time Between Failures)
-**Definition**: Average time elapsed between failures in a system.
+Average time between failures.
 
-**Calculation**: Total operational time / number of failures
-
-**Related**: Availability calculations, reliability engineering
+**Formula**: Total operational time / number of failures
 
 ### MTTR (Mean Time To Repair)
-**Definition**: Average time required to repair a failed component and restore service.
+Average repair time.
 
-**Components**: Detection time + diagnosis time + fix time + recovery time
-
-**Related**: Availability calculations, incident response
+**Components**: Detection + diagnosis + fix + recovery time
 
 ## O
 
 ### Outbox Pattern
-**Definition**: Pattern ensuring reliable message publishing by storing outgoing messages in the same database transaction as business data.
+Stores outgoing messages in same transaction as business data.
 
 **Benefits**: Transactional guarantees, reliable delivery
 
@@ -263,50 +247,42 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## P
 
 ### Partition Tolerance
-**Definition**: System's ability to continue operating despite network partitions that prevent communication between nodes.
+Continues operating despite network partitions.
 
-**CAP Theorem**: Must choose between consistency and availability when partitions occur
+**CAP Theorem**: Choose between consistency and availability during partitions
 
 **Strategies**: Quorum consensus, graceful degradation
 
 ### Pillar
-**Definition**: One of five foundational concepts that support distributed systems architecture: Work, State, Truth, Control, Intelligence.
-
-**Purpose**: Framework for systematic system design
+Five foundational concepts: Work, State, Truth, Control, Intelligence.
 
 **Reference**: [Part II: Pillars](../part2-pillars/index.md)
 
 ## Q
 
 ### Quorum
-**Definition**: Minimum number of nodes that must participate in an operation for it to be considered valid.
+Minimum nodes required for valid operation.
 
-**Formula**: Typically (N/2) + 1 for N total nodes
+**Formula**: (N/2) + 1 for N nodes
 
-**Use Cases**: Consensus, read/write consistency
-
-**Example**: 3 of 5 nodes must agree for operation to succeed
+**Example**: 3 of 5 nodes must agree
 
 ## R
 
 ### Raft Consensus
-**Definition**: Consensus algorithm designed to be more understandable than Paxos while providing the same guarantees.
+Understandable consensus algorithm.
 
 **Components**: Leader election, log replication, safety
 
-**Benefits**: Strong consistency, partition tolerance
-
-**Implementation**: [Raft consensus in Leader Election pattern](../patterns/leader-election.md)
+**Implementation**: [Leader Election pattern](../patterns/leader-election.md)
 
 ### Read Repair
-**Definition**: Process of fixing inconsistencies detected during read operations by updating stale replicas.
+Fixes inconsistencies during reads by updating stale replicas.
 
 **Types**: Synchronous (blocking), asynchronous (background)
 
-**Benefits**: Self-healing, eventual consistency
-
 ### Replica
-**Definition**: Copy of data maintained on multiple nodes for availability and fault tolerance.
+Data copy maintained on multiple nodes.
 
 **Types**: Master-slave, master-master, leaderless
 
@@ -315,23 +291,21 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## S
 
 ### Saga Pattern
-**Definition**: Pattern for managing distributed transactions through a sequence of local transactions with compensating actions.
+Manages distributed transactions through local transactions with compensations.
 
-**Types**: Choreography (event-driven), Orchestration (centralized coordinator)
-
-**Benefits**: Avoid distributed locks, better availability
+**Types**: Choreography (event-driven), Orchestration (centralized)
 
 **Implementation**: [Saga Pattern](../patterns/saga.md)
 
 ### Sharding
-**Definition**: Horizontal partitioning technique that distributes data across multiple databases or servers.
+Horizontal partitioning across databases/servers.
 
 **Strategies**: Range-based, hash-based, directory-based
 
 **Challenges**: Rebalancing, cross-shard queries, hot spots
 
 ### Split-Brain
-**Definition**: Situation where a distributed system splits into multiple independent parts, each believing it's the only operational component.
+System splits into parts each believing it's the only operational component.
 
 **Causes**: Network partitions, timing failures
 
@@ -340,29 +314,25 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 ## T
 
 ### Two-Phase Commit (2PC)
-**Definition**: Distributed transaction protocol ensuring all participants either commit or abort a transaction.
+Ensures all participants commit or abort transaction.
 
 **Phases**: Prepare (vote), Commit/Abort (decision)
 
 **Problems**: Blocking, coordinator failure, performance
 
-**Alternatives**: Saga pattern, eventual consistency
-
 ## V
 
 ### Vector Clock
-**Definition**: Logical clock mechanism that captures causality relationships between events in distributed systems.
+Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Benefits**: Detects concurrent events, maintains causality
-
-**Implementation**: [Vector Clock implementation in Concurrency axiom](../part1-axioms/axiom4-concurrency/index.md)
+**Implementation**: [Concurrency axiom](../part1-axioms/axiom4-concurrency/index.md)
 
 ## W
 
 ### Write-Ahead Log (WAL)
-**Definition**: Logging technique where changes are written to a log before being applied to the database.
+Changes logged before applying to database.
 
 **Benefits**: Durability, crash recovery, replication
 
@@ -390,4 +360,3 @@ Comprehensive definitions of terms used throughout The Compendium of Distributed
 
 ---
 
-*This glossary is continuously updated as new concepts are added to the Compendium. Last updated with navigation enhancements and comprehensive pattern definitions.*

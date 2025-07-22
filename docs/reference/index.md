@@ -15,75 +15,72 @@ last_updated: 2025-07-20
 
 # Reference Materials
 
-Your comprehensive reference for distributed systems concepts, terms, and practical guides.
-
 ---
 
 ## 📚 What's in This Section
 
 ### [Glossary](glossary.md)
-**Complete definitions** of all distributed systems terms used throughout the Compendium. From "Axiom" to "Vector Clock" - every concept explained clearly.
+Definitions of all distributed systems terms. From "Axiom" to "Vector Clock".
 
 ### [Cheat Sheets](cheat-sheets.md)
-**Quick reference guides** for common calculations, decision trees, and pattern selection. Perfect for interviews or rapid system design.
+Quick reference for calculations, decisions, and pattern selection.
 
 ### [Recipe Cards](recipe-cards.md)
-**Step-by-step procedures** for implementing patterns, debugging issues, and performing common operations. Practical guides you can follow.
+Step-by-step procedures for implementing patterns and debugging.
 
 ### [Security Considerations](security.md)
-**Security implications** of distributed systems patterns, common vulnerabilities, and defensive strategies.
+Security implications, vulnerabilities, and defensive strategies.
 
 ---
 
 ## 🔍 Quick Access
 
 ### Popular Terms
-- [CAP Theorem](glossary.md#cap-theorem) - Choose any two: Consistency, Availability, Partition tolerance
-- [Eventually Consistent](glossary.md#eventually-consistent) - System reaches consistency given no new updates
-- [Vector Clock](glossary.md#vector-clock) - Logical clock for tracking causality
-- [Circuit Breaker](../patterns/circuit-breaker.md) - Pattern to prevent cascade failures
-- [Saga Pattern](glossary.md#saga-pattern) - Distributed transaction coordination
+- [CAP Theorem](glossary.md#cap-theorem)
+- [Eventually Consistent](glossary.md#eventually-consistent)
+- [Vector Clock](glossary.md#vector-clock)
+- [Circuit Breaker](../patterns/circuit-breaker.md)
+- [Saga Pattern](glossary.md#saga-pattern)
 
 ### Essential Calculations
-- [Little's Law](cheat-sheets.md#littles-law) - L = λW (queue length formula)
-- [Availability Math](cheat-sheets.md#availability-math) - Calculate system uptime
-- [Latency Budget](../part1-axioms/axiom1-latency/index.md) - Plan response time allocation
-- [Capacity Planning](../part1-axioms/axiom2-capacity/index.md) - Size systems for load
+- [Little's Law](cheat-sheets.md#littles-law) - L = λW
+- [Availability Math](cheat-sheets.md#availability-math)
+- [Latency Budget](../part1-axioms/axiom1-latency/index.md)
+- [Capacity Planning](../part1-axioms/axiom2-capacity/index.md)
 
 ### Common Procedures
-- [Implementing Circuit Breaker](../patterns/circuit-breaker.md) - Step-by-step pattern implementation
-- [Debugging Distributed Failures](../part1-axioms/axiom3-failure/index.md) - Systematic troubleshooting
-- [Performance Tuning](recipe-cards.md#recipe-performance-investigation) - Optimize distributed systems
-- [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack) - Essential observability
+- [Implementing Circuit Breaker](../patterns/circuit-breaker.md)
+- [Debugging Distributed Failures](../part1-axioms/axiom3-failure/index.md)
+- [Performance Tuning](recipe-cards.md#recipe-performance-investigation)
+- [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack)
 
 ---
 
 ## 📖 How to Use These References
 
 ### For Students
-- **Start with Glossary**: Build vocabulary systematically
-- **Use Cheat Sheets**: Quick reference during learning
-- **Follow Recipe Cards**: Hands-on practice with procedures
+- Start with Glossary
+- Use Cheat Sheets for quick reference
+- Follow Recipe Cards for practice
 
 ### For Practitioners
-- **Quick Lookups**: Find definitions without context switching
-- **Decision Support**: Use cheat sheets for system design choices
-- **Implementation Guides**: Follow recipe cards for standard procedures
+- Quick lookups in Glossary
+- Decision support in Cheat Sheets
+- Implementation guides in Recipe Cards
 
-### For Interviewers/Interviewees
-- **Prep Materials**: Review key concepts and calculations
-- **Design Sessions**: Reference patterns and trade-offs quickly
-- **Common Questions**: Find explanations for standard distributed systems topics
+### For Interviews
+- Review key concepts
+- Reference patterns quickly
+- Find standard explanations
 
 ---
 
 ## 💡 Usage Tips
 
-1. **Bookmark**: Save links to frequently used sections
-2. **Print**: Cheat sheets work well as physical references
-3. **Practice**: Use recipe cards for hands-on implementation
-4. **Review**: Regularly check glossary for new terms
+1. Bookmark frequently used sections
+2. Print cheat sheets for quick access
+3. Practice with recipe cards
+4. Review glossary regularly
 
 ---
 
-*These reference materials complement the main content and provide quick access to essential information without breaking learning flow.*

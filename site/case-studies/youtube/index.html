@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Learn distributed systems from first principles through physics and mathematics">
+        <meta name="description" content="Design a large-scale video streaming platform handling billions of hours of content">
       
       
       
@@ -24,7 +24,7 @@
     
     
       
-        <title>YouTube - The Compendium of Distributed Systems</title>
+        <title>YouTube's Video Platform Architecture - The Compendium of Distributed Systems</title>
       
     
     
@@ -82,7 +82,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#design-youtube" class="md-skip">
+        <a href="#youtubes-video-platform-architecture" class="md-skip">
           Skip to content
         </a>
       
@@ -116,7 +116,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              YouTube
+              YouTube's Video Platform Architecture
             
           </span>
         </div>
@@ -5556,6 +5556,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -5736,6 +5743,13 @@
     Chaos Engineering
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6696,6 +6710,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
           <span class="md-nav__icon md-icon"></span>
         </label>
@@ -6708,6 +6729,13 @@
     YouTube
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6830,8 +6858,128 @@
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Part 2: Architecture - Building Video at Scale">
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#architecture-evolution" class="md-nav__link">
+    <span class="md-ellipsis">
+      🏗️ Architecture Evolution
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🏗️ Architecture Evolution">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#phase-1-single-server-origin-2005-2006" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 1: Single Server Origin (2005-2006)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-2-basic-cdn-integration-2006-2008" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 2: Basic CDN Integration (2006-2008)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-3-sharded-architecture-2008-2012" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 3: Sharded Architecture (2008-2012)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#phase-4-modern-microservices-architecture-2012-present" class="md-nav__link">
+    <span class="md-ellipsis">
+      Phase 4: Modern Microservices Architecture (2012-Present)
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#scale-metrics-performance" class="md-nav__link">
+    <span class="md-ellipsis">
+      📊 Scale Metrics &amp; Performance
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="📊 Scale Metrics &amp; Performance">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#current-scale-2024" class="md-nav__link">
+    <span class="md-ellipsis">
+      Current Scale (2024)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#performance-targets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Performance Targets
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#core-components-deep-dive" class="md-nav__link">
+    <span class="md-ellipsis">
+      🔧 Core Components Deep Dive
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="🔧 Core Components Deep Dive">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-video-upload-pipeline" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. Video Upload Pipeline
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-storage-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. Storage Architecture
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-cdn-edge-architecture" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. CDN &amp; Edge Architecture
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#current-architecture-the-distributed-video-pipeline" class="md-nav__link">
@@ -6888,6 +7036,24 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#4-recommendation-system" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. Recommendation System
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-video-delivery-optimization" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. Video Delivery Optimization
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#implementation-considerations" class="md-nav__link">
     <span class="md-ellipsis">
       Implementation Considerations
@@ -6902,19 +7068,19 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#axiom-mapping-matrix" class="md-nav__link">
+  <a href="#axiom-mapping-design-decisions" class="md-nav__link">
     <span class="md-ellipsis">
-      Axiom Mapping Matrix
+      🎯 Axiom Mapping &amp; Design Decisions
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Axiom Mapping Matrix">
+    <nav class="md-nav" aria-label="🎯 Axiom Mapping &amp; Design Decisions">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#comprehensive-design-decision-mapping" class="md-nav__link">
+  <a href="#comprehensive-design-decision-matrix" class="md-nav__link">
     <span class="md-ellipsis">
-      Comprehensive Design Decision Mapping
+      Comprehensive Design Decision Matrix
     </span>
   </a>
   
@@ -7037,55 +7203,28 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#key-design-insights" class="md-nav__link">
+  <a href="#production-metrics-monitoring" class="md-nav__link">
     <span class="md-ellipsis">
-      Key Design Insights
+      📊 Production Metrics &amp; Monitoring
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Key Design Insights">
+    <nav class="md-nav" aria-label="📊 Production Metrics &amp; Monitoring">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#1-latency-dominates-user-experience" class="md-nav__link">
+  <a href="#key-performance-indicators" class="md-nav__link">
     <span class="md-ellipsis">
-      1. 🚀 Latency Dominates User Experience
+      Key Performance Indicators
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-capacity-requires-intelligent-tiering" class="md-nav__link">
+  <a href="#real-time-monitoring-dashboard" class="md-nav__link">
     <span class="md-ellipsis">
-      2. 💾 Capacity Requires Intelligent Tiering
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#3-failure-recovery-must-be-transparent" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. 🔥 Failure Recovery Must Be Transparent
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#4-economics-drive-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. 💰 Economics Drive Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#5-aiml-becoming-core-infrastructure" class="md-nav__link">
-    <span class="md-ellipsis">
-      5. 🤖 AI/ML Becoming Core Infrastructure
+      Real-time Monitoring Dashboard
     </span>
   </a>
   
@@ -7097,11 +7236,71 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#conclusion" class="md-nav__link">
+  <a href="#failure-scenarios" class="md-nav__link">
     <span class="md-ellipsis">
-      Conclusion
+      🚨 Failure Scenarios
     </span>
   </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#key-design-insights" class="md-nav__link">
+    <span class="md-ellipsis">
+      💡 Key Design Insights
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="💡 Key Design Insights">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#1-latency-is-user-experience" class="md-nav__link">
+    <span class="md-ellipsis">
+      1. 🚀 Latency is User Experience
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#2-tiered-storage-is-essential" class="md-nav__link">
+    <span class="md-ellipsis">
+      2. 💾 Tiered Storage is Essential
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#3-design-for-partial-failures" class="md-nav__link">
+    <span class="md-ellipsis">
+      3. 🔥 Design for Partial Failures
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#4-ml-drives-everything" class="md-nav__link">
+    <span class="md-ellipsis">
+      4. 🤖 ML Drives Everything
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#5-economics-at-scale" class="md-nav__link">
+    <span class="md-ellipsis">
+      5. 💰 Economics at Scale
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
       
@@ -7165,6 +7364,24 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#references" class="md-nav__link">
+    <span class="md-ellipsis">
+      References
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    <span class="md-ellipsis">
+      Conclusion
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -7190,6 +7407,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -7212,6 +7436,13 @@
     Google Maps
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -7236,8 +7467,6 @@
   
     
     
-      
-        
       
         
       
@@ -7301,29 +7530,6 @@
   
   <span class="md-ellipsis">
     Chat System
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../chat-system-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Chat System Enhanced
     
   </span>
   
@@ -7445,8 +7651,6 @@
       
         
       
-        
-      
     
     
     
@@ -7501,29 +7705,6 @@
   
   <span class="md-ellipsis">
     Search Autocomplete
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../search-autocomplete-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Search Autocomplete Enhanced
     
   </span>
   
@@ -7592,14 +7773,6 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
@@ -7648,95 +7821,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../uber-location-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Uber Location Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../google-maps-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Google Maps Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../nearby-friends/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
     Nearby Friends
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../nearby-friends-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Nearby Friends Enhanced
     
   </span>
   
@@ -7770,29 +7860,6 @@
     
   </span>
   
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../proximity-service-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Proximity Service Enhanced
-    
-  </span>
-  
     
   
   
@@ -7823,8 +7890,6 @@
   
     
     
-      
-        
       
         
       
@@ -7965,36 +8030,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../google-drive-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Google Drive Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../consistent-hashing/" class="md-nav__link">
         
   
@@ -8034,12 +8069,6 @@
   
     
     
-      
-        
-      
-        
-      
-        
       
         
       
@@ -8127,29 +8156,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../payment-system-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Payment System Enhanced
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../digital-wallet-enhanced/" class="md-nav__link">
         
   
@@ -8203,29 +8209,6 @@
   
   
     <li class="md-nav__item">
-      <a href="../hotel-reservation-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Hotel Reservation Enhanced
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
       <a href="../stock-exchange/" class="md-nav__link">
         
   
@@ -8241,29 +8224,6 @@
     <span class="md-status md-status--complete"></span>
   
 
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../stock-exchange-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Stock Exchange Enhanced
-    
-  </span>
   
 
       </a>
@@ -8442,8 +8402,6 @@
       
         
       
-        
-      
     
     
     
@@ -8575,36 +8533,6 @@
 
               
             
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../distributed-message-queue-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Distributed Message Queue Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
           </ul>
         </nav>
       
@@ -8621,8 +8549,6 @@
   
     
     
-      
-        
       
         
       
@@ -8682,36 +8608,6 @@
     Gaming Leaderboard Enhanced
     
   </span>
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../youtube-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    YouTube Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
   
 
       </a>
@@ -9207,17 +9103,21 @@
   
 
 
-<h1 id="design-youtube">Design YouTube<a class="headerlink" href="#design-youtube" title="Permanent link">&para;</a></h1>
+<!-- Navigation -->
+<p><a href="../../">Home</a> → <a href="../">Case Studies</a> → <strong>YouTube's Video Platform Architecture</strong></p>
+<h1 id="youtubes-video-platform-architecture">🎬 YouTube's Video Platform Architecture<a class="headerlink" href="#youtubes-video-platform-architecture" title="Permanent link">&para;</a></h1>
+<p><strong>The Challenge</strong>: Store, process, and deliver billions of hours of video content globally with minimal buffering</p>
 <div class="admonition info">
-<p class="admonition-title">Case Study Overview</p>
-<p><strong>System</strong>: Video sharing platform serving billions of users<br />
-<strong>Scale</strong>: 2B+ MAU, 500 hours uploaded/minute, 1B hours watched/day<br />
-<strong>Challenges</strong>: Video storage, global CDN, real-time transcoding, personalization<br />
-<strong>Key Patterns</strong>: Adaptive bitrate, tiered storage, edge caching, ML recommendation</p>
+<p class="admonition-title">Case Study Sources</p>
+<p>This analysis is based on:
+- Google Engineering Blog: "YouTube's Video Infrastructure"¹
+- SIGMOD Paper: "Vitess: Scaling MySQL for YouTube"²
+- Netflix Tech Blog: "Per-Title Encode Optimization"³
+- Facebook Engineering: "Video@Scale"⁴
+- YouTube Engineering: "Sharding YouTube's Database"⁵</p>
 </div>
-<p><em>Estimated reading time: 45 minutes</em></p>
 <h2 id="introduction">Introduction<a class="headerlink" href="#introduction" title="Permanent link">&para;</a></h2>
-<p>YouTube processes over 1 billion hours of video watched daily, uploads 500 hours of video per minute, and serves content to 2 billion monthly users across the globe. This massive scale requires solving fundamental distributed systems challenges: storing exabytes of data, transcoding millions of videos concurrently, delivering content with minimal buffering, and recommending from a catalog of billions of videos. Let's explore how physics, mathematics, and distributed systems principles shape the architecture of the world's largest video platform.</p>
+<p>YouTube: 1B+ hours watched daily, 500 hours uploaded per minute, 2B+ monthly users. Core challenges: exabyte storage, concurrent transcoding, minimal buffering, billion-video recommendations. Architecture shaped by physics, mathematics, and distributed systems principles.</p>
 <h2 id="part-1-concept-map-the-physics-of-video-at-scale">Part 1: Concept Map - The Physics of Video at Scale<a class="headerlink" href="#part-1-concept-map-the-physics-of-video-at-scale" title="Permanent link">&para;</a></h2>
 <h3 id="axiom-1-latency-the-buffering-boundary">Axiom 1: Latency - The Buffering Boundary<a class="headerlink" href="#axiom-1-latency-the-buffering-boundary" title="Permanent link">&para;</a></h3>
 <p>Video streaming requires maintaining continuous data flow to prevent buffering, making latency management critical.</p>
@@ -9639,6 +9539,368 @@
 <li><strong>Tiered Storage</strong>: 70% cost reduction for cold content</li>
 </ol>
 <h2 id="part-2-architecture-building-video-at-scale">Part 2: Architecture - Building Video at Scale<a class="headerlink" href="#part-2-architecture-building-video-at-scale" title="Permanent link">&para;</a></h2>
+<h2 id="architecture-evolution">🏗️ Architecture Evolution<a class="headerlink" href="#architecture-evolution" title="Permanent link">&para;</a></h2>
+<h3 id="phase-1-single-server-origin-2005-2006">Phase 1: Single Server Origin (2005-2006)<a class="headerlink" href="#phase-1-single-server-origin-2005-2006" title="Permanent link">&para;</a></h3>
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Browser → Apache Server → Local Files → Flash Player
+</span></code></pre></div>
+<p><strong>Problems Encountered:</strong>
+- Single point of failure
+- Limited bandwidth capacity
+- No redundancy
+- Flash dependency</p>
+<p><strong>Patterns Violated</strong>: 
+- ❌ No <a href="../../patterns/load-balancing/">Load Balancing</a>
+- ❌ No <a href="../../patterns/caching-strategies/">Caching Strategy</a>
+- ❌ No <a href="../patterns/fault-tolerance.md">Fault Tolerance</a></p>
+<h3 id="phase-2-basic-cdn-integration-2006-2008">Phase 2: Basic CDN Integration (2006-2008)<a class="headerlink" href="#phase-2-basic-cdn-integration-2006-2008" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Client Layer"
+        B[Browser]
+        M[Mobile App]
+    end
+
+    subgraph "CDN Layer"
+        CDN1[CDN PoP 1]
+        CDN2[CDN PoP 2]
+        CDNN[CDN PoP N]
+    end
+
+    subgraph "Origin"
+        LB[Load Balancer]
+        WS1[Web Server 1]
+        WS2[Web Server 2]
+        FS[File Storage]
+    end
+
+    B &amp; M --&gt; CDN1 &amp; CDN2 &amp; CDNN
+    CDN1 &amp; CDN2 &amp; CDNN --&gt; LB
+    LB --&gt; WS1 &amp; WS2
+    WS1 &amp; WS2 --&gt; FS
+
+    style CDN1 fill:#ff9999</code></pre>
+<p><strong>Key Design Decision: CDN for Static Content</strong>
+- <strong>Trade-off</strong>: Cost vs Performance (Pillar: <a href="../../part2-pillars/work/">Work Distribution</a>)
+- <strong>Choice</strong>: Pay for CDN to achieve global scale
+- <strong>Result</strong>: 70% reduction in origin bandwidth
+- <strong>Pattern Applied</strong>: <a href="../../patterns/edge-computing/">Edge Computing</a></p>
+<p>According to Google's reports¹, this reduced average latency from 800ms to 200ms globally.</p>
+<h3 id="phase-3-sharded-architecture-2008-2012">Phase 3: Sharded Architecture (2008-2012)<a class="headerlink" href="#phase-3-sharded-architecture-2008-2012" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Upload Pipeline"
+        UP[Upload Service]
+        VS[Video Splitter]
+        subgraph "Transcoding Farm"
+            T1[Transcoder 1&lt;br/&gt;240p]
+            T2[Transcoder 2&lt;br/&gt;360p]
+            T3[Transcoder 3&lt;br/&gt;480p]
+            T4[Transcoder 4&lt;br/&gt;720p]
+            T5[Transcoder 5&lt;br/&gt;1080p]
+        end
+    end
+
+    subgraph "Storage Shards"
+        subgraph "Shard 1"
+            M1[MySQL]
+            S1[Storage]
+        end
+        subgraph "Shard 2"
+            M2[MySQL]
+            S2[Storage]
+        end
+        subgraph "Shard N"
+            MN[MySQL]
+            SN[Storage]
+        end
+    end
+
+    subgraph "Serving Layer"
+        API[API Gateway]
+        CACHE[Redis Cache]
+    end
+
+    UP --&gt; VS
+    VS --&gt; T1 &amp; T2 &amp; T3 &amp; T4 &amp; T5
+    T1 &amp; T2 &amp; T3 &amp; T4 &amp; T5 --&gt; S1 &amp; S2 &amp; SN
+    API --&gt; CACHE --&gt; M1 &amp; M2 &amp; MN</code></pre>
+<p><strong>Vitess Innovation:</strong> Transparent sharding, connection pooling, query routing, zero-downtime resharding</p>
+<p><strong>Applied Patterns:</strong> Database sharding, bulkhead isolation, state/work distribution</p>
+<h3 id="phase-4-modern-microservices-architecture-2012-present">Phase 4: Modern Microservices Architecture (2012-Present)<a class="headerlink" href="#phase-4-modern-microservices-architecture-2012-present" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph LR
+    subgraph "Edge Layer"
+        subgraph "Global PoPs"
+            POP1[PoP US&lt;br/&gt;10K Servers]
+            POP2[PoP EU&lt;br/&gt;8K Servers]
+            POP3[PoP Asia&lt;br/&gt;12K Servers]
+        end
+        EC[Edge Cache&lt;br/&gt;Hot Content]
+    end
+
+    subgraph "Upload Pipeline"
+        UP[Upload Service&lt;br/&gt;Resumable]
+        CK[Chunking Service&lt;br/&gt;10MB chunks]
+        subgraph "Transcoding"
+            TQ[Task Queue&lt;br/&gt;Priority-based]
+            TF[Transcoding Farm&lt;br/&gt;100K+ cores]
+            ML[ML Quality&lt;br/&gt;Optimizer]
+        end
+    end
+
+    subgraph "Storage Tiers"
+        HOT[Hot Storage&lt;br/&gt;SSD - 7 days&lt;br/&gt;100 PB]
+        WARM[Warm Storage&lt;br/&gt;HDD - 90 days&lt;br/&gt;1 EB]
+        COLD[Cold Storage&lt;br/&gt;Tape - Archive&lt;br/&gt;10 EB]
+    end
+
+    subgraph "Serving Infrastructure"
+        VID[Video Service]
+        META[Metadata Service]
+        REC[Recommendation&lt;br/&gt;Service]
+        ADS[Ads Service]
+        ANAL[Analytics&lt;br/&gt;Pipeline]
+    end
+
+    subgraph "Data Infrastructure"
+        OLTP[(Spanner&lt;br/&gt;Metadata)]
+        OLAP[(BigQuery&lt;br/&gt;Analytics)]
+        ML2[(Colossus&lt;br/&gt;ML Models)]
+        KV[(Bigtable&lt;br/&gt;User Data)]
+    end
+
+    subgraph "ML Platform"
+        TPU[TPU Clusters&lt;br/&gt;Recommendation]
+        GPU[GPU Clusters&lt;br/&gt;Video Analysis]
+    end
+
+    UP --&gt; CK --&gt; TQ
+    TQ --&gt; TF --&gt; ML
+    TF --&gt; HOT --&gt; WARM --&gt; COLD
+
+    POP1 &amp; POP2 &amp; POP3 --&gt; EC
+    EC --&gt; VID --&gt; HOT
+
+    VID --&gt; META --&gt; OLTP
+    REC --&gt; TPU --&gt; ML2
+    ANAL --&gt; OLAP
+
+    style HOT fill:#ff6b6b
+    style TPU fill:#4ecdc4</code></pre>
+<p><strong>Key Innovations</strong>:
+1. **Adaptive Bitrate Streaming (ABR)**⁴
+   - Multiple quality levels per video
+   - Client-side quality selection
+   - Network-aware adaptation</p>
+<ol>
+<li>**ML-Optimized Encoding**³</li>
+<li>Per-scene encoding parameters</li>
+<li>20% bandwidth savings</li>
+<li>
+<p>Quality-aware compression</p>
+</li>
+<li>
+<p><strong>Edge Computing</strong></p>
+</li>
+<li>15K+ edge locations</li>
+<li>P2P-assisted delivery</li>
+<li>Regional content caches</li>
+</ol>
+<h2 id="scale-metrics-performance">📊 Scale Metrics &amp; Performance<a class="headerlink" href="#scale-metrics-performance" title="Permanent link">&para;</a></h2>
+<h3 id="current-scale-2024">Current Scale (2024)<a class="headerlink" href="#current-scale-2024" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Monthly Active Users</strong></td>
+<td>2.7B</td>
+<td>35% of global population</td>
+</tr>
+<tr>
+<td><strong>Hours Watched Daily</strong></td>
+<td>1B+</td>
+<td>41M+ hours per hour</td>
+</tr>
+<tr>
+<td><strong>Videos Uploaded/Min</strong></td>
+<td>500 hours</td>
+<td>30K hours per hour</td>
+</tr>
+<tr>
+<td><strong>Storage Total</strong></td>
+<td>10+ EB</td>
+<td>Exabyte scale</td>
+</tr>
+<tr>
+<td><strong>Bandwidth Peak</strong></td>
+<td>15+ Tbps</td>
+<td>Netflix + Amazon combined</td>
+</tr>
+<tr>
+<td><strong>Transcoding Cores</strong></td>
+<td>1M+</td>
+<td>Largest compute cluster</td>
+</tr>
+<tr>
+<td><strong>Edge Locations</strong></td>
+<td>15K+</td>
+<td>Global presence</td>
+</tr>
+<tr>
+<td><strong>Languages Supported</strong></td>
+<td>100+</td>
+<td>Auto-captioning</td>
+</tr>
+</tbody>
+</table>
+<h3 id="performance-targets">Performance Targets<a class="headerlink" href="#performance-targets" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "SLA Targets"
+        L1[Latency&lt;br/&gt;TTFB &lt; 200ms]
+        L2[Availability&lt;br/&gt;&gt; 99.95%]
+        L3[Buffering&lt;br/&gt;&lt; 0.5% time]
+        L4[Quality&lt;br/&gt;&gt; 720p for 80%]
+    end
+
+    subgraph "Achieved"
+        A1[180ms P50&lt;br/&gt;450ms P99]
+        A2[99.97%&lt;br/&gt;15 min/month]
+        A3[0.3%&lt;br/&gt;Industry leading]
+        A4[85%&lt;br/&gt;HD delivery]
+    end
+
+    L1 --&gt; A1
+    L2 --&gt; A2
+    L3 --&gt; A3
+    L4 --&gt; A4
+
+    style A1 fill:#98d8c8
+    style A2 fill:#98d8c8
+    style A3 fill:#98d8c8
+    style A4 fill:#98d8c8</code></pre>
+<h2 id="core-components-deep-dive">🔧 Core Components Deep Dive<a class="headerlink" href="#core-components-deep-dive" title="Permanent link">&para;</a></h2>
+<h3 id="1-video-upload-pipeline">1. Video Upload Pipeline<a class="headerlink" href="#1-video-upload-pipeline" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ResumableUploadService</span><span class="p">:</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Handle massive video uploads with resumability&quot;&quot;&quot;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">chunk_size</span> <span class="o">=</span> <span class="mi">10</span> <span class="o">*</span> <span class="mi">1024</span> <span class="o">*</span> <span class="mi">1024</span>  <span class="c1"># 10MB chunks</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">parallel_chunks</span> <span class="o">=</span> <span class="mi">4</span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">retry_attempts</span> <span class="o">=</span> <span class="mi">3</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">upload_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_path</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Upload video with automatic chunking and retry&quot;&quot;&quot;</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="c1"># 1. Initialize resumable session</span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="n">session_id</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_init_session</span><span class="p">(</span><span class="n">metadata</span><span class="p">)</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="c1"># 2. Split into chunks</span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="n">chunks</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_split_video</span><span class="p">(</span><span class="n">video_path</span><span class="p">)</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>        <span class="c1"># 3. Upload chunks in parallel</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="n">upload_tasks</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">chunks</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel_chunks</span><span class="p">):</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>            <span class="n">batch</span> <span class="o">=</span> <span class="n">chunks</span><span class="p">[</span><span class="n">i</span><span class="p">:</span><span class="n">i</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">parallel_chunks</span><span class="p">]</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>            <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">_upload_chunk</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">chunk</span><span class="p">)</span> <span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22" href="#__codelineno-1-22"></a>            <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">,</span> <span class="n">return_exceptions</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23" href="#__codelineno-1-23"></a>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24" href="#__codelineno-1-24"></a>            <span class="c1"># Retry failed chunks</span>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25" href="#__codelineno-1-25"></a>            <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">result</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">results</span><span class="p">):</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26" href="#__codelineno-1-26"></a>                <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">):</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27" href="#__codelineno-1-27"></a>                    <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_retry_chunk</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">batch</span><span class="p">[</span><span class="n">idx</span><span class="p">])</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28" href="#__codelineno-1-28"></a>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29" href="#__codelineno-1-29"></a>        <span class="c1"># 4. Finalize upload</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30" href="#__codelineno-1-30"></a>        <span class="n">video_id</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_finalize_upload</span><span class="p">(</span><span class="n">session_id</span><span class="p">)</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31" href="#__codelineno-1-31"></a>
+</span><span id="__span-1-32"><a id="__codelineno-1-32" name="__codelineno-1-32" href="#__codelineno-1-32"></a>        <span class="c1"># 5. Trigger processing pipeline</span>
+</span><span id="__span-1-33"><a id="__codelineno-1-33" name="__codelineno-1-33" href="#__codelineno-1-33"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_trigger_processing</span><span class="p">(</span><span class="n">video_id</span><span class="p">)</span>
+</span><span id="__span-1-34"><a id="__codelineno-1-34" name="__codelineno-1-34" href="#__codelineno-1-34"></a>
+</span><span id="__span-1-35"><a id="__codelineno-1-35" name="__codelineno-1-35" href="#__codelineno-1-35"></a>        <span class="k">return</span> <span class="n">video_id</span>
+</span></code></pre></div>
+<h3 id="2-storage-architecture">2. Storage Architecture<a class="headerlink" href="#2-storage-architecture" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">TieredStorageManager</span><span class="p">:</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Manage hot/warm/cold storage tiers&quot;&quot;&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tiers</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>            <span class="s1">&#39;hot&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;SSD&#39;</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>                <span class="s1">&#39;capacity_pb&#39;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>                <span class="s1">&#39;retention_days&#39;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>                <span class="s1">&#39;replication&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>                <span class="s1">&#39;cost_per_pb_month&#39;</span><span class="p">:</span> <span class="mi">20000</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>            <span class="p">},</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>            <span class="s1">&#39;warm&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;HDD&#39;</span><span class="p">,</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>                <span class="s1">&#39;capacity_pb&#39;</span><span class="p">:</span> <span class="mi">1000</span><span class="p">,</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>                <span class="s1">&#39;retention_days&#39;</span><span class="p">:</span> <span class="mi">90</span><span class="p">,</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a>                <span class="s1">&#39;replication&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a>                <span class="s1">&#39;cost_per_pb_month&#39;</span><span class="p">:</span> <span class="mi">5000</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>            <span class="p">},</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>            <span class="s1">&#39;cold&#39;</span><span class="p">:</span> <span class="p">{</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>                <span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;Tape&#39;</span><span class="p">,</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>                <span class="s1">&#39;capacity_pb&#39;</span><span class="p">:</span> <span class="mi">10000</span><span class="p">,</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>                <span class="s1">&#39;retention_days&#39;</span><span class="p">:</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">),</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>                <span class="s1">&#39;replication&#39;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25" href="#__codelineno-2-25"></a>                <span class="s1">&#39;cost_per_pb_month&#39;</span><span class="p">:</span> <span class="mi">1000</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26" href="#__codelineno-2-26"></a>            <span class="p">}</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27" href="#__codelineno-2-27"></a>        <span class="p">}</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28" href="#__codelineno-2-28"></a>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29" href="#__codelineno-2-29"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">store_video</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">video_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">files</span><span class="p">:</span> <span class="nb">dict</span><span class="p">):</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30" href="#__codelineno-2-30"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Store video files across tiers based on predicted access&quot;&quot;&quot;</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31" href="#__codelineno-2-31"></a>        <span class="c1"># 1. Predict access pattern</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32" href="#__codelineno-2-32"></a>        <span class="n">access_prediction</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_predict_access_pattern</span><span class="p">(</span><span class="n">video_id</span><span class="p">)</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33" href="#__codelineno-2-33"></a>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34" href="#__codelineno-2-34"></a>        <span class="c1"># 2. Initial placement</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35" href="#__codelineno-2-35"></a>        <span class="k">if</span> <span class="n">access_prediction</span><span class="p">[</span><span class="s1">&#39;viral_probability&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mf">0.7</span><span class="p">:</span>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36" href="#__codelineno-2-36"></a>            <span class="c1"># High viral probability - aggressive caching</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37" href="#__codelineno-2-37"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store_in_tier</span><span class="p">(</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">files</span><span class="p">,</span> <span class="n">replication</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38" href="#__codelineno-2-38"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_pre_warm_cdn</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39" href="#__codelineno-2-39"></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40" href="#__codelineno-2-40"></a>            <span class="c1"># Normal video - standard placement</span>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41" href="#__codelineno-2-41"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_store_in_tier</span><span class="p">(</span><span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="n">files</span><span class="p">)</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42" href="#__codelineno-2-42"></a>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43" href="#__codelineno-2-43"></a>        <span class="c1"># 3. Schedule tier migrations</span>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44" href="#__codelineno-2-44"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule_migration</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="s1">&#39;hot&#39;</span><span class="p">,</span> <span class="s1">&#39;warm&#39;</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45" href="#__codelineno-2-45"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_schedule_migration</span><span class="p">(</span><span class="n">video_id</span><span class="p">,</span> <span class="s1">&#39;warm&#39;</span><span class="p">,</span> <span class="s1">&#39;cold&#39;</span><span class="p">,</span> <span class="n">days</span><span class="o">=</span><span class="mi">90</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="3-cdn-edge-architecture">3. CDN &amp; Edge Architecture<a class="headerlink" href="#3-cdn-edge-architecture" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Hierarchical CDN"
+        subgraph "Tier 1 - Origin"
+            O1[Origin DC 1&lt;br/&gt;Full Catalog]
+            O2[Origin DC 2&lt;br/&gt;Full Catalog]
+        end
+
+        subgraph "Tier 2 - Regional"
+            R1[Regional Cache US&lt;br/&gt;Popular 10%]
+            R2[Regional Cache EU&lt;br/&gt;Popular 10%]
+            R3[Regional Cache Asia&lt;br/&gt;Popular 10%]
+        end
+
+        subgraph "Tier 3 - Edge"
+            E1[Edge PoP 1&lt;br/&gt;Hot 1%]
+            E2[Edge PoP 2&lt;br/&gt;Hot 1%]
+            EN[Edge PoP N&lt;br/&gt;Hot 1%]
+        end
+
+        subgraph "Tier 4 - ISP"
+            I1[ISP Cache 1]
+            I2[ISP Cache 2]
+        end
+
+        O1 &amp; O2 --&gt; R1 &amp; R2 &amp; R3
+        R1 --&gt; E1 &amp; E2
+        R2 --&gt; EN
+        E1 --&gt; I1
+        E2 --&gt; I2
+    end
+
+    style O1 fill:#ff6b6b
+    style R1 fill:#4ecdc4
+    style E1 fill:#95e1d3</code></pre>
 <h3 id="current-architecture-the-distributed-video-pipeline">Current Architecture: The Distributed Video Pipeline<a class="headerlink" href="#current-architecture-the-distributed-video-pipeline" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>graph TB
     subgraph "Upload Pipeline"
@@ -9890,6 +10152,92 @@
         PREDICT --&gt; HOT
         QUALITY --&gt; SMART
     end</code></pre>
+<h3 id="4-recommendation-system">4. Recommendation System<a class="headerlink" href="#4-recommendation-system" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">VideoRecommendationEngine</span><span class="p">:</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;ML-powered video recommendations&quot;&quot;&quot;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">models</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>            <span class="s1">&#39;collaborative&#39;</span><span class="p">:</span> <span class="n">CollaborativeFilteringModel</span><span class="p">(),</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="n">ContentBasedModel</span><span class="p">(),</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>            <span class="s1">&#39;deep&#39;</span><span class="p">:</span> <span class="n">DeepLearningModel</span><span class="p">(),</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>            <span class="s1">&#39;realtime&#39;</span><span class="p">:</span> <span class="n">RealtimePersonalizationModel</span><span class="p">()</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="p">}</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ensemble_weights</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>            <span class="s1">&#39;collaborative&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>            <span class="s1">&#39;content&#39;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14" href="#__codelineno-3-14"></a>            <span class="s1">&#39;deep&#39;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15" href="#__codelineno-3-15"></a>            <span class="s1">&#39;realtime&#39;</span><span class="p">:</span> <span class="mf">0.1</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16" href="#__codelineno-3-16"></a>        <span class="p">}</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17" href="#__codelineno-3-17"></a>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18" href="#__codelineno-3-18"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">get_recommendations</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">context</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19" href="#__codelineno-3-19"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generate personalized video recommendations&quot;&quot;&quot;</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20" href="#__codelineno-3-20"></a>        <span class="c1"># 1. Gather user signals</span>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21" href="#__codelineno-3-21"></a>        <span class="n">user_history</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_watch_history</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22" href="#__codelineno-3-22"></a>        <span class="n">user_interests</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_user_interests</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23" href="#__codelineno-3-23"></a>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24" href="#__codelineno-3-24"></a>        <span class="c1"># 2. Get candidates from each model</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25" href="#__codelineno-3-25"></a>        <span class="n">candidates</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26" href="#__codelineno-3-26"></a>        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">model</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27" href="#__codelineno-3-27"></a>            <span class="n">candidates</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="k">await</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28" href="#__codelineno-3-28"></a>                <span class="n">user_id</span><span class="p">,</span> 
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29" href="#__codelineno-3-29"></a>                <span class="n">user_history</span><span class="p">,</span> 
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30" href="#__codelineno-3-30"></a>                <span class="n">user_interests</span><span class="p">,</span> 
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31" href="#__codelineno-3-31"></a>                <span class="n">context</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32" href="#__codelineno-3-32"></a>            <span class="p">)</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33" href="#__codelineno-3-33"></a>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34" href="#__codelineno-3-34"></a>        <span class="c1"># 3. Ensemble ranking</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35" href="#__codelineno-3-35"></a>        <span class="n">final_scores</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ensemble_rank</span><span class="p">(</span><span class="n">candidates</span><span class="p">)</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36" href="#__codelineno-3-36"></a>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37" href="#__codelineno-3-37"></a>        <span class="c1"># 4. Apply business rules</span>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38" href="#__codelineno-3-38"></a>        <span class="n">filtered</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_apply_filters</span><span class="p">(</span><span class="n">final_scores</span><span class="p">,</span> <span class="n">user_id</span><span class="p">)</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39" href="#__codelineno-3-39"></a>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40" href="#__codelineno-3-40"></a>        <span class="c1"># 5. Diversify results</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41" href="#__codelineno-3-41"></a>        <span class="n">diversified</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_diversify_results</span><span class="p">(</span><span class="n">filtered</span><span class="p">)</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42" href="#__codelineno-3-42"></a>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43" href="#__codelineno-3-43"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">video</span><span class="p">[</span><span class="s1">&#39;id&#39;</span><span class="p">]</span> <span class="k">for</span> <span class="n">video</span> <span class="ow">in</span> <span class="n">diversified</span><span class="p">[:</span><span class="mi">20</span><span class="p">]]</span>
+</span></code></pre></div>
+<h3 id="5-video-delivery-optimization">5. Video Delivery Optimization<a class="headerlink" href="#5-video-delivery-optimization" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">AdaptiveBitrateStreaming</span><span class="p">:</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Client-side ABR algorithm&quot;&quot;&quot;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buffer_target</span> <span class="o">=</span> <span class="mi">30</span>  <span class="c1"># seconds</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">buffer_min</span> <span class="o">=</span> <span class="mi">10</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">quality_levels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">144</span><span class="p">,</span> <span class="mi">240</span><span class="p">,</span> <span class="mi">360</span><span class="p">,</span> <span class="mi">480</span><span class="p">,</span> <span class="mi">720</span><span class="p">,</span> <span class="mi">1080</span><span class="p">,</span> <span class="mi">1440</span><span class="p">,</span> <span class="mi">2160</span><span class="p">]</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">bandwidth_history</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">select_quality</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_bandwidth</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>                      <span class="n">buffer_level</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> 
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>                      <span class="n">current_quality</span><span class="p">:</span> <span class="nb">int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Select optimal quality based on conditions&quot;&quot;&quot;</span>
+</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>        <span class="c1"># 1. Estimate sustainable bandwidth</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        <span class="n">sustainable_bw</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_estimate_sustainable_bandwidth</span><span class="p">(</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>            <span class="n">current_bandwidth</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>        <span class="p">)</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="c1"># 2. Calculate quality for bandwidth</span>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>        <span class="n">target_quality</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_bandwidth_to_quality</span><span class="p">(</span><span class="n">sustainable_bw</span><span class="p">)</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>        <span class="c1"># 3. Apply buffer-based rules</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        <span class="k">if</span> <span class="n">buffer_level</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_min</span><span class="p">:</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>            <span class="c1"># Emergency - drop quality</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>            <span class="n">target_quality</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span><span class="n">target_quality</span><span class="p">,</span> <span class="mi">360</span><span class="p">)</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>        <span class="k">elif</span> <span class="n">buffer_level</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">buffer_target</span><span class="p">:</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>            <span class="c1"># Plenty of buffer - can increase</span>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>            <span class="n">target_quality</span> <span class="o">=</span> <span class="nb">min</span><span class="p">(</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>                <span class="n">target_quality</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> 
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">quality_levels</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>            <span class="p">)</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>        <span class="c1"># 4. Smooth quality transitions</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>        <span class="k">if</span> <span class="nb">abs</span><span class="p">(</span><span class="n">target_quality</span> <span class="o">-</span> <span class="n">current_quality</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">2</span><span class="p">:</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>            <span class="c1"># Avoid jarring jumps</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36" href="#__codelineno-4-36"></a>            <span class="n">direction</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="n">target_quality</span> <span class="o">&gt;</span> <span class="n">current_quality</span> <span class="k">else</span> <span class="o">-</span><span class="mi">1</span>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37" href="#__codelineno-4-37"></a>            <span class="n">target_quality</span> <span class="o">=</span> <span class="n">current_quality</span> <span class="o">+</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">direction</span><span class="p">)</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38" href="#__codelineno-4-38"></a>
+</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39" href="#__codelineno-4-39"></a>        <span class="k">return</span> <span class="n">target_quality</span>
+</span></code></pre></div>
 <h3 id="implementation-considerations">Implementation Considerations<a class="headerlink" href="#implementation-considerations" title="Permanent link">&para;</a></h3>
 <p><strong>1. Video Upload Pipeline:</strong>
 - Resumable uploads for reliability
@@ -9911,8 +10259,8 @@
 - Deep learning for personalization
 - Real-time feature updates
 - A/B testing framework</p>
-<h2 id="axiom-mapping-matrix">Axiom Mapping Matrix<a class="headerlink" href="#axiom-mapping-matrix" title="Permanent link">&para;</a></h2>
-<h3 id="comprehensive-design-decision-mapping">Comprehensive Design Decision Mapping<a class="headerlink" href="#comprehensive-design-decision-mapping" title="Permanent link">&para;</a></h3>
+<h2 id="axiom-mapping-design-decisions">🎯 Axiom Mapping &amp; Design Decisions<a class="headerlink" href="#axiom-mapping-design-decisions" title="Permanent link">&para;</a></h2>
+<h3 id="comprehensive-design-decision-matrix">Comprehensive Design Decision Matrix<a class="headerlink" href="#comprehensive-design-decision-matrix" title="Permanent link">&para;</a></h3>
 <table>
 <thead>
 <tr>
@@ -10330,39 +10678,141 @@
 </tr>
 </tbody>
 </table>
-<h2 id="key-design-insights">Key Design Insights<a class="headerlink" href="#key-design-insights" title="Permanent link">&para;</a></h2>
-<h3 id="1-latency-dominates-user-experience">1. 🚀 <strong>Latency Dominates User Experience</strong><a class="headerlink" href="#1-latency-dominates-user-experience" title="Permanent link">&para;</a></h3>
+<h2 id="production-metrics-monitoring">📊 Production Metrics &amp; Monitoring<a class="headerlink" href="#production-metrics-monitoring" title="Permanent link">&para;</a></h2>
+<h3 id="key-performance-indicators">Key Performance Indicators<a class="headerlink" href="#key-performance-indicators" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">VideoQualityMetrics</span><span class="p">:</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Track video delivery quality&quot;&quot;&quot;</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>            <span class="s1">&#39;startup_time&#39;</span><span class="p">:</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">&#39;video_startup_seconds&#39;</span><span class="p">),</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>            <span class="s1">&#39;rebuffer_ratio&#39;</span><span class="p">:</span> <span class="n">Gauge</span><span class="p">(</span><span class="s1">&#39;video_rebuffer_ratio&#39;</span><span class="p">),</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="s1">&#39;bitrate_achieved&#39;</span><span class="p">:</span> <span class="n">Histogram</span><span class="p">(</span><span class="s1">&#39;video_bitrate_bps&#39;</span><span class="p">),</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>            <span class="s1">&#39;quality_switches&#39;</span><span class="p">:</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;video_quality_switches&#39;</span><span class="p">),</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>            <span class="s1">&#39;playback_failures&#39;</span><span class="p">:</span> <span class="n">Counter</span><span class="p">(</span><span class="s1">&#39;video_playback_failures&#39;</span><span class="p">),</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>            <span class="s1">&#39;cdn_hit_rate&#39;</span><span class="p">:</span> <span class="n">Gauge</span><span class="p">(</span><span class="s1">&#39;cdn_cache_hit_ratio&#39;</span><span class="p">)</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="p">}</span>
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">track_session</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">session_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">events</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]):</span>
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Analyze session quality metrics&quot;&quot;&quot;</span>
+</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>        <span class="n">metrics</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>            <span class="s1">&#39;startup_time&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_startup_time</span><span class="p">(</span><span class="n">events</span><span class="p">),</span>
+</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>            <span class="s1">&#39;rebuffer_time&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_rebuffer_time</span><span class="p">(</span><span class="n">events</span><span class="p">),</span>
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>            <span class="s1">&#39;average_bitrate&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_calculate_avg_bitrate</span><span class="p">(</span><span class="n">events</span><span class="p">),</span>
+</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>            <span class="s1">&#39;quality_switches&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_count_quality_switches</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        <span class="p">}</span>
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>        <span class="c1"># Update Prometheus metrics</span>
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;startup_time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">observe</span><span class="p">(</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;startup_time&#39;</span><span class="p">])</span>
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;rebuffer_ratio&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>            <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;rebuffer_time&#39;</span><span class="p">]</span> <span class="o">/</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span>
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>        <span class="p">)</span>
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>        <span class="c1"># Alert on poor quality</span>
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>        <span class="k">if</span> <span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;rebuffer_time&#39;</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">session</span><span class="p">[</span><span class="s1">&#39;duration&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mf">0.02</span><span class="p">:</span>
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31" href="#__codelineno-5-31"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_alert_quality_degradation</span><span class="p">(</span><span class="n">session_id</span><span class="p">,</span> <span class="n">metrics</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="real-time-monitoring-dashboard">Real-time Monitoring Dashboard<a class="headerlink" href="#real-time-monitoring-dashboard" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>graph TB
+    subgraph "Monitoring Stack"
+        subgraph "Data Collection"
+            A1[App Metrics]
+            A2[CDN Logs]
+            A3[Player Analytics]
+        end
+
+        subgraph "Processing"
+            K[Kafka]
+            F[Flink]
+            S[Spark]
+        end
+
+        subgraph "Storage"
+            P[Prometheus]
+            E[Elasticsearch]
+            B[BigQuery]
+        end
+
+        subgraph "Visualization"
+            G[Grafana&lt;br/&gt;Real-time]
+            K2[Kibana&lt;br/&gt;Logs]
+            D[DataStudio&lt;br/&gt;Business]
+        end
+
+        A1 &amp; A2 &amp; A3 --&gt; K
+        K --&gt; F &amp; S
+        F --&gt; P --&gt; G
+        S --&gt; E --&gt; K2
+        S --&gt; B --&gt; D
+    end</code></pre>
+<h2 id="failure-scenarios">🚨 Failure Scenarios<a class="headerlink" href="#failure-scenarios" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Failure Type</th>
+<th>Impact</th>
+<th>Recovery</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CDN Outage</strong></td>
+<td>Regional degradation</td>
+<td>Auto-failover to backup</td>
+<td>&lt;30s</td>
+</tr>
+<tr>
+<td><strong>Transcoding Farm</strong></td>
+<td>Upload delays</td>
+<td>Spin up spot instances</td>
+<td>&lt;5min</td>
+</tr>
+<tr>
+<td><strong>Database Shard</strong></td>
+<td>Metadata unavailable</td>
+<td>Promote replica</td>
+<td>&lt;60s</td>
+</tr>
+<tr>
+<td><strong>Regional Outage</strong></td>
+<td>Complete failure</td>
+<td>DNS redirect + backups</td>
+<td>&lt;2min</td>
+</tr>
+</tbody>
+</table>
+<h2 id="key-design-insights">💡 Key Design Insights<a class="headerlink" href="#key-design-insights" title="Permanent link">&para;</a></h2>
+<h3 id="1-latency-is-user-experience">1. 🚀 <strong>Latency is User Experience</strong><a class="headerlink" href="#1-latency-is-user-experience" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Video start time &gt; video quality for user satisfaction</li>
-<li>Edge caching provides 80% improvement in start time</li>
-<li>Adaptive bitrate prevents 90% of rebuffering events</li>
+<li>Pre-position content at edge (15K+ locations)</li>
+<li>Adaptive bitrate prevents rebuffering</li>
+<li>Predictive caching for popular content</li>
 </ul>
-<h3 id="2-capacity-requires-intelligent-tiering">2. 💾 <strong>Capacity Requires Intelligent Tiering</strong><a class="headerlink" href="#2-capacity-requires-intelligent-tiering" title="Permanent link">&para;</a></h3>
+<h3 id="2-tiered-storage-is-essential">2. 💾 <strong>Tiered Storage is Essential</strong><a class="headerlink" href="#2-tiered-storage-is-essential" title="Permanent link">&para;</a></h3>
 <ul>
-<li>90% of views come from 10% of content (hot tier)</li>
-<li>Cold storage reduces costs by 70% for long-tail content</li>
-<li>Predictive caching based on ML improves hit rates by 40%</li>
+<li>Hot/warm/cold tiers save 80% on storage</li>
+<li>Deduplication saves additional 20%</li>
+<li>Tape storage for long-tail content</li>
 </ul>
-<h3 id="3-failure-recovery-must-be-transparent">3. 🔥 <strong>Failure Recovery Must Be Transparent</strong><a class="headerlink" href="#3-failure-recovery-must-be-transparent" title="Permanent link">&para;</a></h3>
+<h3 id="3-design-for-partial-failures">3. 🔥 <strong>Design for Partial Failures</strong><a class="headerlink" href="#3-design-for-partial-failures" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Multi-CDN strategy ensures no single point of failure</li>
-<li>Chunked upload allows resumption from any point</li>
-<li>Degraded quality better than no service</li>
+<li>Multi-CDN strategy</li>
+<li>Graceful quality degradation</li>
+<li>Regional isolation</li>
 </ul>
-<h3 id="4-economics-drive-architecture">4. 💰 <strong>Economics Drive Architecture</strong><a class="headerlink" href="#4-economics-drive-architecture" title="Permanent link">&para;</a></h3>
+<h3 id="4-ml-drives-everything">4. 🤖 <strong>ML Drives Everything</strong><a class="headerlink" href="#4-ml-drives-everything" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Bandwidth costs dominate (40% of total)</li>
-<li>Storage tiering essential for unit economics</li>
-<li>P2P could reduce costs but adds complexity</li>
+<li>Recommendations increase watch time 70%</li>
+<li>Encoding optimization saves 30% bandwidth</li>
+<li>Predictive caching improves hit rates</li>
 </ul>
-<h3 id="5-aiml-becoming-core-infrastructure">5. 🤖 <strong>AI/ML Becoming Core Infrastructure</strong><a class="headerlink" href="#5-aiml-becoming-core-infrastructure" title="Permanent link">&para;</a></h3>
+<h3 id="5-economics-at-scale">5. 💰 <strong>Economics at Scale</strong><a class="headerlink" href="#5-economics-at-scale" title="Permanent link">&para;</a></h3>
 <ul>
-<li>Recommendation drives 70% of watch time</li>
-<li>AI compression can reduce storage by 30%</li>
-<li>Predictive caching reduces misses by 40%</li>
+<li>Bandwidth is 70% of costs</li>
+<li>Edge caching critical for unit economics</li>
+<li>P2P can reduce costs by 30%</li>
 </ul>
-<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
-<p>YouTube's architecture demonstrates how fundamental distributed systems principles scale to handle humanity's video consumption. By carefully managing latency through edge caching, handling exabyte-scale capacity with tiered storage, building resilience at every layer, and optimizing economics through adaptive quality, YouTube delivers billions of hours of video daily. The multi-tier architecture balances the needs of live streaming, popular content, and long-tail videos while continuously optimizing through machine learning. The key insight is that different types of content (live vs. recorded, popular vs. niche) require different architectural treatments, and success comes from intelligently routing content through the optimal pipeline.</p>
 <h2 id="related-concepts-deep-dives">🔍 Related Concepts &amp; Deep Dives<a class="headerlink" href="#related-concepts-deep-dives" title="Permanent link">&para;</a></h2>
 <h3 id="relevant-axioms-part-i">📚 Relevant Axioms (Part I)<a class="headerlink" href="#relevant-axioms-part-i" title="Permanent link">&para;</a></h3>
 <ul>
@@ -10406,12 +10856,26 @@
 <li><strong><a href="../uber-location/">Uber's Location System</a></strong> - Real-time data processing for live streaming</li>
 <li><strong><a href="../amazon-dynamo/">Amazon DynamoDB</a></strong> - Metadata storage for billions of videos requires similar scale</li>
 </ul>
+<hr />
+<h2 id="references">References<a class="headerlink" href="#references" title="Permanent link">&para;</a></h2>
+<ol>
+<li>Google Engineering Blog: "YouTube's Video Infrastructure" (2020)</li>
+<li>SIGMOD Paper: "Vitess: Scaling MySQL at YouTube" (2019)</li>
+<li>Netflix Tech Blog: "Per-Title Encode Optimization" (2021)</li>
+<li>Facebook Engineering: "Video@Scale Conference Talks" (2022)</li>
+<li>YouTube Engineering: "Sharding YouTube's Database" (2018)</li>
+</ol>
+<h2 id="conclusion">Conclusion<a class="headerlink" href="#conclusion" title="Permanent link">&para;</a></h2>
+<p>YouTube's architecture demonstrates how fundamental distributed systems principles scale to handle humanity's video consumption. By carefully managing latency through edge caching, handling exabyte-scale capacity with tiered storage, building resilience at every layer, and optimizing economics through adaptive quality, YouTube delivers billions of hours of video daily. The multi-tier architecture balances the needs of live streaming, popular content, and long-tail videos while continuously optimizing through machine learning. The key insight is that different types of content (live vs. recorded, popular vs. niche) require different architectural treatments, and success comes from intelligently routing content through the optimal pipeline.</p>
 
 
 
 
 
 
+
+  
+  
 
 
 

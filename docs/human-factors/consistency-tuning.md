@@ -84,12 +84,7 @@ class ConsistencyManager:
         return operation.default
 ```
 
-Real implementation approach:
-- Start conservative (QUORUM)
-- Measure actual behavior
-- Gradually relax where possible
-- Monitor business metrics
-- Rollback if issues
+Approach: Start conservative → Measure → Relax gradually → Monitor metrics → Rollback if needed
 
 ## Production Tuning Patterns
 

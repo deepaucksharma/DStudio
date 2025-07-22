@@ -270,26 +270,10 @@ flowchart LR
 ### 3. Design Dashboards
 
 **Dashboard Hierarchy:**
-
-**1. Service Overview (RED metrics)**
-- Rate: Requests per second
-- Errors: Error percentage
-- Duration: Latency percentiles
-
-**2. Infrastructure View**
-- CPU, Memory, Disk, Network
-- Saturation indicators
-- Capacity remaining
-
-**3. Business Metrics**
-- Conversion rates
-- Revenue impact
-- User experience scores
-
-**4. Detailed Debugging**
-- Log aggregations
-- Trace analysis
-- Error breakdowns
+1. **Service Overview**: RED metrics (Rate, Errors, Duration)
+2. **Infrastructure**: CPU/Memory/Disk/Network, saturation, capacity
+3. **Business**: Conversion rates, revenue impact, UX scores
+4. **Debugging**: Log aggregations, trace analysis, error breakdowns
 
 ## Observability Patterns
 

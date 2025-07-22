@@ -236,47 +236,31 @@ last_updated: 2025-07-20
 
 ## Workload Characterization
 
-### Traffic Patterns
 ```python
-Daily Pattern:
-- Peak hour: _____ (e.g., 2 PM)
-- Peak/average ratio: _____ (e.g., 3x)
-- Weekend factor: _____ (e.g., 0.6x)
+# Traffic Patterns
+Peak hour: _____ (e.g., 2 PM)
+Peak/average ratio: _____ (e.g., 3x)
+Weekend factor: _____ (e.g., 0.6x)
+Black Friday: _____x normal
 
-Seasonal Pattern:
-- Black Friday: _____x normal
-- Holiday season: _____x normal
-- Summer lull: _____x normal
-```
+# Request Mix
+Operation         % Traffic    Impact
+Read (cached)     60%         Low (1x)
+Read (DB)         20%         Medium (3x)
+Write             15%         High (5x)
+Analytics         5%          Very High (10x)
 
-### Request Mix
-```python
-Operation         % of Traffic    Resource Impact
----------         ------------    ---------------
-Read (cached)     60%            Low
-Read (DB)         20%            Medium
-Write             15%            High
-Analytics         5%             Very High
-
-Weighted resource usage:
-0.6×1 + 0.2×3 + 0.15×5 + 0.05×10 = 2.45 units/request
+Weighted usage: 0.6×1 + 0.2×3 + 0.15×5 + 0.05×10 = 2.45 units/request
 ```
 
 ## Scaling Strategies
 
-### Vertical vs Horizontal
 ```text
-Vertical (Bigger boxes):
-Current: 8 CPU, 32GB RAM
-Next: 16 CPU, 64GB RAM
-Cost: 2.2x (not linear!)
-Limit: 96 CPU, 768GB RAM
+Vertical: 8→16 CPU, 32→64GB RAM
+  Cost: 2.2x (non-linear), Limit: 96 CPU/768GB
 
-Horizontal (More boxes):
-Current: 10 × small instances
-Next: 15 × small instances
-Cost: 1.5x (linear)
-Limit: Practically unlimited
+Horizontal: 10→15 instances
+  Cost: 1.5x (linear), Limit: unlimited
 ```
 
 ### Resource Planning Table
@@ -393,52 +377,30 @@ Limit: Practically unlimited
 
 ## Capacity Planning Tools
 
-### Little's Law Application
 ```python
+# Little's Law
 Concurrent users = Requests/sec × Session duration
-Database connections = Queries/sec × Query time
-Memory needed = Objects/sec × Object lifetime × Size
-```
+DB connections = Queries/sec × Query time
+Memory = Objects/sec × Object lifetime × Size
 
-### Queue Theory Application
-```python
-If utilization > 70%:
-  Response time increases exponentially
-  Plan for maximum 70% steady state
-
+# Queue Theory
+Utilization > 70% → Exponential response time
 Servers needed = Load / (Capacity × 0.7)
 ```
 
 ## Real Example: E-Commerce Platform
 
-### Current Baseline
 ```python
-- 10,000 concurrent users
-- 100 requests/second average
-- 300 requests/second peak
-- 50GB database
-- 1TB object storage
-```
+# Current: 10K users, 100/300 rps avg/peak, 50GB DB, 1TB storage
+# Growth: 20% users, 30% data monthly
 
-### Growth Assumptions
-```python
-- User growth: 20% monthly
-- Data growth: 30% monthly
-- Feature complexity: +10% resources
-```
-
-### 6-Month Projection
-```python
-Users: 10,000 × 1.2^6 = 30,000
-Requests: 300 × 3 = 900 peak
-Database: 50 × 1.3^6 = 230GB
+# 6-Month Projection
+Users: 10K × 1.2^6 = 30K
+Peak: 300 × 3 = 900 rps
+DB: 50 × 1.3^6 = 230GB
 Storage: 1 × 1.3^6 = 4.6TB
 
-Required Infrastructure:
-- App servers: 10 → 30
-- Database: Needs sharding
-- Cache: 10GB → 50GB
-- CDN: Essential
+Infrastructure: Apps 10→30, DB needs sharding, Cache 10→50GB, CDN required
 ```
 
 ## Detailed Capacity Models
@@ -503,88 +465,24 @@ def calculate_storage_needs():
 
 ## Capacity Planning by Service Type
 
-### Web Application
-```redis
-Capacity factors:
-- Request rate
-- Response size
-- Session duration
-- Static asset ratio
-
-Rules of thumb:
-- 1 CPU core: ~100 req/s simple pages
-- 1 GB RAM: ~500 concurrent sessions
-- Network: 10 Mbps per 100 req/s
-```
-
-### API Service
-```python
-Capacity factors:
-- Call rate
-- Payload size
-- Processing complexity
-- External dependencies
-
-Rules of thumb:
-- 1 CPU core: ~1000 req/s simple JSON
-- 1 GB RAM: ~10k connections
-- Network: Response size × req/s × 8
-```
-
-### Database
-```redis
-Capacity factors:
-- Query complexity
-- Data size
-- Index size
-- Connection count
-
-Rules of thumb:
-- 1 CPU: ~1000 simple queries/s
-- RAM: Working set + indexes
-- Storage: Data × 3 (data + indexes + backups)
-```
-
-### Message Queue
-```proto
-Capacity factors:
-- Message rate
-- Message size
-- Retention period
-- Consumer count
-
-Rules of thumb:
-- 1 CPU: ~10k messages/s
-- RAM: In-flight messages
-- Storage: Rate × size × retention
+```text
+Web App: 1 CPU = 100 rps, 1GB = 500 sessions, 10 Mbps/100 rps
+API: 1 CPU = 1000 rps JSON, 1GB = 10k connections
+Database: 1 CPU = 1000 queries/s, RAM = working set + indexes
+Queue: 1 CPU = 10k msg/s, Storage = rate × size × retention
 ```
 
 ## Capacity Triggers
 
-### Scaling Triggers
 ```python
-Immediate action required:
-- CPU > 80% sustained
-- Memory > 90%
-- Storage > 80%
-- Network > 70%
-- Error rate > 1%
+# Immediate Action
+CPU > 80%, Memory > 90%, Storage > 80%, Network > 70%, Errors > 1%
 
-Planning required:
-- 3-month projection hits limit
-- Growth rate accelerating
-- New feature launch
-- Regional expansion
-```
+# Planning Required  
+3-month projection hits limit, growth accelerating, new features/regions
 
-### Architecture Change Triggers
-```python
-Consider architecture change when:
-- Vertical scaling hits limit
-- Costs growing super-linearly
-- Availability requirements increase
-- Geographic expansion needed
-- Performance degrading
+# Architecture Change
+Vertical limit reached, super-linear costs, higher availability needed
 ```
 
 ## Capacity Planning Checklist
@@ -604,33 +502,16 @@ Consider architecture change when:
 
 ## Common Mistakes
 
-1. **Using average instead of peak**
-   - Systems fail at peak, not average
-   - Plan for 95th percentile
-
-2. **Forgetting hidden resources**
-   - File descriptors
-   - Thread pools
-   - Kernel buffers
-
-3. **Linear growth assumptions**
-   - Viral growth happens
-   - Plan for exponential
-
-4. **Ignoring batch jobs**
-   - Overnight batches affect capacity
-   - Include in planning
-
-5. **Not testing limits**
-   - Load test to find real limits
-   - Don't trust specifications
+1. **Using average instead of peak** → Plan for 95th percentile
+2. **Forgetting hidden resources** → File descriptors, thread pools, kernel buffers
+3. **Linear growth assumptions** → Plan for exponential/viral growth
+4. **Ignoring batch jobs** → Include overnight processing
+5. **Not testing limits** → Load test actual capacity
 
 ## Key Takeaways
 
-1. **Measure everything** - You can't plan without data
-2. **Plan for peaks** - Average is misleading
-3. **Include safety margins** - Things go wrong
-4. **Monitor growth rate changes** - Inflection points matter
-5. **Test scaling assumptions** - Reality differs from theory
-
-Remember: Capacity planning is continuous. Set up monitoring, define triggers, and review regularly.
+1. **Measure everything** → No data, no planning
+2. **Plan for peaks** → Average misleads
+3. **Include safety margins** → 30-50% headroom
+4. **Monitor growth changes** → Watch inflection points
+5. **Test assumptions** → Reality ≠ theory

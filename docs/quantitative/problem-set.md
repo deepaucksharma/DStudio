@@ -1,7 +1,6 @@
 ---
 title: Numerical Problem Set
-description: <details>
-<summary>Solution</summary>
+description: Practice problems with real-world parameters
 type: quantitative
 difficulty: advanced
 reading_time: 10 min
@@ -433,10 +432,8 @@ d) **Architecture change trigger:**
 
 ## Key Patterns from Problems
 
-1. **Little's Law appears everywhere** - Connections, queues, sessions
-2. **Safety margins matter** - 40% CPU, 50% network typical
-3. **Growth is exponential** - Compounds faster than expected
-4. **Architecture breaks before resources** - Plan transitions early
-5. **Cost optimization has huge impact** - 40-60% savings common
-
-Remember: These problems use simplified models. Real systems have additional complexity, but the principles remain the same.
+1. **Little's Law appears everywhere** (connections, queues, sessions)
+2. **Safety margins matter** (40% CPU, 50% network typical)
+3. **Growth is exponential** (compounds faster than expected)
+4. **Architecture breaks before resources** (plan transitions early)
+5. **Cost optimization has huge impact** (40-60% savings common)

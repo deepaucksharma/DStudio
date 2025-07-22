@@ -118,7 +118,7 @@ graph TB
 
 **Patterns & Pillars Applied**:
 - 🔧 Pattern: [Leader-Follower Replication](../patterns/leader-follower.md)
-- 🔧 Pattern: [Partitioning](../patterns/partitioning.md) - Topic partitions
+- 🔧 Pattern: [Partitioning](../patterns/sharding.md) - Topic partitions
 - 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Distributed logs
 - 🏛️ Pillar: [Truth & Consistency](../part2-pillars/truth/index.md) - Ordered delivery
 

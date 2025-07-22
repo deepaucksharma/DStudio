@@ -591,7 +591,7 @@ graph TB
 
 ### 📊 Quantitative Models
 - **[Little's Law](../quantitative/littles-law.md)** - Model serving capacity: L = λW (concurrent requests = arrival rate × processing time)
-- **[Amdahl's Law](../quantitative/amdahls-law.md)** - Parallelizing matrix operations for collaborative filtering
+- **[Amdahl's Law](../quantitative/amdahl-gustafson.md)** - Parallelizing matrix operations for collaborative filtering
 - **[Power Laws](../quantitative/power-laws.md)** - Long-tail content distribution affects recommendation strategy
 - **[Information Theory](../quantitative/information-theory.md)** - Entropy measures for recommendation diversity
 

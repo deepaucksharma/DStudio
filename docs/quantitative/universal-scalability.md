@@ -296,245 +296,77 @@ last_updated: 2025-07-20
 
 ## Real-World Examples
 
-### Database Replication
-```python
-Read replicas scaling:
-- Contention: Connection pool limits
-- Coherency: Replication lag monitoring
-
-Typical values:
-α = 0.05 (5% management overhead)
-β = 0.001 (0.1% cross-replica coordination)
-Peak: ~30 replicas
-```
-
-### Microservice Mesh
-```proto
-Service-to-service calls:
-- Contention: Service discovery lookups
-- Coherency: Health checking, N² connections
-
-Typical values:
-α = 0.1 (10% discovery overhead)
-β = 0.01 (1% health check storms)
-Peak: ~10 services before degradation
-```
-
-### Distributed Cache
-```python
-Cache nodes:
-- Contention: Hash ring updates
-- Coherency: Cache invalidation broadcasts
-
-Typical values:
-α = 0.02 (2% ring management)
-β = 0.0001 (0.01% invalidation)
-Peak: ~100 nodes practical limit
-```
-
-### Kafka Cluster
-```python
-Broker scaling:
-- Contention: Zookeeper operations
-- Coherency: Partition rebalancing
-
-Typical values:
-α = 0.08 (8% metadata operations)
-β = 0.002 (0.2% rebalancing overhead)
-Peak: ~20 brokers efficiently
+```text
+Database Replication: α=0.05, β=0.001 → Peak ~30 replicas
+Microservice Mesh: α=0.1, β=0.01 → Peak ~10 services  
+Distributed Cache: α=0.02, β=0.0001 → Peak ~100 nodes
+Kafka Cluster: α=0.08, β=0.002 → Peak ~20 brokers
 ```
 
 ## Identifying α (Contention)
 
-Common sources of contention:
-1. **Shared locks/mutexes**
-   - Global counters
-   - Sequence generators
-   - Configuration updates
+**Sources**: Shared locks, central services, resource pools
 
-2. **Central services**
-   - Service discovery
-   - Authentication service
-   - Rate limiters
-
-3. **Resource pools**
-   - Connection pools
-   - Thread pools
-   - Memory pools
-
-### Measuring Contention
 ```python
-# Look for serialization points
-def measure_contention():
-    # Time with 1 node
-    t1 = time_operation(nodes=1)
-
-    # Time with N nodes
-    tN = time_operation(nodes=N)
-
-    # If purely contention-limited:
-    # tN ≈ t1 * (1 + α(N-1))
-    α = (tN/t1 - 1)/(N-1)
+# Measure contention
+t1 = time_operation(nodes=1)
+tN = time_operation(nodes=N)
+α = (tN/t1 - 1)/(N-1)
 ```
 
 ## Identifying β (Coherency)
 
-Common sources of coherency overhead:
-1. **All-to-all communication**
-   - Gossip protocols
-   - Full mesh health checks
-   - Consensus protocols
+**Sources**: All-to-all communication, broadcasts, synchronization
 
-2. **Broadcast operations**
-   - Cache invalidation
-   - Configuration propagation
-   - Event notifications
-
-3. **Synchronization**
-   - Distributed locks
-   - Barrier synchronization
-   - Consistent snapshots
-
-### Measuring Coherency
 ```python
-# Look for N² communication patterns
-def measure_coherency():
-    # Count inter-node messages
-    messages_2_nodes = count_messages(nodes=2)
-    messages_N_nodes = count_messages(nodes=N)
-
-    # If coherency-limited:
-    # messages ∝ N²
-    if messages_N_nodes ≈ messages_2_nodes * (N/2)²:
-        # Strong coherency overhead
+# Measure coherency (N² patterns)
+messages_2 = count_messages(nodes=2)
+messages_N = count_messages(nodes=N)
+if messages_N ≈ messages_2 * (N/2)²:
+    # Strong coherency overhead
 ```
 
 ## Optimization Strategies
 
-### Reduce α (Contention)
-1. **Eliminate shared locks**
-   ```python
-   # Before: Global lock
-   with global_lock:
-       counter += 1
+```python
+# Reduce α (Contention)
+# 1. Lock-free: global_lock → atomic_increment
+# 2. Partition: global_pool → thread_local_pool
+# 3. Cache: fetch_always → local_cache.get_or_fetch()
 
-   # After: Lock-free
-   atomic_increment(counter)
-   ```
-
-2. **Partition resources**
-   ```python
-   # Before: Single pool
-   connection = global_pool.get()
-
-   # After: Per-thread pools
-   connection = thread_local_pool.get()
-   ```
-
-3. **Local caches**
-   ```python
-   # Before: Always fetch
-   config = fetch_from_service()
-
-   # After: Cache with TTL
-   config = local_cache.get_or_fetch()
-   ```
-
-### Reduce β (Coherency)
-1. **Eventual consistency**
-   ```python
-   # Before: Synchronous replication
-   replicate_to_all_nodes_sync(data)
-
-   # After: Async with convergence
-   eventually_replicate(data)
-   ```
-
-2. **Hierarchical coordination**
-   ```python
-   # Before: All-to-all
-   broadcast_to_all(message)
-
-   # After: Tree-based
-   send_to_regional_coordinators(message)
-   ```
-
-3. **Reduce broadcast storms**
-   ```python
-   # Before: Notify everyone
-   for node in all_nodes:
-       notify(node, event)
-
-   # After: Publish-subscribe
-   publish_to_topic(event)
-   ```
+# Reduce β (Coherency)
+# 1. Eventual: sync_replicate → async_replicate
+# 2. Hierarchical: all_to_all → tree_based
+# 3. Pub-sub: broadcast_all → publish_to_topic
+```
 
 ## Capacity Planning with USL
 
-### Scenario Analysis
-```
-Current: 10 nodes, 8000 req/s
-Target: 16000 req/s
+```text
+Scenario: 10 nodes @ 8000 rps → Target 16000 rps
+20 nodes → 12000 rps, 30 nodes → 14500 rps, 40 nodes → 15200 rps (degrading)
 
-USL prediction:
-20 nodes → 12000 req/s (not enough)
-30 nodes → 14500 req/s (not enough)
-40 nodes → 15200 req/s (degrading)
-
-Conclusion: Need architectural change
-```bash
-### Break the Bottleneck
+Options: Shard workload, reduce coordination, async processing, add caching
+4-way sharding: 4 × 35-node peak = 4x capacity (but cross-shard costly)
 ```
-Options:
-1. Shard the workload (multiple USL curves)
-2. Reduce coordination (lower β)
-3. Async processing (lower α)
-4. Caching layer (offload entirely)
-```bash
-### Sharding Strategy
-```
-Single system: Peak at 35 nodes
-4-way sharding: Each shard peaks at 35 nodes
-Total capacity: 4 × peak = 4x improvement
-
-But: Cross-shard operations costly
-```python
 ## USL in Practice
 
-### Monitoring for USL
-Key metrics to track:
-1. **Throughput vs. nodes** - Plot the curve
-2. **Lock wait time** - Indicates α
-3. **Network traffic** - O(N²) indicates β
-4. **CPU efficiency** - Drops with high α or β
+```text
+# Monitor
+Throughput vs nodes, lock wait time (α), network O(N²) (β), CPU efficiency
 
-### Early Warning Signs
-```
-Watch for:
-- Sublinear scaling starting early
-- Network traffic growing quadratically
-- Lock contention increasing
-- Coordination overhead rising
-```bash
-### Architecture Decisions
-```
-If α dominates:
-- Focus on removing serialization
-- Consider sharding/partitioning
-- Implement caching
+# Warning Signs
+Sublinear scaling, quadratic network growth, rising lock/coordination time
 
-If β dominates:
-- Reduce coordination frequency
-- Use eventual consistency
-- Implement hierarchical systems
+# Architecture Decisions
+α dominates → Remove serialization, shard, cache
+β dominates → Reduce coordination, eventual consistency, hierarchies
 ```
 
 ## Key Takeaways
 
-1. **Linear scaling is a myth** - Contention and coherency always exist
-2. **Measure α and β** - Know your bottlenecks quantitatively
-3. **Peak performance is real** - Adding nodes can hurt
-4. **Architecture beats hardware** - Fix the design, not just scale
-5. **Sharding resets the curve** - But adds complexity
-
-Remember: The USL doesn't say you can't scale - it tells you what to fix to scale better.
+1. **Linear scaling is a myth** (contention/coherency always exist)
+2. **Measure α and β** (quantify bottlenecks)
+3. **Peak performance is real** (more nodes can hurt)
+4. **Architecture beats hardware** (fix design, not just scale)
+5. **Sharding resets the curve** (but adds complexity)

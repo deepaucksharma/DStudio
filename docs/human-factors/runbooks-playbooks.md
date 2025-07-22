@@ -18,17 +18,10 @@ last_updated: 2025-07-20
 
 ## What's the Difference?
 
-**Runbook**: Step-by-step instructions for a specific scenario
-- "If X happens, do exactly Y"
-- Detailed, prescriptive
-- Handles known situations
+**Runbook**: Step-by-step for specific scenarios ("If X, do Y")
+**Playbook**: Strategic guide for problem classes ("For X-like situations, consider Y, Z")
 
-**Playbook**: Strategic guide for classes of problems
-- "When facing situation like X, consider approaches Y, Z"
-- Flexible, adaptive
-- Handles unknown variations
-
-Think: Runbook = Recipe, Playbook = Cooking principles
+Runbook = Recipe, Playbook = Cooking principles
 
 ## Anatomy of a Great Runbook
 
@@ -118,42 +111,39 @@ curl https://payment-gateway/health | jq .version
 - [ ] Check SLO impact
 ```
 
-### Key Elements Demonstrated
+### Key Elements
 
-1. **Urgency gradient** - Quick actions first
-2. **Clear symptoms** - How to recognize
-3. **Copy-paste commands** - No thinking required
-4. **Decision trees** - If this, then that
-5. **Rollback procedures** - Escape hatch
-6. **Follow-up** - Don't forget after fire is out
+1. **Urgency gradient**: Quick actions first
+2. **Clear symptoms**: Recognition patterns
+3. **Copy-paste commands**: No thinking
+4. **Decision trees**: If-then logic
+5. **Rollback procedures**: Escape hatch
+6. **Follow-up**: Post-fire actions
 
 ## Runbook Best Practices
 
 ### 1. Test Under Stress
 
-Your brain doesn't work well at 3 AM:
+Your brain at 3 AM needs:
 
 ```python
 class RunbookValidator:
     def test_runbook(self, runbook_path):
-        """
-        Validate runbook is usable under stress
-        """
         checks = []
 
-        # All commands should be copy-pasteable
+        # Commands must be copy-pasteable
         commands = extract_code_blocks(runbook_path)
         for cmd in commands:
             if has_placeholder(cmd):
                 checks.append(f"Command has placeholder: {cmd}")
 
-        # All links should work
+        # Links must work
         links = extract_links(runbook_path)
         for link in links:
             if not is_reachable(link):
                 checks.append(f"Dead link: {link}")
 
-        # Decision points should be clear
+        # Conditions must be measurable
         if_thens = extract_conditionals(runbook_path)
         for condition in if_thens:
             if not is_measurable(condition):
@@ -195,28 +185,25 @@ spec:
 
 ### 3. Runbook Driven Development
 
-Write the runbook first:
+Write runbook first:
 
 ```python
 def implement_feature(feature_name):
-    """
-    TDD but for operations
-    """
-    # 1. Write runbook for operating feature
+    # 1. Write runbook
     runbook = write_operational_guide(feature_name)
 
-    # 2. Implement monitoring/alerts from runbook
+    # 2. Implement monitoring from runbook
     for alert in runbook.alerts_needed:
         implement_alert(alert)
 
-    # 3. Build dashboards from runbook
+    # 3. Build dashboards
     for metric in runbook.key_metrics:
         add_to_dashboard(metric)
 
-    # 4. Then implement feature
+    # 4. Implement feature
     implement_actual_feature(feature_name)
 
-    # 5. Verify runbook works
+    # 5. Verify runbook
     chaos_test_with_runbook(feature_name, runbook)
 ```
 
@@ -805,30 +792,15 @@ gantt
 | **Update** | Fix runbook issues | T+60 | PR submitted |
 ## Best Practices
 
-1. **Write for Your Tired Self**
-   - Assume zero context
-   - Make commands copy-pasteable
-   - Include verification steps
+1. **Write for Tired Self**: Zero context, copy-paste commands, verification steps
 
-2. **Test Regularly**
-   - Monthly runbook review
-   - Quarterly execution drill
-   - Update after every incident
+2. **Test Regularly**: Monthly review, quarterly drill, post-incident updates
 
-3. **Version Control Everything**
-   - Git for runbooks
-   - Tag versions
-   - Review changes
+3. **Version Control**: Git, tags, reviews
 
-4. **Link Liberally**
-   - Dashboard links
-   - Related runbooks
-   - Documentation
+4. **Link Everything**: Dashboards, related runbooks, docs
 
-5. **Measure Effectiveness**
-   - Time to resolution
-   - Runbook usage rate
-   - Success rate
+5. **Measure Success**: TTR, usage rate, success rate
 
 ## Metrics for Runbooks
 

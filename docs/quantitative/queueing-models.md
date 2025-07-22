@@ -16,22 +16,14 @@ last_updated: 2025-07-20
 
 **When will your system hit the wall?**
 
-## M/M/1 Queue Basics
+## M/M/1 Basics
 
-M/M/1 notation means:
-- **M**arkovian (exponential) arrivals
-- **M**arkovian (exponential) service times
-- **1** server
+**M/M/1** = Markovian arrivals / Markovian service / 1 server
 
-Key parameter:
 ```proto
 ρ = λ/μ (utilization)
-Where:
-λ = arrival rate
-μ = service rate
+λ = arrival rate, μ = service rate
 ```
-
-This builds on [Little's Law](littles-law.md) where L = λW, and connects to the [Latency Ladder](latency-ladder.md) for understanding service times.
 
 ## Fundamental Formulas
 
@@ -180,13 +172,12 @@ This builds on [Little's Law](littles-law.md) where L = λW, and connects to the
 
 ### Response Time Distribution
 ```python
-P(response time > t) = e^(-μ(1-ρ)t)
+P(response > t) = e^(-μ(1-ρ)t)
 
-Probability of response > 1 second:
-At 50% util: e^(-50×0.5×1) = 0.0000%
-At 80% util: e^(-20×0.2×1) = 0.02%
-At 90% util: e^(-10×0.1×1) = 0.37%
-At 95% util: e^(-5×0.05×1) = 7.8%!
+50% util: P(>1s) = 0.0000%
+80% util: P(>1s) = 0.02%
+90% util: P(>1s) = 0.37%
+95% util: P(>1s) = 7.8%!
 ```
 
 ## The Knee of the Curve
@@ -315,26 +306,17 @@ At 95% util: e^(-5×0.05×1) = 7.8%!
 
 ## M/M/c Multi-Server Queue
 
-With multiple servers, the math gets complex but the insights remain:
-
 ### Erlang C Formula
-Probability that an arriving customer must queue:
 ```python
-P(queue) = (ρ^c / c!) / Σ(k=0 to c-1)[(ρ^k / k!) + (ρ^c / c!) × (1/(1-ρ/c))]
+P(queue) = (ρ^c / c!) / Σ[(ρ^k / k!) + (ρ^c / c!) × (1/(1-ρ/c))]
 ```
 
-### Practical Impact
-```python
-Servers  Utilization  Queue Probability
--------  -----------  -----------------
-1        80%          80%
-2        80%          44%
-4        80%          23%
-8        80%          11%
-16       80%          5%
+### Impact
+```
+Servers @ 80% util: 1→80%, 2→44%, 4→23%, 8→11%, 16→5% queue probability
 ```
 
-**Rule of thumb**: 2 servers at 80% > 1 server at 40%
+**Rule**: 2 servers @ 80% > 1 server @ 40%
 
 ## Real-World Applications
 
@@ -558,132 +540,40 @@ This sizing directly impacts [Availability](availability-math.md) - overloaded s
 </div>
 </div>
 
-## When M/M/1 Breaks Down
+## When M/M/1 Breaks
 
-### Real Traffic is Bursty
-```python
-Actual pattern:
-- Morning spike: 2x average
-- Lunch lull: 0.5x average
-- End of day: 1.5x average
+- **Bursty traffic**: Use peak (2x average) not average
+- **Variable service**: 80% fast + 20% slow = worse queues
+- **Correlated arrivals**: Sessions, retries, batches > predictions
 
-Solution: Use peak, not average
-Safety factor: 1.5-2x
-```
+## Queue Management
 
-### Service Times Vary
-```python
-Real distribution:
-- Fast queries: 10ms (80%)
-- Slow queries: 200ms (20%)
+1. **Admission control**: `if queue > threshold: reject_503()`
+2. **Adaptive capacity**: Scale based on wait time
+3. **Priority queues**: Payments > API > Batch
 
-High variance → Worse queueing
-Use M/G/1 model or simulation
-```
+## Advanced Patterns
 
-### Correlated Arrivals
-```python
-Real pattern:
-- User sessions generate bursts
-- Failures cause retries
-- Batch jobs create spikes
-
-Impact: Actual queue >> M/M/1 prediction
-```
-
-## Queue Management Strategies
-
-### Admission Control
-```python
-if queue_length > threshold:
-    reject_with_503()
-
-# Prevents:
-# - Unbounded queue growth
-# - Memory exhaustion
-# - Cascade failures
-```
-
-This is a key component of the [Circuit Breaker pattern](../patterns/circuit-breaker.md) and [Backpressure](../patterns/backpressure.md) mechanisms.
-
-### Adaptive Capacity
-```python
-if avg_wait_time > target:
-    scale_up()
-elif avg_wait_time < target/2:
-    scale_down()
-
-# Maintains:
-# - Consistent performance
-# - Cost efficiency
-```
-
-### Priority Queues
-```text
-High priority: Payment processing
-Normal priority: Regular API calls
-Low priority: Batch operations
-
-Separate queues or weighted fair queueing
-```
-
-## Advanced Queueing Patterns
-
-### Queue with Timeout
-```python
-Effective arrival rate when customers leave:
-λ_eff = λ × P(wait < timeout)
-
-Improves system stability but reduces throughput
-```
-
-### Bulk Service
-```python
-Process N items together:
-- Reduces per-item overhead
-- Increases minimum latency
-- Better for batch workloads
-```
-
-### Processor Sharing
-```python
-All customers served simultaneously at reduced rate
-- Used in CPU scheduling
-- Fair but higher average latency
-- No queue buildup
-```
+- **Timeout**: λ_eff = λ × P(wait < timeout)
+- **Bulk service**: Process N together, trade latency for throughput
+- **Processor sharing**: All served at once (CPU scheduling)
 
 ## Practical Guidelines
 
 ### Sizing for Latency
-```proto
-Target Latency  Max Utilization
---------------  ---------------
-2x service time      50%
-5x service time      80%
-10x service time     90%
-20x service time     95%
+```
+2x service time → 50% max util
+5x service time → 80% max util
+10x service time → 90% max util
 ```
 
-### Queue Monitoring
-Key metrics to track:
-- Queue depth (L)
-- Wait time (W)
-- Utilization (ρ)
-- Arrival rate (λ)
-- Service rate (μ)
+### Key Metrics
+L (queue), W (wait), ρ (util), λ (arrival), μ (service)
 
 ### Capacity Planning
-```proto
-Current: 70% utilization, 30ms response
-Future: 2x traffic
-
-New utilization: 140% (system fails!)
-
-Options:
-1. Double servers: 70% util maintained
-2. Optimize service: Reduce service time 50%
-3. Add cache: Reduce arrival rate 50%
+```
+2x traffic @ 70% util = 140% = FAIL!
+Options: 2x servers | Optimize service | Add cache
 ```
 
 ## Axiom Connections
@@ -702,7 +592,7 @@ graph LR
     style F fill:#ff0000
 ```
 
-**Key Insight**: M/M/1 models directly demonstrate [Axiom 2: Finite Capacity](../part1-axioms/capacity/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+**Key Insight**: M/M/1 models directly demonstrate [Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
 ### Axiom 3: Failure is Inevitable
 - At high utilization (>90%), small disruptions cause catastrophic queue growth
@@ -858,16 +748,15 @@ graph LR
 
 ## Key Takeaways
 
-1. **80% is the practical limit** - Beyond this, queues explode
-2. **Variance matters** - High variance = worse queuing
-3. **Multiple servers help** - But with diminishing returns
-4. **Monitor utilization** - It predicts response time
-5. **Plan for peaks** - Average traffic is misleading
+1. **80% = practical limit** (queues explode beyond)
+2. **Variance matters** (unpredictable = worse)
+3. **Multiple servers help** (diminishing returns)
+4. **Monitor utilization** (predicts response time)
+5. **Plan for peaks** (not averages)
 
-Remember: Queues are everywhere - CPU, network, disk, application. Understanding queueing theory helps predict system behavior before it breaks.
+Queues are everywhere. Understand them before they break.
 
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Latency Ladder](latency-ladder.md) | [Availability Math](availability-math.md)
 - **Patterns**: [Circuit Breaker](../patterns/circuit-breaker.md) | [Backpressure](../patterns/backpressure.md) | [Rate Limiting](../patterns/rate-limiting.md)
-- **Operations**: [Capacity Planning](../human-factors/capacity-planning.md) | [Load Testing](../human-factors/performance-testing.md)

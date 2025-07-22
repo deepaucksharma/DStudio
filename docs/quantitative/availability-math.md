@@ -18,38 +18,26 @@ last_updated: 2025-07-20
 
 ## The Nines
 
-Understanding availability percentages and their real impact:
-
-```python
-Availability    Downtime/Year    Downtime/Month    Downtime/Day
------------    -------------    --------------    ------------
-90% (1 nine)    36.5 days       3 days            2.4 hours
-99% (2 nines)   3.65 days       7.2 hours         14.4 minutes
-99.9% (3 nines) 8.76 hours      43.8 minutes      1.44 minutes
-99.99% (4 nines) 52.56 minutes  4.38 minutes      8.64 seconds
-99.999% (5 nines) 5.26 minutes  26.3 seconds      0.864 seconds
+```
+90% (1 nine)     = 36.5 days/year downtime
+99% (2 nines)    = 3.65 days/year  
+99.9% (3 nines)  = 8.76 hours/year
+99.99% (4 nines) = 52.6 minutes/year
+99.999% (5 nines)= 5.26 minutes/year
 ```
 
 ## Availability Calculations
 
-### Series (AND) - Multiply
-```text
-System works = A works AND B works AND C works
-Availability = A × B × C
-
-Example:
-Load Balancer (99.99%) → App (99.9%) → Database (99.9%)
-System = 0.9999 × 0.999 × 0.999 = 99.79%
+### Series (AND): Multiply
+```
+A → B → C = A × B × C
+99.99% → 99.9% → 99.9% = 99.79%
 ```
 
-### Parallel (OR) - Complement
-```text
-System fails = A fails AND B fails
-Availability = 1 - (1-A) × (1-B)
-
-Example:
-Two databases (99.9% each) in failover:
-System = 1 - (0.001 × 0.001) = 99.9999%
+### Parallel (OR): Complement
+```
+A | B = 1 - (1-A) × (1-B)
+Two 99.9% DBs = 1 - 0.001² = 99.9999%
 ```
 
 ### N+M Redundancy
@@ -94,254 +82,115 @@ System = 1 - (0.001 × 0.001) = 99.9999%
 </div>
 </div>
 
-## Complex System Modeling
+## System Modeling
 
-### Active-Active with Load Balancer
 ```python
-     LB (99.99%)
-    /           \
-App1 (99.9%)  App2 (99.9%)
-    \           /
-     DB (99.9%)
+# Active-Active
+LB(99.99%) → [App1|App2](99.9999%) → DB(99.9%) = 99.89%
 
-App tier: 1 - (0.001)² = 99.9999%
-Full system: 0.9999 × 0.999999 × 0.999 = 99.89%
-```
+# Multi-Region  
+Two 99.8% regions = 1 - 0.002² = 99.9996%
 
-### Multi-Region Architecture
-```python
-Region 1                Region 2
-LB → Apps → DB         LB → Apps → DB
-(99.8%)                (99.8%)
-
-With failover:
-System = 1 - (0.002)² = 99.9996%
-```
-
-### Microservices Chain
-```python
-A → B → C → D → E
-Each 99.9%
-
-Chain: 0.999⁵ = 99.5%
-
-With circuit breakers and fallbacks:
-Can maintain 99.9% overall
+# Microservice Chain
+Five 99.9% services = 0.999⁵ = 99.5%
+(With circuit breakers: maintain 99.9%)
 ```
 
 ## Improving Availability
 
-### Strategy Comparison
-```python
-Approach                Cost    Improvement
---------                ----    -----------
-Better hardware         $$     99% → 99.9%
-Redundant hardware      $      99% → 99.99%
-Multiple regions        $$    99.9% → 99.99%
-Reduce dependencies     $       Big impact
-Faster recovery         $       Big impact
 ```
-
-### Redundancy Patterns
-```python
-Pattern              Formula                     Example
--------              -------                     -------
-Simple redundancy    1-(1-A)²                   99% → 99.99%
-N+1 redundancy      Complex, see above          99.9% → 99.999%
-Geographic redundancy 1-(1-A_region)²            99.9% → 99.999%
+Strategy         Cost   Impact
+--------         ----   ------
+Better HW        $$     99% → 99.9%
+Redundancy       $      99% → 99.99%  
+Multi-region     $$     99.9% → 99.99%
+Fewer deps       $      Big gains
+Faster recovery  $      Big gains
 ```
 
 ## Error Budgets
 
-### Calculating Error Budget
 ```python
-SLO: 99.9% availability
-Error budget: 0.1% = 43.8 minutes/month
+99.9% SLO = 0.1% error budget = 43.8 min/month
 
-Spending the budget:
-- Deployment downtime: 10 min
-- Unexpected outage: 20 min
-- Remaining: 13.8 min
+if budget_remaining > risk * 2: deploy()
+elif budget_remaining > 0: needs_approval()
+else: focus_on_reliability()
 ```
 
-### Error Budget Policy
-```python
-def can_deploy():
-    error_budget_remaining = calculate_remaining_budget()
-    deployment_risk = estimate_deployment_risk()
+## Cloud Reality
 
-    if error_budget_remaining > deployment_risk * 2:
-        return True  # Safe to deploy
-    elif error_budget_remaining > 0:
-        return needs_approval()  # Risky
-    else:
-        return False  # Focus on reliability
 ```
+Service    SLA      Reality   Your Max
+EC2        99.99%   99.995%   99.99%
+S3         99.99%   99.99%+   99.99%
+RDS        99.95%   99.97%    99.95%
 
-## Real-World Availability
-
-### Cloud Provider SLAs
-```proto
-Service              SLA      Reality      Your App Max
--------              ---      -------      ------------
-AWS EC2              99.99%   99.995%      99.99%
-AWS S3               99.99%   99.99%+      99.99%
-AWS RDS Multi-AZ     99.95%   99.97%       99.95%
-Google GCE           99.99%   99.99%       99.99%
-Azure VMs            99.99%   99.98%       99.98%
-```
-
-### Building on Cloud
-```python
-Your app on AWS:
-- Your code: 99.9%
-- EC2: 99.99%
-- ELB: 99.99%
-- RDS: 99.95%
-
-Theoretical max: 99.83%
-Reality with issues: 99.5-99.7%
+Your app: 99.9% × EC2 × ELB × RDS = 99.83% theoretical
+Reality: 99.5-99.7%
 ```
 
 ## MTBF and MTTR
 
-Availability through the lens of failure and recovery:
-
 ```python
 Availability = MTBF / (MTBF + MTTR)
 
-Where:
-MTBF = Mean Time Between Failures
-MTTR = Mean Time To Recovery
-```
+MTBF=30d, MTTR=30min → 99.93%
+MTBF=30d, MTTR=15min → 99.97%
 
-MTTR is directly affected by detection and response latency (see [Latency Ladder](latency-ladder.md)). During recovery, [Little's Law](littles-law.md) helps predict queue buildup.
+Improving MTBF: Testing (+20%), Reviews (+30%), Redundancy (+100%)
+Improving MTTR: Monitoring (-50%), Automation (-80%), Runbooks (-30%)
 
-### Examples
-```python
-Example 1:
-MTBF = 30 days
-MTTR = 30 minutes
-Availability = 720 hours / 720.5 hours = 99.93%
-
-Example 2: Halving MTTR
-New MTTR = 15 minutes
-Availability = 720 / 720.25 = 99.97%
-
-Faster recovery is often easier than preventing failures!
-```
-
-### Improving MTBF vs MTTR
-```python
-Improving MTBF:
-- Better testing (+10% effort → +20% MTBF)
-- Code reviews (+20% effort → +30% MTBF)
-- Redundancy (+50% cost → +100% MTBF)
-
-Improving MTTR:
-- Better monitoring (+10% effort → -50% MTTR)
-- Automated recovery (+20% effort → -80% MTTR)
-- Practice runbooks (+5% effort → -30% MTTR)
+Faster recovery > preventing failures!
 ```
 
 ## Availability Patterns
 
-### Failover Time Impact
-```python
-Failover Time    Monthly Impact    Nines Lost
--------------    --------------    ----------
-10 seconds       Negligible        None
-1 minute         1-2 incidents     0.1
-5 minutes        5-10 incidents    0.5
-30 minutes       30-60 incidents   1.0
+### Failover Impact
+```
+10s = negligible, 1min = -0.1 nine, 5min = -0.5 nine, 30min = -1 nine
 ```
 
-During failover, requests queue up according to [Queueing Theory](queueing-models.md). Understanding this helps size buffers and set appropriate timeouts.
-
-### Partial Availability
-```python
-System with degraded modes:
-- Full functionality: 99.9%
-- Degraded (read-only): 99.99%
-- Maintenance mode: 99.999%
-
-User-perceived: Much better than binary up/down
+### Degraded Modes
+```
+Full: 99.9%, Read-only: 99.99%, Maintenance: 99.999%
+(Better than binary up/down)
 ```
 
 ### Cascading Failures
-```proto
-Service A (99.9%) depends on B (99.9%) and C (99.9%)
-
-Without circuit breakers:
-A = 0.999 × 0.999 × 0.999 = 99.7%
-
-With circuit breakers and fallbacks:
-A = 0.999 (degrades gracefully)
+```
+A(99.9%) needs B+C(99.9%) = 99.7% without breakers
+With circuit breakers = 99.9% (graceful degradation)
 ```
 
-## Availability Economics
+## Economics
 
-### Cost vs Nines
-```python
-Nines    Relative Cost    Complexity
------    -------------    ----------
-99%      1x               Simple
-99.9%    3x               Moderate
-99.99%   10x              High
-99.999%  100x             Extreme
 ```
+Nines   Cost    Complexity
+99%     1x      Simple
+99.9%   3x      Moderate  
+99.99%  10x     High
+99.999% 100x    Extreme
 
-### ROI of Availability
-```bash
-E-commerce site:
-- Revenue: $10M/year
-- Each 0.1% downtime = $10K lost
-
-Investment:
-- 99% → 99.9%: $200K
-- Saves: $90K/year
-- ROI: -55% (not worth it)
-
-- 99.9% → 99.99%: $500K
-- Saves: $9K/year
-- ROI: -98% (definitely not)
-
-But for $1B/year business: Different story!
+$10M business: 99%→99.9% costs $200K, saves $90K = -55% ROI
+$1B business: Same upgrade saves $9M = +4400% ROI!
 ```
 
 ## Practical Guidelines
 
-### Design for Failure
 ```python
-# Bad: Assume success
-result = critical_service.call()
-process(result)
-
-# Good: Handle failures
+# Design for failure
 try:
-    result = critical_service.call()
+    result = service.call()
 except ServiceUnavailable:
-    result = use_cache_or_default()
+    result = cache_or_default()
 except Timeout:
     result = circuit_breaker.fallback()
-process(result)
-```
 
-### Measure Component Availability
-```python
-class AvailabilityTracker:
-    def track_request(self, success, component):
-        self.requests[component] += 1
-        if success:
-            self.successes[component] += 1
-
-    def get_availability(self, component):
-        return self.successes[component] / self.requests[component]
-
-    def alert_if_degraded(self):
-        for component, target_sla in self.slas.items():
-            if self.get_availability(component) < target_sla:
-                alert(f"{component} below SLA: {availability}")
+# Track availability
+availability = successes / total_requests
+if availability < target_sla:
+    alert()
 ```
 
 ## Axiom Connections
@@ -360,7 +209,7 @@ graph TD
     style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Axiom 3: Failure is Inevitable](../part1-axioms/failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Axiom 3: Failure is Inevitable](../part1-axioms/axiom3-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
 
 ### Axiom 2: Finite Capacity
 - Redundancy requires 2x resources for high availability
@@ -574,16 +423,15 @@ This architecture pattern is related to [Bulkhead](../patterns/bulkhead.md) and 
 
 ## Key Takeaways
 
-1. **Series multiplies, parallel adds nines** - Architecture matters more than component reliability
-2. **Five 9s is extremely expensive** - Most systems don't need it
-3. **MTTR often easier to improve than MTBF** - Fast recovery beats perfect prevention
-4. **Degraded modes improve perceived availability** - Partial > nothing
-5. **Measure actual availability** - SLAs are ceilings, not floors
+1. **Series multiplies, parallel adds nines**
+2. **Five 9s = extremely expensive** (most don't need it)
+3. **MTTR > MTBF** (recovery easier than prevention)
+4. **Degraded > down** (partial availability wins)
+5. **Measure actual availability** (SLAs are ceilings)
 
-Remember: Perfect availability is impossible. Design for graceful degradation and fast recovery.
+Perfect availability is impossible. Design for graceful degradation.
 
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md)
 - **Patterns**: [Bulkhead](../patterns/bulkhead.md) | [Circuit Breaker](../patterns/circuit-breaker.md) | [Failover](../patterns/failover.md)
-- **Operations**: [SRE Principles](../human-factors/sre-practices.md) | [Chaos Engineering](../human-factors/chaos-engineering.md) | [Incident Response](../human-factors/incident-response.md)

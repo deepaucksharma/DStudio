@@ -293,7 +293,7 @@ nav:
       - "Blameless Postmortems": human-factors/blameless-postmortems.md
   
   - Tools:
-    - tools/index.md
+    - Overview: tools/index.md
   
   - Capstone:
     - "Project Framework": capstone/framework.md
@@ -311,50 +311,33 @@ nav:
       - "Google Maps": case-studies/google-maps.md
     - "Communication Systems":
       - "Chat System": case-studies/chat-system.md
-      - "Chat System Enhanced": case-studies/chat-system-enhanced.md
       - "Distributed Message Queue": case-studies/distributed-message-queue.md
       - "Notification System": case-studies/notification-system.md
       - "News Feed": case-studies/news-feed.md
     - "Search & Discovery":
       - "Search Autocomplete": case-studies/search-autocomplete.md
-      - "Search Autocomplete Enhanced": case-studies/search-autocomplete-enhanced.md
       - "Web Crawler": case-studies/web-crawler.md
     - "Location & Proximity":
-      - "Uber Location Enhanced": case-studies/uber-location-enhanced.md
-      - "Google Maps Enhanced": case-studies/google-maps-enhanced.md
       - "Nearby Friends": case-studies/nearby-friends.md
-      - "Nearby Friends Enhanced": case-studies/nearby-friends-enhanced.md
       - "Proximity Service": case-studies/proximity-service.md
-      - "Proximity Service Enhanced": case-studies/proximity-service-enhanced.md
     - "Storage & Data":
       - "Key-Value Store": case-studies/key-value-store.md
       - "Object Storage": case-studies/object-storage.md
-      - "S3 Object Storage Enhanced": case-studies/s3-object-storage-enhanced.md
-      - "Google Drive Enhanced": case-studies/google-drive-enhanced.md
       - "Consistent Hashing": case-studies/consistent-hashing.md
     - "Financial Systems":
       - "Payment System": case-studies/payment-system.md
-      - "Payment System Enhanced": case-studies/payment-system-enhanced.md
-      - "Digital Wallet Enhanced": case-studies/digital-wallet-enhanced.md
       - "Hotel Reservation": case-studies/hotel-reservation.md
-      - "Hotel Reservation Enhanced": case-studies/hotel-reservation-enhanced.md
       - "Stock Exchange": case-studies/stock-exchange.md
-      - "Stock Exchange Enhanced": case-studies/stock-exchange-enhanced.md
     - "Observability & Monitoring":
       - "Metrics & Monitoring": case-studies/metrics-monitoring.md
-      - "Prometheus & Datadog Enhanced": case-studies/prometheus-datadog-enhanced.md
       - "Rate Limiter": case-studies/rate-limiter.md
     - "Infrastructure":
       - "Ad Click Aggregation": case-studies/ad-click-aggregation.md
       - "Unique ID Generator": case-studies/unique-id-generator.md
       - "URL Shortener": case-studies/url-shortener.md
-      - "Distributed Message Queue Enhanced": case-studies/distributed-message-queue-enhanced.md
     - "Gaming & Entertainment":
-      - "Gaming Leaderboard Enhanced": case-studies/gaming-leaderboard-enhanced.md
-      - "YouTube Enhanced": case-studies/youtube-enhanced.md
     - "Deep Dives":
       - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
-      - "Distributed Email Enhanced": case-studies/distributed-email-enhanced.md
   
   - Reference:
     - Overview: reference/index.md

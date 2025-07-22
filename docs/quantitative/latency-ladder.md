@@ -16,32 +16,26 @@ last_updated: 2025-07-20
 
 **Know your physics: Every operation has a cost**
 
-## The Fundamental Latency Hierarchy
+## Fundamental Latency Hierarchy
 
-Understanding latency is crucial for system design. Here's how long common operations take, with human-scale analogies:
-
-```dockerfile
-Operation                          Time (ns)     Time (human scale)
----------                          ---------     ------------------
-L1 cache reference                      0.5 ns   0.5 seconds
-Branch mispredict                       5 ns     5 seconds
-L2 cache reference                      7 ns     7 seconds
-Mutex lock/unlock                      25 ns     25 seconds
-Main memory reference                 100 ns     1.5 minutes
-Compress 1KB (Zippy)                2,000 ns     33 minutes
-Send 1KB over 1 Gbps               10,000 ns     2.8 hours
-Read 4KB random from SSD           16,000 ns     4.4 hours
-Read 1MB sequentially from memory 250,000 ns     2.9 days
-Round trip within datacenter       500,000 ns     5.8 days
-Read 1MB from SSD                1,000,000 ns    11.6 days
-Disk seek                        10,000,000 ns    3.8 months
-Read 1MB from disk              20,000,000 ns     7.6 months
-Send packet CA → Netherlands    150,000,000 ns     4.8 years
+```
+L1 cache reference                0.5 ns      0.5 seconds
+Branch mispredict                 5 ns        5 seconds
+L2 cache reference                7 ns        7 seconds
+Mutex lock/unlock                 25 ns       25 seconds
+Main memory reference             100 ns      1.5 minutes
+Compress 1KB                      2 μs       33 minutes
+Send 1KB over 1 Gbps              10 μs      2.8 hours
+Read 4KB random SSD               16 μs      4.4 hours
+Read 1MB sequential memory        250 μs     2.9 days
+Datacenter round trip             500 μs     5.8 days
+Read 1MB from SSD                 1 ms        11.6 days
+Disk seek                         10 ms       3.8 months
+Read 1MB from disk                20 ms       7.6 months
+CA → Netherlands packet           150 ms      4.8 years
 ```
 
-## 2025 Update: Modern Hardware
-
-Technology evolves, but physics remains constant. Here's what's changed:
+## 2025 Hardware Update
 
 <div class="axiom-box">
 <h4>🚀 2025 Hardware Evolution</h4>
@@ -119,65 +113,45 @@ Technology evolves, but physics remains constant. Here's what's changed:
 </div>
 </div>
 
-## Latency Budget Calculator
+## Latency Budget
 
-Understanding where your milliseconds go:
+```
+User Perception:
+100ms = Instant, 200ms = Fast, 500ms = OK, 1s = Slow, 3s = Bad, 10s = Gone
 
-```proto
-User-Perceived Latency Budget:
-100ms - Instant
-200ms - Fast
-500ms - Acceptable
-1s    - Noticeable
-3s    - Annoying
-10s   - User leaves
-
-Backend Budget Breakdown:
-Total Budget:           1000 ms
-- Network RTT:          -50 ms   (user to edge)
-- TLS handshake:        -30 ms   (cached session)
-- Load balancer:        -2 ms
-- API gateway:          -5 ms
-- Service mesh:         -3 ms
-- Business logic:       -X ms    (your code)
-- Database query:       -20 ms
-- Serialization:        -5 ms
-- Response network:     -50 ms
-= Remaining:            835 ms for your logic
+1000ms Budget Example:
+  -50ms Network RTT
+  -30ms TLS
+  -10ms Infrastructure (LB, Gateway, Mesh)
+  -20ms Database
+  -5ms Serialization  
+  -50ms Response
+= 835ms for your logic
 ```
 
-## Compound Latency Effects
+## Compound Effects
 
-Latencies combine differently based on architecture:
+```
+Serial: A→B→C = A + B + C
+Parallel: A|B|C = MAX(A, B, C)
 
-```proto
-Serial Operations (add):
-A → B → C = Latency(A) + Latency(B) + Latency(C)
-
-Parallel Operations (max):
-A ⟋ B ⟋ C = MAX(Latency(A), Latency(B), Latency(C))
-
-Percentile Multiplication:
-If each service is 99% under 100ms
-Two serial calls: 98% under 200ms
-Three serial calls: 97% under 300ms
-Ten serial calls: 90% under 1000ms!
+Percentile multiplication:
+99% @ 100ms per service
+2 calls = 98% @ 200ms
+3 calls = 97% @ 300ms  
+10 calls = 90% @ 1000ms!
 ```
 
-## Real-World Latency Targets
+## Industry Targets
 
-Different industries have different requirements:
-
-```redis
-Industry            Operation                Target      Why
---------            ---------                ------      ---
-HFT Trading         Order execution          <1 μs       Competitive advantage
-Gaming              Input to screen          16 ms       60 FPS requirement
-Video call          End-to-end audio         150 ms      Natural conversation
-Web search          Query to results         200 ms      User satisfaction
-E-commerce          Add to cart              300 ms      Conversion rate
-Streaming           Start playback           2 s         User retention
-Email               Send confirmation        5 s         User expectation
+```
+HFT Trading:    <1 μs     (competitive advantage)
+Gaming:         16 ms     (60 FPS)
+Video call:     150 ms    (natural conversation)
+Web search:     200 ms    (user satisfaction)
+E-commerce:     300 ms    (conversion rate)
+Streaming:      2 s       (retention)
+Email:          5 s       (expectation)
 ```
 
 ## Latency Reduction Strategies
@@ -455,9 +429,7 @@ Total: 30ms (constant!)
 
 ## Axiom Connections
 
-Understanding how latency relates to the fundamental axioms:
-
-## Axiom 1: Latency is Non-Zero
+### Axiom 1: Latency is Non-Zero
 ```mermaid
 graph LR
     A[Speed of Light] --> B[Physical Distance]
@@ -468,9 +440,9 @@ graph LR
     style D fill:#ffcccc
 ```
 
-**Key Insight**: Every operation shown in the latency ladder proves [Axiom 1](../part1-axioms/latency/index.md). Even L1 cache (0.5ns) has non-zero latency due to electron movement through silicon.
+Every operation proves [Axiom 1](../part1-axioms/axiom1-latency/index.md) - even L1 cache (0.5ns) > 0.
 
-## Axiom 2: Finite Capacity
+### Axiom 2: Finite Capacity
 <div class="failure-vignette">
 <h4>📈 Latency Under Load</h4>
 
@@ -528,17 +500,13 @@ graph LR
 </div>
 </div>
 
-This exponential growth is explained by [Queueing Theory](queueing-models.md) - as utilization approaches 100%, wait times approach infinity.
+See [Queueing Theory](queueing-models.md): utilization → 100% = latency → ∞
 
-## Axiom 3: Failure is Inevitable
-- Network timeouts occur when latency exceeds thresholds
-- Cascading failures when one slow component backs up the system
-- Retry storms when clients assume failure due to high latency
+### Axiom 3: Failure is Inevitable
+Timeouts, cascading failures, retry storms from high latency.
 
-## Axiom 4: Consistency Has a Cost
-- Consensus protocols add round-trip latencies
-- Strong consistency = multiple network hops
-- Eventual consistency trades latency for correctness
+### Axiom 4: Consistency Has a Cost
+Consensus = multiple RTTs. Strong consistency = more hops.
 
 ## Visual Latency Comparison
 
@@ -653,7 +621,7 @@ graph TB
 
 ## Latency Budget Visualization
 
-```dockerfile
+```text
 Total Budget: 200ms (Fast Experience)
 ├── Network (User→Edge): 20ms [██████░░░░] 10%
 ├── TLS Handshake: 30ms      [█████████░] 15%
@@ -668,103 +636,18 @@ This budget allocation relates to [Little's Law](littles-law.md) - as latency (W
 
 ## Key Takeaways
 
-1. **Cache references are 200,000x faster than network calls** - Design to minimize network hops
-2. **Memory is 100x faster than SSD** - Keep hot data in RAM
-3. **Same-datacenter is 300x faster than cross-region** - Locality matters
-4. **Parallel operations hide latency** - But add complexity
-5. **Measure actual latencies** - Hardware varies, networks congest
+1. **Cache = 200,000x faster than network**
+2. **Memory = 100x faster than SSD**
+3. **Same-DC = 300x faster than cross-region**
+4. **Parallel hides latency** (adds complexity)
+5. **Measure actual latencies** (varies)
 
-## Rules of Thumb
+**Rules**: 1ms (local) | 10ms (datacenter) | 100ms (perception) | 1000ms (patience)
 
-- **1ms** - Same machine operation threshold
-- **10ms** - Same datacenter threshold
-- **100ms** - Human perception threshold
-- **1000ms** - User patience threshold
-
-Remember: You can't beat physics, but you can work with it.
+You can't beat physics, but you can work with it.
 
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Availability Math](availability-math.md)
 - **Patterns**: [Caching Strategies](../patterns/caching-strategies.md) | [Edge Computing](../patterns/edge-computing.md)
-- **Operations**: [SLO/SLI/SLA](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)
----
-
-## 📊 Practical Calculations
-
-## Exercise 1: Basic Application ⭐⭐
-**Time**: ~15 minutes
-**Objective**: Apply the concepts to a simple scenario
-
-**Scenario**: A web API receives 1,000 requests per second with an average response time of 50ms.
-
-**Calculate**:
-1. Apply the concepts from Latency Ladder 2025 to this scenario
-2. What happens if response time increases to 200ms?
-3. What if request rate doubles to 2,000 RPS?
-
-**Show your work** and explain the practical implications.
-
-## Exercise 2: System Design Math ⭐⭐⭐
-**Time**: ~25 minutes
-**Objective**: Use quantitative analysis for design decisions
-
-**Problem**: Design capacity for a new service with these requirements:
-- Peak load: 50,000 RPS
-- 99th percentile latency < 100ms
-- 99.9% availability target
-
-**Your Analysis**:
-1. Calculate the capacity needed using the principles from Latency Ladder 2025
-2. Determine how many servers/instances you need
-3. Plan for growth and failure scenarios
-4. Estimate costs and resource requirements
-
-## Exercise 3: Performance Debugging ⭐⭐⭐⭐
-**Time**: ~20 minutes
-**Objective**: Use quantitative methods to diagnose issues
-
-**Case**: Production metrics show:
-- Response times increasing over the last week
-- Error rate climbing from 0.1% to 2%
-- User complaints about slow performance
-
-**Investigation**:
-1. What quantitative analysis would you perform first?
-2. Apply the concepts to identify potential bottlenecks
-3. Calculate the impact of proposed solutions
-4. Prioritize fixes based on mathematical impact
-
----
-
-## 🧮 Mathematical Deep Dive
-
-## Problem Set A: Fundamentals
-Work through these step-by-step:
-
-1. **Basic Calculation**: [Specific problem related to the topic]
-2. **Real-World Application**: [Industry scenario requiring calculation]
-3. **Optimization**: [Finding the optimal point or configuration]
-
-## Problem Set B: Advanced Analysis
-For those wanting more challenge:
-
-1. **Multi-Variable Analysis**: [Complex scenario with multiple factors]
-2. **Sensitivity Analysis**: [How changes in inputs affect outputs]
-3. **Modeling Exercise**: [Build a mathematical model]
-
----
-
-## 📈 Monitoring & Measurement
-
-**Practical Setup**:
-1. What metrics would you collect to validate these calculations?
-2. How would you set up alerting based on the thresholds?
-3. Create a dashboard to track the key indicators
-
-**Continuous Improvement**:
-- How would you use data to refine your calculations?
-- What experiments would validate your mathematical models?
-- How would you communicate findings to stakeholders?
-
 ---

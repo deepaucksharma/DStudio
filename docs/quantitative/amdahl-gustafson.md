@@ -16,10 +16,6 @@ last_updated: 2025-07-20
 
 **The limits of parallelization**
 
-## Amdahl's Law
-
-The speedup of a program using multiple processors is limited by the sequential portion:
-
 <div class="axiom-box">
 <h4>📊 Amdahl's Law Formula</h4>
 
@@ -62,9 +58,7 @@ The speedup of a program using multiple processors is limited by the sequential 
 </div>
 </div>
 
-**Key Insight**: Serial bottlenecks dominate
-
-## Amdahl's Law Examples
+## Examples
 
 ### Example 1: 95% Parallelizable
 <div class="decision-box">
@@ -185,36 +179,16 @@ The speedup of a program using multiple processors is limited by the sequential 
 </div>
 </div>
 
-### Example 2: Web Request Processing
+### Quick Examples
 ```python
-Request breakdown:
-- Auth check: 10ms (serial)
-- Database queries: 90ms (can parallelize)
-- Response formatting: 10ms (serial)
+# Web request: 10ms auth + 90ms queries + 10ms format
+Serial = 20/110 = 18% → Max speedup = 5.5x
 
-Serial fraction = 20ms/110ms = 18%
-Max speedup = 1/0.18 = 5.5x
-
-No point in more than 6 parallel queries!
-```
-
-### Example 3: Data Pipeline
-```text
-Pipeline stages:
-- Read input: 5% (serial - single source)
-- Transform: 80% (parallel)
-- Aggregate: 10% (partially parallel)
-- Write output: 5% (serial - single sink)
-
-Serial fraction = 10%
-Max speedup = 10x
-
-Even with 1000 cores, can't exceed 10x
+# Data pipeline: 5% read + 80% transform + 10% aggregate + 5% write  
+Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 ```
 
 ## Gustafson's Law
-
-Different perspective: Scale the problem, not just processors
 
 <div class="axiom-box">
 <h4>🌐 Gustafson's Law Formula</h4>
@@ -275,57 +249,23 @@ Different perspective: Scale the problem, not just processors
 </div>
 </div>
 
-**Key Insight**: Larger problems often more parallel
+## Examples
 
-## Gustafson's Law Examples
-
-### Example 1: Image Processing
+### Quick Examples
 ```python
-Small image (100x100):
-- Setup: 10ms (serial)
-- Processing: 100ms (parallel)
-- Serial fraction: 9%
+# Image: 100x100 vs 1000x1000
+Small: 10ms setup + 100ms process = 9% serial
+Large: 10ms setup + 10,000ms process = 0.1% serial
 
-Large image (1000x1000):
-- Setup: 10ms (serial)
-- Processing: 10,000ms (parallel)
-- Serial fraction: 0.1%
-
-Larger problem → More parallel benefit!
-```
-
-### Example 2: Database Analytics
-```redis
-Small dataset (1GB):
-- Query parsing: 100ms (serial)
-- Data scan: 1000ms (parallel)
-- Result merge: 100ms (serial)
-Serial: 17%
-
-Large dataset (1TB):
-- Query parsing: 100ms (serial)
-- Data scan: 1,000,000ms (parallel)
-- Result merge: 10,000ms (semi-parallel)
-Serial: 0.01%
-
-Bigger data = better scaling!
+# Database: 1GB vs 1TB  
+Small: 17% serial (100+100 of 1200ms)
+Large: 0.01% serial (bigger data scales better!)
 ```
 
 ## Applying Both Laws
 
-### System Design Decisions
-
-**Amdahl Perspective** (fixed problem):
-```python
-"Our payment processing is 20% serial,
-so max speedup is 5x. Don't over-provision."
-```
-
-**Gustafson Perspective** (scaled problem):
-```text
-"As we grow, we'll process more payments in
-batches, reducing serial fraction to 2%."
-```
+**Amdahl**: "20% serial → 5x max speedup"
+**Gustafson**: "Scale problem to reduce serial %"
 
 ### Real Example: Video Encoding
 <div class="truth-box">
@@ -428,120 +368,26 @@ batches, reducing serial fraction to 2%."
 </div>
 </div>
 
-## Real-World Implications
+## Real-World Patterns
 
-### Microservice Decomposition
 ```python
-Monolith response time: 1000ms
-- Authentication: 50ms
-- Business logic: 900ms
-- Formatting: 50ms
-
-Microservices (parallel logic):
-- Min response time: 100ms (serial parts)
-- With 10 services: ~190ms
-- 5x speedup achieved
-```
-
-### Database Sharding
-```python
-Single DB query: 100ms
-
-Sharded across 10 nodes:
-- Query routing: 5ms (serial)
-- Parallel queries: 100ms/10 = 10ms
-- Result merging: 5ms (serial)
-- Total: 20ms (5x speedup)
-
-Adding more shards:
-- 20 shards: 15ms (6.7x)
-- 100 shards: 11ms (9x)
-- Diminishing returns
-```
-
-### MapReduce Jobs
-```python
-Job structure:
-- Input split: O(n) serial
-- Map phase: Perfectly parallel
-- Shuffle: O(n log n) partly serial
-- Reduce: Partly parallel
-- Output merge: O(n) serial
-
-For large datasets:
-- Map phase dominates (good scaling)
-For small datasets:
-- Overhead dominates (poor scaling)
+# Microservices: 1000ms → 190ms (5x speedup)
+# Sharding: 100ms → 20ms with 10 shards (5x)
+# MapReduce: Scales well for large data, poor for small
 ```
 
 ## Optimization Strategies
 
-### Reduce Serial Bottlenecks
-```python
-# Before:
-lock(global_counter)
-counter++
-unlock(global_counter)
+1. **Reduce serial**: Use thread-local counters vs global locks
+2. **Pipeline**: A→B→C becomes parallel A₁→B₁, A₂→B₂
+3. **Data parallel**: Partition → Process → Merge
+4. **Speculative**: Execute both branches, discard one
 
-# After:
-thread_local_counter++
-# Periodic merge
-```
+## Breaking Limits
 
-### Pipeline Parallelism
-```text
-Instead of: A → B → C → D
-Do: A₁ → B₁ → C₁ → D₁
-    A₂ → B₂ → C₂ → D₂
-    A₃ → B₃ → C₃ → D₃
-```
+**When Amdahl limits**: Cache auth | Overlap I/O | Batch vs stream | Use GPUs
 
-### Data Parallelism
-```text
-Instead of: Process entire dataset
-Do: Partition and process chunks
-    Merge results
-```
-
-### Speculative Execution
-```python
-Can't parallelize decision?
-Execute both branches:
-- Calculate both paths
-- Discard unused result
-- Trading compute for latency
-```
-
-## Breaking Through Limits
-
-### When Amdahl Seems Limiting
-1. **Question serial assumptions**
-   - Can authentication be cached?
-   - Can I/O be overlapped?
-   - Can coordination be relaxed?
-
-2. **Change the problem**
-   - Batch processing vs. stream
-   - Approximate vs. exact
-   - Eventual vs. strong consistency
-
-3. **Hardware solutions**
-   - RDMA for network
-   - NVMe for storage
-   - GPU for compute
-
-### When Gustafson Applies
-1. **Batch workloads**
-   - More data = better efficiency
-   - Fixed overhead amortized
-
-2. **Analytics systems**
-   - Queries over larger datasets
-   - Parallel algorithms shine
-
-3. **Machine learning**
-   - Bigger models need more parallelism
-   - Data parallelism scales well
+**When Gustafson shines**: Batch workloads | Big analytics | ML training
 
 ## Practical Guidelines
 
@@ -747,90 +593,10 @@ Execute both branches:
 
 ## Key Takeaways
 
-1. **Measure serial fraction first** - It determines your ceiling
-2. **Consider problem scaling** - Bigger problems parallelize better
-3. **Optimize serial parts aggressively** - They dominate at scale
-4. **Use both laws** - Amdahl for limits, Gustafson for opportunities
-5. **Architecture matters** - Design to minimize serial bottlenecks
+1. **Serial fraction determines ceiling** (measure it!)
+2. **Bigger problems parallelize better** (Gustafson)
+3. **Optimize serial parts first** (biggest impact)
+4. **Use both laws** (limits + opportunities)
 
-Remember: Perfect parallelization is rare. Plan for serial bottlenecks and design systems that scale the problem, not just the processors.
----
-
-## 📊 Practical Calculations
-
-### Exercise 1: Basic Application ⭐⭐
-**Time**: ~15 minutes
-**Objective**: Apply the concepts to a simple scenario
-
-**Scenario**: A web API receives 1,000 requests per second with an average response time of 50ms.
-
-**Calculate**:
-1. Apply the concepts from Amdahl & Gustafson Laws to this scenario
-2. What happens if response time increases to 200ms?
-3. What if request rate doubles to 2,000 RPS?
-
-**Show your work** and explain the practical implications.
-
-### Exercise 2: System Design Math ⭐⭐⭐
-**Time**: ~25 minutes
-**Objective**: Use quantitative analysis for design decisions
-
-**Problem**: Design capacity for a new service with these requirements:
-- Peak load: 50,000 RPS
-- 99th percentile latency < 100ms
-- 99.9% availability target
-
-**Your Analysis**:
-1. Calculate the capacity needed using the principles from Amdahl & Gustafson Laws
-2. Determine how many servers/instances you need
-3. Plan for growth and failure scenarios
-4. Estimate costs and resource requirements
-
-### Exercise 3: Performance Debugging ⭐⭐⭐⭐
-**Time**: ~20 minutes
-**Objective**: Use quantitative methods to diagnose issues
-
-**Case**: Production metrics show:
-- Response times increasing over the last week
-- Error rate climbing from 0.1% to 2%
-- User complaints about slow performance
-
-**Investigation**:
-1. What quantitative analysis would you perform first?
-2. Apply the concepts to identify potential bottlenecks
-3. Calculate the impact of proposed solutions
-4. Prioritize fixes based on mathematical impact
-
----
-
-## 🧮 Mathematical Deep Dive
-
-### Problem Set A: Fundamentals
-Work through these step-by-step:
-
-1. **Basic Calculation**: [Specific problem related to the topic]
-2. **Real-World Application**: [Industry scenario requiring calculation]
-3. **Optimization**: [Finding the optimal point or configuration]
-
-### Problem Set B: Advanced Analysis
-For those wanting more challenge:
-
-1. **Multi-Variable Analysis**: [Complex scenario with multiple factors]
-2. **Sensitivity Analysis**: [How changes in inputs affect outputs]
-3. **Modeling Exercise**: [Build a mathematical model]
-
----
-
-## 📈 Monitoring & Measurement
-
-**Practical Setup**:
-1. What metrics would you collect to validate these calculations?
-2. How would you set up alerting based on the thresholds?
-3. Create a dashboard to track the key indicators
-
-**Continuous Improvement**:
-- How would you use data to refine your calculations?
-- What experiments would validate your mathematical models?
-- How would you communicate findings to stakeholders?
-
+Remember: Perfect parallelization is rare. Design for it.
 ---

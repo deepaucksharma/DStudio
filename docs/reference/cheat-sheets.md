@@ -14,29 +14,25 @@ last_updated: 2025-07-20
 
 # Distributed Systems Cheat Sheets
 
-Quick reference guides for calculations, decisions, and common patterns.
-
 ---
 
 ## 🧮 Essential Calculations
 
 ### Little's Law
-**Formula**: `L = λW`
-- **L**: Average number in system
-- **λ**: Arrival rate (requests/second)
-- **W**: Average time in system (seconds)
+`L = λW`
+- L: Average number in system
+- λ: Arrival rate (req/s)
+- W: Average time in system (s)
 
 **Example**: 100 req/s × 0.5s = 50 concurrent requests
-
-**Usage**: Capacity planning, queue analysis
 
 ---
 
 ### Availability Math
 
-**Formula**: `Availability = MTBF / (MTBF + MTTR)`
+`Availability = MTBF / (MTBF + MTTR)`
 
-**Common SLA Targets**:
+**SLA Targets**:
 | Availability | Downtime/Year | Downtime/Month | Use Case |
 |--------------|---------------|----------------|----------|
 | 90% | 36.53 days | 73 hours | Internal tools |
@@ -45,49 +41,38 @@ Quick reference guides for calculations, decisions, and common patterns.
 | 99.99% | 52.6 minutes | 4.38 minutes | Critical services |
 | 99.999% | 5.26 minutes | 26.3 seconds | Mission critical |
 
-**Parallel Systems**: `A_total = 1 - (1 - A₁)(1 - A₂)...(1 - Aₙ)`
-
-**Series Systems**: `A_total = A₁ × A₂ × ... × Aₙ`
+**Parallel**: `A_total = 1 - (1 - A₁)(1 - A₂)...(1 - Aₙ)`
+**Series**: `A_total = A₁ × A₂ × ... × Aₙ`
 
 ---
 
 ### Latency Budget Planning
 
-**Speed of Light Limits**:
-- NYC ↔ SF: 21ms minimum (4,000km)
-- NYC ↔ London: 28ms minimum (5,600km)
-- NYC ↔ Tokyo: 67ms minimum (10,800km)
-- Satellite (GEO): 240ms minimum (round trip)
+**Speed of Light**:
+- NYC ↔ SF: 21ms (4,000km)
+- NYC ↔ London: 28ms (5,600km)
+- NYC ↔ Tokyo: 67ms (10,800km)
+- Satellite: 240ms (round trip)
 
-**Budget Allocation Rules**:
-- User perception: <100ms feels instant
-- Network: 30-50% of budget
-- Processing: 20-40% of budget
-- Database: 20-30% of budget
-- Buffer: 10-20% for variance
-
-**Example 200ms Budget**:
-- Network: 60ms
+**200ms Budget Example**:
+- Network: 60ms (30%)
 - Load balancer: 10ms
-- Application: 50ms
-- Database: 60ms
-- Buffer: 20ms
+- Application: 50ms (25%)
+- Database: 60ms (30%)
+- Buffer: 20ms (10%)
 
 ---
 
-### Capacity Planning Formulas
+### Capacity Planning
 
-**Queueing (M/M/1)**:
+**M/M/1 Queue**:
 - Utilization: `ρ = λ/μ`
-- Average queue length: `L = ρ/(1-ρ)`
-- Average wait time: `W = ρ/[μ(1-ρ)]`
+- Queue length: `L = ρ/(1-ρ)`
+- Wait time: `W = ρ/[μ(1-ρ)]`
 
-**Rule of Thumb**: Keep utilization < 80% for good performance
+**Keep utilization < 80%**
 
-**Scaling Estimates**:
-- Linear: Cost = O(n)
-- Database: Cost = O(n log n)
-- Coordination: Cost = O(n²)
+**Scaling**: Linear O(n), Database O(n log n), Coordination O(n²)
 
 ---
 
@@ -107,74 +92,35 @@ Need strong consistency?
     └─ NO → Causal consistency
 ```
 
-### Pattern Selection Guide
+### Pattern Selection
 
-**For Latency Problems**:
-1. **Caching** - Store results closer to users
-2. **Edge Computing** - Process closer to users
-3. **Circuit Breaker** - Fail fast when slow
-4. **Async Processing** - Don't wait for slow operations
+**Latency**: Caching, Edge Computing, Circuit Breaker, Async Processing
 
-**For Reliability Problems**:
-1. **Retry with Backoff** - Handle transient failures
-2. **Circuit Breaker** - Prevent cascade failures
-3. **Bulkhead** - Isolate failure domains
-4. **Health Checks** - Detect failures quickly
+**Reliability**: Retry+Backoff, Circuit Breaker, Bulkhead, Health Checks
 
-**For Scale Problems**:
-1. **Sharding** - Distribute data
-2. **Load Balancing** - Distribute requests
-3. **Caching** - Reduce backend load
-4. **Async Processing** - Smooth load spikes
+**Scale**: Sharding, Load Balancing, Caching, Async Processing
 
-**For Consistency Problems**:
-1. **Event Sourcing** - Audit trail needed
-2. **CQRS** - Different read/write requirements
-3. **Saga** - Cross-service transactions
-4. **Outbox** - Reliable event publishing
+**Consistency**: Event Sourcing, CQRS, Saga, Outbox
 
 ---
 
 ## 📊 Performance Baselines
 
-### Latency Reference Points
+### Latency Reference
 
-**Memory/Storage Access**:
-- L1 cache: 0.5ns
-- L2 cache: 7ns
-- RAM: 100ns
-- SSD: 150μs
-- HDD: 10ms
+**Memory**: L1 0.5ns, L2 7ns, RAM 100ns, SSD 150μs, HDD 10ms
 
-**Network Calls**:
-- Same datacenter: 0.5ms
-- Cross-AZ: 1-5ms
-- Cross-region: 50-200ms
-- Cross-continent: 100-300ms
+**Network**: Same DC 0.5ms, Cross-AZ 1-5ms, Cross-region 50-200ms
 
-**Database Operations**:
-- Key-value lookup: 1ms
-- SQL query (indexed): 10ms
-- SQL query (scan): 100ms+
-- Transaction commit: 10ms
+**Database**: KV lookup 1ms, Indexed query 10ms, Scan 100ms+, Commit 10ms
 
 ### Throughput Baselines
 
-**Network**:
-- Gigabit ethernet: 125 MB/s
-- 10G ethernet: 1.25 GB/s
-- Internet (typical): 10-100 Mbps
+**Network**: 1G 125MB/s, 10G 1.25GB/s, Internet 10-100Mbps
 
-**Storage**:
-- HDD sequential: 100 MB/s
-- SSD sequential: 500 MB/s
-- NVMe SSD: 3 GB/s
-- RAM: 50 GB/s
+**Storage**: HDD 100MB/s, SSD 500MB/s, NVMe 3GB/s, RAM 50GB/s
 
-**CPU**:
-- Hash calculation: 1M ops/sec
-- JSON parsing: 100K ops/sec
-- Crypto operations: 10K ops/sec
+**CPU**: Hash 1M/s, JSON 100K/s, Crypto 10K/s
 
 ---
 
@@ -182,53 +128,21 @@ Need strong consistency?
 
 ### Circuit Breaker Settings
 
-**Conservative (Financial)**:
-```yaml
-failure_threshold: 5
-timeout: 30s
-recovery_timeout: 60s
-success_threshold: 3
-```
+**Conservative**: failure_threshold: 5, timeout: 30s, recovery: 60s
 
-**Aggressive (Non-critical)**:
-```yaml
-failure_threshold: 10
-timeout: 10s
-recovery_timeout: 30s
-success_threshold: 5
-```
+**Aggressive**: failure_threshold: 10, timeout: 10s, recovery: 30s
 
 ### Retry Configuration
 
-**Exponential Backoff**:
-```yaml
-initial_delay: 100ms
-max_delay: 30s
-multiplier: 2.0
-jitter: 25%
-max_attempts: 5
-```
+**Exponential**: 100ms initial, 2x multiplier, 30s max, 25% jitter
 
-**Linear Backoff**:
-```yaml
-initial_delay: 500ms
-increment: 500ms
-max_delay: 10s
-max_attempts: 3
-```
+**Linear**: 500ms initial, 500ms increment, 10s max
 
-### Timeout Settings
+### Timeouts
 
-**Service Call Timeouts**:
-- Database: 1-5s
-- External API: 10-30s
-- Internal service: 100ms-1s
-- File operations: 30s-5min
+**Service Calls**: DB 1-5s, External API 10-30s, Internal 100ms-1s
 
-**Connection Timeouts**:
-- TCP connect: 3-10s
-- HTTP request: 30s
-- Database connection: 5-30s
+**Connections**: TCP 3-10s, HTTP 30s, DB connection 5-30s
 
 ---
 
@@ -236,86 +150,43 @@ max_attempts: 3
 
 ### Golden Signals
 
-**Latency**:
-- P50 < 100ms
-- P95 < 500ms
-- P99 < 1s
+**Latency**: P50 <100ms, P95 <500ms, P99 <1s
 
-**Throughput**:
-- Track trends, not absolutes
-- Alert on >20% deviation
+**Throughput**: Alert on >20% deviation
 
-**Error Rate**:
-- <0.1% for critical services
-- <1% for standard services
-- <5% for experimental features
+**Errors**: Critical <0.1%, Standard <1%, Experimental <5%
 
-**Saturation**:
-- CPU: <70% average
-- Memory: <80% used
-- Disk: <85% used
-- Network: <70% capacity
+**Saturation**: CPU <70%, Memory <80%, Disk <85%, Network <70%
 
 ### Alert Levels
 
-**Critical (Page immediately)**:
-- Service down
-- Error rate >5%
-- Latency P95 >5x baseline
+**Critical**: Service down, Errors >5%, Latency >5x baseline
 
-**Warning (Next business day)**:
-- Error rate >1%
-- Latency P95 >2x baseline
-- Resource usage >80%
+**Warning**: Errors >1%, Latency >2x baseline, Resources >80%
 
-**Info (Weekly review)**:
-- Capacity trending
-- Performance degradation
-- Usage patterns
+**Info**: Capacity trends, Performance degradation
 
 ---
 
 ## 🔄 Incident Response
 
-### Triage Questions
-1. **Scope**: How many users affected?
-2. **Impact**: What functionality is broken?
-3. **Timeline**: When did it start?
-4. **Trend**: Getting better or worse?
-5. **Recent Changes**: Any deployments/config changes?
+### Incident Response
 
-### Escalation Criteria
-- **Severity 1**: Complete service outage
-- **Severity 2**: Major feature broken
-- **Severity 3**: Minor feature broken
-- **Severity 4**: Cosmetic/performance issue
+**Triage**: Scope? Impact? Timeline? Trend? Recent changes?
 
-### Communication Template
-```text
-Status: [INVESTIGATING/IDENTIFIED/MONITORING/RESOLVED]
-Impact: [brief description]
-Current Actions: [what we're doing]
-Next Update: [when we'll update again]
-```
+**Severity**: S1 Complete outage, S2 Major feature, S3 Minor feature, S4 Cosmetic
+
+**Template**: Status: [STATE] | Impact: [DESC] | Actions: [DOING] | Next: [TIME]
 
 ---
 
 ## 🎯 Testing Strategies
 
-### Chaos Engineering Targets
-1. **Kill instances** - Test auto-scaling
-2. **Introduce latency** - Test timeouts
-3. **Fail dependencies** - Test circuit breakers
-4. **Network partitions** - Test split-brain handling
-5. **Resource exhaustion** - Test backpressure
+### Testing Strategies
 
-### Load Testing Scenarios
-1. **Baseline** - Normal traffic patterns
-2. **Peak** - 2-3x normal load
-3. **Spike** - 10x sudden increase
-4. **Soak** - Extended high load
-5. **Failure** - Load during failures
+**Chaos**: Kill instances, Add latency, Fail dependencies, Network partitions, Resource exhaustion
+
+**Load**: Baseline (1x), Peak (2-3x), Spike (10x), Soak (extended), Failure (with outages)
 
 ---
 
-*These cheat sheets provide quick reference for common calculations and decisions in distributed systems design and operations.*

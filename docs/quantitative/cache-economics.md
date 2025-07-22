@@ -18,8 +18,6 @@ last_updated: 2025-07-20
 
 ## Cache Break-Even Formula
 
-The fundamental equation for cache profitability:
-
 <div class="axiom-box">
 <h4>💰 Cache Break-Even Formula</h4>
 
@@ -213,46 +211,21 @@ The fundamental equation for cache profitability:
 
 ## Cache Pattern Economics
 
-### Cache-Aside ROI
 ```python
-Costs:
-- 2 operations on miss (check + load)
-- 1 operation on hit
-- Cache infrastructure
-
-Benefits:
-- Reduced backend load
-- Lower latency
-
+# Cache-Aside ROI
+Costs: 2 ops on miss, 1 on hit, infrastructure
+Benefits: Reduced backend load, lower latency
 Break-even hit rate: 60-70%
-```
 
-### Write-Through ROI
-```python
-Costs:
-- Every write goes to both
-- More complex code
-- Consistency management
+# Write-Through ROI  
+Costs: Double writes, consistency management
+Benefits: Always fresh, no misses
+Break-even: read/write > 3:1
 
-Benefits:
-- Always fresh cache
-- No cache misses
-
-Break-even when read/write > 3:1
-```
-
-### Write-Back ROI
-```python
-Costs:
-- Risk of data loss
-- Complex recovery
-- Eventual consistency
-
-Benefits:
-- Massive write performance
-- Backend protection
-
-Break-even when write-heavy + tolerates loss
+# Write-Back ROI
+Costs: Data loss risk, complex recovery
+Benefits: Write performance, backend protection
+Break-even: write-heavy + loss-tolerant
 ```
 
 ## Real-World Cache Economics
@@ -311,54 +284,21 @@ Savings: 100x when hit!
 
 ## Cache Invalidation Costs
 
-### TTL-Based
 ```text
-Pros: Simple, no coordination
-Cons: Stale data window
+TTL-Based:
+- Cost: Stale data incidents × Business impact
+- Example: Product prices (5min), Inventory (real-time), Profiles (1hr)
 
-Cost model:
-Stale data incidents × Business impact
-vs
-Complex invalidation infrastructure
-
-Example:
-- Product prices: 5 min TTL OK
-- Inventory: Real-time needed
-- User profiles: 1 hour TTL OK
-```
-
-### Event-Based
-```text
-Infrastructure:
+Event-Based ($350/month):
 - Message queue: $100/month
-- Invalidation service: $200/month
+- Invalidation service: $200/month  
 - Monitoring: $50/month
+- Break-even: When stale data costs > $350/month
 
-Break-even:
-When stale data costs > $350/month
-
-Example: E-commerce inventory
-- Oversell cost: $50 per incident
-- Incidents with TTL: 10/month
-- Cost: $500/month > $350
-- Event-based invalidation justified
-```
-
-### Tag-Based Invalidation
-```python
-Implementation:
-- Tag index storage: O(tags × keys)
-- Invalidation time: O(keys per tag)
-
-Economics:
-- Extra storage: ~20% overhead
-- CPU for tagging: ~5% overhead
-- Benefit: Precise invalidation
-
-Worth it when:
-- Complex dependencies
-- Costly stale data
-- Frequent partial updates
+Tag-Based:
+- Storage: O(tags × keys), ~20% overhead
+- CPU: ~5% overhead
+- Worth it: Complex dependencies + costly stale data
 ```
 
 ## Cache Optimization Strategies
@@ -429,38 +369,26 @@ Worth it when:
 ### Selective Caching
 ```python
 def should_cache(query_cost, access_frequency, result_size):
-    # Cache only if profitable
     cache_cost_per_hour = result_size * memory_cost_per_gb
     saved_per_hour = access_frequency * query_cost
-
     return saved_per_hour > cache_cost_per_hour * 2  # 2x margin
 ```
 
 ### Pre-warming Economics
 ```bash
-Scenario: Black Friday sale
-- Expected traffic: 100x normal
-- Cache misses would kill database
-- Pre-warming cost: 2 hours of compute
-
-Cost analysis:
-- Pre-warming: $500 (compute time)
-- Without: Site down, $50K lost sales
-- ROI: 100x
+Black Friday: 100x traffic
+Pre-warming cost: $500 (2hr compute)
+Without pre-warming: $50K lost sales
+ROI: 100x
 ```
 
 ## Cache Sizing Optimization
 
 ### Working Set Analysis
 ```redis
-Pareto principle (80/20 rule):
-- 20% of keys get 80% of requests
-- Focus cache on hot keys
-
-Implementation:
-1. Track access frequency
-2. Cache top 20% by frequency
-3. 80% hit rate with 20% memory
+Pareto: 20% of keys = 80% of requests
+→ Cache top 20% by frequency
+→ 80% hit rate with 20% memory
 ```
 
 ### Memory vs Hit Rate
@@ -645,32 +573,15 @@ ROI = ((R × H × B) + (R × H × L × V) - C) / C × 100%
 
 ## Key Decision Factors
 
-1. **Access Pattern**
-   - Random: Lower hit rates
-   - Temporal locality: Higher hit rates
-   - Zipfian: Cache very effective
-
-2. **Data Volatility**
-   - Static: Cache everything
-   - Slowly changing: Long TTL
-   - Rapidly changing: Selective caching
-
-3. **Query Cost**
-   - Expensive queries: Always cache
-   - Cheap queries: Cache if frequent
-   - Complex joins: Definitely cache
-
-4. **Business Impact**
-   - Revenue-critical: Over-provision
-   - Internal tools: Optimize cost
-   - Customer-facing: Optimize latency
+1. **Access Pattern**: Random (low hit rate) → Temporal → Zipfian (high hit rate)
+2. **Data Volatility**: Static (cache all) → Slow (long TTL) → Rapid (selective)
+3. **Query Cost**: Expensive/Complex joins → Always cache; Cheap → Cache if frequent
+4. **Business Impact**: Revenue-critical → Over-provision; Internal → Optimize cost
 
 ## Key Takeaways
 
-1. **80% hit rate is the sweet spot** - Below this, ROI drops quickly
-2. **Cache hot data only** - Full dataset caching rarely profitable
-3. **Multiple tiers multiply benefits** - L1 + L2 + L3 > L3 alone
-4. **Invalidation strategy matters** - Wrong choice negates savings
-5. **Measure actual hit rates** - Predictions often optimistic
-
-Remember: Caching is not free. Calculate ROI before scaling cache infrastructure.
+1. **80% hit rate = sweet spot** (ROI drops below)
+2. **Cache hot data only** (full dataset rarely profitable)
+3. **Multiple tiers multiply benefits** (L1+L2+L3 > L3)
+4. **Invalidation strategy matters** (wrong choice negates savings)
+5. **Measure actual hit rates** (predictions often optimistic)

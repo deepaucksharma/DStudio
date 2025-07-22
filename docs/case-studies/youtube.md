@@ -1349,7 +1349,7 @@ graph TB
 ### 📊 Quantitative Models
 - **[Power Laws](../quantitative/power-laws.md)** - 90% of views from 10% of content drives hot/cold storage tiers
 - **[Little's Law](../quantitative/littles-law.md)** - CDN capacity planning: concurrent streams = arrival rate × duration
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - Transcoding queue optimization for different video priorities
+- **[Queueing Theory](../quantitative/queueing-models.md)** - Transcoding queue optimization for different video priorities
 - **[Information Theory](../quantitative/information-theory.md)** - Video compression algorithms and bandwidth optimization
 
 ### 👥 Human Factors Considerations

@@ -22,7 +22,7 @@ last_updated: 2025-07-20
 
 ## What is Incident Response?
 
-Incident response is the organized approach to addressing and managing the aftermath of a security breach or system failure. The goal is to handle the situation in a way that limits damage and reduces recovery time and costs.
+Organized approach to managing security breaches or system failures. Goal: limit damage, reduce recovery time and costs.
 
 ## Incident Severity Levels
 
@@ -57,25 +57,25 @@ flowchart LR
 ## Key Roles
 
 ### 1. Incident Commander (IC)
-- Overall incident coordination
-- Decision making authority
+- Overall coordination
+- Decision authority
 - External communication
-- Not necessarily technical lead
+- NOT debugging
 
 ### 2. Technical Lead
-- Technical investigation
+- Investigation
 - Solution implementation
-- Coordinate engineering response
+- Engineering coordination
 
 ### 3. Communications Lead
-- Status page updates
+- Status updates
 - Customer communication
 - Internal updates
 
 ### 4. Scribe
 - Document timeline
 - Track decisions
-- Record action items
+- Record actions
 
 ## Response Procedures
 
@@ -234,22 +234,19 @@ gantt
     Bob      :s4, 2024-03-25, 7d
 ```
 
-**On-Call Best Practices:**
-
-| Practice | Rationale | Implementation |
-|----------|-----------|----------------|
-| **6+ person rotation** | Prevents burnout | Max 1 week/month |
-| **Primary + Secondary** | Backup coverage | Escalation path |
-| **Weekday handoffs** | Fresh for weekend | Monday 9am |
-| **Compensation** | Respect the burden | Time off or pay |
-| **Documentation** | Knowledge transfer | Handoff checklist |
+**Best Practices:**
+- **6+ person rotation**: Max 1 week/month
+- **Primary + Secondary**: Backup coverage
+- **Weekday handoffs**: Monday 9am
+- **Compensation**: Time off or pay
+- **Documentation**: Handoff checklist
 
 ### 2. On-Call Kit
-- Laptop with VPN access
-- Phone with PagerDuty app
-- Access to all critical systems
-- Runbook repository access
-- Emergency contact list
+- Laptop + VPN
+- Phone + PagerDuty
+- System access
+- Runbooks
+- Emergency contacts
 
 ### 3. Escalation Policies
 ```mermaid
@@ -510,11 +507,11 @@ flowchart LR
 
 ## Learning and Improvement
 
-1. **Regular Drills**: Practice incident response quarterly
-2. **Runbook Reviews**: Update runbooks after each incident
-3. **Tool Training**: Ensure everyone knows the tools
-4. **Postmortem Culture**: Learn from every incident
-5. **Metrics Review**: Monthly review of incident metrics
+1. **Regular Drills**: Quarterly practice
+2. **Runbook Reviews**: Update post-incident
+3. **Tool Training**: Universal knowledge
+4. **Postmortem Culture**: Learn from all
+5. **Metrics Review**: Monthly analysis
 
 ---
 

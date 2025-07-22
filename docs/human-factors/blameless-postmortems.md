@@ -22,24 +22,21 @@ last_updated: 2025-07-20
 
 ## What is a Blameless Postmortem?
 
-A blameless postmortem is a structured review of an incident that focuses on understanding systemic issues rather than assigning individual blame. The goal is to learn and improve, not to punish.
+Structured incident review focusing on systemic issues, not individual blame. Goal: learn and improve.
 
 ## Key Principles
 
 ### 1. Systems Thinking
-- Failures are rarely caused by individuals
-- Focus on how the system allowed the error
-- Look for contributing factors, not root causes
+- Focus on how system allowed error
+- Look for contributing factors
 
 ### 2. Psychological Safety
-- People must feel safe to share mistakes
-- Honest discussion leads to real improvements
-- Fear of blame leads to cover-ups
+- Safe to share mistakes
+- Honest discussion → improvements
 
 ### 3. Learning Culture
-- Every incident is a learning opportunity
-- Share knowledge across the organization
-- Build resilience through understanding
+- Every incident = learning opportunity
+- Share knowledge widely
 
 ## Postmortem Process
 
@@ -124,19 +121,18 @@ Why? → Performance testing not prioritized
 
 ## Creating Psychological Safety
 
-1. **Leadership Example**: Leaders share their own mistakes
-2. **No Punishment**: Mistakes aren't punished if shared honestly
-3. **Focus on Systems**: Always ask "how did the system allow this?"
+1. **Leadership Example**: Leaders share mistakes
+2. **No Punishment**: Honest mistakes unpunished
+3. **Focus on Systems**: "How did system allow this?"
 4. **Celebrate Learning**: Reward thorough postmortems
 
 ## Postmortem Metrics
 
-Track the effectiveness of your postmortem process:
-- Time to complete postmortem
-- Number of action items generated
-- Action item completion rate
+- Time to complete
+- Action items generated
+- Action completion rate
 - Repeat incident rate
-- Team participation rate
+- Team participation
 
 ## Tools and Automation
 
@@ -254,13 +250,11 @@ graph TD
 
 ## Cultural Transformation
 
-Moving to blameless postmortems requires cultural change:
-
-1. **Start Small**: Begin with minor incidents
-2. **Lead by Example**: Senior engineers go first
-3. **Celebrate Honesty**: Publicly thank honest mistake sharing
-4. **Share Widely**: Make postmortems visible to all
-5. **Follow Through**: Complete action items
+1. **Start Small**: Minor incidents first
+2. **Lead by Example**: Seniors go first
+3. **Celebrate Honesty**: Thank mistake sharing
+4. **Share Widely**: Visible postmortems
+5. **Follow Through**: Complete actions
 
 ## Postmortem Quality Metrics Dashboard
 

@@ -1821,7 +1821,7 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 - **[Vector Tiles](../patterns/vector-tiles.md)** - Efficient map data
 - **[Spatial Indexing](../patterns/spatial-indexing.md)** - R-tree, QuadTree
 - **[Graph Algorithms](../patterns/graph-algorithms.md)** - Routing algorithms
-- **[Stream Processing](../patterns/stream-processing.md)** - Traffic updates
+- **[Stream Processing](../patterns/queues-streaming.md)** - Traffic updates
 - **[Edge Computing](../patterns/edge-computing.md)** - Global CDN
 - **[ML Pipeline](../patterns/ml-pipeline.md)** - Map generation
 

@@ -1683,7 +1683,7 @@ class DistributedAutocomplete:
 
 ### 📊 Quantitative Models
 - **[Information Theory](../quantitative/information-theory.md)** - Entropy in prefix trees
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - Server capacity planning
+- **[Queueing Theory](../quantitative/queueing-models.md)** - Server capacity planning
 - **[Probability Theory](../quantitative/probability.md)** - Bloom filter false positives
 - **[Machine Learning](../quantitative/ml-ranking.md)** - Learning to rank
 

@@ -1,9 +1,9 @@
 ---
 title: SRE Practices
-description: "Site Reliability Engineering treats operations as a software problem. Core tenets:"
+description: "Site Reliability Engineering treats operations as a software problem"
 type: human-factors
 difficulty: beginner
-reading_time: 40 min
+reading_time: 25 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
@@ -16,9 +16,7 @@ last_updated: 2025-07-20
 
 **Running systems reliably at scale**
 
-## What is SRE?
-
-Site Reliability Engineering treats operations as a software problem. Core tenets:
+## Core SRE Tenets
 
 1. **Embrace Risk** - 100% reliability is wrong target
 2. **Service Level Objectives** - Define and measure reliability
@@ -27,14 +25,12 @@ Site Reliability Engineering treats operations as a software problem. Core tenet
 5. **Release Engineering** - Make releases boring
 6. **Simplicity** - Complexity is the enemy
 
-!!! quote "Ben Treynor Sloss, Google VP and SRE Founder"
+!!! quote "Ben Treynor Sloss, Google VP"
     "SRE is what happens when you ask a software engineer to design an operations team."
-
-    Google's SRE insights from running billions of queries daily:
-    - **50% cap on ops work** - Other 50% must be development
-    - **Error budgets** - Shared between dev and SRE teams
-    - **Blameless culture** - Focus on systems, not people
-    - **20% project time** - Like Google's famous 20% but for reliability
+    - 50% cap on ops work
+    - Error budgets shared between teams
+    - Blameless culture
+    - 20% project time for reliability
 
 ## Error Budgets
 
@@ -59,23 +55,12 @@ graph LR
 
 ### Real-World Error Budget Examples
 
-!!! example "How Companies Use Error Budgets"
-    **Google Search (2020)**:
-    - SLO: 99.95% availability
-    - Monthly budget: 21.9 minutes downtime
-    - Actual incident: 45-minute outage
-    - Result: Feature freeze for 2 weeks, all hands on reliability
-
-    **Stripe Payments (2019)**:
-    - SLO: 99.99% API success rate
-    - Quarterly budget: 13 minutes of errors
-    - Used 8 minutes in one incident
-    - Result: Delayed new API version, fixed timeout handling
-
-    **Netflix Streaming**:
-    - SLO: 99.9% stream start success
-    - Innovation budget: 0.05% for experiments
-    - Uses errors to test new encoding algorithms
+!!! example "Industry Examples"
+    **Google Search**: 99.95% SLO = 21.9 min/month. 45-min outage → 2-week feature freeze
+    
+    **Stripe**: 99.99% SLO = 13 min/quarter. 8-min incident → API delay, timeout fixes
+    
+    **Netflix**: 99.9% SLO + 0.05% innovation budget for encoding experiments
 
 ### Using Error Budgets
 
@@ -115,29 +100,9 @@ flowchart TD
 
 ## SLI/SLO/SLA Hierarchy
 
-### Definitions
-
-**SLI (Service Level Indicator)**: What we measure
-```text
-- Request latency
-- Error rate
-- Availability
-- Durability
-```
-
-**SLO (Service Level Objective)**: Internal target
-```text
-- 99.9% of requests < 100ms
-- 99.95% success rate
-- 99.99% availability
-```
-
-**SLA (Service Level Agreement)**: External promise
-```redis
-- Always set looser than SLO
-- SLO: 99.9% → SLA: 99.5%
-- Leaves room for error
-```
+**SLI**: What we measure (latency, errors, availability)
+**SLO**: Internal target (99.9% requests < 100ms)
+**SLA**: External promise (Always looser than SLO: 99.9% → 99.5%)
 
 ### Choosing Good SLIs
 
@@ -201,16 +166,10 @@ Data pipeline: 99.99% (4.4 min/month)
 
 ## Toil Elimination
 
-!!! info "Google's Toil Reduction Success Stories"
-    **YouTube (2016)**: Reduced toil from 70% to 30% in 18 months
-    - Automated database failovers (saved 10 hours/week)
-    - Self-service capacity provisioning (saved 20 hours/week)
-    - Automated abuse detection (saved 30 hours/week)
-
-    **Gmail**: Eliminated 95% of manual spam config updates
-    - Before: 8 SREs spending 50% time on spam rules
-    - After: ML model auto-updates, 1 SRE reviews weekly
-    - Saved: ~150 engineering hours/week
+!!! info "Toil Reduction Wins"
+    **YouTube**: 70% → 30% toil in 18 months via automated failovers, self-service capacity, abuse detection
+    
+    **Gmail**: 95% reduction in manual spam updates. 8 SREs @ 50% → 1 SRE weekly review
 
 ### What is Toil?
 
@@ -318,22 +277,12 @@ flowchart TD
 4. **Time-off post-incident** - Recovery time
 5. **Compensated fairly** - Respect the burden
 
-!!! example "How Top Companies Handle On-Call"
-    **Netflix**: "Sleep when you're dead" → "Sleep to stay alive"
-    - Moved from hero culture to sustainable on-call
-    - Automatic comp time after night incidents
-    - "Chaos engineering" reduces 3am pages by 90%
-
-    **Airbnb**: Tiered on-call with clear escalation
-    - L1: Product engineers (own service issues)
-    - L2: SRE team (infrastructure issues)
-    - L3: Staff engineers (architectural issues)
-    - Result: 50% reduction in false pages
-
-    **Cloudflare**: Follow-the-sun model
-    - Singapore → London → San Francisco → Singapore
-    - Nobody on-call during their night
-    - 24/7 coverage with better work-life balance
+!!! example "On-Call Models"
+    **Netflix**: Hero culture → sustainable model. Auto comp time, 90% reduction in night pages via chaos engineering
+    
+    **Airbnb**: L1 (product) → L2 (SRE) → L3 (staff). 50% false page reduction
+    
+    **Cloudflare**: Follow-the-sun (Singapore → London → SF). No night shifts
 
 ### Effective Handoffs
 
@@ -630,37 +579,16 @@ See: [Runbooks & Playbooks](runbooks-playbooks.md)
 
 ## Best Practices
 
-1. **Measure Everything**
-   - If it matters to users, make it an SLI
-   - If it affects SLI, alert on it
-   - If it causes alerts, fix it
-
-2. **Gradual Rollouts**
-   - Every change is guilty until proven innocent
-   - Canary everything
-   - Feature flags are your friend
-
-3. **Practice Failures**
-   - Game days monthly
-   - Chaos engineering weekly
-   - Disaster recovery quarterly
-
-4. **Document Everything**
-   - Runbooks for every alert
-   - Postmortems for every incident
-   - Architecture decisions recorded
-
-5. **Invest in Tooling**
-   - Automation reduces toil
-   - Good tools prevent incidents
-   - Time saved compounds
+1. **Measure Everything**: User-impacting → SLI → Alert → Fix
+2. **Gradual Rollouts**: Canary everything, use feature flags
+3. **Practice Failures**: Monthly game days, weekly chaos, quarterly DR
+4. **Document Everything**: Runbooks, postmortems, architecture decisions
+5. **Invest in Tooling**: Automation compounds time savings
 
 ## Key Takeaways
 
-- **Reliability is a feature** - Plan and prioritize it
-- **Error budgets align incentives** - Speed vs stability balance
-- **Toil is the enemy** - Automate relentlessly
-- **Blameless culture** - Learn from failures
-- **Measure what matters** - SLIs drive decisions
-
-Remember: Perfect reliability is not the goal. The right amount of reliability at the right cost is the goal.
+- Reliability is a feature requiring planning
+- Error budgets balance speed vs stability
+- Automate toil relentlessly
+- Blameless culture enables learning
+- Right reliability at right cost > perfect reliability

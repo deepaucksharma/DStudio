@@ -1238,7 +1238,7 @@ The hybrid architecture balances the trade-offs between different approaches, us
 
 ### 📊 Quantitative Models
 - **[Little's Law](../quantitative/littles-law.md)** - Feed generation capacity: concurrent requests = arrival rate × processing time
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for fanout worker pools
+- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for fanout worker pools
 - **[Power Laws](../quantitative/power-laws.md)** - Celebrity follower distribution drives hybrid architecture
 - **[Information Theory](../quantitative/information-theory.md)** - Relevance scoring and diversity optimization
 

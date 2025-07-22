@@ -667,7 +667,7 @@ graph TB
 ### 📊 Quantitative Models
 - **[CAP Theorem](../quantitative/cap-pacelc.md)** - Chooses AP with eventual consistency through compensations
 - **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
-- **[Queueing Theory](../quantitative/queueing-theory.md)** - M/M/c model for payment processor pool sizing
+- **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for payment processor pool sizing
 - **[Two-Phase Commit](../quantitative/consistency-models.md)** - Rejected due to availability and latency constraints
 
 ### 👥 Human Factors Considerations
