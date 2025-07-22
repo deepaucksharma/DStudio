@@ -6,7 +6,7 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Interactive quiz to test your understanding of distributed system patterns and their appropriate use cases">
+        <meta name="description" content="Test your understanding of distributed system patterns">
       
       
       
@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -8940,112 +8908,79 @@
 <!-- Navigation -->
 <p><a href="../../">Home</a> → <a href="../">Part III: Patterns</a> → <strong>Pattern Catalog Quiz</strong></p>
 <h1 id="pattern-catalog-quiz">Pattern Catalog Quiz<a class="headerlink" href="#pattern-catalog-quiz" title="Permanent link">&para;</a></h1>
-<p><strong>Test Your Pattern Knowledge</strong></p>
 <h2 id="quiz-questions">Quiz Questions<a class="headerlink" href="#quiz-questions" title="Permanent link">&para;</a></h2>
 <h3 id="1-your-payment-service-times-out-occasionally-you-should-implement">1. Your payment service times out occasionally. You should implement:<a class="headerlink" href="#1-your-payment-service-times-out-occasionally-you-should-implement" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Bulkhead isolation</li>
-<li>b) Circuit breaker ✓</li>
-<li>c) Event sourcing</li>
-<li>d) Service mesh</li>
-</ul>
-<p><strong>Answer: b) Circuit breaker</strong>
-<em>Explanation: Circuit breakers prevent cascading failures by failing fast when a service is struggling.</em></p>
+<p>a) Bulkhead isolation<br />
+   b) Circuit breaker ✓<br />
+   c) Event sourcing<br />
+   d) Service mesh</p>
+<p><strong>Answer: b)</strong> Circuit breakers prevent cascading failures by failing fast when a service is struggling.</p>
 <h3 id="2-you-need-to-sync-data-from-oltp-to-olap-best-pattern">2. You need to sync data from OLTP to OLAP. Best pattern:<a class="headerlink" href="#2-you-need-to-sync-data-from-oltp-to-olap-best-pattern" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Saga</li>
-<li>b) CQRS</li>
-<li>c) CDC ✓</li>
-<li>d) GraphQL</li>
-</ul>
-<p><strong>Answer: c) CDC (Change Data Capture)</strong>
-<em>Explanation: CDC captures database changes in real-time for streaming to analytics systems.</em></p>
+<p>a) Saga<br />
+   b) CQRS<br />
+   c) CDC ✓<br />
+   d) GraphQL</p>
+<p><strong>Answer: c)</strong> CDC captures database changes in real-time for streaming to analytics systems.</p>
 <h3 id="3-cross-region-users-complain-about-latency-primary-solution">3. Cross-region users complain about latency. Primary solution:<a class="headerlink" href="#3-cross-region-users-complain-about-latency-primary-solution" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Bigger servers</li>
-<li>b) Geo-replication ✓</li>
-<li>c) Circuit breakers</li>
-<li>d) Sharding</li>
-</ul>
-<p><strong>Answer: b) Geo-replication</strong>
-<em>Explanation: Geo-replication puts data closer to users, reducing latency from geographic distance.</em></p>
+<p>a) Bigger servers<br />
+   b) Geo-replication ✓<br />
+   c) Circuit breakers<br />
+   d) Sharding</p>
+<p><strong>Answer: b)</strong> Geo-replication puts data closer to users, reducing latency from geographic distance.</p>
 <h3 id="4-your-monolith-cant-scale-anymore-first-step">4. Your monolith can't scale anymore. First step:<a class="headerlink" href="#4-your-monolith-cant-scale-anymore-first-step" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Microservices</li>
-<li>b) Serverless</li>
-<li>c) Identify boundaries ✓</li>
-<li>d) Add cache</li>
-</ul>
-<p><strong>Answer: c) Identify boundaries</strong>
-<em>Explanation: Before splitting a monolith, you must identify proper service boundaries based on business domains.</em></p>
+<p>a) Microservices<br />
+   b) Serverless<br />
+   c) Identify boundaries ✓<br />
+   d) Add cache</p>
+<p><strong>Answer: c)</strong> Before splitting a monolith, you must identify proper service boundaries based on business domains.</p>
 <h3 id="5-debugging-distributed-requests-is-hard-you-need">5. Debugging distributed requests is hard. You need:<a class="headerlink" href="#5-debugging-distributed-requests-is-hard-you-need" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) More logs</li>
-<li>b) Distributed tracing ✓</li>
-<li>c) Better dashboards</li>
-<li>d) Service mesh</li>
-</ul>
-<p><strong>Answer: b) Distributed tracing</strong>
-<em>Explanation: Distributed tracing follows requests across multiple services to understand flow and latency.</em></p>
+<p>a) More logs<br />
+   b) Distributed tracing ✓<br />
+   c) Better dashboards<br />
+   d) Service mesh</p>
+<p><strong>Answer: b)</strong> Distributed tracing follows requests across multiple services to understand flow and latency.</p>
 <h3 id="6-database-writes-are-becoming-slow-consider">6. Database writes are becoming slow. Consider:<a class="headerlink" href="#6-database-writes-are-becoming-slow-consider" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) CQRS ✓</li>
-<li>b) GraphQL</li>
-<li>c) Serverless</li>
-<li>d) Circuit breaker</li>
-</ul>
-<p><strong>Answer: a) CQRS</strong>
-<em>Explanation: CQRS separates read and write models, allowing optimization of each independently.</em></p>
+<p>a) CQRS ✓<br />
+   b) GraphQL<br />
+   c) Serverless<br />
+   d) Circuit breaker</p>
+<p><strong>Answer: a)</strong> CQRS separates read and write models, allowing optimization of each independently.</p>
 <h3 id="7-you-have-n-services-calling-each-other-complexity-reducer">7. You have N services calling each other. Complexity reducer:<a class="headerlink" href="#7-you-have-n-services-calling-each-other-complexity-reducer" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Service mesh ✓</li>
-<li>b) Sharding</li>
-<li>c) Caching</li>
-<li>d) CDC</li>
-</ul>
-<p><strong>Answer: a) Service mesh</strong>
-<em>Explanation: Service mesh handles cross-cutting concerns like discovery, security, and observability uniformly.</em></p>
+<p>a) Service mesh ✓<br />
+   b) Sharding<br />
+   c) Caching<br />
+   d) CDC</p>
+<p><strong>Answer: a)</strong> Service mesh handles cross-cutting concerns like discovery, security, and observability uniformly.</p>
 <h3 id="8-batch-job-costs-are-too-high-switch-to">8. Batch job costs are too high. Switch to:<a class="headerlink" href="#8-batch-job-costs-are-too-high-switch-to" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Reserved instances</li>
-<li>b) Spot instances ✓</li>
-<li>c) Bigger instances</li>
-<li>d) Serverless</li>
-</ul>
-<p><strong>Answer: b) Spot instances</strong>
-<em>Explanation: Spot instances offer up to 90% savings for interruptible batch workloads.</em></p>
+<p>a) Reserved instances<br />
+   b) Spot instances ✓<br />
+   c) Bigger instances<br />
+   d) Serverless</p>
+<p><strong>Answer: b)</strong> Spot instances offer up to 90% savings for interruptible batch workloads.</p>
 <h3 id="9-services-keep-calling-dead-dependencies-implement">9. Services keep calling dead dependencies. Implement:<a class="headerlink" href="#9-services-keep-calling-dead-dependencies-implement" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Retries</li>
-<li>b) Circuit breaker ✓</li>
-<li>c) Saga</li>
-<li>d) Bulkhead</li>
-</ul>
-<p><strong>Answer: b) Circuit breaker</strong>
-<em>Explanation: Circuit breakers stop calling failing services, preventing resource exhaustion.</em></p>
+<p>a) Retries<br />
+   b) Circuit breaker ✓<br />
+   c) Saga<br />
+   d) Bulkhead</p>
+<p><strong>Answer: b)</strong> Circuit breakers stop calling failing services, preventing resource exhaustion.</p>
 <h3 id="10-need-exactly-once-payment-processing-use">10. Need exactly-once payment processing. Use:<a class="headerlink" href="#10-need-exactly-once-payment-processing-use" title="Permanent link">&para;</a></h3>
-<ul>
-<li>a) Retries</li>
-<li>b) Idempotency keys ✓</li>
-<li>c) Circuit breakers</li>
-<li>d) Event sourcing</li>
-</ul>
-<p><strong>Answer: b) Idempotency keys</strong>
-<em>Explanation: Idempotency keys ensure operations can be safely retried without duplication.</em></p>
+<p>a) Retries<br />
+   b) Idempotency keys ✓<br />
+   c) Circuit breakers<br />
+   d) Event sourcing</p>
+<p><strong>Answer: b)</strong> Idempotency keys ensure operations can be safely retried without duplication.</p>
 <h2 id="scoring-guide">Scoring Guide<a class="headerlink" href="#scoring-guide" title="Permanent link">&para;</a></h2>
-<ul>
-<li><strong>8-10 correct</strong>: Pattern Master - You deeply understand distributed patterns</li>
-<li><strong>6-7 correct</strong>: Pattern Practitioner - Good grasp, some areas to review</li>
-<li><strong>4-5 correct</strong>: Pattern Learner - Keep studying the patterns</li>
-<li><strong>&lt;4 correct</strong>: Review patterns again - Focus on understanding the problems each pattern solves</li>
-</ul>
+<p><strong>8-10 correct</strong>: Pattern Master - Deep understanding<br />
+<strong>6-7 correct</strong>: Pattern Practitioner - Good grasp<br />
+<strong>4-5 correct</strong>: Pattern Learner - Keep studying<br />
+<strong>&lt;4 correct</strong>: Review patterns - Focus on problems each solves</p>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
-<li><strong>Match pattern to problem</strong>: Each pattern solves specific distributed systems challenges</li>
-<li><strong>Understand trade-offs</strong>: Every pattern has costs and complexity</li>
-<li><strong>Combine patterns</strong>: Real systems often need multiple patterns working together</li>
-<li><strong>Start simple</strong>: Don't over-engineer; add patterns as problems emerge</li>
-<li><strong>Measure impact</strong>: Validate that patterns actually solve your problems</li>
+<li><strong>Match pattern to problem</strong> - Each solves specific challenges</li>
+<li><strong>Understand trade-offs</strong> - Every pattern has costs</li>
+<li><strong>Combine patterns</strong> - Real systems need multiple patterns</li>
+<li><strong>Start simple</strong> - Add patterns as problems emerge</li>
+<li><strong>Measure impact</strong> - Validate patterns solve your problems</li>
 </ol>
 <h2 id="pattern-selection-matrix">Pattern Selection Matrix<a class="headerlink" href="#pattern-selection-matrix" title="Permanent link">&para;</a></h2>
 <table>
@@ -9100,13 +9035,12 @@
 </tbody>
 </table>
 <h2 id="next-steps">Next Steps<a class="headerlink" href="#next-steps" title="Permanent link">&para;</a></h2>
-<p>Having tested your pattern knowledge, Part IV will provide the mathematical toolkit to:
+<p>Part IV provides the mathematical toolkit to:
 - Calculate theoretical limits
 - Model system behavior
 - Predict scaling characteristics
 - Optimize cost-performance trade-offs
 - Capacity plan with confidence</p>
-<p>The math that matters for distributed systems...</p>
 <hr />
 <p><strong>Previous</strong>: <a href="../outbox/">← Outbox Pattern</a> | <strong>Next</strong>: <a href="../queues-streaming/">Queues &amp; Stream-Processing →</a></p>
 

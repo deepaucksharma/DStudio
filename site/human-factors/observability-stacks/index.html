@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9074,16 +9042,25 @@
 <h1 id="observability-stacks">Observability Stacks<a class="headerlink" href="#observability-stacks" title="Permanent link">&para;</a></h1>
 <p><strong>You can't fix what you can't see</strong></p>
 <h2 id="the-observability-triad">The Observability Triad<a class="headerlink" href="#the-observability-triad" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>        Metrics
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>          ↑
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>       INSIGHTS
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>      ↙        ↘
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>   Logs ←----→ Traces
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>Metrics: What is broken
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>Logs: Why it&#39;s broken
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>Traces: Where it&#39;s broken
-</span></code></pre></div>
+<pre class="mermaid"><code>graph TB
+    subgraph "The Observability Triad"
+        M[Metrics&lt;br/&gt;What is broken?]
+        L[Logs&lt;br/&gt;Why is it broken?]
+        T[Traces&lt;br/&gt;Where is it broken?]
+
+        M &lt;--&gt; I[INSIGHTS]
+        L &lt;--&gt; I
+        T &lt;--&gt; I
+
+        M &lt;--&gt; L
+        L &lt;--&gt; T
+        T &lt;--&gt; M
+    end
+
+    style I fill:#ffd54f,stroke:#333,stroke-width:3px
+    style M fill:#e3f2fd
+    style L fill:#e8f5e9
+    style T fill:#fff3e0</code></pre>
 <h2 id="modern-observability-stack">Modern Observability Stack<a class="headerlink" href="#modern-observability-stack" title="Permanent link">&para;</a></h2>
 <h3 id="metrics-layer">Metrics Layer<a class="headerlink" href="#metrics-layer" title="Permanent link">&para;</a></h3>
 <p>Collection → Storage → Query → Visualization → Alerting</p>
@@ -9124,100 +9101,286 @@
 - Storage retention
 - Head vs tail sampling</p>
 <h2 id="reference-architecture">Reference Architecture<a class="headerlink" href="#reference-architecture" title="Permanent link">&para;</a></h2>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>                    Applications
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>                         ↓
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>              [OpenTelemetry SDK/Agents]
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>                    ↓    ↓    ↓
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>                Metrics Logs Traces
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>                   ↓     ↓     ↓
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>              [OTLP Collector Cluster]
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>                ↙      ↓        ↘
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        Prometheus  Loki    Jaeger/Tempo
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>              ↘      ↓        ↙
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>                  Grafana
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>                     ↓
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>              📊 Dashboards
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>              🚨 Alerts
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>              🔍 Exploration
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Reference Architecture"
+        A[Applications] --&gt; B[OpenTelemetry SDK/Agents]
+        B --&gt; C[Metrics]
+        B --&gt; D[Logs]
+        B --&gt; E[Traces]
+
+        C --&gt; F[OTLP Collector Cluster]
+        D --&gt; F
+        E --&gt; F
+
+        F --&gt; G[Prometheus]
+        F --&gt; H[Loki]
+        F --&gt; I[Jaeger/Tempo]
+
+        G --&gt; J[Grafana]
+        H --&gt; J
+        I --&gt; J
+
+        J --&gt; K[📊 Dashboards]
+        J --&gt; L[🚨 Alerts]
+        J --&gt; M[🔍 Exploration]
+    end
+
+    style A fill:#e3f2fd
+    style F fill:#fff3cd
+    style J fill:#c8e6c9</code></pre>
 <h2 id="implementation-guide">Implementation Guide<a class="headerlink" href="#implementation-guide" title="Permanent link">&para;</a></h2>
 <h3 id="1-instrument-applications">1. Instrument Applications<a class="headerlink" href="#1-instrument-applications" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Metrics</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">prometheus_client</span><span class="w"> </span><span class="kn">import</span> <span class="n">Histogram</span><span class="p">,</span> <span class="n">Counter</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">request_duration</span> <span class="o">=</span> <span class="n">Histogram</span><span class="p">(</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>    <span class="s1">&#39;http_request_duration_seconds&#39;</span><span class="p">,</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>    <span class="s1">&#39;HTTP request latency&#39;</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>    <span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">]</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="p">)</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a><span class="n">request_count</span> <span class="o">=</span> <span class="n">Counter</span><span class="p">(</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>    <span class="s1">&#39;http_requests_total&#39;</span><span class="p">,</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>    <span class="s1">&#39;Total HTTP requests&#39;</span><span class="p">,</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>    <span class="p">[</span><span class="s1">&#39;method&#39;</span><span class="p">,</span> <span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;status&#39;</span><span class="p">]</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a><span class="p">)</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a><span class="c1"># Usage</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17" href="#__codelineno-2-17"></a><span class="nd">@request_duration</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18" href="#__codelineno-2-18"></a><span class="k">def</span><span class="w"> </span><span class="nf">handle_request</span><span class="p">(</span><span class="n">request</span><span class="p">):</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19" href="#__codelineno-2-19"></a>    <span class="c1"># Process request</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20" href="#__codelineno-2-20"></a>    <span class="n">request_count</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21" href="#__codelineno-2-21"></a>        <span class="n">method</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22" href="#__codelineno-2-22"></a>        <span class="n">route</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23" href="#__codelineno-2-23"></a>        <span class="n">status</span><span class="o">=</span><span class="n">response</span><span class="o">.</span><span class="n">status</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24" href="#__codelineno-2-24"></a>    <span class="p">)</span><span class="o">.</span><span class="n">inc</span><span class="p">()</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="c1"># Logs (structured)</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">structlog</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">logger</span> <span class="o">=</span> <span class="n">structlog</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s1">&#39;Request processed&#39;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    <span class="n">request_id</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>    <span class="n">user_id</span><span class="o">=</span><span class="n">user</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>    <span class="n">duration</span><span class="o">=</span><span class="n">duration</span><span class="p">,</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>    <span class="n">status</span><span class="o">=</span><span class="n">res</span><span class="o">.</span><span class="n">statusCode</span><span class="p">,</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>    <span class="n">correlation_id</span><span class="o">=</span><span class="n">req</span><span class="o">.</span><span class="n">correlation_id</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a><span class="p">)</span>
-</span></code></pre></div>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="c1"># Traces</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">opentelemetry</span><span class="w"> </span><span class="kn">import</span> <span class="n">trace</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_tracer</span><span class="p">(</span><span class="vm">__name__</span><span class="p">)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="k">with</span> <span class="n">tracer</span><span class="o">.</span><span class="n">start_as_current_span</span><span class="p">(</span><span class="s1">&#39;process_payment&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">span</span><span class="p">:</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="n">span</span><span class="o">.</span><span class="n">set_attributes</span><span class="p">({</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="s1">&#39;payment.amount&#39;</span><span class="p">:</span> <span class="n">amount</span><span class="p">,</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="s1">&#39;payment.currency&#39;</span><span class="p">:</span> <span class="n">currency</span><span class="p">,</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>        <span class="s1">&#39;payment.method&#39;</span><span class="p">:</span> <span class="n">method</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>    <span class="p">})</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>    <span class="c1"># Process payment</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>    <span class="n">result</span> <span class="o">=</span> <span class="n">process_payment_internal</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>    <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;payment.success&#39;</span><span class="p">,</span> <span class="n">result</span><span class="o">.</span><span class="n">success</span><span class="p">)</span>
-</span></code></pre></div>
+<p><strong>Metrics Implementation Pattern:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Metrics Collection Flow"
+        A[Request Arrives] --&gt; B[Start Timer]
+        B --&gt; C[Process Request]
+        C --&gt; D[Stop Timer]
+        D --&gt; E[Record Metrics]
+
+        E --&gt; F[Duration Histogram]
+        E --&gt; G[Request Counter]
+        E --&gt; H[Error Counter]
+
+        F --&gt; I[Prometheus&lt;br/&gt;Scrapes]
+        G --&gt; I
+        H --&gt; I
+    end
+
+    style A fill:#e3f2fd
+    style E fill:#fff3cd
+    style I fill:#c8e6c9</code></pre>
+<p><strong>Key Metrics to Track:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric Type</th>
+<th>Name</th>
+<th>Labels</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Histogram</strong></td>
+<td>request_duration</td>
+<td>method, route, status</td>
+<td>Latency distribution</td>
+</tr>
+<tr>
+<td><strong>Counter</strong></td>
+<td>requests_total</td>
+<td>method, route, status</td>
+<td>Request rate</td>
+</tr>
+<tr>
+<td><strong>Gauge</strong></td>
+<td>concurrent_requests</td>
+<td>service</td>
+<td>Current load</td>
+</tr>
+<tr>
+<td><strong>Summary</strong></td>
+<td>response_size</td>
+<td>endpoint</td>
+<td>Payload analysis</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Structured Logging Best Practices:</strong></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Structured Logging Flow"
+        A[Event Occurs] --&gt; B{Log Level?}
+        B --&gt;|ERROR| C[Always Log]
+        B --&gt;|WARN| D[Usually Log]
+        B --&gt;|INFO| E[Sample if High Volume]
+        B --&gt;|DEBUG| F[Dev Only]
+
+        C --&gt; G[Add Context]
+        D --&gt; G
+        E --&gt; G
+
+        G --&gt; H[Standard Fields:&lt;br/&gt;- timestamp&lt;br/&gt;- level&lt;br/&gt;- service&lt;br/&gt;- trace_id&lt;br/&gt;- user_id&lt;br/&gt;- duration]
+
+        H --&gt; I[JSON Output]
+        I --&gt; J[Log Aggregator]
+    end
+
+    style C fill:#ffcdd2
+    style D fill:#fff3cd
+    style E fill:#e3f2fd
+    style F fill:#e0e0e0</code></pre>
+<p><strong>Essential Log Fields:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Purpose</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>timestamp</td>
+<td>ISO8601</td>
+<td>When it happened</td>
+<td>2024-03-15T10:23:45Z</td>
+</tr>
+<tr>
+<td>level</td>
+<td>string</td>
+<td>Severity</td>
+<td>ERROR, WARN, INFO</td>
+</tr>
+<tr>
+<td>service</td>
+<td>string</td>
+<td>Source service</td>
+<td>payment-api</td>
+</tr>
+<tr>
+<td>trace_id</td>
+<td>string</td>
+<td>Correlation</td>
+<td>7f3a2b1c-4d5e-6f7a</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>string</td>
+<td>Who affected</td>
+<td>user_12345</td>
+</tr>
+<tr>
+<td>duration</td>
+<td>number</td>
+<td>Performance</td>
+<td>145.23 (ms)</td>
+</tr>
+<tr>
+<td>error</td>
+<td>object</td>
+<td>Error details</td>
+<td>{"type": "timeout"}</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Distributed Tracing Flow"
+        A[Client Request] --&gt; B[API Gateway&lt;br/&gt;Span: gateway]
+        B --&gt; C[Auth Service&lt;br/&gt;Span: auth]
+        B --&gt; D[Payment Service&lt;br/&gt;Span: payment]
+
+        C --&gt; B
+
+        D --&gt; E[Database&lt;br/&gt;Span: db_query]
+        D --&gt; F[External API&lt;br/&gt;Span: stripe_api]
+
+        E --&gt; D
+        F --&gt; D
+        D --&gt; B
+        B --&gt; G[Client Response]
+
+        H[Trace Timeline:&lt;br/&gt;gateway (200ms)&lt;br/&gt;├─ auth (30ms)&lt;br/&gt;└─ payment (150ms)&lt;br/&gt;    ├─ db_query (20ms)&lt;br/&gt;    └─ stripe_api (120ms)]
+    end
+
+    style A fill:#e3f2fd
+    style G fill:#c8e6c9
+    style H fill:#fff3cd</code></pre>
+<p><strong>Trace Attribute Standards:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Attributes</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HTTP</strong></td>
+<td>http.method, http.status_code, http.url</td>
+<td>GET, 200, /api/v1/users</td>
+</tr>
+<tr>
+<td><strong>Database</strong></td>
+<td>db.system, db.statement, db.operation</td>
+<td>postgresql, SELECT * FROM..., SELECT</td>
+</tr>
+<tr>
+<td><strong>Messaging</strong></td>
+<td>messaging.system, messaging.operation</td>
+<td>kafka, publish</td>
+</tr>
+<tr>
+<td><strong>Custom</strong></td>
+<td>business.amount, business.user_tier</td>
+<td>99.99, premium</td>
+</tr>
+</tbody>
+</table>
 <h3 id="2-optimize-collection">2. Optimize Collection<a class="headerlink" href="#2-optimize-collection" title="Permanent link">&para;</a></h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Collector Configuration</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="nt">processors</span><span class="p">:</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">batch</span><span class="p">:</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">    </span><span class="nt">send_batch_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1000</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nt">timeout</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10s</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">  </span><span class="nt">memory_limiter</span><span class="p">:</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nt">check_interval</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1s</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">    </span><span class="nt">limit_mib</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">512</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="nt">sampling</span><span class="p">:</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="nt">decision_cache_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">10000</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="nt">trace_id_ratio</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">0.1</span><span class="w">  </span><span class="c1"># 10% sampling</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="c1"># Resource optimization:</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a><span class="c1"># - Batch to reduce network calls</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a><span class="c1"># - Sample to control volume</span>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a><span class="c1"># - Filter noise early</span>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a><span class="c1"># - Compress where possible</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Collector Optimization Pipeline"
+        A[Raw Telemetry] --&gt; B[Memory Limiter&lt;br/&gt;512MB cap]
+        B --&gt; C[Sampling&lt;br/&gt;10% traces]
+        C --&gt; D[Batching&lt;br/&gt;1000 items]
+        D --&gt; E[Compression&lt;br/&gt;gzip]
+        E --&gt; F[Export]
+
+        G[Dropped if OOM] -.-&gt; B
+        H[90% Dropped] -.-&gt; C
+        I[Reduced Calls] -.-&gt; D
+        J[~70% smaller] -.-&gt; E
+    end
+
+    style B fill:#fff3cd
+    style C fill:#ffebee
+    style D fill:#e8f5e9
+    style E fill:#e3f2fd</code></pre>
+<p><strong>Optimization Configuration Guide:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Processor</th>
+<th>Purpose</th>
+<th>Config</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Batch</strong></td>
+<td>Reduce network calls</td>
+<td>size: 1000, timeout: 10s</td>
+<td>90% fewer requests</td>
+</tr>
+<tr>
+<td><strong>Memory Limiter</strong></td>
+<td>Prevent OOM</td>
+<td>limit: 512MB</td>
+<td>Stability</td>
+</tr>
+<tr>
+<td><strong>Sampling</strong></td>
+<td>Control volume</td>
+<td>ratio: 0.1</td>
+<td>90% data reduction</td>
+</tr>
+<tr>
+<td><strong>Resource</strong></td>
+<td>Add metadata</td>
+<td>host.name, service.name</td>
+<td>Context</td>
+</tr>
+<tr>
+<td><strong>Filter</strong></td>
+<td>Remove noise</td>
+<td>drop health checks</td>
+<td>Relevant data only</td>
+</tr>
+</tbody>
+</table>
 <h3 id="3-design-dashboards">3. Design Dashboards<a class="headerlink" href="#3-design-dashboards" title="Permanent link">&para;</a></h3>
 <p><strong>Dashboard Hierarchy:</strong></p>
 <p><strong>1. Service Overview (RED metrics)</strong>
@@ -9238,26 +9401,67 @@
 - Error breakdowns</p>
 <h2 id="observability-patterns">Observability Patterns<a class="headerlink" href="#observability-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="1-correlation-ids">1. Correlation IDs<a class="headerlink" href="#1-correlation-ids" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="c1"># Flow: Request → Generate ID → Pass to all services → Include in all telemetry</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">correlation_id_middleware</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">,</span> <span class="nb">next</span><span class="p">):</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>    <span class="c1"># Get or generate correlation ID</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>    <span class="n">correlation_id</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">headers</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;x-correlation-id&#39;</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">str</span><span class="p">(</span><span class="n">uuid4</span><span class="p">())</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>    <span class="c1"># Add to response</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>    <span class="n">response</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s1">&#39;x-correlation-id&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">correlation_id</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="c1"># Add to all telemetry</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>    <span class="n">logger</span> <span class="o">=</span> <span class="n">logger</span><span class="o">.</span><span class="n">bind</span><span class="p">(</span><span class="n">correlation_id</span><span class="o">=</span><span class="n">correlation_id</span><span class="p">)</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>    <span class="n">span</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">get_current_span</span><span class="p">()</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>    <span class="k">if</span> <span class="n">span</span><span class="p">:</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="n">span</span><span class="o">.</span><span class="n">set_attribute</span><span class="p">(</span><span class="s1">&#39;correlation.id&#39;</span><span class="p">,</span> <span class="n">correlation_id</span><span class="p">)</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="c1"># Add to metrics labels (carefully - cardinality!)</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>    <span class="n">metrics</span><span class="o">.</span><span class="n">labels</span><span class="p">(</span><span class="n">correlation_id</span><span class="o">=</span><span class="n">correlation_id</span><span class="p">)</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>    <span class="k">return</span> <span class="nb">next</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Correlation ID Flow"
+        A[Request Arrives] --&gt; B{Has Correlation ID?}
+        B --&gt;|Yes| C[Extract ID]
+        B --&gt;|No| D[Generate New ID]
+
+        C --&gt; E[Propagate ID]
+        D --&gt; E
+
+        E --&gt; F[Add to Logs]
+        E --&gt; G[Add to Traces]
+        E --&gt; H[Add to Headers]
+        E --&gt; I[Pass Downstream]
+
+        I --&gt; J[Service B]
+        I --&gt; K[Service C]
+
+        J --&gt; L[Same ID in all telemetry]
+        K --&gt; L
+    end
+
+    style D fill:#fff3cd
+    style E fill:#e3f2fd
+    style L fill:#c8e6c9</code></pre>
+<p><strong>Correlation ID Best Practices:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Do</th>
+<th>Don't</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Generation</strong></td>
+<td>Use UUID v4</td>
+<td>Sequential IDs</td>
+<td>Avoid collisions</td>
+</tr>
+<tr>
+<td><strong>Propagation</strong></td>
+<td>HTTP headers</td>
+<td>Query params</td>
+<td>Security</td>
+</tr>
+<tr>
+<td><strong>Storage</strong></td>
+<td>Logs &amp; traces</td>
+<td>Metrics labels</td>
+<td>Cardinality</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td>Standard header</td>
+<td>Custom per service</td>
+<td>Consistency</td>
+</tr>
+</tbody>
+</table>
 <h3 id="2-service-dependency-mapping">2. Service Dependency Mapping<a class="headerlink" href="#2-service-dependency-mapping" title="Permanent link">&para;</a></h3>
 <p>Automatic discovery through:
 - Trace analysis (who calls whom)
@@ -9286,22 +9490,64 @@
 - Retention period
 - Query frequency</p>
 <p><strong>Optimizations:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="c1"># Limit label cardinality</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="c1"># Bad: user_id as label (millions of values)</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="c1"># Good: status_code as label (handful of values)</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="c1"># Pre-aggregate common queries</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="n">recording_rules</span><span class="p">:</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>  <span class="o">-</span> <span class="n">record</span><span class="p">:</span> <span class="n">job</span><span class="p">:</span><span class="n">request_rate5m</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="n">expr</span><span class="p">:</span> <span class="n">rate</span><span class="p">(</span><span class="n">http_requests_total</span><span class="p">[</span><span class="mi">5</span><span class="n">m</span><span class="p">])</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="c1"># Downsample old data</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="n">downsampling</span><span class="p">:</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>  <span class="o">-</span> <span class="n">resolution</span><span class="p">:</span> <span class="mi">5</span><span class="n">m</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="n">retention</span><span class="p">:</span> <span class="mi">30</span><span class="n">d</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>  <span class="o">-</span> <span class="n">resolution</span><span class="p">:</span> <span class="mi">1</span><span class="n">h</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>    <span class="n">retention</span><span class="p">:</span> <span class="mi">90</span><span class="n">d</span>
-</span></code></pre></div></p>
+<strong>Metrics Cost Optimization Strategies:</strong></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Cardinality Control"
+        A[Metric Labels] --&gt; B{Cardinality Check}
+        B --&gt;|High| C[❌ user_id&lt;br/&gt;❌ session_id&lt;br/&gt;❌ request_id]
+        B --&gt;|Low| D[✅ status_code&lt;br/&gt;✅ method&lt;br/&gt;✅ service_name]
+
+        C --&gt; E[Millions of series&lt;br/&gt;💰 Expensive]
+        D --&gt; F[Hundreds of series&lt;br/&gt;💵 Affordable]
+    end
+
+    subgraph "Data Lifecycle"
+        G[Raw Data&lt;br/&gt;1min resolution] --&gt;|7 days| H[Downsample&lt;br/&gt;5min resolution]
+        H --&gt;|30 days| I[Downsample&lt;br/&gt;1hr resolution]
+        I --&gt;|90 days| J[Archive/Delete]
+    end
+
+    style C fill:#ffcdd2
+    style D fill:#c8e6c9
+    style E fill:#ffcdd2
+    style F fill:#c8e6c9</code></pre>
+<p><strong>Cost Reduction Checklist:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Implementation</th>
+<th>Savings</th>
+<th>Impact</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Limit cardinality</td>
+<td>Remove high-cardinality labels</td>
+<td>60-80%</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Pre-aggregate</td>
+<td>Recording rules for common queries</td>
+<td>20-30%</td>
+<td>Faster queries</td>
+</tr>
+<tr>
+<td>Downsample</td>
+<td>Reduce resolution over time</td>
+<td>70-85%</td>
+<td>Lose precision</td>
+</tr>
+<tr>
+<td>Drop metrics</td>
+<td>Remove unused metrics</td>
+<td>10-30%</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Example savings:</strong>
 - Before: 10M series × 15d = $5000/month
 - After: 1M series × 15d + aggregates = $800/month</p>
@@ -9311,19 +9557,67 @@
 - Retention
 - Indexing</p>
 <p><strong>Optimizations:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Log sampling</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="k">if</span> <span class="n">log_level</span> <span class="o">==</span> <span class="s1">&#39;INFO&#39;</span> <span class="ow">and</span> <span class="n">random</span><span class="p">()</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">:</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>    <span class="k">return</span>  <span class="c1"># Sample 90% of info logs</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="c1"># Tiered storage</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="n">hot_storage</span><span class="p">:</span> <span class="mi">7</span> <span class="n">days</span> <span class="p">(</span><span class="n">SSD</span><span class="p">)</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="n">warm_storage</span><span class="p">:</span> <span class="mi">30</span> <span class="n">days</span> <span class="p">(</span><span class="n">HDD</span><span class="p">)</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">cold_storage</span><span class="p">:</span> <span class="mi">1</span> <span class="n">year</span> <span class="p">(</span><span class="n">S3</span><span class="p">)</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="c1"># Index only searchable fields</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="n">indexed_fields</span><span class="p">:</span> <span class="p">[</span><span class="n">timestamp</span><span class="p">,</span> <span class="n">level</span><span class="p">,</span> <span class="n">service</span><span class="p">,</span> <span class="n">correlation_id</span><span class="p">]</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a><span class="n">stored_fields</span><span class="p">:</span> <span class="p">[</span><span class="o">*</span><span class="p">]</span>  <span class="c1"># Store all, index few</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Log Storage Tiers"
+        A[New Logs] --&gt; B[Hot Storage&lt;br/&gt;7 days&lt;br/&gt;SSD&lt;br/&gt;Full index]
+        B --&gt; C[Warm Storage&lt;br/&gt;30 days&lt;br/&gt;HDD&lt;br/&gt;Partial index]
+        C --&gt; D[Cold Storage&lt;br/&gt;1 year&lt;br/&gt;S3&lt;br/&gt;No index]
+        D --&gt; E[Archive/Delete]
+
+        F[Search Speed] --&gt; B
+        F --&gt; G[Slower] --&gt; C
+        G --&gt; H[Very Slow] --&gt; D
+
+        I[Cost/GB] --&gt; J[$$$] --&gt; B
+        J --&gt; K[$$] --&gt; C
+        K --&gt; L[$] --&gt; D
+    end
+
+    style B fill:#ffcdd2
+    style C fill:#fff3cd
+    style D fill:#e8f5e9</code></pre></p>
+<p><strong>Log Optimization Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Log Level</th>
+<th>Sample Rate</th>
+<th>Retention</th>
+<th>Index Fields</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ERROR</td>
+<td>100%</td>
+<td>90 days</td>
+<td>All fields</td>
+<td>Debugging</td>
+</tr>
+<tr>
+<td>WARN</td>
+<td>100%</td>
+<td>30 days</td>
+<td>Most fields</td>
+<td>Monitoring</td>
+</tr>
+<tr>
+<td>INFO</td>
+<td>10%</td>
+<td>7 days</td>
+<td>Key fields</td>
+<td>Analytics</td>
+</tr>
+<tr>
+<td>DEBUG</td>
+<td>0% (dev only)</td>
+<td>1 day</td>
+<td>Minimal</td>
+<td>Development</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Example savings:</strong>
 - Before: 1TB/day × 30d = $15000/month
 - After: 100GB/day × 7d hot + S3 = $2000/month</p>
@@ -9333,51 +9627,145 @@
 - Span cardinality
 - Retention</p>
 <p><strong>Optimizations:</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Tail-based sampling</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">should_sample</span><span class="p">(</span><span class="n">trace</span><span class="p">):</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>    <span class="c1"># Always sample errors</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="k">if</span> <span class="n">trace</span><span class="o">.</span><span class="n">has_error</span><span class="p">:</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="k">return</span> <span class="kc">True</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>    <span class="c1"># Sample slow requests</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>    <span class="k">if</span> <span class="n">trace</span><span class="o">.</span><span class="n">duration</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>  <span class="c1"># 1 second</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>        <span class="k">return</span> <span class="kc">True</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>    <span class="c1"># Random sample others</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>    <span class="k">return</span> <span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.01</span>  <span class="c1"># 1%</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a><span class="c1"># Trace aggregation</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a><span class="c1"># Store full traces short-term, aggregates long-term</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Intelligent Trace Sampling"
+        A[Completed Trace] --&gt; B{Has Error?}
+        B --&gt;|Yes| C[✅ Keep 100%]
+        B --&gt;|No| D{Duration &gt; 1s?}
+
+        D --&gt;|Yes| E[✅ Keep 100%]
+        D --&gt;|No| F{Random Check}
+
+        F --&gt;|1% chance| G[✅ Keep]
+        F --&gt;|99% chance| H[❌ Drop]
+
+        C --&gt; I[Store Full Trace]
+        E --&gt; I
+        G --&gt; I
+
+        I --&gt; J[Aggregate Metrics]
+        H --&gt; J
+
+        J --&gt; K[Long-term Storage]
+    end
+
+    style C fill:#c8e6c9
+    style E fill:#c8e6c9
+    style G fill:#e8f5e9
+    style H fill:#ffebee</code></pre></p>
+<p><strong>Sampling Strategy Comparison:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Strategy</th>
+<th>Keep Rate</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Best For</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Head-based</td>
+<td>Fixed %</td>
+<td>Simple, predictable cost</td>
+<td>Might miss errors</td>
+<td>High volume</td>
+</tr>
+<tr>
+<td>Tail-based</td>
+<td>Dynamic</td>
+<td>Keeps interesting traces</td>
+<td>Higher complexity</td>
+<td>Quality over quantity</td>
+</tr>
+<tr>
+<td>Adaptive</td>
+<td>Variable</td>
+<td>Adjusts to load</td>
+<td>Complex to implement</td>
+<td>Variable traffic</td>
+</tr>
+<tr>
+<td>Always-on</td>
+<td>100% errors + sample</td>
+<td>Catches all issues</td>
+<td>Storage cost</td>
+<td>Production systems</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Example savings:</strong>
 - Before: 100% traces = $8000/month
 - After: 1% baseline + errors = $1200/month</p>
 <h2 id="troubleshooting-with-observability">Troubleshooting with Observability<a class="headerlink" href="#troubleshooting-with-observability" title="Permanent link">&para;</a></h2>
 <h3 id="investigation-flow">Investigation Flow<a class="headerlink" href="#investigation-flow" title="Permanent link">&para;</a></h3>
-<div class="language-proto highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="mf">1.</span><span class="w"> </span><span class="n">Alert</span><span class="w"> </span><span class="n">fires</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Payment service error rate high&quot;</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="mf">2.</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">metrics</span><span class="w"> </span><span class="n">dashboard</span><span class="o">:</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="n">rate</span><span class="o">:</span><span class="w"> </span><span class="mi">15</span><span class="err">%</span><span class="w"> </span><span class="p">(</span><span class="n">normal</span><span class="o">:</span><span class="w"> </span><span class="p">&lt;</span><span class="mi">1</span><span class="err">%</span><span class="p">)</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Latency</span><span class="o">:</span><span class="w"> </span><span class="na">p99</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span><span class="n">s</span><span class="w"> </span><span class="p">(</span><span class="n">normal</span><span class="o">:</span><span class="w"> </span><span class="mi">100</span><span class="n">ms</span><span class="p">)</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Started</span><span class="o">:</span><span class="w"> </span><span class="mi">10</span><span class="o">:</span><span class="mi">42</span><span class="w"> </span><span class="n">AM</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="mf">3.</span><span class="w"> </span><span class="n">Query</span><span class="w"> </span><span class="n">logs</span><span class="o">:</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Filter</span><span class="o">:</span><span class="w"> </span><span class="na">service</span><span class="o">=</span><span class="s">&quot;payment&quot;</span><span class="w"> </span><span class="na">level</span><span class="o">=</span><span class="s">&quot;error&quot;</span><span class="w"> </span><span class="err">@</span><span class="n">timestamp</span><span class="p">&gt;</span><span class="mi">10</span><span class="o">:</span><span class="mi">40</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Finding</span><span class="o">:</span><span class="w"> </span><span class="s">&quot;Database connection timeout&quot;</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Pattern</span><span class="o">:</span><span class="w"> </span><span class="n">All</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="n">from</span><span class="w"> </span><span class="n">payment</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="mi">2</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="mf">4.</span><span class="w"> </span><span class="n">Analyze</span><span class="w"> </span><span class="n">traces</span><span class="o">:</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Filter</span><span class="o">:</span><span class="w"> </span><span class="na">service</span><span class="o">=</span><span class="s">&quot;payment&quot;</span><span class="w"> </span><span class="na">error</span><span class="o">=</span><span class="kc">true</span>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Finding</span><span class="o">:</span><span class="w"> </span><span class="n">payment</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="mi">2</span><span class="w"> </span><span class="n">responding</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="mi">5</span><span class="n">s</span>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Root</span><span class="w"> </span><span class="n">span</span><span class="o">:</span><span class="w"> </span><span class="n">Database</span><span class="w"> </span><span class="n">query</span><span class="w"> </span><span class="n">stuck</span>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a><span class="mf">5.</span><span class="w"> </span><span class="n">Check</span><span class="w"> </span><span class="n">infrastructure</span><span class="o">:</span>
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">payment</span><span class="o">-</span><span class="n">db</span><span class="o">-</span><span class="mi">2</span><span class="w"> </span><span class="n">CPU</span><span class="o">:</span><span class="w"> </span><span class="mi">100</span><span class="err">%</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Disk</span><span class="w"> </span><span class="n">I</span><span class="o">/</span><span class="n">O</span><span class="o">:</span><span class="w"> </span><span class="n">Saturated</span>
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="w">   </span><span class="o">-</span><span class="w"> </span><span class="n">Finding</span><span class="o">:</span><span class="w"> </span><span class="n">Backup</span><span class="w"> </span><span class="n">job</span><span class="w"> </span><span class="n">running</span>
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a><span class="n">Resolution</span><span class="o">:</span><span class="w"> </span><span class="n">Kill</span><span class="w"> </span><span class="n">backup</span><span class="w"> </span><span class="n">job</span><span class="p">,</span><span class="w"> </span><span class="n">reschedule</span><span class="w"> </span><span class="n">for</span><span class="w"> </span><span class="n">off</span><span class="o">-</span><span class="n">peak</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Troubleshooting Flow"
+        A[🚨 Alert: High Error Rate] --&gt; B[📊 Check Metrics]
+        B --&gt; C[Error: 15%&lt;br/&gt;Latency: 5s&lt;br/&gt;Start: 10:42]
+
+        C --&gt; D[📝 Query Logs]
+        D --&gt; E["Database timeout"&lt;br/&gt;From: payment-db-2]
+
+        E --&gt; F[🔍 Analyze Traces]
+        F --&gt; G[DB query: 5s&lt;br/&gt;Stuck at database]
+
+        G --&gt; H[🖥️ Check Infrastructure]
+        H --&gt; I[CPU: 100%&lt;br/&gt;Disk I/O: Saturated&lt;br/&gt;Cause: Backup job]
+
+        I --&gt; J[💡 Resolution]
+        J --&gt; K[Kill backup&lt;br/&gt;Reschedule off-peak]
+
+        K --&gt; L[✅ Service Recovered]
+    end
+
+    style A fill:#ffcdd2
+    style L fill:#c8e6c9
+    style J fill:#fff3cd</code></pre>
+<p><strong>Investigation Checklist:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Step</th>
+<th>Tool</th>
+<th>What to Look For</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1. Metrics</td>
+<td>Grafana</td>
+<td>Error rate, latency spike</td>
+<td>30s</td>
+</tr>
+<tr>
+<td>2. Logs</td>
+<td>Kibana/Loki</td>
+<td>Error messages, patterns</td>
+<td>2min</td>
+</tr>
+<tr>
+<td>3. Traces</td>
+<td>Jaeger</td>
+<td>Slow spans, failures</td>
+<td>2min</td>
+</tr>
+<tr>
+<td>4. Infrastructure</td>
+<td>Prometheus</td>
+<td>CPU, memory, disk</td>
+<td>1min</td>
+</tr>
+<tr>
+<td>5. Dependencies</td>
+<td>Service map</td>
+<td>Upstream/downstream</td>
+<td>1min</td>
+</tr>
+</tbody>
+</table>
 <h2 id="observability-maturity">Observability Maturity<a class="headerlink" href="#observability-maturity" title="Permanent link">&para;</a></h2>
 <h3 id="level-1-reactive">Level 1: Reactive<a class="headerlink" href="#level-1-reactive" title="Permanent link">&para;</a></h3>
 <ul>

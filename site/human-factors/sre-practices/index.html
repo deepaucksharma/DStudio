@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9151,10 +9119,20 @@
 </div>
 <h2 id="error-budgets">Error Budgets<a class="headerlink" href="#error-budgets" title="Permanent link">&para;</a></h2>
 <h3 id="the-fundamental-equation">The Fundamental Equation<a class="headerlink" href="#the-fundamental-equation" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Error Budget = 100% - SLO
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>If SLO = 99.9%, Error Budget = 0.1% = 43 minutes/month
-</span></code></pre></div>
+<pre class="mermaid"><code>graph LR
+    subgraph "Error Budget Formula"
+        A[100%] --&gt; B[Minus SLO]
+        B --&gt; C[Equals Error Budget]
+    end
+
+    subgraph "Example Calculation"
+        D[SLO: 99.9%] --&gt; E[Error Budget: 0.1%]
+        E --&gt; F[43 minutes/month downtime allowed]
+    end
+
+    style A fill:#e1f5fe
+    style C fill:#ffecb3
+    style F fill:#c8e6c9</code></pre>
 <h3 id="real-world-error-budget-examples">Real-World Error Budget Examples<a class="headerlink" href="#real-world-error-budget-examples" title="Permanent link">&para;</a></h3>
 <div class="admonition example">
 <p class="admonition-title">How Companies Use Error Budgets</p>
@@ -9174,28 +9152,59 @@
 - Uses errors to test new encoding algorithms</p>
 </div>
 <h3 id="using-error-budgets">Using Error Budgets<a class="headerlink" href="#using-error-budgets" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ErrorBudgetManager</span><span class="p">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">slo_target</span><span class="p">):</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">slo_target</span> <span class="o">=</span> <span class="n">slo_target</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">error_budget</span> <span class="o">=</span> <span class="mf">1.0</span> <span class="o">-</span> <span class="n">slo_target</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">can_deploy</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">current_availability</span><span class="p">,</span> <span class="n">time_remaining</span><span class="p">):</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="c1"># Calculate burn rate</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>        <span class="n">budget_spent</span> <span class="o">=</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slo_target</span> <span class="o">-</span> <span class="n">current_availability</span><span class="p">)</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>        <span class="n">budget_remaining</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">error_budget</span> <span class="o">-</span> <span class="n">budget_spent</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>        <span class="k">if</span> <span class="n">budget_remaining</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">:</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Error budget exhausted&quot;</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>        <span class="c1"># Project if we&#39;ll have budget for incidents</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>        <span class="n">days_remaining</span> <span class="o">=</span> <span class="n">time_remaining</span><span class="o">.</span><span class="n">days</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>        <span class="n">daily_budget</span> <span class="o">=</span> <span class="n">budget_remaining</span> <span class="o">/</span> <span class="n">days_remaining</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>        <span class="k">if</span> <span class="n">daily_budget</span> <span class="o">&lt;</span> <span class="mf">0.001</span><span class="p">:</span>  <span class="c1"># Less than 1.4 min/day</span>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>            <span class="k">return</span> <span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;Insufficient budget for remainder&quot;</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20" href="#__codelineno-1-20"></a>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21" href="#__codelineno-1-21"></a>        <span class="k">return</span> <span class="kc">True</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">budget_remaining</span><span class="o">*</span><span class="mi">100</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">% budget remaining&quot;</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    A[Error Budget Manager] --&gt; B{Check Current State}
+    B --&gt; C[Calculate Budget Spent]
+    C --&gt; D[Budget Remaining = Total - Spent]
+
+    D --&gt; E{Budget &gt; 0?}
+    E --&gt;|No| F[❌ Deployment Blocked&lt;br/&gt;Error budget exhausted]
+    E --&gt;|Yes| G[Calculate Daily Budget]
+
+    G --&gt; H{Daily Budget &gt; 0.001?}
+    H --&gt;|No| I[❌ Deployment Blocked&lt;br/&gt;Insufficient budget]
+    H --&gt;|Yes| J[✅ Can Deploy&lt;br/&gt;Show remaining %]
+
+    style F fill:#ffcdd2
+    style I fill:#ffcdd2
+    style J fill:#c8e6c9</code></pre>
+<p><strong>Budget Policy Decision Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Budget Remaining</th>
+<th>Action Required</th>
+<th>Team Response</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>&lt; 0%</td>
+<td>No feature launches</td>
+<td>All hands on reliability</td>
+</tr>
+<tr>
+<td>0-25%</td>
+<td>High risk deployments only</td>
+<td>Reliability sprint</td>
+</tr>
+<tr>
+<td>25-50%</td>
+<td>Normal deployments with caution</td>
+<td>Enhanced monitoring</td>
+</tr>
+<tr>
+<td>50-100%</td>
+<td>Normal operations</td>
+<td>Innovation allowed</td>
+</tr>
+<tr>
+<td>&gt; 10% single incident</td>
+<td>Major incident</td>
+<td>Mandatory postmortem</td>
+</tr>
+</tbody>
+</table>
 <p><strong>Budget Policies:</strong>
 - No feature launches when budget exhausted
 - All hands on reliability when &lt;25% remains
@@ -9203,37 +9212,76 @@
 <h2 id="slislosla-hierarchy">SLI/SLO/SLA Hierarchy<a class="headerlink" href="#slislosla-hierarchy" title="Permanent link">&para;</a></h2>
 <h3 id="definitions">Definitions<a class="headerlink" href="#definitions" title="Permanent link">&para;</a></h3>
 <p><strong>SLI (Service Level Indicator)</strong>: What we measure
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>- Request latency
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>- Error rate
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>- Availability
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>- Durability
+<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>- Request latency
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>- Error rate
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>- Availability
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>- Durability
 </span></code></pre></div></p>
 <p><strong>SLO (Service Level Objective)</strong>: Internal target
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>- 99.9% of requests &lt; 100ms
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>- 99.95% success rate
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>- 99.99% availability
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>- 99.9% of requests &lt; 100ms
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>- 99.95% success rate
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>- 99.99% availability
 </span></code></pre></div></p>
 <p><strong>SLA (Service Level Agreement)</strong>: External promise
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>- Always set looser than SLO
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>- SLO: 99.9% → SLA: 99.5%
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>- Leaves room for error
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>- Always set looser than SLO
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>- SLO: 99.9% → SLA: 99.5%
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>- Leaves room for error
 </span></code></pre></div></p>
 <h3 id="choosing-good-slis">Choosing Good SLIs<a class="headerlink" href="#choosing-good-slis" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Bad SLI: Average latency (can hide problems)</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">avg_latency</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="n">latencies</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">latencies</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="c1"># Good SLI: Percentile latency</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="n">p95_latency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">95</span><span class="p">)</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">p99_latency</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">percentile</span><span class="p">(</span><span class="n">latencies</span><span class="p">,</span> <span class="mi">99</span><span class="p">)</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="c1"># Better SLI: User-centric metric</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="n">successful_page_loads</span> <span class="o">=</span> <span class="n">count</span><span class="p">(</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>    <span class="n">latency</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="n">ms</span> <span class="n">AND</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="n">no_errors</span> <span class="n">AND</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>    <span class="n">all_resources_loaded</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="p">)</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="n">sli</span> <span class="o">=</span> <span class="n">successful_page_loads</span> <span class="o">/</span> <span class="n">total_page_loads</span>
-</span></code></pre></div>
+<p><strong>SLI Quality Comparison Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th>SLI Type</th>
+<th>Example</th>
+<th>Pros</th>
+<th>Cons</th>
+<th>Use When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Average</strong></td>
+<td>avg(latency)</td>
+<td>Simple to calculate</td>
+<td>Hides outliers, misleading</td>
+<td>Never for user-facing metrics</td>
+</tr>
+<tr>
+<td><strong>Percentile</strong></td>
+<td>p95, p99 latency</td>
+<td>Shows tail latency</td>
+<td>Still technical metric</td>
+<td>API performance tracking</td>
+</tr>
+<tr>
+<td><strong>User-Centric</strong></td>
+<td>Successful page loads</td>
+<td>Reflects actual user experience</td>
+<td>More complex to measure</td>
+<td>Customer-facing services</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph TB
+    subgraph "User-Centric SLI Components"
+        A[Page Load Request] --&gt; B{Latency &lt; 1000ms?}
+        B --&gt;|Yes| C{No Errors?}
+        B --&gt;|No| F[Failed]
+        C --&gt;|Yes| D{All Resources Loaded?}
+        C --&gt;|No| F
+        D --&gt;|Yes| E[Success ✓]
+        D --&gt;|No| F
+
+        E --&gt; G[Count Successes]
+        F --&gt; H[Count Failures]
+
+        G --&gt; I[SLI = Successes / Total]
+        H --&gt; I
+    end
+
+    style E fill:#c8e6c9
+    style F fill:#ffcdd2</code></pre>
 <h3 id="setting-slos">Setting SLOs<a class="headerlink" href="#setting-slos" title="Permanent link">&para;</a></h3>
 <p><strong>Data-driven approach:</strong>
 1. Measure current performance
@@ -9242,10 +9290,10 @@
 4. Consider business requirements
 5. Leave headroom for degradation</p>
 <p><strong>Common SLO Targets:</strong>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="nt">User-facing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.9% (43.8 min/month)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="nt">Internal API</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.95% (21.9 min/month)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="nt">Batch jobs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99% (7.3 hours/month)</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="nt">Data pipeline</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.99% (4.4 min/month)</span>
+<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="nt">User-facing</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.9% (43.8 min/month)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="nt">Internal API</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.95% (21.9 min/month)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="nt">Batch jobs</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99% (7.3 hours/month)</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nt">Data pipeline</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">99.99% (4.4 min/month)</span>
 </span></code></pre></div></p>
 <div class="admonition warning">
 <p class="admonition-title">The Hidden Cost of Each Nine</p>
@@ -9321,51 +9369,141 @@
 </ul>
 <h3 id="toil-budget">Toil Budget<a class="headerlink" href="#toil-budget" title="Permanent link">&para;</a></h3>
 <p>Goal: &lt;50% of SRE time on toil</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ToilTracker</span><span class="p">:</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">log_toil</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task_type</span><span class="p">,</span> <span class="n">duration_minutes</span><span class="p">):</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="p">[</span><span class="n">task_type</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">task_type</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="n">duration_minutes</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">analyze</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">total_work_minutes</span><span class="p">):</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="n">toil_minutes</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>        <span class="n">toil_percentage</span> <span class="o">=</span> <span class="p">(</span><span class="n">toil_minutes</span> <span class="o">/</span> <span class="n">total_work_minutes</span><span class="p">)</span> <span class="o">*</span> <span class="mi">100</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>        <span class="c1"># Prioritize automation</span>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>        <span class="n">sorted_tasks</span> <span class="o">=</span> <span class="nb">sorted</span><span class="p">(</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">tasks</span><span class="o">.</span><span class="n">items</span><span class="p">(),</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>            <span class="n">key</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>            <span class="n">reverse</span><span class="o">=</span><span class="kc">True</span>
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a>        <span class="p">)</span>
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Toil: </span><span class="si">{</span><span class="n">toil_percentage</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2">% of time&quot;</span><span class="p">)</span>
-</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Top toil sources:&quot;</span><span class="p">)</span>
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>        <span class="k">for</span> <span class="n">task</span><span class="p">,</span> <span class="n">minutes</span> <span class="ow">in</span> <span class="n">sorted_tasks</span><span class="p">[:</span><span class="mi">5</span><span class="p">]:</span>
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>            <span class="n">hours</span> <span class="o">=</span> <span class="n">minutes</span> <span class="o">/</span> <span class="mi">60</span>
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>            <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  </span><span class="si">{</span><span class="n">task</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">hours</span><span class="si">:</span><span class="s2">.1f</span><span class="si">}</span><span class="s2"> hours/week&quot;</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Toil Tracking Process"
+        A[Log Toil Tasks] --&gt; B[Track Duration]
+        B --&gt; C[Calculate Total Toil]
+        C --&gt; D[Analyze Percentage]
+        D --&gt; E{Toil &gt; 50%?}
+        E --&gt;|Yes| F[🚨 Alert: Exceeds Target]
+        E --&gt;|No| G[✅ Within Target]
+
+        D --&gt; H[Sort by Time Spent]
+        H --&gt; I[Identify Top 5 Tasks]
+        I --&gt; J[Prioritize for Automation]
+    end
+
+    style F fill:#ffcdd2
+    style G fill:#c8e6c9
+    style J fill:#fff3cd</code></pre>
+<p><strong>Toil Analysis Dashboard:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Target</th>
+<th>Current</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Total Toil %</td>
+<td>&lt; 50%</td>
+<td>Variable</td>
+<td>Monitor</td>
+</tr>
+<tr>
+<td>Manual Deployments</td>
+<td>0</td>
+<td>Track</td>
+<td>Automate</td>
+</tr>
+<tr>
+<td>Cert Renewals</td>
+<td>0</td>
+<td>Track</td>
+<td>Automate</td>
+</tr>
+<tr>
+<td>Log Analysis</td>
+<td>&lt; 10%</td>
+<td>Track</td>
+<td>Tool needed</td>
+</tr>
+<tr>
+<td>Incident Response</td>
+<td>&lt; 20%</td>
+<td>Track</td>
+<td>Improve docs</td>
+</tr>
+</tbody>
+</table>
 <h3 id="automation-examples">Automation Examples<a class="headerlink" href="#automation-examples" title="Permanent link">&para;</a></h3>
 <p><strong>Before (Toil):</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="c1"># Manual cert renewal</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="m">1</span>.<span class="w"> </span>Check<span class="w"> </span>cert<span class="w"> </span>expiry<span class="w"> </span>dates
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="m">2</span>.<span class="w"> </span>Generate<span class="w"> </span>new<span class="w"> </span>CSR
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="m">3</span>.<span class="w"> </span>Submit<span class="w"> </span>to<span class="w"> </span>CA
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="m">4</span>.<span class="w"> </span>Download<span class="w"> </span>cert
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="m">5</span>.<span class="w"> </span>Deploy<span class="w"> </span>to<span class="w"> </span>servers
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a><span class="m">6</span>.<span class="w"> </span>Restart<span class="w"> </span>services
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Manual Process (Before)"
+        A[Check Cert Expiry] --&gt; B[Generate CSR]
+        B --&gt; C[Submit to CA]
+        C --&gt; D[Wait for Approval]
+        D --&gt; E[Download Certificate]
+        E --&gt; F[Deploy to Servers]
+        F --&gt; G[Restart Services]
+        G --&gt; H[Verify]
+
+        style A fill:#ffebee
+        style B fill:#ffebee
+        style C fill:#ffebee
+        style D fill:#ffebee
+        style E fill:#ffebee
+        style F fill:#ffebee
+        style G fill:#ffebee
+        style H fill:#ffebee
+    end</code></pre></p>
 <p><strong>After (Automated):</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Automated cert management</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="nd">@schedule</span><span class="o">.</span><span class="n">weekly</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="k">def</span><span class="w"> </span><span class="nf">renew_certificates</span><span class="p">():</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>    <span class="k">for</span> <span class="n">domain</span> <span class="ow">in</span> <span class="n">get_monitored_domains</span><span class="p">():</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>        <span class="n">cert</span> <span class="o">=</span> <span class="n">get_certificate</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="k">if</span> <span class="n">cert</span><span class="o">.</span><span class="n">expires_in_days</span> <span class="o">&lt;</span> <span class="mi">30</span><span class="p">:</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>            <span class="n">new_cert</span> <span class="o">=</span> <span class="n">acme_client</span><span class="o">.</span><span class="n">renew</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>            <span class="n">deploy_certificate</span><span class="p">(</span><span class="n">domain</span><span class="p">,</span> <span class="n">new_cert</span><span class="p">)</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>            <span class="n">graceful_reload_services</span><span class="p">(</span><span class="n">domain</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Automated Process (After)"
+        A[Weekly Cron Job] --&gt; B[Check All Domains]
+        B --&gt; C{Expires &lt; 30 days?}
+        C --&gt;|No| D[Skip]
+        C --&gt;|Yes| E[Auto-Renew via ACME]
+        E --&gt; F[Deploy Automatically]
+        F --&gt; G[Graceful Reload]
+        G --&gt; H[Log Success]
+
+        style A fill:#e8f5e9
+        style E fill:#e8f5e9
+        style F fill:#e8f5e9
+        style G fill:#e8f5e9
+        style H fill:#e8f5e9
+    end</code></pre></p>
+<p><strong>Automation Benefits:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Manual Process</th>
+<th>Automated</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Time per renewal</td>
+<td>2 hours</td>
+<td>0 minutes</td>
+<td>100% reduction</td>
+</tr>
+<tr>
+<td>Human errors</td>
+<td>~5% rate</td>
+<td>0%</td>
+<td>Zero mistakes</td>
+</tr>
+<tr>
+<td>Expired certs</td>
+<td>1-2 per year</td>
+<td>0</td>
+<td>No outages</td>
+</tr>
+<tr>
+<td>Engineer interrupts</td>
+<td>52/year</td>
+<td>0</td>
+<td>Better focus</td>
+</tr>
+</tbody>
+</table>
 <h2 id="on-call-excellence">On-Call Excellence<a class="headerlink" href="#on-call-excellence" title="Permanent link">&para;</a></h2>
 <h3 id="on-call-principles">On-Call Principles<a class="headerlink" href="#on-call-principles" title="Permanent link">&para;</a></h3>
 <ol>
@@ -9392,95 +9530,249 @@
 - 24/7 coverage with better work-life balance</p>
 </div>
 <h3 id="effective-handoffs">Effective Handoffs<a class="headerlink" href="#effective-handoffs" title="Permanent link">&para;</a></h3>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="gu">## On-Call Handoff Template</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="gs">**Outgoing:**</span> Alice
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="gs">**Incoming:**</span> Bob
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="gs">**Period:**</span> 2024-03-11 to 2024-03-18
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="gu">### Active Issues</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="k">-</span><span class="w"> </span>[P2] Elevated memory usage on cache-3 (investigating)
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="k">-</span><span class="w"> </span>[P3] Sporadic timeout errors on payment service
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a><span class="gu">### Completed Incidents</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a><span class="k">-</span><span class="w"> </span>[INC-1234] Database failover - resolved, postmortem pending
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a><span class="k">-</span><span class="w"> </span>[INC-1235] DDoS attack - mitigated with rate limiting
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a><span class="gu">### Pending Changes</span>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a><span class="k">-</span><span class="w"> </span>Tuesday: Database migration (batch-service)
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a><span class="k">-</span><span class="w"> </span>Thursday: New region deployment (us-west-2)
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a><span class="gu">### Watch Areas</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a><span class="k">-</span><span class="w"> </span>CPU on api-server-7 trending up
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a><span class="k">-</span><span class="w"> </span>Disk usage approaching 80% on log servers
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a><span class="k">-</span><span class="w"> </span>Customer complaints about slow checkout
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>
-</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a><span class="gu">### Learnings</span>
-</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a><span class="k">-</span><span class="w"> </span>Runbook for cache eviction was outdated (fixed)
-</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a><span class="k">-</span><span class="w"> </span>Need better alerting for SSL cert expiry
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TB
+    subgraph "On-Call Handoff Process"
+        A[Outgoing On-Call] --&gt; B[Document Active Issues]
+        B --&gt; C[List Completed Incidents]
+        C --&gt; D[Note Pending Changes]
+        D --&gt; E[Highlight Watch Areas]
+        E --&gt; F[Share Learnings]
+        F --&gt; G[Incoming On-Call]
+
+        G --&gt; H[Review &amp; Ask Questions]
+        H --&gt; I[Acknowledge Receipt]
+        I --&gt; J[Update On-Call Schedule]
+    end
+
+    style A fill:#e3f2fd
+    style G fill:#e3f2fd
+    style J fill:#c8e6c9</code></pre>
+<p><strong>On-Call Handoff Checklist:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Items to Cover</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Active Issues</strong></td>
+<td>• Severity level<br/>• Current status<br/>• Next actions<br/>• Relevant runbooks</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><strong>Completed Incidents</strong></td>
+<td>• Resolution summary<br/>• Follow-up needed<br/>• Postmortem scheduled</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><strong>Pending Changes</strong></td>
+<td>• Deployment schedule<br/>• Risk assessment<br/>• Rollback plans</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><strong>Watch Areas</strong></td>
+<td>• Trending metrics<br/>• Customer feedback<br/>• Resource usage</td>
+<td>☐</td>
+</tr>
+<tr>
+<td><strong>Knowledge Transfer</strong></td>
+<td>• Updated runbooks<br/>• New alerts<br/>• Lessons learned</td>
+<td>☐</td>
+</tr>
+</tbody>
+</table>
 <h3 id="alert-quality">Alert Quality<a class="headerlink" href="#alert-quality" title="Permanent link">&para;</a></h3>
 <p><strong>Good Alert:</strong>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">HighErrorRate</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">|</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="w">  </span><span class="no">rate(http_requests_total{status=~&quot;5..&quot;}[5m])</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="w">  </span><span class="no">/ rate(http_requests_total[5m]) &gt; 0.05</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="nt">for</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">2m</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="nt">labels</span><span class="p">:</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="w">  </span><span class="nt">severity</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">page</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a><span class="w">  </span><span class="nt">service</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">api</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="nt">annotations</span><span class="p">:</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">  </span><span class="nt">summary</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;High</span><span class="nv"> </span><span class="s">5xx</span><span class="nv"> </span><span class="s">error</span><span class="nv"> </span><span class="s">rate</span><span class="nv"> </span><span class="s">on</span><span class="nv"> </span><span class="s">{{</span><span class="nv"> </span><span class="s">$labels.instance</span><span class="nv"> </span><span class="s">}}&quot;</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="w">  </span><span class="nt">impact</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;Users</span><span class="nv"> </span><span class="s">experiencing</span><span class="nv"> </span><span class="s">failures&quot;</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="w">  </span><span class="nt">dashboard</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://grafana/d/api-errors&quot;</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a><span class="w">  </span><span class="nt">runbook</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;https://wiki/runbooks/high-error-rate&quot;</span>
-</span></code></pre></div></p>
+<strong>Good Alert Configuration:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Value</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alert Name</strong></td>
+<td>HighErrorRate</td>
+<td>Clear, descriptive</td>
+</tr>
+<tr>
+<td><strong>Condition</strong></td>
+<td>5xx errors &gt; 5% for 2 minutes</td>
+<td>Specific threshold with duration</td>
+</tr>
+<tr>
+<td><strong>Severity</strong></td>
+<td>page</td>
+<td>Appropriate urgency</td>
+</tr>
+<tr>
+<td><strong>Summary</strong></td>
+<td>Includes instance details</td>
+<td>Context for responder</td>
+</tr>
+<tr>
+<td><strong>Impact</strong></td>
+<td>"Users experiencing failures"</td>
+<td>Business impact clear</td>
+</tr>
+<tr>
+<td><strong>Dashboard</strong></td>
+<td>Direct link</td>
+<td>Quick investigation</td>
+</tr>
+<tr>
+<td><strong>Runbook</strong></td>
+<td>Direct link</td>
+<td>Immediate action steps</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph LR
+    subgraph "Alert Quality Criteria"
+        A[Good Alert] --&gt; B[Clear Condition]
+        A --&gt; C[Appropriate Severity]
+        A --&gt; D[Business Impact]
+        A --&gt; E[Actionable]
+        A --&gt; F[Links to Resources]
+
+        G[Bad Alert] --&gt; H[Vague Condition]
+        G --&gt; I[No Context]
+        G --&gt; J[No Actions]
+        G --&gt; K[Missing Links]
+    end
+
+    style A fill:#c8e6c9
+    style G fill:#ffcdd2</code></pre>
 <p><strong>Bad Alert:</strong>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Too noisy, no context, no action</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="nt">alert</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">CPUHigh</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="nt">expr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">cpu_usage &gt; 80</span>
-</span></code></pre></div></p>
+<strong>Bad Alert Example:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Problem</th>
+<th>Impact</th>
+<th>Fix</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>No duration requirement</td>
+<td>Fires on brief spikes</td>
+<td>Add <code>for: 5m</code></td>
+</tr>
+<tr>
+<td>No service context</td>
+<td>Don't know what's affected</td>
+<td>Add service label</td>
+</tr>
+<tr>
+<td>No severity</td>
+<td>Unclear urgency</td>
+<td>Add severity label</td>
+</tr>
+<tr>
+<td>No runbook</td>
+<td>Don't know what to do</td>
+<td>Link to runbook</td>
+</tr>
+<tr>
+<td>Arbitrary threshold</td>
+<td>May not indicate problem</td>
+<td>Base on historical data</td>
+</tr>
+</tbody>
+</table>
 <h2 id="postmortem-culture">Postmortem Culture<a class="headerlink" href="#postmortem-culture" title="Permanent link">&para;</a></h2>
 <h3 id="blameless-postmortems">Blameless Postmortems<a class="headerlink" href="#blameless-postmortems" title="Permanent link">&para;</a></h3>
 <p>Focus on systems and processes, not people.</p>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="gu">## Postmortem: Payment Service Outage</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="gs">**Date:**</span> 2024-03-15
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="gs">**Duration:**</span> 47 minutes
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="gs">**Impact:**</span> 15,000 failed transactions
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="gu">### Timeline</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="k">-</span><span class="w"> </span>14:32 - Deploy of v2.5.0 begins
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="k">-</span><span class="w"> </span>14:35 - Memory usage spikes
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a><span class="k">-</span><span class="w"> </span>14:38 - First alerts fire
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="k">-</span><span class="w"> </span>14:45 - On-call engaged
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a><span class="k">-</span><span class="w"> </span>14:52 - Root cause identified
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a><span class="k">-</span><span class="w"> </span>15:02 - Rollback initiated
-</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a><span class="k">-</span><span class="w"> </span>15:19 - Service recovered
-</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="gu">### Root Cause</span>
-</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>Memory leak in new payment validation logic.
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>Testing did not catch because:
-</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a><span class="k">1.</span> Load tests used different data patterns
-</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a><span class="k">2.</span> Staging has different memory limits
-</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="k">3.</span> Canary period too short (5 min)
-</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>
-</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a><span class="gu">### Action Items</span>
-</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a><span class="k">- [ ]</span> Add memory leak detection to CI
-</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a><span class="k">- [ ]</span> Align staging with prod configs
-</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a><span class="k">- [ ]</span> Extend canary to 30 minutes
-</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="k">- [ ]</span> Add memory-based auto-rollback
-</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>
-</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a><span class="gu">### What Went Well</span>
-</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a><span class="k">-</span><span class="w"> </span>Monitoring detected issue quickly
-</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a><span class="k">-</span><span class="w"> </span>Rollback procedure worked perfectly
-</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a><span class="k">-</span><span class="w"> </span>Team communicated effectively
-</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>
-</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="gu">### Lessons Learned</span>
-</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="k">-</span><span class="w"> </span>Need better production-like testing
-</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a><span class="k">-</span><span class="w"> </span>Canary duration matters
-</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a><span class="k">-</span><span class="w"> </span>Memory limits should be consistent
-</span></code></pre></div>
+<pre class="mermaid"><code>timeline
+    title Payment Service Outage Timeline
+
+    14:32 : Deploy v2.5.0 starts
+    14:35 : Memory usage spikes 📈
+    14:38 : First alerts fire 🚨
+    14:45 : On-call engaged 👤
+    14:52 : Root cause identified 🔍
+    15:02 : Rollback initiated 🔄
+    15:19 : Service recovered ✅</code></pre>
+<p><strong>Postmortem Analysis:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Section</th>
+<th>Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Impact</strong></td>
+<td>• 15,000 failed transactions<br/>• 47 minutes downtime<br/>• ~$150,000 revenue impact</td>
+</tr>
+<tr>
+<td><strong>Root Cause</strong></td>
+<td>Memory leak in payment validation logic</td>
+</tr>
+<tr>
+<td><strong>Contributing Factors</strong></td>
+<td>• Load tests used different data<br/>• Staging memory limits differ from prod<br/>• 5-minute canary too short</td>
+</tr>
+<tr>
+<td><strong>Detection</strong></td>
+<td>Automated monitoring (3 min to alert)</td>
+</tr>
+<tr>
+<td><strong>Resolution</strong></td>
+<td>Rollback to previous version</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Action Items with Owners:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Priority</th>
+<th>Action</th>
+<th>Owner</th>
+<th>Due Date</th>
+<th>Status</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>P0</td>
+<td>Add memory leak detection to CI</td>
+<td>Platform Team</td>
+<td>1 week</td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>P0</td>
+<td>Align staging with prod configs</td>
+<td>DevOps</td>
+<td>2 weeks</td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Extend canary to 30 minutes</td>
+<td>Release Eng</td>
+<td>1 week</td>
+<td>⏳</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>Add memory-based auto-rollback</td>
+<td>SRE Team</td>
+<td>3 weeks</td>
+<td>⏳</td>
+</tr>
+</tbody>
+</table>
 <h3 id="postmortem-metrics">Postmortem Metrics<a class="headerlink" href="#postmortem-metrics" title="Permanent link">&para;</a></h3>
 <p>Track improvement over time:
 - MTTR by category
@@ -9489,110 +9781,295 @@
 - Time to postmortem publication</p>
 <h2 id="change-management">Change Management<a class="headerlink" href="#change-management" title="Permanent link">&para;</a></h2>
 <h3 id="safe-changes">Safe Changes<a class="headerlink" href="#safe-changes" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ChangeRiskAssessor</span><span class="p">:</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">assess_risk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">change</span><span class="p">):</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>        <span class="n">risk_score</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="c1"># Size of change</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>        <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">lines_changed</span> <span class="o">&gt;</span> <span class="mi">1000</span><span class="p">:</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">3</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>        <span class="k">elif</span> <span class="n">change</span><span class="o">.</span><span class="n">lines_changed</span> <span class="o">&gt;</span> <span class="mi">100</span><span class="p">:</span>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>
-</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="c1"># Type of change</span>
-</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">touches_database</span><span class="p">:</span>
-</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13" href="#__codelineno-14-13"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">2</span>
-</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14" href="#__codelineno-14-14"></a>        <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">modifies_api</span><span class="p">:</span>
-</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15" href="#__codelineno-14-15"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">2</span>
-</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16" href="#__codelineno-14-16"></a>        <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">updates_dependencies</span><span class="p">:</span>
-</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17" href="#__codelineno-14-17"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">3</span>
-</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18" href="#__codelineno-14-18"></a>
-</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19" href="#__codelineno-14-19"></a>        <span class="c1"># Timing</span>
-</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20" href="#__codelineno-14-20"></a>        <span class="k">if</span> <span class="n">is_peak_hours</span><span class="p">():</span>
-</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21" href="#__codelineno-14-21"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">2</span>
-</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22" href="#__codelineno-14-22"></a>        <span class="k">if</span> <span class="n">is_friday</span><span class="p">():</span>
-</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23" href="#__codelineno-14-23"></a>            <span class="n">risk_score</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24" href="#__codelineno-14-24"></a>
-</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25" href="#__codelineno-14-25"></a>        <span class="c1"># Mitigation</span>
-</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26" href="#__codelineno-14-26"></a>        <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">has_feature_flag</span><span class="p">:</span>
-</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27" href="#__codelineno-14-27"></a>            <span class="n">risk_score</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28" href="#__codelineno-14-28"></a>        <span class="k">if</span> <span class="n">change</span><span class="o">.</span><span class="n">has_canary_plan</span><span class="p">:</span>
-</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29" href="#__codelineno-14-29"></a>            <span class="n">risk_score</span> <span class="o">-=</span> <span class="mi">1</span>
-</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30" href="#__codelineno-14-30"></a>
-</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31" href="#__codelineno-14-31"></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32" href="#__codelineno-14-32"></a>            <span class="s1">&#39;score&#39;</span><span class="p">:</span> <span class="n">risk_score</span><span class="p">,</span>
-</span><span id="__span-14-33"><a id="__codelineno-14-33" name="__codelineno-14-33" href="#__codelineno-14-33"></a>            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="s1">&#39;high&#39;</span> <span class="k">if</span> <span class="n">risk_score</span> <span class="o">&gt;</span> <span class="mi">5</span> <span class="k">else</span> <span class="s1">&#39;medium&#39;</span> <span class="k">if</span> <span class="n">risk_score</span> <span class="o">&gt;</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39;low&#39;</span><span class="p">,</span>
-</span><span id="__span-14-34"><a id="__codelineno-14-34" name="__codelineno-14-34" href="#__codelineno-14-34"></a>            <span class="s1">&#39;recommendation&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_recommendation</span><span class="p">(</span><span class="n">risk_score</span><span class="p">)</span>
-</span><span id="__span-14-35"><a id="__codelineno-14-35" name="__codelineno-14-35" href="#__codelineno-14-35"></a>        <span class="p">}</span>
-</span></code></pre></div>
+<p><strong>Change Risk Assessment Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Risk Factor</th>
+<th>Low Risk (+0)</th>
+<th>Medium Risk (+1-2)</th>
+<th>High Risk (+3)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Code Size</strong></td>
+<td>&lt; 100 lines</td>
+<td>100-1000 lines</td>
+<td>&gt; 1000 lines</td>
+</tr>
+<tr>
+<td><strong>Database Changes</strong></td>
+<td>No changes</td>
+<td>Schema read</td>
+<td>Schema write</td>
+</tr>
+<tr>
+<td><strong>API Changes</strong></td>
+<td>No changes</td>
+<td>Backward compatible</td>
+<td>Breaking changes</td>
+</tr>
+<tr>
+<td><strong>Dependencies</strong></td>
+<td>No updates</td>
+<td>Minor updates</td>
+<td>Major updates</td>
+</tr>
+<tr>
+<td><strong>Timing</strong></td>
+<td>Off-peak weekday</td>
+<td>Peak weekday</td>
+<td>Friday/Weekend</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Risk Mitigation Credits:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Mitigation</th>
+<th>Risk Reduction</th>
+<th>Benefit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Feature Flag</td>
+<td>-1 point</td>
+<td>Can disable without deploy</td>
+</tr>
+<tr>
+<td>Canary Plan</td>
+<td>-1 point</td>
+<td>Gradual rollout</td>
+</tr>
+<tr>
+<td>Automated Tests</td>
+<td>-1 point</td>
+<td>Confidence in changes</td>
+</tr>
+<tr>
+<td>Rollback Plan</td>
+<td>-1 point</td>
+<td>Quick recovery</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    A[Assess Change] --&gt; B[Calculate Risk Score]
+    B --&gt; C{Risk Level?}
+
+    C --&gt;|0-2 points| D[🟢 Low Risk&lt;br/&gt;Deploy anytime]
+    C --&gt;|3-5 points| E[🟡 Medium Risk&lt;br/&gt;Deploy with caution]
+    C --&gt;|6+ points| F[🔴 High Risk&lt;br/&gt;Requires approval]
+
+    F --&gt; G[Additional Requirements:&lt;br/&gt;• Executive approval&lt;br/&gt;• War room ready&lt;br/&gt;• Customer notice]
+
+    style D fill:#c8e6c9
+    style E fill:#fff3cd
+    style F fill:#ffcdd2</code></pre>
 <h3 id="progressive-rollouts">Progressive Rollouts<a class="headerlink" href="#progressive-rollouts" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>1. Dev environment (immediate)
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>   ↓
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>2. Staging environment (1 hour)
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>   ↓
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>3. Canary (1% traffic, 30 min)
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>   ↓
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>4. Phase 1 (10% traffic, 2 hours)
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a>   ↓
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a>5. Phase 2 (50% traffic, 4 hours)
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>   ↓
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>6. Full rollout (100% traffic)
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Progressive Rollout Strategy"
+        A[Dev Environment&lt;br/&gt;Immediate] --&gt; B{Tests Pass?}
+        B --&gt;|No| Z[Fix &amp; Retry]
+        B --&gt;|Yes| C[Staging Environment&lt;br/&gt;Bake: 1 hour]
+
+        C --&gt; D{Metrics OK?}
+        D --&gt;|No| Z
+        D --&gt;|Yes| E[Canary: 1% Traffic&lt;br/&gt;Monitor: 30 min]
+
+        E --&gt; F{Error Rate Normal?}
+        F --&gt;|No| Z
+        F --&gt;|Yes| G[Phase 1: 10% Traffic&lt;br/&gt;Monitor: 2 hours]
+
+        G --&gt; H{SLOs Met?}
+        H --&gt;|No| Z
+        H --&gt;|Yes| I[Phase 2: 50% Traffic&lt;br/&gt;Monitor: 4 hours]
+
+        I --&gt; J{All Good?}
+        J --&gt;|No| Z
+        J --&gt;|Yes| K[Full Rollout: 100%&lt;br/&gt;Continue Monitoring]
+
+        Z --&gt; A
+    end
+
+    style A fill:#e3f2fd
+    style K fill:#c8e6c9
+    style Z fill:#ffcdd2</code></pre>
+<p><strong>Rollout Timing Guidelines:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Stage</th>
+<th>Traffic %</th>
+<th>Duration</th>
+<th>Success Criteria</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dev</td>
+<td>0%</td>
+<td>Immediate</td>
+<td>All tests pass</td>
+</tr>
+<tr>
+<td>Staging</td>
+<td>0%</td>
+<td>1 hour</td>
+<td>No errors, performance baseline</td>
+</tr>
+<tr>
+<td>Canary</td>
+<td>1%</td>
+<td>30 min</td>
+<td>Error rate &lt; 0.1%</td>
+</tr>
+<tr>
+<td>Phase 1</td>
+<td>10%</td>
+<td>2 hours</td>
+<td>SLOs maintained</td>
+</tr>
+<tr>
+<td>Phase 2</td>
+<td>50%</td>
+<td>4 hours</td>
+<td>No customer complaints</td>
+</tr>
+<tr>
+<td>Full</td>
+<td>100%</td>
+<td>Ongoing</td>
+<td>Continuous monitoring</td>
+</tr>
+</tbody>
+</table>
 <h2 id="capacity-planning">Capacity Planning<a class="headerlink" href="#capacity-planning" title="Permanent link">&para;</a></h2>
 <h3 id="forecasting-model">Forecasting Model<a class="headerlink" href="#forecasting-model" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">capacity_forecast</span><span class="p">(</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>    <span class="n">current_usage</span><span class="p">,</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">growth_rate</span><span class="p">,</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>    <span class="n">peak_multiplier</span><span class="o">=</span><span class="mi">3</span><span class="p">,</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>    <span class="n">safety_margin</span><span class="o">=</span><span class="mf">1.4</span>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="p">):</span>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8" href="#__codelineno-16-8"></a><span class="sd">    Forecast capacity needs</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9" href="#__codelineno-16-9"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10" href="#__codelineno-16-10"></a>    <span class="n">forecasts</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11" href="#__codelineno-16-11"></a>
-</span><span id="__span-16-12"><a id="__codelineno-16-12" name="__codelineno-16-12" href="#__codelineno-16-12"></a>    <span class="k">for</span> <span class="n">months</span> <span class="ow">in</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">12</span><span class="p">]:</span>
-</span><span id="__span-16-13"><a id="__codelineno-16-13" name="__codelineno-16-13" href="#__codelineno-16-13"></a>        <span class="c1"># Compound growth</span>
-</span><span id="__span-16-14"><a id="__codelineno-16-14" name="__codelineno-16-14" href="#__codelineno-16-14"></a>        <span class="n">projected</span> <span class="o">=</span> <span class="n">current_usage</span> <span class="o">*</span> <span class="p">((</span><span class="mi">1</span> <span class="o">+</span> <span class="n">growth_rate</span><span class="p">)</span> <span class="o">**</span> <span class="n">months</span><span class="p">)</span>
-</span><span id="__span-16-15"><a id="__codelineno-16-15" name="__codelineno-16-15" href="#__codelineno-16-15"></a>
-</span><span id="__span-16-16"><a id="__codelineno-16-16" name="__codelineno-16-16" href="#__codelineno-16-16"></a>        <span class="c1"># Account for peaks</span>
-</span><span id="__span-16-17"><a id="__codelineno-16-17" name="__codelineno-16-17" href="#__codelineno-16-17"></a>        <span class="n">peak_capacity</span> <span class="o">=</span> <span class="n">projected</span> <span class="o">*</span> <span class="n">peak_multiplier</span>
-</span><span id="__span-16-18"><a id="__codelineno-16-18" name="__codelineno-16-18" href="#__codelineno-16-18"></a>
-</span><span id="__span-16-19"><a id="__codelineno-16-19" name="__codelineno-16-19" href="#__codelineno-16-19"></a>        <span class="c1"># Add safety margin</span>
-</span><span id="__span-16-20"><a id="__codelineno-16-20" name="__codelineno-16-20" href="#__codelineno-16-20"></a>        <span class="n">required</span> <span class="o">=</span> <span class="n">peak_capacity</span> <span class="o">*</span> <span class="n">safety_margin</span>
-</span><span id="__span-16-21"><a id="__codelineno-16-21" name="__codelineno-16-21" href="#__codelineno-16-21"></a>
-</span><span id="__span-16-22"><a id="__codelineno-16-22" name="__codelineno-16-22" href="#__codelineno-16-22"></a>        <span class="n">forecasts</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">months</span><span class="si">}</span><span class="s2">_month&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span>
-</span><span id="__span-16-23"><a id="__codelineno-16-23" name="__codelineno-16-23" href="#__codelineno-16-23"></a>            <span class="s1">&#39;average&#39;</span><span class="p">:</span> <span class="n">projected</span><span class="p">,</span>
-</span><span id="__span-16-24"><a id="__codelineno-16-24" name="__codelineno-16-24" href="#__codelineno-16-24"></a>            <span class="s1">&#39;peak&#39;</span><span class="p">:</span> <span class="n">peak_capacity</span><span class="p">,</span>
-</span><span id="__span-16-25"><a id="__codelineno-16-25" name="__codelineno-16-25" href="#__codelineno-16-25"></a>            <span class="s1">&#39;provision&#39;</span><span class="p">:</span> <span class="n">required</span>
-</span><span id="__span-16-26"><a id="__codelineno-16-26" name="__codelineno-16-26" href="#__codelineno-16-26"></a>        <span class="p">}</span>
-</span><span id="__span-16-27"><a id="__codelineno-16-27" name="__codelineno-16-27" href="#__codelineno-16-27"></a>
-</span><span id="__span-16-28"><a id="__codelineno-16-28" name="__codelineno-16-28" href="#__codelineno-16-28"></a>    <span class="k">return</span> <span class="n">forecasts</span>
-</span><span id="__span-16-29"><a id="__codelineno-16-29" name="__codelineno-16-29" href="#__codelineno-16-29"></a>
-</span><span id="__span-16-30"><a id="__codelineno-16-30" name="__codelineno-16-30" href="#__codelineno-16-30"></a><span class="c1"># Example</span>
-</span><span id="__span-16-31"><a id="__codelineno-16-31" name="__codelineno-16-31" href="#__codelineno-16-31"></a><span class="n">current</span> <span class="o">=</span> <span class="mi">1000</span>  <span class="c1"># requests/second</span>
-</span><span id="__span-16-32"><a id="__codelineno-16-32" name="__codelineno-16-32" href="#__codelineno-16-32"></a><span class="n">growth</span> <span class="o">=</span> <span class="mf">0.15</span>   <span class="c1"># 15% monthly</span>
-</span><span id="__span-16-33"><a id="__codelineno-16-33" name="__codelineno-16-33" href="#__codelineno-16-33"></a>
-</span><span id="__span-16-34"><a id="__codelineno-16-34" name="__codelineno-16-34" href="#__codelineno-16-34"></a><span class="n">forecast</span> <span class="o">=</span> <span class="n">capacity_forecast</span><span class="p">(</span><span class="n">current</span><span class="p">,</span> <span class="n">growth</span><span class="p">)</span>
-</span><span id="__span-16-35"><a id="__codelineno-16-35" name="__codelineno-16-35" href="#__codelineno-16-35"></a><span class="c1"># 12_month: {&#39;average&#39;: 5350, &#39;peak&#39;: 16050, &#39;provision&#39;: 22470}</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Capacity Planning Process"
+        A[Current Usage&lt;br/&gt;1000 req/s] --&gt; B[Apply Growth Rate&lt;br/&gt;15% monthly]
+        B --&gt; C[Project Future Usage]
+        C --&gt; D[Apply Peak Multiplier&lt;br/&gt;3x for spikes]
+        D --&gt; E[Add Safety Margin&lt;br/&gt;40% buffer]
+        E --&gt; F[Final Capacity Needed]
+    end
+
+    style A fill:#e3f2fd
+    style F fill:#fff3cd</code></pre>
+<p><strong>Capacity Forecast Table:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Timeframe</th>
+<th>Average Load</th>
+<th>Peak Load</th>
+<th>Provision With Safety</th>
+<th>Action Required</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Current</strong></td>
+<td>1,000 req/s</td>
+<td>3,000 req/s</td>
+<td>4,200 req/s</td>
+<td>Baseline</td>
+</tr>
+<tr>
+<td><strong>3 Months</strong></td>
+<td>1,520 req/s</td>
+<td>4,560 req/s</td>
+<td>6,384 req/s</td>
+<td>Plan scaling</td>
+</tr>
+<tr>
+<td><strong>6 Months</strong></td>
+<td>2,313 req/s</td>
+<td>6,939 req/s</td>
+<td>9,715 req/s</td>
+<td>Budget approval</td>
+</tr>
+<tr>
+<td><strong>12 Months</strong></td>
+<td>5,350 req/s</td>
+<td>16,050 req/s</td>
+<td>22,470 req/s</td>
+<td>Major expansion</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Capacity Planning Decision Points:</strong></p>
+<pre class="mermaid"><code>graph TD
+    A[Monitor Growth Rate] --&gt; B{Growth &gt; Plan?}
+    B --&gt;|Yes| C[Accelerate Scaling]
+    B --&gt;|No| D{Buffer &lt; 40%?}
+    D --&gt;|Yes| E[Add Capacity]
+    D --&gt;|No| F[Continue Monitoring]
+
+    C --&gt; G[Update Forecasts]
+    E --&gt; G
+    G --&gt; A
+
+    style C fill:#ffcdd2
+    style E fill:#fff3cd
+    style F fill:#c8e6c9</code></pre>
 <h3 id="leading-indicators">Leading Indicators<a class="headerlink" href="#leading-indicators" title="Permanent link">&para;</a></h3>
 <p>Monitor trends before they become problems:</p>
-<div class="language-sql highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="c1">-- Weekly growth rate</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="k">WITH</span><span class="w"> </span><span class="n">weekly_traffic</span><span class="w"> </span><span class="k">AS</span><span class="w"> </span><span class="p">(</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="w">  </span><span class="k">SELECT</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="w">    </span><span class="n">DATE_TRUNC</span><span class="p">(</span><span class="s1">&#39;week&#39;</span><span class="p">,</span><span class="w"> </span><span class="k">timestamp</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">week</span><span class="p">,</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="w">    </span><span class="k">COUNT</span><span class="p">(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">requests</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="w">  </span><span class="k">FROM</span><span class="w"> </span><span class="n">api_logs</span>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="w">  </span><span class="k">GROUP</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">week</span>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a><span class="p">)</span>
-</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9" href="#__codelineno-17-9"></a><span class="k">SELECT</span>
-</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10" href="#__codelineno-17-10"></a><span class="w">  </span><span class="n">week</span><span class="p">,</span>
-</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11" href="#__codelineno-17-11"></a><span class="w">  </span><span class="n">requests</span><span class="p">,</span>
-</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12" href="#__codelineno-17-12"></a><span class="w">  </span><span class="p">(</span><span class="n">requests</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">requests</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">week</span><span class="p">))</span>
-</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13" href="#__codelineno-17-13"></a><span class="w">    </span><span class="o">/</span><span class="w"> </span><span class="n">LAG</span><span class="p">(</span><span class="n">requests</span><span class="p">)</span><span class="w"> </span><span class="n">OVER</span><span class="w"> </span><span class="p">(</span><span class="k">ORDER</span><span class="w"> </span><span class="k">BY</span><span class="w"> </span><span class="n">week</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="n">growth_percent</span>
-</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14" href="#__codelineno-17-14"></a><span class="k">FROM</span><span class="w"> </span><span class="n">weekly_traffic</span><span class="p">;</span>
-</span></code></pre></div>
+<p><strong>Leading Indicators Dashboard:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Query Focus</th>
+<th>Alert Threshold</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Traffic Growth</strong></td>
+<td>Week-over-week %</td>
+<td>&gt; 20% sustained</td>
+<td>Scale planning</td>
+</tr>
+<tr>
+<td><strong>Error Rate Trend</strong></td>
+<td>7-day moving avg</td>
+<td>Increasing 3 days</td>
+<td>Investigation</td>
+</tr>
+<tr>
+<td><strong>Latency Creep</strong></td>
+<td>P99 weekly change</td>
+<td>&gt; 10% increase</td>
+<td>Performance review</td>
+</tr>
+<tr>
+<td><strong>Resource Usage</strong></td>
+<td>CPU/Memory trend</td>
+<td>&gt; 80% for 1 hour</td>
+<td>Capacity add</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>graph LR
+    subgraph "Growth Monitoring Pipeline"
+        A[Collect Metrics] --&gt; B[Calculate Trends]
+        B --&gt; C[Compare to Baseline]
+        C --&gt; D{Anomaly Detected?}
+        D --&gt;|Yes| E[Alert Team]
+        D --&gt;|No| F[Update Baseline]
+
+        E --&gt; G[Investigate Cause]
+        G --&gt; H[Adjust Capacity Plan]
+    end
+
+    style E fill:#ffcdd2
+    style H fill:#fff3cd</code></pre>
 <h2 id="sre-tools-practices">SRE Tools &amp; Practices<a class="headerlink" href="#sre-tools-practices" title="Permanent link">&para;</a></h2>
 <h3 id="chaos-engineering">Chaos Engineering<a class="headerlink" href="#chaos-engineering" title="Permanent link">&para;</a></h3>
 <p>See: <a href="../chaos-engineering/">Chaos Engineering Guide</a></p>

@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -8769,7 +8737,7 @@
 - Pro: Faster to search within topics
 - Con: What about books covering multiple topics?
 - Con: How do you keep them synchronized?</p>
-<p>That's distributed state in a nutshell!</p>
+<p>That's distributed state in a nutshell! This challenge arises from <a href="../../part1-axioms/axiom2-capacity/">Axiom 2: Capacity</a> (finite resources require distribution) and <a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a> (replicas for fault tolerance).</p>
 <hr />
 <h2 id="questions-this-pillar-answers">📋 Questions This Pillar Answers<a class="headerlink" href="#questions-this-pillar-answers" title="Permanent link">&para;</a></h2>
 <hr />
@@ -8825,7 +8793,7 @@
 <tr>
 <td><strong>Race Condition</strong></td>
 <td>Concurrent operations conflict</td>
-<td>Data corruption</td>
+<td>Data corruption (see <a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a>)</td>
 </tr>
 <tr>
 <td><strong>Lost Update</strong></td>
@@ -8917,6 +8885,7 @@
 <p><strong>Company</strong>: GitHub
 <strong>Date</strong>: October 21, 2018
 <strong>Impact</strong>: 24 hours of degraded service</p>
+<p>This incident perfectly illustrates <a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a> and the challenges of maintaining <a href="../truth/">Pillar 3: Truth</a> across distributed state.</p>
 <pre class="mermaid"><code>graph TB
     subgraph "GitHub Split-Brain Timeline"
         T1[21:52:00&lt;br/&gt;Network maintenance] --&gt; T2[21:52:27&lt;br/&gt;Network partition]
@@ -8992,6 +8961,7 @@
     style E fill:#ff6b6b,stroke:#333,stroke-width:3px</code></pre>
 <h3 id="the-cap-theorem-visualized">The CAP Theorem Visualized<a class="headerlink" href="#the-cap-theorem-visualized" title="Permanent link">&para;</a></h3>
 <h3 id="the-cap-theorem-visualized_1">The CAP Theorem Visualized<a class="headerlink" href="#the-cap-theorem-visualized_1" title="Permanent link">&para;</a></h3>
+<p>The CAP theorem directly connects to <a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> - you can't have perfect coordination (consistency) and availability during network partitions.</p>
 <pre class="mermaid"><code>graph TB
     subgraph "CAP Theorem Triangle"
         C[Consistency&lt;br/&gt;Everyone sees&lt;br/&gt;same data]
@@ -9069,7 +9039,7 @@
 <td><strong>Multi-Master</strong></td>
 <td>Any node can accept writes</td>
 <td>Eventual/Conflict</td>
-<td>Cassandra</td>
+<td>Cassandra (requires <a href="../truth/">Pillar 3: Truth</a> resolution)</td>
 </tr>
 <tr>
 <td><strong>Partitioned</strong></td>
@@ -9087,7 +9057,7 @@
 <td><strong>CRDT</strong></td>
 <td>Merge concurrent updates</td>
 <td>Strong eventual</td>
-<td>Redis CRDT</td>
+<td>Redis CRDT (see CRDT section below)</td>
 </tr>
 <tr>
 <td><strong>Event Sourced</strong></td>
@@ -9225,6 +9195,7 @@
 <h2 id="level-3-deep-dive-master-the-patterns">Level 3: Deep Dive (Master the Patterns) 🌳<a class="headerlink" href="#level-3-deep-dive-master-the-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="advanced-replication-chain-replication">Advanced Replication: Chain Replication<a class="headerlink" href="#advanced-replication-chain-replication" title="Permanent link">&para;</a></h3>
 <h3 id="advanced-replication-chain-replication-architecture">Advanced Replication: Chain Replication Architecture<a class="headerlink" href="#advanced-replication-chain-replication-architecture" title="Permanent link">&para;</a></h3>
+<p>Chain replication leverages <a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a> trade-offs - higher write latency for stronger consistency and simpler failure handling.</p>
 <pre class="mermaid"><code>graph LR
     subgraph "Chain Replication Flow"
         Client[Client]
@@ -9389,6 +9360,7 @@
 </table>
 <h3 id="vector-clocks-tracking-causality">Vector Clocks: Tracking Causality<a class="headerlink" href="#vector-clocks-tracking-causality" title="Permanent link">&para;</a></h3>
 <h3 id="vector-clocks-tracking-causality_1">Vector Clocks: Tracking Causality<a class="headerlink" href="#vector-clocks-tracking-causality_1" title="Permanent link">&para;</a></h3>
+<p>Vector clocks implement the ordering requirements from <a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a>, enabling distributed systems to reason about happened-before relationships.</p>
 <pre class="mermaid"><code>sequenceDiagram
     participant A as Node A&lt;br/&gt;[0,0,0]
     participant B as Node B&lt;br/&gt;[0,0,0]
@@ -9477,6 +9449,7 @@
     style D4 fill:#90EE90,stroke:#333,stroke-width:3px</code></pre>
 <h3 id="crdts-conflict-free-replicated-data-types">CRDTs: Conflict-Free Replicated Data Types<a class="headerlink" href="#crdts-conflict-free-replicated-data-types" title="Permanent link">&para;</a></h3>
 <h3 id="crdts-conflict-free-replicated-data-types_1">CRDTs: Conflict-Free Replicated Data Types<a class="headerlink" href="#crdts-conflict-free-replicated-data-types_1" title="Permanent link">&para;</a></h3>
+<p>CRDTs bypass <a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> overhead by ensuring all operations commute - achieving consistency without consensus (see <a href="../truth/">Pillar 3: Truth</a> for consensus alternatives).</p>
 <pre class="mermaid"><code>graph TB
     subgraph "CRDT Types"
         subgraph "State-based (CvRDT)"
@@ -9595,6 +9568,7 @@
 <h2 id="level-4-expert-production-patterns">Level 4: Expert (Production Patterns) 🌲<a class="headerlink" href="#level-4-expert-production-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="dynamodb-eventually-consistent-at-scale">DynamoDB: Eventually Consistent at Scale<a class="headerlink" href="#dynamodb-eventually-consistent-at-scale" title="Permanent link">&para;</a></h3>
 <h3 id="dynamodb-eventually-consistent-at-scale_1">DynamoDB: Eventually Consistent at Scale<a class="headerlink" href="#dynamodb-eventually-consistent-at-scale_1" title="Permanent link">&para;</a></h3>
+<p>DynamoDB exemplifies the <a href="../../part1-axioms/axiom8-economics/">Axiom 8: Economics</a> trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.</p>
 <pre class="mermaid"><code>graph TB
     subgraph "DynamoDB Architecture"
         subgraph "Consistent Hashing Ring"
@@ -9716,6 +9690,7 @@
     style RA fill:#FFB6C1</code></pre>
 <h3 id="google-spanner-globally-consistent-database">Google Spanner: Globally Consistent Database<a class="headerlink" href="#google-spanner-globally-consistent-database" title="Permanent link">&para;</a></h3>
 <h3 id="google-spanner-globally-consistent-database_1">Google Spanner: Globally Consistent Database<a class="headerlink" href="#google-spanner-globally-consistent-database_1" title="Permanent link">&para;</a></h3>
+<p>Spanner represents the pinnacle of distributed state management, using atomic clocks to tame <a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a> and achieve global consistency (detailed in <a href="../truth/">Pillar 3: Truth</a>).</p>
 <pre class="mermaid"><code>graph TB
     subgraph "Spanner Architecture"
         subgraph "TrueTime API"
@@ -10501,6 +10476,37 @@
 <hr />
 <p><strong>Next</strong>: <a href="../truth/">Pillar 3: Consensus →</a></p>
 <p><em>"State is the hardest problem in distributed systems. Everything else is just moving bytes around."</em></p>
+<h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
+<h3 id="foundational-axioms">Foundational Axioms<a class="headerlink" href="#foundational-axioms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a> - How network delays affect state consistency</li>
+<li><a href="../../part1-axioms/axiom2-capacity/">Axiom 2: Capacity</a> - Why we must distribute state</li>
+<li><a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a> - Replication for fault tolerance</li>
+<li><a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a> - Concurrent state mutations</li>
+<li><a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> - Synchronizing state updates</li>
+<li><a href="../../part1-axioms/axiom8-economics/">Axiom 8: Economics</a> - Cost of consistency levels</li>
+</ul>
+<h3 id="related-pillars">Related Pillars<a class="headerlink" href="#related-pillars" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../work/">Pillar 1: Work</a> - Stateless vs stateful computation</li>
+<li><a href="../truth/">Pillar 3: Truth</a> - Consensus on state values</li>
+<li><a href="../control/">Pillar 4: Control</a> - Orchestrating state changes</li>
+<li><a href="../intelligence/">Pillar 5: Intelligence</a> - Smart state placement</li>
+</ul>
+<h3 id="implementation-patterns">Implementation Patterns<a class="headerlink" href="#implementation-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../patterns/event-sourcing/index.md">Event Sourcing</a> - State as event log</li>
+<li><a href="../../patterns/cqrs/index.md">CQRS</a> - Separate read/write state models</li>
+<li><a href="../../patterns/sharding/index.md">Sharding</a> - Horizontal state partitioning</li>
+<li><a href="../../patterns/replication/index.md">Replication</a> - State redundancy patterns</li>
+</ul>
+<h3 id="real-world-case-studies">Real-World Case Studies<a class="headerlink" href="#real-world-case-studies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../case-studies/dynamodb/index.md">DynamoDB</a> - Amazon's distributed database</li>
+<li><a href="../../case-studies/cassandra/index.md">Cassandra</a> - Wide-column distributed store</li>
+<li><a href="../../case-studies/redis-cluster/index.md">Redis Cluster</a> - In-memory distributed state</li>
+<li><a href="../../case-studies/mongodb/index.md">MongoDB</a> - Document database sharding</li>
+</ul>
 
 
 

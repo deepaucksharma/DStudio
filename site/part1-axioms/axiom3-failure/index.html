@@ -781,8 +781,6 @@
       
         
       
-        
-      
     
     
     
@@ -838,36 +836,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9458,7 +9426,8 @@
         Result[Consensus on majority value&lt;br/&gt;despite Byzantine node]
     end
 
-    Note[Requires 3f+1 nodes to&lt;br/&gt;tolerate f Byzantine failures]</code></pre>
+    Note[Requires 3f+1 nodes to&lt;br/&gt;tolerate f Byzantine failures]
+end</code></pre>
 <h3 id="failure-detection-and-consistency">Failure Detection and Consistency<a class="headerlink" href="#failure-detection-and-consistency" title="Permanent link">&para;</a></h3>
 <div class="language-yaml highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="nt">Failure Detectors</span><span class="p">:</span>
 </span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">  </span><span class="nt">Perfect Detector (Impossible)</span><span class="p">:</span>
@@ -10466,6 +10435,56 @@
 <hr />
 <p><strong>Next</strong>: <a href="../axiom4-concurrency/">Axiom 4: Concurrency →</a></p>
 <p><em>"In distributed systems, the question isn't if failures will happen, but how your system behaves when they do."</em></p>
+<hr />
+<h2 id="related-concepts">Related Concepts<a class="headerlink" href="#related-concepts" title="Permanent link">&para;</a></h2>
+<h3 id="pillars-building-on-this-axiom">Pillars Building on This Axiom<a class="headerlink" href="#pillars-building-on-this-axiom" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../part2-pillars/work/">Work Distribution</a> - Distributing work despite partial failures</li>
+<li><a href="../../part2-pillars/state/">State Management</a> - Maintaining state consistency during failures</li>
+<li><a href="../../part2-pillars/truth/">Truth &amp; Consensus</a> - Achieving consensus when nodes fail</li>
+<li><a href="../../part2-pillars/control/">Control &amp; Ordering</a> - Maintaining control flow during partial outages</li>
+<li><a href="../../part2-pillars/intelligence/">Intelligence &amp; Learning</a> - ML-based failure prediction and mitigation</li>
+</ul>
+<h3 id="patterns-addressing-failure-challenges">Patterns Addressing Failure Challenges<a class="headerlink" href="#patterns-addressing-failure-challenges" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../patterns/circuit-breaker/">Circuit Breaker</a> - Stop cascading failures by failing fast</li>
+<li><a href="../../patterns/retry-backoff/">Retry &amp; Backoff</a> - Recover from transient failures gracefully</li>
+<li><a href="../../patterns/bulkhead/">Bulkhead</a> - Isolate failures to prevent system-wide impact</li>
+<li><a href="../../patterns/timeout/">Timeout</a> - Detect and handle unresponsive components</li>
+<li><a href="../../patterns/health-checks.md">Health Checks</a> - Proactive failure detection</li>
+<li><a href="../../patterns/chaos-engineering.md">Chaos Engineering</a> - Intentional failure injection for resilience</li>
+<li><a href="../../patterns/saga/">Saga Pattern</a> - Managing distributed transactions with failure compensation</li>
+</ul>
+<h3 id="case-studies-demonstrating-failure-handling">Case Studies Demonstrating Failure Handling<a class="headerlink" href="#case-studies-demonstrating-failure-handling" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../case-studies/netflix-chaos.md">Netflix Chaos Engineering</a> - Simian Army and production failure testing</li>
+<li><a href="../../case-studies/amazon-aurora.md">Amazon Aurora</a> - Survivable database with quorum-based replication</li>
+<li><a href="../../case-studies/google-spanner.md">Google Spanner</a> - Global consistency despite failures</li>
+<li><a href="../../case-studies/uber-ringpop.md">Uber's Ringpop</a> - Gossip-based failure detection</li>
+</ul>
+<h3 id="other-axioms-that-interact">Other Axioms That Interact<a class="headerlink" href="#other-axioms-that-interact" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../axiom1-latency/">Axiom 1: Latency</a> - Network partitions appear as infinite latency</li>
+<li><a href="../axiom2-capacity/">Axiom 2: Finite Capacity</a> - Resource exhaustion causes failures</li>
+<li><a href="../axiom4-concurrency/">Axiom 4: Concurrency</a> - Race conditions during failure recovery</li>
+<li><a href="../axiom5-coordination/">Axiom 5: Coordination</a> - Consensus algorithms handle node failures</li>
+<li><a href="../axiom6-observability/">Axiom 6: Observability</a> - Detecting and diagnosing partial failures</li>
+</ul>
+<h3 id="quantitative-tools">Quantitative Tools<a class="headerlink" href="#quantitative-tools" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../quantitative/failure-models.md">Failure Probability Models</a> - Mathematical models for system reliability</li>
+<li><a href="../../quantitative/mtbf-mttr.md">MTBF/MTTR Analysis</a> - Mean time between failures and recovery</li>
+<li><a href="../../quantitative/availability.md">Availability Calculations</a> - Computing system uptime with failures</li>
+<li><a href="../../quantitative/blast-radius.md">Blast Radius Analysis</a> - Quantifying failure impact</li>
+</ul>
+<h3 id="human-factors">Human Factors<a class="headerlink" href="#human-factors" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../human-factors/incident-response/">Incident Response</a> - Human processes for handling failures</li>
+<li><a href="../../human-factors/post-mortems.md">Post-Mortems</a> - Learning from failures without blame</li>
+<li><a href="../../human-factors/on-call.md">On-Call Practices</a> - Sustainable approaches to 24/7 operations</li>
+<li><a href="../../human-factors/runbooks.md">Runbooks</a> - Documented procedures for failure scenarios</li>
+<li><a href="../../human-factors/game-days.md">Game Days</a> - Practicing failure response</li>
+</ul>
 <hr />
 <p><strong>Next</strong>: <a href="examples/">Examples</a></p>
 <p><strong>Related</strong>: <a href="../../patterns/circuit-breaker/">Circuit Breaker</a> • <a href="../../patterns/retry-backoff/">Retry Backoff</a> • <a href="../../patterns/bulkhead/">Bulkhead</a></p>

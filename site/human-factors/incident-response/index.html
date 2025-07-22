@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9177,13 +9145,22 @@
 </tbody>
 </table>
 <h2 id="incident-response-lifecycle">Incident Response Lifecycle<a class="headerlink" href="#incident-response-lifecycle" title="Permanent link">&para;</a></h2>
-<pre class="mermaid"><code>graph LR
-    A[Detection] --&gt; B[Triage]
-    B --&gt; C[Response]
-    C --&gt; D[Recovery]
-    D --&gt; E[Analysis]
-    E --&gt; F[Improvement]
-    F --&gt; A</code></pre>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Incident Response Lifecycle"
+        A[Detection&lt;br/&gt;👀] --&gt; B[Triage&lt;br/&gt;🔍]
+        B --&gt; C[Response&lt;br/&gt;🔨]
+        C --&gt; D[Recovery&lt;br/&gt;✅]
+        D --&gt; E[Analysis&lt;br/&gt;📊]
+        E --&gt; F[Improvement&lt;br/&gt;📝]
+        F -.-&gt; A
+    end
+
+    style A fill:#ffebee
+    style B fill:#fff3cd
+    style C fill:#e3f2fd
+    style D fill:#c8e6c9
+    style E fill:#f3e5f5
+    style F fill:#e0f2f1</code></pre>
 <h2 id="key-roles">Key Roles<a class="headerlink" href="#key-roles" title="Permanent link">&para;</a></h2>
 <h3 id="1-incident-commander-ic">1. Incident Commander (IC)<a class="headerlink" href="#1-incident-commander-ic" title="Permanent link">&para;</a></h3>
 <ul>
@@ -9212,122 +9189,315 @@
 </ul>
 <h2 id="response-procedures">Response Procedures<a class="headerlink" href="#response-procedures" title="Permanent link">&para;</a></h2>
 <h3 id="initial-response-checklist">Initial Response Checklist<a class="headerlink" href="#initial-response-checklist" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">IncidentResponseChecklist</span><span class="p">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">checklist</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a>            <span class="s2">&quot;Acknowledge incident&quot;</span><span class="p">,</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>            <span class="s2">&quot;Assess severity&quot;</span><span class="p">,</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a>            <span class="s2">&quot;Assemble response team&quot;</span><span class="p">,</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>            <span class="s2">&quot;Create incident channel/bridge&quot;</span><span class="p">,</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>            <span class="s2">&quot;Begin investigation&quot;</span><span class="p">,</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a>            <span class="s2">&quot;Communicate status&quot;</span><span class="p">,</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>            <span class="s2">&quot;Implement fixes&quot;</span><span class="p">,</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a>            <span class="s2">&quot;Verify resolution&quot;</span><span class="p">,</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a>            <span class="s2">&quot;Document timeline&quot;</span><span class="p">,</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a>            <span class="s2">&quot;Schedule postmortem&quot;</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>        <span class="p">]</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">validate_response</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incident</span><span class="p">):</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a>        <span class="n">completed</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a>        <span class="n">missing</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a>        <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">checklist</span><span class="p">:</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_completed</span><span class="p">(</span><span class="n">incident</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a>                <span class="n">completed</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a>            <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>                <span class="n">missing</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a>
-</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a>            <span class="s1">&#39;completed&#39;</span><span class="p">:</span> <span class="n">completed</span><span class="p">,</span>
-</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a>            <span class="s1">&#39;missing&#39;</span><span class="p">:</span> <span class="n">missing</span><span class="p">,</span>
-</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a>            <span class="s1">&#39;compliance&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">completed</span><span class="p">)</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">checklist</span><span class="p">)</span>
-</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a>        <span class="p">}</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Initial Response Flow"
+        A[Incident Detected] --&gt; B[Acknowledge&lt;br/&gt;&lt; 5 min]
+        B --&gt; C[Assess Severity]
+        C --&gt; D{SEV Level?}
+
+        D --&gt;|SEV-1| E[All Hands&lt;br/&gt;War Room]
+        D --&gt;|SEV-2| F[Core Team&lt;br/&gt;Virtual Bridge]
+        D --&gt;|SEV-3/4| G[Normal Team&lt;br/&gt;Slack Channel]
+
+        E --&gt; H[Begin Investigation]
+        F --&gt; H
+        G --&gt; H
+
+        H --&gt; I[Status Update]
+        I --&gt; J[Implement Fix]
+        J --&gt; K[Verify Resolution]
+        K --&gt; L[Document &amp; Schedule Postmortem]
+    end
+
+    style A fill:#ffcdd2
+    style E fill:#ff5252
+    style L fill:#c8e6c9</code></pre>
+<p><strong>Response Checklist by Phase:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Phase</th>
+<th>Task</th>
+<th>Target Time</th>
+<th>Owner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Detection</strong></td>
+<td>Acknowledge alert</td>
+<td>&lt; 5 minutes</td>
+<td>On-call</td>
+</tr>
+<tr>
+<td><strong>Triage</strong></td>
+<td>Assess severity</td>
+<td>&lt; 10 minutes</td>
+<td>On-call</td>
+</tr>
+<tr>
+<td><strong>Assembly</strong></td>
+<td>Form response team</td>
+<td>&lt; 15 minutes</td>
+<td>IC</td>
+</tr>
+<tr>
+<td><strong>Communication</strong></td>
+<td>First customer update</td>
+<td>&lt; 30 minutes</td>
+<td>Comms</td>
+</tr>
+<tr>
+<td><strong>Investigation</strong></td>
+<td>Root cause analysis</td>
+<td>Ongoing</td>
+<td>Tech Lead</td>
+</tr>
+<tr>
+<td><strong>Resolution</strong></td>
+<td>Deploy fix</td>
+<td>ASAP</td>
+<td>Dev Team</td>
+</tr>
+<tr>
+<td><strong>Verification</strong></td>
+<td>Confirm fixed</td>
+<td>+15 minutes</td>
+<td>QA/Ops</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>Timeline complete</td>
+<td>+2 hours</td>
+<td>Scribe</td>
+</tr>
+</tbody>
+</table>
 <h3 id="communication-templates">Communication Templates<a class="headerlink" href="#communication-templates" title="Permanent link">&para;</a></h3>
 <h4 id="initial-customer-communication">Initial Customer Communication<a class="headerlink" href="#initial-customer-communication" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>We are currently investigating reports of [service] issues.
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Our team is actively working on the problem.
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Affected services: [list]
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>Impact: [description]
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Next update in: 30 minutes
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Status page: [link]
-</span></code></pre></div>
+<p><strong>Communication Templates:</strong></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Communication Flow"
+        A[Incident Start] --&gt; B[Initial Notice&lt;br/&gt;&lt; 30 min]
+        B --&gt; C[Regular Updates&lt;br/&gt;Every 30 min]
+        C --&gt; D[Resolution Notice&lt;br/&gt;When fixed]
+        D --&gt; E[RCA Summary&lt;br/&gt;&lt; 48 hours]
+
+        B -.-&gt; F[Customers]
+        C -.-&gt; F
+        D -.-&gt; F
+
+        B -.-&gt; G[Internal Teams]
+        C -.-&gt; G
+        D -.-&gt; G
+        E -.-&gt; G
+    end
+
+    style A fill:#ffcdd2
+    style D fill:#c8e6c9</code></pre>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>When to Use</th>
+<th>Key Elements</th>
+<th>Tone</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initial</strong></td>
+<td>First 30 min</td>
+<td>Impact, investigating, next update</td>
+<td>Acknowledge concern</td>
+</tr>
+<tr>
+<td><strong>Update</strong></td>
+<td>Every 30-60 min</td>
+<td>Progress, current state, ETA</td>
+<td>Transparent</td>
+</tr>
+<tr>
+<td><strong>Resolution</strong></td>
+<td>When fixed</td>
+<td>Duration, cause, prevention</td>
+<td>Apologetic, forward-looking</td>
+</tr>
+<tr>
+<td><strong>RCA</strong></td>
+<td>Within 48hr</td>
+<td>Deep dive, lessons, improvements</td>
+<td>Technical, honest</td>
+</tr>
+</tbody>
+</table>
 <h4 id="update-communication">Update Communication<a class="headerlink" href="#update-communication" title="Permanent link">&para;</a></h4>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>Update on [service] incident:
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>Current status: [Investigating/Identified/Monitoring]
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>Progress: [what has been done]
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>Current impact: [updated impact]
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>Next update in: [timeframe]
-</span></code></pre></div>
+<p><strong>Status Update Framework:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Status</th>
+<th>Meaning</th>
+<th>Customer Message</th>
+<th>Internal Actions</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Investigating</strong></td>
+<td>Cause unknown</td>
+<td>"We're investigating the issue"</td>
+<td>All hands debugging</td>
+</tr>
+<tr>
+<td><strong>Identified</strong></td>
+<td>Cause found</td>
+<td>"We've identified the problem"</td>
+<td>Working on fix</td>
+</tr>
+<tr>
+<td><strong>Monitoring</strong></td>
+<td>Fix deployed</td>
+<td>"A fix has been implemented"</td>
+<td>Watching metrics</td>
+</tr>
+<tr>
+<td><strong>Resolved</strong></td>
+<td>Confirmed fixed</td>
+<td>"The issue has been resolved"</td>
+<td>Start postmortem</td>
+</tr>
+</tbody>
+</table>
 <h4 id="resolution-communication">Resolution Communication<a class="headerlink" href="#resolution-communication" title="Permanent link">&para;</a></h4>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="l l-Scalar l-Scalar-Plain">The [service] incident has been resolved.</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="l l-Scalar l-Scalar-Plain">Duration</span><span class="p p-Indicator">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">start time</span><span class="p p-Indicator">]</span><span class="w"> </span><span class="err">-</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">end time</span><span class="p p-Indicator">]</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="nt">Root cause</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">brief explanation</span><span class="p p-Indicator">]</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a><span class="nt">Actions taken</span><span class="p">:</span><span class="w"> </span><span class="p p-Indicator">[</span><span class="nv">summary</span><span class="p p-Indicator">]</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a><span class="l l-Scalar l-Scalar-Plain">A detailed postmortem will follow.</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a><span class="l l-Scalar l-Scalar-Plain">Thank you for your patience.</span>
-</span></code></pre></div>
+<p><strong>Resolution Communication Guide:</strong></p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Resolution Message Components"
+        A[Clear Status] --&gt; B["✅ Incident Resolved"]
+        C[Timeline] --&gt; D["Duration: 47 minutes&lt;br/&gt;(14:32 - 15:19)"]
+        E[Impact Summary] --&gt; F["15,000 failed transactions&lt;br/&gt;Estimated revenue impact: $150k"]
+        G[Root Cause] --&gt; H["Memory leak in v2.5.0&lt;br/&gt;payment validation"]
+        I[Actions Taken] --&gt; J["1. Rolled back to v2.4.9&lt;br/&gt;2. Added monitoring&lt;br/&gt;3. Fixed root cause"]
+        K[Next Steps] --&gt; L["Postmortem: Tuesday 2pm&lt;br/&gt;Preventive measures in progress"]
+    end</code></pre>
 <h2 id="incident-response-automation">Incident Response Automation<a class="headerlink" href="#incident-response-automation" title="Permanent link">&para;</a></h2>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">IncidentAutomation</span><span class="p">:</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pagerduty</span> <span class="o">=</span> <span class="n">PagerDutyClient</span><span class="p">()</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">slack</span> <span class="o">=</span> <span class="n">SlackClient</span><span class="p">()</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">statuspage</span> <span class="o">=</span> <span class="n">StatusPageClient</span><span class="p">()</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_incident</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">alert</span><span class="p">):</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="c1"># Create PagerDuty incident</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="n">incident</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagerduty</span><span class="o">.</span><span class="n">create_incident</span><span class="p">({</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>            <span class="s1">&#39;title&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11" href="#__codelineno-4-11"></a>            <span class="s1">&#39;service&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="o">.</span><span class="n">service</span><span class="p">,</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12" href="#__codelineno-4-12"></a>            <span class="s1">&#39;urgency&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_urgency</span><span class="p">(</span><span class="n">alert</span><span class="p">)</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13" href="#__codelineno-4-13"></a>        <span class="p">})</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14" href="#__codelineno-4-14"></a>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15" href="#__codelineno-4-15"></a>        <span class="c1"># Create Slack channel</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16" href="#__codelineno-4-16"></a>        <span class="n">channel</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">slack</span><span class="o">.</span><span class="n">create_channel</span><span class="p">(</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17" href="#__codelineno-4-17"></a>            <span class="sa">f</span><span class="s2">&quot;incident-</span><span class="si">{</span><span class="n">incident</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18" href="#__codelineno-4-18"></a>            <span class="n">purpose</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Response for: </span><span class="si">{</span><span class="n">alert</span><span class="o">.</span><span class="n">title</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19" href="#__codelineno-4-19"></a>        <span class="p">)</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20" href="#__codelineno-4-20"></a>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21" href="#__codelineno-4-21"></a>        <span class="c1"># Invite on-call team</span>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22" href="#__codelineno-4-22"></a>        <span class="n">oncall</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pagerduty</span><span class="o">.</span><span class="n">get_oncall</span><span class="p">(</span><span class="n">alert</span><span class="o">.</span><span class="n">service</span><span class="p">)</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23" href="#__codelineno-4-23"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">slack</span><span class="o">.</span><span class="n">invite_users</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="n">oncall</span><span class="p">)</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24" href="#__codelineno-4-24"></a>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25" href="#__codelineno-4-25"></a>        <span class="c1"># Post initial message</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26" href="#__codelineno-4-26"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">slack</span><span class="o">.</span><span class="n">post_message</span><span class="p">(</span><span class="n">channel</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">format_incident_message</span><span class="p">(</span><span class="n">incident</span><span class="p">))</span>
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27" href="#__codelineno-4-27"></a>
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28" href="#__codelineno-4-28"></a>        <span class="c1"># Update status page</span>
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29" href="#__codelineno-4-29"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">statuspage</span><span class="o">.</span><span class="n">create_incident</span><span class="p">({</span>
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30" href="#__codelineno-4-30"></a>            <span class="s1">&#39;name&#39;</span><span class="p">:</span> <span class="n">alert</span><span class="o">.</span><span class="n">title</span><span class="p">,</span>
-</span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31" href="#__codelineno-4-31"></a>            <span class="s1">&#39;status&#39;</span><span class="p">:</span> <span class="s1">&#39;investigating&#39;</span><span class="p">,</span>
-</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32" href="#__codelineno-4-32"></a>            <span class="s1">&#39;impact&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">determine_impact</span><span class="p">(</span><span class="n">alert</span><span class="p">)</span>
-</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33" href="#__codelineno-4-33"></a>        <span class="p">})</span>
-</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34" href="#__codelineno-4-34"></a>
-</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35" href="#__codelineno-4-35"></a>        <span class="k">return</span> <span class="n">incident</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Automated Incident Creation"
+        A[Alert Triggered] --&gt; B[Create PagerDuty Incident]
+        B --&gt; C[Calculate Severity]
+        C --&gt; D[Create Slack Channel]
+        D --&gt; E[Invite On-Call Team]
+        E --&gt; F[Post Initial Status]
+        F --&gt; G[Update Status Page]
+        G --&gt; H[Start Timer]
+
+        I[Tools Integrated]
+        I --&gt; J[PagerDuty: Alerting]
+        I --&gt; K[Slack: Collaboration]
+        I --&gt; L[StatusPage: Customer Comms]
+        I --&gt; M[Jira: Tracking]
+    end
+
+    style A fill:#ffcdd2
+    style H fill:#c8e6c9</code></pre>
+<p><strong>Automation Benefits:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Task</th>
+<th>Manual Time</th>
+<th>Automated Time</th>
+<th>Time Saved</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Create incident</td>
+<td>5 minutes</td>
+<td>5 seconds</td>
+<td>98%</td>
+</tr>
+<tr>
+<td>Assemble team</td>
+<td>10 minutes</td>
+<td>30 seconds</td>
+<td>95%</td>
+</tr>
+<tr>
+<td>Initial comms</td>
+<td>15 minutes</td>
+<td>1 minute</td>
+<td>93%</td>
+</tr>
+<tr>
+<td>Status page</td>
+<td>5 minutes</td>
+<td>Instant</td>
+<td>100%</td>
+</tr>
+<tr>
+<td><strong>Total</strong></td>
+<td><strong>35 minutes</strong></td>
+<td><strong>&lt; 2 minutes</strong></td>
+<td><strong>94%</strong></td>
+</tr>
+</tbody>
+</table>
 <h2 id="on-call-best-practices">On-Call Best Practices<a class="headerlink" href="#on-call-best-practices" title="Permanent link">&para;</a></h2>
 <h3 id="1-on-call-rotation">1. On-Call Rotation<a class="headerlink" href="#1-on-call-rotation" title="Permanent link">&para;</a></h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="nt">on_call_schedule</span><span class="p">:</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="w">  </span><span class="nt">rotation_period</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">1_week</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="w">  </span><span class="nt">team_size</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">6</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="w">  </span><span class="nt">shifts</span><span class="p">:</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a><span class="w">    </span><span class="nt">primary</span><span class="p">:</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="w">      </span><span class="nt">start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monday 9:00</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">168h</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="w">    </span><span class="nt">secondary</span><span class="p">:</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="w">      </span><span class="nt">start</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monday 9:00</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="w">      </span><span class="nt">duration</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">168h</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="w">  </span><span class="nt">handoff_process</span><span class="p">:</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Review open incidents</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Discuss recent issues</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Update documentation</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a><span class="w">    </span><span class="p p-Indicator">-</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Confirm contact info</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>gantt
+    title On-Call Rotation Schedule
+    dateFormat YYYY-MM-DD
+    axisFormat %m/%d
+
+    section Primary
+    Alice    :done, p1, 2024-03-04, 7d
+    Bob      :active, p2, 2024-03-11, 7d
+    Carol    :p3, 2024-03-18, 7d
+    Dave     :p4, 2024-03-25, 7d
+
+    section Secondary
+    Eve      :done, s1, 2024-03-04, 7d
+    Frank    :active, s2, 2024-03-11, 7d
+    Alice    :s3, 2024-03-18, 7d
+    Bob      :s4, 2024-03-25, 7d</code></pre>
+<p><strong>On-Call Best Practices:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Practice</th>
+<th>Rationale</th>
+<th>Implementation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>6+ person rotation</strong></td>
+<td>Prevents burnout</td>
+<td>Max 1 week/month</td>
+</tr>
+<tr>
+<td><strong>Primary + Secondary</strong></td>
+<td>Backup coverage</td>
+<td>Escalation path</td>
+</tr>
+<tr>
+<td><strong>Weekday handoffs</strong></td>
+<td>Fresh for weekend</td>
+<td>Monday 9am</td>
+</tr>
+<tr>
+<td><strong>Compensation</strong></td>
+<td>Respect the burden</td>
+<td>Time off or pay</td>
+</tr>
+<tr>
+<td><strong>Documentation</strong></td>
+<td>Knowledge transfer</td>
+<td>Handoff checklist</td>
+</tr>
+</tbody>
+</table>
 <h3 id="2-on-call-kit">2. On-Call Kit<a class="headerlink" href="#2-on-call-kit" title="Permanent link">&para;</a></h3>
 <ul>
 <li>Laptop with VPN access</li>
@@ -9337,84 +9507,116 @@
 <li>Emergency contact list</li>
 </ul>
 <h3 id="3-escalation-policies">3. Escalation Policies<a class="headerlink" href="#3-escalation-policies" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">EscalationPolicy</span><span class="p">:</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">levels</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            <span class="p">{</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>                <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span>  <span class="c1"># minutes</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>                <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;primary_oncall&#39;</span><span class="p">]</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>            <span class="p">},</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>            <span class="p">{</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>                <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>                <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;secondary_oncall&#39;</span><span class="p">,</span> <span class="s1">&#39;team_lead&#39;</span><span class="p">]</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>            <span class="p">},</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>            <span class="p">{</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>                <span class="s1">&#39;timeout&#39;</span><span class="p">:</span> <span class="mi">15</span><span class="p">,</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>                <span class="s1">&#39;targets&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;director&#39;</span><span class="p">,</span> <span class="s1">&#39;vp_engineering&#39;</span><span class="p">]</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>            <span class="p">}</span>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>        <span class="p">]</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_escalation_targets</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incident_age_minutes</span><span class="p">):</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>        <span class="n">targets</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>        <span class="k">for</span> <span class="n">level</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">levels</span><span class="p">:</span>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>            <span class="k">if</span> <span class="n">incident_age_minutes</span> <span class="o">&gt;=</span> <span class="n">level</span><span class="p">[</span><span class="s1">&#39;timeout&#39;</span><span class="p">]:</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a>                <span class="n">targets</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">level</span><span class="p">[</span><span class="s1">&#39;targets&#39;</span><span class="p">])</span>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">targets</span><span class="p">))</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Escalation Flow"
+        A[Alert Fires] --&gt; B[Page Primary&lt;br/&gt;T+0 min]
+        B --&gt; C{Acknowledged?}
+        C --&gt;|No in 5min| D[Page Secondary&lt;br/&gt;+ Team Lead&lt;br/&gt;T+5 min]
+        C --&gt;|Yes| Z[Incident Handled]
+
+        D --&gt; E{Acknowledged?}
+        E --&gt;|No in 5min| F[Page Director&lt;br/&gt;+ VP Engineering&lt;br/&gt;T+10 min]
+        E --&gt;|Yes| Z
+
+        F --&gt; G{Acknowledged?}
+        G --&gt;|No in 5min| H[Page CTO&lt;br/&gt;+ CEO&lt;br/&gt;T+15 min]
+        G --&gt;|Yes| Z
+    end
+
+    style A fill:#ffcdd2
+    style H fill:#d32f2f,color:#fff
+    style Z fill:#c8e6c9</code></pre>
+<p><strong>Escalation Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Time</th>
+<th>Level</th>
+<th>Who Gets Paged</th>
+<th>Expected Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-5 min</td>
+<td>L1</td>
+<td>Primary on-call</td>
+<td>Acknowledge &amp; respond</td>
+</tr>
+<tr>
+<td>5-10 min</td>
+<td>L2</td>
+<td>Secondary + Lead</td>
+<td>Assist or take over</td>
+</tr>
+<tr>
+<td>10-15 min</td>
+<td>L3</td>
+<td>Director + VP</td>
+<td>Resource allocation</td>
+</tr>
+<tr>
+<td>15+ min</td>
+<td>L4</td>
+<td>C-Suite</td>
+<td>Business decisions</td>
+</tr>
+</tbody>
+</table>
 <h2 id="runbook-structure">Runbook Structure<a class="headerlink" href="#runbook-structure" title="Permanent link">&para;</a></h2>
-<div class="language-markdown highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="gh"># Service Name Runbook</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="gu">## Service Overview</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">-</span><span class="w"> </span>Purpose: What does this service do?
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="k">-</span><span class="w"> </span>Dependencies: What does it depend on?
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="k">-</span><span class="w"> </span>Impact: What happens when it fails?
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a><span class="gu">## Key Metrics</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="k">-</span><span class="w"> </span>Dashboard: [link]
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="k">-</span><span class="w"> </span>Key metrics to monitor:
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Request rate
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Error rate
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Latency (p50, p95, p99)
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a><span class="gu">## Common Issues</span>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="gu">### Issue 1: High Memory Usage</span>
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a><span class="gs">**Symptoms**</span>: Memory alerts, OOM kills
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a><span class="gs">**Diagnosis**</span>: Check memory metrics, heap dumps
-</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a><span class="gs">**Resolution**</span>:
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a><span class="k">1.</span> Restart service (immediate relief)
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a><span class="k">2.</span> Investigate memory leak
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a><span class="k">3.</span> Scale horizontally if needed
-</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>
-</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="gu">### Issue 2: Database Connection Exhaustion</span>
-</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a><span class="gs">**Symptoms**</span>: Connection timeout errors
-</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a><span class="gs">**Diagnosis**</span>: Check connection pool metrics
-</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a><span class="gs">**Resolution**</span>:
-</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a><span class="k">1.</span> Kill idle connections
-</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a><span class="k">2.</span> Increase connection limit
-</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a><span class="k">3.</span> Investigate connection leak
-</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
-</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a><span class="gu">## Emergency Procedures</span>
-</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a>
-</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a><span class="gu">### Rollback</span>
-</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>```bash
-</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a><span class="gh"># Get previous version</span>
-</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>kubectl rollout history deployment/service-name
-</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>
-</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a><span class="gh"># Rollback to previous</span>
-</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a>kubectl rollout undo deployment/service-name
-</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>
-</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a><span class="gh"># Rollback to specific version</span>
-</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a>kubectl rollout undo deployment/service-name --to-revision=2
-</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a>```bash
-</span><span id="__span-7-46"><a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a><span class="gu">### Emergency Scale</span>
-</span><span id="__span-7-47"><a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a>```bash
-</span><span id="__span-7-48"><a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="gh"># Scale up immediately</span>
-</span><span id="__span-7-49"><a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a>kubectl scale deployment/service-name --replicas=10
-</span><span id="__span-7-50"><a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a>
-</span><span id="__span-7-51"><a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a><span class="gh"># Auto-scale based on CPU</span>
-</span><span id="__span-7-52"><a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a>kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
-</span><span id="__span-7-53"><a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a>```text
+<div class="language-markdown highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="gh"># Service Name Runbook</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="gu">## Service Overview</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="k">-</span><span class="w"> </span>Purpose: What does this service do?
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="k">-</span><span class="w"> </span>Dependencies: What does it depend on?
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="k">-</span><span class="w"> </span>Impact: What happens when it fails?
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="gu">## Key Metrics</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="k">-</span><span class="w"> </span>Dashboard: [link]
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a><span class="k">-</span><span class="w"> </span>Key metrics to monitor:
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Request rate
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Error rate
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="w">  </span><span class="k">-</span><span class="w"> </span>Latency (p50, p95, p99)
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="gu">## Common Issues</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="gu">### Issue 1: High Memory Usage</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="gs">**Symptoms**</span>: Memory alerts, OOM kills
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="gs">**Diagnosis**</span>: Check memory metrics, heap dumps
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="gs">**Resolution**</span>:
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="k">1.</span> Restart service (immediate relief)
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="k">2.</span> Investigate memory leak
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="k">3.</span> Scale horizontally if needed
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25" href="#__codelineno-0-25"></a><span class="gu">### Issue 2: Database Connection Exhaustion</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26" href="#__codelineno-0-26"></a><span class="gs">**Symptoms**</span>: Connection timeout errors
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27" href="#__codelineno-0-27"></a><span class="gs">**Diagnosis**</span>: Check connection pool metrics
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28" href="#__codelineno-0-28"></a><span class="gs">**Resolution**</span>:
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29" href="#__codelineno-0-29"></a><span class="k">1.</span> Kill idle connections
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30" href="#__codelineno-0-30"></a><span class="k">2.</span> Increase connection limit
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31" href="#__codelineno-0-31"></a><span class="k">3.</span> Investigate connection leak
+</span><span id="__span-0-32"><a id="__codelineno-0-32" name="__codelineno-0-32" href="#__codelineno-0-32"></a>
+</span><span id="__span-0-33"><a id="__codelineno-0-33" name="__codelineno-0-33" href="#__codelineno-0-33"></a><span class="gu">## Emergency Procedures</span>
+</span><span id="__span-0-34"><a id="__codelineno-0-34" name="__codelineno-0-34" href="#__codelineno-0-34"></a>
+</span><span id="__span-0-35"><a id="__codelineno-0-35" name="__codelineno-0-35" href="#__codelineno-0-35"></a><span class="gu">### Rollback</span>
+</span><span id="__span-0-36"><a id="__codelineno-0-36" name="__codelineno-0-36" href="#__codelineno-0-36"></a>```bash
+</span><span id="__span-0-37"><a id="__codelineno-0-37" name="__codelineno-0-37" href="#__codelineno-0-37"></a><span class="gh"># Get previous version</span>
+</span><span id="__span-0-38"><a id="__codelineno-0-38" name="__codelineno-0-38" href="#__codelineno-0-38"></a>kubectl rollout history deployment/service-name
+</span><span id="__span-0-39"><a id="__codelineno-0-39" name="__codelineno-0-39" href="#__codelineno-0-39"></a>
+</span><span id="__span-0-40"><a id="__codelineno-0-40" name="__codelineno-0-40" href="#__codelineno-0-40"></a><span class="gh"># Rollback to previous</span>
+</span><span id="__span-0-41"><a id="__codelineno-0-41" name="__codelineno-0-41" href="#__codelineno-0-41"></a>kubectl rollout undo deployment/service-name
+</span><span id="__span-0-42"><a id="__codelineno-0-42" name="__codelineno-0-42" href="#__codelineno-0-42"></a>
+</span><span id="__span-0-43"><a id="__codelineno-0-43" name="__codelineno-0-43" href="#__codelineno-0-43"></a><span class="gh"># Rollback to specific version</span>
+</span><span id="__span-0-44"><a id="__codelineno-0-44" name="__codelineno-0-44" href="#__codelineno-0-44"></a>kubectl rollout undo deployment/service-name --to-revision=2
+</span><span id="__span-0-45"><a id="__codelineno-0-45" name="__codelineno-0-45" href="#__codelineno-0-45"></a>```bash
+</span><span id="__span-0-46"><a id="__codelineno-0-46" name="__codelineno-0-46" href="#__codelineno-0-46"></a><span class="gu">### Emergency Scale</span>
+</span><span id="__span-0-47"><a id="__codelineno-0-47" name="__codelineno-0-47" href="#__codelineno-0-47"></a>```bash
+</span><span id="__span-0-48"><a id="__codelineno-0-48" name="__codelineno-0-48" href="#__codelineno-0-48"></a><span class="gh"># Scale up immediately</span>
+</span><span id="__span-0-49"><a id="__codelineno-0-49" name="__codelineno-0-49" href="#__codelineno-0-49"></a>kubectl scale deployment/service-name --replicas=10
+</span><span id="__span-0-50"><a id="__codelineno-0-50" name="__codelineno-0-50" href="#__codelineno-0-50"></a>
+</span><span id="__span-0-51"><a id="__codelineno-0-51" name="__codelineno-0-51" href="#__codelineno-0-51"></a><span class="gh"># Auto-scale based on CPU</span>
+</span><span id="__span-0-52"><a id="__codelineno-0-52" name="__codelineno-0-52" href="#__codelineno-0-52"></a>kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
+</span><span id="__span-0-53"><a id="__codelineno-0-53" name="__codelineno-0-53" href="#__codelineno-0-53"></a>```text
 </span></code></pre></div>
 <h2 id="axiom-impact-analysis">Axiom Impact Analysis<a class="headerlink" href="#axiom-impact-analysis" title="Permanent link">&para;</a></h2>
 <p>How incident response connects to fundamental distributed systems axioms:</p>
@@ -9551,25 +9753,25 @@
 </tbody>
 </table>
 <h3 id="response-requirements-by-severity">Response Requirements by Severity<a class="headerlink" href="#response-requirements-by-severity" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>┌─────────────────────────────────────────────────────────────────┐
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>│ SEV-1: All Hands On Deck                                        │
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>├─────────────────────────────────────────────────────────────────┤
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>│ • Response Time: &lt; 5 minutes                                    │
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>│ • War Room: Mandatory                                           │
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>│ • Updates: Every 15 minutes                                     │
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>│ • Leadership: VP notification                                   │
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>│ • Customer Comms: Immediate                                     │
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>└─────────────────────────────────────────────────────────────────┘
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>┌─────────────────────────────────────────────────────────────────┐
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>│ SEV-2: Rapid Response                                           │
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>├─────────────────────────────────────────────────────────────────┤
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>│ • Response Time: &lt; 15 minutes                                   │
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>│ • War Room: As needed                                           │
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>│ • Updates: Every 30 minutes                                     │
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>│ • Leadership: Director notification                             │
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>│ • Customer Comms: Within 30 min                                 │
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>└─────────────────────────────────────────────────────────────────┘
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>┌─────────────────────────────────────────────────────────────────┐
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>│ SEV-1: All Hands On Deck                                        │
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>├─────────────────────────────────────────────────────────────────┤
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>│ • Response Time: &lt; 5 minutes                                    │
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>│ • War Room: Mandatory                                           │
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>│ • Updates: Every 15 minutes                                     │
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>│ • Leadership: VP notification                                   │
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>│ • Customer Comms: Immediate                                     │
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>└─────────────────────────────────────────────────────────────────┘
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>┌─────────────────────────────────────────────────────────────────┐
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>│ SEV-2: Rapid Response                                           │
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>├─────────────────────────────────────────────────────────────────┤
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>│ • Response Time: &lt; 15 minutes                                   │
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>│ • War Room: As needed                                           │
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>│ • Updates: Every 30 minutes                                     │
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>│ • Leadership: Director notification                             │
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>│ • Customer Comms: Within 30 min                                 │
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19" href="#__codelineno-1-19"></a>└─────────────────────────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="incident-metrics">Incident Metrics<a class="headerlink" href="#incident-metrics" title="Permanent link">&para;</a></h2>
 <h3 id="key-performance-indicators">Key Performance Indicators<a class="headerlink" href="#key-performance-indicators" title="Permanent link">&para;</a></h3>
@@ -9580,31 +9782,72 @@
 <li><strong>MTTF</strong> (Mean Time To Failure)</li>
 </ul>
 <h3 id="tracking-and-improvement">Tracking and Improvement<a class="headerlink" href="#tracking-and-improvement" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">IncidentMetrics</span><span class="p">:</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_mttr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incidents</span><span class="p">):</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>        <span class="n">total_time</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>            <span class="p">(</span><span class="n">inc</span><span class="o">.</span><span class="n">resolved_at</span> <span class="o">-</span> <span class="n">inc</span><span class="o">.</span><span class="n">started_at</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>            <span class="k">for</span> <span class="n">inc</span> <span class="ow">in</span> <span class="n">incidents</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="p">)</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="k">return</span> <span class="n">total_time</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">incidents</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span>  <span class="c1"># minutes</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">calculate_mtta</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incidents</span><span class="p">):</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="n">total_time</span> <span class="o">=</span> <span class="nb">sum</span><span class="p">(</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>            <span class="p">(</span><span class="n">inc</span><span class="o">.</span><span class="n">acknowledged_at</span> <span class="o">-</span> <span class="n">inc</span><span class="o">.</span><span class="n">triggered_at</span><span class="p">)</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>            <span class="k">for</span> <span class="n">inc</span> <span class="ow">in</span> <span class="n">incidents</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>        <span class="p">)</span>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>        <span class="k">return</span> <span class="n">total_time</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">incidents</span><span class="p">)</span> <span class="o">/</span> <span class="mi">60</span>  <span class="c1"># minutes</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">incidents</span><span class="p">):</span>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="k">return</span> <span class="p">{</span>
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>            <span class="s1">&#39;total_incidents&#39;</span><span class="p">:</span> <span class="nb">len</span><span class="p">(</span><span class="n">incidents</span><span class="p">),</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>            <span class="s1">&#39;mttr_minutes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_mttr</span><span class="p">(</span><span class="n">incidents</span><span class="p">),</span>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>            <span class="s1">&#39;mtta_minutes&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">calculate_mtta</span><span class="p">(</span><span class="n">incidents</span><span class="p">),</span>
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>            <span class="s1">&#39;by_severity&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_by_severity</span><span class="p">(</span><span class="n">incidents</span><span class="p">),</span>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>            <span class="s1">&#39;by_service&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">group_by_service</span><span class="p">(</span><span class="n">incidents</span><span class="p">),</span>
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>            <span class="s1">&#39;repeat_incidents&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_repeat_incidents</span><span class="p">(</span><span class="n">incidents</span><span class="p">)</span>
-</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>        <span class="p">}</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Key Incident Metrics"
+        A[Incident Triggered] --&gt;|MTTA| B[Acknowledged]
+        B --&gt;|Investigation Time| C[Root Cause Found]
+        C --&gt;|Fix Time| D[Resolution Applied]
+        D --&gt;|Verification Time| E[Incident Resolved]
+
+        A --&gt;|MTTR| E
+
+        F[MTTD: Time to Detect]
+        G[MTTA: Time to Acknowledge]
+        H[MTTR: Time to Resolve]
+        I[MTTF: Time Between Failures]
+    end
+
+    style A fill:#ffcdd2
+    style E fill:#c8e6c9</code></pre>
+<p><strong>Incident Metrics Dashboard:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Definition</th>
+<th>Target</th>
+<th>Current</th>
+<th>Trend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MTTD</strong></td>
+<td>Detection time</td>
+<td>&lt; 5 min</td>
+<td>3.2 min</td>
+<td>↓ 15%</td>
+</tr>
+<tr>
+<td><strong>MTTA</strong></td>
+<td>Acknowledge time</td>
+<td>&lt; 5 min</td>
+<td>4.1 min</td>
+<td>↓ 8%</td>
+</tr>
+<tr>
+<td><strong>MTTR</strong></td>
+<td>Resolution time</td>
+<td>&lt; 30 min</td>
+<td>28 min</td>
+<td>↓ 22%</td>
+</tr>
+<tr>
+<td><strong>MTTF</strong></td>
+<td>Between failures</td>
+<td>&gt; 720 hr</td>
+<td>892 hr</td>
+<td>↑ 18%</td>
+</tr>
+<tr>
+<td><strong>Incidents/Month</strong></td>
+<td>Total count</td>
+<td>&lt; 10</td>
+<td>7</td>
+<td>↓ 30%</td>
+</tr>
+</tbody>
+</table>
 <h2 id="communication-strategy-matrix">Communication Strategy Matrix<a class="headerlink" href="#communication-strategy-matrix" title="Permanent link">&para;</a></h2>
 <h3 id="stakeholder-communication-plan">Stakeholder Communication Plan<a class="headerlink" href="#stakeholder-communication-plan" title="Permanent link">&para;</a></h3>
 <table>
@@ -9656,22 +9899,22 @@
 </tbody>
 </table>
 <h3 id="incident-timeline-tracking">Incident Timeline Tracking<a class="headerlink" href="#incident-timeline-tracking" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>┌─────────────────────────────────────────────────────────────┐
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>│ Incident Timeline: Payment Service Outage                   │
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>├─────────────┬───────────────────────────────────────────────┤
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>│ Time        │ Event                                         │
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>├─────────────┼───────────────────────────────────────────────┤
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>│ 14:32:15    │ 🔴 First alert: High error rate (&gt;5%)       │
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>│ 14:32:45    │ 🔔 PagerDuty triggered                       │
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>│ 14:33:12    │ ✅ On-call acknowledged                      │
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>│ 14:35:00    │ 🔍 Initial investigation started             │
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a>│ 14:38:30    │ 🎯 Root cause identified: DB connection pool │
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>│ 14:40:00    │ 📢 Customer communication sent               │
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>│ 14:42:15    │ 🔧 Mitigation applied: Increased pool size   │
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>│ 14:45:00    │ 📊 Error rate dropping                       │
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>│ 14:48:00    │ ✅ Service recovered                          │
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>│ 14:55:00    │ 📝 All clear, monitoring continues           │
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>└─────────────┴───────────────────────────────────────────────┘
+<div class="language-text highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a>┌─────────────────────────────────────────────────────────────┐
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>│ Incident Timeline: Payment Service Outage                   │
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>├─────────────┬───────────────────────────────────────────────┤
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>│ Time        │ Event                                         │
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>├─────────────┼───────────────────────────────────────────────┤
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a>│ 14:32:15    │ 🔴 First alert: High error rate (&gt;5%)       │
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a>│ 14:32:45    │ 🔔 PagerDuty triggered                       │
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>│ 14:33:12    │ ✅ On-call acknowledged                      │
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a>│ 14:35:00    │ 🔍 Initial investigation started             │
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>│ 14:38:30    │ 🎯 Root cause identified: DB connection pool │
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a>│ 14:40:00    │ 📢 Customer communication sent               │
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12" href="#__codelineno-2-12"></a>│ 14:42:15    │ 🔧 Mitigation applied: Increased pool size   │
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13" href="#__codelineno-2-13"></a>│ 14:45:00    │ 📊 Error rate dropping                       │
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14" href="#__codelineno-2-14"></a>│ 14:48:00    │ ✅ Service recovered                          │
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15" href="#__codelineno-2-15"></a>│ 14:55:00    │ 📝 All clear, monitoring continues           │
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16" href="#__codelineno-2-16"></a>└─────────────┴───────────────────────────────────────────────┘
 </span></code></pre></div>
 <h2 id="role-responsibility-raci-matrix">Role Responsibility RACI Matrix<a class="headerlink" href="#role-responsibility-raci-matrix" title="Permanent link">&para;</a></h2>
 <table>

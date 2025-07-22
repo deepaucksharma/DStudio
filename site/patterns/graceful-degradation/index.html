@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -4052,6 +4020,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#degradation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Degradation Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#basic-graceful-degradation" class="md-nav__link">
     <span class="md-ellipsis">
       Basic Graceful Degradation
@@ -4079,6 +4056,24 @@
   <a href="#degradation-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       Degradation Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#degradation-state-transitions" class="md-nav__link">
+    <span class="md-ellipsis">
+      Degradation State Transitions
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feature-availability-matrix" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Availability Matrix
     </span>
   </a>
   
@@ -4122,6 +4117,15 @@
   <a href="#progressive-enhancement" class="md-nav__link">
     <span class="md-ellipsis">
       Progressive Enhancement
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#content-degradation-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Content Degradation Strategy
     </span>
   </a>
   
@@ -9025,6 +9029,30 @@
 - <strong>Electrical failure</strong>: Battery backup for essentials
 - <strong>All systems fail</strong>: Still glides to landing</p>
 <p>Your system should similarly continue operating with reduced functionality rather than crashing completely.</p>
+<h3 id="degradation-flow">Degradation Flow<a class="headerlink" href="#degradation-flow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    R[Request] --&gt; ML{ML Service Available?}
+    ML --&gt;|Yes| MLP[Personalized ML Recommendations]
+    ML --&gt;|No| C{Cache Available?}
+
+    C --&gt;|Yes| CR{Cached Recommendations?}
+    CR --&gt;|Found| CRR[Return Cached]
+    CR --&gt;|Not Found| P{Popular Items?}
+    C --&gt;|No| P
+
+    P --&gt;|Available| PR[Return Popular Items]
+    P --&gt;|Not Available| SD[Return Static Defaults]
+
+    MLP --&gt; Result[Response]
+    CRR --&gt; Result
+    PR --&gt; Result
+    SD --&gt; Result
+
+    style ML decision
+    style C decision
+    style CR decision
+    style P decision
+    style SD fill:#f96,stroke:#333,stroke-width:2px</code></pre>
 <h3 id="basic-graceful-degradation">Basic Graceful Degradation<a class="headerlink" href="#basic-graceful-degradation" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">RecommendationService</span><span class="p">:</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
@@ -9100,6 +9128,111 @@
 <td><strong>Read-Only Mode</strong></td>
 <td>Disable writes</td>
 <td>Browse but can't purchase</td>
+</tr>
+</tbody>
+</table>
+<h3 id="degradation-state-transitions">Degradation State Transitions<a class="headerlink" href="#degradation-state-transitions" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Normal: System Start
+
+    Normal --&gt; Minor: Load &gt; 70%
+    Minor --&gt; Normal: Load &lt; 60%
+
+    Minor --&gt; Moderate: Load &gt; 80%
+    Moderate --&gt; Minor: Load &lt; 70%
+
+    Moderate --&gt; Severe: Load &gt; 90%
+    Severe --&gt; Moderate: Load &lt; 80%
+
+    Severe --&gt; Emergency: Load &gt; 95%
+    Emergency --&gt; Severe: Load &lt; 85%
+
+    Emergency --&gt; [*]: System Shutdown
+
+    note right of Normal
+        All features enabled
+    end note
+
+    note right of Emergency
+        Core functions only
+        Read-only mode
+    end note</code></pre>
+<h3 id="feature-availability-matrix">Feature Availability Matrix<a class="headerlink" href="#feature-availability-matrix" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>Normal</th>
+<th>Minor</th>
+<th>Moderate</th>
+<th>Severe</th>
+<th>Emergency</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Search</td>
+<td>✓ Full</td>
+<td>✓ Full</td>
+<td>✓ Full</td>
+<td>✓ Basic</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Recommendations</td>
+<td>✓ Real-time</td>
+<td>✓ Real-time</td>
+<td>✗ Cached</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Inventory</td>
+<td>✓ Real-time</td>
+<td>✓ Real-time</td>
+<td>✗ Cached</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Reviews</td>
+<td>✓ Full</td>
+<td>✓ Full</td>
+<td>✓ Cached</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Social</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Analytics</td>
+<td>✓</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+<td>✗</td>
+</tr>
+<tr>
+<td>Images</td>
+<td>High</td>
+<td>Medium</td>
+<td>Low</td>
+<td>Text only</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Cache TTL</td>
+<td>60s</td>
+<td>5m</td>
+<td>1h</td>
+<td>24h</td>
+<td>∞</td>
 </tr>
 </tbody>
 </table>
@@ -9299,6 +9432,32 @@
 </span><span id="__span-2-88"><a id="__codelineno-2-88" name="__codelineno-2-88" href="#__codelineno-2-88"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">open_time</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 </span><span id="__span-2-89"><a id="__codelineno-2-89" name="__codelineno-2-89" href="#__codelineno-2-89"></a>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">degraded</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 </span></code></pre></div>
+<h4 id="content-degradation-strategy">Content Degradation Strategy<a class="headerlink" href="#content-degradation-strategy" title="Permanent link">&para;</a></h4>
+<pre class="mermaid"><code>graph LR
+    subgraph "Image Degradation"
+        I1[Original 4K] --&gt; I2[HD 1080p]
+        I2 --&gt; I3[SD 720p]
+        I3 --&gt; I4[Thumbnail]
+        I4 --&gt; I5[Placeholder]
+    end
+
+    subgraph "Video Degradation"
+        V1[4K Streaming] --&gt; V2[1080p]
+        V2 --&gt; V3[720p]
+        V3 --&gt; V4[480p]
+        V4 --&gt; V5[Audio Only]
+    end
+
+    subgraph "Data Degradation"
+        D1[Real-time] --&gt; D2[1min Cache]
+        D2 --&gt; D3[5min Cache]
+        D3 --&gt; D4[Hourly Snapshot]
+        D4 --&gt; D5[Daily Summary]
+    end
+
+    style I5 fill:#f96
+    style V5 fill:#f96
+    style D5 fill:#f96</code></pre>
 <h4 id="content-degradation">Content Degradation<a class="headerlink" href="#content-degradation" title="Permanent link">&para;</a></h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ContentDegradationService</span><span class="p">:</span>
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

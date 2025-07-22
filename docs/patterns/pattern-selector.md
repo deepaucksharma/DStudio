@@ -1,6 +1,6 @@
 ---
 title: Interactive Pattern Selector
-description: "Find the right distributed systems pattern for your use case with our interactive decision tool"
+description: "Find the right distributed systems pattern for your use case"
 type: tool
 difficulty: beginner
 reading_time: 10 min
@@ -13,8 +13,6 @@ last_updated: 2025-07-21
 [Home](../index.md) → [Part III: Patterns](index.md) → **Pattern Selector**
 
 # Interactive Pattern Selector
-
-**Answer a few questions to find the perfect pattern for your distributed system**
 
 > *"The right pattern at the right place can save months of development and years of operational pain."*
 
@@ -51,25 +49,17 @@ last_updated: 2025-07-21
 
 ### What Performance Challenge Do You Face?
 
-```mermaid
-graph TD
-    Perf[Performance Issue] --> Read{Read vs Write?}
-    
-    Read -->|Read Heavy| ReadOpt[Read Optimization]
-    ReadOpt --> Cache{Data Freshness?}
-    Cache -->|Seconds OK| CachePat[✅ Caching Pattern]
-    Cache -->|Real-time| CQRS_Pat[✅ CQRS Pattern]
-    
-    Read -->|Write Heavy| WriteOpt[Write Optimization]
-    WriteOpt --> Ordering{Need Ordering?}
-    Ordering -->|Yes| EventSourcing[✅ Event Sourcing]
-    Ordering -->|No| Sharding[✅ Sharding Pattern]
-    
-    Read -->|Both| Mixed[Mixed Workload]
-    Mixed --> Separate{Can Separate?}
-    Separate -->|Yes| CQRS_ES[✅ CQRS + Event Sourcing]
-    Separate -->|No| SvcMesh[✅ Service Mesh + Caching]
-```
+**Read Heavy?**  
+→ Data freshness in seconds OK? → **Caching Pattern**  
+→ Need real-time? → **CQRS Pattern**
+
+**Write Heavy?**  
+→ Need ordering? → **Event Sourcing**  
+→ No ordering? → **Sharding Pattern**
+
+**Mixed Workload?**  
+→ Can separate R/W? → **CQRS + Event Sourcing**  
+→ Cannot separate? → **Service Mesh + Caching**
 
 ### Recommended Patterns for Performance
 
@@ -164,42 +154,25 @@ graph LR
 
 ### Consistency Requirements Quiz
 
-**Answer these questions to find your consistency pattern:**
+**1. Can users see stale data?**  
+Never → Strong consistency | Few seconds → Bounded staleness | Eventually → Eventual consistency
 
-1. **Can users see stale data?**
-   - Never → Strong consistency required
-   - Few seconds → Bounded staleness
-   - Eventually → Eventual consistency
+**2. Transaction scope?**  
+Single record → Simple locking | Multiple records/one service → Local transactions | Multiple services → Saga
 
-2. **Transaction scope?**
-   - Single record → Simple locking
-   - Multiple records, one service → Local transactions
-   - Multiple services → Distributed transactions (Saga)
-
-3. **Conflict resolution?**
-   - Prevent conflicts → Pessimistic locking
-   - Detect and resolve → Optimistic locking
-   - Last write wins → Eventual consistency
+**3. Conflict resolution?**  
+Prevent → Pessimistic locking | Detect/resolve → Optimistic locking | Last write wins → Eventual consistency
 
 ### Consistency Pattern Selector
 
-```mermaid
-graph TD
-    Start[Data Consistency] --> Sync{Sync or Async?}
-    
-    Sync -->|Synchronous| Strong[Strong Consistency]
-    Strong --> Single{Single Service?}
-    Single -->|Yes| ACID[ACID Transactions]
-    Single -->|No| TwoPC[Two-Phase Commit]
-    
-    Sync -->|Asynchronous| Eventual[Eventual Consistency]
-    Eventual --> Conflict{Conflicts OK?}
-    Conflict -->|Yes| CRDT[CRDTs/Event Sourcing]
-    Conflict -->|No| Saga[Saga Pattern]
-    
-    Eventual --> Tunable[Or Tunable...]
-    Tunable --> TunableC[Tunable Consistency]
-```
+**Synchronous Requirements?**  
+→ Single service? → **ACID Transactions**  
+→ Multiple services? → **Two-Phase Commit** (avoid if possible)
+
+**Asynchronous OK?**  
+→ Conflicts acceptable? → **CRDTs/Event Sourcing**  
+→ Must prevent conflicts? → **Saga Pattern**  
+→ Variable needs? → **Tunable Consistency**
 
 ---
 
@@ -243,38 +216,22 @@ graph TD
 
 ### Generate a Custom Implementation Checklist
 
-Based on your selections, here's your implementation roadmap:
+**Example: CQRS + Event Sourcing + Service Mesh**
 
-<div class="checklist-generator">
-  <h4>Your Selected Patterns:</h4>
-  <ul id="selected-patterns">
-    <li>CQRS ✓</li>
-    <li>Event Sourcing ✓</li>
-    <li>Service Mesh (pending)</li>
-  </ul>
-  
-  <h4>Implementation Order:</h4>
-  <ol class="implementation-steps">
-    <li>
-      <strong>Week 1-2: Foundation</strong>
-      - [ ] Set up event store
-      - [ ] Define event schemas
-      - [ ] Create first aggregate
-    </li>
-    <li>
-      <strong>Week 3-4: CQRS Implementation</strong>
-      - [ ] Separate read/write models
-      - [ ] Build projection handlers
-      - [ ] Set up read store
-    </li>
-    <li>
-      <strong>Week 5-8: Service Mesh</strong>
-      - [ ] Choose mesh technology
-      - [ ] Deploy sidecar proxies
-      - [ ] Configure policies
-    </li>
-  </ol>
-</div>
+**Week 1-2: Foundation**  
+✓ Set up event store  
+✓ Define event schemas  
+✓ Create first aggregate
+
+**Week 3-4: CQRS Implementation**  
+✓ Separate read/write models  
+✓ Build projection handlers  
+✓ Set up read store
+
+**Week 5-8: Service Mesh**  
+✓ Choose mesh technology  
+✓ Deploy sidecar proxies  
+✓ Configure policies
 
 ---
 
@@ -282,26 +239,19 @@ Based on your selections, here's your implementation roadmap:
 
 ### Check Your Architecture for Issues
 
-<div class="antipattern-checker">
-  <h4>Describe your current architecture:</h4>
-  <textarea placeholder="e.g., We use CQRS with synchronous projections..."></textarea>
-  
-  <button onclick="checkAntipatterns()">Check for Anti-patterns</button>
-  
-  <div class="results" id="antipattern-results">
-    <h4>⚠️ Potential Issues Detected:</h4>
-    <ul>
-      <li>
-        <strong>Synchronous CQRS projections</strong>
-        <p>This defeats the purpose of CQRS. Consider async projections.</p>
-      </li>
-      <li>
-        <strong>Missing idempotency</strong>
-        <p>Event handlers should be idempotent to handle retries.</p>
-      </li>
-    </ul>
-  </div>
-</div>
+### Common Anti-pattern Examples
+
+**⚠️ Synchronous CQRS projections**  
+Defeats the purpose of CQRS. Use async projections.
+
+**⚠️ Missing idempotency**  
+Event handlers must be idempotent for retries.
+
+**⚠️ Distributed monolith**  
+Microservices with synchronous dependencies everywhere.
+
+**⚠️ Over-engineering**  
+Using complex patterns for simple problems.
 
 ---
 
@@ -309,41 +259,16 @@ Based on your selections, here's your implementation roadmap:
 
 ### Evolving Your Architecture
 
-```mermaid
-graph LR
-    subgraph "Current State"
-        Monolith[Monolithic App]
-    end
-    
-    subgraph "Step 1"
-        API[API Gateway]
-        Cache1[Caching]
-    end
-    
-    subgraph "Step 2"
-        Services[Microservices]
-        Queue[Message Queue]
-    end
-    
-    subgraph "Step 3"
-        CQRS_Arch[CQRS]
-        Events[Event Sourcing]
-    end
-    
-    subgraph "Step 4"
-        Mesh[Service Mesh]
-        Saga_P[Saga Pattern]
-    end
-    
-    Monolith -->|Extract APIs| API
-    API -->|Add caching| Cache1
-    Cache1 -->|Split services| Services
-    Services -->|Async comm| Queue
-    Queue -->|Separate R/W| CQRS_Arch
-    CQRS_Arch -->|Event-driven| Events
-    Events -->|Orchestration| Mesh
-    Mesh -->|Transactions| Saga_P
-```
+**Monolith → Microservices Journey**
+
+1. **Extract APIs** → API Gateway
+2. **Add caching** → Performance boost
+3. **Split services** → Microservices
+4. **Async communication** → Message Queue
+5. **Separate R/W** → CQRS
+6. **Event-driven** → Event Sourcing
+7. **Orchestration** → Service Mesh
+8. **Distributed transactions** → Saga Pattern
 
 ---
 
@@ -351,66 +276,39 @@ graph LR
 
 ### Calculate the Value of Pattern Implementation
 
-<div class="roi-calculator">
-  <h4>Pattern ROI Estimator</h4>
-  
-  **Current Metrics:**
-  - Downtime hours/month: <input type="number" value="4" />
-  - Average response time: <input type="number" value="500" />ms
-  - Development velocity: <input type="number" value="10" /> features/month
-  
-  **Pattern to Implement:** 
-  <select>
-    <option>Circuit Breaker</option>
-    <option>CQRS</option>
-    <option>Service Mesh</option>
-  </select>
-  
-  <button onclick="calculateROI()">Calculate ROI</button>
-  
-  <div class="roi-results">
-    <h4>Estimated Impact:</h4>
-    - Downtime reduction: 75% (3 hours saved)
-    - Response time improvement: 40% (200ms faster)
-    - Development velocity: +20% (2 more features/month)
-    
-    **Financial Impact:**
-    - Monthly savings: $45,000
-    - Implementation cost: $100,000
-    - Payback period: 2.2 months
-    - 12-month ROI: 440%
-  </div>
-</div>
+### Pattern ROI Example: Circuit Breaker
+
+**Current State:**
+- Downtime: 4 hours/month
+- Response time: 500ms
+- Dev velocity: 10 features/month
+
+**With Circuit Breaker:**
+- Downtime: 1 hour/month (-75%)
+- Response time: 300ms (-40%)
+- Dev velocity: 12 features/month (+20%)
+
+**Financial Impact:**
+- Monthly savings: $45,000
+- Implementation: $100,000
+- Payback: 2.2 months
+- 12-month ROI: 440%
 
 ---
 
 ## 🎓 Learning Resources by Pattern
 
-### Curated Learning Paths
+**🚀 Performance Path**
+1. Read: Caching Strategies (30 min)
+2. Lab: Implement Redis Cache (2 hrs)
+3. Read: CQRS Pattern (45 min)
+4. Project: Build CQRS Demo (4 hrs)
 
-<div class="learning-paths">
-  <div class="path-card">
-    <h4>🚀 Performance Path</h4>
-    <ol>
-      <li>Read: Caching Strategies (30 min)</li>
-      <li>Lab: Implement Redis Cache (2 hrs)</li>
-      <li>Read: CQRS Pattern (45 min)</li>
-      <li>Project: Build CQRS Demo (4 hrs)</li>
-    </ol>
-    <button>Start This Path</button>
-  </div>
-  
-  <div class="path-card">
-    <h4>🛡️ Reliability Path</h4>
-    <ol>
-      <li>Read: Circuit Breaker (20 min)</li>
-      <li>Lab: Implement Hystrix (2 hrs)</li>
-      <li>Read: Bulkhead Pattern (30 min)</li>
-      <li>Project: Chaos Testing (3 hrs)</li>
-    </ol>
-    <button>Start This Path</button>
-  </div>
-</div>
+**🛡️ Reliability Path**
+1. Read: Circuit Breaker (20 min)
+2. Lab: Implement Hystrix (2 hrs)
+3. Read: Bulkhead Pattern (30 min)
+4. Project: Chaos Testing (3 hrs)
 
 ---
 

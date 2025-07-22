@@ -1,6 +1,6 @@
 ---
 title: Pattern Comparison Guide
-description: "Compare and contrast distributed systems patterns to choose the right ones for your use case"
+description: "Compare distributed systems patterns to choose the right ones"
 type: reference
 difficulty: intermediate
 reading_time: 30 min
@@ -14,60 +14,18 @@ last_updated: 2025-07-21
 
 # Pattern Comparison Guide
 
-**Finding the right pattern for your problem - A comprehensive comparison matrix**
-
 > *"The art of architecture is not knowing all patterns, but knowing which pattern fits where."*
 
 ---
 
 ## 🎯 Pattern Categories Overview
 
-### Quick Category Guide
-
-```mermaid
-graph TB
-    subgraph "Core Patterns"
-        CQRS[CQRS]
-        QS[Queues & Streaming]
-    end
-    
-    subgraph "Data Patterns"
-        ES[Event Sourcing]
-        CDC[CDC]
-        SHARD[Sharding]
-        TC[Tunable Consistency]
-        CACHE[Caching]
-        GEO[Geo-Replication]
-        OUT[Outbox]
-    end
-    
-    subgraph "Resilience Patterns"
-        RB[Retry & Backoff]
-        CB[Circuit Breaker]
-        BH[Bulkhead]
-        TO[Timeout]
-        IR[Idempotent Receiver]
-    end
-    
-    subgraph "Coordination Patterns"
-        SAGA[Saga]
-        LE[Leader Election]
-    end
-    
-    subgraph "Operational Patterns"
-        RL[Rate Limiting]
-        AS[Auto-scaling]
-        OBS[Observability]
-        FO[FinOps]
-    end
-    
-    subgraph "Infrastructure Patterns"
-        SM[Service Mesh]
-        EDGE[Edge Computing]
-        SLESS[Serverless]
-        GQL[GraphQL Federation]
-    end
-```
+**Core**: CQRS, Queues & Streaming  
+**Data**: Event Sourcing, CDC, Sharding, Tunable Consistency, Caching, Geo-Replication, Outbox  
+**Resilience**: Retry & Backoff, Circuit Breaker, Bulkhead, Timeout, Idempotent Receiver  
+**Coordination**: Saga, Leader Election  
+**Operational**: Rate Limiting, Auto-scaling, Observability, FinOps  
+**Infrastructure**: Service Mesh, Edge Computing, Serverless, GraphQL Federation
 
 ---
 
@@ -161,17 +119,8 @@ Legend:
 
 ### Performance vs Complexity
 
-```
-High Performance ←──────────────→ High Complexity
-
-Simple                                          Complex
-├─ Caching                                      GraphQL Federation ─┤
-├─ Rate Limiting                                Service Mesh ─────┤
-├─── Timeout                                    Event Sourcing ───┤
-├──── Retry & Backoff                          Saga ─────────────┤
-├────── Circuit Breaker                        CQRS ─────────────┤
-└──────── Bulkhead                             Geo-Replication ──┘
-```
+**Simple → Complex**  
+Caching → Rate Limiting → Timeout → Retry & Backoff → Circuit Breaker → Bulkhead → CQRS → Saga → Event Sourcing → Service Mesh → GraphQL Federation → Geo-Replication
 
 ### Consistency vs Availability
 
@@ -230,22 +179,20 @@ graph TD
 
 ### Pattern Implementation & Operational Costs
 
-| Pattern | Implementation Cost | Operational Cost | Hidden Costs | ROI Timeline |
-|---------|-------------------|------------------|--------------|--------------|
-| **Low Cost Patterns** ||||
-| Timeout | 👷 | 💵 | None | Immediate |
-| Retry & Backoff | 👷 | 💵 | Increased load | 1 week |
-| Rate Limiting | 👷👷 | 💵 | Rejected requests | 2 weeks |
-| **Medium Cost Patterns** ||||
-| Caching | 👷👷 | 💵💵 | Cache invalidation complexity | 1 month |
-| Circuit Breaker | 👷👷 | 💵 | False positives | 1 month |
-| CQRS | 👷👷👷 | 💵💵 | Eventual consistency | 3 months |
-| **High Cost Patterns** ||||
-| Event Sourcing | 👷👷👷👷 | 💵💵💵 | Storage growth | 6 months |
-| Service Mesh | 👷👷👷👷 | 💵💵💵 | Operational complexity | 6 months |
-| Geo-Replication | 👷👷👷👷👷 | 💵💵💵💵 | Network costs | 12 months |
-
-*Legend: 👷 = Developer effort, 💵 = Infrastructure cost*
+| Pattern | Dev Effort | Infra Cost | Hidden Costs | ROI |
+|---------|-----------|------------|--------------|-----|
+| **Low Cost** ||||
+| Timeout | Low | Low | None | Immediate |
+| Retry & Backoff | Low | Low | Increased load | 1 week |
+| Rate Limiting | Medium | Low | Rejected requests | 2 weeks |
+| **Medium Cost** ||||
+| Caching | Medium | Medium | Cache invalidation | 1 month |
+| Circuit Breaker | Medium | Low | False positives | 1 month |
+| CQRS | High | Medium | Eventual consistency | 3 months |
+| **High Cost** ||||
+| Event Sourcing | Very High | High | Storage growth | 6 months |
+| Service Mesh | Very High | High | Operational complexity | 6 months |
+| Geo-Replication | Extreme | Very High | Network costs | 12 months |
 
 ---
 

@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9237,233 +9205,557 @@
 <p><strong>The hidden tax of distributed systems</strong></p>
 <h2 id="2-phase-commit-costs">2-Phase Commit Costs<a class="headerlink" href="#2-phase-commit-costs" title="Permanent link">&para;</a></h2>
 <p>The classic distributed transaction protocol:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="mi">3</span><span class="n">N</span> <span class="p">(</span><span class="n">prepare</span><span class="p">,</span> <span class="n">vote</span><span class="p">,</span> <span class="n">commit</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="n">Rounds</span><span class="p">:</span> <span class="mi">3</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Latency</span><span class="p">:</span> <span class="mi">3</span> <span class="err">×</span> <span class="n">RTT</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">Failure</span> <span class="n">modes</span><span class="p">:</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span> <span class="p">(</span><span class="n">coordinator</span> <span class="o">+</span> <span class="n">participants</span><span class="p">)</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">Cost</span> <span class="n">function</span><span class="p">:</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">Cost</span> <span class="o">=</span> <span class="mi">3</span><span class="n">N</span> <span class="err">×</span> <span class="n">message_cost</span> <span class="o">+</span> <span class="mi">3</span> <span class="err">×</span> <span class="n">RTT</span> <span class="err">×</span> <span class="n">latency_cost</span>
-</span></code></pre></div>
+<div class="axiom-box">
+<h4>🤝 2-Phase Commit Protocol Costs</h4>
+
+<div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">
+  <table style="width: 100%; margin-bottom: 15px;">
+    <tr style="background: #E8E5F5;">
+      <th style="padding: 10px; text-align: left;">Metric</th>
+      <th style="padding: 10px;">Value</th>
+      <th style="padding: 10px;">Explanation</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px;"><strong>Messages</strong></td>
+      <td style="padding: 10px; color: #5448C8; font-weight: bold;">3N</td>
+      <td style="padding: 10px;">prepare + vote + commit</td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px;"><strong>Rounds</strong></td>
+      <td style="padding: 10px; color: #5448C8; font-weight: bold;">3</td>
+      <td style="padding: 10px;">Sequential phases</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px;"><strong>Latency</strong></td>
+      <td style="padding: 10px; color: #FF5722; font-weight: bold;">3 × RTT</td>
+      <td style="padding: 10px;">Round-trip time per phase</td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px;"><strong>Failure modes</strong></td>
+      <td style="padding: 10px; color: #FF5722; font-weight: bold;">N + 1</td>
+      <td style="padding: 10px;">Coordinator + participants</td>
+    </tr>
+  </table>
+
+  <div style="background: white; padding: 15px; border-radius: 5px; font-family: monospace;">
+    <strong>Cost Function:</strong><br>
+    Cost = 3N × message_cost + 3 × RTT × latency_cost
+  </div>
+</div>
+</div>
+
 <h3 id="example-calculation">Example Calculation<a class="headerlink" href="#example-calculation" title="Permanent link">&para;</a></h3>
-<div class="language-proto highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="mi">5</span><span class="w"> </span><span class="n">participants</span><span class="w"> </span><span class="n">across</span><span class="w"> </span><span class="n">regions</span><span class="o">:</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="o">-</span><span class="w"> </span><span class="n">Message</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="err">$</span><span class="mf">0.01</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="mi">1000</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="o">-</span><span class="w"> </span><span class="n">RTT</span><span class="o">:</span><span class="w"> </span><span class="mi">100</span><span class="n">ms</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="o">-</span><span class="w"> </span><span class="n">Latency</span><span class="w"> </span><span class="n">cost</span><span class="o">:</span><span class="w"> </span><span class="err">$</span><span class="mi">1</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">second</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">delay</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="n">Per</span><span class="w"> </span><span class="n">transaction</span><span class="o">:</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="n">Messages</span><span class="o">:</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="err">$</span><span class="mf">0.01</span><span class="o">/</span><span class="mi">1000</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="mf">0.00015</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="n">Latency</span><span class="o">:</span><span class="w"> </span><span class="mi">300</span><span class="n">ms</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="err">$</span><span class="mi">1</span><span class="o">/</span><span class="na">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">$</span><span class="mf">0.30</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="n">Total</span><span class="o">:</span><span class="w"> </span><span class="err">~$</span><span class="mf">0.30</span><span class="w"> </span><span class="n">per</span><span class="w"> </span><span class="n">transaction</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="n">At</span><span class="w"> </span><span class="mi">1</span><span class="n">M</span><span class="w"> </span><span class="n">transactions</span><span class="o">/</span><span class="n">day</span><span class="o">:</span><span class="w"> </span><span class="err">$</span><span class="mi">300</span><span class="p">,</span><span class="mo">000</span><span class="o">/</span><span class="n">day</span><span class="err">!</span>
-</span></code></pre></div>
+<div class="failure-vignette">
+<h4>💸 Real Cost Example: Cross-Region 2PC</h4>
+
+<div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
+  <h5 style="margin: 0 0 15px 0;">Scenario: 5 participants across regions</h5>
+
+  <table style="width: 100%; margin-bottom: 15px; background: white; border-radius: 5px;">
+    <tr style="background: #FFCDD2;">
+      <th style="padding: 10px; text-align: left;">Parameter</th>
+      <th style="padding: 10px;">Value</th>
+      <th style="padding: 10px;">Calculation</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px;">Message cost</td>
+      <td style="padding: 10px;">$0.01 per 1000</td>
+      <td style="padding: 10px;">AWS pricing</td>
+    </tr>
+    <tr style="background: #FFF5F5;">
+      <td style="padding: 10px;">RTT</td>
+      <td style="padding: 10px;">100ms</td>
+      <td style="padding: 10px;">Cross-region latency</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px;">Latency cost</td>
+      <td style="padding: 10px;">$1 per second</td>
+      <td style="padding: 10px;">Business impact</td>
+    </tr>
+  </table>
+
+  <div style="background: #FFF; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+    <h5 style="margin: 0 0 10px 0;">Per Transaction Breakdown:</h5>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+      <div style="padding: 10px; background: #FFF3E0; border-radius: 5px;">
+        <strong>Messages:</strong><br>
+        15 messages × $0.01/1000 = <span style="color: #E65100;">$0.00015</span>
+      </div>
+      <div style="padding: 10px; background: #FFEBEE; border-radius: 5px;">
+        <strong>Latency:</strong><br>
+        300ms × $1/s = <span style="color: #C62828;">$0.30</span>
+      </div>
+    </div>
+    <div style="margin-top: 10px; text-align: center; font-size: 1.2em;">
+      <strong>Total per transaction: ~$0.30</strong>
+    </div>
+  </div>
+
+  <div style="background: #B71C1C; color: white; padding: 15px; border-radius: 5px; text-align: center;">
+    <strong style="font-size: 1.3em;">At 1M transactions/day = $300,000/day!</strong><br>
+    <span style="font-size: 1.1em;">Annual cost: $109.5 MILLION</span>
+  </div>
+</div>
+
+<div class="warning-note" style="margin-top: 15px; background: #FFF3E0; padding: 15px; border-left: 4px solid #FF6F00;">
+⚠️ <strong>Lesson</strong>: Cross-region coordination is extremely expensive. Design to minimize it!
+</div>
+</div>
+
 <h2 id="paxosraft-costs">Paxos/Raft Costs<a class="headerlink" href="#paxosraft-costs" title="Permanent link">&para;</a></h2>
 <p>Modern consensus protocols:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Messages</span> <span class="n">per</span> <span class="nb">round</span><span class="p">:</span> <span class="mi">2</span><span class="n">N</span> <span class="p">(</span><span class="n">propose</span> <span class="o">+</span> <span class="n">accept</span><span class="p">)</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Rounds</span> <span class="p">(</span><span class="n">normal</span><span class="p">):</span> <span class="mi">2</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">Rounds</span> <span class="p">(</span><span class="n">conflict</span><span class="p">):</span> <span class="mi">2</span> <span class="o">+</span> <span class="n">retries</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">Leader</span> <span class="n">election</span><span class="p">:</span> <span class="n">N</span><span class="err">²</span> <span class="n">messages</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">Steady</span> <span class="n">state</span><span class="p">:</span> <span class="mi">2</span><span class="n">N</span> <span class="n">messages</span><span class="o">/</span><span class="n">decision</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">During</span> <span class="n">failures</span><span class="p">:</span> <span class="n">N</span><span class="err">²</span> <span class="n">messages</span>
-</span></code></pre></div>
+<div class="decision-box">
+<h4>🏛️ Paxos/Raft Consensus Costs</h4>
+
+<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <div>
+      <h5 style="margin: 0 0 10px 0; color: #2E7D32;">Normal Operation</h5>
+      <table style="width: 100%; background: white; border-radius: 5px;">
+        <tr style="background: #C8E6C9;">
+          <td style="padding: 8px;"><strong>Messages/round</strong></td>
+          <td style="padding: 8px; text-align: right;">2N</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;"><strong>Rounds</strong></td>
+          <td style="padding: 8px; text-align: right;">2</td>
+        </tr>
+        <tr style="background: #F1F8E9;">
+          <td style="padding: 8px;"><strong>Total messages</strong></td>
+          <td style="padding: 8px; text-align: right; font-weight: bold;">2N</td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <h5 style="margin: 0 0 10px 0; color: #E65100;">During Failures</h5>
+      <table style="width: 100%; background: white; border-radius: 5px;">
+        <tr style="background: #FFE0B2;">
+          <td style="padding: 8px;"><strong>Leader election</strong></td>
+          <td style="padding: 8px; text-align: right;">N²</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;"><strong>Conflict rounds</strong></td>
+          <td style="padding: 8px; text-align: right;">2+</td>
+        </tr>
+        <tr style="background: #FFF3E0;">
+          <td style="padding: 8px;"><strong>Total messages</strong></td>
+          <td style="padding: 8px; text-align: right; font-weight: bold; color: #E65100;">N²</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; text-align: center;">
+    <svg viewBox="0 0 400 200" style="width: 100%; max-width: 400px;">
+      <!-- Title -->
+      <text x="200" y="20" text-anchor="middle" font-weight="bold">Message Complexity</text>
+
+      <!-- Normal state -->
+      <rect x="50" y="50" width="100" height="100" fill="#4CAF50" opacity="0.7"/>
+      <text x="100" y="100" text-anchor="middle" fill="white" font-weight="bold">2N</text>
+      <text x="100" y="120" text-anchor="middle" fill="white" font-size="10">Steady State</text>
+
+      <!-- Failure state -->
+      <rect x="250" y="50" width="100" height="100" fill="#FF5722" opacity="0.7"/>
+      <text x="300" y="100" text-anchor="middle" fill="white" font-weight="bold">N²</text>
+      <text x="300" y="120" text-anchor="middle" fill="white" font-size="10">Failures</text>
+
+      <!-- Arrow -->
+      <path d="M 150 100 L 250 100" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+      <text x="200" y="90" text-anchor="middle" font-size="10">Failure occurs</text>
+
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+</div>
+
 <h3 id="cost-optimization">Cost Optimization<a class="headerlink" href="#cost-optimization" title="Permanent link">&para;</a></h3>
-<div class="language-proto highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Multi</span><span class="o">-</span><span class="n">Paxos</span><span class="w"> </span><span class="n">batching</span><span class="o">:</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="o">-</span><span class="w"> </span><span class="n">Single</span><span class="w"> </span><span class="n">decision</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">N</span><span class="w"> </span><span class="n">messages</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="o">-</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">decisions</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">99</span><span class="w"> </span><span class="n">messages</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="o">-</span><span class="w"> </span><span class="n">Amortized</span><span class="o">:</span><span class="w"> </span><span class="err">~</span><span class="mi">1</span><span class="w"> </span><span class="kd">message</span><span class="w"> </span><span class="nc">per</span><span class="w"> </span><span class="n">decision</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a><span class="n">Massive</span><span class="w"> </span><span class="n">improvement</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">batching</span><span class="err">!</span>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Multi</span><span class="o">-</span><span class="n">Paxos</span><span class="w"> </span><span class="n">batching</span><span class="o">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">-</span><span class="w"> </span><span class="n">Single</span><span class="w"> </span><span class="n">decision</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">N</span><span class="w"> </span><span class="n">messages</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">-</span><span class="w"> </span><span class="mi">100</span><span class="w"> </span><span class="n">decisions</span><span class="o">:</span><span class="w"> </span><span class="mi">2</span><span class="n">N</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">99</span><span class="w"> </span><span class="n">messages</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">-</span><span class="w"> </span><span class="n">Amortized</span><span class="o">:</span><span class="w"> </span><span class="err">~</span><span class="mi">1</span><span class="w"> </span><span class="kd">message</span><span class="w"> </span><span class="nc">per</span><span class="w"> </span><span class="n">decision</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">Massive</span><span class="w"> </span><span class="n">improvement</span><span class="w"> </span><span class="n">through</span><span class="w"> </span><span class="n">batching</span><span class="err">!</span>
 </span></code></pre></div>
 <h2 id="consensus-scaling-costs">Consensus Scaling Costs<a class="headerlink" href="#consensus-scaling-costs" title="Permanent link">&para;</a></h2>
 <h3 id="3-nodes">3 Nodes<a class="headerlink" href="#3-nodes" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Messages: 6 per decision
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Network paths: 3
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Failure tolerance: 1
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Sweet spot for many systems
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Messages: 6 per decision
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>Network paths: 3
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>Failure tolerance: 1
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>Sweet spot for many systems
 </span></code></pre></div>
 <h3 id="5-nodes">5 Nodes<a class="headerlink" href="#5-nodes" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="mi">10</span> <span class="n">per</span> <span class="n">decision</span> <span class="p">(</span><span class="o">+</span><span class="mi">67</span><span class="o">%</span><span class="p">)</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="n">Network</span> <span class="n">paths</span><span class="p">:</span> <span class="mi">10</span> <span class="p">(</span><span class="o">+</span><span class="mi">233</span><span class="o">%</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="n">Failure</span> <span class="n">tolerance</span><span class="p">:</span> <span class="mi">2</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="n">Common</span> <span class="k">for</span> <span class="n">regional</span> <span class="n">distribution</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="mi">10</span> <span class="n">per</span> <span class="n">decision</span> <span class="p">(</span><span class="o">+</span><span class="mi">67</span><span class="o">%</span><span class="p">)</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="n">Network</span> <span class="n">paths</span><span class="p">:</span> <span class="mi">10</span> <span class="p">(</span><span class="o">+</span><span class="mi">233</span><span class="o">%</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="n">Failure</span> <span class="n">tolerance</span><span class="p">:</span> <span class="mi">2</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="n">Common</span> <span class="k">for</span> <span class="n">regional</span> <span class="n">distribution</span>
 </span></code></pre></div>
 <h3 id="7-nodes">7 Nodes<a class="headerlink" href="#7-nodes" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="mi">14</span> <span class="n">per</span> <span class="n">decision</span> <span class="p">(</span><span class="o">+</span><span class="mi">133</span><span class="o">%</span><span class="p">)</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">Network</span> <span class="n">paths</span><span class="p">:</span> <span class="mi">21</span> <span class="p">(</span><span class="o">+</span><span class="mi">600</span><span class="o">%</span><span class="p">)</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">Failure</span> <span class="n">tolerance</span><span class="p">:</span> <span class="mi">3</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="n">Usually</span> <span class="n">overkill</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="mi">14</span> <span class="n">per</span> <span class="n">decision</span> <span class="p">(</span><span class="o">+</span><span class="mi">133</span><span class="o">%</span><span class="p">)</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a><span class="n">Network</span> <span class="n">paths</span><span class="p">:</span> <span class="mi">21</span> <span class="p">(</span><span class="o">+</span><span class="mi">600</span><span class="o">%</span><span class="p">)</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a><span class="n">Failure</span> <span class="n">tolerance</span><span class="p">:</span> <span class="mi">3</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a><span class="n">Usually</span> <span class="n">overkill</span>
 </span></code></pre></div>
 <h3 id="9-nodes">9+ Nodes<a class="headerlink" href="#9-nodes" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Messages: O(N) per decision
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Network paths: O(N²)
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Coordination overhead dominates
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>Rarely justified
+<div class="language-text highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a>Messages: O(N) per decision
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>Network paths: O(N²)
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>Coordination overhead dominates
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>Rarely justified
 </span></code></pre></div>
 <h2 id="coordination-patterns-compared">Coordination Patterns Compared<a class="headerlink" href="#coordination-patterns-compared" title="Permanent link">&para;</a></h2>
 <h3 id="gossip-protocol">Gossip Protocol<a class="headerlink" href="#gossip-protocol" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Messages: O(log N) average
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Convergence: O(log N) rounds
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Eventual consistency only
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Cost: Low
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Speed: Medium
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Consistency: Weak
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>Best for: Membership, failure detection
-</span></code></pre></div>
+<div class="truth-box">
+<h4>💬 Gossip Protocol Characteristics</h4>
+
+<div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
+  <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+    <div>
+      <table style="width: 100%; background: white; border-radius: 5px;">
+        <tr style="background: #BBDEFB;">
+          <th style="padding: 10px; text-align: left;">Metric</th>
+          <th style="padding: 10px;">Value</th>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Messages</strong></td>
+          <td style="padding: 10px;">O(log N) average</td>
+        </tr>
+        <tr style="background: #F5F5F5;">
+          <td style="padding: 10px;"><strong>Convergence</strong></td>
+          <td style="padding: 10px;">O(log N) rounds</td>
+        </tr>
+        <tr>
+          <td style="padding: 10px;"><strong>Consistency</strong></td>
+          <td style="padding: 10px; color: #FF5722;">Eventual only</td>
+        </tr>
+      </table>
+    </div>
+
+    <div>
+      <div style="background: white; padding: 15px; border-radius: 5px;">
+        <h5 style="margin: 0 0 10px 0;">Ratings</h5>
+        <div style="margin: 5px 0;">
+          <strong>Cost:</strong>
+          <span style="color: #4CAF50;">████░</span> Low
+        </div>
+        <div style="margin: 5px 0;">
+          <strong>Speed:</strong>
+          <span style="color: #FF9800;">███░░</span> Medium
+        </div>
+        <div style="margin: 5px 0;">
+          <strong>Consistency:</strong>
+          <span style="color: #F44336;">██░░░</span> Weak
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 15px; background: #F0F7FF; padding: 10px; border-radius: 5px;">
+    <strong>🎯 Best for:</strong> Membership tracking, failure detection, cache invalidation, monitoring data
+  </div>
+</div>
+</div>
+
 <h3 id="leader-based">Leader-Based<a class="headerlink" href="#leader-based" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Messages: N per update
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Rounds: 1 (no conflicts)
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Single point of failure
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Cost: Low
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Speed: Fast
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>Consistency: Strong
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>Best for: Stable environments
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>Messages: N per update
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>Rounds: 1 (no conflicts)
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>Single point of failure
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>Cost: Low
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>Speed: Fast
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>Consistency: Strong
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>Best for: Stable environments
 </span></code></pre></div>
 <h3 id="leaderless-quorum">Leaderless Quorum<a class="headerlink" href="#leaderless-quorum" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="n">W</span> <span class="o">+</span> <span class="n">R</span> <span class="p">(</span><span class="n">write</span><span class="o">/</span><span class="n">read</span> <span class="n">quorums</span><span class="p">)</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="n">Rounds</span><span class="p">:</span> <span class="mi">1</span> <span class="n">per</span> <span class="n">operation</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="n">No</span> <span class="n">SPOF</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="n">Cost</span><span class="p">:</span> <span class="n">Medium</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">Speed</span><span class="p">:</span> <span class="n">Medium</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="n">Consistency</span><span class="p">:</span> <span class="n">Tunable</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="n">Best</span> <span class="k">for</span><span class="p">:</span> <span class="n">Geographic</span> <span class="n">distribution</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Messages</span><span class="p">:</span> <span class="n">W</span> <span class="o">+</span> <span class="n">R</span> <span class="p">(</span><span class="n">write</span><span class="o">/</span><span class="n">read</span> <span class="n">quorums</span><span class="p">)</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="n">Rounds</span><span class="p">:</span> <span class="mi">1</span> <span class="n">per</span> <span class="n">operation</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="n">No</span> <span class="n">SPOF</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="n">Cost</span><span class="p">:</span> <span class="n">Medium</span>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">Speed</span><span class="p">:</span> <span class="n">Medium</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="n">Consistency</span><span class="p">:</span> <span class="n">Tunable</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="n">Best</span> <span class="k">for</span><span class="p">:</span> <span class="n">Geographic</span> <span class="n">distribution</span>
 </span></code></pre></div>
 <h3 id="byzantine-consensus">Byzantine Consensus<a class="headerlink" href="#byzantine-consensus" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Messages: O(N²) per round
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Rounds: Multiple
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>Tolerates malicious nodes
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Cost: Very High
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>Speed: Slow
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>Consistency: Strong
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>Best for: Untrusted environments
+<div class="language-text highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a>Messages: O(N²) per round
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>Rounds: Multiple
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>Tolerates malicious nodes
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>Cost: Very High
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>Speed: Slow
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>Consistency: Strong
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>Best for: Untrusted environments
 </span></code></pre></div>
 <h2 id="real-dollar-costs">Real Dollar Costs<a class="headerlink" href="#real-dollar-costs" title="Permanent link">&para;</a></h2>
 <h3 id="cross-region-coordination">Cross-Region Coordination<a class="headerlink" href="#cross-region-coordination" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a>AWS<span class="w"> </span>Data<span class="w"> </span>Transfer<span class="w"> </span>Pricing:
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a>-<span class="w"> </span>Same<span class="w"> </span>AZ:<span class="w"> </span><span class="nv">$0</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>-<span class="w"> </span>Cross<span class="w"> </span>AZ:<span class="w"> </span><span class="nv">$0</span>.01/GB
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>-<span class="w"> </span>Cross<span class="w"> </span>Region:<span class="w"> </span><span class="nv">$0</span>.02/GB
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>Coordination<span class="w"> </span>message:<span class="w"> </span>~1KB
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>Daily<span class="w"> </span>coordination<span class="w"> </span>messages:<span class="w"> </span>100M
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>Daily<span class="w"> </span>cost:<span class="w"> </span>100M<span class="w"> </span>×<span class="w"> </span>1KB<span class="w"> </span>×<span class="w"> </span><span class="nv">$0</span>.02/GB<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$2</span>,000
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>Annual:<span class="w"> </span><span class="nv">$730</span>,000
-</span></code></pre></div>
+<div class="failure-vignette">
+<h4>💰 Real Dollar Costs: AWS Cross-Region Coordination</h4>
+
+<div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
+  <h5 style="margin: 0 0 15px 0;">AWS Data Transfer Pricing</h5>
+
+  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+    <tr style="background: #FFCDD2;">
+      <th style="padding: 12px; text-align: left;">Transfer Type</th>
+      <th style="padding: 12px;">Cost</th>
+      <th style="padding: 12px;">Visual</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px;"><strong>Same AZ</strong></td>
+      <td style="padding: 10px; color: #4CAF50; font-weight: bold;">$0</td>
+      <td style="padding: 10px;">
+        <div style="background: #4CAF50; width: 1px; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr style="background: #FFF5F5;">
+      <td style="padding: 10px;"><strong>Cross AZ</strong></td>
+      <td style="padding: 10px; color: #FF9800; font-weight: bold;">$0.01/GB</td>
+      <td style="padding: 10px;">
+        <div style="background: #FF9800; width: 50%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 10px;"><strong>Cross Region</strong></td>
+      <td style="padding: 10px; color: #F44336; font-weight: bold;">$0.02/GB</td>
+      <td style="padding: 10px;">
+        <div style="background: #F44336; width: 100%; height: 15px;"></div>
+      </td>
+    </tr>
+  </table>
+
+  <div style="background: #FFF; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+    <h5 style="margin: 0 0 10px 0;">📊 Coordination Cost Calculator</h5>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 10px;">
+      <div style="background: #FFF8E1; padding: 10px; border-radius: 5px;">
+        <strong>Message size:</strong> ~1KB
+      </div>
+      <div style="background: #FFF8E1; padding: 10px; border-radius: 5px;">
+        <strong>Daily messages:</strong> 100M
+      </div>
+    </div>
+
+    <div style="background: #FFEBEE; padding: 15px; border-radius: 5px;">
+      <strong>Daily cost calculation:</strong><br>
+      100M × 1KB × $0.02/GB = <span style="font-size: 1.2em; color: #C62828;">$2,000/day</span>
+    </div>
+  </div>
+
+  <div style="background: #B71C1C; color: white; padding: 20px; border-radius: 5px; text-align: center;">
+    <strong style="font-size: 1.5em;">Annual Cost: $730,000</strong>
+    <div style="margin-top: 10px; font-size: 0.9em;">
+      Just for coordination messages! Not including compute, storage, or actual data transfer.
+    </div>
+  </div>
+</div>
+
+<div class="insight-note" style="margin-top: 15px; background: #E8F5E9; padding: 15px; border-left: 4px solid #4CAF50;">
+💡 <strong>Pro Tip</strong>: Keep coordination within same AZ when possible. Cross-region coordination should be exceptional, not routine!
+</div>
+</div>
+
 <h3 id="optimization-strategies">Optimization Strategies<a class="headerlink" href="#optimization-strategies" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="mf">1.</span> <span class="n">Hierarchical</span> <span class="n">Coordination</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a>   <span class="n">Global</span> <span class="err">→</span> <span class="n">Regional</span> <span class="err">→</span> <span class="n">Local</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>   <span class="n">Reduces</span> <span class="n">cross</span><span class="o">-</span><span class="n">region</span> <span class="n">messages</span> <span class="mi">90</span><span class="o">%</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="mf">2.</span> <span class="n">Batching</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>   <span class="n">Accumulate</span> <span class="n">changes</span><span class="p">,</span> <span class="n">coordinate</span> <span class="n">once</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>   <span class="n">Reduces</span> <span class="n">frequency</span> <span class="mi">99</span><span class="o">%</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a><span class="mf">3.</span> <span class="n">Regional</span> <span class="n">Affinity</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>   <span class="n">Keep</span> <span class="n">related</span> <span class="n">data</span> <span class="ow">in</span> <span class="n">same</span> <span class="n">region</span>
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>   <span class="n">Reduces</span> <span class="n">cross</span><span class="o">-</span><span class="n">region</span> <span class="n">needs</span> <span class="mi">80</span><span class="o">%</span>
-</span></code></pre></div>
+<div class="decision-box">
+<h4>🎯 Optimization Strategies</h4>
+
+<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0;">
+  <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border: 2px solid #66BB6A;">
+    <h5 style="margin: 0 0 10px 0; color: #2E7D32;">1. Hierarchical Coordination</h5>
+    <div style="text-align: center; margin: 15px 0;">
+      <svg viewBox="0 0 150 100" style="width: 100%;">
+        <circle cx="75" cy="20" r="15" fill="#1976D2"/>
+        <text x="75" y="25" text-anchor="middle" fill="white" font-size="10">Global</text>
+        <circle cx="40" cy="50" r="12" fill="#42A5F5"/>
+        <text x="40" y="54" text-anchor="middle" fill="white" font-size="8">Region</text>
+        <circle cx="110" cy="50" r="12" fill="#42A5F5"/>
+        <text x="110" y="54" text-anchor="middle" fill="white" font-size="8">Region</text>
+        <circle cx="20" cy="80" r="8" fill="#90CAF9"/>
+        <circle cx="40" cy="80" r="8" fill="#90CAF9"/>
+        <circle cx="60" cy="80" r="8" fill="#90CAF9"/>
+        <circle cx="90" cy="80" r="8" fill="#90CAF9"/>
+        <circle cx="110" cy="80" r="8" fill="#90CAF9"/>
+        <circle cx="130" cy="80" r="8" fill="#90CAF9"/>
+        <line x1="75" y1="35" x2="40" y2="38" stroke="#666" stroke-width="1"/>
+        <line x1="75" y1="35" x2="110" y2="38" stroke="#666" stroke-width="1"/>
+        <line x1="40" y1="62" x2="20" y2="72" stroke="#666" stroke-width="1"/>
+        <line x1="40" y1="62" x2="40" y2="72" stroke="#666" stroke-width="1"/>
+        <line x1="40" y1="62" x2="60" y2="72" stroke="#666" stroke-width="1"/>
+        <line x1="110" y1="62" x2="90" y2="72" stroke="#666" stroke-width="1"/>
+        <line x1="110" y1="62" x2="110" y2="72" stroke="#666" stroke-width="1"/>
+        <line x1="110" y1="62" x2="130" y2="72" stroke="#666" stroke-width="1"/>
+      </svg>
+    </div>
+    <div style="background: #C8E6C9; padding: 10px; border-radius: 5px; text-align: center;">
+      <strong>Reduces cross-region: 90%</strong>
+    </div>
+  </div>
+
+  <div style="background: #FFF3E0; padding: 15px; border-radius: 8px; border: 2px solid #FFB74D;">
+    <h5 style="margin: 0 0 10px 0; color: #E65100;">2. Batching</h5>
+    <div style="text-align: center; margin: 15px 0;">
+      <svg viewBox="0 0 150 100" style="width: 100%;">
+        <!-- Individual messages -->
+        <g transform="translate(20, 20)">
+          <rect x="0" y="0" width="8" height="8" fill="#FF5722" opacity="0.7"/>
+          <rect x="0" y="10" width="8" height="8" fill="#FF5722" opacity="0.7"/>
+          <rect x="0" y="20" width="8" height="8" fill="#FF5722" opacity="0.7"/>
+          <rect x="0" y="30" width="8" height="8" fill="#FF5722" opacity="0.7"/>
+          <rect x="0" y="40" width="8" height="8" fill="#FF5722" opacity="0.7"/>
+        </g>
+        <!-- Arrow -->
+        <path d="M 40 40 L 60 40" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+        <!-- Batched message -->
+        <rect x="80" y="30" width="50" height="20" fill="#4CAF50" rx="3"/>
+        <text x="105" y="44" text-anchor="middle" fill="white" font-size="10">Batch</text>
+        <defs>
+          <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+            <polygon points="0 0, 10 3.5, 0 7" fill="#666" />
+          </marker>
+        </defs>
+      </svg>
+    </div>
+    <div style="background: #FFE0B2; padding: 10px; border-radius: 5px; text-align: center;">
+      <strong>Reduces frequency: 99%</strong>
+    </div>
+  </div>
+
+  <div style="background: #E3F2FD; padding: 15px; border-radius: 8px; border: 2px solid #64B5F6;">
+    <h5 style="margin: 0 0 10px 0; color: #1565C0;">3. Regional Affinity</h5>
+    <div style="text-align: center; margin: 15px 0;">
+      <svg viewBox="0 0 150 100" style="width: 100%;">
+        <!-- Region 1 -->
+        <rect x="10" y="20" width="60" height="60" fill="#2196F3" opacity="0.3" rx="5"/>
+        <circle cx="30" cy="40" r="8" fill="#1976D2"/>
+        <circle cx="50" cy="40" r="8" fill="#1976D2"/>
+        <circle cx="30" cy="60" r="8" fill="#1976D2"/>
+        <circle cx="50" cy="60" r="8" fill="#1976D2"/>
+        <line x1="30" y1="40" x2="50" y2="40" stroke="#1565C0" stroke-width="2"/>
+        <line x1="30" y1="60" x2="50" y2="60" stroke="#1565C0" stroke-width="2"/>
+        <line x1="30" y1="40" x2="30" y2="60" stroke="#1565C0" stroke-width="2"/>
+        <line x1="50" y1="40" x2="50" y2="60" stroke="#1565C0" stroke-width="2"/>
+        <!-- Region 2 -->
+        <rect x="80" y="20" width="60" height="60" fill="#4CAF50" opacity="0.3" rx="5"/>
+        <circle cx="100" cy="40" r="8" fill="#2E7D32"/>
+        <circle cx="120" cy="40" r="8" fill="#2E7D32"/>
+        <circle cx="100" cy="60" r="8" fill="#2E7D32"/>
+        <circle cx="120" cy="60" r="8" fill="#2E7D32"/>
+        <line x1="100" y1="40" x2="120" y2="40" stroke="#2E7D32" stroke-width="2"/>
+        <line x1="100" y1="60" x2="120" y2="60" stroke="#2E7D32" stroke-width="2"/>
+        <line x1="100" y1="40" x2="100" y2="60" stroke="#2E7D32" stroke-width="2"/>
+        <line x1="120" y1="40" x2="120" y2="60" stroke="#2E7D32" stroke-width="2"/>
+      </svg>
+    </div>
+    <div style="background: #BBDEFB; padding: 10px; border-radius: 5px; text-align: center;">
+      <strong>Reduces cross-region: 80%</strong>
+    </div>
+  </div>
+</div>
+
+<div class="key-insight" style="margin-top: 15px;">
+💡 <strong>Combined Impact</strong>: Using all three strategies can reduce coordination costs by 99.8%!
+</div>
+</div>
+
 <h2 id="coordination-elimination">Coordination Elimination<a class="headerlink" href="#coordination-elimination" title="Permanent link">&para;</a></h2>
 <h3 id="crdts-conflict-free-replicated-data-types">CRDTs (Conflict-free Replicated Data Types)<a class="headerlink" href="#crdts-conflict-free-replicated-data-types" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Coordination cost: $0
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Merge complexity: O(1)
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>Limitations: Specific operations only
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>Example: Distributed counter
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>Each node increments locally
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a>Merge: Sum all counters
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a>No coordination needed!
+<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>Coordination cost: $0
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>Merge complexity: O(1)
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>Limitations: Specific operations only
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>Example: Distributed counter
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>Each node increments locally
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>Merge: Sum all counters
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>No coordination needed!
 </span></code></pre></div>
 <h3 id="event-sourcing">Event Sourcing<a class="headerlink" href="#event-sourcing" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Coordination: Only for global ordering
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Cost: O(1) not O(N)
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>Trade-off: Complex event merging
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>Example: Bank transactions
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>Each transaction is an event
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>Apply in any order (commutative)
+<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Coordination: Only for global ordering
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>Cost: O(1) not O(N)
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>Trade-off: Complex event merging
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Example: Bank transactions
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>Each transaction is an event
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>Apply in any order (commutative)
 </span></code></pre></div>
 <h3 id="sharding">Sharding<a class="headerlink" href="#sharding" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a>Coordination: Within shard only
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a>Cost reduction: N-way sharding = N× reduction
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>Trade-off: Cross-shard operations expensive
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a>Example: User data by ID
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a>Each shard handles range
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7" href="#__codelineno-16-7"></a>No cross-shard coordination
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Coordination: Within shard only
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Cost reduction: N-way sharding = N× reduction
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>Trade-off: Cross-shard operations expensive
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>Example: User data by ID
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>Each shard handles range
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>No cross-shard coordination
 </span></code></pre></div>
 <h2 id="hidden-coordination-costs">Hidden Coordination Costs<a class="headerlink" href="#hidden-coordination-costs" title="Permanent link">&para;</a></h2>
 <h3 id="service-discovery">Service Discovery<a class="headerlink" href="#service-discovery" title="Permanent link">&para;</a></h3>
-<div class="language-proto highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">Naive</span><span class="o">:</span><span class="w"> </span><span class="n">Every</span><span class="w"> </span><span class="kd">service</span><span class="w"> </span><span class="n">polls</span><span class="w"> </span><span class="n">registry</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a><span class="o">-</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="n">services</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">queries</span><span class="o">/</span><span class="n">sec</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a><span class="o">-</span><span class="w"> </span><span class="n">Registry</span><span class="w"> </span><span class="n">becomes</span><span class="w"> </span><span class="n">bottleneck</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a><span class="n">Better</span><span class="o">:</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">caching</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="n">updates</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a><span class="o">-</span><span class="w"> </span><span class="n">Reduces</span><span class="w"> </span><span class="n">queries</span><span class="w"> </span><span class="mi">100</span><span class="n">x</span>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="o">-</span><span class="w"> </span><span class="n">Adds</span><span class="w"> </span><span class="n">staleness</span><span class="w"> </span><span class="n">risk</span>
+<div class="language-proto highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Naive</span><span class="o">:</span><span class="w"> </span><span class="n">Every</span><span class="w"> </span><span class="kd">service</span><span class="w"> </span><span class="n">polls</span><span class="w"> </span><span class="n">registry</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="o">-</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="n">services</span><span class="w"> </span><span class="err">×</span><span class="w"> </span><span class="n">M</span><span class="w"> </span><span class="n">queries</span><span class="o">/</span><span class="n">sec</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="o">-</span><span class="w"> </span><span class="n">Registry</span><span class="w"> </span><span class="n">becomes</span><span class="w"> </span><span class="n">bottleneck</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="n">Better</span><span class="o">:</span><span class="w"> </span><span class="n">Local</span><span class="w"> </span><span class="n">caching</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">push</span><span class="w"> </span><span class="n">updates</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="o">-</span><span class="w"> </span><span class="n">Reduces</span><span class="w"> </span><span class="n">queries</span><span class="w"> </span><span class="mi">100</span><span class="n">x</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="o">-</span><span class="w"> </span><span class="n">Adds</span><span class="w"> </span><span class="n">staleness</span><span class="w"> </span><span class="n">risk</span>
 </span></code></pre></div>
 <h3 id="health-checking">Health Checking<a class="headerlink" href="#health-checking" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">Full</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">N</span><span class="err">²</span> <span class="n">health</span> <span class="n">checks</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="o">-</span> <span class="mi">100</span> <span class="n">services</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mi">000</span> <span class="n">checks</span><span class="o">/</span><span class="n">interval</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a><span class="o">-</span> <span class="n">Network</span> <span class="n">saturation</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="n">Hierarchical</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">N</span> <span class="n">log</span> <span class="n">N</span><span class="p">)</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="o">-</span> <span class="n">Regional</span> <span class="n">aggregators</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a><span class="o">-</span> <span class="n">Reduced</span> <span class="n">traffic</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Full</span> <span class="n">mesh</span><span class="p">:</span> <span class="n">N</span><span class="err">²</span> <span class="n">health</span> <span class="n">checks</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="o">-</span> <span class="mi">100</span> <span class="n">services</span> <span class="o">=</span> <span class="mi">10</span><span class="p">,</span><span class="mi">000</span> <span class="n">checks</span><span class="o">/</span><span class="n">interval</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="o">-</span> <span class="n">Network</span> <span class="n">saturation</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="n">Hierarchical</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">N</span> <span class="n">log</span> <span class="n">N</span><span class="p">)</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="o">-</span> <span class="n">Regional</span> <span class="n">aggregators</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a><span class="o">-</span> <span class="n">Reduced</span> <span class="n">traffic</span>
 </span></code></pre></div>
 <h3 id="configuration-management">Configuration Management<a class="headerlink" href="#configuration-management" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1" href="#__codelineno-19-1"></a><span class="n">Push</span> <span class="n">to</span> <span class="nb">all</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="n">messages</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2" href="#__codelineno-19-2"></a><span class="o">-</span> <span class="n">Config</span> <span class="n">change</span> <span class="err">→</span> <span class="n">N</span> <span class="n">updates</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3" href="#__codelineno-19-3"></a><span class="o">-</span> <span class="n">Thundering</span> <span class="n">herd</span> <span class="n">on</span> <span class="n">changes</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4" href="#__codelineno-19-4"></a>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5" href="#__codelineno-19-5"></a><span class="n">Pull</span> <span class="k">with</span> <span class="n">jitter</span><span class="p">:</span> <span class="n">Smoothed</span> <span class="n">load</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6" href="#__codelineno-19-6"></a><span class="o">-</span> <span class="n">Random</span> <span class="n">interval</span> <span class="n">pulls</span>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7" href="#__codelineno-19-7"></a><span class="o">-</span> <span class="n">Natural</span> <span class="n">load</span> <span class="n">distribution</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="n">Push</span> <span class="n">to</span> <span class="nb">all</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">N</span><span class="p">)</span> <span class="n">messages</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="o">-</span> <span class="n">Config</span> <span class="n">change</span> <span class="err">→</span> <span class="n">N</span> <span class="n">updates</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="o">-</span> <span class="n">Thundering</span> <span class="n">herd</span> <span class="n">on</span> <span class="n">changes</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="n">Pull</span> <span class="k">with</span> <span class="n">jitter</span><span class="p">:</span> <span class="n">Smoothed</span> <span class="n">load</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="o">-</span> <span class="n">Random</span> <span class="n">interval</span> <span class="n">pulls</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="o">-</span> <span class="n">Natural</span> <span class="n">load</span> <span class="n">distribution</span>
 </span></code></pre></div>
 <h2 id="cost-aware-architecture">Cost-Aware Architecture<a class="headerlink" href="#cost-aware-architecture" title="Permanent link">&para;</a></h2>
 <h3 id="minimize-coordination-scope">Minimize Coordination Scope<a class="headerlink" href="#minimize-coordination-scope" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1" href="#__codelineno-20-1"></a><span class="c1"># Bad: Global coordination</span>
-</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2" href="#__codelineno-20-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">transfer_money</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3" href="#__codelineno-20-3"></a>    <span class="k">with</span> <span class="n">distributed_lock</span><span class="p">(</span><span class="s2">&quot;global&quot;</span><span class="p">):</span>
-</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4" href="#__codelineno-20-4"></a>        <span class="n">debit</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
-</span><span id="__span-20-5"><a id="__codelineno-20-5" name="__codelineno-20-5" href="#__codelineno-20-5"></a>        <span class="n">credit</span><span class="p">(</span><span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
-</span><span id="__span-20-6"><a id="__codelineno-20-6" name="__codelineno-20-6" href="#__codelineno-20-6"></a>
-</span><span id="__span-20-7"><a id="__codelineno-20-7" name="__codelineno-20-7" href="#__codelineno-20-7"></a><span class="c1"># Better: Account-level coordination</span>
-</span><span id="__span-20-8"><a id="__codelineno-20-8" name="__codelineno-20-8" href="#__codelineno-20-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">transfer_money</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
-</span><span id="__span-20-9"><a id="__codelineno-20-9" name="__codelineno-20-9" href="#__codelineno-20-9"></a>    <span class="c1"># Only coordinate affected accounts</span>
-</span><span id="__span-20-10"><a id="__codelineno-20-10" name="__codelineno-20-10" href="#__codelineno-20-10"></a>    <span class="k">with</span> <span class="n">multi_lock</span><span class="p">([</span><span class="n">from_account</span><span class="p">,</span> <span class="n">to_account</span><span class="p">]):</span>
-</span><span id="__span-20-11"><a id="__codelineno-20-11" name="__codelineno-20-11" href="#__codelineno-20-11"></a>        <span class="n">debit</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
-</span><span id="__span-20-12"><a id="__codelineno-20-12" name="__codelineno-20-12" href="#__codelineno-20-12"></a>        <span class="n">credit</span><span class="p">(</span><span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a><span class="c1"># Bad: Global coordination</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">transfer_money</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    <span class="k">with</span> <span class="n">distributed_lock</span><span class="p">(</span><span class="s2">&quot;global&quot;</span><span class="p">):</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>        <span class="n">debit</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5" href="#__codelineno-14-5"></a>        <span class="n">credit</span><span class="p">(</span><span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6" href="#__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7" href="#__codelineno-14-7"></a><span class="c1"># Better: Account-level coordination</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8" href="#__codelineno-14-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">transfer_money</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9" href="#__codelineno-14-9"></a>    <span class="c1"># Only coordinate affected accounts</span>
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10" href="#__codelineno-14-10"></a>    <span class="k">with</span> <span class="n">multi_lock</span><span class="p">([</span><span class="n">from_account</span><span class="p">,</span> <span class="n">to_account</span><span class="p">]):</span>
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11" href="#__codelineno-14-11"></a>        <span class="n">debit</span><span class="p">(</span><span class="n">from_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12" href="#__codelineno-14-12"></a>        <span class="n">credit</span><span class="p">(</span><span class="n">to_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
 </span></code></pre></div>
 <h3 id="async-when-possible">Async When Possible<a class="headerlink" href="#async-when-possible" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-21-1"><a id="__codelineno-21-1" name="__codelineno-21-1" href="#__codelineno-21-1"></a><span class="c1"># Expensive: Synchronous consensus</span>
-</span><span id="__span-21-2"><a id="__codelineno-21-2" name="__codelineno-21-2" href="#__codelineno-21-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">update_all_replicas</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-</span><span id="__span-21-3"><a id="__codelineno-21-3" name="__codelineno-21-3" href="#__codelineno-21-3"></a>    <span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-21-4"><a id="__codelineno-21-4" name="__codelineno-21-4" href="#__codelineno-21-4"></a>    <span class="k">for</span> <span class="n">replica</span> <span class="ow">in</span> <span class="n">replicas</span><span class="p">:</span>
-</span><span id="__span-21-5"><a id="__codelineno-21-5" name="__codelineno-21-5" href="#__codelineno-21-5"></a>        <span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replica</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
-</span><span id="__span-21-6"><a id="__codelineno-21-6" name="__codelineno-21-6" href="#__codelineno-21-6"></a>    <span class="n">wait_all</span><span class="p">(</span><span class="n">futures</span><span class="p">)</span>  <span class="c1"># Blocks on slowest</span>
-</span><span id="__span-21-7"><a id="__codelineno-21-7" name="__codelineno-21-7" href="#__codelineno-21-7"></a>
-</span><span id="__span-21-8"><a id="__codelineno-21-8" name="__codelineno-21-8" href="#__codelineno-21-8"></a><span class="c1"># Cheaper: Async replication</span>
-</span><span id="__span-21-9"><a id="__codelineno-21-9" name="__codelineno-21-9" href="#__codelineno-21-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">update_all_replicas</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-</span><span id="__span-21-10"><a id="__codelineno-21-10" name="__codelineno-21-10" href="#__codelineno-21-10"></a>    <span class="k">for</span> <span class="n">replica</span> <span class="ow">in</span> <span class="n">replicas</span><span class="p">:</span>
-</span><span id="__span-21-11"><a id="__codelineno-21-11" name="__codelineno-21-11" href="#__codelineno-21-11"></a>        <span class="n">async_send</span><span class="p">(</span><span class="n">replica</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
-</span><span id="__span-21-12"><a id="__codelineno-21-12" name="__codelineno-21-12" href="#__codelineno-21-12"></a>    <span class="c1"># Return immediately</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a><span class="c1"># Expensive: Synchronous consensus</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">update_all_replicas</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    <span class="n">futures</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4" href="#__codelineno-15-4"></a>    <span class="k">for</span> <span class="n">replica</span> <span class="ow">in</span> <span class="n">replicas</span><span class="p">:</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5" href="#__codelineno-15-5"></a>        <span class="n">futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">replica</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6" href="#__codelineno-15-6"></a>    <span class="n">wait_all</span><span class="p">(</span><span class="n">futures</span><span class="p">)</span>  <span class="c1"># Blocks on slowest</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7" href="#__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8" href="#__codelineno-15-8"></a><span class="c1"># Cheaper: Async replication</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9" href="#__codelineno-15-9"></a><span class="k">def</span><span class="w"> </span><span class="nf">update_all_replicas</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10" href="#__codelineno-15-10"></a>    <span class="k">for</span> <span class="n">replica</span> <span class="ow">in</span> <span class="n">replicas</span><span class="p">:</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11" href="#__codelineno-15-11"></a>        <span class="n">async_send</span><span class="p">(</span><span class="n">replica</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12" href="#__codelineno-15-12"></a>    <span class="c1"># Return immediately</span>
 </span></code></pre></div>
 <h3 id="batch-coordination">Batch Coordination<a class="headerlink" href="#batch-coordination" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-22-1"><a id="__codelineno-22-1" name="__codelineno-22-1" href="#__codelineno-22-1"></a><span class="c1"># Expensive: Coordinate per operation</span>
-</span><span id="__span-22-2"><a id="__codelineno-22-2" name="__codelineno-22-2" href="#__codelineno-22-2"></a><span class="k">for</span> <span class="n">update</span> <span class="ow">in</span> <span class="n">updates</span><span class="p">:</span>
-</span><span id="__span-22-3"><a id="__codelineno-22-3" name="__codelineno-22-3" href="#__codelineno-22-3"></a>    <span class="n">coordinate_update</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>  <span class="c1"># 3N messages each</span>
-</span><span id="__span-22-4"><a id="__codelineno-22-4" name="__codelineno-22-4" href="#__codelineno-22-4"></a>
-</span><span id="__span-22-5"><a id="__codelineno-22-5" name="__codelineno-22-5" href="#__codelineno-22-5"></a><span class="c1"># Cheaper: Batch coordination</span>
-</span><span id="__span-22-6"><a id="__codelineno-22-6" name="__codelineno-22-6" href="#__codelineno-22-6"></a><span class="n">coordinate_batch</span><span class="p">(</span><span class="n">updates</span><span class="p">)</span>  <span class="c1"># 3N messages total</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="c1"># Expensive: Coordinate per operation</span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="k">for</span> <span class="n">update</span> <span class="ow">in</span> <span class="n">updates</span><span class="p">:</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a>    <span class="n">coordinate_update</span><span class="p">(</span><span class="n">update</span><span class="p">)</span>  <span class="c1"># 3N messages each</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="c1"># Cheaper: Batch coordination</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6" href="#__codelineno-16-6"></a><span class="n">coordinate_batch</span><span class="p">(</span><span class="n">updates</span><span class="p">)</span>  <span class="c1"># 3N messages total</span>
 </span></code></pre></div>
 <h2 id="monitoring-coordination-costs">Monitoring Coordination Costs<a class="headerlink" href="#monitoring-coordination-costs" title="Permanent link">&para;</a></h2>
 <h3 id="key-metrics">Key Metrics<a class="headerlink" href="#key-metrics" title="Permanent link">&para;</a></h3>
@@ -9474,12 +9766,12 @@
 <li><strong>Network bandwidth</strong> - Infrastructure cost</li>
 </ol>
 <h3 id="cost-dashboard">Cost Dashboard<a class="headerlink" href="#cost-dashboard" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-23-1"><a id="__codelineno-23-1" name="__codelineno-23-1" href="#__codelineno-23-1"></a>Coordination<span class="w"> </span>Cost<span class="w"> </span>Metrics:
-</span><span id="__span-23-2"><a id="__codelineno-23-2" name="__codelineno-23-2" href="#__codelineno-23-2"></a>-<span class="w"> </span>2PC<span class="w"> </span>transactions:<span class="w"> </span>50K/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.30<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$15</span>K/day
-</span><span id="__span-23-3"><a id="__codelineno-23-3" name="__codelineno-23-3" href="#__codelineno-23-3"></a>-<span class="w"> </span>Raft<span class="w"> </span>consensus:<span class="w"> </span>1M/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.02<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$20</span>K/day
-</span><span id="__span-23-4"><a id="__codelineno-23-4" name="__codelineno-23-4" href="#__codelineno-23-4"></a>-<span class="w"> </span>Health<span class="w"> </span>checks:<span class="w"> </span>100M/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.001<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$100</span>/day
-</span><span id="__span-23-5"><a id="__codelineno-23-5" name="__codelineno-23-5" href="#__codelineno-23-5"></a>-<span class="w"> </span>Config<span class="w"> </span>updates:<span class="w"> </span>10K/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.10<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$1</span>K/day
-</span><span id="__span-23-6"><a id="__codelineno-23-6" name="__codelineno-23-6" href="#__codelineno-23-6"></a>Total:<span class="w"> </span><span class="nv">$36</span>K/day<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$13</span>M/year
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a>Coordination<span class="w"> </span>Cost<span class="w"> </span>Metrics:
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>-<span class="w"> </span>2PC<span class="w"> </span>transactions:<span class="w"> </span>50K/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.30<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$15</span>K/day
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>-<span class="w"> </span>Raft<span class="w"> </span>consensus:<span class="w"> </span>1M/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.02<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$20</span>K/day
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a>-<span class="w"> </span>Health<span class="w"> </span>checks:<span class="w"> </span>100M/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.001<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$100</span>/day
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>-<span class="w"> </span>Config<span class="w"> </span>updates:<span class="w"> </span>10K/day<span class="w"> </span>@<span class="w"> </span><span class="nv">$0</span>.10<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$1</span>K/day
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>Total:<span class="w"> </span><span class="nv">$36</span>K/day<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$13</span>M/year
 </span></code></pre></div>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>

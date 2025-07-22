@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9107,9 +9075,19 @@ last_updated: 2025-07-20</p>
 - Capture variance
 - Document assumptions</p>
 <h3 id="2-hypothesis-formation">2. Hypothesis Formation<a class="headerlink" href="#2-hypothesis-formation" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>&quot;We believe that [SYSTEM] can tolerate [FAILURE]
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a> as measured by [METRICS] staying within [BOUNDS]&quot;
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    A[Hypothesis Formation] --&gt; B[System Under Test]
+    B --&gt; C[Failure to Inject]
+    C --&gt; D[Success Metrics]
+    D --&gt; E[Acceptable Bounds]
+
+    E --&gt; F{Example Hypotheses}
+    F --&gt; G["Payment service tolerates&lt;br/&gt;1 DB replica failure&lt;br/&gt;P99 &lt; 10ms increase"]
+    F --&gt; H["Cache can lose 50% nodes&lt;br/&gt;Error rate &lt; 5% increase"]
+    F --&gt; I["Region failover &lt; 30s&lt;br/&gt;Zero data loss"]
+
+    style A fill:#e3f2fd
+    style F fill:#fff3cd</code></pre>
 <p>Examples:
 - "Payment service can tolerate 1 database replica failure with &lt;10ms p99 latency increase"
 - "Recommendation API can lose 50% of cache nodes with &lt;5% error rate increase"
@@ -9128,99 +9106,419 @@ last_updated: 2025-07-20</p>
 <h2 id="chaos-experiments-catalog">Chaos Experiments Catalog<a class="headerlink" href="#chaos-experiments-catalog" title="Permanent link">&para;</a></h2>
 <h3 id="infrastructure-chaos">Infrastructure Chaos<a class="headerlink" href="#infrastructure-chaos" title="Permanent link">&para;</a></h3>
 <p><strong>1. Instance Termination</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">chaos_terminate_instance</span><span class="p">():</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>    <span class="c1"># Random EC2 instance shutdown</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="n">instances</span> <span class="o">=</span> <span class="n">ec2</span><span class="o">.</span><span class="n">describe_instances</span><span class="p">(</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="n">Filters</span><span class="o">=</span><span class="p">[{</span><span class="s1">&#39;Name&#39;</span><span class="p">:</span> <span class="s1">&#39;tag:chaos&#39;</span><span class="p">,</span> <span class="s1">&#39;Values&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;enabled&#39;</span><span class="p">]}]</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>    <span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>    <span class="n">target</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">instances</span><span class="p">)</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>    <span class="c1"># Safety check</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>    <span class="k">if</span> <span class="ow">not</span> <span class="n">can_terminate_safely</span><span class="p">(</span><span class="n">target</span><span class="p">):</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>        <span class="k">return</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>    <span class="c1"># Terminate with notification</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>    <span class="n">notify_team</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Terminating </span><span class="si">{</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>    <span class="n">ec2</span><span class="o">.</span><span class="n">terminate_instances</span><span class="p">(</span><span class="n">InstanceIds</span><span class="o">=</span><span class="p">[</span><span class="n">target</span><span class="o">.</span><span class="n">id</span><span class="p">])</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Instance Termination Chaos"
+        A[Get Chaos-Enabled Instances] --&gt; B[Select Random Target]
+        B --&gt; C{Safety Check}
+        C --&gt;|Not Safe| D[Skip Termination]
+        C --&gt;|Safe| E[Notify Team]
+        E --&gt; F[Terminate Instance]
+        F --&gt; G[Monitor Recovery]
+
+        G --&gt; H{Auto-Scaling Works?}
+        H --&gt;|Yes| I[✅ Test Passed]
+        H --&gt;|No| J[❌ Test Failed]
+    end
+
+    style I fill:#c8e6c9
+    style J fill:#ffcdd2
+    style D fill:#fff3cd</code></pre></p>
+<p><strong>What This Tests:</strong>
+- Auto-scaling responsiveness
+- Service discovery updates
+- Load balancer health checks
+- Application resilience</p>
 <p>Tests: Auto-scaling, service discovery</p>
 <p><strong>2. Network Partitions</strong>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="c1"># Isolate availability zones</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>iptables<span class="w"> </span>-A<span class="w"> </span>INPUT<span class="w"> </span>-s<span class="w"> </span><span class="m">10</span>.0.2.0/24<span class="w"> </span>-j<span class="w"> </span>DROP
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>iptables<span class="w"> </span>-A<span class="w"> </span>OUTPUT<span class="w"> </span>-d<span class="w"> </span><span class="m">10</span>.0.2.0/24<span class="w"> </span>-j<span class="w"> </span>DROP
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Network Partition Simulation"
+        subgraph "AZ-1 (10.0.1.0/24)"
+            A1[App Servers]
+            D1[Database Primary]
+        end
+
+        subgraph "AZ-2 (10.0.2.0/24)"
+            A2[App Servers]
+            D2[Database Replica]
+        end
+
+        A1 -."iptables DROP".-&gt; A2
+        D1 -."iptables DROP".-&gt; D2
+
+        style A1 fill:#e8f5e9
+        style A2 fill:#ffebee
+    end</code></pre></p>
+<p><strong>What This Tests:</strong>
+- Quorum-based systems behavior
+- Split-brain prevention
+- Failover mechanisms
+- Client retry logic</p>
 <p>Tests: Quorum logic, split-brain handling</p>
 <p><strong>3. Clock Skew</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">chaos_clock_skew</span><span class="p">(</span><span class="n">skew_seconds</span><span class="o">=</span><span class="mi">300</span><span class="p">):</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="c1"># Advance/delay system clocks</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    <span class="n">subprocess</span><span class="o">.</span><span class="n">run</span><span class="p">([</span><span class="s1">&#39;date&#39;</span><span class="p">,</span> <span class="s1">&#39;-s&#39;</span><span class="p">,</span> <span class="sa">f</span><span class="s1">&#39;+</span><span class="si">{</span><span class="n">skew_seconds</span><span class="si">}</span><span class="s1"> seconds&#39;</span><span class="p">])</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Clock Skew Effects"
+        A[Normal Time] --&gt; B[+5 min skew]
+        B --&gt; C{System Impact}
+
+        C --&gt; D[Certificate Validation]
+        C --&gt; E[Token Expiry]
+        C --&gt; F[Distributed Locks]
+        C --&gt; G[Log Ordering]
+
+        D --&gt; H[🔒 Auth Failures]
+        E --&gt; I[🚫 Access Denied]
+        F --&gt; J[⚠️ Deadlocks]
+        G --&gt; K[📋 Wrong Sequence]
+    end
+
+    style H fill:#ffcdd2
+    style I fill:#ffcdd2
+    style J fill:#fff3cd
+    style K fill:#fff3cd</code></pre></p>
+<p><strong>What This Tests:</strong>
+- Time synchronization dependencies
+- Certificate and token handling
+- Ordering assumptions
+- Grace period implementations</p>
 <p>Tests: Time-dependent logic, ordering</p>
 <p><strong>4. Resource Exhaustion</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">chaos_fill_disk</span><span class="p">(</span><span class="n">fill_percent</span><span class="o">=</span><span class="mi">90</span><span class="p">):</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="n">available</span> <span class="o">=</span> <span class="n">shutil</span><span class="o">.</span><span class="n">disk_usage</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">free</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>    <span class="n">to_fill</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">available</span> <span class="o">*</span> <span class="n">fill_percent</span> <span class="o">/</span> <span class="mi">100</span><span class="p">)</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;/tmp/chaos_disk&#39;</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="sa">b</span><span class="s1">&#39;0&#39;</span> <span class="o">*</span> <span class="n">to_fill</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Resource Exhaustion Test"
+        A[Check Available Space] --&gt; B[Calculate Fill Amount]
+        B --&gt; C[Create Large File]
+        C --&gt; D[Monitor System]
+
+        D --&gt; E{Application Response}
+        E --&gt; F[Graceful Degradation ✓]
+        E --&gt; G[Crash/Hang ❌]
+        E --&gt; H[Alert Fired ✓]
+
+        I[Cleanup After Test] --&gt; J[Remove Chaos File]
+    end
+
+    style F fill:#c8e6c9
+    style G fill:#ffcdd2
+    style H fill:#e3f2fd</code></pre></p>
+<p><strong>Resource Exhaustion Test Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Resource</th>
+<th>Test Method</th>
+<th>Expected Behavior</th>
+<th>Common Failures</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disk</strong></td>
+<td>Fill to 90%</td>
+<td>Log rotation, cleanup</td>
+<td>App crashes, no alerts</td>
+</tr>
+<tr>
+<td><strong>Memory</strong></td>
+<td>Allocate arrays</td>
+<td>OOM killer, restart</td>
+<td>Hung process</td>
+</tr>
+<tr>
+<td><strong>CPU</strong></td>
+<td>Spin loops</td>
+<td>Throttling, queueing</td>
+<td>Timeouts</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td>Bandwidth limit</td>
+<td>Backpressure</td>
+<td>Connection drops</td>
+</tr>
+</tbody>
+</table>
 <p>Tests: Degradation handling, alerts</p>
 <h3 id="application-chaos">Application Chaos<a class="headerlink" href="#application-chaos" title="Permanent link">&para;</a></h3>
 <p><strong>1. Latency Injection</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ChaosMiddleware</span><span class="p">:</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">app</span><span class="p">):</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">app</span> <span class="o">=</span> <span class="n">app</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">):</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a>        <span class="c1"># Inject latency randomly</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.1</span><span class="p">:</span>  <span class="c1"># 10% of requests</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>  <span class="c1"># 1 second delay</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>        <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">app</span><span class="p">(</span><span class="n">request</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Latency Injection Flow"
+        A[Request Arrives] --&gt; B{Random Check}
+        B --&gt;|10% chance| C[Add 1s Delay]
+        B --&gt;|90% chance| D[No Delay]
+
+        C --&gt; E[Process Request]
+        D --&gt; E
+
+        E --&gt; F{Client Behavior}
+        F --&gt; G[Timeout ⚠️]
+        F --&gt; H[Retry 🔄]
+        F --&gt; I[Success ✓]
+    end
+
+    style C fill:#fff3cd
+    style G fill:#ffcdd2
+    style I fill:#c8e6c9</code></pre></p>
+<p><strong>Latency Test Scenarios:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Delay</th>
+<th>Percentage</th>
+<th>Tests</th>
+<th>Expected Outcome</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>100ms</td>
+<td>50%</td>
+<td>Normal variance</td>
+<td>No impact</td>
+</tr>
+<tr>
+<td>1s</td>
+<td>10%</td>
+<td>Timeout handling</td>
+<td>Some retries</td>
+</tr>
+<tr>
+<td>5s</td>
+<td>5%</td>
+<td>Circuit breakers</td>
+<td>Breaker opens</td>
+</tr>
+<tr>
+<td>30s</td>
+<td>1%</td>
+<td>Dead detection</td>
+<td>Failover triggered</td>
+</tr>
+</tbody>
+</table>
 <p>Tests: Timeout handling, circuit breakers</p>
 <p><strong>2. Error Injection</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ChaosProxy</span><span class="p">:</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">inject_error</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">percent</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">error_code</span><span class="o">=</span><span class="mi">500</span><span class="p">):</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>        <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="n">percent</span><span class="o">/</span><span class="mi">100</span><span class="p">:</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>            <span class="k">raise</span> <span class="n">HttpError</span><span class="p">(</span><span class="n">error_code</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Error Injection Strategy"
+        A[Incoming Request] --&gt; B{Error Injection?}
+        B --&gt;|5% chance| C[Return Error Code]
+        B --&gt;|95% chance| D[Normal Processing]
+
+        C --&gt; E{Error Type}
+        E --&gt; F[500 - Server Error]
+        E --&gt; G[503 - Unavailable]
+        E --&gt; H[429 - Rate Limited]
+
+        F --&gt; I[Test Retry Logic]
+        G --&gt; J[Test Circuit Breaker]
+        H --&gt; K[Test Backoff]
+    end
+
+    style C fill:#ffcdd2
+    style D fill:#c8e6c9</code></pre></p>
 <p>Tests: Retry logic, fallbacks</p>
 <p><strong>3. Data Corruption</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">chaos_corrupt_response</span><span class="p">(</span><span class="n">response</span><span class="p">):</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>    <span class="k">if</span> <span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">()</span> <span class="o">&lt;</span> <span class="mf">0.01</span><span class="p">:</span>  <span class="c1"># 1% chance</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>        <span class="c1"># Modify response data</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">response</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>            <span class="n">response</span><span class="p">[</span><span class="s1">&#39;amount&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">&#39;amount&#39;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">*</span> <span class="mf">1.1</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>    <span class="k">return</span> <span class="n">response</span>
-</span></code></pre></div></p>
+<strong>Data Corruption Test Scenarios:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Corruption Type</th>
+<th>Example</th>
+<th>Tests</th>
+<th>Detection Method</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Numeric Drift</strong></td>
+<td>amount * 1.1</td>
+<td>Validation logic</td>
+<td>Checksum/bounds</td>
+</tr>
+<tr>
+<td><strong>Missing Fields</strong></td>
+<td>Remove required field</td>
+<td>Schema validation</td>
+<td>Contract testing</td>
+</tr>
+<tr>
+<td><strong>Type Changes</strong></td>
+<td>String → Number</td>
+<td>Parsing robustness</td>
+<td>Type checking</td>
+</tr>
+<tr>
+<td><strong>Encoding Issues</strong></td>
+<td>UTF-8 → ASCII</td>
+<td>Character handling</td>
+<td>Encoding validation</td>
+</tr>
+</tbody>
+</table>
+<pre class="mermaid"><code>flowchart TD
+    A[Valid Response] --&gt; B{Corruption Type}
+    B --&gt; C[Numeric Changes]
+    B --&gt; D[Missing Fields]
+    B --&gt; E[Type Mutations]
+
+    C --&gt; F[Client Validation]
+    D --&gt; F
+    E --&gt; F
+
+    F --&gt; G{Detection?}
+    G --&gt;|Yes| H[✅ Caught Error]
+    G --&gt;|No| I[❌ Data Corrupted]
+
+    style H fill:#c8e6c9
+    style I fill:#ffcdd2</code></pre>
 <p>Tests: Validation, error detection</p>
 <p><strong>4. Rate Limiting</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">ChaosRateLimiter</span><span class="p">:</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">limit</span><span class="o">=</span><span class="mi">10</span><span class="p">):</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">limit</span> <span class="o">=</span> <span class="n">limit</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">window</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">check_limit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>        <span class="n">count</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>        <span class="k">if</span> <span class="n">count</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">limit</span><span class="p">:</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>            <span class="k">raise</span> <span class="n">RateLimitExceeded</span><span class="p">()</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">window</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">count</span> <span class="o">+</span> <span class="mi">1</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Rate Limit Testing"
+        A[Request with Key] --&gt; B[Check Counter]
+        B --&gt; C{Over Limit?}
+
+        C --&gt;|Yes| D[Reject Request]
+        C --&gt;|No| E[Increment Counter]
+
+        D --&gt; F[Return 429]
+        E --&gt; G[Process Request]
+
+        F --&gt; H{Client Response}
+        H --&gt; I[Backoff ✓]
+        H --&gt; J[Retry Storm ❌]
+        H --&gt; K[Circuit Break ✓]
+    end
+
+    style D fill:#ffcdd2
+    style I fill:#c8e6c9
+    style J fill:#ffcdd2
+    style K fill:#c8e6c9</code></pre></p>
+<p><strong>Rate Limiting Test Matrix:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Limit</th>
+<th>Window</th>
+<th>Test Scenario</th>
+<th>Expected Behavior</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>10/min</td>
+<td>Fixed</td>
+<td>Burst of 20</td>
+<td>10 pass, 10 fail, retry after window</td>
+</tr>
+<tr>
+<td>100/hr</td>
+<td>Sliding</td>
+<td>Sustained load</td>
+<td>Smooth throttling</td>
+</tr>
+<tr>
+<td>1000/day</td>
+<td>Token</td>
+<td>Spike traffic</td>
+<td>Burst allowed, then throttle</td>
+</tr>
+</tbody>
+</table>
 <p>Tests: Backoff, queueing</p>
 <h2 id="gameday-planning">GameDay Planning<a class="headerlink" href="#gameday-planning" title="Permanent link">&para;</a></h2>
 <h3 id="pre-gameday-checklist">Pre-GameDay Checklist<a class="headerlink" href="#pre-gameday-checklist" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>□ Hypothesis documented
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>□ Success criteria defined
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>□ Monitoring dashboards ready
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>□ Abort procedures tested
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>□ Team roles assigned
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>□ Communication plan ready
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>□ Customer support warned
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>□ Rollback tested
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>□ Business stakeholders informed
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>□ Runbooks updated
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "GameDay Preparation Flow"
+        A[Start Planning] --&gt; B[Document Hypothesis]
+        B --&gt; C[Define Success Criteria]
+        C --&gt; D[Setup Monitoring]
+        D --&gt; E[Test Abort Procedures]
+        E --&gt; F[Assign Team Roles]
+        F --&gt; G[Create Comm Plan]
+        G --&gt; H[Brief Support Team]
+        H --&gt; I[Validate Rollback]
+        I --&gt; J[Inform Stakeholders]
+        J --&gt; K[Update Runbooks]
+        K --&gt; L{Ready?}
+        L --&gt;|No| M[Address Gaps]
+        L --&gt;|Yes| N[✅ Execute GameDay]
+        M --&gt; B
+    end
+
+    style N fill:#c8e6c9
+    style M fill:#fff3cd</code></pre>
+<p><strong>Pre-GameDay Checklist Status:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Owner</th>
+<th>Status</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hypothesis documented</td>
+<td>Tech Lead</td>
+<td>✅</td>
+<td>Clear failure scenario</td>
+</tr>
+<tr>
+<td>Success criteria</td>
+<td>SRE Team</td>
+<td>✅</td>
+<td>SLOs maintained</td>
+</tr>
+<tr>
+<td>Monitoring ready</td>
+<td>Ops</td>
+<td>✅</td>
+<td>Dashboards live</td>
+</tr>
+<tr>
+<td>Abort procedures</td>
+<td>All</td>
+<td>✅</td>
+<td>Kill switch tested</td>
+</tr>
+<tr>
+<td>Roles assigned</td>
+<td>Manager</td>
+<td>✅</td>
+<td>See role matrix</td>
+</tr>
+<tr>
+<td>Comm plan</td>
+<td>Comms Lead</td>
+<td>✅</td>
+<td>Templates ready</td>
+</tr>
+<tr>
+<td>Support briefed</td>
+<td>Support Mgr</td>
+<td>✅</td>
+<td>FAQs prepared</td>
+</tr>
+<tr>
+<td>Rollback tested</td>
+<td>Dev Team</td>
+<td>✅</td>
+<td>&lt;30s recovery</td>
+</tr>
+<tr>
+<td>Stakeholders informed</td>
+<td>PM</td>
+<td>✅</td>
+<td>Email sent</td>
+</tr>
+<tr>
+<td>Runbooks updated</td>
+<td>SRE</td>
+<td>✅</td>
+<td>Latest version</td>
+</tr>
+</tbody>
+</table>
 <h3 id="gameday-roles">GameDay Roles<a class="headerlink" href="#gameday-roles" title="Permanent link">&para;</a></h3>
 <ul>
 <li><strong>Game Master</strong>: Runs the experiment</li>
@@ -9230,15 +9528,31 @@ last_updated: 2025-07-20</p>
 <li><strong>Scribe</strong>: Documents everything</li>
 </ul>
 <h3 id="gameday-timeline">GameDay Timeline<a class="headerlink" href="#gameday-timeline" title="Permanent link">&para;</a></h3>
-<div class="language-yaml highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="nt">T-30min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Final checks, team assembly</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="nt">T-15min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Monitoring verification</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="nt">T-0</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Begin experiment</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="nt">T+5min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">First health check</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a><span class="nt">T+15min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Evaluate continue/abort</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="nt">T+30min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Planned end</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="nt">T+45min</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Debrief starts</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="nt">T+2hr</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">Report published</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>gantt
+    title GameDay Execution Timeline
+    dateFormat HH:mm
+    axisFormat %H:%M
+
+    section Preparation
+    Team Assembly           :prep1, 09:00, 15m
+    Final Checks           :prep2, after prep1, 10m
+    Monitor Verification   :prep3, after prep2, 5m
+
+    section Execution
+    Start Experiment       :exec1, 09:30, 5m
+    Health Check 1        :exec2, after exec1, 5m
+    Continue Decision     :exec3, after exec2, 5m
+    Main Test Period      :exec4, after exec3, 15m
+
+    section Wrap-up
+    End Experiment        :wrap1, 10:00, 5m
+    Initial Debrief       :wrap2, after wrap1, 10m
+    Document Findings     :wrap3, after wrap2, 30m
+    Publish Report       :wrap4, 11:30, 30m
+
+    style exec1 fill:#ffcdd2
+    style exec4 fill:#fff3cd
+    style wrap4 fill:#c8e6c9</code></pre>
 <h2 id="real-gameday-example">Real GameDay Example<a class="headerlink" href="#real-gameday-example" title="Permanent link">&para;</a></h2>
 <h3 id="scenario-payment-service-region-failure">Scenario: Payment Service Region Failure<a class="headerlink" href="#scenario-payment-service-region-failure" title="Permanent link">&para;</a></h3>
 <p><strong>Hypothesis:</strong>
@@ -9334,17 +9648,71 @@ last_updated: 2025-07-20</p>
 <li>Correlation with real incidents</li>
 </ol>
 <h3 id="roi-calculation">ROI Calculation<a class="headerlink" href="#roi-calculation" title="Permanent link">&para;</a></h3>
-<div class="language-bash highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Investment:
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>-<span class="w"> </span><span class="m">2</span><span class="w"> </span>engineers<span class="w"> </span>×<span class="w"> </span><span class="m">20</span>%<span class="w"> </span><span class="nb">time</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$100</span>k/year
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>-<span class="w"> </span>Tools<span class="w"> </span>and<span class="w"> </span><span class="nv">infrastructure</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$20</span>k/year
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>Returns:
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>-<span class="w"> </span>Prevented<span class="w"> </span>outages:<span class="w"> </span><span class="m">5</span><span class="w"> </span>×<span class="w"> </span><span class="nv">$200</span>k<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$1</span>M
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>-<span class="w"> </span>Reduced<span class="w"> </span>MTTR:<span class="w"> </span><span class="m">50</span>%<span class="w"> </span>×<span class="w"> </span><span class="nv">$500</span>k<span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nv">$250</span>k
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>-<span class="w"> </span>Team<span class="w"> </span>confidence:<span class="w"> </span>Priceless
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="nv">ROI</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">940</span>%<span class="w"> </span>first<span class="w"> </span>year
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Chaos Engineering ROI"
+        subgraph "Investment (Annual)"
+            A[Engineering Time&lt;br/&gt;$100k]
+            B[Tools &amp; Infra&lt;br/&gt;$20k]
+            C[Total: $120k]
+        end
+
+        subgraph "Returns (Annual)"
+            D[Prevented Outages&lt;br/&gt;5 × $200k = $1M]
+            E[MTTR Reduction&lt;br/&gt;50% × $500k = $250k]
+            F[Total: $1.25M]
+        end
+
+        C --&gt; G[ROI Calculation]
+        F --&gt; G
+        G --&gt; H[940% ROI&lt;br/&gt;First Year]
+    end
+
+    style C fill:#ffcdd2
+    style F fill:#c8e6c9
+    style H fill:#ffd54f</code></pre>
+<p><strong>Chaos Engineering Value Metrics:</strong></p>
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Before Chaos</th>
+<th>After Chaos</th>
+<th>Improvement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Outages/Year</strong></td>
+<td>12</td>
+<td>7</td>
+<td>42% reduction</td>
+</tr>
+<tr>
+<td><strong>MTTR</strong></td>
+<td>4 hours</td>
+<td>2 hours</td>
+<td>50% faster</td>
+</tr>
+<tr>
+<td><strong>Confidence Score</strong></td>
+<td>6/10</td>
+<td>9/10</td>
+<td>50% increase</td>
+</tr>
+<tr>
+<td><strong>Unknown Failures</strong></td>
+<td>8 found in prod</td>
+<td>2 found in prod</td>
+<td>75% caught early</td>
+</tr>
+<tr>
+<td><strong>Team Readiness</strong></td>
+<td>Ad-hoc response</td>
+<td>Practiced response</td>
+<td>Measurable improvement</td>
+</tr>
+</tbody>
+</table>
 <h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Start Small</strong></li>

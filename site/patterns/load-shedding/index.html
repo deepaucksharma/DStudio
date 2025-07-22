@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -4806,6 +4774,15 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#load-shedding-decision-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Shedding Decision Flow
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#basic-load-shedding" class="md-nav__link">
     <span class="md-ellipsis">
       Basic Load Shedding
@@ -4833,6 +4810,24 @@
   <a href="#load-shedding-strategies" class="md-nav__link">
     <span class="md-ellipsis">
       Load Shedding Strategies
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#load-shedding-state-machine" class="md-nav__link">
+    <span class="md-ellipsis">
+      Load Shedding State Machine
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#priority-based-shedding-strategy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Priority-Based Shedding Strategy
     </span>
   </a>
   
@@ -4871,6 +4866,15 @@
   
     <nav class="md-nav" aria-label="Advanced Load Shedding Patterns">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adaptive-load-shedding-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Adaptive Load Shedding Flow
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#adaptive-load-shedding" class="md-nav__link">
@@ -9074,6 +9078,36 @@
 - <strong>Capacity limit</strong>: The boat can only hold so many people
 - <strong>Priority system</strong>: Women and children first
 - <strong>Survival focus</strong>: Better to save some than lose all</p>
+<h3 id="load-shedding-decision-flow">Load Shedding Decision Flow<a class="headerlink" href="#load-shedding-decision-flow" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>flowchart TD
+    R[Incoming Request] --&gt; P{Determine Priority}
+
+    P --&gt;|Critical| C{Load &lt; 95%?}
+    P --&gt;|High| H{Load &lt; 80%?}
+    P --&gt;|Normal| N{Load &lt; 60%?}
+    P --&gt;|Low| L{Load &lt; 40%?}
+
+    C --&gt;|Yes| Accept1[Accept Request]
+    C --&gt;|No| Reject1[Reject: Overload]
+
+    H --&gt;|Yes| Accept2[Accept Request]
+    H --&gt;|No| Reject2[Reject: Overload]
+
+    N --&gt;|Yes| Accept3[Accept Request]
+    N --&gt;|No| Reject3[Reject: Overload]
+
+    L --&gt;|Yes| Accept4[Accept Request]
+    L --&gt;|No| Reject4[Reject: Overload]
+
+    Accept1 --&gt; Process[Process Request]
+    Accept2 --&gt; Process
+    Accept3 --&gt; Process
+    Accept4 --&gt; Process
+
+    style Reject1 fill:#f96
+    style Reject2 fill:#f96
+    style Reject3 fill:#f96
+    style Reject4 fill:#f96</code></pre>
 <h3 id="basic-load-shedding">Basic Load Shedding<a class="headerlink" href="#basic-load-shedding" title="Permanent link">&para;</a></h3>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
@@ -9154,6 +9188,88 @@
 <td><strong>Age-based</strong></td>
 <td>Drop oldest requests</td>
 <td>Real-time systems</td>
+</tr>
+</tbody>
+</table>
+<h3 id="load-shedding-state-machine">Load Shedding State Machine<a class="headerlink" href="#load-shedding-state-machine" title="Permanent link">&para;</a></h3>
+<pre class="mermaid"><code>stateDiagram-v2
+    [*] --&gt; Normal: System Start
+
+    Normal --&gt; LightLoad: Load &gt; 50%
+    LightLoad --&gt; Normal: Load &lt; 40%
+
+    LightLoad --&gt; ModerateLoad: Load &gt; 70%
+    ModerateLoad --&gt; LightLoad: Load &lt; 60%
+
+    ModerateLoad --&gt; HeavyLoad: Load &gt; 85%
+    HeavyLoad --&gt; ModerateLoad: Load &lt; 75%
+
+    HeavyLoad --&gt; Critical: Load &gt; 95%
+    Critical --&gt; HeavyLoad: Load &lt; 85%
+
+    Critical --&gt; Emergency: System Failure
+    Emergency --&gt; [*]: Restart
+
+    note right of Normal
+        Accept all requests
+    end note
+
+    note right of Critical
+        Essential traffic only
+        99% rejection rate
+    end note</code></pre>
+<h3 id="priority-based-shedding-strategy">Priority-Based Shedding Strategy<a class="headerlink" href="#priority-based-shedding-strategy" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Load Level</th>
+<th>Critical</th>
+<th>High</th>
+<th>Normal</th>
+<th>Low</th>
+<th>Strategy</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0-50%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>Accept all</td>
+</tr>
+<tr>
+<td>50-70%</td>
+<td>100%</td>
+<td>100%</td>
+<td>100%</td>
+<td>60%</td>
+<td>Throttle low priority</td>
+</tr>
+<tr>
+<td>70-85%</td>
+<td>100%</td>
+<td>90%</td>
+<td>50%</td>
+<td>10%</td>
+<td>Active shedding</td>
+</tr>
+<tr>
+<td>85-95%</td>
+<td>100%</td>
+<td>50%</td>
+<td>10%</td>
+<td>0%</td>
+<td>Essential only</td>
+</tr>
+<tr>
+<td>&gt;95%</td>
+<td>80%</td>
+<td>10%</td>
+<td>0%</td>
+<td>0%</td>
+<td>Emergency mode</td>
 </tr>
 </tbody>
 </table>
@@ -9260,6 +9376,31 @@
 <hr />
 <h2 id="level-3-deep-dive">🔧 Level 3: Deep Dive<a class="headerlink" href="#level-3-deep-dive" title="Permanent link">&para;</a></h2>
 <h3 id="advanced-load-shedding-patterns">Advanced Load Shedding Patterns<a class="headerlink" href="#advanced-load-shedding-patterns" title="Permanent link">&para;</a></h3>
+<h4 id="adaptive-load-shedding-flow">Adaptive Load Shedding Flow<a class="headerlink" href="#adaptive-load-shedding-flow" title="Permanent link">&para;</a></h4>
+<pre class="mermaid"><code>sequenceDiagram
+    participant R as Request
+    participant ALS as Adaptive Load Shedder
+    participant ML as ML Model
+    participant S as System
+    participant M as Metrics
+
+    R-&gt;&gt;ALS: Incoming Request
+    ALS-&gt;&gt;ML: Predict Success Probability
+    ML-&gt;&gt;ML: Analyze Features
+    Note over ML: Priority, Cost, Load,&lt;br/&gt;Queue Depth, Response Time
+    ML--&gt;&gt;ALS: Success Probability
+
+    alt High Probability
+        ALS-&gt;&gt;S: Accept &amp; Process
+        S--&gt;&gt;ALS: Result
+        ALS-&gt;&gt;M: Record Outcome
+    else Low Probability
+        ALS--&gt;&gt;R: Reject (503)
+        ALS-&gt;&gt;M: Record Rejection
+    end
+
+    M-&gt;&gt;ML: Retrain Model
+    Note over ML: Learn from outcomes</code></pre>
 <h4 id="adaptive-load-shedding">Adaptive Load Shedding<a class="headerlink" href="#adaptive-load-shedding" title="Permanent link">&para;</a></h4>
 <div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">AdaptiveLoadShedder</span><span class="p">:</span>
 </span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>

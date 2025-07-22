@@ -758,6 +758,7 @@ graph TB
     end
     
     Note[Requires 3f+1 nodes to<br/>tolerate f Byzantine failures]
+end
 ```
 
 ### Failure Detection and Consistency

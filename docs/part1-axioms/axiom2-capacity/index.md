@@ -263,9 +263,71 @@ Capacity follows conservation laws:
 
 ## The Capacity Staircase
 
+```mermaid
+graph TD
+    A[Request Arrives] --> B{System Load}
+    B -->|<50%| C[Process Normally]
+    B -->|50-70%| D[Monitor Closely]
+    B -->|70-85%| E[Apply Backpressure]
+    B -->|>85%| F[Shed Load]
+    
+    E --> G[Slow Responses]
+    F --> H[Reject Requests]
+    
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style E fill:#ff9,stroke:#333,stroke-width:2px
+    style F fill:#f99,stroke:#333,stroke-width:2px
+```
+
 ## Decision Framework
 
+<div class="decision-box">
+<h3>🎯 Capacity Decision Framework</h3>
+
+**When to Scale Up:**
+- Sustained utilization > 70% for 15+ minutes
+- Response time degradation > 20%
+- Queue depth growing unbounded
+- Error rate increasing
+
+**When to Scale Out:**
+- Single resource maxed (CPU, memory, network)
+- Need geographic distribution
+- Require fault isolation
+- Cost-effective at scale
+
+**When to Optimize:**
+- Scaling costs exceed business value
+- Hit fundamental limits (speed of light)
+- Complexity overwhelming team
+- Diminishing returns from hardware
+</div>
+
 ## Capacity Arithmetic
+
+```python
+# Little's Law in practice
+def calculate_capacity_needs(avg_request_rate, avg_response_time):
+    """
+    Little's Law: L = λW
+    L = number of requests in system
+    λ = arrival rate (requests/second)
+    W = time in system (seconds)
+    """
+    concurrent_requests = avg_request_rate * avg_response_time
+    
+    # Add safety margins
+    peak_factor = 2.0  # Handle 2x average
+    variance_factor = 1.5  # Handle variance
+    
+    required_capacity = concurrent_requests * peak_factor * variance_factor
+    
+    return {
+        'average_load': concurrent_requests,
+        'peak_capacity_needed': required_capacity,
+        'servers_needed': math.ceil(required_capacity / server_capacity)
+    }
+```
 
 ## 🔧 Try This: Find Your Breaking Point (DO NOT RUN IN PROD!)
 
@@ -287,9 +349,90 @@ iotop # Watch disk
 
 ## Real Capacity Limits (2024)
 
+<div class="axiom-box">
+<h3>📊 Real-World Capacity Limits</h3>
+
+**AWS EC2 Limits (2024):**
+- Network: 100 Gbps (c5n.18xlarge)
+- Memory: 24 TB (x1e.32xlarge) 
+- Storage: 64,000 IOPS (io2)
+- Connections: ~65K per IP
+
+**Database Limits:**
+- PostgreSQL: 32 TB table size
+- MySQL: 65,535 columns per table
+- Redis: 512 MB per key
+- Cassandra: 2 billion cells per partition
+
+**API Limits:**
+- GitHub: 5,000 requests/hour
+- Twitter: 300 posts/3 hours
+- Stripe: 100 requests/second
+- AWS API: Varies by service
+</div>
+
 ## Counter-Intuitive Truth
 
+<div class="truth-box">
+<h3>💭 The 70% Rule</h3>
+
+Systems behave predictably up to ~70% utilization, then chaos emerges:
+
+- **0-50%**: Linear performance, predictable behavior
+- **50-70%**: Slight degradation, manageable variance
+- **70-85%**: Non-linear degradation, queuing effects dominate
+- **85-100%**: Catastrophic failure, thrashing, deadlocks
+
+**Why?** Queuing theory shows wait time approaches infinity as utilization approaches 100%.
+</div>
+
 ## Worked Example: Video Streaming
+
+```python
+# Calculate bandwidth needs for video streaming service
+def video_streaming_capacity(users, quality_distribution):
+    """
+    Real example from a streaming platform
+    """
+    bitrates = {
+        '4k': 25_000_000,   # 25 Mbps
+        '1080p': 8_000_000,  # 8 Mbps
+        '720p': 5_000_000,   # 5 Mbps
+        '480p': 2_500_000    # 2.5 Mbps
+    }
+    
+    total_bandwidth = 0
+    for quality, percentage in quality_distribution.items():
+        users_at_quality = users * percentage
+        bandwidth = users_at_quality * bitrates[quality]
+        total_bandwidth += bandwidth
+    
+    # Add overhead
+    protocol_overhead = 1.2  # TCP/IP headers, retransmits
+    peak_factor = 1.5       # Evening peak
+    
+    required_bandwidth = total_bandwidth * protocol_overhead * peak_factor
+    
+    # Calculate infrastructure needs
+    cdn_node_capacity = 40_000_000_000  # 40 Gbps per node
+    nodes_needed = math.ceil(required_bandwidth / cdn_node_capacity)
+    
+    return {
+        'average_bandwidth_gbps': total_bandwidth / 1_000_000_000,
+        'peak_bandwidth_gbps': required_bandwidth / 1_000_000_000,
+        'cdn_nodes_needed': nodes_needed,
+        'monthly_cost_estimate': nodes_needed * 15000  # $15k/node/month
+    }
+
+# Example: 1M concurrent viewers
+result = video_streaming_capacity(1_000_000, {
+    '4k': 0.15,
+    '1080p': 0.50,
+    '720p': 0.25,
+    '480p': 0.10
+})
+print(f"Need {result['cdn_nodes_needed']} CDN nodes for {result['peak_bandwidth_gbps']:.0f} Gbps")
+```
 
 ## Level 3: Deep Dive (Master the Patterns) 🌳
 
@@ -415,6 +558,63 @@ class AdaptiveBackpressureQueue(BackpressureQueue):
 
 ### Common Anti-Patterns (And How to Fix Them)
 
+<div class="failure-vignette">
+<h3>🚫 Anti-Pattern Gallery</h3>
+
+**1. The Infinite Thread Pool**
+```java
+// DON'T: Unbounded thread creation
+for (Request req : requests) {
+    new Thread(() -> process(req)).start();  // 💥 OOM
+}
+
+// DO: Bounded thread pool
+ExecutorService executor = Executors.newFixedThreadPool(100);
+for (Request req : requests) {
+    executor.submit(() -> process(req));
+}
+```
+
+**2. The Connection Leak**
+```python
+# DON'T: Forget to close connections
+def query_db(sql):
+    conn = db.connect()  # Leaks on exception
+    return conn.execute(sql)
+
+# DO: Always cleanup
+def query_db(sql):
+    with db.connect() as conn:  # Auto-closes
+        return conn.execute(sql)
+```
+
+**3. The Retry Storm**
+```javascript
+// DON'T: Immediate retry
+async function callAPI() {
+    while (true) {
+        try {
+            return await fetch('/api');
+        } catch (e) {
+            // Hammers the server! 💥
+        }
+    }
+}
+
+// DO: Exponential backoff
+async function callAPI() {
+    for (let i = 0; i < 5; i++) {
+        try {
+            return await fetch('/api');
+        } catch (e) {
+            await sleep(Math.pow(2, i) * 1000);
+        }
+    }
+    throw new Error('API unavailable');
+}
+```
+</div>
+
 ## Level 4: Expert (Production Patterns) 🌲
 
 ### Real-World Case Study: The WhatsApp 900M User Architecture
@@ -459,7 +659,7 @@ handle_info({tcp, Socket, Data}, State) ->
     end.
 
 %% Result: 2M connections per server (typical: 10-50K)
-```bash
+```
 ### Advanced Capacity Patterns
 
 #### 1. Adaptive Load Shedding
@@ -483,7 +683,7 @@ def adaptive_load_shed(request, system_load):
         raise ServiceUnavailable("System overloaded")
 
     return process_request(request)
-```bash
+```
 #### 2. Resource Pools with Stealing
 ```python
 class ResourcePoolWithStealing:
@@ -517,7 +717,7 @@ class ResourcePoolWithStealing:
             return self.create_new_connection(service)
 
         raise NoConnectionsAvailable()
-```bash
+```
 ### Measurement: Production Monitoring
 
 ```python
@@ -562,7 +762,7 @@ class CapacityMonitor:
 
         time_to_limit = (100 - current) / growth_rate
         return time_to_limit
-```yaml
+```
 ---
 
 ## Level 5: Mastery (Scale to Infinity) 🌴
@@ -756,7 +956,7 @@ class TheoreticalCapacityLimits:
         elif consistency_model == 'none':
             # Perfect parallelism (cache, CDN)
             return nodes * single_node
-```bash
+```
 ### War Story: Stack Overflow's 9 Servers
 
 ```csharp
@@ -842,7 +1042,7 @@ public class ExtremeOptimizationPatterns
         return result;  // No allocations!
     }
 }
-```bash
+```
 ### The Capacity Optimization Cookbook
 
 ```python
@@ -938,7 +1138,7 @@ class CapacityOptimizationPatterns:
                 "P2P protocols for content distribution"
             ]
         }
-```bash
+```
 ## Summary: Key Takeaways by Level
 
 ### 🌱 Beginner
@@ -967,6 +1167,46 @@ class CapacityOptimizationPatterns:
 3. **Human capacity matters most** - 9 servers beats 9000 if manageable
 
 ## Quick Reference Card
+
+<div class="decision-box">
+<h3>📋 Capacity Management Cheat Sheet</h3>
+
+**Key Metrics to Monitor:**
+```yaml
+# System Metrics
+- CPU: utilization, saturation, errors
+- Memory: used, available, swap usage
+- Disk: IOPS, throughput, latency
+- Network: bandwidth, packet loss, errors
+
+# Application Metrics  
+- Request rate (QPS)
+- Response time (P50, P95, P99)
+- Error rate
+- Queue depth
+- Connection pool usage
+```
+
+**Capacity Planning Formula:**
+```text
+Required Capacity = 
+    Current Load × 
+    Growth Factor × 
+    Peak Factor × 
+    Safety Margin
+```
+
+**Quick Actions When Near Capacity:**
+1. **Immediate**: Enable rate limiting
+2. **Quick**: Scale horizontally (add nodes)
+3. **Medium**: Optimize hot paths
+4. **Long**: Re-architect bottlenecks
+
+**Remember:**
+- Monitor at 50%, alert at 70%, panic at 85%
+- Capacity problems are easier to prevent than fix
+- The last 20% of capacity costs 80% of performance
+</div>
 
 ---
 

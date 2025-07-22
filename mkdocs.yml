@@ -136,7 +136,6 @@ nav:
     - Overview: part1-axioms/index.md
     - "Axiom 1: Latency":
       - Overview: part1-axioms/axiom1-latency/index.md
-      - Enhanced: part1-axioms/axiom1-latency/index-enhanced.md
       - Examples: part1-axioms/axiom1-latency/examples.md
       - Exercises: part1-axioms/axiom1-latency/exercises.md
     - "Axiom 2: Capacity":

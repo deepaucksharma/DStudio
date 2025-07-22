@@ -826,52 +826,14 @@ graph TB
     end
 ```
 
-## 🚨 Failure Scenarios & Recovery
+## 🚨 Failure Scenarios
 
-### Common Failure Modes
-
-1. **CDN Outage**
-   - **Impact**: Regional service degradation
-   - **Detection**: Health checks, user reports
-   - **Recovery**: Automatic failover to backup CDN
-   - **Time**: < 30 seconds
-
-2. **Transcoding Farm Failure**
-   - **Impact**: New uploads delayed
-   - **Detection**: Queue depth monitoring
-   - **Recovery**: Spin up spot instances
-   - **Time**: < 5 minutes
-
-3. **Database Shard Failure**
-   - **Impact**: Metadata unavailable
-   - **Detection**: Connection errors
-   - **Recovery**: Promote replica
-   - **Time**: < 60 seconds
-
-### Disaster Recovery Plan
-
-```python
-class DisasterRecoveryOrchestrator:
-    """Coordinate disaster recovery procedures"""
-    
-    async def handle_regional_outage(self, region: str):
-        """Handle complete regional failure"""
-        # 1. Detect scope of outage
-        affected_services = await self._identify_affected_services(region)
-        
-        # 2. Redirect traffic
-        await self._update_dns_routing(region, 'failover')
-        
-        # 3. Activate backup systems
-        for service in affected_services:
-            await self._activate_backup(service, region)
-            
-        # 4. Notify stakeholders
-        await self._send_incident_notification(region, affected_services)
-        
-        # 5. Monitor recovery
-        await self._monitor_recovery_progress(region)
-```
+| Failure Type | Impact | Recovery | Time |
+|--------------|---------|----------|------|
+| **CDN Outage** | Regional degradation | Auto-failover to backup | <30s |
+| **Transcoding Farm** | Upload delays | Spin up spot instances | <5min |
+| **Database Shard** | Metadata unavailable | Promote replica | <60s |
+| **Regional Outage** | Complete failure | DNS redirect + backups | <2min |
 
 ## 💡 Key Design Insights
 

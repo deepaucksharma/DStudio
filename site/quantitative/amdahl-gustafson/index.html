@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -9180,182 +9148,461 @@
 <p><strong>The limits of parallelization</strong></p>
 <h2 id="amdahls-law">Amdahl's Law<a class="headerlink" href="#amdahls-law" title="Permanent link">&para;</a></h2>
 <p>The speedup of a program using multiple processors is limited by the sequential portion:</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Speedup</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="n">s</span> <span class="o">+</span> <span class="n">p</span><span class="o">/</span><span class="n">n</span><span class="p">)</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="n">Where</span><span class="p">:</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="n">s</span> <span class="o">=</span> <span class="n">Serial</span> <span class="n">fraction</span> <span class="p">(</span><span class="n">can</span><span class="s1">&#39;t parallelize)</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="n">p</span> <span class="o">=</span> <span class="n">Parallel</span> <span class="n">fraction</span> <span class="p">(</span><span class="n">can</span> <span class="n">parallelize</span><span class="p">)</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">n</span> <span class="o">=</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">processors</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">s</span> <span class="o">+</span> <span class="n">p</span> <span class="o">=</span> <span class="mi">1</span>
-</span></code></pre></div>
+<div class="axiom-box">
+<h4>📊 Amdahl's Law Formula</h4>
+
+<div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">
+  <div style="background: white; padding: 20px; border-radius: 5px; text-align: center; margin-bottom: 20px;">
+    <h3 style="margin: 0 0 10px 0; color: #5448C8;">Speedup = 1 / (s + p/n)</h3>
+  </div>
+
+  <table style="width: 100%; background: white; border-radius: 5px;">
+    <tr style="background: #E8E5F5;">
+      <th style="padding: 12px;">Variable</th>
+      <th style="padding: 12px;">Meaning</th>
+      <th style="padding: 12px;">Constraint</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>s</strong></td>
+      <td style="padding: 10px;">Serial fraction (can't parallelize)</td>
+      <td style="padding: 10px;">0 ≤ s ≤ 1</td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px; text-align: center;"><strong>p</strong></td>
+      <td style="padding: 10px;">Parallel fraction (can parallelize)</td>
+      <td style="padding: 10px;">0 ≤ p ≤ 1</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>n</strong></td>
+      <td style="padding: 10px;">Number of processors</td>
+      <td style="padding: 10px;">n ≥ 1</td>
+    </tr>
+    <tr style="background: #E8E5F5;">
+      <td style="padding: 10px; text-align: center;"><strong>s + p</strong></td>
+      <td style="padding: 10px;">Total work</td>
+      <td style="padding: 10px; font-weight: bold;">= 1</td>
+    </tr>
+  </table>
+
+  <div style="margin-top: 20px; background: #FFF3E0; padding: 15px; border-radius: 5px;">
+    <strong>💡 Key Insight:</strong> Serial bottlenecks dominate - even 5% serial work limits speedup to 20x maximum!
+  </div>
+</div>
+</div>
+
 <p><strong>Key Insight</strong>: Serial bottlenecks dominate</p>
 <h2 id="amdahls-law-examples">Amdahl's Law Examples<a class="headerlink" href="#amdahls-law-examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-95-parallelizable">Example 1: 95% Parallelizable<a class="headerlink" href="#example-1-95-parallelizable" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="n">s</span> <span class="o">=</span> <span class="mf">0.05</span><span class="p">,</span> <span class="n">p</span> <span class="o">=</span> <span class="mf">0.95</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a><span class="n">Processors</span>  <span class="n">Speedup</span>    <span class="n">Efficiency</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a><span class="o">----------</span>  <span class="o">-------</span>    <span class="o">----------</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a><span class="mi">1</span>           <span class="mf">1.0</span><span class="n">x</span>       <span class="mi">100</span><span class="o">%</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a><span class="mi">2</span>           <span class="mf">1.9</span><span class="n">x</span>       <span class="mi">95</span><span class="o">%</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a><span class="mi">4</span>           <span class="mf">3.5</span><span class="n">x</span>       <span class="mi">87</span><span class="o">%</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a><span class="mi">8</span>           <span class="mf">5.9</span><span class="n">x</span>       <span class="mi">74</span><span class="o">%</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="mi">16</span>          <span class="mf">8.4</span><span class="n">x</span>       <span class="mi">53</span><span class="o">%</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="mi">32</span>          <span class="mf">10.3</span><span class="n">x</span>      <span class="mi">32</span><span class="o">%</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a><span class="err">∞</span>           <span class="mi">20</span><span class="n">x</span>        <span class="mi">0</span><span class="o">%</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a><span class="n">Even</span> <span class="k">with</span> <span class="n">infinite</span> <span class="n">processors</span><span class="p">,</span> <span class="nb">max</span> <span class="n">speedup</span> <span class="o">=</span> <span class="mi">20</span><span class="n">x</span>
-</span></code></pre></div>
+<div class="decision-box">
+<h4>📋 Example: 95% Parallelizable Code</h4>
+
+<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+  <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+    <strong>Given:</strong> s = 0.05 (5% serial), p = 0.95 (95% parallel)
+  </div>
+
+  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+    <tr style="background: #C8E6C9;">
+      <th style="padding: 12px;">Processors</th>
+      <th style="padding: 12px;">Speedup</th>
+      <th style="padding: 12px;">Efficiency</th>
+      <th style="padding: 12px;">Visual Speedup</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>1</strong></td>
+      <td style="padding: 10px; text-align: center;">1.0x</td>
+      <td style="padding: 10px; text-align: center; color: #4CAF50;">100%</td>
+      <td style="padding: 10px;">
+        <div style="background: #4CAF50; width: 5%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px; text-align: center;"><strong>2</strong></td>
+      <td style="padding: 10px; text-align: center;">1.9x</td>
+      <td style="padding: 10px; text-align: center; color: #4CAF50;">95%</td>
+      <td style="padding: 10px;">
+        <div style="background: #4CAF50; width: 9.5%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>4</strong></td>
+      <td style="padding: 10px; text-align: center;">3.5x</td>
+      <td style="padding: 10px; text-align: center; color: #66BB6A;">87%</td>
+      <td style="padding: 10px;">
+        <div style="background: #66BB6A; width: 17.5%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px; text-align: center;"><strong>8</strong></td>
+      <td style="padding: 10px; text-align: center;">5.9x</td>
+      <td style="padding: 10px; text-align: center; color: #FF9800;">74%</td>
+      <td style="padding: 10px;">
+        <div style="background: #FF9800; width: 29.5%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>16</strong></td>
+      <td style="padding: 10px; text-align: center;">8.4x</td>
+      <td style="padding: 10px; text-align: center; color: #FF5722;">53%</td>
+      <td style="padding: 10px;">
+        <div style="background: #FF5722; width: 42%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px; text-align: center;"><strong>32</strong></td>
+      <td style="padding: 10px; text-align: center;">10.3x</td>
+      <td style="padding: 10px; text-align: center; color: #F44336;">32%</td>
+      <td style="padding: 10px;">
+        <div style="background: #F44336; width: 51.5%; height: 15px;"></div>
+      </td>
+    </tr>
+    <tr style="background: #FFEBEE;">
+      <td style="padding: 10px; text-align: center;"><strong>∞</strong></td>
+      <td style="padding: 10px; text-align: center; font-weight: bold; color: #B71C1C;">20x</td>
+      <td style="padding: 10px; text-align: center; color: #B71C1C;">0%</td>
+      <td style="padding: 10px;">
+        <div style="background: #B71C1C; width: 100%; height: 15px;"></div>
+      </td>
+    </tr>
+  </table>
+
+  <div style="text-align: center;">
+    <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
+      <text x="250" y="20" text-anchor="middle" font-weight="bold">Speedup vs Processors (95% Parallel)</text>
+
+      <!-- Axes -->
+      <line x1="50" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2"/>
+      <line x1="50" y1="250" x2="50" y2="50" stroke="#333" stroke-width="2"/>
+
+      <!-- Theoretical limit line -->
+      <line x1="50" y1="70" x2="450" y2="70" stroke="#B71C1C" stroke-width="2" stroke-dasharray="5,5"/>
+      <text x="460" y="75" font-size="10" fill="#B71C1C">20x limit</text>
+
+      <!-- Speedup curve -->
+      <path d="M 50 250 Q 150 150, 250 100 T 450 75" 
+            stroke="#4CAF50" stroke-width="3" fill="none"/>
+
+      <!-- Data points -->
+      <circle cx="50" cy="250" r="3" fill="#4CAF50"/>
+      <circle cx="100" cy="200" r="3" fill="#4CAF50"/>
+      <circle cx="150" cy="150" r="3" fill="#66BB6A"/>
+      <circle cx="200" cy="120" r="3" fill="#FF9800"/>
+      <circle cx="250" cy="100" r="3" fill="#FF5722"/>
+      <circle cx="300" cy="90" r="3" fill="#F44336"/>
+
+      <!-- Labels -->
+      <text x="50" y="270" text-anchor="middle" font-size="10">1</text>
+      <text x="150" y="270" text-anchor="middle" font-size="10">4</text>
+      <text x="250" y="270" text-anchor="middle" font-size="10">16</text>
+      <text x="350" y="270" text-anchor="middle" font-size="10">64</text>
+      <text x="450" y="270" text-anchor="middle" font-size="10">∞</text>
+      <text x="250" y="290" text-anchor="middle" font-size="12">Processors</text>
+
+      <text x="30" y="250" text-anchor="middle" font-size="10">1x</text>
+      <text x="30" y="150" text-anchor="middle" font-size="10">10x</text>
+      <text x="30" y="70" text-anchor="middle" font-size="10">20x</text>
+      <text x="20" y="150" text-anchor="middle" font-size="12" transform="rotate(-90 20 150)">Speedup</text>
+    </svg>
+  </div>
+
+  <div style="background: #FFEBEE; padding: 15px; border-radius: 5px; margin-top: 15px;">
+    <strong>🚨 Critical Insight:</strong> Even with infinite processors, maximum speedup = 1/0.05 = 20x
+  </div>
+</div>
+</div>
+
 <h3 id="example-2-web-request-processing">Example 2: Web Request Processing<a class="headerlink" href="#example-2-web-request-processing" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Request</span> <span class="n">breakdown</span><span class="p">:</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">-</span> <span class="n">Auth</span> <span class="n">check</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">-</span> <span class="n">Database</span> <span class="n">queries</span><span class="p">:</span> <span class="mi">90</span><span class="n">ms</span> <span class="p">(</span><span class="n">can</span> <span class="n">parallelize</span><span class="p">)</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">-</span> <span class="n">Response</span> <span class="n">formatting</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">Serial</span> <span class="n">fraction</span> <span class="o">=</span> <span class="mi">20</span><span class="n">ms</span><span class="o">/</span><span class="mi">110</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">18</span><span class="o">%</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="n">Max</span> <span class="n">speedup</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mf">0.18</span> <span class="o">=</span> <span class="mf">5.5</span><span class="n">x</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="n">No</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">more</span> <span class="n">than</span> <span class="mi">6</span> <span class="n">parallel</span> <span class="n">queries</span><span class="err">!</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Request</span> <span class="n">breakdown</span><span class="p">:</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="o">-</span> <span class="n">Auth</span> <span class="n">check</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="o">-</span> <span class="n">Database</span> <span class="n">queries</span><span class="p">:</span> <span class="mi">90</span><span class="n">ms</span> <span class="p">(</span><span class="n">can</span> <span class="n">parallelize</span><span class="p">)</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="o">-</span> <span class="n">Response</span> <span class="n">formatting</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="n">Serial</span> <span class="n">fraction</span> <span class="o">=</span> <span class="mi">20</span><span class="n">ms</span><span class="o">/</span><span class="mi">110</span><span class="n">ms</span> <span class="o">=</span> <span class="mi">18</span><span class="o">%</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="n">Max</span> <span class="n">speedup</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mf">0.18</span> <span class="o">=</span> <span class="mf">5.5</span><span class="n">x</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="n">No</span> <span class="n">point</span> <span class="ow">in</span> <span class="n">more</span> <span class="n">than</span> <span class="mi">6</span> <span class="n">parallel</span> <span class="n">queries</span><span class="err">!</span>
 </span></code></pre></div>
 <h3 id="example-3-data-pipeline">Example 3: Data Pipeline<a class="headerlink" href="#example-3-data-pipeline" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Pipeline stages:
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>- Read input: 5% (serial - single source)
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>- Transform: 80% (parallel)
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>- Aggregate: 10% (partially parallel)
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>- Write output: 5% (serial - single sink)
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Serial fraction = 10%
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>Max speedup = 10x
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>Even with 1000 cores, can&#39;t exceed 10x
+<div class="language-text highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>Pipeline stages:
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a>- Read input: 5% (serial - single source)
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>- Transform: 80% (parallel)
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>- Aggregate: 10% (partially parallel)
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>- Write output: 5% (serial - single sink)
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>Serial fraction = 10%
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Max speedup = 10x
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>Even with 1000 cores, can&#39;t exceed 10x
 </span></code></pre></div>
 <h2 id="gustafsons-law">Gustafson's Law<a class="headerlink" href="#gustafsons-law" title="Permanent link">&para;</a></h2>
 <p>Different perspective: Scale the problem, not just processors</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="n">Speedup</span> <span class="o">=</span> <span class="n">s</span> <span class="o">+</span> <span class="n">p</span><span class="err">×</span><span class="n">n</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a><span class="n">Where</span><span class="p">:</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a><span class="n">s</span> <span class="o">=</span> <span class="n">Serial</span> <span class="n">fraction</span> <span class="n">of</span> <span class="n">parallel</span> <span class="n">execution</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a><span class="n">p</span> <span class="o">=</span> <span class="n">Parallel</span> <span class="n">fraction</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a><span class="n">n</span> <span class="o">=</span> <span class="n">Number</span> <span class="n">of</span> <span class="n">processors</span>
-</span></code></pre></div>
+<div class="axiom-box">
+<h4>🌐 Gustafson's Law Formula</h4>
+
+<div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">
+  <div style="background: white; padding: 20px; border-radius: 5px; text-align: center; margin-bottom: 20px;">
+    <h3 style="margin: 0 0 10px 0; color: #5448C8;">Speedup = s + p × n</h3>
+  </div>
+
+  <table style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+    <tr style="background: #E8E5F5;">
+      <th style="padding: 12px;">Variable</th>
+      <th style="padding: 12px;">Meaning</th>
+      <th style="padding: 12px;">Key Difference</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>s</strong></td>
+      <td style="padding: 10px;">Serial fraction of parallel execution</td>
+      <td style="padding: 10px; color: #5448C8;">Based on parallel time</td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+      <td style="padding: 10px; text-align: center;"><strong>p</strong></td>
+      <td style="padding: 10px;">Parallel fraction</td>
+      <td style="padding: 10px; color: #5448C8;">Scales with problem</td>
+    </tr>
+    <tr>
+      <td style="padding: 10px; text-align: center;"><strong>n</strong></td>
+      <td style="padding: 10px;">Number of processors</td>
+      <td style="padding: 10px;">Same as Amdahl</td>
+    </tr>
+  </table>
+
+  <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
+    <strong>💡 Key Insight:</strong> Scale the problem, not just processors - larger problems often have better parallelism!
+  </div>
+
+  <div style="margin-top: 20px; text-align: center;">
+    <svg viewBox="0 0 400 200" style="width: 100%; max-width: 400px;">
+      <text x="200" y="20" text-anchor="middle" font-weight="bold">Amdahl vs Gustafson Perspective</text>
+
+      <!-- Amdahl box -->
+      <rect x="20" y="50" width="160" height="120" fill="#FFEBEE" stroke="#F44336" stroke-width="2" rx="5"/>
+      <text x="100" y="70" text-anchor="middle" font-weight="bold">Amdahl</text>
+      <text x="100" y="90" text-anchor="middle" font-size="12">Fixed problem size</text>
+      <text x="100" y="110" text-anchor="middle" font-size="12">How fast can we</text>
+      <text x="100" y="130" text-anchor="middle" font-size="12">solve it?</text>
+      <text x="100" y="155" text-anchor="middle" font-size="10" fill="#F44336">Pessimistic</text>
+
+      <!-- Gustafson box -->
+      <rect x="220" y="50" width="160" height="120" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="5"/>
+      <text x="300" y="70" text-anchor="middle" font-weight="bold">Gustafson</text>
+      <text x="300" y="90" text-anchor="middle" font-size="12">Scaled problem size</text>
+      <text x="300" y="110" text-anchor="middle" font-size="12">How big a problem</text>
+      <text x="300" y="130" text-anchor="middle" font-size="12">can we solve?</text>
+      <text x="300" y="155" text-anchor="middle" font-size="10" fill="#4CAF50">Optimistic</text>
+    </svg>
+  </div>
+</div>
+</div>
+
 <p><strong>Key Insight</strong>: Larger problems often more parallel</p>
 <h2 id="gustafsons-law-examples">Gustafson's Law Examples<a class="headerlink" href="#gustafsons-law-examples" title="Permanent link">&para;</a></h2>
 <h3 id="example-1-image-processing">Example 1: Image Processing<a class="headerlink" href="#example-1-image-processing" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="n">Small</span> <span class="n">image</span> <span class="p">(</span><span class="mi">100</span><span class="n">x100</span><span class="p">):</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="o">-</span> <span class="n">Setup</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a><span class="o">-</span> <span class="n">Processing</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span> <span class="p">(</span><span class="n">parallel</span><span class="p">)</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a><span class="o">-</span> <span class="n">Serial</span> <span class="n">fraction</span><span class="p">:</span> <span class="mi">9</span><span class="o">%</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="n">Large</span> <span class="n">image</span> <span class="p">(</span><span class="mi">1000</span><span class="n">x1000</span><span class="p">):</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a><span class="o">-</span> <span class="n">Setup</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a><span class="o">-</span> <span class="n">Processing</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span><span class="mi">000</span><span class="n">ms</span> <span class="p">(</span><span class="n">parallel</span><span class="p">)</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="o">-</span> <span class="n">Serial</span> <span class="n">fraction</span><span class="p">:</span> <span class="mf">0.1</span><span class="o">%</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a><span class="n">Larger</span> <span class="n">problem</span> <span class="err">→</span> <span class="n">More</span> <span class="n">parallel</span> <span class="n">benefit</span><span class="err">!</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="n">Small</span> <span class="n">image</span> <span class="p">(</span><span class="mi">100</span><span class="n">x100</span><span class="p">):</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a><span class="o">-</span> <span class="n">Setup</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a><span class="o">-</span> <span class="n">Processing</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span> <span class="p">(</span><span class="n">parallel</span><span class="p">)</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a><span class="o">-</span> <span class="n">Serial</span> <span class="n">fraction</span><span class="p">:</span> <span class="mi">9</span><span class="o">%</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5" href="#__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6" href="#__codelineno-2-6"></a><span class="n">Large</span> <span class="n">image</span> <span class="p">(</span><span class="mi">1000</span><span class="n">x1000</span><span class="p">):</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7" href="#__codelineno-2-7"></a><span class="o">-</span> <span class="n">Setup</span><span class="p">:</span> <span class="mi">10</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8" href="#__codelineno-2-8"></a><span class="o">-</span> <span class="n">Processing</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span><span class="mi">000</span><span class="n">ms</span> <span class="p">(</span><span class="n">parallel</span><span class="p">)</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9" href="#__codelineno-2-9"></a><span class="o">-</span> <span class="n">Serial</span> <span class="n">fraction</span><span class="p">:</span> <span class="mf">0.1</span><span class="o">%</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10" href="#__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11" href="#__codelineno-2-11"></a><span class="n">Larger</span> <span class="n">problem</span> <span class="err">→</span> <span class="n">More</span> <span class="n">parallel</span> <span class="n">benefit</span><span class="err">!</span>
 </span></code></pre></div>
 <h3 id="example-2-database-analytics">Example 2: Database Analytics<a class="headerlink" href="#example-2-database-analytics" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a>Small dataset (1GB):
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a>- Query parsing: 100ms (serial)
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a>- Data scan: 1000ms (parallel)
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>- Result merge: 100ms (serial)
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>Serial: 17%
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a>Large dataset (1TB):
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a>- Query parsing: 100ms (serial)
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a>- Data scan: 1,000,000ms (parallel)
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>- Result merge: 10,000ms (semi-parallel)
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>Serial: 0.01%
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>Bigger data = better scaling!
+<div class="language-text highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a>Small dataset (1GB):
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>- Query parsing: 100ms (serial)
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>- Data scan: 1000ms (parallel)
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>- Result merge: 100ms (serial)
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>Serial: 17%
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>Large dataset (1TB):
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>- Query parsing: 100ms (serial)
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>- Data scan: 1,000,000ms (parallel)
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>- Result merge: 10,000ms (semi-parallel)
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11" href="#__codelineno-3-11"></a>Serial: 0.01%
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12" href="#__codelineno-3-12"></a>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13" href="#__codelineno-3-13"></a>Bigger data = better scaling!
 </span></code></pre></div>
 <h2 id="applying-both-laws">Applying Both Laws<a class="headerlink" href="#applying-both-laws" title="Permanent link">&para;</a></h2>
 <h3 id="system-design-decisions">System Design Decisions<a class="headerlink" href="#system-design-decisions" title="Permanent link">&para;</a></h3>
 <p><strong>Amdahl Perspective</strong> (fixed problem):
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="s2">&quot;Our payment processing is 20</span><span class="si">% s</span><span class="s2">erial,</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="n">so</span> <span class="nb">max</span> <span class="n">speedup</span> <span class="ow">is</span> <span class="mi">5</span><span class="n">x</span><span class="o">.</span> <span class="n">Don</span><span class="s1">&#39;t over-provision.&quot;</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="s2">&quot;Our payment processing is 20</span><span class="si">% s</span><span class="s2">erial,</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a><span class="n">so</span> <span class="nb">max</span> <span class="n">speedup</span> <span class="ow">is</span> <span class="mi">5</span><span class="n">x</span><span class="o">.</span> <span class="n">Don</span><span class="s1">&#39;t over-provision.&quot;</span>
 </span></code></pre></div></p>
 <p><strong>Gustafson Perspective</strong> (scaled problem):
-<div class="language-text highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a>&quot;As we grow, we&#39;ll process more payments in
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a>batches, reducing serial fraction to 2%.&quot;
+<div class="language-text highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a>&quot;As we grow, we&#39;ll process more payments in
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a>batches, reducing serial fraction to 2%.&quot;
 </span></code></pre></div></p>
 <h3 id="real-example-video-encoding">Real Example: Video Encoding<a class="headerlink" href="#real-example-video-encoding" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a>Single video (Amdahl):
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a>- Read file: 5% (serial)
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a>- Encode frames: 90% (parallel)
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a>- Write output: 5% (serial)
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>Max speedup: 10x
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>Video platform (Gustafson):
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>- Process 1000s of videos
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>- Serial overhead amortized
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>- Near-linear scaling possible
-</span></code></pre></div>
+<div class="truth-box">
+<h4>🎬 Real Example: Video Encoding Platform</h4>
+
+<div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+    <div style="background: white; padding: 15px; border-radius: 5px; border: 2px solid #EF5350;">
+      <h5 style="margin: 0 0 10px 0; color: #C62828;">Amdahl View: Single Video</h5>
+      <table style="width: 100%; margin-bottom: 10px;">
+        <tr style="background: #FFEBEE;">
+          <td style="padding: 8px;">Read file</td>
+          <td style="padding: 8px; text-align: right;">5%</td>
+          <td style="padding: 8px; color: #F44336;">(serial)</td>
+        </tr>
+        <tr>
+          <td style="padding: 8px;">Encode frames</td>
+          <td style="padding: 8px; text-align: right;">90%</td>
+          <td style="padding: 8px; color: #4CAF50;">(parallel)</td>
+        </tr>
+        <tr style="background: #FFEBEE;">
+          <td style="padding: 8px;">Write output</td>
+          <td style="padding: 8px; text-align: right;">5%</td>
+          <td style="padding: 8px; color: #F44336;">(serial)</td>
+        </tr>
+      </table>
+      <div style="background: #FFCDD2; padding: 10px; border-radius: 5px; text-align: center;">
+        <strong>Max speedup: 10x</strong><br>
+        <span style="font-size: 0.9em;">Limited by 10% serial work</span>
+      </div>
+    </div>
+
+    <div style="background: white; padding: 15px; border-radius: 5px; border: 2px solid #66BB6A;">
+      <h5 style="margin: 0 0 10px 0; color: #2E7D32;">Gustafson View: Platform</h5>
+      <div style="margin-bottom: 15px;">
+        <div style="background: #E8F5E9; padding: 10px; border-radius: 5px; margin: 5px 0;">
+          🎥 Process 1000s of videos</div>
+        <div style="background: #E8F5E9; padding: 10px; border-radius: 5px; margin: 5px 0;">
+          📈 Serial overhead amortized</div>
+        <div style="background: #E8F5E9; padding: 10px; border-radius: 5px; margin: 5px 0;">
+          🚀 Near-linear scaling</div>
+      </div>
+      <div style="background: #C8E6C9; padding: 10px; border-radius: 5px; text-align: center;">
+        <strong>Speedup: ~0.95 × n</strong><br>
+        <span style="font-size: 0.9em;">Limited only by coordination</span>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; text-align: center;">
+    <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
+      <text x="250" y="20" text-anchor="middle" font-weight="bold">Video Processing: Two Perspectives</text>
+
+      <!-- Timeline for single video -->
+      <text x="50" y="60" font-size="12" font-weight="bold">Single Video:</text>
+      <rect x="50" y="70" width="20" height="30" fill="#F44336"/>
+      <text x="60" y="115" text-anchor="middle" font-size="10">R</text>
+      <rect x="70" y="70" width="180" height="30" fill="#4CAF50"/>
+      <text x="160" y="115" text-anchor="middle" font-size="10">Encode</text>
+      <rect x="250" y="70" width="20" height="30" fill="#F44336"/>
+      <text x="260" y="115" text-anchor="middle" font-size="10">W</text>
+
+      <!-- Multiple videos -->
+      <text x="50" y="160" font-size="12" font-weight="bold">Video Platform:</text>
+      <g transform="translate(50, 170)">
+        <!-- Video 1 -->
+        <rect x="0" y="0" width="5" height="20" fill="#F44336"/>
+        <rect x="5" y="0" width="45" height="20" fill="#4CAF50"/>
+        <rect x="50" y="0" width="5" height="20" fill="#F44336"/>
+        <!-- Video 2 -->
+        <rect x="60" y="0" width="5" height="20" fill="#F44336"/>
+        <rect x="65" y="0" width="45" height="20" fill="#4CAF50"/>
+        <rect x="110" y="0" width="5" height="20" fill="#F44336"/>
+        <!-- Video 3 -->
+        <rect x="120" y="0" width="5" height="20" fill="#F44336"/>
+        <rect x="125" y="0" width="45" height="20" fill="#4CAF50"/>
+        <rect x="170" y="0" width="5" height="20" fill="#F44336"/>
+        <!-- More indicator -->
+        <text x="185" y="15" font-size="12">...</text>
+      </g>
+
+      <!-- Speedup comparison -->
+      <line x1="300" y1="50" x2="300" y2="250" stroke="#666" stroke-width="1"/>
+      <text x="350" y="60" font-size="12" font-weight="bold">Speedup</text>
+
+      <!-- Amdahl limit -->
+      <rect x="350" y="70" width="100" height="30" fill="#FFCDD2"/>
+      <text x="400" y="90" text-anchor="middle" font-size="12">10x max</text>
+
+      <!-- Gustafson scaling -->
+      <rect x="350" y="170" width="100" height="80" fill="#C8E6C9"/>
+      <text x="400" y="210" text-anchor="middle" font-size="12">~1000x</text>
+      <text x="400" y="225" text-anchor="middle" font-size="10">(with 1000 cores)</text>
+    </svg>
+  </div>
+</div>
+
+<div class="key-insight" style="margin-top: 15px;">
+💡 <strong>Lesson</strong>: Don't just parallelize tasks - parallelize workloads!
+</div>
+</div>
+
 <h2 id="real-world-implications">Real-World Implications<a class="headerlink" href="#real-world-implications" title="Permanent link">&para;</a></h2>
 <h3 id="microservice-decomposition">Microservice Decomposition<a class="headerlink" href="#microservice-decomposition" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="n">Monolith</span> <span class="n">response</span> <span class="n">time</span><span class="p">:</span> <span class="mi">1000</span><span class="n">ms</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="o">-</span> <span class="n">Authentication</span><span class="p">:</span> <span class="mi">50</span><span class="n">ms</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a><span class="o">-</span> <span class="n">Business</span> <span class="n">logic</span><span class="p">:</span> <span class="mi">900</span><span class="n">ms</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a><span class="o">-</span> <span class="n">Formatting</span><span class="p">:</span> <span class="mi">50</span><span class="n">ms</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a><span class="n">Microservices</span> <span class="p">(</span><span class="n">parallel</span> <span class="n">logic</span><span class="p">):</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a><span class="o">-</span> <span class="n">Min</span> <span class="n">response</span> <span class="n">time</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span> <span class="n">parts</span><span class="p">)</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a><span class="o">-</span> <span class="n">With</span> <span class="mi">10</span> <span class="n">services</span><span class="p">:</span> <span class="o">~</span><span class="mi">190</span><span class="n">ms</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="o">-</span> <span class="mi">5</span><span class="n">x</span> <span class="n">speedup</span> <span class="n">achieved</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="n">Monolith</span> <span class="n">response</span> <span class="n">time</span><span class="p">:</span> <span class="mi">1000</span><span class="n">ms</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="o">-</span> <span class="n">Authentication</span><span class="p">:</span> <span class="mi">50</span><span class="n">ms</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="o">-</span> <span class="n">Business</span> <span class="n">logic</span><span class="p">:</span> <span class="mi">900</span><span class="n">ms</span>
+</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a><span class="o">-</span> <span class="n">Formatting</span><span class="p">:</span> <span class="mi">50</span><span class="n">ms</span>
+</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a>
+</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="n">Microservices</span> <span class="p">(</span><span class="n">parallel</span> <span class="n">logic</span><span class="p">):</span>
+</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="o">-</span> <span class="n">Min</span> <span class="n">response</span> <span class="n">time</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span> <span class="n">parts</span><span class="p">)</span>
+</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="o">-</span> <span class="n">With</span> <span class="mi">10</span> <span class="n">services</span><span class="p">:</span> <span class="o">~</span><span class="mi">190</span><span class="n">ms</span>
+</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="o">-</span> <span class="mi">5</span><span class="n">x</span> <span class="n">speedup</span> <span class="n">achieved</span>
 </span></code></pre></div>
 <h3 id="database-sharding">Database Sharding<a class="headerlink" href="#database-sharding" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="n">Single</span> <span class="n">DB</span> <span class="n">query</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a><span class="n">Sharded</span> <span class="n">across</span> <span class="mi">10</span> <span class="n">nodes</span><span class="p">:</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a><span class="o">-</span> <span class="n">Query</span> <span class="n">routing</span><span class="p">:</span> <span class="mi">5</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a><span class="o">-</span> <span class="n">Parallel</span> <span class="n">queries</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span><span class="o">/</span><span class="mi">10</span> <span class="o">=</span> <span class="mi">10</span><span class="n">ms</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a><span class="o">-</span> <span class="n">Result</span> <span class="n">merging</span><span class="p">:</span> <span class="mi">5</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a><span class="o">-</span> <span class="n">Total</span><span class="p">:</span> <span class="mi">20</span><span class="n">ms</span> <span class="p">(</span><span class="mi">5</span><span class="n">x</span> <span class="n">speedup</span><span class="p">)</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="n">Adding</span> <span class="n">more</span> <span class="n">shards</span><span class="p">:</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="o">-</span> <span class="mi">20</span> <span class="n">shards</span><span class="p">:</span> <span class="mi">15</span><span class="n">ms</span> <span class="p">(</span><span class="mf">6.7</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a><span class="o">-</span> <span class="mi">100</span> <span class="n">shards</span><span class="p">:</span> <span class="mi">11</span><span class="n">ms</span> <span class="p">(</span><span class="mi">9</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a><span class="o">-</span> <span class="n">Diminishing</span> <span class="n">returns</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="n">Single</span> <span class="n">DB</span> <span class="n">query</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a><span class="n">Sharded</span> <span class="n">across</span> <span class="mi">10</span> <span class="n">nodes</span><span class="p">:</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="o">-</span> <span class="n">Query</span> <span class="n">routing</span><span class="p">:</span> <span class="mi">5</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a><span class="o">-</span> <span class="n">Parallel</span> <span class="n">queries</span><span class="p">:</span> <span class="mi">100</span><span class="n">ms</span><span class="o">/</span><span class="mi">10</span> <span class="o">=</span> <span class="mi">10</span><span class="n">ms</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a><span class="o">-</span> <span class="n">Result</span> <span class="n">merging</span><span class="p">:</span> <span class="mi">5</span><span class="n">ms</span> <span class="p">(</span><span class="n">serial</span><span class="p">)</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a><span class="o">-</span> <span class="n">Total</span><span class="p">:</span> <span class="mi">20</span><span class="n">ms</span> <span class="p">(</span><span class="mi">5</span><span class="n">x</span> <span class="n">speedup</span><span class="p">)</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a><span class="n">Adding</span> <span class="n">more</span> <span class="n">shards</span><span class="p">:</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a><span class="o">-</span> <span class="mi">20</span> <span class="n">shards</span><span class="p">:</span> <span class="mi">15</span><span class="n">ms</span> <span class="p">(</span><span class="mf">6.7</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a><span class="o">-</span> <span class="mi">100</span> <span class="n">shards</span><span class="p">:</span> <span class="mi">11</span><span class="n">ms</span> <span class="p">(</span><span class="mi">9</span><span class="n">x</span><span class="p">)</span>
+</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a><span class="o">-</span> <span class="n">Diminishing</span> <span class="n">returns</span>
 </span></code></pre></div>
 <h3 id="mapreduce-jobs">MapReduce Jobs<a class="headerlink" href="#mapreduce-jobs" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Job</span> <span class="n">structure</span><span class="p">:</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="o">-</span> <span class="n">Input</span> <span class="n">split</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="n">serial</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="o">-</span> <span class="n">Map</span> <span class="n">phase</span><span class="p">:</span> <span class="n">Perfectly</span> <span class="n">parallel</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="o">-</span> <span class="n">Shuffle</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span> <span class="n">log</span> <span class="n">n</span><span class="p">)</span> <span class="n">partly</span> <span class="n">serial</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="o">-</span> <span class="n">Reduce</span><span class="p">:</span> <span class="n">Partly</span> <span class="n">parallel</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a><span class="o">-</span> <span class="n">Output</span> <span class="n">merge</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="n">serial</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a><span class="n">For</span> <span class="n">large</span> <span class="n">datasets</span><span class="p">:</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a><span class="o">-</span> <span class="n">Map</span> <span class="n">phase</span> <span class="n">dominates</span> <span class="p">(</span><span class="n">good</span> <span class="n">scaling</span><span class="p">)</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="n">For</span> <span class="n">small</span> <span class="n">datasets</span><span class="p">:</span>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="o">-</span> <span class="n">Overhead</span> <span class="n">dominates</span> <span class="p">(</span><span class="n">poor</span> <span class="n">scaling</span><span class="p">)</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="n">Job</span> <span class="n">structure</span><span class="p">:</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="o">-</span> <span class="n">Input</span> <span class="n">split</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="n">serial</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="o">-</span> <span class="n">Map</span> <span class="n">phase</span><span class="p">:</span> <span class="n">Perfectly</span> <span class="n">parallel</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="o">-</span> <span class="n">Shuffle</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span> <span class="n">log</span> <span class="n">n</span><span class="p">)</span> <span class="n">partly</span> <span class="n">serial</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a><span class="o">-</span> <span class="n">Reduce</span><span class="p">:</span> <span class="n">Partly</span> <span class="n">parallel</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a><span class="o">-</span> <span class="n">Output</span> <span class="n">merge</span><span class="p">:</span> <span class="n">O</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="n">serial</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a><span class="n">For</span> <span class="n">large</span> <span class="n">datasets</span><span class="p">:</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a><span class="o">-</span> <span class="n">Map</span> <span class="n">phase</span> <span class="n">dominates</span> <span class="p">(</span><span class="n">good</span> <span class="n">scaling</span><span class="p">)</span>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a><span class="n">For</span> <span class="n">small</span> <span class="n">datasets</span><span class="p">:</span>
+</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a><span class="o">-</span> <span class="n">Overhead</span> <span class="n">dominates</span> <span class="p">(</span><span class="n">poor</span> <span class="n">scaling</span><span class="p">)</span>
 </span></code></pre></div>
 <h2 id="optimization-strategies">Optimization Strategies<a class="headerlink" href="#optimization-strategies" title="Permanent link">&para;</a></h2>
 <h3 id="reduce-serial-bottlenecks">Reduce Serial Bottlenecks<a class="headerlink" href="#reduce-serial-bottlenecks" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="c1"># Before:</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="n">lock</span><span class="p">(</span><span class="n">global_counter</span><span class="p">)</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="n">counter</span><span class="o">++</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="n">unlock</span><span class="p">(</span><span class="n">global_counter</span><span class="p">)</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a><span class="c1"># After:</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="n">thread_local_counter</span><span class="o">++</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="c1"># Periodic merge</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="c1"># Before:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="n">lock</span><span class="p">(</span><span class="n">global_counter</span><span class="p">)</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="n">counter</span><span class="o">++</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="n">unlock</span><span class="p">(</span><span class="n">global_counter</span><span class="p">)</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a><span class="c1"># After:</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a><span class="n">thread_local_counter</span><span class="o">++</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a><span class="c1"># Periodic merge</span>
 </span></code></pre></div>
 <h3 id="pipeline-parallelism">Pipeline Parallelism<a class="headerlink" href="#pipeline-parallelism" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1" href="#__codelineno-14-1"></a>Instead of: A → B → C → D
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2" href="#__codelineno-14-2"></a>Do: A₁ → B₁ → C₁ → D₁
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3" href="#__codelineno-14-3"></a>    A₂ → B₂ → C₂ → D₂
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4" href="#__codelineno-14-4"></a>    A₃ → B₃ → C₃ → D₃
+<div class="language-text highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a>Instead of: A → B → C → D
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a>Do: A₁ → B₁ → C₁ → D₁
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    A₂ → B₂ → C₂ → D₂
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    A₃ → B₃ → C₃ → D₃
 </span></code></pre></div>
 <h3 id="data-parallelism">Data Parallelism<a class="headerlink" href="#data-parallelism" title="Permanent link">&para;</a></h3>
-<div class="language-text highlight"><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1" href="#__codelineno-15-1"></a>Instead of: Process entire dataset
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2" href="#__codelineno-15-2"></a>Do: Partition and process chunks
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3" href="#__codelineno-15-3"></a>    Merge results
+<div class="language-text highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a>Instead of: Process entire dataset
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a>Do: Partition and process chunks
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    Merge results
 </span></code></pre></div>
 <h3 id="speculative-execution">Speculative Execution<a class="headerlink" href="#speculative-execution" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1" href="#__codelineno-16-1"></a><span class="n">Can</span><span class="s1">&#39;t parallelize decision?</span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2" href="#__codelineno-16-2"></a><span class="n">Execute</span> <span class="n">both</span> <span class="n">branches</span><span class="p">:</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3" href="#__codelineno-16-3"></a><span class="o">-</span> <span class="n">Calculate</span> <span class="n">both</span> <span class="n">paths</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4" href="#__codelineno-16-4"></a><span class="o">-</span> <span class="n">Discard</span> <span class="n">unused</span> <span class="n">result</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5" href="#__codelineno-16-5"></a><span class="o">-</span> <span class="n">Trading</span> <span class="n">compute</span> <span class="k">for</span> <span class="n">latency</span>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="n">Can</span><span class="s1">&#39;t parallelize decision?</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="n">Execute</span> <span class="n">both</span> <span class="n">branches</span><span class="p">:</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a><span class="o">-</span> <span class="n">Calculate</span> <span class="n">both</span> <span class="n">paths</span>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a><span class="o">-</span> <span class="n">Discard</span> <span class="n">unused</span> <span class="n">result</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a><span class="o">-</span> <span class="n">Trading</span> <span class="n">compute</span> <span class="k">for</span> <span class="n">latency</span>
 </span></code></pre></div>
 <h2 id="breaking-through-limits">Breaking Through Limits<a class="headerlink" href="#breaking-through-limits" title="Permanent link">&para;</a></h2>
 <h3 id="when-amdahl-seems-limiting">When Amdahl Seems Limiting<a class="headerlink" href="#when-amdahl-seems-limiting" title="Permanent link">&para;</a></h3>
@@ -9403,25 +9650,205 @@
 </ol>
 <h2 id="practical-guidelines">Practical Guidelines<a class="headerlink" href="#practical-guidelines" title="Permanent link">&para;</a></h2>
 <h3 id="choosing-parallelization-strategy">Choosing Parallelization Strategy<a class="headerlink" href="#choosing-parallelization-strategy" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1" href="#__codelineno-17-1"></a><span class="n">Serial</span> <span class="n">fraction</span> <span class="o">&lt;</span> <span class="mi">5</span><span class="o">%</span><span class="p">:</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2" href="#__codelineno-17-2"></a>  <span class="err">→</span> <span class="n">Aggressive</span> <span class="n">parallelization</span> <span class="n">worthwhile</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3" href="#__codelineno-17-3"></a>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4" href="#__codelineno-17-4"></a><span class="n">Serial</span> <span class="n">fraction</span> <span class="mi">5</span><span class="o">-</span><span class="mi">20</span><span class="o">%</span><span class="p">:</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5" href="#__codelineno-17-5"></a>  <span class="err">→</span> <span class="n">Moderate</span> <span class="n">parallelization</span> <span class="p">(</span><span class="mi">4</span><span class="o">-</span><span class="mi">8</span><span class="n">x</span><span class="p">)</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6" href="#__codelineno-17-6"></a>
-</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7" href="#__codelineno-17-7"></a><span class="n">Serial</span> <span class="n">fraction</span> <span class="o">&gt;</span> <span class="mi">20</span><span class="o">%</span><span class="p">:</span>
-</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8" href="#__codelineno-17-8"></a>  <span class="err">→</span> <span class="n">Focus</span> <span class="n">on</span> <span class="n">reducing</span> <span class="n">serial</span> <span class="n">parts</span> <span class="n">first</span>
-</span></code></pre></div>
+<div class="decision-box">
+<h4>🎯 Parallelization Strategy Guide</h4>
+
+<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+    <div style="background: #C8E6C9; padding: 15px; border-radius: 8px; border: 2px solid #4CAF50;">
+      <h5 style="margin: 0 0 10px 0; color: #2E7D32; text-align: center;">Serial < 5%</h5>
+      <div style="text-align: center; margin: 15px 0;">
+        <div style="font-size: 3em;">🚀</div>
+      </div>
+      <div style="background: white; padding: 10px; border-radius: 5px;">
+        <strong>Strategy:</strong> Aggressive parallelization
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Scale to many cores</li>
+          <li>Distributed systems</li>
+          <li>GPU acceleration</li>
+        </ul>
+        <div style="margin-top: 10px; text-align: center; color: #2E7D32;">
+          <strong>Worth it!</strong>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: #FFF3E0; padding: 15px; border-radius: 8px; border: 2px solid #FFB74D;">
+      <h5 style="margin: 0 0 10px 0; color: #E65100; text-align: center;">Serial 5-20%</h5>
+      <div style="text-align: center; margin: 15px 0;">
+        <div style="font-size: 3em;">⚡</div>
+      </div>
+      <div style="background: white; padding: 10px; border-radius: 5px;">
+        <strong>Strategy:</strong> Moderate parallelization
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>4-8 cores optimal</li>
+          <li>Thread pools</li>
+          <li>Local parallelism</li>
+        </ul>
+        <div style="margin-top: 10px; text-align: center; color: #E65100;">
+          <strong>Good ROI</strong>
+        </div>
+      </div>
+    </div>
+
+    <div style="background: #FFEBEE; padding: 15px; border-radius: 8px; border: 2px solid #EF5350;">
+      <h5 style="margin: 0 0 10px 0; color: #C62828; text-align: center;">Serial > 20%</h5>
+      <div style="text-align: center; margin: 15px 0;">
+        <div style="font-size: 3em;">🔧</div>
+      </div>
+      <div style="background: white; padding: 10px; border-radius: 5px;">
+        <strong>Strategy:</strong> Fix serial bottlenecks
+        <ul style="margin: 10px 0; padding-left: 20px;">
+          <li>Algorithm redesign</li>
+          <li>Better data structures</li>
+          <li>I/O optimization</li>
+        </ul>
+        <div style="margin-top: 10px; text-align: center; color: #C62828;">
+          <strong>Fix first!</strong>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="margin-top: 20px; text-align: center;">
+    <svg viewBox="0 0 500 200" style="width: 100%; max-width: 500px;">
+      <text x="250" y="20" text-anchor="middle" font-weight="bold">Maximum Practical Speedup by Serial Fraction</text>
+
+      <!-- Bars -->
+      <rect x="50" y="50" width="80" height="120" fill="#4CAF50"/>
+      <text x="90" y="45" text-anchor="middle" font-size="10">&lt;5%</text>
+      <text x="90" y="110" text-anchor="middle" fill="white" font-weight="bold">20-100x</text>
+
+      <rect x="180" y="90" width="80" height="80" fill="#FFB74D"/>
+      <text x="220" y="85" text-anchor="middle" font-size="10">5-20%</text>
+      <text x="220" y="130" text-anchor="middle" fill="white" font-weight="bold">5-20x</text>
+
+      <rect x="310" y="130" width="80" height="40" fill="#EF5350"/>
+      <text x="350" y="125" text-anchor="middle" font-size="10">&gt;20%</text>
+      <text x="350" y="155" text-anchor="middle" fill="white" font-weight="bold">&lt;5x</text>
+
+      <!-- Base line -->
+      <line x1="40" y1="170" x2="410" y2="170" stroke="#333" stroke-width="2"/>
+    </svg>
+  </div>
+
+  <div style="background: #F5F5F5; padding: 15px; border-radius: 5px; margin-top: 15px;">
+    <strong>📐 Quick Reference Formula:</strong>
+    <div style="font-family: monospace; text-align: center; margin: 10px 0; font-size: 1.1em;">
+      Max Speedup ≈ 1 / (Serial Fraction)
+    </div>
+    <div style="text-align: center; color: #666;">
+      Example: 10% serial → max 10x speedup
+    </div>
+  </div>
+</div>
+</div>
+
 <h3 id="investment-decision">Investment Decision<a class="headerlink" href="#investment-decision" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1" href="#__codelineno-18-1"></a><span class="n">Current</span> <span class="n">speedup</span><span class="p">:</span> <span class="mi">4</span><span class="n">x</span> <span class="k">with</span> <span class="mi">8</span> <span class="n">cores</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2" href="#__codelineno-18-2"></a><span class="n">Amdahl</span> <span class="n">limit</span><span class="p">:</span> <span class="mi">10</span><span class="n">x</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3" href="#__codelineno-18-3"></a>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4" href="#__codelineno-18-4"></a><span class="n">Worth</span> <span class="n">doubling</span> <span class="n">cores</span><span class="err">?</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5" href="#__codelineno-18-5"></a><span class="o">-</span> <span class="mi">16</span> <span class="n">cores</span> <span class="err">→</span> <span class="mf">5.7</span><span class="n">x</span> <span class="p">(</span><span class="n">only</span> <span class="mf">1.7</span><span class="n">x</span> <span class="n">improvement</span><span class="p">)</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6" href="#__codelineno-18-6"></a><span class="o">-</span> <span class="mi">32</span> <span class="n">cores</span> <span class="err">→</span> <span class="mf">7.5</span><span class="n">x</span> <span class="p">(</span><span class="n">diminishing</span> <span class="n">returns</span><span class="p">)</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7" href="#__codelineno-18-7"></a>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8" href="#__codelineno-18-8"></a><span class="n">Better</span> <span class="n">investment</span><span class="p">:</span> <span class="n">Reduce</span> <span class="n">serial</span> <span class="n">fraction</span>
-</span></code></pre></div>
+<div class="decision-box">
+<h4>💰 Investment Decision Example</h4>
+
+<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+  <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+    <h5 style="margin: 0 0 10px 0;">Current Situation</h5>
+    <table style="width: 100%;">
+      <tr>
+        <td style="padding: 5px;">Current speedup:</td>
+        <td style="padding: 5px; text-align: right; font-weight: bold;">4x with 8 cores</td>
+      </tr>
+      <tr>
+        <td style="padding: 5px;">Amdahl limit:</td>
+        <td style="padding: 5px; text-align: right; font-weight: bold; color: #F44336;">10x maximum</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+    <div style="background: #FFEBEE; padding: 15px; border-radius: 5px; border: 2px solid #EF5350;">
+      <h5 style="margin: 0 0 10px 0; color: #C62828;">❌ Option 1: More Cores</h5>
+      <table style="width: 100%;">
+        <tr>
+          <td>16 cores:</td>
+          <td style="text-align: right;">5.7x</td>
+          <td style="text-align: right; color: #E65100;">(+1.7x)</td>
+        </tr>
+        <tr>
+          <td>32 cores:</td>
+          <td style="text-align: right;">7.5x</td>
+          <td style="text-align: right; color: #E65100;">(+3.5x)</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top: 10px; color: #C62828;"><strong>Verdict:</strong> Diminishing returns!</td>
+        </tr>
+      </table>
+    </div>
+
+    <div style="background: #E8F5E9; padding: 15px; border-radius: 5px; border: 2px solid #66BB6A;">
+      <h5 style="margin: 0 0 10px 0; color: #2E7D32;">✅ Option 2: Reduce Serial</h5>
+      <table style="width: 100%;">
+        <tr>
+          <td>10% → 5%:</td>
+          <td style="text-align: right;">10x → 20x</td>
+          <td style="text-align: right; color: #2E7D32;">(2x limit!)</td>
+        </tr>
+        <tr>
+          <td>Same cores:</td>
+          <td style="text-align: right;">4x → 7x</td>
+          <td style="text-align: right; color: #2E7D32;">(+3x)</td>
+        </tr>
+        <tr>
+          <td colspan="3" style="padding-top: 10px; color: #2E7D32;"><strong>Verdict:</strong> Better ROI!</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+
+  <div style="text-align: center; margin-bottom: 20px;">
+    <svg viewBox="0 0 500 250" style="width: 100%; max-width: 500px;">
+      <text x="250" y="20" text-anchor="middle" font-weight="bold">Speedup Improvement Strategies</text>
+
+      <!-- Axes -->
+      <line x1="50" y1="200" x2="450" y2="200" stroke="#333" stroke-width="2"/>
+      <line x1="50" y1="200" x2="50" y2="50" stroke="#333" stroke-width="2"/>
+
+      <!-- Current state -->
+      <circle cx="150" cy="140" r="5" fill="#2196F3"/>
+      <text x="150" y="130" text-anchor="middle" font-size="10">Current</text>
+      <text x="150" y="120" text-anchor="middle" font-size="10">8 cores, 4x</text>
+
+      <!-- More cores path -->
+      <path d="M 150 140 L 250 120 L 350 110" stroke="#F44336" stroke-width="2" stroke-dasharray="5,5"/>
+      <circle cx="250" cy="120" r="3" fill="#F44336"/>
+      <circle cx="350" cy="110" r="3" fill="#F44336"/>
+      <text x="300" y="100" font-size="10" fill="#F44336">More cores</text>
+
+      <!-- Reduce serial path -->
+      <path d="M 150 140 L 250 90 L 350 70" stroke="#4CAF50" stroke-width="2"/>
+      <circle cx="250" cy="90" r="3" fill="#4CAF50"/>
+      <circle cx="350" cy="70" r="3" fill="#4CAF50"/>
+      <text x="300" y="60" font-size="10" fill="#4CAF50">Reduce serial</text>
+
+      <!-- Labels -->
+      <text x="50" y="220" text-anchor="middle" font-size="10">8</text>
+      <text x="150" y="220" text-anchor="middle" font-size="10">16</text>
+      <text x="250" y="220" text-anchor="middle" font-size="10">32</text>
+      <text x="350" y="220" text-anchor="middle" font-size="10">64</text>
+      <text x="250" y="240" text-anchor="middle" font-size="12">Cores</text>
+
+      <text x="30" y="200" text-anchor="middle" font-size="10">1x</text>
+      <text x="30" y="140" text-anchor="middle" font-size="10">5x</text>
+      <text x="30" y="80" text-anchor="middle" font-size="10">10x</text>
+      <text x="20" y="125" text-anchor="middle" font-size="12" transform="rotate(-90 20 125)">Speedup</text>
+    </svg>
+  </div>
+
+  <div style="background: #FFF3E0; padding: 15px; border-radius: 5px; text-align: center;">
+    <strong style="font-size: 1.2em;">🎯 Recommendation: Focus on reducing serial bottlenecks first!</strong>
+    <div style="margin-top: 10px;">Hardware is easy to buy, but algorithmic improvements multiply its value.</div>
+  </div>
+</div>
+</div>
+
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li><strong>Measure serial fraction first</strong> - It determines your ceiling</li>

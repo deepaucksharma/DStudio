@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -8763,7 +8731,7 @@
 - <strong>Book Borrowed</strong>: Update your catalog... but what about others?
 - <strong>Phone Lines Down</strong>: Can't call other libraries
 - <strong>Librarian Sick</strong>: Who updates the cards?</p>
-<p><strong>This is distributed truth</strong>: Multiple copies, no master, must agree somehow.</p>
+<p><strong>This is distributed truth</strong>: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from <a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a> (nodes can fail) and <a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> (agreement requires communication).</p>
 <h3 id="real-world-analogy-group-chat-planning">Real-World Analogy: Group Chat Planning<a class="headerlink" href="#real-world-analogy-group-chat-planning" title="Permanent link">&para;</a></h3>
 <pre class="mermaid"><code>sequenceDiagram
     participant Alice
@@ -8872,7 +8840,7 @@
 - Miners voluntarily took losses
 - Proved that Bitcoin consensus is sociotechnical</p>
 </div>
-<p><strong>Lesson</strong>: Even "trustless" systems require human coordination when consensus breaks.</p>
+<p><strong>Lesson</strong>: Even "trustless" systems require human coordination when consensus breaks. This illustrates <a href="../../part1-axioms/axiom7-human-interface/index.md">Axiom 7: Human Interface</a> - humans remain the ultimate arbiters.</p>
 <h3 id="the-flp-impossibility-result">The FLP Impossibility Result<a class="headerlink" href="#the-flp-impossibility-result" title="Permanent link">&para;</a></h3>
 <p><strong>Fischer, Lynch, and Paterson (1985)</strong> proved that in an asynchronous system with even one faulty process, consensus is impossible.</p>
 <pre class="mermaid"><code>flowchart TD
@@ -8960,7 +8928,7 @@
     style CAP fill:#ffe1e1,stroke:#333,stroke-width:2px</code></pre>
 <p>This concept map shows how distributed truth branches into consensus mechanisms, time ordering, conflict resolution, and trust models. Each is constrained by fundamental theorems and axioms.</p>
 <h3 id="understanding-raft-the-understandable-consensus">Understanding Raft: The Understandable Consensus<a class="headerlink" href="#understanding-raft-the-understandable-consensus" title="Permanent link">&para;</a></h3>
-<p>Raft achieves consensus by electing a leader that manages replication.</p>
+<p>Raft achieves consensus by electing a leader that manages replication (addressing <a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a>).</p>
 <pre class="mermaid"><code>stateDiagram-v2
     [*] --&gt; Follower: Start
 
@@ -9030,7 +8998,7 @@
 3. <strong>Safety</strong> - Committed entries never lost
 4. <strong>Liveness</strong> - Progress with majority</p>
 <h3 id="the-vector-clock-pattern">The Vector Clock Pattern<a class="headerlink" href="#the-vector-clock-pattern" title="Permanent link">&para;</a></h3>
-<p>Vector clocks track causality in distributed systems without synchronized time.</p>
+<p>Vector clocks track causality in distributed systems without synchronized time (implementing <a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a> ordering guarantees).</p>
 <h3 id="the-vector-clock-pattern_1">The Vector Clock Pattern<a class="headerlink" href="#the-vector-clock-pattern_1" title="Permanent link">&para;</a></h3>
 <p>Vector clocks track causality in distributed systems without synchronized time.</p>
 <pre class="mermaid"><code>sequenceDiagram
@@ -9122,7 +9090,7 @@
     style C1 fill:#fff9c4
     style C2 fill:#fff9c4</code></pre>
 <h3 id="crdts-conflict-free-truth">CRDTs: Conflict-Free Truth<a class="headerlink" href="#crdts-conflict-free-truth" title="Permanent link">&para;</a></h3>
-<p>CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination.</p>
+<p>CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep <a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> costs by making all operations commutative.</p>
 <h3 id="crdts-conflict-free-truth_1">CRDTs: Conflict-Free Truth<a class="headerlink" href="#crdts-conflict-free-truth_1" title="Permanent link">&para;</a></h3>
 <p>CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination.</p>
 <h4 id="crdt-types-and-operations">CRDT Types and Operations<a class="headerlink" href="#crdt-types-and-operations" title="Permanent link">&para;</a></h4>
@@ -9569,7 +9537,7 @@
 <hr />
 <h2 id="level-4-expert-production-patterns">Level 4: Expert (Production Patterns) 🌲<a class="headerlink" href="#level-4-expert-production-patterns" title="Permanent link">&para;</a></h2>
 <h3 id="case-study-kubernetes-etcd-consensus">Case Study: Kubernetes Etcd Consensus<a class="headerlink" href="#case-study-kubernetes-etcd-consensus" title="Permanent link">&para;</a></h3>
-<p>Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state.</p>
+<p>Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state. This demonstrates how modern systems handle <a href="../state/">Pillar 2: State</a> distribution with strong consistency guarantees.</p>
 <pre class="mermaid"><code>graph TB
     subgraph "Kubernetes Control Plane"
         API[API Server&lt;br/&gt;Stateless Gateway]
@@ -10137,7 +10105,7 @@
     S-&gt;&gt;R: Commit(timestamp)
     S--&gt;&gt;C: Transaction committed</code></pre>
 <p><strong>Spanner's Key Insights</strong>:
-1. <strong>Expose uncertainty</strong> - Don't pretend time is precise
+1. <strong>Expose uncertainty</strong> - Don't pretend time is precise (acknowledging <a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a>)
 2. <strong>Wait out uncertainty</strong> - 7ms average wait for consistency
 3. <strong>Hardware investment</strong> - GPS + atomic clocks per DC
 4. <strong>Global scale</strong> - Serves Google's entire infrastructure</p>
@@ -10155,7 +10123,7 @@
 </ol>
 <h3 id="intermediate">🌿 Intermediate<a class="headerlink" href="#intermediate" title="Permanent link">&para;</a></h3>
 <ol>
-<li><strong>CAP theorem forces truth trade-offs</strong></li>
+<li><strong>CAP theorem forces truth trade-offs</strong> (explored in depth in <a href="../../part1-axioms/axiom6-observability/">Axiom 6: Observability</a>)</li>
 <li><strong>Higher consistency = Higher cost</strong></li>
 <li><strong>FLP theorem: Perfect consensus impossible</strong></li>
 </ol>
@@ -10467,6 +10435,37 @@
 <hr />
 <p><strong>Next</strong>: <a href="../control/">Pillar 4: Control →</a></p>
 <p><em>"In distributed systems, truth isn't discovered—it's negotiated."</em></p>
+<h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
+<h3 id="foundational-axioms">Foundational Axioms<a class="headerlink" href="#foundational-axioms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a> - Time uncertainty in distributed systems</li>
+<li><a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a> - Why consensus protocols need fault tolerance</li>
+<li><a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a> - Ordering events across nodes</li>
+<li><a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> - The cost of achieving consensus</li>
+<li><a href="../../part1-axioms/axiom6-observability/">Axiom 6: Observability</a> - Monitoring consensus health</li>
+<li><a href="../../part1-axioms/axiom7-human-interface/index.md">Axiom 7: Human Interface</a> - Human intervention in consensus failures</li>
+</ul>
+<h3 id="related-pillars">Related Pillars<a class="headerlink" href="#related-pillars" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../work/">Pillar 1: Work</a> - Coordinating distributed computation</li>
+<li><a href="../state/">Pillar 2: State</a> - Managing distributed data consistency</li>
+<li><a href="../control/">Pillar 4: Control</a> - Implementing consensus protocols</li>
+<li><a href="../intelligence/">Pillar 5: Intelligence</a> - Smart consensus optimization</li>
+</ul>
+<h3 id="implementation-patterns">Implementation Patterns<a class="headerlink" href="#implementation-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../patterns/consensus/index.md">Consensus Protocols</a> - Raft, Paxos, PBFT</li>
+<li><a href="../../patterns/event-sourcing/index.md">Event Sourcing</a> - Truth from event logs</li>
+<li><a href="../../patterns/cqrs/index.md">CQRS</a> - Separating read/write models</li>
+<li><a href="../../patterns/saga/index.md">Saga Pattern</a> - Distributed transaction consensus</li>
+</ul>
+<h3 id="real-world-case-studies">Real-World Case Studies<a class="headerlink" href="#real-world-case-studies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../case-studies/etcd/index.md">etcd: Production Raft</a> - Kubernetes' consensus backbone</li>
+<li><a href="../../case-studies/blockchain/index.md">Blockchain Consensus</a> - Bitcoin and Ethereum</li>
+<li><a href="../../case-studies/spanner/index.md">Google Spanner</a> - Global consistency at scale</li>
+<li><a href="../../case-studies/kafka/index.md">Apache Kafka</a> - Distributed log consensus</li>
+</ul>
 
 
 

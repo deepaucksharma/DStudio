@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -8768,19 +8736,23 @@
 <h3 id="uber-real-time-location-system"><a href="uber-location/">Uber: Real-Time Location System</a><a class="headerlink" href="#uber-real-time-location-system" title="Permanent link">&para;</a></h3>
 <p><strong>Scale</strong>: 40M concurrent users | <strong>Challenge</strong>: Sub-100ms global location updates<br />
 <strong>Key Insights</strong>: H3 hexagonal grid system, edge computing, eventual consistency trade-offs<br />
-<strong>Axioms in Focus</strong>: Latency, Coordination, State Distribution</p>
+<strong>Axioms in Focus</strong>: <a href="../part1-axioms/axiom1-latency/">Latency</a>, <a href="../part1-axioms/axiom5-coordination/">Coordination</a>, <a href="../part2-pillars/state/">State Distribution</a><br />
+<strong>Related Patterns</strong>: <a href="../patterns/edge-computing/">Edge Computing</a> | <a href="../patterns/geo-replication/">Geo-Replication</a> | <a href="../patterns/load-balancing/">Load Balancing</a></p>
 <h3 id="amazon-dynamodb-eventually-consistent-by-design"><a href="amazon-dynamo/">Amazon DynamoDB: Eventually Consistent by Design</a><a class="headerlink" href="#amazon-dynamodb-eventually-consistent-by-design" title="Permanent link">&para;</a></h3>
 <p><strong>Scale</strong>: 105M requests/second | <strong>Challenge</strong>: 99.999% availability globally<br />
 <strong>Key Insights</strong>: Masterless architecture, vector clocks, consistent hashing, anti-entropy<br />
-<strong>Axioms in Focus</strong>: Failure, Consistency, Availability Trade-offs</p>
+<strong>Axioms in Focus</strong>: <a href="../part1-axioms/axiom3-failure/">Failure</a>, <a href="../part1-axioms/axiom4-concurrency/">Consistency</a>, Availability Trade-offs<br />
+<strong>Related Patterns</strong>: <a href="../patterns/tunable-consistency/">Tunable Consistency</a> | <a href="../patterns/sharding/">Sharding</a> | <a href="../patterns/circuit-breaker/">Circuit Breaker</a></p>
 <h3 id="spotify-ml-powered-recommendations"><a href="spotify-recommendations/">Spotify: ML-Powered Recommendations</a><a class="headerlink" href="#spotify-ml-powered-recommendations" title="Permanent link">&para;</a></h3>
 <p><strong>Scale</strong>: 5B recommendations/day | <strong>Challenge</strong>: Personalization at scale<br />
 <strong>Key Insights</strong>: Hybrid online/offline processing, feature stores, A/B testing infrastructure<br />
-<strong>Axioms in Focus</strong>: State, Intelligence, Work Distribution</p>
+<strong>Axioms in Focus</strong>: <a href="../part2-pillars/state/">State Distribution</a>, <a href="../part2-pillars/intelligence/">Intelligence Distribution</a>, <a href="../part2-pillars/work/">Work Distribution</a><br />
+<strong>Related Patterns</strong>: <a href="../patterns/cqrs/">CQRS</a> | <a href="../patterns/event-driven/">Event-Driven Architecture</a> | <a href="../patterns/caching-strategies/">Caching Strategies</a></p>
 <h3 id="paypal-distributed-payment-processing"><a href="paypal-payments/">PayPal: Distributed Payment Processing</a><a class="headerlink" href="#paypal-distributed-payment-processing" title="Permanent link">&para;</a></h3>
 <p><strong>Scale</strong>: $1.36T/year | <strong>Challenge</strong>: Zero transaction loss with global scale<br />
 <strong>Key Insights</strong>: Distributed sagas, idempotency, compensating transactions<br />
-<strong>Axioms in Focus</strong>: Truth, Control, Economic Constraints</p>
+<strong>Axioms in Focus</strong>: <a href="../part2-pillars/truth/">Truth Distribution</a>, <a href="../part2-pillars/control/">Control Distribution</a>, <a href="../part1-axioms/axiom8-economics/">Economic Constraints</a><br />
+<strong>Related Patterns</strong>: <a href="../patterns/saga/">Saga Pattern</a> | <a href="../patterns/idempotent-receiver/">Idempotent Receiver</a> | <a href="../patterns/event-sourcing/">Event Sourcing</a></p>
 <hr />
 <h2 id="common-patterns-across-industries">📊 Common Patterns Across Industries<a class="headerlink" href="#common-patterns-across-industries" title="Permanent link">&para;</a></h2>
 <h3 id="architecture-evolution-patterns">Architecture Evolution Patterns<a class="headerlink" href="#architecture-evolution-patterns" title="Permanent link">&para;</a></h3>
@@ -8986,6 +8958,31 @@
 </tbody>
 </table>
 <hr />
+<hr />
+<h2 id="quick-navigation">🔗 Quick Navigation<a class="headerlink" href="#quick-navigation" title="Permanent link">&para;</a></h2>
+<h3 id="understanding-the-theory">Understanding the Theory<a class="headerlink" href="#understanding-the-theory" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../part1-axioms/">8 Fundamental Axioms</a> - The constraints these systems navigate</li>
+<li><a href="../part2-pillars/">5 Foundational Pillars</a> - How these systems organize solutions</li>
+<li><a href="../patterns/">Modern Patterns</a> - The patterns these systems implement</li>
+</ul>
+<h3 id="case-studies-by-primary-focus">Case Studies by Primary Focus<a class="headerlink" href="#case-studies-by-primary-focus" title="Permanent link">&para;</a></h3>
+<p><strong>Latency &amp; Performance</strong>
+- <a href="uber-location/">Uber Location</a> - Sub-100ms global updates
+- Coming Soon: Fortnite - Real-time game state</p>
+<p><strong>Availability &amp; Resilience</strong>
+- <a href="amazon-dynamo/">Amazon DynamoDB</a> - 99.999% availability
+- Coming Soon: SpaceX - Safety-critical systems</p>
+<p><strong>Scale &amp; Intelligence</strong>
+- <a href="spotify-recommendations/">Spotify Recommendations</a> - 5B recommendations/day
+- <a href="paypal-payments/">PayPal Payments</a> - $1.36T/year processing</p>
+<h3 id="patterns-demonstrated">Patterns Demonstrated<a class="headerlink" href="#patterns-demonstrated" title="Permanent link">&para;</a></h3>
+<ul>
+<li><strong><a href="../patterns/edge-computing/">Edge Computing</a></strong>: Uber's location system</li>
+<li><strong><a href="../patterns/tunable-consistency/">Tunable Consistency</a></strong>: DynamoDB's approach</li>
+<li><strong><a href="../patterns/saga/">Saga Pattern</a></strong>: PayPal's distributed transactions</li>
+<li><strong><a href="../patterns/cqrs/">CQRS</a></strong>: Spotify's ML pipeline</li>
+</ul>
 <hr />
 <p><em>"The best architects learn from others' production experiences. These case studies represent decades of collective wisdom."</em></p>
 

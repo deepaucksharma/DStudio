@@ -778,8 +778,6 @@
       
         
       
-        
-      
     
     
     
@@ -832,36 +830,6 @@
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-axioms/axiom1-latency/index-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
               
             
               
@@ -8763,7 +8731,7 @@
 <li><strong>Pastry station</strong>: Makes desserts</li>
 <li><strong>Expeditor</strong>: Coordinates and quality checks</li>
 </ul>
-<p>This is distributed work: <strong>breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination</strong>.</p>
+<p>This is distributed work: <strong>breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination</strong>. This directly connects to <a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a> - the ability to execute multiple tasks simultaneously.</p>
 <p>💡 <strong>Key Insight</strong>: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.</p>
 <h2 id="why-this-matters">Why This Matters<a class="headerlink" href="#why-this-matters" title="Permanent link">&para;</a></h2>
 <p>Every time you:
@@ -8780,22 +8748,23 @@
 <p>How do you break computation into pieces that can run on different machines while minimizing coordination overhead and maximizing throughput?</p>
 <h2 id="core-concepts">Core Concepts<a class="headerlink" href="#core-concepts" title="Permanent link">&para;</a></h2>
 <h2 id="the-fundamental-trade-offs">The Fundamental Trade-offs<a class="headerlink" href="#the-fundamental-trade-offs" title="Permanent link">&para;</a></h2>
-<div class="admonition warning">
-<p class="admonition-title">No Free Lunch in Work Distribution</p>
-<p>Every choice in work distribution involves trade-offs:</p>
-<p><strong>Parallelism vs Coordination Overhead</strong>
+<p>!!! warning "No Free Lunch in Work Distribution" (Related to <a href="../../part1-axioms/axiom8-economics/">Axiom 8: Economics</a>)
+    Every choice in work distribution involves trade-offs:</p>
+<div class="language-text highlight"><pre><span></span><code>**Parallelism vs Coordination Overhead**
 - More workers = More communication needed
-- Amdahl's Law: Serial portions limit speedup
-- Eventually coordination costs exceed computation savings</p>
-<p><strong>Latency vs Throughput</strong>
+- Amdahl&#39;s Law: Serial portions limit speedup
+- Eventually coordination costs exceed computation savings (see [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md))
+
+**Latency vs Throughput**
 - Batching improves throughput but increases latency
 - Small batches = Low latency but more overhead
-- Must choose based on use case requirements</p>
-<p><strong>Simplicity vs Performance</strong>
+- Must choose based on use case requirements
+
+**Simplicity vs Performance**
 - Simple round-robin vs complex work stealing
 - Static partitioning vs dynamic rebalancing
-- Easier to debug vs harder to optimize</p>
-</div>
+- Easier to debug vs harder to optimize
+</code></pre></div>
 <h2 id="the-work-decomposition-matrix">The Work Decomposition Matrix<a class="headerlink" href="#the-work-decomposition-matrix" title="Permanent link">&para;</a></h2>
 <div class="language-text highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>Dimension        Options              Trade-offs                Real Example
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a>---------        -------              ----------                ------------
@@ -8889,7 +8858,7 @@
     Generate Thumbnails  :active, par3, after par1, 300
     Apply Filters        :active, par4, 500, 400
     Store All           :active, par5, after par3 par4, 200</code></pre>
-<p><strong>Performance Comparison:</strong></p>
+<p><strong>Performance Comparison:</strong> (demonstrates <a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a> in action)</p>
 <table>
 <thead>
 <tr>
@@ -8940,7 +8909,7 @@
 </span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>N = Number of processors
 </span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>
 </span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>Example:
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>If 10% must be sequential (S=0.1):
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a>If 10% must be sequential (S=0.1) - a fundamental constraint from [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md):
 </span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a>- With 10 processors: Speedup = 5.3x (not 10x!)
 </span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>- With 100 processors: Speedup = 9.2x (not 100x!)
 </span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>- With ∞ processors: Speedup = 10x (hard limit)
@@ -9096,7 +9065,7 @@
 
     M-&gt;&gt;R: Collect all results
     R--&gt;&gt;M: Results[]</code></pre>
-<p><strong>Master-Worker Characteristics:</strong></p>
+<p><strong>Master-Worker Characteristics:</strong> (implements coordination patterns from <a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a>)</p>
 <table>
 <thead>
 <tr>
@@ -9422,13 +9391,13 @@ flowchart TB
 </tbody>
 </table>
 <h2 id="the-coordination-tax">The Coordination Tax<a class="headerlink" href="#the-coordination-tax" title="Permanent link">&para;</a></h2>
-<p>Every distributed system pays a coordination tax:</p>
+<p>Every distributed system pays a coordination tax (detailed in <a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a>):</p>
 <h2 id="load-balancing-strategies">Load Balancing Strategies<a class="headerlink" href="#load-balancing-strategies" title="Permanent link">&para;</a></h2>
 <hr />
 <h2 id="expert-theory-and-advanced-techniques-45-min-read">🟣 Expert: Theory and Advanced Techniques (45 min read)<a class="headerlink" href="#expert-theory-and-advanced-techniques-45-min-read" title="Permanent link">&para;</a></h2>
 <h2 id="theoretical-foundations">Theoretical Foundations<a class="headerlink" href="#theoretical-foundations" title="Permanent link">&para;</a></h2>
 <h4 id="universal-scalability-law">Universal Scalability Law<a class="headerlink" href="#universal-scalability-law" title="Permanent link">&para;</a></h4>
-<p>Neil Gunther's USL extends Amdahl's Law to include coherency costs:</p>
+<p>Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from <a href="../../part1-axioms/axiom2-capacity/">Axiom 2: Capacity</a>:</p>
 <div class="formula-box">
 <h4>Universal Scalability Law (USL)</h4>
 <div style="text-align: center; font-size: 1.2em; margin: 20px 0;">
@@ -9529,7 +9498,7 @@ flowchart TB
 </ul>
 </div>
 <h4 id="queue-theory-for-work-distribution">Queue Theory for Work Distribution<a class="headerlink" href="#queue-theory-for-work-distribution" title="Permanent link">&para;</a></h4>
-<p>Little's Law provides fundamental insights:</p>
+<p>Little's Law provides fundamental insights (see also <a href="../../quantitative/queueing/index.md">Quantitative Analysis: Queueing Theory</a>):</p>
 <div class="formula-box">
 <h4>Little's Law</h4>
 <div style="text-align: center; font-size: 1.2em; margin: 20px 0;">
@@ -10720,6 +10689,35 @@ PENDING → RUNNING → COMPLETED
 <h2 id="quick-reference-card">Quick Reference Card<a class="headerlink" href="#quick-reference-card" title="Permanent link">&para;</a></h2>
 <hr />
 <p><em>"Work distribution is not just about spreading computation—it's about spreading it intelligently while respecting the laws of physics and coordination."</em></p>
+<h2 id="related-resources">Related Resources<a class="headerlink" href="#related-resources" title="Permanent link">&para;</a></h2>
+<h3 id="foundational-axioms">Foundational Axioms<a class="headerlink" href="#foundational-axioms" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../part1-axioms/axiom1-latency/">Axiom 1: Latency</a> - Network delays affect work distribution</li>
+<li><a href="../../part1-axioms/axiom2-capacity/">Axiom 2: Capacity</a> - Resource limits and scaling</li>
+<li><a href="../../part1-axioms/axiom3-failure/">Axiom 3: Failure</a> - Handling worker failures</li>
+<li><a href="../../part1-axioms/axiom4-concurrency/">Axiom 4: Concurrency</a> - Parallel execution fundamentals</li>
+<li><a href="../../part1-axioms/axiom5-coordination/">Axiom 5: Coordination</a> - Managing distributed workers</li>
+<li><a href="../../part1-axioms/axiom8-economics/">Axiom 8: Economics</a> - Cost of distribution</li>
+</ul>
+<h3 id="related-pillars">Related Pillars<a class="headerlink" href="#related-pillars" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../state/">Pillar 2: State</a> - Managing distributed computation state</li>
+<li><a href="../truth/">Pillar 3: Truth</a> - Consensus on work completion</li>
+<li><a href="../control/">Pillar 4: Control</a> - Orchestrating distributed work</li>
+</ul>
+<h3 id="implementation-patterns">Implementation Patterns<a class="headerlink" href="#implementation-patterns" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../patterns/mapreduce/index.md">MapReduce Pattern</a> - Classic work distribution</li>
+<li><a href="../../patterns/service-mesh/index.md">Service Mesh</a> - Modern microservice coordination</li>
+<li><a href="../../patterns/event-streaming/index.md">Event Streaming</a> - Async work distribution</li>
+<li><a href="../../patterns/circuit-breaker/index.md">Circuit Breaker</a> - Handling worker failures</li>
+</ul>
+<h3 id="real-world-case-studies">Real-World Case Studies<a class="headerlink" href="#real-world-case-studies" title="Permanent link">&para;</a></h3>
+<ul>
+<li><a href="../../case-studies/netflix-chaos/index.md">Netflix: Chaos Engineering</a> - Resilient work distribution</li>
+<li><a href="../../case-studies/google-mapreduce/index.md">Google: MapReduce</a> - Planet-scale processing</li>
+<li><a href="../../case-studies/apache-spark/index.md">Apache Spark</a> - In-memory distributed computing</li>
+</ul>
 
 
 
