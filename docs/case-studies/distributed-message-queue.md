@@ -1,30 +1,28 @@
 ---
-title: Distributed Message Queue
-description: Design a high-throughput, fault-tolerant message broker system like Apache Kafka or RabbitMQ
+title: Distributed Message Queue Design (Kafka/RabbitMQ)
+description: Build a scalable message broker handling millions of messages per second
 type: case-study
 difficulty: advanced
-reading_time: 25 min
-prerequisites:
-  - Distributed Systems Fundamentals
-  - Pub/Sub Architecture
-  - Replication Strategies
-  - Consensus Algorithms
+reading_time: 40 min
+prerequisites: []
 status: complete
-last_updated: 2025-01-21
+last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Distributed Message Queue**
+[Home](../index.md) → [Case Studies](index.md) → **Distributed Message Queue Design**
 
-# Design a Distributed Message Queue
+# 📨 Distributed Message Queue Design (Kafka/RabbitMQ)
 
-!!! info "Case Study Overview"
-    **System**: Apache Kafka / RabbitMQ  
-    **Scale**: 7 trillion messages/day (LinkedIn Kafka), 1M+ messages/second  
-    **Challenges**: Ordering guarantees, durability, high throughput, low latency  
-    **Key Patterns**: Partitioning, replication, zero-copy, sequential I/O
+**The Challenge**: Build a distributed message broker that can handle millions of messages per second with durability guarantees
 
-*Estimated reading time: 25 minutes*
+!!! info "Case Study Sources"
+    This analysis is based on:
+    - Apache Kafka Documentation and Architecture¹
+    - LinkedIn Engineering: "Building Kafka at Scale"²
+    - RabbitMQ in Depth³
+    - Confluent: "Kafka Definitive Guide"⁴
+    - Academic Paper: "Kafka: A Distributed Messaging System for Log Processing"⁵
 
 ## Introduction
 
@@ -41,57 +39,222 @@ Design a distributed message queue system that can:
 - Support multiple consumer groups
 - Handle producer and consumer failures gracefully
 
-## Architecture Evolution
+## 🏗️ Architecture Evolution
 
-### Phase 1: Single-Server Queue (Day 1)
-```mermaid
-graph TD
-    P1[Producer 1] --> Q[Message Queue Server]
-    P2[Producer 2] --> Q
-    Q --> C1[Consumer 1]
-    Q --> C2[Consumer 2]
-    Q --> D[(Local Disk)]
+### Phase 1: Simple In-Memory Queue (2008-2010)
+
+```text
+Producer → In-Memory Queue → Consumer
 ```
 
-**Limitations**:
+**Problems Encountered:**
+- Messages lost on crash
+- No persistence
 - Single point of failure
-- Limited by single server capacity
-- No horizontal scaling
+- Memory limitations
 
-### Phase 2: Distributed Architecture (Current)
+**Patterns Violated**: 
+- ❌ No [Durability](../patterns/durability.md)
+- ❌ No [Replication](../patterns/replication.md)
+- ❌ No [Partitioning](../patterns/partitioning.md)
+
+### Phase 2: Persistent Queue with WAL (2010-2011)
+
 ```mermaid
-graph TD
-    subgraph Producers
+graph TB
+    subgraph "Producers"
+        P1[Producer 1]
+        P2[Producer 2]
+        PN[Producer N]
+    end
+    
+    subgraph "Message Broker"
+        API[API Layer]
+        WAL[Write-Ahead Log]
+        MEM[Memory Cache]
+        DISK[(Disk Storage)]
+    end
+    
+    subgraph "Consumers"
+        C1[Consumer 1]
+        C2[Consumer 2]
+        CN[Consumer N]
+    end
+    
+    P1 & P2 & PN --> API
+    API --> WAL --> DISK
+    WAL --> MEM
+    MEM --> C1 & C2 & CN
+    
+    style WAL fill:#ff9999
+```
+
+**Key Design Decision: Write-Ahead Logging**
+- **Trade-off**: Write latency vs Durability (Pillar: [State Distribution](../part2-pillars/state/index.md))
+- **Choice**: Sequential disk writes for persistence
+- **Result**: 100x durability improvement
+- **Pattern Applied**: [Write-Ahead Log](../patterns/wal.md)
+
+According to benchmarks², sequential disk writes achieved 600MB/sec throughput.
+
+### Phase 3: Distributed Architecture (2011-2014)
+
+```mermaid
+graph TB
+    subgraph "Producers"
         P1[Producer 1]
         P2[Producer 2]
         P3[Producer 3]
     end
     
-    subgraph Brokers
-        B1[Broker 1<br/>Partition 1,4]
-        B2[Broker 2<br/>Partition 2,5]
-        B3[Broker 3<br/>Partition 3,6]
+    subgraph "Broker Cluster"
+        subgraph "Broker 1"
+            B1_L[Leader Partitions]
+            B1_F[Follower Partitions]
+        end
+        subgraph "Broker 2"
+            B2_L[Leader Partitions]
+            B2_F[Follower Partitions]
+        end
+        subgraph "Broker 3"
+            B3_L[Leader Partitions]
+            B3_F[Follower Partitions]
+        end
     end
     
-    subgraph Consumer Group A
-        CA1[Consumer A1]
-        CA2[Consumer A2]
+    subgraph "Coordination"
+        ZK[ZooKeeper<br/>Metadata & Leader Election]
     end
     
-    subgraph Consumer Group B
-        CB1[Consumer B1]
-        CB2[Consumer B2]
+    subgraph "Consumer Groups"
+        CG1[Consumer Group 1]
+        CG2[Consumer Group 2]
     end
     
-    P1 --> B1
-    P2 --> B2
-    P3 --> B3
+    P1 & P2 & P3 --> B1_L & B2_L & B3_L
+    B1_L -.-> B2_F & B3_F
+    B2_L -.-> B1_F & B3_F
+    B3_L -.-> B1_F & B2_F
     
-    B1 --> CA1
-    B2 --> CA2
-    B3 --> CB1
-    B1 --> CB2
+    B1_L & B2_L & B3_L --> CG1 & CG2
+    
+    ZK --> B1_L & B2_L & B3_L
 ```
+
+**Innovation: Log-Structured Storage**⁵
+- Append-only commit log
+- Zero-copy sends
+- Batch compression
+- Pagecache usage
+
+**Patterns & Pillars Applied**:
+- 🔧 Pattern: [Leader-Follower Replication](../patterns/leader-follower.md)
+- 🔧 Pattern: [Partitioning](../patterns/partitioning.md) - Topic partitions
+- 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Distributed logs
+- 🏛️ Pillar: [Truth & Consistency](../part2-pillars/truth/index.md) - Ordered delivery
+
+### Phase 4: Modern Streaming Platform (2014-Present)
+
+```mermaid
+graph LR
+    subgraph "Data Sources"
+        subgraph "Applications"
+            APP1[Microservice 1]
+            APP2[Microservice 2]
+            APPN[Microservice N]
+        end
+        subgraph "Databases"
+            DB1[MySQL CDC]
+            DB2[PostgreSQL CDC]
+            DB3[MongoDB CDC]
+        end
+        subgraph "External"
+            IOT[IoT Devices]
+            WEB[Web Events]
+            LOGS[Log Aggregators]
+        end
+    end
+
+    subgraph "Kafka Ecosystem"
+        subgraph "Core Infrastructure"
+            subgraph "Brokers"
+                B1[Broker 1<br/>8 cores, 64GB]
+                B2[Broker 2<br/>8 cores, 64GB]
+                B3[Broker 3<br/>8 cores, 64GB]
+                BN[Broker N]
+            end
+            
+            subgraph "Storage"
+                TIER1[Hot Storage<br/>NVMe SSD]
+                TIER2[Warm Storage<br/>HDD JBOD]
+                TIER3[Cold Storage<br/>Object Store]
+            end
+            
+            ZK[ZooKeeper Cluster<br/>3-5 nodes]
+        end
+        
+        subgraph "Stream Processing"
+            KSQL[KSQL<br/>SQL on Streams]
+            KSTREAMS[Kafka Streams<br/>Java Library]
+            FLINK[Apache Flink<br/>Stateful Processing]
+        end
+        
+        subgraph "Connectors"
+            SRC[Source Connectors<br/>100+ types]
+            SINK[Sink Connectors<br/>100+ types]
+        end
+        
+        subgraph "Management"
+            SR[Schema Registry<br/>Avro/Protobuf]
+            REST[REST Proxy]
+            CTRL[Control Center<br/>Monitoring]
+        end
+    end
+
+    subgraph "Data Sinks"
+        subgraph "Analytics"
+            SPARK[Spark Streaming]
+            DRUID[Apache Druid]
+            CH[ClickHouse]
+        end
+        subgraph "Storage"
+            HDFS[HDFS/S3]
+            ES[Elasticsearch]
+            REDIS[Redis Cache]
+        end
+        subgraph "Applications"
+            RT[Real-time Apps]
+            BATCH[Batch Processing]
+            ML[ML Pipelines]
+        end
+    end
+
+    APP1 & APP2 & APPN --> B1 & B2 & B3
+    DB1 & DB2 & DB3 --> SRC --> B1 & B2 & B3
+    IOT & WEB & LOGS --> B1 & B2 & B3
+    
+    B1 & B2 & B3 --> TIER1 --> TIER2 --> TIER3
+    B1 & B2 & B3 <--> ZK
+    
+    B1 & B2 & B3 --> KSQL & KSTREAMS & FLINK
+    B1 & B2 & B3 --> SINK --> HDFS & ES & REDIS
+    
+    KSQL & KSTREAMS & FLINK --> RT & BATCH & ML
+    
+    SR --> B1 & B2 & B3
+    REST --> B1 & B2 & B3
+    CTRL --> B1 & B2 & B3 & ZK
+    
+    style B1 fill:#ff6b6b
+    style TIER1 fill:#4ecdc4
+    style KSTREAMS fill:#95e1d3
+```
+
+**Current Capabilities**:
+- 7 trillion+ messages/day at LinkedIn
+- 2M+ messages/second sustained
+- PB/day data ingestion
+- <10ms end-to-end latency
 
 ## Concept Map
 

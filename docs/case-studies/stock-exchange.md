@@ -26,22 +26,81 @@ last_updated: 2025-01-21
 
 *Estimated reading time: 28 minutes*
 
+## 1. Problem Statement
+
+Design a high-frequency stock exchange system like NYSE, NASDAQ, or Binance that can:
+- Process millions of orders per second with microsecond latency
+- Maintain a fair and orderly market with price discovery
+- Handle order matching, market data distribution, and settlement
+- Ensure zero data loss and regulatory compliance
+- Prevent market manipulation and ensure fairness
+- Support multiple asset classes and order types
+
+### Real-World Context
+- **NYSE**: 2.4B+ average daily volume, handles 1M+ messages/second peak
+- **NASDAQ**: Powers 90+ marketplaces in 50+ countries
+- **CME Group**: 20M+ contracts traded daily, 99.99% uptime
+- **Binance**: 1.2M+ orders/second capability, 90M+ users
+
 ## Introduction
 
 Modern stock exchanges process millions of orders per second with latencies measured in microseconds. This case study explores building an exchange matching NASDAQ's performance (10M+ messages/second) while ensuring fairness, preventing market manipulation, and maintaining regulatory compliance.
 
-## Challenge Statement
+## 2. Requirements Analysis
 
-Design a stock exchange system that can:
-- Process 10M+ orders per second
-- Maintain sub-microsecond latency for order matching
-- Ensure fair and orderly markets (price-time priority)
-- Prevent market manipulation and flash crashes
-- Support multiple order types (market, limit, stop, iceberg)
-- Provide real-time market data feeds
-- Maintain complete audit trail for regulators
-- Handle co-location and ensure fairness
-- Achieve 99.999% uptime during trading hours
+### Functional Requirements
+1. **Order Management**
+   - Limit orders, market orders, stop orders
+   - Order modification and cancellation
+   - Iceberg orders and hidden liquidity
+   - Time-in-force options (IOC, FOK, GTC)
+   - Order routing and smart order routing
+
+2. **Matching Engine**
+   - Price-time priority matching
+   - Sub-microsecond latency
+   - Multiple order books per symbol
+   - Cross and auction matching
+   - Self-trade prevention
+
+3. **Market Data**
+   - Real-time quotes and trades
+   - Order book depth (Level 1, 2, 3)
+   - Market statistics and indices
+   - Historical data and replay
+   - Multicast and unicast distribution
+
+4. **Risk Management**
+   - Pre-trade risk checks
+   - Position limits
+   - Circuit breakers
+   - Kill switches
+   - Margin calculations
+
+5. **Settlement & Clearing**
+   - T+2 settlement cycle
+   - Netting and clearing
+   - Corporate actions
+   - Regulatory reporting
+   - Member reconciliation
+
+### Non-Functional Requirements
+- **Throughput**: 10M+ orders/second
+- **Latency**: <10 microseconds for order acknowledgment
+- **Availability**: 99.999% uptime (5 minutes downtime/year)
+- **Determinism**: Identical ordering of events
+- **Fairness**: No unfair advantage to any participant
+- **Compliance**: Full audit trail, regulatory reporting
+
+### Axiom Mapping
+- **Axiom 1 (Latency)**: Microsecond latency critical for fairness
+- **Axiom 2 (Capacity)**: Finite order book depth and bandwidth
+- **Axiom 3 (Failure)**: Zero tolerance for lost orders
+- **Axiom 4 (Concurrency)**: Massive parallel order processing
+- **Axiom 5 (Coordination)**: Deterministic event ordering
+- **Axiom 6 (Observability)**: Complete audit trail required
+- **Axiom 7 (Interface)**: FIX protocol and native APIs
+- **Axiom 8 (Economics)**: Optimize for transaction costs
 
 ## Architecture Evolution
 
