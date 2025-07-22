@@ -16,42 +16,21 @@ last_updated: 2025-07-20
 # Distributed Web Crawler
 
 ## 🎯 Challenge Statement
-Design a web crawler capable of discovering and indexing billions of web pages, respecting robots.txt and rate limits, handling dynamic content, detecting duplicates, and maintaining freshness while operating ethically and efficiently at internet scale.
+Design a web crawler for 10B+ pages/month with robots.txt compliance, rate limiting, dynamic content handling, deduplication, and freshness maintenance at internet scale.
 
 ## Part 1: Concept Map
 
 ### 🗺️ System Overview
-A web crawler systematically browses the World Wide Web to discover and fetch web pages for indexing, archiving, or analysis. The system must balance aggressive crawling for freshness with politeness to avoid overwhelming target servers. Examples include Googlebot, Bingbot, and Common Crawl.
+Systematic web browsing for discovering and fetching pages, balancing aggressive crawling with server politeness.
 
-**Key Requirements:**
-- Crawl 10B+ pages per month
-- Respect robots.txt and crawl delays
-- Handle JavaScript-rendered content
-- Detect and eliminate duplicates
-- Maintain URL frontier of 100B+ URLs
-- Support focused and broad crawling
-- Handle failures gracefully
-- Provide fresh content (recrawl based on change frequency)
+**Requirements:** 10B+ pages/month, robots.txt compliance, JavaScript handling, deduplication, 100B+ URL frontier, focused/broad crawling, failure handling, freshness maintenance
 
 ### 📐 Axiom Analysis
 
 #### 🚀 Axiom 1 (Latency): Crawl Speed Optimization
 ```text
-Latency Components:
-- DNS resolution: 10-50ms
-- TCP connection: 10-100ms
-- TLS handshake: 20-200ms
-- HTTP request/response: 50-500ms
-- Content download: 100-5000ms
-- Processing: 10-100ms
-
-Optimization Strategies:
-- DNS caching and prefetching
-- Connection pooling
-- HTTP/2 multiplexing
-- Parallel crawling
-- Geographic distribution
-- Async I/O everywhere
+Latency: DNS 10-50ms, TCP 10-100ms, TLS 20-200ms, HTTP 50-500ms, Download 100-5000ms, Processing 10-100ms
+Optimizations: DNS caching/prefetch, connection pooling, HTTP/2, parallel crawling, geo-distribution, async I/O
 ```
 
 **High-Performance Crawler Architecture:**
@@ -121,14 +100,13 @@ sequenceDiagram
 
 **Performance Optimizations:**
 
-| Component | Optimization | Impact |
-|-----------|-------------|--------|
-| **DNS** | Caching & Prefetching | -50ms per request |
-| **Connections** | Pooling & Keep-alive | -100ms handshake |
-| **SSL/TLS** | Context reuse | -200ms per connection |
-| **HTTP/2** | Multiplexing | 3x throughput |
-| **Content** | Streaming with limits | Memory efficient |
-| **Parallelism** | Async I/O | 100x concurrency |
+**Performance Optimizations:**
+- DNS caching: -50ms/request
+- Connection pooling: -100ms handshake
+- SSL/TLS reuse: -200ms/connection
+- HTTP/2 multiplexing: 3x throughput
+- Stream content: Memory efficient
+- Async I/O: 100x concurrency
 
 **Connection Pool Management:**
 
@@ -185,18 +163,8 @@ gantt
 
 #### 💾 Axiom 2 (Capacity): URL Frontier Management
 ```text
-Storage Requirements:
-- URL frontier: 100B URLs × 100 bytes = 10TB
-- Crawled pages: 10B pages × 50KB = 500TB
-- Link graph: 1T edges × 16 bytes = 16TB
-- Metadata: 10B pages × 1KB = 10TB
-
-Capacity Challenges:
-- URL frontier growth
-- Duplicate detection at scale
-- Content storage
-- Index size management
-- Bandwidth limits
+Storage: URL frontier 10TB (100B URLs), Crawled pages 500TB, Link graph 16TB, Metadata 10TB
+Challenges: Frontier growth, duplicate detection, content storage, index management, bandwidth limits
 ```
 
 **URL Frontier Architecture:**
@@ -435,23 +403,8 @@ graph LR
 
 #### 🔥 Axiom 3 (Failure): Robust Crawling
 ```text
-Failure Modes:
-1. Network timeouts
-2. DNS failures  
-3. Server errors (4xx, 5xx)
-4. Malformed HTML
-5. Infinite redirects
-6. Spider traps
-7. Rate limit violations
-8. Crawler traps
-
-Mitigation Strategies:
-- Exponential backoff
-- Circuit breakers per domain
-- Redirect limits
-- URL pattern detection
-- Checkpointing
-- Distributed coordination
+Failures: Network timeouts, DNS failures, server errors, malformed HTML, infinite redirects, spider/crawler traps, rate limits
+Mitigations: Exponential backoff, circuit breakers, redirect limits, pattern detection, checkpointing, distributed coordination
 ```
 
 **Resilient Crawler Architecture:**
@@ -603,111 +556,7 @@ graph TB
     end
 ```
 
-    def _extract_url_pattern(self, url: str) -> str:
-        """Extract URL pattern for trap detection"""
-        parsed = urlparse(url)
-        path = parsed.path
-        
-        # Replace numbers with placeholder
-        path = re.sub(r'\d+', 'N', path)
-        
-        # Replace UUIDs with placeholder
-        path = re.sub(r'[a-f0-9]{8}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{4}-[a-f0-9]{12}', 'UUID', path)
-        
-        # Replace base64-like strings
-        path = re.sub(r'[A-Za-z0-9+/]{20,}={0,2}', 'B64', path)
-        
-        return path
-    
-    def _is_crawler_trap(self, content: str) -> bool:
-        """Detect crawler traps in content"""
-        if not content:
-            return False
-        
-        # Check for excessive links
-        link_count = content.count('<a ')
-        if link_count > 10000:
-            return True
-        
-        # Check for hidden/invisible content
-        hidden_patterns = [
-            r'display:\s*none',
-            r'visibility:\s*hidden',
-            r'position:\s*absolute;\s*left:\s*-\d+px',
-            r'text-indent:\s*-\d+px'
-        ]
-        
-        hidden_count = sum(len(re.findall(pattern, content)) for pattern in hidden_patterns)
-        if hidden_count > 100:
-            return True
-        
-        # Check for JavaScript-generated infinite content
-        js_patterns = [
-            r'while\s*\(\s*true\s*\)',
-            r'for\s*\(\s*;;\s*\)',
-            r'setTimeout.*appendChild.*0\)',  # Rapid DOM manipulation
-        ]
-        
-        for pattern in js_patterns:
-            if re.search(pattern, content):
-                return True
-        
-        return False
-    
-    async def handle_redirects(self, url: str, response) -> str:
-        """Handle redirects with loop detection"""
-        redirect_chain = self.redirect_chains.get(url, [])
-        redirect_chain.append(url)
-        
-        # Check for redirect loops
-        if len(redirect_chain) > self.max_redirects:
-            raise Exception(f"Too many redirects: {len(redirect_chain)}")
-        
-        if len(set(redirect_chain)) < len(redirect_chain):
-            raise Exception("Redirect loop detected")
-        
-        # Get final URL
-        final_url = str(response.url)
-        
-        # Store chain for future reference
-        self.redirect_chains[final_url] = redirect_chain
-        
-        return final_url
-    
-    async def checkpoint_state(self):
-        """Save crawler state for recovery"""
-        checkpoint_data = {
-            'frontier_state': self.frontier.get_frontier_stats(),
-            'crawled_urls': self.crawled_count,
-            'failures': dict(self.domain_failures),
-            'timestamp': time.time()
-        }
-        
-        # Atomic write
-        checkpoint_file = f"checkpoint_{int(time.time())}.json"
-        temp_file = f"{checkpoint_file}.tmp"
-        
-        with open(temp_file, 'w') as f:
-            json.dump(checkpoint_data, f)
-        
-        os.rename(temp_file, checkpoint_file)
-        
-        # Clean old checkpoints
-        self._cleanup_old_checkpoints()
-    
-    def recover_from_checkpoint(self, checkpoint_file: str):
-        """Recover crawler state from checkpoint"""
-        with open(checkpoint_file, 'r') as f:
-            checkpoint_data = json.load(f)
-        
-        # Restore state
-        self.crawled_count = checkpoint_data['crawled_urls']
-        self.domain_failures = defaultdict(
-            lambda: {'count': 0, 'last_failure': 0},
-            checkpoint_data['failures']
-        )
-        
-        logger.info(f"Recovered from checkpoint: {checkpoint_data['timestamp']}")
+    # Trap detection and recovery implementation details...
 ```
 
 #### 🔀 Axiom 4 (Concurrency): Parallel Crawling
@@ -1966,15 +1815,15 @@ graph TB
 - Complex synchronization
 - Higher infrastructure cost
 
-### ⚖️ Trade-off Analysis Matrix
+### ⚖️ Trade-off Analysis
 
 | Architecture | Scale | Complexity | Cost | JS Support | Latency | Fault Tolerance | Ops Overhead |
 |--------------|-------|------------|------|------------|---------|-----------------|---------------|
-| **Focused Vertical** | ❌ Low | ✅ Simple | ✅ Low | ❌ None | ✅ Low | ❌ Limited | ✅ Minimal |
-| **Serverless** | 🔶 Medium | 🔶 Medium | 🔶 Variable | ❌ None | 🔶 Medium | ✅ High | ✅ None |
-| **Browser-Based** | 🔶 Medium | ❌ High | ❌ High | ✅ Full | ❌ High | 🔶 Medium | ❌ High |
-| **Stream Processing** | ✅ High | ❌ Very High | ❌ High | ❌ None | ✅ Low | ✅ Excellent | ❌ Very High |
-| **Edge-Distributed** | ✅ High | ❌ High | ❌ High | 🔶 Partial | ✅ Very Low | ✅ High | ❌ High |
+| **Focused Vertical** | Low | Simple | Low | None | Low | Limited | Minimal |
+| **Serverless** | Medium | Medium | Variable | None | Medium | High | None |
+| **Browser-Based** | Medium | High | High | Full | High | Medium | High |
+| **Stream Processing** | High | Very High | High | None | Low | Excellent | Very High |
+| **Edge-Distributed** | High | High | High | Partial | Very Low | High | High |
 
 ### 📊 Performance & Scale Comparison
 

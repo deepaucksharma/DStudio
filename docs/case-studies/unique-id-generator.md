@@ -15,12 +15,12 @@ last_updated: 2025-07-20
 # Distributed Unique ID Generator
 
 ## 🎯 Challenge Statement
-Design a system capable of generating unique identifiers across multiple datacenters at a rate of millions per second, with optional ordering guarantees, minimal coordination overhead, and protection against various failure modes including clock skew.
+Design a system to generate millions of unique IDs per second across datacenters with optional ordering, minimal coordination, and clock skew protection.
 
 ## Part 1: Concept Map
 
 ### 🗺️ System Overview
-A distributed ID generator creates unique identifiers that can be used as primary keys in databases, correlation IDs in distributed tracing, or transaction IDs in financial systems. The challenge is maintaining uniqueness without centralized coordination while meeting various constraints on ID format, size, and ordering.
+Distributed ID generator for database keys, tracing IDs, and transactions. Must maintain uniqueness without central coordination while meeting format, size, and ordering constraints.
 
 **Key Requirements:**
 - Generate 100M+ unique IDs per second globally
@@ -733,20 +733,15 @@ sequenceDiagram
     Note over Client,Gen: Only 1 network call per 10K IDs
 ```
 
-### 🔍 Comprehensive Axiom Mapping
+### 🔍 Axiom Mapping Summary
 
-| Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
-|-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
-| **Snowflake Algorithm** | ✅ <1μs generation<br>No network calls | ✅ 2^63 IDs total<br>4K IDs/ms/node | ⚠️ Clock dependent<br>Needs NTP sync | ✅ Lock-free possible<br>Thread-local state | 🔄 Node ID assignment<br>via ZK or static | ✅ ID components<br>easily parseable | ✅ Simple API<br>Clear bit layout | ✅ No infra needed<br>Client-side gen |
-| **64-bit vs 128-bit** | ✅ 64-bit faster<br>CPU native ops | ⚖️ 64-bit: 69 years<br>128-bit: centuries | ✅ Both resilient<br>to failures | ✅ 64-bit atomic ops<br>simpler | ➖ Size independent<br>of coordination | 📊 Both parseable<br>128 more verbose | ⚠️ 64-bit familiar<br>128-bit complex | ✅ 64-bit: 50%<br>storage savings |
-| **Millisecond Precision** | ✅ Good enough<br>4K IDs/ms | ✅ 41 bits = 69yr<br>Reasonable lifespan | ✅ Less sensitive<br>to clock jitter | ⚖️ May hit sequence<br>limit in bursts | ➖ Precision doesn't<br>affect coordination | 📊 Ms granularity<br>for analytics | ✅ Human readable<br>timestamps | ✅ Balanced bit<br>allocation |
-| **Client-side Generation** | ✅ Zero network<br>latency | ✅ Infinite scale<br>No bottleneck | ✅ No SPOF<br>Fully distributed | ✅ No contention<br>across services | 🔄 Only for initial<br>node ID | ⚠️ Harder to track<br>all generators | ✅ Library/SDK<br>integration | ✅ No ID service<br>infrastructure |
-| **Static Node IDs** | ✅ No lookup<br>overhead | ✅ Simple config<br>management | ✅ No dependency<br>on coordinator | ✅ No runtime<br>coordination | ✅ Manual process<br>but reliable | ✅ Known mapping<br>ID→node | ⚠️ Manual updates<br>for new nodes | ✅ Zero runtime<br>coord cost |
-| **Sequence Counter** | ✅ Fast increment<br>CPU cache local | ✅ 12 bits = 4096<br>IDs per ms | ✅ Resets each ms<br>Self-healing | ⚠️ Must handle<br>overflow carefully | ➖ Per-node counter<br>No sharing | 📊 Burst detection<br>via sequence | ✅ Simple counter<br>logic | ✅ No memory<br>allocation |
-| **Clock Skew Handling** | ⚖️ Adds checks<br>Slight overhead | ✅ Prevents ID<br>exhaustion | ✅ Detects/corrects<br>time regressions | ✅ Thread-safe<br>mechanisms | 🔄 NTP monitoring<br>recommended | ✅ Skew metrics<br>and alerts | ⚠️ Error messages<br>need clarity | ⚖️ NTP sync<br>operational cost |
-| **Pre-allocation** | ✅ Batch generation<br>amortizes cost | ✅ Efficient use<br>of ID space | ✅ Survives brief<br>failures | ✅ Reduces lock<br>contention | ⚖️ Range coordination<br>for batches | 📊 Allocation metrics<br>and waste | ✅ Transparent<br>to users | ✅ Higher throughput<br>same resources |
-| **Monotonic + Wall Clock** | ⚖️ Two clocks<br>slight overhead | ✅ Prevents backward<br>movement | ✅ Handles clock<br>adjustments | ✅ Safe concurrent<br>access | ➖ Local decision<br>No coordination | ✅ Both times<br>observable | ✅ Best of both<br>clock types | ✅ Prevents costly<br>ID collisions |
-| **Machine ID Registry** | ⚖️ Initial lookup<br>then cached | ✅ Prevents ID<br>conflicts | ✅ Lease-based<br>auto-recovery | ✅ One-time<br>registration | ✅ Zookeeper/DB<br>for registry | ✅ Central view<br>of all nodes | ⚖️ More complex<br>deployment | ⚖️ Registry service<br>overhead |
+| Design Decision | Key Impact | Trade-offs |
+|-----------------|------------|------------|
+| **Snowflake Algorithm** | <1μs generation, no network calls, 2^63 IDs | Clock dependent, needs NTP sync |
+| **64-bit vs 128-bit** | 64-bit: Faster, native CPU ops, 50% storage savings | 64-bit: 69-year lifespan limit |
+| **Client-side Generation** | Zero network latency, infinite scale | Harder to track all generators |
+| **Static Node IDs** | No lookup overhead, simple config | Manual updates for new nodes |
+| **Pre-allocation** | Higher throughput, batch efficiency | Range coordination complexity |
 
 ### 🏛️ Pillar Mapping
 
@@ -956,15 +951,15 @@ graph LR
 - Not globally unique without node ID
 - Good for distributed tracing
 
-### ⚖️ Trade-off Analysis Matrix
+### ⚖️ Architecture Trade-offs
 
 | Architecture | Uniqueness | Ordering | Latency | Scalability | Complexity | Clock Dependency | Failure Handling |
 |--------------|------------|----------|---------|-------------|------------|------------------|------------------|
-| **Ticket Server** | ✅ Perfect | ❌ None | 🔶 10-100ms | 🔶 Limited | ✅ Simple | ❌ None | 🔶 SPOF risk |
-| **Embedded Snowflake** | ✅ With node IDs | ✅ Time-based | ✅ <1μs | ✅ Excellent | 🔶 Medium | ⚠️ NTP needed | ✅ Resilient |
-| **Database Sequence** | ✅ Perfect | ✅ Sequential | 🔶 1-10ms | ❌ Poor | ✅ Simple | ❌ None | ❌ DB failure |
-| **Hybrid Sharded** | ✅ Per shard | 🔶 Partial | 🔶 1-5ms | ✅ Good | ❌ Complex | 🔶 Optional | 🔶 Shard-level |
-| **Lamport Timestamp** | 🔶 With node ID | ✅ Causal | ✅ <1μs | ✅ Excellent | 🔶 Medium | ❌ None | ✅ Resilient |
+| **Ticket Server** | Perfect | None | 10-100ms | Limited | Simple | None | SPOF risk |
+| **Embedded Snowflake** | With node IDs | Time-based | <1μs | Excellent | Medium | NTP needed | Resilient |
+| **Database Sequence** | Perfect | Sequential | 1-10ms | Poor | Simple | None | DB failure |
+| **Hybrid Sharded** | Per shard | Partial | 1-5ms | Good | Complex | Optional | Shard-level |
+| **Lamport Timestamp** | With node ID | Causal | <1μs | Excellent | Medium | None | Resilient |
 
 ### 📊 Performance Comparison
 

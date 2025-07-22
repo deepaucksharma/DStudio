@@ -20,25 +20,16 @@ last_updated: 2025-07-22
     **System**: Global mapping and navigation platform  
     **Scale**: 1B+ users, 220+ countries, petabytes of map data  
     **Challenges**: Route calculation, real-time traffic, offline maps, multi-modal transport  
-    **Key Patterns**: Graph algorithms, spatial indexing, tile serving, edge caching
-
-!!! info "Case Study Sources"
-    This analysis is based on:
-    - Google Maps Technical Blog: "Building a Better Map"¹
-    - SIGGRAPH Paper: "Google Street View: Capturing the World"²
-    - Research Paper: "The Google Maps Road Graph"³
-    - Engineering Blog: "Real-time Traffic Prediction"⁴
-    - ACM Paper: "Efficient Route Planning on Road Networks"⁵
+    **Key Patterns**: Graph algorithms, spatial indexing, tile serving, edge caching  
+    **Sources**: Google Maps Blog¹, Street View Paper², Road Graph Research³, Traffic Prediction⁴, Route Planning⁵
 
 ## Introduction
 
-Google Maps represents one of the most complex distributed systems ever built, combining massive geographic data processing, real-time traffic analysis, and sophisticated routing algorithms. Serving over 1 billion users with turn-by-turn navigation, the system must handle petabytes of map data, process millions of route calculations per second, and incorporate real-time data from hundreds of millions of devices. From the physics of GPS signals to the graph theory of optimal routing, let's explore how distributed systems principles enable navigation at planetary scale.
+Google Maps: Complex distributed system with geographic data processing, real-time traffic, routing algorithms. 1B+ users, petabytes of data, millions of routes/second, real-time device data. Combines GPS physics and graph theory for planetary-scale navigation.
 
 ## Part 1: Concept Map - The Physics of Digital Cartography
 
 ### Axiom 1: Latency - The Speed of Navigation
-
-Maps must load instantly and routes must calculate in seconds for effective navigation.
 
 ```mermaid
 graph LR
@@ -78,8 +69,6 @@ graph TB
 ```
 
 ### Axiom 2: Capacity - The World in Bytes
-
-Storing and serving the entire planet's geographic data at multiple zoom levels.
 
 ```mermaid
 graph TB

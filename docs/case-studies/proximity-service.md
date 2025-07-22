@@ -20,14 +20,12 @@ last_updated: 2025-07-21
     **System**: Location-based service for finding nearby points of interest  
     **Scale**: 100M+ locations, 1B+ queries/day, sub-second response  
     **Challenges**: Spatial indexing, real-time updates, global scale, accuracy  
-    **Key Patterns**: Geohashing, quadtree, R-tree, sharding by geography
-
-!!! info "Case Study Sources"
-    Based on: Yelp Engineering¹, Google S2 Geometry², Uber H3³, MongoDB Geospatial⁴, PostGIS Spatial Indexing⁵
+    **Key Patterns**: Geohashing, quadtree, R-tree, sharding by geography  
+    **Sources**: Yelp Engineering¹, Google S2 Geometry², Uber H3³, MongoDB Geospatial⁴, PostGIS⁵
 
 ## Introduction
 
-Proximity services power everything from "restaurants near me" to ride-sharing pickups, requiring systems that can instantly query millions of geographic points to find the nearest matches. This involves solving fundamental challenges in spatial indexing, handling the irregularity of real-world geography, and maintaining sub-second query times at global scale. From Uber matching riders to drivers to Yelp showing nearby restaurants, these systems must balance mathematical precision with practical performance. Let's explore how geometry, physics, and distributed systems principles combine to answer the seemingly simple question: "What's near me?"
+Proximity services power "restaurants near me" to ride-sharing pickups, querying millions of geographic points instantly. Key challenges: spatial indexing, real-world geography irregularity, sub-second global queries. Systems balance mathematical precision with practical performance.
 
 ## 🏗️ Architecture Evolution
 
@@ -42,16 +40,8 @@ ORDER BY distance(latitude, longitude, :lat, :lng)
 LIMIT 20;
 ```
 
-**Problems Encountered:**
-- Full table scans for every query
-- Inaccurate rectangular bounds
-- No support for different radiuses
-- Query time >5 seconds
-
-**Patterns Violated**: 
-- ❌ No [Spatial Indexing](../patterns/spatial-indexing.md)
-- ❌ No [Query Optimization](../patterns/query-optimization.md)
-- ❌ No [Caching Strategy](../patterns/caching-strategies.md)
+**Problems**: Full table scans, inaccurate bounds, no radius support, >5s queries
+**Missing**: Spatial indexing, query optimization, caching
 
 ### Phase 2: Basic Geospatial Indexing (2007-2010)
 
@@ -80,13 +70,9 @@ graph TB
     style PG fill:#ff9999
 ```
 
-**Key Design Decision: PostGIS Spatial Extension**
-- **Trade-off**: Complexity vs Performance (Pillar: [Work Distribution](../part2-pillars/work/index.md))
-- **Choice**: Use R-tree spatial indices
-- **Result**: 100x query speedup
-- **Pattern Applied**: [R-tree Index](../patterns/r-tree.md)
-
-According to benchmarks¹, queries improved from 5s to 50ms for dense areas.
+**Key Decision**: PostGIS with R-tree spatial indices
+**Result**: 100x speedup (5s → 50ms for dense areas¹)
+**Pattern**: R-tree Index
 
 ### Phase 3: Distributed Geospatial System (2010-2015)
 
@@ -135,25 +121,20 @@ graph TB
     Q3 --> SHARDN
 ```
 
-**Innovation: Hybrid Spatial Indexing**²
-- QuadTree for dense urban areas
-- Geohash for sparse regions
-- S2 cells for uniform global coverage
-- Hilbert curves preserve locality
+**Innovation**: Hybrid Spatial Indexing²
+- QuadTree: dense urban areas
+- Geohash: sparse regions  
+- S2 cells: uniform global coverage
+- Hilbert curves: preserve locality
 
-**Patterns & Pillars Applied**:
-- 🔧 Pattern: [QuadTree](../patterns/quadtree.md) - Hierarchical spatial division
-- 🔧 Pattern: [Geohashing](../patterns/geohashing.md) - Location encoding
-- 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Geographic sharding
-- 🏛️ Pillar: [Work Distribution](../part2-pillars/work/index.md) - Parallel spatial queries
+**Patterns**: QuadTree, Geohashing, State/Work Distribution
 
 ### Phase 4: Modern Real-time Architecture (2015-Present)
 
 ## Part 1: Concept Map - The Physics of Space and Time
 
 ### Axiom 1: Latency - The Speed of Location
-
-Location queries must return results fast enough to feel instantaneous, typically under 200ms.
+Queries must feel instantaneous (<200ms).
 
 ```mermaid
 graph LR
@@ -176,24 +157,10 @@ graph LR
 | Result Ranking | 50-100ms | Pre-computed scores | 10-20ms |
 | Network RTT | 20-100ms | Edge servers | 5-20ms |
 
-**Geographic Latency Considerations:**
-
-```mermaid
-graph TB
-    subgraph "Query Path Optimization"
-        USER[User Location] --> EDGE[Nearest Edge<br/>5-10ms]
-        EDGE --> REGIONAL[Regional Index<br/>20-30ms]
-        REGIONAL --> GLOBAL[Global Fallback<br/>100ms+]
-        
-        EDGE -.->|Cache Hit| RESPONSE[Fast Response]
-        REGIONAL -.->|Most Queries| RESPONSE
-        GLOBAL -.->|Rare| RESPONSE
-    end
-```
+**Query Path**: User → Edge (5-10ms) → Regional (20-30ms) → Global (100ms+)
 
 ### Axiom 2: Capacity - The Curse of Dimensionality
-
-Spatial data grows quadratically with coverage area and linearly with density.
+Spatial data grows quadratically with area, linearly with density.
 
 ```mermaid
 graph TB
@@ -242,8 +209,7 @@ graph TB
 ```
 
 ### Axiom 3: Failure - Location Service Availability
-
-The system must handle failures gracefully without returning incorrect locations.
+Handle failures gracefully without incorrect locations.
 
 ```mermaid
 graph TB
@@ -271,8 +237,7 @@ graph TB
 | Split Brain | < 60s | Quorum resolution | Possible conflicts |
 
 ### Axiom 4: Concurrency - Parallel Spatial Queries
-
-Handling millions of concurrent location queries requires sophisticated parallelization.
+Millions of concurrent queries require parallelization.
 
 ```mermaid
 graph TB

@@ -21,7 +21,7 @@ last_updated: 2025-07-21
 
 ## Overview
 
-Nearby Friends tracks and shares user locations while maintaining privacy, battery efficiency, and real-time performance. Systems must handle millions of moving users with complex friend graphs, balancing continuous updates with privacy controls.
+Track/share locations with privacy, battery efficiency, real-time performance. Handle millions of users with complex friend graphs.
 
 ## 🏗️ Architecture Evolution
 
@@ -30,7 +30,6 @@ Nearby Friends tracks and shares user locations while maintaining privacy, batte
 Mobile App → Poll every 30s → Server → Database → Friend Locations
 ```
 **Problems**: Battery drain >20%/hour, high server load, stale data, no privacy
-**Patterns Violated**: No push notifications, location privacy, or battery optimization
 
 ### Phase 2: Push-Based Architecture (2013-2015)
 
@@ -63,13 +62,9 @@ graph TB
     style LOC fill:#ff9999
 ```
 
-**Key Design Decision: Geofencing + Push**
-- **Trade-off**: Accuracy vs Battery (Pillar: [Human Interface](../part2-pillars/human/index.md))
-- **Choice**: Significant location changes only
-- **Result**: 80% battery savings
-- **Pattern Applied**: [Geofencing](../patterns/geofencing.md)
-
-According to Facebook¹, this reduced battery usage from 20% to 4% per hour.
+**Key Decision**: Geofencing + Push notifications
+**Result**: Battery usage 20% → 4% per hour¹
+**Pattern**: Geofencing
 
 ### Phase 3: Privacy-First Design (2015-2018)
 

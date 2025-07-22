@@ -881,18 +881,18 @@ gantt
 
 ### 🔍 Comprehensive Axiom Mapping
 
-| Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
-|-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
-| **CDN Edge Caching** | ✅ 5ms redirects<br>Global presence | ⚖️ Limited cache size<br>LRU eviction | ✅ Origin failover<br>Multi-region | ✅ Parallel serving<br>No contention | ➖ Cache coherence<br>via TTL only | 📊 Hit rate metrics<br>Geographic data | ✅ Transparent<br>to users | ✅ 90% cost reduction<br>vs origin hits |
-| **Counter + Hash Hybrid** | ✅ O(1) generation<br>No collisions | ✅ 2^62 URL space<br>7-8 char codes | ✅ Counter gaps OK<br>Hash fallback | ✅ Atomic counter<br>increment | 🔄 Distributed counter<br>coordination | 📊 Generation rate<br>Collision tracking | ✅ Predictable codes<br>Custom aliases | ✅ Simple algorithm<br>Low CPU cost |
-| **SQL with Sharding** | ⚖️ ~10ms lookups<br>Index critical | ✅ Horizontal scale<br>1000+ shards | ✅ Shard isolation<br>Replica failover | ⚠️ Lock contention<br>on hot shards | 🔄 Shard mapping<br>consensus needed | 📊 Query latency<br>Shard distribution | ✅ Familiar SQL<br>Rich querying | ⚖️ Higher cost than<br>NoSQL options |
-| **Analytics Sampling** | ✅ Minimal impact<br>on redirects | ✅ 10x data reduction<br>for high traffic | ✅ Graceful degrade<br>on overload | ✅ Async pipeline<br>No blocking | ➖ Best effort only<br>No coordination | ⚠️ Sampled accuracy<br>Statistical errors | 📊 Confidence levels<br>shown in UI | ✅ 90% cost savings<br>on analytics |
-| **Bloom Filter Checks** | ✅ <1ms existence<br>check | ✅ 10 bits per URL<br>Space efficient | ✅ Reconstructible<br>from DB | ✅ Lock-free reads<br>Thread-safe | ➖ Local only<br>No sharing | 📊 False positive<br>rate tracking | ✅ Reduces 404s<br>Better UX | ✅ Prevents DB hits<br>for missing URLs |
-| **Multi-tier Storage** | ⚖️ Hot in memory<br>Cold slower | ✅ Infinite scale<br>with S3 tier | ✅ Durable cold tier<br>Memory volatile | ✅ Tier migration<br>background jobs | 🔄 Migration rules<br>configuration | 📊 Tier distribution<br>Access patterns | 🛠️ Tier policies<br>configurable | ✅ 80% cost reduction<br>with cold storage |
-| **Rate Limiting** | ⚖️ Adds ~1ms<br>overhead | ✅ Protects capacity<br>Prevents abuse | ✅ Degrades gracefully<br>Returns 429 | ✅ Distributed<br>rate counters | 🔄 Global rate limit<br>coordination | 📊 Rate limit metrics<br>By endpoint/user | ⚠️ Clear error msgs<br>Retry headers | ✅ Prevents abuse<br>costs |
-| **Real-time + Batch Analytics** | ✅ <1s for key metrics<br>Batch for rest | ✅ Efficient batching<br>Compression | ✅ Queue spillover<br>to disk | ✅ Parallel streams<br>processing | 🔄 Stream partitioning<br>coordination | ✅ Real-time dashboard<br>Historical reports | ✅ Both use cases<br>covered | ⚖️ Dual pipeline<br>complexity |
-| **URL Deduplication** | ⚖️ Hash computation<br>overhead | ✅ 30-40% storage<br>savings | ✅ Dedup index<br>can rebuild | ⚠️ Race conditions<br>on same URL | 🔄 Distributed lock<br>for dedup check | 📊 Dedup ratio<br>Collision stats | ✅ Same short URL<br>for duplicates | ✅ Major storage<br>cost savings |
-| **Spam Detection** | ⚖️ ML inference<br>adds latency | ✅ Blacklist scales<br>Pattern matching | ✅ Fail open<br>Don't block good | ✅ Async checking<br>Non-blocking | 🔄 Blacklist sync<br>across regions | 📊 Spam detection<br>False positive rate | ⚠️ May block<br>legitimate URLs | ✅ Prevents abuse<br>Maintains quality |
+| Design Decision | Axiom 1 (Latency) | Axiom 2 (Capacity) | Axiom 3 (Failure) | Axiom 4 (Concurrency) | Axiom 5 (Coordination) | Axiom 6 (Observability) | Axiom 7 (Human Interface) | Axiom 8 (Economics) |
+|-----------------|-------------------|-------------------|-------------------|---------------------|---------------------|----------------------|------------------------|--------------------|
+| **CDN Edge Caching** | 5ms redirects, global | Limited cache, LRU | Origin failover | Parallel, no contention | TTL-based coherence | Hit rate metrics | Transparent | 90% cost reduction |
+| **Counter + Hash Hybrid** | O(1) generation | 2^62 space, 7-8 chars | Counter gaps OK | Atomic increment | Distributed counter | Generation tracking | Predictable codes | Simple, low CPU |
+| **SQL with Sharding** | ~10ms lookups | 1000+ shards | Shard isolation | Hot shard contention | Shard consensus | Query latency metrics | Familiar SQL | Higher than NoSQL |
+| **Analytics Sampling** | Minimal impact | 10x data reduction | Graceful degradation | Async pipeline | Best effort only | Statistical accuracy | Confidence levels | 90% cost savings |
+| **Bloom Filter Checks** | <1ms existence check | 10 bits per URL | Reconstructible | Lock-free reads | Local only | False positive rate | Better UX | Prevents DB hits |
+| **Multi-tier Storage** | Hot fast, cold slow | Infinite S3 scale | Durable cold tier | Background migration | Migration rules | Access patterns | Configurable policies | 80% cost reduction |
+| **Rate Limiting** | ~1ms overhead | Protects capacity | Returns 429 | Distributed counters | Global coordination | Per endpoint/user | Clear error messages | Prevents abuse costs |
+| **Real-time + Batch** | <1s key metrics | Efficient batching | Queue spillover | Parallel streams | Stream partitioning | Dual dashboards | Both use cases | Dual complexity |
+| **URL Deduplication** | Hash overhead | 30-40% savings | Rebuild capable | Race conditions | Distributed lock | Dedup ratio stats | Same short URL | Major savings |
+| **Spam Detection** | ML adds latency | Scalable blacklist | Fail open | Async checking | Blacklist sync | False positive rate | May block legitimate | Quality protection |
 
 ### 🏛️ Pillar Mapping
 
@@ -1145,11 +1145,11 @@ graph TB
 
 | Architecture | Scalability | Latency | Consistency | Cost | Complexity | Vendor Lock-in | Reliability |
 |--------------|-------------|---------|-------------|------|------------|----------------|-------------|
-| **NoSQL Serverless** | ✅ Infinite | 🔶 Medium | 🔶 Eventual | ✅ Low | ✅ Low | ❌ High | ✅ High |
-| **K8s Microservices** | ✅ High | ✅ Low | ✅ Strong | 🔶 Medium | ❌ High | ✅ Low | 🔶 Medium |
-| **Edge-First** | ✅ High | ✅ Ultra-low | ❌ Weak | ❌ High | 🔶 Medium | 🔶 Medium | ✅ High |
-| **Blockchain** | ❌ Low | ❌ High | ✅ Strong | ❌ Very High | ❌ High | ✅ None | ✅ High |
-| **Hybrid Multi-Cloud** | ✅ High | 🔶 Medium | 🔶 Eventual | ❌ High | ❌ Very High | ✅ None | ✅ Very High |
+| **NoSQL Serverless** | Infinite | Medium | Eventual | Low | Low | High | High |
+| **K8s Microservices** | High | Low | Strong | Medium | High | Low | Medium |
+| **Edge-First** | High | Ultra-low | Weak | High | Medium | Medium | High |
+| **Blockchain** | Low | High | Strong | Very High | High | None | High |
+| **Hybrid Multi-Cloud** | High | Medium | Eventual | High | Very High | None | Very High |
 
 ### 📊 Performance Comparison
 

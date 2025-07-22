@@ -10,7 +10,7 @@
 
 ## Introduction
 
-The humble news feed has become the primary interface through which billions of users interact with social media platforms. What appears as a simple chronological list is actually one of the most complex distributed systems challenges, requiring real-time personalization, massive scale, and sophisticated machine learning. Let's explore how physics and mathematics shape the design of systems that serve personalized content to billions of users while maintaining sub-second latency.
+News feeds: Simple UI, complex backend. Billions of users, real-time personalization, massive scale, ML-driven ranking. Core challenge: serving personalized content with sub-second latency at global scale.
 
 ## Part 1: Concept Map - The Physics of Information Flow
 
@@ -930,20 +930,16 @@ class HybridFeedArchitecture:
 
 ## Axiom Mapping Matrix
 
-### Comprehensive Design Decision Mapping
+### Design Decision Impact
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
-|----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
-| **Push Model** | ✅ Pre-computed feeds | ✅ O(n) write fanout | ✅ Cached fallback | ✅ Async fanout | ✅ Timeline consistency | ✅ Fanout metrics | ✅ Instant updates | ⚪ |
-| **Pull Model** | ⚪ On-demand compute | ✅ No storage bloat | ✅ Always fresh | ✅ Read parallelism | ⚪ | ✅ Query performance | ⚪ | ✅ Storage efficient |
-| **Hybrid Push/Pull** | ✅ Best of both | ✅ Optimized storage | ✅ Multiple fallbacks | ✅ Strategy routing | ✅ User classification | ✅ Strategy metrics | ✅ Balanced UX | ✅ Cost optimized |
-| **Edge Caching** | ✅ <50ms serving | ✅ Distributed cache | ✅ Regional failover | ⚪ | ✅ Cache invalidation | ✅ Hit rate tracking | ✅ Global performance | ✅ Bandwidth savings |
-| **ML Ranking** | ⚪ Inference overhead | ✅ Model caching | ✅ Rule-based fallback | ✅ Batch predictions | ✅ A/B coordination | ✅ CTR/engagement | ✅ Personalization | ✅ Revenue optimization |
-| **Timeline Merging** | ✅ Heap-based merge | ⚪ | ✅ Partial failures OK | ✅ Concurrent streams | ✅ Causal ordering | ✅ Source latencies | ✅ Diverse content | ⚪ |
-| **Relevance Decay** | ✅ Time-based scoring | ✅ TTL expiration | ⚪ | ⚪ | ✅ Clock sync | ✅ Freshness metrics | ✅ Timely content | ✅ Compute savings |
-| **Precomputation** | ✅ Zero query time | ✅ Background compute | ✅ Stale data OK | ✅ Worker pools | ✅ Update scheduling | ✅ Lag monitoring | ✅ Fast loading | ✅ Off-peak compute |
-
-**Legend**: ✅ Primary impact | ⚪ Secondary/No impact
+| Decision | Primary Benefits | Key Trade-offs |
+|----------|-----------------|----------------|
+| **Push Model** | Pre-computed feeds, instant updates | O(n) fanout cost, storage overhead |
+| **Pull Model** | No storage bloat, always fresh | On-demand compute, slower reads |
+| **Hybrid Push/Pull** | Balanced performance/cost | Complex routing logic |
+| **Edge Caching** | <50ms serving globally | Cache invalidation complexity |
+| **ML Ranking** | Personalization, engagement boost | Inference overhead, cold start |
+| **Timeline Merging** | Diverse content sources | Merge complexity at scale |
 
 ### Axiom Implementation Priority
 
@@ -1141,16 +1137,15 @@ graph TB
 
 ## Comparative Trade-off Analysis
 
-### Architecture Comparison Matrix
+### Architecture Comparison
 
-| Architecture | Latency | Write Cost | Read Cost | Personalization | Consistency | Complexity |
-|-------------|---------|------------|-----------|-----------------|-------------|------------|
-| **Pure Push** | ⭐⭐⭐⭐⭐<br/>Pre-computed | ⭐<br/>O(n²) fanout | ⭐⭐⭐⭐⭐<br/>O(1) read | ⭐⭐<br/>Limited flexibility | ⭐⭐⭐⭐⭐<br/>Strong consistency | ⭐⭐⭐⭐<br/>Simple reads |
-| **Pure Pull** | ⭐⭐<br/>Compute on read | ⭐⭐⭐⭐⭐<br/>O(1) write | ⭐<br/>O(n) read | ⭐⭐⭐⭐⭐<br/>Real-time ranking | ⭐⭐⭐<br/>Read-time consistency | ⭐⭐<br/>Complex queries |
-| **Hybrid** | ⭐⭐⭐⭐<br/>Balanced | ⭐⭐⭐⭐<br/>Optimized | ⭐⭐⭐⭐<br/>Optimized | ⭐⭐⭐⭐<br/>Flexible | ⭐⭐⭐⭐<br/>Tunable | ⭐<br/>Most complex |
-| **Event-Driven** | ⭐⭐⭐<br/>Stream latency | ⭐⭐⭐<br/>Event overhead | ⭐⭐⭐⭐<br/>Materialized | ⭐⭐⭐⭐⭐<br/>Stream processing | ⭐⭐⭐<br/>Eventual | ⭐⭐<br/>Stream complexity |
-| **GraphQL** | ⭐⭐⭐<br/>Network overhead | ⭐⭐⭐⭐<br/>Federated | ⭐⭐⭐<br/>Multiple queries | ⭐⭐⭐⭐<br/>Flexible schema | ⭐⭐<br/>Federation challenges | ⭐⭐⭐<br/>Schema management |
-| **Edge-First** | ⭐⭐⭐⭐⭐<br/>Local compute | ⭐⭐⭐<br/>Edge resources | ⭐⭐⭐⭐⭐<br/>Local serving | ⭐⭐⭐<br/>Limited by edge | ⭐⭐<br/>Sync delays | ⭐⭐<br/>Edge complexity |
+| Architecture | Strengths | Weaknesses | Best For |
+|-------------|-----------|------------|----------|
+| **Pure Push** | Pre-computed (fast reads), O(1) serving | O(n²) fanout, storage explosion | Small-scale, balanced networks |
+| **Pure Pull** | O(1) writes, minimal storage | O(n) reads, compute on demand | Real-time, low follower count |
+| **Hybrid** | Balanced performance/cost | Most complex to implement | Large-scale production systems |
+| **Event-Driven** | Stream processing, audit trail | Eventual consistency | Event-sourced architectures |
+| **Edge-First** | Local compute, minimal latency | Edge resource limits | Global, latency-critical |
 
 ### Decision Framework
 
@@ -1188,30 +1183,11 @@ graph TD
 
 ## Key Design Insights
 
-### 1. 🚀 **Latency Shapes Everything**
-- Pre-computation essential for <100ms feed loads
-- Edge caching reduces P50 by 80%
-- Relevance decays exponentially with latency
-
-### 2. 💾 **Quadratic Growth Requires Hybrid Approach**
-- Pure push: O(n²) storage explosion
-- Pure pull: O(n) read amplification
-- Hybrid: Balance based on user patterns
-
-### 3. 🔥 **Multiple Failure Modes Need Multiple Solutions**
-- Cached feeds for availability
-- Degraded modes for partial failures
-- Circuit breakers for dependency failures
-
-### 4. 🤖 **ML Is Table Stakes**
-- 70% engagement lift from personalization
-- Real-time feature computation critical
-- Fallback to rules during ML failures
-
-### 5. 💰 **Economics Drive Architecture**
-- Celebrity users need pull to avoid fanout costs
-- Caching saves 60% of compute costs
-- Off-peak pre-computation reduces peak load 40%
+1. **Latency**: Pre-computation for <100ms loads, edge caching cuts P50 by 80%
+2. **Scale**: Hybrid approach balances O(n²) push vs O(n) pull trade-offs
+3. **Reliability**: Multiple fallback strategies for different failure modes
+4. **ML Impact**: 70% engagement lift, requires real-time features
+5. **Economics**: Celebrity pull model, 60% compute savings via caching
 
 ## Implementation Best Practices
 

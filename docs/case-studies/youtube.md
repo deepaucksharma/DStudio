@@ -26,7 +26,7 @@ last_updated: 2025-07-21
 
 ## Introduction
 
-YouTube processes over 1 billion hours of video watched daily, uploads 500 hours of video per minute, and serves content to 2 billion monthly users across the globe. This massive scale requires solving fundamental distributed systems challenges: storing exabytes of data, transcoding millions of videos concurrently, delivering content with minimal buffering, and recommending from a catalog of billions of videos. Let's explore how physics, mathematics, and distributed systems principles shape the architecture of the world's largest video platform.
+YouTube: 1B+ hours watched daily, 500 hours uploaded per minute, 2B+ monthly users. Core challenges: exabyte storage, concurrent transcoding, minimal buffering, billion-video recommendations. Architecture shaped by physics, mathematics, and distributed systems principles.
 
 ## Part 1: Concept Map - The Physics of Video at Scale
 
@@ -388,17 +388,9 @@ graph TB
     API --> CACHE --> M1 & M2 & MN
 ```
 
-**Innovation: Vitess for MySQL Sharding**²
-- Transparent sharding layer
-- Connection pooling
-- Query routing
-- Resharding without downtime
+**Vitess Innovation:** Transparent sharding, connection pooling, query routing, zero-downtime resharding
 
-**Patterns & Pillars Applied**:
-- 🔧 Pattern: [Database Sharding](../patterns/sharding.md) - Video metadata partitioning
-- 🔧 Pattern: [Bulkhead](../patterns/bulkhead.md) - Isolated transcoding queues
-- 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Sharded video metadata
-- 🏛️ Pillar: [Work Distribution](../part2-pillars/work/index.md) - Parallel transcoding
+**Applied Patterns:** Database sharding, bulkhead isolation, state/work distribution
 
 ### Phase 4: Modern Microservices Architecture (2012-Present)
 

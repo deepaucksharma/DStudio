@@ -21,9 +21,7 @@ last_updated: 2025-07-21
 
 ## Overview
 
-Message queues enable asynchronous communication and service decoupling. This study examines building a distributed queue handling millions of messages/second with durability.
-
-**Requirements**: 1M+ msg/sec, durability guarantees, configurable delivery semantics, horizontal scaling, partition ordering, consumer groups, failure handling
+Message queues enable async communication and service decoupling. Handle 1M+ msg/sec with durability, configurable delivery, horizontal scaling, partition ordering, consumer groups.
 
 ## 🏗️ Architecture Evolution
 
@@ -32,7 +30,6 @@ Message queues enable asynchronous communication and service decoupling. This st
 Producer → In-Memory Queue → Consumer
 ```
 **Problems**: Messages lost on crash, no persistence, SPOF, memory limits
-**Patterns Violated**: No durability, replication, or partitioning
 
 ### Phase 2: Persistent Queue with WAL (2010-2011)
 
@@ -65,13 +62,9 @@ graph TB
     style WAL fill:#ff9999
 ```
 
-**Key Design Decision: Write-Ahead Logging**
-- **Trade-off**: Write latency vs Durability (Pillar: [State Distribution](../part2-pillars/state/index.md))
-- **Choice**: Sequential disk writes for persistence
-- **Result**: 100x durability improvement
-- **Pattern Applied**: [Write-Ahead Log](../patterns/wal.md)
-
-According to benchmarks², sequential disk writes achieved 600MB/sec throughput.
+**Key Decision**: Write-Ahead Logging
+**Result**: 100x durability, 600MB/sec sequential disk writes²
+**Pattern**: WAL
 
 ### Phase 3: Distributed Architecture (2011-2014)
 

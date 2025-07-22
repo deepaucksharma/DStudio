@@ -21,12 +21,11 @@ last_updated: 2025-07-21
 
 ## Overview
 
-Search autocomplete (typeahead) is extremely latency-sensitive. Users typing "app" must see suggestions within 50ms. Google processes 3.5B queries daily, balancing sub-100ms latency with relevance.
+Typeahead requires <50ms response. Google: 3.5B queries/day, sub-100ms latency with relevance.
 
 ## Core Concepts
 
 ### Axiom 1: Latency - The 100ms Perception Barrier
-Suggestions must appear within 100ms to feel instant.
 
 ```python
 import asyncio

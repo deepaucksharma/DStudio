@@ -88,15 +88,7 @@ graph TB
     style BF fill:#ff6b6b
 ```
 
-**Storage Configuration Parameters:**
-
-| Parameter | Value | Purpose |
-|-----------|-------|---------|  
-| Memory Cache Size | 10,000 entries | Ultra-fast access |
-| Redis Pool Size | 100 connections | Distributed caching |
-| RocksDB Write Buffer | 64MB | Batch writes |
-| Block Cache | 512MB | Hot data in memory |
-| Bloom Filter Error Rate | 0.1% | Space vs accuracy |
+**Config:** Memory cache 10K entries, Redis pool 100 conn, RocksDB write buffer 64MB, Block cache 512MB, Bloom filter 0.1% error
 
 **Durability Options:**
 
@@ -977,66 +969,31 @@ sequenceDiagram
 
 ### 🔍 Comprehensive Axiom Mapping
 
-| Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
-|-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
-| **Multi-level Cache** | ✅ Sub-ms latency<br>Memory → Redis → Disk | ⚖️ Limited memory<br>Cache eviction needed | 🔄 Cache warming<br>on failover | ⚠️ Cache coherence<br>challenges | 🔄 Invalidation<br>coordination | 📊 Hit rate metrics<br>per level | 🛠️ Cache tuning<br>controls | 💰 Memory cost<br>vs. latency |
-| **LSM-Tree Storage** | ⚖️ Write optimized<br>Read amplification | ✅ Efficient storage<br>Compression friendly | ✅ Recovery via<br>WAL + SSTables | ✅ Immutable files<br>No write conflicts | ➖ No coordination<br>needed | 📊 Compaction stats<br>Write amplification | 🛠️ Tunable levels<br>and ratios | ⚖️ CPU for compaction<br>vs. storage |
-| **Consistent Hashing** | ✅ One hop routing<br>No centralized LB | ✅ Even distribution<br>Virtual nodes | ✅ Minimal data<br>movement on failure | ✅ Parallel ops<br>to different keys | 🔄 Ring membership<br>consensus | 📊 Key distribution<br>visualization | 🛠️ Rebalancing<br>controls | ✅ Elastic scaling<br>pay-per-node |
-| **Quorum Replication** | ⚖️ Tunable latency<br>via R/W values | ✅ N replicas<br>spread load | ✅ Tolerate N-1<br>failures | ✅ Concurrent reads<br>Ordered writes | 🔄 Vector clocks<br>for ordering | 📊 Replica lag<br>monitoring | 🛠️ Consistency level<br>per operation | ⚖️ Replication factor<br>vs. storage cost |
-| **Hinted Handoff** | ✅ No blocking on<br>temp failures | ✅ Bounded hint<br>storage | ✅ Eventually delivers<br>missed writes | ✅ Async hint<br>replay | 🔄 Hint coordination<br>with anti-entropy | 📊 Hint queue<br>depth metrics | ⚠️ Complexity in<br>failure scenarios | ✅ Maintains<br>availability |
-| **Vector Clocks** | ➖ Small overhead<br>per request | ✅ Compact representation<br>O(nodes) | ✅ Detects conflicts<br>after partition | ✅ Tracks causality<br>across updates | ✅ Distributed ordering<br>without consensus | 📊 Conflict rate<br>metrics | ⚠️ Complex conflict<br>resolution | ⚖️ Metadata overhead<br>acceptable |
-| **Bloom Filters** | ✅ O(1) negative<br>lookups | ✅ Space efficient<br>~10 bits/key | ✅ Reconstructible<br>from data | ✅ Lock-free<br>reads | ➖ No coordination<br>purely local | 📊 False positive<br>rate tracking | 🛠️ Tunable size<br>and hash functions | ✅ Huge savings<br>on disk seeks |
-| **WAL + Snapshots** | ⚖️ Sequential writes<br>fast, recovery slower | ✅ Bounded log size<br>via snapshots | ✅ Durability<br>guaranteed | ✅ Append-only<br>no conflicts | ➖ Local decision<br>when to snapshot | 📊 Recovery time<br>metrics | 🛠️ Snapshot frequency<br>controls | ⚖️ Write durability<br>vs. performance |
-| **Anti-entropy** | ⚖️ Background process<br>doesn't affect ops | ✅ Merkle trees<br>minimize transfer | ✅ Repairs divergence<br>after failures | ✅ Non-blocking<br>read-only process | 🔄 Gossip protocol<br>for tree exchange | 📊 Divergence<br>detection rate | 🛠️ Repair frequency<br>tuning | ✅ Automated healing<br>reduces ops cost |
-| **Hot Key Detection** | ⚠️ May throttle<br>hot keys | ✅ Count-min sketch<br>space efficient | ✅ Survives restarts<br>via persistence | ✅ Lock-free<br>counting | 🔄 Gossip hot keys<br>for global view | ✅ Real-time hot<br>key dashboard | ⚠️ Requires manual<br>sharding decision | ✅ Prevents cascading<br>failures |
+| Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
+|-----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
+| **Multi-level Cache** | Sub-ms Memory→Redis→Disk | Limited memory, eviction | Cache warming on failover | Cache coherence issues | Invalidation coordination | Hit rate metrics | Cache tuning | Memory cost vs latency |
+| **LSM-Tree** | Write optimized, read amp | Efficient, compression | WAL + SSTable recovery | Immutable, no conflicts | No coordination | Compaction stats | Tunable levels | CPU vs storage |
+| **Consistent Hash** | One hop routing | Even distribution | Minimal data movement | Parallel ops | Ring membership | Key distribution | Rebalancing | Elastic scaling |
+| **Quorum** | Tunable via R/W | N replicas spread load | Tolerate N-1 failures | Concurrent reads | Vector clocks | Replica lag | Consistency level | Replication cost |
+| **Hinted Handoff** | No blocking | Bounded hints | Eventually delivers | Async replay | Anti-entropy coord | Hint queue depth | Complex failures | Maintains availability |
+| **Vector Clocks** | Small overhead | Compact O(nodes) | Detect conflicts | Track causality | Distributed ordering | Conflict rate | Complex resolution | Metadata overhead |
+| **Bloom Filters** | O(1) lookups | ~10 bits/key | Reconstructible | Lock-free | Local only | FP rate | Tunable params | Huge disk savings |
+| **WAL + Snapshots** | Sequential writes | Bounded log | Durability | Append-only | Local snapshots | Recovery time | Snapshot frequency | Durability vs perf |
+| **Anti-entropy** | Background process | Merkle trees | Repairs divergence | Non-blocking | Gossip protocol | Detection rate | Repair frequency | Automated healing |
+| **Hot Key Detection** | May throttle | Count-min sketch | Persistent | Lock-free counting | Gossip hot keys | Real-time dashboard | Manual sharding | Prevents cascades |
 
 ### 🏛️ Pillar Mapping
 
-#### Work Distribution
-- **Request Routing**: Client-side partitioning or proxy routing
-- **Load Balancing**: Consistent hashing with virtual nodes
-- **Read/Write Splitting**: Separate read replicas
-- **Batch Processing**: Group operations for efficiency
-
-#### State Management
-- **Storage Engine**: LSM-tree or B-tree based
-- **Memory Management**: Memtables, block cache, page cache
-- **Persistence**: WAL, snapshots, incremental backups
-- **Compaction**: Level-based or size-tiered
-
-#### Truth & Consistency
-- **Consistency Models**: Strong, eventual, causal, bounded staleness
-- **Conflict Resolution**: LWW, vector clocks, CRDTs, application-specific
-- **Transaction Support**: ACID, snapshot isolation, optimistic concurrency
-- **Ordering Guarantees**: Total order, causal order, or none
-
-#### Control Mechanisms
-- **Replication Control**: Primary-backup, chain, quorum
-- **Membership Management**: Static, dynamic with consensus
-- **Failure Detection**: Heartbeats, gossip, adaptive timeouts
-- **Flow Control**: Backpressure, rate limiting, admission control
-
-#### Intelligence Layer
-- **Auto-tuning**: Adaptive compression, cache sizing, compaction
-- **Predictive Caching**: ML-based prefetching
-- **Smart Routing**: Latency-aware replica selection
-- **Anomaly Detection**: Hot keys, slow nodes, data skew
+**Work Distribution:** Client-side partitioning, Consistent hashing, Read replicas, Batch processing
+**State Management:** LSM-tree/B-tree engine, Memtables/caches, WAL/snapshots, Compaction strategies
+**Truth & Consistency:** Strong/eventual/causal models, LWW/vector clocks/CRDTs, ACID/snapshot isolation
+**Control Mechanisms:** Primary-backup/chain/quorum, Static/dynamic membership, Heartbeat/gossip detection
+**Intelligence Layer:** Auto-tuning (compression/cache/compaction), ML prefetching, Latency-aware routing, Anomaly detection
 
 ### 🔧 Pattern Application
 
-**Primary Patterns:**
-- **Consistent Hashing**: Data distribution
-- **Replication**: Multi-master, chain, quorum
-- **Write-Ahead Log**: Durability
-- **LSM-Tree/B-Tree**: Storage organization
-- **Vector Clocks**: Conflict detection
-
-**Supporting Patterns:**
-- **Gossip Protocol**: Failure detection
-- **Merkle Trees**: Anti-entropy repair
-- **Bloom Filters**: Existence checks
-- **Circuit Breaker**: Fault isolation
-- **Bulkhead**: Resource isolation
+**Primary:** Consistent Hashing, Replication (multi-master/chain/quorum), WAL, LSM-Tree/B-Tree, Vector Clocks
+**Supporting:** Gossip Protocol, Merkle Trees, Bloom Filters, Circuit Breaker, Bulkhead
 
 ### 🏗️ Architecture Alternatives
 
@@ -1220,11 +1177,11 @@ graph LR
 
 | Architecture | Consistency | Availability | Partition Tolerance | Latency | Throughput | Complexity | Cost |
 |--------------|-------------|--------------|-------------------|---------|------------|------------|------|
-| **Master-Slave** | Strong | Medium<br>(manual failover) | Low<br>(split-brain risk) | Low<br>(direct routing) | Medium<br>(master bottleneck) | Low | Low |
-| **P2P Ring** | Tunable | High<br>(no SPOF) | High<br>(gossip protocol) | Medium<br>(quorum reads) | High<br>(distributed writes) | High | Medium |
-| **Raft Clusters** | Strong | High<br>(auto-failover) | Medium<br>(majority required) | Medium<br>(consensus overhead) | Low<br>(serialized writes) | Medium | Medium |
-| **Hierarchical Cache** | Eventual | High<br>(cache serves stale) | High<br>(cache isolation) | Very Low<br>(edge cache) | Very High<br>(cache hits) | High | High |
-| **HTAP** | Strong for TX<br>Eventual for analytics | High<br>(separated concerns) | High<br>(independent layers) | Low for TX<br>Higher for analytics | High<br>(specialized paths) | Very High | Very High |
+| **Master-Slave** | Strong | Medium (manual failover) | Low (split-brain) | Low | Medium (master bottleneck) | Low | Low |
+| **P2P Ring** | Tunable | High (no SPOF) | High (gossip) | Medium | High (distributed) | High | Medium |
+| **Raft Clusters** | Strong | High (auto-failover) | Medium (majority) | Medium | Low (serialized) | Medium | Medium |
+| **Hierarchical Cache** | Eventual | High (stale OK) | High (isolated) | Very Low | Very High | High | High |
+| **HTAP** | Strong TX/Eventual analytics | High (separated) | High (independent) | Low TX/High analytics | High (specialized) | Very High | Very High |
 
 ### 📊 Detailed Comparison Metrics
 
@@ -1320,139 +1277,55 @@ graph TB
 
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
-| **Consistency Model** | Strong (Raft/Paxos) | Eventual (Gossip) | **Context-dependent** - Strong for configuration/finance, Eventual for high-scale user data |
-| **Storage Engine** | B-Tree (read-optimized) | LSM-Tree (write-optimized) | **LSM-Tree** - Better write performance, compaction handles read amplification |
-| **Replication** | Synchronous (strong durability) | Asynchronous (low latency) | **Quorum-based** - Balance with R+W>N for tunable consistency |
-| **Partitioning** | Range-based | Hash-based | **Hash-based** - Better load distribution, consistent hashing for elasticity |
-| **Caching** | Write-through | Write-back | **Write-back with WAL** - Better performance with durability via log |
-| **Transactions** | Pessimistic locking | Optimistic (MVCC) | **MVCC** - Better concurrency, no lock contention for reads |
+| **Consistency** | Strong (Raft/Paxos) | Eventual (Gossip) | **Context-dependent** - Strong for config/finance, Eventual for scale |
+| **Storage** | B-Tree (read-opt) | LSM-Tree (write-opt) | **LSM-Tree** - Better writes, compaction handles reads |
+| **Replication** | Sync (durable) | Async (fast) | **Quorum** - Balance with R+W>N |
+| **Partitioning** | Range | Hash | **Hash** - Better distribution, consistent hashing |
+| **Caching** | Write-through | Write-back | **Write-back + WAL** - Performance with durability |
+| **Transactions** | Pessimistic | Optimistic (MVCC) | **MVCC** - Better concurrency, no read locks |
 
 ### 🔄 Alternative Architectures
 
 #### Option 1: Dynamo-Style (AP System)
 ```mermaid
 graph LR
-    subgraph "Consistent Hashing Ring"
-        N1[Node 1]
-        N2[Node 2]
-        N3[Node 3]
-        N4[Node 4]
-    end
-    
-    N1 -.-> N2
-    N2 -.-> N3
-    N3 -.-> N4
+    N1[Node 1] -.-> N2[Node 2]
+    N2 -.-> N3[Node 3]
+    N3 -.-> N4[Node 4]
     N4 -.-> N1
 ```
-
-**Approach**: Eventually consistent, always available
-**Pros**: 
-- High availability (99.99%+)
-- Excellent write scalability
-- No single point of failure
-- Self-healing via gossip
-
-**Cons**: 
-- Complex conflict resolution
-- No strong consistency
-- Difficult to reason about
-- No ACID transactions
-
-**When to use**: User sessions, shopping carts, game state
+**Pros**: 99.99%+ availability, write scalability, no SPOF, self-healing
+**Cons**: Complex conflicts, no strong consistency, no ACID
+**Use**: User sessions, shopping carts, game state
 
 #### Option 2: Spanner-Style (CP System)
 ```mermaid
 graph TB
-    subgraph "Paxos Groups"
-        PG1[Paxos Group 1]
-        PG2[Paxos Group 2]
-    end
-    
-    subgraph "TrueTime"
-        TT[TrueTime Service]
-    end
-    
-    PG1 & PG2 --> TT
+    PG1[Paxos Group 1] --> TT[TrueTime]
+    PG2[Paxos Group 2] --> TT
 ```
-
-**Approach**: Globally consistent with atomic clocks
-**Pros**: 
-- Strong consistency globally
-- ACID transactions
-- SQL interface
-- External consistency
-
-**Cons**: 
-- Requires special hardware (atomic clocks)
-- Higher latency
-- Complex deployment
-- Expensive infrastructure
-
-**When to use**: Financial systems, inventory, global configuration
+**Pros**: Global consistency, ACID, SQL, external consistency
+**Cons**: Needs atomic clocks, higher latency, complex, expensive
+**Use**: Financial systems, inventory, global config
 
 #### Option 3: Redis-Style (Memory-First)
 ```mermaid
 graph LR
-    subgraph "Memory Store"
-        M[Redis Master]
-        S1[Slave 1]
-        S2[Slave 2]
-    end
-    
-    subgraph "Persistence"
-        AOF[AOF Log]
-        RDB[RDB Snapshots]
-    end
-    
-    M --> S1 & S2
-    M --> AOF & RDB
+    M[Master] --> S1[Slave 1] & S2[Slave 2]
+    M --> AOF[AOF] & RDB[RDB]
 ```
-
-**Approach**: In-memory with persistence options
-**Pros**: 
-- Extremely low latency (<1ms)
-- Rich data structures
-- Simple deployment
-- Built-in pub/sub
-
-**Cons**: 
-- Limited by memory size
-- Weak durability guarantees
-- Master-slave limitations
-- No native sharding
-
-**When to use**: Caching, real-time analytics, leaderboards
+**Pros**: <1ms latency, rich data structures, simple, pub/sub
+**Cons**: Memory limited, weak durability, master-slave limits, no sharding
+**Use**: Caching, real-time analytics, leaderboards
 
 #### Option 4: FoundationDB-Style (Layers)
 ```mermaid
 graph TB
-    subgraph "Layers"
-        SQL[SQL Layer]
-        DOC[Document Layer]
-        KV[KV Layer]
-    end
-    
-    subgraph "Core"
-        CORE[FDB Core<br/>Deterministic Simulation]
-    end
-    
-    SQL & DOC & KV --> CORE
+    SQL[SQL] & DOC[Document] & KV[KV] --> CORE[FDB Core]
 ```
-
-**Approach**: Layered architecture with deterministic testing
-**Pros**: 
-- Multiple APIs on same store
-- Extremely reliable (simulation tested)
-- ACID transactions
-- Strong consistency
-
-**Cons**: 
-- Complex implementation
-- Requires expertise
-- Limited ecosystem
-- Performance overhead
-
-**When to use**: Multi-model databases, critical infrastructure
+**Pros**: Multi-API, simulation tested, ACID, strong consistency
+**Cons**: Complex implementation, limited ecosystem, performance overhead
+**Use**: Multi-model databases, critical infrastructure
 
 ### 📊 Performance Characteristics
 
@@ -1495,17 +1368,12 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 
 ### 🎓 Key Lessons
 
-1. **CAP is a Spectrum, Not Binary**: Modern systems offer tunable consistency. Choose per-operation based on requirements rather than globally.
-
-2. **Storage Engine Matters**: LSM-trees excel at writes but require careful tuning. B-trees provide predictable read performance. Hybrid approaches emerging.
-
-3. **Caching is Not Optional**: Multi-level caching (process, node, region) essential for performance. Cache invalidation remains hard.
-
-4. **Monitoring from Day One**: Distributed systems fail in complex ways. Comprehensive observability critical for operations.
-
-5. **Automate Operations**: Manual cluster management doesn't scale. Build automation for scaling, upgrades, and failure recovery.
-
-6. **Test Chaos Early**: Distributed systems have emergent behaviors. Chaos engineering reveals issues before production.
+1. **CAP is a Spectrum**: Tunable consistency per-operation, not global binary choice
+2. **Storage Engine Matters**: LSM for writes, B-tree for reads, hybrids emerging
+3. **Caching is Mandatory**: Multi-level caching essential, invalidation remains hard
+4. **Observability First**: Distributed failures need comprehensive monitoring
+5. **Automate Everything**: Manual management doesn't scale - automate ops
+6. **Chaos Engineering**: Test failures early to find emergent behaviors
 
 ### 🔗 Related Concepts & Deep Dives
 

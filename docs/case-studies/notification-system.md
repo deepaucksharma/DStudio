@@ -16,41 +16,21 @@ last_updated: 2025-07-20
 # Distributed Notification System
 
 ## 🎯 Challenge Statement
-Design a notification system capable of sending billions of notifications daily across multiple channels (push, email, SMS, in-app) with delivery guarantees, user preferences, rate limiting, and real-time analytics while handling failures gracefully.
+Design a notification system for 10B+ daily notifications across push/email/SMS/in-app with delivery guarantees, preferences, rate limiting, analytics, and failure handling.
 
 ## Part 1: Concept Map
 
 ### 🗺️ System Overview
-A distributed notification system orchestrates the delivery of messages to users across various channels. It must handle user preferences, delivery priorities, rate limiting, template management, and provide reliable delivery with comprehensive tracking. Examples include systems powering Facebook, LinkedIn, and Twitter notifications.
+Distributed system orchestrating message delivery across channels with preferences, priorities, rate limiting, templates, reliable delivery, and tracking.
 
-**Key Requirements:**
-- Send 10B+ notifications/day across all channels
-- Sub-second latency for high-priority notifications
-- At-least-once delivery guarantee
-- Support for templates and personalization
-- User preference management
-- Rate limiting and abuse prevention
-- Delivery tracking and analytics
-- Multi-channel orchestration
+**Requirements:** 10B+ daily volume, <1s critical latency, at-least-once delivery, templates/personalization, preferences, rate limiting, analytics, multi-channel
 
 ### 📐 Axiom Analysis
 
 #### 🚀 Axiom 1 (Latency): Speed of Notification
 ```text
-Latency Requirements:
-- Critical alerts: <1 second end-to-end
-- Push notifications: <5 seconds
-- Email: <30 seconds
-- SMS: <10 seconds
-- In-app: real-time (<100ms)
-
-Optimization Strategies:
-- Priority queues for urgent messages
-- Regional deployment
-- Connection pooling
-- Batch processing for non-urgent
-- WebSocket for real-time
-- Edge notification servers
+Latency: Critical <1s, Push <5s, Email <30s, SMS <10s, In-app <100ms
+Optimizations: Priority queues, regional deployment, connection pooling, batching, WebSocket, edge servers
 ```
 
 **Implementation:**
@@ -1091,20 +1071,8 @@ stateDiagram-v2
 
 #### 🤝 Axiom 5 (Coordination): Multi-Channel Orchestration
 ```text
-Coordination Requirements:
-- Channel preference management
-- Delivery order coordination
-- Duplicate prevention across channels
-- Rate limit coordination
-- Provider failover coordination
-- Global do-not-disturb rules
-
-Coordination Strategies:
-- Centralized preference service
-- Distributed locks for deduplication
-- Channel priority ordering
-- Global rate limit tracking
-- Leader election for schedulers
+Requirements: Preferences, delivery order, deduplication, rate limits, failover, DND rules
+Strategies: Central preferences, distributed locks, priority ordering, global rate tracking, leader election
 ```
 
 **Multi-Channel Orchestration Architecture:**
@@ -1281,65 +1249,13 @@ graph TB
         LE --> BS[Backup Scheduler]
     end
 ```
-    def __init__(self):
-        self.rules = []
-        self._load_rules()
-        
-    async def get_applicable_rules(self, notification: Notification) -> List[dict]:
-        """Get rules applicable to notification"""
-        applicable = []
-        
-        for rule in self.rules:
-            if await self._rule_applies(rule, notification):
-                applicable.append(rule)
-        
-        # Sort by priority
-        return sorted(applicable, key=lambda r: r.get('priority', 999))
-    
-    async def _rule_applies(self, rule: dict, notification: Notification) -> bool:
-        """Check if rule applies to notification"""
-        # Check rule conditions
-        conditions = rule.get('conditions', [])
-        
-        for condition in conditions:
-            if condition['type'] == 'user_segment':
-                user_segment = await self._get_user_segment(notification.user_id)
-                if user_segment not in condition['segments']:
-                    return False
-            
-            elif condition['type'] == 'notification_type':
-                notif_type = notification.metadata.get('type')
-                if notif_type not in condition['types']:
-                    return False
-            
-            elif condition['type'] == 'time_range':
-                current_time = datetime.now()
-                start_time = datetime.strptime(condition['start'], '%H:%M').time()
-                end_time = datetime.strptime(condition['end'], '%H:%M').time()
-                
-                if not start_time <= current_time.time() <= end_time:
-                    return False
-        
-        return True
+    # Rules engine implementation details...
 ```
 
 #### 👁️ Axiom 6 (Observability): Analytics & Monitoring
 ```text
-Monitoring Requirements:
-- Delivery rates by channel
-- Latency percentiles
-- Failure tracking
-- User engagement metrics
-- Provider performance
-- Cost tracking
-- Abuse detection
-
-Analytics Pipeline:
-- Real-time dashboards
-- Delivery receipts
-- Click/open tracking
-- Unsubscribe rates
-- A/B testing results
+Monitoring: Delivery rates, latency percentiles, failures, engagement, provider performance, costs, abuse
+Analytics: Real-time dashboards, receipts, click/open tracking, unsubscribes, A/B testing
 ```
 
 **Analytics Architecture:**
@@ -1531,113 +1447,7 @@ graph LR
     end
 ```
     
-    async def generate_dashboard_data(self) -> dict:
-        """Generate real-time dashboard data"""
-        return {
-            'overview': {
-                'total_sent_today': await self._get_total_sent_today(),
-                'active_users': await self._get_active_users(),
-                'delivery_rate': await self._get_overall_delivery_rate(),
-                'avg_latency': await self._get_average_latency()
-            },
-            'by_channel': {
-                channel.value: await self.get_channel_analytics(
-                    channel,
-                    TimeRange(hours=1)
-                )
-                for channel in Channel
-            },
-            'trending': {
-                'hot_templates': await self._get_trending_templates(),
-                'problem_users': await self._get_problem_users(),
-                'provider_health': await self._get_provider_health()
-            },
-            'alerts': await self._get_active_alerts()
-        }
-    
-    async def detect_anomalies(self):
-        """Detect anomalies in notification patterns"""
-        # Get recent metrics
-        recent_window = TimeRange(minutes=5)
-        historical_window = TimeRange(hours=24)
-        
-        recent_stats = await self._get_stats(recent_window)
-        historical_stats = await self._get_stats(historical_window)
-        
-        anomalies = []
-        
-        # Check delivery rate drop
-        if recent_stats['delivery_rate'] < historical_stats['delivery_rate'] * 0.8:
-            anomalies.append({
-                'type': 'delivery_rate_drop',
-                'severity': 'high',
-                'current': recent_stats['delivery_rate'],
-                'expected': historical_stats['delivery_rate'],
-                'message': 'Delivery rate dropped by >20%'
-            })
-        
-        # Check latency spike
-        if recent_stats['avg_latency'] > historical_stats['avg_latency'] * 2:
-            anomalies.append({
-                'type': 'latency_spike',
-                'severity': 'medium',
-                'current': recent_stats['avg_latency'],
-                'expected': historical_stats['avg_latency'],
-                'message': 'Latency doubled compared to normal'
-            })
-        
-        # Check error rate
-        if recent_stats['error_rate'] > 0.05:  # >5% errors
-            anomalies.append({
-                'type': 'high_error_rate',
-                'severity': 'high',
-                'current': recent_stats['error_rate'],
-                'threshold': 0.05,
-                'message': 'Error rate exceeds 5%'
-            })
-        
-        # Take action on anomalies
-        for anomaly in anomalies:
-            await self._handle_anomaly(anomaly)
-        
-        return anomalies
-
-class RealtimeAggregator:
-    """Real-time metrics aggregation"""
-    
-    def __init__(self):
-        self.counters = defaultdict(lambda: defaultdict(int))
-        self.windows = [60, 300, 3600]  # 1min, 5min, 1hour
-        self.time_buckets = defaultdict(lambda: defaultdict(list))
-        
-    async def update(self, metric_type: str, channel: Channel, status: str):
-        """Update real-time aggregates"""
-        current_time = int(time.time())
-        
-        # Update counters
-        key = f"{metric_type}:{channel.value}:{status}"
-        self.counters[current_time][key] += 1
-        
-        # Clean old data
-        cutoff_time = current_time - max(self.windows)
-        for timestamp in list(self.counters.keys()):
-            if timestamp < cutoff_time:
-                del self.counters[timestamp]
-    
-    def get_rate(self, metric_type: str, channel: Channel, 
-                 window: int = 60) -> float:
-        """Get rate for time window"""
-        current_time = int(time.time())
-        start_time = current_time - window
-        
-        total = 0
-        for timestamp, counts in self.counters.items():
-            if timestamp >= start_time:
-                for key, count in counts.items():
-                    if key.startswith(f"{metric_type}:{channel.value}:"):
-                        total += count
-        
-        return total / window
+    # Analytics engine implementation details...
 ```
 
 #### 👤 Axiom 7 (Human Interface): User Control
@@ -1791,99 +1601,22 @@ sequenceDiagram
     end
 ```
 
-**Admin Dashboard Components:**
+**Interface Components:**
 
 ```mermaid
 graph TB
-    subgraph "Template Management"
-        TL[Template List]
-        TC[Template Creator]
-        TP[Template Preview]
-        TV[Variable Editor]
+    subgraph "Management Tools"
+        TM[Template Manager]
+        CM[Campaign Creator]
+        AD[Analytics Dashboard]
+        AB[A/B Testing]
     end
     
-    subgraph "Campaign Management"
-        CL[Campaign List]
-        CC[Campaign Creator]
-        CS[Segment Selector]
-        CR[Reach Estimator]
-    end
-    
-    subgraph "Analytics Dashboard"
-        OV[Overview Metrics]
-        CH[Channel Performance]
-        EN[Engagement Rates]
-        AL[Active Alerts]
-    end
-    
-    subgraph "A/B Testing"
-        TT[Test Creator]
-        VM[Variant Manager]
-        MT[Metric Tracker]
-        RS[Result Analyzer]
-    end
-```
-
-**User Preference UI:**
-
-```mermaid
-graph LR
-    subgraph "Preference Categories"
-        CP[Channel Preferences]
-        TP[Type Preferences]
-        FP[Frequency Preferences]
-        DP[DND Settings]
-    end
-    
-    subgraph "Channel Controls"
-        EC[Email<br/>On/Off]
-        PC[Push<br/>On/Off]
-        SC[SMS<br/>On/Off]
-        IC[In-App<br/>On/Off]
-    end
-    
-    subgraph "Notification Types"
-        TR[Transactional]
-        MK[Marketing]
-        UP[Updates]
-        AL[Alerts]
-    end
-    
-    CP --> EC
-    CP --> PC
-    CP --> SC
-    CP --> IC
-    
-    TP --> TR
-    TP --> MK
-    TP --> UP
-    TP --> AL
-```
-
-**Web UI Page Structure:**
-
-```mermaid
-graph TD
-    subgraph "User Pages"
-        UP[/preferences]
-        UH[/history]
-        US[/settings]
-        UU[/unsubscribe]
-    end
-    
-    subgraph "Admin Pages"
-        AD[/admin/dashboard]
-        AT[/admin/templates]
-        AC[/admin/campaigns]
-        AA[/admin/analytics]
-        AS[/admin/segments]
-    end
-    
-    subgraph "Common Components"
-        NAV[Navigation Bar]
-        AUTH[Auth Modal]
-        NOT[Notification Toast]
-        CONF[Confirmation Dialog]
+    subgraph "User Controls"
+        UP[User Preferences]
+        CH[Channel Settings]
+        DND[DND Rules]
+        HI[History View]
     end
 ```
 
