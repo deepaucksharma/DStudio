@@ -179,544 +179,245 @@ class HealthAwareRegistry:
 ### Advanced Discovery Patterns
 
 #### Service Mesh Discovery
+
 ```python
-class ServiceMeshDiscovery:
-    """
-    Service discovery in a service mesh (e.g., Istio)
-    """
+def mesh_discovery(service_name: str, request_headers: dict) -> dict:
+    """Service discovery in mesh with routing rules"""
+    # Virtual service routing
+    virtual_service = get_virtual_service(service_name)
+    if virtual_service:
+        # Apply header-based routing
+        for route in virtual_service['routes']:
+            if matches_headers(request_headers, route['match']):
+                return route['destination']
+    
+    # Fall back to standard discovery
+    return discover_service(service_name)
 
-    def __init__(self):
-        self.services = {}
-        self.virtual_services = {}
-        self.destination_rules = {}
-
-    def register_service(self, service: dict):
-        """Register service with mesh"""
-        self.services[service['name']] = {
-            'instances': [],
-            'ports': service['ports'],
-            'labels': service['labels'],
-            'endpoints': []
+def create_destination_rule(service: str, policy: dict) -> dict:
+    """Configure load balancing and circuit breakers"""
+    return {
+        'host': service,
+        'trafficPolicy': {
+            'loadBalancer': {'simple': policy.get('lb', 'ROUND_ROBIN')},
+            'connectionPool': {'tcp': {'maxConnections': 100}},
+            'outlierDetection': {'consecutiveErrors': 5}
         }
-
-    def create_virtual_service(self, name: str, config: dict):
-        """Define routing rules"""
-        self.virtual_services[name] = {
-            'hosts': config['hosts'],
-            'http_routes': config.get('http', []),
-            'tcp_routes': config.get('tcp', []),
-            'match_conditions': config.get('match', [])
-        }
-
-    def create_destination_rule(self, name: str, config: dict):
-        """Define load balancing and circuit breaker config"""
-        self.destination_rules[name] = {
-            'host': config['host'],
-            'traffic_policy': config.get('trafficPolicy', {}),
-            'subsets': config.get('subsets', []),
-            'connection_pool': config.get('connectionPool', {})
-        }
-
-    def route_request(self, request: dict) -> Optional[dict]:
-        """Route based on mesh configuration"""
-        # Find matching virtual service
-        for vs_name, vs_config in self.virtual_services.items():
-            if self.matches_virtual_service(request, vs_config):
-                # Apply routing rules
-                destination = self.apply_routing_rules(request, vs_config)
-
-                # Apply destination rules
-                if destination in self.destination_rules:
-                    return self.apply_destination_rules(
-                        destination,
-                        self.destination_rules[destination]
-                    )
-
-                return self.get_service_endpoint(destination)
-
-        # Default routing
-        return self.get_service_endpoint(request['service'])
+    }
 ```
 
 #### Multi-Region Discovery
+
 ```python
-class MultiRegionDiscovery:
-    """
-    Service discovery across multiple regions
-    """
+def discover_multi_region(service: str, client_region: str) -> List[dict]:
+    """Discover across regions with latency awareness"""
+    all_instances = []
+    
+    for region, registry in REGIONAL_REGISTRIES.items():
+        try:
+            instances = registry.discover(service)
+            for inst in instances:
+                inst['region'] = region
+                inst['latency'] = REGION_LATENCY[client_region][region]
+            all_instances.extend(instances)
+        except:
+            continue  # Skip failed regions
+    
+    # Sort by latency, then health
+    return sorted(all_instances, key=lambda x: (
+        x['latency'],
+        0 if x.get('health') == 'healthy' else 1
+    ))
 
-    def __init__(self):
-        self.regions = {}
-        self.global_services = {}
-        self.region_preferences = {}
-
-    def register_region(self, region: str, registry_url: str):
-        """Register a regional registry"""
-        self.regions[region] = {
-            'registry_url': registry_url,
-            'latency': {},  # Latency to other regions
-            'services': {}
-        }
-
-    def discover_global(self, service_name: str,
-                       client_region: str) -> List[dict]:
-        """Discover service globally with region preference"""
-        all_instances = []
-
-        # Collect from all regions
-        for region, config in self.regions.items():
-            try:
-                instances = self.query_region(region, service_name)
-                for instance in instances:
-                    instance['region'] = region
-                    instance['latency'] = self.get_region_latency(
-                        client_region, region
-                    )
-                all_instances.extend(instances)
-            except:
-                # Region might be down
-                continue
-
-        # Sort by preference (latency, health, load)
-        return sorted(all_instances, key=lambda x: (
-            x['latency'],
-            0 if x.get('health') == 'healthy' else 1,
-            x.get('load', 0)
-        ))
-
-    def implement_geo_routing(self, service_name: str,
-                            client_location: dict) -> dict:
-        """Route to nearest healthy instance"""
-        instances = self.discover_global(
-            service_name,
-            self.get_client_region(client_location)
-        )
-
-        # Filter by health and capacity
-        available = [
-            i for i in instances
-            if i.get('health') == 'healthy' and
-               i.get('capacity_available', 100) > 10
-        ]
-
-        if available:
-            return available[0]  # Nearest
-
-        # Fallback to any healthy instance
-        healthy = [i for i in instances if i.get('health') == 'healthy']
-        if healthy:
-            return healthy[0]
-
-        raise Exception(f"No healthy instances found for {service_name}")
+def geo_routing(service: str, client_location: dict) -> dict:
+    """Route to nearest healthy instance"""
+    instances = discover_multi_region(service, get_region(client_location))
+    
+    # Find nearest healthy instance with capacity
+    for instance in instances:
+        if (instance.get('health') == 'healthy' and 
+            instance.get('capacity', 100) > 10):
+            return instance
+    
+    raise Exception(f"No healthy instances for {service}")
 ```
 
-### Service Discovery Flow
+### Discovery Flow
 
-```mermaid
-sequenceDiagram
-    participant C as Client
-    participant R as Registry
-    participant S1 as Service Instance 1
-    participant S2 as Service Instance 2
-    participant H as Health Checker
-    
-    Note over S1,S2: Services register on startup
-    S1->>R: Register (name, IP, port, health endpoint)
-    S2->>R: Register (name, IP, port, health endpoint)
-    
-    Note over H: Continuous health checking
-    loop Every 30s
-        H->>S1: Health check
-        S1->>H: OK
-        H->>S2: Health check
-        S2->>H: OK
-        H->>R: Update health status
-    end
-    
-    Note over C: Client needs service
-    C->>R: Discover service "payment-service"
-    R->>C: Return healthy instances [S1, S2]
-    C->>C: Select instance (load balancing)
-    C->>S1: Call service
-    S1->>C: Response
 ```
+1. Service Registration:
+   Service → Registry: Register(name, address, health_endpoint)
 
-### Discovery Anti-Patterns
+2. Health Monitoring:
+   Health Checker → Service: GET /health (every 30s)
+   Health Checker → Registry: Update status
+
+3. Service Discovery:
+   Client → Registry: Discover("payment-service")
+   Registry → Client: [healthy instances]
+   Client → Service: Call selected instance
+```
 
 ---
 
 ## 🚀 Level 4: Expert
 
-### Production Service Discovery Systems
+### Production Systems
 
-#### Consul Service Discovery
+#### Consul Integration
+
 ```python
-import consul
+def consul_register(name: str, address: str, port: int, health_endpoint: str):
+    """Register service with Consul"""
+    consul_client = consul.Consul()
+    
+    health_check = consul.Check.http(
+        f"http://{address}:{port}{health_endpoint}",
+        interval="30s",
+        timeout="3s"
+    )
+    
+    consul_client.agent.service.register(
+        name=name,
+        service_id=f"{name}-{address}-{port}",
+        address=address,
+        port=port,
+        check=health_check
+    )
 
-class ConsulServiceDiscovery:
-    """
-    HashiCorp Consul integration
-    """
+def consul_discover(service: str, tag: str = None) -> List[dict]:
+    """Discover healthy services"""
+    consul_client = consul.Consul()
+    _, services = consul_client.health.service(service, tag=tag, passing=True)
+    
+    return [{
+        'address': s['Service']['Address'],
+        'port': s['Service']['Port'],
+        'tags': s['Service']['Tags']
+    } for s in services]
+```
+#### Kubernetes Discovery
 
-    def __init__(self, consul_host='localhost', consul_port=8500):
-        self.consul = consul.Consul(host=consul_host, port=consul_port)
-        self.watched_services = {}
-
-    def register_service(self,
-                        name: str,
-                        service_id: str,
-                        address: str,
-                        port: int,
-                        tags: List[str] = None,
-                        check: dict = None):
-        """Register service with Consul"""
-        # Define health check
-        if not check:
-            check = consul.Check.http(
-                f"http://{address}:{port}/health",
-                interval="30s",
-                timeout="3s"
-            )
-
-        # Register
-        self.consul.agent.service.register(
-            name=name,
-            service_id=service_id,
-            address=address,
-            port=port,
-            tags=tags or [],
-            check=check
-        )
-
-    def discover_service(self, service_name: str,
-                        tag: str = None,
-                        passing_only: bool = True) -> List[dict]:
-        """Discover service instances"""
-        # Query Consul
-        _, services = self.consul.health.service(
-            service_name,
-            tag=tag,
-            passing=passing_only
-        )
-
-        instances = []
-        for service in services:
-            instances.append({
-                'id': service['Service']['ID'],
-                'address': service['Service']['Address'],
-                'port': service['Service']['Port'],
-                'tags': service['Service']['Tags'],
-                'datacenter': service['Node']['Datacenter'],
-                'health': 'healthy' if passing_only else service['Checks'][0]['Status']
-            })
-
-        return instances
-
-    def watch_service(self, service_name: str, callback):
-        """Watch for service changes"""
-        index = None
-
-        def watch_loop():
-            nonlocal index
-            while True:
-                try:
-                    # Blocking query
-                    index, services = self.consul.health.service(
-                        service_name,
-                        index=index,
-                        wait='30s'
-                    )
-
-                    # Notify callback of changes
-                    callback(services)
-
-                except Exception as e:
-                    print(f"Watch error: {e}")
-                    time.sleep(5)
-
-        # Start watch in background
-        thread = threading.Thread(target=watch_loop)
-        thread.daemon = True
-        thread.start()
-
-        self.watched_services[service_name] = thread
-
-    def create_prepared_query(self, name: str, service: str,
-                            near: str = "_agent",
-                            tags: List[str] = None):
-        """Create prepared query for geo-aware discovery"""
-        query = {
-            "Name": name,
-            "Service": {
-                "Service": service,
-                "Tags": tags or [],
-                "Near": near,  # Sort by network distance
-                "OnlyPassing": True
-            }
-        }
-
-        return self.consul.query.create(query)
-#### Kubernetes Service Discovery
 ```python
-from kubernetes import client, config, watch
-
-class KubernetesServiceDiscovery:
-    """
-    Kubernetes native service discovery
-    """
-
-    def __init__(self):
-        # Load config from pod or kubeconfig
-        try:
-            config.load_incluster_config()
-        except:
-            config.load_kube_config()
-
-        self.v1 = client.CoreV1Api()
-        self.namespace = "default"
-
-    def discover_service_endpoints(self, service_name: str) -> List[dict]:
-        """Discover endpoints for a service"""
-        try:
-            # Get service
-            service = self.v1.read_namespaced_service(
-                name=service_name,
-                namespace=self.namespace
-            )
-
-            # Get endpoints
-            endpoints = self.v1.read_namespaced_endpoints(
-                name=service_name,
-                namespace=self.namespace
-            )
-
-            instances = []
-            for subset in endpoints.subsets:
-                for address in subset.addresses:
-                    for port in subset.ports:
-                        instances.append({
-                            'ip': address.ip,
-                            'port': port.port,
-                            'protocol': port.protocol,
-                            'ready': True,
-                            'pod_name': address.target_ref.name if address.target_ref else None
-                        })
-
-            return instances
-
-        except client.exceptions.ApiException as e:
-            print(f"Service discovery failed: {e}")
-            return []
-
-    def discover_by_label(self, label_selector: str) -> List[dict]:
-        """Discover pods by label selector"""
-        pods = self.v1.list_namespaced_pod(
-            namespace=self.namespace,
-            label_selector=label_selector
-        )
-
-        instances = []
-        for pod in pods.items:
-            if pod.status.phase == "Running":
+def k8s_discover_service(service_name: str, namespace: str = "default") -> List[dict]:
+    """Discover via Kubernetes endpoints"""
+    k8s = client.CoreV1Api()
+    
+    endpoints = k8s.read_namespaced_endpoints(service_name, namespace)
+    instances = []
+    
+    for subset in endpoints.subsets:
+        for addr in subset.addresses:
+            for port in subset.ports:
                 instances.append({
-                    'name': pod.metadata.name,
-                    'ip': pod.status.pod_ip,
-                    'labels': pod.metadata.labels,
-                    'containers': [c.name for c in pod.spec.containers]
+                    'ip': addr.ip,
+                    'port': port.port,
+                    'pod': addr.target_ref.name if addr.target_ref else None
                 })
+    
+    return instances
 
-        return instances
-
-    def watch_service_changes(self, service_name: str, callback):
-        """Watch for service endpoint changes"""
-        w = watch.Watch()
-
-        for event in w.stream(
-            self.v1.list_namespaced_endpoints,
-            namespace=self.namespace,
-            field_selector=f"metadata.name={service_name}"
-        ):
-            event_type = event['type']  # ADDED, MODIFIED, DELETED
-            endpoints = event['object']
-
-            # Extract instances
-            instances = []
-            for subset in endpoints.subsets:
-                for address in subset.addresses:
-                    instances.append({
-                        'ip': address.ip,
-                        'ready': True
-                    })
-
-            callback(event_type, instances)
-### Real-World Case Study: Netflix Eureka
+def k8s_discover_by_label(label: str) -> List[dict]:
+    """Discover pods by label"""
+    k8s = client.CoreV1Api()
+    pods = k8s.list_pod_for_all_namespaces(label_selector=label)
+    
+    return [{
+        'name': pod.metadata.name,
+        'ip': pod.status.pod_ip,
+        'namespace': pod.metadata.namespace
+    } for pod in pods.items if pod.status.phase == "Running"]
+```
+#### Netflix Eureka
 
 ```python
-class EurekaServiceDiscovery:
-    """
-    Netflix Eureka-style service discovery
-    """
-
-    def __init__(self, eureka_url: str):
-        self.eureka_url = eureka_url
-        self.instance_id = self.generate_instance_id()
-        self.heartbeat_interval = 30
-
-    def register(self, app_name: str, **kwargs):
-        """Register with Eureka"""
-        instance = {
-            "instance": {
-                "instanceId": self.instance_id,
-                "app": app_name.upper(),
-                "hostName": kwargs.get('hostname', socket.gethostname()),
-                "ipAddr": kwargs.get('ip', self.get_ip_address()),
-                "status": "UP",
-                "port": {
-                    "$": kwargs.get('port', 8080),
-                    "@enabled": "true"
-                },
-                "vipAddress": app_name.lower(),
-                "dataCenterInfo": {
-                    "@class": "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
-                    "name": "MyOwn"
-                },
-                "leaseInfo": {
-                    "renewalIntervalInSecs": self.heartbeat_interval,
-                    "durationInSecs": 90
-                }
+def eureka_register(app_name: str, port: int, eureka_url: str):
+    """Register with Eureka"""
+    instance = {
+        "instance": {
+            "instanceId": f"{app_name}-{socket.gethostname()}-{port}",
+            "app": app_name.upper(),
+            "hostName": socket.gethostname(),
+            "ipAddr": socket.gethostbyname(socket.gethostname()),
+            "status": "UP",
+            "port": {"$": port, "@enabled": "true"},
+            "vipAddress": app_name.lower(),
+            "dataCenterInfo": {
+                "@class": "com.netflix.appinfo.InstanceInfo$DefaultDataCenterInfo",
+                "name": "MyOwn"
             }
         }
+    }
+    
+    response = requests.post(f"{eureka_url}/eureka/apps/{app_name.upper()}", json=instance)
+    return response.status_code == 204
 
-        # Register
-        response = requests.post(
-            f"{self.eureka_url}/eureka/apps/{app_name.upper()}",
-            json=instance,
-            headers={"Content-Type": "application/json"}
-        )
-
-        if response.status_code == 204:
-            # Start heartbeat
-            self.start_heartbeat(app_name)
-            return True
-
-        return False
-
-    def start_heartbeat(self, app_name: str):
-        """Send periodic heartbeats"""
-        def heartbeat_loop():
-            while True:
-                try:
-                    response = requests.put(
-                        f"{self.eureka_url}/eureka/apps/{app_name.upper()}/{self.instance_id}"
-                    )
-                    if response.status_code != 200:
-                        print(f"Heartbeat failed: {response.status_code}")
-                except Exception as e:
-                    print(f"Heartbeat error: {e}")
-
-                time.sleep(self.heartbeat_interval)
-
-        thread = threading.Thread(target=heartbeat_loop)
-        thread.daemon = True
-        thread.start()
-
-    def discover(self, app_name: str) -> List[dict]:
-        """Discover service instances"""
-        response = requests.get(
-            f"{self.eureka_url}/eureka/apps/{app_name.upper()}",
-            headers={"Accept": "application/json"}
-        )
-
-        if response.status_code == 200:
-            data = response.json()
-            instances = []
-
-            app = data.get('application', {})
-            for instance in app.get('instance', []):
-                if instance['status'] == 'UP':
-                    instances.append({
-                        'instanceId': instance['instanceId'],
-                        'hostname': instance['hostName'],
-                        'ip': instance['ipAddr'],
-                        'port': instance['port']['$'],
-                        'vip': instance['vipAddress'],
-                        'metadata': instance.get('metadata', {})
-                    })
-
-            return instances
-
-        return []
+def eureka_discover(app_name: str, eureka_url: str) -> List[dict]:
+    """Discover from Eureka"""
+    response = requests.get(f"{eureka_url}/eureka/apps/{app_name.upper()}")
+    
+    if response.status_code == 200:
+        app = response.json().get('application', {})
+        return [{
+            'ip': inst['ipAddr'],
+            'port': inst['port']['$']
+        } for inst in app.get('instance', []) if inst['status'] == 'UP']
+    
+    return []
+```
 ---
 
 ## 🎯 Level 5: Mastery
 
 ### Theoretical Foundations
 
+#### Discovery Overhead Analysis
+
 ```python
-class OptimalServiceDiscovery:
-    """
-    Theoretically optimal service discovery
-    """
+def calculate_discovery_overhead(num_services: int, num_instances: int) -> dict:
+    """Calculate theoretical overhead"""
+    # Protocol overheads
+    gossip_bandwidth = num_services * num_instances * math.log(num_instances) * 64  # bytes/sec
+    consensus_bandwidth = num_services * num_instances * (num_instances - 1) * 128
+    
+    # Caching reduces load by ~90%
+    cache_hit_rate = 0.9
+    effective_query_rate = query_rate * (1 - cache_hit_rate)
+    
+    return {
+        'gossip_bandwidth': gossip_bandwidth,
+        'consensus_bandwidth': consensus_bandwidth,
+        'registry_queries_per_sec': effective_query_rate,
+        'client_memory_mb': num_services * num_instances * 0.25  # 256 bytes per instance
+    }
+```
 
-    def __init__(self):
-        self.services = {}
-        self.network_topology = NetworkTopology()
-        self.failure_detector = PhiAccrualFailureDetector()
+#### Bloom Filter Optimization
 
-    def calculate_discovery_overhead(self,
-                                   num_services: int,
-                                   num_instances: int,
-                                   query_rate: float) -> dict:
-        """
-        Calculate theoretical overhead of discovery
-        """
-        # Gossip protocol overhead
-        gossip_overhead = num_services * num_instances * math.log(num_instances)
-
-        # Consensus protocol overhead (Raft/Paxos)
-        consensus_overhead = num_services * num_instances * (num_instances - 1)
-
-        # Client-side caching benefit
-        cache_hit_rate = 0.9  # Typical
-        effective_query_rate = query_rate * (1 - cache_hit_rate)
-
-        return {
-            'gossip_bandwidth': gossip_overhead * 64,  # bytes/sec
-            'consensus_bandwidth': consensus_overhead * 128,
-            'registry_load': effective_query_rate,
-            'client_memory': num_services * num_instances * 256  # bytes
-        }
-
-    def implement_bloom_filter_discovery(self):
-        """
-        Use Bloom filters for efficient discovery
-        """
-        from pybloom_live import BloomFilter
-
-        # Create Bloom filter for each service
-        self.bloom_filters = {}
-
-        for service_name, instances in self.services.items():
-            # Size for ~1% false positive rate
-            bf = BloomFilter(capacity=len(instances) * 10, error_rate=0.01)
-
-            for instance in instances:
-                # Add instance attributes to filter
-                bf.add(f"{instance['ip']}:{instance['port']}")
-                for tag in instance.get('tags', []):
-                    bf.add(f"{service_name}:{tag}")
-
-            self.bloom_filters[service_name] = bf
-
-        return self.bloom_filters
+```python
+def bloom_filter_discovery(services: dict) -> dict:
+    """Use Bloom filters for O(1) tag lookups"""
+    bloom_filters = {}
+    
+    for service, instances in services.items():
+        bf = BloomFilter(capacity=len(instances) * 10, error_rate=0.01)
+        
+        for instance in instances:
+            bf.add(f"{instance['ip']}:{instance['port']}")
+            for tag in instance.get('tags', []):
+                bf.add(f"{service}:{tag}")
+        
+        bloom_filters[service] = bf
+    
+    return bloom_filters
 ```
 
 ### Future Directions
 
-1. **ML-Driven Discovery**: Predict service locations before lookup
-2. **Blockchain Registry**: Decentralized service registry
-3. **Zero-Knowledge Discovery**: Find services without revealing identity
-4. **Quantum Service Mesh**: Leverage quantum entanglement for instant discovery
+- **ML-Driven Discovery**: Predict optimal instances based on historical patterns
+- **Blockchain Registry**: Decentralized, tamper-proof service registry
+- **Zero-Knowledge Discovery**: Privacy-preserving service lookups
+- **Edge Computing**: Discovery at network edge for ultra-low latency
 
 ---
 
@@ -724,63 +425,38 @@ class OptimalServiceDiscovery:
 
 ### Discovery Method Selection
 
-| Scenario | Recommended Method | Why |
-|----------|-------------------|-----|
-| Kubernetes cluster | Native K8s DNS/API | Built-in integration |
+| Scenario | Recommended | Rationale |
+|----------|-------------|------------|
+| Kubernetes | K8s DNS/API | Native integration |
 | Multi-cloud | Consul/Istio | Cloud agnostic |
-| Simple microservices | Eureka/Consul | Easy setup |
-| Large scale | Custom with caching | Performance |
-| Cross-region | Multi-registry federation | Locality awareness |
+| Small scale | Eureka | Simple setup |
+| Large scale | Custom + cache | Performance |
+| Global | Federation | Locality aware |
 
-### Multi-Region Service Discovery
+### Multi-Region Architecture
 
-```mermaid
-graph TB
-    subgraph "US-East Region"
-        USR[US-East Registry]
-        USS1[Service A]
-        USS2[Service B]
-        USC[US Client]
-        
-        USS1 --> USR
-        USS2 --> USR
-        USC --> USR
-    end
-    
-    subgraph "EU-West Region"
-        EUR[EU-West Registry]
-        EUS1[Service A]
-        EUS2[Service B]
-        EUC[EU Client]
-        
-        EUS1 --> EUR
-        EUS2 --> EUR
-        EUC --> EUR
-    end
-    
-    subgraph "Global Registry"
-        GR[Global Registry]
-    end
-    
-    USR <-->|Sync| GR
-    EUR <-->|Sync| GR
-    
-    USC -.->|Fallback| EUR
-    EUC -.->|Fallback| USR
-    
-    style GR fill:#9f9,stroke:#333,stroke-width:4px
+```
+US-East:                    EU-West:
+[Registry] ←→ [Services]    [Registry] ←→ [Services]
+    ↓                           ↓
+    ↓      Global Registry      ↓
+    └───────────[🌐]───────────┘
+              
+- Regional registries sync to global
+- Clients prefer local, fallback to remote
+- Latency-aware routing
 ```
 
 ### Implementation Checklist
 
-- [ ] Choose discovery method (client/server/DNS)
-- [ ] Implement health checking
-- [ ] Add caching with TTL
-- [ ] Handle discovery failures
-- [ ] Monitor registry performance
-- [ ] Document service naming conventions
-- [ ] Test with service churn
-- [ ] Plan for registry failure
+- [ ] Choose discovery pattern (client-side vs server-side)
+- [ ] Implement health checks (HTTP/TCP)
+- [ ] Add caching (TTL: 30-60s typical)
+- [ ] Handle failures (retry, circuit breaker)
+- [ ] Monitor metrics (discovery latency, cache hit rate)
+- [ ] Define naming convention (e.g., service.namespace.cluster)
+- [ ] Test failure scenarios
+- [ ] Plan registry HA
 
 ---
 

@@ -420,7 +420,7 @@ class AdaptiveHealthCheck:
         else:
             # Check less frequently when stable
             self.check_interval = min(60, self.check_interval * 1.1)
-```bash
+
 #### Kubernetes-Style Health Probes
 ```python
 class KubernetesHealthProbes:
@@ -504,7 +504,7 @@ class KubernetesHealthProbes:
             "status": "ready" if all_ready else "not_ready",
             "checks": checks
         }
-```bash
+
 ### Real-World Case Study: Netflix's Deep Health Checks
 
 ```python
