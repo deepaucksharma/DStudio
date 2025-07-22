@@ -733,13 +733,41 @@ graph LR
 **Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Axiom 1: Latency is Non-Zero](../part1-axioms/axiom1-latency/index.md).
 
 ### Axiom 2: Finite Capacity
-```python
-# When L exceeds system capacity
-Max_L = 1000  # System limit
-λ = 500/s, W = 3s
-L = 500 × 3 = 1500 > Max_L
-# System fails - queue overflow!
-```
+<div class="failure-vignette">
+<h4>⚠️ Capacity Overflow Scenario</h4>
+
+<table style="width: 100%; margin: 10px 0;">
+<tr style="background: #F5F5F5;">
+<th style="padding: 10px; text-align: left;">Parameter</th>
+<th>Value</th>
+<th>Result</th>
+</tr>
+<tr>
+<td><strong>System Capacity (Max_L)</strong></td>
+<td>1,000 items</td>
+<td style="color: #4CAF50;">✓ Limit</td>
+</tr>
+<tr>
+<td><strong>Arrival Rate (λ)</strong></td>
+<td>500/s</td>
+<td>-</td>
+</tr>
+<tr>
+<td><strong>Wait Time (W)</strong></td>
+<td>3 seconds</td>
+<td>-</td>
+</tr>
+<tr style="background: #FFEBEE;">
+<td><strong>Calculated Queue (L)</strong></td>
+<td>500 × 3 = 1,500</td>
+<td style="color: #F44336;">⚠️ OVERFLOW!</td>
+</tr>
+</table>
+
+<div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
+⚡ <strong>System Failure</strong>: Queue overflow! Need capacity upgrade or backpressure
+</div>
+</div>
 
 ### Axiom 5: Time and Order
 - Little's Law assumes FIFO (First In, First Out) for average calculations
@@ -747,14 +775,30 @@ L = 500 × 3 = 1500 > Max_L
 - But the law still holds for averages
 
 ### Axiom 7: Observability is Limited
-```python
-# What we can measure
-L = count(items_in_system)  # Observable
-λ = count(arrivals) / time  # Observable
-W = ?  # Must calculate from L/λ
+<div class="truth-box">
+<h4>📊 Observability Challenge</h4>
 
-# Hidden queues make true L hard to measure
-```
+<div class="measurement-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+  <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
+    <strong>✅ Directly Observable</strong>
+    <ul style="margin: 10px 0;">
+      <li><strong>L</strong> = count(items_in_system)</li>
+      <li><strong>λ</strong> = count(arrivals) / time</li>
+    </ul>
+  </div>
+  <div style="background: #FFEBEE; padding: 15px; border-radius: 5px;">
+    <strong>❌ Must Calculate</strong>
+    <ul style="margin: 10px 0;">
+      <li><strong>W</strong> = L / λ</li>
+      <li>Hidden queues obscure true L</li>
+    </ul>
+  </div>
+</div>
+
+<div class="insight-note" style="background: #F3E5F5; padding: 10px; margin-top: 10px; border-left: 4px solid #9C27B0;">
+💡 <strong>Key Insight</strong>: Hidden queues (OS buffers, network queues) make true L difficult to measure accurately
+</div>
+</div>
 
 ## Visual Little's Law Dynamics
 
@@ -846,15 +890,47 @@ graph LR
 ```
 
 ### Resource Calculation
-```python
-# Thread Pool Sizing
-Auth Service: 10 threads (L=10)
-Business Logic: 40 threads (L=40)
-DB Connections: 48 connections (L=48)
+<div class="decision-box">
+<h4>🔧 Resource Calculation Summary</h4>
 
-# Memory Requirements (1MB per request)
-Total Memory = 5 + 10 + 40 + 48 = 103MB active
-```
+<table style="width: 100%; margin: 15px 0; border-collapse: collapse;">
+<tr style="background: #E3F2FD;">
+<th style="padding: 10px; text-align: left; border: 1px solid #90CAF9;">Component</th>
+<th style="padding: 10px; border: 1px solid #90CAF9;">Thread/Connection Requirements</th>
+<th style="padding: 10px; border: 1px solid #90CAF9;">Queue Depth (L)</th>
+</tr>
+<tr>
+<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Auth Service</strong></td>
+<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">10 threads</td>
+<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">L = 10</td>
+</tr>
+<tr style="background: #F5F5F5;">
+<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>Business Logic</strong></td>
+<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">40 threads</td>
+<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">L = 40</td>
+</tr>
+<tr>
+<td style="padding: 10px; border: 1px solid #E0E0E0;"><strong>DB Connections</strong></td>
+<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">48 connections</td>
+<td style="padding: 10px; border: 1px solid #E0E0E0; text-align: center;">L = 48</td>
+</tr>
+</table>
+
+<div class="memory-calculation" style="background: #E8F5E9; padding: 15px; margin-top: 15px; border-radius: 5px;">
+  <h5 style="margin: 0 0 10px 0;">💾 Memory Requirements (1MB per request)</h5>
+  <div style="display: flex; align-items: center; gap: 10px;">
+    <span>5 + 10 + 40 + 48 =</span>
+    <span style="font-size: 1.2em; font-weight: bold; color: #2E7D32;">103MB</span>
+    <span>active memory</span>
+  </div>
+  <div class="memory-bar" style="margin-top: 10px; background: #E0E0E0; height: 30px; border-radius: 15px; overflow: hidden;">
+    <div style="width: 10%; background: #4CAF50; height: 100%; float: left;"></div>
+    <div style="width: 20%; background: #66BB6A; height: 100%; float: left;"></div>
+    <div style="width: 40%; background: #81C784; height: 100%; float: left;"></div>
+    <div style="width: 30%; background: #A5D6A7; height: 100%; float: left;"></div>
+  </div>
+</div>
+</div>
 
 ## Advanced Visualization: Multi-Stage Pipeline
 

@@ -36,13 +36,22 @@ Incident response is the organized approach to addressing and managing the after
 ## Incident Response Lifecycle
 
 ```mermaid
-graph LR
-    A[Detection] --> B[Triage]
-    B --> C[Response]
-    C --> D[Recovery]
-    D --> E[Analysis]
-    E --> F[Improvement]
-    F --> A
+flowchart LR
+    subgraph "Incident Response Lifecycle"
+        A[Detection<br/>👀] --> B[Triage<br/>🔍]
+        B --> C[Response<br/>🔨]
+        C --> D[Recovery<br/>✅]
+        D --> E[Analysis<br/>📊]
+        E --> F[Improvement<br/>📝]
+        F -.-> A
+    end
+    
+    style A fill:#ffebee
+    style B fill:#fff3cd
+    style C fill:#e3f2fd
+    style D fill:#c8e6c9
+    style E fill:#f3e5f5
+    style F fill:#e0f2f1
 ```
 
 ## Key Roles
@@ -71,136 +80,169 @@ graph LR
 ## Response Procedures
 
 ### Initial Response Checklist
-```python
-class IncidentResponseChecklist:
-    def __init__(self):
-        self.checklist = [
-            "Acknowledge incident",
-            "Assess severity",
-            "Assemble response team",
-            "Create incident channel/bridge",
-            "Begin investigation",
-            "Communicate status",
-            "Implement fixes",
-            "Verify resolution",
-            "Document timeline",
-            "Schedule postmortem"
-        ]
-
-    def validate_response(self, incident):
-        completed = []
-        missing = []
-
-        for item in self.checklist:
-            if self.is_completed(incident, item):
-                completed.append(item)
-            else:
-                missing.append(item)
-
-        return {
-            'completed': completed,
-            'missing': missing,
-            'compliance': len(completed) / len(self.checklist)
-        }
+```mermaid
+flowchart TD
+    subgraph "Initial Response Flow"
+        A[Incident Detected] --> B[Acknowledge<br/>< 5 min]
+        B --> C[Assess Severity]
+        C --> D{SEV Level?}
+        
+        D -->|SEV-1| E[All Hands<br/>War Room]
+        D -->|SEV-2| F[Core Team<br/>Virtual Bridge]
+        D -->|SEV-3/4| G[Normal Team<br/>Slack Channel]
+        
+        E --> H[Begin Investigation]
+        F --> H
+        G --> H
+        
+        H --> I[Status Update]
+        I --> J[Implement Fix]
+        J --> K[Verify Resolution]
+        K --> L[Document & Schedule Postmortem]
+    end
+    
+    style A fill:#ffcdd2
+    style E fill:#ff5252
+    style L fill:#c8e6c9
 ```
+
+**Response Checklist by Phase:**
+
+| Phase | Task | Target Time | Owner |
+|-------|------|-------------|-------|
+| **Detection** | Acknowledge alert | < 5 minutes | On-call |
+| **Triage** | Assess severity | < 10 minutes | On-call |
+| **Assembly** | Form response team | < 15 minutes | IC |
+| **Communication** | First customer update | < 30 minutes | Comms |
+| **Investigation** | Root cause analysis | Ongoing | Tech Lead |
+| **Resolution** | Deploy fix | ASAP | Dev Team |
+| **Verification** | Confirm fixed | +15 minutes | QA/Ops |
+| **Documentation** | Timeline complete | +2 hours | Scribe |
 
 ### Communication Templates
 
 #### Initial Customer Communication
-```text
-We are currently investigating reports of [service] issues.
-Our team is actively working on the problem.
+**Communication Templates:**
 
-Affected services: [list]
-Impact: [description]
-
-Next update in: 30 minutes
-Status page: [link]
+```mermaid
+flowchart LR
+    subgraph "Communication Flow"
+        A[Incident Start] --> B[Initial Notice<br/>< 30 min]
+        B --> C[Regular Updates<br/>Every 30 min]
+        C --> D[Resolution Notice<br/>When fixed]
+        D --> E[RCA Summary<br/>< 48 hours]
+        
+        B -.-> F[Customers]
+        C -.-> F
+        D -.-> F
+        
+        B -.-> G[Internal Teams]
+        C -.-> G
+        D -.-> G
+        E -.-> G
+    end
+    
+    style A fill:#ffcdd2
+    style D fill:#c8e6c9
 ```
+
+| Template | When to Use | Key Elements | Tone |
+|----------|-------------|--------------|------|  
+| **Initial** | First 30 min | Impact, investigating, next update | Acknowledge concern |
+| **Update** | Every 30-60 min | Progress, current state, ETA | Transparent |
+| **Resolution** | When fixed | Duration, cause, prevention | Apologetic, forward-looking |
+| **RCA** | Within 48hr | Deep dive, lessons, improvements | Technical, honest |
 
 #### Update Communication
-```text
-Update on [service] incident:
+**Status Update Framework:**
 
-Current status: [Investigating/Identified/Monitoring]
-Progress: [what has been done]
-Current impact: [updated impact]
-
-Next update in: [timeframe]
-```
+| Status | Meaning | Customer Message | Internal Actions |
+|--------|---------|-----------------|------------------|
+| **Investigating** | Cause unknown | "We're investigating the issue" | All hands debugging |
+| **Identified** | Cause found | "We've identified the problem" | Working on fix |
+| **Monitoring** | Fix deployed | "A fix has been implemented" | Watching metrics |
+| **Resolved** | Confirmed fixed | "The issue has been resolved" | Start postmortem |
 
 #### Resolution Communication
-```yaml
-The [service] incident has been resolved.
+**Resolution Communication Guide:**
 
-Duration: [start time] - [end time]
-Root cause: [brief explanation]
-Actions taken: [summary]
-
-A detailed postmortem will follow.
-Thank you for your patience.
+```mermaid
+graph TB
+    subgraph "Resolution Message Components"
+        A[Clear Status] --> B["✅ Incident Resolved"]
+        C[Timeline] --> D["Duration: 47 minutes<br/>(14:32 - 15:19)"]
+        E[Impact Summary] --> F["15,000 failed transactions<br/>Estimated revenue impact: $150k"]
+        G[Root Cause] --> H["Memory leak in v2.5.0<br/>payment validation"]
+        I[Actions Taken] --> J["1. Rolled back to v2.4.9<br/>2. Added monitoring<br/>3. Fixed root cause"]
+        K[Next Steps] --> L["Postmortem: Tuesday 2pm<br/>Preventive measures in progress"]
+    end
 ```
 
 ## Incident Response Automation
 
-```python
-class IncidentAutomation:
-    def __init__(self):
-        self.pagerduty = PagerDutyClient()
-        self.slack = SlackClient()
-        self.statuspage = StatusPageClient()
-
-    def create_incident(self, alert):
-        # Create PagerDuty incident
-        incident = self.pagerduty.create_incident({
-            'title': alert.title,
-            'service': alert.service,
-            'urgency': self.calculate_urgency(alert)
-        })
-
-        # Create Slack channel
-        channel = self.slack.create_channel(
-            f"incident-{incident.id}",
-            purpose=f"Response for: {alert.title}"
-        )
-
-        # Invite on-call team
-        oncall = self.pagerduty.get_oncall(alert.service)
-        self.slack.invite_users(channel, oncall)
-
-        # Post initial message
-        self.slack.post_message(channel, self.format_incident_message(incident))
-
-        # Update status page
-        self.statuspage.create_incident({
-            'name': alert.title,
-            'status': 'investigating',
-            'impact': self.determine_impact(alert)
-        })
-
-        return incident
+```mermaid
+flowchart TD
+    subgraph "Automated Incident Creation"
+        A[Alert Triggered] --> B[Create PagerDuty Incident]
+        B --> C[Calculate Severity]
+        C --> D[Create Slack Channel]
+        D --> E[Invite On-Call Team]
+        E --> F[Post Initial Status]
+        F --> G[Update Status Page]
+        G --> H[Start Timer]
+        
+        I[Tools Integrated]
+        I --> J[PagerDuty: Alerting]
+        I --> K[Slack: Collaboration]
+        I --> L[StatusPage: Customer Comms]
+        I --> M[Jira: Tracking]
+    end
+    
+    style A fill:#ffcdd2
+    style H fill:#c8e6c9
 ```
+
+**Automation Benefits:**
+
+| Task | Manual Time | Automated Time | Time Saved |
+|------|-------------|----------------|------------|
+| Create incident | 5 minutes | 5 seconds | 98% |
+| Assemble team | 10 minutes | 30 seconds | 95% |
+| Initial comms | 15 minutes | 1 minute | 93% |
+| Status page | 5 minutes | Instant | 100% |
+| **Total** | **35 minutes** | **< 2 minutes** | **94%** |
 
 ## On-Call Best Practices
 
 ### 1. On-Call Rotation
-```yaml
-on_call_schedule:
-  rotation_period: 1_week
-  team_size: 6
-  shifts:
-    primary:
-      start: Monday 9:00
-      duration: 168h
-    secondary:
-      start: Monday 9:00
-      duration: 168h
-  handoff_process:
-    - Review open incidents
-    - Discuss recent issues
-    - Update documentation
-    - Confirm contact info
+```mermaid
+gantt
+    title On-Call Rotation Schedule
+    dateFormat YYYY-MM-DD
+    axisFormat %m/%d
+    
+    section Primary
+    Alice    :done, p1, 2024-03-04, 7d
+    Bob      :active, p2, 2024-03-11, 7d
+    Carol    :p3, 2024-03-18, 7d
+    Dave     :p4, 2024-03-25, 7d
+    
+    section Secondary
+    Eve      :done, s1, 2024-03-04, 7d
+    Frank    :active, s2, 2024-03-11, 7d
+    Alice    :s3, 2024-03-18, 7d
+    Bob      :s4, 2024-03-25, 7d
 ```
+
+**On-Call Best Practices:**
+
+| Practice | Rationale | Implementation |
+|----------|-----------|----------------|
+| **6+ person rotation** | Prevents burnout | Max 1 week/month |
+| **Primary + Secondary** | Backup coverage | Escalation path |
+| **Weekday handoffs** | Fresh for weekend | Monday 9am |
+| **Compensation** | Respect the burden | Time off or pay |
+| **Documentation** | Knowledge transfer | Handoff checklist |
 
 ### 2. On-Call Kit
 - Laptop with VPN access
@@ -210,31 +252,36 @@ on_call_schedule:
 - Emergency contact list
 
 ### 3. Escalation Policies
-```python
-class EscalationPolicy:
-    def __init__(self):
-        self.levels = [
-            {
-                'timeout': 5,  # minutes
-                'targets': ['primary_oncall']
-            },
-            {
-                'timeout': 10,
-                'targets': ['secondary_oncall', 'team_lead']
-            },
-            {
-                'timeout': 15,
-                'targets': ['director', 'vp_engineering']
-            }
-        ]
-
-    def get_escalation_targets(self, incident_age_minutes):
-        targets = []
-        for level in self.levels:
-            if incident_age_minutes >= level['timeout']:
-                targets.extend(level['targets'])
-        return list(set(targets))
+```mermaid
+flowchart TD
+    subgraph "Escalation Flow"
+        A[Alert Fires] --> B[Page Primary<br/>T+0 min]
+        B --> C{Acknowledged?}
+        C -->|No in 5min| D[Page Secondary<br/>+ Team Lead<br/>T+5 min]
+        C -->|Yes| Z[Incident Handled]
+        
+        D --> E{Acknowledged?}
+        E -->|No in 5min| F[Page Director<br/>+ VP Engineering<br/>T+10 min]
+        E -->|Yes| Z
+        
+        F --> G{Acknowledged?}
+        G -->|No in 5min| H[Page CTO<br/>+ CEO<br/>T+15 min]
+        G -->|Yes| Z
+    end
+    
+    style A fill:#ffcdd2
+    style H fill:#d32f2f,color:#fff
+    style Z fill:#c8e6c9
 ```
+
+**Escalation Matrix:**
+
+| Time | Level | Who Gets Paged | Expected Action |
+|------|-------|----------------|------------------|
+| 0-5 min | L1 | Primary on-call | Acknowledge & respond |
+| 5-10 min | L2 | Secondary + Lead | Assist or take over |
+| 10-15 min | L3 | Director + VP | Resource allocation |
+| 15+ min | L4 | C-Suite | Business decisions |
 
 ## Runbook Structure
 
@@ -383,32 +430,35 @@ graph TD
 - **MTTF** (Mean Time To Failure)
 
 ### Tracking and Improvement
-```python
-class IncidentMetrics:
-    def calculate_mttr(self, incidents):
-        total_time = sum(
-            (inc.resolved_at - inc.started_at).total_seconds()
-            for inc in incidents
-        )
-        return total_time / len(incidents) / 60  # minutes
-
-    def calculate_mtta(self, incidents):
-        total_time = sum(
-            (inc.acknowledged_at - inc.triggered_at).total_seconds()
-            for inc in incidents
-        )
-        return total_time / len(incidents) / 60  # minutes
-
-    def generate_report(self, incidents):
-        return {
-            'total_incidents': len(incidents),
-            'mttr_minutes': self.calculate_mttr(incidents),
-            'mtta_minutes': self.calculate_mtta(incidents),
-            'by_severity': self.group_by_severity(incidents),
-            'by_service': self.group_by_service(incidents),
-            'repeat_incidents': self.find_repeat_incidents(incidents)
-        }
+```mermaid
+flowchart LR
+    subgraph "Key Incident Metrics"
+        A[Incident Triggered] -->|MTTA| B[Acknowledged]
+        B -->|Investigation Time| C[Root Cause Found]
+        C -->|Fix Time| D[Resolution Applied]
+        D -->|Verification Time| E[Incident Resolved]
+        
+        A -->|MTTR| E
+        
+        F[MTTD: Time to Detect]
+        G[MTTA: Time to Acknowledge]
+        H[MTTR: Time to Resolve]
+        I[MTTF: Time Between Failures]
+    end
+    
+    style A fill:#ffcdd2
+    style E fill:#c8e6c9
 ```
+
+**Incident Metrics Dashboard:**
+
+| Metric | Definition | Target | Current | Trend |
+|--------|------------|--------|---------|-------|
+| **MTTD** | Detection time | < 5 min | 3.2 min | ↓ 15% |
+| **MTTA** | Acknowledge time | < 5 min | 4.1 min | ↓ 8% |
+| **MTTR** | Resolution time | < 30 min | 28 min | ↓ 22% |
+| **MTTF** | Between failures | > 720 hr | 892 hr | ↑ 18% |
+| **Incidents/Month** | Total count | < 10 | 7 | ↓ 30% |
 
 ## Communication Strategy Matrix
 

@@ -976,6 +976,48 @@ class CapacityOptimizationPatterns:
 
 ---
 
+## Related Concepts
+
+### Pillars Building on This Axiom
+- [Work Distribution](../../part2-pillars/work/index.md) - Distributing work across finite resources efficiently
+- [State Management](../../part2-pillars/state/index.md) - Managing state within memory and storage constraints
+- [Control & Ordering](../../part2-pillars/control/index.md) - Controlling flow to prevent resource exhaustion
+- [Intelligence & Learning](../../part2-pillars/intelligence/index.md) - ML-based capacity prediction and optimization
+
+### Patterns Addressing Capacity Challenges
+- [Auto-scaling](../../patterns/auto-scaling.md) - Dynamically adjust resources based on demand
+- [Load Balancing](../../patterns/load-balancing.md) - Distribute load across available capacity
+- [Sharding](../../patterns/sharding.md) - Partition data to scale beyond single node limits
+- [Bulkhead](../../patterns/bulkhead.md) - Isolate resources to prevent total exhaustion
+- [Load Shedding](../../patterns/load-shedding.md) - Gracefully drop load when at capacity
+- [Backpressure](../../patterns/backpressure.md) - Signal upstream when approaching limits
+- [Circuit Breaker](../../patterns/circuit-breaker.md) - Stop overwhelming already-saturated resources
+
+### Case Studies Demonstrating Capacity Management
+- [Amazon DynamoDB](../../case-studies/amazon-dynamo.md) - Predictable performance at scale through capacity management
+- [Twitter Timeline](../../case-studies/twitter-timeline.md) - Handling massive write amplification
+- [Netflix Streaming](../../case-studies/netflix-streaming.md) - Global capacity planning for video delivery
+
+### Other Axioms That Interact
+- [Axiom 1: Latency](../axiom1-latency/index.md) - Performance degrades as capacity limits are approached
+- [Axiom 3: Partial Failure](../axiom3-failure/index.md) - Capacity exhaustion causes cascading failures
+- [Axiom 4: Concurrency](../axiom4-concurrency/index.md) - Concurrent access to limited resources
+- [Axiom 8: Economics](../axiom8-economics/index.md) - Cost optimization within capacity constraints
+
+### Quantitative Tools
+- [Capacity Planning Calculator](../../tools/capacity-planning.md) - Interactive capacity estimation
+- [Little's Law](../../quantitative/littles-law.md) - Relationship between capacity, latency, and throughput
+- [Queueing Theory](../../quantitative/queueing-models.md) - Mathematical models for capacity and utilization
+- [Scaling Laws](../../quantitative/scaling-laws.md) - How capacity scales with system size
+- [Performance Testing](../../quantitative/performance-testing.md) - Finding actual capacity limits
+
+### Human Factors
+- [SRE Practices](../../human-factors/sre-practices.md) - Managing capacity through SLOs and error budgets
+- [Capacity Planning](../../human-factors/capacity-planning.md) - Human aspects of predicting future needs
+- [Incident Response](../../human-factors/incident-response.md) - Handling capacity-related outages
+
+---
+
 **Next**: [Examples](examples.md)
 
 **Related**: [Auto Scaling](../../patterns/auto-scaling.md) • [Load Balancing](../../patterns/load-balancing.md) • [Sharding](../../patterns/sharding.md)

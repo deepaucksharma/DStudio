@@ -136,6 +136,7 @@ nav:
     - Overview: part1-axioms/index.md
     - "Axiom 1: Latency":
       - Overview: part1-axioms/axiom1-latency/index.md
+      - Enhanced: part1-axioms/axiom1-latency/index-enhanced.md
       - Examples: part1-axioms/axiom1-latency/examples.md
       - Exercises: part1-axioms/axiom1-latency/exercises.md
     - "Axiom 2: Capacity":
@@ -221,8 +222,10 @@ nav:
       - "Serverless/FaaS": patterns/serverless-faas.md
     - "Resilience Patterns":
       - "Circuit Breaker": patterns/circuit-breaker.md
+      - "Circuit Breaker Enhanced": patterns/circuit-breaker-enhanced.md
       - "Retry & Backoff": patterns/retry-backoff.md
       - "Bulkhead": patterns/bulkhead.md
+      - "Backpressure": patterns/backpressure.md
       - "Edge Computing": patterns/edge-computing.md
       - "Graceful Degradation": patterns/graceful-degradation.md
       - "Health Check": patterns/health-check.md
@@ -233,6 +236,8 @@ nav:
       - "Sharding": patterns/sharding.md
       - "Caching Strategies": patterns/caching-strategies.md
       - "Geo-Replication": patterns/geo-replication.md
+      - "Multi-Region": patterns/multi-region.md
+      - "Two-Phase Commit": patterns/two-phase-commit.md
     - "Coordination Patterns":
       - "Leader Election": patterns/leader-election.md
       - "Consensus": patterns/consensus.md
@@ -240,6 +245,7 @@ nav:
       - "Idempotent Receiver": patterns/idempotent-receiver.md
       - "Outbox": patterns/outbox.md
     - "Operational Patterns":
+      - "API Gateway": patterns/api-gateway.md
       - "Auto Scaling": patterns/auto-scaling.md
       - "Load Balancing": patterns/load-balancing.md
       - "Load Shedding": patterns/load-shedding.md
@@ -290,12 +296,66 @@ nav:
   - Tools:
     - tools/index.md
   
+  - Capstone:
+    - "Project Framework": capstone/framework.md
+    - "Evaluation Rubric": capstone/evaluation-rubric.md
+  
   - Case Studies:
     - Overview: case-studies/index.md
-    - "Amazon DynamoDB": case-studies/amazon-dynamo.md
-    - "PayPal Payments": case-studies/paypal-payments.md
-    - "Spotify Recommendations": case-studies/spotify-recommendations.md
-    - "Uber Location Services": case-studies/uber-location.md
+    - "Core Systems":
+      - "Amazon DynamoDB": case-studies/amazon-dynamo.md
+      - "PayPal Payments": case-studies/paypal-payments.md
+      - "Spotify Recommendations": case-studies/spotify-recommendations.md
+      - "Uber Location Services": case-studies/uber-location.md
+      - "YouTube": case-studies/youtube.md
+      - "Google Drive": case-studies/google-drive.md
+      - "Google Maps": case-studies/google-maps.md
+    - "Communication Systems":
+      - "Chat System": case-studies/chat-system.md
+      - "Chat System Enhanced": case-studies/chat-system-enhanced.md
+      - "Distributed Message Queue": case-studies/distributed-message-queue.md
+      - "Notification System": case-studies/notification-system.md
+      - "News Feed": case-studies/news-feed.md
+    - "Search & Discovery":
+      - "Search Autocomplete": case-studies/search-autocomplete.md
+      - "Search Autocomplete Enhanced": case-studies/search-autocomplete-enhanced.md
+      - "Web Crawler": case-studies/web-crawler.md
+    - "Location & Proximity":
+      - "Uber Location Enhanced": case-studies/uber-location-enhanced.md
+      - "Google Maps Enhanced": case-studies/google-maps-enhanced.md
+      - "Nearby Friends": case-studies/nearby-friends.md
+      - "Nearby Friends Enhanced": case-studies/nearby-friends-enhanced.md
+      - "Proximity Service": case-studies/proximity-service.md
+      - "Proximity Service Enhanced": case-studies/proximity-service-enhanced.md
+    - "Storage & Data":
+      - "Key-Value Store": case-studies/key-value-store.md
+      - "Object Storage": case-studies/object-storage.md
+      - "S3 Object Storage Enhanced": case-studies/s3-object-storage-enhanced.md
+      - "Google Drive Enhanced": case-studies/google-drive-enhanced.md
+      - "Consistent Hashing": case-studies/consistent-hashing.md
+    - "Financial Systems":
+      - "Payment System": case-studies/payment-system.md
+      - "Payment System Enhanced": case-studies/payment-system-enhanced.md
+      - "Digital Wallet Enhanced": case-studies/digital-wallet-enhanced.md
+      - "Hotel Reservation": case-studies/hotel-reservation.md
+      - "Hotel Reservation Enhanced": case-studies/hotel-reservation-enhanced.md
+      - "Stock Exchange": case-studies/stock-exchange.md
+      - "Stock Exchange Enhanced": case-studies/stock-exchange-enhanced.md
+    - "Observability & Monitoring":
+      - "Metrics & Monitoring": case-studies/metrics-monitoring.md
+      - "Prometheus & Datadog Enhanced": case-studies/prometheus-datadog-enhanced.md
+      - "Rate Limiter": case-studies/rate-limiter.md
+    - "Infrastructure":
+      - "Ad Click Aggregation": case-studies/ad-click-aggregation.md
+      - "Unique ID Generator": case-studies/unique-id-generator.md
+      - "URL Shortener": case-studies/url-shortener.md
+      - "Distributed Message Queue Enhanced": case-studies/distributed-message-queue-enhanced.md
+    - "Gaming & Entertainment":
+      - "Gaming Leaderboard Enhanced": case-studies/gaming-leaderboard-enhanced.md
+      - "YouTube Enhanced": case-studies/youtube-enhanced.md
+    - "Deep Dives":
+      - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
+      - "Distributed Email Enhanced": case-studies/distributed-email-enhanced.md
   
   - Reference:
     - Overview: reference/index.md
@@ -303,4 +363,9 @@ nav:
     - Cheat Sheets: reference/cheat-sheets.md
     - Recipe Cards: reference/recipe-cards.md
     - Security: reference/security.md
+  
+  - Documentation:
+    - "Learning Paths": LEARNING_PATHS.md
+    - "Navigation Enhancements": NAVIGATION_ENHANCEMENTS.md
+    - "Formatting Issues": FORMATTING_ISSUES.md
   

@@ -23,65 +23,42 @@ last_updated: 2025-07-20
 
 ## 🎯 Level 1: Intuition
 
-### The Phone Directory Analogy
+### Core Concept
 
-Service discovery is like a phone directory:
-- **White Pages**: Look up service by name → get address
-- **Yellow Pages**: Look up by capability → get list of providers
-- **411 Service**: Ask operator → get connection
-- **Updates**: Numbers change, directory must be current
+Service discovery enables services to find and communicate with each other dynamically, like a constantly updated phone directory for microservices.
 
-### Basic Service Discovery
+### Basic Implementation
 
 ```python
-import time
-from typing import Dict, List, Optional
-
 class SimpleServiceRegistry:
     def __init__(self):
         self.services = {}  # service_name -> list of instances
 
-    def register(self, service_name: str, instance_id: str,
-                 address: str, port: int, metadata: dict = None):
+    def register(self, service_name: str, instance_id: str, address: str, port: int):
         """Register a service instance"""
         if service_name not in self.services:
             self.services[service_name] = []
-
-        instance = {
+        
+        self.services[service_name].append({
             'id': instance_id,
             'address': address,
             'port': port,
-            'metadata': metadata or {},
-            'registered_at': time.time(),
             'last_heartbeat': time.time()
-        }
-
-        self.services[service_name].append(instance)
-        return True
-
-    def deregister(self, service_name: str, instance_id: str):
-        """Remove a service instance"""
-        if service_name in self.services:
-            self.services[service_name] = [
-                inst for inst in self.services[service_name]
-                if inst['id'] != instance_id
-            ]
+        })
 
     def discover(self, service_name: str) -> List[dict]:
         """Find all instances of a service"""
         return self.services.get(service_name, [])
 
     def discover_one(self, service_name: str) -> Optional[dict]:
-        """Find single instance (round-robin)"""
+        """Get single instance with round-robin"""
         instances = self.discover(service_name)
         if instances:
-            # Simple round-robin
-            instance = instances[0]
-            # Move to end for next time
+            # Rotate for round-robin
             self.services[service_name].append(
                 self.services[service_name].pop(0)
             )
-            return instance
+            return instances[0]
         return None
 ```
 
@@ -89,59 +66,30 @@ class SimpleServiceRegistry:
 
 ## 🏗️ Level 2: Foundation
 
-### Service Discovery Patterns
+| Pattern | Description | Trade-offs |
+|---------|-------------|------------|
+| **Client-Side** | Clients query registry | Complex clients, simple infra |
+| **Server-Side** | Load balancer queries | Simple clients, complex infra |
+| **DNS-Based** | DNS as registry | Limited metadata, caching |
+| **Gossip-Based** | P2P discovery | Eventually consistent |
 
-| Pattern | Description | Use Case | Trade-offs |
-|---------|-------------|----------|------------|
-| **Client-Side** | Clients query registry | Microservices | Complex clients, simple infra |
-| **Server-Side** | Load balancer queries | Traditional apps | Simple clients, complex infra |
-| **DNS-Based** | DNS as registry | Cross-platform | Limited metadata, caching issues |
-| **Gossip-Based** | P2P discovery | Large scale | Eventually consistent |
+### Architecture Patterns
 
-### Service Discovery Architecture
+```
+Client-Side Discovery:             Server-Side Discovery:
 
-```mermaid
-graph TB
-    subgraph "Client-Side Discovery"
-        Client1[Service Client]
-        Client2[Service Client]
-        Registry1[Service Registry]
-        Service1[Service Instance A]
-        Service2[Service Instance B]
-        
-        Client1 -->|1. Query| Registry1
-        Registry1 -->|2. Return instances| Client1
-        Client1 -->|3. Direct call| Service1
-        Client2 --> Registry1
-        Client2 --> Service2
-    end
-    
-    subgraph "Server-Side Discovery"
-        ClientA[Client]
-        LB[Load Balancer]
-        Registry2[Service Registry]
-        ServiceA[Service Instance A]
-        ServiceB[Service Instance B]
-        
-        ClientA -->|1. Request| LB
-        LB -->|2. Query| Registry2
-        Registry2 -->|3. Return instances| LB
-        LB -->|4. Route| ServiceA
-        LB --> ServiceB
-    end
-    
-    style Registry1 fill:#f9f,stroke:#333,stroke-width:4px
-    style Registry2 fill:#f9f,stroke:#333,stroke-width:4px
+Client → Registry                 Client → Load Balancer
+  ↓         ↓                              ↓
+  ↓    [instances]                    Registry
+  ↓                                        ↓
+Service A, B, C                      Service A, B, C
+
+Client handles routing               LB handles routing
 ```
 
-### Implementing Client-Side Discovery
+### Client-Side Discovery
 
 ```python
-import random
-import requests
-from typing import List, Optional
-from urllib.parse import urljoin
-
 class ServiceDiscoveryClient:
     def __init__(self, registry_url: str):
         self.registry_url = registry_url
@@ -149,126 +97,79 @@ class ServiceDiscoveryClient:
         self.cache_ttl = 30  # seconds
 
     def get_service_instances(self, service_name: str) -> List[dict]:
-        """Get all instances with caching"""
-        # Check cache
+        """Get instances with caching"""
+        # Check cache first
         if service_name in self.cache:
             entry = self.cache[service_name]
             if time.time() - entry['cached_at'] < self.cache_ttl:
                 return entry['instances']
 
         # Fetch from registry
-        try:
-            response = requests.get(
-                urljoin(self.registry_url, f'/services/{service_name}')
-            )
-            instances = response.json()['instances']
+        response = requests.get(f"{self.registry_url}/services/{service_name}")
+        instances = response.json()['instances']
+        
+        # Cache results
+        self.cache[service_name] = {
+            'instances': instances,
+            'cached_at': time.time()
+        }
+        return instances
 
-            # Update cache
-            self.cache[service_name] = {
-                'instances': instances,
-                'cached_at': time.time()
-            }
-
-            return instances
-        except Exception as e:
-            # Return cached data if available
-            if service_name in self.cache:
-                return self.cache[service_name]['instances']
-            raise e
-
-    def call_service(self, service_name: str,
-                     endpoint: str, **kwargs) -> requests.Response:
-        """Call service with automatic discovery"""
+    def call_service(self, service_name: str, endpoint: str) -> Response:
+        """Call service with auto-discovery and retry"""
         instances = self.get_service_instances(service_name)
-
-        if not instances:
-            raise Exception(f"No instances found for {service_name}")
-
-        # Try instances until success
-        errors = []
+        
+        # Try up to 3 instances
         for attempt in range(min(3, len(instances))):
-            instance = self.select_instance(instances)
-
+            instance = random.choice(instances)
             try:
                 url = f"http://{instance['address']}:{instance['port']}{endpoint}"
-                response = requests.request(
-                    method=kwargs.get('method', 'GET'),
-                    url=url,
-                    **kwargs
-                )
-                response.raise_for_status()
-                return response
-            except Exception as e:
-                errors.append((instance, str(e)))
-                # Remove failed instance from list
-                instances = [i for i in instances if i != instance]
-
-        raise Exception(f"All instances failed: {errors}")
-
-    def select_instance(self, instances: List[dict]) -> dict:
-        """Select instance using load balancing strategy"""
-        # Could implement various strategies:
-        # - Random
-        # - Round-robin
-        # - Least connections
-        # - Response time based
-        return random.choice(instances)
+                return requests.get(url)
+            except:
+                instances.remove(instance)  # Remove failed
+        
+        raise Exception(f"All instances failed for {service_name}")
 ```
 
-### Health-Aware Service Discovery
+### Health-Aware Discovery
 
 ```python
 class HealthAwareRegistry:
-    def __init__(self, health_check_interval: int = 30):
+    def __init__(self):
         self.services = {}
-        self.health_check_interval = health_check_interval
-        self.health_status = {}
+        self.health_check_interval = 30  # seconds
 
-    def register_with_health_check(self, service_name: str,
-                                  instance: dict,
-                                  health_endpoint: str):
-        """Register service with health check URL"""
+    def register_with_health(self, service: str, instance: dict, health_endpoint: str):
         instance['health_endpoint'] = health_endpoint
         instance['health_status'] = 'unknown'
-        instance['last_health_check'] = 0
+        instance['last_check'] = 0
+        
+        if service not in self.services:
+            self.services[service] = []
+        self.services[service].append(instance)
 
-        if service_name not in self.services:
-            self.services[service_name] = []
-
-        self.services[service_name].append(instance)
-
-        # Immediate health check
-        self.check_instance_health(service_name, instance)
-
-    def check_instance_health(self, service_name: str, instance: dict):
-        """Check health of a specific instance"""
-        health_url = f"http://{instance['address']}:{instance['port']}{instance['health_endpoint']}"
-
-        try:
-            response = requests.get(health_url, timeout=5)
-            if response.status_code == 200:
-                instance['health_status'] = 'healthy'
-                instance['last_health_check'] = time.time()
-            else:
-                instance['health_status'] = 'unhealthy'
-        except:
-            instance['health_status'] = 'unhealthy'
-
-    def get_healthy_instances(self, service_name: str) -> List[dict]:
+    def get_healthy_instances(self, service: str) -> List[dict]:
         """Return only healthy instances"""
-        if service_name not in self.services:
-            return []
-
         healthy = []
-        for instance in self.services[service_name]:
-            # Check if health check is stale
-            if time.time() - instance['last_health_check'] > self.health_check_interval:
-                self.check_instance_health(service_name, instance)
-
+        
+        for instance in self.services.get(service, []):
+            # Check health if stale
+            if time.time() - instance['last_check'] > self.health_check_interval:
+                self._check_health(instance)
+            
             if instance['health_status'] == 'healthy':
                 healthy.append(instance)
-
+        
         return healthy
+    
+    def _check_health(self, instance: dict):
+        try:
+            url = f"http://{instance['address']}:{instance['port']}{instance['health_endpoint']}"
+            response = requests.get(url, timeout=5)
+            instance['health_status'] = 'healthy' if response.status_code == 200 else 'unhealthy'
+        except:
+            instance['health_status'] = 'unhealthy'
+        instance['last_check'] = time.time()
 ```
 
 ---

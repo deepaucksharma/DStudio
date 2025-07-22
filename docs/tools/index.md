@@ -24,7 +24,7 @@ Apply the axioms and pillars with practical calculators, worksheets, and decisio
 
 ### Geographic Latency Estimator
 
-```yaml
+```text
 Distance-Based Latency Calculator:
 
 Speed of Light in Fiber: ~200,000 km/s (2/3 speed of light in vacuum)
@@ -99,7 +99,7 @@ Example: E-commerce Site
 
 ### Storage Calculator
 
-```yaml
+```text
 Storage Needs = (Data per Day × Retention Days × Replication Factor) × (1 + Growth Rate)
 
 Example: Logging System
@@ -137,7 +137,7 @@ Example: Logging System
 
 ### MTBF/MTTR Calculator
 
-```yaml
+```text
 Availability = MTBF / (MTBF + MTTR)
 
 Where:
@@ -188,7 +188,7 @@ Risk Matrix:
 
 ### Deadlock Prevention Checklist
 
-```yaml
+```text
 Coffman Conditions (ALL must be true for deadlock):
 □ Mutual Exclusion - Resources can't be shared
 □ Hold and Wait - Process holds resource while waiting
@@ -221,7 +221,7 @@ Prevention Strategies:
 
 ### Quorum Calculator
 
-```yaml
+```text
 Quorum Sizes for N nodes:
 
 Read Quorum (R) + Write Quorum (W) > N
@@ -246,7 +246,7 @@ Examples for N=5:
 
 ### Golden Signals Calculator
 
-```yaml
+```text
 The Four Golden Signals:
 
 1. Latency
@@ -290,7 +290,7 @@ The Four Golden Signals:
 
 ### Cognitive Load Scorer
 
-```yaml
+```text
 Rate each factor (1-5, where 5 = high load):
 
 Information Density:
@@ -314,7 +314,7 @@ Total Score: ___/40
 
 ### Runbook Quality Checklist
 
-```yaml
+```text
 Essential Elements:
 □ Clear trigger conditions
 □ Step-by-step instructions
@@ -444,7 +444,7 @@ What is the change that we're proposing and/or doing?
 
 ### Caching Strategy Selector
 
-```yaml
+```text
 Decision Tree:
 Is data user-specific?
 ├─ Yes → Session/local cache
@@ -462,7 +462,7 @@ Is data user-specific?
 **Essential formulas and rules of thumb**
 
 ### Little's Law
-```
+```math
 L = λ × W
 - L = Items in system
 - λ = Arrival rate
@@ -470,7 +470,7 @@ L = λ × W
 ```
 
 ### Amdahl's Law
-```
+```math
 Speedup = 1 / (S + P/N)
 - S = Serial fraction
 - P = Parallel fraction  
@@ -478,19 +478,19 @@ Speedup = 1 / (S + P/N)
 ```
 
 ### Network Bandwidth
-```
+```math
 Bandwidth (Mbps) = File Size (MB) × 8 / Time (seconds)
 Time = Distance (km) / 200,000 km/s + Processing
 ```
 
 ### Storage IOPS
-```
+```math
 IOPS = 1000 / (Seek Time + Latency)
 Throughput = IOPS × Block Size
 ```
 
 ### Availability Math
-```
+```math
 Serial: A = A₁ × A₂ × ... × Aₙ
 Parallel: A = 1 - (1-A₁) × (1-A₂) × ... × (1-Aₙ)
 ```

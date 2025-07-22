@@ -32,7 +32,7 @@ Just as chemistry emerges from physics, and biology from chemistry,
 distributed system patterns emerge from fundamental constraints.
 ```
 
-### From Constraints to Capabilities
+## From Constraints to Capabilities
 
 The eight axioms reveal fundamental limits:
 - Information cannot travel faster than light (Latency)
@@ -85,7 +85,7 @@ graph TD
     style P5 fill:#f3e5f5
 ```
 
-### Why These Five?
+## Why These Five?
 
 **Coverage Analysis**:
 ```text
@@ -113,13 +113,13 @@ Orthogonality check: ✓ Pillars independent
 2020s: AI/Edge (Intelligence distribution emerges)
 ```
 
-### The Emergence Property
+## The Emergence Property
 
 Here's something beautiful: when you master these five pillars, something emerges that's greater than their sum. You develop *systems intuition*—the ability to see how changes ripple through complex architectures, to predict where bottlenecks will form, to design for failures you haven't seen yet.
 
 This intuition is what separates senior engineers from junior ones. It's what lets you walk into a room full of smart people arguing about architecture and quietly suggest the solution that makes everyone say "oh, obviously."
 
-### The Pillar Interaction Model
+## The Pillar Interaction Model
 
 ```text
 Work × State = Stateless vs Stateful services
@@ -129,7 +129,7 @@ Control × All = Orchestration patterns
 Intelligence × All = Self-healing systems
 ```
 
-### Mental Model: The Distributed Systems House
+## Mental Model: The Distributed Systems House
 
 ```mermaid
 graph TB
@@ -156,18 +156,18 @@ graph TB
     style T fill:#fff3e0
 ```
 
-### How Pillars Build on Axioms
+## How Pillars Build on Axioms
 
 Each pillar respects all eight axioms, but typically wrestles most directly with a subset:
-- **Work** primarily grapples with Latency and Capacity
-- **State** wrestles with Consistency and Partial Failure
-- **Truth** deals with Coordination and Observability
-- **Control** balances Human Interface and Economics
-- **Intelligence** emerges from all axioms working together
+- **Work** primarily grapples with [Latency](../part1-axioms/axiom1-latency/index.md) and [Capacity](../part1-axioms/axiom2-capacity/index.md)
+- **State** wrestles with [Consistency](../part1-axioms/axiom4-concurrency/index.md) and [Partial Failure](../part1-axioms/axiom3-failure/index.md)
+- **Truth** deals with [Coordination](../part1-axioms/axiom5-coordination/index.md) and [Observability](../part1-axioms/axiom6-observability/index.md)
+- **Control** balances [Human Interface](../part1-axioms/axiom7-human/index.md) and [Economics](../part1-axioms/axiom8-economics/index.md)
+- **Intelligence** emerges from [all axioms](../part1-axioms/index.md) working together
 
 ## The Five Pillars with Theoretical Foundations
 
-### 1. Work Distribution: Distributing Computation
+## 1. Work Distribution: Distributing Computation
 **Theoretical Foundation**: Load balancing theory, queueing theory (M/M/c models)
 
 **Key Concepts**:
@@ -176,13 +176,15 @@ Each pillar respects all eight axioms, but typically wrestles most directly with
 - Service mesh patterns
 - Serverless architectures
 
+[Related: Latency Axiom](../part1-axioms/axiom1-latency/index.md) | [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) | [Load Balancing Pattern](../patterns/load-balancing.md) | [Serverless Pattern](../patterns/serverless-faas.md)
+
 **Real-World Example**: **Google MapReduce**
 In 2004, Google published the MapReduce paper¹, showing how to process 20TB of data across 1800 machines in just 30 minutes. This work distribution pattern spawned Hadoop and revolutionized big data processing.
 
 !!! example "Industry Implementation"
     Google processes exabytes of data daily using descendants of MapReduce, distributing work across hundreds of thousands of machines. The key insight: move computation to data, not data to computation.
 
-### 2. State Distribution: Distributing Data
+## 2. State Distribution: Distributing Data
 **Theoretical Foundation**: CAP theorem², consistent hashing, quorum systems
 
 **Key Concepts**:
@@ -191,13 +193,15 @@ In 2004, Google published the MapReduce paper¹, showing how to process 20TB of 
 - Consistency models (eventual, strong, causal)
 - Distributed storage systems
 
+[Related: Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) | [Failure Axiom](../part1-axioms/axiom3-failure/index.md) | [Sharding Pattern](../patterns/sharding.md) | [CDC Pattern](../patterns/cdc.md)
+
 **Real-World Example**: **Apache Cassandra at Netflix**
 Netflix uses Cassandra³ to store viewing history for 200+ million users across multiple regions. They chose AP (availability + partition tolerance) over consistency, accepting that viewing history might be slightly out of sync between regions.
 
 !!! info "CAP Theorem in Practice"
     As Brewer's CAP theorem states: "A distributed system cannot simultaneously provide Consistency, Availability, and Partition tolerance"². The State pillar is fundamentally about navigating these trade-offs.
 
-### 3. Truth Distribution: Achieving Consensus
+## 3. Truth Distribution: Achieving Consensus
 **Theoretical Foundation**: FLP impossibility⁴, Paxos⁵, Raft⁶ consensus algorithms
 
 **Key Concepts**:
@@ -206,13 +210,15 @@ Netflix uses Cassandra³ to store viewing history for 200+ million users across 
 - Clock synchronization
 - Byzantine fault tolerance
 
+[Related: Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) | [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) | [Event Sourcing Pattern](../patterns/event-sourcing.md) | [Saga Pattern](../patterns/saga.md)
+
 **Real-World Example**: **Google Spanner**
 Google Spanner⁷ uses atomic clocks (TrueTime) to achieve globally consistent transactions across continents. It's the first system to provide consistency + availability at global scale by cleverly working around CAP theorem limitations.
 
 !!! warning "FLP Impossibility"
     The Fischer-Lynch-Paterson result⁴ proves that deterministic consensus is impossible in asynchronous systems with even one faulty process. This fundamental limit shapes all consensus protocols.
 
-### 4. Control Distribution: Managing Operations
+## 4. Control Distribution: Managing Operations
 **Theoretical Foundation**: Control theory, feedback loops, observability theory
 
 **Key Concepts**:
@@ -221,13 +227,15 @@ Google Spanner⁷ uses atomic clocks (TrueTime) to achieve globally consistent t
 - Health checking and circuit breaking
 - Deployment strategies
 
+[Related: Observability Axiom](../part1-axioms/axiom6-observability/index.md) | [Human Interface Axiom](../part1-axioms/axiom7-human/index.md) | [Service Mesh Pattern](../patterns/service-mesh.md) | [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
+
 **Real-World Example**: **Kubernetes**
 Kubernetes⁸ exemplifies control distribution, managing millions of containers across thousands of nodes. Its control plane continuously reconciles desired state with actual state, handling failures automatically.
 
 !!! example "Control at Scale"
     Google's Borg (Kubernetes' predecessor) manages over 2 billion containers per week⁹, demonstrating how control distribution enables planet-scale operations.
 
-### 5. Intelligence Distribution: Adaptive Systems
+## 5. Intelligence Distribution: Adaptive Systems
 **Theoretical Foundation**: Machine learning, control theory, chaos engineering
 
 **Key Concepts**:
@@ -235,6 +243,8 @@ Kubernetes⁸ exemplifies control distribution, managing millions of containers 
 - Predictive scaling
 - Anomaly detection
 - Chaos engineering
+
+[Related: All 8 Axioms](../part1-axioms/index.md) | [Auto-Scaling Pattern](../patterns/auto-scaling.md) | [Spotify ML Case Study](../case-studies/spotify-recommendations.md)
 
 **Real-World Example**: **Netflix Chaos Engineering**
 Netflix pioneered chaos engineering¹⁰ with Chaos Monkey, deliberately breaking production systems to build resilience. Their intelligent systems detect and route around failures automatically.
@@ -316,6 +326,29 @@ Each pillar builds on the previous ones, so we recommend reading them in order. 
 Ready to see how work gets distributed across the planet?
 
 [**→ Continue to Pillar 1: Work Distribution**](work/index.md)
+
+---
+
+## 🔗 Quick Navigation
+
+## From Axioms to Pillars
+- [8 Fundamental Axioms](../part1-axioms/index.md) - The constraints that shape these pillars
+- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) → Work Distribution
+- [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) → State Distribution
+- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) → Truth Distribution
+- [Observability Axiom](../part1-axioms/axiom6-observability/index.md) → Control Distribution
+
+## Pillars in Practice
+- [CQRS Pattern](../patterns/cqrs.md) - Separating reads and writes (Work + State)
+- [Event Sourcing](../patterns/event-sourcing.md) - State as events (State + Truth)
+- [Service Mesh](../patterns/service-mesh.md) - Infrastructure for control (Control)
+- [Saga Pattern](../patterns/saga.md) - Distributed transactions (Truth + Work)
+
+## Real-World Applications
+- [Uber's Work Distribution](../case-studies/uber-location.md) - 40M concurrent users
+- [DynamoDB's State Distribution](../case-studies/amazon-dynamo.md) - 99.999% availability
+- [PayPal's Truth Distribution](../case-studies/paypal-payments.md) - $1.36T/year processing
+- [Spotify's Intelligence Distribution](../case-studies/spotify-recommendations.md) - 5B recommendations/day
 
 ---
 

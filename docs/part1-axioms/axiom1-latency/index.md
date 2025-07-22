@@ -1249,6 +1249,41 @@ class GeographicLoadBalancer:
 
 ---
 
+## Related Concepts
+
+### Pillars Building on This Axiom
+- [Work Distribution](../../part2-pillars/work/index.md) - How to distribute work considering latency constraints
+- [State Management](../../part2-pillars/state/index.md) - Managing state across geographically distributed systems
+- [Truth & Consensus](../../part2-pillars/truth/index.md) - Achieving consensus despite network latency
+- [Control & Ordering](../../part2-pillars/control/index.md) - Maintaining order in the face of variable latency
+
+### Patterns Addressing Latency Challenges
+- [Caching Strategies](../../patterns/caching-strategies.md) - Reduce latency by keeping data close to users
+- [Edge Computing](../../patterns/edge-computing.md) - Process at the edge to minimize round trips
+- [Circuit Breaker](../../patterns/circuit-breaker.md) - Fail fast when latency exceeds thresholds
+- [Timeout](../../patterns/timeout.md) - Prevent indefinite waiting due to network delays
+- [Bulkhead](../../patterns/bulkhead.md) - Isolate latency-sensitive operations
+- [Load Balancing](../../patterns/load-balancing.md) - Route to least latent endpoints
+
+### Case Studies Demonstrating Latency Impact
+- [Uber's Real-Time Location](../../case-studies/uber-location.md) - Managing global location data with strict latency requirements
+- [Spotify Recommendations](../../case-studies/spotify-recommendations.md) - Delivering personalized content with minimal latency
+- [Amazon DynamoDB](../../case-studies/amazon-dynamo.md) - Multi-region replication with controlled latency
+
+### Other Axioms That Interact
+- [Axiom 2: Finite Capacity](../axiom2-capacity/index.md) - Latency increases as systems approach capacity
+- [Axiom 3: Partial Failure](../axiom3-failure/index.md) - Network partitions manifest as infinite latency
+- [Axiom 4: Concurrency](../axiom4-concurrency/index.md) - Parallel operations to hide latency
+- [Axiom 5: Coordination](../axiom5-coordination/index.md) - Coordination overhead adds latency
+
+### Quantitative Tools
+- [Latency Budget Analysis](../../quantitative/latency-ladder.md) - Tools for calculating and budgeting latency
+- [Queueing Theory](../../quantitative/queueing-models.md) - Mathematical models for latency under load
+- [Little's Law](../../quantitative/littles-law.md) - Fundamental relationship between latency and throughput
+- [Network Modeling](../../quantitative/network-model.md) - Predicting latency in complex topologies
+
+---
+
 **Next**: [Examples](examples.md)
 
 **Related**: [Timeout](../../patterns/timeout.md) • [Circuit Breaker](../../patterns/circuit-breaker.md) • [Caching Strategies](../../patterns/caching-strategies.md)

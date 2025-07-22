@@ -53,13 +53,46 @@ System = 1 - (0.001 × 0.001) = 99.9999%
 ```
 
 ### N+M Redundancy
-```python
-Need N components, have N+M
-System fails when more than M fail
 
-For identical components with availability A:
-Availability = Σ(k=0 to M) C(N+M,k) × A^(N+M-k) × (1-A)^k
-```
+<div class="truth-box">
+<h4>📈 N+M Redundancy Formula</h4>
+
+<div style="background: #E3F2FD; padding: 20px; border-radius: 8px; margin: 15px 0;">
+  <p><strong>Scenario</strong>: Need N components working, have N+M total</p>
+  <p><strong>System fails when</strong>: More than M components fail</p>
+  
+  <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: 'Courier New', monospace;">
+    <strong>For identical components with availability A:</strong><br><br>
+    Availability = Σ<sub>k=0</sub><sup>M</sup> C(N+M,k) × A<sup>(N+M-k)</sup> × (1-A)<sup>k</sup>
+  </div>
+  
+  <div style="margin-top: 15px;">
+    <strong>Example: 3+2 Redundancy (Need 3, Have 5)</strong>
+    <table style="width: 100%; margin-top: 10px;">
+      <tr style="background: #BBDEFB;">
+        <th style="padding: 8px;">Component Availability</th>
+        <th style="padding: 8px;">System Availability</th>
+        <th style="padding: 8px;">Improvement</th>
+      </tr>
+      <tr>
+        <td style="padding: 8px; text-align: center;">90%</td>
+        <td style="padding: 8px; text-align: center;">99.14%</td>
+        <td style="padding: 8px; text-align: center; color: #4CAF50;">+10x</td>
+      </tr>
+      <tr style="background: #F5F5F5;">
+        <td style="padding: 8px; text-align: center;">99%</td>
+        <td style="padding: 8px; text-align: center;">99.999%</td>
+        <td style="padding: 8px; text-align: center; color: #4CAF50;">+100x</td>
+      </tr>
+      <tr>
+        <td style="padding: 8px; text-align: center;">99.9%</td>
+        <td style="padding: 8px; text-align: center;">99.99999%</td>
+        <td style="padding: 8px; text-align: center; color: #4CAF50;">+1000x</td>
+      </tr>
+    </table>
+  </div>
+</div>
+</div>
 
 ## Complex System Modeling
 

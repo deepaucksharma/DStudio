@@ -18,16 +18,26 @@ last_updated: 2025-07-20
 
 ## The Observability Triad
 
-```text
-        Metrics
-          ↑
-       INSIGHTS
-      ↙        ↘
-   Logs ←----→ Traces
-
-Metrics: What is broken
-Logs: Why it's broken
-Traces: Where it's broken
+```mermaid
+graph TB
+    subgraph "The Observability Triad"
+        M[Metrics<br/>What is broken?]
+        L[Logs<br/>Why is it broken?]
+        T[Traces<br/>Where is it broken?]
+        
+        M <--> I[INSIGHTS]
+        L <--> I
+        T <--> I
+        
+        M <--> L
+        L <--> T
+        T <--> M
+    end
+    
+    style I fill:#ffd54f,stroke:#333,stroke-width:3px
+    style M fill:#e3f2fd
+    style L fill:#e8f5e9
+    style T fill:#fff3e0
 ```
 
 ## Modern Observability Stack
@@ -84,112 +94,178 @@ Instrumentation → Collection → Storage → Analysis
 
 ## Reference Architecture
 
-```text
-                    Applications
-                         ↓
-              [OpenTelemetry SDK/Agents]
-                    ↓    ↓    ↓
-                Metrics Logs Traces
-                   ↓     ↓     ↓
-              [OTLP Collector Cluster]
-                ↙      ↓        ↘
-        Prometheus  Loki    Jaeger/Tempo
-              ↘      ↓        ↙
-                  Grafana
-                     ↓
-              📊 Dashboards
-              🚨 Alerts
-              🔍 Exploration
+```mermaid
+flowchart TD
+    subgraph "Reference Architecture"
+        A[Applications] --> B[OpenTelemetry SDK/Agents]
+        B --> C[Metrics]
+        B --> D[Logs]
+        B --> E[Traces]
+        
+        C --> F[OTLP Collector Cluster]
+        D --> F
+        E --> F
+        
+        F --> G[Prometheus]
+        F --> H[Loki]
+        F --> I[Jaeger/Tempo]
+        
+        G --> J[Grafana]
+        H --> J
+        I --> J
+        
+        J --> K[📊 Dashboards]
+        J --> L[🚨 Alerts]
+        J --> M[🔍 Exploration]
+    end
+    
+    style A fill:#e3f2fd
+    style F fill:#fff3cd
+    style J fill:#c8e6c9
 ```
 
 ## Implementation Guide
 
 ### 1. Instrument Applications
 
-```python
-# Metrics
-from prometheus_client import Histogram, Counter
+**Metrics Implementation Pattern:**
 
-request_duration = Histogram(
-    'http_request_duration_seconds',
-    'HTTP request latency',
-    ['method', 'route', 'status']
-)
-
-request_count = Counter(
-    'http_requests_total',
-    'Total HTTP requests',
-    ['method', 'route', 'status']
-)
-
-# Usage
-@request_duration.time()
-def handle_request(request):
-    # Process request
-    request_count.labels(
-        method=request.method,
-        route=request.path,
-        status=response.status
-    ).inc()
+```mermaid
+flowchart LR
+    subgraph "Metrics Collection Flow"
+        A[Request Arrives] --> B[Start Timer]
+        B --> C[Process Request]
+        C --> D[Stop Timer]
+        D --> E[Record Metrics]
+        
+        E --> F[Duration Histogram]
+        E --> G[Request Counter]
+        E --> H[Error Counter]
+        
+        F --> I[Prometheus<br/>Scrapes]
+        G --> I
+        H --> I
+    end
+    
+    style A fill:#e3f2fd
+    style E fill:#fff3cd
+    style I fill:#c8e6c9
 ```
 
-```python
-# Logs (structured)
-import structlog
+**Key Metrics to Track:**
 
-logger = structlog.get_logger()
+| Metric Type | Name | Labels | Purpose |
+|------------|------|--------|------|
+| **Histogram** | request_duration | method, route, status | Latency distribution |
+| **Counter** | requests_total | method, route, status | Request rate |
+| **Gauge** | concurrent_requests | service | Current load |
+| **Summary** | response_size | endpoint | Payload analysis |
 
-logger.info('Request processed',
-    request_id=req.id,
-    user_id=user.id,
-    duration=duration,
-    status=res.statusCode,
-    correlation_id=req.correlation_id
-)
+**Structured Logging Best Practices:**
+
+```mermaid
+flowchart TD
+    subgraph "Structured Logging Flow"
+        A[Event Occurs] --> B{Log Level?}
+        B -->|ERROR| C[Always Log]
+        B -->|WARN| D[Usually Log]
+        B -->|INFO| E[Sample if High Volume]
+        B -->|DEBUG| F[Dev Only]
+        
+        C --> G[Add Context]
+        D --> G
+        E --> G
+        
+        G --> H[Standard Fields:<br/>- timestamp<br/>- level<br/>- service<br/>- trace_id<br/>- user_id<br/>- duration]
+        
+        H --> I[JSON Output]
+        I --> J[Log Aggregator]
+    end
+    
+    style C fill:#ffcdd2
+    style D fill:#fff3cd
+    style E fill:#e3f2fd
+    style F fill:#e0e0e0
 ```
 
-```python
-# Traces
-from opentelemetry import trace
+**Essential Log Fields:**
 
-tracer = trace.get_tracer(__name__)
+| Field | Type | Purpose | Example |
+|-------|------|---------|------|
+| timestamp | ISO8601 | When it happened | 2024-03-15T10:23:45Z |
+| level | string | Severity | ERROR, WARN, INFO |
+| service | string | Source service | payment-api |
+| trace_id | string | Correlation | 7f3a2b1c-4d5e-6f7a |
+| user_id | string | Who affected | user_12345 |
+| duration | number | Performance | 145.23 (ms) |
+| error | object | Error details | {"type": "timeout"} |
 
-with tracer.start_as_current_span('process_payment') as span:
-    span.set_attributes({
-        'payment.amount': amount,
-        'payment.currency': currency,
-        'payment.method': method
-    })
-
-    # Process payment
-    result = process_payment_internal(amount)
-
-    span.set_attribute('payment.success', result.success)
+```mermaid
+flowchart TD
+    subgraph "Distributed Tracing Flow"
+        A[Client Request] --> B[API Gateway<br/>Span: gateway]
+        B --> C[Auth Service<br/>Span: auth]
+        B --> D[Payment Service<br/>Span: payment]
+        
+        C --> B
+        
+        D --> E[Database<br/>Span: db_query]
+        D --> F[External API<br/>Span: stripe_api]
+        
+        E --> D
+        F --> D
+        D --> B
+        B --> G[Client Response]
+        
+        H[Trace Timeline:<br/>gateway (200ms)<br/>├─ auth (30ms)<br/>└─ payment (150ms)<br/>    ├─ db_query (20ms)<br/>    └─ stripe_api (120ms)]
+    end
+    
+    style A fill:#e3f2fd
+    style G fill:#c8e6c9
+    style H fill:#fff3cd
 ```
+
+**Trace Attribute Standards:**
+
+| Category | Attributes | Example |
+|----------|-----------|------|
+| **HTTP** | http.method, http.status_code, http.url | GET, 200, /api/v1/users |
+| **Database** | db.system, db.statement, db.operation | postgresql, SELECT * FROM..., SELECT |
+| **Messaging** | messaging.system, messaging.operation | kafka, publish |
+| **Custom** | business.amount, business.user_tier | 99.99, premium |
 
 ### 2. Optimize Collection
 
-```yaml
-# Collector Configuration
-processors:
-  batch:
-    send_batch_size: 1000
-    timeout: 10s
-
-  memory_limiter:
-    check_interval: 1s
-    limit_mib: 512
-
-  sampling:
-    decision_cache_size: 10000
-    trace_id_ratio: 0.1  # 10% sampling
-
-# Resource optimization:
-# - Batch to reduce network calls
-# - Sample to control volume
-# - Filter noise early
-# - Compress where possible
+```mermaid
+flowchart LR
+    subgraph "Collector Optimization Pipeline"
+        A[Raw Telemetry] --> B[Memory Limiter<br/>512MB cap]
+        B --> C[Sampling<br/>10% traces]
+        C --> D[Batching<br/>1000 items]
+        D --> E[Compression<br/>gzip]
+        E --> F[Export]
+        
+        G[Dropped if OOM] -.-> B
+        H[90% Dropped] -.-> C
+        I[Reduced Calls] -.-> D
+        J[~70% smaller] -.-> E
+    end
+    
+    style B fill:#fff3cd
+    style C fill:#ffebee
+    style D fill:#e8f5e9
+    style E fill:#e3f2fd
 ```
+
+**Optimization Configuration Guide:**
+
+| Processor | Purpose | Config | Impact |
+|-----------|---------|--------|--------|
+| **Batch** | Reduce network calls | size: 1000, timeout: 10s | 90% fewer requests |
+| **Memory Limiter** | Prevent OOM | limit: 512MB | Stability |
+| **Sampling** | Control volume | ratio: 0.1 | 90% data reduction |
+| **Resource** | Add metadata | host.name, service.name | Context |
+| **Filter** | Remove noise | drop health checks | Relevant data only |
 
 ### 3. Design Dashboards
 
@@ -219,27 +295,41 @@ processors:
 
 ### 1. Correlation IDs
 
-```python
-# Flow: Request → Generate ID → Pass to all services → Include in all telemetry
-
-def correlation_id_middleware(request, response, next):
-    # Get or generate correlation ID
-    correlation_id = request.headers.get('x-correlation-id') or str(uuid4())
-
-    # Add to response
-    response.headers['x-correlation-id'] = correlation_id
-
-    # Add to all telemetry
-    logger = logger.bind(correlation_id=correlation_id)
-    span = trace.get_current_span()
-    if span:
-        span.set_attribute('correlation.id', correlation_id)
-
-    # Add to metrics labels (carefully - cardinality!)
-    metrics.labels(correlation_id=correlation_id)
-
-    return next(request, response)
+```mermaid
+flowchart TD
+    subgraph "Correlation ID Flow"
+        A[Request Arrives] --> B{Has Correlation ID?}
+        B -->|Yes| C[Extract ID]
+        B -->|No| D[Generate New ID]
+        
+        C --> E[Propagate ID]
+        D --> E
+        
+        E --> F[Add to Logs]
+        E --> G[Add to Traces]
+        E --> H[Add to Headers]
+        E --> I[Pass Downstream]
+        
+        I --> J[Service B]
+        I --> K[Service C]
+        
+        J --> L[Same ID in all telemetry]
+        K --> L
+    end
+    
+    style D fill:#fff3cd
+    style E fill:#e3f2fd
+    style L fill:#c8e6c9
 ```
+
+**Correlation ID Best Practices:**
+
+| Practice | Do | Don't | Why |
+|----------|----|----|-----|
+| **Generation** | Use UUID v4 | Sequential IDs | Avoid collisions |
+| **Propagation** | HTTP headers | Query params | Security |
+| **Storage** | Logs & traces | Metrics labels | Cardinality |
+| **Format** | Standard header | Custom per service | Consistency |
 
 ### 2. Service Dependency Mapping
 
@@ -278,23 +368,39 @@ Visualization:
 - Query frequency
 
 **Optimizations:**
-```python
-# Limit label cardinality
-# Bad: user_id as label (millions of values)
-# Good: status_code as label (handful of values)
+**Metrics Cost Optimization Strategies:**
 
-# Pre-aggregate common queries
-recording_rules:
-  - record: job:request_rate5m
-    expr: rate(http_requests_total[5m])
-
-# Downsample old data
-downsampling:
-  - resolution: 5m
-    retention: 30d
-  - resolution: 1h
-    retention: 90d
+```mermaid
+flowchart TD
+    subgraph "Cardinality Control"
+        A[Metric Labels] --> B{Cardinality Check}
+        B -->|High| C[❌ user_id<br/>❌ session_id<br/>❌ request_id]
+        B -->|Low| D[✅ status_code<br/>✅ method<br/>✅ service_name]
+        
+        C --> E[Millions of series<br/>💰 Expensive]
+        D --> F[Hundreds of series<br/>💵 Affordable]
+    end
+    
+    subgraph "Data Lifecycle"
+        G[Raw Data<br/>1min resolution] -->|7 days| H[Downsample<br/>5min resolution]
+        H -->|30 days| I[Downsample<br/>1hr resolution]
+        I -->|90 days| J[Archive/Delete]
+    end
+    
+    style C fill:#ffcdd2
+    style D fill:#c8e6c9
+    style E fill:#ffcdd2
+    style F fill:#c8e6c9
 ```
+
+**Cost Reduction Checklist:**
+
+| Strategy | Implementation | Savings | Impact |
+|----------|---------------|---------|--------|
+| Limit cardinality | Remove high-cardinality labels | 60-80% | None |
+| Pre-aggregate | Recording rules for common queries | 20-30% | Faster queries |
+| Downsample | Reduce resolution over time | 70-85% | Lose precision |
+| Drop metrics | Remove unused metrics | 10-30% | None |
 
 **Example savings:**
 - Before: 10M series × 15d = $5000/month
@@ -308,20 +414,36 @@ downsampling:
 - Indexing
 
 **Optimizations:**
-```python
-# Log sampling
-if log_level == 'INFO' and random() > 0.1:
-    return  # Sample 90% of info logs
-
-# Tiered storage
-hot_storage: 7 days (SSD)
-warm_storage: 30 days (HDD)
-cold_storage: 1 year (S3)
-
-# Index only searchable fields
-indexed_fields: [timestamp, level, service, correlation_id]
-stored_fields: [*]  # Store all, index few
+```mermaid
+flowchart LR
+    subgraph "Log Storage Tiers"
+        A[New Logs] --> B[Hot Storage<br/>7 days<br/>SSD<br/>Full index]
+        B --> C[Warm Storage<br/>30 days<br/>HDD<br/>Partial index]
+        C --> D[Cold Storage<br/>1 year<br/>S3<br/>No index]
+        D --> E[Archive/Delete]
+        
+        F[Search Speed] --> B
+        F --> G[Slower] --> C
+        G --> H[Very Slow] --> D
+        
+        I[Cost/GB] --> J[$$$] --> B
+        J --> K[$$] --> C
+        K --> L[$] --> D
+    end
+    
+    style B fill:#ffcdd2
+    style C fill:#fff3cd
+    style D fill:#e8f5e9
 ```
+
+**Log Optimization Matrix:**
+
+| Log Level | Sample Rate | Retention | Index Fields | Use Case |
+|-----------|------------|-----------|--------------|----------|
+| ERROR | 100% | 90 days | All fields | Debugging |
+| WARN | 100% | 30 days | Most fields | Monitoring |
+| INFO | 10% | 7 days | Key fields | Analytics |
+| DEBUG | 0% (dev only) | 1 day | Minimal | Development |
 
 **Example savings:**
 - Before: 1TB/day × 30d = $15000/month
@@ -335,23 +457,43 @@ stored_fields: [*]  # Store all, index few
 - Retention
 
 **Optimizations:**
-```python
-# Tail-based sampling
-def should_sample(trace):
-    # Always sample errors
-    if trace.has_error:
-        return True
-
-    # Sample slow requests
-    if trace.duration > 1000:  # 1 second
-        return True
-
-    # Random sample others
-    return random() < 0.01  # 1%
-
-# Trace aggregation
-# Store full traces short-term, aggregates long-term
+```mermaid
+flowchart TD
+    subgraph "Intelligent Trace Sampling"
+        A[Completed Trace] --> B{Has Error?}
+        B -->|Yes| C[✅ Keep 100%]
+        B -->|No| D{Duration > 1s?}
+        
+        D -->|Yes| E[✅ Keep 100%]
+        D -->|No| F{Random Check}
+        
+        F -->|1% chance| G[✅ Keep]
+        F -->|99% chance| H[❌ Drop]
+        
+        C --> I[Store Full Trace]
+        E --> I
+        G --> I
+        
+        I --> J[Aggregate Metrics]
+        H --> J
+        
+        J --> K[Long-term Storage]
+    end
+    
+    style C fill:#c8e6c9
+    style E fill:#c8e6c9
+    style G fill:#e8f5e9
+    style H fill:#ffebee
 ```
+
+**Sampling Strategy Comparison:**
+
+| Strategy | Keep Rate | Pros | Cons | Best For |
+|----------|-----------|------|------|-------|
+| Head-based | Fixed % | Simple, predictable cost | Might miss errors | High volume |
+| Tail-based | Dynamic | Keeps interesting traces | Higher complexity | Quality over quantity |
+| Adaptive | Variable | Adjusts to load | Complex to implement | Variable traffic |
+| Always-on | 100% errors + sample | Catches all issues | Storage cost | Production systems |
 
 **Example savings:**
 - Before: 100% traces = $8000/month
@@ -361,31 +503,41 @@ def should_sample(trace):
 
 ### Investigation Flow
 
-```proto
-1. Alert fires: "Payment service error rate high"
-
-2. Check metrics dashboard:
-   - Error rate: 15% (normal: <1%)
-   - Latency: p99 = 5s (normal: 100ms)
-   - Started: 10:42 AM
-
-3. Query logs:
-   - Filter: service="payment" level="error" @timestamp>10:40
-   - Finding: "Database connection timeout"
-   - Pattern: All errors from payment-db-2
-
-4. Analyze traces:
-   - Filter: service="payment" error=true
-   - Finding: payment-db-2 responding in 5s
-   - Root span: Database query stuck
-
-5. Check infrastructure:
-   - payment-db-2 CPU: 100%
-   - Disk I/O: Saturated
-   - Finding: Backup job running
-
-Resolution: Kill backup job, reschedule for off-peak
+```mermaid
+flowchart TD
+    subgraph "Troubleshooting Flow"
+        A[🚨 Alert: High Error Rate] --> B[📊 Check Metrics]
+        B --> C[Error: 15%<br/>Latency: 5s<br/>Start: 10:42]
+        
+        C --> D[📝 Query Logs]
+        D --> E["Database timeout"<br/>From: payment-db-2]
+        
+        E --> F[🔍 Analyze Traces]
+        F --> G[DB query: 5s<br/>Stuck at database]
+        
+        G --> H[🖥️ Check Infrastructure]
+        H --> I[CPU: 100%<br/>Disk I/O: Saturated<br/>Cause: Backup job]
+        
+        I --> J[💡 Resolution]
+        J --> K[Kill backup<br/>Reschedule off-peak]
+        
+        K --> L[✅ Service Recovered]
+    end
+    
+    style A fill:#ffcdd2
+    style L fill:#c8e6c9
+    style J fill:#fff3cd
 ```
+
+**Investigation Checklist:**
+
+| Step | Tool | What to Look For | Time |
+|------|------|-----------------|------|  
+| 1. Metrics | Grafana | Error rate, latency spike | 30s |
+| 2. Logs | Kibana/Loki | Error messages, patterns | 2min |
+| 3. Traces | Jaeger | Slow spans, failures | 2min |
+| 4. Infrastructure | Prometheus | CPU, memory, disk | 1min |
+| 5. Dependencies | Service map | Upstream/downstream | 1min |
 
 ## Observability Maturity
 

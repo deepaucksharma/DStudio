@@ -1807,6 +1807,52 @@ class RegionEvacuation:
 
 ---
 
+## Related Concepts
+
+### Pillars Building on This Axiom
+- [Work Distribution](../../part2-pillars/work/index.md) - Distributing work despite partial failures
+- [State Management](../../part2-pillars/state/index.md) - Maintaining state consistency during failures
+- [Truth & Consensus](../../part2-pillars/truth/index.md) - Achieving consensus when nodes fail
+- [Control & Ordering](../../part2-pillars/control/index.md) - Maintaining control flow during partial outages
+- [Intelligence & Learning](../../part2-pillars/intelligence/index.md) - ML-based failure prediction and mitigation
+
+### Patterns Addressing Failure Challenges
+- [Circuit Breaker](../../patterns/circuit-breaker.md) - Stop cascading failures by failing fast
+- [Retry & Backoff](../../patterns/retry-backoff.md) - Recover from transient failures gracefully
+- [Bulkhead](../../patterns/bulkhead.md) - Isolate failures to prevent system-wide impact
+- [Timeout](../../patterns/timeout.md) - Detect and handle unresponsive components
+- [Health Checks](../../patterns/health-checks.md) - Proactive failure detection
+- [Chaos Engineering](../../patterns/chaos-engineering.md) - Intentional failure injection for resilience
+- [Saga Pattern](../../patterns/saga.md) - Managing distributed transactions with failure compensation
+
+### Case Studies Demonstrating Failure Handling
+- [Netflix Chaos Engineering](../../case-studies/netflix-chaos.md) - Simian Army and production failure testing
+- [Amazon Aurora](../../case-studies/amazon-aurora.md) - Survivable database with quorum-based replication
+- [Google Spanner](../../case-studies/google-spanner.md) - Global consistency despite failures
+- [Uber's Ringpop](../../case-studies/uber-ringpop.md) - Gossip-based failure detection
+
+### Other Axioms That Interact
+- [Axiom 1: Latency](../axiom1-latency/index.md) - Network partitions appear as infinite latency
+- [Axiom 2: Finite Capacity](../axiom2-capacity/index.md) - Resource exhaustion causes failures
+- [Axiom 4: Concurrency](../axiom4-concurrency/index.md) - Race conditions during failure recovery
+- [Axiom 5: Coordination](../axiom5-coordination/index.md) - Consensus algorithms handle node failures
+- [Axiom 6: Observability](../axiom6-observability/index.md) - Detecting and diagnosing partial failures
+
+### Quantitative Tools
+- [Failure Probability Models](../../quantitative/failure-models.md) - Mathematical models for system reliability
+- [MTBF/MTTR Analysis](../../quantitative/mtbf-mttr.md) - Mean time between failures and recovery
+- [Availability Calculations](../../quantitative/availability.md) - Computing system uptime with failures
+- [Blast Radius Analysis](../../quantitative/blast-radius.md) - Quantifying failure impact
+
+### Human Factors
+- [Incident Response](../../human-factors/incident-response.md) - Human processes for handling failures
+- [Post-Mortems](../../human-factors/post-mortems.md) - Learning from failures without blame
+- [On-Call Practices](../../human-factors/on-call.md) - Sustainable approaches to 24/7 operations
+- [Runbooks](../../human-factors/runbooks.md) - Documented procedures for failure scenarios
+- [Game Days](../../human-factors/game-days.md) - Practicing failure response
+
+---
+
 **Next**: [Examples](examples.md)
 
 **Related**: [Circuit Breaker](../../patterns/circuit-breaker.md) • [Retry Backoff](../../patterns/retry-backoff.md) • [Bulkhead](../../patterns/bulkhead.md)

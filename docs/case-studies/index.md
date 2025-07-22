@@ -23,22 +23,26 @@ Learn how the 8 axioms and 5 pillars apply to real-world systems through detaile
 ### [Uber: Real-Time Location System](uber-location.md)
 **Scale**: 40M concurrent users | **Challenge**: Sub-100ms global location updates  
 **Key Insights**: H3 hexagonal grid system, edge computing, eventual consistency trade-offs  
-**Axioms in Focus**: Latency, Coordination, State Distribution
+**Axioms in Focus**: [Latency](../part1-axioms/axiom1-latency/index.md), [Coordination](../part1-axioms/axiom5-coordination/index.md), [State Distribution](../part2-pillars/state/index.md)  
+**Related Patterns**: [Edge Computing](../patterns/edge-computing.md) | [Geo-Replication](../patterns/geo-replication.md) | [Load Balancing](../patterns/load-balancing.md)
 
 ### [Amazon DynamoDB: Eventually Consistent by Design](amazon-dynamo.md)
 **Scale**: 105M requests/second | **Challenge**: 99.999% availability globally  
 **Key Insights**: Masterless architecture, vector clocks, consistent hashing, anti-entropy  
-**Axioms in Focus**: Failure, Consistency, Availability Trade-offs
+**Axioms in Focus**: [Failure](../part1-axioms/axiom3-failure/index.md), [Consistency](../part1-axioms/axiom4-concurrency/index.md), Availability Trade-offs  
+**Related Patterns**: [Tunable Consistency](../patterns/tunable-consistency.md) | [Sharding](../patterns/sharding.md) | [Circuit Breaker](../patterns/circuit-breaker.md)
 
 ### [Spotify: ML-Powered Recommendations](spotify-recommendations.md)
 **Scale**: 5B recommendations/day | **Challenge**: Personalization at scale  
 **Key Insights**: Hybrid online/offline processing, feature stores, A/B testing infrastructure  
-**Axioms in Focus**: State, Intelligence, Work Distribution
+**Axioms in Focus**: [State Distribution](../part2-pillars/state/index.md), [Intelligence Distribution](../part2-pillars/intelligence/index.md), [Work Distribution](../part2-pillars/work/index.md)  
+**Related Patterns**: [CQRS](../patterns/cqrs.md) | [Event-Driven Architecture](../patterns/event-driven.md) | [Caching Strategies](../patterns/caching-strategies.md)
 
 ### [PayPal: Distributed Payment Processing](paypal-payments.md)
 **Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale  
 **Key Insights**: Distributed sagas, idempotency, compensating transactions  
-**Axioms in Focus**: Truth, Control, Economic Constraints
+**Axioms in Focus**: [Truth Distribution](../part2-pillars/truth/index.md), [Control Distribution](../part2-pillars/control/index.md), [Economic Constraints](../part1-axioms/axiom8-economics/index.md)  
+**Related Patterns**: [Saga Pattern](../patterns/saga.md) | [Idempotent Receiver](../patterns/idempotent-receiver.md) | [Event Sourcing](../patterns/event-sourcing.md)
 
 ---
 
@@ -122,6 +126,34 @@ Learn how the 8 axioms and 5 pillars apply to real-world systems through detaile
 | **SpaceX** | 10K metrics/sec | 1TB/mission | 100% |
 
 ---
+
+---
+
+## 🔗 Quick Navigation
+
+### Understanding the Theory
+- [8 Fundamental Axioms](../part1-axioms/index.md) - The constraints these systems navigate
+- [5 Foundational Pillars](../part2-pillars/index.md) - How these systems organize solutions
+- [Modern Patterns](../patterns/index.md) - The patterns these systems implement
+
+### Case Studies by Primary Focus
+**Latency & Performance**
+- [Uber Location](uber-location.md) - Sub-100ms global updates
+- Coming Soon: Fortnite - Real-time game state
+
+**Availability & Resilience**
+- [Amazon DynamoDB](amazon-dynamo.md) - 99.999% availability
+- Coming Soon: SpaceX - Safety-critical systems
+
+**Scale & Intelligence**
+- [Spotify Recommendations](spotify-recommendations.md) - 5B recommendations/day
+- [PayPal Payments](paypal-payments.md) - $1.36T/year processing
+
+### Patterns Demonstrated
+- **[Edge Computing](../patterns/edge-computing.md)**: Uber's location system
+- **[Tunable Consistency](../patterns/tunable-consistency.md)**: DynamoDB's approach
+- **[Saga Pattern](../patterns/saga.md)**: PayPal's distributed transactions
+- **[CQRS](../patterns/cqrs.md)**: Spotify's ML pipeline
 
 ---
 

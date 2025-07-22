@@ -83,22 +83,22 @@ graph TD
 
 ### Part I: The Eight Fundamental Axioms
 *Physics and mathematics that constrain all distributed systems*
-- [Latency](part1-axioms/axiom1-latency/index.md) - Speed of light limits
-- [Capacity](part1-axioms/axiom2-capacity/index.md) - Finite resources
-- [Failure](part1-axioms/axiom3-failure/index.md) - Components break
-- [Concurrency](part1-axioms/axiom4-concurrency/index.md) - Race conditions
-- [Coordination](part1-axioms/axiom5-coordination/index.md) - Agreement costs
-- [Observability](part1-axioms/axiom6-observability/index.md) - Limited visibility
-- [Human Interface](part1-axioms/axiom7-human/index.md) - Cognitive limits
-- [Economics](part1-axioms/axiom8-economics/index.md) - Everything has a cost
+- [Latency](part1-axioms/axiom1-latency/index.md) - Speed of light limits [Related: Work Distribution](part2-pillars/work/index.md) | [Load Balancing Pattern](patterns/load-balancing.md)
+- [Capacity](part1-axioms/axiom2-capacity/index.md) - Finite resources [Related: State Distribution](part2-pillars/state/index.md) | [Sharding Pattern](patterns/sharding.md)
+- [Failure](part1-axioms/axiom3-failure/index.md) - Components break [Related: Circuit Breaker](patterns/circuit-breaker.md) | [Amazon DynamoDB Case Study](case-studies/amazon-dynamo.md)
+- [Concurrency](part1-axioms/axiom4-concurrency/index.md) - Race conditions [Related: CQRS Pattern](patterns/cqrs.md) | [Truth Distribution](part2-pillars/truth/index.md)
+- [Coordination](part1-axioms/axiom5-coordination/index.md) - Agreement costs [Related: Saga Pattern](patterns/saga.md) | [PayPal Case Study](case-studies/paypal-payments.md)
+- [Observability](part1-axioms/axiom6-observability/index.md) - Limited visibility [Related: Control Distribution](part2-pillars/control/index.md) | [Observability Pattern](patterns/observability.md)
+- [Human Interface](part1-axioms/axiom7-human/index.md) - Cognitive limits [Related: Control Distribution](part2-pillars/control/index.md)
+- [Economics](part1-axioms/axiom8-economics/index.md) - Everything has a cost [Related: FinOps Pattern](patterns/finops.md) | [Auto-Scaling](patterns/auto-scaling.md)
 
 ### Part II: The Five Foundational Pillars
 *How axioms combine to create system architectures*
-- [Work Distribution](part2-pillars/work/index.md) - Spreading computation
-- [State Distribution](part2-pillars/state/index.md) - Managing data
-- [Truth Distribution](part2-pillars/truth/index.md) - Achieving consistency
-- [Control Distribution](part2-pillars/control/index.md) - Operational management
-- [Intelligence Distribution](part2-pillars/intelligence/index.md) - Adaptive systems
+- [Work Distribution](part2-pillars/work/index.md) - Spreading computation [Related: Latency Axiom](part1-axioms/axiom1-latency/index.md) | [Load Balancing](patterns/load-balancing.md) | [Uber Case Study](case-studies/uber-location.md)
+- [State Distribution](part2-pillars/state/index.md) - Managing data [Related: Capacity Axiom](part1-axioms/axiom2-capacity/index.md) | [Sharding](patterns/sharding.md) | [DynamoDB Case Study](case-studies/amazon-dynamo.md)
+- [Truth Distribution](part2-pillars/truth/index.md) - Achieving consistency [Related: Coordination Axiom](part1-axioms/axiom5-coordination/index.md) | [Event Sourcing](patterns/event-sourcing.md) | [PayPal Case Study](case-studies/paypal-payments.md)
+- [Control Distribution](part2-pillars/control/index.md) - Operational management [Related: Observability Axiom](part1-axioms/axiom6-observability/index.md) | [Service Mesh](patterns/service-mesh.md)
+- [Intelligence Distribution](part2-pillars/intelligence/index.md) - Adaptive systems [Related: Auto-Scaling](patterns/auto-scaling.md) | [Spotify Case Study](case-studies/spotify-recommendations.md)
 
 ### Part III: Modern Pattern Catalog
 *Battle-tested solutions derived from first principles*

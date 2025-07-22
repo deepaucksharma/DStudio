@@ -47,9 +47,20 @@ Baseline measurement:
 
 ### 2. Hypothesis Formation
 
-```text
-"We believe that [SYSTEM] can tolerate [FAILURE]
- as measured by [METRICS] staying within [BOUNDS]"
+```mermaid
+flowchart TD
+    A[Hypothesis Formation] --> B[System Under Test]
+    B --> C[Failure to Inject]
+    C --> D[Success Metrics]
+    D --> E[Acceptable Bounds]
+    
+    E --> F{Example Hypotheses}
+    F --> G["Payment service tolerates<br/>1 DB replica failure<br/>P99 < 10ms increase"]
+    F --> H["Cache can lose 50% nodes<br/>Error rate < 5% increase"]
+    F --> I["Region failover < 30s<br/>Zero data loss"]
+    
+    style A fill:#e3f2fd
+    style F fill:#fff3cd
 ```
 
 Examples:
@@ -76,108 +87,250 @@ Examples:
 ### Infrastructure Chaos
 
 **1. Instance Termination**
-```python
-def chaos_terminate_instance():
-    # Random EC2 instance shutdown
-    instances = ec2.describe_instances(
-        Filters=[{'Name': 'tag:chaos', 'Values': ['enabled']}]
-    )
-    target = random.choice(instances)
-
-    # Safety check
-    if not can_terminate_safely(target):
-        return
-
-    # Terminate with notification
-    notify_team(f"Terminating {target.id}")
-    ec2.terminate_instances(InstanceIds=[target.id])
+```mermaid
+flowchart TD
+    subgraph "Instance Termination Chaos"
+        A[Get Chaos-Enabled Instances] --> B[Select Random Target]
+        B --> C{Safety Check}
+        C -->|Not Safe| D[Skip Termination]
+        C -->|Safe| E[Notify Team]
+        E --> F[Terminate Instance]
+        F --> G[Monitor Recovery]
+        
+        G --> H{Auto-Scaling Works?}
+        H -->|Yes| I[✅ Test Passed]
+        H -->|No| J[❌ Test Failed]
+    end
+    
+    style I fill:#c8e6c9
+    style J fill:#ffcdd2
+    style D fill:#fff3cd
 ```
+
+**What This Tests:**
+- Auto-scaling responsiveness
+- Service discovery updates
+- Load balancer health checks
+- Application resilience
 
 Tests: Auto-scaling, service discovery
 
 **2. Network Partitions**
-```bash
-# Isolate availability zones
-iptables -A INPUT -s 10.0.2.0/24 -j DROP
-iptables -A OUTPUT -d 10.0.2.0/24 -j DROP
+```mermaid
+flowchart LR
+    subgraph "Network Partition Simulation"
+        subgraph "AZ-1 (10.0.1.0/24)"
+            A1[App Servers]
+            D1[Database Primary]
+        end
+        
+        subgraph "AZ-2 (10.0.2.0/24)"
+            A2[App Servers]
+            D2[Database Replica]
+        end
+        
+        A1 -."iptables DROP".-> A2
+        D1 -."iptables DROP".-> D2
+        
+        style A1 fill:#e8f5e9
+        style A2 fill:#ffebee
+    end
 ```
+
+**What This Tests:**
+- Quorum-based systems behavior
+- Split-brain prevention
+- Failover mechanisms
+- Client retry logic
 
 Tests: Quorum logic, split-brain handling
 
 **3. Clock Skew**
-```python
-def chaos_clock_skew(skew_seconds=300):
-    # Advance/delay system clocks
-    subprocess.run(['date', '-s', f'+{skew_seconds} seconds'])
+```mermaid
+graph TB
+    subgraph "Clock Skew Effects"
+        A[Normal Time] --> B[+5 min skew]
+        B --> C{System Impact}
+        
+        C --> D[Certificate Validation]
+        C --> E[Token Expiry]
+        C --> F[Distributed Locks]
+        C --> G[Log Ordering]
+        
+        D --> H[🔒 Auth Failures]
+        E --> I[🚫 Access Denied]
+        F --> J[⚠️ Deadlocks]
+        G --> K[📋 Wrong Sequence]
+    end
+    
+    style H fill:#ffcdd2
+    style I fill:#ffcdd2
+    style J fill:#fff3cd
+    style K fill:#fff3cd
 ```
+
+**What This Tests:**
+- Time synchronization dependencies
+- Certificate and token handling
+- Ordering assumptions
+- Grace period implementations
 
 Tests: Time-dependent logic, ordering
 
 **4. Resource Exhaustion**
-```python
-def chaos_fill_disk(fill_percent=90):
-    available = shutil.disk_usage('/').free
-    to_fill = int(available * fill_percent / 100)
-
-    with open('/tmp/chaos_disk', 'wb') as f:
-        f.write(b'0' * to_fill)
+```mermaid
+flowchart TD
+    subgraph "Resource Exhaustion Test"
+        A[Check Available Space] --> B[Calculate Fill Amount]
+        B --> C[Create Large File]
+        C --> D[Monitor System]
+        
+        D --> E{Application Response}
+        E --> F[Graceful Degradation ✓]
+        E --> G[Crash/Hang ❌]
+        E --> H[Alert Fired ✓]
+        
+        I[Cleanup After Test] --> J[Remove Chaos File]
+    end
+    
+    style F fill:#c8e6c9
+    style G fill:#ffcdd2
+    style H fill:#e3f2fd
 ```
+
+**Resource Exhaustion Test Matrix:**
+
+| Resource | Test Method | Expected Behavior | Common Failures |
+|----------|------------|------------------|------------------|
+| **Disk** | Fill to 90% | Log rotation, cleanup | App crashes, no alerts |
+| **Memory** | Allocate arrays | OOM killer, restart | Hung process |
+| **CPU** | Spin loops | Throttling, queueing | Timeouts |
+| **Network** | Bandwidth limit | Backpressure | Connection drops |
 
 Tests: Degradation handling, alerts
 
 ### Application Chaos
 
 **1. Latency Injection**
-```python
-class ChaosMiddleware:
-    def __init__(self, app):
-        self.app = app
-
-    async def __call__(self, request):
-        # Inject latency randomly
-        if random.random() < 0.1:  # 10% of requests
-            await asyncio.sleep(1.0)  # 1 second delay
-
-        return await self.app(request)
+```mermaid
+flowchart LR
+    subgraph "Latency Injection Flow"
+        A[Request Arrives] --> B{Random Check}
+        B -->|10% chance| C[Add 1s Delay]
+        B -->|90% chance| D[No Delay]
+        
+        C --> E[Process Request]
+        D --> E
+        
+        E --> F{Client Behavior}
+        F --> G[Timeout ⚠️]
+        F --> H[Retry 🔄]
+        F --> I[Success ✓]
+    end
+    
+    style C fill:#fff3cd
+    style G fill:#ffcdd2
+    style I fill:#c8e6c9
 ```
+
+**Latency Test Scenarios:**
+
+| Delay | Percentage | Tests | Expected Outcome |
+|-------|------------|-------|------------------|
+| 100ms | 50% | Normal variance | No impact |
+| 1s | 10% | Timeout handling | Some retries |
+| 5s | 5% | Circuit breakers | Breaker opens |
+| 30s | 1% | Dead detection | Failover triggered |
 
 Tests: Timeout handling, circuit breakers
 
 **2. Error Injection**
-```python
-class ChaosProxy:
-    def inject_error(self, percent=5, error_code=500):
-        if random.random() < percent/100:
-            raise HttpError(error_code)
+```mermaid
+flowchart TD
+    subgraph "Error Injection Strategy"
+        A[Incoming Request] --> B{Error Injection?}
+        B -->|5% chance| C[Return Error Code]
+        B -->|95% chance| D[Normal Processing]
+        
+        C --> E{Error Type}
+        E --> F[500 - Server Error]
+        E --> G[503 - Unavailable]
+        E --> H[429 - Rate Limited]
+        
+        F --> I[Test Retry Logic]
+        G --> J[Test Circuit Breaker]
+        H --> K[Test Backoff]
+    end
+    
+    style C fill:#ffcdd2
+    style D fill:#c8e6c9
 ```
 
 Tests: Retry logic, fallbacks
 
 **3. Data Corruption**
-```python
-def chaos_corrupt_response(response):
-    if random.random() < 0.01:  # 1% chance
-        # Modify response data
-        if isinstance(response, dict):
-            response['amount'] = response.get('amount', 0) * 1.1
-    return response
+**Data Corruption Test Scenarios:**
+
+| Corruption Type | Example | Tests | Detection Method |
+|----------------|---------|-------|------------------|
+| **Numeric Drift** | amount * 1.1 | Validation logic | Checksum/bounds |
+| **Missing Fields** | Remove required field | Schema validation | Contract testing |
+| **Type Changes** | String → Number | Parsing robustness | Type checking |
+| **Encoding Issues** | UTF-8 → ASCII | Character handling | Encoding validation |
+
+```mermaid
+flowchart TD
+    A[Valid Response] --> B{Corruption Type}
+    B --> C[Numeric Changes]
+    B --> D[Missing Fields]
+    B --> E[Type Mutations]
+    
+    C --> F[Client Validation]
+    D --> F
+    E --> F
+    
+    F --> G{Detection?}
+    G -->|Yes| H[✅ Caught Error]
+    G -->|No| I[❌ Data Corrupted]
+    
+    style H fill:#c8e6c9
+    style I fill:#ffcdd2
 ```
 
 Tests: Validation, error detection
 
 **4. Rate Limiting**
-```python
-class ChaosRateLimiter:
-    def __init__(self, limit=10):
-        self.limit = limit
-        self.window = {}
-
-    def check_limit(self, key):
-        count = self.window.get(key, 0)
-        if count >= self.limit:
-            raise RateLimitExceeded()
-        self.window[key] = count + 1
+```mermaid
+flowchart TD
+    subgraph "Rate Limit Testing"
+        A[Request with Key] --> B[Check Counter]
+        B --> C{Over Limit?}
+        
+        C -->|Yes| D[Reject Request]
+        C -->|No| E[Increment Counter]
+        
+        D --> F[Return 429]
+        E --> G[Process Request]
+        
+        F --> H{Client Response}
+        H --> I[Backoff ✓]
+        H --> J[Retry Storm ❌]
+        H --> K[Circuit Break ✓]
+    end
+    
+    style D fill:#ffcdd2
+    style I fill:#c8e6c9
+    style J fill:#ffcdd2
+    style K fill:#c8e6c9
 ```
+
+**Rate Limiting Test Matrix:**
+
+| Limit | Window | Test Scenario | Expected Behavior |
+|-------|--------|--------------|-------------------|
+| 10/min | Fixed | Burst of 20 | 10 pass, 10 fail, retry after window |
+| 100/hr | Sliding | Sustained load | Smooth throttling |
+| 1000/day | Token | Spike traffic | Burst allowed, then throttle |
 
 Tests: Backoff, queueing
 
@@ -185,18 +338,43 @@ Tests: Backoff, queueing
 
 ### Pre-GameDay Checklist
 
-```text
-□ Hypothesis documented
-□ Success criteria defined
-□ Monitoring dashboards ready
-□ Abort procedures tested
-□ Team roles assigned
-□ Communication plan ready
-□ Customer support warned
-□ Rollback tested
-□ Business stakeholders informed
-□ Runbooks updated
+```mermaid
+flowchart TD
+    subgraph "GameDay Preparation Flow"
+        A[Start Planning] --> B[Document Hypothesis]
+        B --> C[Define Success Criteria]
+        C --> D[Setup Monitoring]
+        D --> E[Test Abort Procedures]
+        E --> F[Assign Team Roles]
+        F --> G[Create Comm Plan]
+        G --> H[Brief Support Team]
+        H --> I[Validate Rollback]
+        I --> J[Inform Stakeholders]
+        J --> K[Update Runbooks]
+        K --> L{Ready?}
+        L -->|No| M[Address Gaps]
+        L -->|Yes| N[✅ Execute GameDay]
+        M --> B
+    end
+    
+    style N fill:#c8e6c9
+    style M fill:#fff3cd
 ```
+
+**Pre-GameDay Checklist Status:**
+
+| Item | Owner | Status | Notes |
+|------|-------|--------|-------|
+| Hypothesis documented | Tech Lead | ✅ | Clear failure scenario |
+| Success criteria | SRE Team | ✅ | SLOs maintained |
+| Monitoring ready | Ops | ✅ | Dashboards live |
+| Abort procedures | All | ✅ | Kill switch tested |
+| Roles assigned | Manager | ✅ | See role matrix |
+| Comm plan | Comms Lead | ✅ | Templates ready |
+| Support briefed | Support Mgr | ✅ | FAQs prepared |
+| Rollback tested | Dev Team | ✅ | <30s recovery |
+| Stakeholders informed | PM | ✅ | Email sent |
+| Runbooks updated | SRE | ✅ | Latest version |
 
 ### GameDay Roles
 
@@ -208,15 +386,32 @@ Tests: Backoff, queueing
 
 ### GameDay Timeline
 
-```yaml
-T-30min: Final checks, team assembly
-T-15min: Monitoring verification
-T-0: Begin experiment
-T+5min: First health check
-T+15min: Evaluate continue/abort
-T+30min: Planned end
-T+45min: Debrief starts
-T+2hr: Report published
+```mermaid
+gantt
+    title GameDay Execution Timeline
+    dateFormat HH:mm
+    axisFormat %H:%M
+    
+    section Preparation
+    Team Assembly           :prep1, 09:00, 15m
+    Final Checks           :prep2, after prep1, 10m
+    Monitor Verification   :prep3, after prep2, 5m
+    
+    section Execution
+    Start Experiment       :exec1, 09:30, 5m
+    Health Check 1        :exec2, after exec1, 5m
+    Continue Decision     :exec3, after exec2, 5m
+    Main Test Period      :exec4, after exec3, 15m
+    
+    section Wrap-up
+    End Experiment        :wrap1, 10:00, 5m
+    Initial Debrief       :wrap2, after wrap1, 10m
+    Document Findings     :wrap3, after wrap2, 30m
+    Publish Report       :wrap4, 11:30, 30m
+    
+    style exec1 fill:#ffcdd2
+    style exec4 fill:#fff3cd
+    style wrap4 fill:#c8e6c9
 ```
 
 ## Real GameDay Example
@@ -313,18 +508,40 @@ T+2hr: Report published
 
 ### ROI Calculation
 
-```bash
-Investment:
-- 2 engineers × 20% time = $100k/year
-- Tools and infrastructure = $20k/year
-
-Returns:
-- Prevented outages: 5 × $200k = $1M
-- Reduced MTTR: 50% × $500k = $250k
-- Team confidence: Priceless
-
-ROI = 940% first year
+```mermaid
+flowchart LR
+    subgraph "Chaos Engineering ROI"
+        subgraph "Investment (Annual)"
+            A[Engineering Time<br/>$100k]
+            B[Tools & Infra<br/>$20k]
+            C[Total: $120k]
+        end
+        
+        subgraph "Returns (Annual)"
+            D[Prevented Outages<br/>5 × $200k = $1M]
+            E[MTTR Reduction<br/>50% × $500k = $250k]
+            F[Total: $1.25M]
+        end
+        
+        C --> G[ROI Calculation]
+        F --> G
+        G --> H[940% ROI<br/>First Year]
+    end
+    
+    style C fill:#ffcdd2
+    style F fill:#c8e6c9
+    style H fill:#ffd54f
 ```
+
+**Chaos Engineering Value Metrics:**
+
+| Metric | Before Chaos | After Chaos | Improvement |
+|--------|--------------|-------------|-------------|
+| **Outages/Year** | 12 | 7 | 42% reduction |
+| **MTTR** | 4 hours | 2 hours | 50% faster |
+| **Confidence Score** | 6/10 | 9/10 | 50% increase |
+| **Unknown Failures** | 8 found in prod | 2 found in prod | 75% caught early |
+| **Team Readiness** | Ad-hoc response | Practiced response | Measurable improvement |
 
 ## Best Practices
 

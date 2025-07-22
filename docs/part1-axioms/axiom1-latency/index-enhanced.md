@@ -32,13 +32,13 @@ last_updated: 2025-07-20
 
 ## 🔥 The Constraint
 
-### The Fundamental Limit
+## The Fundamental Limit
 
 **Information cannot travel faster than the speed of light in any medium**
 
 This constraint emerges from **Einstein's special relativity + Maxwell's equations**. No amount of engineering can violate this fundamental principle—we can only work within its boundaries.
 
-### Physics Foundation with Quantitative Examples
+## Physics Foundation with Quantitative Examples
 
 ```mermaid
 graph LR
@@ -65,7 +65,7 @@ The practical manifestation of this constraint:
 - **Speed in fiber**: ~200,000 km/s (refractive index ~1.5)⁴
 - **Real-world impact**: Every network call pays a physics tax that no engineering can eliminate
 
-### Latency Calculator
+## Latency Calculator
 
 Using the fundamental formula:
 
@@ -89,7 +89,7 @@ Where:
 | US→Europe | 6,000km | 30 ms | 80-120 ms | Submarine cables |
 | Worldwide | 20,000km | 100 ms | 200-300 ms | Multiple ISPs |
 
-### Edge Cases and Clarifications
+## Edge Cases and Clarifications
 
 !!! warning "Common Edge Cases"
     **Quantum Entanglement**: Cannot transmit information faster than light (No-communication theorem)⁵
@@ -100,7 +100,7 @@ Where:
     
     **Satellite Internet**: Actually SLOWER due to altitude (550km for Starlink = +3.7ms minimum)⁸
 
-### Visual Distance-Latency Relationship
+## Visual Distance-Latency Relationship
 
 ```mermaid
 graph TD
@@ -117,7 +117,7 @@ graph TD
     style G fill:#FFB6C1
 ```
 
-### Why This Constraint Exists
+## Why This Constraint Exists
 
 Unlike software bugs or implementation details, this is a fundamental law of our universe. Understanding this constraint helps us:
 
@@ -132,7 +132,7 @@ Unlike software bugs or implementation details, this is a fundamental law of our
 
 Every network call pays a physics tax that no engineering can eliminate
 
-### Business Impact with Real Numbers
+## Business Impact with Real Numbers
 
 This constraint directly affects:
 
@@ -156,7 +156,7 @@ This constraint directly affects:
   - Gaming: 50ms latency = unplayable¹³
   - Video calls: >150ms = noticeable delay¹⁴
 
-### Technical Implications
+## Technical Implications
 
 Every engineering decision must account for this constraint:
 - **Architecture patterns**: Choose designs that work with the constraint
@@ -190,7 +190,7 @@ Many engineers hold false beliefs about this constraint:
    - Reality: Even batch systems suffer from coordination overhead
    - MapReduce shuffle phase, distributed locks, consensus protocols all affected
 
-### Reality Check with Math
+## Reality Check with Math
 
 The constraint is absolute. For NYC to Sydney (16,000 km):
 
@@ -208,7 +208,7 @@ No technology can make this faster than 160ms RTT
 
 How this constraint shapes real system design:
 
-### Quantitative Decision Framework
+## Quantitative Decision Framework
 
 ```python
 def calculate_latency_budget(distance_km, processing_hops):
@@ -229,7 +229,7 @@ result = calculate_latency_budget(5600, 10)
 # {'one_way_ms': 38.0, 'rtt_ms': 76.0, 'physics_percentage': 73.7}
 ```
 
-### Engineering Guidelines
+## Engineering Guidelines
 
 When designing systems, always:
 
@@ -238,7 +238,7 @@ When designing systems, always:
 3. **Design Accordingly**: Choose architectures that respect physics
 4. **Monitor Continuously**: Track latency percentiles (P50, P95, P99)
 
-### Success Patterns by Industry
+## Success Patterns by Industry
 
 **Financial Trading**:
 - Microwave links for Chicago-NYC (marginally faster than fiber)¹⁷
@@ -276,7 +276,7 @@ This is latency in distributed systems: **the fundamental time it takes for info
 
 💡 **Key Insight**: Just like pizza delivery, data delivery has a speed limit set by physics, not technology.
 
-### Real-World Examples
+## Real-World Examples
 
 Every time you:
 - **Load a webpage from another continent**: Minimum 100-200ms RTT
@@ -284,7 +284,7 @@ Every time you:
 - **Save a file to the cloud**: Upload time includes distance to datacenter
 - **Query a remote database**: Each query pays the latency tax
 
-### The Trading Arms Race
+## The Trading Arms Race
 
 High-frequency traders spend millions to shave microseconds²⁰:
 - **2010**: New fiber route saves 3ms NYC-Chicago, worth $100M+
@@ -297,7 +297,7 @@ If latency didn't matter, why spend $300M on a cable to save 5ms?
 
 ## 📊 Latency in Practice
 
-### The Latency Ladder (Memorize This!)
+## The Latency Ladder (Memorize This!)
 
 Based on real-world measurements²¹:
 
@@ -313,7 +313,7 @@ Based on real-world measurements²¹:
 
 *If 1 ns = 1 second
 
-### Geographic Latency Map
+## Geographic Latency Map
 
 ```mermaid
 graph TB
@@ -333,7 +333,7 @@ graph TB
     end
 ```
 
-### Impact on System Architecture
+## Impact on System Architecture
 
 Different latency tolerances drive different architectures:
 
@@ -349,7 +349,7 @@ Different latency tolerances drive different architectures:
 
 ## 🧮 Mathematical Deep Dive
 
-### The Shannon-Hartley Theorem
+## The Shannon-Hartley Theorem
 
 While speed of light limits latency, Shannon-Hartley limits throughput²²:
 
@@ -370,7 +370,7 @@ Bandwidth × Delay Product = Maximum data "in flight"
 Example: 1 Gbps × 100ms RTT = 12.5 MB in flight
 ```
 
-### Little's Law Applied
+## Little's Law Applied
 
 For distributed systems²³:
 
@@ -393,7 +393,7 @@ If latency increases, either:
 
 Since we can't beat physics, we work around it:
 
-### 1. Proximity Placement
+## 1. Proximity Placement
 ```yaml
 Strategy: Move computation closer to data/users
 Examples:
@@ -406,7 +406,7 @@ Trade-offs:
   - Consistency: Harder to maintain
 ```
 
-### 2. Predictive Prefetching
+## 2. Predictive Prefetching
 ```yaml
 Strategy: Anticipate needs and fetch early
 Examples:
@@ -419,7 +419,7 @@ Trade-offs:
   - Accuracy: Prediction quality
 ```
 
-### 3. Protocol Optimization
+## 3. Protocol Optimization
 ```yaml
 Strategy: Reduce round trips
 Examples:
@@ -432,7 +432,7 @@ Trade-offs:
   - Compatibility: Legacy systems
 ```
 
-### 4. Asynchronous Design
+## 4. Asynchronous Design
 ```yaml
 Strategy: Don't wait for distant responses
 Examples:

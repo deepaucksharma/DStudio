@@ -21,7 +21,7 @@ last_updated: 2025-01-21
 
 ## 🎯 Level 1: Intuition
 
-### Core Concept
+## Core Concept
 
 Like highway metering lights that control traffic flow during rush hour, rate limiting prevents system overload by controlling request rates.
 
@@ -29,7 +29,7 @@ Like highway metering lights that control traffic flow during rush hour, rate li
 
 **Solution**: Metered access ensures smooth flow, fair usage, and system stability.
 
-### Simple Example
+## Simple Example
 
 ```text
 Club Bouncer Analogy:
@@ -48,7 +48,7 @@ Real System:
 
 ## 🏗️ Level 2: Foundation
 
-### Rate Limiting Algorithms
+## Rate Limiting Algorithms
 
 | Algorithm | Memory | Accuracy | Burst | Best For |
 |-----------|--------|----------|-------|----------|
@@ -58,7 +58,7 @@ Real System:
 | **Token Bucket** | O(1) | Medium | Configurable | Bursty traffic |
 | **Leaky Bucket** | O(1) | Medium | None | Steady streams |
 
-### Algorithm Examples
+## Algorithm Examples
 
 **Fixed Window**: Count resets at window boundaries (issue: 200 requests at 59-61s boundary)
 
@@ -66,7 +66,7 @@ Real System:
 
 **Token Bucket**: Start with 100 tokens, refill at 10/sec, allows bursts
 
-### Rate Limiting Decision Tree
+## Rate Limiting Decision Tree
 
 ```mermaid
 flowchart TD
@@ -108,7 +108,7 @@ flowchart TD
     style Error fill:#f99
 ```
 
-### Algorithm Comparison Visualization
+## Algorithm Comparison Visualization
 
 ```mermaid
 graph LR
@@ -138,7 +138,7 @@ graph LR
     end
 ```
 
-### Production-Ready Algorithm Implementations
+## Production-Ready Algorithm Implementations
 
 ```python
 from abc import ABC, abstractmethod
@@ -390,7 +390,7 @@ class SlidingWindowCounter(RateLimiter):
             return window_start + self.window_seconds - now
 ```
 
-### Choosing the Right Algorithm
+## Choosing the Right Algorithm
 
 ```mermaid
 graph TD
@@ -415,7 +415,7 @@ graph TD
 
 ## 🔧 Level 3: Deep Dive
 
-### Distributed Rate Limiting at Scale
+## Distributed Rate Limiting at Scale
 
 #### The Challenge of Distribution
 
@@ -481,7 +481,7 @@ flowchart TB
     style R1 fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
-### Production-Grade Distributed Rate Limiter
+## Production-Grade Distributed Rate Limiter
 
 ```python
 import redis
@@ -875,7 +875,7 @@ class HierarchicalRateLimiter:
         }
 ```
 
-### Advanced Patterns
+## Advanced Patterns
 
 #### Progressive Rate Limiting
 ```python
@@ -972,7 +972,7 @@ class CostBasedRateLimiter:
         }
 ```
 
-### Geographic Rate Limiting
+## Geographic Rate Limiting
 
 ```python
 class GeographicRateLimiter:
@@ -1030,7 +1030,7 @@ class GeographicRateLimiter:
         return result
 ```
 
-### Machine Learning Enhanced Rate Limiting
+## Machine Learning Enhanced Rate Limiting
 
 ```python
 import numpy as np
@@ -1117,7 +1117,7 @@ class MLRateLimiter:
 
 ## 🚀 Level 4: Expert
 
-### Real-World Case Study: GitHub's Rate Limiting Evolution
+## Real-World Case Study: GitHub's Rate Limiting Evolution
 
 #### The Challenge (2018)
 
@@ -1352,7 +1352,7 @@ class GitHubRateLimitMetrics:
         ]
 ```
 
-### Case Study: Stripe's Idempotent Rate Limiting
+## Case Study: Stripe's Idempotent Rate Limiting
 
 ```python
 class StripeIdempotentRateLimiter:
@@ -1485,7 +1485,7 @@ class StripeIdempotentRateLimiter:
             'roi_months': 3.2  # Implementation cost recovered in 3.2 months
         }
 
-### Production Monitoring Dashboard
+## Production Monitoring Dashboard
 
 ```python
 class RateLimitMonitoringDashboard:
@@ -1553,7 +1553,7 @@ class RateLimitMonitoringDashboard:
         }
 ```
 
-### Enterprise Rate Limiting Patterns
+## Enterprise Rate Limiting Patterns
 
 #### Multi-Tenant Rate Limiting
 ```python
@@ -1721,7 +1721,7 @@ class APIGatewayRateLimiter:
             window
         )
 
-### Rate Limiting Best Practices
+## Rate Limiting Best Practices
 
 ```python
 class RateLimitingBestPractices:
@@ -1826,7 +1826,7 @@ class RateLimitingBestPractices:
 
 ## 🎯 Level 5: Mastery
 
-### Next-Generation Rate Limiting
+## Next-Generation Rate Limiting
 
 #### Quantum-Resistant Rate Limiting
 ```python
@@ -2093,7 +2093,7 @@ class BlockchainRateLimiter:
             'blockchain_height': len(self.chain)
         }
 
-### Future Research Directions
+## Future Research Directions
 
 ```python
 class FutureRateLimitingConcepts:
@@ -2173,7 +2173,7 @@ class FutureRateLimitingConcepts:
 
 ## 📋 Quick Reference
 
-### Decision Matrix: Choosing Your Rate Limiting Strategy
+## Decision Matrix: Choosing Your Rate Limiting Strategy
 
 ```mermaid
 graph TD
@@ -2193,7 +2193,7 @@ graph TD
     Q4 -->|Stable| TB
 ```
 
-### Production Implementation Checklist
+## Production Implementation Checklist
 
 #### Phase 1: Planning (Week 1-2)
 - [ ] Analyze historical traffic patterns
@@ -2223,7 +2223,7 @@ graph TD
 - [ ] Full rollout with instant rollback ready
 - [ ] Document lessons learned
 
-### Common Configuration Templates
+## Common Configuration Templates
 
 ```yaml
 # Basic API Rate Limiting
@@ -2264,7 +2264,7 @@ cost_based:
       refill_rate: 1
 ```
 
-### Performance Impact Analysis
+## Performance Impact Analysis
 
 | Implementation | Latency Added | Memory per Key | CPU Impact | Accuracy |
 |----------------|---------------|----------------|------------|----------|
@@ -2278,7 +2278,7 @@ cost_based:
 
 ## Summary
 
-### Key Takeaways by Level
+## Key Takeaways by Level
 
 | Level | Core Concept | When You're Ready |
 |-------|--------------|-------------------|
@@ -2288,7 +2288,7 @@ cost_based:
 | **Level 4** | Real companies save millions with sophisticated rate limiting | Building production systems |
 | **Level 5** | AI and quantum computing will revolutionize rate limiting | Pushing the boundaries |
 
-### Economic Impact Calculator
+## Economic Impact Calculator
 
 ```python
 def calculate_rate_limiting_value(metrics: Dict) -> Dict:

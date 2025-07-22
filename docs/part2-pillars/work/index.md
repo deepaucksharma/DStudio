@@ -18,11 +18,11 @@ Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, s
 - **Pastry station**: Makes desserts
 - **Expeditor**: Coordinates and quality checks
 
-This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**.
+This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - the ability to execute multiple tasks simultaneously.
 
 💡 **Key Insight**: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.
 
-### Why This Matters
+## Why This Matters
 
 Every time you:
 - Process millions of database records
@@ -40,21 +40,21 @@ You're solving the same fundamental problem: how to split work efficiently acros
 
 ## 🟡 Foundation: Understanding Work Distribution (15 min read)
 
-### The Central Question
+## The Central Question
 
 How do you break computation into pieces that can run on different machines while minimizing coordination overhead and maximizing throughput?
 
-### Core Concepts
+## Core Concepts
 
-### The Fundamental Trade-offs
+## The Fundamental Trade-offs
 
-!!! warning "No Free Lunch in Work Distribution"
+!!! warning "No Free Lunch in Work Distribution" (Related to [Axiom 8: Economics](../../part1-axioms/axiom8-economics/index.md))
     Every choice in work distribution involves trade-offs:
 
     **Parallelism vs Coordination Overhead**
     - More workers = More communication needed
     - Amdahl's Law: Serial portions limit speedup
-    - Eventually coordination costs exceed computation savings
+    - Eventually coordination costs exceed computation savings (see [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md))
 
     **Latency vs Throughput**
     - Batching improves throughput but increases latency
@@ -66,9 +66,9 @@ How do you break computation into pieces that can run on different machines whil
     - Static partitioning vs dynamic rebalancing
     - Easier to debug vs harder to optimize
 
-### The Work Decomposition Matrix
+## The Work Decomposition Matrix
 
-```
+```text
 Dimension        Options              Trade-offs                Real Example
 ---------        -------              ----------                ------------
 Space           Single/Multi-node     Latency vs Isolation      Redis vs Cassandra
@@ -77,7 +77,7 @@ Data            Shared/Partitioned   Simplicity vs Scale        PostgreSQL vs Mo
 Control         Centralized/P2P      Coordination vs Resilience Kubernetes vs BitTorrent
 ```
 
-### When Work Distribution Goes Wrong
+## When Work Distribution Goes Wrong
 
 !!! danger "Common Anti-Patterns"
     **The Overeager Parallelizer**: Breaking work into pieces smaller than coordination overhead
@@ -92,7 +92,7 @@ Control         Centralized/P2P      Coordination vs Resilience Kubernetes vs Bi
     - Example: Cron job at midnight across all servers
     - Solution: Jittered starts and gradual ramp-up
 
-### Concept Map: Work Distribution
+## Concept Map: Work Distribution
 
 ```mermaid
 graph TB
@@ -148,9 +148,9 @@ graph TB
 
 This concept map shows how work distribution connects fundamental axioms to practical implementation patterns. Each branch represents a key decision area, with dotted lines showing common associations between concepts.
 
-### Work Distribution Decision Framework
+## Work Distribution Decision Framework
 
-### Simple Example: Processing User Uploads
+## Simple Example: Processing User Uploads
 
 When a user uploads a photo to Instagram:
 
@@ -175,7 +175,7 @@ gantt
     Store All           :active, par5, after par3 par4, 200
 ```
 
-**Performance Comparison:**
+**Performance Comparison:** (demonstrates [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) in action)
 
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
@@ -202,11 +202,11 @@ graph LR
     style Store fill:#9f9
 ```
 
-### Amdahl's Law: The Fundamental Limit
+## Amdahl's Law: The Fundamental Limit
 
 No matter how many workers you add, speedup is limited by sequential parts:
 
-```
+```math
 Speedup = 1 / (S + P/N)
 
 Where:
@@ -215,7 +215,7 @@ P = Parallel fraction (can be parallelized)
 N = Number of processors
 
 Example:
-If 10% must be sequential (S=0.1):
+If 10% must be sequential (S=0.1) - a fundamental constraint from [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md):
 - With 10 processors: Speedup = 5.3x (not 10x!)
 - With 100 processors: Speedup = 9.2x (not 100x!)
 - With ∞ processors: Speedup = 10x (hard limit)
@@ -225,7 +225,7 @@ If 10% must be sequential (S=0.1):
 
 ## 🔴 Deep Dive: Engineering Work Distribution (30 min read)
 
-### Real Failure: The Netflix Encoding Disaster
+## Real Failure: The Netflix Encoding Disaster
 
 **Company**: Netflix
 **Date**: 2008
@@ -301,7 +301,7 @@ graph LR
 | **Scalability** | 1 server max | N servers | Linear scaling |
 | **Total Time** | 12 hours | 20 minutes | 36x faster |
 
-### Work Distribution Patterns
+## Work Distribution Patterns
 
 #### 1. Master-Worker Pattern
 
@@ -341,7 +341,7 @@ sequenceDiagram
     R-->>M: Results[]
 ```
 
-**Master-Worker Characteristics:**
+**Master-Worker Characteristics:** (implements coordination patterns from [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md))
 
 | Aspect | Description | Use When |
 |--------|-------------|----------|
@@ -581,21 +581,21 @@ graph LR
 | 3. **Create Job** | `MapReduceJob(map_func, reduce_func)` | Initialize with functions | Configures the pipeline |
 | 4. **Execute** | `job.run(documents, num_workers=10)` | Process data in parallel | Returns final results dict |
 
-### The Coordination Tax
+## The Coordination Tax
 
-Every distributed system pays a coordination tax:
+Every distributed system pays a coordination tax (detailed in [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md)):
 
-### Load Balancing Strategies
+## Load Balancing Strategies
 
 ---
 
 ## 🟣 Expert: Theory and Advanced Techniques (45 min read)
 
-### Theoretical Foundations
+## Theoretical Foundations
 
 #### Universal Scalability Law
 
-Neil Gunther's USL extends Amdahl's Law to include coherency costs:
+Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Axiom 2: Capacity](../../part1-axioms/axiom2-capacity/index.md):
 
 <div class="formula-box">
 <h4>Universal Scalability Law (USL)</h4>
@@ -699,7 +699,7 @@ Neil Gunther's USL extends Amdahl's Law to include coherency costs:
 </div>
 #### Queue Theory for Work Distribution
 
-Little's Law provides fundamental insights:
+Little's Law provides fundamental insights (see also [Quantitative Analysis: Queueing Theory](../../quantitative/queueing/index.md)):
 
 <div class="formula-box">
 <h4>Little's Law</h4>
@@ -809,7 +809,7 @@ Little's Law provides fundamental insights:
 </table>
 </div>
 </div>
-### Advanced Work Distribution Algorithms
+## Advanced Work Distribution Algorithms
 
 #### Consistent Hashing with Virtual Nodes
 
@@ -938,7 +938,7 @@ sequenceDiagram
 
 <b>Blocking Problem:</b> If coordinator fails after prepare but before decision, participants must wait (blocked) until coordinator recovers.
 </div>
-### Research Frontiers
+## Research Frontiers
 
 #### Speculative Execution
 
@@ -993,7 +993,7 @@ flowchart LR
 
 ## ⚫ Mastery: Building Production Work Systems (60+ min read)
 
-### Complete Implementation: Distributed Task Scheduler
+## Complete Implementation: Distributed Task Scheduler
 
 Let's build a production-grade distributed task scheduler:
 
@@ -1554,7 +1554,7 @@ async def example_usage():
 if __name__ == "__main__":
     asyncio.run(example_usage())
 ```
-### Production War Stories
+## Production War Stories
 
 #### Story 1: The 100x Speed-Up That Almost Broke Everything
 
@@ -1717,7 +1717,7 @@ flowchart TB
 <tr><td>Worker Utilization</td><td>10%</td><td>85%</td><td>8.5x efficiency</td></tr>
 </table>
 </div>
-### Performance Optimization Cookbook
+## Performance Optimization Cookbook
 
 #### Recipe 1: The Batch Accumulator Pattern
 
@@ -1874,7 +1874,7 @@ flowchart TB
 
 <b>Effect:</b> Self-tuning system that finds optimal batch size for current load
 </div>
-### The Future of Work Distribution
+## The Future of Work Distribution
 
 #### Emerging Patterns
 
@@ -1947,7 +1947,7 @@ flowchart TB
 4. **🟣 Expert**: Theory guides optimal worker counts and queue depths
 5. **⚫ Mastery**: Production systems require holistic thinking about failure, monitoring, and cost
 
-### The Work Distribution Commandments
+## The Work Distribution Commandments
 
 1. **Thou shalt respect Amdahl's Law** - Sequential parts limit parallel gains
 2. **Thou shalt implement backpressure** - Unbounded queues are time bombs
@@ -1955,8 +1955,34 @@ flowchart TB
 4. **Thou shalt batch operations** - Amortize coordination costs
 5. **Thou shalt monitor everything** - You can't optimize what you don't measure
 
-### Quick Reference Card
+## Quick Reference Card
 
 ---
 
 *"Work distribution is not just about spreading computation—it's about spreading it intelligently while respecting the laws of physics and coordination."*
+
+## Related Resources
+
+### Foundational Axioms
+- [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) - Network delays affect work distribution
+- [Axiom 2: Capacity](../../part1-axioms/axiom2-capacity/index.md) - Resource limits and scaling
+- [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) - Handling worker failures
+- [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - Parallel execution fundamentals
+- [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - Managing distributed workers
+- [Axiom 8: Economics](../../part1-axioms/axiom8-economics/index.md) - Cost of distribution
+
+### Related Pillars
+- [Pillar 2: State](../state/index.md) - Managing distributed computation state
+- [Pillar 3: Truth](../truth/index.md) - Consensus on work completion
+- [Pillar 4: Control](../control/index.md) - Orchestrating distributed work
+
+### Implementation Patterns
+- [MapReduce Pattern](../../patterns/mapreduce/index.md) - Classic work distribution
+- [Service Mesh](../../patterns/service-mesh/index.md) - Modern microservice coordination
+- [Event Streaming](../../patterns/event-streaming/index.md) - Async work distribution
+- [Circuit Breaker](../../patterns/circuit-breaker/index.md) - Handling worker failures
+
+### Real-World Case Studies
+- [Netflix: Chaos Engineering](../../case-studies/netflix-chaos/index.md) - Resilient work distribution
+- [Google: MapReduce](../../case-studies/google-mapreduce/index.md) - Planet-scale processing
+- [Apache Spark](../../case-studies/apache-spark/index.md) - In-memory distributed computing

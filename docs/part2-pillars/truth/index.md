@@ -20,7 +20,7 @@ Imagine a library before computers:
 - **Phone Lines Down**: Can't call other libraries
 - **Librarian Sick**: Who updates the cards?
 
-**This is distributed truth**: Multiple copies, no master, must agree somehow.
+**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) (nodes can fail) and [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) (agreement requires communication).
 
 ### Real-World Analogy: Group Chat Planning
 
@@ -154,7 +154,7 @@ gantt
     - Miners voluntarily took losses
     - Proved that Bitcoin consensus is sociotechnical
 
-**Lesson**: Even "trustless" systems require human coordination when consensus breaks.
+**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Axiom 7: Human Interface](../../part1-axioms/axiom7-human-interface/index.md) - humans remain the ultimate arbiters.
 
 ### The FLP Impossibility Result
 
@@ -258,7 +258,7 @@ This concept map shows how distributed truth branches into consensus mechanisms,
 
 ### Understanding Raft: The Understandable Consensus
 
-Raft achieves consensus by electing a leader that manages replication.
+Raft achieves consensus by electing a leader that manages replication (addressing [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md)).
 
 ```mermaid
 stateDiagram-v2
@@ -338,7 +338,7 @@ sequenceDiagram
 
 ### The Vector Clock Pattern
 
-Vector clocks track causality in distributed systems without synchronized time.
+Vector clocks track causality in distributed systems without synchronized time (implementing [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) ordering guarantees).
 
 ### The Vector Clock Pattern
 
@@ -410,7 +410,7 @@ graph LR
 
 ### CRDTs: Conflict-Free Truth
 
-CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination.
+CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) costs by making all operations commutative.
 
 ### CRDTs: Conflict-Free Truth
 
@@ -820,7 +820,7 @@ graph TB
 
 ### Case Study: Kubernetes Etcd Consensus
 
-Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state.
+Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state. This demonstrates how modern systems handle [Pillar 2: State](../state/index.md) distribution with strong consistency guarantees.
 
 ```mermaid
 graph TB
@@ -1292,7 +1292,7 @@ sequenceDiagram
 ```
 
 **Spanner's Key Insights**:
-1. **Expose uncertainty** - Don't pretend time is precise
+1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md))
 2. **Wait out uncertainty** - 7ms average wait for consistency
 3. **Hardware investment** - GPS + atomic clocks per DC
 4. **Global scale** - Serves Google's entire infrastructure
@@ -1311,7 +1311,7 @@ sequenceDiagram
 3. **Majority vote is simplest consensus**
 
 ### 🌿 Intermediate
-1. **CAP theorem forces truth trade-offs**
+1. **CAP theorem forces truth trade-offs** (explored in depth in [Axiom 6: Observability](../../part1-axioms/axiom6-observability/index.md))
 2. **Higher consistency = Higher cost**
 3. **FLP theorem: Perfect consensus impossible**
 
@@ -1566,3 +1566,31 @@ flowchart TD
 **Next**: [Pillar 4: Control →](../control/index.md)
 
 *"In distributed systems, truth isn't discovered—it's negotiated."*
+
+## Related Resources
+
+### Foundational Axioms
+- [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) - Time uncertainty in distributed systems
+- [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) - Why consensus protocols need fault tolerance
+- [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - Ordering events across nodes
+- [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - The cost of achieving consensus
+- [Axiom 6: Observability](../../part1-axioms/axiom6-observability/index.md) - Monitoring consensus health
+- [Axiom 7: Human Interface](../../part1-axioms/axiom7-human-interface/index.md) - Human intervention in consensus failures
+
+### Related Pillars
+- [Pillar 1: Work](../work/index.md) - Coordinating distributed computation
+- [Pillar 2: State](../state/index.md) - Managing distributed data consistency
+- [Pillar 4: Control](../control/index.md) - Implementing consensus protocols
+- [Pillar 5: Intelligence](../intelligence/index.md) - Smart consensus optimization
+
+### Implementation Patterns
+- [Consensus Protocols](../../patterns/consensus/index.md) - Raft, Paxos, PBFT
+- [Event Sourcing](../../patterns/event-sourcing/index.md) - Truth from event logs
+- [CQRS](../../patterns/cqrs/index.md) - Separating read/write models
+- [Saga Pattern](../../patterns/saga/index.md) - Distributed transaction consensus
+
+### Real-World Case Studies
+- [etcd: Production Raft](../../case-studies/etcd/index.md) - Kubernetes' consensus backbone
+- [Blockchain Consensus](../../case-studies/blockchain/index.md) - Bitcoin and Ethereum
+- [Google Spanner](../../case-studies/spanner/index.md) - Global consistency at scale
+- [Apache Kafka](../../case-studies/kafka/index.md) - Distributed log consensus

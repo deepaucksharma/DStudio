@@ -40,53 +40,53 @@ Every pattern in distributed systems emerges from the fundamental axioms. This s
 ### Core Patterns
 Fundamental architectural patterns that shape modern distributed systems:
 
-- **[Queues & Streaming](queues-streaming.md)** ⭐ - Decoupling producers from consumers
-- **[CQRS](cqrs.md)** ⭐ - Command Query Responsibility Segregation (Greg Young, 2010)¹
-- **[Event-Driven Architecture](event-driven.md)** ⭐ - Choreography over orchestration
-- **[Event Sourcing](event-sourcing.md)** ⭐ - State as a sequence of events (Martin Fowler)²
-- **[Saga Pattern](saga.md)** ⭐ - Distributed transaction management (Garcia-Molina & Salem, 1987)³
-- **[Service Mesh](service-mesh.md)** ⭐ - Infrastructure layer for service communication
+- **[Queues & Streaming](queues-streaming.md)** ⭐ - Decoupling producers from consumers [Related: Work Distribution](../part2-pillars/work/index.md)
+- **[CQRS](cqrs.md)** ⭐ - Command Query Responsibility Segregation (Greg Young, 2010)¹ [Related: Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
+- **[Event-Driven Architecture](event-driven.md)** ⭐ - Choreography over orchestration [Related: Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)
+- **[Event Sourcing](event-sourcing.md)** ⭐ - State as a sequence of events (Martin Fowler)² [Related: State Distribution](../part2-pillars/state/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
+- **[Saga Pattern](saga.md)** ⭐ - Distributed transaction management (Garcia-Molina & Salem, 1987)³ [Related: Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) | [PayPal Case Study](../case-studies/paypal-payments.md)
+- **[Service Mesh](service-mesh.md)** ⭐ - Infrastructure layer for service communication [Related: Control Distribution](../part2-pillars/control/index.md)
 - **[GraphQL Federation](graphql-federation.md)** - Unified data graph across services
-- **[Serverless/FaaS](serverless-faas.md)** ⭐ - Functions as the unit of deployment
+- **[Serverless/FaaS](serverless-faas.md)** ⭐ - Functions as the unit of deployment [Related: Work Distribution](../part2-pillars/work/index.md)
 
 ### Resilience Patterns
 Patterns that ensure systems survive failures:
 
-- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures (Nygard, 2007)⁴
-- **[Retry & Backoff](retry-backoff.md)** ⭐ - Intelligent retry strategies
-- **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation through partitioning (Nygard)⁴
-- **[Timeout](timeout.md)** ⭐ - Bounded wait times for operations
-- **[Health Check](health-check.md)** - Service liveness and readiness
-- **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress
-- **[Rate Limiting](rate-limiting.md)** ⭐ - Protecting from overload
-- **[Load Shedding](load-shedding.md)** - Dropping work to survive
+- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures (Nygard, 2007)⁴ [Related: Failure Axiom](../part1-axioms/axiom3-failure/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
+- **[Retry & Backoff](retry-backoff.md)** ⭐ - Intelligent retry strategies [Related: Failure Axiom](../part1-axioms/axiom3-failure/index.md)
+- **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation through partitioning (Nygard)⁴ [Related: Failure Axiom](../part1-axioms/axiom3-failure/index.md)
+- **[Timeout](timeout.md)** ⭐ - Bounded wait times for operations [Related: Latency Axiom](../part1-axioms/axiom1-latency/index.md)
+- **[Health Check](health-check.md)** - Service liveness and readiness [Related: Observability Axiom](../part1-axioms/axiom6-observability/index.md)
+- **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress [Related: Human Interface Axiom](../part1-axioms/axiom7-human/index.md)
+- **[Rate Limiting](rate-limiting.md)** ⭐ - Protecting from overload [Related: Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)
+- **[Load Shedding](load-shedding.md)** - Dropping work to survive [Related: Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)
 
 ### Data Patterns
 Managing data in distributed environments:
 
-- **[CDC (Change Data Capture)](cdc.md)** ⭐ - Real-time data synchronization
-- **[Tunable Consistency](tunable-consistency.md)** ⭐ - Flexible consistency guarantees (Dynamo)⁵
-- **[Sharding](sharding.md)** ⭐ - Horizontal data partitioning
-- **[Caching Strategies](caching-strategies.md)** ⭐ - Multi-level cache hierarchies
-- **[Geo-Replication](geo-replication.md)** ⭐ - Global data distribution
-- **[Outbox Pattern](outbox.md)** ⭐ - Reliable event publishing
+- **[CDC (Change Data Capture)](cdc.md)** ⭐ - Real-time data synchronization [Related: State Distribution](../part2-pillars/state/index.md)
+- **[Tunable Consistency](tunable-consistency.md)** ⭐ - Flexible consistency guarantees (Dynamo)⁵ [Related: Truth Distribution](../part2-pillars/truth/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
+- **[Sharding](sharding.md)** ⭐ - Horizontal data partitioning [Related: Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) | [State Distribution](../part2-pillars/state/index.md)
+- **[Caching Strategies](caching-strategies.md)** ⭐ - Multi-level cache hierarchies [Related: Latency Axiom](../part1-axioms/axiom1-latency/index.md)
+- **[Geo-Replication](geo-replication.md)** ⭐ - Global data distribution [Related: Latency Axiom](../part1-axioms/axiom1-latency/index.md) | [Uber Case Study](../case-studies/uber-location.md)
+- **[Outbox Pattern](outbox.md)** ⭐ - Reliable event publishing [Related: Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)
 
 ### Coordination Patterns
 Patterns for distributed coordination and messaging:
 
-- **[Leader Election](leader-election.md)** ⭐ - Single coordinator selection (Raft/Paxos)⁶⁷
-- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes
-- **[Idempotent Receiver](idempotent-receiver.md)** ⭐ - Handling duplicate messages
-- **[Service Discovery](service-discovery.md)** - Dynamic service location
+- **[Leader Election](leader-election.md)** ⭐ - Single coordinator selection (Raft/Paxos)⁶⁷ [Related: Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
+- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes [Related: Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)
+- **[Idempotent Receiver](idempotent-receiver.md)** ⭐ - Handling duplicate messages [Related: Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md)
+- **[Service Discovery](service-discovery.md)** - Dynamic service location [Related: Control Distribution](../part2-pillars/control/index.md)
 
 ### Operational Patterns
 Patterns for running systems in production:
 
-- **[Observability](observability.md)** - Metrics, logs, and traces
-- **[Auto-Scaling](auto-scaling.md)** ⭐ - Dynamic resource adjustment
-- **[Load Balancing](load-balancing.md)** - Request distribution strategies
-- **[Edge Computing](edge-computing.md)** ⭐ - Processing at the periphery
-- **[FinOps](finops.md)** - Cloud cost optimization
+- **[Observability](observability.md)** - Metrics, logs, and traces [Related: Observability Axiom](../part1-axioms/axiom6-observability/index.md) | [Control Distribution](../part2-pillars/control/index.md)
+- **[Auto-Scaling](auto-scaling.md)** ⭐ - Dynamic resource adjustment [Related: Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) | [Economics Axiom](../part1-axioms/axiom8-economics/index.md) | [Intelligence Distribution](../part2-pillars/intelligence/index.md)
+- **[Load Balancing](load-balancing.md)** - Request distribution strategies [Related: Latency Axiom](../part1-axioms/axiom1-latency/index.md) | [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) | [Work Distribution](../part2-pillars/work/index.md)
+- **[Edge Computing](edge-computing.md)** ⭐ - Processing at the periphery [Related: Latency Axiom](../part1-axioms/axiom1-latency/index.md) | [Uber Case Study](../case-studies/uber-location.md)
+- **[FinOps](finops.md)** - Cloud cost optimization [Related: Economics Axiom](../part1-axioms/axiom8-economics/index.md)
 
 *⭐ = Enhanced with 5-level progressive learning structure*
 
@@ -328,6 +328,27 @@ Ready to test your pattern knowledge?
 > *"Choose patterns for the problems you have, not the problems you might have."*
 
 > *"Every pattern is a bet on the future. Make sure you can afford to be wrong."*
+
+---
+
+## 🔗 Quick Navigation
+
+### Patterns Emerge From
+- [8 Fundamental Axioms](../part1-axioms/index.md) - The constraints that create patterns
+- [5 Foundational Pillars](../part2-pillars/index.md) - How patterns combine into architectures
+
+### Pattern Categories by Axiom
+- **Latency Patterns**: [Caching](caching-strategies.md), [Edge Computing](edge-computing.md), [CDN](caching-strategies.md#cdn-strategies)
+- **Capacity Patterns**: [Sharding](sharding.md), [Rate Limiting](rate-limiting.md), [Auto-Scaling](auto-scaling.md)
+- **Failure Patterns**: [Circuit Breaker](circuit-breaker.md), [Bulkhead](bulkhead.md), [Retry & Backoff](retry-backoff.md)
+- **Concurrency Patterns**: [CQRS](cqrs.md), [Event Sourcing](event-sourcing.md), [Idempotent Receiver](idempotent-receiver.md)
+- **Coordination Patterns**: [Saga](saga.md), [Leader Election](leader-election.md), [Distributed Lock](distributed-lock.md)
+
+### Patterns in Action
+- [Uber Case Study](../case-studies/uber-location.md) - Edge Computing, Geo-Replication, Load Balancing
+- [DynamoDB Case Study](../case-studies/amazon-dynamo.md) - Tunable Consistency, Sharding, Circuit Breaker
+- [PayPal Case Study](../case-studies/paypal-payments.md) - Saga Pattern, Idempotent Receiver, Event Sourcing
+- [Spotify Case Study](../case-studies/spotify-recommendations.md) - CQRS, Event-Driven Architecture, Caching
 
 ## What's New
 

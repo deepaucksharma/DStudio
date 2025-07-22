@@ -267,26 +267,69 @@ Look for patterns:
 
 ### Distributed Grep
 When you need to search everywhere:
-```bash
-# Search all logs across all services
-for service in $(kubectl get deployments -o name); do
-  echo "=== $service ==="
-  kubectl logs -l app=$service --since=1h | grep -i "error\|timeout\|fail"
-done | tee investigation-$(date +%s).log
-```bash
+
+```mermaid
+flowchart LR
+    subgraph "Distributed Search Strategy"
+        A[Need to Search Everything] --> B[Get Service List]
+        B --> C[For Each Service]
+        C --> D[Fetch Logs]
+        D --> E[Search Patterns]
+        E --> F[Aggregate Results]
+        F --> G[Save Investigation]
+        
+        H[Search Patterns:<br/>• error<br/>• timeout<br/>• fail<br/>• exception<br/>• refused]
+    end
+    
+    style A fill:#e3f2fd
+    style G fill:#c8e6c9
+```
+
+**Distributed Search Commands:**
+
+| Scope | Command | Use Case |
+|-------|---------|----------|  
+| **All Services** | `for svc in $(kubectl get deploy -o name); do kubectl logs -l app=$svc --since=1h \| grep -i "error\|timeout"; done` | Unknown error source |
+| **By Namespace** | Add `-n namespace` | Isolate to environment |
+| **Time Window** | `--since=2h` | Recent issues only |
+| **Severity** | Add `\| grep -E 'CRITICAL\|ERROR'` | High priority only |
+| **Save Results** | `\| tee investigation-$(date +%s).log` | Document findings |
 ### Time Series Correlation
-```python
-# Find what else spiked when issue started
-anomaly_time = "2024-03-14 15:32:00"
-metrics = get_all_metrics()
 
-for metric in metrics:
-    values_before = metric.get_values(anomaly_time - 1h, anomaly_time)
-    values_after = metric.get_values(anomaly_time, anomaly_time + 10m)
+```mermaid
+flowchart TD
+    subgraph "Time Series Correlation Analysis"
+        A[Anomaly Detected<br/>at T0] --> B[Get All Metrics]
+        B --> C[For Each Metric]
+        
+        C --> D[Get Values<br/>T0 - 1hr to T0]
+        C --> E[Get Values<br/>T0 to T0 + 10min]
+        
+        D --> F[Compare]
+        E --> F
+        
+        F --> G{Spike Detected?}
+        G -->|Yes| H[Add to Correlated List]
+        G -->|No| I[Next Metric]
+        
+        H --> J[Rank by Correlation]
+        I --> C
+        
+        J --> K[Investigation Targets]
+    end
+    
+    style A fill:#ffcdd2
+    style K fill:#c8e6c9
+```
 
-    if spike_detected(values_before, values_after):
-        print(f"Correlated spike: {metric.name}")
-```bash
+**Correlation Detection Patterns:**
+
+| Pattern | Detection Method | Likely Cause |
+|---------|-----------------|---------------|
+| **Simultaneous Spike** | Same timestamp ±30s | Direct causation |
+| **Cascade Pattern** | Sequential spikes | Dependency chain |
+| **Inverse Correlation** | One up, one down | Resource competition |
+| **Periodic Match** | Same frequency | Shared root cause |
 ### Hypothesis Testing
 1. Form hypothesis: "DB connection exhaustion"
 2. Make prediction: "Connection count = max"
@@ -304,11 +347,44 @@ When things are slow:
 ## Measure First
 Never assume - always measure:
 
-### 1. End-to-End Timing
-```bash
-# Trace full request path
-curl -H "X-Trace: true" https://api/endpoint | jq .trace_timeline
-```proto
+```mermaid
+flowchart TD
+    subgraph "Performance Investigation Flow"
+        A[Performance Issue] --> B[Measure First]
+        B --> C[End-to-End Trace]
+        
+        C --> D[Identify Slowest Span]
+        D --> E{Where is Bottleneck?}
+        
+        E -->|Network| F[Check Latency/Bandwidth]
+        E -->|Application| G[Profile Code]
+        E -->|Database| H[Query Analysis]
+        E -->|External API| I[Check SLA/Limits]
+        
+        F --> J[Optimization]
+        G --> J
+        H --> J
+        I --> J
+        
+        J --> K[Measure Again]
+        K --> L{Improved?}
+        L -->|No| M[Try Next Bottleneck]
+        L -->|Yes| N[✅ Document Fix]
+    end
+    
+    style A fill:#ffcdd2
+    style N fill:#c8e6c9
+```
+
+**Performance Measurement Commands:**
+
+| Layer | Command | Measures |
+|-------|---------|----------|  
+| **End-to-End** | `curl -w "@curl-format.txt" -o /dev/null URL` | Total time breakdown |
+| **Network** | `mtr --report URL` | Packet loss, latency |
+| **Application** | Enable profiler endpoint | CPU, memory hotspots |
+| **Database** | `EXPLAIN ANALYZE query` | Query execution plan |
+| **External APIs** | Check APM traces | Third-party latency |
 ### 2. Component Breakdown
 - Network time (DNS, TLS, transfer)
 - Gateway processing
@@ -332,15 +408,32 @@ For each resource:
 
 ### N+1 Queries
 Symptom: Linear performance degradation
-```sql
--- Find repeated queries
-SELECT query_template, COUNT(*), AVG(duration)
-FROM query_log
-WHERE timestamp > NOW() - INTERVAL '5 minutes'
-GROUP BY query_template
-HAVING COUNT(*) > 100
-ORDER BY COUNT(*) DESC;
-```bash
+
+```mermaid
+flowchart LR
+    subgraph "N+1 Query Detection"
+        A[Performance Degradation] --> B[Linear with Load?]
+        B -->|Yes| C[Check Query Logs]
+        C --> D[Group by Template]
+        D --> E{Repeated Queries?}
+        E -->|Yes| F[N+1 Problem Found]
+        F --> G[Fix: Batch Loading]
+        
+        H[Example Pattern:<br/>SELECT * FROM users WHERE id = ?<br/>Called 100 times<br/>Should be: WHERE id IN (?, ?, ...)]
+    end
+    
+    style F fill:#ffcdd2
+    style G fill:#c8e6c9
+```
+
+**Common Performance Bottlenecks:**
+
+| Bottleneck | Symptoms | Detection Query | Fix |
+|------------|----------|----------------|-----|
+| **N+1 Queries** | Linear degradation | Count query frequency | Batch fetch |
+| **Lock Contention** | Spiky latency | Check pg_locks | Reduce lock scope |
+| **GC Pauses** | Periodic freezes | GC logs analysis | Tune heap size |
+| **Connection Exhaustion** | Timeouts | Pool metrics | Increase pool |
 ### Lock Contention
 Symptom: Spiky latency
 ```sql
@@ -461,166 +554,255 @@ Postmortem to follow."
 ### Executable Runbooks
 
 ```python
-# runbook_executor.py
-class RunbookExecutor:
-    def __init__(self, runbook_path):
-        self.runbook = parse_runbook(runbook_path)
-        self.context = {}
+### Executable Runbooks
 
-    def execute(self):
-        """
-        Semi-automated runbook execution
-        """
-        for step in self.runbook.steps:
-            print(f"\n[Step {step.number}] {step.description}")
+```mermaid
+flowchart TD
+    subgraph "Automated Runbook Execution"
+        A[Start Runbook] --> B[Parse Steps]
+        B --> C[For Each Step]
+        
+        C --> D{Step Type?}
+        D -->|Automated| E[Execute Command]
+        D -->|Decision| F[Human Input]
+        D -->|Manual| G[Wait for Human]
+        
+        E --> H[Store Result]
+        F --> I{Yes/No?}
+        I -->|Yes| J[Yes Branch]
+        I -->|No| K[No Branch]
+        G --> L[Continue]
+        
+        H --> M[Next Step]
+        J --> M
+        K --> M
+        L --> M
+        
+        M --> C
+        M --> N[Complete]
+    end
+    
+    style E fill:#c8e6c9
+    style F fill:#fff3cd
+    style G fill:#ffebee
+```
 
-            if step.is_automated:
-                # Execute automatically
-                result = self.run_command(step.command)
-                self.context[step.output_var] = result
+**Runbook Automation Levels:**
 
-            elif step.is_decision:
-                # Human decision required
-                print(f"Check: {step.condition}")
-                decision = input("Result (yes/no): ")
-                if decision.lower() == 'yes':
-                    self.execute_branch(step.yes_branch)
-                else:
-                    self.execute_branch(step.no_branch)
-
-            else:
-                # Manual step
-                print(f"Manual action required: {step.instruction}")
-                input("Press Enter when complete...")
-
-        print("\nRunbook execution complete!")
-```bash
+| Level | Description | Human Involvement | Example |
+|-------|-------------|------------------|------|
+| **Full Auto** | No human needed | Monitor only | Restart service |
+| **Semi-Auto** | Human decisions | Key decisions | Database failover |
+| **Guided Manual** | Human executes | Follow prompts | Complex recovery |
+| **Reference Only** | Human interprets | Full control | Investigation |
 ### ChatOps Integration
 
-```yaml
-# Slack command integration
-commands:
-  - name: /runbook
-    description: Execute a runbook
-    handler: |
-      def handle_runbook_command(text, user):
-          runbook_name = text.strip()
+### ChatOps Integration
 
-          # Validate access
-          if not user_can_execute(user, runbook_name):
-              return "Sorry, you don't have permission"
+```mermaid
+flowchart LR
+    subgraph "ChatOps Runbook Integration"
+        A[Slack Command:<br/>/runbook payment-latency] --> B[Validate Permission]
+        B --> C{Authorized?}
+        C -->|No| D[Access Denied]
+        C -->|Yes| E[Start Execution]
+        
+        E --> F[Create Thread]
+        F --> G[Post Steps]
+        G --> H[Wait for Responses]
+        H --> I[Execute Actions]
+        I --> J[Post Results]
+        
+        K[Benefits:<br/>• Audit trail<br/>• Collaboration<br/>• Learning<br/>• Accessibility]
+    end
+    
+    style D fill:#ffcdd2
+    style E fill:#c8e6c9
+```
 
-          # Start execution
-          thread = execute_runbook_interactive(
-              runbook_name,
-              channel=user.channel,
-              executor=user
-          )
+**ChatOps Commands:**
 
-          return f"Starting runbook: {runbook_name}"
-```bash
+| Command | Purpose | Permission | Example |
+|---------|---------|------------|------|
+| `/runbook list` | Show available | Read | Lists all runbooks |
+| `/runbook <name>` | Execute runbook | Execute | Start guided execution |
+| `/runbook status` | Check progress | Read | Show active runbooks |
+| `/runbook abort` | Stop execution | Execute | Emergency stop |
 ## Runbook Library Structure
 
 ### Organization
 
 ```
-runbooks/
-├── alerts/
-│   ├── high-cpu.md
-│   ├── memory-leak.md
-│   └── disk-full.md
-├── services/
-│   ├── api-gateway/
-│   ├── payment-service/
-│   └── user-service/
-├── incidents/
-│   ├── total-outage.md
-│   ├── data-corruption.md
-│   └── security-breach.md
-├── maintenance/
-│   ├── database-upgrade.md
-│   ├── certificate-renewal.md
-│   └── capacity-expansion.md
-└── investigation/
-    ├── general-slowness.md
-    ├── intermittent-errors.md
-    └── customer-reports.md
-```bash
+## Runbook Library Structure
+
+### Organization
+
+```mermaid
+graph TD
+    subgraph "Runbook Organization Structure"
+        A[runbooks/] --> B[alerts/]
+        A --> C[services/]
+        A --> D[incidents/]
+        A --> E[maintenance/]
+        A --> F[investigation/]
+        
+        B --> B1[high-cpu.md]
+        B --> B2[memory-leak.md]
+        B --> B3[disk-full.md]
+        
+        C --> C1[api-gateway/]
+        C --> C2[payment-service/]
+        C --> C3[user-service/]
+        
+        D --> D1[total-outage.md]
+        D --> D2[data-corruption.md]
+        D --> D3[security-breach.md]
+        
+        E --> E1[database-upgrade.md]
+        E --> E2[certificate-renewal.md]
+        E --> E3[capacity-expansion.md]
+        
+        F --> F1[general-slowness.md]
+        F --> F2[intermittent-errors.md]
+        F --> F3[customer-reports.md]
+    end
+    
+    style A fill:#e3f2fd
+    style B fill:#ffebee
+    style C fill:#e8f5e9
+    style D fill:#ff5252,color:#fff
+    style E fill:#fff3cd
+    style F fill:#f3e5f5
+```
+
+**Runbook Naming Convention:**
+
+| Category | Format | Example | When to Use |
+|----------|--------|---------|-------------|  
+| **Alerts** | `<metric>-<condition>.md` | `cpu-high.md` | Alert fired |
+| **Services** | `<service>/<scenario>.md` | `payment/latency.md` | Service issue |
+| **Incidents** | `<severity>-<type>.md` | `sev1-outage.md` | Major incident |
+| **Maintenance** | `<task>-<frequency>.md` | `backup-daily.md` | Planned work |
+| **Investigation** | `<symptom>-investigation.md` | `slow-api-investigation.md` | Unknown issue |
 ### Runbook Metadata
 
-```yaml
-# Front matter for each runbook
----
-title: Payment Service High Latency
-severity: P2
-services: [payment-service, api-gateway]
-author: payment-team
-last_reviewed: 2024-03-01
-related_runbooks:
-  - database-connection-exhaustion
-  - third-party-api-timeout
-metrics:
-  - payment_service_p99_latency
-  - payment_service_error_rate
-  - database_connection_pool_size
-dashboards:
-  - https://grafana/d/payments
-  - https://grafana/d/database
----
-```bash
+### Runbook Metadata
+
+**Runbook Metadata Template:**
+
+```mermaid
+graph LR
+    subgraph "Runbook Front Matter"
+        A[Metadata] --> B[Identification]
+        A --> C[Dependencies]
+        A --> D[Resources]
+        
+        B --> B1[Title]
+        B --> B2[Severity]
+        B --> B3[Author]
+        B --> B4[Last Review]
+        
+        C --> C1[Services]
+        C --> C2[Related Runbooks]
+        
+        D --> D1[Metrics]
+        D --> D2[Dashboards]
+        D --> D3[Alerts]
+    end
+    
+    style A fill:#e3f2fd
+```
+
+| Field | Purpose | Example | Required |
+|-------|---------|---------|----------|
+| **title** | Human-readable name | "Payment Service High Latency" | Yes |
+| **severity** | Priority level | P1, P2, P3 | Yes |
+| **services** | Affected services | [payment, gateway] | Yes |
+| **author** | Team ownership | payment-team | Yes |
+| **last_reviewed** | Freshness tracking | 2024-03-01 | Yes |
+| **related_runbooks** | See also | [db-issues, api-timeout] | No |
+| **metrics** | Key indicators | [p99_latency, error_rate] | Yes |
+| **dashboards** | Visual tools | [grafana links] | Yes |
 ## Testing Runbooks
 
 ### Chaos Day Validation
 
-```python
-def chaos_test_runbook(runbook, environment='staging'):
-    """
-    Test runbook by causing the actual problem
-    """
-    # 1. Inject failure
-    failure = inject_failure(runbook.failure_scenario)
+## Testing Runbooks
 
-    # 2. Wait for alert
-    alert = wait_for_alert(runbook.alert_name, timeout=300)
-    assert alert.fired, "Alert didn't fire!"
+### Chaos Day Validation
 
-    # 3. Execute runbook
-    start_time = time.now()
-    result = execute_runbook(runbook, dry_run=False)
-    duration = time.now() - start_time
+```mermaid
+flowchart TD
+    subgraph "Chaos Testing Runbooks"
+        A[Select Runbook] --> B[Inject Failure]
+        B --> C[Wait for Alert]
+        C --> D{Alert Fired?}
+        D -->|No| E[❌ Test Failed:<br/>Detection Issue]
+        D -->|Yes| F[Execute Runbook]
+        
+        F --> G[Measure Time]
+        G --> H{System Healthy?}
+        H -->|No| I[❌ Test Failed:<br/>Runbook Ineffective]
+        H -->|Yes| J{Within SLA?}
+        
+        J -->|No| K[⚠️ Warning:<br/>Too Slow]
+        J -->|Yes| L[✅ Test Passed]
+        
+        I --> M[Cleanup]
+        K --> M
+        L --> M
+        E --> M
+    end
+    
+    style E fill:#ffcdd2
+    style I fill:#ffcdd2
+    style K fill:#fff3cd
+    style L fill:#c8e6c9
+```
 
-    # 4. Verify resolution
-    assert system_healthy(), "Runbook didn't fix issue!"
-    assert duration < runbook.sla, f"Took too long: {duration}"
+**Chaos Test Schedule:**
 
-    # 5. Cleanup
-    cleanup_failure(failure)
-
-    return TestResult(success=True, duration=duration)
-```bash
+| Runbook Type | Test Frequency | Environment | Duration |
+|--------------|---------------|-------------|----------|  
+| **Critical (P1)** | Weekly | Staging | < 5 min |
+| **Important (P2)** | Bi-weekly | Staging | < 15 min |
+| **Standard (P3)** | Monthly | Dev | < 30 min |
+| **New Runbooks** | Before merge | All | Varies |
+| **Post-Incident** | Within 48hr | Staging | Match SLA |
 ### Regular Drills
 
-```yaml
-# Schedule regular runbook drills
-apiVersion: batch/v1
-kind: CronJob
-metadata:
-  name: runbook-drill
-spec:
-  schedule: "0 14 * * WED"  # Weekly Wednesday 2 PM
-  jobTemplate:
-    spec:
-      template:
-        spec:
-          containers:
-          - name: drill-runner
-            command: ["python", "-m", "runbook_drill"]
-            env:
-            - name: DRILL_MODE
-              value: "safe"  # Don't break prod
-            - name: RUNBOOK
-              value: "random"  # Pick random runbook
-```bash
+### Regular Drills
+
+```mermaid
+gantt
+    title Runbook Drill Schedule
+    dateFormat YYYY-MM-DD
+    axisFormat %b %d
+    
+    section Weekly Drills
+    Random Runbook     :w1, 2024-03-06, 1d
+    Random Runbook     :w2, 2024-03-13, 1d
+    Random Runbook     :w3, 2024-03-20, 1d
+    Random Runbook     :w4, 2024-03-27, 1d
+    
+    section Monthly Focus
+    Database Runbooks  :m1, 2024-03-01, 3d
+    Security Runbooks  :m2, 2024-04-01, 3d
+    
+    section Quarterly
+    All P1 Runbooks    :q1, 2024-03-15, 5d
+```
+
+**Drill Execution Protocol:**
+
+| Phase | Action | Time | Success Criteria |
+|-------|--------|------|------------------|
+| **Announce** | "Drill starting in 5 min" | T-5 | Team aware |
+| **Start** | Trigger scenario | T+0 | Alert fires |
+| **Execute** | Follow runbook | T+5 | Steps completed |
+| **Verify** | Check resolution | T+20 | System healthy |
+| **Debrief** | Lessons learned | T+30 | Improvements noted |
+| **Update** | Fix runbook issues | T+60 | PR submitted |
 ## Best Practices
 
 1. **Write for Your Tired Self**

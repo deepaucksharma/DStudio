@@ -34,7 +34,7 @@ Imagine a massive library with millions of books. How do you organize the catalo
 - Con: What about books covering multiple topics?
 - Con: How do you keep them synchronized?
 
-That's distributed state in a nutshell!
+That's distributed state in a nutshell! This challenge arises from [Axiom 2: Capacity](../../part1-axioms/axiom2-capacity/index.md) (finite resources require distribution) and [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) (replicas for fault tolerance).
 
 ---
 
@@ -86,7 +86,7 @@ sequenceDiagram
 | Problem | Description | Real-World Impact |
 |---------|-------------|-------------------|
 | **Stale Cache** | ATMs see outdated balance | Double-spending attacks |
-| **Race Condition** | Concurrent operations conflict | Data corruption |
+| **Race Condition** | Concurrent operations conflict | Data corruption (see [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md)) |
 | **Lost Update** | One update overwrites another | Missing transactions |
 | **Version Mismatch** | Cache version != source version | Inconsistent state |
 
@@ -181,6 +181,8 @@ Think of distributed state like:
 **Date**: October 21, 2018
 **Impact**: 24 hours of degraded service
 
+This incident perfectly illustrates [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) and the challenges of maintaining [Pillar 3: Truth](../truth/index.md) across distributed state.
+
 ```mermaid
 graph TB
     subgraph "GitHub Split-Brain Timeline"
@@ -233,6 +235,8 @@ graph LR
 ### The CAP Theorem Visualized
 
 ### The CAP Theorem Visualized
+
+The CAP theorem directly connects to [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - you can't have perfect coordination (consistency) and availability during network partitions.
 
 ```mermaid
 graph TB
@@ -305,10 +309,10 @@ graph TB
 | Pattern | State Distribution | Consistency | Use Case |
 |---------|-------------------|-------------|----------|
 | **Single Master** | All writes to one node | Strong | MySQL primary |
-| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra |
+| **Multi-Master** | Any node can accept writes | Eventual/Conflict | Cassandra (requires [Pillar 3: Truth](../truth/index.md) resolution) |
 | **Partitioned** | Each partition has master | Strong per partition | MongoDB sharding |
 | **Replicated State Machine** | All nodes execute same ops | Strong | etcd/Raft |
-| **CRDT** | Merge concurrent updates | Strong eventual | Redis CRDT |
+| **CRDT** | Merge concurrent updates | Strong eventual | Redis CRDT (see CRDT section below) |
 | **Event Sourced** | State from event log | Eventual | Kafka + CQRS |
 
 #### Consistency Under State Mutations
@@ -421,6 +425,8 @@ graph LR
 ### Advanced Replication: Chain Replication
 
 ### Advanced Replication: Chain Replication Architecture
+
+Chain replication leverages [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) trade-offs - higher write latency for stronger consistency and simpler failure handling.
 
 ```mermaid
 graph LR
@@ -540,6 +546,8 @@ graph TB
 
 ### Vector Clocks: Tracking Causality
 
+Vector clocks implement the ordering requirements from [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md), enabling distributed systems to reason about happened-before relationships.
+
 ```mermaid
 sequenceDiagram
     participant A as Node A<br/>[0,0,0]
@@ -603,6 +611,8 @@ graph TB
 ### CRDTs: Conflict-Free Replicated Data Types
 
 ### CRDTs: Conflict-Free Replicated Data Types
+
+CRDTs bypass [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](../truth/index.md) for consensus alternatives).
 
 ```mermaid
 graph TB
@@ -697,6 +707,8 @@ sequenceDiagram
 ### DynamoDB: Eventually Consistent at Scale
 
 ### DynamoDB: Eventually Consistent at Scale
+
+DynamoDB exemplifies the [Axiom 8: Economics](../../part1-axioms/axiom8-economics/index.md) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
 
 ```mermaid
 graph TB
@@ -800,6 +812,8 @@ graph LR
 ### Google Spanner: Globally Consistent Database
 
 ### Google Spanner: Globally Consistent Database
+
+Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) and achieve global consistency (detailed in [Pillar 3: Truth](../truth/index.md)).
 
 ```mermaid
 graph TB
@@ -1535,3 +1549,31 @@ graph TD
 **Next**: [Pillar 3: Consensus →](../truth/index.md)
 
 *"State is the hardest problem in distributed systems. Everything else is just moving bytes around."*
+
+## Related Resources
+
+### Foundational Axioms
+- [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) - How network delays affect state consistency
+- [Axiom 2: Capacity](../../part1-axioms/axiom2-capacity/index.md) - Why we must distribute state
+- [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) - Replication for fault tolerance
+- [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - Concurrent state mutations
+- [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - Synchronizing state updates
+- [Axiom 8: Economics](../../part1-axioms/axiom8-economics/index.md) - Cost of consistency levels
+
+### Related Pillars
+- [Pillar 1: Work](../work/index.md) - Stateless vs stateful computation
+- [Pillar 3: Truth](../truth/index.md) - Consensus on state values
+- [Pillar 4: Control](../control/index.md) - Orchestrating state changes
+- [Pillar 5: Intelligence](../intelligence/index.md) - Smart state placement
+
+### Implementation Patterns
+- [Event Sourcing](../../patterns/event-sourcing/index.md) - State as event log
+- [CQRS](../../patterns/cqrs/index.md) - Separate read/write state models
+- [Sharding](../../patterns/sharding/index.md) - Horizontal state partitioning
+- [Replication](../../patterns/replication/index.md) - State redundancy patterns
+
+### Real-World Case Studies
+- [DynamoDB](../../case-studies/dynamodb/index.md) - Amazon's distributed database
+- [Cassandra](../../case-studies/cassandra/index.md) - Wide-column distributed store
+- [Redis Cluster](../../case-studies/redis-cluster/index.md) - In-memory distributed state
+- [MongoDB](../../case-studies/mongodb/index.md) - Document database sharding

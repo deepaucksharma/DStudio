@@ -21,7 +21,7 @@ last_updated: 2025-01-21
 
 ## 🎯 Level 1: Intuition
 
-### Core Concept
+## Core Concept
 
 Like ship compartments that prevent total flooding, software bulkheads isolate failures to prevent system-wide collapse.
 
@@ -29,7 +29,7 @@ Like ship compartments that prevent total flooding, software bulkheads isolate f
 
 **Solution**: Dedicated resource compartments per service - failures stay isolated, other services continue operating.
 
-### Simple Example
+## Simple Example
 
 ```text
 Without Bulkheads (Shared Pool - 100 threads):
@@ -47,7 +47,7 @@ With Bulkheads (Isolated Pools):
 
 ## 🏗️ Level 2: Foundation
 
-### Bulkhead Strategies
+## Bulkhead Strategies
 
 | Type | Isolates | Overhead | Best For |
 |------|----------|----------|----------|
@@ -57,7 +57,7 @@ With Bulkheads (Isolated Pools):
 | **Process** | Everything | High | Critical isolation |
 | **Container** | Everything | Medium | Microservices |
 
-### Isolation Examples
+## Isolation Examples
 
 **Thread Pool**: Search (20 threads), Checkout (50 threads), Analytics (10 threads)
 
@@ -65,7 +65,7 @@ With Bulkheads (Isolated Pools):
 
 **Container**: Search (2GB/2CPU), Checkout (4GB/4CPU), Analytics (1GB/1CPU)
 
-### Bulkhead Sizing Formula
+## Bulkhead Sizing Formula
 
 Using Little's Law: **Size = Arrival Rate × Processing Time × Buffer**
 
@@ -76,7 +76,7 @@ Key factors:
 - Burst capacity (1.5-2x normal)
 - Variance in processing time
 
-### Bulkhead Architecture Pattern
+## Bulkhead Architecture Pattern
 
 ```mermaid
 graph TB
@@ -100,7 +100,7 @@ graph TB
     end
 ```
 
-### Bulkhead Decision Flow
+## Bulkhead Decision Flow
 
 ```mermaid
 flowchart TD
@@ -132,7 +132,7 @@ flowchart TD
     style OpenCircuit fill:#f96
 ```
 
-### Bulkhead State Machine
+## Bulkhead State Machine
 
 ```mermaid
 stateDiagram-v2
@@ -153,7 +153,7 @@ stateDiagram-v2
     HalfOpen: Limited Requests
 ```
 
-### Production-Ready Implementation
+## Production-Ready Implementation
 
 ```python
 from dataclasses import dataclass
@@ -653,7 +653,7 @@ class AdaptiveBulkhead:
 
 ## 🔧 Level 3: Deep Dive
 
-### Advanced Bulkhead Patterns
+## Advanced Bulkhead Patterns
 
 #### Adaptive Bulkhead Sizing
 
@@ -824,7 +824,7 @@ graph TB
 | **Storage** | Isolated file systems |
 | **Scaling** | Independent horizontal scaling |
 
-### Real-World Implementation Patterns
+## Real-World Implementation Patterns
 
 #### Netflix's Hystrix Bulkheads
 ```java
@@ -882,7 +882,7 @@ public class NetflixBulkheadExample {
 
 ## 🚀 Level 4: Expert
 
-### Real-World Case Study: Amazon's Cell-Based Architecture
+## Real-World Case Study: Amazon's Cell-Based Architecture
 
 #### The Challenge (2015)
 
@@ -1027,7 +1027,7 @@ class AmazonBulkheadMetrics:
         }
 ```
 
-### Case Study: Spotify's Squad Isolation
+## Case Study: Spotify's Squad Isolation
 
 ```python
 class SpotifySquadBulkheads:
@@ -1105,7 +1105,7 @@ spotify_metrics = {
 }
 ```
 
-### Production Monitoring Dashboard
+## Production Monitoring Dashboard
 
 ```python
 class BulkheadMonitoringDashboard:
@@ -1145,7 +1145,7 @@ class BulkheadMonitoringDashboard:
         """
 ```
 
-### Enterprise Implementation Patterns
+## Enterprise Implementation Patterns
 
 #### Microsoft Azure's Deployment Stamps
 ```python
@@ -1221,7 +1221,7 @@ office365_bulkheads = {
 
 ## 🎯 Level 5: Mastery
 
-### Theoretical Foundations of Isolation
+## Theoretical Foundations of Isolation
 
 #### Queueing Theory Applied to Bulkheads
 
@@ -1451,7 +1451,7 @@ class BulkheadChaosEngineer:
         
         self.logger.info(f"Flooded {bulkhead.name} with {request_count} requests")
 
-### Future Directions
+## Future Directions
 
 #### Quantum-Inspired Superposition Bulkheads
 
@@ -1565,7 +1565,7 @@ class AutonomousBulkheadSystem:
             
             await asyncio.sleep(60)  # Decision every minute
 
-### Economic Impact Calculator
+## Economic Impact Calculator
 
 ```python
 class BulkheadEconomics:
@@ -1637,7 +1637,7 @@ print(f"Payback period: {roi['payback_period_days']:.0f} days")
 
 ## 📋 Quick Reference
 
-### Decision Matrix: Choosing Bulkhead Strategy
+## Decision Matrix: Choosing Bulkhead Strategy
 
 ```mermaid
 graph TD
@@ -1654,7 +1654,7 @@ graph TD
     Q3 -->|Feature| Container["Container<br/>Isolation"]
 ```
 
-### Configuration Cheat Sheet
+## Configuration Cheat Sheet
 
 | Service Type | Bulkhead Type | Size Formula | Queue Size |
 |-------------|---------------|--------------|------------|
@@ -1664,7 +1664,7 @@ graph TD
 | **Microservices** | Container/Cell | Services × redundancy_factor | N/A |
 | **External APIs** | Semaphore | Rate limit / 2 | 0-10 |
 
-### Common Bulkhead Sizes
+## Common Bulkhead Sizes
 
 ```yaml
 # Production-tested configurations
@@ -1697,7 +1697,7 @@ bulkhead_configs:
       timeout: 10s
 ```
 
-### Implementation Checklist
+## Implementation Checklist
 
 #### Basic Bulkhead
 - [ ] Identify resource boundaries
@@ -1726,7 +1726,7 @@ bulkhead_configs:
 
 ## Summary
 
-### Key Takeaways by Level
+## Key Takeaways by Level
 
 | Level | Core Concept | When You're Ready |
 |-------|--------------|-------------------|
@@ -1736,7 +1736,7 @@ bulkhead_configs:
 | **Level 4** | Cell architecture eliminates shared fate | Building planet-scale systems |
 | **Level 5** | Mathematical optimization and autonomous management | Pushing isolation boundaries |
 
-### Economic Impact Summary
+## Economic Impact Summary
 
 ```python
 def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
@@ -1769,7 +1769,7 @@ def calculate_bulkhead_value(your_metrics: Dict) -> Dict:
     }
 ```
 
-### Best Practices Summary
+## Best Practices Summary
 
 1. **Start small** - Begin with coarse-grained isolation
 2. **Monitor everything** - You can't improve what you don't measure  
@@ -1868,48 +1868,48 @@ await db_bulkheads.execute('analytics',
 
 ## ✅ When to Use
 
-### Ideal Scenarios
+## Ideal Scenarios
 - **Distributed systems** with external dependencies
 - **High-availability services** requiring reliability
 - **External service integration** with potential failures
 - **High-traffic applications** needing protection
 
-### Environmental Factors
+## Environmental Factors
 - **High Traffic**: System handles significant load
 - **External Dependencies**: Calls to other services or systems
 - **Reliability Requirements**: Uptime is critical to business
 - **Resource Constraints**: Limited connections, threads, or memory
 
-### Team Readiness
+## Team Readiness
 - Team understands distributed systems concepts
 - Monitoring and alerting infrastructure exists
 - Operations team can respond to pattern-related alerts
 
-### Business Context
+## Business Context
 - Cost of downtime is significant
 - User experience is a priority
 - System is customer-facing or business-critical
 
 ## ❌ When NOT to Use
 
-### Inappropriate Scenarios
+## Inappropriate Scenarios
 - **Simple applications** with minimal complexity
 - **Development environments** where reliability isn't critical
 - **Single-user systems** without scale requirements
 - **Internal tools** with relaxed availability needs
 
-### Technical Constraints
+## Technical Constraints
 - **Simple Systems**: Overhead exceeds benefits
 - **Development/Testing**: Adds unnecessary complexity
 - **Performance Critical**: Pattern overhead is unacceptable
 - **Legacy Systems**: Cannot be easily modified
 
-### Resource Limitations
+## Resource Limitations
 - **No Monitoring**: Cannot observe pattern effectiveness
 - **Limited Expertise**: Team lacks distributed systems knowledge
 - **Tight Coupling**: System design prevents pattern implementation
 
-### Anti-Patterns
+## Anti-Patterns
 - Adding complexity without clear benefit
 - Implementing without proper monitoring
 - Using as a substitute for fixing root causes
@@ -1917,7 +1917,7 @@ await db_bulkheads.execute('analytics',
 
 ## ⚖️ Trade-offs
 
-### Benefits vs Costs
+## Benefits vs Costs
 
 | Benefit | Cost | Mitigation |
 |---------|------|------------|
@@ -1926,19 +1926,19 @@ await db_bulkheads.execute('analytics',
 | **Faster Recovery** | Operational complexity | Invest in monitoring and training |
 | **Clearer Debugging** | Additional logging | Use structured logging |
 
-### Performance Impact
+## Performance Impact
 - **Latency**: Small overhead per operation
 - **Memory**: Additional state tracking
 - **CPU**: Monitoring and decision logic
 - **Network**: Possible additional monitoring calls
 
-### Operational Complexity
+## Operational Complexity
 - **Monitoring**: Need dashboards and alerts
 - **Configuration**: Parameters must be tuned
 - **Debugging**: Additional failure modes to understand
 - **Testing**: More scenarios to validate
 
-### Development Trade-offs
+## Development Trade-offs
 - **Initial Cost**: More time to implement correctly
 - **Maintenance**: Ongoing tuning and monitoring
 - **Testing**: Complex failure scenarios to validate
@@ -1946,7 +1946,7 @@ await db_bulkheads.execute('analytics',
 
 ## 💻 Code Sample
 
-### Basic Implementation
+## Basic Implementation
 
 ```python
 class BulkheadPattern:
@@ -1992,7 +1992,7 @@ pattern = BulkheadPattern(config)
 result = pattern.process(user_request)
 ```
 
-### Configuration Example
+## Configuration Example
 
 ```yaml
 bulkhead:
@@ -2012,7 +2012,7 @@ bulkhead:
     health_check_interval: 30s
 ```
 
-### Testing the Implementation
+## Testing the Implementation
 
 ```python
 def test_bulkhead_behavior():
@@ -2034,7 +2034,7 @@ def test_bulkhead_behavior():
 
 ## 💪 Hands-On Exercises
 
-### Exercise 1: Pattern Recognition ⭐⭐
+## Exercise 1: Pattern Recognition ⭐⭐
 **Time**: ~15 minutes
 **Objective**: Identify Bulkhead in existing systems
 
@@ -2048,7 +2048,7 @@ For each example:
 - What problems it solves in that context
 - What alternatives could have been used
 
-### Exercise 2: Implementation Planning ⭐⭐⭐
+## Exercise 2: Implementation Planning ⭐⭐⭐
 **Time**: ~25 minutes
 **Objective**: Design an implementation of Bulkhead
 
@@ -2067,7 +2067,7 @@ For each example:
 
 **Deliverable**: Architecture diagram + 1-page implementation plan
 
-### Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
+## Exercise 3: Trade-off Analysis ⭐⭐⭐⭐
 **Time**: ~20 minutes
 **Objective**: Evaluate when NOT to use Bulkhead
 
@@ -2085,20 +2085,20 @@ For each example:
 
 ## 🛠️ Code Challenge
 
-### Beginner: Basic Implementation
+## Beginner: Basic Implementation
 Implement a minimal version of Bulkhead in your preferred language.
 - Focus on core functionality
 - Include basic error handling
 - Add simple logging
 
-### Intermediate: Production Features
+## Intermediate: Production Features
 Extend the basic implementation with:
 - Configuration management
 - Metrics collection
 - Unit tests
 - Documentation
 
-### Advanced: Performance & Scale
+## Advanced: Performance & Scale
 Optimize for production use:
 - Handle concurrent access
 - Implement backpressure

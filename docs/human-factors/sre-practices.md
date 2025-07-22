@@ -40,10 +40,21 @@ Site Reliability Engineering treats operations as a software problem. Core tenet
 
 ### The Fundamental Equation
 
-```redis
-Error Budget = 100% - SLO
-
-If SLO = 99.9%, Error Budget = 0.1% = 43 minutes/month
+```mermaid
+graph LR
+    subgraph "Error Budget Formula"
+        A[100%] --> B[Minus SLO]
+        B --> C[Equals Error Budget]
+    end
+    
+    subgraph "Example Calculation"
+        D[SLO: 99.9%] --> E[Error Budget: 0.1%]
+        E --> F[43 minutes/month downtime allowed]
+    end
+    
+    style A fill:#e1f5fe
+    style C fill:#ffecb3
+    style F fill:#c8e6c9
 ```
 
 ### Real-World Error Budget Examples
@@ -68,29 +79,34 @@ If SLO = 99.9%, Error Budget = 0.1% = 43 minutes/month
 
 ### Using Error Budgets
 
-```python
-class ErrorBudgetManager:
-    def __init__(self, slo_target):
-        self.slo_target = slo_target
-        self.error_budget = 1.0 - slo_target
-
-    def can_deploy(self, current_availability, time_remaining):
-        # Calculate burn rate
-        budget_spent = (self.slo_target - current_availability)
-        budget_remaining = self.error_budget - budget_spent
-
-        if budget_remaining <= 0:
-            return False, "Error budget exhausted"
-
-        # Project if we'll have budget for incidents
-        days_remaining = time_remaining.days
-        daily_budget = budget_remaining / days_remaining
-
-        if daily_budget < 0.001:  # Less than 1.4 min/day
-            return False, "Insufficient budget for remainder"
-
-        return True, f"{budget_remaining*100:.3f}% budget remaining"
+```mermaid
+flowchart TD
+    A[Error Budget Manager] --> B{Check Current State}
+    B --> C[Calculate Budget Spent]
+    C --> D[Budget Remaining = Total - Spent]
+    
+    D --> E{Budget > 0?}
+    E -->|No| F[❌ Deployment Blocked<br/>Error budget exhausted]
+    E -->|Yes| G[Calculate Daily Budget]
+    
+    G --> H{Daily Budget > 0.001?}
+    H -->|No| I[❌ Deployment Blocked<br/>Insufficient budget]
+    H -->|Yes| J[✅ Can Deploy<br/>Show remaining %]
+    
+    style F fill:#ffcdd2
+    style I fill:#ffcdd2
+    style J fill:#c8e6c9
 ```
+
+**Budget Policy Decision Table:**
+
+| Budget Remaining | Action Required | Team Response |
+|-----------------|-----------------|---------------|
+| < 0% | No feature launches | All hands on reliability |
+| 0-25% | High risk deployments only | Reliability sprint |
+| 25-50% | Normal deployments with caution | Enhanced monitoring |
+| 50-100% | Normal operations | Innovation allowed |
+| > 10% single incident | Major incident | Mandatory postmortem |
 
 **Budget Policies:**
 - No feature launches when budget exhausted
@@ -125,21 +141,34 @@ class ErrorBudgetManager:
 
 ### Choosing Good SLIs
 
-```python
-# Bad SLI: Average latency (can hide problems)
-avg_latency = sum(latencies) / len(latencies)
+**SLI Quality Comparison Table:**
 
-# Good SLI: Percentile latency
-p95_latency = np.percentile(latencies, 95)
-p99_latency = np.percentile(latencies, 99)
+| SLI Type | Example | Pros | Cons | Use When |
+|----------|---------|------|------|----------|
+| **Average** | avg(latency) | Simple to calculate | Hides outliers, misleading | Never for user-facing metrics |
+| **Percentile** | p95, p99 latency | Shows tail latency | Still technical metric | API performance tracking |
+| **User-Centric** | Successful page loads | Reflects actual user experience | More complex to measure | Customer-facing services |
 
-# Better SLI: User-centric metric
-successful_page_loads = count(
-    latency < 1000ms AND
-    no_errors AND
-    all_resources_loaded
-)
-sli = successful_page_loads / total_page_loads
+```mermaid
+graph TB
+    subgraph "User-Centric SLI Components"
+        A[Page Load Request] --> B{Latency < 1000ms?}
+        B -->|Yes| C{No Errors?}
+        B -->|No| F[Failed]
+        C -->|Yes| D{All Resources Loaded?}
+        C -->|No| F
+        D -->|Yes| E[Success ✓]
+        D -->|No| F
+        
+        E --> G[Count Successes]
+        F --> H[Count Failures]
+        
+        G --> I[SLI = Successes / Total]
+        H --> I
+    end
+    
+    style E fill:#c8e6c9
+    style F fill:#ffcdd2
 ```
 
 ### Setting SLOs
@@ -195,57 +224,89 @@ Data pipeline: 99.99% (4.4 min/month)
 
 Goal: <50% of SRE time on toil
 
-```python
-class ToilTracker:
-    def __init__(self):
-        self.tasks = {}
-
-    def log_toil(self, task_type, duration_minutes):
-        self.tasks[task_type] = self.tasks.get(task_type, 0) + duration_minutes
-
-    def analyze(self, total_work_minutes):
-        toil_minutes = sum(self.tasks.values())
-        toil_percentage = (toil_minutes / total_work_minutes) * 100
-
-        # Prioritize automation
-        sorted_tasks = sorted(
-            self.tasks.items(),
-            key=lambda x: x[1],
-            reverse=True
-        )
-
-        print(f"Toil: {toil_percentage:.1f}% of time")
-        print("\nTop toil sources:")
-        for task, minutes in sorted_tasks[:5]:
-            hours = minutes / 60
-            print(f"  {task}: {hours:.1f} hours/week")
+```mermaid
+flowchart LR
+    subgraph "Toil Tracking Process"
+        A[Log Toil Tasks] --> B[Track Duration]
+        B --> C[Calculate Total Toil]
+        C --> D[Analyze Percentage]
+        D --> E{Toil > 50%?}
+        E -->|Yes| F[🚨 Alert: Exceeds Target]
+        E -->|No| G[✅ Within Target]
+        
+        D --> H[Sort by Time Spent]
+        H --> I[Identify Top 5 Tasks]
+        I --> J[Prioritize for Automation]
+    end
+    
+    style F fill:#ffcdd2
+    style G fill:#c8e6c9
+    style J fill:#fff3cd
 ```
+
+**Toil Analysis Dashboard:**
+
+| Metric | Target | Current | Status |
+|--------|--------|---------|--------|
+| Total Toil % | < 50% | Variable | Monitor |
+| Manual Deployments | 0 | Track | Automate |
+| Cert Renewals | 0 | Track | Automate |
+| Log Analysis | < 10% | Track | Tool needed |
+| Incident Response | < 20% | Track | Improve docs |
 
 ### Automation Examples
 
 **Before (Toil):**
-```bash
-# Manual cert renewal
-1. Check cert expiry dates
-2. Generate new CSR
-3. Submit to CA
-4. Download cert
-5. Deploy to servers
-6. Restart services
+```mermaid
+flowchart TD
+    subgraph "Manual Process (Before)"
+        A[Check Cert Expiry] --> B[Generate CSR]
+        B --> C[Submit to CA]
+        C --> D[Wait for Approval]
+        D --> E[Download Certificate]
+        E --> F[Deploy to Servers]
+        F --> G[Restart Services]
+        G --> H[Verify]
+        
+        style A fill:#ffebee
+        style B fill:#ffebee
+        style C fill:#ffebee
+        style D fill:#ffebee
+        style E fill:#ffebee
+        style F fill:#ffebee
+        style G fill:#ffebee
+        style H fill:#ffebee
+    end
 ```
 
 **After (Automated):**
-```python
-# Automated cert management
-@schedule.weekly
-def renew_certificates():
-    for domain in get_monitored_domains():
-        cert = get_certificate(domain)
-        if cert.expires_in_days < 30:
-            new_cert = acme_client.renew(domain)
-            deploy_certificate(domain, new_cert)
-            graceful_reload_services(domain)
+```mermaid
+flowchart TD
+    subgraph "Automated Process (After)"
+        A[Weekly Cron Job] --> B[Check All Domains]
+        B --> C{Expires < 30 days?}
+        C -->|No| D[Skip]
+        C -->|Yes| E[Auto-Renew via ACME]
+        E --> F[Deploy Automatically]
+        F --> G[Graceful Reload]
+        G --> H[Log Success]
+        
+        style A fill:#e8f5e9
+        style E fill:#e8f5e9
+        style F fill:#e8f5e9
+        style G fill:#e8f5e9
+        style H fill:#e8f5e9
+    end
 ```
+
+**Automation Benefits:**
+
+| Metric | Manual Process | Automated | Improvement |
+|--------|---------------|-----------|-------------|
+| Time per renewal | 2 hours | 0 minutes | 100% reduction |
+| Human errors | ~5% rate | 0% | Zero mistakes |
+| Expired certs | 1-2 per year | 0 | No outages |
+| Engineer interrupts | 52/year | 0 | Better focus |
 
 ## On-Call Excellence
 
@@ -276,60 +337,80 @@ def renew_certificates():
 
 ### Effective Handoffs
 
-```markdown
-## On-Call Handoff Template
-
-**Outgoing:** Alice
-**Incoming:** Bob
-**Period:** 2024-03-11 to 2024-03-18
-
-### Active Issues
-- [P2] Elevated memory usage on cache-3 (investigating)
-- [P3] Sporadic timeout errors on payment service
-
-### Completed Incidents
-- [INC-1234] Database failover - resolved, postmortem pending
-- [INC-1235] DDoS attack - mitigated with rate limiting
-
-### Pending Changes
-- Tuesday: Database migration (batch-service)
-- Thursday: New region deployment (us-west-2)
-
-### Watch Areas
-- CPU on api-server-7 trending up
-- Disk usage approaching 80% on log servers
-- Customer complaints about slow checkout
-
-### Learnings
-- Runbook for cache eviction was outdated (fixed)
-- Need better alerting for SSL cert expiry
+```mermaid
+flowchart TB
+    subgraph "On-Call Handoff Process"
+        A[Outgoing On-Call] --> B[Document Active Issues]
+        B --> C[List Completed Incidents]
+        C --> D[Note Pending Changes]
+        D --> E[Highlight Watch Areas]
+        E --> F[Share Learnings]
+        F --> G[Incoming On-Call]
+        
+        G --> H[Review & Ask Questions]
+        H --> I[Acknowledge Receipt]
+        I --> J[Update On-Call Schedule]
+    end
+    
+    style A fill:#e3f2fd
+    style G fill:#e3f2fd
+    style J fill:#c8e6c9
 ```
+
+**On-Call Handoff Checklist:**
+
+| Category | Items to Cover | Status |
+|----------|---------------|--------|
+| **Active Issues** | • Severity level<br/>• Current status<br/>• Next actions<br/>• Relevant runbooks | ☐ |
+| **Completed Incidents** | • Resolution summary<br/>• Follow-up needed<br/>• Postmortem scheduled | ☐ |
+| **Pending Changes** | • Deployment schedule<br/>• Risk assessment<br/>• Rollback plans | ☐ |
+| **Watch Areas** | • Trending metrics<br/>• Customer feedback<br/>• Resource usage | ☐ |
+| **Knowledge Transfer** | • Updated runbooks<br/>• New alerts<br/>• Lessons learned | ☐ |
 
 ### Alert Quality
 
 **Good Alert:**
-```yaml
-alert: HighErrorRate
-expr: |
-  rate(http_requests_total{status=~"5.."}[5m])
-  / rate(http_requests_total[5m]) > 0.05
-for: 2m
-labels:
-  severity: page
-  service: api
-annotations:
-  summary: "High 5xx error rate on {{'{{ $labels.instance }}'}}"
-  impact: "Users experiencing failures"
-  dashboard: "https://grafana/d/api-errors"
-  runbook: "https://wiki/runbooks/high-error-rate"
+**Good Alert Configuration:**
+
+| Component | Value | Purpose |
+|-----------|-------|------|
+| **Alert Name** | HighErrorRate | Clear, descriptive |
+| **Condition** | 5xx errors > 5% for 2 minutes | Specific threshold with duration |
+| **Severity** | page | Appropriate urgency |
+| **Summary** | Includes instance details | Context for responder |
+| **Impact** | "Users experiencing failures" | Business impact clear |
+| **Dashboard** | Direct link | Quick investigation |
+| **Runbook** | Direct link | Immediate action steps |
+
+```mermaid
+graph LR
+    subgraph "Alert Quality Criteria"
+        A[Good Alert] --> B[Clear Condition]
+        A --> C[Appropriate Severity]
+        A --> D[Business Impact]
+        A --> E[Actionable]
+        A --> F[Links to Resources]
+        
+        G[Bad Alert] --> H[Vague Condition]
+        G --> I[No Context]
+        G --> J[No Actions]
+        G --> K[Missing Links]
+    end
+    
+    style A fill:#c8e6c9
+    style G fill:#ffcdd2
 ```
 
 **Bad Alert:**
-```yaml
-# Too noisy, no context, no action
-alert: CPUHigh
-expr: cpu_usage > 80
-```
+**Bad Alert Example:**
+
+| Problem | Impact | Fix |
+|---------|--------|-----|
+| No duration requirement | Fires on brief spikes | Add `for: 5m` |
+| No service context | Don't know what's affected | Add service label |
+| No severity | Unclear urgency | Add severity label |
+| No runbook | Don't know what to do | Link to runbook |
+| Arbitrary threshold | May not indicate problem | Base on historical data |
 
 ## Postmortem Culture
 
@@ -337,45 +418,37 @@ expr: cpu_usage > 80
 
 Focus on systems and processes, not people.
 
-```markdown
-## Postmortem: Payment Service Outage
-
-**Date:** 2024-03-15
-**Duration:** 47 minutes
-**Impact:** 15,000 failed transactions
-
-### Timeline
-- 14:32 - Deploy of v2.5.0 begins
-- 14:35 - Memory usage spikes
-- 14:38 - First alerts fire
-- 14:45 - On-call engaged
-- 14:52 - Root cause identified
-- 15:02 - Rollback initiated
-- 15:19 - Service recovered
-
-### Root Cause
-Memory leak in new payment validation logic.
-Testing did not catch because:
-1. Load tests used different data patterns
-2. Staging has different memory limits
-3. Canary period too short (5 min)
-
-### Action Items
-- [ ] Add memory leak detection to CI
-- [ ] Align staging with prod configs
-- [ ] Extend canary to 30 minutes
-- [ ] Add memory-based auto-rollback
-
-### What Went Well
-- Monitoring detected issue quickly
-- Rollback procedure worked perfectly
-- Team communicated effectively
-
-### Lessons Learned
-- Need better production-like testing
-- Canary duration matters
-- Memory limits should be consistent
+```mermaid
+timeline
+    title Payment Service Outage Timeline
+    
+    14:32 : Deploy v2.5.0 starts
+    14:35 : Memory usage spikes 📈
+    14:38 : First alerts fire 🚨
+    14:45 : On-call engaged 👤
+    14:52 : Root cause identified 🔍
+    15:02 : Rollback initiated 🔄
+    15:19 : Service recovered ✅
 ```
+
+**Postmortem Analysis:**
+
+| Section | Details |
+|---------|------|
+| **Impact** | • 15,000 failed transactions<br/>• 47 minutes downtime<br/>• ~$150,000 revenue impact |
+| **Root Cause** | Memory leak in payment validation logic |
+| **Contributing Factors** | • Load tests used different data<br/>• Staging memory limits differ from prod<br/>• 5-minute canary too short |
+| **Detection** | Automated monitoring (3 min to alert) |
+| **Resolution** | Rollback to previous version |
+
+**Action Items with Owners:**
+
+| Priority | Action | Owner | Due Date | Status |
+|----------|--------|-------|----------|--------|
+| P0 | Add memory leak detection to CI | Platform Team | 1 week | ⏳ |
+| P0 | Align staging with prod configs | DevOps | 2 weeks | ⏳ |
+| P1 | Extend canary to 30 minutes | Release Eng | 1 week | ⏳ |
+| P1 | Add memory-based auto-rollback | SRE Team | 3 weeks | ⏳ |
 
 ### Postmortem Metrics
 
@@ -389,121 +462,159 @@ Track improvement over time:
 
 ### Safe Changes
 
-```python
-class ChangeRiskAssessor:
-    def assess_risk(self, change):
-        risk_score = 0
+**Change Risk Assessment Matrix:**
 
-        # Size of change
-        if change.lines_changed > 1000:
-            risk_score += 3
-        elif change.lines_changed > 100:
-            risk_score += 1
+| Risk Factor | Low Risk (+0) | Medium Risk (+1-2) | High Risk (+3) |
+|-------------|---------------|-------------------|----------------|
+| **Code Size** | < 100 lines | 100-1000 lines | > 1000 lines |
+| **Database Changes** | No changes | Schema read | Schema write |
+| **API Changes** | No changes | Backward compatible | Breaking changes |
+| **Dependencies** | No updates | Minor updates | Major updates |
+| **Timing** | Off-peak weekday | Peak weekday | Friday/Weekend |
 
-        # Type of change
-        if change.touches_database:
-            risk_score += 2
-        if change.modifies_api:
-            risk_score += 2
-        if change.updates_dependencies:
-            risk_score += 3
+**Risk Mitigation Credits:**
 
-        # Timing
-        if is_peak_hours():
-            risk_score += 2
-        if is_friday():
-            risk_score += 1
+| Mitigation | Risk Reduction | Benefit |
+|------------|---------------|-------|
+| Feature Flag | -1 point | Can disable without deploy |
+| Canary Plan | -1 point | Gradual rollout |
+| Automated Tests | -1 point | Confidence in changes |
+| Rollback Plan | -1 point | Quick recovery |
 
-        # Mitigation
-        if change.has_feature_flag:
-            risk_score -= 1
-        if change.has_canary_plan:
-            risk_score -= 1
-
-        return {
-            'score': risk_score,
-            'level': 'high' if risk_score > 5 else 'medium' if risk_score > 2 else 'low',
-            'recommendation': self.get_recommendation(risk_score)
-        }
+```mermaid
+flowchart TD
+    A[Assess Change] --> B[Calculate Risk Score]
+    B --> C{Risk Level?}
+    
+    C -->|0-2 points| D[🟢 Low Risk<br/>Deploy anytime]
+    C -->|3-5 points| E[🟡 Medium Risk<br/>Deploy with caution]
+    C -->|6+ points| F[🔴 High Risk<br/>Requires approval]
+    
+    F --> G[Additional Requirements:<br/>• Executive approval<br/>• War room ready<br/>• Customer notice]
+    
+    style D fill:#c8e6c9
+    style E fill:#fff3cd
+    style F fill:#ffcdd2
 ```
 
 ### Progressive Rollouts
 
-```text
-1. Dev environment (immediate)
-   ↓
-2. Staging environment (1 hour)
-   ↓
-3. Canary (1% traffic, 30 min)
-   ↓
-4. Phase 1 (10% traffic, 2 hours)
-   ↓
-5. Phase 2 (50% traffic, 4 hours)
-   ↓
-6. Full rollout (100% traffic)
+```mermaid
+flowchart TD
+    subgraph "Progressive Rollout Strategy"
+        A[Dev Environment<br/>Immediate] --> B{Tests Pass?}
+        B -->|No| Z[Fix & Retry]
+        B -->|Yes| C[Staging Environment<br/>Bake: 1 hour]
+        
+        C --> D{Metrics OK?}
+        D -->|No| Z
+        D -->|Yes| E[Canary: 1% Traffic<br/>Monitor: 30 min]
+        
+        E --> F{Error Rate Normal?}
+        F -->|No| Z
+        F -->|Yes| G[Phase 1: 10% Traffic<br/>Monitor: 2 hours]
+        
+        G --> H{SLOs Met?}
+        H -->|No| Z
+        H -->|Yes| I[Phase 2: 50% Traffic<br/>Monitor: 4 hours]
+        
+        I --> J{All Good?}
+        J -->|No| Z
+        J -->|Yes| K[Full Rollout: 100%<br/>Continue Monitoring]
+        
+        Z --> A
+    end
+    
+    style A fill:#e3f2fd
+    style K fill:#c8e6c9
+    style Z fill:#ffcdd2
 ```
+
+**Rollout Timing Guidelines:**
+
+| Stage | Traffic % | Duration | Success Criteria |
+|-------|-----------|----------|------------------|
+| Dev | 0% | Immediate | All tests pass |
+| Staging | 0% | 1 hour | No errors, performance baseline |
+| Canary | 1% | 30 min | Error rate < 0.1% |
+| Phase 1 | 10% | 2 hours | SLOs maintained |
+| Phase 2 | 50% | 4 hours | No customer complaints |
+| Full | 100% | Ongoing | Continuous monitoring |
 
 ## Capacity Planning
 
 ### Forecasting Model
 
-```python
-def capacity_forecast(
-    current_usage,
-    growth_rate,
-    peak_multiplier=3,
-    safety_margin=1.4
-):
-    """
-    Forecast capacity needs
-    """
-    forecasts = {}
+```mermaid
+flowchart LR
+    subgraph "Capacity Planning Process"
+        A[Current Usage<br/>1000 req/s] --> B[Apply Growth Rate<br/>15% monthly]
+        B --> C[Project Future Usage]
+        C --> D[Apply Peak Multiplier<br/>3x for spikes]
+        D --> E[Add Safety Margin<br/>40% buffer]
+        E --> F[Final Capacity Needed]
+    end
+    
+    style A fill:#e3f2fd
+    style F fill:#fff3cd
+```
 
-    for months in [3, 6, 12]:
-        # Compound growth
-        projected = current_usage * ((1 + growth_rate) ** months)
+**Capacity Forecast Table:**
 
-        # Account for peaks
-        peak_capacity = projected * peak_multiplier
+| Timeframe | Average Load | Peak Load | Provision With Safety | Action Required |
+|-----------|-------------|-----------|---------------------|----------------|
+| **Current** | 1,000 req/s | 3,000 req/s | 4,200 req/s | Baseline |
+| **3 Months** | 1,520 req/s | 4,560 req/s | 6,384 req/s | Plan scaling |
+| **6 Months** | 2,313 req/s | 6,939 req/s | 9,715 req/s | Budget approval |
+| **12 Months** | 5,350 req/s | 16,050 req/s | 22,470 req/s | Major expansion |
 
-        # Add safety margin
-        required = peak_capacity * safety_margin
+**Capacity Planning Decision Points:**
 
-        forecasts[f"{months}_month"] = {
-            'average': projected,
-            'peak': peak_capacity,
-            'provision': required
-        }
-
-    return forecasts
-
-# Example
-current = 1000  # requests/second
-growth = 0.15   # 15% monthly
-
-forecast = capacity_forecast(current, growth)
-# 12_month: {'average': 5350, 'peak': 16050, 'provision': 22470}
+```mermaid
+graph TD
+    A[Monitor Growth Rate] --> B{Growth > Plan?}
+    B -->|Yes| C[Accelerate Scaling]
+    B -->|No| D{Buffer < 40%?}
+    D -->|Yes| E[Add Capacity]
+    D -->|No| F[Continue Monitoring]
+    
+    C --> G[Update Forecasts]
+    E --> G
+    G --> A
+    
+    style C fill:#ffcdd2
+    style E fill:#fff3cd
+    style F fill:#c8e6c9
 ```
 
 ### Leading Indicators
 
 Monitor trends before they become problems:
 
-```sql
--- Weekly growth rate
-WITH weekly_traffic AS (
-  SELECT
-    DATE_TRUNC('week', timestamp) as week,
-    COUNT(*) as requests
-  FROM api_logs
-  GROUP BY week
-)
-SELECT
-  week,
-  requests,
-  (requests - LAG(requests) OVER (ORDER BY week))
-    / LAG(requests) OVER (ORDER BY week) * 100 as growth_percent
-FROM weekly_traffic;
+**Leading Indicators Dashboard:**
+
+| Metric | Query Focus | Alert Threshold | Action |
+|--------|-------------|----------------|--------|
+| **Traffic Growth** | Week-over-week % | > 20% sustained | Scale planning |
+| **Error Rate Trend** | 7-day moving avg | Increasing 3 days | Investigation |
+| **Latency Creep** | P99 weekly change | > 10% increase | Performance review |
+| **Resource Usage** | CPU/Memory trend | > 80% for 1 hour | Capacity add |
+
+```mermaid
+graph LR
+    subgraph "Growth Monitoring Pipeline"
+        A[Collect Metrics] --> B[Calculate Trends]
+        B --> C[Compare to Baseline]
+        C --> D{Anomaly Detected?}
+        D -->|Yes| E[Alert Team]
+        D -->|No| F[Update Baseline]
+        
+        E --> G[Investigate Cause]
+        G --> H[Adjust Capacity Plan]
+    end
+    
+    style E fill:#ffcdd2
+    style H fill:#fff3cd
 ```
 
 ## SRE Tools & Practices
