@@ -15,68 +15,82 @@ last_updated: 2025-07-21
 
 # Timeout Pattern
 
-**Protecting systems from indefinite waits**
-
-> *"A system that waits forever is a system that fails forever."*
-
----
+**Protection against indefinite waits and resource exhaustion**
 
 ## 🎯 Level 1: Intuition
 
-### The Restaurant Analogy
+### Core Concept
 
-Imagine waiting for your order at a restaurant:
-- **No timeout**: Wait indefinitely, get hungrier, miss other plans
-- **With timeout**: After 30 minutes, ask for status or leave for another restaurant
-- **Smart timeout**: Different waits for coffee (5 min) vs five-course meal (2 hours)
-- **Cascading timeout**: If appetizer takes 20 min, adjust expectations for main course
+Like setting a timer when waiting for restaurant service, timeouts prevent systems from waiting forever on operations that may never complete.
 
-The Timeout pattern prevents your system from waiting forever when things go wrong.
+### Simple Example
 
-### Visual Metaphor
+```text
+Without Timeout: Request → Wait... Wait... Wait... (∞) → System frozen
 
+With Timeout: Request → Set 5s timer → Wait → Timeout! → Handle error → Stay responsive
 ```
-Without Timeout:                  With Timeout:
-Request → Wait...                Request → Timer starts
-          Wait...                         ↓
-          Wait...                      Wait 5s
-          Wait... (∞)                     ↓
-          System frozen              Timeout! → Handle error
-                                            → Try alternative
-                                            → Stay responsive
+
+### Timeout Flow Diagram
+
+```mermaid
+flowchart TD
+    Start[Start Operation] --> SetTimer[Set Timeout Timer]
+    SetTimer --> Execute[Execute Operation]
+    
+    Execute --> Race{Race Condition}
+    
+    Race -->|Operation Completes| Success[Return Result]
+    Race -->|Timeout Expires| Timeout[Cancel Operation]
+    
+    Timeout --> HandleTimeout[Handle Timeout]
+    HandleTimeout --> Retry{Retry?}
+    
+    Retry -->|Yes| Backoff[Apply Backoff]
+    Retry -->|No| Fail[Return Error]
+    
+    Backoff --> Start
+    
+    Success --> End[Complete]
+    Fail --> End
+    
+    style Success fill:#9f9
+    style Timeout fill:#f99
+    style Fail fill:#f99
+```
+
+### Cascading Timeout Hierarchy
+
+```mermaid
+graph TB
+    subgraph "Request Flow with Timeouts"
+        Client[Client Request<br/>Total: 60s] --> Gateway[API Gateway<br/>Timeout: 50s]
+        
+        Gateway --> ServiceA[Service A<br/>Timeout: 20s]
+        Gateway --> ServiceB[Service B<br/>Timeout: 20s]
+        
+        ServiceA --> DB1[Database<br/>Timeout: 10s]
+        ServiceA --> Cache[Cache<br/>Timeout: 2s]
+        
+        ServiceB --> API[External API<br/>Timeout: 15s]
+        ServiceB --> Queue[Message Queue<br/>Timeout: 5s]
+        
+        Gateway --> Response[Response Assembly<br/>Timeout: 5s]
+    end
+    
+    style Client fill:#ff9
+    style Gateway fill:#9ff
+    style ServiceA fill:#f9f
+    style ServiceB fill:#f9f
 ```
 
 ### Basic Implementation
 
 ```python
-import asyncio
 from typing import Optional, TypeVar, Callable, Any
-import time
+import asyncio
 
 T = TypeVar('T')
-
-class SimpleTimeout:
-    """Basic timeout wrapper for any operation"""
-    
-    @staticmethod
-    async def with_timeout(
-        operation: Callable[[], T], 
-        timeout_seconds: float
-    ) -> Optional[T]:
-        """Execute operation with timeout"""
-        try:
-            # Create the operation task
-            task = asyncio.create_task(operation())
-            
-            # Wait with timeout
-            result = await asyncio.wait_for(task, timeout=timeout_seconds)
-            return result
-            
-        except asyncio.TimeoutError:
-            # Operation timed out
-            if not task.done():
-                task.cancel()
-            raise TimeoutError(f"Operation timed out after {timeout_seconds}s")
 
 # Example usage
 async def slow_database_query():
@@ -102,29 +116,34 @@ async def main():
 
 ## 🏗️ Level 2: Foundation
 
-### Types of Timeouts
+### Timeout Types
 
-| Timeout Type | Use Case | Typical Value | Failure Mode |
-|--------------|----------|---------------|--------------|
-| **Connection Timeout** | Establishing TCP connection | 1-5 seconds | Can't reach server |
-| **Read Timeout** | Waiting for response data | 5-30 seconds | Server processing slow |
-| **Write Timeout** | Sending request data | 5-10 seconds | Network congestion |
-| **Total Timeout** | End-to-end operation | 30-60 seconds | Overall SLA protection |
-| **Idle Timeout** | Keep-alive connections | 60-300 seconds | Resource cleanup |
+| Type | Purpose | Typical Value |
+|------|---------|---------------|
+| **Connection** | TCP handshake | 1-5s |
+| **Read** | Response data | 5-30s |
+| **Write** | Request data | 5-10s |
+| **Total** | End-to-end | 30-60s |
+| **Idle** | Keep-alive | 60-300s |
+
+### Timeout Strategy Comparison
+
+| Strategy | Description | Use Case | Example |
+|----------|-------------|----------|---------|
+| **Fixed Timeout** | Same timeout for all operations | Simple systems | All requests: 30s |
+| **Tiered Timeout** | Different timeouts by operation type | Mixed workloads | Read: 5s, Write: 30s |
+| **Adaptive Timeout** | Adjusts based on performance | Dynamic systems | P99 latency × 1.5 |
+| **Cascading Timeout** | Child respects parent timeout | Microservices | Remaining budget |
+| **Hedged Timeout** | Backup request if slow | Critical paths | Primary: 2s, Hedge: 0.5s |
 
 ### Timeout Hierarchy
 
+```text
+User Request (60s) → API Gateway (50s) → Service A (20s) → Database (10s)
+                                      → Service B (20s) → External API (15s)
 ```
-User Request (60s total)
-├── API Gateway (50s)
-│   ├── Service A (20s)
-│   │   ├── Database (10s)
-│   │   └── Cache (2s)
-│   └── Service B (20s)
-│       ├── External API (15s)
-│       └── Message Queue (5s)
-└── Response Assembly (5s)
-```
+
+Key principle: Child timeouts must be less than parent timeout.
 
 ### Calculating Appropriate Timeouts
 

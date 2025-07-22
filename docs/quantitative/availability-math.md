@@ -553,4 +553,4 @@ Remember: Perfect availability is impossible. Design for graceful degradation an
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Latency Ladder](latency-ladder.md)
 - **Patterns**: [Bulkhead](../patterns/bulkhead.md) | [Circuit Breaker](../patterns/circuit-breaker.md) | [Failover](../patterns/failover.md)
-- **Operations**: [SRE Principles](../human-factors/sre-principles.md) | [Chaos Engineering](../human-factors/chaos-engineering.md) | [Incident Response](../human-factors/incident-response.md)
+- **Operations**: [SRE Principles](../human-factors/sre-practices.md) | [Chaos Engineering](../human-factors/chaos-engineering.md) | [Incident Response](../human-factors/incident-response.md)

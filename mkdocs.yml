@@ -247,6 +247,10 @@ nav:
       - "Service Discovery": patterns/service-discovery.md
       - "Observability": patterns/observability.md
       - "FinOps": patterns/finops.md
+    - "Pattern Analysis Tools":
+      - "Pattern Comparison": patterns/pattern-comparison.md
+      - "Pattern Selector": patterns/pattern-selector.md
+      - "Pattern Combinations": patterns/pattern-combinations.md
     - "Pattern Quiz": patterns/pattern-quiz.md
   
   - "Part IV: Quantitative Toolkit":

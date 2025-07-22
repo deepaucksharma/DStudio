@@ -12,10 +12,10 @@ pattern_type: "data"
 when_to_use: "Audit requirements, complex domains, time-travel debugging, event-driven systems"
 when_not_to_use: "Simple CRUD operations, storage constraints, real-time aggregations"
 related_axioms:
-  - time
-  - ordering
-  - knowledge
   - observability
+  - concurrency
+  - coordination
+  - human
 related_patterns:
   - "CQRS"
   - "Saga Pattern"
@@ -43,35 +43,42 @@ last_updated: 2025-07-21
 
 ### The Story
 
-Think of your bank account. When you check your balance, you see $1,000. But that number alone tells you nothing about how it got there. Did you deposit $1,000 today? Or did you deposit $2,000 and withdraw $1,000? Or was it 100 transactions of $10 each?
+Your bank balance shows $1,000, but how did it get there? One deposit? Multiple transactions?
 
-Traditional databases are like showing only the final balance. Event Sourcing is like keeping your entire transaction history - every deposit, withdrawal, and transfer. The current balance is just what you get when you add up all the transactions.
+Traditional databases show only final state. Event Sourcing keeps the entire transaction history - current balance is the sum of all events.
 
 ### Visual Metaphor
 
-```
-Traditional Database:             Event Sourcing:
-
-┌─────────────────┐              ┌─────────────────────────────┐
-│ Account Balance │              │ Event Stream                │
-│                 │              ├─────────────────────────────┤
-│    $1,000       │              │ 1. Account Opened      $0   │
-│                 │              │ 2. Deposited         $500   │
-│ (How did we     │              │ 3. Deposited         $300   │
-│  get here?)     │              │ 4. Withdrew          $200   │
-└─────────────────┘              │ 5. Deposited         $400   │
-                                 │                             │
-                                 │ Current Balance:   $1,000   │
-                                 └─────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph "Traditional Database"
+        TB[Account Balance<br/>$1,000<br/><br/>How did we<br/>get here?]
+        style TB fill:#ffd54f
+    end
+    
+    subgraph "Event Sourcing"
+        E1[1. Account Opened - $0] --> E2[2. Deposited - $500]
+        E2 --> E3[3. Deposited - $300]
+        E3 --> E4[4. Withdrew - $200]
+        E4 --> E5[5. Deposited - $400]
+        E5 --> CB[Current Balance: $1,000]
+        
+        style E1 fill:#e1f5fe
+        style E2 fill:#e1f5fe
+        style E3 fill:#e1f5fe
+        style E4 fill:#ffe0b2
+        style E5 fill:#e1f5fe
+        style CB fill:#c8e6c9
+    end
 ```
 
 ### In One Sentence
 
-**Event Sourcing**: Store every change to your application state as an immutable event, and derive current state by replaying these events.
+**Event Sourcing**: Store every state change as an immutable event; derive current state by replaying events.
 
 ### Real-World Parallel
 
-Event Sourcing is like a git repository: every commit (event) is preserved forever, you can see exactly what changed when, and you can reconstruct the state at any point in time by replaying commits.
+Like git: every commit (event) is preserved forever, showing what changed when, allowing state reconstruction at any point.
 
 ---
 
@@ -80,23 +87,23 @@ Event Sourcing is like a git repository: every commit (event) is preserved forev
 ### The Problem Space
 
 <div class="failure-vignette">
-<h4>🔥 When Event Sourcing Wasn't Used: The Trading Disaster</h4>
-A major trading firm lost millions when they couldn't explain a series of trades that led to a massive position. Their database only showed the final positions, not how they got there. When regulators asked for the sequence of decisions, they had no audit trail. The lack of history led to:
-- $50M in regulatory fines
-- Inability to debug what went wrong
-- No way to replay and fix the issue
-- Loss of trading license for 6 months
+<h4>🔥 Without Event Sourcing: Trading Disaster</h4>
+Trading firm couldn't explain massive position. Database showed only final state, no decision sequence.
+- $50M fines
+- No debugging capability
+- No replay/fix option
+- 6-month license suspension
 </div>
 
 ### Core Concept
 
-Event Sourcing captures every state change as an event object. Instead of storing current state, you store the sequence of events that led to that state:
+Event Sourcing fundamentals:
 
-1. **Events as Facts**: Each event represents something that happened
-2. **Immutability**: Events never change once written
-3. **Event Stream**: Ordered sequence of events per aggregate
-4. **State Derivation**: Current state computed by replaying events
-5. **Time Travel**: Can recreate state at any point in time
+1. **Events as Facts**: Record what happened
+2. **Immutability**: Events never change
+3. **Event Stream**: Ordered event sequence
+4. **State Derivation**: Replay events for current state
+5. **Time Travel**: Recreate any past state
 
 ### Basic Architecture
 
@@ -138,10 +145,10 @@ graph LR
 
 ### Key Benefits
 
-1. **Complete Audit Trail**: Every change is recorded with who, what, when, why
-2. **Time Travel Debugging**: Replay events to any point to see system state
-3. **Event-Driven Integration**: Events naturally flow to other systems
-4. **Complex Event Processing**: Derive new insights from event patterns
+1. **Audit Trail**: Complete change history
+2. **Time Travel**: Debug at any point
+3. **Integration**: Natural event flow
+4. **Analytics**: Pattern insights
 
 ### Trade-offs
 
@@ -660,24 +667,16 @@ stateDiagram-v2
 
 ### Common Variations
 
-1. **Event Sourcing with Snapshots**
-   - Use case: Aggregates with many events
-   - Trade-off: Storage vs replay performance
-
-2. **Event Sourcing with CQRS**
-   - Use case: Complex queries, multiple views
-   - Trade-off: Consistency vs query flexibility
-
-3. **Event Sourcing with Projections**
-   - Use case: Reporting, analytics, search
-   - Trade-off: Real-time vs eventual consistency
+1. **ES + Snapshots**: Many events → Storage vs performance
+2. **ES + CQRS**: Complex queries → Consistency vs flexibility
+3. **ES + Projections**: Reporting → Real-time vs eventual consistency
 
 ### Integration Points
 
-- **With CQRS**: Natural fit - events feed read models
-- **With Saga Pattern**: Events trigger distributed transactions
-- **With CDC**: Capture changes from legacy systems as events
-- **With Streaming**: Kafka/Pulsar for event distribution
+- **CQRS**: Events feed read models
+- **Saga**: Events trigger transactions
+- **CDC**: Legacy changes as events
+- **Streaming**: Kafka/Pulsar distribution
 
 ---
 
@@ -873,16 +872,16 @@ metrics:
 
 <div class="failure-vignette">
 <h4>⚠️ Pitfall: Mutable Events</h4>
-A team tried to "fix" historical data by modifying events. This broke event replay, destroyed audit trails, and caused projections to diverge from reality.
+Team modified historical events → Broke replay, destroyed audit, diverged projections.
 
-**Solution**: Events are immutable facts. To correct mistakes, create compensating events that record the correction.
+**Solution**: Events are immutable. Use compensating events for corrections.
 </div>
 
 <div class="failure-vignette">
 <h4>⚠️ Pitfall: Missing Event Versioning</h4>
-After 1 year in production, a team needed to add fields to events. Without versioning, they couldn't deserialize old events, causing system-wide failures.
+Team added fields without versioning → Couldn't deserialize old events → System failure.
 
-**Solution**: Version all events from day one. Implement upcasting to handle old event formats.
+**Solution**: Version events immediately. Implement upcasting.
 </div>
 
 ### Production Checklist
@@ -906,52 +905,58 @@ After 1 year in production, a team needed to add fields to events. Without versi
 <h4>🏢 Real-World Implementation</h4>
 
 **Company**: Walmart  
-**Scale**: 
-- 4,700+ stores
-- 350M+ items tracked daily
-- 1M+ events per second peak
-- 20TB+ events generated daily
+**Scale**: 4,700+ stores, 350M+ items/day, 1M+ events/sec, 20TB+ daily
 
-**Challenge**: Track every inventory movement across all stores with complete auditability while supporting real-time availability queries.
+**Challenge**: Track all inventory movements with auditability and real-time queries.
 
-**Event Sourcing Implementation**:
-
-**Event Types**:
-- ItemReceived (from supplier)
-- ItemSold (at register)
-- ItemReturned (by customer)
-- ItemMoved (between locations)
-- ItemDamaged (shrinkage)
-- InventoryAdjusted (manual count)
+**Event Types**: ItemReceived, ItemSold, ItemReturned, ItemMoved, ItemDamaged, InventoryAdjusted
 
 **Architecture**:
-```
-POS Systems → Kafka → Event Store → Projections
-                ↓                        ↓
-          Archival Storage        Multiple Views
-                                  - Current Stock
-                                  - Location Map
-                                  - Reorder Alerts
-                                  - Loss Prevention
+
+```mermaid
+graph TB
+    POS[POS Systems] --> K[Kafka]
+    K --> ES[(Event Store)]
+    K --> AS[(Archival Storage)]
+    
+    ES --> P1[Current Stock]
+    ES --> P2[Location Map]
+    ES --> P3[Reorder Alerts]
+    ES --> P4[Loss Prevention]
+    
+    subgraph "Projections / Multiple Views"
+        P1
+        P2
+        P3
+        P4
+    end
+    
+    style K fill:#4db6ac
+    style ES fill:#2196f3,stroke:#1565c0,stroke-width:3px
+    style AS fill:#78909c
+    style P1 fill:#66bb6a
+    style P2 fill:#ffca28
+    style P3 fill:#ef5350
+    style P4 fill:#ab47bc
 ```
 
-**Technical Decisions**:
-1. **Partitioning**: Events partitioned by store + department
-2. **Snapshotting**: Daily snapshots per SKU
-3. **Compression**: 10:1 compression for events > 30 days
-4. **Retention**: 7 years for compliance, then archive
+**Technical**:
+1. Partitioning: Store + department
+2. Snapshots: Daily per SKU
+3. Compression: 10:1 after 30 days
+4. Retention: 7 years + archive
 
 **Results**:
-- Shrinkage detection: 40% improvement
-- Inventory accuracy: 95% → 99.8%
-- Audit time: Days → Minutes
-- Reorder optimization: $2B annual savings
+- Shrinkage detection: +40%
+- Accuracy: 95% → 99.8%
+- Audit: Days → Minutes
+- Savings: $2B/year
 
-**Lessons Learned**:
-1. **Event granularity matters** - Too fine creates volume, too coarse loses detail
-2. **Partition strategy is critical** - Must support both writes and queries
-3. **Projections need indexes** - Raw event replay doesn't scale
-4. **Archive strategy from day one** - Historical data grows fast
+**Lessons**:
+1. Event granularity balance
+2. Partition strategy critical
+3. Index projections
+4. Plan archival early
 </div>
 
 ### Economic Analysis
@@ -1024,16 +1029,9 @@ print(f"ROI: {roi['roi_percentage']:.1f}%, "
 
 #### When It Pays Off
 
-- **Break-even point**: Systems with audit requirements or complex domains
-- **High ROI scenarios**:
-  - Financial systems (complete audit trail)
-  - Healthcare (patient history)
-  - E-commerce (order lifecycle)
-  - Supply chain (tracking)
-- **Low ROI scenarios**:
-  - Simple CRUD applications
-  - Read-heavy systems with few writes
-  - Systems without audit requirements
+- **Break-even**: Audit requirements or complex domains
+- **High ROI**: Financial systems, healthcare records, e-commerce orders, supply chain
+- **Low ROI**: Simple CRUD, read-heavy systems, no audit needs
 
 ### Pattern Evolution
 
@@ -1071,11 +1069,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **Time Axiom**: Events capture exact time of state changes
-2. **Ordering Axiom**: Event sequence provides total ordering
-3. **Knowledge Axiom**: Complete history enables perfect knowledge
-4. **Observability Axiom**: Every change is observable
-5. **Human Interface Axiom**: Natural audit trail for compliance
+1. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Events capture exact time of state changes
+2. **[Concurrency Axiom](/part1-axioms/axiom4-concurrency/)**: Event sequence provides total ordering
+3. **[Coordination Axiom](/part1-axioms/axiom5-coordination/)**: Complete history enables perfect knowledge
+4. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Every change is observable
+5. **[Human Interface Axiom](/part1-axioms/axiom7-human/)**: Natural audit trail for compliance
 </div>
 
 ### Future Directions
@@ -1202,9 +1200,9 @@ event_sourcing:
 - [Event-Driven Architecture](/patterns/event-driven/) - Events as first-class citizens
 
 ### Axioms
-- [Time Axiom](/part1-axioms/time/) - Why event timing matters
-- [Ordering Axiom](/part1-axioms/ordering/) - Event sequence guarantees
-- [Knowledge Axiom](/part1-axioms/knowledge/) - Complete system knowledge
+- [Observability Axiom](/part1-axioms/axiom6-observability/) - Why event timing matters
+- [Concurrency Axiom](/part1-axioms/axiom4-concurrency/) - Event sequence guarantees
+- [Human Interface Axiom](/part1-axioms/axiom7-human/) - Complete system knowledge
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database

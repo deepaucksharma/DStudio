@@ -23,31 +23,31 @@ last_updated: 2025-07-20
 **Problem**: Monolithic backend couldn't scale with team growth
 
 **Solution Architecture**:
-```proto
-Before (2012):
-┌─────────────────────────────┐
-│    Monolithic Backend       │
-│  - User Management          │
-│  - Music Catalog            │
-│  - Playlists               │
-│  - Recommendations         │
-│  - Payment Processing      │
-└─────────────────────────────┘
-
-After (2020):
-┌─────────┐ ┌─────────┐ ┌──────────┐
-│  User   │ │Playlist │ │ Payment  │
-│ Service │ │ Service │ │ Service  │
-└─────────┘ └─────────┘ └──────────┘
-     │           │            │
-┌─────────────────────────────────┐
-│        Event Bus (Kafka)        │
-└─────────────────────────────────┘
-     │           │            │
-┌─────────┐ ┌─────────┐ ┌──────────┐
-│ Music   │ │Recommend│ │Analytics │
-│ Catalog │ │ Engine  │ │ Service  │
-└─────────┘ └─────────┘ └──────────┘
+```mermaid
+graph TB
+    subgraph "Before 2012 - Monolithic"
+        M[Monolithic Backend<br/>• User Management<br/>• Music Catalog<br/>• Playlists<br/>• Recommendations<br/>• Payment Processing]
+    end
+    
+    subgraph "After 2020 - Microservices"
+        U[User Service]
+        P[Playlist Service]
+        PAY[Payment Service]
+        K[Event Bus - Kafka]
+        MC[Music Catalog]
+        RE[Recommend Engine]
+        AN[Analytics Service]
+        
+        U -.-> K
+        P -.-> K
+        PAY -.-> K
+        K -.-> MC
+        K -.-> RE
+        K -.-> AN
+    end
+    
+    style M fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style K fill:#4ecdc4,stroke:#333,stroke-width:2px
 ```
 
 **Key Decisions**:
@@ -66,25 +66,25 @@ After (2020):
 **Problem**: Match riders with drivers in real-time at global scale
 
 **Work Distribution Strategy**:
-```python
-# City-level sharding
-class GeoShardRouter:
-    def route_request(self, location):
-        # H3 hexagonal hierarchical spatial index
-        cell_id = h3.geo_to_h3(location.lat, location.lng, resolution=7)
-        shard = self.cell_to_shard_map[cell_id]
-        return self.shards[shard]
-
-# Dynamic work stealing for load balancing
-class WorkStealer:
-    def balance_load(self):
-        for shard in self.overloaded_shards():
-            # Find neighboring shard with capacity
-            neighbor = self.find_underloaded_neighbor(shard)
-            if neighbor:
-                # Transfer edge cells
-                cells = shard.get_edge_cells(toward=neighbor)
-                self.transfer_cells(cells, from_shard=shard, to_shard=neighbor)
+```mermaid
+flowchart LR
+    subgraph "Geospatial Work Distribution"
+        L[Location Request] --> H[H3 Spatial Index<br/>Resolution: 7]
+        H --> CM[Cell-to-Shard Map]
+        CM --> S1[Shard 1]
+        CM --> S2[Shard 2]
+        CM --> S3[Shard N]
+        
+        subgraph "Dynamic Load Balancing"
+            OL[Overloaded Shard] --> WS[Work Stealer]
+            WS --> UN[Find Underloaded<br/>Neighbor]
+            UN --> EC[Transfer Edge Cells]
+            EC --> UL[Underloaded Shard]
+        end
+    end
+    
+    style H fill:#ffd93d,stroke:#333,stroke-width:2px
+    style WS fill:#6bcf7f,stroke:#333,stroke-width:2px
 ```
 
 **Metrics**:
@@ -99,368 +99,258 @@ class WorkStealer:
 **Architecture Evolution**:
 
 **Gen 1: Simple Fanout (2015)**
-```python
-def send_message(channel_id, message):
-    users = get_channel_users(channel_id)
-    for user in users:
-        send_to_user(user, message)  # O(n) problem
+```mermaid
+sequenceDiagram
+    participant C as Channel
+    participant S as Server
+    participant U1 as User 1
+    participant U2 as User 2
+    participant UN as User N
+    
+    Note over S: Gen 1 - Simple Fanout (2015)
+    C->>S: send_message(channel_id, message)
+    S->>S: get_channel_users(channel_id)
+    Note over S: O(n) complexity
+    S->>U1: send_to_user(message)
+    S->>U2: send_to_user(message)
+    S->>UN: send_to_user(message)
+    Note over S,UN: Sequential sends cause bottleneck
 ```
 
 **Gen 2: Guild Sharding (2017)**
-```python
-class GuildWorker:
-    def __init__(self, guild_id):
-        self.guild_id = guild_id
-        self.websockets = {}  # user_id -> connection
-
-    def broadcast_message(self, channel_id, message):
-        # Only users in this guild
-        users = self.get_channel_users(channel_id)
-        # Bulk send to local connections
-        self.batch_send(users, message)
+```mermaid
+flowchart TD
+    subgraph "Gen 2 - Guild Sharding (2017)"
+        M[Message] --> GW[Guild Worker]
+        GW --> GID[Guild ID]
+        GW --> WS[WebSocket Map<br/>user_id → connection]
+        
+        GW --> BC[broadcast_message]
+        BC --> GCU[Get Channel Users<br/>Only This Guild]
+        GCU --> BS[Batch Send<br/>Local Connections]
+        
+        BS --> U1[User 1]
+        BS --> U2[User 2]
+        BS --> UN[User N]
+    end
+    
+    style GW fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style BS fill:#95e1d3,stroke:#333,stroke-width:2px
 ```
 
 **Gen 3: Consistent Hashing + Read Replicas (2020)**
-```python
-class MessageRouter:
-    def route_message(self, guild_id, message):
-        # Primary handles writes
-        primary = self.hash_ring.get_node(guild_id)
-        primary.write_message(message)
-
-        # Replicas handle reads
-        replicas = self.hash_ring.get_replicas(guild_id, count=3)
-        for replica in replicas:
-            replica.replicate_async(message)
+```mermaid
+flowchart LR
+    subgraph "Gen 3 - Consistent Hashing + Replicas (2020)"
+        M[Message] --> MR[Message Router]
+        MR --> HR[Hash Ring]
+        
+        HR --> P[Primary Node<br/>Handles Writes]
+        P --> WM[write_message()]
+        
+        HR --> R1[Replica 1]
+        HR --> R2[Replica 2]
+        HR --> R3[Replica 3]
+        
+        P -.->|Async Replication| R1
+        P -.->|Async Replication| R2
+        P -.->|Async Replication| R3
+        
+        R1 --> RD1[Handle Reads]
+        R2 --> RD2[Handle Reads]
+        R3 --> RD3[Handle Reads]
+    end
+    
+    style P fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style R1 fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style R2 fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style R3 fill:#4ecdc4,stroke:#333,stroke-width:2px
 ```
 
 ### 4. MapReduce at Google
 
 **Original Paper Implementation (2004)**
 
-```python
-# Classic word count example
-def map_function(document):
-    for word in document.split():
-        emit(word, 1)
-
-def reduce_function(word, counts):
-    return sum(counts)
-
-# Framework handles distribution
-class MapReduceJob:
-    def execute(self, input_files):
-        # Phase 1: Map
-        map_tasks = []
-        for file in input_files:
-            task = self.create_map_task(file, map_function)
-            map_tasks.append(self.submit_to_worker(task))
-
-        # Barrier: Wait for all maps
-        self.wait_all(map_tasks)
-
-        # Phase 2: Shuffle
-        self.shuffle_intermediate_data()
-
-        # Phase 3: Reduce
-        reduce_tasks = []
-        for key in self.get_unique_keys():
-            task = self.create_reduce_task(key, reduce_function)
-            reduce_tasks.append(self.submit_to_worker(task))
-
-        return self.collect_results(reduce_tasks)
+```mermaid
+flowchart TB
+    subgraph "MapReduce Execution Flow"
+        IF[Input Files] --> MP[Map Phase]
+        
+        subgraph "Map Phase"
+            M1[Mapper 1<br/>doc → (word,1)]
+            M2[Mapper 2<br/>doc → (word,1)]
+            MN[Mapper N<br/>doc → (word,1)]
+        end
+        
+        MP --> B1[Barrier: Wait All Maps]
+        B1 --> SP[Shuffle Phase<br/>Group by Key]
+        
+        SP --> RP[Reduce Phase]
+        
+        subgraph "Reduce Phase"
+            R1[Reducer 1<br/>word → sum(counts)]
+            R2[Reducer 2<br/>word → sum(counts)]
+            RN[Reducer N<br/>word → sum(counts)]
+        end
+        
+        RP --> O[Output Results]
+    end
+    
+    style B1 fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style SP fill:#ffd93d,stroke:#333,stroke-width:2px
 ```
 
 ## Code Examples
 
 ### 1. Work Stealing Queue Implementation
 
-```python
-import threading
-from collections import deque
-from random import choice
-
-class WorkStealingQueue:
-    """
-    Each worker has its own queue
-    Workers steal from others when idle
-    """
-    def __init__(self, worker_id, all_queues):
-        self.worker_id = worker_id
-        self.local_queue = deque()
-        self.all_queues = all_queues
-        self.lock = threading.Lock()
-
-    def push(self, task):
-        """Owner pushes to bottom"""
-        with self.lock:
-            self.local_queue.append(task)
-
-    def pop(self):
-        """Owner pops from bottom"""
-        with self.lock:
-            if self.local_queue:
-                return self.local_queue.pop()
-        return None
-
-    def steal(self):
-        """Others steal from top"""
-        with self.lock:
-            if self.local_queue:
-                return self.local_queue.popleft()
-        return None
-
-    def get_work(self):
-        """Try local first, then steal"""
-        # Try local queue
-        task = self.pop()
-        if task:
-            return task
-
-        # Try stealing from others
-        other_queues = [q for q in self.all_queues
-                       if q.worker_id != self.worker_id]
-
-        # Random victim selection
-        for _ in range(len(other_queues)):
-            victim = choice(other_queues)
-            task = victim.steal()
-            if task:
-                return task
-
-        return None
+```mermaid
+flowchart TD
+    subgraph "Work Stealing Queue Architecture"
+        subgraph "Worker 1"
+            W1[Worker 1] --> LQ1[Local Queue<br/>LIFO for owner]
+            LQ1 --> |Push Bottom| T1[New Task]
+            LQ1 --> |Pop Bottom| T2[Own Work]
+        end
+        
+        subgraph "Worker 2"
+            W2[Worker 2] --> LQ2[Local Queue<br/>FIFO for thieves]
+            LQ2 --> |Steal Top| ST[Stolen Task]
+        end
+        
+        subgraph "Work Distribution Flow"
+            GW[get_work()] --> TL{Try Local Pop}
+            TL -->|Success| RT[Return Task]
+            TL -->|Empty| TS[Try Stealing]
+            TS --> RV[Random Victim<br/>Selection]
+            RV --> VS[Victim.steal()]
+            VS -->|Success| RT
+            VS -->|Failed| RV
+        end
+    end
+    
+    W1 -.->|Steal From| LQ2
+    W2 -.->|Steal From| LQ1
+    
+    style W1 fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style W2 fill:#95e1d3,stroke:#333,stroke-width:2px
+    style RV fill:#ffd93d,stroke:#333,stroke-width:2px
 ```
 
 ### 2. Consistent Hashing for Work Distribution
 
-```python
-import hashlib
-import bisect
-
-class ConsistentHash:
-    def __init__(self, nodes=None, virtual_nodes=150):
-        self.virtual_nodes = virtual_nodes
-        self.ring = {}
-        self.sorted_keys = []
-        if nodes:
-            for node in nodes:
-                self.add_node(node)
-
-    def _hash(self, key):
-        return int(hashlib.md5(key.encode()).hexdigest(), 16)
-
-    def add_node(self, node):
-        """Add node with virtual nodes for better distribution"""
-        for i in range(self.virtual_nodes):
-            virtual_key = f"{node}:{i}"
-            hash_value = self._hash(virtual_key)
-            self.ring[hash_value] = node
-            bisect.insort(self.sorted_keys, hash_value)
-
-    def remove_node(self, node):
-        """Remove node and all its virtual nodes"""
-        for i in range(self.virtual_nodes):
-            virtual_key = f"{node}:{i}"
-            hash_value = self._hash(virtual_key)
-            if hash_value in self.ring:
-                del self.ring[hash_value]
-                self.sorted_keys.remove(hash_value)
-
-    def get_node(self, key):
-        """Find node responsible for key"""
-        if not self.ring:
-            return None
-
-        hash_value = self._hash(key)
-
-        # Find first node clockwise from hash
-        index = bisect.bisect_right(self.sorted_keys, hash_value)
-        if index == len(self.sorted_keys):
-            index = 0
-
-        return self.ring[self.sorted_keys[index]]
-
-    def get_nodes(self, key, count=3):
-        """Get N nodes for replication"""
-        if not self.ring:
-            return []
-
-        nodes = []
-        hash_value = self._hash(key)
-        index = bisect.bisect_right(self.sorted_keys, hash_value)
-
-        while len(nodes) < count and len(nodes) < len(set(self.ring.values())):
-            if index >= len(self.sorted_keys):
-                index = 0
-
-            node = self.ring[self.sorted_keys[index]]
-            if node not in nodes:
-                nodes.append(node)
-
-            index += 1
-
-        return nodes
+```mermaid
+graph LR
+    subgraph "Consistent Hashing Ring"
+        subgraph "Hash Ring"
+            VN1[Virtual Node 1:0<br/>Node A]
+            VN2[Virtual Node 1:1<br/>Node A]
+            VN3[Virtual Node 2:0<br/>Node B]
+            VN4[Virtual Node 2:1<br/>Node B]
+            VN5[Virtual Node 3:0<br/>Node C]
+            VN6[Virtual Node 3:1<br/>Node C]
+            
+            VN1 --> VN2
+            VN2 --> VN3
+            VN3 --> VN4
+            VN4 --> VN5
+            VN5 --> VN6
+            VN6 --> VN1
+        end
+        
+        K[Key] --> H[MD5 Hash]
+        H --> F[Find First<br/>Clockwise Node]
+        F --> N[Assigned Node]
+        
+        subgraph "Operations"
+            AN[add_node()<br/>• Create 150 virtual nodes<br/>• Insert into sorted ring]
+            RN[remove_node()<br/>• Remove all virtual nodes<br/>• Update sorted keys]
+            GN[get_node()<br/>• Hash key<br/>• Binary search<br/>• Return clockwise node]
+            GNS[get_nodes()<br/>• Find N replicas<br/>• Walk ring clockwise<br/>• Skip duplicates]
+        end
+    end
+    
+    style H fill:#ffd93d,stroke:#333,stroke-width:2px
+    style F fill:#4ecdc4,stroke:#333,stroke-width:2px
 ```
 
 ### 3. Batch Processing with Backpressure
 
-```python
-import asyncio
-from typing import List, Callable
-
-class BatchProcessor:
-    def __init__(self,
-                 process_fn: Callable,
-                 batch_size: int = 100,
-                 batch_timeout: float = 1.0,
-                 max_pending: int = 10000):
-        self.process_fn = process_fn
-        self.batch_size = batch_size
-        self.batch_timeout = batch_timeout
-        self.max_pending = max_pending
-
-        self.pending = []
-        self.semaphore = asyncio.Semaphore(max_pending)
-        self.flush_task = None
-
-    async def submit(self, item):
-        """Submit item with backpressure"""
-        await self.semaphore.acquire()
-
-        self.pending.append(item)
-
-        # Start flush timer if needed
-        if not self.flush_task:
-            self.flush_task = asyncio.create_task(
-                self._flush_after_timeout()
-            )
-
-        # Flush if batch is full
-        if len(self.pending) >= self.batch_size:
-            await self._flush()
-
-    async def _flush_after_timeout(self):
-        """Flush partial batch after timeout"""
-        await asyncio.sleep(self.batch_timeout)
-        if self.pending:
-            await self._flush()
-
-    async def _flush(self):
-        """Process current batch"""
-        if not self.pending:
-            return
-
-        # Cancel timeout task
-        if self.flush_task:
-            self.flush_task.cancel()
-            self.flush_task = None
-
-        # Process batch
-        batch = self.pending
-        self.pending = []
-
-        try:
-            await self.process_fn(batch)
-        finally:
-            # Release semaphore for processed items
-            for _ in batch:
-                self.semaphore.release()
-
-# Usage example
-async def process_batch(items: List[dict]):
-    """Simulate batch processing"""
-    print(f"Processing batch of {len(items)} items")
-    await asyncio.sleep(0.1)  # Simulate work
-
-async def main():
-    processor = BatchProcessor(
-        process_fn=process_batch,
-        batch_size=50,
-        batch_timeout=0.5
-    )
-
-    # Simulate high-throughput submissions
-    async def producer():
-        for i in range(1000):
-            await processor.submit({"id": i, "data": f"item-{i}"})
-            await asyncio.sleep(0.001)  # 1000 items/sec
-
-    await producer()
-    await processor._flush()  # Final flush
+```mermaid
+flowchart TD
+    subgraph "Batch Processing with Backpressure"
+        S[submit(item)] --> BP{Backpressure<br/>Check}
+        BP -->|Acquire Semaphore| A[Add to Pending]
+        BP -->|Full| W[Wait]
+        
+        A --> BS{Batch Size<br/>Check}
+        BS -->|< batch_size| ST[Start/Reset Timer]
+        BS -->|>= batch_size| F[Flush Immediately]
+        
+        ST --> T[Timeout Task<br/>batch_timeout]
+        T --> FT[Flush After Timeout]
+        
+        subgraph "Flush Process"
+            F --> CT[Cancel Timer]
+            FT --> CT
+            CT --> PB[Process Batch]
+            PB --> RS[Release Semaphores]
+            RS --> E[Empty Pending]
+        end
+        
+        subgraph "Configuration"
+            C1[batch_size: 100]
+            C2[batch_timeout: 1.0s]
+            C3[max_pending: 10000]
+        end
+    end
+    
+    style BP fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style F fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style T fill:#ffd93d,stroke:#333,stroke-width:2px
 ```
 
 ### 4. Hierarchical Work Distribution
 
-```python
-class HierarchicalScheduler:
-    """
-    Two-level scheduling like Google's Borg
-    """
-    def __init__(self):
-        self.clusters = {}
-        self.global_queue = []
-
-    class Cluster:
-        def __init__(self, cluster_id, capacity):
-            self.cluster_id = cluster_id
-            self.capacity = capacity
-            self.used = 0
-            self.machines = {}
-            self.local_queue = []
-
-        def can_fit(self, job):
-            return self.used + job.resources <= self.capacity
-
-        def schedule_locally(self, job):
-            # Find best machine using bin packing
-            best_machine = None
-            min_waste = float('inf')
-
-            for machine in self.machines.values():
-                if machine.can_fit(job):
-                    waste = machine.capacity - machine.used - job.resources
-                    if waste < min_waste:
-                        min_waste = waste
-                        best_machine = machine
-
-            if best_machine:
-                best_machine.assign(job)
-                self.used += job.resources
-                return True
-
-            return False
-
-    def submit_job(self, job):
-        # Global scheduling decision
-        suitable_clusters = [
-            c for c in self.clusters.values()
-            if c.can_fit(job)
-        ]
-
-        if not suitable_clusters:
-            self.global_queue.append(job)
-            return False
-
-        # Score clusters (simplified)
-        def score_cluster(cluster):
-            # Prefer clusters with:
-            # 1. Better locality
-            # 2. Lower utilization
-            # 3. Fewer queued jobs
-            locality_score = job.get_locality_score(cluster)
-            utilization = cluster.used / cluster.capacity
-            queue_penalty = len(cluster.local_queue) * 0.1
-
-            return locality_score - utilization - queue_penalty
-
-        best_cluster = max(suitable_clusters, key=score_cluster)
-
-        # Delegate to cluster scheduler
-        if best_cluster.schedule_locally(job):
-            return True
-        else:
-            best_cluster.local_queue.append(job)
-            return True
+```mermaid
+flowchart TB
+    subgraph "Hierarchical Scheduling (Borg-like)"
+        J[Job Submission] --> GS[Global Scheduler]
+        
+        GS --> FC{Find Suitable<br/>Clusters}
+        FC -->|None Found| GQ[Global Queue]
+        FC -->|Found| SC[Score Clusters]
+        
+        subgraph "Scoring Factors"
+            L[Locality Score]
+            U[Utilization<br/>(Lower Better)]
+            Q[Queue Length<br/>(Penalty)]
+        end
+        
+        SC --> BC[Best Cluster]
+        
+        subgraph "Cluster Level"
+            BC --> LS[Local Scheduler]
+            LS --> BP[Bin Packing<br/>Algorithm]
+            BP --> MW{Find Machine<br/>Min Waste}
+            MW -->|Found| AM[Assign to Machine]
+            MW -->|Not Found| LQ[Local Queue]
+        end
+        
+        subgraph "Machine Level"
+            M1[Machine 1<br/>Cap: 100<br/>Used: 60]
+            M2[Machine 2<br/>Cap: 100<br/>Used: 30]
+            MN[Machine N<br/>Cap: 100<br/>Used: 80]
+        end
+    end
+    
+    L --> SC
+    U --> SC
+    Q --> SC
+    
+    style GS fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style BP fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style SC fill:#ffd93d,stroke:#333,stroke-width:2px
 ```
 
 ## Anti-Patterns and Solutions
@@ -469,56 +359,68 @@ class HierarchicalScheduler:
 
 **Anti-Pattern**: Services that can't be deployed independently
 
-```python
-# BAD: Tight coupling through shared database
-class OrderService:
-    def create_order(self, order):
-        # Direct DB writes to multiple domains
-        self.db.execute("INSERT INTO orders ...")
-        self.db.execute("UPDATE inventory ...")  # Wrong!
-        self.db.execute("UPDATE user_credits ...")  # Wrong!
-
-# GOOD: Event-driven choreography
-class OrderService:
-    def create_order(self, order):
-        # Own domain only
-        self.db.execute("INSERT INTO orders ...")
-
-        # Publish events for others
-        self.publish_event("OrderCreated", {
-            "order_id": order.id,
-            "items": order.items,
-            "user_id": order.user_id
-        })
+```mermaid
+flowchart LR
+    subgraph "Anti-Pattern: Distributed Monolith"
+        OS1[Order Service] --> DB[(Shared Database)]
+        OS1 --> |INSERT orders| DB
+        OS1 --> |UPDATE inventory ❌| DB
+        OS1 --> |UPDATE user_credits ❌| DB
+        IS1[Inventory Service] --> DB
+        US1[User Service] --> DB
+    end
+    
+    subgraph "Good Pattern: Event-Driven"
+        OS2[Order Service] --> ODB[(Orders DB)]
+        OS2 --> |INSERT orders ✓| ODB
+        OS2 --> |Publish Event| EB[Event Bus]
+        
+        EB --> |OrderCreated| IS2[Inventory Service]
+        EB --> |OrderCreated| US2[User Service]
+        
+        IS2 --> IDB[(Inventory DB)]
+        US2 --> UDB[(Users DB)]
+    end
+    
+    style DB fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style EB fill:#4ecdc4,stroke:#333,stroke-width:2px
 ```
 
 ### 2. The "Chatty Services"
 
 **Anti-Pattern**: Too many synchronous calls
 
-```python
-# BAD: N+1 API calls
-def get_feed(user_id):
-    posts = post_service.get_posts(user_id)
-    for post in posts:
-        post.author = user_service.get_user(post.author_id)  # N calls!
-        post.likes = like_service.get_likes(post.id)  # N more calls!
-    return posts
-
-# GOOD: Batch and cache
-def get_feed(user_id):
-    posts = post_service.get_posts(user_id)
-
-    # Batch fetch
-    author_ids = [p.author_id for p in posts]
-    authors = user_service.get_users_batch(author_ids)
-
-    # Local join
-    author_map = {a.id: a for a in authors}
-    for post in posts:
-        post.author = author_map[post.author_id]
-
-    return posts
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant FS as Feed Service
+    participant PS as Post Service
+    participant US as User Service
+    participant LS as Like Service
+    
+    Note over C,LS: Anti-Pattern: N+1 Queries
+    C->>FS: get_feed(user_id)
+    FS->>PS: get_posts(user_id)
+    PS-->>FS: 100 posts
+    
+    loop For each post (N times)
+        FS->>US: get_user(author_id)
+        US-->>FS: author data
+        FS->>LS: get_likes(post_id)
+        LS-->>FS: likes data
+    end
+    
+    Note over FS: Total: 1 + 2N calls (201 for 100 posts)
+    
+    Note over C,LS: Good Pattern: Batch Fetching
+    C->>FS: get_feed(user_id)
+    FS->>PS: get_posts(user_id)
+    PS-->>FS: 100 posts
+    FS->>US: get_users_batch([author_ids])
+    US-->>FS: all authors
+    FS->>FS: Local join in memory
+    
+    Note over FS: Total: 2 calls (99% reduction)
 ```
 
 ### 3. The "Big Ball of Mud" in Microservices
@@ -526,78 +428,74 @@ def get_feed(user_id):
 **Anti-Pattern**: No clear boundaries
 
 **Solution**: Domain-Driven Design
-```python
-# Define bounded contexts
-class BoundedContext:
-    def __init__(self, name, capabilities):
-        self.name = name
-        self.capabilities = capabilities
-        self.owned_data = []
-        self.published_events = []
-        self.consumed_events = []
-
-# Example contexts
-contexts = [
-    BoundedContext("Order Management", [
-        "Create Order",
-        "Update Order Status",
-        "Cancel Order"
-    ]),
-    BoundedContext("Inventory", [
-        "Reserve Stock",
-        "Release Stock",
-        "Update Stock Levels"
-    ]),
-    BoundedContext("Payments", [
-        "Process Payment",
-        "Refund Payment",
-        "Payment Reconciliation"
-    ])
-]
+```mermaid
+graph TB
+    subgraph "Domain-Driven Design: Bounded Contexts"
+        subgraph "Order Management"
+            OM[Order Management<br/>Capabilities:<br/>• Create Order<br/>• Update Order Status<br/>• Cancel Order]
+            OMD[(Orders DB<br/>• order_id<br/>• status<br/>• items)]
+            OM --> OMD
+        end
+        
+        subgraph "Inventory"
+            INV[Inventory<br/>Capabilities:<br/>• Reserve Stock<br/>• Release Stock<br/>• Update Stock Levels]
+            INVD[(Inventory DB<br/>• sku<br/>• quantity<br/>• reserved)]
+            INV --> INVD
+        end
+        
+        subgraph "Payments"
+            PAY[Payments<br/>Capabilities:<br/>• Process Payment<br/>• Refund Payment<br/>• Payment Reconciliation]
+            PAYD[(Payments DB<br/>• payment_id<br/>• amount<br/>• status)]
+            PAY --> PAYD
+        end
+        
+        OM -.->|OrderCreated| INV
+        OM -.->|PaymentRequired| PAY
+        INV -.->|StockReserved| OM
+        PAY -.->|PaymentCompleted| OM
+    end
+    
+    style OM fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style INV fill:#95e1d3,stroke:#333,stroke-width:2px
+    style PAY fill:#f3a683,stroke:#333,stroke-width:2px
 ```
 
 ## Performance Comparisons
 
 ### Synchronous vs Asynchronous Work Distribution
 
-```python
-import time
-import asyncio
-import aiohttp
-import requests
-from concurrent.futures import ThreadPoolExecutor
-
-# Synchronous approach
-def sync_fetch_all(urls):
-    results = []
-    for url in urls:
-        response = requests.get(url)
-        results.append(response.text)
-    return results
-
-# Threaded approach
-def threaded_fetch_all(urls):
-    with ThreadPoolExecutor(max_workers=10) as executor:
-        futures = [executor.submit(requests.get, url) for url in urls]
-        return [f.result().text for f in futures]
-
-# Async approach
-async def async_fetch_all(urls):
-    async with aiohttp.ClientSession() as session:
-        tasks = [fetch_one(session, url) for url in urls]
-        return await asyncio.gather(*tasks)
-
-async def fetch_one(session, url):
-    async with session.get(url) as response:
-        return await response.text()
-
-# Performance comparison
-urls = ["http://example.com"] * 100
-
-# Sync: ~50 seconds (sequential)
-# Threaded: ~5 seconds (limited by thread count)
-# Async: ~0.5 seconds (truly concurrent)
+```mermaid
+gantt
+    title Performance Comparison: Fetching 100 URLs
+    dateFormat X
+    axisFormat %s
+    
+    section Synchronous
+    URL 1     :0, 0.5s
+    URL 2     :0.5s, 0.5s
+    URL 3     :1s, 0.5s
+    ...       :1.5s, 47s
+    URL 100   :48.5s, 0.5s
+    Total ~50s :crit, 0, 50s
+    
+    section Threaded (10 workers)
+    Batch 1 (10 URLs)  :0, 0.5s
+    Batch 2 (10 URLs)  :0.5s, 0.5s
+    Batch 3 (10 URLs)  :1s, 0.5s
+    ...                :1.5s, 2s
+    Batch 10 (10 URLs) :3.5s, 0.5s
+    Total ~5s :crit, 0, 5s
+    
+    section Async
+    All 100 URLs (concurrent) :0, 0.5s
+    Total ~0.5s :crit, 0, 0.5s
 ```
+
+| Approach | Time | Concurrency | Resource Usage |
+|----------|------|-------------|----------------|
+| **Synchronous** | ~50s | 1 (sequential) | Low CPU, Low Memory |
+| **Threaded** | ~5s | 10 (thread pool) | Medium CPU, Medium Memory |
+| **Async** | ~0.5s | 100 (event loop) | Low CPU, Low Memory |
 
 ## Key Takeaways
 

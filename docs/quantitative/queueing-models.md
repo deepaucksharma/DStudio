@@ -36,26 +36,147 @@ This builds on [Little's Law](littles-law.md) where L = λW, and connects to the
 ## Fundamental Formulas
 
 ### Average Queue Length
-```text
-Lq = ρ²/(1-ρ)
+<div class="axiom-box">
+<h4>📈 Queue Length Formula</h4>
 
-Example:
-50% utilization: 0.5²/0.5 = 0.5 customers
-80% utilization: 0.8²/0.2 = 3.2 customers
-90% utilization: 0.9²/0.1 = 8.1 customers
-95% utilization: 0.95²/0.05 = 18 customers!
-```
+<div class="formula-highlight" style="text-align: center; padding: 20px; background: #F3E5F5; margin: 10px 0; border-radius: 5px;">
+  <span style="font-size: 1.5em; color: #5448C8;">Lq = ρ²/(1-ρ)</span>
+</div>
+
+<div class="utilization-chart" style="margin: 20px 0;">
+  <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
+    <!-- Title -->
+    <text x="300" y="20" text-anchor="middle" font-weight="bold">Queue Length vs Utilization</text>
+    
+    <!-- Axes -->
+    <line x1="60" y1="250" x2="550" y2="250" stroke="#333" stroke-width="2"/>
+    <line x1="60" y1="250" x2="60" y2="30" stroke="#333" stroke-width="2"/>
+    
+    <!-- Y-axis labels -->
+    <text x="40" y="255" text-anchor="end" font-size="10">0</text>
+    <text x="40" y="205" text-anchor="end" font-size="10">5</text>
+    <text x="40" y="155" text-anchor="end" font-size="10">10</text>
+    <text x="40" y="105" text-anchor="end" font-size="10">15</text>
+    <text x="40" y="55" text-anchor="end" font-size="10">20</text>
+    
+    <!-- X-axis labels -->
+    <text x="60" y="270" text-anchor="middle" font-size="10">0%</text>
+    <text x="160" y="270" text-anchor="middle" font-size="10">50%</text>
+    <text x="260" y="270" text-anchor="middle" font-size="10">60%</text>
+    <text x="360" y="270" text-anchor="middle" font-size="10">70%</text>
+    <text x="460" y="270" text-anchor="middle" font-size="10">80%</text>
+    <text x="510" y="270" text-anchor="middle" font-size="10">90%</text>
+    <text x="540" y="270" text-anchor="middle" font-size="10">95%</text>
+    
+    <!-- Data points with values -->
+    <circle cx="160" cy="240" r="5" fill="#4CAF50"/>
+    <text x="160" y="230" text-anchor="middle" font-size="10">0.5</text>
+    
+    <circle cx="460" cy="190" r="5" fill="#FFA726"/>
+    <text x="460" y="180" text-anchor="middle" font-size="10">3.2</text>
+    
+    <circle cx="510" cy="140" r="5" fill="#FF5722"/>
+    <text x="510" y="130" text-anchor="middle" font-size="10">8.1</text>
+    
+    <circle cx="540" cy="60" r="5" fill="#F44336"/>
+    <text x="540" y="50" text-anchor="middle" font-size="10">18!</text>
+    
+    <!-- Curve -->
+    <path d="M 60,250 Q 160,240 260,230 T 360,210 460,190 510,140 540,60" 
+          stroke="#5448C8" stroke-width="3" fill="none"/>
+    
+    <!-- Danger zones -->
+    <rect x="460" y="30" width="90" height="220" fill="#FF5722" opacity="0.1"/>
+    <text x="505" y="100" text-anchor="middle" font-size="12" fill="#B71C1C" font-weight="bold">DANGER</text>
+  </svg>
+</div>
+
+<div class="utilization-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
+  <table style="width: 100%; text-align: center;">
+    <tr style="background: #E0E0E0;">
+      <th>Utilization (ρ)</th>
+      <th>Queue Length (Lq)</th>
+      <th>Impact</th>
+    </tr>
+    <tr style="background: #C8E6C9;">
+      <td>50%</td>
+      <td>0.5 customers</td>
+      <td>✅ Stable</td>
+    </tr>
+    <tr style="background: #FFF9C4;">
+      <td>80%</td>
+      <td>3.2 customers</td>
+      <td>⚠️ Growing</td>
+    </tr>
+    <tr style="background: #FFCCBC;">
+      <td>90%</td>
+      <td>8.1 customers</td>
+      <td>🚨 Critical</td>
+    </tr>
+    <tr style="background: #FFCDD2;">
+      <td>95%</td>
+      <td>18 customers!</td>
+      <td>🔥 Explosive</td>
+    </tr>
+  </table>
+</div>
+</div>
 
 ### Average Wait Time
-```python
-Wq = Lq/λ = ρ/(μ-λ)
+<div class="decision-box">
+<h4>⏱️ Wait Time Calculator</h4>
 
-Example (μ=100 req/s):
-λ=50: Wait = 0.5/(100-50) = 10ms
-λ=80: Wait = 0.8/(100-80) = 40ms
-λ=90: Wait = 0.9/(100-90) = 90ms
-λ=95: Wait = 0.95/(100-95) = 190ms!
-```
+<div class="formula-highlight" style="text-align: center; padding: 20px; background: #E8F5E9; margin: 10px 0; border-radius: 5px;">
+  <span style="font-size: 1.3em; color: #4CAF50;">Wq = Lq/λ = ρ/(μ-λ)</span>
+</div>
+
+<div class="interactive-calculator" style="background: #F5F5F5; padding: 20px; border-radius: 5px; margin: 15px 0;">
+  <div style="text-align: center; margin-bottom: 15px;">
+    <strong>Service Rate (μ) = 100 req/s</strong>
+  </div>
+  
+  <svg viewBox="0 0 500 250" style="width: 100%; max-width: 500px;">
+    <!-- Bar chart showing wait times -->
+    <text x="250" y="20" text-anchor="middle" font-weight="bold">Wait Time by Arrival Rate</text>
+    
+    <!-- Bars -->
+    <g transform="translate(50, 50)">
+      <!-- 50 req/s -->
+      <rect x="0" y="140" width="80" height="10" fill="#4CAF50"/>
+      <text x="40" y="135" text-anchor="middle" font-size="10">λ=50</text>
+      <text x="90" y="150" font-size="10">10ms</text>
+      
+      <!-- 80 req/s -->
+      <rect x="0" y="100" width="80" height="40" fill="#FFA726"/>
+      <text x="40" y="95" text-anchor="middle" font-size="10">λ=80</text>
+      <text x="90" y="125" font-size="10">40ms</text>
+      
+      <!-- 90 req/s -->
+      <rect x="0" y="60" width="80" height="90" fill="#FF5722"/>
+      <text x="40" y="55" text-anchor="middle" font-size="10">λ=90</text>
+      <text x="90" y="110" font-size="10">90ms</text>
+      
+      <!-- 95 req/s -->
+      <rect x="0" y="20" width="80" height="190" fill="#F44336"/>
+      <text x="40" y="15" text-anchor="middle" font-size="10">λ=95</text>
+      <text x="90" y="120" font-size="10" fill="white" font-weight="bold">190ms!</text>
+    </g>
+    
+    <!-- Visual indicators -->
+    <g transform="translate(350, 80)">
+      <text x="0" y="0" font-size="12" font-weight="bold">Performance Impact</text>
+      <text x="0" y="20" font-size="10" fill="#4CAF50">✅ 10ms - Excellent</text>
+      <text x="0" y="40" font-size="10" fill="#FFA726">⚠️ 40ms - Noticeable</text>
+      <text x="0" y="60" font-size="10" fill="#FF5722">🚨 90ms - Poor</text>
+      <text x="0" y="80" font-size="10" fill="#F44336">🔥 190ms - Unacceptable</text>
+    </g>
+  </svg>
+</div>
+
+<div class="insight-note" style="background: #FFE0B2; padding: 10px; margin-top: 10px; border-left: 4px solid #FF6B6B;">
+⚡ <strong>Key Insight:</strong> Wait time grows exponentially as arrival rate approaches service rate!
+</div>
+</div>
 
 ### Response Time Distribution
 ```python
@@ -70,22 +191,127 @@ At 95% util: e^(-5×0.05×1) = 7.8%!
 
 ## The Knee of the Curve
 
-Response time vs utilization shows exponential growth:
+<div class="truth-box">
+<h4>📉 The Exponential Growth Zone</h4>
 
-```python
-Utilization  Queue Time   Total Response
------------  ----------   --------------
-50%          10ms         20ms
-60%          15ms         25ms
-70%          23ms         33ms
-80%          40ms         50ms
-85%          57ms         67ms
-90%          90ms         100ms
-95%          190ms        200ms
-99%          990ms        1000ms!
-```
+<div class="curve-visualization" style="margin: 20px 0;">
+  <svg viewBox="0 0 600 400" style="width: 100%; max-width: 600px;">
+    <!-- Title -->
+    <text x="300" y="20" text-anchor="middle" font-weight="bold">Response Time vs Utilization</text>
+    
+    <!-- Axes -->
+    <line x1="60" y1="350" x2="550" y2="350" stroke="#333" stroke-width="2"/>
+    <line x1="60" y1="350" x2="60" y2="30" stroke="#333" stroke-width="2"/>
+    
+    <!-- Y-axis labels (ms) -->
+    <text x="40" y="355" text-anchor="end" font-size="10">0</text>
+    <text x="40" y="305" text-anchor="end" font-size="10">100</text>
+    <text x="40" y="255" text-anchor="end" font-size="10">200</text>
+    <text x="40" y="205" text-anchor="end" font-size="10">300</text>
+    <text x="40" y="155" text-anchor="end" font-size="10">400</text>
+    <text x="40" y="105" text-anchor="end" font-size="10">500</text>
+    <text x="40" y="55" text-anchor="end" font-size="10">1000</text>
+    
+    <!-- X-axis labels (utilization) -->
+    <text x="110" y="370" text-anchor="middle" font-size="10">50%</text>
+    <text x="210" y="370" text-anchor="middle" font-size="10">60%</text>
+    <text x="310" y="370" text-anchor="middle" font-size="10">70%</text>
+    <text x="410" y="370" text-anchor="middle" font-size="10">80%</text>
+    <text x="460" y="370" text-anchor="middle" font-size="10">85%</text>
+    <text x="510" y="370" text-anchor="middle" font-size="10">90%</text>
+    <text x="540" y="370" text-anchor="middle" font-size="10">95%</text>
+    
+    <!-- The curve -->
+    <path d="M 110,340 C 210,335 310,320 410,300 460,280 510,200 540,50" 
+          stroke="#2196F3" stroke-width="3" fill="none"/>
+    
+    <!-- Safe zone -->
+    <rect x="60" y="30" width="350" height="320" fill="#4CAF50" opacity="0.1"/>
+    <text x="235" y="190" text-anchor="middle" font-size="14" fill="#2E7D32" font-weight="bold">SAFE ZONE</text>
+    
+    <!-- Danger zone -->
+    <rect x="410" y="30" width="140" height="320" fill="#FF5722" opacity="0.2"/>
+    <text x="480" y="190" text-anchor="middle" font-size="14" fill="#B71C1C" font-weight="bold">DANGER</text>
+    
+    <!-- The knee -->
+    <circle cx="410" cy="300" r="8" fill="#FF5722"/>
+    <text x="410" y="280" text-anchor="middle" font-size="12" font-weight="bold">The Knee</text>
+    <text x="410" y="265" text-anchor="middle" font-size="10">80% utilization</text>
+  </svg>
+</div>
 
-**Key insight**: Beyond 80% utilization, small load increases cause massive latency spikes.
+<div class="response-time-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
+  <table style="width: 100%;">
+    <tr style="background: #E0E0E0;">
+      <th>Utilization</th>
+      <th>Queue Time</th>
+      <th>Service Time</th>
+      <th>Total Response</th>
+      <th>Status</th>
+    </tr>
+    <tr style="background: #C8E6C9;">
+      <td>50%</td>
+      <td>10ms</td>
+      <td>10ms</td>
+      <td><strong>20ms</strong></td>
+      <td>✅ Excellent</td>
+    </tr>
+    <tr style="background: #DCEDC8;">
+      <td>60%</td>
+      <td>15ms</td>
+      <td>10ms</td>
+      <td><strong>25ms</strong></td>
+      <td>✅ Good</td>
+    </tr>
+    <tr style="background: #F0F4C3;">
+      <td>70%</td>
+      <td>23ms</td>
+      <td>10ms</td>
+      <td><strong>33ms</strong></td>
+      <td>✅ Acceptable</td>
+    </tr>
+    <tr style="background: #FFF9C4;">
+      <td>80%</td>
+      <td>40ms</td>
+      <td>10ms</td>
+      <td><strong>50ms</strong></td>
+      <td>⚠️ Caution</td>
+    </tr>
+    <tr style="background: #FFE0B2;">
+      <td>85%</td>
+      <td>57ms</td>
+      <td>10ms</td>
+      <td><strong>67ms</strong></td>
+      <td>🚨 Warning</td>
+    </tr>
+    <tr style="background: #FFCCBC;">
+      <td>90%</td>
+      <td>90ms</td>
+      <td>10ms</td>
+      <td><strong>100ms</strong></td>
+      <td>🚨 Critical</td>
+    </tr>
+    <tr style="background: #FFCDD2;">
+      <td>95%</td>
+      <td>190ms</td>
+      <td>10ms</td>
+      <td><strong>200ms</strong></td>
+      <td>🔥 Emergency</td>
+    </tr>
+    <tr style="background: #EF9A9A;">
+      <td>99%</td>
+      <td>990ms</td>
+      <td>10ms</td>
+      <td><strong>1000ms!</strong></td>
+      <td>💥 Meltdown</td>
+    </tr>
+  </table>
+</div>
+
+<div class="key-insight" style="background: #E3F2FD; padding: 15px; margin-top: 15px; border-left: 4px solid #2196F3;">
+💡 <strong>Critical Finding:</strong> Beyond 80% utilization, small load increases cause massive latency spikes. This is why production systems target 50-70% utilization for stability.
+</div>
+</div>
 
 ## M/M/c Multi-Server Queue
 

@@ -24,46 +24,63 @@ Think about driving a car:
 
 ### Real-World Analogy: Restaurant Kitchen
 
-```yaml
-Busy Restaurant Kitchen Control:
-
-Head Chef: "Fire table 12!"
-Grill Cook: Starts steaks automatically
-Sauce Chef: Begins reduction on cue
-Expediter: Coordinates timing
-
-What's the control system?
-- Standard procedures (recipes)
-- Real-time coordination (expediter)
-- Quality checks (head chef)
-- Emergency overrides (stop everything!)
-
-When rush hits:
-- Procedures scale the operation
-- Humans handle exceptions
-- Clear escalation paths
-- Everyone knows their role
+```mermaid
+graph LR
+    subgraph "Restaurant Kitchen Control System"
+        HC[Head Chef<br/>Strategic Control] -->|"Fire table 12!"| EX[Expediter<br/>Coordination]
+        
+        EX -->|Timing signals| GC[Grill Cook<br/>Automated Process]
+        EX -->|Timing signals| SC[Sauce Chef<br/>Automated Process]
+        EX -->|Timing signals| PC[Prep Cook<br/>Support Process]
+        
+        GC -->|Status| EX
+        SC -->|Status| EX
+        PC -->|Status| EX
+        
+        EX -->|Quality Check| HC
+        
+        EM[Emergency Override<br/>"Stop Everything!"] -.->|Override| GC
+        EM -.->|Override| SC
+        EM -.->|Override| PC
+    end
+    
+    subgraph "Control Elements"
+        R[📋 Recipes<br/>Standard Procedures]
+        T[⏱️ Timing<br/>Real-time Coordination]
+        Q[✅ Quality<br/>Continuous Checks]
+        E[🚨 Emergency<br/>Override Controls]
+    end
+    
+    style HC fill:#ff9999
+    style EX fill:#99ccff
+    style EM fill:#ffcc99
 ```
 
 ### Your First Control Experiment
 
 ### The Beginner's Control Stack
 
-```proto
-         🧠 Strategic Control
-          (Business decisions)
-                |
-                |
-         📊 Tactical Control
-           (Service goals)
-                |
-                |
-         ⚙️ Operational Control
-           (Day-to-day running)
-                |
-                |
-         🚨 Emergency Control
-           (Break glass procedures)
+```mermaid
+graph TD
+    subgraph "Control Hierarchy"
+        S[🧠 Strategic Control<br/>Business Decisions<br/>Days/Weeks] 
+        T[📊 Tactical Control<br/>Service Goals<br/>Hours/Days]
+        O[⚙️ Operational Control<br/>Day-to-day Running<br/>Minutes/Hours]
+        E[🚨 Emergency Control<br/>Break Glass Procedures<br/>Seconds]
+        
+        S -->|Policy & Goals| T
+        T -->|Objectives & Limits| O
+        O -->|Triggers & Thresholds| E
+        
+        E -.->|Escalation| O
+        O -.->|Reports| T
+        T -.->|Analytics| S
+    end
+    
+    style S fill:#e6f3ff
+    style T fill:#cce6ff
+    style O fill:#b3d9ff
+    style E fill:#ff9999
 ```
 
 ---
@@ -80,57 +97,80 @@ When rush hits:
 
 Control systems in distributed environments follow classic control theory principles adapted for network delays, partial failures, and eventual consistency.
 
-```python
-class ControlLoop:
-    """Basic control loop structure"""
+```mermaid
+stateDiagram-v2
+    [*] --> Observe: Start Control Loop
     
-    def __init__(self, setpoint, measure_fn, actuate_fn):
-        self.setpoint = setpoint      # Desired state
-        self.measure = measure_fn      # How to observe
-        self.actuate = actuate_fn      # How to change
-        
-    def run(self):
-        while True:
-            # Observe
-            current = self.measure()
-            
-            # Decide
-            error = self.setpoint - current
-            action = self.compute_action(error)
-            
-            # Act
-            self.actuate(action)
-            
-            # Wait
-            time.sleep(self.control_interval)
+    Observe --> Measure: measure()
+    Measure --> Calculate: current_value
+    
+    Calculate --> Decide: error = setpoint - current
+    Decide --> ComputeAction: compute_action(error)
+    
+    ComputeAction --> Act: action
+    Act --> Actuate: actuate(action)
+    
+    Actuate --> Wait: Complete
+    Wait --> Observe: control_interval
+    
+    note right of Observe
+        Continuous loop:
+        1. Observe current state
+        2. Calculate error
+        3. Decide on action
+        4. Execute action
+        5. Wait and repeat
+    end note
+    
+    note left of Calculate
+        Setpoint: Desired state
+        Current: Measured state
+        Error: Difference
+    end note
 ```
 
 ### The Control Hierarchy
 
-```proto
-Strategic Level (Days/Weeks)
-├─ Business metrics
-├─ Capacity planning
-├─ Budget allocation
-└─ Architecture decisions
-
-Tactical Level (Hours/Days)
-├─ Service objectives
-├─ Deployment decisions
-├─ Resource allocation
-└─ Incident management
-
-Operational Level (Minutes/Hours)
-├─ Auto-scaling
-├─ Load balancing
-├─ Health checks
-└─ Alerts
-
-Emergency Level (Seconds)
-├─ Circuit breakers
-├─ Kill switches
-├─ Rollbacks
-└─ Failovers
+```mermaid
+graph TB
+    subgraph "Control Hierarchy Timeline"
+        subgraph "Strategic Level [Days/Weeks]"
+            S1[Business Metrics]
+            S2[Capacity Planning]
+            S3[Budget Allocation]
+            S4[Architecture Decisions]
+        end
+        
+        subgraph "Tactical Level [Hours/Days]"
+            T1[Service Objectives]
+            T2[Deployment Decisions]
+            T3[Resource Allocation]
+            T4[Incident Management]
+        end
+        
+        subgraph "Operational Level [Minutes/Hours]"
+            O1[Auto-scaling]
+            O2[Load Balancing]
+            O3[Health Checks]
+            O4[Alerts]
+        end
+        
+        subgraph "Emergency Level [Seconds]"
+            E1[Circuit Breakers]
+            E2[Kill Switches]
+            E3[Rollbacks]
+            E4[Failovers]
+        end
+        
+        S1 & S2 & S3 & S4 --> T1 & T2 & T3 & T4
+        T1 & T2 & T3 & T4 --> O1 & O2 & O3 & O4
+        O1 & O2 & O3 & O4 --> E1 & E2 & E3 & E4
+    end
+    
+    style S1 fill:#e6f3ff
+    style T1 fill:#cce6ff
+    style O1 fill:#b3d9ff
+    style E1 fill:#ffcccc
 ```
 
 ### 🎬 Failure Vignette: Knight Capital Meltdown
@@ -139,31 +179,32 @@ Emergency Level (Seconds)
 **Loss**: $440 million in 45 minutes  
 **Root Cause**: Deployment control failure
 
-```yaml
-The Timeline:
-07:00 - Team begins deploying new trading software
-07:30 - 7 of 8 servers updated successfully
-07:31 - 1 server missed, still running old code
-09:30 - Market opens
-09:31 - Old code activated by new market data
-09:32 - Server begins aggressive trading
-09:35 - $2M loss per minute accumulating
-09:58 - Manual intervention attempted
-10:15 - Server finally stopped
-10:20 - $440M loss realized
-
-Control Failures:
-1. No automated deployment verification
-2. No canary deployment
-3. No circuit breakers on trading volume
-4. No automatic rollback on anomalies
-5. Manual kill switch too slow
-
-Lessons:
-- Deployment is a control problem
-- Partial failures are the worst failures
-- Speed of control must match speed of failure
-- Human reaction time inadequate for algorithmic trading
+```mermaid
+gantt
+    title Knight Capital Meltdown Timeline - August 1, 2012
+    dateFormat HH:mm
+    axisFormat %H:%M
+    
+    section Deployment Phase
+    Deploy starts           :done, deploy1, 07:00, 30m
+    7/8 servers updated    :done, deploy2, 07:30, 1m
+    1 server missed        :crit, deploy3, 07:31, 2h29m
+    
+    section Market Hours
+    Market opens           :milestone, market1, 09:30, 0m
+    Old code activated     :crit, fail1, 09:31, 1m
+    Aggressive trading     :crit, fail2, 09:32, 3m
+    $2M/min losses        :crit, fail3, 09:35, 23m
+    Manual intervention    :active, fix1, 09:58, 17m
+    Server stopped         :done, fix2, 10:15, 5m
+    $440M loss realized    :crit, loss, 10:20, 0m
+    
+    section Control Failures
+    No deployment verification  :crit, cf1, 07:00, 3h20m
+    No canary deployment       :crit, cf2, 07:00, 3h20m
+    No circuit breakers        :crit, cf3, 09:30, 50m
+    No automatic rollback      :crit, cf4, 09:31, 49m
+    Manual controls too slow   :crit, cf5, 09:58, 22m
 ```
 
 ### Control System Properties
@@ -181,181 +222,109 @@ Lessons:
 
 PID (Proportional-Integral-Derivative) controllers are the backbone of control systems, from thermostats to autoscalers.
 
-```python
-class PIDController:
-    def __init__(self, kp, ki, kd, setpoint):
-        self.kp = kp  # Proportional gain
-        self.ki = ki  # Integral gain
-        self.kd = kd  # Derivative gain
-        self.setpoint = setpoint
+```mermaid
+graph TB
+    subgraph "PID Controller Flow"
+        Input[Measured Value] --> Error[Calculate Error<br/>error = setpoint - measured]
         
-        self.last_error = 0
-        self.integral = 0
-        self.last_time = time.time()
+        Error --> P[Proportional Term<br/>P = Kp × error<br/>React to current]
+        Error --> I[Integral Term<br/>I = Ki × Σerror<br/>Fix accumulated]
+        Error --> D[Derivative Term<br/>D = Kd × Δerror/Δt<br/>Predict future]
+        
+        P --> Sum[Sum Terms<br/>output = P + I + D]
+        I --> Sum
+        D --> Sum
+        
+        Sum --> Output[Control Signal]
+        Output --> Bounds[Apply Bounds<br/>min ≤ output ≤ max]
+        Bounds --> Action[Actuator Action]
+    end
     
-    def update(self, measured_value):
-        """Calculate control output"""
-        current_time = time.time()
-        dt = current_time - self.last_time
-        
-        # Calculate error
-        error = self.setpoint - measured_value
-        
-        # Proportional: React to current error
-        p_term = self.kp * error
-        
-        # Integral: Fix accumulated error
-        self.integral += error * dt
-        i_term = self.ki * self.integral
-        
-        # Derivative: Predict future error
-        if dt > 0:
-            derivative = (error - self.last_error) / dt
-            d_term = self.kd * derivative
-        else:
-            d_term = 0
-        
-        # Update state
-        self.last_error = error
-        self.last_time = current_time
-        
-        # Calculate output
-        output = p_term + i_term + d_term
-        
-        return output
-
-# Example: CPU-based autoscaling
-class AutoScaler:
-    def __init__(self, target_cpu=70):
-        self.controller = PIDController(
-            kp=0.1,   # Conservative proportional
-            ki=0.01,  # Small integral
-            kd=0.05,  # Derivative prevents oscillation
-            setpoint=target_cpu
-        )
+    subgraph "CPU Autoscaling Example"
+        CPU[Current CPU: 85%] -->|Target: 70%| PID[PID Controller]
+        PID -->|Kp=0.1, Ki=0.01, Kd=0.05| Signal[Control Signal: +1.5]
+        Signal --> Replicas[Current: 10<br/>Desired: 12]
+        Replicas --> Bounded[Bounded: 2-100<br/>Result: 12 replicas]
+    end
     
-    def scale(self, current_cpu, current_replicas):
-        control_signal = self.controller.update(current_cpu)
-        desired_replicas = current_replicas + int(control_signal)
-        return max(2, min(100, desired_replicas))  # Bounds
+    style Error fill:#ffcccc
+    style Sum fill:#ccffcc
+    style Output fill:#ccccff
 ```
 
 ### Circuit Breaker Pattern
 
 Stop cascading failures by breaking connections to failing services.
 
-```python
-class CircuitBreaker:
-    def __init__(self, failure_threshold=5, recovery_timeout=60):
-        self.failure_threshold = failure_threshold
-        self.recovery_timeout = recovery_timeout
-        self.failure_count = 0
-        self.last_failure_time = None
-        self.state = 'CLOSED'  # CLOSED, OPEN, HALF_OPEN
+```mermaid
+stateDiagram-v2
+    [*] --> CLOSED: Initial State
     
-    def call(self, func, *args, **kwargs):
-        if self.state == 'OPEN':
-            if self._should_attempt_reset():
-                self.state = 'HALF_OPEN'
-            else:
-                raise CircuitOpenError("Circuit breaker is OPEN")
-        
-        try:
-            result = func(*args, **kwargs)
-            self._on_success()
-            return result
-        except Exception as e:
-            self._on_failure()
-            raise e
+    CLOSED --> CLOSED: Success
+    CLOSED --> CLOSED: Failure < Threshold
+    CLOSED --> OPEN: Failures ≥ Threshold
     
-    def _on_success(self):
-        self.failure_count = 0
-        if self.state == 'HALF_OPEN':
-            self.state = 'CLOSED'
+    OPEN --> OPEN: Reject Requests
+    OPEN --> HALF_OPEN: Timeout Expired
     
-    def _on_failure(self):
-        self.failure_count += 1
-        self.last_failure_time = time.time()
-        if self.failure_count >= self.failure_threshold:
-            self.state = 'OPEN'
+    HALF_OPEN --> CLOSED: Success
+    HALF_OPEN --> OPEN: Failure
     
-    def _should_attempt_reset(self):
-        return (time.time() - self.last_failure_time) >= self.recovery_timeout
-
-# Usage example
-user_service_breaker = CircuitBreaker()
-
-def get_user_data(user_id):
-    return user_service_breaker.call(
-        fetch_from_user_service, user_id
-    )
+    note right of CLOSED
+        Normal operation
+        All requests pass through
+        Count failures
+    end note
+    
+    note right of OPEN
+        Circuit tripped
+        Reject all requests
+        Wait for timeout
+    end note
+    
+    note right of HALF_OPEN
+        Testing recovery
+        Allow one request
+        Success → CLOSED
+        Failure → OPEN
+    end note
 ```
 
 ### Deployment Control Strategies
 
 Control risk during deployments with progressive rollout strategies.
 
-```python
-class DeploymentController:
-    def __init__(self, total_instances):
-        self.total_instances = total_instances
-        self.deployment_strategies = {
-            'blue_green': self.blue_green_deploy,
-            'canary': self.canary_deploy,
-            'rolling': self.rolling_deploy
-        }
+```mermaid
+graph LR
+    subgraph "Blue-Green Deployment"
+        B1[Blue Environment<br/>v1.0 Active] -->|Deploy v2.0| G1[Green Environment<br/>v2.0 Standby]
+        G1 -->|Health Check ✓| Switch[Switch Traffic]
+        Switch --> G2[Green Active<br/>Blue Standby]
+        Switch -->|Rollback Ready| B2[Blue Available<br/>for Quick Rollback]
+    end
     
-    def blue_green_deploy(self, new_version):
-        """Instant cutover between versions"""
-        # Deploy new version to standby environment
-        green_env = self.provision_environment(new_version)
+    subgraph "Canary Deployment"
+        C1[100% v1.0] -->|1%| C2[1% v2.0<br/>99% v1.0]
+        C2 -->|Monitor 5min| C3[5% v2.0<br/>95% v1.0]
+        C3 -->|Monitor 5min| C4[10% v2.0<br/>90% v1.0]
+        C4 -->|Monitor 5min| C5[50% v2.0<br/>50% v1.0]
+        C5 -->|Monitor 5min| C6[100% v2.0]
         
-        # Run health checks
-        if not self.health_check(green_env):
-            self.teardown_environment(green_env)
-            raise DeploymentError("Green environment unhealthy")
-        
-        # Switch traffic
-        self.switch_traffic(to=green_env)
-        
-        # Keep blue as backup
-        self.mark_as_standby(self.current_env)
-        
-    def canary_deploy(self, new_version, stages=[1, 5, 10, 50, 100]):
-        """Gradual rollout with bake time"""
-        for percentage in stages:
-            instances = int(self.total_instances * percentage / 100)
-            
-            # Deploy to subset
-            deployed = self.deploy_instances(new_version, instances)
-            
-            # Monitor metrics
-            if not self.monitor_canary(deployed, duration=300):
-                self.rollback(deployed)
-                raise DeploymentError(f"Canary failed at {percentage}%")
-            
-            print(f"Canary at {percentage}% healthy")
-        
-        print("Deployment complete")
+        C2 & C3 & C4 & C5 -.->|Failure| Rollback[Rollback to v1.0]
+    end
     
-    def rolling_deploy(self, new_version, batch_size=2):
-        """Replace instances in batches"""
-        for i in range(0, self.total_instances, batch_size):
-            batch = self.instances[i:i+batch_size]
-            
-            # Take batch out of service
-            self.drain_traffic(batch)
-            
-            # Deploy new version
-            self.deploy_to_instances(batch, new_version)
-            
-            # Health check
-            if not self.health_check(batch):
-                self.emergency_rollback()
-                raise DeploymentError(f"Batch {i} failed")
-            
-            # Return to service
-            self.enable_traffic(batch)
+    subgraph "Rolling Deployment"
+        R1[Instance Group] -->|Batch 1| R2[Drain Traffic]
+        R2 --> R3[Deploy v2.0]
+        R3 --> R4[Health Check]
+        R4 -->|Success| R5[Re-enable Traffic]
+        R5 -->|Next Batch| R2
+        R4 -.->|Failure| R6[Emergency Rollback]
+    end
+    
+    style Switch fill:#99ff99
+    style Rollback fill:#ff9999
+    style R6 fill:#ff9999
 ```
 
 ### Concept Map: Distribution of Control
@@ -433,60 +402,39 @@ This concept map illustrates how control distribution balances human oversight w
 
 Netflix pioneered using controlled chaos to build resilient systems.
 
-```python
-class ChaosMonkey:
-    """Randomly terminate instances to test resilience"""
+```mermaid
+sequenceDiagram
+    participant CM as Chaos Monkey
+    participant Cluster
+    participant Instance
+    participant Team
+    participant Health
     
-    def __init__(self, cluster, probability=0.1):
-        self.cluster = cluster
-        self.probability = probability
-        self.exclusions = set()  # Critical instances
-        
-    def unleash_chaos(self):
-        """Randomly terminate instances during business hours"""
-        if not self.is_business_hours():
-            return
+    Note over CM: Check Business Hours (9-5 M-F)
+    
+    CM->>Cluster: Get Instance List
+    Cluster-->>CM: Instances[]
+    
+    loop For Each Instance
+        alt Not in Exclusions & Random < 0.1
+            CM->>Instance: terminate()
+            CM->>Team: notify(instance_id)
+            CM->>Health: verify_health()
             
-        for instance in self.cluster.instances:
-            if instance.id in self.exclusions:
-                continue
-                
-            if random.random() < self.probability:
-                print(f"Chaos Monkey terminating {instance.id}")
-                instance.terminate()
-                self.notify_team(instance)
-                
-                # Verify system handles failure
-                if not self.verify_health():
-                    self.emergency_restore(instance)
+            alt System Unhealthy
+                CM->>Instance: emergency_restore()
+                Note over CM: Abort Chaos
+            else System Healthy
+                Note over CM: Continue Testing
+            end
+        end
+    end
     
-    def is_business_hours(self):
-        """Only cause chaos when engineers are awake"""
-        hour = datetime.now().hour
-        return 9 <= hour <= 17 and datetime.now().weekday() < 5
-
-class ChaosKong:
-    """Simulate entire region failures"""
-    
-    def __init__(self, regions):
-        self.regions = regions
-        
-    def simulate_region_failure(self, region):
-        """Take entire region offline"""
-        print(f"ChaosKong: Failing region {region}")
-        
-        # Redirect traffic away
-        self.traffic_manager.remove_region(region)
-        
-        # Verify other regions handle load
-        for r in self.regions:
-            if r != region:
-                if not self.verify_region_health(r):
-                    print(f"Region {r} struggling!")
-                    self.abort_chaos()
-                    return
-        
-        print(f"System survived {region} failure")
+    Note over CM: Chaos Engineering Principles:
+    Note over CM: 1. Test during business hours
+    Note over CM: 2. Start with small blast radius
+    Note over CM: 3. Have rollback ready
+    Note over CM: 4. Monitor system health
 ```
 
 **Netflix's Chaos Principles**:
@@ -522,151 +470,92 @@ graph TD
 
 Systems that learn and adjust their control parameters based on observed behavior.
 
-```python
-class AdaptiveLoadBalancer:
-    """Load balancer that learns backend performance"""
+```mermaid
+graph TB
+    subgraph "Adaptive Load Balancer"
+        Req[Incoming Request] --> LB[Load Balancer]
+        
+        LB --> WC[Weighted Choice<br/>Based on Performance]
+        
+        WC --> B1[Backend 1<br/>Weight: 1.2]
+        WC --> B2[Backend 2<br/>Weight: 0.8]
+        WC --> B3[Backend 3<br/>Weight: 1.5]
+        
+        B1 & B2 & B3 --> Measure[Measure Response]
+        
+        Measure -->|Success + Latency| History[Performance History]
+        Measure -->|Failure| History
+        
+        History --> Adapt[Adapt Weights<br/>Every 100 requests]
+        
+        Adapt -->|Update| WC
+    end
     
-    def __init__(self, backends):
-        self.backends = backends
-        self.weights = {b: 1.0 for b in backends}
-        self.performance_history = defaultdict(list)
+    subgraph "Adaptive Rate Limiter (AIMD)"
+        Rate[Current Rate: 1000 req/s]
         
-    def route_request(self, request):
-        # Select backend using weighted random
-        backend = self.weighted_choice()
+        Rate --> Check{Token Available?}
+        Check -->|Yes| Allow[Allow Request]
+        Check -->|No| Reject[Reject Request]
         
-        # Measure performance
-        start_time = time.time()
-        try:
-            response = backend.handle(request)
-            latency = time.time() - start_time
-            self.record_success(backend, latency)
-            return response
-        except Exception as e:
-            self.record_failure(backend)
-            raise e
+        Allow --> Response[Record Response]
+        Response -->|Success Rate > 95%<br/>Low Latency| Increase[Rate += 10]
+        Response -->|Failures or<br/>High Latency| Decrease[Rate *= 0.8]
+        
+        Increase & Decrease --> Rate
+    end
     
-    def adapt_weights(self):
-        """Adjust weights based on performance"""
-        for backend in self.backends:
-            history = self.performance_history[backend]
-            if not history:
-                continue
-                
-            # Calculate performance score
-            recent = history[-100:]  # Last 100 requests
-            avg_latency = sum(r['latency'] for r in recent) / len(recent)
-            error_rate = sum(1 for r in recent if r['error']) / len(recent)
-            
-            # Score: Lower latency and errors = higher score
-            score = 1.0 / (avg_latency * (1 + error_rate * 10))
-            
-            # Smooth weight updates
-            self.weights[backend] = 0.9 * self.weights[backend] + 0.1 * score
-
-class AdaptiveRateLimiter:
-    """Rate limiter that adjusts to backend capacity"""
-    
-    def __init__(self, initial_rate=1000):
-        self.rate = initial_rate
-        self.window = []  # Recent request outcomes
-        
-        # AIMD parameters (Additive Increase, Multiplicative Decrease)
-        self.increase_step = 10
-        self.decrease_factor = 0.8
-        
-    def should_allow(self):
-        """Token bucket with adaptive rate"""
-        self.refill_tokens()
-        
-        if self.tokens > 0:
-            self.tokens -= 1
-            return True
-        return False
-    
-    def record_response(self, success, latency):
-        """Adapt rate based on responses"""
-        self.window.append({
-            'time': time.time(),
-            'success': success,
-            'latency': latency
-        })
-        
-        # Keep sliding window
-        cutoff = time.time() - 10  # 10 second window
-        self.window = [w for w in self.window if w['time'] > cutoff]
-        
-        # Adapt rate
-        if len(self.window) >= 100:
-            success_rate = sum(1 for w in self.window if w['success']) / len(self.window)
-            avg_latency = sum(w['latency'] for w in self.window) / len(self.window)
-            
-            if success_rate < 0.95 or avg_latency > self.target_latency:
-                # Decrease rate
-                self.rate = int(self.rate * self.decrease_factor)
-            else:
-                # Increase rate
-                self.rate = self.rate + self.increase_step
+    style Adapt fill:#99ccff
+    style Increase fill:#99ff99
+    style Decrease fill:#ff9999
 ```
 
 ### Production Anti-Patterns
 
 Learn from common control system failures:
 
-```python
-class ControlAntiPatterns:
-    """What NOT to do in production"""
-    
-    def anti_pattern_1_aggressive_scaling(self):
-        """❌ Overreactive scaling causes oscillation"""
-        # Bad: Hair-trigger scaling
-        if cpu > 80:
-            scale_up(10)  # Too aggressive!
-        elif cpu < 20:
-            scale_down(10)  # Oscillation guaranteed
+```mermaid
+graph LR
+    subgraph "Anti-Pattern 1: Aggressive Scaling"
+        CPU1[CPU: 85%] -->|Instant| Scale1[+10 instances]
+        Scale1 --> CPU2[CPU: 15%]
+        CPU2 -->|Instant| Scale2[-10 instances]
+        Scale2 --> CPU3[CPU: 85%]
+        CPU3 -.->|Oscillation| Scale1
         
-        # Good: Damped response
-        controller = PIDController(kp=0.1, ki=0.01, kd=0.05)
-        adjustment = controller.update(cpu)
-        scale_by(int(adjustment))
+        Note1[❌ Oscillation Loop]
+    end
     
-    def anti_pattern_2_missing_backpressure(self):
-        """❌ No flow control leads to cascading failure"""
-        # Bad: Accept everything
-        def handle_request(req):
-            return process(req)  # What if backend is slow?
+    subgraph "Better: Damped Response"
+        CPU4[CPU: 85%] -->|PID Controller| Smooth[+2 instances]
+        Smooth --> CPU5[CPU: 75%]
+        CPU5 -->|Wait & Measure| Stable[Stable at 70%]
         
-        # Good: Backpressure
-        def handle_request_safe(req):
-            if queue.size() > MAX_QUEUE:
-                return Response(503, "Service overloaded")
-            
-            with semaphore:  # Limit concurrent requests
-                return process(req)
+        Note2[✓ Smooth Convergence]
+    end
     
-    def anti_pattern_3_binary_health_checks(self):
-        """❌ Up/Down is too coarse"""
-        # Bad: Binary health
-        def health_check():
-            try:
-                db.ping()
-                return "OK"
-            except:
-                return "FAIL"
+    subgraph "Anti-Pattern 2: No Backpressure"
+        Req1[1000 req/s] --> Svc1[Service]
+        Svc1 -->|Overwhelmed| Slow[Slowing Down]
+        Slow -->|More Requests| Crash[Service Crash]
+        Crash -->|Cascade| Down[System Down]
         
-        # Good: Gradient health
-        def health_check_gradient():
-            health_score = 100
-            
-            # Check various subsystems
-            if db_latency > 100:
-                health_score -= 20
-            if error_rate > 0.01:
-                health_score -= 30
-            if queue_depth > 1000:
-                health_score -= 25
-                
-            return {"score": health_score, "status": get_status(health_score)}
+        Note3[❌ Cascade Failure]
+    end
+    
+    subgraph "Better: Flow Control"
+        Req2[1000 req/s] --> Queue[Queue Check]
+        Queue -->|Full| Reject[503 Response]
+        Queue -->|Space| Process[Process Request]
+        Process --> Healthy[Service Healthy]
+        
+        Note4[✓ Protected Service]
+    end
+    
+    style Scale1 fill:#ff9999
+    style Crash fill:#ff6666
+    style Stable fill:#99ff99
+    style Healthy fill:#99ff99
 ```
 
 **Common Production Mistakes**:
@@ -684,216 +573,159 @@ class ControlAntiPatterns:
 
 Self-healing systems that require minimal human intervention.
 
-```python
-class AutonomousOperator:
-    """Self-operating system with learning capabilities"""
+```mermaid
+sequenceDiagram
+    participant M as Monitor
+    participant AD as Anomaly Detector
+    participant RC as Root Cause Analyzer
+    participant KB as Knowledge Base
+    participant RP as Remediation Predictor
+    participant E as Executor
+    participant H as Human Operator
     
-    def __init__(self):
-        self.knowledge_base = KnowledgeGraph()
-        self.ml_models = {
-            'anomaly_detection': AnomalyDetector(),
-            'root_cause': RootCauseAnalyzer(),
-            'remediation': RemediationPredictor()
-        }
-        self.action_history = []
+    loop Continuous Monitoring
+        M->>AD: Check Metrics
+        AD->>M: Anomalies Detected
         
-    def monitor_and_heal(self):
-        """Continuous monitoring and self-healing loop"""
-        while True:
-            # Detect anomalies
-            anomalies = self.detect_anomalies()
+        alt Anomaly Found
+            M->>RC: Analyze Anomaly
+            RC->>KB: Find Similar Cases
+            KB-->>RC: Historical Cases
+            RC->>RP: Predict Remediation
             
-            for anomaly in anomalies:
-                # Analyze root cause
-                root_cause = self.analyze_root_cause(anomaly)
+            RP->>RP: Extract Features
+            RP->>RP: ML Prediction
+            RP-->>M: Recommended Action
+            
+            alt Action is Safe
+                M->>E: Execute Action
+                E-->>M: Result
+                M->>KB: Store Result
+                M->>RP: Learn from Outcome
                 
-                # Predict best remediation
-                action = self.predict_remediation(root_cause)
-                
-                # Execute with safety checks
-                if self.is_safe_action(action):
-                    result = self.execute_action(action)
-                    self.learn_from_result(action, result)
-                else:
-                    self.escalate_to_human(anomaly, action)
-    
-    def predict_remediation(self, root_cause):
-        """Use ML to predict best fix"""
-        # Find similar past issues
-        similar_cases = self.knowledge_base.find_similar(root_cause)
-        
-        # Extract successful remediations
-        successful_actions = [
-            case.action for case in similar_cases
-            if case.outcome == 'success'
-        ]
-        
-        # Use model to predict best action
-        features = self.extract_features(root_cause)
-        return self.ml_models['remediation'].predict(features)
-    
-    def learn_from_result(self, action, result):
-        """Update models based on outcome"""
-        self.action_history.append({
-            'action': action,
-            'result': result,
-            'timestamp': time.time()
-        })
-        
-        # Retrain models periodically
-        if len(self.action_history) % 100 == 0:
-            self.retrain_models()
+                Note over M,RP: Every 100 actions:<br/>Retrain ML models
+            else Action is Risky
+                M->>H: Escalate to Human
+                H->>M: Human Decision
+            end
+        end
+    end
 ```
 
 ### Control Planes at Scale
 
 Managing millions of containers across thousands of nodes.
 
-```python
-class GlobalControlPlane:
-    """Multi-region, multi-cloud control plane"""
+```mermaid
+graph TB
+    subgraph "Global Control Plane"
+        GCP[Global Control Plane]
+        GSS[Global State Store]
+        PE[Policy Engine]
+        
+        GCP --> GSS
+        GCP --> PE
+    end
     
-    def __init__(self):
-        self.regions = {}
-        self.global_state = GlobalStateStore()
-        self.policy_engine = PolicyEngine()
+    subgraph "Regional Controllers"
+        RC1[Region Controller<br/>US-East]
+        RC2[Region Controller<br/>EU-West]
+        RC3[Region Controller<br/>Asia-Pacific]
         
-    def add_region(self, region_id, endpoint):
-        """Add new region to control plane"""
-        region = RegionController(region_id, endpoint)
-        self.regions[region_id] = region
-        
-        # Sync global policies
-        region.apply_policies(self.policy_engine.get_policies())
-        
-        # Start regional monitoring
-        region.start_monitoring()
-        
-    def handle_global_event(self, event):
-        """Coordinate response across regions"""
-        if event.type == 'REGION_FAILURE':
-            # Redistribute load
-            failed_region = event.region
-            workload = self.regions[failed_region].get_workload()
-            
-            # Find regions with capacity
-            available_regions = self.find_regions_with_capacity(
-                workload.requirements
-            )
-            
-            # Distribute workload
-            for region in available_regions:
-                portion = workload.split(len(available_regions))
-                region.accept_workload(portion)
-                
-        elif event.type == 'GLOBAL_POLICY_UPDATE':
-            # Propagate to all regions
-            for region in self.regions.values():
-                region.apply_policy(event.policy)
-                
-    def optimize_globally(self):
-        """Global optimization across regions"""
-        # Collect regional metrics
-        metrics = {}
-        for region_id, region in self.regions.items():
-            metrics[region_id] = region.get_metrics()
-            
-        # Run optimization algorithm
-        optimization_plan = self.compute_optimization(metrics)
-        
-        # Execute migrations
-        for migration in optimization_plan.migrations:
-            self.migrate_workload(
-                migration.workload,
-                from_region=migration.source,
-                to_region=migration.destination
-            )
-
-class RegionController:
-    """Regional control plane"""
+        RC1 --> C1[Cluster 1]
+        RC1 --> C2[Cluster 2]
+        RC2 --> C3[Cluster 3]
+        RC2 --> C4[Cluster 4]
+        RC3 --> C5[Cluster 5]
+        RC3 --> C6[Cluster 6]
+    end
     
-    def __init__(self, region_id, endpoint):
-        self.region_id = region_id
-        self.endpoint = endpoint
-        self.clusters = {}
-        self.scheduler = RegionalScheduler()
-        
-    def handle_scheduling(self, workload):
-        """Schedule workload within region"""
-        # Find best cluster
-        cluster = self.scheduler.find_best_cluster(
-            workload,
-            self.clusters.values()
-        )
-        
-        if not cluster:
-            # Need to scale up
-            new_cluster = self.provision_cluster(workload.requirements)
-            self.clusters[new_cluster.id] = new_cluster
-            cluster = new_cluster
-            
-        # Deploy workload
-        return cluster.deploy(workload)
+    GCP -->|Policies| RC1
+    GCP -->|Policies| RC2
+    GCP -->|Policies| RC3
+    
+    RC1 & RC2 & RC3 -->|Metrics| GCP
+    
+    subgraph "Event Handling"
+        E1[Region Failure] -->|Redistribute| GCP
+        E2[Policy Update] -->|Propagate| GCP
+        E3[Optimization] -->|Migrate| GCP
+    end
+    
+    subgraph "Workload Distribution"
+        W[Workload] -->|Schedule| RC1
+        RC1 -->|Full| RC2
+        RC2 -->|Balance| RC3
+    end
+    
+    style GCP fill:#ff9999
+    style RC1 fill:#99ccff
+    style RC2 fill:#99ccff
+    style RC3 fill:#99ccff
 ```
 
 ### The Philosophy of Control
 
 Control in distributed systems is about managing complexity through abstraction and automation while maintaining human agency.
 
-```python
-class ControlPhilosophy:
-    """Core principles of distributed control"""
-    
-    def principle_1_autonomy_with_oversight(self):
-        """Systems should be autonomous but observable"""
-        return {
-            'autonomous': 'Handle routine operations independently',
-            'observable': 'Provide clear visibility into decisions',
-            'overridable': 'Allow human intervention at any point',
-            'auditable': 'Record all actions for review'
-        }
-    
-    def principle_2_graceful_degradation(self):
-        """Fail partially rather than completely"""
-        return {
-            'levels': [
-                'Full functionality',
-                'Reduced functionality',
-                'Essential functionality only',
-                'Safe mode',
-                'Controlled shutdown'
-            ],
-            'transitions': 'Smooth transitions between levels',
-            'communication': 'Clear status to users'
-        }
-    
-    def principle_3_human_in_the_loop(self):
-        """Keep humans involved for critical decisions"""
-        # Automation handles the mundane
-        # Humans handle the exceptional
-        # Together they handle the complex
+```mermaid
+graph TB
+    subgraph "Control Philosophy Principles"
+        P1[Principle 1: Autonomy with Oversight]
+        P1A[Handle Routine Automatically]
+        P1B[Clear Visibility of Decisions]
+        P1C[Human Override Always Available]
+        P1D[Full Audit Trail]
         
-    def principle_4_control_as_conversation(self):
-        """Control is dialogue, not dictatorship"""
-        # System suggests actions
-        # Human provides context
-        # Together they decide
-        # Both learn from outcomes
-
-class IroniesOfAutomation:
-    """Lisanne Bainbridge's insights applied to distributed systems"""
+        P1 --> P1A & P1B & P1C & P1D
+        
+        P2[Principle 2: Graceful Degradation]
+        P2A[Full Functionality]
+        P2B[Reduced Functionality]
+        P2C[Essential Only]
+        P2D[Safe Mode]
+        P2E[Controlled Shutdown]
+        
+        P2 --> P2A --> P2B --> P2C --> P2D --> P2E
+        
+        P3[Principle 3: Human in the Loop]
+        P3A[Automation: Mundane Tasks]
+        P3B[Humans: Exceptional Cases]
+        P3C[Together: Complex Decisions]
+        
+        P3 --> P3A & P3B --> P3C
+        
+        P4[Principle 4: Control as Conversation]
+        P4A[System Suggests]
+        P4B[Human Provides Context]
+        P4C[Joint Decision]
+        P4D[Both Learn]
+        
+        P4 --> P4A --> P4B --> P4C --> P4D
+    end
     
-    def irony_1_skill_atrophy(self):
-        """The more reliable automation, the less practice humans get"""
-        # Mitigation: Regular drills and chaos engineering
+    subgraph "Ironies of Automation"
+        I1[Irony 1: Skill Atrophy]
+        I1M[Mitigation: Regular Drills]
         
-    def irony_2_automation_surprises(self):
-        """Automation fails in novel ways humans don't expect"""
-        # Mitigation: Explainable AI and decision logging
+        I2[Irony 2: Novel Failures]
+        I2M[Mitigation: Explainable AI]
         
-    def irony_3_increased_complexity(self):
-        """Automation often increases system complexity"""
-        # Mitigation: Progressive disclosure and good abstractions
+        I3[Irony 3: Increased Complexity]
+        I3M[Mitigation: Good Abstractions]
+        
+        I1 -.->|Causes| I1M
+        I2 -.->|Causes| I2M
+        I3 -.->|Causes| I3M
+    end
+    
+    style P1 fill:#e6f3ff
+    style P2 fill:#e6f3ff
+    style P3 fill:#e6f3ff
+    style P4 fill:#e6f3ff
+    style I1 fill:#ffe6e6
+    style I2 fill:#ffe6e6
+    style I3 fill:#ffe6e6
 ```
 
 ## Summary: Key Insights by Level
@@ -929,12 +761,15 @@ class IroniesOfAutomation:
 
 Create a basic circuit breaker to understand state management:
 
-```python
-# States: CLOSED (normal) → OPEN (failing) → HALF_OPEN (testing)
-# Your implementation should track:
-# - Failure count and threshold
-# - Timeout for recovery attempts
-# - Success/failure metrics
+```mermaid
+flowchart LR
+    subgraph "Exercise: Implement Circuit Breaker"
+        Start[Start] --> Track[Track These:<br/>- Failure count<br/>- Threshold (e.g., 5)<br/>- Recovery timeout<br/>- Last failure time]
+        
+        Track --> States[Implement States:<br/>CLOSED → OPEN → HALF_OPEN]
+        
+        States --> Logic[Logic:<br/>- Count failures in CLOSED<br/>- Trip to OPEN at threshold<br/>- Time-based HALF_OPEN<br/>- Reset on success]
+    end
 ```
 
 ### Exercise 2: PID Controller Tuning 🌿
@@ -972,74 +807,81 @@ Design chaos experiments for your system:
 
 Create actionable alerts:
 
-```yaml
-Bad Alert:
-  name: "CPU High"
-  condition: "cpu > 80%"
-  message: "CPU is high"
-  
-Good Alert:
-  name: "API Latency Degradation - User Impact"
-  condition: "p99_latency > 500ms for 5 minutes"
-  message: |
-    User-facing API latency degraded
-    Current p99: {{current_value}}ms (threshold: 500ms)
-    Affected endpoints: {{endpoints}}
-    Runbook: https://wiki/runbooks/api-latency
-  severity: "page"
-  team: "api-oncall"
+```mermaid
+graph TB
+    subgraph "Alert Design Comparison"
+        subgraph "Bad Alert ❌"
+            B1[CPU > 80%] --> B2["CPU is high"]
+            B2 --> B3[Now what?]
+            
+            BProblems[Problems:<br/>- No context<br/>- No action<br/>- No severity<br/>- No owner]
+        end
+        
+        subgraph "Good Alert ✓"
+            G1[p99 Latency > 500ms<br/>for 5 minutes] --> G2[API Latency Degradation]
+            G2 --> G3[Current: 750ms]
+            G3 --> G4[Endpoints: /api/search]
+            G4 --> G5[Runbook Link]
+            G5 --> G6[Page api-oncall]
+            
+            GFeatures[Features:<br/>- User impact clear<br/>- Actionable data<br/>- Runbook provided<br/>- Team assigned]
+        end
+    end
+    
+    style B1 fill:#ffcccc
+    style G1 fill:#ccffcc
 ```
 
 ## Quick Reference Card
 
-```yaml
-Control Strategy Decision Tree:
-
-Need Speed? (Response time)
-├─ Seconds → Circuit Breaker
-│   └─ Fail fast, protect system
-├─ Minutes → PID Controller  
-│   └─ Smooth adjustments
-└─ Hours → Human Process
-    └─ Runbook + automation
-
-Deployment Safety:
-├─ Risk Level?
-│   ├─ High → Blue-Green (instant rollback)
-│   ├─ Medium → Canary (gradual rollout)
-│   └─ Low → Rolling (continuous delivery)
-│
-└─ Rollback Plan?
-    ├─ Instant → Keep previous version running
-    ├─ Quick → Feature flags + monitoring
-    └─ Manual → Not recommended!
-
-Automation Boundaries:
-┌─────────────────────────────────┐
-│ Fully Automated                 │
-│ • Scaling (within limits)       │
-│ • Health checks                 │
-│ • Load balancing               │
-│ • Failover                     │
-├─────────────────────────────────┤
-│ Human Approval Required         │
-│ • Capacity expansion            │
-│ • Cross-region failover        │
-│ • Major version upgrades       │
-│ • Security incidents           │
-├─────────────────────────────────┤
-│ Human Only                      │
-│ • Architecture changes          │
-│ • Vendor selection             │
-│ • Incident command             │
-│ • Business decisions           │
-└─────────────────────────────────┘
-
-Control Metrics:
-📊 Stability: Time between oscillations
-📈 Responsiveness: Time to reach setpoint
-📉 Accuracy: Deviation from target
-🔄 Efficiency: Resources used
+```mermaid
+graph TB
+    subgraph "Quick Reference: Control Strategies"
+        subgraph "Response Time Decision"
+            RT{Response Time?}
+            RT -->|Seconds| CB[Circuit Breaker<br/>Fail fast, protect]
+            RT -->|Minutes| PID[PID Controller<br/>Smooth adjustments]
+            RT -->|Hours| HP[Human Process<br/>Runbook + automation]
+        end
+        
+        subgraph "Deployment Strategy"
+            Risk{Risk Level?}
+            Risk -->|High| BG[Blue-Green<br/>Instant rollback]
+            Risk -->|Medium| Can[Canary<br/>Gradual rollout]
+            Risk -->|Low| Roll[Rolling<br/>Continuous delivery]
+        end
+        
+        subgraph "Automation Boundaries"
+            Auto[Fully Automated]
+            Auto --> A1[Scaling within limits]
+            Auto --> A2[Health checks]
+            Auto --> A3[Load balancing]
+            Auto --> A4[Failover]
+            
+            Human[Human Approval]
+            Human --> H1[Capacity expansion]
+            Human --> H2[Cross-region failover]
+            Human --> H3[Major upgrades]
+            Human --> H4[Security incidents]
+            
+            Only[Human Only]
+            Only --> O1[Architecture changes]
+            Only --> O2[Vendor selection]
+            Only --> O3[Incident command]
+            Only --> O4[Business decisions]
+        end
+        
+        subgraph "Control Metrics"
+            M1[📊 Stability<br/>Time between oscillations]
+            M2[📈 Responsiveness<br/>Time to setpoint]
+            M3[📉 Accuracy<br/>Deviation from target]
+            M4[🔄 Efficiency<br/>Resources used]
+        end
+    end
+    
+    style Auto fill:#ccffcc
+    style Human fill:#ffffcc
+    style Only fill:#ffcccc
 ```
 
 ### Common Control Patterns

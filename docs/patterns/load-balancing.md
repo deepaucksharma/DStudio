@@ -31,58 +31,68 @@ Load balancing is like grocery store checkout:
 - **Express lane**: Special line for small baskets
 - **Closed register**: Avoid lines that aren't operating
 
-### Basic Load Balancer
+### Load Balancing Architecture
 
-```python
-import random
-from typing import List, Optional
-from dataclasses import dataclass
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        C1[Client 1]
+        C2[Client 2]
+        C3[Client 3]
+    end
+    
+    subgraph "Load Balancer"
+        LB[Load Balancer<br/>Algorithm: Round Robin]
+        HC[Health Checker]
+    end
+    
+    subgraph "Server Pool"
+        S1[Server 1<br/>Healthy ✓<br/>Load: 30%]
+        S2[Server 2<br/>Healthy ✓<br/>Load: 45%]
+        S3[Server 3<br/>Unhealthy ✗<br/>Load: 0%]
+        S4[Server 4<br/>Healthy ✓<br/>Load: 25%]
+    end
+    
+    C1 & C2 & C3 --> LB
+    LB --> S1 & S2 & S4
+    LB -.->|Skips| S3
+    HC -->|Monitors| S1 & S2 & S3 & S4
+    
+    style S3 fill:#f99,stroke:#333,stroke-width:2px
+    style S1 fill:#9f9,stroke:#333,stroke-width:2px
+    style S2 fill:#9f9,stroke:#333,stroke-width:2px
+    style S4 fill:#9f9,stroke:#333,stroke-width:2px
+```
 
-@dataclass
-class Server:
-    id: str
-    address: str
-    healthy: bool = True
-    current_connections: int = 0
+### Load Balancing Algorithm Decision Tree
 
-class SimpleLoadBalancer:
-    def __init__(self, servers: List[Server]):
-        self.servers = servers
-        self.current_index = 0
-
-    def get_server_round_robin(self) -> Optional[Server]:
-        """Round-robin load balancing"""
-        if not self.servers:
-            return None
-
-        # Find next healthy server
-        attempts = len(self.servers)
-        while attempts > 0:
-            server = self.servers[self.current_index]
-            self.current_index = (self.current_index + 1) % len(self.servers)
-
-            if server.healthy:
-                return server
-
-            attempts -= 1
-
-        return None  # No healthy servers
-
-    def get_server_random(self) -> Optional[Server]:
-        """Random load balancing"""
-        healthy_servers = [s for s in self.servers if s.healthy]
-        if not healthy_servers:
-            return None
-
-        return random.choice(healthy_servers)
-
-    def get_server_least_connections(self) -> Optional[Server]:
-        """Least connections load balancing"""
-        healthy_servers = [s for s in self.servers if s.healthy]
-        if not healthy_servers:
-            return None
-
-        return min(healthy_servers, key=lambda s: s.current_connections)
+```mermaid
+flowchart TD
+    Start[Choose Algorithm] --> Q1{Session Affinity<br/>Required?}
+    
+    Q1 -->|Yes| IPHash[IP Hash]
+    Q1 -->|No| Q2{Server Capacity<br/>Varies?}
+    
+    Q2 -->|Yes| Q3{Real-time<br/>Metrics?}
+    Q2 -->|No| RR[Round Robin]
+    
+    Q3 -->|Yes| Q4{Latency<br/>Critical?}
+    Q3 -->|No| WRR[Weighted<br/>Round Robin]
+    
+    Q4 -->|Yes| LRT[Least Response<br/>Time]
+    Q4 -->|No| LC[Least<br/>Connections]
+    
+    IPHash --> Config[Configure & Deploy]
+    RR --> Config
+    WRR --> Config
+    LRT --> Config
+    LC --> Config
+    
+    style IPHash fill:#ff9
+    style RR fill:#9f9
+    style WRR fill:#9ff
+    style LRT fill:#f9f
+    style LC fill:#99f
 ```
 
 ---
@@ -259,6 +269,30 @@ class Layer7LoadBalancer:
         response.headers['X-Served-By'] = server.id
 
         return response
+```
+
+### Consistent Hashing Visualization
+
+```mermaid
+graph LR
+    subgraph "Hash Ring"
+        A[0°] --> B[Server A<br/>45°]
+        B --> C[Server B<br/>120°]
+        C --> D[Server C<br/>200°]
+        D --> E[Server D<br/>280°]
+        E --> A
+        
+        K1[Key 'user123'<br/>Hash: 67°] -.->|Maps to| C
+        K2[Key 'order456'<br/>Hash: 150°] -.->|Maps to| D
+        K3[Key 'item789'<br/>Hash: 300°] -.->|Maps to| B
+    end
+    
+    subgraph "Virtual Nodes"
+        V1[Server A: 3 virtual nodes]
+        V2[Server B: 3 virtual nodes]
+        V3[Server C: 3 virtual nodes]
+        V4[Server D: 3 virtual nodes]
+    end
 ```
 
 ### Consistent Hashing Implementation

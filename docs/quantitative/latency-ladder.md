@@ -330,8 +330,8 @@ Remember: You can't beat physics, but you can work with it.
 ## Related Concepts
 
 - **Quantitative**: [Little's Law](littles-law.md) | [Queueing Theory](queueing-models.md) | [Availability Math](availability-math.md)
-- **Patterns**: [Caching](../patterns/caching.md) | [CDN](../patterns/cdn.md) | [Edge Computing](../patterns/edge-computing.md)
-- **Operations**: [SLO/SLI/SLA](../human-factors/sre-principles.md) | [Performance Monitoring](../human-factors/observability.md)
+- **Patterns**: [Caching Strategies](../patterns/caching-strategies.md) | [Edge Computing](../patterns/edge-computing.md)
+- **Operations**: [SLO/SLI/SLA](../human-factors/sre-practices.md) | [Performance Monitoring](../human-factors/observability-stacks.md)
 ---
 
 ## 📊 Practical Calculations

@@ -548,7 +548,7 @@ graph TB
 ### 👥 Human Factors Considerations
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global operations require follow-the-sun support model
 - **[Incident Response](../human-factors/incident-response.md)** - Playbooks for common scenarios (region failures, GPS outages)
-- **[Observability Tools](../human-factors/observability.md)** - Heat maps show driver density and demand patterns
+- **[Observability Tools](../human-factors/observability-stacks.md)** - Heat maps show driver density and demand patterns
 - **[SRE Practices](../human-factors/sre-practices.md)** - Error budgets balance innovation with reliability
 
 ### 🔄 Similar Case Studies

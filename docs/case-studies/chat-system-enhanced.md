@@ -238,430 +238,526 @@ graph LR
 
 ### 1. Connection Management
 
-```python
-class ConnectionManager:
-    """Manage millions of persistent connections"""
-    
-    def __init__(self):
-        self.connections = {}  # user_id -> connection
-        self.connection_pools = {}  # region -> pool
-        self.heartbeat_interval = 30  # seconds
-        self.idle_timeout = 300  # 5 minutes
-        
-    async def handle_connection(self, websocket, user_id: str):
-        """Handle individual user connection lifecycle"""
-        try:
-            # 1. Authenticate connection
-            auth_token = await self._authenticate(websocket)
-            if not self._verify_token(auth_token, user_id):
-                await websocket.close(code=4001, reason="Unauthorized")
-                return
-                
-            # 2. Register connection
-            connection = Connection(
-                ws=websocket,
-                user_id=user_id,
-                connected_at=datetime.utcnow(),
-                last_ping=datetime.utcnow()
-            )
-            self.connections[user_id] = connection
-            
-            # 3. Restore session state
-            await self._restore_session(user_id, connection)
-            
-            # 4. Start heartbeat
-            heartbeat_task = asyncio.create_task(
-                self._heartbeat_loop(connection)
-            )
-            
-            # 5. Handle messages
-            async for message in websocket:
-                await self._process_message(user_id, message)
-                
-        except WebSocketDisconnect:
-            await self._handle_disconnect(user_id)
-        finally:
-            heartbeat_task.cancel()
-            self.connections.pop(user_id, None)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant WebSocket
+    participant ConnectionManager
+    participant AuthService
+    participant SessionStore
+    participant HeartbeatService
 
-class AdaptiveHeartbeat:
-    """Optimize heartbeat based on network conditions"""
+    Client->>WebSocket: Connect
+    WebSocket->>ConnectionManager: handle_connection(user_id)
+    ConnectionManager->>AuthService: authenticate(token)
+    AuthService-->>ConnectionManager: auth_result
     
-    def __init__(self):
-        self.min_interval = 10
-        self.max_interval = 60
-        self.network_quality_threshold = 0.8
+    alt Authentication Success
+        ConnectionManager->>SessionStore: restore_session(user_id)
+        SessionStore-->>ConnectionManager: session_data
+        ConnectionManager->>HeartbeatService: start_heartbeat(connection)
         
-    def calculate_interval(self, connection_stats: dict) -> int:
-        """Adaptive heartbeat interval"""
-        packet_loss = connection_stats.get('packet_loss', 0)
-        latency = connection_stats.get('latency', 0)
+        loop Message Processing
+            Client->>WebSocket: send_message
+            WebSocket->>ConnectionManager: process_message
+        end
         
-        # Calculate network quality score
-        quality_score = 1.0 - (packet_loss + latency / 1000)
-        
-        if quality_score > self.network_quality_threshold:
-            # Good network - longer intervals
-            return self.max_interval
-        else:
-            # Poor network - shorter intervals
-            return max(
-                self.min_interval,
-                int(self.max_interval * quality_score)
-            )
+        loop Heartbeat
+            HeartbeatService->>Client: ping
+            Client-->>HeartbeatService: pong
+            HeartbeatService->>HeartbeatService: calculate_interval
+        end
+    else Authentication Failed
+        ConnectionManager->>WebSocket: close(4001, "Unauthorized")
+    end
 ```
+
+**Connection Lifecycle Architecture**
+
+```mermaid
+graph TB
+    subgraph "Connection States"
+        INIT[Initial Connect]
+        AUTH[Authenticating]
+        ACTIVE[Active Connection]
+        IDLE[Idle State]
+        DISC[Disconnected]
+    end
+    
+    subgraph "Management Components"
+        CM[Connection Manager<br/>- Track connections<br/>- Handle lifecycle]
+        CP[Connection Pool<br/>- Region-based<br/>- Resource limits]
+        HB[Heartbeat Service<br/>- Adaptive intervals<br/>- Network monitoring]
+    end
+    
+    INIT --> AUTH: Validate token
+    AUTH --> ACTIVE: Success
+    AUTH --> DISC: Failed
+    ACTIVE --> IDLE: No activity
+    IDLE --> ACTIVE: Message received
+    IDLE --> DISC: Timeout
+    ACTIVE --> DISC: Disconnect
+    
+    CM --> CP: Manage pools
+    CM --> HB: Monitor health
+    
+    style ACTIVE fill:#4caf50
+    style DISC fill:#f44336
+```
+
+**Adaptive Heartbeat Configuration**
+
+| Network Quality Score | Heartbeat Interval | Battery Impact | Reliability |
+|----------------------|-------------------|----------------|------------|
+| > 0.8 (Excellent) | 60s | Low | High |
+| 0.6 - 0.8 (Good) | 30-45s | Medium | High |
+| 0.4 - 0.6 (Fair) | 20-30s | Medium-High | Medium |
+| < 0.4 (Poor) | 10-20s | High | Low |
+
+**Key Connection Metrics**
+- Concurrent connections: 2M+ per server
+- Heartbeat overhead: < 0.5% bandwidth
+- Reconnection time: < 3 seconds
+- Session restoration: < 100ms
 
 ### 2. Message Routing & Delivery
 
-```python
-class MessageRouter:
-    """High-performance message routing"""
-    
-    def __init__(self):
-        self.routing_table = {}  # user_id -> server_id
-        self.message_queue = AsyncQueue()
-        self.delivery_timeout = 30  # seconds
-        self.retry_policy = ExponentialBackoff(
-            initial=1, maximum=60, multiplier=2
-        )
-        
-    async def route_message(self, message: Message) -> DeliveryStatus:
-        """Route message to recipient(s)"""
-        # 1. Validate message
-        if not await self._validate_message(message):
-            return DeliveryStatus.INVALID
-            
-        # 2. Find recipient location
-        recipient_server = self.routing_table.get(message.recipient_id)
-        
-        if recipient_server:
-            # Online delivery
-            return await self._deliver_online(message, recipient_server)
-        else:
-            # Offline delivery
-            return await self._queue_offline(message)
-    
-    async def _deliver_online(self, message: Message, 
-                            server_id: str) -> DeliveryStatus:
-        """Deliver to online recipient"""
-        try:
-            # Direct delivery attempt
-            async with timeout(self.delivery_timeout):
-                response = await self._send_to_server(
-                    server_id, 
-                    message
-                )
-                
-            if response.status == 'delivered':
-                await self._send_delivery_receipt(message)
-                return DeliveryStatus.DELIVERED
-            else:
-                return await self._queue_for_retry(message)
-                
-        except asyncio.TimeoutError:
-            return await self._queue_for_retry(message)
+```mermaid
+sequenceDiagram
+    participant Sender
+    participant Router[Message Router]
+    participant RT[Routing Table]
+    participant Server[Target Server]
+    participant Queue[Message Queue]
+    participant Recipient
 
-class MessageQueue:
-    """Reliable message queuing with Kafka"""
+    Sender->>Router: send_message
+    Router->>Router: validate_message
     
-    def __init__(self):
-        self.producer = KafkaProducer(
-            bootstrap_servers=['kafka1:9092', 'kafka2:9092'],
-            acks='all',  # Wait for all replicas
-            compression_type='lz4',
-            retries=3
-        )
-        self.consumer_groups = {
-            'delivery': 'message-delivery-group',
-            'backup': 'message-backup-group',
-            'analytics': 'message-analytics-group'
-        }
+    Router->>RT: lookup_recipient(user_id)
+    RT-->>Router: server_location
+    
+    alt Recipient Online
+        Router->>Server: deliver_online
+        Server->>Recipient: push_message
+        Recipient-->>Server: ack
+        Server-->>Router: delivered
+        Router->>Sender: delivery_receipt
+    else Recipient Offline
+        Router->>Queue: queue_offline
+        Queue-->>Router: queued
         
-    async def queue_message(self, message: Message, 
-                          priority: str = 'normal') -> str:
-        """Queue message for processing"""
-        # 1. Serialize message
-        serialized = self._serialize_message(message)
+        Note over Queue: Wait for recipient
         
-        # 2. Determine partition
-        partition = self._calculate_partition(
-            message.recipient_id,
-            priority
-        )
+        Recipient->>Server: come_online
+        Server->>Queue: fetch_messages
+        Queue->>Recipient: deliver_queued
+    end
+```
+
+**Message Routing Architecture**
+
+```mermaid
+graph TB
+    subgraph "Routing Layer"
+        MR[Message Router<br/>100M msg/s]
+        RT[(Routing Table<br/>User→Server)]
+        LB[Load Balancer<br/>Server Selection]
+    end
+    
+    subgraph "Delivery Strategies"
+        ONLINE[Online Delivery<br/>Direct Push]
+        OFFLINE[Offline Queue<br/>Store & Forward]
+        RETRY[Retry Logic<br/>Exponential Backoff]
+    end
+    
+    subgraph "Queue Infrastructure"
+        K1[Kafka Partition 1]
+        K2[Kafka Partition 2]
+        KN[Kafka Partition N]
         
-        # 3. Send to Kafka
-        future = await self.producer.send(
-            topic=f'messages-{priority}',
-            value=serialized,
-            partition=partition,
-            timestamp_ms=int(message.timestamp.timestamp() * 1000)
-        )
-        
-        # 4. Wait for confirmation
-        record_metadata = await future
-        
-        return f"{record_metadata.topic}:{record_metadata.partition}:{record_metadata.offset}"
+        CG1[Delivery Group]
+        CG2[Backup Group]
+        CG3[Analytics Group]
+    end
+    
+    MR --> RT: Lookup recipient
+    MR --> LB: Select server
+    
+    MR --> ONLINE: If online
+    MR --> OFFLINE: If offline
+    ONLINE --> RETRY: On failure
+    
+    OFFLINE --> K1 & K2 & KN
+    K1 & K2 & KN --> CG1 & CG2 & CG3
+    
+    style MR fill:#ff6b6b
+    style K1 fill:#4ecdc4
+    style K2 fill:#4ecdc4
+    style KN fill:#4ecdc4
+```
+
+**Message Queue Configuration**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|
+| **Replication Factor** | 3 | Durability |
+| **Acks** | all | Wait for all replicas |
+| **Compression** | lz4 | 60% size reduction |
+| **Retention** | 7 days | Offline delivery window |
+| **Partitions** | 1000 | Parallel processing |
+| **Consumer Groups** | 3 | Delivery, Backup, Analytics |
+
+**Delivery Performance Metrics**
+
+```mermaid
+graph LR
+    subgraph "Delivery Stats"
+        M1[P50 Latency<br/>50ms]
+        M2[P99 Latency<br/>200ms]
+        M3[Success Rate<br/>99.99%]
+        M4[Throughput<br/>100M/s]
+    end
+    
+    subgraph "Retry Policy"
+        R1[1st: 1s]
+        R2[2nd: 2s]
+        R3[3rd: 4s]
+        R4[4th: 8s]
+        R5[Max: 60s]
+    end
+    
+    R1 --> R2 --> R3 --> R4 --> R5
 ```
 
 ### 3. End-to-End Encryption Implementation
 
-```python
-class SignalProtocolImplementation:
-    """Signal Protocol for E2E encryption"""
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Server
+    participant Bob
     
-    def __init__(self):
-        self.identity_key_store = IdentityKeyStore()
-        self.prekey_store = PreKeyStore()
-        self.signed_prekey_store = SignedPreKeyStore()
-        self.session_store = SessionStore()
-        
-    async def encrypt_message(self, plaintext: str, 
-                            recipient_id: str) -> EncryptedMessage:
-        """Encrypt message using Signal Protocol"""
-        # 1. Get or create session
-        session = await self._get_or_create_session(recipient_id)
-        
-        # 2. Encrypt using Double Ratchet
-        ciphertext = session.encrypt(plaintext.encode('utf-8'))
-        
-        # 3. Package with metadata
-        return EncryptedMessage(
-            version=3,
-            recipient_id=recipient_id,
-            ciphertext=ciphertext,
-            timestamp=datetime.utcnow(),
-            ephemeral_key=session.get_ephemeral_public_key()
-        )
+    Note over Alice,Bob: Initial Key Exchange
+    Alice->>Server: Upload PreKey Bundle
+    Bob->>Server: Request Alice's Bundle
+    Server-->>Bob: Alice's PreKey Bundle
+    Bob->>Bob: Create Session
     
-    async def _get_or_create_session(self, recipient_id: str) -> Session:
-        """Get existing session or create new one"""
-        # Check for existing session
-        if self.session_store.contains_session(recipient_id):
-            return self.session_store.load_session(recipient_id)
-            
-        # Create new session
-        # 1. Get recipient's bundle
-        bundle = await self._fetch_prekey_bundle(recipient_id)
-        
-        # 2. Process bundle
-        session_builder = SessionBuilder(
-            self.session_store,
-            self.prekey_store,
-            self.signed_prekey_store,
-            self.identity_key_store,
-            recipient_id
-        )
-        
-        session_builder.process_prekey_bundle(bundle)
-        
-        return self.session_store.load_session(recipient_id)
+    Note over Alice,Bob: Message Encryption
+    Bob->>Bob: Generate Message Key
+    Bob->>Bob: Encrypt Message
+    Bob->>Server: Send Encrypted
+    Server->>Alice: Forward Encrypted
+    Alice->>Alice: Decrypt Message
+    
+    Note over Alice,Bob: Double Ratchet
+    Alice->>Alice: Ratchet Keys Forward
+    Bob->>Bob: Ratchet Keys Forward
+```
 
-class DoubleRatchetProtocol:
-    """Core Double Ratchet implementation"""
+**Signal Protocol Architecture**
+
+```mermaid
+graph TB
+    subgraph "Key Infrastructure"
+        IK[Identity Keys<br/>Long-term]
+        SPK[Signed PreKeys<br/>Medium-term]
+        OPK[One-time PreKeys<br/>Single use]
+    end
     
-    def __init__(self):
-        self.root_key = None
-        self.chain_key_send = None
-        self.chain_key_receive = None
-        self.dh_ratchet_key_pair = None
-        self.dh_remote_public_key = None
-        
-    def encrypt(self, plaintext: bytes) -> bytes:
-        """Encrypt with forward secrecy"""
-        # 1. Derive message key
-        message_key = self._kdf_ck(self.chain_key_send)
-        
-        # 2. Update chain key
-        self.chain_key_send = self._kdf_ck(self.chain_key_send, constant=1)
-        
-        # 3. Encrypt message
-        ciphertext = self._aes_encrypt(plaintext, message_key)
-        
-        # 4. Ratchet if needed
-        if self._should_ratchet():
-            self._dh_ratchet()
-            
-        return ciphertext
+    subgraph "Double Ratchet"
+        RK[Root Key]
+        CKS[Chain Key Send]
+        CKR[Chain Key Receive]
+        MK[Message Keys]
+    end
+    
+    subgraph "Security Properties"
+        PFS[Perfect Forward Secrecy]
+        FS[Future Secrecy]
+        DA[Deniable Authentication]
+        BR[Break-in Recovery]
+    end
+    
+    IK --> SPK --> OPK
+    
+    RK --> CKS & CKR
+    CKS --> MK
+    CKR --> MK
+    
+    MK --> PFS & FS & DA & BR
+    
+    style RK fill:#ff6b6b
+    style MK fill:#4ecdc4
+    style PFS fill:#66bb6a
+```
+
+**Key Exchange Flow**
+
+```mermaid
+stateDiagram-v2
+    [*] --> NoSession: Initial State
+    
+    NoSession --> FetchingBundle: Need to send message
+    FetchingBundle --> BuildingSession: Got PreKey Bundle
+    BuildingSession --> ActiveSession: Session established
+    
+    ActiveSession --> Encrypting: Send message
+    Encrypting --> Ratcheting: Update keys
+    Ratcheting --> ActiveSession: Ready for next
+    
+    ActiveSession --> Decrypting: Receive message
+    Decrypting --> Ratcheting: Update keys
+    
+    ActiveSession --> [*]: Session closed
+```
+
+**Encryption Security Guarantees**
+
+| Property | Description | Benefit |
+|----------|-------------|---------|
+| **Forward Secrecy** | Past messages safe if keys compromised | Historical privacy |
+| **Future Secrecy** | Future messages safe after compromise | Automatic recovery |
+| **Deniability** | Messages can't be cryptographically attributed | Plausible deniability |
+| **Message Ordering** | Detects reordering/replay attacks | Integrity protection |
+| **Break-in Recovery** | Self-heals after temporary compromise | Resilience |
+
+**Double Ratchet Mechanism**
+
+```mermaid
+graph LR
+    subgraph "Symmetric Ratchet"
+        CK1[Chain Key 1] --> MK1[Message Key 1]
+        CK1 --> CK2[Chain Key 2]
+        CK2 --> MK2[Message Key 2]
+        CK2 --> CK3[Chain Key 3]
+        CK3 --> MK3[Message Key 3]
+    end
+    
+    subgraph "DH Ratchet"
+        DH1[DH Exchange 1] --> RK1[Root Key 1]
+        RK1 --> DH2[DH Exchange 2]
+        DH2 --> RK2[Root Key 2]
+    end
+    
+    RK1 --> CK1
+    RK2 --> CK3
+    
+    style MK1 fill:#98fb98
+    style MK2 fill:#98fb98
+    style MK3 fill:#98fb98
 ```
 
 ### 4. Media Handling
 
-```python
-class MediaService:
-    """Handle images, videos, voice notes"""
+```mermaid
+sequenceDiagram
+    participant Client
+    participant MediaService
+    participant Processor
+    participant Storage
+    participant CDN
     
-    def __init__(self):
-        self.max_image_size = 16 * 1024 * 1024  # 16MB
-        self.max_video_size = 100 * 1024 * 1024  # 100MB
-        self.supported_formats = {
-            'image': ['jpg', 'jpeg', 'png', 'gif', 'webp'],
-            'video': ['mp4', 'mov', 'avi'],
-            'audio': ['mp3', 'aac', 'opus']
-        }
-        
-    async def process_media_upload(self, media_data: bytes, 
-                                 media_type: str,
-                                 sender_id: str) -> MediaInfo:
-        """Process and store media files"""
-        # 1. Validate media
-        if not self._validate_media(media_data, media_type):
-            raise InvalidMediaError()
-            
-        # 2. Generate thumbnails
-        thumbnails = await self._generate_thumbnails(
-            media_data, 
-            media_type
-        )
-        
-        # 3. Compress if needed
-        compressed = await self._compress_media(
-            media_data,
-            media_type
-        )
-        
-        # 4. Encrypt media
-        encrypted_media = await self._encrypt_media(
-            compressed,
-            sender_id
-        )
-        
-        # 5. Upload to storage
-        media_id = await self._upload_to_storage(
-            encrypted_media,
-            thumbnails
-        )
-        
-        # 6. Return media info
-        return MediaInfo(
-            media_id=media_id,
-            size=len(compressed),
-            duration=self._get_duration(media_data, media_type),
-            thumbnails=thumbnails,
-            encryption_key=encrypted_media.key
-        )
+    Client->>MediaService: Upload media
+    MediaService->>MediaService: Validate format/size
+    
+    MediaService->>Processor: Process media
+    Processor->>Processor: Generate thumbnails
+    Processor->>Processor: Compress/optimize
+    Processor->>Processor: Encrypt media
+    
+    Processor->>Storage: Store encrypted
+    Storage-->>Processor: media_id
+    
+    Processor->>CDN: Cache thumbnails
+    MediaService-->>Client: Upload complete
+    
+    Note over Client,CDN: Later: Media Delivery
+    
+    Client->>MediaService: Request media
+    MediaService->>MediaService: Check network quality
+    MediaService->>CDN: Get appropriate version
+    CDN-->>Client: Deliver optimized
+```
 
-class AdaptiveMediaDelivery:
-    """Optimize media delivery based on network"""
+**Media Processing Pipeline**
+
+```mermaid
+graph TB
+    subgraph "Upload Pipeline"
+        UPLOAD[Media Upload] --> VALIDATE[Validate<br/>- Format check<br/>- Size limits<br/>- Content scan]
+        VALIDATE --> PROCESS[Process<br/>- Thumbnails<br/>- Compression<br/>- Transcoding]
+        PROCESS --> ENCRYPT[Encrypt<br/>- E2E encryption<br/>- Key generation]
+        ENCRYPT --> STORE[Store<br/>- S3/Object Storage<br/>- Metadata DB]
+    end
     
-    def __init__(self):
-        self.quality_levels = {
-            'image': [
-                {'name': 'thumbnail', 'max_width': 200},
-                {'name': 'preview', 'max_width': 600},
-                {'name': 'full', 'max_width': 1920}
-            ],
-            'video': [
-                {'name': '240p', 'bitrate': 400},
-                {'name': '480p', 'bitrate': 1000},
-                {'name': '720p', 'bitrate': 2500}
-            ]
-        }
-        
-    async def get_media_url(self, media_id: str, 
-                          connection_quality: float) -> str:
-        """Get appropriate media URL for connection quality"""
-        media_info = await self._get_media_info(media_id)
-        
-        # Select quality based on connection
-        if connection_quality > 0.8:
-            quality = 'full'
-        elif connection_quality > 0.5:
-            quality = 'preview'
-        else:
-            quality = 'thumbnail'
-            
-        # Generate signed URL
-        return self._generate_signed_url(
-            media_id,
-            quality,
-            expires_in=3600
-        )
+    subgraph "Delivery Pipeline"
+        REQUEST[Media Request] --> QUALITY[Quality Check<br/>- Network speed<br/>- Device type]
+        QUALITY --> SELECT[Select Version<br/>- Thumbnail<br/>- Preview<br/>- Full]
+        SELECT --> SIGN[Sign URL<br/>- Time-limited<br/>- User-specific]
+        SIGN --> DELIVER[CDN Delivery]
+    end
+    
+    STORE -.-> REQUEST
+    
+    style VALIDATE fill:#ff6b6b
+    style ENCRYPT fill:#4ecdc4
+    style QUALITY fill:#66bb6a
+```
+
+**Media Size Limits & Formats**
+
+| Media Type | Max Size | Supported Formats | Compression |
+|------------|----------|-------------------|-------------|
+| **Images** | 16 MB | JPG, PNG, GIF, WebP | WebP conversion |
+| **Videos** | 100 MB | MP4, MOV, AVI | H.264/H.265 |
+| **Voice** | 10 MB | MP3, AAC, Opus | Opus @ 16kbps |
+| **Documents** | 100 MB | PDF, DOC, DOCX | ZIP if needed |
+
+**Adaptive Quality Levels**
+
+```mermaid
+graph LR
+    subgraph "Network Quality Detection"
+        NQ[Network Quality] --> HIGH[High: >5 Mbps]
+        NQ --> MED[Medium: 1-5 Mbps]
+        NQ --> LOW[Low: <1 Mbps]
+    end
+    
+    subgraph "Image Quality"
+        HIGH --> FULL[Full: 1920px]
+        MED --> PREV[Preview: 600px]
+        LOW --> THUMB[Thumbnail: 200px]
+    end
+    
+    subgraph "Video Quality"
+        HIGH --> HD[720p @ 2.5Mbps]
+        MED --> SD[480p @ 1Mbps]
+        LOW --> LD[240p @ 400kbps]
+    end
+    
+    style HIGH fill:#4caf50
+    style MED fill:#ff9800
+    style LOW fill:#f44336
+```
+
+**Media Storage Architecture**
+
+```mermaid
+graph TB
+    subgraph "Hot Storage"
+        RECENT[Recent Media<br/>< 7 days]
+        THUMB[All Thumbnails]
+    end
+    
+    subgraph "Warm Storage"
+        MONTH[1-30 days<br/>Compressed]
+    end
+    
+    subgraph "Cold Storage"
+        ARCHIVE[> 30 days<br/>Glacier/Archive]
+    end
+    
+    subgraph "CDN Cache"
+        EDGE1[Edge Location 1]
+        EDGE2[Edge Location 2]
+        EDGEN[Edge Location N]
+    end
+    
+    RECENT --> EDGE1 & EDGE2 & EDGEN
+    THUMB --> EDGE1 & EDGE2 & EDGEN
+    
+    RECENT --> MONTH: Age out
+    MONTH --> ARCHIVE: Archive policy
+    
+    style RECENT fill:#ff6b6b
+    style THUMB fill:#4ecdc4
+    style EDGE1 fill:#66bb6a
 ```
 
 ### 5. Group Chat Architecture
 
-```python
-class GroupChatService:
-    """Handle group messaging at scale"""
+```mermaid
+sequenceDiagram
+    participant S as Sender
+    participant GS as Group Service
+    participant R as Router
+    participant M1 as Member 1
+    participant M2 as Member 2
+    participant MN as Member N
     
-    def __init__(self):
-        self.max_group_size = 256
-        self.fanout_threshold = 50  # Use different strategy for large groups
-        self.group_metadata_cache = LRUCache(maxsize=100000)
-        
-    async def send_group_message(self, message: Message, 
-                               group_id: str) -> List[DeliveryStatus]:
-        """Send message to group members"""
-        # 1. Get group members
-        members = await self._get_group_members(group_id)
-        
-        # 2. Remove sender
-        recipients = [m for m in members if m != message.sender_id]
-        
-        # 3. Choose delivery strategy
-        if len(recipients) < self.fanout_threshold:
-            # Direct fanout for small groups
-            return await self._direct_fanout(message, recipients)
-        else:
-            # Optimized delivery for large groups
-            return await self._optimized_delivery(message, recipients)
+    S->>GS: Send Group Message
+    GS->>GS: Check Group Size
     
-    async def _optimized_delivery(self, message: Message, 
-                                recipients: List[str]) -> List[DeliveryStatus]:
-        """Optimized delivery for large groups"""
-        # 1. Group recipients by server
-        server_groups = defaultdict(list)
-        for recipient in recipients:
-            server = self._get_user_server(recipient)
-            server_groups[server].append(recipient)
-        
-        # 2. Send batch per server
-        delivery_tasks = []
-        for server, users in server_groups.items():
-            task = self._batch_deliver_to_server(
-                server,
-                message,
-                users
-            )
-            delivery_tasks.append(task)
-        
-        # 3. Wait for all deliveries
-        results = await asyncio.gather(*delivery_tasks)
-        
-        return [status for batch in results for status in batch]
-
-class GroupSyncProtocol:
-    """Maintain group consistency"""
+    alt Small Group (<50 members)
+        GS->>R: Direct Fanout
+        par
+            R->>M1: Deliver Message
+            and
+            R->>M2: Deliver Message
+            and
+            R->>MN: Deliver Message
+        end
+    else Large Group (>50 members)
+        GS->>GS: Group by Server
+        GS->>R: Batch Delivery
+        R->>R: Server 1 Batch
+        R->>R: Server 2 Batch
+        R->>M1: Bulk Deliver
+        R->>MN: Bulk Deliver
+    end
     
-    def __init__(self):
-        self.version_vectors = {}  # group_id -> version_vector
-        self.conflict_resolver = ConflictResolver()
-        
-    async def sync_group_state(self, group_id: str, 
-                              member_states: Dict[str, GroupState]):
-        """Synchronize group state across members"""
-        # 1. Collect version vectors
-        vectors = {}
-        for member_id, state in member_states.items():
-            vectors[member_id] = state.version_vector
-            
-        # 2. Detect conflicts
-        conflicts = self._detect_conflicts(vectors)
-        
-        # 3. Resolve conflicts
-        if conflicts:
-            resolved_state = await self.conflict_resolver.resolve(
-                group_id,
-                conflicts
-            )
-            
-            # 4. Propagate resolution
-            await self._propagate_resolution(
-                group_id,
-                resolved_state,
-                member_states.keys()
-            )
+    M1-->>GS: Ack
+    M2-->>GS: Ack
+    MN-->>GS: Ack
 ```
+
+**Group Chat Configuration**
+
+| Group Size | Delivery Strategy | Fanout Type | Performance Impact |
+|------------|------------------|-------------|-------------------|
+| 1-50 members | Direct Fanout | Parallel | Low latency, high resource |
+| 51-100 members | Batched Fanout | Server-grouped | Balanced |
+| 101-256 members | Optimized Fanout | Multi-tier | High efficiency |
+
+**Group Synchronization Flow**
+
+```mermaid
+graph LR
+    subgraph "Version Vector Sync"
+        VV1[Member 1<br/>Vector: {A:1, B:2}]
+        VV2[Member 2<br/>Vector: {A:1, B:3}]
+        VV3[Member 3<br/>Vector: {A:2, B:2}]
+    end
+    
+    subgraph "Conflict Detection"
+        CD[Conflict Detector]
+        CR[Conflict Resolver]
+    end
+    
+    subgraph "Resolution"
+        RS[Resolved State<br/>Vector: {A:2, B:3}]
+        PROP[Propagate to All]
+    end
+    
+    VV1 & VV2 & VV3 --> CD
+    CD --> CR
+    CR --> RS
+    RS --> PROP
+    
+    style CD fill:#ff6b6b
+    style RS fill:#4ecdc4
+```
+
+**Group State Management**
+
+| Component | Purpose | Consistency Model |
+|-----------|---------|------------------|
+| Member List | Track active members | Strong consistency |
+| Message History | Recent messages | Eventual consistency |
+| Read Receipts | Delivery status | Best-effort |
+| Admin Changes | Permission updates | Consensus-based |
 
 ## 🎯 Axiom Mapping & Design Decisions
 
@@ -829,72 +925,80 @@ graph TB
 
 ### Key Metrics Dashboard
 
-```python
-class ChatSystemMetrics:
-    """Comprehensive monitoring for chat system"""
+```mermaid
+graph TB
+    subgraph "Real-time Metrics"
+        LAT[Latency Tracking]
+        THRU[Throughput Monitoring]
+        CONN[Connection Health]
+        ERR[Error Tracking]
+    end
     
-    def __init__(self):
-        self.metrics = {
-            # Latency metrics
-            'message_e2e_latency': Histogram(
-                'chat_message_e2e_latency_seconds',
-                'End-to-end message delivery time',
-                buckets=[0.1, 0.5, 1.0, 2.0, 5.0, 10.0]
-            ),
-            
-            # Throughput metrics
-            'messages_sent': Counter(
-                'chat_messages_sent_total',
-                'Total messages sent'
-            ),
-            'messages_delivered': Counter(
-                'chat_messages_delivered_total',
-                'Total messages delivered'
-            ),
-            
-            # Connection metrics
-            'active_connections': Gauge(
-                'chat_active_connections',
-                'Number of active WebSocket connections'
-            ),
-            'connection_duration': Histogram(
-                'chat_connection_duration_seconds',
-                'WebSocket connection duration'
-            ),
-            
-            # Error metrics
-            'delivery_failures': Counter(
-                'chat_delivery_failures_total',
-                'Message delivery failures',
-                ['reason']
-            ),
-            
-            # Business metrics
-            'daily_active_users': Gauge(
-                'chat_daily_active_users',
-                'Daily active users'
-            )
-        }
-        
-    async def track_message_delivery(self, message_id: str, 
-                                   sent_at: datetime,
-                                   delivered_at: datetime,
-                                   status: str):
-        """Track individual message delivery"""
-        latency = (delivered_at - sent_at).total_seconds()
-        
-        self.metrics['message_e2e_latency'].observe(latency)
-        
-        if status == 'delivered':
-            self.metrics['messages_delivered'].inc()
-        else:
-            self.metrics['delivery_failures'].labels(
-                reason=status
-            ).inc()
-            
-        # Alert on high latency
-        if latency > 5.0:
-            await self._alert_high_latency(message_id, latency)
+    subgraph "Metric Types"
+        HIST[Histograms<br/>P50, P95, P99]
+        COUNT[Counters<br/>Messages, Errors]
+        GAUGE[Gauges<br/>Active Users]
+    end
+    
+    subgraph "Alerting Thresholds"
+        A1[Latency > 5s]
+        A2[Error Rate > 1%]
+        A3[Connections Drop > 10%]
+    end
+    
+    LAT --> HIST
+    THRU --> COUNT
+    CONN --> GAUGE
+    ERR --> COUNT
+    
+    HIST --> A1
+    COUNT --> A2
+    GAUGE --> A3
+    
+    style LAT fill:#4ecdc4
+    style A1 fill:#ff6b6b
+```
+
+**System Performance Metrics**
+
+| Metric Category | Key Indicators | Alert Thresholds |
+|-----------------|----------------|------------------|
+| **Latency** | P50: 50ms<br/>P95: 200ms<br/>P99: 500ms | P99 > 1s |
+| **Throughput** | Messages/sec: 100K<br/>Delivery rate: 99.9% | Rate < 99% |
+| **Connections** | Active: 2M<br/>New/sec: 10K | Drops > 10% |
+| **Errors** | Delivery failures<br/>Timeout errors | Error rate > 1% |
+| **Business** | DAU: 10M<br/>Messages/user: 50 | DAU drop > 5% |
+
+**Monitoring Stack Architecture**
+
+```mermaid
+graph LR
+    subgraph "Data Collection"
+        APP[Application<br/>Metrics]
+        SYS[System<br/>Metrics]
+        LOG[Application<br/>Logs]
+    end
+    
+    subgraph "Processing"
+        KAFKA[Kafka<br/>Streaming]
+        FLINK[Flink<br/>Aggregation]
+    end
+    
+    subgraph "Storage & Viz"
+        PROM[Prometheus<br/>Time Series]
+        GRAF[Grafana<br/>Dashboards]
+        ALERT[AlertManager<br/>Notifications]
+    end
+    
+    APP & SYS & LOG --> KAFKA
+    KAFKA --> FLINK
+    FLINK --> PROM
+    PROM --> GRAF
+    PROM --> ALERT
+    
+    style KAFKA fill:#4ecdc4
+    style PROM fill:#ffd93d
+    style GRAF fill:#95e1d3
 ```
 
 ### Real-time Monitoring Architecture
@@ -931,196 +1035,256 @@ graph TB
 
 ### Common Failure Modes
 
-1. **Regional Network Partition**
-   ```python
-   class RegionalFailover:
-       async def handle_partition(self, affected_region: str):
-           # 1. Detect partition
-           if not await self._ping_region(affected_region):
-               # 2. Redirect traffic
-               await self._update_dns(affected_region, 'failover')
-               
-               # 3. Queue messages for affected users
-               await self._queue_regional_messages(affected_region)
-               
-               # 4. Notify users of degraded service
-               await self._send_degradation_notice(affected_region)
-   ```
+```mermaid
+graph TB
+    subgraph "Failure Types"
+        F1[Regional Network Partition]
+        F2[Database Shard Failure]
+        F3[Mass Reconnection Storm]
+        F4[Redis Cache Failure]
+        F5[Message Queue Overflow]
+    end
+    
+    subgraph "Detection"
+        D1[Health Checks]
+        D2[Circuit Breakers]
+        D3[Anomaly Detection]
+    end
+    
+    subgraph "Recovery Actions"
+        R1[Traffic Rerouting]
+        R2[Replica Promotion]
+        R3[Rate Limiting]
+        R4[Graceful Degradation]
+        R5[Auto-scaling]
+    end
+    
+    F1 --> D1 --> R1
+    F2 --> D2 --> R2
+    F3 --> D3 --> R3
+    F4 --> D2 --> R4
+    F5 --> D3 --> R5
+    
+    style F1 fill:#ff6b6b
+    style F2 fill:#ff6b6b
+    style F3 fill:#ff6b6b
+```
 
-2. **Database Shard Failure**
-   ```python
-   class ShardFailureHandler:
-       async def handle_shard_failure(self, shard_id: int):
-           # 1. Promote replica
-           new_master = await self._promote_replica(shard_id)
-           
-           # 2. Update routing
-           await self._update_shard_routing(shard_id, new_master)
-           
-           # 3. Verify data integrity
-           await self._verify_shard_integrity(shard_id)
-   ```
+**Failure Recovery Procedures**
 
-3. **Mass Reconnection Storm**
-   ```python
-   class ReconnectionThrottler:
-       async def handle_mass_reconnect(self, count: int):
-           # 1. Enable rate limiting
-           self.rate_limiter.set_limit(1000)  # connections/second
-           
-           # 2. Implement exponential backoff
-           await self._broadcast_backoff_parameters()
-           
-           # 3. Scale up capacity
-           await self._auto_scale_websocket_servers(count)
-   ```
+| Failure Type | Detection Method | Recovery Time | Recovery Action |
+|--------------|------------------|---------------|----------------|
+| **Regional Partition** | Ping failures > 3 | < 30s | DNS failover to healthy region |
+| **Shard Failure** | Replication lag > 5s | < 60s | Promote replica, update routing |
+| **Connection Storm** | Rate > 10x normal | < 10s | Enable backpressure, scale out |
+| **Cache Failure** | Circuit breaker open | < 5s | Fallback to database |
+| **Queue Overflow** | Depth > 1M messages | < 120s | Spill to S3, add consumers |
+
+**Recovery Automation Flow**
+
+```mermaid
+sequenceDiagram
+    participant M as Monitor
+    participant D as Detector
+    participant O as Orchestrator
+    participant R as Recovery
+    participant N as Notification
+    
+    M->>D: Anomaly Detected
+    D->>D: Validate (3 checks)
+    D->>O: Confirmed Failure
+    
+    O->>R: Initiate Recovery
+    
+    par Recovery Actions
+        R->>R: Reroute Traffic
+        and
+        R->>R: Scale Resources
+        and
+        R->>R: Update Config
+    end
+    
+    R->>O: Recovery Complete
+    O->>N: Notify Operators
+    O->>M: Resume Monitoring
+```
 
 ## 🔄 Consistency Deep Dive
 
 ### Multi-Device Consistency
-```python
-class MultiDeviceConsistencyManager:
-    """Ensures messages are consistent across all user devices"""
+
+```mermaid
+sequenceDiagram
+    participant U as User
+    participant CM as Consistency Manager
+    participant DR as Device Registry
+    participant D1 as Device 1
+    participant D2 as Device 2
+    participant D3 as Device 3
+    participant Q as Retry Queue
     
-    def __init__(self):
-        self.device_registry = DeviceRegistry()
-        self.sync_engine = SyncEngine()
-        self.conflict_resolver = ConflictResolver()
-        
-    async def handle_message_delivery(self, message: Message, user_id: str):
-        """Deliver message to all user's devices consistently"""
-        
-        # Get all active devices for user
-        devices = await self.device_registry.get_active_devices(user_id)
-        
-        # Generate monotonic timestamp for ordering
-        logical_timestamp = await self.generate_logical_timestamp(user_id)
-        message.logical_timestamp = logical_timestamp
-        
-        # Deliver to all devices with retry logic
-        delivery_futures = []
-        for device in devices:
-            future = self._deliver_to_device_with_consistency(
-                message, device, logical_timestamp
-            )
-            delivery_futures.append(future)
-        
-        # Wait for majority acknowledgment (quorum)
-        results = await self._wait_for_quorum(delivery_futures, len(devices))
-        
-        # Handle devices that didn't acknowledge
-        failed_devices = self._identify_failed_deliveries(results, devices)
-        if failed_devices:
-            await self._queue_for_eventual_delivery(message, failed_devices)
+    U->>CM: Send Message
+    CM->>DR: Get Active Devices
+    DR-->>CM: [D1, D2, D3]
+    
+    CM->>CM: Generate Logical Timestamp
+    
+    par Parallel Delivery
+        CM->>D1: Deliver(msg, ts)
+        and
+        CM->>D2: Deliver(msg, ts)
+        and
+        CM->>D3: Deliver(msg, ts)
+    end
+    
+    D1-->>CM: ACK
+    D2-->>CM: ACK
+    Note over D3: No response
+    
+    CM->>CM: Check Quorum (2/3)
+    CM->>Q: Queue for D3
+    CM-->>U: Success (Quorum Met)
 ```
+
+**Multi-Device Delivery Configuration**
+
+| Parameter | Value | Purpose |
+|-----------|-------|---------|  
+| Quorum Size | 2/3 devices | Balance consistency vs availability |
+| Delivery Timeout | 3 seconds | Prevent blocking on offline devices |
+| Retry Interval | 30 seconds | Eventual delivery for failed devices |
+| Max Retries | 10 | Prevent infinite retry loops |
 
 ### Message Ordering Guarantees
-```python
-class MessageOrderingSystem:
-    """Implements different ordering guarantees for messages"""
+
+```mermaid
+graph TB
+    subgraph "Ordering Modes"
+        FIFO[FIFO Order<br/>Per-sender only]
+        CAUSAL[Causal Order<br/>Preserves causality]
+        TOTAL[Total Order<br/>Global ordering]
+    end
     
-    def __init__(self, ordering_mode: OrderingMode):
-        self.ordering_mode = ordering_mode
-        self.vector_clock = VectorClock()
-        self.lamport_clock = LamportClock()
-        
-    async def order_messages(self, messages: List[Message]) -> List[Message]:
-        """Order messages based on consistency requirements"""
-        
-        if self.ordering_mode == OrderingMode.TOTAL_ORDER:
-            # Use Lamport timestamps for total ordering
-            return self._total_order_messages(messages)
-            
-        elif self.ordering_mode == OrderingMode.CAUSAL_ORDER:
-            # Use vector clocks for causal ordering
-            return self._causal_order_messages(messages)
-            
-        elif self.ordering_mode == OrderingMode.FIFO_ORDER:
-            # Per-sender FIFO ordering only
-            return self._fifo_order_messages(messages)
+    subgraph "Implementation"
+        SEQ[Sequence Numbers]
+        VC[Vector Clocks]
+        LAMP[Lamport Timestamps]
+    end
+    
+    subgraph "Trade-offs"
+        PERF[Performance]
+        CONSIST[Consistency]
+        COMPLEX[Complexity]
+    end
+    
+    FIFO --> SEQ
+    CAUSAL --> VC
+    TOTAL --> LAMP
+    
+    SEQ --> |High| PERF
+    SEQ --> |Low| CONSIST
+    SEQ --> |Low| COMPLEX
+    
+    VC --> |Medium| PERF
+    VC --> |Medium| CONSIST
+    VC --> |Medium| COMPLEX
+    
+    LAMP --> |Low| PERF
+    LAMP --> |High| CONSIST
+    LAMP --> |High| COMPLEX
+    
+    style FIFO fill:#4ecdc4
+    style CAUSAL fill:#ffd93d
+    style TOTAL fill:#ff6b6b
 ```
+
+**Message Ordering Comparison**
+
+| Ordering Type | Mechanism | Guarantees | Use Case |
+|---------------|-----------|------------|----------|
+| FIFO | Sequence numbers | Messages from same sender in order | Most chat scenarios |
+| Causal | Vector clocks | Reply after original message | Threaded conversations |
+| Total | Lamport timestamps | All see same order | Financial transactions |
 
 ### Hybrid Consistency Model
-```python
-class HybridConsistencySystem:
-    """Different consistency levels for different operations"""
+
+```mermaid
+graph LR
+    subgraph "Operation Types"
+        MSG[Messages]
+        META[Group Metadata]
+        PRES[User Presence]
+        READ[Read Receipts]
+        PAY[Payments]
+    end
     
-    def __init__(self):
-        self.consistency_zones = {
-            'messages': ConsistencyLevel.EVENTUAL,
-            'group_metadata': ConsistencyLevel.STRONG,
-            'user_presence': ConsistencyLevel.WEAK,
-            'read_receipts': ConsistencyLevel.CAUSAL,
-            'payments': ConsistencyLevel.LINEARIZABLE
-        }
-        
-    async def execute_operation(self, operation: Operation) -> Result:
-        """Execute operation with appropriate consistency level"""
-        
-        consistency_level = self.consistency_zones.get(
-            operation.type, 
-            ConsistencyLevel.EVENTUAL
-        )
-        
-        if consistency_level == ConsistencyLevel.LINEARIZABLE:
-            return await self._execute_linearizable(operation)
-        elif consistency_level == ConsistencyLevel.STRONG:
-            return await self._execute_strong_consistency(operation)
-        elif consistency_level == ConsistencyLevel.CAUSAL:
-            return await self._execute_causal_consistency(operation)
-        elif consistency_level == ConsistencyLevel.EVENTUAL:
-            return await self._execute_eventual_consistency(operation)
-        else:  # WEAK
-            return await self._execute_weak_consistency(operation)
+    subgraph "Consistency Levels"
+        WEAK[Weak<br/>Best effort]
+        EVENTUAL[Eventual<br/>Converges eventually]
+        CAUSAL[Causal<br/>Preserves order]
+        STRONG[Strong<br/>Immediate consistency]
+        LINEAR[Linearizable<br/>Strict ordering]
+    end
+    
+    MSG --> EVENTUAL
+    META --> STRONG
+    PRES --> WEAK
+    READ --> CAUSAL
+    PAY --> LINEAR
+    
+    style MSG fill:#4ecdc4
+    style META fill:#ff6b6b
+    style PRES fill:#95e1d3
+    style READ fill:#ffd93d
+    style PAY fill:#f06292
 ```
 
+**Consistency Zone Configuration**
+
+| Operation Type | Consistency Level | Rationale | Implementation |
+|----------------|-------------------|-----------|----------------|
+| Messages | Eventual | Can tolerate delays | Async replication |
+| Group Metadata | Strong | Must be accurate | Consensus-based |
+| User Presence | Weak | Approximate is OK | Best-effort gossip |
+| Read Receipts | Causal | Order matters | Vector clocks |
+| Payments | Linearizable | Critical accuracy | 2PC or Raft |
+
 ### Causal Broadcast for Group Messages
-```python
-class CausalBroadcastProtocol:
-    """Ensures causal order in group message delivery"""
+
+```mermaid
+sequenceDiagram
+    participant A as Alice
+    participant CB as Causal Broadcast
+    participant B as Bob
+    participant C as Charlie
     
-    def __init__(self, group_id: str):
-        self.group_id = group_id
-        self.vector_clock = VectorClock()
-        self.pending_messages = defaultdict(list)
-        self.delivered_messages = set()
-        
-    async def broadcast_message(self, sender_id: str, message: Message):
-        """Broadcast message with causal ordering"""
-        
-        # Increment sender's clock
-        self.vector_clock.increment(sender_id)
-        
-        # Attach vector timestamp
-        message.vector_timestamp = self.vector_clock.get_timestamp()
-        
-        # Get group members
-        members = await self.get_group_members(self.group_id)
-        
-        # Send to all members
-        for member_id in members:
-            if member_id != sender_id:
-                await self._send_to_member(member_id, message)
+    Note over A,C: Initial Vector Clocks<br/>A:{A:0,B:0,C:0}<br/>B:{A:0,B:0,C:0}<br/>C:{A:0,B:0,C:0}
     
-    def _can_deliver(self, message: Message) -> bool:
-        """Check if message can be delivered respecting causality"""
-        
-        msg_vc = message.vector_timestamp
-        local_vc = self.vector_clock.get_timestamp()
-        
-        # For each process
-        for process_id in msg_vc:
-            if process_id == message.sender_id:
-                # Sender's clock should be exactly one more
-                if msg_vc[process_id] != local_vc.get(process_id, 0) + 1:
-                    return False
-            else:
-                # Other clocks should not be ahead
-                if msg_vc[process_id] > local_vc.get(process_id, 0):
-                    return False
-        
-        return True
+    A->>CB: Send "Hello" {A:1,B:0,C:0}
+    CB->>B: Deliver "Hello"
+    CB->>C: Deliver "Hello"
+    
+    Note over B: Update VC: {A:1,B:0,C:0}
+    
+    B->>CB: Send "Hi Alice" {A:1,B:1,C:0}
+    CB->>A: Deliver "Hi Alice"
+    CB->>C: Buffer (waiting for A:1)
+    
+    Note over C: Receives A's message
+    Note over C: Update VC: {A:1,B:0,C:0}
+    Note over C: Now can deliver B's message
+    CB->>C: Deliver "Hi Alice"
 ```
+
+**Causal Delivery Algorithm**
+
+| Step | Action | Condition |
+|------|--------|-----------|  
+| 1 | Receive message | Check vector clock |
+| 2 | Can deliver? | Sender's VC = Local VC + 1 for sender |
+| 3a | If yes | Deliver and update local VC |
+| 3b | If no | Buffer until condition met |
+| 4 | Check buffer | Deliver any newly eligible messages |
 
 ### Consistency Trade-offs in Practice
 

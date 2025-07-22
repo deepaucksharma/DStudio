@@ -44,81 +44,51 @@ That's distributed state in a nutshell!
 
 ### Your First Distributed State Problem
 
-```python
-# distributed_atm_demo.py - Why distributed state is hard
+### Your First Distributed State Problem: The ATM Race Condition
 
-import threading
-import time
-import random
-
-# Simulated bank with multiple ATMs
-class BankAccount:
-    def __init__(self, balance=1000):
-        self.balance = balance
-        self.version = 0  # Track updates
-
-class ATM:
-    def __init__(self, atm_id, bank_account):
-        self.atm_id = atm_id
-        self.account = bank_account
-        self.local_cache = None
-        self.cache_version = -1
-
-    def check_balance(self):
-        """Check balance with caching"""
-        # Simulate network delay
-        time.sleep(0.1)
-
-        # Use cache if available and fresh
-        if self.cache_version == self.account.version:
-            print(f"ATM {self.atm_id}: Using cached balance ${self.local_cache}")
-            return self.local_cache
-
-        # Otherwise fetch from bank
-        print(f"ATM {self.atm_id}: Fetching from bank...")
-        self.local_cache = self.account.balance
-        self.cache_version = self.account.version
-        return self.local_cache
-
-    def withdraw(self, amount):
-        """Try to withdraw money"""
-        current_balance = self.check_balance()
-
-        if current_balance >= amount:
-            print(f"ATM {self.atm_id}: Withdrawing ${amount}")
-            time.sleep(0.2)  # Processing time
-
-            # Update bank balance
-            self.account.balance -= amount
-            self.account.version += 1
-
-            # Invalidate all ATM caches (in real life, this is hard!)
-            print(f"ATM {self.atm_id}: Success! New balance: ${self.account.balance}")
-            return True
-        else:
-            print(f"ATM {self.atm_id}: Insufficient funds!")
-            return False
-
-# Simulate concurrent ATM usage
-account = BankAccount(1000)
-atm1 = ATM("ATM-1", account)
-atm2 = ATM("ATM-2", account)
-
-print("Initial balance: $1000")
-print("\nTwo people try to withdraw $800 each...\n")
-
-# Both check balance (sees $1000)
-thread1 = threading.Thread(target=lambda: atm1.withdraw(800))
-thread2 = threading.Thread(target=lambda: atm2.withdraw(800))
-
-thread1.start()
-thread2.start()
-thread1.join()
-thread2.join()
-
-print(f"\nFinal balance: ${account.balance}")
-print("💥 PROBLEM: Both withdrawals might succeed due to stale cache!")
+```mermaid
+sequenceDiagram
+    participant Bank as Bank Server<br/>Balance: $1000
+    participant ATM1 as ATM-1<br/>Cache: Empty
+    participant ATM2 as ATM-2<br/>Cache: Empty
+    
+    Note over Bank,ATM2: Initial state: $1000 in account
+    
+    %% Both ATMs check balance
+    ATM1->>Bank: Check balance
+    ATM2->>Bank: Check balance
+    Bank-->>ATM1: $1000 (v0)
+    Bank-->>ATM2: $1000 (v0)
+    
+    Note over ATM1: Cache: $1000 (v0)
+    Note over ATM2: Cache: $1000 (v0)
+    
+    %% Both decide to withdraw
+    Note over ATM1: $1000 >= $800 ✓
+    Note over ATM2: $1000 >= $800 ✓
+    
+    %% Race condition
+    par Concurrent withdrawals
+        ATM1->>Bank: Withdraw $800
+        Bank->>Bank: $1000 - $800 = $200
+        Bank-->>ATM1: Success! Balance: $200 (v1)
+    and
+        ATM2->>Bank: Withdraw $800
+        Bank->>Bank: $200 - $800 = -$600 ❌
+        Bank-->>ATM2: Success! Balance: -$600 (v2)
+    end
+    
+    Note over Bank: PROBLEM: Overdraft due to<br/>stale cache + race condition!
 ```
+
+### Key Concepts Illustrated:
+
+| Problem | Description | Real-World Impact |
+|---------|-------------|-------------------|
+| **Stale Cache** | ATMs see outdated balance | Double-spending attacks |
+| **Race Condition** | Concurrent operations conflict | Data corruption |
+| **Lost Update** | One update overwrites another | Missing transactions |
+| **Version Mismatch** | Cache version != source version | Inconsistent state |
 
 ### The State Distribution Zoo 🦁
 
@@ -211,56 +181,82 @@ Think of distributed state like:
 **Date**: October 21, 2018
 **Impact**: 24 hours of degraded service
 
-```yaml
-The Split-Brain Disaster:
+```mermaid
+graph TB
+    subgraph "GitHub Split-Brain Timeline"
+        T1[21:52:00<br/>Network maintenance] --> T2[21:52:27<br/>Network partition]
+        T2 --> T3[21:52:45<br/>Both coasts declare primary]
+        T3 --> T4[21:53:00<br/>SPLIT BRAIN ACTIVE]
+        
+        T4 --> W1[East Coast<br/>944 writes]
+        T4 --> W2[West Coast<br/>673 writes]
+        
+        W1 --> C[187 Conflicts<br/>Same IDs, different data]
+        W2 --> C
+        
+        C --> R[Recovery<br/>24-hour outage]
+        R --> L[Data Loss<br/>Permanent]
+    end
+    
+    style T3 fill:#ff6b6b,stroke:#333,stroke-width:3px
+    style T4 fill:#ff3838,stroke:#333,stroke-width:4px
+    style C fill:#ffa94d,stroke:#333,stroke-width:3px
+    style L fill:#e03131,stroke:#333,stroke-width:3px
+```
 
-21:52:00 - Routine maintenance replaces failing 100G network switch
-21:52:27 - Network partition: East Coast ⟷ West Coast disconnected
-21:52:40 - Each coast can't see the other
-21:52:45 - East: "West is down, I'll take over!"
-21:52:45 - West: "East is down, I'll take over!"
-21:53:00 - 🧠 SPLIT BRAIN: Two primary databases!
+### Split-Brain Impact Analysis
 
-During 43 seconds of split-brain:
-- East Coast: 944 writes (issues, commits, comments)
-- West Coast: 673 writes (different issues, commits, comments)
-- Conflicts: 187 objects modified on BOTH sides
+| Metric | Value | Impact |
+|--------|-------|--------|
+| **Duration** | 43 seconds | System in inconsistent state |
+| **East Writes** | 944 | Valid user operations |
+| **West Writes** | 673 | Valid user operations |
+| **Conflicts** | 187 | Irreconcilable differences |
+| **Recovery Time** | 24 hours | Complete service outage |
+| **Data Loss** | Unknown | Permanent inconsistency |
 
-The Recovery Nightmare:
-- Can't merge: Different data with same IDs
-- Can't discard: Both have valid user data
-- Solution: 24-hour outage to manually reconcile
-- Some data was permanently lost
+### Root Cause Breakdown
 
-Root Cause:
-- Assumed network partitions were impossible (fiber cut)
-- No mechanism to prevent dual-primary scenario
-- Automated failover was TOO automatic
-
-Lesson: In distributed systems, "split brain" is the ultimate failure - when your system disagrees with itself about reality.
+```mermaid
+graph LR
+    subgraph "Failure Chain"
+        A[Assumption:<br/>Network never partitions] --> B[Design:<br/>Automatic failover]
+        B --> C[Reality:<br/>Network partitioned]
+        C --> D[Result:<br/>Dual primary]
+        D --> E[Consequence:<br/>Split brain]
+    end
+    
+    style A fill:#ffe3e3,stroke:#333,stroke-width:2px
+    style E fill:#ff6b6b,stroke:#333,stroke-width:3px
 ```
 
 ### The CAP Theorem Visualized
 
-```text
-In a distributed system, you can only guarantee 2 of 3:
+### The CAP Theorem Visualized
 
-         Consistency (C)
-        "Everyone sees the
-         same data"
-              /\
-             /  \
-            /    \
-           /      \
-          /________\
-   Availability (A)    Partition Tolerance (P)
-   "System stays up"    "Survives network failures"
-
-Since networks WILL fail (P is mandatory),
-you're really choosing between C and A:
-
-Choose C+P: Bank systems (correctness > availability)
-Choose A+P: Social media (availability > consistency)
+```mermaid
+graph TB
+    subgraph "CAP Theorem Triangle"
+        C[Consistency<br/>Everyone sees<br/>same data]
+        A[Availability<br/>System stays up]
+        P[Partition Tolerance<br/>Survives network failures]
+        
+        C ---|Choose 2| A
+        A ---|Choose 2| P
+        P ---|Choose 2| C
+    end
+    
+    subgraph "Real World: P is Mandatory"
+        CP[C+P Systems<br/>Banks, Inventory]
+        AP[A+P Systems<br/>Social Media, CDN]
+        
+        CP -->|Example| Banks["Banking: Correct balance > Always available"]
+        AP -->|Example| Social["Twitter: Always up > Perfect consistency"]
+    end
+    
+    style P fill:#ff6b6b,stroke:#333,stroke-width:3px
+    style CP fill:#87CEEB,stroke:#333,stroke-width:2px
+    style AP fill:#90EE90,stroke:#333,stroke-width:2px
 ```
 
 ### State Distribution Decision Framework
@@ -381,30 +377,41 @@ graph TB
 
 #### Practical State Consistency Patterns
 
-```yaml
-Read Repair:
-  Trigger: On read, detect inconsistency
-  Action: Fix inconsistent replicas
-  Example: Cassandra read repair
-  Overhead: Increased read latency
+### Practical State Consistency Patterns
 
-Write-Through Cache:
-  Trigger: On write
-  Action: Update cache and database
-  Example: Redis + PostgreSQL
-  Guarantee: Cache always consistent
+| Pattern | Trigger | Action | Example | Trade-off |
+|---------|---------|--------|---------|------------|
+| **Read Repair** | On read, detect inconsistency | Fix inconsistent replicas | Cassandra read repair | Increased read latency |
+| **Write-Through Cache** | On write | Update cache and database | Redis + PostgreSQL | Cache always consistent |
+| **Anti-Entropy** | Periodic background process | Compare and sync replicas | Dynamo anti-entropy | Background bandwidth |
+| **Quorum R/W** | R + W > N | Read/write from majority | 3 replicas, R=2, W=2 | Lower availability |
 
-Anti-Entropy:
-  Trigger: Periodic background process
-  Action: Compare and sync replicas
-  Example: Dynamo anti-entropy  
-  Overhead: Background bandwidth
-
-Quorum Reads/Writes:
-  Config: R + W > N
-  Example: 3 replicas, R=2, W=2
-  Guarantee: Strong consistency
-  Trade-off: Lower availability
+```mermaid
+graph LR
+    subgraph "Consistency Maintenance Patterns"
+        subgraph "Read Repair"
+            RR1[Read detects<br/>inconsistency]
+            RR2[Fix replicas<br/>during read]
+        end
+        
+        subgraph "Anti-Entropy"
+            AE1[Periodic<br/>comparison]
+            AE2[Background<br/>sync]
+        end
+        
+        subgraph "Write-Through"
+            WT1[Write to<br/>cache + DB]
+            WT2[Atomic<br/>update]
+        end
+        
+        RR1 --> RR2
+        AE1 --> AE2
+        WT1 --> WT2
+    end
+    
+    style RR2 fill:#90EE90
+    style AE2 fill:#87CEEB
+    style WT2 fill:#FFD700
 ```
 
 ---
@@ -413,272 +420,274 @@ Quorum Reads/Writes:
 
 ### Advanced Replication: Chain Replication
 
-```python
-class ChainReplication:
-    """
-    All nodes arranged in a chain: HEAD -> MIDDLE -> ... -> TAIL
-    Writes go to HEAD, propagate down chain
-    Reads go to TAIL (guaranteed to have all writes)
-    """
+### Advanced Replication: Chain Replication Architecture
 
-    def __init__(self, nodes):
-        self.nodes = nodes  # Ordered list
-        self.head = nodes[0]
-        self.tail = nodes[-1]
+```mermaid
+graph LR
+    subgraph "Chain Replication Flow"
+        Client[Client]
+        Head[HEAD<br/>Node]
+        Mid1[Middle<br/>Node 1]
+        Mid2[Middle<br/>Node 2]
+        Tail[TAIL<br/>Node]
+        
+        %% Write flow
+        Client -->|Write| Head
+        Head -->|Propagate| Mid1
+        Mid1 -->|Propagate| Mid2
+        Mid2 -->|Propagate| Tail
+        Tail -.->|ACK| Mid2
+        Mid2 -.->|ACK| Mid1
+        Mid1 -.->|ACK| Head
+        Head -.->|Success| Client
+        
+        %% Read flow
+        Client -->|Read| Tail
+        Tail -.->|Data| Client
+    end
+    
+    style Head fill:#90EE90,stroke:#333,stroke-width:3px
+    style Tail fill:#87CEEB,stroke:#333,stroke-width:3px
+```
 
-    def write(self, key, value):
-        # Send write to head
-        request = WriteRequest(key, value, request_id=uuid4())
-        self.head.process_write(request)
+### Chain Replication Properties
 
-    def read(self, key):
-        # Read from tail for strong consistency
-        return self.tail.read(key)
+| Operation | Target Node | Consistency | Latency | Fault Tolerance |
+|-----------|-------------|-------------|---------|------------------|
+| **Write** | HEAD | Strong after ACK | High (full chain) | Handles f failures with f+1 nodes |
+| **Read** | TAIL | Always strong | Low (single hop) | Available if TAIL alive |
+| **Update Propagation** | HEAD → TAIL | Sequential | O(n) nodes | In-order delivery guaranteed |
 
-    class Node:
-        def __init__(self, node_id, next_node=None):
-            self.node_id = node_id
-            self.next_node = next_node
-            self.data = {}
-            self.pending_writes = {}
+### Chain States and Transitions
 
-        def process_write(self, request):
-            # Store locally
-            self.data[request.key] = request.value
-            self.pending_writes[request.id] = request
-
-            if self.next_node:
-                # Forward down the chain
-                self.next_node.process_write(request)
-            else:
-                # We're the tail - send acknowledgment
-                self.acknowledge_write(request.id)
-
-        def acknowledge_write(self, request_id):
-            # Propagate acknowledgment back up the chain
-            if request_id in self.pending_writes:
-                del self.pending_writes[request_id]
-
-                # Tell predecessor
-                if self.predecessor:
-                    self.predecessor.acknowledge_write(request_id)
+```mermaid
+stateDiagram-v2
+    [*] --> Normal: All nodes healthy
+    
+    Normal --> HeadFailure: HEAD crashes
+    Normal --> MiddleFailure: Middle node crashes
+    Normal --> TailFailure: TAIL crashes
+    
+    HeadFailure --> Reconfiguring: Promote next node
+    MiddleFailure --> Reconfiguring: Bridge chain
+    TailFailure --> Reconfiguring: Promote predecessor
+    
+    Reconfiguring --> Normal: Chain repaired
+    
+    note right of HeadFailure: New HEAD = old Middle1
+    note right of MiddleFailure: Connect neighbors
+    note right of TailFailure: New TAIL = old Middle2
 ```
 
 ### Sharding Strategies
 
-```python
-class ShardingStrategies:
-    """Different ways to distribute data across shards"""
+### Sharding Strategies Comparison
 
-    @staticmethod
-    def range_sharding(key, num_shards):
-        """Shard by key range (good for range queries)"""
-        # Example: A-F -> shard 0, G-M -> shard 1, etc.
-        if isinstance(key, str):
-            first_char = ord(key[0].upper())
-            chars_per_shard = 26 / num_shards
-            return int((first_char - ord('A')) / chars_per_shard)
-        return hash(key) % num_shards
-
-    @staticmethod
-    def hash_sharding(key, num_shards):
-        """Shard by hash (good distribution, bad for ranges)"""
-        return hash(key) % num_shards
-
-    @staticmethod
-    def consistent_hashing(key, nodes):
-        """Add/remove nodes with minimal reshuffling"""
-        ring_positions = {}
-
-        # Each node gets multiple positions on the ring
-        for node in nodes:
-            for i in range(150):  # 150 virtual nodes
-                pos = hash(f"{node.id}:{i}") % (2**32)
-                ring_positions[pos] = node
-
-        # Find node for key
-        key_pos = hash(key) % (2**32)
-
-        # Find next node clockwise on ring
-        positions = sorted(ring_positions.keys())
-        for pos in positions:
-            if pos >= key_pos:
-                return ring_positions[pos]
-
-        # Wrapped around
-        return ring_positions[positions[0]]
-
-    @staticmethod
-    def geo_sharding(key, user_location):
-        """Shard by geography (data locality)"""
-        regions = {
-            'US-WEST': ['CA', 'OR', 'WA', 'NV', 'AZ'],
-            'US-EAST': ['NY', 'FL', 'VA', 'MA', 'PA'],
-            'EU': ['UK', 'DE', 'FR', 'IT', 'ES'],
-            'ASIA': ['JP', 'SG', 'IN', 'CN', 'KR']
-        }
-
-        for region, states in regions.items():
-            if user_location in states:
-                return region
-
-        return 'US-EAST'  # Default
+```mermaid
+graph TB
+    subgraph "Range Sharding"
+        R1[Keys A-F<br/>Shard 0] 
+        R2[Keys G-M<br/>Shard 1]
+        R3[Keys N-S<br/>Shard 2]
+        R4[Keys T-Z<br/>Shard 3]
+        
+        RQ[Range Query:<br/>"Get all users M-P"] --> R2
+        RQ --> R3
+    end
+    
+    subgraph "Hash Sharding"
+        H1[hash(key) % 4 = 0<br/>Shard 0]
+        H2[hash(key) % 4 = 1<br/>Shard 1]
+        H3[hash(key) % 4 = 2<br/>Shard 2]
+        H4[hash(key) % 4 = 3<br/>Shard 3]
+        
+        HQ[Point Query:<br/>"Get user John"] --> H2
+    end
+    
+    subgraph "Consistent Hashing"
+        CH[Ring with<br/>Virtual Nodes]
+        N1[Node 1<br/>150 positions]
+        N2[Node 2<br/>150 positions]
+        N3[Node 3<br/>150 positions]
+        
+        CH --> N1
+        CH --> N2
+        CH --> N3
+        
+        Add[Add Node 4] -.->|Minimal<br/>data movement| CH
+    end
+    
+    subgraph "Geographic Sharding"
+        USW[US-WEST<br/>CA, OR, WA]
+        USE[US-EAST<br/>NY, FL, VA]
+        EU[EUROPE<br/>UK, DE, FR]
+        ASIA[ASIA<br/>JP, SG, IN]
+        
+        GQ[User in CA] --> USW
+    end
 ```
+
+### Sharding Strategy Trade-offs
+
+| Strategy | Distribution | Range Queries | Node Changes | Use Case |
+|----------|-------------|---------------|--------------|----------|
+| **Range** | Can be skewed | Excellent | Expensive resharding | Time-series data |
+| **Hash** | Even distribution | Poor (scatter-gather) | Expensive resharding | Key-value stores |
+| **Consistent Hash** | Even distribution | Poor | Minimal data movement | Distributed caches |
+| **Geographic** | Location-based | Good for geo queries | Regional scaling | CDNs, compliance |
 
 ### Vector Clocks: Tracking Causality
 
-```python
-class VectorClock:
-    """Track causality between distributed events"""
+### Vector Clocks: Tracking Causality
 
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.clock = [0] * num_nodes
+```mermaid
+sequenceDiagram
+    participant A as Node A<br/>[0,0,0]
+    participant B as Node B<br/>[0,0,0]
+    participant C as Node C<br/>[0,0,0]
+    
+    Note over A,C: Initial vector clocks
+    
+    A->>A: Local event
+    Note over A: [1,0,0]
+    
+    A->>B: Send message
+    Note over A: Include [1,0,0]
+    B->>B: Receive & update
+    Note over B: max([0,0,0], [1,0,0]) + increment<br/>[1,1,0]
+    
+    B->>C: Send message
+    Note over B: Include [1,1,0]
+    C->>C: Receive & update
+    Note over C: max([0,0,0], [1,1,0]) + increment<br/>[1,1,1]
+    
+    par Concurrent events
+        A->>A: Local event
+        Note over A: [2,0,0]
+    and
+        C->>C: Local event
+        Note over C: [1,1,2]
+    end
+    
+    Note over A,C: A[2,0,0] || C[1,1,2]<br/>(concurrent - neither happened before)
+```
 
-    def increment(self):
-        """Increment on local event"""
-        self.clock[self.node_id] += 1
-        return self.clock.copy()
+### Vector Clock Operations
 
-    def update(self, other_clock):
-        """Update on receiving message"""
-        # Take max of each component
-        for i in range(len(self.clock)):
-            self.clock[i] = max(self.clock[i], other_clock[i])
-        # Then increment local component
-        self.increment()
+| Operation | Vector Clock A | Vector Clock B | Result | Interpretation |
+|-----------|---------------|----------------|---------|----------------|
+| **A happens-before B** | [2,1,0] | [2,2,1] | A→B | A definitely happened first |
+| **B happens-before A** | [2,2,1] | [2,1,0] | B→A | B definitely happened first |
+| **Concurrent** | [2,0,1] | [1,1,0] | A\|\|B | No causal relationship |
+| **Equal** | [2,1,1] | [2,1,1] | A=B | Same logical time |
 
-    def happens_before(self, other):
-        """Check if self → other (self happened before other)"""
-        return (all(self.clock[i] <= other.clock[i] for i in range(len(self.clock)))
-                and any(self.clock[i] < other.clock[i] for i in range(len(self.clock))))
+### Distributed Document Editing with Vector Clocks
 
-    def concurrent_with(self, other):
-        """Check if self || other (concurrent events)"""
-        return (not self.happens_before(other) and
-                not other.happens_before(self))
-
-# Example: Distributed text editor
-class DistributedDocument:
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.vector_clock = VectorClock(node_id, num_nodes)
-        self.operations = []  # List of (operation, vector_clock)
-
-    def insert_text(self, position, text):
-        """Insert text at position"""
-        timestamp = self.vector_clock.increment()
-        op = Operation('insert', position, text, timestamp)
-
-        # Apply locally
-        self.apply_operation(op)
-
-        # Broadcast to other nodes
-        self.broadcast_operation(op)
-
-    def receive_operation(self, op):
-        """Receive operation from another node"""
-        # Update vector clock
-        self.vector_clock.update(op.timestamp)
-
-        # Find correct position to insert (causal ordering)
-        insert_position = self.find_causal_position(op)
-        self.operations.insert(insert_position, op)
-
-        # Apply the operation
-        self.apply_operation(op)
+```mermaid
+graph TB
+    subgraph "Document State Evolution"
+        D1["Doc: 'Hello'<br/>[1,0,0]"] 
+        D2["Doc: 'Hello World'<br/>[1,1,0]"]
+        D3["Doc: 'Hi World'<br/>[2,0,0]"]
+        D4["Doc: 'Hi World!'<br/>[2,1,1]"]
+        
+        D1 -->|Node B: append ' World'| D2
+        D1 -->|Node A: replace 'Hello'→'Hi'| D3
+        D2 -->|Merge conflicts| D4
+        D3 -->|Merge conflicts| D4
+    end
+    
+    style D4 fill:#90EE90,stroke:#333,stroke-width:3px
 ```
 
 ### CRDTs: Conflict-Free Replicated Data Types
 
-```python
-class GrowOnlyCounter:
-    """G-Counter: Conflicts impossible by design"""
+### CRDTs: Conflict-Free Replicated Data Types
 
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.counts = [0] * num_nodes
+```mermaid
+graph TB
+    subgraph "CRDT Types"
+        subgraph "State-based (CvRDT)"
+            GC[G-Counter<br/>Grow-only counter]
+            PN[PN-Counter<br/>Increment/Decrement]
+            LWW[LWW-Register<br/>Last-write-wins]
+            MV[MV-Register<br/>Multi-value]
+            OR[OR-Set<br/>Observed-Remove]
+        end
+        
+        subgraph "Operation-based (CmRDT)"
+            OC[Op-Counter<br/>Commutative ops]
+            OG[Op-Graph<br/>Causal ordering]
+            RGA[RGA<br/>Replicated sequence]
+        end
+    end
+    
+    style GC fill:#90EE90
+    style PN fill:#90EE90
+    style OR fill:#87CEEB
+```
 
-    def increment(self, delta=1):
-        """Only this node increments its own counter"""
-        self.counts[self.node_id] += delta
+### CRDT Properties and Guarantees
 
-    def value(self):
-        """Sum all node counters"""
-        return sum(self.counts)
+| CRDT Type | Operations | Merge Rule | Use Case | Consistency |
+|-----------|-----------|------------|----------|-------------|
+| **G-Counter** | increment() | max(counts) | View counts | Strong eventual |
+| **PN-Counter** | inc(), dec() | P-count - N-count | Like/unlike | Strong eventual |
+| **LWW-Register** | set(value) | Latest timestamp | Config values | Eventual |
+| **MV-Register** | set(value) | Keep all concurrent | Collaborative edit | Causal |
+| **OR-Set** | add(), remove() | Union - tombstones | Shopping cart | Strong eventual |
 
-    def merge(self, other_counter):
-        """Merge with another counter (idempotent)"""
-        for i in range(len(self.counts)):
-            self.counts[i] = max(self.counts[i], other_counter.counts[i])
+### G-Counter Merge Example
 
-class LWWRegister:
-    """Last-Write-Wins Register"""
+```mermaid
+graph LR
+    subgraph "Node A"
+        A1["[5, 0, 0]<br/>value = 5"]
+    end
+    
+    subgraph "Node B"
+        B1["[3, 2, 0]<br/>value = 5"]
+    end
+    
+    subgraph "Node C"
+        C1["[3, 1, 4]<br/>value = 8"]
+    end
+    
+    A1 -->|merge| M["Merged State<br/>[5, 2, 4]<br/>value = 11"]
+    B1 -->|merge| M
+    C1 -->|merge| M
+    
+    style M fill:#90EE90,stroke:#333,stroke-width:3px
+```
 
-    def __init__(self, node_id):
-        self.value = None
-        self.timestamp = 0
-        self.node_id = node_id
+### OR-Set Operations Visualization
 
-    def set(self, value):
-        """Set value with timestamp"""
-        self.timestamp = time.time()
-        self.value = value
-
-    def get(self):
-        """Get current value"""
-        return self.value
-
-    def merge(self, other):
-        """Merge with another register"""
-        if other.timestamp > self.timestamp:
-            self.value = other.value
-            self.timestamp = other.timestamp
-        elif other.timestamp == self.timestamp:
-            # Tie-breaker: higher node ID wins
-            if other.node_id > self.node_id:
-                self.value = other.value
-
-class ORSet:
-    """Observed-Remove Set: Add/Remove with correct semantics"""
-
-    def __init__(self):
-        self.elements = {}  # element -> set of unique tags
-        self.tombstones = set()  # removed tags
-
-    def add(self, element):
-        """Add element with unique tag"""
-        tag = (element, uuid4(), time.time())
-
-        if element not in self.elements:
-            self.elements[element] = set()
-        self.elements[element].add(tag)
-
-    def remove(self, element):
-        """Remove all current tags for element"""
-        if element in self.elements:
-            # Mark all current tags as removed
-            self.tombstones.update(self.elements[element])
-
-    def contains(self, element):
-        """Check if element exists"""
-        if element not in self.elements:
-            return False
-
-        # Element exists if any tag is not tombstoned
-        return any(tag not in self.tombstones
-                  for tag in self.elements[element])
-
-    def merge(self, other):
-        """Merge with another ORSet"""
-        # Union all additions
-        for element, tags in other.elements.items():
-            if element not in self.elements:
-                self.elements[element] = set()
-            self.elements[element].update(tags)
-
-        # Union all tombstones
-        self.tombstones.update(other.tombstones)
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant B as Node B
+    
+    Note over A,B: Initial: {}
+    
+    A->>A: add("apple")
+    Note over A: {apple: {tag1}}
+    
+    B->>B: add("apple")
+    Note over B: {apple: {tag2}}
+    
+    A->>B: sync
+    B->>A: sync
+    Note over A,B: Both: {apple: {tag1, tag2}}
+    
+    A->>A: remove("apple")
+    Note over A: tombstones: {tag1, tag2}
+    
+    B->>B: add("apple")
+    Note over B: {apple: {tag1, tag2, tag3}}
+    
+    A->>B: sync
+    B->>A: sync
+    Note over A,B: Both: {apple: {tag3}}<br/>Only tag3 survives!
 ```
 
 ---
@@ -687,475 +696,361 @@ class ORSet:
 
 ### DynamoDB: Eventually Consistent at Scale
 
-```python
-class DynamoDBStyle:
-    """
-    Amazon DynamoDB's approach:
-    - Consistent hashing for distribution
-    - Vector clocks for conflict detection
-    - Read repair for convergence
-    - Gossip protocol for membership
-    """
+### DynamoDB: Eventually Consistent at Scale
 
-    class Node:
-        def __init__(self, node_id):
-            self.node_id = node_id
-            self.data = {}  # key -> list of (value, vector_clock)
-            self.membership = {}  # node_id -> last_seen
+```mermaid
+graph TB
+    subgraph "DynamoDB Architecture"
+        subgraph "Consistent Hashing Ring"
+            R[Ring Space<br/>0 to 2^32]
+            N1[Node A<br/>Tokens: 100, 500, 900]
+            N2[Node B<br/>Tokens: 300, 700, 1100]
+            N3[Node C<br/>Tokens: 200, 600, 1000]
+        end
+        
+        subgraph "Replication (N=3)"
+            K[Key K<br/>hash=750]
+            P1[Primary: Node B]
+            P2[Replica 1: Node A]
+            P3[Replica 2: Node C]
+            
+            K --> P1
+            K --> P2
+            K --> P3
+        end
+        
+        subgraph "Consistency Levels"
+            W[Write Quorum<br/>W=2]
+            R[Read Quorum<br/>R=2]
+            Note[W + R > N<br/>Strong consistency]
+        end
+    end
+```
 
-        def put(self, key, value, context=None):
-            """Write with vector clock context"""
-            if context:
-                # Update existing value
-                new_clock = context.increment()
-            else:
-                # New value
-                new_clock = VectorClock(self.node_id)
-                new_clock.increment()
+### DynamoDB Consistency Options
 
-            if key not in self.data:
-                self.data[key] = []
+| Level | Write (W) | Read (R) | Latency | Availability | Consistency |
+|-------|-----------|----------|---------|--------------|-------------|
+| **ONE** | 1 | 1 | Lowest | Highest | Eventual |
+| **QUORUM** | 2 | 2 | Medium | Medium | Strong (W+R>N) |
+| **ALL** | 3 | 3 | Highest | Lowest | Strongest |
 
-            # Add new version
-            self.data[key].append((value, new_clock))
+### DynamoDB Conflict Resolution Flow
 
-            # Prune old versions subsumed by new clock
-            self.data[key] = [
-                (v, c) for v, c in self.data[key]
-                if not new_clock.subsumes(c) or c == new_clock
-            ]
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Coordinator
+    participant N1 as Node 1
+    participant N2 as Node 2
+    participant N3 as Node 3
+    
+    %% Concurrent writes create conflict
+    Note over N1,N3: Initial value: v1[1,0,0]
+    
+    par Concurrent Updates
+        Client->>N1: Put(K, v2)
+        N1->>N1: v2[2,0,0]
+    and
+        Client->>N2: Put(K, v3)
+        N2->>N2: v3[1,1,0]
+    end
+    
+    %% Read detects conflict
+    Client->>Coordinator: Get(K, QUORUM)
+    Coordinator->>N1: Get(K)
+    Coordinator->>N2: Get(K)
+    
+    N1-->>Coordinator: v2[2,0,0]
+    N2-->>Coordinator: v3[1,1,0]
+    
+    Note over Coordinator: Detect concurrent versions!
+    Coordinator-->>Client: CONFLICT<br/>[v2, v3]
+    
+    %% Client resolution
+    Client->>Client: Resolve conflict
+    Client->>Coordinator: Put(K, v4, context)
+    
+    %% Read repair
+    Coordinator->>N3: Async repair<br/>v4[2,1,0]
+```
 
-            return new_clock
+### DynamoDB Performance Characteristics
 
-        def get(self, key):
-            """Read with conflict detection"""
-            if key not in self.data:
-                return None, None
-
-            versions = self.data[key]
-
-            if len(versions) == 1:
-                # No conflicts
-                return versions[0]
-
-            # Multiple versions - detect conflicts
-            concurrent_versions = []
-
-            for v1, c1 in versions:
-                is_concurrent = True
-                for v2, c2 in versions:
-                    if c1 != c2 and c2.happens_before(c1):
-                        is_concurrent = False
-                        break
-
-                if is_concurrent:
-                    concurrent_versions.append((v1, c1))
-
-            if len(concurrent_versions) > 1:
-                # Return all concurrent versions for client resolution
-                return concurrent_versions, "CONFLICT"
-
-            # Return latest version
-            return max(versions, key=lambda x: sum(x[1].clock))
-
-    class Coordinator:
-        def __init__(self, nodes, replication_factor=3):
-            self.nodes = nodes
-            self.ring = ConsistentHashRing(nodes)
-            self.replication_factor = replication_factor
-
-        def put(self, key, value, consistency_level="QUORUM"):
-            """Replicated write"""
-            # Find preference list
-            preference_list = self.ring.get_nodes(key, self.replication_factor)
-
-            # Send writes in parallel
-            futures = []
-            for node in preference_list:
-                future = self.async_put(node, key, value)
-                futures.append(future)
-
-            # Wait for required acknowledgments
-            if consistency_level == "ONE":
-                return self.wait_for_any(futures)
-            elif consistency_level == "QUORUM":
-                quorum = (self.replication_factor // 2) + 1
-                return self.wait_for_quorum(futures, quorum)
-            elif consistency_level == "ALL":
-                return self.wait_for_all(futures)
-
-        def get(self, key, consistency_level="QUORUM"):
-            """Replicated read with read repair"""
-            preference_list = self.ring.get_nodes(key, self.replication_factor)
-
-            # Send reads in parallel
-            futures = []
-            for node in preference_list:
-                future = self.async_get(node, key)
-                futures.append(future)
-
-            # Collect responses based on consistency level
-            if consistency_level == "ONE":
-                responses = [self.wait_for_any(futures)]
-            elif consistency_level == "QUORUM":
-                quorum = (self.replication_factor // 2) + 1
-                responses = self.wait_for_quorum(futures, quorum)
-            else:
-                responses = self.wait_for_all(futures)
-
-            # Reconcile responses
-            reconciled = self.reconcile_responses(responses)
-
-            # Read repair in background
-            self.async_read_repair(preference_list, key, reconciled)
-
-            return reconciled
-
-        def reconcile_responses(self, responses):
-            """Reconcile multiple versions using vector clocks"""
-            all_versions = []
-
-            for response in responses:
-                if response and response[0]:  # Not None
-                    if isinstance(response[0], list):
-                        # Multiple versions from one node
-                        all_versions.extend(response[0])
-                    else:
-                        # Single version
-                        all_versions.append(response)
-
-            if not all_versions:
-                return None
-
-            # Find concurrent versions
-            concurrent = []
-            for v1, c1 in all_versions:
-                is_concurrent = True
-
-                for v2, c2 in all_versions:
-                    if c1 != c2 and c2.happens_before(c1):
-                        is_concurrent = False
-                        break
-
-                if is_concurrent:
-                    concurrent.append((v1, c1))
-
-            # Return latest or conflicts
-            if len(concurrent) == 1:
-                return concurrent[0]
-            else:
-                return concurrent  # Client must resolve
+```mermaid
+graph LR
+    subgraph "Operation Latencies"
+        W1[Write ONE<br/>~5ms]
+        WQ[Write QUORUM<br/>~10ms]
+        WA[Write ALL<br/>~15ms]
+        
+        R1[Read ONE<br/>~5ms]
+        RQ[Read QUORUM<br/>~10ms]
+        RA[Read ALL<br/>~15ms]
+    end
+    
+    style W1 fill:#90EE90
+    style WQ fill:#FFD700
+    style WA fill:#FFB6C1
+    style R1 fill:#90EE90
+    style RQ fill:#FFD700
+    style RA fill:#FFB6C1
 ```
 
 ### Google Spanner: Globally Consistent Database
 
-```python
-class SpannerStyle:
-    """
-    Google Spanner's approach:
-    - TrueTime API for global timestamps
-    - 2PL + 2PC for transactions
-    - Paxos for replication
-    """
+### Google Spanner: Globally Consistent Database
 
-    class TrueTime:
-        """Simulated TrueTime API"""
+```mermaid
+graph TB
+    subgraph "Spanner Architecture"
+        subgraph "TrueTime API"
+            GPS[GPS Receivers]
+            AC[Atomic Clocks]
+            TT[TrueTime<br/>Interval: [earliest, latest]]
+            GPS --> TT
+            AC --> TT
+        end
+        
+        subgraph "Transaction Flow"
+            Begin[Begin TX<br/>Read timestamp]
+            Reads[Perform Reads<br/>at timestamp]
+            Writes[Buffer Writes]
+            Prepare[2PC Prepare<br/>Acquire locks]
+            Commit[Assign commit TS<br/>Wait for TS]
+            Apply[Apply writes<br/>Release locks]
+            
+            Begin --> Reads
+            Reads --> Writes
+            Writes --> Prepare
+            Prepare --> Commit
+            Commit --> Apply
+        end
+        
+        subgraph "Replication Groups"
+            Leader[Paxos Leader]
+            R1[Replica 1]
+            R2[Replica 2]
+            R3[Replica 3]
+            R4[Replica 4]
+            
+            Leader -->|Paxos| R1
+            Leader -->|Paxos| R2
+            Leader -->|Paxos| R3
+            Leader -->|Paxos| R4
+        end
+    end
+    
+    style TT fill:#FFD700,stroke:#333,stroke-width:3px
+    style Commit fill:#87CEEB,stroke:#333,stroke-width:3px
+```
 
-        @staticmethod
-        def now():
-            """Return time interval [earliest, latest]"""
-            # Real TrueTime uses atomic clocks + GPS
-            # We simulate with uncertainty bounds
-            current = time.time()
-            uncertainty = 0.007  # 7ms uncertainty
+### TrueTime Guarantees
 
-            return {
-                'earliest': current - uncertainty,
-                'latest': current + uncertainty
-            }
+| Property | Guarantee | Implementation | Impact |
+|----------|-----------|----------------|--------|
+| **Time Uncertainty** | ±7ms max | GPS + atomic clocks | Bounded wait time |
+| **External Consistency** | Real-time ordering | Commit wait | ~7-14ms latency |
+| **Global Timestamps** | Monotonic across DCs | TrueTime intervals | True global ordering |
+| **Snapshot Reads** | Consistent at any TS | MVCC storage | No read locks |
 
-        @staticmethod
-        def after(timestamp):
-            """True if timestamp is definitely in the past"""
-            return TrueTime.now()['earliest'] > timestamp
+### Spanner Transaction Timeline
 
-        @staticmethod
-        def before(timestamp):
-            """True if timestamp is definitely in the future"""
-            return TrueTime.now()['latest'] < timestamp
+```mermaid
+sequenceDiagram
+    participant Client
+    participant TM as Transaction Manager
+    participant TT as TrueTime
+    participant PG as Paxos Group
+    
+    Client->>TM: Begin transaction
+    TM->>TT: now()
+    TT-->>TM: [T1-ε, T1+ε]
+    TM-->>Client: TX started at T1+ε
+    
+    Client->>TM: Read(K1)
+    Note over TM: Read at T1+ε
+    
+    Client->>TM: Write(K2, V2)
+    Note over TM: Buffer write
+    
+    Client->>TM: Commit
+    
+    %% 2PC Prepare
+    TM->>TM: Acquire locks
+    TM->>TT: now()
+    TT-->>TM: [T2-ε, T2+ε]
+    Note over TM: Commit TS = T2+ε
+    
+    %% Commit wait
+    loop Commit Wait
+        TM->>TT: after(T2+ε)?
+        TT-->>TM: No
+        Note over TM: Wait...
+    end
+    
+    TT-->>TM: Yes (T2+ε in past)
+    
+    %% Paxos replication
+    TM->>PG: Propose writes at T2+ε
+    PG-->>TM: Accepted
+    
+    TM->>TM: Apply writes
+    TM->>TM: Release locks
+    TM-->>Client: Committed at T2+ε
+```
 
-    class TransactionManager:
-        def __init__(self):
-            self.transactions = {}
-            self.lock_manager = LockManager()
+### Spanner vs Traditional Databases
 
-        def begin_transaction(self):
-            """Start read-write transaction"""
-            tx_id = uuid4()
-
-            # Assign timestamp at start for reads
-            read_timestamp = TrueTime.now()['latest']
-
-            tx = Transaction(tx_id, read_timestamp)
-            self.transactions[tx_id] = tx
-
-            return tx
-
-        def commit_transaction(self, tx):
-            """2-Phase Commit with TrueTime"""
-
-            # Phase 1: Prepare
-            # Acquire all locks
-            for operation in tx.operations:
-                if operation.type == 'WRITE':
-                    lock = self.lock_manager.acquire(
-                        operation.key,
-                        tx.id,
-                        'EXCLUSIVE'
-                    )
-                    if not lock:
-                        self.abort_transaction(tx)
-                        return False
-
-            # Assign commit timestamp
-            commit_ts = TrueTime.now()['latest']
-
-            # Wait for timestamp to be in the past (commit wait)
-            # This ensures external consistency
-            while not TrueTime.after(commit_ts):
-                time.sleep(0.001)
-
-            # Phase 2: Commit
-            # Apply all writes with commit timestamp
-            for operation in tx.operations:
-                if operation.type == 'WRITE':
-                    self.apply_write(
-                        operation.key,
-                        operation.value,
-                        commit_ts
-                    )
-
-            # Release all locks
-            self.lock_manager.release_all(tx.id)
-
-            return True
-
-    class SpannerNode:
-        def __init__(self, zone_id):
-            self.zone_id = zone_id
-            self.data = {}  # key -> list of (value, timestamp)
-            self.paxos_group = PaxosGroup(zone_id)
-
-        def read(self, key, timestamp):
-            """Read at timestamp (snapshot isolation)"""
-            if key not in self.data:
-                return None
-
-            # Find version valid at timestamp
-            versions = self.data[key]
-
-            # Binary search for efficiency
-            left, right = 0, len(versions) - 1
-            result = None
-
-            while left <= right:
-                mid = (left + right) // 2
-
-                if versions[mid][1] <= timestamp:
-                    result = versions[mid][0]
-                    left = mid + 1
-                else:
-                    right = mid - 1
-
-            return result
-
-        def write(self, key, value, timestamp):
-            """Write at timestamp (must be agreed via Paxos)"""
-            # Propose write through Paxos
-            proposal = {
-                'key': key,
-                'value': value,
-                'timestamp': timestamp
-            }
-
-            if self.paxos_group.propose(proposal):
-                # Accepted - apply write
-                if key not in self.data:
-                    self.data[key] = []
-
-                self.data[key].append((value, timestamp))
-
-                # Keep sorted by timestamp
-                self.data[key].sort(key=lambda x: x[1])
-
-                # Garbage collect old versions
-                self.gc_old_versions(key)
-
-                return True
-
-            return False
+```mermaid
+graph LR
+    subgraph "Traditional DB"
+        T1[Local timestamps]
+        T2[2PC for distribution]
+        T3[Eventual consistency]
+        T4[Regional scope]
+    end
+    
+    subgraph "Spanner"
+        S1[Global timestamps]
+        S2[Paxos + 2PC]
+        S3[External consistency]
+        S4[Global scope]
+    end
+    
+    T1 -.->|Evolution| S1
+    T2 -.->|Enhancement| S2
+    T3 -.->|Improvement| S3
+    T4 -.->|Scale| S4
+    
+    style S3 fill:#90EE90,stroke:#333,stroke-width:3px
 ```
 
 ### Facebook TAO: Graph-Oriented Storage
 
-```python
-class TAOStyle:
-    """
-    Facebook TAO (The Associations and Objects):
-    - Optimized for social graph queries
-    - Eventually consistent with cache hierarchy
-    - Write-through caching with async replication
-    """
+### Facebook TAO: Graph-Oriented Storage
 
-    class Association:
-        def __init__(self, id1, atype, id2, time, data):
-            self.id1 = id1          # Source object
-            self.atype = atype      # Association type
-            self.id2 = id2          # Destination object
-            self.time = time        # Creation time
-            self.data = data        # Payload
-            self.version = 0        # For optimistic concurrency
+```mermaid
+graph TB
+    subgraph "TAO Architecture"
+        subgraph "Cache Hierarchy"
+            FC1[Follower Cache<br/>Data Center 1]
+            FC2[Follower Cache<br/>Data Center 2]
+            LC[Leader Cache<br/>Regional]
+            Master[(Master DB<br/>MySQL)]
+            
+            FC1 -->|Miss| LC
+            FC2 -->|Miss| LC
+            LC -->|Miss| Master
+        end
+        
+        subgraph "Association Model"
+            O1[Object: User<br/>ID: 123]
+            O2[Object: Photo<br/>ID: 456]
+            A[Association<br/>Type: 'likes'<br/>Time: T1]
+            
+            O1 -->|likes| A
+            A --> O2
+        end
+        
+        subgraph "Query Types"
+            AG[assoc_get<br/>Point lookup]
+            AC[assoc_count<br/>Aggregation]
+            AR[assoc_range<br/>Pagination]
+            AT[assoc_time_range<br/>Time window]
+        end
+    end
+    
+    style LC fill:#FFD700,stroke:#333,stroke-width:3px
+    style Master fill:#87CEEB,stroke:#333,stroke-width:3px
+```
 
-    class TAOCache:
-        def __init__(self, tier='leader'):
-            self.tier = tier  # 'leader' or 'follower'
-            self.cache = {}
-            self.negative_cache = set()  # Cache non-existence
+### TAO Query Patterns
 
-        def assoc_get(self, id1, atype, id2s=None):
-            """Get associations"""
-            if id2s is None:
-                # Get all associations of type
-                key = f"{id1}:{atype}:*"
-                return self.cache.get(key, [])
-            else:
-                # Get specific associations
-                results = []
-                for id2 in id2s:
-                    key = f"{id1}:{atype}:{id2}"
+| Query Type | Example | Cache Strategy | Performance |
+|------------|---------|----------------|-------------|
+| **assoc_get** | "Who likes this photo?" | Cache full list | O(1) cache hit |
+| **assoc_count** | "How many friends?" | Cache count separately | O(1) always |
+| **assoc_range** | "Next 20 posts" | Cache sorted list | O(n) sort + slice |
+| **assoc_time_range** | "Posts from last hour" | Time-indexed cache | O(n) filter |
 
-                    if key in self.negative_cache:
-                        continue
+### TAO Write Path
 
-                    if key in self.cache:
-                        results.append(self.cache[key])
+```mermaid
+sequenceDiagram
+    participant Client
+    participant FC as Follower Cache
+    participant LC as Leader Cache
+    participant DB as Master DB
+    
+    %% Write operation
+    Client->>DB: assoc_add(user:123, 'likes', photo:456)
+    DB->>DB: Insert association
+    DB-->>Client: Success
+    
+    %% Cache invalidation
+    Client->>FC: Invalidate keys
+    Note over FC: Remove:
+    Note over FC: - user:123:likes:456
+    Note over FC: - user:123:likes:*
+    Note over FC: - user:123:likes:count
+    
+    Client->>LC: Send invalidation message
+    LC->>LC: Invalidate same keys
+    
+    %% Write-through update
+    Client->>FC: Update with new data
+    Note over FC: Cache warmed for reads
+```
 
-                return results
+### TAO Read Path with Cache Hierarchy
 
-        def assoc_count(self, id1, atype):
-            """Count associations efficiently"""
-            count_key = f"{id1}:{atype}:count"
-            return self.cache.get(count_key, 0)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant FC as Follower Cache<br/>(Local DC)
+    participant LC as Leader Cache<br/>(Regional)
+    participant DB as Master DB<br/>(Remote)
+    
+    %% Cache hit in follower
+    Client->>FC: assoc_get(user:123, 'likes')
+    alt Cache Hit
+        FC-->>Client: Return cached data
+        Note over Client: Latency: ~1ms
+    else Cache Miss
+        FC->>LC: Forward request
+        alt Leader Cache Hit
+            LC-->>FC: Return data
+            FC->>FC: Cache data
+            FC-->>Client: Return data
+            Note over Client: Latency: ~10ms
+        else Leader Cache Miss
+            LC->>DB: Query master
+            DB-->>LC: Return data
+            LC->>LC: Cache data
+            LC-->>FC: Return data
+            FC->>FC: Cache data
+            FC-->>Client: Return data
+            Note over Client: Latency: ~100ms
+        end
+    end
+```
 
-        def assoc_range(self, id1, atype, offset, limit):
-            """Range query with pagination"""
-            key = f"{id1}:{atype}:*"
-            all_assocs = self.cache.get(key, [])
+### TAO Consistency Model
 
-            # Sort by time (most recent first)
-            sorted_assocs = sorted(
-                all_assocs,
-                key=lambda a: a.time,
-                reverse=True
-            )
-
-            return sorted_assocs[offset:offset + limit]
-
-        def assoc_time_range(self, id1, atype, high_time, low_time):
-            """Time-based range query"""
-            key = f"{id1}:{atype}:*"
-            all_assocs = self.cache.get(key, [])
-
-            return [
-                a for a in all_assocs
-                if low_time <= a.time <= high_time
-            ]
-
-    class TAOClient:
-        def __init__(self):
-            self.local_cache = TAOCache('follower')
-            self.regional_cache = TAOCache('leader')
-            self.master_db = None  # MySQL in different region
-
-        def assoc_add(self, id1, atype, id2, data):
-            """Add association with write-through caching"""
-
-            # Create association
-            assoc = Association(
-                id1, atype, id2,
-                time.time(),
-                data
-            )
-
-            # Write to master DB
-            try:
-                self.master_db.insert(assoc)
-            except DuplicateKeyError:
-                # Association already exists
-                return False
-
-            # Invalidate caches
-            self.invalidate_caches(id1, atype, id2)
-
-            # Update follower cache (write-through)
-            self.update_cache_after_write(assoc)
-
-            return True
-
-        def assoc_del(self, id1, atype, id2):
-            """Delete association"""
-
-            # Delete from master
-            if not self.master_db.delete(id1, atype, id2):
-                return False
-
-            # Invalidate caches
-            self.invalidate_caches(id1, atype, id2)
-
-            return True
-
-        def invalidate_caches(self, id1, atype, id2):
-            """Invalidate all cache tiers"""
-
-            keys = [
-                f"{id1}:{atype}:{id2}",
-                f"{id1}:{atype}:*",
-                f"{id1}:{atype}:count"
-            ]
-
-            # Invalidate local follower cache
-            for key in keys:
-                self.local_cache.cache.pop(key, None)
-
-            # Send invalidation to regional leader cache
-            self.send_invalidation_message(
-                self.regional_cache,
-                keys
-            )
-
-        def assoc_get(self, id1, atype, id2s=None):
-            """Read with cache hierarchy"""
-
-            # Try local follower cache
-            result = self.local_cache.assoc_get(id1, atype, id2s)
-            if result:
-                return result
-
-            # Try regional leader cache
-            result = self.regional_cache.assoc_get(id1, atype, id2s)
-            if result:
-                # Populate local cache
-                self.local_cache.cache[f"{id1}:{atype}:*"] = result
-                return result
-
-            # Fall back to master DB
-            result = self.master_db.query(id1, atype, id2s)
-
-            # Populate caches on the way back
-            self.regional_cache.cache[f"{id1}:{atype}:*"] = result
-            self.local_cache.cache[f"{id1}:{atype}:*"] = result
-
-            return result
+```mermaid
+graph LR
+    subgraph "Consistency Guarantees"
+        W[Write-through<br/>caching]
+        E[Eventual<br/>consistency]
+        R[Read-after-write<br/>in same DC]
+        C[Cache<br/>invalidation]
+    end
+    
+    W --> E
+    C --> R
+    
+    style R fill:#90EE90,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -1164,754 +1059,446 @@ class TAOStyle:
 
 ### Conflict-Free Replicated Data Types (CRDTs) in Production
 
-```python
-class ProductionCRDTs:
-    """
-    CRDTs as used in production systems like Redis, Riak, and SoundCloud
-    """
-
-    class DeltaCRDT:
-        """
-        Delta-state CRDTs: Only ship changes, not full state
-        Used in large-scale systems to reduce bandwidth
-        """
-
-        def __init__(self):
-            self.full_state = {}
-            self.delta_buffer = []
-            self.version = 0
-
-        def generate_delta(self, operation):
-            """Generate minimal delta for operation"""
-            delta = {
-                'version': self.version,
-                'op': operation,
-                'timestamp': time.time()
-            }
-
-            self.delta_buffer.append(delta)
-            self.version += 1
-
-            # Coalesce deltas if buffer gets large
-            if len(self.delta_buffer) > 100:
-                self.coalesce_deltas()
-
-            return delta
-
-        def coalesce_deltas(self):
-            """Merge multiple deltas into one"""
-            # Group by key
-            key_deltas = defaultdict(list)
-
-            for delta in self.delta_buffer:
-                key = delta['op'].get('key')
-                key_deltas[key].append(delta)
-
-            # Merge deltas per key
-            coalesced = []
-            for key, deltas in key_deltas.items():
-                merged = self.merge_key_deltas(key, deltas)
-                coalesced.append(merged)
-
-            self.delta_buffer = coalesced
-
-    class CausalCRDT:
-        """
-        Causal CRDTs: Respect causality for operations
-        Used in collaborative editing (Google Docs style)
-        """
-
-        def __init__(self, replica_id):
-            self.replica_id = replica_id
-            self.vector_clock = VectorClock(replica_id)
-            self.operations = []  # Causal history
-            self.state = {}
-
-        def apply_operation(self, op):
-            """Apply operation respecting causality"""
-
-            # Generate causal context
-            op.context = self.vector_clock.increment()
-            op.replica_id = self.replica_id
-
-            # Find insertion point maintaining causal order
-            insert_pos = self.find_causal_position(op)
-            self.operations.insert(insert_pos, op)
-
-            # Rebuild state from operations
-            self.rebuild_state()
-
-            return op
-
-        def find_causal_position(self, new_op):
-            """Find where to insert op maintaining causality"""
-
-            # Binary search for efficiency
-            left, right = 0, len(self.operations)
-
-            while left < right:
-                mid = (left + right) // 2
-                mid_op = self.operations[mid]
-
-                if mid_op.context.happens_before(new_op.context):
-                    left = mid + 1
-                elif new_op.context.happens_before(mid_op.context):
-                    right = mid
-                else:
-                    # Concurrent - use replica ID as tiebreaker
-                    if mid_op.replica_id < new_op.replica_id:
-                        left = mid + 1
-                    else:
-                        right = mid
-
-            return left
-
-        def rebuild_state(self):
-            """Rebuild state from causal history"""
-            self.state = {}
-
-            for op in self.operations:
-                self.apply_op_to_state(op)
-
-    class RiakDT:
-        """
-        Riak-style convergent data types with DVV
-        (Dotted Version Vectors for better causality tracking)
-        """
-
-        class DVV:
-            """Dotted Version Vector"""
-
-            def __init__(self):
-                self.clock = {}  # replica -> counter
-                self.dots = set()  # (replica, counter) pairs
-
-            def event(self, replica):
-                """Generate new dot for event"""
-                if replica not in self.clock:
-                    self.clock[replica] = 0
-
-                self.clock[replica] += 1
-                dot = (replica, self.clock[replica])
-                self.dots.add(dot)
-
-                return dot
-
-            def merge(self, other):
-                """Merge two DVVs"""
-                # Take max of clocks
-                merged_clock = {}
-
-                for replica in set(self.clock) | set(other.clock):
-                    merged_clock[replica] = max(
-                        self.clock.get(replica, 0),
-                        other.clock.get(replica, 0)
-                    )
-
-                # Union dots that aren't dominated
-                merged_dots = set()
-
-                for dot in self.dots | other.dots:
-                    replica, counter = dot
-                    if counter > merged_clock.get(replica, 0):
-                        merged_dots.add(dot)
-
-                result = DVV()
-                result.clock = merged_clock
-                result.dots = merged_dots
-
-                return result
-
-        class MVRegister:
-            """Multi-Value Register with DVV"""
-
-            def __init__(self):
-                self.values = {}  # value -> DVV
-
-            def write(self, value, context, replica):
-                """Write with causal context"""
-
-                # Generate new DVV
-                new_dvv = DVV()
-
-                if context:
-                    # Inherit from context
-                    new_dvv = context.copy()
-
-                # Add new event
-                new_dvv.event(replica)
-
-                # Remove causally dominated values
-                self.values = {
-                    v: dvv for v, dvv in self.values.items()
-                    if not new_dvv.dominates(dvv)
-                }
-
-                # Add new value
-                self.values[value] = new_dvv
-
-            def read(self):
-                """Read all concurrent values"""
-                return list(self.values.keys())
-
-            def merge(self, other):
-                """Merge two MVRegisters"""
-
-                # Collect all unique values
-                all_values = set(self.values) | set(other.values)
-
-                merged = {}
-
-                for value in all_values:
-                    dvv1 = self.values.get(value, DVV())
-                    dvv2 = other.values.get(value, DVV())
-
-                    merged_dvv = dvv1.merge(dvv2)
-
-                    # Only keep if not dominated
-                    is_dominated = False
-
-                    for other_val, other_dvv in merged.items():
-                        if other_dvv.dominates(merged_dvv):
-                            is_dominated = True
-                            break
-
-                    if not is_dominated:
-                        merged[value] = merged_dvv
-
-                result = MVRegister()
-                result.values = merged
-
-                return result
-
-    class AntiEntropyProtocol:
-        """
-        Efficient CRDT synchronization protocol
-        Used in Cassandra, Riak, and others
-        """
-
-        def __init__(self, node_id):
-            self.node_id = node_id
-            self.merkle_tree = None
-            self.sync_partners = []
-
-        def sync_with_peer(self, peer):
-            """Efficient sync using Merkle trees"""
-
-            # Exchange Merkle tree roots
-            my_root = self.merkle_tree.root()
-            peer_root = peer.merkle_tree.root()
-
-            if my_root == peer_root:
-                # Already in sync
-                return
-
-            # Find differing branches
-            diff_keys = self.merkle_tree.diff(peer.merkle_tree)
-
-            # Exchange only different keys
-            for key in diff_keys:
-                my_value = self.get_crdt(key)
-                peer_value = peer.get_crdt(key)
-
-                # Merge CRDTs
-                merged = my_value.merge(peer_value)
-
-                # Update both sides
-                self.put_crdt(key, merged)
-                peer.put_crdt(key, merged)
+### Conflict-Free Replicated Data Types (CRDTs) in Production
+
+```mermaid
+graph TB
+    subgraph "CRDT Evolution in Production"
+        subgraph "Basic CRDTs"
+            State[State-based<br/>Full state sync]
+            Op[Operation-based<br/>Op log sync]
+        end
+        
+        subgraph "Optimized CRDTs"
+            Delta[Delta-CRDTs<br/>Only sync changes]
+            Causal[Causal-CRDTs<br/>Respect ordering]
+            DVV[DVV-based<br/>Better causality]
+        end
+        
+        subgraph "Production Systems"
+            Redis[Redis CRDT<br/>Active-Active]
+            Riak[Riak DT<br/>Convergent types]
+            Sound[SoundCloud<br/>Roshi]
+        end
+        
+        State --> Delta
+        Op --> Causal
+        Delta --> Redis
+        Causal --> Sound
+        DVV --> Riak
+    end
+    
+    style Delta fill:#90EE90,stroke:#333,stroke-width:2px
+    style DVV fill:#87CEEB,stroke:#333,stroke-width:2px
+```
+
+### Delta-CRDT Optimization
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1<br/>State: {a:5, b:3}
+    participant N2 as Node 2<br/>State: {a:5, b:3}
+    
+    Note over N1,N2: Traditional CRDT: Send full state
+    
+    N1->>N1: Update a=7
+    N1->>N2: Full state: {a:7, b:3}
+    Note over N2: Bandwidth: O(n)
+    
+    Note over N1,N2: Delta-CRDT: Send only changes
+    
+    N1->>N1: Update a=9
+    N1->>N2: Delta: {a:9}
+    Note over N2: Bandwidth: O(1)
+    
+    N2->>N2: Apply delta
+    Note over N2: State: {a:9, b:3}
+```
+
+### Dotted Version Vectors (DVV)
+
+```mermaid
+graph LR
+    subgraph "Traditional Version Vector"
+        VV["[A:2, B:1, C:3]<br/>Tracks per-node versions"]
+    end
+    
+    subgraph "Dotted Version Vector"
+        Clock["Clock: {A:2, B:1, C:3}"]
+        Dots["Dots: {(A,2), (C,3)}"]
+        
+        Clock --> Summary[Seen up to]
+        Dots --> Specific[Specific events]
+    end
+    
+    VV -.->|Enhancement| Clock
+    
+    style Dots fill:#FFD700,stroke:#333,stroke-width:2px
+```
+
+### Production CRDT Patterns
+
+| System | CRDT Type | Use Case | Scale | Consistency |
+|--------|-----------|----------|-------|-------------|
+| **Redis CRDT** | G-Counter, OR-Set | Geo-distributed cache | Global | Strong eventual |
+| **Riak DT** | Maps, Sets, Counters | Shopping carts | Large clusters | Convergent |
+| **SoundCloud Roshi** | LWW-element-set | Timeline storage | Massive | Eventually consistent |
+| **League of Legends** | Custom CRDTs | Game state | 27M daily | Low latency |
+
+### Anti-Entropy Synchronization
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1
+    participant N2 as Node 2
+    
+    Note over N1,N2: Merkle Tree Sync
+    
+    N1->>N2: Root hash
+    N2->>N2: Compare roots
+    
+    alt Roots match
+        N2-->>N1: Already synced
+    else Roots differ
+        N2-->>N1: My root hash
+        
+        loop Find differences
+            N1->>N2: Left child hash
+            N2-->>N1: Mismatch
+            N1->>N2: Right child hash
+            N2-->>N1: Match
+        end
+        
+        Note over N1,N2: Exchange only different keys
+        
+        N1->>N2: Keys: [K1, K2]
+        N2->>N1: Keys: [K3]
+        
+        N1->>N1: Merge K3
+        N2->>N2: Merge K1, K2
+    end
+```
+
+### CRDT Selection Guide
+
+```mermaid
+graph TD
+    Start[Need distributed<br/>mutable state?]
+    
+    Start -->|Yes| Conflicts[Can conflicts<br/>be resolved?]
+    Start -->|No| NoSync[No sync needed]
+    
+    Conflicts -->|Automatic| CRDT[Use CRDTs]
+    Conflicts -->|Manual| Traditional[Traditional + versioning]
+    
+    CRDT --> Counter{Counter?}
+    Counter -->|Yes| GCounter[G-Counter/PN-Counter]
+    
+    CRDT --> Set{Set?}
+    Set -->|Add-only| GSet[G-Set]
+    Set -->|Add/Remove| ORSet[OR-Set]
+    
+    CRDT --> Value{Single value?}
+    Value -->|Last-write| LWW[LWW-Register]
+    Value -->|Keep all| MV[MV-Register]
+    
+    style CRDT fill:#90EE90,stroke:#333,stroke-width:3px
 ```
 
 ### The Art of Distributed Transactions
 
-```python
-class DistributedTransactionPatterns:
-    """
-    Modern approaches to distributed transactions
-    beyond traditional 2PC
-    """
+### The Art of Distributed Transactions
 
-    class SagaPattern:
-        """
-        Long-running transactions as a sequence of compensatable steps
-        Used in: Microservices, workflow engines
-        """
+```mermaid
+graph TB
+    subgraph "Transaction Patterns"
+        Traditional[2PC/3PC<br/>Blocking, consistent]
+        Saga[Saga Pattern<br/>Long-running, compensating]
+        Event[Event Sourcing<br/>Eventually consistent]
+        Calvin[Calvin/SLOG<br/>Deterministic scheduling]
+        
+        Traditional -->|Evolution| Saga
+        Traditional -->|Alternative| Event
+        Traditional -->|Innovation| Calvin
+    end
+    
+    style Saga fill:#90EE90,stroke:#333,stroke-width:2px
+    style Calvin fill:#87CEEB,stroke:#333,stroke-width:2px
+```
 
-        def __init__(self):
-            self.steps = []
-            self.compensations = []
-            self.state = "RUNNING"
+### Saga Pattern: E-commerce Order Flow
 
-        def add_step(self, forward_action, compensation_action):
-            """Add a step with its compensation"""
-            self.steps.append({
-                'forward': forward_action,
-                'compensate': compensation_action,
-                'status': 'PENDING'
-            })
+```mermaid
+stateDiagram-v2
+    [*] --> Running
+    
+    Running --> ReserveInventory
+    ReserveInventory --> ChargePayment: Success
+    ReserveInventory --> Compensating: Failure
+    
+    ChargePayment --> CreateShipment: Success
+    ChargePayment --> ReleaseInventory: Failure
+    
+    CreateShipment --> SendConfirmation: Success
+    CreateShipment --> RefundPayment: Failure
+    
+    SendConfirmation --> Completed: Success
+    SendConfirmation --> CancelShipment: Failure
+    
+    %% Compensation flow
+    Compensating --> Compensated
+    ReleaseInventory --> Compensated
+    RefundPayment --> ReleaseInventory
+    CancelShipment --> RefundPayment
+    
+    Completed --> [*]
+    Compensated --> [*]
+    
+    note right of Compensating: Reverse order execution
+```
 
-        async def execute(self):
-            """Execute saga with automatic compensation on failure"""
+### Saga vs Traditional Transactions
 
-            completed_steps = []
+| Aspect | Traditional 2PC | Saga Pattern |
+|--------|----------------|---------------|
+| **Duration** | Short-lived (ms) | Long-running (min-hours) |
+| **Locking** | Pessimistic | No distributed locks |
+| **Failure** | Rollback | Compensation |
+| **Consistency** | ACID | Eventually consistent |
+| **Use Case** | Database transactions | Microservice workflows |
 
-            try:
-                # Execute forward path
-                for i, step in enumerate(self.steps):
-                    result = await step['forward']()
+### Event Sourcing Transaction Model
 
-                    step['status'] = 'COMPLETED'
-                    step['result'] = result
-                    completed_steps.append(i)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Command as Command Handler
+    participant Store as Event Store
+    participant Proj as Projections
+    
+    Client->>Command: CreateOrder command
+    Command->>Command: Validate
+    Command->>Command: Generate events
+    
+    Command->>Store: Append events
+    Note over Store: 1. OrderCreated<br/>2. PaymentProcessed<br/>3. InventoryReserved
+    
+    Store-->>Command: Version 3
+    
+    %% Async projection updates
+    Store--)Proj: Async update
+    Proj->>Proj: Update read model
+    
+    Command-->>Client: Success (v3)
+    
+    Note over Proj: Eventually consistent<br/>read models
+```
 
-                    # Persist saga state after each step
-                    await self.persist_state()
+### Calvin: Deterministic Transaction Scheduling
 
-                self.state = "COMPLETED"
-                return True
+```mermaid
+graph LR
+    subgraph "Epoch-based Processing"
+        subgraph "Epoch 1 (10ms)"
+            T1[Txn 1]
+            T2[Txn 2]
+            T3[Txn 3]
+        end
+        
+        subgraph "Sequencer"
+            Seq[Global Order:<br/>T2, T1, T3]
+        end
+        
+        subgraph "Partition Schedulers"
+            S1[Scheduler 1<br/>Execute: T2, T1]
+            S2[Scheduler 2<br/>Execute: T2, T3]
+            S3[Scheduler 3<br/>Execute: T1, T3]
+        end
+        
+        T1 --> Seq
+        T2 --> Seq
+        T3 --> Seq
+        
+        Seq -->|Broadcast| S1
+        Seq -->|Broadcast| S2
+        Seq -->|Broadcast| S3
+    end
+    
+    style Seq fill:#FFD700,stroke:#333,stroke-width:3px
+```
 
-            except Exception as e:
-                # Compensate in reverse order
-                self.state = "COMPENSATING"
+### Distributed Transaction Decision Tree
 
-                for i in reversed(completed_steps):
-                    try:
-                        await self.steps[i]['compensate'](
-                            self.steps[i]['result']
-                        )
-                        self.steps[i]['status'] = 'COMPENSATED'
-                    except Exception as comp_error:
-                        # Compensation failed - manual intervention needed
-                        self.state = "COMPENSATION_FAILED"
-                        raise SagaCompensationError(
-                            f"Step {i} compensation failed",
-                            comp_error
-                        )
-
-                self.state = "COMPENSATED"
-                raise e
-
-        # Example: E-commerce order saga
-        async def create_order_saga(self, order_data):
-            saga = SagaPattern()
-
-            # Step 1: Reserve inventory
-            saga.add_step(
-                forward=lambda: inventory_service.reserve(
-                    order_data['items']
-                ),
-                compensate=lambda reservation_id:
-                    inventory_service.release(reservation_id)
-            )
-
-            # Step 2: Charge payment
-            saga.add_step(
-                forward=lambda: payment_service.charge(
-                    order_data['payment_info'],
-                    order_data['total']
-                ),
-                compensate=lambda charge_id:
-                    payment_service.refund(charge_id)
-            )
-
-            # Step 3: Create shipment
-            saga.add_step(
-                forward=lambda: shipping_service.create_shipment(
-                    order_data['shipping_info']
-                ),
-                compensate=lambda shipment_id:
-                    shipping_service.cancel(shipment_id)
-            )
-
-            # Step 4: Send confirmation
-            saga.add_step(
-                forward=lambda: notification_service.send_confirmation(
-                    order_data['customer_email']
-                ),
-                compensate=lambda: None  # No compensation needed
-            )
-
-            return await saga.execute()
-
-    class EventuallyConsistentTransaction:
-        """
-        Achieve consistency through events and reconciliation
-        Used in: Event sourcing systems, CQRS
-        """
-
-        def __init__(self):
-            self.event_store = EventStore()
-            self.projections = {}
-
-        def execute_command(self, command):
-            """Execute command that generates events"""
-
-            # Validate command
-            if not self.validate_command(command):
-                raise InvalidCommandError()
-
-            # Generate events
-            events = self.command_to_events(command)
-
-            # Store events (source of truth)
-            stream_id = command.aggregate_id
-            version = self.event_store.append_events(
-                stream_id,
-                events,
-                expected_version=command.expected_version
-            )
-
-            # Update projections asynchronously
-            for event in events:
-                self.update_projections_async(event)
-
-            return version
-
-        def update_projections_async(self, event):
-            """Update read models eventually"""
-
-            # Queue projection updates
-            for projection_name, projection in self.projections.items():
-                update_task = ProjectionUpdate(
-                    projection_name,
-                    event
-                )
-
-                # Retry with exponential backoff
-                self.queue_with_retry(update_task)
-
-        class CompensatingTransaction:
-            """Handle failures through compensation"""
-
-            def __init__(self, original_events):
-                self.original_events = original_events
-
-            def generate_compensation_events(self):
-                """Generate events that undo the original"""
-
-                compensation_events = []
-
-                for event in reversed(self.original_events):
-                    if event.type == "AccountDebited":
-                        compensation_events.append(
-                            AccountCredited(
-                                event.account_id,
-                                event.amount,
-                                reason="Compensation for failed transaction"
-                            )
-                        )
-                    elif event.type == "InventoryReserved":
-                        compensation_events.append(
-                            InventoryReleased(
-                                event.product_id,
-                                event.quantity
-                            )
-                        )
-                    # ... handle other event types
-
-                return compensation_events
-
-    class CalvinProtocol:
-        """
-        Deterministic transaction scheduling for distributed databases
-        Used in: FaunaDB, Calvin-based systems
-        """
-
-        def __init__(self, node_id, num_partitions):
-            self.node_id = node_id
-            self.num_partitions = num_partitions
-            self.epoch_duration = 10  # 10ms epochs
-            self.sequencer = None
-            self.scheduler = None
-
-        def submit_transaction(self, txn):
-            """Submit transaction to Calvin"""
-
-            # Determine which partitions are involved
-            read_set = self.analyze_read_set(txn)
-            write_set = self.analyze_write_set(txn)
-
-            # Send to sequencer for current epoch
-            epoch = self.current_epoch()
-
-            sequencer_input = {
-                'txn': txn,
-                'read_set': read_set,
-                'write_set': write_set,
-                'epoch': epoch
-            }
-
-            return self.sequencer.sequence(sequencer_input)
-
-        class Sequencer:
-            """Global transaction ordering"""
-
-            def sequence(self, inputs):
-                """Order transactions for epoch"""
-
-                # Batch all transactions for this epoch
-                epoch_batch = self.collect_epoch_transactions(
-                    inputs['epoch']
-                )
-
-                # Create deterministic order
-                ordered_batch = self.deterministic_order(epoch_batch)
-
-                # Broadcast to all schedulers
-                for scheduler in self.all_schedulers:
-                    scheduler.receive_batch(
-                        inputs['epoch'],
-                        ordered_batch
-                    )
-
-                return inputs['epoch']
-
-            def deterministic_order(self, transactions):
-                """Create same order on all replicas"""
-
-                # Sort by transaction ID (deterministic)
-                return sorted(
-                    transactions,
-                    key=lambda t: t.id
-                )
-
-        class Scheduler:
-            """Local transaction execution"""
-
-            def __init__(self, partition_id):
-                self.partition_id = partition_id
-                self.lock_manager = DeterministicLockManager()
-
-            def receive_batch(self, epoch, transactions):
-                """Execute transactions in order"""
-
-                # Pre-acquire all locks for epoch
-                for txn in transactions:
-                    if self.involves_partition(txn, self.partition_id):
-                        self.lock_manager.acquire_locks(txn)
-
-                # Execute in deterministic order
-                for txn in transactions:
-                    if self.involves_partition(txn, self.partition_id):
-                        self.execute_transaction(txn)
-
-                # Release all locks
-                self.lock_manager.release_epoch_locks(epoch)
+```mermaid
+graph TD
+    Start[Need distributed<br/>transaction?]
+    
+    Start -->|Yes| Consistency[Consistency<br/>requirement?]
+    
+    Consistency -->|Strong| Duration[Transaction<br/>duration?]
+    Consistency -->|Eventual| Event[Use Event Sourcing<br/>or CRDTs]
+    
+    Duration -->|Short| Participants[Participant<br/>count?]
+    Duration -->|Long| Saga[Use Saga Pattern]
+    
+    Participants -->|Few| TwoPC[Use 2PC]
+    Participants -->|Many| Calvin[Use Calvin/SLOG]
+    
+    style Event fill:#90EE90,stroke:#333,stroke-width:2px
+    style Saga fill:#90EE90,stroke:#333,stroke-width:2px
+    style Calvin fill:#87CEEB,stroke:#333,stroke-width:2px
 ```
 
 ### State Migration at Scale
 
-```python
-class LiveStateMigration:
-    """
-    Migrate state between systems without downtime
-    Used when: Changing databases, resharding, upgrading
-    """
+### State Migration at Scale
 
-    class DualWritesMigration:
-        """
-        Classic approach: Write to both old and new
-        """
+```mermaid
+graph TB
+    subgraph "Live Migration Strategies"
+        DW[Dual Writes<br/>Write both, read old]
+        BF[Blue-Green<br/>Parallel systems]
+        CDC[Change Data Capture<br/>Stream changes]
+        RS[Live Resharding<br/>Progressive split]
+    end
+    
+    subgraph "Migration Phases"
+        P1[Phase 1<br/>Enable dual writes]
+        P2[Phase 2<br/>Backfill data]
+        P3[Phase 3<br/>Verify consistency]
+        P4[Phase 4<br/>Switch reads]
+        P5[Phase 5<br/>Disable old]
+        
+        P1 --> P2
+        P2 --> P3
+        P3 --> P4
+        P4 --> P5
+    end
+    
+    DW --> P1
+    
+    style P3 fill:#FFD700,stroke:#333,stroke-width:2px
+    style P4 fill:#87CEEB,stroke:#333,stroke-width:2px
+```
 
-        def __init__(self, old_db, new_db):
-            self.old_db = old_db
-            self.new_db = new_db
-            self.migration_state = "NOT_STARTED"
-            self.consistency_checker = ConsistencyChecker()
+### Dual Writes Migration Timeline
 
-        def execute_migration(self):
-            """Full migration workflow"""
+```mermaid
+gantt
+    title Database Migration Timeline
+    dateFormat HH:mm
+    axisFormat %H:%M
+    
+    section Old DB
+    Writes active    :active, old1, 00:00, 240m
+    Reads active    :active, old2, 00:00, 180m
+    Read-only mode  :old3, 180m, 60m
+    Decommissioned  :done, old4, 240m, 10m
+    
+    section New DB
+    Dual writes     :new1, 00:00, 240m
+    Backfill data   :active, new2, 30m, 90m
+    Verify data     :crit, new3, 120m, 30m
+    1% reads        :new4, 150m, 10m
+    50% reads       :new5, 160m, 10m
+    100% reads      :active, new6, 170m, 70m
+    Primary         :active, new7, 240m, 10m
+```
 
-            # Phase 1: Start dual writes
-            self.migration_state = "DUAL_WRITES"
-            self.enable_dual_writes()
+### Live Resharding Process
 
-            # Phase 2: Backfill historical data
-            self.migration_state = "BACKFILLING"
-            self.backfill_data()
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Router
+    participant Old as Old Shard (0-100)
+    participant New1 as New Shard 1 (0-50)
+    participant New2 as New Shard 2 (51-100)
+    participant Log as Change Log
+    
+    %% Phase 1: Start logging
+    Router->>Log: Enable change capture
+    
+    %% Phase 2: Copy data
+    loop Backfill
+        Old->>New1: Copy keys 0-50
+        Old->>New2: Copy keys 51-100
+    end
+    
+    %% Phase 3: Replay changes
+    Log->>New1: Apply changes for 0-50
+    Log->>New2: Apply changes for 51-100
+    
+    %% Phase 4: Atomic cutover
+    critical Atomic Switch
+        Router->>Router: Update routing<br/>Old → New1, New2
+        Old->>Old: Set read-only
+    end
+    
+    %% Phase 5: Client traffic
+    Client->>Router: Write key=25
+    Router->>New1: Route to shard 1
+    
+    Client->>Router: Write key=75
+    Router->>New2: Route to shard 2
+```
 
-            # Phase 3: Verify consistency
-            self.migration_state = "VERIFYING"
-            discrepancies = self.verify_consistency()
+### Migration Risk Mitigation
 
-            if discrepancies:
-                self.reconcile_discrepancies(discrepancies)
+| Risk | Mitigation | Rollback Strategy |
+|------|------------|-------------------|
+| **Data Loss** | Change log + checksums | Replay from log |
+| **Inconsistency** | Verification phase | Continue dual writes |
+| **Performance** | Gradual traffic shift | Reduce new DB % |
+| **Availability** | No downtime design | Route to old DB |
+| **Corruption** | Sample validation | Stop migration |
 
-            # Phase 4: Switch reads to new system
-            self.migration_state = "SWITCHING_READS"
-            self.switch_reads_gradually()
+### Progressive Read Migration
 
-            # Phase 5: Stop writes to old system
-            self.migration_state = "FINALIZING"
-            self.disable_old_writes()
+```mermaid
+graph LR
+    subgraph "Traffic Distribution Over Time"
+        T0["0 min<br/>Old: 100%<br/>New: 0%"]
+        T1["30 min<br/>Old: 99%<br/>New: 1%"]
+        T2["60 min<br/>Old: 90%<br/>New: 10%"]
+        T3["90 min<br/>Old: 50%<br/>New: 50%"]
+        T4["120 min<br/>Old: 5%<br/>New: 95%"]
+        T5["150 min<br/>Old: 0%<br/>New: 100%"]
+        
+        T0 --> T1
+        T1 --> T2
+        T2 --> T3
+        T3 --> T4
+        T4 --> T5
+    end
+    
+    style T0 fill:#FFB6C1
+    style T3 fill:#FFD700
+    style T5 fill:#90EE90
+```
 
-            self.migration_state = "COMPLETED"
+### State Migration Decision Matrix
 
-        def enable_dual_writes(self):
-            """Write to both systems"""
-
-            def dual_write_wrapper(key, value):
-                # Write to old (still primary)
-                old_result = self.old_db.write(key, value)
-
-                # Write to new (async, best effort)
-                try:
-                    self.new_db.write(key, value)
-                except Exception as e:
-                    # Log but don't fail
-                    self.log_write_failure(key, e)
-
-                return old_result
-
-            # Replace write method
-            self.write = dual_write_wrapper
-
-        def backfill_data(self):
-            """Copy historical data in chunks"""
-
-            chunk_size = 1000
-            checkpoint = self.load_checkpoint()
-
-            while True:
-                # Read chunk from old
-                chunk = self.old_db.scan(
-                    start_key=checkpoint,
-                    limit=chunk_size
-                )
-
-                if not chunk:
-                    break
-
-                # Write to new in parallel
-                with ThreadPoolExecutor(max_workers=10) as executor:
-                    futures = []
-
-                    for key, value in chunk:
-                        future = executor.submit(
-                            self.new_db.write,
-                            key,
-                            value
-                        )
-                        futures.append(future)
-
-                    # Wait for all writes
-                    for future in futures:
-                        future.result()
-
-                # Update checkpoint
-                checkpoint = chunk[-1][0]  # Last key
-                self.save_checkpoint(checkpoint)
-
-                # Rate limit to avoid overload
-                time.sleep(0.1)
-
-        def verify_consistency(self):
-            """Compare data between systems"""
-
-            sample_rate = 0.01  # Check 1% of data
-            discrepancies = []
-
-            for key in self.old_db.sample_keys(sample_rate):
-                old_value = self.old_db.read(key)
-                new_value = self.new_db.read(key)
-
-                if not self.values_equal(old_value, new_value):
-                    discrepancies.append({
-                        'key': key,
-                        'old': old_value,
-                        'new': new_value
-                    })
-
-            return discrepancies
-
-        def switch_reads_gradually(self):
-            """Gradually move read traffic"""
-
-            percentages = [1, 5, 10, 25, 50, 75, 95, 100]
-
-            for percentage in percentages:
-                self.read_percentage_from_new = percentage
-
-                # Monitor error rates
-                time.sleep(300)  # 5 minutes
-
-                error_rate = self.monitor_error_rate()
-                if error_rate > 0.001:  # 0.1% threshold
-                    # Rollback
-                    self.read_percentage_from_new = percentage - 5
-                    raise MigrationError(
-                        f"High error rate at {percentage}%"
-                    )
-
-    class LiveResharding:
-        """
-        Change sharding scheme without downtime
-        Example: Growing from 10 to 100 shards
-        """
-
-        def __init__(self, old_shards, new_shards):
-            self.old_shards = old_shards
-            self.new_shards = new_shards
-            self.resharding_state = {}
-
-        def reshard(self):
-            """Progressive resharding"""
-
-            # Calculate mapping
-            shard_mapping = self.calculate_shard_mapping()
-
-            # For each old shard
-            for old_shard_id, old_shard in enumerate(self.old_shards):
-                # Find which new shards it maps to
-                target_shards = shard_mapping[old_shard_id]
-
-                # Split and migrate
-                self.split_shard(
-                    old_shard,
-                    target_shards
-                )
-
-        def split_shard(self, source_shard, target_shards):
-            """Split one shard into multiple"""
-
-            # Phase 1: Start logging changes
-            change_log = self.start_change_log(source_shard)
-
-            # Phase 2: Copy data to new shards
-            for key, value in source_shard.scan_all():
-                target_shard_id = self.new_shard_function(key)
-                target_shard = self.new_shards[target_shard_id]
-
-                target_shard.write(key, value)
-
-            # Phase 3: Replay changes from log
-            while not change_log.caught_up():
-                changes = change_log.get_batch()
-
-                for change in changes:
-                    target_shard_id = self.new_shard_function(
-                        change.key
-                    )
-                    target_shard = self.new_shards[target_shard_id]
-
-                    if change.type == 'WRITE':
-                        target_shard.write(change.key, change.value)
-                    elif change.type == 'DELETE':
-                        target_shard.delete(change.key)
-
-            # Phase 4: Atomic cutover
-            with self.routing_lock:
-                # Update routing to use new shards
-                self.update_routing_table(
-                    source_shard,
-                    target_shards
-                )
-
-                # Stop writes to old shard
-                source_shard.set_readonly()
-
-            # Phase 5: Cleanup
-            self.decommission_shard(source_shard)
+```mermaid
+graph TD
+    Start[Migration needed?]
+    
+    Start -->|Yes| Size[Data size?]
+    
+    Size -->|< 1GB| Simple[Simple dump/restore]
+    Size -->|1GB-1TB| DualWrite[Dual writes]
+    Size -->|> 1TB| CDC[CDC + Streaming]
+    
+    DualWrite --> Downtime{Downtime OK?}
+    Downtime -->|No| Live[Live migration]
+    Downtime -->|Yes| BlueGreen[Blue-green switch]
+    
+    CDC --> Consistency{Consistency?}
+    Consistency -->|Eventual| Async[Async replication]
+    Consistency -->|Strong| Sync[Sync + verification]
+    
+    style Live fill:#90EE90,stroke:#333,stroke-width:2px
+    style CDC fill:#87CEEB,stroke:#333,stroke-width:2px
 ```
 
 ## Summary: State Distribution Mastery Levels

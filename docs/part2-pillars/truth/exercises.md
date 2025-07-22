@@ -14,945 +14,923 @@ last_updated: 2025-07-20
 
 # Truth & Consensus Exercises
 
-## Exercise 1: Implement a Lamport Clock System
+## Exercise 1: Design a Lamport Clock System
 
-**Challenge**: Build a system that maintains logical time across distributed nodes.
+**Challenge**: Design a visual representation of logical time ordering across distributed nodes.
 
-```python
-class LamportClock:
-    def __init__(self):
-        self.time = 0
+### Design Task
 
-    def tick(self):
-        """Increment logical time for local event"""
-        # TODO: Implement local event handling
-        pass
+Create a sequence diagram showing how Lamport clocks maintain causality:
 
-    def send_message(self, message):
-        """Attach timestamp when sending message"""
-        # TODO: Implement send logic with timestamp
-        pass
-
-    def receive_message(self, message, timestamp):
-        """Update clock when receiving message"""
-        # TODO: Implement receive logic with clock update
-        pass
-
-class DistributedSystem:
-    def __init__(self, num_nodes):
-        self.nodes = {}
-        # TODO: Initialize nodes with Lamport clocks
-
-    def simulate_events(self, events):
-        """
-        Simulate a series of events
-        events = [
-            ('node1', 'local'),
-            ('node1', 'send', 'node2', 'msg1'),
-            ('node2', 'receive', 'node1', 'msg1'),
-            ('node2', 'local')
-        ]
-        """
-        # TODO: Process events and track timestamps
-        pass
+```mermaid
+sequenceDiagram
+    participant Node1
+    participant Node2
+    participant Node3
+    
+    Note over Node1,Node3: Initial time: all nodes at T=0
+    
+    Node1->>Node1: Local Event (T=1)
+    Node1->>Node2: Send Message (T=2)
+    Node2->>Node2: Local Event (T=1)
+    Node2->>Node2: Receive Message (T=max(1,2)+1=3)
+    Node2->>Node3: Forward Message (T=4)
+    Node3->>Node3: Receive Message (T=max(0,4)+1=5)
 ```
 
-<details>
-<summary>Solution</summary>
-
-```python
-class LamportClock:
-    def __init__(self):
-        self.time = 0
-
-    def tick(self):
-        """Increment logical time for local event"""
-        self.time += 1
-        return self.time
-
-    def send_message(self, message):
-        """Attach timestamp when sending message"""
-        self.tick()  # Increment before send
-        return {
-            'content': message,
-            'timestamp': self.time
-        }
-
-    def receive_message(self, message, timestamp):
-        """Update clock when receiving message"""
-        # Update to max(local, received) + 1
-        self.time = max(self.time, timestamp) + 1
-        return self.time
-
-    def get_time(self):
-        return self.time
-
-class DistributedSystem:
-    def __init__(self, num_nodes):
-        self.nodes = {}
-        for i in range(num_nodes):
-            node_id = f"node{i}"
-            self.nodes[node_id] = {
-                'clock': LamportClock(),
-                'messages': [],
-                'log': []
-            }
-
-    def simulate_events(self, events):
-        """Simulate a series of events"""
-        for event in events:
-            if event[1] == 'local':
-                # Local event
-                node_id = event[0]
-                time = self.nodes[node_id]['clock'].tick()
-                self.nodes[node_id]['log'].append({
-                    'type': 'local',
-                    'time': time,
-                    'event': f"Local event on {node_id}"
-                })
-                print(f"{node_id}: Local event at time {time}")
-
-            elif event[1] == 'send':
-                # Send message
-                sender = event[0]
-                receiver = event[2]
-                msg_content = event[3]
-
-                msg = self.nodes[sender]['clock'].send_message(msg_content)
-                self.nodes[receiver]['messages'].append({
-                    'from': sender,
-                    'message': msg
-                })
-
-                self.nodes[sender]['log'].append({
-                    'type': 'send',
-                    'time': msg['timestamp'],
-                    'to': receiver,
-                    'message': msg_content
-                })
-
-                print(f"{sender}: Sent '{msg_content}' to {receiver} at time {msg['timestamp']}")
-
-            elif event[1] == 'receive':
-                # Receive message
-                receiver = event[0]
-                sender = event[2]
-
-                # Find message from sender
-                msg = None
-                for i, m in enumerate(self.nodes[receiver]['messages']):
-                    if m['from'] == sender:
-                        msg = m['message']
-                        del self.nodes[receiver]['messages'][i]
-                        break
-
-                if msg:
-                    time = self.nodes[receiver]['clock'].receive_message(
-                        msg['content'],
-                        msg['timestamp']
-                    )
-
-                    self.nodes[receiver]['log'].append({
-                        'type': 'receive',
-                        'time': time,
-                        'from': sender,
-                        'message': msg['content'],
-                        'sent_time': msg['timestamp']
-                    })
-
-                    print(f"{receiver}: Received '{msg['content']}' from {sender} at time {time}")
-
-    def verify_causality(self):
-        """Verify causality is preserved"""
-        all_events = []
-
-        # Collect all events
-        for node_id, node in self.nodes.items():
-            for event in node['log']:
-                all_events.append({
-                    'node': node_id,
-                    'event': event
-                })
-
-        # Sort by Lamport time
-        all_events.sort(key=lambda x: x['event']['time'])
-
-        print("\nTotal ordering of events:")
-        for e in all_events:
-            print(f"Time {e['event']['time']}: {e['node']} - {e['event']['type']}")
-
-        # Verify causality
-        for i, event in enumerate(all_events):
-            if event['event']['type'] == 'receive':
-                sent_time = event['event']['sent_time']
-                receive_time = event['event']['time']
-
-                # Send must happen before receive
-                assert sent_time < receive_time, "Causality violation!"
-
-        print("\nCausality verified ✓")
-
-# Test the implementation
-if __name__ == "__main__":
-    system = DistributedSystem(3)
-
-    events = [
-        ('node0', 'local'),
-        ('node0', 'send', 'node1', 'Hello'),
-        ('node1', 'local'),
-        ('node1', 'receive', 'node0', 'Hello'),
-        ('node1', 'send', 'node2', 'Hi there'),
-        ('node2', 'receive', 'node1', 'Hi there'),
-        ('node2', 'local'),
-        ('node0', 'send', 'node2', 'Bye'),
-        ('node2', 'receive', 'node0', 'Bye')
-    ]
-
-    system.simulate_events(events)
-    system.verify_causality()
-```
-
-</details>
-
-## Exercise 2: Build a Leader Election System
-
-**Challenge**: Implement a leader election algorithm for a distributed system.
-
-```python
-class LeaderElection:
-    def __init__(self, node_id, all_nodes):
-        self.node_id = node_id
-        self.all_nodes = all_nodes
-        self.leader = None
-        self.election_in_progress = False
-
-    def start_election(self):
-        """
-        Initiate leader election
-        TODO: Implement bully algorithm or ring algorithm
-        """
-        pass
-
-    def handle_election_message(self, from_node, message_type):
-        """
-        Handle election-related messages
-        TODO: Process ELECTION, OK, COORDINATOR messages
-        """
-        pass
-
-    def detect_leader_failure(self):
-        """
-        Detect when current leader has failed
-        TODO: Implement heartbeat/timeout mechanism
-        """
-        pass
-```
-
-<details>
-<summary>Solution</summary>
-
-```python
-import threading
-import time
-import random
-
-class LeaderElection:
-    """Bully Algorithm Implementation"""
-    def __init__(self, node_id, all_nodes, network):
-        self.node_id = node_id
-        self.all_nodes = sorted(all_nodes)  # Ensure consistent ordering
-        self.network = network
-        self.leader = None
-        self.election_in_progress = False
-        self.last_heartbeat = time.time()
-        self.heartbeat_interval = 1.0
-        self.heartbeat_timeout = 3.0
-        self.active = True
-
-        # Start heartbeat thread
-        self.heartbeat_thread = threading.Thread(target=self._heartbeat_loop)
-        self.heartbeat_thread.daemon = True
-        self.heartbeat_thread.start()
-
-    def start_election(self):
-        """Initiate leader election using bully algorithm"""
-        if self.election_in_progress:
-            return
-
-        print(f"Node {self.node_id}: Starting election")
-        self.election_in_progress = True
-        self.leader = None
-
-        # Send ELECTION message to all nodes with higher ID
-        higher_nodes = [n for n in self.all_nodes if n > self.node_id]
-
-        if not higher_nodes:
-            # We have the highest ID, become leader
-            self._become_leader()
-            return
-
-        # Send election messages
-        responses = []
-        for node in higher_nodes:
-            response = self.network.send_message(
-                self.node_id,
-                node,
-                {'type': 'ELECTION', 'from': self.node_id}
-            )
-            if response and response.get('type') == 'OK':
-                responses.append(response)
-
-        if responses:
-            # Someone with higher ID responded, wait for COORDINATOR
-            self.election_in_progress = False
-
-            # Set timeout to restart election if no COORDINATOR received
-            threading.Timer(5.0, self._check_coordinator_received).start()
-        else:
-            # No one with higher ID responded, become leader
-            self._become_leader()
-
-    def handle_election_message(self, from_node, message):
-        """Handle election-related messages"""
-        msg_type = message.get('type')
-
-        if msg_type == 'ELECTION':
-            # Someone with lower ID started election
-            if from_node < self.node_id:
-                # Respond with OK
-                self.network.send_message(
-                    self.node_id,
-                    from_node,
-                    {'type': 'OK', 'from': self.node_id}
-                )
-
-                # Start our own election
-                self.start_election()
-
-        elif msg_type == 'OK':
-            # Someone with higher ID is alive
-            # Handled in start_election()
-            pass
-
-        elif msg_type == 'COORDINATOR':
-            # New leader announcement
-            self.leader = from_node
-            self.election_in_progress = False
-            print(f"Node {self.node_id}: Accepted {from_node} as leader")
-
-        elif msg_type == 'HEARTBEAT':
-            # Leader heartbeat
-            if from_node == self.leader:
-                self.last_heartbeat = time.time()
-
-    def _become_leader(self):
-        """Become the leader and announce to all"""
-        self.leader = self.node_id
-        self.election_in_progress = False
-        print(f"Node {self.node_id}: Became leader")
-
-        # Announce to all other nodes
-        for node in self.all_nodes:
-            if node != self.node_id:
-                self.network.send_message(
-                    self.node_id,
-                    node,
-                    {'type': 'COORDINATOR', 'from': self.node_id}
-                )
-
-    def _heartbeat_loop(self):
-        """Send heartbeats if leader, check heartbeats if follower"""
-        while self.active:
-            if self.leader == self.node_id:
-                # Send heartbeats to all
-                for node in self.all_nodes:
-                    if node != self.node_id:
-                        self.network.send_message(
-                            self.node_id,
-                            node,
-                            {'type': 'HEARTBEAT', 'from': self.node_id}
-                        )
-            else:
-                # Check if leader is alive
-                if self.leader and (time.time() - self.last_heartbeat > self.heartbeat_timeout):
-                    print(f"Node {self.node_id}: Leader {self.leader} timeout")
-                    self.start_election()
-
-            time.sleep(self.heartbeat_interval)
-
-    def _check_coordinator_received(self):
-        """Check if COORDINATOR message was received"""
-        if not self.leader and not self.election_in_progress:
-            # No coordinator received, restart election
-            print(f"Node {self.node_id}: No coordinator received, restarting election")
-            self.start_election()
-
-class Network:
-    """Simulated network for message passing"""
-    def __init__(self):
-        self.nodes = {}
-        self.message_loss_rate = 0.1  # 10% message loss
-
-    def register_node(self, node_id, node):
-        self.nodes[node_id] = node
-
-    def send_message(self, from_node, to_node, message):
-        # Simulate message loss
-        if random.random() < self.message_loss_rate:
-            return None
-
-        if to_node in self.nodes:
-            # Simulate network delay
-            delay = random.uniform(0.01, 0.1)
-
-            def deliver():
-                self.nodes[to_node].handle_election_message(from_node, message)
-
-            threading.Timer(delay, deliver).start()
-
-            # Return OK for ELECTION messages
-            if message.get('type') == 'ELECTION':
-                return {'type': 'OK', 'from': to_node}
-
-        return None
-
-# Test the implementation
-def test_leader_election():
-    network = Network()
-    nodes = []
-
-    # Create 5 nodes
-    for i in range(5):
-        node = LeaderElection(i, list(range(5)), network)
-        nodes.append(node)
-        network.register_node(i, node)
-
-    # Start election from node 0
-    nodes[0].start_election()
-
-    # Wait for election to complete
-    time.sleep(2)
-
-    # Verify all nodes agree on leader
-    leaders = [node.leader for node in nodes]
-    print(f"\nLeaders: {leaders}")
-    assert all(l == 4 for l in leaders), "Not all nodes agree on leader!"
-
-    # Simulate leader failure
-    print("\nSimulating leader (node 4) failure...")
-    nodes[4].active = False
-
-    # Wait for failure detection and new election
-    time.sleep(5)
-
-    # Check new leader (should be node 3)
-    active_nodes = nodes[:4]
-    leaders = [node.leader for node in active_nodes]
-    print(f"New leaders: {leaders}")
-    assert all(l == 3 for l in leaders), "Failed to elect new leader!"
-
-if __name__ == "__main__":
-    test_leader_election()
-```
-
-</details>
-
-## Exercise 3: Implement Two-Phase Commit
-
-**Challenge**: Build a distributed transaction coordinator using 2PC protocol.
-
-```python
-class TransactionCoordinator:
-    def __init__(self, participants):
-        self.participants = participants
-        self.tx_log = []
-
-    def begin_transaction(self, tx_id):
-        """Start a new distributed transaction"""
-        # TODO: Initialize transaction state
-        pass
-
-    def execute_transaction(self, tx_id, operations):
-        """
-        Execute transaction across participants
-        operations = {
-            'participant1': ['op1', 'op2'],
-            'participant2': ['op3', 'op4']
-        }
-        TODO: Implement 2PC protocol
-        """
-        pass
-
-class Participant:
-    def __init__(self, participant_id):
-        self.participant_id = participant_id
-        self.prepared_transactions = {}
-
-    def prepare(self, tx_id, operations):
-        """Prepare phase of 2PC"""
-        # TODO: Validate and prepare operations
-        pass
-
-    def commit(self, tx_id):
-        """Commit prepared transaction"""
-        # TODO: Make changes permanent
-        pass
-
-    def abort(self, tx_id):
-        """Abort prepared transaction"""
-        # TODO: Rollback changes
-        pass
-```
-
-<details>
-<summary>Solution</summary>
-
-```python
-import enum
-import time
-import threading
-from collections import defaultdict
-
-class TxState(enum.Enum):
-    INIT = "INIT"
-    PREPARING = "PREPARING"
-    PREPARED = "PREPARED"
-    COMMITTING = "COMMITTING"
-    COMMITTED = "COMMITTED"
-    ABORTING = "ABORTING"
-    ABORTED = "ABORTED"
-
-class TransactionCoordinator:
-    def __init__(self, participants):
-        self.participants = participants
-        self.tx_log = []
-        self.transactions = {}
-        self.lock = threading.Lock()
-
-    def begin_transaction(self, tx_id):
-        """Start a new distributed transaction"""
-        with self.lock:
-            if tx_id in self.transactions:
-                raise Exception(f"Transaction {tx_id} already exists")
-
-            self.transactions[tx_id] = {
-                'state': TxState.INIT,
-                'participants': set(),
-                'prepare_votes': {},
-                'start_time': time.time()
-            }
-
-            self._log(tx_id, 'BEGIN', {})
-            return True
-
-    def execute_transaction(self, tx_id, operations):
-        """Execute transaction across participants using 2PC"""
-        if tx_id not in self.transactions:
-            raise Exception(f"Transaction {tx_id} not found")
-
-        tx = self.transactions[tx_id]
-        tx['participants'] = set(operations.keys())
-
-        try:
-            # Phase 1: Prepare
-            if not self._prepare_phase(tx_id, operations):
-                self._abort_transaction(tx_id)
-                return False
-
-            # Phase 2: Commit
-            return self._commit_phase(tx_id)
-
-        except Exception as e:
-            print(f"Transaction {tx_id} failed: {e}")
-            self._abort_transaction(tx_id)
-            return False
-
-    def _prepare_phase(self, tx_id, operations):
-        """Phase 1: Ask all participants to prepare"""
-        tx = self.transactions[tx_id]
-        tx['state'] = TxState.PREPARING
-        self._log(tx_id, 'PREPARE', {'participants': list(tx['participants'])})
-
-        # Send prepare to all participants
-        prepare_threads = []
-
-        def prepare_participant(participant_id, ops):
-            participant = self.participants[participant_id]
-            vote = participant.prepare(tx_id, ops)
-
-            with self.lock:
-                tx['prepare_votes'][participant_id] = vote
-
-        # Start prepare requests in parallel
-        for participant_id, ops in operations.items():
-            thread = threading.Thread(
-                target=prepare_participant,
-                args=(participant_id, ops)
-            )
-            thread.start()
-            prepare_threads.append(thread)
-
-        # Wait for all prepares with timeout
-        timeout = 5.0
-        start_time = time.time()
-
-        for thread in prepare_threads:
-            remaining = timeout - (time.time() - start_time)
-            if remaining > 0:
-                thread.join(timeout=remaining)
-
-            if thread.is_alive():
-                print(f"Prepare timeout for transaction {tx_id}")
-                return False
-
-        # Check votes
-        all_votes = all(tx['prepare_votes'].values())
-
-        if all_votes:
-            tx['state'] = TxState.PREPARED
-            self._log(tx_id, 'PREPARED', {'votes': tx['prepare_votes']})
-
-        return all_votes
-
-    def _commit_phase(self, tx_id):
-        """Phase 2: Send commit to all participants"""
-        tx = self.transactions[tx_id]
-        tx['state'] = TxState.COMMITTING
-        self._log(tx_id, 'COMMIT', {})
-
-        # Send commit to all participants
-        commit_threads = []
-        commit_results = {}
-
-        def commit_participant(participant_id):
-            participant = self.participants[participant_id]
-            try:
-                participant.commit(tx_id)
-                commit_results[participant_id] = True
-            except Exception as e:
-                print(f"Commit failed for {participant_id}: {e}")
-                commit_results[participant_id] = False
-
-        for participant_id in tx['participants']:
-            thread = threading.Thread(
-                target=commit_participant,
-                args=(participant_id,)
-            )
-            thread.start()
-            commit_threads.append(thread)
-
-        # Wait for all commits
-        for thread in commit_threads:
-            thread.join()
-
-        # Transaction is committed even if some participants fail
-        # They must eventually commit based on the log
-        tx['state'] = TxState.COMMITTED
-        self._log(tx_id, 'COMMITTED', {'results': commit_results})
-
-        return True
-
-    def _abort_transaction(self, tx_id):
-        """Abort transaction and notify participants"""
-        tx = self.transactions[tx_id]
-        tx['state'] = TxState.ABORTING
-        self._log(tx_id, 'ABORT', {})
-
-        # Send abort to all participants
-        for participant_id in tx['participants']:
-            if participant_id in self.participants:
-                try:
-                    self.participants[participant_id].abort(tx_id)
-                except Exception as e:
-                    print(f"Abort failed for {participant_id}: {e}")
-
-        tx['state'] = TxState.ABORTED
-        self._log(tx_id, 'ABORTED', {})
-
-    def _log(self, tx_id, action, data):
-        """Write to transaction log for recovery"""
-        entry = {
-            'timestamp': time.time(),
-            'tx_id': tx_id,
-            'action': action,
-            'data': data
-        }
-        self.tx_log.append(entry)
-        print(f"LOG: {action} for tx {tx_id}")
-
-    def recover(self):
-        """Recover from crash using transaction log"""
-        # Replay log to determine transaction states
-        tx_states = {}
-
-        for entry in self.tx_log:
-            tx_id = entry['tx_id']
-            action = entry['action']
-
-            if action == 'BEGIN':
-                tx_states[tx_id] = TxState.INIT
-            elif action == 'PREPARED':
-                tx_states[tx_id] = TxState.PREPARED
-            elif action == 'COMMITTED':
-                tx_states[tx_id] = TxState.COMMITTED
-            elif action == 'ABORTED':
-                tx_states[tx_id] = TxState.ABORTED
-
-        # Handle incomplete transactions
-        for tx_id, state in tx_states.items():
-            if state == TxState.PREPARED:
-                # Transaction was prepared but not committed/aborted
-                # Need to ask participants or make decision
-                print(f"Recovery: Transaction {tx_id} in prepared state")
-                # In real system, would query participants
-                self._abort_transaction(tx_id)
-
-class Participant:
-    def __init__(self, participant_id):
-        self.participant_id = participant_id
-        self.prepared_transactions = {}
-        self.committed_transactions = set()
-        self.data = {}
-        self.lock = threading.Lock()
-
-    def prepare(self, tx_id, operations):
-        """Prepare phase of 2PC"""
-        with self.lock:
-            if tx_id in self.prepared_transactions:
-                # Already prepared
-                return True
-
-            try:
-                # Validate operations
-                temp_changes = {}
-                for op in operations:
-                    if op['type'] == 'set':
-                        temp_changes[op['key']] = op['value']
-                    elif op['type'] == 'increment':
-                        current = self.data.get(op['key'], 0)
-                        temp_changes[op['key']] = current + op['amount']
-                    else:
-                        raise Exception(f"Unknown operation type: {op['type']}")
-
-                # Save prepared state
-                self.prepared_transactions[tx_id] = {
-                    'operations': operations,
-                    'changes': temp_changes,
-                    'timestamp': time.time()
-                }
-
-                print(f"Participant {self.participant_id}: Prepared tx {tx_id}")
-                return True
-
-            except Exception as e:
-                print(f"Participant {self.participant_id}: Prepare failed - {e}")
-                return False
-
-    def commit(self, tx_id):
-        """Commit prepared transaction"""
-        with self.lock:
-            if tx_id not in self.prepared_transactions:
-                raise Exception(f"Transaction {tx_id} not prepared")
-
-            if tx_id in self.committed_transactions:
-                # Already committed
-                return True
-
-            # Apply changes
-            changes = self.prepared_transactions[tx_id]['changes']
-            self.data.update(changes)
-
-            # Mark as committed
-            self.committed_transactions.add(tx_id)
-            del self.prepared_transactions[tx_id]
-
-            print(f"Participant {self.participant_id}: Committed tx {tx_id}")
-            return True
-
-    def abort(self, tx_id):
-        """Abort prepared transaction"""
-        with self.lock:
-            if tx_id in self.prepared_transactions:
-                del self.prepared_transactions[tx_id]
-                print(f"Participant {self.participant_id}: Aborted tx {tx_id}")
-
-            return True
-
-    def get_value(self, key):
-        """Get current value"""
-        with self.lock:
-            return self.data.get(key)
-
-# Test the implementation
-def test_2pc():
-    # Create participants
-    participants = {
-        'db1': Participant('db1'),
-        'db2': Participant('db2'),
-        'db3': Participant('db3')
+### Visual Design Requirements
+
+1. **State Diagram**: Show clock advancement rules
+2. **Timeline Visualization**: Display event ordering
+3. **Causality Graph**: Map happens-before relationships
+
+### Exercise Components
+
+<div class="truth-box">
+<h4>Lamport Clock Rules</h4>
+
+Design a flowchart showing:
+- Local event: clock++
+- Send event: clock++, attach timestamp
+- Receive event: clock = max(local, received) + 1
+
+**Key Insight**: Physical time doesn't matter, only causal ordering
+</div>
+
+### Design Deliverables
+
+1. **Event Timeline Chart**
+   - X-axis: Logical time (0, 1, 2, ...)
+   - Y-axis: Nodes (Node1, Node2, Node3)
+   - Arrows: Message passing with timestamps
+
+2. **State Machine Diagram**
+   ```
+   [Idle] --Local Event--> [Processing] --Complete--> [Idle]
+     |                                                   ^
+     +--Receive Message--> [Updating Clock] ------------+
+   ```
+
+3. **Causality Verification Table**
+   | Event | Node | Logical Time | Caused By |
+   |-------|------|--------------|-----------|
+   | Local | N1   | 1           | None      |
+   | Send  | N1   | 2           | Event@1   |
+   | Recv  | N2   | 3           | Event@2   |
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ If A happens-before B, then Time(A) < Time(B)
+- ✓ Concurrent events may have any time ordering
+- ✓ No causality violations in the system
+
+## Exercise 2: Design a Leader Election Protocol
+
+**Challenge**: Design a visual representation of leader election algorithms for distributed systems.
+
+### Design Task
+
+Create visual models for leader election protocols:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Follower
+    Follower --> Candidate: Election timeout
+    Candidate --> Leader: Received majority votes
+    Candidate --> Follower: Discovered current leader
+    Leader --> Follower: Discovered higher term
+    
+    state Follower {
+        [*] --> Waiting
+        Waiting --> Voting: Receive vote request
+        Voting --> Waiting: Vote granted/denied
     }
-
-    # Create coordinator
-    coordinator = TransactionCoordinator(participants)
-
-    # Test successful transaction
-    print("=== Test 1: Successful transaction ===")
-    tx_id = 'tx001'
-    coordinator.begin_transaction(tx_id)
-
-    operations = {
-        'db1': [
-            {'type': 'set', 'key': 'user:1', 'value': 'Alice'},
-            {'type': 'set', 'key': 'balance:1', 'value': 100}
-        ],
-        'db2': [
-            {'type': 'set', 'key': 'user:2', 'value': 'Bob'},
-            {'type': 'set', 'key': 'balance:2', 'value': 200}
-        ],
-        'db3': [
-            {'type': 'increment', 'key': 'total_users', 'amount': 2}
-        ]
+    
+    state Candidate {
+        [*] --> RequestingVotes
+        RequestingVotes --> CountingVotes
+        CountingVotes --> [*]
     }
-
-    result = coordinator.execute_transaction(tx_id, operations)
-    print(f"Transaction result: {result}")
-
-    # Verify data
-    print(f"db1 user:1 = {participants['db1'].get_value('user:1')}")
-    print(f"db2 user:2 = {participants['db2'].get_value('user:2')}")
-    print(f"db3 total_users = {participants['db3'].get_value('total_users')}")
-
-    # Test failed transaction
-    print("\n=== Test 2: Failed transaction ===")
-    tx_id = 'tx002'
-    coordinator.begin_transaction(tx_id)
-
-    operations = {
-        'db1': [
-            {'type': 'set', 'key': 'user:3', 'value': 'Charlie'}
-        ],
-        'db2': [
-            {'type': 'invalid_op', 'key': 'test'}  # This will fail
-        ]
+    
+    state Leader {
+        [*] --> SendingHeartbeats
+        SendingHeartbeats --> SendingHeartbeats: Heartbeat interval
     }
-
-    result = coordinator.execute_transaction(tx_id, operations)
-    print(f"Transaction result: {result}")
-
-    # Verify rollback
-    print(f"db1 user:3 = {participants['db1'].get_value('user:3')}")  # Should be None
-
-if __name__ == "__main__":
-    test_2pc()
 ```
 
-</details>
+### Protocol Design Options
 
-## Exercise 4: Byzantine Generals Problem
+<div class="decision-box">
+<h4>Election Algorithm Comparison</h4>
 
-**Challenge**: Implement a solution to the Byzantine Generals Problem where some nodes can be faulty.
+Design comparison charts for:
 
-```python
-class ByzantineGeneral:
-    def __init__(self, general_id, is_traitor=False):
-        self.general_id = general_id
-        self.is_traitor = is_traitor
-        self.received_values = defaultdict(dict)
+1. **Bully Algorithm**
+   - Nodes ordered by ID
+   - Higher IDs have priority
+   - Message complexity: O(n²)
 
-    def propose_action(self, action):
-        """Commander proposes action to all lieutenants"""
-        # TODO: Implement message sending (may lie if traitor)
-        pass
+2. **Ring Algorithm**
+   - Nodes in logical ring
+   - Token passing election
+   - Message complexity: O(n)
 
-    def receive_value(self, round, from_general, value):
-        """Receive value from another general"""
-        # TODO: Store received values for consensus
-        pass
+3. **Raft Election**
+   - Randomized timeouts
+   - Term-based voting
+   - Split-vote handling
+</div>
 
-    def decide_action(self, f):
-        """Decide on action with up to f traitors"""
-        # TODO: Implement Byzantine fault tolerant consensus
-        pass
+### Visual Design Requirements
+
+1. **Message Flow Diagram**
+   ```
+   Node1 --ELECTION--> Node2,Node3,Node4
+   Node4 --OK--> Node1
+   Node4 --COORDINATOR--> All Nodes
+   ```
+
+2. **Timeline Visualization**
+   - Show election phases
+   - Timeout triggers
+   - Message exchanges
+   - Leader announcement
+
+3. **Failure Detection Flowchart**
+   ```mermaid
+   flowchart TD
+       A[Monitor Heartbeats] --> B{Heartbeat Received?}
+       B -->|Yes| C[Reset Timer]
+       B -->|No| D{Timeout Exceeded?}
+       D -->|Yes| E[Start Election]
+       D -->|No| A
+       C --> A
+   ```
+
+### Design Deliverables
+
+1. **State Transition Table**
+   | Current State | Event | Next State | Action |
+   |--------------|-------|------------|---------|
+   | Follower | Timeout | Candidate | Start election |
+   | Candidate | Majority votes | Leader | Send coordinator |
+   | Leader | Higher node found | Follower | Step down |
+
+2. **Message Sequence Chart**
+   - Election initiation
+   - Vote collection
+   - Leader announcement
+   - Heartbeat maintenance
+
+3. **Fault Tolerance Matrix**
+   | Nodes | Max Failures | Consensus Required |
+   |-------|--------------|-------------------|
+   | 3 | 1 | 2 nodes |
+   | 5 | 2 | 3 nodes |
+   | 7 | 3 | 4 nodes |
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ At most one leader per term
+- ✓ Leader failure detected within timeout
+- ✓ No split-brain scenarios
+
+## Exercise 3: Design a Two-Phase Commit Protocol
+
+**Challenge**: Design visual representations of the 2PC distributed transaction protocol.
+
+### Design Task
+
+Create comprehensive diagrams for the Two-Phase Commit protocol:
+
+```mermaid
+sequenceDiagram
+    participant C as Coordinator
+    participant P1 as Participant 1
+    participant P2 as Participant 2
+    participant P3 as Participant 3
+    
+    Note over C,P3: Phase 1: Voting Phase
+    C->>P1: PREPARE(tx_id)
+    C->>P2: PREPARE(tx_id)
+    C->>P3: PREPARE(tx_id)
+    
+    P1-->>C: VOTE_COMMIT
+    P2-->>C: VOTE_COMMIT
+    P3-->>C: VOTE_COMMIT
+    
+    Note over C: All votes positive
+    
+    Note over C,P3: Phase 2: Decision Phase
+    C->>P1: GLOBAL_COMMIT
+    C->>P2: GLOBAL_COMMIT
+    C->>P3: GLOBAL_COMMIT
+    
+    P1-->>C: ACK
+    P2-->>C: ACK
+    P3-->>C: ACK
 ```
 
-## Exercise 5: Implement Raft Leader Election
+### Protocol State Machines
 
-**Challenge**: Build the leader election portion of the Raft consensus algorithm.
+<div class="truth-box">
+<h4>2PC State Transitions</h4>
 
-```python
-class RaftNode:
-    def __init__(self, node_id, peers):
-        self.node_id = node_id
-        self.peers = peers
-        self.current_term = 0
-        self.voted_for = None
-        self.state = 'follower'
-        self.leader = None
+Design state machines for both coordinator and participants:
 
-    def election_timeout(self):
-        """Called when election timeout expires"""
-        # TODO: Start new election
-        pass
+**Coordinator States:**
+- INIT → WAITING (send prepare)
+- WAITING → COMMIT (all vote yes)
+- WAITING → ABORT (any vote no/timeout)
+- COMMIT → END (all acknowledged)
+- ABORT → END (all acknowledged)
 
-    def request_vote(self, term, candidate_id, last_log_index, last_log_term):
-        """Handle RequestVote RPC"""
-        # TODO: Decide whether to grant vote
-        pass
+**Participant States:**
+- INIT → READY (receive prepare, vote yes)
+- INIT → ABORT (receive prepare, vote no)
+- READY → COMMIT (receive global commit)
+- READY → ABORT (receive global abort)
+</div>
 
-    def become_leader(self):
-        """Transition to leader state"""
-        # TODO: Send heartbeats to maintain leadership
-        pass
+### Visual Design Requirements
+
+1. **Decision Flow Diagram**
+   ```mermaid
+   flowchart TD
+       A[Begin Transaction] --> B[Send PREPARE to all]
+       B --> C{All votes YES?}
+       C -->|Yes| D[Write COMMIT to log]
+       C -->|No| E[Write ABORT to log]
+       D --> F[Send GLOBAL_COMMIT]
+       E --> G[Send GLOBAL_ABORT]
+       F --> H[Transaction Complete]
+       G --> H
+   ```
+
+2. **Failure Scenarios Matrix**
+   | Failure Point | Coordinator Action | Participant Action |
+   |--------------|-------------------|-------------------|
+   | Before PREPARE | Abort transaction | No action needed |
+   | During voting | Timeout → Abort | Vote NO on timeout |
+   | After PREPARED | Must complete | Wait for decision |
+   | During COMMIT | Retry until success | Apply when received |
+
+3. **Message Log Visualization**
+   ```
+   Time | Coordinator Log | Participant Logs
+   -----|----------------|------------------
+   T1   | BEGIN tx_123   | 
+   T2   | PREPARE sent   | P1: PREPARE received
+   T3   |                | P2: PREPARE received
+   T4   | VOTE: P1=YES   | P1: Voted YES
+   T5   | VOTE: P2=YES   | P2: Voted YES
+   T6   | DECISION: COMMIT| 
+   T7   | COMMIT sent    | P1: COMMIT received
+   T8   |                | P2: COMMIT received
+   ```
+
+### Design Deliverables
+
+1. **Recovery Protocol Flowchart**
+   - Coordinator recovery from log
+   - Participant recovery strategies
+   - Handling in-doubt transactions
+
+2. **Blocking Scenarios Analysis**
+   ```mermaid
+   graph TD
+       A[Participant in READY state] --> B{Coordinator failed?}
+       B -->|Yes| C[BLOCKED: Wait for recovery]
+       B -->|No| D[Wait for decision]
+       C --> E[Termination Protocol]
+       E --> F[Query other participants]
+       F --> G{Any received COMMIT?}
+       G -->|Yes| H[Commit]
+       G -->|No| I[Continue waiting]
+   ```
+
+3. **Performance Characteristics**
+   - Message rounds: 2 (prepare + commit)
+   - Message complexity: 3n messages
+   - Blocking duration analysis
+   - Log write requirements
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ Atomicity: All commit or all abort
+- ✓ Durability: Decisions survive crashes
+- ✓ Consistency: No conflicting decisions
+- ✓ Clear blocking conditions identified
+
+## Exercise 4: Design Byzantine Fault Tolerance
+
+**Challenge**: Design visual solutions for the Byzantine Generals Problem with faulty nodes.
+
+### Design Task
+
+Create visual representations of Byzantine consensus:
+
+```mermaid
+graph TB
+    subgraph "Byzantine Generals Scenario"
+        C[Commander] -->|Attack| L1[Lieutenant 1]
+        C -->|Attack| L2[Lieutenant 2]
+        C -->|Attack| T[Traitor Lieutenant]
+        
+        L1 -->|"C says Attack"| L2
+        L1 -->|"C says Attack"| T
+        L2 -->|"C says Attack"| L1
+        L2 -->|"C says Attack"| T
+        T -->|"C says Retreat"| L1
+        T -->|"C says Attack"| L2
+    end
+    
+    style T fill:#f96,stroke:#333,stroke-width:4px
 ```
 
-## Exercise 6: Distributed Snapshot
+### Byzantine Agreement Protocol
 
-**Challenge**: Implement the Chandy-Lamport algorithm for taking consistent global snapshots.
+<div class="decision-box">
+<h4>Byzantine Fault Tolerance Rules</h4>
 
-```python
-class DistributedProcess:
-    def __init__(self, process_id, channels):
-        self.process_id = process_id
-        self.channels = channels  # incoming and outgoing
-        self.local_state = {}
-        self.recording = False
+Design visual representations for:
 
-    def initiate_snapshot(self):
-        """Start global snapshot algorithm"""
-        # TODO: Record local state and send markers
-        pass
+1. **3f+1 Rule**
+   - Need 3f+1 nodes to tolerate f Byzantine faults
+   - Visual proof of why 3f nodes are insufficient
 
-    def receive_marker(self, channel_id):
-        """Handle marker message"""
-        # TODO: Implement Chandy-Lamport algorithm
-        pass
+2. **Message Rounds**
+   - f+1 rounds of message exchange
+   - Exponential message growth visualization
 
-    def get_snapshot(self):
-        """Return collected snapshot"""
-        # TODO: Combine local state and channel states
-        pass
+3. **Decision Making**
+   - Majority voting after all rounds
+   - Handling conflicting messages
+</div>
+
+### Visual Design Requirements
+
+1. **Trust Relationship Diagram**
+   ```mermaid
+   graph LR
+       subgraph "4 Nodes, 1 Byzantine"
+           N1((N1)) -.->|?| B((B))
+           N2((N2)) -.->|?| B
+           N3((N3)) -.->|?| B
+           N1 <-->|Trust| N2
+           N2 <-->|Trust| N3
+           N1 <-->|Trust| N3
+       end
+       
+       style B fill:#f96,stroke:#333,stroke-width:4px
+   ```
+
+2. **Message Exchange Rounds**
+   - Round 0: Commander sends orders
+   - Round 1: Lieutenants exchange what commander said
+   - Round 2: Exchange what others said in Round 1
+   - Decision: Take majority value
+
+3. **Fault Tolerance Table**
+   | Total Nodes | Max Byzantine | Honest Majority |
+   |------------|---------------|-----------------|
+   | 4 | 1 | 3 nodes |
+   | 7 | 2 | 5 nodes |
+   | 10 | 3 | 7 nodes |
+   | 3f+1 | f | 2f+1 nodes |
+
+### Design Deliverables
+
+1. **Attack Scenario Flowchart**
+   ```mermaid
+   flowchart TD
+       A[Commander: ATTACK] --> B[Lieutenant 1]
+       A --> C[Lieutenant 2]
+       A --> D[Traitor Lieutenant]
+       
+       B --> E[L1: Records ATTACK]
+       C --> F[L2: Records ATTACK]
+       D --> G[Traitor: May lie]
+       
+       E --> H[L1 tells others: Commander said ATTACK]
+       F --> I[L2 tells others: Commander said ATTACK]
+       G --> J[Traitor tells L1: Commander said RETREAT]
+       G --> K[Traitor tells L2: Commander said ATTACK]
+       
+       H --> L[Decision Phase]
+       I --> L
+       J --> L
+       K --> L
+       
+       L --> M{Majority Decision}
+       M --> N[Both loyal lieutenants: ATTACK]
+   ```
+
+2. **Byzantine Quorum Visualization**
+   - Show overlapping quorums
+   - Prove at least one honest node in intersection
+   - Visual proof of safety despite Byzantine nodes
+
+3. **Practical Byzantine Fault Tolerant (PBFT) State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> PrePrepare: Client request
+       PrePrepare --> Prepare: Broadcast pre-prepare
+       Prepare --> Commit: 2f+1 prepare messages
+       Commit --> Reply: 2f+1 commit messages
+       Reply --> [*]: Client response
+       
+       state Prepare {
+           [*] --> Collecting
+           Collecting --> Verified: 2f+1 matching
+       }
+       
+       state Commit {
+           [*] --> Waiting
+           Waiting --> Committed: 2f+1 agrees
+       }
+   ```
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ Agreement: All honest nodes decide same value
+- ✓ Validity: If all honest nodes start with v, decide v
+- ✓ Termination: All honest nodes eventually decide
+- ✓ Clear visualization of Byzantine behavior
+
+## Exercise 5: Design Raft Consensus Protocol
+
+**Challenge**: Design the visual representation of Raft's leader election and log replication.
+
+### Design Task
+
+Create comprehensive diagrams for the Raft consensus algorithm:
+
+```mermaid
+stateDiagram-v2
+    [*] --> Follower: Start
+    
+    Follower --> Candidate: Election timeout
+    Follower --> Follower: Receive valid heartbeat
+    
+    Candidate --> Leader: Receive majority votes
+    Candidate --> Follower: Discover current leader/higher term
+    Candidate --> Candidate: Split vote, restart election
+    
+    Leader --> Follower: Discover higher term
+    
+    note right of Follower
+        - Respond to RPCs
+        - Convert to candidate on timeout
+    end note
+    
+    note right of Candidate
+        - Increment term
+        - Vote for self
+        - Request votes from peers
+    end note
+    
+    note right of Leader
+        - Send periodic heartbeats
+        - Process client requests
+        - Replicate log entries
+    end note
 ```
 
-## Exercise 7: Consensus with Failures
+### Raft Protocol Components
 
-**Task**: Implement a consensus algorithm that handles node failures during the protocol.
+<div class="truth-box">
+<h4>Raft Design Principles</h4>
 
-```python
-class FaultTolerantConsensus:
-    def __init__(self, nodes, f):
-        self.nodes = nodes
-        self.f = f  # Maximum failures to tolerate
+Create visual representations for:
 
-    def propose(self, value):
-        """Propose a value for consensus"""
-        # TODO: Handle up to f crash failures
-        pass
+1. **Leader Election**
+   - Term-based voting
+   - Randomized timeouts
+   - Vote persistence
 
-    def handle_timeout(self, phase):
-        """Handle timeout in any phase"""
-        # TODO: Recover from partial failures
-        pass
+2. **Log Replication**
+   - Leader append-only
+   - Consistency check
+   - Commitment rules
+
+3. **Safety Properties**
+   - Election Safety: One leader per term
+   - Log Matching: Identical logs have same entries
+   - Leader Completeness: Committed entries persist
+</div>
+
+### Visual Design Requirements
+
+1. **Term Timeline Visualization**
+   ```
+   Term 1    |-----Leader A-----|
+   Term 2              |--Election--|-----Leader B-----|
+   Term 3                                    |--Election--Leader C--|
+   
+   Time  ────────────────────────────────────────────────────────►
+   ```
+
+2. **Vote Request Flow**
+   ```mermaid
+   sequenceDiagram
+       participant C as Candidate
+       participant F1 as Follower 1
+       participant F2 as Follower 2
+       participant F3 as Follower 3
+       
+       Note over C: Timeout, increment term
+       C->>C: Vote for self
+       
+       par Request votes
+           C->>F1: RequestVote(term=2, candidateId=C)
+           and
+           C->>F2: RequestVote(term=2, candidateId=C)
+           and
+           C->>F3: RequestVote(term=2, candidateId=C)
+       end
+       
+       F1-->>C: Vote granted
+       F2-->>C: Vote granted
+       Note over C: Majority achieved (3/4)
+       C->>C: Become Leader
+       
+       loop Heartbeats
+           C->>F1: AppendEntries(heartbeat)
+           C->>F2: AppendEntries(heartbeat)
+           C->>F3: AppendEntries(heartbeat)
+       end
+   ```
+
+3. **Log Replication Visualization**
+   ```
+   Leader:    [1:x] [2:y] [3:z] [4:w] [5:v] <- Latest
+   Follower1: [1:x] [2:y] [3:z] [4:w] [5:v] <- Synchronized
+   Follower2: [1:x] [2:y] [3:z] [4:?]       <- Behind
+   Follower3: [1:x] [2:y]                   <- Further behind
+   
+   Commit Index: 4 (majority have entry 4)
+   ```
+
+### Design Deliverables
+
+1. **Election Safety Proof**
+   - Visual proof: At most one leader per term
+   - Show how votes prevent multiple leaders
+   - Demonstrate term number precedence
+
+2. **Split Vote Resolution**
+   ```mermaid
+   graph TD
+       A[3 Nodes: A, B, C] --> B[Simultaneous timeout]
+       B --> C[A votes A, B votes B, C splits]
+       C --> D[No majority - timeout]
+       D --> E[Random timeout variation]
+       E --> F[Node B times out first]
+       F --> G[B becomes candidate]
+       G --> H[B gets majority]
+   ```
+
+3. **Consistency Guarantees Table**
+   | Property | Mechanism | Visual Indicator |
+   |----------|-----------|------------------|
+   | Election Safety | One vote per term | Vote tracking |
+   | Log Matching | prevLogIndex/Term check | Entry comparison |
+   | Leader Completeness | Only elect nodes with all committed entries | Log length check |
+   | State Machine Safety | Apply entries in order | Commit index |
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ Clear term progression visualization
+- ✓ Majority requirement demonstration
+- ✓ Log consistency mechanisms shown
+- ✓ Failure recovery paths illustrated
+
+## Exercise 6: Design Distributed Snapshot Algorithm
+
+**Challenge**: Design visual representations of the Chandy-Lamport algorithm for consistent global snapshots.
+
+### Design Task
+
+Create visual models for capturing distributed system state:
+
+```mermaid
+sequenceDiagram
+    participant P1 as Process 1
+    participant P2 as Process 2
+    participant P3 as Process 3
+    
+    Note over P1: Initiates snapshot
+    P1->>P1: Record local state
+    P1->>P2: MARKER
+    P1->>P3: MARKER
+    P1->>P1: Start recording incoming channels
+    
+    Note over P2: Receives first marker
+    P2->>P2: Record local state
+    P2->>P1: MARKER
+    P2->>P3: MARKER
+    P2->>P2: Start recording C3→P2
+    
+    Note over P3: Receives first marker
+    P3->>P3: Record local state
+    P3->>P1: MARKER
+    P3->>P2: MARKER
+    P3->>P3: Start recording C2→P3
+    
+    Note over P2: Receives marker from P3
+    P2->>P2: Stop recording C3→P2
+    
+    Note over P3: Receives marker from P2
+    P3->>P3: Stop recording C2→P3
 ```
+
+### Snapshot Algorithm Components
+
+<div class="truth-box">
+<h4>Chandy-Lamport Rules</h4>
+
+Design visual representations for:
+
+1. **Marker Propagation**
+   - Process records state before sending markers
+   - Markers sent on all outgoing channels
+   - Channel recording rules
+
+2. **State Recording**
+   - Local state: Process variables at marker receipt
+   - Channel state: Messages in transit
+   - Consistency guarantee
+
+3. **Global State Assembly**
+   - Combine all local states
+   - Include recorded channel states
+   - Result: Consistent cut
+</div>
+
+### Visual Design Requirements
+
+1. **Consistent Cut Visualization**
+   ```
+   Time →
+   P1: ──●───────MARKER──────────→
+        ↑ Snapshot
+   P2: ────────●──MARKER─────────→
+              ↑ Snapshot
+   P3: ──────────────●──MARKER───→
+                    ↑ Snapshot
+   
+   ● = Local state recorded
+   ─ = Normal messages
+   MARKER = Snapshot markers
+   ```
+
+2. **Channel Recording State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> NotRecording
+       NotRecording --> Recording: Receive first MARKER
+       Recording --> Recording: Record incoming messages
+       Recording --> NotRecording: Receive MARKER on channel
+       
+       state Recording {
+           [*] --> Buffering
+           Buffering --> Buffering: Store messages
+       }
+   ```
+
+3. **In-Transit Message Capture**
+   ```mermaid
+   graph LR
+       subgraph "Before Marker"
+           A1[P1 State: $100] -->|Transfer $20| B1[P2 State: $50]
+       end
+       
+       subgraph "During Snapshot"
+           A2[P1 State: $80<br/>Recorded] -.->|$20 in transit| B2[P2 State: $50<br/>Recording channel]
+       end
+       
+       subgraph "After Snapshot"
+           A3[P1: $80] --> B3[P2: $70]
+           C[Channel State: $20 captured]
+       end
+   ```
+
+### Design Deliverables
+
+1. **Snapshot Consistency Properties**
+   | Property | Description | Visual Check |
+   |----------|-------------|--------------|
+   | Causality | No event after cut caused event before | Arrow directions |
+   | Completeness | All process states included | Node coverage |
+   | Channel closure | All in-transit messages captured | Edge states |
+
+2. **Algorithm Flowchart**
+   ```mermaid
+   flowchart TD
+       A[Process decides to snapshot] --> B[Record local state]
+       B --> C[Send markers on all outgoing channels]
+       C --> D[Start recording all incoming channels]
+       
+       E[Receive marker on channel C] --> F{First marker?}
+       F -->|Yes| G[Record local state]
+       F -->|No| H[Stop recording channel C]
+       
+       G --> I[Send markers on all outgoing channels]
+       I --> J[Start recording other incoming channels]
+       
+       H --> K{All channels have markers?}
+       K -->|Yes| L[Snapshot complete]
+       K -->|No| D
+   ```
+
+3. **Use Case Examples**
+   - Distributed debugging
+   - Checkpoint/restart
+   - Deadlock detection
+   - Global property verification
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ No causality violations in snapshot
+- ✓ All in-transit messages captured
+- ✓ Snapshot represents valid global state
+- ✓ Algorithm terminates for all processes
+
+## Exercise 7: Design Fault-Tolerant Consensus
+
+**Challenge**: Design visual representations of consensus algorithms that handle node failures.
+
+### Design Task
+
+Create visual models for consensus under failures:
+
+```mermaid
+graph TB
+    subgraph "Round 1"
+        A1[Proposer] -->|value=X| B1[Node 1]
+        A1 -->|value=X| B2[Node 2]
+        A1 -.->|timeout| B3[Node 3 - Failed]
+        A1 -->|value=X| B4[Node 4]
+        A1 -->|value=X| B5[Node 5]
+    end
+    
+    subgraph "Round 2"
+        B1 -->|ACK| C[3/5 responses]
+        B2 -->|ACK| C
+        B4 -->|ACK| C
+        B5 -->|NACK| C
+        C -->|Majority| D[Decision: X]
+    end
+    
+    style B3 fill:#f96,stroke:#333,stroke-width:4px
+```
+
+### Failure Handling Patterns
+
+<div class="decision-box">
+<h4>Consensus Under Failures</h4>
+
+Design visual models for:
+
+1. **Failure Detection**
+   - Timeout mechanisms
+   - Heartbeat monitoring
+   - Suspected vs confirmed failures
+
+2. **Recovery Strategies**
+   - View change protocols
+   - Coordinator election
+   - State reconstruction
+
+3. **Progress Guarantees**
+   - Quorum requirements
+   - Liveness conditions
+   - Termination protocols
+</div>
+
+### Visual Design Requirements
+
+1. **Failure Timeline Visualization**
+   ```
+   Node1: ████████████████████████████████████ (Active)
+   Node2: ████████████░░░░░░░░░░░░░░░░░░░░░░░ (Failed at T1)
+   Node3: ████████████████████████████████████ (Active)
+   Node4: ████████████████████░░░░░░░░░░░░░░░ (Failed at T2)
+   Node5: ████████████████████████████████████ (Active)
+          
+   Consensus possible: T0-T1 (5 nodes), T1-T2 (4 nodes), T2+ (3 nodes)
+   Minimum required: 3 nodes (majority of 5)
+   ```
+
+2. **Paxos-Style Consensus Flow**
+   ```mermaid
+   sequenceDiagram
+       participant P as Proposer
+       participant A1 as Acceptor 1
+       participant A2 as Acceptor 2
+       participant A3 as Acceptor 3 (Fails)
+       participant A4 as Acceptor 4
+       participant A5 as Acceptor 5
+       
+       Note over P,A5: Phase 1: Prepare
+       P->>A1: Prepare(n=1)
+       P->>A2: Prepare(n=1)
+       P->>A3: Prepare(n=1)
+       P->>A4: Prepare(n=1)
+       P->>A5: Prepare(n=1)
+       
+       A1-->>P: Promise(n=1)
+       A2-->>P: Promise(n=1)
+       Note over A3: Node fails
+       A4-->>P: Promise(n=1)
+       A5-->>P: Promise(n=1)
+       
+       Note over P: 4/5 promises (majority)
+       
+       Note over P,A5: Phase 2: Accept
+       P->>A1: Accept(n=1, v=X)
+       P->>A2: Accept(n=1, v=X)
+       P->>A4: Accept(n=1, v=X)
+       P->>A5: Accept(n=1, v=X)
+       
+       A1-->>P: Accepted(n=1, v=X)
+       A2-->>P: Accepted(n=1, v=X)
+       A4-->>P: Accepted(n=1, v=X)
+       
+       Note over P: 3/5 accepted (majority)
+       P->>P: Consensus on X
+   ```
+
+3. **Quorum Intersection Proof**
+   ```mermaid
+   graph LR
+       subgraph "Quorum 1 (Write)"
+           W1((1))
+           W2((2))
+           W3((3))
+       end
+       
+       subgraph "Quorum 2 (Read)"
+           R3((3))
+           R4((4))
+           R5((5))
+       end
+       
+       W3 -.-> R3
+       
+       style W3 fill:#9f9,stroke:#333,stroke-width:2px
+       style R3 fill:#9f9,stroke:#333,stroke-width:2px
+   ```
+
+### Design Deliverables
+
+1. **Failure Mode Analysis**
+   | Failure Type | Detection Method | Recovery Action |
+   |-------------|------------------|-----------------|
+   | Crash | Timeout | Exclude from quorum |
+   | Network partition | Split detection | Majority side continues |
+   | Byzantine | Behavior analysis | Byzantine protocols |
+   | Slow node | Performance monitoring | Adaptive timeouts |
+
+2. **Consensus Properties Under Failures**
+   ```mermaid
+   flowchart TD
+       A[Start Consensus] --> B{Enough nodes?}
+       B -->|Yes >= n/2+1| C[Proceed with protocol]
+       B -->|No < n/2+1| D[Cannot proceed]
+       
+       C --> E{Collect responses}
+       E --> F{Majority achieved?}
+       F -->|Yes| G[Consensus reached]
+       F -->|No| H{Timeout?}
+       
+       H -->|No| E
+       H -->|Yes| I[Increment round]
+       I --> J{Too many rounds?}
+       J -->|No| C
+       J -->|Yes| K[Abort: Cannot reach consensus]
+   ```
+
+3. **FLP Impossibility Workarounds**
+   - Randomization (random delays)
+   - Failure detectors (eventually perfect)
+   - Partial synchrony assumptions
+   - Practical timeout mechanisms
+
+### Validation Criteria
+
+Your design must ensure:
+- ✓ Safety maintained despite f failures
+- ✓ Liveness with < n/2 failures
+- ✓ Clear failure detection visualization
+- ✓ Recovery procedures documented
 
 ## Thought Experiments
 

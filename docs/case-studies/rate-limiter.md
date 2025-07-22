@@ -973,7 +973,7 @@ graph TD
 ### 👥 Human Factors Considerations
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - Rate limiter failures directly impact users
 - **[Incident Response](../human-factors/incident-response.md)** - Runbooks for common scenarios (Redis failure, DDoS)
-- **[Observability Tools](../human-factors/observability.md)** - Dashboards show rate limit utilization per API/user
+- **[Observability Tools](../human-factors/observability-stacks.md)** - Dashboards show rate limit utilization per API/user
 - **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting rate limit needs based on growth
 
 ### 🔄 Similar Case Studies

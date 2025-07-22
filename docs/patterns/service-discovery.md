@@ -98,6 +98,42 @@ class SimpleServiceRegistry:
 | **DNS-Based** | DNS as registry | Cross-platform | Limited metadata, caching issues |
 | **Gossip-Based** | P2P discovery | Large scale | Eventually consistent |
 
+### Service Discovery Architecture
+
+```mermaid
+graph TB
+    subgraph "Client-Side Discovery"
+        Client1[Service Client]
+        Client2[Service Client]
+        Registry1[Service Registry]
+        Service1[Service Instance A]
+        Service2[Service Instance B]
+        
+        Client1 -->|1. Query| Registry1
+        Registry1 -->|2. Return instances| Client1
+        Client1 -->|3. Direct call| Service1
+        Client2 --> Registry1
+        Client2 --> Service2
+    end
+    
+    subgraph "Server-Side Discovery"
+        ClientA[Client]
+        LB[Load Balancer]
+        Registry2[Service Registry]
+        ServiceA[Service Instance A]
+        ServiceB[Service Instance B]
+        
+        ClientA -->|1. Request| LB
+        LB -->|2. Query| Registry2
+        Registry2 -->|3. Return instances| LB
+        LB -->|4. Route| ServiceA
+        LB --> ServiceB
+    end
+    
+    style Registry1 fill:#f9f,stroke:#333,stroke-width:4px
+    style Registry2 fill:#f9f,stroke:#333,stroke-width:4px
+```
+
 ### Implementing Client-Side Discovery
 
 ```python
@@ -373,6 +409,37 @@ class MultiRegionDiscovery:
         raise Exception(f"No healthy instances found for {service_name}")
 ```
 
+### Service Discovery Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant R as Registry
+    participant S1 as Service Instance 1
+    participant S2 as Service Instance 2
+    participant H as Health Checker
+    
+    Note over S1,S2: Services register on startup
+    S1->>R: Register (name, IP, port, health endpoint)
+    S2->>R: Register (name, IP, port, health endpoint)
+    
+    Note over H: Continuous health checking
+    loop Every 30s
+        H->>S1: Health check
+        S1->>H: OK
+        H->>S2: Health check
+        S2->>H: OK
+        H->>R: Update health status
+    end
+    
+    Note over C: Client needs service
+    C->>R: Discover service "payment-service"
+    R->>C: Return healthy instances [S1, S2]
+    C->>C: Select instance (load balancing)
+    C->>S1: Call service
+    S1->>C: Response
+```
+
 ### Discovery Anti-Patterns
 
 ---
@@ -488,7 +555,6 @@ class ConsulServiceDiscovery:
         }
 
         return self.consul.query.create(query)
-```proto
 #### Kubernetes Service Discovery
 ```python
 from kubernetes import client, config, watch
@@ -582,7 +648,6 @@ class KubernetesServiceDiscovery:
                     })
 
             callback(event_type, instances)
-```bash
 ### Real-World Case Study: Netflix Eureka
 
 ```python
@@ -680,7 +745,6 @@ class EurekaServiceDiscovery:
             return instances
 
         return []
-```yaml
 ---
 
 ## 🎯 Level 5: Mastery
@@ -766,6 +830,45 @@ class OptimalServiceDiscovery:
 | Simple microservices | Eureka/Consul | Easy setup |
 | Large scale | Custom with caching | Performance |
 | Cross-region | Multi-registry federation | Locality awareness |
+
+### Multi-Region Service Discovery
+
+```mermaid
+graph TB
+    subgraph "US-East Region"
+        USR[US-East Registry]
+        USS1[Service A]
+        USS2[Service B]
+        USC[US Client]
+        
+        USS1 --> USR
+        USS2 --> USR
+        USC --> USR
+    end
+    
+    subgraph "EU-West Region"
+        EUR[EU-West Registry]
+        EUS1[Service A]
+        EUS2[Service B]
+        EUC[EU Client]
+        
+        EUS1 --> EUR
+        EUS2 --> EUR
+        EUC --> EUR
+    end
+    
+    subgraph "Global Registry"
+        GR[Global Registry]
+    end
+    
+    USR <-->|Sync| GR
+    EUR <-->|Sync| GR
+    
+    USC -.->|Fallback| EUR
+    EUC -.->|Fallback| USR
+    
+    style GR fill:#9f9,stroke:#333,stroke-width:4px
+```
 
 ### Implementation Checklist
 

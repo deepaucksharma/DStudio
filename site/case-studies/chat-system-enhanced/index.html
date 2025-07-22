@@ -3542,6 +3542,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -3594,6 +3601,13 @@
     Serverless/FaaS
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -3746,6 +3760,13 @@
     Bulkhead
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -7304,6 +7325,182 @@
 </span></code></pre></div></p>
 </li>
 </ol>
+<h2 id="consistency-deep-dive">🔄 Consistency Deep Dive<a class="headerlink" href="#consistency-deep-dive" title="Permanent link">&para;</a></h2>
+<h3 id="multi-device-consistency">Multi-Device Consistency<a class="headerlink" href="#multi-device-consistency" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MultiDeviceConsistencyManager</span><span class="p">:</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensures messages are consistent across all user devices&quot;&quot;&quot;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">device_registry</span> <span class="o">=</span> <span class="n">DeviceRegistry</span><span class="p">()</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sync_engine</span> <span class="o">=</span> <span class="n">SyncEngine</span><span class="p">()</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">conflict_resolver</span> <span class="o">=</span> <span class="n">ConflictResolver</span><span class="p">()</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">handle_message_delivery</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">,</span> <span class="n">user_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Deliver message to all user&#39;s devices consistently&quot;&quot;&quot;</span>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="c1"># Get all active devices for user</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="n">devices</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">device_registry</span><span class="o">.</span><span class="n">get_active_devices</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        <span class="c1"># Generate monotonic timestamp for ordering</span>
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>        <span class="n">logical_timestamp</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_logical_timestamp</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>        <span class="n">message</span><span class="o">.</span><span class="n">logical_timestamp</span> <span class="o">=</span> <span class="n">logical_timestamp</span>
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>        <span class="c1"># Deliver to all devices with retry logic</span>
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>        <span class="n">delivery_futures</span> <span class="o">=</span> <span class="p">[]</span>
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21" href="#__codelineno-10-21"></a>        <span class="k">for</span> <span class="n">device</span> <span class="ow">in</span> <span class="n">devices</span><span class="p">:</span>
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22" href="#__codelineno-10-22"></a>            <span class="n">future</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_deliver_to_device_with_consistency</span><span class="p">(</span>
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23" href="#__codelineno-10-23"></a>                <span class="n">message</span><span class="p">,</span> <span class="n">device</span><span class="p">,</span> <span class="n">logical_timestamp</span>
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24" href="#__codelineno-10-24"></a>            <span class="p">)</span>
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25" href="#__codelineno-10-25"></a>            <span class="n">delivery_futures</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">future</span><span class="p">)</span>
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26" href="#__codelineno-10-26"></a>
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27" href="#__codelineno-10-27"></a>        <span class="c1"># Wait for majority acknowledgment (quorum)</span>
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28" href="#__codelineno-10-28"></a>        <span class="n">results</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_wait_for_quorum</span><span class="p">(</span><span class="n">delivery_futures</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">devices</span><span class="p">))</span>
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29" href="#__codelineno-10-29"></a>
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30" href="#__codelineno-10-30"></a>        <span class="c1"># Handle devices that didn&#39;t acknowledge</span>
+</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31" href="#__codelineno-10-31"></a>        <span class="n">failed_devices</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_identify_failed_deliveries</span><span class="p">(</span><span class="n">results</span><span class="p">,</span> <span class="n">devices</span><span class="p">)</span>
+</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32" href="#__codelineno-10-32"></a>        <span class="k">if</span> <span class="n">failed_devices</span><span class="p">:</span>
+</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33" href="#__codelineno-10-33"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_queue_for_eventual_delivery</span><span class="p">(</span><span class="n">message</span><span class="p">,</span> <span class="n">failed_devices</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="message-ordering-guarantees">Message Ordering Guarantees<a class="headerlink" href="#message-ordering-guarantees" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MessageOrderingSystem</span><span class="p">:</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Implements different ordering guarantees for messages&quot;&quot;&quot;</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">ordering_mode</span><span class="p">:</span> <span class="n">OrderingMode</span><span class="p">):</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ordering_mode</span> <span class="o">=</span> <span class="n">ordering_mode</span>
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">vector_clock</span> <span class="o">=</span> <span class="n">VectorClock</span><span class="p">()</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lamport_clock</span> <span class="o">=</span> <span class="n">LamportClock</span><span class="p">()</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">order_messages</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">messages</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Message</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Message</span><span class="p">]:</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Order messages based on consistency requirements&quot;&quot;&quot;</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordering_mode</span> <span class="o">==</span> <span class="n">OrderingMode</span><span class="o">.</span><span class="n">TOTAL_ORDER</span><span class="p">:</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>            <span class="c1"># Use Lamport timestamps for total ordering</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_total_order_messages</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordering_mode</span> <span class="o">==</span> <span class="n">OrderingMode</span><span class="o">.</span><span class="n">CAUSAL_ORDER</span><span class="p">:</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>            <span class="c1"># Use vector clocks for causal ordering</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_causal_order_messages</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>        <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">ordering_mode</span> <span class="o">==</span> <span class="n">OrderingMode</span><span class="o">.</span><span class="n">FIFO_ORDER</span><span class="p">:</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>            <span class="c1"># Per-sender FIFO ordering only</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_fifo_order_messages</span><span class="p">(</span><span class="n">messages</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="hybrid-consistency-model">Hybrid Consistency Model<a class="headerlink" href="#hybrid-consistency-model" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">HybridConsistencySystem</span><span class="p">:</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Different consistency levels for different operations&quot;&quot;&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">consistency_zones</span> <span class="o">=</span> <span class="p">{</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>            <span class="s1">&#39;messages&#39;</span><span class="p">:</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">EVENTUAL</span><span class="p">,</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>            <span class="s1">&#39;group_metadata&#39;</span><span class="p">:</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">STRONG</span><span class="p">,</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>            <span class="s1">&#39;user_presence&#39;</span><span class="p">:</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">WEAK</span><span class="p">,</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>            <span class="s1">&#39;read_receipts&#39;</span><span class="p">:</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">CAUSAL</span><span class="p">,</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a>            <span class="s1">&#39;payments&#39;</span><span class="p">:</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">LINEARIZABLE</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a>        <span class="p">}</span>
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">execute_operation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">operation</span><span class="p">:</span> <span class="n">Operation</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Result</span><span class="p">:</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Execute operation with appropriate consistency level&quot;&quot;&quot;</span>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>        <span class="n">consistency_level</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">consistency_zones</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>            <span class="n">operation</span><span class="o">.</span><span class="n">type</span><span class="p">,</span> 
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>            <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">EVENTUAL</span>
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>        <span class="p">)</span>
+</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>        <span class="k">if</span> <span class="n">consistency_level</span> <span class="o">==</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">LINEARIZABLE</span><span class="p">:</span>
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_linearizable</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>        <span class="k">elif</span> <span class="n">consistency_level</span> <span class="o">==</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">STRONG</span><span class="p">:</span>
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_strong_consistency</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>        <span class="k">elif</span> <span class="n">consistency_level</span> <span class="o">==</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">CAUSAL</span><span class="p">:</span>
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_causal_consistency</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a>        <span class="k">elif</span> <span class="n">consistency_level</span> <span class="o">==</span> <span class="n">ConsistencyLevel</span><span class="o">.</span><span class="n">EVENTUAL</span><span class="p">:</span>
+</span><span id="__span-12-28"><a id="__codelineno-12-28" name="__codelineno-12-28" href="#__codelineno-12-28"></a>            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_eventual_consistency</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+</span><span id="__span-12-29"><a id="__codelineno-12-29" name="__codelineno-12-29" href="#__codelineno-12-29"></a>        <span class="k">else</span><span class="p">:</span>  <span class="c1"># WEAK</span>
+</span><span id="__span-12-30"><a id="__codelineno-12-30" name="__codelineno-12-30" href="#__codelineno-12-30"></a>            <span class="k">return</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_execute_weak_consistency</span><span class="p">(</span><span class="n">operation</span><span class="p">)</span>
+</span></code></pre></div>
+<h3 id="causal-broadcast-for-group-messages">Causal Broadcast for Group Messages<a class="headerlink" href="#causal-broadcast-for-group-messages" title="Permanent link">&para;</a></h3>
+<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">CausalBroadcastProtocol</span><span class="p">:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Ensures causal order in group message delivery&quot;&quot;&quot;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">group_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">group_id</span> <span class="o">=</span> <span class="n">group_id</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">vector_clock</span> <span class="o">=</span> <span class="n">VectorClock</span><span class="p">()</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pending_messages</span> <span class="o">=</span> <span class="n">defaultdict</span><span class="p">(</span><span class="nb">list</span><span class="p">)</span>
+</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">delivered_messages</span> <span class="o">=</span> <span class="nb">set</span><span class="p">()</span>
+</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>
+</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">broadcast_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sender_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">):</span>
+</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Broadcast message with causal ordering&quot;&quot;&quot;</span>
+</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>
+</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>        <span class="c1"># Increment sender&#39;s clock</span>
+</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">vector_clock</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span><span class="n">sender_id</span><span class="p">)</span>
+</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a>
+</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a>        <span class="c1"># Attach vector timestamp</span>
+</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>        <span class="n">message</span><span class="o">.</span><span class="n">vector_timestamp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_clock</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">()</span>
+</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>
+</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>        <span class="c1"># Get group members</span>
+</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>        <span class="n">members</span> <span class="o">=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_group_members</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">group_id</span><span class="p">)</span>
+</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a>
+</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a>        <span class="c1"># Send to all members</span>
+</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>        <span class="k">for</span> <span class="n">member_id</span> <span class="ow">in</span> <span class="n">members</span><span class="p">:</span>
+</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>            <span class="k">if</span> <span class="n">member_id</span> <span class="o">!=</span> <span class="n">sender_id</span><span class="p">:</span>
+</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>                <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send_to_member</span><span class="p">(</span><span class="n">member_id</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>
+</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_can_deliver</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">Message</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Check if message can be delivered respecting causality&quot;&quot;&quot;</span>
+</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>
+</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>        <span class="n">msg_vc</span> <span class="o">=</span> <span class="n">message</span><span class="o">.</span><span class="n">vector_timestamp</span>
+</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a>        <span class="n">local_vc</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">vector_clock</span><span class="o">.</span><span class="n">get_timestamp</span><span class="p">()</span>
+</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a>
+</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>        <span class="c1"># For each process</span>
+</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a>        <span class="k">for</span> <span class="n">process_id</span> <span class="ow">in</span> <span class="n">msg_vc</span><span class="p">:</span>
+</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a>            <span class="k">if</span> <span class="n">process_id</span> <span class="o">==</span> <span class="n">message</span><span class="o">.</span><span class="n">sender_id</span><span class="p">:</span>
+</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a>                <span class="c1"># Sender&#39;s clock should be exactly one more</span>
+</span><span id="__span-13-37"><a id="__codelineno-13-37" name="__codelineno-13-37" href="#__codelineno-13-37"></a>                <span class="k">if</span> <span class="n">msg_vc</span><span class="p">[</span><span class="n">process_id</span><span class="p">]</span> <span class="o">!=</span> <span class="n">local_vc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">process_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span>
+</span><span id="__span-13-38"><a id="__codelineno-13-38" name="__codelineno-13-38" href="#__codelineno-13-38"></a>                    <span class="k">return</span> <span class="kc">False</span>
+</span><span id="__span-13-39"><a id="__codelineno-13-39" name="__codelineno-13-39" href="#__codelineno-13-39"></a>            <span class="k">else</span><span class="p">:</span>
+</span><span id="__span-13-40"><a id="__codelineno-13-40" name="__codelineno-13-40" href="#__codelineno-13-40"></a>                <span class="c1"># Other clocks should not be ahead</span>
+</span><span id="__span-13-41"><a id="__codelineno-13-41" name="__codelineno-13-41" href="#__codelineno-13-41"></a>                <span class="k">if</span> <span class="n">msg_vc</span><span class="p">[</span><span class="n">process_id</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">local_vc</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">process_id</span><span class="p">,</span> <span class="mi">0</span><span class="p">):</span>
+</span><span id="__span-13-42"><a id="__codelineno-13-42" name="__codelineno-13-42" href="#__codelineno-13-42"></a>                    <span class="k">return</span> <span class="kc">False</span>
+</span><span id="__span-13-43"><a id="__codelineno-13-43" name="__codelineno-13-43" href="#__codelineno-13-43"></a>
+</span><span id="__span-13-44"><a id="__codelineno-13-44" name="__codelineno-13-44" href="#__codelineno-13-44"></a>        <span class="k">return</span> <span class="kc">True</span>
+</span></code></pre></div>
+<h3 id="consistency-trade-offs-in-practice">Consistency Trade-offs in Practice<a class="headerlink" href="#consistency-trade-offs-in-practice" title="Permanent link">&para;</a></h3>
+<table>
+<thead>
+<tr>
+<th>Consistency Model</th>
+<th>Use Case</th>
+<th>Trade-offs</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Strong Consistency</strong></td>
+<td>Group creation, Payment messages</td>
+<td>Higher latency, Lower availability</td>
+</tr>
+<tr>
+<td><strong>Causal Consistency</strong></td>
+<td>Message ordering within conversations</td>
+<td>Moderate complexity, Good performance</td>
+</tr>
+<tr>
+<td><strong>Eventual Consistency</strong></td>
+<td>Message delivery, Read receipts</td>
+<td>Best performance, Potential temporary inconsistencies</td>
+</tr>
+<tr>
+<td><strong>Read-Your-Writes</strong></td>
+<td>User's own messages</td>
+<td>Additional tracking overhead</td>
+</tr>
+<tr>
+<td><strong>Monotonic Reads</strong></td>
+<td>Message history pagination</td>
+<td>Requires session stickiness</td>
+</tr>
+</tbody>
+</table>
+<p>For a comprehensive deep dive into consistency patterns in chat systems, see <a href="../consistency-deep-dive-chat/">Consistency Deep Dive</a>.</p>
 <h2 id="key-design-insights">💡 Key Design Insights<a class="headerlink" href="#key-design-insights" title="Permanent link">&para;</a></h2>
 <h3 id="1-real-time-requires-custom-protocols">1. 🚀 <strong>Real-time Requires Custom Protocols</strong><a class="headerlink" href="#1-real-time-requires-custom-protocols" title="Permanent link">&para;</a></h3>
 <ul>
@@ -7334,6 +7531,13 @@
 <li>2M connections per server</li>
 <li>Actor model perfect for chat</li>
 <li>Let-it-crash philosophy improves reliability</li>
+</ul>
+<h3 id="6-consistency-is-context-dependent">6. 🔄 <strong>Consistency is Context-Dependent</strong><a class="headerlink" href="#6-consistency-is-context-dependent" title="Permanent link">&para;</a></h3>
+<ul>
+<li>Different operations need different consistency levels</li>
+<li>CRDTs enable offline-first experiences</li>
+<li>Vector clocks preserve causality in group chats</li>
+<li>Consensus only for critical operations (group admin changes)</li>
 </ul>
 <h2 id="related-concepts-deep-dives">🔍 Related Concepts &amp; Deep Dives<a class="headerlink" href="#related-concepts-deep-dives" title="Permanent link">&para;</a></h2>
 <h3 id="relevant-axioms">📚 Relevant Axioms<a class="headerlink" href="#relevant-axioms" title="Permanent link">&para;</a></h3>

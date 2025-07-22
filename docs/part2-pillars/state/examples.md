@@ -22,98 +22,105 @@ last_updated: 2025-07-20
 
 **Architecture Evolution**:
 
-```yaml
-2004: Simple key-value store
-├── Problem: Single master bottleneck
-└── Solution: Consistent hashing
-
-2007: Dynamo paper
-├── Problem: Availability during failures
-└── Solution: Eventual consistency + vector clocks
-
-2012: DynamoDB service
-├── Problem: Vector clocks too complex for users
-└── Solution: Last-write-wins + conditional writes
-
-2018: Global tables
-├── Problem: Cross-region replication
-└── Solution: Conflict-free replicated data types (CRDTs)
+```mermaid
+graph TD
+    subgraph "2004: Simple Key-Value Store"
+        A1[Single Master] -->|bottleneck| A2[Consistent Hashing Solution]
+    end
+    
+    subgraph "2007: Dynamo Paper"
+        B1[Availability During Failures] -->|addressed by| B2[Eventual Consistency]
+        B2 --> B3[Vector Clocks]
+    end
+    
+    subgraph "2012: DynamoDB Service"
+        C1[Complex Vector Clocks] -->|simplified to| C2[Last-Write-Wins]
+        C2 --> C3[Conditional Writes]
+    end
+    
+    subgraph "2018: Global Tables"
+        D1[Cross-Region Replication] -->|solved with| D2[CRDTs]
+    end
+    
+    A2 --> B1
+    B3 --> C1
+    C3 --> D1
+    
+    style A1 fill:#ff9999
+    style B1 fill:#ff9999
+    style C1 fill:#ff9999
+    style D1 fill:#ff9999
+    style A2 fill:#99ff99
+    style B2 fill:#99ff99
+    style B3 fill:#99ff99
+    style C2 fill:#99ff99
+    style C3 fill:#99ff99
+    style D2 fill:#99ff99
 ```
 
 **Key Design Decisions**:
 
-```python
-class DynamoNode:
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.storage = {}
-        self.vector_clock = VectorClock()
-
-    def put(self, key, value, context=None):
-        # Determine coordinate nodes
-        preference_list = self.get_preference_list(key, N=3)
-
-        # Update vector clock
-        if context:
-            clock = context.vector_clock.increment(self.node_id)
-        else:
-            clock = VectorClock().increment(self.node_id)
-
-        # Store locally if coordinator
-        if self.node_id in preference_list:
-            self.storage[key] = {
-                'value': value,
-                'clock': clock,
-                'version': self.generate_version()
-            }
-
-        # Replicate to N nodes
-        write_results = []
-        for node in preference_list:
-            result = self.replicate_to(node, key, value, clock)
-            write_results.append(result)
-
-        # Return success if W writes succeed
-        successful_writes = sum(1 for r in write_results if r.success)
-        return successful_writes >= self.W
-
-    def get(self, key):
-        # Read from R nodes
-        preference_list = self.get_preference_list(key, N=3)
-
-        read_results = []
-        for node in preference_list:
-            result = self.read_from(node, key)
-            if result:
-                read_results.append(result)
-
-        # Need at least R responses
-        if len(read_results) < self.R:
-            raise InsufficientReplicasException()
-
-        # Resolve conflicts
-        return self.resolve_conflicts(read_results)
-
-    def resolve_conflicts(self, results):
-        # Syntactic reconciliation (vector clocks)
-        concurrent_versions = []
-
-        for r1 in results:
-            is_concurrent = True
-            for r2 in results:
-                if r1 != r2:
-                    if r1.clock.happens_before(r2.clock):
-                        is_concurrent = False
-                        break
-            if is_concurrent:
-                concurrent_versions.append(r1)
-
-        if len(concurrent_versions) == 1:
-            return concurrent_versions[0]
-        else:
-            # Semantic reconciliation (application-specific)
-            return self.merge_concurrent_versions(concurrent_versions)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Coordinator as Coordinator Node
+    participant N1 as Node 1
+    participant N2 as Node 2
+    participant N3 as Node 3
+    
+    Note over Coordinator: PUT Operation (N=3, W=2)
+    Client->>Coordinator: PUT(key, value)
+    Coordinator->>Coordinator: Update vector clock
+    Coordinator->>Coordinator: Store locally
+    
+    par Replication
+        Coordinator->>N1: Replicate(key, value, clock)
+        and
+        Coordinator->>N2: Replicate(key, value, clock)
+        and
+        Coordinator->>N3: Replicate(key, value, clock)
+    end
+    
+    N1-->>Coordinator: ACK
+    N2-->>Coordinator: ACK
+    Note over Coordinator: W=2 writes succeeded
+    Coordinator-->>Client: Success
+    
+    Note over Coordinator: GET Operation (N=3, R=2)
+    Client->>Coordinator: GET(key)
+    
+    par Read from R nodes
+        Coordinator->>N1: Read(key)
+        and
+        Coordinator->>N2: Read(key)
+    end
+    
+    N1-->>Coordinator: value + vector_clock
+    N2-->>Coordinator: value + vector_clock
+    
+    Coordinator->>Coordinator: Resolve conflicts using vector clocks
+    Note over Coordinator: Check happens-before relationship
+    Coordinator-->>Client: Resolved value
 ```
+
+### DynamoDB Quorum Configuration
+
+| Parameter | Description | Typical Value |
+|-----------|-------------|---------------|
+| N | Number of replicas | 3 |
+| W | Write quorum | 2 |
+| R | Read quorum | 2 |
+| DW | Durable write quorum | 1 |
+| RW | Read-write quorum | N |
+
+### Consistency Guarantees
+
+| Configuration | Consistency Level | Use Case |
+|---------------|-------------------|----------|
+| W + R > N | Strong consistency | Critical data |
+| W + R ≤ N | Eventual consistency | High availability |
+| W = N | Read availability during failures | Write-heavy workloads |
+| R = N | Write availability during failures | Read-heavy workloads |
 
 **Lessons Learned**:
 - Vector clocks are powerful but complex for developers
@@ -127,133 +134,107 @@ class DynamoNode:
 
 **Architecture**:
 
-```text
-Hash Slot Distribution (16,384 slots)
-┌─────────────┐ ┌─────────────┐ ┌─────────────┐
-│  Master A   │ │  Master B   │ │  Master C   │
-│ Slots 0-5460│ │Slots 5461-  │ │Slots 10923- │
-│             │ │    10922    │ │   16383     │
-└──────┬──────┘ └──────┬──────┘ └──────┬──────┘
-       │               │               │
-┌──────┴──────┐ ┌──────┴──────┐ ┌──────┴──────┐
-│  Replica A  │ │  Replica B  │ │  Replica C  │
-└─────────────┘ └─────────────┘ └─────────────┘
+```mermaid
+graph TB
+    subgraph "Hash Slot Distribution (16,384 slots)"
+        MA[Master A<br/>Slots 0-5460]
+        MB[Master B<br/>Slots 5461-10922]
+        MC[Master C<br/>Slots 10923-16383]
+        
+        RA[Replica A]
+        RB[Replica B]
+        RC[Replica C]
+        
+        MA -.->|replication| RA
+        MB -.->|replication| RB
+        MC -.->|replication| RC
+    end
+    
+    subgraph "Client Request Routing"
+        Client[Client] -->|CRC16(key) % 16384| Slot[Hash Slot]
+        Slot -->|Slot Mapping| Master[Appropriate Master]
+    end
+    
+    style MA fill:#ff9999
+    style MB fill:#99ff99
+    style MC fill:#9999ff
+    style RA fill:#ffcccc
+    style RB fill:#ccffcc
+    style RC fill:#ccccff
 ```
 
 **Implementation Details**:
 
-```python
-class RedisClusterNode:
-    def __init__(self, node_id, slots):
-        self.node_id = node_id
-        self.slots = slots  # Set of hash slots this node owns
-        self.data = {}
-        self.replicas = []
-
-    def execute_command(self, command, key):
-        # Calculate hash slot
-        slot = crc16(key) & 16383
-
-        # Check if we own this slot
-        if slot not in self.slots:
-            # Return MOVED redirect
-            owner = self.cluster_state.get_slot_owner(slot)
-            return MovedError(slot, owner.address)
-
-        # Check if slot is migrating
-        if slot in self.migrating_slots:
-            if key not in self.data:
-                # Key might be on target node
-                target = self.migrating_slots[slot]
-                return AskError(slot, target.address)
-
-        # Execute command locally
-        return self.execute_local(command, key)
-
-    def migrate_slot(self, slot, target_node):
-        """Live migration of a hash slot"""
-        self.migrating_slots[slot] = target_node
-        target_node.importing_slots[slot] = self
-
-        # Get all keys in this slot
-        keys = [k for k in self.data.keys()
-                if self.hash_slot(k) == slot]
-
-        # Migrate keys in batches
-        batch_size = 100
-        for i in range(0, len(keys), batch_size):
-            batch = keys[i:i + batch_size]
-
-            # Atomic transfer
-            pipeline = target_node.pipeline()
-            for key in batch:
-                value = self.data[key]
-                ttl = self.get_ttl(key)
-
-                pipeline.restore(key, value, ttl)
-
-            # Execute on target
-            pipeline.execute()
-
-            # Delete from source
-            for key in batch:
-                del self.data[key]
-
-        # Update cluster state
-        self.slots.remove(slot)
-        target_node.slots.add(slot)
-        del self.migrating_slots[slot]
-        del target_node.importing_slots[slot]
+```mermaid
+stateDiagram-v2
+    [*] --> Normal: Slot owned by node
+    
+    Normal --> Migrating: migrate_slot() called
+    Migrating --> KeyCheck: Client request
+    
+    KeyCheck --> ExecuteLocal: Key exists locally
+    KeyCheck --> ASK_Redirect: Key not found
+    
+    ASK_Redirect --> TargetNode: Client follows ASK
+    
+    Migrating --> BatchTransfer: Migration process
+    BatchTransfer --> BatchTransfer: Transfer next batch
+    BatchTransfer --> UpdateClusterState: All keys transferred
+    
+    UpdateClusterState --> [*]: Migration complete
+    
+    Normal --> MOVED_Redirect: Wrong slot owner
+    MOVED_Redirect --> CorrectNode: Client follows MOVED
 ```
+
+### Redis Cluster Slot Migration Process
+
+| Phase | Source Node | Target Node | Client Behavior |
+|-------|-------------|-------------|----------------|
+| 1. Pre-migration | Owns slot | - | Routes to source |
+| 2. Migration starts | MIGRATING state | IMPORTING state | May get ASK redirects |
+| 3. Key transfer | Transfers keys in batches | Receives keys | Handles both nodes |
+| 4. Post-migration | - | Owns slot | Routes to target |
+
+### Redirect Types
+
+| Type | Meaning | Client Action | Persistence |
+|------|---------|---------------|-------------|
+| MOVED | Slot permanently moved | Update slot mapping | Permanent |
+| ASK | Key might be migrating | One-time redirect | Temporary |
 
 **Resharding Process**:
 
-```python
-class RedisClusterResharding:
-    def __init__(self, cluster):
-        self.cluster = cluster
-
-    def rebalance(self):
-        """Rebalance slots across all nodes"""
-        nodes = self.cluster.master_nodes
-        total_slots = 16384
-        slots_per_node = total_slots // len(nodes)
-
-        # Calculate moves needed
-        moves = []
-        for i, node in enumerate(nodes):
-            target_slots = set(range(
-                i * slots_per_node,
-                (i + 1) * slots_per_node if i < len(nodes) - 1 else total_slots
-            ))
-
-            current_slots = node.slots
-
-            # Slots to give away
-            give_away = current_slots - target_slots
-            for slot in give_away:
-                moves.append((node, slot, None))  # Source determined later
-
-            # Slots to receive
-            receive = target_slots - current_slots
-            for slot in receive:
-                moves.append((None, slot, node))  # Target determined later
-
-        # Match sources with targets
-        sources = [m for m in moves if m[2] is None]
-        targets = [m for m in moves if m[0] is None]
-
-        final_moves = []
-        for i in range(min(len(sources), len(targets))):
-            source_node, slot, _ = sources[i]
-            _, _, target_node = targets[i]
-            final_moves.append((source_node, slot, target_node))
-
-        # Execute moves
-        for source, slot, target in final_moves:
-            print(f"Moving slot {slot} from {source.id} to {target.id}")
-            source.migrate_slot(slot, target)
+```mermaid
+flowchart TD
+    Start([Rebalancing Start]) --> Calculate[Calculate target distribution]
+    Calculate --> Analyze[Analyze current vs target]
+    
+    Analyze --> Identify{Identify moves}
+    Identify -->|Slots to give| Sources[Source nodes list]
+    Identify -->|Slots to receive| Targets[Target nodes list]
+    
+    Sources --> Match[Match sources with targets]
+    Targets --> Match
+    
+    Match --> Execute[Execute migrations]
+    Execute --> Migration1[Migrate slot X: A→B]
+    Execute --> Migration2[Migrate slot Y: B→C]
+    Execute --> Migration3[Migrate slot Z: C→A]
+    
+    Migration1 --> Complete
+    Migration2 --> Complete
+    Migration3 --> Complete[Rebalancing Complete]
 ```
+
+### Slot Distribution Example (3 nodes → 4 nodes)
+
+| Node | Before (3 nodes) | After (4 nodes) | Slots to Move |
+|------|------------------|-----------------|---------------|
+| A | 0-5461 (5462 slots) | 0-4095 (4096 slots) | Give: 1366 |
+| B | 5462-10922 (5461 slots) | 4096-8191 (4096 slots) | Give: 1365 |
+| C | 10923-16383 (5461 slots) | 8192-12287 (4096 slots) | Give: 1365 |
+| D | - | 12288-16383 (4096 slots) | Receive: 4096 |
 
 ### 3. Cassandra: Tunable Consistency
 
@@ -261,101 +242,76 @@ class RedisClusterResharding:
 
 **Consistency Levels**:
 
-```python
-class ConsistencyLevel(Enum):
-    ANY = 0      # Write to any node (including hinted handoff)
-    ONE = 1      # At least one replica
-    TWO = 2      # At least two replicas
-    THREE = 3    # At least three replicas
-    QUORUM = 4   # Majority of replicas
-    ALL = 5      # All replicas
-    LOCAL_QUORUM = 6    # Majority in local DC
-    EACH_QUORUM = 7     # Majority in each DC
-    LOCAL_ONE = 8       # At least one in local DC
+### Cassandra Consistency Levels
 
-class CassandraCoordinator:
-    def __init__(self):
-        self.replication_factor = 3
+| Level | Write Requirement | Read Requirement | Use Case |
+|-------|------------------|------------------|----------|
+| ANY | Any node (including hints) | N/A | Maximum availability |
+| ONE | 1 replica | 1 replica | High performance |
+| TWO | 2 replicas | 2 replicas | Moderate consistency |
+| THREE | 3 replicas | 3 replicas | Higher consistency |
+| QUORUM | ⌊RF/2⌋ + 1 | ⌊RF/2⌋ + 1 | Strong consistency |
+| ALL | All replicas | All replicas | Maximum consistency |
+| LOCAL_QUORUM | Majority in local DC | Majority in local DC | Multi-DC strong consistency |
+| EACH_QUORUM | Majority in each DC | N/A | Global strong writes |
+| LOCAL_ONE | 1 in local DC | 1 in local DC | DC-aware performance |
 
-    def write(self, key, value, consistency_level):
-        replicas = self.get_replicas(key)
-        required_acks = self.get_required_acks(consistency_level, replicas)
-
-        # Send write to all replicas
-        write_futures = []
-        for replica in replicas:
-            future = self.async_write(replica, key, value)
-            write_futures.append((replica, future))
-
-        # Wait for required acknowledgments
-        acks_received = 0
-        failed_writes = []
-
-        for replica, future in write_futures:
-            try:
-                result = future.get(timeout=self.write_timeout)
-                if result.success:
-                    acks_received += 1
-                    if acks_received >= required_acks:
-                        # Return early if we have enough acks
-                        return WriteResult(success=True)
-            except TimeoutException:
-                failed_writes.append(replica)
-
-        # Check if we met consistency requirement
-        if acks_received >= required_acks:
-            return WriteResult(success=True)
-        else:
-            # Handle failed writes with hinted handoff
-            for replica in failed_writes:
-                self.store_hint(replica, key, value)
-
-            raise InsufficientReplicasException(
-                f"Only {acks_received}/{required_acks} replicas responded"
-            )
-
-    def read(self, key, consistency_level):
-        replicas = self.get_replicas(key)
-        required_responses = self.get_required_responses(consistency_level, replicas)
-
-        # Determine how many replicas to query
-        if consistency_level == ConsistencyLevel.ALL:
-            query_replicas = replicas
-        else:
-            # Query enough to ensure consistency
-            query_replicas = replicas[:required_responses]
-
-        # Send read requests
-        read_futures = []
-        for replica in query_replicas:
-            future = self.async_read(replica, key)
-            read_futures.append((replica, future))
-
-        # Collect responses
-        responses = []
-        for replica, future in read_futures:
-            try:
-                result = future.get(timeout=self.read_timeout)
-                responses.append(result)
-            except TimeoutException:
-                continue
-
-        # Check if we have enough responses
-        if len(responses) < required_responses:
-            raise InsufficientReplicasException()
-
-        # Resolve conflicts and trigger read repair if needed
-        winning_value = self.resolve_conflicts(responses)
-
-        if self.needs_read_repair(responses):
-            self.async_read_repair(key, winning_value, replicas)
-
-        return winning_value
-
-    def resolve_conflicts(self, responses):
-        """Last-write-wins conflict resolution"""
-        return max(responses, key=lambda r: r.timestamp).value
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Coordinator
+    participant R1 as Replica 1
+    participant R2 as Replica 2
+    participant R3 as Replica 3
+    
+    Note over Client,R3: Write with QUORUM (RF=3, need 2 acks)
+    
+    Client->>Coordinator: Write(key, value, QUORUM)
+    
+    par Parallel writes to all replicas
+        Coordinator->>R1: Write(key, value)
+        and
+        Coordinator->>R2: Write(key, value)
+        and
+        Coordinator->>R3: Write(key, value)
+    end
+    
+    R1-->>Coordinator: ACK
+    R2-->>Coordinator: ACK
+    Note over Coordinator: 2 ACKs received (meets QUORUM)
+    Coordinator-->>Client: Success
+    
+    R3-->>Coordinator: ACK (late)
+    Note over Coordinator: Already returned to client
+    
+    Note over Client,R3: Read with QUORUM (need 2 responses)
+    
+    Client->>Coordinator: Read(key, QUORUM)
+    
+    par Query minimum replicas
+        Coordinator->>R1: Read(key)
+        and
+        Coordinator->>R2: Read(key)
+    end
+    
+    R1-->>Coordinator: value(t1)
+    R2-->>Coordinator: value(t2)
+    
+    Coordinator->>Coordinator: Resolve conflicts (LWW)
+    Note over Coordinator: t2 > t1, so use value(t2)
+    
+    Coordinator->>R3: Async read repair
+    Coordinator-->>Client: value(t2)
 ```
+
+### Consistency Arithmetic
+
+| Scenario | Formula | Result |
+|----------|---------|--------|  
+| Strong Consistency | W + R > RF | Always see latest write |
+| Eventual Consistency | W + R ≤ RF | May see stale data |
+| Read Heavy | W = 1, R = RF | Fast writes, consistent reads |
+| Write Heavy | W = RF, R = 1 | Consistent writes, fast reads |
 
 ### 4. Elasticsearch: Distributed Search State
 
@@ -363,93 +319,61 @@ class CassandraCoordinator:
 
 **Architecture**:
 
-```python
-class ElasticsearchCluster:
-    def __init__(self):
-        self.indices = {}
-        self.nodes = []
-        self.master_node = None
-
-    class Index:
-        def __init__(self, name, settings):
-            self.name = name
-            self.settings = settings
-            self.shards = []
-            self.replicas = settings.get('replicas', 1)
-
-        def create_shards(self, num_shards):
-            for i in range(num_shards):
-                primary = Shard(f"{self.name}_{i}", is_primary=True)
-                self.shards.append(primary)
-
-                # Create replicas
-                for r in range(self.replicas):
-                    replica = Shard(f"{self.name}_{i}_r{r}", is_primary=False)
-                    replica.primary = primary
-                    primary.replicas.append(replica)
-
-    class Shard:
-        def __init__(self, shard_id, is_primary):
-            self.shard_id = shard_id
-            self.is_primary = is_primary
-            self.translog = TransactionLog()
-            self.segments = []
-            self.refresh_interval = 1  # seconds
-            self.last_refresh = time.time()
-
-        def index_document(self, doc_id, document):
-            # Write to transaction log first
-            self.translog.add({
-                'op': 'index',
-                'id': doc_id,
-                'doc': document,
-                'timestamp': time.time()
-            })
-
-            # Add to in-memory buffer
-            self.buffer.add(doc_id, document)
-
-            # Refresh if needed
-            if time.time() - self.last_refresh > self.refresh_interval:
-                self.refresh()
-
-            # Replicate if primary
-            if self.is_primary:
-                for replica in self.replicas:
-                    replica.replicate_operation('index', doc_id, document)
-
-        def refresh(self):
-            """Make buffered documents searchable"""
-            if not self.buffer:
-                return
-
-            # Create new segment from buffer
-            segment = self.create_segment(self.buffer)
-            self.segments.append(segment)
-
-            # Clear buffer
-            self.buffer.clear()
-            self.last_refresh = time.time()
-
-            # Trigger merge if too many segments
-            if len(self.segments) > 10:
-                self.async_merge_segments()
-
-        def search(self, query):
-            # Search across all segments
-            results = []
-
-            for segment in self.segments:
-                segment_results = segment.search(query)
-                results.extend(segment_results)
-
-            # Also search in-memory buffer
-            buffer_results = self.buffer.search(query)
-            results.extend(buffer_results)
-
-            # Merge and rank results
-            return self.merge_search_results(results)
+```mermaid
+graph TB
+    subgraph "Elasticsearch Index Architecture"
+        Index[Index: products]
+        Index --> PS1[Primary Shard 0]
+        Index --> PS2[Primary Shard 1]
+        Index --> PS3[Primary Shard 2]
+        
+        PS1 --> RS1A[Replica 0_0]
+        PS1 --> RS1B[Replica 0_1]
+        
+        PS2 --> RS2A[Replica 1_0]
+        PS2 --> RS2B[Replica 1_1]
+        
+        PS3 --> RS3A[Replica 2_0]
+        PS3 --> RS3B[Replica 2_1]
+    end
+    
+    subgraph "Document Indexing Flow"
+        Doc[Document] --> TLog[Transaction Log]
+        TLog --> Buffer[In-Memory Buffer]
+        Buffer -->|refresh interval| Segment[Lucene Segment]
+        Segment -->|merge policy| Merged[Merged Segment]
+    end
+    
+    subgraph "Search Flow"
+        Query[Search Query] --> Coordinator[Coordinator Node]
+        Coordinator --> S1[Search Shard 1]
+        Coordinator --> S2[Search Shard 2]
+        Coordinator --> S3[Search Shard 3]
+        S1 --> Results1[Partial Results]
+        S2 --> Results2[Partial Results]
+        S3 --> Results3[Partial Results]
+        Results1 --> Merge[Merge & Rank]
+        Results2 --> Merge
+        Results3 --> Merge
+        Merge --> Final[Final Results]
+    end
 ```
+
+### Elasticsearch State Components
+
+| Component | Purpose | Durability | Performance Impact |
+|-----------|---------|------------|-------------------|
+| Transaction Log | Durability, crash recovery | Fsync to disk | Write latency |
+| In-Memory Buffer | Batching writes | Lost on crash | High write throughput |
+| Lucene Segments | Immutable search structures | Persistent | Read performance |
+| Segment Merging | Optimize search performance | Background process | I/O intensive |
+
+### Refresh vs Flush
+
+| Operation | What it does | Frequency | Impact |
+|-----------|--------------|-----------|--------|  
+| Refresh | Buffer → Searchable segment | Every 1s (default) | Makes docs searchable |
+| Flush | Commit point + clear translog | Every 30min or 512MB | Ensures durability |
 
 ### 5. Apache Kafka: Distributed Log State
 
@@ -457,365 +381,316 @@ class ElasticsearchCluster:
 
 **Core Concepts**:
 
-```python
-class KafkaPartition:
-    def __init__(self, topic, partition_id):
-        self.topic = topic
-        self.partition_id = partition_id
-        self.log = []
-        self.log_start_offset = 0
-        self.log_end_offset = 0
-        self.leader_epoch = 0
-        self.isr = set()  # In-sync replicas
+```mermaid
+stateDiagram-v2
+    [*] --> Leader: Elected by controller
+    Leader --> Append: Producer sends messages
+    Append --> AssignOffsets: Assign sequential offsets
+    AssignOffsets --> WriteLog: Write to local log
+    WriteLog --> Replicate: Send to ISR followers
+    
+    Replicate --> WaitAcks: acks=all
+    Replicate --> ReturnOffset: acks=1
+    
+    WaitAcks --> AllISRAck: All replicas respond
+    WaitAcks --> Timeout: Some replicas timeout
+    
+    Timeout --> RemoveFromISR: Update ISR list
+    RemoveFromISR --> ReturnOffset
+    AllISRAck --> UpdateHWM: Update high water mark
+    UpdateHWM --> ReturnOffset: Return offset to producer
+    
+    Leader --> Follower: Leader fails
+    Follower --> FetchFromLeader: Continuously fetch
+    FetchFromLeader --> ApplyToLog: Apply to local log
+    ApplyToLog --> SendAck: Acknowledge to leader
+```
 
-    def append(self, messages, producer_id=None):
-        """Leader appends messages"""
-        if not self.is_leader():
-            raise NotLeaderException()
+### Kafka Partition Key Concepts
 
-        # Assign offsets
-        batch = MessageBatch()
-        for message in messages:
-            offset = self.log_end_offset
-            self.log_end_offset += 1
+| Concept | Description | Purpose |
+|---------|-------------|---------|  
+| Log Start Offset (LSO) | First available message offset | Log retention boundary |
+| Log End Offset (LEO) | Next offset to be assigned | Write position |
+| High Water Mark (HWM) | Min replicated offset across ISR | Consumer read boundary |
+| In-Sync Replicas (ISR) | Replicas caught up with leader | Durability guarantee |
+| Leader Epoch | Generation number of leader | Prevent split-brain |
 
-            # Add metadata
-            record = LogRecord(
-                offset=offset,
-                timestamp=time.time(),
-                key=message.key,
-                value=message.value,
-                headers=message.headers,
-                producer_id=producer_id,
-                leader_epoch=self.leader_epoch
-            )
+### Kafka Replication Protocol
 
-            batch.add(record)
-            self.log.append(record)
-
-        # Replicate to followers
-        replication_futures = []
-        for replica in self.isr:
-            if replica != self.node_id:
-                future = self.replicate_to_follower(replica, batch)
-                replication_futures.append((replica, future))
-
-        # Wait for replication based on acks setting
-        if self.acks == 'all':
-            # Wait for all ISR
-            for replica, future in replication_futures:
-                try:
-                    future.get(timeout=self.replica_timeout)
-                except TimeoutException:
-                    # Remove from ISR
-                    self.isr.remove(replica)
-                    self.notify_controller_isr_change()
-
-        return batch.base_offset
-
-    def fetch(self, offset, max_bytes):
-        """Fetch messages starting from offset"""
-        if offset < self.log_start_offset:
-            raise OffsetOutOfRangeException()
-
-        messages = []
-        bytes_read = 0
-
-        for record in self.log[offset - self.log_start_offset:]:
-            if bytes_read + record.size > max_bytes:
-                break
-            messages.append(record)
-            bytes_read += record.size
-
-        return FetchResponse(messages, high_water_mark=self.high_water_mark)
-
-    def update_high_water_mark(self):
-        """Update HWM based on ISR progress"""
-        if not self.is_leader():
-            return
-
-        # Get minimum replicated offset across ISR
-        min_offset = self.log_end_offset
-
-        for replica in self.isr:
-            if replica != self.node_id:
-                replica_offset = self.get_replica_offset(replica)
-                min_offset = min(min_offset, replica_offset)
-
-        self.high_water_mark = min_offset
+```mermaid
+sequenceDiagram
+    participant Producer
+    participant Leader
+    participant Follower1
+    participant Follower2
+    participant Consumer
+    
+    Producer->>Leader: Produce(messages, acks=all)
+    Leader->>Leader: Assign offsets 100-102
+    Leader->>Leader: Write to log
+    
+    par Replication
+        Leader->>Follower1: Replicate(100-102)
+        and
+        Leader->>Follower2: Replicate(100-102)
+    end
+    
+    Follower1->>Follower1: Write to log
+    Follower1-->>Leader: ACK(102)
+    
+    Follower2->>Follower2: Write to log  
+    Follower2-->>Leader: ACK(102)
+    
+    Leader->>Leader: Update HWM to 102
+    Leader-->>Producer: Success(offset=100)
+    
+    Consumer->>Leader: Fetch(offset=100)
+    Leader-->>Consumer: Messages(100-102, HWM=102)
 ```
 
 ## State Patterns Implementation
 
 ### 1. Write-Ahead Log (WAL)
 
-```python
-class WriteAheadLog:
-    def __init__(self, directory):
-        self.directory = directory
-        self.current_segment = None
-        self.segments = []
-        self.last_synced_offset = 0
-
-    def append(self, entry):
-        # Serialize entry
-        serialized = self.serialize(entry)
-
-        # Get or create current segment
-        if not self.current_segment or self.current_segment.size > self.segment_size:
-            self.roll_segment()
-
-        # Write to segment
-        offset = self.current_segment.append(serialized)
-
-        # Sync based on policy
-        if self.should_sync():
-            self.sync()
-
-        return offset
-
-    def sync(self):
-        """Fsync to ensure durability"""
-        self.current_segment.sync()
-        self.last_synced_offset = self.current_segment.end_offset
-
-    def recover(self):
-        """Recover state from WAL after crash"""
-        state = {}
-
-        # Read all segments in order
-        for segment in sorted(self.segments):
-            with open(segment.path, 'rb') as f:
-                while True:
-                    try:
-                        entry = self.deserialize(f)
-                        # Apply entry to state
-                        state = self.apply_entry(state, entry)
-                    except EOFError:
-                        break
-
-        return state
-
-    def truncate(self, offset):
-        """Truncate log after offset (for removing uncommitted entries)"""
-        # Find segment containing offset
-        for segment in reversed(self.segments):
-            if segment.base_offset <= offset <= segment.end_offset:
-                # Truncate this segment
-                segment.truncate_after(offset)
-                # Remove all later segments
-                self.remove_segments_after(segment)
-                break
+```mermaid
+flowchart TD
+    subgraph "Write-Ahead Log Structure"
+        Entry[New Entry] --> Serialize[Serialize Entry]
+        Serialize --> CheckSegment{Current segment full?}
+        CheckSegment -->|Yes| Roll[Roll to new segment]
+        CheckSegment -->|No| Append[Append to segment]
+        Roll --> Append
+        Append --> CheckSync{Should sync?}
+        CheckSync -->|Yes| Fsync[Fsync to disk]
+        CheckSync -->|No| Return[Return offset]
+        Fsync --> Return
+    end
+    
+    subgraph "Recovery Process"
+        Crash[System Crash] --> ScanSegments[Scan all segments]
+        ScanSegments --> ReadSegment[Read segment N]
+        ReadSegment --> Deserialize[Deserialize entries]
+        Deserialize --> ApplyState[Apply to state]
+        ApplyState --> NextSegment{More segments?}
+        NextSegment -->|Yes| ReadSegment
+        NextSegment -->|No| Recovered[State recovered]
+    end
+    
+    subgraph "Truncation (Rollback)"
+        Uncommitted[Uncommitted entries] --> FindOffset[Find target offset]
+        FindOffset --> TruncateSegment[Truncate segment]
+        TruncateSegment --> RemoveLater[Remove later segments]
+        RemoveLater --> Clean[Clean state]
+    end
 ```
+
+### WAL Design Decisions
+
+| Aspect | Options | Trade-offs |
+|--------|---------|------------|  
+| Sync Policy | Every write | Durability vs Performance |
+| | Periodic (time-based) | Bounded data loss |
+| | Size-based | Batch efficiency |
+| Segment Size | Small (e.g., 64MB) | Faster recovery, more files |
+| | Large (e.g., 1GB) | Fewer files, slower recovery |
+| Compression | None | Fast writes, more space |
+| | Snappy/LZ4 | Space efficient, CPU cost |
 
 ### 2. Conflict-Free Replicated Data Types (CRDTs)
 
-```python
-class GCounter:
-    """Grow-only counter CRDT"""
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.counts = defaultdict(int)
+### Conflict-Free Replicated Data Types (CRDTs)
 
-    def increment(self, amount=1):
-        self.counts[self.node_id] += amount
+```mermaid
+graph TB
+    subgraph "CRDT Types"
+        State[State-based CRDTs]
+        Op[Operation-based CRDTs]
+        
+        State --> GCounter[G-Counter<br/>Grow-only]
+        State --> PNCounter[PN-Counter<br/>Inc/Dec]
+        State --> LWWReg[LWW-Register<br/>Last-Write-Wins]
+        State --> ORSet[OR-Set<br/>Observed-Remove]
+        
+        Op --> OpCounter[Op-Counter]
+        Op --> OpSet[Op-Set]
+    end
+    
+    subgraph "Merge Semantics"
+        Node1[Node A State] --> Merge{Merge Function}
+        Node2[Node B State] --> Merge
+        Merge --> Converged[Converged State]
+        
+        Note1[Always Commutative] -.-> Merge
+        Note2[Always Idempotent] -.-> Merge
+        Note3[Always Associative] -.-> Merge
+    end
+```
 
-    def value(self):
-        return sum(self.counts.values())
+### CRDT Comparison
 
-    def merge(self, other):
-        """Merge with another GCounter"""
-        for node_id, count in other.counts.items():
-            self.counts[node_id] = max(self.counts[node_id], count)
+| CRDT Type | Operations | Merge Rule | Use Case |
+|-----------|------------|------------|----------|
+| G-Counter | increment() | max(a,b) per node | Page views, likes |
+| PN-Counter | inc(), dec() | P.merge(), N.merge() | Account balance |
+| LWW-Register | set(value) | Latest timestamp wins | User preferences |
+| OR-Set | add(), remove() | Union tags - tombstones | Shopping cart |
+| 2P-Set | add(), remove() | Union both sets | Membership |
 
-    def to_json(self):
-        return dict(self.counts)
+### G-Counter Example
 
-class PNCounter:
-    """Increment/decrement counter CRDT"""
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.p = GCounter(node_id)  # Positive counts
-        self.n = GCounter(node_id)  # Negative counts
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant B as Node B
+    participant C as Node C
+    
+    Note over A,C: Initial state: all {}
+    
+    A->>A: increment(5)
+    Note over A: {A:5}
+    
+    B->>B: increment(3)
+    Note over B: {B:3}
+    
+    C->>C: increment(2)
+    Note over C: {C:2}
+    
+    A->>B: Send state {A:5}
+    B->>B: Merge: {A:5, B:3}
+    Note over B: Value = 8
+    
+    B->>C: Send state {A:5, B:3}
+    C->>C: Merge: {A:5, B:3, C:2}
+    Note over C: Value = 10
+    
+    C->>A: Send state {A:5, B:3, C:2}
+    A->>A: Merge: {A:5, B:3, C:2}
+    Note over A: Value = 10
+    
+    Note over A,C: All nodes converged to 10
+```
 
-    def increment(self, amount=1):
-        self.p.increment(amount)
+### OR-Set Mechanics
 
-    def decrement(self, amount=1):
-        self.n.increment(amount)
-
-    def value(self):
-        return self.p.value() - self.n.value()
-
-    def merge(self, other):
-        self.p.merge(other.p)
-        self.n.merge(other.n)
-
-class LWWRegister:
-    """Last-write-wins register CRDT"""
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.value = None
-        self.timestamp = 0
-
-    def set(self, value):
-        self.timestamp = time.time()
-        self.value = value
-
-    def get(self):
-        return self.value
-
-    def merge(self, other):
-        if other.timestamp > self.timestamp:
-            self.value = other.value
-            self.timestamp = other.timestamp
-        elif other.timestamp == self.timestamp:
-            # Tie-breaker using node_id
-            if other.node_id > self.node_id:
-                self.value = other.value
-
-class ORSet:
-    """Observed-Remove Set CRDT"""
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.elements = {}  # element -> set of unique tags
-        self.tombstones = {}  # element -> set of removed tags
-
-    def add(self, element):
-        tag = f"{self.node_id}:{time.time()}"
-        if element not in self.elements:
-            self.elements[element] = set()
-        self.elements[element].add(tag)
-
-    def remove(self, element):
-        if element in self.elements:
-            # Add all current tags to tombstones
-            if element not in self.tombstones:
-                self.tombstones[element] = set()
-            self.tombstones[element].update(self.elements[element])
-
-    def contains(self, element):
-        if element not in self.elements:
-            return False
-
-        # Element exists if it has tags not in tombstones
-        live_tags = self.elements[element] - self.tombstones.get(element, set())
-        return len(live_tags) > 0
-
-    def merge(self, other):
-        # Merge elements
-        for element, tags in other.elements.items():
-            if element not in self.elements:
-                self.elements[element] = set()
-            self.elements[element].update(tags)
-
-        # Merge tombstones
-        for element, tags in other.tombstones.items():
-            if element not in self.tombstones:
-                self.tombstones[element] = set()
-            self.tombstones[element].update(tags)
+```mermaid
+stateDiagram-v2
+    [*] --> Empty: Initialize
+    Empty --> HasElements: add(X) with tag
+    HasElements --> HasElements: add(X) with new tag
+    HasElements --> Tombstoned: remove(X) moves tags
+    Tombstoned --> HasElements: add(X) with new tag
+    
+    note right of HasElements
+        Elements: {X: {t1, t2}}
+        Tombstones: {}
+    end note
+    
+    note right of Tombstoned
+        Elements: {X: {t1, t2}}
+        Tombstones: {X: {t1, t2}}
+        contains(X) = false
+    end note
 ```
 
 ### 3. Multi-Version Concurrency Control (MVCC)
 
-```python
-class MVCCStore:
-    def __init__(self):
-        self.data = {}  # key -> list of versions
-        self.transaction_counter = 0
-        self.active_transactions = {}
+### Multi-Version Concurrency Control (MVCC)
 
-    class Version:
-        def __init__(self, value, created_by, deleted_by=None):
-            self.value = value
-            self.created_by = created_by
-            self.deleted_by = deleted_by
-
-    def begin_transaction(self):
-        tx_id = self.transaction_counter
-        self.transaction_counter += 1
-
-        self.active_transactions[tx_id] = {
-            'start_time': tx_id,
-            'read_set': set(),
-            'write_set': {}
-        }
-
-        return tx_id
-
-    def read(self, tx_id, key):
-        tx = self.active_transactions[tx_id]
-
-        # Check write set first
-        if key in tx['write_set']:
-            return tx['write_set'][key]
-
-        # Find visible version
-        if key not in self.data:
-            return None
-
-        visible_version = None
-        for version in reversed(self.data[key]):
-            # Version is visible if:
-            # 1. Created before or by this transaction
-            # 2. Not deleted or deleted after this transaction
-            if version.created_by <= tx_id:
-                if version.deleted_by is None or version.deleted_by > tx_id:
-                    visible_version = version
-                    break
-
-        if visible_version:
-            tx['read_set'].add(key)
-            return visible_version.value
-
-        return None
-
-    def write(self, tx_id, key, value):
-        tx = self.active_transactions[tx_id]
-        tx['write_set'][key] = value
-
-    def commit(self, tx_id):
-        tx = self.active_transactions[tx_id]
-
-        # Validation phase (optimistic concurrency control)
-        for key in tx['read_set']:
-            if self.has_concurrent_modification(tx_id, key):
-                # Abort transaction
-                del self.active_transactions[tx_id]
-                raise TransactionAbortedException()
-
-        # Write phase
-        commit_timestamp = self.transaction_counter
-        self.transaction_counter += 1
-
-        for key, value in tx['write_set'].items():
-            if key not in self.data:
-                self.data[key] = []
-
-            # Mark old versions as deleted
-            for version in self.data[key]:
-                if version.deleted_by is None:
-                    version.deleted_by = commit_timestamp
-
-            # Add new version
-            new_version = self.Version(value, commit_timestamp)
-            self.data[key].append(new_version)
-
-        # Cleanup
-        del self.active_transactions[tx_id]
-        return commit_timestamp
-
-    def vacuum(self):
-        """Remove old versions no longer visible to any transaction"""
-        min_active_tx = min(self.active_transactions.keys()) if self.active_transactions else float('inf')
-
-        for key, versions in self.data.items():
-            # Keep only versions that might be visible
-            self.data[key] = [
-                v for v in versions
-                if v.deleted_by is None or v.deleted_by >= min_active_tx
-            ]
+```mermaid
+graph TB
+    subgraph "Version Chain for Key 'X'"
+        V1[Version 1<br/>Value: A<br/>Created: T1<br/>Deleted: T3]
+        V2[Version 2<br/>Value: B<br/>Created: T3<br/>Deleted: T5]
+        V3[Version 3<br/>Value: C<br/>Created: T5<br/>Deleted: null]
+        
+        V1 --> V2
+        V2 --> V3
+    end
+    
+    subgraph "Transaction Views"
+        T2[Transaction T2<br/>Sees: A] -.-> V1
+        T4[Transaction T4<br/>Sees: B] -.-> V2
+        T6[Transaction T6<br/>Sees: C] -.-> V3
+    end
 ```
+
+### MVCC Transaction Lifecycle
+
+```mermaid
+stateDiagram-v2
+    [*] --> Begin: begin_transaction()
+    Begin --> Active: Assigned TX_ID
+    
+    Active --> Reading: read(key)
+    Reading --> Active: Add to read_set
+    
+    Active --> Writing: write(key, value)
+    Writing --> Active: Add to write_set
+    
+    Active --> Validation: commit()
+    
+    Validation --> CheckConflicts: Validate read_set
+    CheckConflicts --> Abort: Concurrent modification
+    CheckConflicts --> WritePhase: No conflicts
+    
+    WritePhase --> CreateVersions: Write new versions
+    CreateVersions --> Committed: Success
+    
+    Abort --> [*]: Rollback
+    Committed --> [*]: Complete
+```
+
+### MVCC Visibility Rules
+
+| Scenario | Version Created | Version Deleted | Visible to TX? |
+|----------|----------------|-----------------|----------------|
+| Normal read | Before TX | After TX or NULL | ✓ Yes |
+| Too new | After TX | Any | ✗ No |
+| Already deleted | Before TX | Before TX | ✗ No |
+| Own write | By TX | Any | ✓ Yes |
+
+### Concurrent Transaction Example
+
+```mermaid
+sequenceDiagram
+    participant T1 as Transaction 1
+    participant T2 as Transaction 2
+    participant DB as MVCC Store
+    
+    T1->>DB: begin_transaction() → TX1
+    T2->>DB: begin_transaction() → TX2
+    
+    T1->>DB: read(X) → "A"
+    Note over DB: T1 read_set = {X}
+    
+    T2->>DB: read(X) → "A"
+    Note over DB: T2 read_set = {X}
+    
+    T1->>DB: write(X, "B")
+    Note over DB: T1 write_set = {X: "B"}
+    
+    T2->>DB: write(X, "C")
+    Note over DB: T2 write_set = {X: "C"}
+    
+    T1->>DB: commit()
+    DB->>DB: Validate: No conflicts
+    DB->>DB: Create version (X, "B", TX3)
+    DB-->>T1: Success
+    
+    T2->>DB: commit()
+    DB->>DB: Validate: X modified by T1!
+    DB-->>T2: Abort - Write conflict
+```
+
+### MVCC Storage Overhead
+
+| Aspect | Impact | Mitigation |
+|--------|--------|------------|  
+| Multiple versions | Space overhead | Vacuum old versions |
+| Version chains | Lookup overhead | Index on latest |
+| Long transactions | Prevent cleanup | Transaction timeout |
+| Read tracking | Memory overhead | Bloom filters |
 
 ## Key Takeaways
 

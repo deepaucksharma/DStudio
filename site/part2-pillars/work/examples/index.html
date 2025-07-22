@@ -3801,6 +3801,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -3853,6 +3860,13 @@
     Serverless/FaaS
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -4005,6 +4019,13 @@
     Bulkhead
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -6585,31 +6606,30 @@
 <p><strong>Context</strong>: Spotify evolved from 100 engineers in 2012 to 1,800+ in 2020</p>
 <p><strong>Problem</strong>: Monolithic backend couldn't scale with team growth</p>
 <p><strong>Solution Architecture</strong>:
-<div class="language-proto highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a><span class="n">Before</span><span class="w"> </span><span class="p">(</span><span class="mi">2012</span><span class="p">)</span><span class="o">:</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="err">┌─────────────────────────────┐</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="err">│</span><span class="w">    </span><span class="n">Monolithic</span><span class="w"> </span><span class="n">Backend</span><span class="w">       </span><span class="err">│</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">Management</span><span class="w">          </span><span class="err">│</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Music</span><span class="w"> </span><span class="n">Catalog</span><span class="w">            </span><span class="err">│</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Playlists</span><span class="w">               </span><span class="err">│</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Recommendations</span><span class="w">         </span><span class="err">│</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8" href="#__codelineno-0-8"></a><span class="err">│</span><span class="w">  </span><span class="o">-</span><span class="w"> </span><span class="n">Payment</span><span class="w"> </span><span class="n">Processing</span><span class="w">      </span><span class="err">│</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9" href="#__codelineno-0-9"></a><span class="err">└─────────────────────────────┘</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10" href="#__codelineno-0-10"></a>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11" href="#__codelineno-0-11"></a><span class="n">After</span><span class="w"> </span><span class="p">(</span><span class="mi">2020</span><span class="p">)</span><span class="o">:</span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12" href="#__codelineno-0-12"></a><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌──────────┐</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13" href="#__codelineno-0-13"></a><span class="err">│</span><span class="w">  </span><span class="n">User</span><span class="w">   </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="n">Playlist</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="n">Payment</span><span class="w">  </span><span class="err">│</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14" href="#__codelineno-0-14"></a><span class="err">│</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="n">Service</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="n">Service</span><span class="w">  </span><span class="err">│</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15" href="#__codelineno-0-15"></a><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└──────────┘</span>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16" href="#__codelineno-0-16"></a><span class="w">     </span><span class="err">│</span><span class="w">           </span><span class="err">│</span><span class="w">            </span><span class="err">│</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17" href="#__codelineno-0-17"></a><span class="err">┌─────────────────────────────────┐</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18" href="#__codelineno-0-18"></a><span class="err">│</span><span class="w">        </span><span class="n">Event</span><span class="w"> </span><span class="n">Bus</span><span class="w"> </span><span class="p">(</span><span class="n">Kafka</span><span class="p">)</span><span class="w">        </span><span class="err">│</span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19" href="#__codelineno-0-19"></a><span class="err">└─────────────────────────────────┘</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20" href="#__codelineno-0-20"></a><span class="w">     </span><span class="err">│</span><span class="w">           </span><span class="err">│</span><span class="w">            </span><span class="err">│</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21" href="#__codelineno-0-21"></a><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌─────────┐</span><span class="w"> </span><span class="err">┌──────────┐</span>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22" href="#__codelineno-0-22"></a><span class="err">│</span><span class="w"> </span><span class="n">Music</span><span class="w">   </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="n">Recommend</span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="n">Analytics</span><span class="w"> </span><span class="err">│</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23" href="#__codelineno-0-23"></a><span class="err">│</span><span class="w"> </span><span class="n">Catalog</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="n">Engine</span><span class="w">  </span><span class="err">│</span><span class="w"> </span><span class="err">│</span><span class="w"> </span><span class="n">Service</span><span class="w">  </span><span class="err">│</span>
-</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24" href="#__codelineno-0-24"></a><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└─────────┘</span><span class="w"> </span><span class="err">└──────────┘</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Before 2012 - Monolithic"
+        M[Monolithic Backend&lt;br/&gt;• User Management&lt;br/&gt;• Music Catalog&lt;br/&gt;• Playlists&lt;br/&gt;• Recommendations&lt;br/&gt;• Payment Processing]
+    end
+
+    subgraph "After 2020 - Microservices"
+        U[User Service]
+        P[Playlist Service]
+        PAY[Payment Service]
+        K[Event Bus - Kafka]
+        MC[Music Catalog]
+        RE[Recommend Engine]
+        AN[Analytics Service]
+
+        U -.-&gt; K
+        P -.-&gt; K
+        PAY -.-&gt; K
+        K -.-&gt; MC
+        K -.-&gt; RE
+        K -.-&gt; AN
+    end
+
+    style M fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style K fill:#4ecdc4,stroke:#333,stroke-width:2px</code></pre></p>
 <p><strong>Key Decisions</strong>:
 - Autonomous squads own services end-to-end
 - Async communication via event streaming
@@ -6622,25 +6642,24 @@
 <h3 id="2-ubers-geospatial-work-distribution">2. Uber's Geospatial Work Distribution<a class="headerlink" href="#2-ubers-geospatial-work-distribution" title="Permanent link">&para;</a></h3>
 <p><strong>Problem</strong>: Match riders with drivers in real-time at global scale</p>
 <p><strong>Work Distribution Strategy</strong>:
-<div class="language-python highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a><span class="c1"># City-level sharding</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2" href="#__codelineno-1-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">GeoShardRouter</span><span class="p">:</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3" href="#__codelineno-1-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">route_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">location</span><span class="p">):</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4" href="#__codelineno-1-4"></a>        <span class="c1"># H3 hexagonal hierarchical spatial index</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5" href="#__codelineno-1-5"></a>        <span class="n">cell_id</span> <span class="o">=</span> <span class="n">h3</span><span class="o">.</span><span class="n">geo_to_h3</span><span class="p">(</span><span class="n">location</span><span class="o">.</span><span class="n">lat</span><span class="p">,</span> <span class="n">location</span><span class="o">.</span><span class="n">lng</span><span class="p">,</span> <span class="n">resolution</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6" href="#__codelineno-1-6"></a>        <span class="n">shard</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">cell_to_shard_map</span><span class="p">[</span><span class="n">cell_id</span><span class="p">]</span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7" href="#__codelineno-1-7"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">shards</span><span class="p">[</span><span class="n">shard</span><span class="p">]</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8" href="#__codelineno-1-8"></a>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9" href="#__codelineno-1-9"></a><span class="c1"># Dynamic work stealing for load balancing</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10" href="#__codelineno-1-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">WorkStealer</span><span class="p">:</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11" href="#__codelineno-1-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">balance_load</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12" href="#__codelineno-1-12"></a>        <span class="k">for</span> <span class="n">shard</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">overloaded_shards</span><span class="p">():</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13" href="#__codelineno-1-13"></a>            <span class="c1"># Find neighboring shard with capacity</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14" href="#__codelineno-1-14"></a>            <span class="n">neighbor</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">find_underloaded_neighbor</span><span class="p">(</span><span class="n">shard</span><span class="p">)</span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15" href="#__codelineno-1-15"></a>            <span class="k">if</span> <span class="n">neighbor</span><span class="p">:</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16" href="#__codelineno-1-16"></a>                <span class="c1"># Transfer edge cells</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17" href="#__codelineno-1-17"></a>                <span class="n">cells</span> <span class="o">=</span> <span class="n">shard</span><span class="o">.</span><span class="n">get_edge_cells</span><span class="p">(</span><span class="n">toward</span><span class="o">=</span><span class="n">neighbor</span><span class="p">)</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18" href="#__codelineno-1-18"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">transfer_cells</span><span class="p">(</span><span class="n">cells</span><span class="p">,</span> <span class="n">from_shard</span><span class="o">=</span><span class="n">shard</span><span class="p">,</span> <span class="n">to_shard</span><span class="o">=</span><span class="n">neighbor</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Geospatial Work Distribution"
+        L[Location Request] --&gt; H[H3 Spatial Index&lt;br/&gt;Resolution: 7]
+        H --&gt; CM[Cell-to-Shard Map]
+        CM --&gt; S1[Shard 1]
+        CM --&gt; S2[Shard 2]
+        CM --&gt; S3[Shard N]
+
+        subgraph "Dynamic Load Balancing"
+            OL[Overloaded Shard] --&gt; WS[Work Stealer]
+            WS --&gt; UN[Find Underloaded&lt;br/&gt;Neighbor]
+            UN --&gt; EC[Transfer Edge Cells]
+            EC --&gt; UL[Underloaded Shard]
+        end
+    end
+
+    style H fill:#ffd93d,stroke:#333,stroke-width:2px
+    style WS fill:#6bcf7f,stroke:#333,stroke-width:2px</code></pre></p>
 <p><strong>Metrics</strong>:
 - 15M+ rides daily
 - &lt;15 second dispatch time
@@ -6649,466 +6668,376 @@
 <p><strong>Challenge</strong>: Distribute chat messages to millions of concurrent users</p>
 <p><strong>Architecture Evolution</strong>:</p>
 <p><strong>Gen 1: Simple Fanout (2015)</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1" href="#__codelineno-2-1"></a><span class="k">def</span><span class="w"> </span><span class="nf">send_message</span><span class="p">(</span><span class="n">channel_id</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2" href="#__codelineno-2-2"></a>    <span class="n">users</span> <span class="o">=</span> <span class="n">get_channel_users</span><span class="p">(</span><span class="n">channel_id</span><span class="p">)</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3" href="#__codelineno-2-3"></a>    <span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="n">users</span><span class="p">:</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4" href="#__codelineno-2-4"></a>        <span class="n">send_to_user</span><span class="p">(</span><span class="n">user</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>  <span class="c1"># O(n) problem</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Channel
+    participant S as Server
+    participant U1 as User 1
+    participant U2 as User 2
+    participant UN as User N
+
+    Note over S: Gen 1 - Simple Fanout (2015)
+    C-&gt;&gt;S: send_message(channel_id, message)
+    S-&gt;&gt;S: get_channel_users(channel_id)
+    Note over S: O(n) complexity
+    S-&gt;&gt;U1: send_to_user(message)
+    S-&gt;&gt;U2: send_to_user(message)
+    S-&gt;&gt;UN: send_to_user(message)
+    Note over S,UN: Sequential sends cause bottleneck</code></pre></p>
 <p><strong>Gen 2: Guild Sharding (2017)</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">GuildWorker</span><span class="p">:</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">guild_id</span><span class="p">):</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">guild_id</span> <span class="o">=</span> <span class="n">guild_id</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4" href="#__codelineno-3-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">websockets</span> <span class="o">=</span> <span class="p">{}</span>  <span class="c1"># user_id -&gt; connection</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5" href="#__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6" href="#__codelineno-3-6"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">broadcast_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">channel_id</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>        <span class="c1"># Only users in this guild</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8" href="#__codelineno-3-8"></a>        <span class="n">users</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_channel_users</span><span class="p">(</span><span class="n">channel_id</span><span class="p">)</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9" href="#__codelineno-3-9"></a>        <span class="c1"># Bulk send to local connections</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10" href="#__codelineno-3-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_send</span><span class="p">(</span><span class="n">users</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Gen 2 - Guild Sharding (2017)"
+        M[Message] --&gt; GW[Guild Worker]
+        GW --&gt; GID[Guild ID]
+        GW --&gt; WS[WebSocket Map&lt;br/&gt;user_id → connection]
+
+        GW --&gt; BC[broadcast_message]
+        BC --&gt; GCU[Get Channel Users&lt;br/&gt;Only This Guild]
+        GCU --&gt; BS[Batch Send&lt;br/&gt;Local Connections]
+
+        BS --&gt; U1[User 1]
+        BS --&gt; U2[User 2]
+        BS --&gt; UN[User N]
+    end
+
+    style GW fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style BS fill:#95e1d3,stroke:#333,stroke-width:2px</code></pre></p>
 <p><strong>Gen 3: Consistent Hashing + Read Replicas (2020)</strong>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1" href="#__codelineno-4-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">MessageRouter</span><span class="p">:</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2" href="#__codelineno-4-2"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">route_message</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">guild_id</span><span class="p">,</span> <span class="n">message</span><span class="p">):</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3" href="#__codelineno-4-3"></a>        <span class="c1"># Primary handles writes</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4" href="#__codelineno-4-4"></a>        <span class="n">primary</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_ring</span><span class="o">.</span><span class="n">get_node</span><span class="p">(</span><span class="n">guild_id</span><span class="p">)</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5" href="#__codelineno-4-5"></a>        <span class="n">primary</span><span class="o">.</span><span class="n">write_message</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6" href="#__codelineno-4-6"></a>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7" href="#__codelineno-4-7"></a>        <span class="c1"># Replicas handle reads</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8" href="#__codelineno-4-8"></a>        <span class="n">replicas</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">hash_ring</span><span class="o">.</span><span class="n">get_replicas</span><span class="p">(</span><span class="n">guild_id</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9" href="#__codelineno-4-9"></a>        <span class="k">for</span> <span class="n">replica</span> <span class="ow">in</span> <span class="n">replicas</span><span class="p">:</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10" href="#__codelineno-4-10"></a>            <span class="n">replica</span><span class="o">.</span><span class="n">replicate_async</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Gen 3 - Consistent Hashing + Replicas (2020)"
+        M[Message] --&gt; MR[Message Router]
+        MR --&gt; HR[Hash Ring]
+
+        HR --&gt; P[Primary Node&lt;br/&gt;Handles Writes]
+        P --&gt; WM[write_message()]
+
+        HR --&gt; R1[Replica 1]
+        HR --&gt; R2[Replica 2]
+        HR --&gt; R3[Replica 3]
+
+        P -.-&gt;|Async Replication| R1
+        P -.-&gt;|Async Replication| R2
+        P -.-&gt;|Async Replication| R3
+
+        R1 --&gt; RD1[Handle Reads]
+        R2 --&gt; RD2[Handle Reads]
+        R3 --&gt; RD3[Handle Reads]
+    end
+
+    style P fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style R1 fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style R2 fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style R3 fill:#4ecdc4,stroke:#333,stroke-width:2px</code></pre></p>
 <h3 id="4-mapreduce-at-google">4. MapReduce at Google<a class="headerlink" href="#4-mapreduce-at-google" title="Permanent link">&para;</a></h3>
 <p><strong>Original Paper Implementation (2004)</strong></p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1" href="#__codelineno-5-1"></a><span class="c1"># Classic word count example</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2" href="#__codelineno-5-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">map_function</span><span class="p">(</span><span class="n">document</span><span class="p">):</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3" href="#__codelineno-5-3"></a>    <span class="k">for</span> <span class="n">word</span> <span class="ow">in</span> <span class="n">document</span><span class="o">.</span><span class="n">split</span><span class="p">():</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4" href="#__codelineno-5-4"></a>        <span class="n">emit</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5" href="#__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6" href="#__codelineno-5-6"></a><span class="k">def</span><span class="w"> </span><span class="nf">reduce_function</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">counts</span><span class="p">):</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7" href="#__codelineno-5-7"></a>    <span class="k">return</span> <span class="nb">sum</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8" href="#__codelineno-5-8"></a>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9" href="#__codelineno-5-9"></a><span class="c1"># Framework handles distribution</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10" href="#__codelineno-5-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">MapReduceJob</span><span class="p">:</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11" href="#__codelineno-5-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_files</span><span class="p">):</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12" href="#__codelineno-5-12"></a>        <span class="c1"># Phase 1: Map</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13" href="#__codelineno-5-13"></a>        <span class="n">map_tasks</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14" href="#__codelineno-5-14"></a>        <span class="k">for</span> <span class="n">file</span> <span class="ow">in</span> <span class="n">input_files</span><span class="p">:</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15" href="#__codelineno-5-15"></a>            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_map_task</span><span class="p">(</span><span class="n">file</span><span class="p">,</span> <span class="n">map_function</span><span class="p">)</span>
-</span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16" href="#__codelineno-5-16"></a>            <span class="n">map_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submit_to_worker</span><span class="p">(</span><span class="n">task</span><span class="p">))</span>
-</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17" href="#__codelineno-5-17"></a>
-</span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18" href="#__codelineno-5-18"></a>        <span class="c1"># Barrier: Wait for all maps</span>
-</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19" href="#__codelineno-5-19"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">wait_all</span><span class="p">(</span><span class="n">map_tasks</span><span class="p">)</span>
-</span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20" href="#__codelineno-5-20"></a>
-</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21" href="#__codelineno-5-21"></a>        <span class="c1"># Phase 2: Shuffle</span>
-</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22" href="#__codelineno-5-22"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">shuffle_intermediate_data</span><span class="p">()</span>
-</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23" href="#__codelineno-5-23"></a>
-</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24" href="#__codelineno-5-24"></a>        <span class="c1"># Phase 3: Reduce</span>
-</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25" href="#__codelineno-5-25"></a>        <span class="n">reduce_tasks</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26" href="#__codelineno-5-26"></a>        <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_unique_keys</span><span class="p">():</span>
-</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27" href="#__codelineno-5-27"></a>            <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_reduce_task</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="n">reduce_function</span><span class="p">)</span>
-</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28" href="#__codelineno-5-28"></a>            <span class="n">reduce_tasks</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">submit_to_worker</span><span class="p">(</span><span class="n">task</span><span class="p">))</span>
-</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29" href="#__codelineno-5-29"></a>
-</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30" href="#__codelineno-5-30"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">collect_results</span><span class="p">(</span><span class="n">reduce_tasks</span><span class="p">)</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TB
+    subgraph "MapReduce Execution Flow"
+        IF[Input Files] --&gt; MP[Map Phase]
+
+        subgraph "Map Phase"
+            M1[Mapper 1&lt;br/&gt;doc → (word,1)]
+            M2[Mapper 2&lt;br/&gt;doc → (word,1)]
+            MN[Mapper N&lt;br/&gt;doc → (word,1)]
+        end
+
+        MP --&gt; B1[Barrier: Wait All Maps]
+        B1 --&gt; SP[Shuffle Phase&lt;br/&gt;Group by Key]
+
+        SP --&gt; RP[Reduce Phase]
+
+        subgraph "Reduce Phase"
+            R1[Reducer 1&lt;br/&gt;word → sum(counts)]
+            R2[Reducer 2&lt;br/&gt;word → sum(counts)]
+            RN[Reducer N&lt;br/&gt;word → sum(counts)]
+        end
+
+        RP --&gt; O[Output Results]
+    end
+
+    style B1 fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style SP fill:#ffd93d,stroke:#333,stroke-width:2px</code></pre>
 <h2 id="code-examples">Code Examples<a class="headerlink" href="#code-examples" title="Permanent link">&para;</a></h2>
 <h3 id="1-work-stealing-queue-implementation">1. Work Stealing Queue Implementation<a class="headerlink" href="#1-work-stealing-queue-implementation" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1" href="#__codelineno-6-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">threading</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2" href="#__codelineno-6-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">collections</span><span class="w"> </span><span class="kn">import</span> <span class="n">deque</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3" href="#__codelineno-6-3"></a><span class="kn">from</span><span class="w"> </span><span class="nn">random</span><span class="w"> </span><span class="kn">import</span> <span class="n">choice</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4" href="#__codelineno-6-4"></a>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5" href="#__codelineno-6-5"></a><span class="k">class</span><span class="w"> </span><span class="nc">WorkStealingQueue</span><span class="p">:</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6" href="#__codelineno-6-6"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7" href="#__codelineno-6-7"></a><span class="sd">    Each worker has its own queue</span>
-</span><span id="__span-6-8"><a id="__codelineno-6-8" name="__codelineno-6-8" href="#__codelineno-6-8"></a><span class="sd">    Workers steal from others when idle</span>
-</span><span id="__span-6-9"><a id="__codelineno-6-9" name="__codelineno-6-9" href="#__codelineno-6-9"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-6-10"><a id="__codelineno-6-10" name="__codelineno-6-10" href="#__codelineno-6-10"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">worker_id</span><span class="p">,</span> <span class="n">all_queues</span><span class="p">):</span>
-</span><span id="__span-6-11"><a id="__codelineno-6-11" name="__codelineno-6-11" href="#__codelineno-6-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">worker_id</span> <span class="o">=</span> <span class="n">worker_id</span>
-</span><span id="__span-6-12"><a id="__codelineno-6-12" name="__codelineno-6-12" href="#__codelineno-6-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span> <span class="o">=</span> <span class="n">deque</span><span class="p">()</span>
-</span><span id="__span-6-13"><a id="__codelineno-6-13" name="__codelineno-6-13" href="#__codelineno-6-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">all_queues</span> <span class="o">=</span> <span class="n">all_queues</span>
-</span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14" href="#__codelineno-6-14"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">lock</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Lock</span><span class="p">()</span>
-</span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15" href="#__codelineno-6-15"></a>
-</span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16" href="#__codelineno-6-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">push</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">task</span><span class="p">):</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17" href="#__codelineno-6-17"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Owner pushes to bottom&quot;&quot;&quot;</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18" href="#__codelineno-6-18"></a>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
-</span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19" href="#__codelineno-6-19"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">task</span><span class="p">)</span>
-</span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20" href="#__codelineno-6-20"></a>
-</span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21" href="#__codelineno-6-21"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">pop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22" href="#__codelineno-6-22"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Owner pops from bottom&quot;&quot;&quot;</span>
-</span><span id="__span-6-23"><a id="__codelineno-6-23" name="__codelineno-6-23" href="#__codelineno-6-23"></a>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
-</span><span id="__span-6-24"><a id="__codelineno-6-24" name="__codelineno-6-24" href="#__codelineno-6-24"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span><span class="p">:</span>
-</span><span id="__span-6-25"><a id="__codelineno-6-25" name="__codelineno-6-25" href="#__codelineno-6-25"></a>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-</span><span id="__span-6-26"><a id="__codelineno-6-26" name="__codelineno-6-26" href="#__codelineno-6-26"></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="__span-6-27"><a id="__codelineno-6-27" name="__codelineno-6-27" href="#__codelineno-6-27"></a>
-</span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28" href="#__codelineno-6-28"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">steal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-6-29"><a id="__codelineno-6-29" name="__codelineno-6-29" href="#__codelineno-6-29"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Others steal from top&quot;&quot;&quot;</span>
-</span><span id="__span-6-30"><a id="__codelineno-6-30" name="__codelineno-6-30" href="#__codelineno-6-30"></a>        <span class="k">with</span> <span class="bp">self</span><span class="o">.</span><span class="n">lock</span><span class="p">:</span>
-</span><span id="__span-6-31"><a id="__codelineno-6-31" name="__codelineno-6-31" href="#__codelineno-6-31"></a>            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span><span class="p">:</span>
-</span><span id="__span-6-32"><a id="__codelineno-6-32" name="__codelineno-6-32" href="#__codelineno-6-32"></a>                <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span><span class="o">.</span><span class="n">popleft</span><span class="p">()</span>
-</span><span id="__span-6-33"><a id="__codelineno-6-33" name="__codelineno-6-33" href="#__codelineno-6-33"></a>        <span class="k">return</span> <span class="kc">None</span>
-</span><span id="__span-6-34"><a id="__codelineno-6-34" name="__codelineno-6-34" href="#__codelineno-6-34"></a>
-</span><span id="__span-6-35"><a id="__codelineno-6-35" name="__codelineno-6-35" href="#__codelineno-6-35"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_work</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-6-36"><a id="__codelineno-6-36" name="__codelineno-6-36" href="#__codelineno-6-36"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Try local first, then steal&quot;&quot;&quot;</span>
-</span><span id="__span-6-37"><a id="__codelineno-6-37" name="__codelineno-6-37" href="#__codelineno-6-37"></a>        <span class="c1"># Try local queue</span>
-</span><span id="__span-6-38"><a id="__codelineno-6-38" name="__codelineno-6-38" href="#__codelineno-6-38"></a>        <span class="n">task</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
-</span><span id="__span-6-39"><a id="__codelineno-6-39" name="__codelineno-6-39" href="#__codelineno-6-39"></a>        <span class="k">if</span> <span class="n">task</span><span class="p">:</span>
-</span><span id="__span-6-40"><a id="__codelineno-6-40" name="__codelineno-6-40" href="#__codelineno-6-40"></a>            <span class="k">return</span> <span class="n">task</span>
-</span><span id="__span-6-41"><a id="__codelineno-6-41" name="__codelineno-6-41" href="#__codelineno-6-41"></a>
-</span><span id="__span-6-42"><a id="__codelineno-6-42" name="__codelineno-6-42" href="#__codelineno-6-42"></a>        <span class="c1"># Try stealing from others</span>
-</span><span id="__span-6-43"><a id="__codelineno-6-43" name="__codelineno-6-43" href="#__codelineno-6-43"></a>        <span class="n">other_queues</span> <span class="o">=</span> <span class="p">[</span><span class="n">q</span> <span class="k">for</span> <span class="n">q</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">all_queues</span>
-</span><span id="__span-6-44"><a id="__codelineno-6-44" name="__codelineno-6-44" href="#__codelineno-6-44"></a>                       <span class="k">if</span> <span class="n">q</span><span class="o">.</span><span class="n">worker_id</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_id</span><span class="p">]</span>
-</span><span id="__span-6-45"><a id="__codelineno-6-45" name="__codelineno-6-45" href="#__codelineno-6-45"></a>
-</span><span id="__span-6-46"><a id="__codelineno-6-46" name="__codelineno-6-46" href="#__codelineno-6-46"></a>        <span class="c1"># Random victim selection</span>
-</span><span id="__span-6-47"><a id="__codelineno-6-47" name="__codelineno-6-47" href="#__codelineno-6-47"></a>        <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">other_queues</span><span class="p">)):</span>
-</span><span id="__span-6-48"><a id="__codelineno-6-48" name="__codelineno-6-48" href="#__codelineno-6-48"></a>            <span class="n">victim</span> <span class="o">=</span> <span class="n">choice</span><span class="p">(</span><span class="n">other_queues</span><span class="p">)</span>
-</span><span id="__span-6-49"><a id="__codelineno-6-49" name="__codelineno-6-49" href="#__codelineno-6-49"></a>            <span class="n">task</span> <span class="o">=</span> <span class="n">victim</span><span class="o">.</span><span class="n">steal</span><span class="p">()</span>
-</span><span id="__span-6-50"><a id="__codelineno-6-50" name="__codelineno-6-50" href="#__codelineno-6-50"></a>            <span class="k">if</span> <span class="n">task</span><span class="p">:</span>
-</span><span id="__span-6-51"><a id="__codelineno-6-51" name="__codelineno-6-51" href="#__codelineno-6-51"></a>                <span class="k">return</span> <span class="n">task</span>
-</span><span id="__span-6-52"><a id="__codelineno-6-52" name="__codelineno-6-52" href="#__codelineno-6-52"></a>
-</span><span id="__span-6-53"><a id="__codelineno-6-53" name="__codelineno-6-53" href="#__codelineno-6-53"></a>        <span class="k">return</span> <span class="kc">None</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Work Stealing Queue Architecture"
+        subgraph "Worker 1"
+            W1[Worker 1] --&gt; LQ1[Local Queue&lt;br/&gt;LIFO for owner]
+            LQ1 --&gt; |Push Bottom| T1[New Task]
+            LQ1 --&gt; |Pop Bottom| T2[Own Work]
+        end
+
+        subgraph "Worker 2"
+            W2[Worker 2] --&gt; LQ2[Local Queue&lt;br/&gt;FIFO for thieves]
+            LQ2 --&gt; |Steal Top| ST[Stolen Task]
+        end
+
+        subgraph "Work Distribution Flow"
+            GW[get_work()] --&gt; TL{Try Local Pop}
+            TL --&gt;|Success| RT[Return Task]
+            TL --&gt;|Empty| TS[Try Stealing]
+            TS --&gt; RV[Random Victim&lt;br/&gt;Selection]
+            RV --&gt; VS[Victim.steal()]
+            VS --&gt;|Success| RT
+            VS --&gt;|Failed| RV
+        end
+    end
+
+    W1 -.-&gt;|Steal From| LQ2
+    W2 -.-&gt;|Steal From| LQ1
+
+    style W1 fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style W2 fill:#95e1d3,stroke:#333,stroke-width:2px
+    style RV fill:#ffd93d,stroke:#333,stroke-width:2px</code></pre>
 <h3 id="2-consistent-hashing-for-work-distribution">2. Consistent Hashing for Work Distribution<a class="headerlink" href="#2-consistent-hashing-for-work-distribution" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1" href="#__codelineno-7-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">hashlib</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2" href="#__codelineno-7-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">bisect</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3" href="#__codelineno-7-3"></a>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4" href="#__codelineno-7-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">ConsistentHash</span><span class="p">:</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5" href="#__codelineno-7-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">nodes</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">virtual_nodes</span><span class="o">=</span><span class="mi">150</span><span class="p">):</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6" href="#__codelineno-7-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">virtual_nodes</span> <span class="o">=</span> <span class="n">virtual_nodes</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7" href="#__codelineno-7-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">ring</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8" href="#__codelineno-7-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9" href="#__codelineno-7-9"></a>        <span class="k">if</span> <span class="n">nodes</span><span class="p">:</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10" href="#__codelineno-7-10"></a>            <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11" href="#__codelineno-7-11"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12" href="#__codelineno-7-12"></a>
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13" href="#__codelineno-7-13"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">_hash</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14" href="#__codelineno-7-14"></a>        <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">(</span><span class="n">key</span><span class="o">.</span><span class="n">encode</span><span class="p">())</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">(),</span> <span class="mi">16</span><span class="p">)</span>
-</span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15" href="#__codelineno-7-15"></a>
-</span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16" href="#__codelineno-7-16"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-</span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17" href="#__codelineno-7-17"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Add node with virtual nodes for better distribution&quot;&quot;&quot;</span>
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18" href="#__codelineno-7-18"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">virtual_nodes</span><span class="p">):</span>
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19" href="#__codelineno-7-19"></a>            <span class="n">virtual_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20" href="#__codelineno-7-20"></a>            <span class="n">hash_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">virtual_key</span><span class="p">)</span>
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21" href="#__codelineno-7-21"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">[</span><span class="n">hash_value</span><span class="p">]</span> <span class="o">=</span> <span class="n">node</span>
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22" href="#__codelineno-7-22"></a>            <span class="n">bisect</span><span class="o">.</span><span class="n">insort</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">,</span> <span class="n">hash_value</span><span class="p">)</span>
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23" href="#__codelineno-7-23"></a>
-</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24" href="#__codelineno-7-24"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">remove_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">):</span>
-</span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25" href="#__codelineno-7-25"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Remove node and all its virtual nodes&quot;&quot;&quot;</span>
-</span><span id="__span-7-26"><a id="__codelineno-7-26" name="__codelineno-7-26" href="#__codelineno-7-26"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">virtual_nodes</span><span class="p">):</span>
-</span><span id="__span-7-27"><a id="__codelineno-7-27" name="__codelineno-7-27" href="#__codelineno-7-27"></a>            <span class="n">virtual_key</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">node</span><span class="si">}</span><span class="s2">:</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-7-28"><a id="__codelineno-7-28" name="__codelineno-7-28" href="#__codelineno-7-28"></a>            <span class="n">hash_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">virtual_key</span><span class="p">)</span>
-</span><span id="__span-7-29"><a id="__codelineno-7-29" name="__codelineno-7-29" href="#__codelineno-7-29"></a>            <span class="k">if</span> <span class="n">hash_value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">:</span>
-</span><span id="__span-7-30"><a id="__codelineno-7-30" name="__codelineno-7-30" href="#__codelineno-7-30"></a>                <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">[</span><span class="n">hash_value</span><span class="p">]</span>
-</span><span id="__span-7-31"><a id="__codelineno-7-31" name="__codelineno-7-31" href="#__codelineno-7-31"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="n">hash_value</span><span class="p">)</span>
-</span><span id="__span-7-32"><a id="__codelineno-7-32" name="__codelineno-7-32" href="#__codelineno-7-32"></a>
-</span><span id="__span-7-33"><a id="__codelineno-7-33" name="__codelineno-7-33" href="#__codelineno-7-33"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-</span><span id="__span-7-34"><a id="__codelineno-7-34" name="__codelineno-7-34" href="#__codelineno-7-34"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Find node responsible for key&quot;&quot;&quot;</span>
-</span><span id="__span-7-35"><a id="__codelineno-7-35" name="__codelineno-7-35" href="#__codelineno-7-35"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">:</span>
-</span><span id="__span-7-36"><a id="__codelineno-7-36" name="__codelineno-7-36" href="#__codelineno-7-36"></a>            <span class="k">return</span> <span class="kc">None</span>
-</span><span id="__span-7-37"><a id="__codelineno-7-37" name="__codelineno-7-37" href="#__codelineno-7-37"></a>
-</span><span id="__span-7-38"><a id="__codelineno-7-38" name="__codelineno-7-38" href="#__codelineno-7-38"></a>        <span class="n">hash_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="__span-7-39"><a id="__codelineno-7-39" name="__codelineno-7-39" href="#__codelineno-7-39"></a>
-</span><span id="__span-7-40"><a id="__codelineno-7-40" name="__codelineno-7-40" href="#__codelineno-7-40"></a>        <span class="c1"># Find first node clockwise from hash</span>
-</span><span id="__span-7-41"><a id="__codelineno-7-41" name="__codelineno-7-41" href="#__codelineno-7-41"></a>        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">,</span> <span class="n">hash_value</span><span class="p">)</span>
-</span><span id="__span-7-42"><a id="__codelineno-7-42" name="__codelineno-7-42" href="#__codelineno-7-42"></a>        <span class="k">if</span> <span class="n">index</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">):</span>
-</span><span id="__span-7-43"><a id="__codelineno-7-43" name="__codelineno-7-43" href="#__codelineno-7-43"></a>            <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-7-44"><a id="__codelineno-7-44" name="__codelineno-7-44" href="#__codelineno-7-44"></a>
-</span><span id="__span-7-45"><a id="__codelineno-7-45" name="__codelineno-7-45" href="#__codelineno-7-45"></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
-</span><span id="__span-7-46"><a id="__codelineno-7-46" name="__codelineno-7-46" href="#__codelineno-7-46"></a>
-</span><span id="__span-7-47"><a id="__codelineno-7-47" name="__codelineno-7-47" href="#__codelineno-7-47"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">get_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">,</span> <span class="n">count</span><span class="o">=</span><span class="mi">3</span><span class="p">):</span>
-</span><span id="__span-7-48"><a id="__codelineno-7-48" name="__codelineno-7-48" href="#__codelineno-7-48"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Get N nodes for replication&quot;&quot;&quot;</span>
-</span><span id="__span-7-49"><a id="__codelineno-7-49" name="__codelineno-7-49" href="#__codelineno-7-49"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">:</span>
-</span><span id="__span-7-50"><a id="__codelineno-7-50" name="__codelineno-7-50" href="#__codelineno-7-50"></a>            <span class="k">return</span> <span class="p">[]</span>
-</span><span id="__span-7-51"><a id="__codelineno-7-51" name="__codelineno-7-51" href="#__codelineno-7-51"></a>
-</span><span id="__span-7-52"><a id="__codelineno-7-52" name="__codelineno-7-52" href="#__codelineno-7-52"></a>        <span class="n">nodes</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-7-53"><a id="__codelineno-7-53" name="__codelineno-7-53" href="#__codelineno-7-53"></a>        <span class="n">hash_value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_hash</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
-</span><span id="__span-7-54"><a id="__codelineno-7-54" name="__codelineno-7-54" href="#__codelineno-7-54"></a>        <span class="n">index</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_right</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">,</span> <span class="n">hash_value</span><span class="p">)</span>
-</span><span id="__span-7-55"><a id="__codelineno-7-55" name="__codelineno-7-55" href="#__codelineno-7-55"></a>
-</span><span id="__span-7-56"><a id="__codelineno-7-56" name="__codelineno-7-56" href="#__codelineno-7-56"></a>        <span class="k">while</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">count</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">nodes</span><span class="p">)</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="o">.</span><span class="n">values</span><span class="p">())):</span>
-</span><span id="__span-7-57"><a id="__codelineno-7-57" name="__codelineno-7-57" href="#__codelineno-7-57"></a>            <span class="k">if</span> <span class="n">index</span> <span class="o">&gt;=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">):</span>
-</span><span id="__span-7-58"><a id="__codelineno-7-58" name="__codelineno-7-58" href="#__codelineno-7-58"></a>                <span class="n">index</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-7-59"><a id="__codelineno-7-59" name="__codelineno-7-59" href="#__codelineno-7-59"></a>
-</span><span id="__span-7-60"><a id="__codelineno-7-60" name="__codelineno-7-60" href="#__codelineno-7-60"></a>            <span class="n">node</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">ring</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">sorted_keys</span><span class="p">[</span><span class="n">index</span><span class="p">]]</span>
-</span><span id="__span-7-61"><a id="__codelineno-7-61" name="__codelineno-7-61" href="#__codelineno-7-61"></a>            <span class="k">if</span> <span class="n">node</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">nodes</span><span class="p">:</span>
-</span><span id="__span-7-62"><a id="__codelineno-7-62" name="__codelineno-7-62" href="#__codelineno-7-62"></a>                <span class="n">nodes</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">node</span><span class="p">)</span>
-</span><span id="__span-7-63"><a id="__codelineno-7-63" name="__codelineno-7-63" href="#__codelineno-7-63"></a>
-</span><span id="__span-7-64"><a id="__codelineno-7-64" name="__codelineno-7-64" href="#__codelineno-7-64"></a>            <span class="n">index</span> <span class="o">+=</span> <span class="mi">1</span>
-</span><span id="__span-7-65"><a id="__codelineno-7-65" name="__codelineno-7-65" href="#__codelineno-7-65"></a>
-</span><span id="__span-7-66"><a id="__codelineno-7-66" name="__codelineno-7-66" href="#__codelineno-7-66"></a>        <span class="k">return</span> <span class="n">nodes</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>graph LR
+    subgraph "Consistent Hashing Ring"
+        subgraph "Hash Ring"
+            VN1[Virtual Node 1:0&lt;br/&gt;Node A]
+            VN2[Virtual Node 1:1&lt;br/&gt;Node A]
+            VN3[Virtual Node 2:0&lt;br/&gt;Node B]
+            VN4[Virtual Node 2:1&lt;br/&gt;Node B]
+            VN5[Virtual Node 3:0&lt;br/&gt;Node C]
+            VN6[Virtual Node 3:1&lt;br/&gt;Node C]
+
+            VN1 --&gt; VN2
+            VN2 --&gt; VN3
+            VN3 --&gt; VN4
+            VN4 --&gt; VN5
+            VN5 --&gt; VN6
+            VN6 --&gt; VN1
+        end
+
+        K[Key] --&gt; H[MD5 Hash]
+        H --&gt; F[Find First&lt;br/&gt;Clockwise Node]
+        F --&gt; N[Assigned Node]
+
+        subgraph "Operations"
+            AN[add_node()&lt;br/&gt;• Create 150 virtual nodes&lt;br/&gt;• Insert into sorted ring]
+            RN[remove_node()&lt;br/&gt;• Remove all virtual nodes&lt;br/&gt;• Update sorted keys]
+            GN[get_node()&lt;br/&gt;• Hash key&lt;br/&gt;• Binary search&lt;br/&gt;• Return clockwise node]
+            GNS[get_nodes()&lt;br/&gt;• Find N replicas&lt;br/&gt;• Walk ring clockwise&lt;br/&gt;• Skip duplicates]
+        end
+    end
+
+    style H fill:#ffd93d,stroke:#333,stroke-width:2px
+    style F fill:#4ecdc4,stroke:#333,stroke-width:2px</code></pre>
 <h3 id="3-batch-processing-with-backpressure">3. Batch Processing with Backpressure<a class="headerlink" href="#3-batch-processing-with-backpressure" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1" href="#__codelineno-8-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">List</span><span class="p">,</span> <span class="n">Callable</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4" href="#__codelineno-8-4"></a><span class="k">class</span><span class="w"> </span><span class="nc">BatchProcessor</span><span class="p">:</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5" href="#__codelineno-8-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6" href="#__codelineno-8-6"></a>                 <span class="n">process_fn</span><span class="p">:</span> <span class="n">Callable</span><span class="p">,</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7" href="#__codelineno-8-7"></a>                 <span class="n">batch_size</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">100</span><span class="p">,</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8" href="#__codelineno-8-8"></a>                 <span class="n">batch_timeout</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">1.0</span><span class="p">,</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9" href="#__codelineno-8-9"></a>                 <span class="n">max_pending</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="mi">10000</span><span class="p">):</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10" href="#__codelineno-8-10"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">process_fn</span> <span class="o">=</span> <span class="n">process_fn</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11" href="#__codelineno-8-11"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span> <span class="o">=</span> <span class="n">batch_size</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12" href="#__codelineno-8-12"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">batch_timeout</span> <span class="o">=</span> <span class="n">batch_timeout</span>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13" href="#__codelineno-8-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">max_pending</span> <span class="o">=</span> <span class="n">max_pending</span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14" href="#__codelineno-8-14"></a>
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15" href="#__codelineno-8-15"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pending</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16" href="#__codelineno-8-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">semaphore</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">Semaphore</span><span class="p">(</span><span class="n">max_pending</span><span class="p">)</span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17" href="#__codelineno-8-17"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">flush_task</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18" href="#__codelineno-8-18"></a>
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19" href="#__codelineno-8-19"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">submit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">item</span><span class="p">):</span>
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20" href="#__codelineno-8-20"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Submit item with backpressure&quot;&quot;&quot;</span>
-</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21" href="#__codelineno-8-21"></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">semaphore</span><span class="o">.</span><span class="n">acquire</span><span class="p">()</span>
-</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22" href="#__codelineno-8-22"></a>
-</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23" href="#__codelineno-8-23"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pending</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">item</span><span class="p">)</span>
-</span><span id="__span-8-24"><a id="__codelineno-8-24" name="__codelineno-8-24" href="#__codelineno-8-24"></a>
-</span><span id="__span-8-25"><a id="__codelineno-8-25" name="__codelineno-8-25" href="#__codelineno-8-25"></a>        <span class="c1"># Start flush timer if needed</span>
-</span><span id="__span-8-26"><a id="__codelineno-8-26" name="__codelineno-8-26" href="#__codelineno-8-26"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">flush_task</span><span class="p">:</span>
-</span><span id="__span-8-27"><a id="__codelineno-8-27" name="__codelineno-8-27" href="#__codelineno-8-27"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">flush_task</span> <span class="o">=</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">create_task</span><span class="p">(</span>
-</span><span id="__span-8-28"><a id="__codelineno-8-28" name="__codelineno-8-28" href="#__codelineno-8-28"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">_flush_after_timeout</span><span class="p">()</span>
-</span><span id="__span-8-29"><a id="__codelineno-8-29" name="__codelineno-8-29" href="#__codelineno-8-29"></a>            <span class="p">)</span>
-</span><span id="__span-8-30"><a id="__codelineno-8-30" name="__codelineno-8-30" href="#__codelineno-8-30"></a>
-</span><span id="__span-8-31"><a id="__codelineno-8-31" name="__codelineno-8-31" href="#__codelineno-8-31"></a>        <span class="c1"># Flush if batch is full</span>
-</span><span id="__span-8-32"><a id="__codelineno-8-32" name="__codelineno-8-32" href="#__codelineno-8-32"></a>        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">pending</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">batch_size</span><span class="p">:</span>
-</span><span id="__span-8-33"><a id="__codelineno-8-33" name="__codelineno-8-33" href="#__codelineno-8-33"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flush</span><span class="p">()</span>
-</span><span id="__span-8-34"><a id="__codelineno-8-34" name="__codelineno-8-34" href="#__codelineno-8-34"></a>
-</span><span id="__span-8-35"><a id="__codelineno-8-35" name="__codelineno-8-35" href="#__codelineno-8-35"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_flush_after_timeout</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-8-36"><a id="__codelineno-8-36" name="__codelineno-8-36" href="#__codelineno-8-36"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Flush partial batch after timeout&quot;&quot;&quot;</span>
-</span><span id="__span-8-37"><a id="__codelineno-8-37" name="__codelineno-8-37" href="#__codelineno-8-37"></a>        <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">batch_timeout</span><span class="p">)</span>
-</span><span id="__span-8-38"><a id="__codelineno-8-38" name="__codelineno-8-38" href="#__codelineno-8-38"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending</span><span class="p">:</span>
-</span><span id="__span-8-39"><a id="__codelineno-8-39" name="__codelineno-8-39" href="#__codelineno-8-39"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_flush</span><span class="p">()</span>
-</span><span id="__span-8-40"><a id="__codelineno-8-40" name="__codelineno-8-40" href="#__codelineno-8-40"></a>
-</span><span id="__span-8-41"><a id="__codelineno-8-41" name="__codelineno-8-41" href="#__codelineno-8-41"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-8-42"><a id="__codelineno-8-42" name="__codelineno-8-42" href="#__codelineno-8-42"></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Process current batch&quot;&quot;&quot;</span>
-</span><span id="__span-8-43"><a id="__codelineno-8-43" name="__codelineno-8-43" href="#__codelineno-8-43"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending</span><span class="p">:</span>
-</span><span id="__span-8-44"><a id="__codelineno-8-44" name="__codelineno-8-44" href="#__codelineno-8-44"></a>            <span class="k">return</span>
-</span><span id="__span-8-45"><a id="__codelineno-8-45" name="__codelineno-8-45" href="#__codelineno-8-45"></a>
-</span><span id="__span-8-46"><a id="__codelineno-8-46" name="__codelineno-8-46" href="#__codelineno-8-46"></a>        <span class="c1"># Cancel timeout task</span>
-</span><span id="__span-8-47"><a id="__codelineno-8-47" name="__codelineno-8-47" href="#__codelineno-8-47"></a>        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">flush_task</span><span class="p">:</span>
-</span><span id="__span-8-48"><a id="__codelineno-8-48" name="__codelineno-8-48" href="#__codelineno-8-48"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">flush_task</span><span class="o">.</span><span class="n">cancel</span><span class="p">()</span>
-</span><span id="__span-8-49"><a id="__codelineno-8-49" name="__codelineno-8-49" href="#__codelineno-8-49"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">flush_task</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-8-50"><a id="__codelineno-8-50" name="__codelineno-8-50" href="#__codelineno-8-50"></a>
-</span><span id="__span-8-51"><a id="__codelineno-8-51" name="__codelineno-8-51" href="#__codelineno-8-51"></a>        <span class="c1"># Process batch</span>
-</span><span id="__span-8-52"><a id="__codelineno-8-52" name="__codelineno-8-52" href="#__codelineno-8-52"></a>        <span class="n">batch</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pending</span>
-</span><span id="__span-8-53"><a id="__codelineno-8-53" name="__codelineno-8-53" href="#__codelineno-8-53"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">pending</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-8-54"><a id="__codelineno-8-54" name="__codelineno-8-54" href="#__codelineno-8-54"></a>
-</span><span id="__span-8-55"><a id="__codelineno-8-55" name="__codelineno-8-55" href="#__codelineno-8-55"></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="__span-8-56"><a id="__codelineno-8-56" name="__codelineno-8-56" href="#__codelineno-8-56"></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">process_fn</span><span class="p">(</span><span class="n">batch</span><span class="p">)</span>
-</span><span id="__span-8-57"><a id="__codelineno-8-57" name="__codelineno-8-57" href="#__codelineno-8-57"></a>        <span class="k">finally</span><span class="p">:</span>
-</span><span id="__span-8-58"><a id="__codelineno-8-58" name="__codelineno-8-58" href="#__codelineno-8-58"></a>            <span class="c1"># Release semaphore for processed items</span>
-</span><span id="__span-8-59"><a id="__codelineno-8-59" name="__codelineno-8-59" href="#__codelineno-8-59"></a>            <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">:</span>
-</span><span id="__span-8-60"><a id="__codelineno-8-60" name="__codelineno-8-60" href="#__codelineno-8-60"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">semaphore</span><span class="o">.</span><span class="n">release</span><span class="p">()</span>
-</span><span id="__span-8-61"><a id="__codelineno-8-61" name="__codelineno-8-61" href="#__codelineno-8-61"></a>
-</span><span id="__span-8-62"><a id="__codelineno-8-62" name="__codelineno-8-62" href="#__codelineno-8-62"></a><span class="c1"># Usage example</span>
-</span><span id="__span-8-63"><a id="__codelineno-8-63" name="__codelineno-8-63" href="#__codelineno-8-63"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">process_batch</span><span class="p">(</span><span class="n">items</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">dict</span><span class="p">]):</span>
-</span><span id="__span-8-64"><a id="__codelineno-8-64" name="__codelineno-8-64" href="#__codelineno-8-64"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Simulate batch processing&quot;&quot;&quot;</span>
-</span><span id="__span-8-65"><a id="__codelineno-8-65" name="__codelineno-8-65" href="#__codelineno-8-65"></a>    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Processing batch of </span><span class="si">{</span><span class="nb">len</span><span class="p">(</span><span class="n">items</span><span class="p">)</span><span class="si">}</span><span class="s2"> items&quot;</span><span class="p">)</span>
-</span><span id="__span-8-66"><a id="__codelineno-8-66" name="__codelineno-8-66" href="#__codelineno-8-66"></a>    <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>  <span class="c1"># Simulate work</span>
-</span><span id="__span-8-67"><a id="__codelineno-8-67" name="__codelineno-8-67" href="#__codelineno-8-67"></a>
-</span><span id="__span-8-68"><a id="__codelineno-8-68" name="__codelineno-8-68" href="#__codelineno-8-68"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="p">():</span>
-</span><span id="__span-8-69"><a id="__codelineno-8-69" name="__codelineno-8-69" href="#__codelineno-8-69"></a>    <span class="n">processor</span> <span class="o">=</span> <span class="n">BatchProcessor</span><span class="p">(</span>
-</span><span id="__span-8-70"><a id="__codelineno-8-70" name="__codelineno-8-70" href="#__codelineno-8-70"></a>        <span class="n">process_fn</span><span class="o">=</span><span class="n">process_batch</span><span class="p">,</span>
-</span><span id="__span-8-71"><a id="__codelineno-8-71" name="__codelineno-8-71" href="#__codelineno-8-71"></a>        <span class="n">batch_size</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
-</span><span id="__span-8-72"><a id="__codelineno-8-72" name="__codelineno-8-72" href="#__codelineno-8-72"></a>        <span class="n">batch_timeout</span><span class="o">=</span><span class="mf">0.5</span>
-</span><span id="__span-8-73"><a id="__codelineno-8-73" name="__codelineno-8-73" href="#__codelineno-8-73"></a>    <span class="p">)</span>
-</span><span id="__span-8-74"><a id="__codelineno-8-74" name="__codelineno-8-74" href="#__codelineno-8-74"></a>
-</span><span id="__span-8-75"><a id="__codelineno-8-75" name="__codelineno-8-75" href="#__codelineno-8-75"></a>    <span class="c1"># Simulate high-throughput submissions</span>
-</span><span id="__span-8-76"><a id="__codelineno-8-76" name="__codelineno-8-76" href="#__codelineno-8-76"></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">producer</span><span class="p">():</span>
-</span><span id="__span-8-77"><a id="__codelineno-8-77" name="__codelineno-8-77" href="#__codelineno-8-77"></a>        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1000</span><span class="p">):</span>
-</span><span id="__span-8-78"><a id="__codelineno-8-78" name="__codelineno-8-78" href="#__codelineno-8-78"></a>            <span class="k">await</span> <span class="n">processor</span><span class="o">.</span><span class="n">submit</span><span class="p">({</span><span class="s2">&quot;id&quot;</span><span class="p">:</span> <span class="n">i</span><span class="p">,</span> <span class="s2">&quot;data&quot;</span><span class="p">:</span> <span class="sa">f</span><span class="s2">&quot;item-</span><span class="si">{</span><span class="n">i</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">})</span>
-</span><span id="__span-8-79"><a id="__codelineno-8-79" name="__codelineno-8-79" href="#__codelineno-8-79"></a>            <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">0.001</span><span class="p">)</span>  <span class="c1"># 1000 items/sec</span>
-</span><span id="__span-8-80"><a id="__codelineno-8-80" name="__codelineno-8-80" href="#__codelineno-8-80"></a>
-</span><span id="__span-8-81"><a id="__codelineno-8-81" name="__codelineno-8-81" href="#__codelineno-8-81"></a>    <span class="k">await</span> <span class="n">producer</span><span class="p">()</span>
-</span><span id="__span-8-82"><a id="__codelineno-8-82" name="__codelineno-8-82" href="#__codelineno-8-82"></a>    <span class="k">await</span> <span class="n">processor</span><span class="o">.</span><span class="n">_flush</span><span class="p">()</span>  <span class="c1"># Final flush</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TD
+    subgraph "Batch Processing with Backpressure"
+        S[submit(item)] --&gt; BP{Backpressure&lt;br/&gt;Check}
+        BP --&gt;|Acquire Semaphore| A[Add to Pending]
+        BP --&gt;|Full| W[Wait]
+
+        A --&gt; BS{Batch Size&lt;br/&gt;Check}
+        BS --&gt;|&lt; batch_size| ST[Start/Reset Timer]
+        BS --&gt;|&gt;= batch_size| F[Flush Immediately]
+
+        ST --&gt; T[Timeout Task&lt;br/&gt;batch_timeout]
+        T --&gt; FT[Flush After Timeout]
+
+        subgraph "Flush Process"
+            F --&gt; CT[Cancel Timer]
+            FT --&gt; CT
+            CT --&gt; PB[Process Batch]
+            PB --&gt; RS[Release Semaphores]
+            RS --&gt; E[Empty Pending]
+        end
+
+        subgraph "Configuration"
+            C1[batch_size: 100]
+            C2[batch_timeout: 1.0s]
+            C3[max_pending: 10000]
+        end
+    end
+
+    style BP fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style F fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style T fill:#ffd93d,stroke:#333,stroke-width:2px</code></pre>
 <h3 id="4-hierarchical-work-distribution">4. Hierarchical Work Distribution<a class="headerlink" href="#4-hierarchical-work-distribution" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1" href="#__codelineno-9-1"></a><span class="k">class</span><span class="w"> </span><span class="nc">HierarchicalScheduler</span><span class="p">:</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2" href="#__codelineno-9-2"></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3" href="#__codelineno-9-3"></a><span class="sd">    Two-level scheduling like Google&#39;s Borg</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4" href="#__codelineno-9-4"></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5" href="#__codelineno-9-5"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6" href="#__codelineno-9-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7" href="#__codelineno-9-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">global_queue</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8" href="#__codelineno-9-8"></a>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9" href="#__codelineno-9-9"></a>    <span class="k">class</span><span class="w"> </span><span class="nc">Cluster</span><span class="p">:</span>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10" href="#__codelineno-9-10"></a>        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">cluster_id</span><span class="p">,</span> <span class="n">capacity</span><span class="p">):</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11" href="#__codelineno-9-11"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">cluster_id</span> <span class="o">=</span> <span class="n">cluster_id</span>
-</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12" href="#__codelineno-9-12"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span> <span class="o">=</span> <span class="n">capacity</span>
-</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13" href="#__codelineno-9-13"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14" href="#__codelineno-9-14"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">machines</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15" href="#__codelineno-9-15"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">local_queue</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16" href="#__codelineno-9-16"></a>
-</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17" href="#__codelineno-9-17"></a>        <span class="k">def</span><span class="w"> </span><span class="nf">can_fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
-</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18" href="#__codelineno-9-18"></a>            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">+</span> <span class="n">job</span><span class="o">.</span><span class="n">resources</span> <span class="o">&lt;=</span> <span class="bp">self</span><span class="o">.</span><span class="n">capacity</span>
-</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19" href="#__codelineno-9-19"></a>
-</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20" href="#__codelineno-9-20"></a>        <span class="k">def</span><span class="w"> </span><span class="nf">schedule_locally</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
-</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21" href="#__codelineno-9-21"></a>            <span class="c1"># Find best machine using bin packing</span>
-</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22" href="#__codelineno-9-22"></a>            <span class="n">best_machine</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23" href="#__codelineno-9-23"></a>            <span class="n">min_waste</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="s1">&#39;inf&#39;</span><span class="p">)</span>
-</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24" href="#__codelineno-9-24"></a>
-</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25" href="#__codelineno-9-25"></a>            <span class="k">for</span> <span class="n">machine</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">machines</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
-</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26" href="#__codelineno-9-26"></a>                <span class="k">if</span> <span class="n">machine</span><span class="o">.</span><span class="n">can_fit</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
-</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27" href="#__codelineno-9-27"></a>                    <span class="n">waste</span> <span class="o">=</span> <span class="n">machine</span><span class="o">.</span><span class="n">capacity</span> <span class="o">-</span> <span class="n">machine</span><span class="o">.</span><span class="n">used</span> <span class="o">-</span> <span class="n">job</span><span class="o">.</span><span class="n">resources</span>
-</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28" href="#__codelineno-9-28"></a>                    <span class="k">if</span> <span class="n">waste</span> <span class="o">&lt;</span> <span class="n">min_waste</span><span class="p">:</span>
-</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29" href="#__codelineno-9-29"></a>                        <span class="n">min_waste</span> <span class="o">=</span> <span class="n">waste</span>
-</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30" href="#__codelineno-9-30"></a>                        <span class="n">best_machine</span> <span class="o">=</span> <span class="n">machine</span>
-</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31" href="#__codelineno-9-31"></a>
-</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32" href="#__codelineno-9-32"></a>            <span class="k">if</span> <span class="n">best_machine</span><span class="p">:</span>
-</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33" href="#__codelineno-9-33"></a>                <span class="n">best_machine</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34" href="#__codelineno-9-34"></a>                <span class="bp">self</span><span class="o">.</span><span class="n">used</span> <span class="o">+=</span> <span class="n">job</span><span class="o">.</span><span class="n">resources</span>
-</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35" href="#__codelineno-9-35"></a>                <span class="k">return</span> <span class="kc">True</span>
-</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36" href="#__codelineno-9-36"></a>
-</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37" href="#__codelineno-9-37"></a>            <span class="k">return</span> <span class="kc">False</span>
-</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38" href="#__codelineno-9-38"></a>
-</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39" href="#__codelineno-9-39"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">submit_job</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">job</span><span class="p">):</span>
-</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40" href="#__codelineno-9-40"></a>        <span class="c1"># Global scheduling decision</span>
-</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41" href="#__codelineno-9-41"></a>        <span class="n">suitable_clusters</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42" href="#__codelineno-9-42"></a>            <span class="n">c</span> <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">clusters</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
-</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43" href="#__codelineno-9-43"></a>            <span class="k">if</span> <span class="n">c</span><span class="o">.</span><span class="n">can_fit</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44" href="#__codelineno-9-44"></a>        <span class="p">]</span>
-</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45" href="#__codelineno-9-45"></a>
-</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46" href="#__codelineno-9-46"></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">suitable_clusters</span><span class="p">:</span>
-</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47" href="#__codelineno-9-47"></a>            <span class="bp">self</span><span class="o">.</span><span class="n">global_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48" href="#__codelineno-9-48"></a>            <span class="k">return</span> <span class="kc">False</span>
-</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49" href="#__codelineno-9-49"></a>
-</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50" href="#__codelineno-9-50"></a>        <span class="c1"># Score clusters (simplified)</span>
-</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51" href="#__codelineno-9-51"></a>        <span class="k">def</span><span class="w"> </span><span class="nf">score_cluster</span><span class="p">(</span><span class="n">cluster</span><span class="p">):</span>
-</span><span id="__span-9-52"><a id="__codelineno-9-52" name="__codelineno-9-52" href="#__codelineno-9-52"></a>            <span class="c1"># Prefer clusters with:</span>
-</span><span id="__span-9-53"><a id="__codelineno-9-53" name="__codelineno-9-53" href="#__codelineno-9-53"></a>            <span class="c1"># 1. Better locality</span>
-</span><span id="__span-9-54"><a id="__codelineno-9-54" name="__codelineno-9-54" href="#__codelineno-9-54"></a>            <span class="c1"># 2. Lower utilization</span>
-</span><span id="__span-9-55"><a id="__codelineno-9-55" name="__codelineno-9-55" href="#__codelineno-9-55"></a>            <span class="c1"># 3. Fewer queued jobs</span>
-</span><span id="__span-9-56"><a id="__codelineno-9-56" name="__codelineno-9-56" href="#__codelineno-9-56"></a>            <span class="n">locality_score</span> <span class="o">=</span> <span class="n">job</span><span class="o">.</span><span class="n">get_locality_score</span><span class="p">(</span><span class="n">cluster</span><span class="p">)</span>
-</span><span id="__span-9-57"><a id="__codelineno-9-57" name="__codelineno-9-57" href="#__codelineno-9-57"></a>            <span class="n">utilization</span> <span class="o">=</span> <span class="n">cluster</span><span class="o">.</span><span class="n">used</span> <span class="o">/</span> <span class="n">cluster</span><span class="o">.</span><span class="n">capacity</span>
-</span><span id="__span-9-58"><a id="__codelineno-9-58" name="__codelineno-9-58" href="#__codelineno-9-58"></a>            <span class="n">queue_penalty</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">cluster</span><span class="o">.</span><span class="n">local_queue</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.1</span>
-</span><span id="__span-9-59"><a id="__codelineno-9-59" name="__codelineno-9-59" href="#__codelineno-9-59"></a>
-</span><span id="__span-9-60"><a id="__codelineno-9-60" name="__codelineno-9-60" href="#__codelineno-9-60"></a>            <span class="k">return</span> <span class="n">locality_score</span> <span class="o">-</span> <span class="n">utilization</span> <span class="o">-</span> <span class="n">queue_penalty</span>
-</span><span id="__span-9-61"><a id="__codelineno-9-61" name="__codelineno-9-61" href="#__codelineno-9-61"></a>
-</span><span id="__span-9-62"><a id="__codelineno-9-62" name="__codelineno-9-62" href="#__codelineno-9-62"></a>        <span class="n">best_cluster</span> <span class="o">=</span> <span class="nb">max</span><span class="p">(</span><span class="n">suitable_clusters</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">score_cluster</span><span class="p">)</span>
-</span><span id="__span-9-63"><a id="__codelineno-9-63" name="__codelineno-9-63" href="#__codelineno-9-63"></a>
-</span><span id="__span-9-64"><a id="__codelineno-9-64" name="__codelineno-9-64" href="#__codelineno-9-64"></a>        <span class="c1"># Delegate to cluster scheduler</span>
-</span><span id="__span-9-65"><a id="__codelineno-9-65" name="__codelineno-9-65" href="#__codelineno-9-65"></a>        <span class="k">if</span> <span class="n">best_cluster</span><span class="o">.</span><span class="n">schedule_locally</span><span class="p">(</span><span class="n">job</span><span class="p">):</span>
-</span><span id="__span-9-66"><a id="__codelineno-9-66" name="__codelineno-9-66" href="#__codelineno-9-66"></a>            <span class="k">return</span> <span class="kc">True</span>
-</span><span id="__span-9-67"><a id="__codelineno-9-67" name="__codelineno-9-67" href="#__codelineno-9-67"></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="__span-9-68"><a id="__codelineno-9-68" name="__codelineno-9-68" href="#__codelineno-9-68"></a>            <span class="n">best_cluster</span><span class="o">.</span><span class="n">local_queue</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">job</span><span class="p">)</span>
-</span><span id="__span-9-69"><a id="__codelineno-9-69" name="__codelineno-9-69" href="#__codelineno-9-69"></a>            <span class="k">return</span> <span class="kc">True</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart TB
+    subgraph "Hierarchical Scheduling (Borg-like)"
+        J[Job Submission] --&gt; GS[Global Scheduler]
+
+        GS --&gt; FC{Find Suitable&lt;br/&gt;Clusters}
+        FC --&gt;|None Found| GQ[Global Queue]
+        FC --&gt;|Found| SC[Score Clusters]
+
+        subgraph "Scoring Factors"
+            L[Locality Score]
+            U[Utilization&lt;br/&gt;(Lower Better)]
+            Q[Queue Length&lt;br/&gt;(Penalty)]
+        end
+
+        SC --&gt; BC[Best Cluster]
+
+        subgraph "Cluster Level"
+            BC --&gt; LS[Local Scheduler]
+            LS --&gt; BP[Bin Packing&lt;br/&gt;Algorithm]
+            BP --&gt; MW{Find Machine&lt;br/&gt;Min Waste}
+            MW --&gt;|Found| AM[Assign to Machine]
+            MW --&gt;|Not Found| LQ[Local Queue]
+        end
+
+        subgraph "Machine Level"
+            M1[Machine 1&lt;br/&gt;Cap: 100&lt;br/&gt;Used: 60]
+            M2[Machine 2&lt;br/&gt;Cap: 100&lt;br/&gt;Used: 30]
+            MN[Machine N&lt;br/&gt;Cap: 100&lt;br/&gt;Used: 80]
+        end
+    end
+
+    L --&gt; SC
+    U --&gt; SC
+    Q --&gt; SC
+
+    style GS fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style BP fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style SC fill:#ffd93d,stroke:#333,stroke-width:2px</code></pre>
 <h2 id="anti-patterns-and-solutions">Anti-Patterns and Solutions<a class="headerlink" href="#anti-patterns-and-solutions" title="Permanent link">&para;</a></h2>
 <h3 id="1-the-distributed-monolith">1. The "Distributed Monolith"<a class="headerlink" href="#1-the-distributed-monolith" title="Permanent link">&para;</a></h3>
 <p><strong>Anti-Pattern</strong>: Services that can't be deployed independently</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1" href="#__codelineno-10-1"></a><span class="c1"># BAD: Tight coupling through shared database</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2" href="#__codelineno-10-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">OrderService</span><span class="p">:</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3" href="#__codelineno-10-3"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4" href="#__codelineno-10-4"></a>        <span class="c1"># Direct DB writes to multiple domains</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5" href="#__codelineno-10-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO orders ...&quot;</span><span class="p">)</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6" href="#__codelineno-10-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE inventory ...&quot;</span><span class="p">)</span>  <span class="c1"># Wrong!</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7" href="#__codelineno-10-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;UPDATE user_credits ...&quot;</span><span class="p">)</span>  <span class="c1"># Wrong!</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8" href="#__codelineno-10-8"></a>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9" href="#__codelineno-10-9"></a><span class="c1"># GOOD: Event-driven choreography</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10" href="#__codelineno-10-10"></a><span class="k">class</span><span class="w"> </span><span class="nc">OrderService</span><span class="p">:</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11" href="#__codelineno-10-11"></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_order</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">order</span><span class="p">):</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12" href="#__codelineno-10-12"></a>        <span class="c1"># Own domain only</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13" href="#__codelineno-10-13"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">db</span><span class="o">.</span><span class="n">execute</span><span class="p">(</span><span class="s2">&quot;INSERT INTO orders ...&quot;</span><span class="p">)</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14" href="#__codelineno-10-14"></a>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15" href="#__codelineno-10-15"></a>        <span class="c1"># Publish events for others</span>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16" href="#__codelineno-10-16"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">publish_event</span><span class="p">(</span><span class="s2">&quot;OrderCreated&quot;</span><span class="p">,</span> <span class="p">{</span>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17" href="#__codelineno-10-17"></a>            <span class="s2">&quot;order_id&quot;</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18" href="#__codelineno-10-18"></a>            <span class="s2">&quot;items&quot;</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">items</span><span class="p">,</span>
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19" href="#__codelineno-10-19"></a>            <span class="s2">&quot;user_id&quot;</span><span class="p">:</span> <span class="n">order</span><span class="o">.</span><span class="n">user_id</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20" href="#__codelineno-10-20"></a>        <span class="p">})</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>flowchart LR
+    subgraph "Anti-Pattern: Distributed Monolith"
+        OS1[Order Service] --&gt; DB[(Shared Database)]
+        OS1 --&gt; |INSERT orders| DB
+        OS1 --&gt; |UPDATE inventory ❌| DB
+        OS1 --&gt; |UPDATE user_credits ❌| DB
+        IS1[Inventory Service] --&gt; DB
+        US1[User Service] --&gt; DB
+    end
+
+    subgraph "Good Pattern: Event-Driven"
+        OS2[Order Service] --&gt; ODB[(Orders DB)]
+        OS2 --&gt; |INSERT orders ✓| ODB
+        OS2 --&gt; |Publish Event| EB[Event Bus]
+
+        EB --&gt; |OrderCreated| IS2[Inventory Service]
+        EB --&gt; |OrderCreated| US2[User Service]
+
+        IS2 --&gt; IDB[(Inventory DB)]
+        US2 --&gt; UDB[(Users DB)]
+    end
+
+    style DB fill:#ff6b6b,stroke:#333,stroke-width:2px
+    style EB fill:#4ecdc4,stroke:#333,stroke-width:2px</code></pre>
 <h3 id="2-the-chatty-services">2. The "Chatty Services"<a class="headerlink" href="#2-the-chatty-services" title="Permanent link">&para;</a></h3>
 <p><strong>Anti-Pattern</strong>: Too many synchronous calls</p>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1" href="#__codelineno-11-1"></a><span class="c1"># BAD: N+1 API calls</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2" href="#__codelineno-11-2"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_feed</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3" href="#__codelineno-11-3"></a>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_service</span><span class="o">.</span><span class="n">get_posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4" href="#__codelineno-11-4"></a>    <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5" href="#__codelineno-11-5"></a>        <span class="n">post</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">user_service</span><span class="o">.</span><span class="n">get_user</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">author_id</span><span class="p">)</span>  <span class="c1"># N calls!</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6" href="#__codelineno-11-6"></a>        <span class="n">post</span><span class="o">.</span><span class="n">likes</span> <span class="o">=</span> <span class="n">like_service</span><span class="o">.</span><span class="n">get_likes</span><span class="p">(</span><span class="n">post</span><span class="o">.</span><span class="n">id</span><span class="p">)</span>  <span class="c1"># N more calls!</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7" href="#__codelineno-11-7"></a>    <span class="k">return</span> <span class="n">posts</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8" href="#__codelineno-11-8"></a>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9" href="#__codelineno-11-9"></a><span class="c1"># GOOD: Batch and cache</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10" href="#__codelineno-11-10"></a><span class="k">def</span><span class="w"> </span><span class="nf">get_feed</span><span class="p">(</span><span class="n">user_id</span><span class="p">):</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11" href="#__codelineno-11-11"></a>    <span class="n">posts</span> <span class="o">=</span> <span class="n">post_service</span><span class="o">.</span><span class="n">get_posts</span><span class="p">(</span><span class="n">user_id</span><span class="p">)</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12" href="#__codelineno-11-12"></a>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13" href="#__codelineno-11-13"></a>    <span class="c1"># Batch fetch</span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14" href="#__codelineno-11-14"></a>    <span class="n">author_ids</span> <span class="o">=</span> <span class="p">[</span><span class="n">p</span><span class="o">.</span><span class="n">author_id</span> <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">]</span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15" href="#__codelineno-11-15"></a>    <span class="n">authors</span> <span class="o">=</span> <span class="n">user_service</span><span class="o">.</span><span class="n">get_users_batch</span><span class="p">(</span><span class="n">author_ids</span><span class="p">)</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16" href="#__codelineno-11-16"></a>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17" href="#__codelineno-11-17"></a>    <span class="c1"># Local join</span>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18" href="#__codelineno-11-18"></a>    <span class="n">author_map</span> <span class="o">=</span> <span class="p">{</span><span class="n">a</span><span class="o">.</span><span class="n">id</span><span class="p">:</span> <span class="n">a</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">authors</span><span class="p">}</span>
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19" href="#__codelineno-11-19"></a>    <span class="k">for</span> <span class="n">post</span> <span class="ow">in</span> <span class="n">posts</span><span class="p">:</span>
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20" href="#__codelineno-11-20"></a>        <span class="n">post</span><span class="o">.</span><span class="n">author</span> <span class="o">=</span> <span class="n">author_map</span><span class="p">[</span><span class="n">post</span><span class="o">.</span><span class="n">author_id</span><span class="p">]</span>
-</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21" href="#__codelineno-11-21"></a>
-</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22" href="#__codelineno-11-22"></a>    <span class="k">return</span> <span class="n">posts</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>sequenceDiagram
+    participant C as Client
+    participant FS as Feed Service
+    participant PS as Post Service
+    participant US as User Service
+    participant LS as Like Service
+
+    Note over C,LS: Anti-Pattern: N+1 Queries
+    C-&gt;&gt;FS: get_feed(user_id)
+    FS-&gt;&gt;PS: get_posts(user_id)
+    PS--&gt;&gt;FS: 100 posts
+
+    loop For each post (N times)
+        FS-&gt;&gt;US: get_user(author_id)
+        US--&gt;&gt;FS: author data
+        FS-&gt;&gt;LS: get_likes(post_id)
+        LS--&gt;&gt;FS: likes data
+    end
+
+    Note over FS: Total: 1 + 2N calls (201 for 100 posts)
+
+    Note over C,LS: Good Pattern: Batch Fetching
+    C-&gt;&gt;FS: get_feed(user_id)
+    FS-&gt;&gt;PS: get_posts(user_id)
+    PS--&gt;&gt;FS: 100 posts
+    FS-&gt;&gt;US: get_users_batch([author_ids])
+    US--&gt;&gt;FS: all authors
+    FS-&gt;&gt;FS: Local join in memory
+
+    Note over FS: Total: 2 calls (99% reduction)</code></pre>
 <h3 id="3-the-big-ball-of-mud-in-microservices">3. The "Big Ball of Mud" in Microservices<a class="headerlink" href="#3-the-big-ball-of-mud-in-microservices" title="Permanent link">&para;</a></h3>
 <p><strong>Anti-Pattern</strong>: No clear boundaries</p>
 <p><strong>Solution</strong>: Domain-Driven Design
-<div class="language-python highlight"><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1" href="#__codelineno-12-1"></a><span class="c1"># Define bounded contexts</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2" href="#__codelineno-12-2"></a><span class="k">class</span><span class="w"> </span><span class="nc">BoundedContext</span><span class="p">:</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3" href="#__codelineno-12-3"></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">capabilities</span><span class="p">):</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4" href="#__codelineno-12-4"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5" href="#__codelineno-12-5"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">capabilities</span> <span class="o">=</span> <span class="n">capabilities</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6" href="#__codelineno-12-6"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">owned_data</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7" href="#__codelineno-12-7"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">published_events</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8" href="#__codelineno-12-8"></a>        <span class="bp">self</span><span class="o">.</span><span class="n">consumed_events</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9" href="#__codelineno-12-9"></a>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10" href="#__codelineno-12-10"></a><span class="c1"># Example contexts</span>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11" href="#__codelineno-12-11"></a><span class="n">contexts</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12" href="#__codelineno-12-12"></a>    <span class="n">BoundedContext</span><span class="p">(</span><span class="s2">&quot;Order Management&quot;</span><span class="p">,</span> <span class="p">[</span>
-</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13" href="#__codelineno-12-13"></a>        <span class="s2">&quot;Create Order&quot;</span><span class="p">,</span>
-</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14" href="#__codelineno-12-14"></a>        <span class="s2">&quot;Update Order Status&quot;</span><span class="p">,</span>
-</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15" href="#__codelineno-12-15"></a>        <span class="s2">&quot;Cancel Order&quot;</span>
-</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16" href="#__codelineno-12-16"></a>    <span class="p">]),</span>
-</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17" href="#__codelineno-12-17"></a>    <span class="n">BoundedContext</span><span class="p">(</span><span class="s2">&quot;Inventory&quot;</span><span class="p">,</span> <span class="p">[</span>
-</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18" href="#__codelineno-12-18"></a>        <span class="s2">&quot;Reserve Stock&quot;</span><span class="p">,</span>
-</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19" href="#__codelineno-12-19"></a>        <span class="s2">&quot;Release Stock&quot;</span><span class="p">,</span>
-</span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20" href="#__codelineno-12-20"></a>        <span class="s2">&quot;Update Stock Levels&quot;</span>
-</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21" href="#__codelineno-12-21"></a>    <span class="p">]),</span>
-</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22" href="#__codelineno-12-22"></a>    <span class="n">BoundedContext</span><span class="p">(</span><span class="s2">&quot;Payments&quot;</span><span class="p">,</span> <span class="p">[</span>
-</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23" href="#__codelineno-12-23"></a>        <span class="s2">&quot;Process Payment&quot;</span><span class="p">,</span>
-</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24" href="#__codelineno-12-24"></a>        <span class="s2">&quot;Refund Payment&quot;</span><span class="p">,</span>
-</span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25" href="#__codelineno-12-25"></a>        <span class="s2">&quot;Payment Reconciliation&quot;</span>
-</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26" href="#__codelineno-12-26"></a>    <span class="p">])</span>
-</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27" href="#__codelineno-12-27"></a><span class="p">]</span>
-</span></code></pre></div></p>
+<pre class="mermaid"><code>graph TB
+    subgraph "Domain-Driven Design: Bounded Contexts"
+        subgraph "Order Management"
+            OM[Order Management&lt;br/&gt;Capabilities:&lt;br/&gt;• Create Order&lt;br/&gt;• Update Order Status&lt;br/&gt;• Cancel Order]
+            OMD[(Orders DB&lt;br/&gt;• order_id&lt;br/&gt;• status&lt;br/&gt;• items)]
+            OM --&gt; OMD
+        end
+
+        subgraph "Inventory"
+            INV[Inventory&lt;br/&gt;Capabilities:&lt;br/&gt;• Reserve Stock&lt;br/&gt;• Release Stock&lt;br/&gt;• Update Stock Levels]
+            INVD[(Inventory DB&lt;br/&gt;• sku&lt;br/&gt;• quantity&lt;br/&gt;• reserved)]
+            INV --&gt; INVD
+        end
+
+        subgraph "Payments"
+            PAY[Payments&lt;br/&gt;Capabilities:&lt;br/&gt;• Process Payment&lt;br/&gt;• Refund Payment&lt;br/&gt;• Payment Reconciliation]
+            PAYD[(Payments DB&lt;br/&gt;• payment_id&lt;br/&gt;• amount&lt;br/&gt;• status)]
+            PAY --&gt; PAYD
+        end
+
+        OM -.-&gt;|OrderCreated| INV
+        OM -.-&gt;|PaymentRequired| PAY
+        INV -.-&gt;|StockReserved| OM
+        PAY -.-&gt;|PaymentCompleted| OM
+    end
+
+    style OM fill:#4ecdc4,stroke:#333,stroke-width:2px
+    style INV fill:#95e1d3,stroke:#333,stroke-width:2px
+    style PAY fill:#f3a683,stroke:#333,stroke-width:2px</code></pre></p>
 <h2 id="performance-comparisons">Performance Comparisons<a class="headerlink" href="#performance-comparisons" title="Permanent link">&para;</a></h2>
 <h3 id="synchronous-vs-asynchronous-work-distribution">Synchronous vs Asynchronous Work Distribution<a class="headerlink" href="#synchronous-vs-asynchronous-work-distribution" title="Permanent link">&para;</a></h3>
-<div class="language-python highlight"><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1" href="#__codelineno-13-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2" href="#__codelineno-13-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">asyncio</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3" href="#__codelineno-13-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">aiohttp</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4" href="#__codelineno-13-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5" href="#__codelineno-13-5"></a><span class="kn">from</span><span class="w"> </span><span class="nn">concurrent.futures</span><span class="w"> </span><span class="kn">import</span> <span class="n">ThreadPoolExecutor</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6" href="#__codelineno-13-6"></a>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7" href="#__codelineno-13-7"></a><span class="c1"># Synchronous approach</span>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8" href="#__codelineno-13-8"></a><span class="k">def</span><span class="w"> </span><span class="nf">sync_fetch_all</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9" href="#__codelineno-13-9"></a>    <span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10" href="#__codelineno-13-10"></a>    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">:</span>
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11" href="#__codelineno-13-11"></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12" href="#__codelineno-13-12"></a>        <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13" href="#__codelineno-13-13"></a>    <span class="k">return</span> <span class="n">results</span>
-</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14" href="#__codelineno-13-14"></a>
-</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15" href="#__codelineno-13-15"></a><span class="c1"># Threaded approach</span>
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16" href="#__codelineno-13-16"></a><span class="k">def</span><span class="w"> </span><span class="nf">threaded_fetch_all</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
-</span><span id="__span-13-17"><a id="__codelineno-13-17" name="__codelineno-13-17" href="#__codelineno-13-17"></a>    <span class="k">with</span> <span class="n">ThreadPoolExecutor</span><span class="p">(</span><span class="n">max_workers</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span> <span class="k">as</span> <span class="n">executor</span><span class="p">:</span>
-</span><span id="__span-13-18"><a id="__codelineno-13-18" name="__codelineno-13-18" href="#__codelineno-13-18"></a>        <span class="n">futures</span> <span class="o">=</span> <span class="p">[</span><span class="n">executor</span><span class="o">.</span><span class="n">submit</span><span class="p">(</span><span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">]</span>
-</span><span id="__span-13-19"><a id="__codelineno-13-19" name="__codelineno-13-19" href="#__codelineno-13-19"></a>        <span class="k">return</span> <span class="p">[</span><span class="n">f</span><span class="o">.</span><span class="n">result</span><span class="p">()</span><span class="o">.</span><span class="n">text</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="n">futures</span><span class="p">]</span>
-</span><span id="__span-13-20"><a id="__codelineno-13-20" name="__codelineno-13-20" href="#__codelineno-13-20"></a>
-</span><span id="__span-13-21"><a id="__codelineno-13-21" name="__codelineno-13-21" href="#__codelineno-13-21"></a><span class="c1"># Async approach</span>
-</span><span id="__span-13-22"><a id="__codelineno-13-22" name="__codelineno-13-22" href="#__codelineno-13-22"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">async_fetch_all</span><span class="p">(</span><span class="n">urls</span><span class="p">):</span>
-</span><span id="__span-13-23"><a id="__codelineno-13-23" name="__codelineno-13-23" href="#__codelineno-13-23"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">aiohttp</span><span class="o">.</span><span class="n">ClientSession</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-</span><span id="__span-13-24"><a id="__codelineno-13-24" name="__codelineno-13-24" href="#__codelineno-13-24"></a>        <span class="n">tasks</span> <span class="o">=</span> <span class="p">[</span><span class="n">fetch_one</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">url</span><span class="p">)</span> <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">urls</span><span class="p">]</span>
-</span><span id="__span-13-25"><a id="__codelineno-13-25" name="__codelineno-13-25" href="#__codelineno-13-25"></a>        <span class="k">return</span> <span class="k">await</span> <span class="n">asyncio</span><span class="o">.</span><span class="n">gather</span><span class="p">(</span><span class="o">*</span><span class="n">tasks</span><span class="p">)</span>
-</span><span id="__span-13-26"><a id="__codelineno-13-26" name="__codelineno-13-26" href="#__codelineno-13-26"></a>
-</span><span id="__span-13-27"><a id="__codelineno-13-27" name="__codelineno-13-27" href="#__codelineno-13-27"></a><span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">fetch_one</span><span class="p">(</span><span class="n">session</span><span class="p">,</span> <span class="n">url</span><span class="p">):</span>
-</span><span id="__span-13-28"><a id="__codelineno-13-28" name="__codelineno-13-28" href="#__codelineno-13-28"></a>    <span class="k">async</span> <span class="k">with</span> <span class="n">session</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span> <span class="k">as</span> <span class="n">response</span><span class="p">:</span>
-</span><span id="__span-13-29"><a id="__codelineno-13-29" name="__codelineno-13-29" href="#__codelineno-13-29"></a>        <span class="k">return</span> <span class="k">await</span> <span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-</span><span id="__span-13-30"><a id="__codelineno-13-30" name="__codelineno-13-30" href="#__codelineno-13-30"></a>
-</span><span id="__span-13-31"><a id="__codelineno-13-31" name="__codelineno-13-31" href="#__codelineno-13-31"></a><span class="c1"># Performance comparison</span>
-</span><span id="__span-13-32"><a id="__codelineno-13-32" name="__codelineno-13-32" href="#__codelineno-13-32"></a><span class="n">urls</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;http://example.com&quot;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span>
-</span><span id="__span-13-33"><a id="__codelineno-13-33" name="__codelineno-13-33" href="#__codelineno-13-33"></a>
-</span><span id="__span-13-34"><a id="__codelineno-13-34" name="__codelineno-13-34" href="#__codelineno-13-34"></a><span class="c1"># Sync: ~50 seconds (sequential)</span>
-</span><span id="__span-13-35"><a id="__codelineno-13-35" name="__codelineno-13-35" href="#__codelineno-13-35"></a><span class="c1"># Threaded: ~5 seconds (limited by thread count)</span>
-</span><span id="__span-13-36"><a id="__codelineno-13-36" name="__codelineno-13-36" href="#__codelineno-13-36"></a><span class="c1"># Async: ~0.5 seconds (truly concurrent)</span>
-</span></code></pre></div>
+<pre class="mermaid"><code>gantt
+    title Performance Comparison: Fetching 100 URLs
+    dateFormat X
+    axisFormat %s
+
+    section Synchronous
+    URL 1     :0, 0.5s
+    URL 2     :0.5s, 0.5s
+    URL 3     :1s, 0.5s
+    ...       :1.5s, 47s
+    URL 100   :48.5s, 0.5s
+    Total ~50s :crit, 0, 50s
+
+    section Threaded (10 workers)
+    Batch 1 (10 URLs)  :0, 0.5s
+    Batch 2 (10 URLs)  :0.5s, 0.5s
+    Batch 3 (10 URLs)  :1s, 0.5s
+    ...                :1.5s, 2s
+    Batch 10 (10 URLs) :3.5s, 0.5s
+    Total ~5s :crit, 0, 5s
+
+    section Async
+    All 100 URLs (concurrent) :0, 0.5s
+    Total ~0.5s :crit, 0, 0.5s</code></pre>
+<table>
+<thead>
+<tr>
+<th>Approach</th>
+<th>Time</th>
+<th>Concurrency</th>
+<th>Resource Usage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Synchronous</strong></td>
+<td>~50s</td>
+<td>1 (sequential)</td>
+<td>Low CPU, Low Memory</td>
+</tr>
+<tr>
+<td><strong>Threaded</strong></td>
+<td>~5s</td>
+<td>10 (thread pool)</td>
+<td>Medium CPU, Medium Memory</td>
+</tr>
+<tr>
+<td><strong>Async</strong></td>
+<td>~0.5s</td>
+<td>100 (event loop)</td>
+<td>Low CPU, Low Memory</td>
+</tr>
+</tbody>
+</table>
 <h2 id="key-takeaways">Key Takeaways<a class="headerlink" href="#key-takeaways" title="Permanent link">&para;</a></h2>
 <ol>
 <li>

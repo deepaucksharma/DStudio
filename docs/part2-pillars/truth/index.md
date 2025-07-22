@@ -24,45 +24,48 @@ Imagine a library before computers:
 
 ### Real-World Analogy: Group Chat Planning
 
-```yaml
-Friend Group Planning Dinner:
-
-Alice: "Let's meet at 7pm at Pizza Place"
-Bob: "I thought we said 8pm?"
-Carol: "Wait, I have 7:30pm at Burger Joint"
-Dave: [Phone died, missed everything]
-
-What's the truth?
-- No single authority
-- Messages arrive out of order
-- Some people offline
-- Must reach agreement somehow
-
-Solution: Consensus!
-"Everyone reply with thumbs up to: 7:30pm Pizza Place"
-✅ ✅ ✅ [Dave still offline]
-3/4 majority = That's our truth
+```mermaid
+sequenceDiagram
+    participant Alice
+    participant Bob
+    participant Carol
+    participant Dave
+    
+    Note over Alice,Dave: Friend Group Planning Dinner
+    
+    Alice->>Bob: Let's meet at 7pm at Pizza Place
+    Alice->>Carol: Let's meet at 7pm at Pizza Place
+    Alice-xDave: [Message lost - phone died]
+    
+    Bob->>Alice: I thought we said 8pm?
+    Carol->>Alice: Wait, I have 7:30pm at Burger Joint
+    
+    Note over Alice,Carol: What's the truth?<br/>❌ No single authority<br/>❌ Messages out of order<br/>❌ Some people offline<br/>✅ Must reach consensus!
+    
+    Alice->>Bob: Everyone reply 👍 to: 7:30pm Pizza Place
+    Alice->>Carol: Everyone reply 👍 to: 7:30pm Pizza Place
+    Alice-xDave: [Still offline]
+    
+    Bob->>Alice: 👍
+    Carol->>Alice: 👍
+    
+    Note over Alice: 3/4 majority = That's our truth!
 ```
 
 ### Your First Truth Experiment
 
 ### The Beginner's Truth Hierarchy
 
-```text
-         💯 Absolute Truth
-              (Impossible in distributed systems)
-                    |
-                    |
-         🤝 Consensus Truth
-              (Majority agrees)
-                    |
-                    |
-         📝 Eventual Truth
-              (Will agree... someday)
-                    |
-                    |
-         🏠 Local Truth
-              (What I believe now)
+```mermaid
+graph TD
+    AT[💯 Absolute Truth<br/>Impossible in distributed systems] --> CT[🤝 Consensus Truth<br/>Majority agrees]
+    CT --> ET[📝 Eventual Truth<br/>Will agree... someday]
+    ET --> LT[🏠 Local Truth<br/>What I believe now]
+    
+    style AT fill:#ff6b6b,stroke:#333,stroke-width:2px,color:#fff
+    style CT fill:#4ecdc4,stroke:#333,stroke-width:2px,color:#fff
+    style ET fill:#45b7d1,stroke:#333,stroke-width:2px,color:#fff
+    style LT fill:#96ceb4,stroke:#333,stroke-width:2px,color:#fff
 ```
 
 ---
@@ -79,33 +82,33 @@ Solution: Consensus!
 
 ### The Hierarchy of Distributed Truth
 
-```yaml
-Level 5: Global Total Order 💰💰💰💰💰
-   └─ Most expensive (blockchain, atomic broadcast)
-   └─ Every event has exact position
-   └─ Use case: Financial ledgers
-
-Level 4: Causal Order 💰💰💰💰
-   └─ Preserves cause-and-effect (vector clocks)
-   └─ If A caused B, A comes before B everywhere
-   └─ Use case: Social media comments
-
-Level 3: Consensus Truth 💰💰💰
-   └─ Majority agreement (Raft, Paxos)
-   └─ Majority decides the truth
-   └─ Use case: Configuration management
-
-Level 2: Eventual Truth 💰💰
-   └─ Converges over time (CRDTs, gossip)
-   └─ Truth emerges eventually
-   └─ Use case: Shopping carts
-
-Level 1: Local Truth 💰
-   └─ What I believe right now
-   └─ No coordination needed
-   └─ Use case: Caching
-
-Cost increases exponentially with each level
+```mermaid
+graph TB
+    subgraph "The Hierarchy of Distributed Truth"
+        L5["Level 5: Global Total Order 💰💰💰💰💰<br/>Most expensive<br/>Blockchain, atomic broadcast<br/>Every event has exact position<br/>📊 Use case: Financial ledgers"]
+        
+        L4["Level 4: Causal Order 💰💰💰💰<br/>Preserves cause-and-effect<br/>Vector clocks<br/>If A→B, then A before B everywhere<br/>💬 Use case: Social media comments"]
+        
+        L3["Level 3: Consensus Truth 💰💰💰<br/>Majority agreement<br/>Raft, Paxos<br/>Majority decides the truth<br/>⚙️ Use case: Configuration management"]
+        
+        L2["Level 2: Eventual Truth 💰💰<br/>Converges over time<br/>CRDTs, gossip protocols<br/>Truth emerges eventually<br/>🛒 Use case: Shopping carts"]
+        
+        L1["Level 1: Local Truth 💰<br/>What I believe right now<br/>No coordination needed<br/>Local-only decisions<br/>💾 Use case: Caching"]
+    end
+    
+    L5 -->|Cost ÷10| L4
+    L4 -->|Cost ÷10| L3
+    L3 -->|Cost ÷10| L2
+    L2 -->|Cost ÷10| L1
+    
+    Note["⚠️ Cost increases exponentially with each level"]
+    
+    style L5 fill:#ff6b6b,stroke:#333,stroke-width:3px,color:#fff
+    style L4 fill:#ee5a24,stroke:#333,stroke-width:2px,color:#fff
+    style L3 fill:#fdcb6e,stroke:#333,stroke-width:2px
+    style L2 fill:#6c5ce7,stroke:#333,stroke-width:2px,color:#fff
+    style L1 fill:#00b894,stroke:#333,stroke-width:2px,color:#fff
+    style Note fill:#fffacd,stroke:#333,stroke-width:1px
 ```
 
 ### 🎬 Failure Vignette: The Bitcoin Double-Spend Attack
@@ -113,29 +116,43 @@ Cost increases exponentially with each level
 **Date**: March 2013 - The Fork Incident
 **Impact**: 6-hour network split, $1.5M at risk
 
-```yaml
-The Timeline:
-T+0:00 - Bitcoin v0.8 released with database change
-T+1 week - Mix of v0.7 and v0.8 nodes on network
-T+0:00 - Large block mined (>900KB)
-T+0:01 - v0.8 nodes accept block
-T+0:01 - v0.7 nodes reject block (BerkeleyDB lock limit)
-T+0:02 - Network splits into two chains
-T+0:10 - Some exchanges on v0.7, some on v0.8
-T+0:30 - Double-spend becomes possible
-T+6:00 - Developers coordinate miners to abandon v0.8 chain
-T+6:30 - Network reconverges on v0.7 chain
-
-The Problem:
-- Two incompatible versions of "truth"
-- Each valid according to its rules
-- Economic incentives conflicted with technical solution
-
-The Fix:
-- Social consensus overrode technical consensus
-- Miners voluntarily took losses
-- Proved that Bitcoin consensus is sociotechnical
+```mermaid
+gantt
+    title Bitcoin Fork Incident Timeline (March 2013)
+    dateFormat HH:mm
+    axisFormat %H:%M
+    
+    section Network State
+    v0.8 Release                          :milestone, 00:00, 0m
+    Mixed v0.7/v0.8 nodes                 :active, mixed, 00:00, 06:30
+    Large block mined (>900KB)            :crit, block, 00:00, 00:01
+    
+    section v0.8 Chain
+    v0.8 accepts block                    :done, v8accept, 00:01, 06:29
+    v0.8 continues mining                 :active, v8mine, 00:02, 05:58
+    
+    section v0.7 Chain  
+    v0.7 rejects block                    :crit, v7reject, 00:01, 00:01
+    v0.7 continues on old chain           :active, v7mine, 00:02, 06:28
+    
+    section Critical Events
+    Network split detected                :crit, split, 00:02, 00:01
+    Exchanges on different chains         :crit, exch, 00:10, 00:20
+    Double-spend possible                 :crit, dblspend, 00:30, 05:30
+    Dev coordination begins               :done, coord, 06:00, 00:30
+    Network reconverges                   :milestone, reconv, 06:30, 0m
 ```
+
+!!! failure "Key Problems & Resolution"
+    **The Problem:**
+    - Two incompatible versions of "truth"
+    - Each valid according to its rules  
+    - Economic incentives conflicted with technical solution
+    
+    **The Fix:**
+    - Social consensus overrode technical consensus
+    - Miners voluntarily took losses
+    - Proved that Bitcoin consensus is sociotechnical
 
 **Lesson**: Even "trustless" systems require human coordination when consensus breaks.
 
@@ -143,50 +160,26 @@ The Fix:
 
 **Fischer, Lynch, and Paterson (1985)** proved that in an asynchronous system with even one faulty process, consensus is impossible.
 
-```python
-class FLPImpossibility:
-    """
-    Demonstration of why perfect consensus is impossible
-    in asynchronous distributed systems
-    """
+```mermaid
+flowchart TD
+    Start[System in Bivalent State<br/>Could decide 0 or 1] --> Scheduler[Adversarial Scheduler]
     
-    def __init__(self):
-        self.nodes = []
-        self.messages_in_flight = []
+    Scheduler --> FindCritical[Find Critical Messages<br/>Messages that force decision]
     
-    def simulate_consensus_attempt(self):
-        """
-        No matter what algorithm you use, there exists
-        a message scheduling that prevents consensus
-        """
-        # Start with nodes in bivalent state
-        # (could decide either 0 or 1)
-        initial_state = "bivalent"
-        
-        # Adversarial scheduler can always find a path
-        # that keeps at least one node undecided
-        while True:
-            # Find critical messages
-            critical = self.find_critical_messages()
-            
-            # Delay critical messages indefinitely
-            for msg in critical:
-                self.delay_message(msg)
-            
-            # System never reaches consensus
-            if self.all_nodes_decided():
-                # This line is unreachable!
-                break
+    FindCritical --> DelayMsgs[Delay Critical Messages<br/>Indefinitely]
     
-    def find_critical_messages(self):
-        """
-        Find messages that would force decision
-        """
-        critical = []
-        for msg in self.messages_in_flight:
-            if self.would_force_decision(msg):
-                critical.append(msg)
-        return critical
+    DelayMsgs --> CheckConsensus{All Nodes<br/>Decided?}
+    
+    CheckConsensus -->|No| Scheduler
+    CheckConsensus -.->|Yes<br/>Unreachable!| Consensus[Consensus Achieved<br/>⚠️ FLP proves this is impossible]
+    
+    subgraph "FLP Impossibility Result"
+        Note["In asynchronous systems with one faulty process,<br/>consensus is impossible to guarantee.<br/>Adversarial scheduling can always prevent agreement."]
+    end
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Consensus fill:#ff6b6b,stroke:#333,stroke-width:2px,stroke-dasharray: 5 5,color:#fff
+    style Note fill:#ffe4b5,stroke:#333,stroke-width:1px
 ```
 
 **Practical Implications**:
@@ -267,104 +260,74 @@ This concept map shows how distributed truth branches into consensus mechanisms,
 
 Raft achieves consensus by electing a leader that manages replication.
 
-```python
-class RaftNode:
-    """Simplified Raft consensus implementation"""
+```mermaid
+stateDiagram-v2
+    [*] --> Follower: Start
     
-    def __init__(self, node_id, peers):
-        self.node_id = node_id
-        self.peers = peers
-        
-        # Persistent state
-        self.current_term = 0
-        self.voted_for = None
-        self.log = []
-        
-        # Volatile state
-        self.state = 'follower'  # follower, candidate, leader
-        self.commit_index = 0
-        
-        # Leader state
-        self.next_index = {}  # For each peer
-        self.match_index = {}  # For each peer
-        
-        # Timing
-        self.election_timeout = random.uniform(150, 300)  # ms
-        self.last_heartbeat = time.time()
+    Follower --> Candidate: Election timeout<br/>No heartbeat from leader
     
-    def start_election(self):
-        """Become candidate and request votes"""
-        self.state = 'candidate'
-        self.current_term += 1
-        self.voted_for = self.node_id
-        
-        votes = 1  # Vote for self
-        
-        # Request votes from all peers
-        for peer in self.peers:
-            vote_request = {
-                'term': self.current_term,
-                'candidate_id': self.node_id,
-                'last_log_index': len(self.log) - 1,
-                'last_log_term': self.log[-1].term if self.log else 0
-            }
-            
-            if peer.request_vote(vote_request):
-                votes += 1
-        
-        # Become leader if majority
-        if votes > len(self.peers) // 2:
-            self.become_leader()
+    Candidate --> Candidate: Split vote<br/>Restart election
+    Candidate --> Follower: Discover current leader<br/>or higher term
+    Candidate --> Leader: Receive majority votes
     
-    def become_leader(self):
-        """Transition to leader state"""
-        self.state = 'leader'
-        
-        # Initialize leader state
-        for peer in self.peers:
-            self.next_index[peer] = len(self.log)
-            self.match_index[peer] = 0
-        
-        # Send initial heartbeat
-        self.send_heartbeat()
+    Leader --> Follower: Discover server<br/>with higher term
     
-    def append_entries(self, entries):
-        """Leader replicates entries to followers"""
-        if self.state != 'leader':
-            return False
-        
-        # Append to own log
-        for entry in entries:
-            entry.term = self.current_term
-            self.log.append(entry)
-        
-        # Replicate to followers
-        success_count = 1  # Count self
-        
-        for peer in self.peers:
-            prev_log_index = self.next_index[peer] - 1
-            prev_log_term = self.log[prev_log_index].term if prev_log_index >= 0 else 0
-            
-            success = peer.append_entries_rpc({
-                'term': self.current_term,
-                'leader_id': self.node_id,
-                'prev_log_index': prev_log_index,
-                'prev_log_term': prev_log_term,
-                'entries': entries,
-                'leader_commit': self.commit_index
-            })
-            
-            if success:
-                success_count += 1
-                self.match_index[peer] = len(self.log) - 1
-                self.next_index[peer] = len(self.log)
-        
-        # Commit if replicated to majority
-        if success_count > len(self.peers) // 2:
-            self.commit_index = len(self.log) - 1
-            return True
-        
-        return False
+    note left of Follower
+        - Respond to RPCs
+        - Convert to candidate on timeout
+        - Current term: stored
+        - Voted for: stored
+    end note
+    
+    note right of Candidate  
+        - Increment current term
+        - Vote for self
+        - Request votes from peers
+        - Become leader if majority
+    end note
+    
+    note right of Leader
+        - Send heartbeats
+        - Replicate log entries
+        - Track peer progress
+        - Commit when majority ACK
+    end note
+```
+
+### Raft Consensus Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant L as Leader
+    participant F1 as Follower 1
+    participant F2 as Follower 2
+    
+    Note over L,F2: Log Replication Phase
+    
+    C->>L: Write request
+    L->>L: Append to log
+    
+    par Parallel replication
+        L->>F1: AppendEntries RPC<br/>[term, entries, prevLogIndex]
+        L->>F2: AppendEntries RPC<br/>[term, entries, prevLogIndex]
+    end
+    
+    F1->>F1: Append to log
+    F2->>F2: Append to log
+    
+    F1-->>L: Success
+    F2-->>L: Success
+    
+    Note over L: Majority (3/3) acknowledged
+    L->>L: Commit entry
+    L-->>C: Success
+    
+    L->>F1: Next heartbeat<br/>[commitIndex updated]
+    L->>F2: Next heartbeat<br/>[commitIndex updated]
+    
+    F1->>F1: Apply to state machine
+    F2->>F2: Apply to state machine
 ```
 
 **Key Properties**:
@@ -377,218 +340,219 @@ class RaftNode:
 
 Vector clocks track causality in distributed systems without synchronized time.
 
-```python
-class VectorClock:
-    """Track causal relationships between events"""
-    
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.clock = [0] * num_nodes
-    
-    def tick(self):
-        """Increment own component for local event"""
-        self.clock[self.node_id] += 1
-        return self.clock.copy()
-    
-    def send(self):
-        """Get timestamp for sending message"""
-        self.tick()
-        return self.clock.copy()
-    
-    def receive(self, other_clock):
-        """Update clock on message receive"""
-        # Take maximum of each component
-        for i in range(len(self.clock)):
-            self.clock[i] = max(self.clock[i], other_clock[i])
-        
-        # Increment own component
-        self.tick()
-        return self.clock.copy()
-    
-    def happens_before(self, other):
-        """Check if this clock happens-before other"""
-        # True if all components <= and at least one <
-        all_leq = all(self.clock[i] <= other.clock[i] 
-                      for i in range(len(self.clock)))
-        any_less = any(self.clock[i] < other.clock[i] 
-                       for i in range(len(self.clock)))
-        return all_leq and any_less
-    
-    def concurrent_with(self, other):
-        """Check if events are concurrent (no causal relation)"""
-        return (not self.happens_before(other) and 
-                not other.happens_before(self))
+### The Vector Clock Pattern
 
-# Example usage
-def demonstrate_vector_clocks():
-    # Three nodes
-    alice = VectorClock(0, 3)
-    bob = VectorClock(1, 3)
-    carol = VectorClock(2, 3)
+Vector clocks track causality in distributed systems without synchronized time.
+
+```mermaid
+sequenceDiagram
+    participant A as Alice [0,0,0]
+    participant B as Bob [0,0,0]
+    participant C as Carol [0,0,0]
     
-    # Alice sends to Bob
-    alice_time = alice.send()  # [1, 0, 0]
-    bob.receive(alice_time)     # [1, 1, 0]
+    Note over A,C: Vector Clock Evolution
     
-    # Bob sends to Carol
-    bob_time = bob.send()       # [1, 2, 0]
-    carol.receive(bob_time)     # [1, 2, 1]
+    A->>A: Local event
+    Note right of A: [1,0,0]
     
-    # Carol sends to Alice
-    carol_time = carol.send()   # [1, 2, 2]
-    alice.receive(carol_time)   # [2, 2, 2]
+    A->>B: Send message
+    Note right of A: [1,0,0]
+    Note right of B: Receive & merge<br/>[1,1,0]
+    
+    B->>B: Local event
+    Note right of B: [1,2,0]
+    
+    B->>C: Send message  
+    Note right of B: [1,2,0]
+    Note right of C: Receive & merge<br/>[1,2,1]
+    
+    C->>A: Send message
+    Note right of C: [1,2,2]
+    Note right of A: Receive & merge<br/>[2,2,2]
+```
+
+#### Vector Clock Operations
+
+| Operation | Algorithm | Result |
+|-----------|-----------|--------|
+| **Initialize** | `clock = [0, 0, ..., 0]` | All components zero |
+| **Local Event** | `clock[my_id] += 1` | Increment own component |
+| **Send Message** | `clock[my_id] += 1`<br/>`return clock.copy()` | Increment & attach clock |
+| **Receive Message** | `clock[i] = max(clock[i], other[i])`<br/>`clock[my_id] += 1` | Merge clocks & increment |
+| **Happens-Before** | `all(a[i] <= b[i]) AND any(a[i] < b[i])` | Check causal ordering |
+| **Concurrent** | `NOT (a → b) AND NOT (b → a)` | No causal relationship |
+
+#### Causality Detection Example
+
+```mermaid
+graph LR
+    subgraph "Event Timeline"
+        A1["A: Send x=1<br/>[1,0,0]"] --> B1["B: Receive<br/>[1,1,0]"]
+        B1 --> B2["B: Send y=2<br/>[1,2,0]"]
+        A1 --> A2["A: Send z=3<br/>[2,0,0]"]
+        B2 --> C1["C: Receive<br/>[1,2,1]"]
+        A2 --> C2["C: Receive<br/>[2,2,2]"]
+    end
+    
+    subgraph "Causal Analysis"  
+        R1["A1 → B1<br/>✓ Causal"]
+        R2["A2 || B2<br/>✓ Concurrent"]
+        R3["B2 → C1<br/>✓ Causal"]
+    end
+    
+    style A1 fill:#e1f5fe
+    style A2 fill:#e1f5fe
+    style B1 fill:#c8e6c9
+    style B2 fill:#c8e6c9
+    style C1 fill:#fff9c4
+    style C2 fill:#fff9c4
 ```
 
 ### CRDTs: Conflict-Free Truth
 
 CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination.
 
-```python
-class GCounter:
-    """Grow-only counter CRDT"""
-    
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.counts = [0] * num_nodes
-    
-    def increment(self, amount=1):
-        """Increment counter"""
-        self.counts[self.node_id] += amount
-    
-    def value(self):
-        """Get current value"""
-        return sum(self.counts)
-    
-    def merge(self, other):
-        """Merge with another GCounter"""
-        for i in range(len(self.counts)):
-            self.counts[i] = max(self.counts[i], other.counts[i])
-    
-    def __str__(self):
-        return f"GCounter({self.value()}, {self.counts})"
+### CRDTs: Conflict-Free Truth
 
-class PNCounter:
-    """Increment/decrement counter using two GCounters"""
-    
-    def __init__(self, node_id, num_nodes):
-        self.p = GCounter(node_id, num_nodes)  # Positive
-        self.n = GCounter(node_id, num_nodes)  # Negative
-    
-    def increment(self, amount=1):
-        self.p.increment(amount)
-    
-    def decrement(self, amount=1):
-        self.n.increment(amount)
-    
-    def value(self):
-        return self.p.value() - self.n.value()
-    
-    def merge(self, other):
-        self.p.merge(other.p)
-        self.n.merge(other.n)
+CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination.
 
-class ORSet:
-    """Observed-Remove Set CRDT"""
+#### CRDT Types and Operations
+
+```mermaid
+graph TB
+    subgraph "State-based CRDTs"
+        GC[GCounter<br/>Grow-only Counter]
+        PNC[PNCounter<br/>PN-Counter]
+        ORS[ORSet<br/>Observed-Remove Set]
+        LWW[LWWRegister<br/>Last-Write-Wins]
+    end
     
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.elements = {}  # element -> {(unique_id, timestamp)}
-        self.counter = 0
+    subgraph "Operations"
+        GC --> |increment only| GCOp[Node A: [5,0,0]<br/>Node B: [5,3,0]<br/>Node C: [5,3,2]<br/>Merge: max each position]
+        PNC --> |inc/dec| PNCOp[P: [5,3,2]<br/>N: [1,1,0]<br/>Value = P - N = 9 - 2 = 7]
+        ORS --> |add/remove| ORSOp[Add tags unique IDs<br/>Remove clears tags<br/>Merge unions tags]
+    end
     
-    def add(self, element):
-        """Add element to set"""
-        unique_id = f"{self.node_id}:{self.counter}"
-        self.counter += 1
-        
-        if element not in self.elements:
-            self.elements[element] = set()
-        
-        self.elements[element].add((unique_id, time.time()))
-    
-    def remove(self, element):
-        """Remove all instances of element"""
-        if element in self.elements:
-            self.elements[element].clear()
-    
-    def contains(self, element):
-        """Check if element exists"""
-        return element in self.elements and len(self.elements[element]) > 0
-    
-    def merge(self, other):
-        """Merge with another ORSet"""
-        for element, tags in other.elements.items():
-            if element not in self.elements:
-                self.elements[element] = set()
-            self.elements[element].update(tags)
+    style GC fill:#e8f5e9
+    style PNC fill:#e3f2fd
+    style ORS fill:#fff3e0
 ```
+
+#### GCounter Example: Distributed Page Views
+
+```mermaid
+sequenceDiagram
+    participant S1 as Server 1<br/>[0,0,0]
+    participant S2 as Server 2<br/>[0,0,0]
+    participant S3 as Server 3<br/>[0,0,0]
+    
+    S1->>S1: +5 views
+    Note right of S1: [5,0,0]
+    
+    S2->>S2: +3 views
+    Note right of S2: [0,3,0]
+    
+    S3->>S3: +2 views
+    Note right of S3: [0,0,2]
+    
+    S1->>S2: Sync state
+    Note right of S2: Merge: [5,3,0]
+    
+    S2->>S3: Sync state
+    Note right of S3: Merge: [5,3,2]
+    
+    S3->>S1: Sync state
+    Note right of S1: Merge: [5,3,2]
+    
+    Note over S1,S3: All nodes converge to same value: 10 views
+```
+
+#### CRDT Properties
+
+| CRDT Type | Operations | Merge Rule | Use Case |
+|-----------|------------|------------|----------|
+| **GCounter** | increment() | max(a[i], b[i]) | View counts, likes |
+| **PNCounter** | inc(), dec() | P.merge(), N.merge() | Account balances |
+| **GSet** | add() | union(a, b) | Growing collections |
+| **ORSet** | add(), remove() | union with tombstones | Shopping carts |
+| **LWWRegister** | set(value, timestamp) | keep highest timestamp | User preferences |
+| **MVRegister** | set(value) | keep all concurrent | Collaborative editing |
 
 ### The Gossip Pattern
 
 Gossip protocols spread information epidemically through random peer selection.
 
-```python
-class GossipNode:
-    """Epidemic broadcast for eventual consistency"""
+### The Gossip Pattern
+
+Gossip protocols spread information epidemically through random peer selection.
+
+```mermaid
+graph TB
+    subgraph "Round 1"
+        A1[Node A<br/>x=10] -->|gossip| B1[Node B]
+        A1 -->|gossip| C1[Node C]
+        D1[Node D] 
+        E1[Node E]
+        F1[Node F]
+    end
     
-    def __init__(self, node_id, peers):
-        self.node_id = node_id
-        self.peers = peers
-        self.state = {}
-        self.version_vector = {}
-        
-        # Gossip parameters
-        self.fanout = 3  # Number of peers to gossip to
-        self.interval = 1.0  # Seconds between gossip rounds
+    subgraph "Round 2" 
+        A2[Node A<br/>x=10]
+        B2[Node B<br/>x=10] -->|gossip| D2[Node D]
+        B2 -->|gossip| E2[Node E]
+        C2[Node C<br/>x=10] -->|gossip| F2[Node F]
+    end
     
-    def update(self, key, value):
-        """Update local state"""
-        version = self.version_vector.get(key, 0) + 1
-        self.state[key] = {
-            'value': value,
-            'version': version,
-            'timestamp': time.time(),
-            'node': self.node_id
-        }
-        self.version_vector[key] = version
+    subgraph "Round 3"
+        A3[Node A<br/>x=10]
+        B3[Node B<br/>x=10]
+        C3[Node C<br/>x=10]
+        D3[Node D<br/>x=10]
+        E3[Node E<br/>x=10]
+        F3[Node F<br/>x=10]
+    end
     
-    def gossip_round(self):
-        """Select random peers and exchange state"""
-        # Select random subset of peers
-        selected = random.sample(self.peers, 
-                                min(self.fanout, len(self.peers)))
-        
-        for peer in selected:
-            # Send our state
-            peer.receive_gossip(self.node_id, self.state)
-            
-            # Pull their state
-            their_state = peer.get_state()
-            self.merge_state(their_state)
+    Note["Convergence: O(log N) rounds<br/>Fanout = 2"]
     
-    def merge_state(self, other_state):
-        """Merge received state with local state"""
-        for key, other_entry in other_state.items():
-            if key not in self.state:
-                # New key
-                self.state[key] = other_entry
-                self.version_vector[key] = other_entry['version']
-            else:
-                # Existing key - keep newer version
-                our_entry = self.state[key]
-                
-                if other_entry['version'] > our_entry['version']:
-                    self.state[key] = other_entry
-                    self.version_vector[key] = other_entry['version']
-                elif (other_entry['version'] == our_entry['version'] and
-                      other_entry['timestamp'] > our_entry['timestamp']):
-                    # Same version, use timestamp as tiebreaker
-                    self.state[key] = other_entry
+    style A1 fill:#4CAF50,color:#fff
+    style B2 fill:#4CAF50,color:#fff
+    style C2 fill:#4CAF50,color:#fff
+    style D3 fill:#4CAF50,color:#fff
+    style E3 fill:#4CAF50,color:#fff
+    style F3 fill:#4CAF50,color:#fff
+```
+
+#### Gossip Protocol Characteristics
+
+| Property | Value | Description |
+|----------|-------|-------------|
+| **Convergence Time** | O(log N) rounds | Exponential spread pattern |
+| **Message Complexity** | O(N log N) | Each node gossips log N times |
+| **Fault Tolerance** | High | Handles node failures gracefully |
+| **Consistency** | Eventual | All nodes converge to same state |
+| **Network Usage** | Constant per node | Fanout limits bandwidth |
+
+#### Anti-Entropy Process
+
+```mermaid
+sequenceDiagram
+    participant N1 as Node 1
+    participant N2 as Node 2
     
-    def get_convergence_time(self, num_nodes):
-        """Estimate time to reach all nodes"""
-        # O(log N) rounds with high probability
-        rounds = math.ceil(math.log(num_nodes) / math.log(self.fanout))
-        return rounds * self.interval
+    Note over N1,N2: Gossip Round
+    
+    N1->>N2: Send digest/version vector
+    Note right of N2: Compare versions
+    
+    N2-->>N1: Request missing/outdated entries
+    
+    N1->>N2: Send requested data
+    
+    Note right of N2: Merge state<br/>Update versions
+    
+    N2-->>N1: Send any updates N1 needs
+    
+    Note over N1,N2: Both nodes now synchronized
 ```
 
 **Properties**:
@@ -784,34 +748,42 @@ graph TB
 
 ### Practical Truth Verification
 
-```yaml
-Truth Verification Techniques:
+### Practical Truth Verification
 
-  Merkle Trees:
-    Purpose: Verify large dataset consistency
-    Method: Hash tree comparison
-    Example: Bitcoin, Cassandra anti-entropy
+```mermaid
+graph TB
+    subgraph "Truth Verification Techniques"
+        MT[Merkle Trees<br/>Dataset consistency]
+        VC[Vector Clocks<br/>Causal tracking]
+        CS[Checksums<br/>Corruption detection]
+        CE[Consensus Epochs<br/>Leadership changes]
+        FT[Fencing Tokens<br/>Split-brain prevention]
+    end
     
-  Vector Clocks:
-    Purpose: Track causal relationships
-    Method: Per-node logical timestamps
-    Example: Dynamo, Riak
+    subgraph "Implementation Examples"
+        MT --> MTE[Bitcoin blocks<br/>Cassandra anti-entropy]
+        VC --> VCE[DynamoDB<br/>Riak]
+        CS --> CSE[HDFS blocks<br/>S3 objects]
+        CE --> CEE[Raft terms<br/>Viewstamped replication]
+        FT --> FTE[HDFS leases<br/>Distributed locks]
+    end
     
-  Checksums:
-    Purpose: Detect corruption
-    Method: Hash comparison
-    Example: HDFS block verification
-    
-  Consensus Epochs:
-    Purpose: Detect leadership changes
-    Method: Monotonic epoch numbers
-    Example: Raft term numbers
-    
-  Fencing Tokens:
-    Purpose: Prevent split-brain writes
-    Method: Monotonic tokens with storage check
-    Example: HDFS lease tokens
+    style MT fill:#e3f2fd,stroke:#1976d2
+    style VC fill:#f3e5f5,stroke:#7b1fa2
+    style CS fill:#e8f5e9,stroke:#388e3c
+    style CE fill:#fff3e0,stroke:#f57c00
+    style FT fill:#fce4ec,stroke:#c2185b
 ```
+
+#### Verification Technique Details
+
+| Technique | How It Works | Use Case | Overhead |
+|-----------|--------------|----------|----------|
+| **Merkle Trees** | Hash tree of data blocks | Large dataset sync | O(log n) proofs |
+| **Vector Clocks** | [n1, n2, ...] timestamps | Causal ordering | O(n) space |
+| **Checksums** | CRC32/SHA256 of data | Corruption detection | O(1) space |
+| **Epochs** | Monotonic version numbers | Leader changes | O(1) space |
+| **Fencing** | Incremental tokens + check | Prevent split-brain | O(1) + storage |
 
 ### Truth Economics
 
@@ -850,49 +822,72 @@ graph TB
 
 Kubernetes uses etcd (built on Raft) as its distributed truth source for all cluster state.
 
-```yaml
-Kubernetes + Etcd Architecture:
-┌─────────────────┐     ┌─────────────────┐
-│   API Server    │────▶│      etcd       │
-│  (Stateless)    │     │   (Raft-based)  │
-└─────────────────┘     └─────────────────┘
-         │                       │
-         ▼                       ▼
-┌─────────────────┐     ┌─────────────────┐
-│   Controller    │     │   etcd Node 1   │
-│    Manager      │     │   etcd Node 2   │
-│   Scheduler     │     │   etcd Node 3   │
-└─────────────────┘     └─────────────────┘
-
-Key Design Decisions:
-- All state in etcd (single source of truth)
-- API server is stateless gateway
-- Controllers watch for changes
-- Optimistic concurrency with resource versions
+```mermaid
+graph TB
+    subgraph "Kubernetes Control Plane"
+        API[API Server<br/>Stateless Gateway]
+        CM[Controller Manager]
+        SCH[Scheduler]
+        KUB[Kubelet]
+    end
+    
+    subgraph "Distributed Truth Store"
+        ETCD[etcd Cluster<br/>Raft-based Consensus]
+        E1[etcd Node 1<br/>Leader]
+        E2[etcd Node 2<br/>Follower] 
+        E3[etcd Node 3<br/>Follower]
+    end
+    
+    API -->|All State| ETCD
+    CM -->|Watch| API
+    SCH -->|Watch| API
+    KUB -->|Watch| API
+    
+    ETCD --> E1
+    ETCD --> E2
+    ETCD --> E3
+    
+    E1 -.->|Raft Replication| E2
+    E1 -.->|Raft Replication| E3
+    E2 -.->|Leader Election| E3
+    
+    style API fill:#e3f2fd,stroke:#1976d2
+    style ETCD fill:#c8e6c9,stroke:#388e3c
+    style E1 fill:#4caf50,stroke:#388e3c,color:#fff
 ```
 
-```python
-class KubernetesResourceVersion:
-    """How Kubernetes handles distributed updates"""
+!!! info "Key Design Decisions"
+    - **All state in etcd**: Single source of truth for cluster state
+    - **API server is stateless**: Just a gateway to etcd
+    - **Controllers watch for changes**: React to state updates
+    - **Optimistic concurrency**: Use resource versions for conflict detection
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant API as API Server
+    participant ETCD as etcd
     
-    def update_deployment(self, name, spec):
-        # 1. Read current state with version
-        current = etcd.get(f"/deployments/{name}")
-        version = current.metadata.resourceVersion
-        
-        # 2. Modify locally
-        current.spec = spec
-        
-        # 3. Write back with version check
-        try:
-            etcd.compare_and_swap(
-                key=f"/deployments/{name}",
-                value=current,
-                expected_version=version
-            )
-        except VersionConflictError:
-            # Someone else updated, retry
-            return self.update_deployment(name, spec)
+    Note over C,ETCD: Optimistic Concurrency Control
+    
+    C->>API: Update deployment "web"
+    API->>ETCD: GET /deployments/web
+    ETCD-->>API: {spec: {...}, resourceVersion: 42}
+    
+    Note over API: Modify spec locally
+    
+    API->>ETCD: CompareAndSwap<br/>key: /deployments/web<br/>expectedVersion: 42
+    
+    alt Version matches
+        ETCD-->>API: Success, new version: 43
+        API-->>C: Update successful
+    else Version conflict
+        ETCD-->>API: VersionConflictError
+        Note over API: Retry with new version
+        API->>ETCD: GET /deployments/web
+        ETCD-->>API: {spec: {...}, resourceVersion: 43}
+        API->>ETCD: CompareAndSwap<br/>expectedVersion: 43
+    end
 ```
 
 ### 🎯 Decision Framework: Choosing Your Truth
@@ -922,142 +917,133 @@ graph TD
 
 ### Advanced Patterns: Multi-Region Consensus
 
-```python
-class MultiRegionConsensus:
-    """Hierarchical consensus for global systems"""
-    
-    def __init__(self):
-        self.regions = {
-            'us-east': RegionalCluster(['dc1', 'dc2', 'dc3']),
-            'eu-west': RegionalCluster(['dc4', 'dc5', 'dc6']),
-            'asia-pac': RegionalCluster(['dc7', 'dc8', 'dc9'])
-        }
-        self.global_coordinator = None
-    
-    def write(self, key, value, consistency_level):
-        if consistency_level == 'local':
-            # Write to local region only
-            local_region = self.get_local_region()
-            return local_region.write(key, value)
-            
-        elif consistency_level == 'regional':
-            # Sync within region, async to others
-            local_region = self.get_local_region()
-            result = local_region.write_sync(key, value)
-            
-            # Async replication to other regions
-            for region in self.regions.values():
-                if region != local_region:
-                    region.write_async(key, value)
-            
-            return result
-            
-        elif consistency_level == 'global':
-            # Two-phase commit across regions
-            transaction_id = uuid.uuid4()
-            
-            # Phase 1: Prepare
-            prepared = []
-            for region in self.regions.values():
-                if region.prepare(transaction_id, key, value):
-                    prepared.append(region)
-                else:
-                    # Abort
-                    for r in prepared:
-                        r.abort(transaction_id)
-                    return False
-            
-            # Phase 2: Commit
-            for region in self.regions.values():
-                region.commit(transaction_id)
-            
-            return True
-    
-    def handle_region_failure(self, failed_region):
-        """Degrade gracefully when region fails"""
-        # Remove from active regions
-        del self.regions[failed_region]
+### Advanced Patterns: Multi-Region Consensus
+
+```mermaid
+graph TB
+    subgraph "Global Consensus Hierarchy"
+        subgraph "US-EAST"
+            USE[Regional Leader]
+            US1[DC1]
+            US2[DC2]
+            US3[DC3]
+            USE --> US1 & US2 & US3
+        end
         
-        # Elect new global coordinator if needed
-        if self.global_coordinator.region == failed_region:
-            self.elect_new_coordinator()
+        subgraph "EU-WEST"
+            EUW[Regional Leader]
+            EU1[DC4]
+            EU2[DC5]
+            EU3[DC6]
+            EUW --> EU1 & EU2 & EU3
+        end
         
-        # Continue with degraded quorum
-        self.adjust_quorum_size()
+        subgraph "ASIA-PAC"
+            ASP[Regional Leader]
+            AS1[DC7]
+            AS2[DC8]
+            AS3[DC9]
+            ASP --> AS1 & AS2 & AS3
+        end
+        
+        GC[Global Coordinator]
+        GC -.->|Cross-region<br/>consensus| USE & EUW & ASP
+    end
+    
+    style GC fill:#ff6b6b,stroke:#333,stroke-width:3px,color:#fff
+    style USE fill:#4ecdc4,stroke:#333,stroke-width:2px,color:#fff
+    style EUW fill:#4ecdc4,stroke:#333,stroke-width:2px,color:#fff
+    style ASP fill:#4ecdc4,stroke:#333,stroke-width:2px,color:#fff
+```
+
+#### Consistency Levels and Latency
+
+| Consistency Level | Write Path | Latency | Failure Handling |
+|-------------------|------------|---------|------------------|
+| **Local** | Local DC only | ~1ms | No cross-DC coordination |
+| **Regional** | Sync within region<br/>Async to others | ~10ms | Regional quorum |
+| **Global Strong** | 2PC across regions | ~200ms | Requires all regions |
+| **Global Eventual** | Async to all regions | ~1ms | Converges eventually |
+
+#### Multi-Region Write Flow
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant US as US-EAST
+    participant EU as EU-WEST  
+    participant AS as ASIA-PAC
+    
+    rect rgb(200, 230, 201)
+        Note over C,AS: Local Consistency
+        C->>US: Write(key, value)
+        US->>US: Local commit
+        US-->>C: Success (1ms)
+    end
+    
+    rect rgb(187, 222, 251)
+        Note over C,AS: Regional Consistency
+        C->>US: Write(key, value)
+        US->>US: Sync replicate in region
+        US-->>C: Success (10ms)
+        US--)EU: Async replicate
+        US--)AS: Async replicate
+    end
+    
+    rect rgb(255, 205, 210)
+        Note over C,AS: Global Consistency
+        C->>US: Write(key, value)
+        US->>EU: Prepare (2PC)
+        US->>AS: Prepare (2PC)
+        EU-->>US: Prepared
+        AS-->>US: Prepared
+        US->>EU: Commit
+        US->>AS: Commit
+        US-->>C: Success (200ms)
+    end
 ```
 
 ### Production Anti-Patterns
 
-```python
-class ConsensusAntiPatterns:
-    """What NOT to do in production"""
+### Production Anti-Patterns
+
+```mermaid
+graph TB
+    subgraph "Anti-Pattern 1: Over-Consensus"
+        AP1["❌ Bad: Every read through Raft<br/>High latency, poor scalability"]
+        GP1["✅ Good: Consensus for critical state only<br/>Cache for reads, eventual consistency for non-critical"]
+        AP1 --> GP1
+    end
     
-    def anti_pattern_1_consensus_everything(self):
-        """❌ Don't use consensus for everything"""
-        # Bad: Every read goes through Raft
-        def get_user_preference(user_id):
-            return raft_cluster.read(f"prefs:{user_id}")
-        
-        # Good: Use consensus for critical state only
-        def get_user_preference_better(user_id):
-            # Read from local cache
-            cached = local_cache.get(f"prefs:{user_id}")
-            if cached and cached.age < 60:  # 1 minute TTL
-                return cached.value
-            
-            # Fallback to eventually consistent store
-            return eventually_consistent_db.get(f"prefs:{user_id}")
+    subgraph "Anti-Pattern 2: Ignoring Byzantine Failures"
+        AP2["❌ Bad: Trust all nodes<br/>max(votes) - vulnerable to lies"]
+        GP2["✅ Good: Byzantine fault tolerance<br/>Need 3f+1 nodes for f Byzantine"]
+        AP2 --> GP2
+    end
     
-    def anti_pattern_2_ignore_byzantines(self):
-        """❌ Don't ignore Byzantine failures in adversarial environments"""
-        # Bad: Trust all nodes
-        def naive_consensus(votes):
-            return max(votes.items(), key=lambda x: x[1])
-        
-        # Good: Use Byzantine fault tolerant consensus
-        def byzantine_consensus(votes):
-            # Need 3f+1 nodes to tolerate f Byzantine nodes
-            total_nodes = len(votes)
-            required = (2 * total_nodes // 3) + 1
-            
-            # Count votes
-            vote_counts = {}
-            for vote in votes.values():
-                vote_counts[vote] = vote_counts.get(vote, 0) + 1
-            
-            # Check if any value has enough votes
-            for value, count in vote_counts.items():
-                if count >= required:
-                    return value
-            
-            return None  # No consensus
+    subgraph "Anti-Pattern 3: Split-Brain Amnesia"
+        AP3["❌ Bad: Last writer wins<br/>Loses partition A's changes"]
+        GP3["✅ Good: Merge with conflict resolution<br/>Preserve changes from both partitions"]
+        AP3 --> GP3
+    end
     
-    def anti_pattern_3_split_brain_amnesia(self):
-        """❌ Don't forget state during split-brain recovery"""
-        # Bad: Last writer wins
-        def merge_after_split(partition_a, partition_b):
-            return partition_b  # Lost all changes from A!
-        
-        # Good: Merge with conflict resolution
-        def merge_after_split_better(partition_a, partition_b):
-            merged = {}
-            
-            # Track all changes from both partitions
-            all_keys = set(partition_a.keys()) | set(partition_b.keys())
-            
-            for key in all_keys:
-                val_a = partition_a.get(key)
-                val_b = partition_b.get(key)
-                
-                if val_a and val_b:
-                    # Conflict - use vector clocks or app logic
-                    merged[key] = resolve_conflict(val_a, val_b)
-                else:
-                    # No conflict
-                    merged[key] = val_a or val_b
-            
-            return merged
+    style AP1 fill:#ffcdd2,stroke:#d32f2f
+    style AP2 fill:#ffcdd2,stroke:#d32f2f
+    style AP3 fill:#ffcdd2,stroke:#d32f2f
+    style GP1 fill:#c8e6c9,stroke:#388e3c
+    style GP2 fill:#c8e6c9,stroke:#388e3c
+    style GP3 fill:#c8e6c9,stroke:#388e3c
 ```
+
+#### Consensus Usage Guidelines
+
+| Use Consensus For | Don't Use Consensus For | Alternative |
+|-------------------|------------------------|-------------|
+| Configuration changes | Read-heavy workloads | Local caches + TTL |
+| Leader election | User preferences | Eventually consistent DB |
+| Distributed locks | Analytics data | Async replication |
+| Transaction ordering | Metrics/logging | Best-effort delivery |
+| Critical metadata | Session data | Sticky sessions |
 
 **Common Production Mistakes**:
 1. **Over-consensus** - Not everything needs strong consistency
@@ -1074,142 +1060,138 @@ class ConsensusAntiPatterns:
 
 Quantum computing introduces new possibilities and challenges for distributed consensus.
 
-```python
-class QuantumConsensus:
-    """Theoretical quantum consensus mechanisms"""
+### The Future: Quantum Consensus
+
+Quantum computing introduces new possibilities and challenges for distributed consensus.
+
+```mermaid
+graph TB
+    subgraph "Classical vs Quantum Consensus"
+        subgraph "Classical Byzantine"
+            C1[3f+1 nodes needed]
+            C2[Cryptographic signatures]
+            C3[Message complexity O(n²)]
+        end
+        
+        subgraph "Quantum Byzantine"
+            Q1[2f+1 nodes only!]
+            Q2[Quantum entanglement]
+            Q3[Unforgeable quantum tokens]
+        end
+        
+        subgraph "Advantages"
+            A1[Better fault tolerance]
+            A2[Provably secure randomness]
+            A3[Faster agreement]
+        end
+        
+        C1 --> Q1
+        C2 --> Q2
+        C3 --> Q3
+        
+        Q1 & Q2 & Q3 --> A1 & A2 & A3
+    end
     
-    def quantum_byzantine_agreement(self):
-        """
-        Quantum Byzantine Agreement can achieve consensus
-        with only 2f+1 nodes (vs 3f+1 classical)
-        """
-        # Quantum entanglement provides unforgeable tokens
-        entangled_qubits = self.create_entangled_set()
-        
-        # Quantum key distribution prevents tampering
-        quantum_keys = self.distribute_quantum_keys()
-        
-        # Superposition allows exploring multiple states
-        consensus_state = self.quantum_superposition_vote()
-        
-        # Measurement collapses to agreed state
-        return self.measure_consensus(consensus_state)
-    
-    def quantum_coin_flipping(self):
-        """
-        Distributed random number generation
-        impossible to bias classically
-        """
-        # Each party contributes quantum state
-        quantum_contributions = []
-        for party in self.parties:
-            qbit = party.prepare_random_qubit()
-            quantum_contributions.append(qbit)
-        
-        # Entangle all contributions
-        entangled = self.entangle_qubits(quantum_contributions)
-        
-        # Simultaneous measurement
-        results = self.measure_all(entangled)
-        
-        # XOR results for unbiased randomness
-        return reduce(lambda x, y: x ^ y, results)
+    style Q1 fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style Q2 fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
+    style Q3 fill:#e1bee7,stroke:#6a1b9a,stroke-width:2px
 ```
+
+#### Quantum Consensus Properties
+
+| Property | Classical | Quantum | Benefit |
+|----------|-----------|---------|--------|
+| **Byzantine Tolerance** | 3f+1 nodes | 2f+1 nodes | 33% fewer nodes needed |
+| **Random Number Generation** | Biasable | Provably random | True randomness |
+| **Authentication** | Computational | Information-theoretic | Unconditionally secure |
+| **State Exploration** | Sequential | Superposition | Parallel exploration |
 
 ### Blockchain Evolution: Consensus at Scale
 
-```python
-class NextGenBlockchain:
-    """Evolution beyond proof-of-work"""
+### Blockchain Evolution: Consensus at Scale
+
+```mermaid
+graph TB
+    subgraph "Consensus Evolution"
+        POW[Proof of Work<br/>Bitcoin/Early Ethereum]
+        POS[Proof of Stake<br/>Ethereum 2.0]
+        SHARD[Sharded Consensus<br/>Next Generation]
+        
+        POW -->|Energy efficiency| POS
+        POS -->|Scalability| SHARD
+    end
     
-    def proof_of_stake_consensus(self):
-        """Ethereum 2.0 style consensus"""
-        validators = self.get_active_validators()
+    subgraph "Proof of Stake Flow"
+        V[Validators<br/>32 ETH stake]
+        P[Proposer Selection<br/>Weighted random]
+        B[Block Proposal]
+        A[Attestations<br/>Validator votes]
+        F[Finality<br/>2/3 stake agrees]
         
-        # Weight by stake
-        total_stake = sum(v.stake for v in validators)
-        
-        # Randomly select block proposer
-        proposer = self.select_weighted_random(validators)
-        
-        # Propose block
-        block = proposer.create_block()
-        
-        # Attestation (voting)
-        attestations = []
-        for validator in validators:
-            if validator.validate_block(block):
-                attestations.append(validator.sign(block))
-        
-        # Finality after 2/3 attestations
-        attested_stake = sum(v.stake for v in attestations)
-        if attested_stake > (2 * total_stake / 3):
-            self.finalize_block(block)
+        V --> P --> B --> A --> F
+    end
     
-    def sharded_consensus(self):
-        """Shard chains for horizontal scaling"""
-        # Divide validators into committees
-        committees = self.create_committees(self.validators)
+    subgraph "Sharding Architecture"
+        BC[Beacon Chain]
+        S1[Shard 1<br/>Committee A]
+        S2[Shard 2<br/>Committee B]
+        S3[Shard 3<br/>Committee C]
         
-        # Each committee validates one shard
-        shard_blocks = []
-        for shard_id, committee in enumerate(committees):
-            shard_block = self.run_shard_consensus(
-                shard_id, committee
-            )
-            shard_blocks.append(shard_block)
-        
-        # Beacon chain aggregates shard blocks
-        beacon_block = self.aggregate_shards(shard_blocks)
-        
-        # Cross-shard transactions via merkle proofs
-        self.process_cross_shard_txs(beacon_block)
+        BC --> S1 & S2 & S3
+        S1 & S2 & S3 -.->|Cross-shard TX| BC
+    end
+    
+    style POW fill:#ffab91,stroke:#d84315
+    style POS fill:#a5d6a7,stroke:#2e7d32
+    style SHARD fill:#90caf9,stroke:#1565c0
 ```
+
+#### Consensus Mechanism Comparison
+
+| Mechanism | Energy Usage | Throughput | Finality | Security Model |
+|-----------|--------------|------------|----------|----------------|
+| **Proof of Work** | Very High | ~7 TPS | Probabilistic | Hash power |
+| **Proof of Stake** | Low | ~100 TPS | Deterministic | Economic stake |
+| **Sharded PoS** | Low | ~100k TPS | Deterministic | Stake + committees |
+| **PBFT-based** | Low | ~1k TPS | Immediate | Known validators |
 
 ### The Philosophy of Distributed Truth
 
 In distributed systems, truth is not discovered—it's negotiated. This fundamental shift from centralized thinking has profound implications.
 
-```python
-class DistributedTruthPhilosophy:
-    """The nature of truth in distributed systems"""
-    
-    def truth_is_consensus(self):
-        """
-        Truth = What the majority agrees on
-        Not what actually happened
-        """
-        # Bitcoin example: longest chain is truth
-        # Even if shorter chain was "first"
-        return "Consensus defines reality"
-    
-    def truth_is_eventual(self):
-        """
-        Truth emerges over time
-        Not instantaneous
-        """
-        # CRDTs converge to truth
-        # No coordination needed
-        return "Time reveals truth"
-    
-    def truth_is_probabilistic(self):
-        """
-        Truth has confidence levels
-        Not binary true/false
-        """
-        # Bitcoin: 6 confirmations = 99.9% final
-        # But never 100%
-        return "Truth has probabilities"
-    
-    def truth_is_economic(self):
-        """
-        Truth has a cost
-        Higher consistency = Higher cost
-        """
-        # Spanner: Pay for global consistency
-        # DynamoDB: Cheap eventual consistency
-        return "Truth isn't free"
+### The Philosophy of Distributed Truth
+
+In distributed systems, truth is not discovered—it's negotiated. This fundamental shift from centralized thinking has profound implications.
+
+```mermaid
+mindmap
+  root((Distributed Truth))
+    Consensus
+      Majority defines reality
+      Not what "actually" happened
+      Bitcoin: longest chain wins
+    Eventual
+      Truth emerges over time
+      Not instantaneous
+      CRDTs converge naturally
+    Probabilistic
+      Confidence levels
+      Never 100% certain
+      6 confirmations = 99.9%
+    Economic
+      Truth has a cost
+      Consistency ∝ Price
+      Spanner vs DynamoDB
 ```
+
+#### The Four Natures of Distributed Truth
+
+| Nature | Principle | Example | Implication |
+|--------|-----------|---------|-------------|
+| **Consensus-Based** | Truth = Majority agreement | Bitcoin's longest chain | Reality is voted on |
+| **Time-Dependent** | Truth emerges gradually | CRDT convergence | Patience required |
+| **Probabilistic** | Truth has confidence levels | Block confirmations | Certainty is gradient |
+| **Economic** | Truth costs resources | Spanner's GPS clocks | Pay for guarantees |
 
 **The Paradoxes of Distributed Truth**:
 
@@ -1237,45 +1219,76 @@ class DistributedTruthPhilosophy:
 
 The ultimate example of distributed truth at scale.
 
-```python
-class SpannerTrueTime:
-    """Google's solution to global consistency"""
-    
-    def __init__(self):
-        # GPS and atomic clocks in each datacenter
-        self.time_masters = []
-        self.time_uncertainty = 7  # milliseconds average
-    
-    def now(self):
-        """Return time interval, not point"""
-        current_time = self.get_current_time()
-        uncertainty = self.get_time_uncertainty()
+### Google Spanner: Engineering Around Physics
+
+The ultimate example of distributed truth at scale.
+
+```mermaid
+graph TB
+    subgraph "TrueTime Architecture"
+        subgraph "Time Masters"
+            GPS[GPS Receivers]
+            ATOM[Atomic Clocks]
+            TM[Time Master Servers]
+            GPS & ATOM --> TM
+        end
         
-        return TimeInterval(
-            earliest=current_time - uncertainty,
-            latest=current_time + uncertainty
-        )
+        subgraph "Spanner Nodes"
+            SN1[Node 1<br/>Uncertainty: ±7ms]
+            SN2[Node 2<br/>Uncertainty: ±7ms]
+            SN3[Node 3<br/>Uncertainty: ±7ms]
+        end
+        
+        TM -->|Time sync| SN1 & SN2 & SN3
+        
+        subgraph "Commit Protocol"
+            TS[Assign Timestamp<br/>now().latest]
+            CW[Commit Wait<br/>7ms average]
+            REL[Release Locks<br/>Guaranteed consistency]
+            TS --> CW --> REL
+        end
+    end
     
-    def commit_wait(self, timestamp):
-        """Wait out uncertainty before commit"""
-        # Ensure timestamp is definitely in past
-        while not self.now().earliest > timestamp:
-            time.sleep(0.001)
-        
-        # Now safe to release locks
-        # Guarantees external consistency
+    style GPS fill:#4285f4,stroke:#333,color:#fff
+    style ATOM fill:#ea4335,stroke:#333,color:#fff
+    style CW fill:#fbbc04,stroke:#333
+```
+
+#### TrueTime API
+
+| Method | Returns | Purpose | Guarantee |
+|--------|---------|---------|-----------||
+| `now()` | `[earliest, latest]` | Get current time interval | True time within bounds |
+| `after(t)` | `bool` | Check if `t` has passed | True if `t < now().earliest` |
+| `before(t)` | `bool` | Check if `t` is future | True if `t > now().latest` |
+
+#### Spanner's Commit Protocol
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant S as Spanner Node
+    participant TT as TrueTime
+    participant R as Replicas
     
-    def assign_timestamp(self):
-        """Assign commit timestamp"""
-        # Use latest possible time
-        ts = self.now().latest
+    C->>S: Begin transaction
+    S->>S: Execute reads/writes
+    
+    rect rgb(255, 235, 238)
+        Note over S,TT: Commit Phase
+        S->>TT: now()
+        TT-->>S: [earliest: T-7ms, latest: T+7ms]
+        S->>S: timestamp = T+7ms
+        S->>R: Prepare(timestamp)
+        R-->>S: Prepared
         
-        # Ensure monotonic increase
-        if ts <= self.last_timestamp:
-            ts = self.last_timestamp + 1
-        
-        self.last_timestamp = ts
-        return ts
+        Note over S: Commit Wait
+        S->>S: Wait until now().earliest > timestamp
+        Note over S: ~7ms wait ensures timestamp is in past
+    end
+    
+    S->>R: Commit(timestamp)
+    S-->>C: Transaction committed
 ```
 
 **Spanner's Key Insights**:
@@ -1323,26 +1336,24 @@ class SpannerTrueTime:
 
 Build a basic logical clock system to understand event ordering without physical time.
 
-```python
-class LamportClock:
-    def __init__(self):
-        self.time = 0
+```mermaid
+classDiagram
+    class LamportClock {
+        -int time
+        +__init__()
+        +tick() int
+        +send_event() int
+        +receive_event(sender_time) int
+    }
     
-    def tick(self):
-        """Increment clock for local event"""
-        self.time += 1
-        return self.time
-    
-    def send_event(self):
-        """Get timestamp for sending message"""
-        self.tick()
-        return self.time
-    
-    def receive_event(self, sender_time):
-        """Update clock on message receive"""
-        self.time = max(self.time, sender_time) + 1
-        return self.time
+    note for LamportClock "Logical clock for ordering events\nwithout physical time synchronization"
 ```
+
+**Lamport Clock Algorithm:**
+1. Initialize: `time = 0`
+2. Local event: `time += 1`
+3. Send message: `time += 1, attach time`
+4. Receive message: `time = max(local_time, received_time) + 1`
 
 **Try it**: Create three processes exchanging messages and trace the clock values.
 
@@ -1350,68 +1361,81 @@ class LamportClock:
 
 Extend to vector clocks for true causality tracking:
 
-```python
-class VectorClock:
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.clock = [0] * num_nodes
+```mermaid
+classDiagram
+    class VectorClock {
+        -int node_id
+        -list~int~ clock
+        +__init__(node_id, num_nodes)
+        +tick() list
+        +send() list
+        +receive(other_clock) list
+        +happens_before(other) bool
+    }
     
-    def tick(self):
-        """Increment own component"""
-        self.clock[self.node_id] += 1
-        return self.clock.copy()
-    
-    def send(self):
-        """Get timestamp for sending"""
-        self.tick()
-        return self.clock.copy()
-    
-    def receive(self, other_clock):
-        """Merge clocks on receive"""
-        for i in range(len(self.clock)):
-            self.clock[i] = max(self.clock[i], other_clock[i])
-        self.tick()
-        return self.clock.copy()
-    
-    def happens_before(self, other):
-        """Check causal ordering"""
-        all_leq = all(self.clock[i] <= other.clock[i] 
-                      for i in range(len(self.clock)))
-        any_less = any(self.clock[i] < other.clock[i] 
-                       for i in range(len(self.clock)))
-        return all_leq and any_less
+    note for VectorClock "Tracks causality between events\nacross distributed nodes"
 ```
+
+**Vector Clock Operations:**
+
+| Operation | Algorithm |
+|-----------|----------|
+| Initialize | `clock = [0, 0, ..., 0]` |
+| Local event | `clock[node_id] += 1` |
+| Send | `tick(); return clock.copy()` |
+| Receive | `clock[i] = max(clock[i], other[i]); tick()` |
+| Happens-before | `all(a[i] <= b[i]) AND any(a[i] < b[i])` |
 
 ### Exercise 3: Two-Phase Commit Protocol 🌳
 
 Implement a distributed transaction coordinator:
 
-```python
-class TransactionCoordinator:
-    def __init__(self, participants):
-        self.participants = participants
-        self.tx_log = []
+### Exercise 3: Two-Phase Commit Protocol 🌳
+
+```mermaid
+sequenceDiagram
+    participant TC as Transaction<br/>Coordinator
+    participant P1 as Participant 1
+    participant P2 as Participant 2
+    participant P3 as Participant 3
     
-    def execute_transaction(self, tx_id, operations):
-        """Execute 2PC protocol"""
-        # Phase 1: Prepare
-        prepare_votes = []
-        for participant, ops in operations.items():
-            vote = participant.prepare(tx_id, ops)
-            prepare_votes.append(vote)
-            
-        if not all(prepare_votes):
-            # Abort if any vote no
-            for participant in self.participants:
-                participant.abort(tx_id)
-            return False
-        
-        # Phase 2: Commit
-        for participant in self.participants:
-            participant.commit(tx_id)
-        
-        return True
+    Note over TC,P3: Phase 1: Voting Phase
+    
+    TC->>P1: Prepare(tx_id)
+    TC->>P2: Prepare(tx_id)
+    TC->>P3: Prepare(tx_id)
+    
+    P1-->>TC: Vote: YES
+    P2-->>TC: Vote: YES
+    P3-->>TC: Vote: YES
+    
+    Note over TC: All votes YES
+    
+    Note over TC,P3: Phase 2: Commit Phase
+    
+    TC->>P1: Commit(tx_id)
+    TC->>P2: Commit(tx_id)
+    TC->>P3: Commit(tx_id)
+    
+    P1-->>TC: ACK
+    P2-->>TC: ACK
+    P3-->>TC: ACK
+    
+    Note over TC: Transaction Complete
 ```
+
+**Implementation Structure:**
+
+| Phase | Actions | Failure Handling |
+|-------|---------|------------------|
+| **Phase 1: Prepare** | Request votes from all participants | If any vote NO → Abort all |
+| **Phase 2: Commit** | Send commit to all participants | All must commit (no backing out) |
+
+**Key Points:**
+- Blocking protocol (waits for all responses)
+- Coordinator writes to log before each phase
+- Participants must persist vote decision
+- Challenge: Add timeout handling for crashed nodes
 
 **Challenge**: Add timeout handling and crash recovery.
 
@@ -1419,65 +1443,83 @@ class TransactionCoordinator:
 
 Build the core of Raft consensus:
 
-```python
-class RaftNode:
-    def __init__(self, node_id, peers):
-        self.node_id = node_id
-        self.peers = peers
-        self.state = 'follower'
-        self.current_term = 0
-        self.voted_for = None
-        self.election_timeout = random.uniform(150, 300)
-    
-    def start_election(self):
-        """Become candidate and request votes"""
-        self.state = 'candidate'
-        self.current_term += 1
-        self.voted_for = self.node_id
-        
-        votes = 1  # Vote for self
-        
-        for peer in self.peers:
-            if peer.request_vote(self.current_term, self.node_id):
-                votes += 1
-        
-        if votes > len(self.peers) // 2:
-            self.become_leader()
-    
-    def request_vote(self, term, candidate_id):
-        """Handle vote request"""
-        if term > self.current_term:
-            self.current_term = term
-            self.voted_for = None
-        
-        if self.voted_for is None:
-            self.voted_for = candidate_id
-            return True
-        
-        return False
+### Exercise 4: Simple Raft Leader Election 🌲
+
+```mermaid
+stateDiagram-v2
+    [*] --> Follower
+    Follower --> Candidate: Election timeout
+    Candidate --> Leader: Majority votes
+    Candidate --> Follower: Higher term seen
+    Leader --> Follower: Higher term seen
+    Candidate --> Candidate: Split vote, retry
 ```
+
+**Leader Election Algorithm:**
+
+| Step | Action | Condition |
+|------|--------|----------|
+| 1 | Start as Follower | Initial state |
+| 2 | Election timeout | No heartbeat received |
+| 3 | Become Candidate | Increment term, vote for self |
+| 4 | Request votes | Send to all peers |
+| 5 | Count votes | Need majority (n/2 + 1) |
+| 6 | Become Leader | If majority achieved |
+| 7 | Send heartbeats | Maintain leadership |
+
+**Key Properties:**
+- Election timeout: 150-300ms (randomized)
+- Only one leader per term
+- Higher terms override lower terms
 
 ### Exercise 5: CRDT Implementation 🌴
 
 Build a conflict-free replicated data type:
 
-```python
-class GCounter:
-    """Grow-only counter CRDT"""
-    def __init__(self, node_id, num_nodes):
-        self.node_id = node_id
-        self.counts = [0] * num_nodes
+### Exercise 5: CRDT Implementation 🌴
+
+```mermaid
+graph LR
+    subgraph "Node A"
+        A1[counts: [5,0,0]]
+        A2[increment(3)]
+        A3[counts: [8,0,0]]
+        A1 --> A2 --> A3
+    end
     
-    def increment(self, amount=1):
-        self.counts[self.node_id] += amount
+    subgraph "Node B"
+        B1[counts: [0,3,0]]
+        B2[increment(2)]
+        B3[counts: [0,5,0]]
+        B1 --> B2 --> B3
+    end
     
-    def value(self):
-        return sum(self.counts)
+    subgraph "After Merge"
+        M[counts: [8,5,0]<br/>value: 13]
+    end
     
-    def merge(self, other):
-        for i in range(len(self.counts)):
-            self.counts[i] = max(self.counts[i], other.counts[i])
+    A3 --> M
+    B3 --> M
+    
+    style M fill:#c8e6c9,stroke:#388e3c
 ```
+
+**GCounter Operations:**
+
+| Operation | Code | Description |
+|-----------|------|-------------|
+| **Initialize** | `counts = [0, 0, 0]` | Each node tracks all nodes |
+| **Increment** | `counts[my_id] += amount` | Only update own position |
+| **Value** | `value = sum(counts)` | Sum all positions |
+| **Merge** | `merged[i] = max(a[i], b[i])` | Take maximum at each position |
+
+**Why it works:**
+- Each node only increments its own counter
+- Merge preserves all increments (max never loses data)
+- Eventually consistent without coordination
+- Monotonic: values only increase
+
+**Extension Challenge:** Implement PNCounter (increment AND decrement) using two GCounters.
 
 **Extension**: Implement PNCounter (increment/decrement) and ORSet.
 
@@ -1491,38 +1533,32 @@ class GCounter:
 
 ## Quick Reference Card
 
-```yaml
-Choose Your Truth Level:
+## Quick Reference Card
 
-Need Financial Accuracy?
-  → Strong Consensus (Raft/Paxos)
-  → ~10-50ms latency
-  → 5+ nodes recommended
-
-Need User Sessions?
-  → Sticky Sessions + Eventual
-  → ~1-5ms latency
-  → 3 nodes sufficient
-
-Need Shopping Cart?
-  → CRDTs
-  → ~0ms latency (local-first)
-  → Merge on sync
-
-Need Social Feed?
-  → Eventual + Vector Clocks
-  → ~5-20ms latency
-  → Causal consistency
-
-Need Configuration?
-  → Consensus (etcd/ZooKeeper)
-  → ~20-100ms latency
-  → 3-5 nodes typical
-
-Need Global State?
-  → Spanner-style + GPS time
-  → ~50-200ms latency
-  → $$$ infrastructure
+```mermaid
+flowchart TD
+    Start[What truth level do you need?]
+    
+    Start --> Finance{Financial<br/>Accuracy?}
+    Start --> Session{User<br/>Sessions?}
+    Start --> Cart{Shopping<br/>Cart?}
+    Start --> Feed{Social<br/>Feed?}
+    Start --> Config{Configuration<br/>Management?}
+    Start --> Global{Global<br/>State?}
+    
+    Finance --> |Yes| F[Strong Consensus<br/>Raft/Paxos<br/>⏱ 10-50ms<br/>💻 5+ nodes]
+    Session --> |Yes| S[Sticky Sessions<br/>+ Eventual<br/>⏱ 1-5ms<br/>💻 3 nodes]
+    Cart --> |Yes| C[CRDTs<br/>Local-first<br/>⏱ 0ms<br/>🔄 Merge on sync]
+    Feed --> |Yes| E[Eventual +<br/>Vector Clocks<br/>⏱ 5-20ms<br/>🔗 Causal order]
+    Config --> |Yes| CF[Consensus<br/>etcd/ZooKeeper<br/>⏱ 20-100ms<br/>💻 3-5 nodes]
+    Global --> |Yes| G[Spanner-style<br/>GPS time<br/>⏱ 50-200ms<br/>💰💰💰 Infrastructure]
+    
+    style F fill:#ffcdd2,stroke:#c62828
+    style S fill:#e1bee7,stroke:#6a1b9a
+    style C fill:#c5e1a5,stroke:#33691e
+    style E fill:#bbdefb,stroke:#0d47a1
+    style CF fill:#ffe0b2,stroke:#e65100
+    style G fill:#ef9a9a,stroke:#b71c1c
 ```
 
 ---

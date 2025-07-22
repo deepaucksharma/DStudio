@@ -30,45 +30,58 @@ Health checks are like regular medical checkups:
 - **Specific tests**: Can it connect to the database? (blood test)
 - **Comprehensive exam**: Full system validation (annual physical)
 
-### Simple Health Check
+### Health Check Architecture
 
-```python
-from flask import Flask, jsonify
-import psycopg2
-import redis
+```mermaid
+graph TB
+    subgraph "Health Check System"
+        LB[Load Balancer] -->|/health| HC[Health Checker]
+        
+        HC --> Liveness[Liveness Check<br/>Is process alive?]
+        HC --> Readiness[Readiness Check<br/>Can handle traffic?]
+        HC --> Startup[Startup Check<br/>Initialization done?]
+        
+        Liveness --> Basic[Basic Process Check]
+        
+        Readiness --> DB[Database Check]
+        Readiness --> Cache[Cache Check]
+        Readiness --> Deps[Dependencies Check]
+        Readiness --> Resources[Resource Check]
+        
+        Startup --> Init[Initialization Status]
+        Startup --> Warm[Cache Warming]
+        Startup --> Connect[Connections Ready]
+    end
+    
+    style Liveness fill:#9f9
+    style Readiness fill:#ff9
+    style Startup fill:#9ff
+```
 
-app = Flask(__name__)
+### Health Check State Machine
 
-@app.route('/health')
-def basic_health():
-    """Simple liveness check - is the service running?"""
-    return jsonify({"status": "healthy"}), 200
-
-@app.route('/health/ready')
-def readiness_check():
-    """Readiness check - can the service handle requests?"""
-    checks = {
-        "database": check_database(),
-        "cache": check_cache(),
-        "disk_space": check_disk_space()
-    }
-
-    # All checks must pass
-    all_healthy = all(checks.values())
-    status_code = 200 if all_healthy else 503
-
-    return jsonify({
-        "status": "ready" if all_healthy else "not_ready",
-        "checks": checks
-    }), status_code
-
-def check_database():
-    try:
-        conn = psycopg2.connect(DATABASE_URL)
-        conn.close()
-        return True
-    except:
-        return False
+```mermaid
+stateDiagram-v2
+    [*] --> Starting: Service Starts
+    
+    Starting --> Initializing: Begin Startup
+    Initializing --> Ready: All Checks Pass
+    Initializing --> Failed: Startup Failed
+    
+    Ready --> Healthy: Serving Traffic
+    Healthy --> Degraded: Partial Failure
+    Degraded --> Healthy: Recovery
+    Degraded --> Unhealthy: Full Failure
+    
+    Healthy --> Unhealthy: Critical Failure
+    Unhealthy --> Degraded: Partial Recovery
+    Unhealthy --> Ready: Full Recovery
+    
+    Failed --> [*]: Terminate
+    
+    note right of Healthy: All systems operational
+    note right of Degraded: Some checks failing
+    note right of Unhealthy: Critical checks failing
 ```
 
 ---
@@ -222,6 +235,35 @@ class HealthChecker:
 ### Advanced Health Check Patterns
 
 #### Dependency Health Aggregation
+
+```mermaid
+flowchart TB
+    subgraph "Service Health Aggregation"
+        Main[Main Service] --> D1[Database<br/>Weight: 1.0<br/>Required: Yes]
+        Main --> D2[Cache<br/>Weight: 0.5<br/>Required: No]
+        Main --> D3[Search API<br/>Weight: 0.7<br/>Required: No]
+        Main --> D4[Message Queue<br/>Weight: 0.8<br/>Required: Yes]
+        
+        D1 -->|Healthy| Score[Health Score Calculation]
+        D2 -->|Degraded| Score
+        D3 -->|Healthy| Score
+        D4 -->|Healthy| Score
+        
+        Score --> Result{Overall Health}
+        
+        Result -->|Score >= 0.9| H[Healthy]
+        Result -->|0.7 <= Score < 0.9| D[Degraded]
+        Result -->|Score < 0.7| U[Unhealthy]
+        
+        Result -->|Required Down| F[Failed]
+    end
+    
+    style H fill:#9f9
+    style D fill:#ff9
+    style U fill:#f99
+    style F fill:#f00
+```
+
 ```python
 class DependencyHealthChecker:
     """Check health of all dependencies with smart aggregation"""

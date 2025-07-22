@@ -1130,4 +1130,4 @@ class ConsistencyEconomics:
 
 ---
 
-**Previous**: [← Timeout Pattern](timeout.md) | **Next**: [Work Stealing Pattern →](work-stealing.md)
+**Previous**: [← Timeout Pattern](timeout.md) | **Next**: [Sharding Pattern →](sharding.md)

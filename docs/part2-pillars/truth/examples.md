@@ -22,43 +22,67 @@ last_updated: 2025-07-20
 
 **Innovation**: TrueTime API - exposing clock uncertainty explicitly
 
-```python
-class TrueTimeAPI:
-    def now(self):
-        """Returns an interval [earliest, latest] within which current time lies"""
-        # GPS and atomic clocks provide bounds on uncertainty
-        uncertainty = self.get_clock_uncertainty()  # ~7ms average
-        current = self.get_current_time()
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Spanner
+    participant TrueTime
+    participant AtomicClock
+    
+    Client->>Spanner: Begin Transaction
+    
+    Note over Spanner: Execute transaction operations
+    
+    Client->>Spanner: Commit Request
+    
+    Spanner->>TrueTime: now()
+    TrueTime->>AtomicClock: Get current time
+    AtomicClock-->>TrueTime: Current time ± uncertainty
+    TrueTime-->>Spanner: [earliest, latest] interval
+    
+    Note over Spanner: commit_timestamp = latest
+    
+    loop Wait for commit_timestamp to be in past
+        Spanner->>TrueTime: after(commit_timestamp)?
+        TrueTime-->>Spanner: false
+        Note over Spanner: sleep(1ms)
+    end
+    
+    Spanner->>TrueTime: after(commit_timestamp)?
+    TrueTime-->>Spanner: true
+    
+    Note over Spanner: Release locks
+    Spanner-->>Client: Commit successful
+```
 
-        return TrueTimeInterval(
-            earliest=current - uncertainty,
-            latest=current + uncertainty
-        )
-
-    def after(self, timestamp):
-        """True if timestamp is definitely in the past"""
-        return self.now().earliest > timestamp
-
-    def before(self, timestamp):
-        """True if timestamp is definitely in the future"""
-        return self.now().latest < timestamp
-
-class SpannerTransaction:
-    def __init__(self, truetime):
-        self.truetime = truetime
-        self.commit_timestamp = None
-
-    def commit(self):
-        # Assign commit timestamp
-        self.commit_timestamp = self.truetime.now().latest
-
-        # Wait out the uncertainty
-        while not self.truetime.after(self.commit_timestamp):
-            time.sleep(0.001)  # Wait 1ms
-
-        # Now safe to release locks - guarantees external consistency
-        self.release_locks()
-        return self.commit_timestamp
+```mermaid
+graph TB
+    subgraph "TrueTime Architecture"
+        GPS[GPS Receivers]
+        AC[Atomic Clocks]
+        TT[TrueTime Masters]
+        TS[TrueTime Slaves]
+        
+        GPS --> TT
+        AC --> TT
+        TT --> TS
+        
+        style GPS fill:#e1f5fe
+        style AC fill:#e1f5fe
+        style TT fill:#81d4fa
+        style TS fill:#4fc3f7
+    end
+    
+    subgraph "Uncertainty Bounds"
+        T1[Time T - ε]
+        T2[Actual Time T]
+        T3[Time T + ε]
+        
+        T1 -.->|earliest| T2
+        T2 -.->|latest| T3
+        
+        style T2 fill:#4caf50
+    end
 ```
 
 **Key Insights**:
@@ -72,62 +96,57 @@ class SpannerTransaction:
 
 **Solution**: Longest chain rule with economic incentives
 
-```python
-class BlockchainConsensus:
-    def __init__(self):
-        self.chain = []
-        self.difficulty = 4  # Number of leading zeros required
-
-    def mine_block(self, transactions, previous_hash):
-        """Find nonce that produces valid hash"""
-        block = {
-            'index': len(self.chain),
-            'timestamp': time.time(),
-            'transactions': transactions,
-            'previous_hash': previous_hash,
-            'nonce': 0
-        }
-
-        # Proof of work
-        while True:
-            block_hash = self.calculate_hash(block)
-            if block_hash.startswith('0' * self.difficulty):
-                block['hash'] = block_hash
-                return block
-            block['nonce'] += 1
-
-    def validate_chain(self, chain):
-        """Validate entire blockchain"""
-        for i in range(1, len(chain)):
-            current = chain[i]
-            previous = chain[i-1]
-
-            # Check hash link
-            if current['previous_hash'] != previous['hash']:
-                return False
-
-            # Check proof of work
-            if not self.valid_proof(current):
-                return False
-
-        return True
-
-    def consensus(self, other_chains):
-        """Adopt longest valid chain"""
-        longest_chain = self.chain
-        max_length = len(self.chain)
-
-        for chain in other_chains:
-            if len(chain) > max_length and self.validate_chain(chain):
-                longest_chain = chain
-                max_length = len(chain)
-
-        if longest_chain != self.chain:
-            self.chain = longest_chain
-            return True  # Chain replaced
-
-        return False
+```mermaid
+graph LR
+    subgraph "Bitcoin Mining Process"
+        TX[Transactions Pool] --> MB[Mine Block]
+        MB --> POW{Proof of Work}
+        POW -->|Invalid Hash| INC[Increment Nonce]
+        INC --> POW
+        POW -->|Valid Hash| NB[New Block]
+        NB --> BC[Blockchain]
+        
+        style TX fill:#ffebee
+        style POW fill:#fff3e0,stroke:#ff6f00,stroke-width:3px
+        style NB fill:#e8f5e9
+        style BC fill:#c8e6c9
+    end
 ```
+
+```mermaid
+sequenceDiagram
+    participant Node1
+    participant Node2
+    participant Node3
+    participant Network
+    
+    Note over Node1: Mining new block
+    Node1->>Node1: Find valid nonce
+    Node1->>Network: Broadcast new block
+    
+    Network->>Node2: New block received
+    Network->>Node3: New block received
+    
+    Node2->>Node2: Validate block
+    Node3->>Node3: Validate block
+    
+    alt Fork detected
+        Node2->>Network: Request other chains
+        Network-->>Node2: Chain from Node3
+        Node2->>Node2: Compare chain lengths
+        Note over Node2: Adopt longest valid chain
+    end
+    
+    Note over Node1,Node3: Consensus achieved
+```
+
+| Confirmation Depth | Probability of Permanence | Use Case |
+|-------------------|---------------------------|----------|
+| 0 blocks | ~0% | Unconfirmed |
+| 1 block | ~70% | Low-value transactions |
+| 3 blocks | ~95% | Standard transactions |
+| 6 blocks | >99.9% | High-value transactions |
+| 100 blocks | ~100% | Exchange deposits |
 
 **Probabilistic Finality**:
 - After 1 block: ~70% chance of permanence
@@ -140,67 +159,85 @@ class BlockchainConsensus:
 
 **Architecture**: ZAB (ZooKeeper Atomic Broadcast)
 
-```python
-class ZooKeeperNode:
-    def __init__(self, node_id):
-        self.node_id = node_id
-        self.state = 'follower'
-        self.zxid = 0  # ZooKeeper transaction ID
-        self.history = []  # Committed transactions
+```mermaid
+stateDiagram-v2
+    [*] --> Looking
+    Looking --> Following: Discover leader
+    Looking --> Leading: Win election
+    Following --> Looking: Leader failure
+    Leading --> Looking: Lost quorum
+    
+    state Leading {
+        [*] --> AcceptingProposals
+        AcceptingProposals --> Broadcasting
+        Broadcasting --> WaitingForAcks
+        WaitingForAcks --> Committing: Quorum reached
+        WaitingForAcks --> AcceptingProposals: Quorum failed
+        Committing --> AcceptingProposals
+    }
+    
+    state Following {
+        [*] --> Syncing
+        Syncing --> Ready
+        Ready --> ProcessingProposal: Receive proposal
+        ProcessingProposal --> SendingAck
+        SendingAck --> Ready
+    }
+```
 
-    class Transaction:
-        def __init__(self, type, path, data, zxid):
-            self.type = type  # create, set, delete
-            self.path = path
-            self.data = data
-            self.zxid = zxid
+```mermaid
+graph TB
+    subgraph "ZooKeeper Data Model"
+        root["/"]
+        config["/config"]
+        services["/services"]
+        locks["/locks"]
+        
+        root --> config
+        root --> services
+        root --> locks
+        
+        config --> db["/config/database"]
+        services --> s1["/services/service-1"]
+        services --> s2["/services/service-2"]
+        locks --> l1["/locks/resource-1"]
+        
+        style root fill:#e3f2fd
+        style config fill:#bbdefb
+        style services fill:#bbdefb
+        style locks fill:#bbdefb
+        
+        s1 -.->|ephemeral| session1[Session 1]
+        l1 -.->|sequential| queue[Lock Queue]
+    end
+```
 
-    def propose_change(self, path, data):
-        """Leader proposes change to followers"""
-        if self.state != 'leader':
-            raise Exception("Only leader can propose")
-
-        # Assign transaction ID (epoch, counter)
-        self.zxid += 1
-        txn = self.Transaction('set', path, data, self.zxid)
-
-        # Phase 1: Proposal
-        acks = 0
-        for follower in self.followers:
-            if follower.log_proposal(txn):
-                acks += 1
-
-        # Phase 2: Commit (if quorum)
-        if acks >= len(self.followers) // 2:
-            for follower in self.followers:
-                follower.commit(txn.zxid)
-            self.history.append(txn)
-            return True
-
-        return False
-
-    def create_ephemeral_node(self, path, data, session_id):
-        """Create node tied to client session"""
-        node = {
-            'path': path,
-            'data': data,
-            'ephemeral': True,
-            'session_id': session_id,
-            'version': 0,
-            'ctime': time.time(),
-            'mtime': time.time()
-        }
-
-        # Use for distributed locks, leader election
-        return self.create_node(node)
-
-    def watch_node(self, path, watcher):
-        """Get notified of changes"""
-        # One-time trigger on change
-        self.watchers[path].append(watcher)
-
-        # Return current data
-        return self.get_data(path)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Leader
+    participant Follower1
+    participant Follower2
+    
+    Client->>Leader: Write(/path, data)
+    
+    Leader->>Leader: zxid++
+    Leader->>Follower1: Proposal(zxid, /path, data)
+    Leader->>Follower2: Proposal(zxid, /path, data)
+    
+    Follower1->>Follower1: Log proposal
+    Follower2->>Follower2: Log proposal
+    
+    Follower1-->>Leader: ACK(zxid)
+    Follower2-->>Leader: ACK(zxid)
+    
+    Note over Leader: Quorum reached (2/3)
+    
+    Leader->>Follower1: Commit(zxid)
+    Leader->>Follower2: Commit(zxid)
+    Leader->>Leader: Apply to state
+    
+    Leader-->>Client: Success
 ```
 
 **Use Cases**:
@@ -216,63 +253,66 @@ class ZooKeeperNode:
 
 **Solution**: Ethereum Virtual Machine with deterministic execution
 
-```python
-class EthereumConsensus:
-    def __init__(self):
-        self.state = {}  # Global state tree
-        self.receipts = []  # Transaction receipts
+```mermaid
+graph TB
+    subgraph "Ethereum State Transition"
+        TX[Transaction] --> EVM[EVM Execution]
+        EVM --> GAS{Gas Sufficient?}
+        GAS -->|No| FAIL[Revert State]
+        GAS -->|Yes| EXEC[Execute Code]
+        EXEC --> SC{State Changes}
+        SC --> UPD[Update State Tree]
+        UPD --> RECEIPT[Generate Receipt]
+        
+        style TX fill:#e3f2fd
+        style EVM fill:#bbdefb
+        style GAS fill:#fff9c4,stroke:#f57f17,stroke-width:3px
+        style UPD fill:#c8e6c9
+        style FAIL fill:#ffcdd2
+    end
+    
+    subgraph "Consensus Components"
+        BLOCK[New Block] --> VAL[Validate Txns]
+        VAL --> ROOT[Compute State Root]
+        ROOT --> CMP{Root Match?}
+        CMP -->|Yes| ACCEPT[Accept Block]
+        CMP -->|No| REJECT[Reject Block]
+        
+        style BLOCK fill:#e1bee7
+        style CMP fill:#fff9c4,stroke:#f57f17,stroke-width:3px
+        style ACCEPT fill:#c8e6c9
+        style REJECT fill:#ffcdd2
+    end
+```
 
-    def execute_transaction(self, tx, block_context):
-        """Execute transaction deterministically"""
-        # Create execution context
-        context = EVMContext(
-            caller=tx.from_address,
-            origin=tx.from_address,
-            gas_price=tx.gas_price,
-            value=tx.value,
-            data=tx.data,
-            block_number=block_context.number,
-            timestamp=block_context.timestamp,
-            difficulty=block_context.difficulty
-        )
-
-        # Execute with gas metering
-        result = self.evm.execute(
-            code=self.get_code(tx.to_address),
-            context=context,
-            gas_limit=tx.gas_limit
-        )
-
-        # Update state
-        if result.success:
-            self.apply_state_changes(result.state_changes)
-
-        # Create receipt
-        receipt = TransactionReceipt(
-            transaction_hash=tx.hash,
-            success=result.success,
-            gas_used=result.gas_used,
-            logs=result.logs,
-            return_data=result.return_data
-        )
-
-        return receipt
-
-    def validate_block(self, block):
-        """Validate all transactions in block"""
-        temp_state = self.state.copy()
-
-        for tx in block.transactions:
-            try:
-                receipt = self.execute_transaction(tx, block)
-                if not receipt.success:
-                    return False
-            except Exception:
-                return False
-
-        # Verify state root
-        computed_root = self.compute_state_root()
-        return computed_root == block.state_root
+```mermaid
+sequenceDiagram
+    participant User
+    participant Node
+    participant EVM
+    participant State
+    participant Network
+    
+    User->>Node: Send Transaction
+    Node->>Node: Validate signature
+    Node->>EVM: Execute transaction
+    
+    activate EVM
+    EVM->>State: Load account state
+    EVM->>EVM: Run bytecode
+    loop Gas metering
+        EVM->>EVM: Deduct gas
+        alt Gas exhausted
+            EVM->>State: Revert changes
+            EVM-->>Node: Execution failed
+        end
+    end
+    EVM->>State: Apply state changes
+    deactivate EVM
+    
+    Node->>Network: Broadcast to peers
+    Note over Network: Consensus process
+    Network-->>User: Transaction confirmed
 ```
 
 ### 5. CockroachDB: Consensus for SQL
@@ -281,353 +321,391 @@ class EthereumConsensus:
 
 **Solution**: Raft consensus with MVCC
 
-```python
-class CockroachConsensus:
-    def __init__(self):
-        self.ranges = {}  # key_range -> RaftGroup
-
-    class RaftGroup:
-        def __init__(self, range_id, replicas):
-            self.range_id = range_id
-            self.replicas = replicas
-            self.leader = None
-            self.log = []
-            self.commit_index = 0
-
-        def propose_write(self, key, value, timestamp):
-            """Propose write through Raft"""
-            if not self.is_leader():
-                return self.forward_to_leader(key, value, timestamp)
-
-            # Create log entry
-            entry = LogEntry(
-                index=len(self.log),
-                term=self.current_term,
-                command=WriteCommand(key, value, timestamp),
-                timestamp=timestamp
-            )
-
-            # Replicate to followers
-            success_count = 1  # Leader counts
-
-            for replica in self.replicas:
-                if replica != self.node_id:
-                    if self.replicate_entry(replica, entry):
-                        success_count += 1
-
-            # Commit if majority
-            if success_count > len(self.replicas) // 2:
-                self.commit_index = entry.index
-                self.apply_entry(entry)
-                return True
-
-            return False
-
-        def handle_split_brain(self):
-            """Handle network partition"""
-            # Only partition with majority can progress
-            active_replicas = self.get_active_replicas()
-
-            if len(active_replicas) <= len(self.replicas) // 2:
-                # Step down - we're in minority
-                self.state = 'follower'
-                raise UnavailableException("In minority partition")
+```mermaid
+graph TB
+    subgraph "CockroachDB Architecture"
+        subgraph "SQL Layer"
+            PARSER[SQL Parser]
+            OPTIMIZER[Query Optimizer]
+            EXECUTOR[Executor]
+        end
+        
+        subgraph "Transaction Layer"
+            TXN[Transaction Coordinator]
+            TS[Timestamp Cache]
+            MVCC[MVCC Engine]
+        end
+        
+        subgraph "Distribution Layer"
+            RANGE[Range Lookup]
+            LEASE[Leaseholder]
+            RAFT[Raft Groups]
+        end
+        
+        subgraph "Storage Layer"
+            ROCKS[RocksDB]
+        end
+        
+        PARSER --> OPTIMIZER
+        OPTIMIZER --> EXECUTOR
+        EXECUTOR --> TXN
+        TXN --> RANGE
+        RANGE --> LEASE
+        LEASE --> RAFT
+        RAFT --> MVCC
+        MVCC --> ROCKS
+        
+        style PARSER fill:#e3f2fd
+        style RAFT fill:#ffccbc,stroke:#d84315,stroke-width:3px
+        style MVCC fill:#c8e6c9
+    end
 ```
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Gateway
+    participant Leader
+    participant Follower1
+    participant Follower2
+    
+    Client->>Gateway: SQL Write
+    Gateway->>Gateway: Find range leader
+    Gateway->>Leader: Propose write
+    
+    Leader->>Leader: Append to log
+    Leader->>Follower1: AppendEntries RPC
+    Leader->>Follower2: AppendEntries RPC
+    
+    par Replication
+        Follower1->>Follower1: Append to log
+        Follower1-->>Leader: Success
+    and
+        Follower2->>Follower2: Append to log
+        Follower2-->>Leader: Success
+    end
+    
+    Note over Leader: Majority reached
+    Leader->>Leader: Commit entry
+    Leader->>Follower1: Commit notification
+    Leader->>Follower2: Commit notification
+    
+    Leader-->>Gateway: Write committed
+    Gateway-->>Client: Success
+```
+
+| Scenario | Behavior | Recovery |
+|----------|----------|----------|
+| Leader Failure | New election triggered | Follower with most recent log becomes leader |
+| Network Partition | Minority partition unavailable | Automatic recovery when partition heals |
+| Slow Follower | Leader maintains log buffer | Follower catches up from log |
+| Split Brain Prevention | Only majority can elect leader | Ensures single leader per term |
 
 ## Consensus Algorithm Implementations
 
 ### 1. Paxos Implementation
 
-```python
-class PaxosNode:
-    def __init__(self, node_id, acceptors):
-        self.node_id = node_id
-        self.acceptors = acceptors
-
-        # Proposer state
-        self.proposal_number = 0
-
-        # Acceptor state
-        self.promised_proposal = None
-        self.accepted_proposal = None
-        self.accepted_value = None
-
-    def propose(self, value):
-        """Run Paxos to propose a value"""
-        # Phase 1a: Prepare
-        self.proposal_number += 1
-        proposal_id = (self.proposal_number, self.node_id)
-
-        # Send prepare to all acceptors
-        promises = []
-        for acceptor in self.acceptors:
-            promise = acceptor.prepare(proposal_id)
-            if promise:
-                promises.append(promise)
-
-        # Need majority
-        if len(promises) <= len(self.acceptors) // 2:
-            return False
-
-        # Phase 2a: Accept
-        # Choose value (highest numbered accepted value or our value)
-        chosen_value = value
-        for promise in promises:
-            if promise.accepted_proposal:
-                if not self.accepted_proposal or promise.accepted_proposal > self.accepted_proposal:
-                    chosen_value = promise.accepted_value
-
-        # Send accept to all acceptors
-        accepted_count = 0
-        for acceptor in self.acceptors:
-            if acceptor.accept(proposal_id, chosen_value):
-                accepted_count += 1
-
-        # Success if majority accepted
-        return accepted_count > len(self.acceptors) // 2
-
-    def prepare(self, proposal_id):
-        """Acceptor: Handle prepare request"""
-        if self.promised_proposal and proposal_id < self.promised_proposal:
-            return None  # Already promised higher proposal
-
-        self.promised_proposal = proposal_id
-
-        return {
-            'promised': proposal_id,
-            'accepted_proposal': self.accepted_proposal,
-            'accepted_value': self.accepted_value
-        }
-
-    def accept(self, proposal_id, value):
-        """Acceptor: Handle accept request"""
-        if self.promised_proposal and proposal_id < self.promised_proposal:
-            return False
-
-        self.promised_proposal = proposal_id
-        self.accepted_proposal = proposal_id
-        self.accepted_value = value
-
-        return True
+```mermaid
+sequenceDiagram
+    participant Proposer
+    participant Acceptor1
+    participant Acceptor2
+    participant Acceptor3
+    
+    Note over Proposer: Phase 1: Prepare
+    Proposer->>Acceptor1: Prepare(n)
+    Proposer->>Acceptor2: Prepare(n)
+    Proposer->>Acceptor3: Prepare(n)
+    
+    Acceptor1-->>Proposer: Promise(n, null)
+    Acceptor2-->>Proposer: Promise(n, accepted_value)
+    Note over Acceptor3: Already promised n+1
+    Acceptor3-->>Proposer: Reject
+    
+    Note over Proposer: Majority reached (2/3)
+    Note over Proposer: Use highest accepted value
+    
+    Note over Proposer: Phase 2: Accept
+    Proposer->>Acceptor1: Accept(n, value)
+    Proposer->>Acceptor2: Accept(n, value)
+    Proposer->>Acceptor3: Accept(n, value)
+    
+    Acceptor1-->>Proposer: Accepted(n)
+    Acceptor2-->>Proposer: Accepted(n)
+    Acceptor3-->>Proposer: Reject
+    
+    Note over Proposer: Consensus reached!
 ```
+
+```mermaid
+stateDiagram-v2
+    [*] --> Idle
+    
+    state Proposer {
+        Idle --> Preparing: propose(value)
+        Preparing --> WaitingPromises: send prepare(n)
+        WaitingPromises --> Accepting: majority promises
+        WaitingPromises --> Failed: no majority
+        Accepting --> WaitingAccepts: send accept(n,v)
+        WaitingAccepts --> Success: majority accepts
+        WaitingAccepts --> Failed: no majority
+        Failed --> Idle: retry
+        Success --> Idle: done
+    }
+    
+    state Acceptor {
+        Ready --> Promised: prepare(n) & n > promised
+        Promised --> Accepted: accept(n,v) & n >= promised
+        Accepted --> Promised: prepare(n') & n' > promised
+    }
+```
+
+| Phase | Message | Acceptor Action | Required for Progress |
+|-------|---------|-----------------|----------------------|
+| 1a | Prepare(n) | Promise if n > highest promised | - |
+| 1b | Promise(n, v) | Return any accepted value | Majority promises |
+| 2a | Accept(n, v) | Accept if n >= promised | - |
+| 2b | Accepted(n) | Confirm acceptance | Majority accepts |
 
 ### 2. Byzantine Fault Tolerant Consensus
 
-```python
-class PBFTNode:
-    """Practical Byzantine Fault Tolerance"""
-    def __init__(self, node_id, nodes, f):
-        self.node_id = node_id
-        self.nodes = nodes
-        self.f = f  # Maximum Byzantine nodes
-        self.view = 0
-        self.sequence_number = 0
-
-    def is_primary(self):
-        return self.nodes[self.view % len(self.nodes)] == self.node_id
-
-    def client_request(self, operation):
-        """Handle client request (primary only)"""
-        if not self.is_primary():
-            return self.forward_to_primary(operation)
-
-        # Assign sequence number
-        seq = self.sequence_number
-        self.sequence_number += 1
-
-        # Phase 1: Pre-prepare
-        message = PrePrepareMessage(self.view, seq, operation)
-        self.broadcast_to_replicas(message)
-
-        return seq
-
-    def handle_preprepare(self, message):
-        """Handle pre-prepare from primary"""
-        if not self.verify_message(message):
-            return
-
-        # Phase 2: Prepare
-        prepare = PrepareMessage(
-            self.view,
-            message.sequence,
-            message.operation_digest,
-            self.node_id
-        )
-        self.broadcast_to_replicas(prepare)
-
-        self.log_prepare(prepare)
-
-    def handle_prepare(self, message):
-        """Collect prepare messages"""
-        self.log_prepare(message)
-
-        # Check if we have 2f prepares
-        prepare_count = self.count_prepares(message.sequence)
-
-        if prepare_count >= 2 * self.f:
-            # Phase 3: Commit
-            commit = CommitMessage(
-                self.view,
-                message.sequence,
-                message.operation_digest,
-                self.node_id
-            )
-            self.broadcast_to_replicas(commit)
-            self.log_commit(commit)
-
-    def handle_commit(self, message):
-        """Collect commit messages"""
-        self.log_commit(message)
-
-        # Check if we have 2f+1 commits
-        commit_count = self.count_commits(message.sequence)
-
-        if commit_count >= 2 * self.f + 1:
-            # Execute operation
-            result = self.execute_operation(message.operation)
-            self.send_reply_to_client(result)
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Primary
+    participant Replica1
+    participant Replica2
+    participant Replica3
+    participant Byzantine
+    
+    Client->>Primary: Request(operation)
+    
+    Note over Primary: Phase 1: Pre-prepare
+    Primary->>Replica1: PrePrepare(v,n,op)
+    Primary->>Replica2: PrePrepare(v,n,op)
+    Primary->>Replica3: PrePrepare(v,n,op)
+    Primary->>Byzantine: PrePrepare(v,n,op)
+    
+    Note over Replica1,Byzantine: Phase 2: Prepare
+    Replica1->>Primary: Prepare(v,n,digest)
+    Replica1->>Replica2: Prepare(v,n,digest)
+    Replica1->>Replica3: Prepare(v,n,digest)
+    Replica1->>Byzantine: Prepare(v,n,digest)
+    
+    Replica2->>Primary: Prepare(v,n,digest)
+    Replica2->>Replica1: Prepare(v,n,digest)
+    Replica2->>Replica3: Prepare(v,n,digest)
+    Replica2->>Byzantine: Prepare(v,n,digest)
+    
+    Replica3->>Primary: Prepare(v,n,digest)
+    Replica3->>Replica1: Prepare(v,n,digest)
+    Replica3->>Replica2: Prepare(v,n,digest)
+    Replica3->>Byzantine: Prepare(v,n,digest)
+    
+    Note over Byzantine: Sends nothing or garbage
+    
+    Note over Primary,Replica3: 2f prepares collected
+    
+    Note over Primary,Byzantine: Phase 3: Commit
+    Primary->>Replica1: Commit(v,n,digest)
+    Primary->>Replica2: Commit(v,n,digest)
+    Primary->>Replica3: Commit(v,n,digest)
+    
+    Replica1->>Client: Reply(result)
+    Replica2->>Client: Reply(result)
+    Replica3->>Client: Reply(result)
+    
+    Note over Client: Accept after f+1 matching replies
 ```
+
+```mermaid
+graph TB
+    subgraph "PBFT Safety Requirements"
+        N[N nodes total]
+        F[f Byzantine nodes]
+        REQ1[N ≥ 3f + 1]
+        REQ2[2f + 1 for commit]
+        REQ3[f + 1 matching replies]
+        
+        N --> REQ1
+        F --> REQ1
+        REQ1 --> REQ2
+        REQ1 --> REQ3
+        
+        style REQ1 fill:#ffccbc,stroke:#d84315,stroke-width:3px
+    end
+    
+    subgraph "Example: f=1"
+        NODES[4 nodes total]
+        BYZ[1 Byzantine max]
+        PREP[Need 2 prepares]
+        COMM[Need 3 commits]
+        REPL[Need 2 replies]
+        
+        NODES --> PREP
+        NODES --> COMM
+        COMM --> REPL
+        
+        style NODES fill:#e8f5e9
+    end
+```
+
+| Phase | Messages Required | Purpose | Byzantine Tolerance |
+|-------|------------------|---------|--------------------|
+| Pre-prepare | 1 (from primary) | Order assignment | Primary can be Byzantine |
+| Prepare | 2f | Agreement on order | Tolerates f Byzantine |
+| Commit | 2f + 1 | Agreement on execution | Ensures total order |
+| Reply | f + 1 | Client confidence | At least 1 correct reply |
 
 ### 3. Blockchain Consensus Variants
 
-```python
-class ProofOfStake:
-    """Ethereum 2.0 style PoS consensus"""
-    def __init__(self):
-        self.validators = {}
-        self.total_stake = 0
-
-    def add_validator(self, address, stake):
-        """Register validator with stake"""
-        self.validators[address] = {
-            'stake': stake,
-            'active': True,
-            'last_block': 0
-        }
-        self.total_stake += stake
-
-    def select_block_proposer(self, slot, randomness):
-        """Select proposer weighted by stake"""
-        # Use RANDAO for randomness
-        seed = hash(str(slot) + randomness)
-        rand = seed % self.total_stake
-
-        cumulative = 0
-        for address, validator in self.validators.items():
-            if validator['active']:
-                cumulative += validator['stake']
-                if rand < cumulative:
-                    return address
-
-        raise Exception("No active validators")
-
-    def slash_validator(self, address, reason):
-        """Penalize misbehaving validator"""
-        if address not in self.validators:
-            return
-
-        validator = self.validators[address]
-
-        # Different penalties for different violations
-        if reason == 'double_vote':
-            penalty = validator['stake'] * 0.05  # 5% slash
-        elif reason == 'surround_vote':
-            penalty = validator['stake'] * 0.01  # 1% slash
-        else:
-            penalty = 0
-
-        validator['stake'] -= penalty
-        validator['active'] = False  # Deactivate
-
-        # Burn slashed stake
-        self.total_stake -= penalty
+```mermaid
+graph TB
+    subgraph "Proof of Stake Consensus"
+        EPOCH[Epoch Start] --> RAND[RANDAO Reveal]
+        RAND --> SELECT[Select Proposers]
+        SELECT --> PROPOSE[Propose Blocks]
+        PROPOSE --> ATTEST[Validators Attest]
+        ATTEST --> FINALIZE[Finalize Checkpoints]
+        
+        style RAND fill:#fff3e0,stroke:#ff6f00,stroke-width:3px
+        style FINALIZE fill:#c8e6c9
+    end
+    
+    subgraph "Validator Lifecycle"
+        DEPOSIT[32 ETH Deposit] --> PENDING[Pending]
+        PENDING --> ACTIVE[Active Validator]
+        ACTIVE --> EXIT[Voluntary Exit]
+        ACTIVE --> SLASHED[Slashed]
+        EXIT --> WITHDRAWN[Stake Withdrawn]
+        SLASHED --> WITHDRAWN2[Partial Withdrawal]
+        
+        style DEPOSIT fill:#e3f2fd
+        style ACTIVE fill:#c8e6c9
+        style SLASHED fill:#ffcdd2
+    end
 ```
+
+```mermaid
+sequenceDiagram
+    participant Slot
+    participant Proposer
+    participant Committee1
+    participant Committee2
+    participant Network
+    
+    Note over Slot: Slot n begins (12 seconds)
+    
+    Slot->>Proposer: Selected via RANDAO
+    Proposer->>Proposer: Create block
+    Proposer->>Network: Broadcast block
+    
+    Network->>Committee1: Block received
+    Network->>Committee2: Block received
+    
+    Committee1->>Committee1: Validate block
+    Committee2->>Committee2: Validate block
+    
+    Committee1->>Network: Attestation
+    Committee2->>Network: Attestation
+    
+    Note over Network: Aggregate attestations
+    
+    alt Supermajority (>2/3)
+        Note over Network: Block accepted
+    else
+        Note over Network: Block rejected
+    end
+```
+
+| Slashing Condition | Penalty | Description | Protection |
+|-------------------|---------|-------------|------------|
+| Double Voting | 1-5% of stake | Voting for two blocks at same height | Store last vote |
+| Surround Voting | 1-3% of stake | Conflicting attestations | Track vote history |
+| Inactivity Leak | Gradual | Offline during finality crisis | Stay online |
+| Proposer Equivocation | 2-5% of stake | Proposing multiple blocks | One block per slot |
 
 ## Truth Maintenance Systems
 
 ### 1. Distributed Version Vectors
 
-```python
-class VersionVector:
-    """Track concurrent updates across nodes"""
-    def __init__(self):
-        self.versions = {}  # node_id -> version
-
-    def increment(self, node_id):
-        """Increment version for node"""
-        if node_id not in self.versions:
-            self.versions[node_id] = 0
-        self.versions[node_id] += 1
-
-    def merge(self, other):
-        """Merge two version vectors"""
-        merged = VersionVector()
-
-        all_nodes = set(self.versions.keys()) | set(other.versions.keys())
-
-        for node in all_nodes:
-            merged.versions[node] = max(
-                self.versions.get(node, 0),
-                other.versions.get(node, 0)
-            )
-
-        return merged
-
-    def descends_from(self, other):
-        """Check if this descends from other"""
-        for node, version in other.versions.items():
-            if self.versions.get(node, 0) < version:
-                return False
-        return True
-
-    def concurrent_with(self, other):
-        """Check if versions are concurrent"""
-        return (not self.descends_from(other) and
-                not other.descends_from(self))
-
-class DVVSet:
-    """Distributed Version Vector Set - track all concurrent values"""
-    def __init__(self):
-        self.entries = []  # List of (value, version_vector, timestamp)
-
-    def put(self, value, context, timestamp):
-        """Add new value with context"""
-        new_vv = context.version_vector.copy()
-        new_vv.increment(context.node_id)
-
-        # Remove entries obsoleted by this update
-        self.entries = [
-            e for e in self.entries
-            if not e[1].descends_from(context.version_vector)
-        ]
-
-        # Add new entry
-        self.entries.append((value, new_vv, timestamp))
-
-    def get(self):
-        """Get all concurrent values"""
-        # Remove obsolete entries
-        self.prune_obsolete()
-
-        # Return all concurrent values
-        return [(e[0], e[1]) for e in self.entries]
-
-    def prune_obsolete(self):
-        """Remove entries obsoleted by others"""
-        pruned = []
-
-        for i, entry in enumerate(self.entries):
-            obsolete = False
-            for j, other in enumerate(self.entries):
-                if i != j and entry[1].descends_from(other[1]):
-                    obsolete = True
-                    break
-
-            if not obsolete:
-                pruned.append(entry)
-
-        self.entries = pruned
+```mermaid
+graph LR
+    subgraph "Version Vector Evolution"
+        VV1["A:1, B:0"] -->|Node A writes| VV2["A:2, B:0"]
+        VV1 -->|Node B writes| VV3["A:1, B:1"]
+        VV2 -->|Merge| VV4["A:2, B:1"]
+        VV3 -->|Merge| VV4
+        
+        style VV1 fill:#e3f2fd
+        style VV2 fill:#bbdefb
+        style VV3 fill:#bbdefb
+        style VV4 fill:#64b5f6
+    end
 ```
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant NodeA
+    participant NodeB
+    participant NodeC
+    
+    Note over NodeA,NodeC: Initial state: value=X, VV={}
+    
+    Client->>NodeA: Write(Y)
+    NodeA->>NodeA: value=Y, VV={A:1}
+    
+    Client->>NodeB: Write(Z)
+    NodeB->>NodeB: value=Z, VV={B:1}
+    
+    Note over NodeA,NodeB: Concurrent writes!
+    
+    NodeA->>NodeC: Replicate(Y, {A:1})
+    NodeB->>NodeC: Replicate(Z, {B:1})
+    
+    Note over NodeC: Detects concurrent values
+    NodeC->>NodeC: values=[Y,Z], VV={A:1,B:1}
+    
+    Client->>NodeC: Read()
+    NodeC-->>Client: Concurrent: [Y,Z]
+    
+    Client->>NodeC: Write(W, context={A:1,B:1})
+    NodeC->>NodeC: value=W, VV={A:1,B:1,C:1}
+    Note over NodeC: Resolves conflict
+```
+
+```mermaid
+graph TB
+    subgraph "Version Vector Relationships"
+        subgraph "Ordering"
+            DF[Descends From]
+            CONC[Concurrent]
+            EQ[Equal]
+        end
+        
+        subgraph "Examples"
+            EX1["{A:2,B:1} > {A:1,B:1}"]
+            EX2["{A:2,B:1} || {A:1,B:2}"]
+            EX3["{A:2,B:2} = {A:2,B:2}"]
+            
+            EX1 --> DF
+            EX2 --> CONC
+            EX3 --> EQ
+        end
+        
+        style DF fill:#c8e6c9
+        style CONC fill:#fff9c4
+        style EQ fill:#e1bee7
+    end
+```
+
+| Scenario | Vector State | Relationship | Action Required |
+|----------|--------------|--------------|----------------|
+| Sequential Updates | {A:2} → {A:3} | Descends from | Replace old value |
+| Concurrent Updates | {A:2,B:1} vs {A:1,B:2} | Concurrent | Keep both values |
+| Synchronized | {A:2,B:2} = {A:2,B:2} | Equal | Same value |
+| Partial Knowledge | {A:2} vs {A:2,B:1} | Ancestor | Update to newer |
 
 ## Key Takeaways
 

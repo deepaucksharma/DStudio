@@ -15,49 +15,99 @@ last_updated: 2025-07-20
 
 # Control & Coordination Exercises
 
-## Exercise 1: Build a Circuit Breaker
+## Exercise 1: Design a Circuit Breaker System
 
-**Challenge**: Implement a thread-safe circuit breaker with configurable thresholds.
+**Challenge**: Create visual designs for a thread-safe circuit breaker with configurable thresholds.
 
-```python
-class CircuitBreaker:
-    def __init__(self, failure_threshold=5, recovery_timeout=60, expected_exception=Exception):
-        """
-        Initialize circuit breaker
+**Design Tasks**:
 
-        Args:
-            failure_threshold: Number of failures before opening
-            recovery_timeout: Seconds before attempting recovery
-            expected_exception: Exception types to count as failures
-        """
-        # TODO: Initialize state machine
-        # States: CLOSED -> OPEN -> HALF_OPEN -> CLOSED
-        pass
+1. **Create a Circuit Breaker State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Closed: Initialize
+       
+       Closed --> Open: Failures ≥ Threshold
+       Open --> HalfOpen: Recovery Timeout
+       HalfOpen --> Open: Any Failure
+       HalfOpen --> Closed: Success Count ≥ Threshold
+       
+       state Closed {
+           [*] --> Monitoring
+           Monitoring --> Counting: Request
+           Counting --> Monitoring: Success
+           Counting --> [*]: Failure Limit
+       }
+       
+       state Open {
+           [*] --> Rejecting
+           Rejecting --> TimerCheck: Request
+           TimerCheck --> Rejecting: Too Early
+           TimerCheck --> [*]: Time Elapsed
+       }
+       
+       state HalfOpen {
+           [*] --> Testing
+           Testing --> Tracking: Allow Request
+           Tracking --> [*]: Evaluate Results
+       }
+   ```
 
-    def call(self, func, *args, **kwargs):
-        """
-        Execute function through circuit breaker
+2. **Design a Request Flow Diagram**
+   ```mermaid
+   flowchart TD
+       Request[Incoming Request]
+       
+       Request --> GetState[Get Circuit State]
+       GetState --> StateCheck{State?}
+       
+       StateCheck -->|Closed| Execute[Execute Function]
+       StateCheck -->|Open| TimeCheck{Timeout<br/>Elapsed?}
+       StateCheck -->|Half-Open| TestExecute[Test Execute]
+       
+       TimeCheck -->|No| ReturnFallback[Return Fallback]
+       TimeCheck -->|Yes| TransitionHalf[Transition to<br/>Half-Open]
+       
+       Execute --> Result{Success?}
+       Result -->|Yes| RecordSuccess[Record Success]
+       Result -->|No| RecordFailure[Record Failure]
+       
+       RecordFailure --> CheckThreshold{Failures ≥<br/>Threshold?}
+       CheckThreshold -->|Yes| OpenCircuit[Open Circuit]
+       CheckThreshold -->|No| ReturnError[Return Error]
+       
+       TestExecute --> TestResult{Success?}
+       TestResult -->|Yes| IncrementSuccess[Success++]
+       TestResult -->|No| BackToOpen[Back to Open]
+       
+       IncrementSuccess --> CheckSuccess{Successes ≥<br/>Threshold?}
+       CheckSuccess -->|Yes| CloseCircuit[Close Circuit]
+       CheckSuccess -->|No| StayHalfOpen[Stay Half-Open]
+       
+       style ReturnFallback fill:#FFE4B5
+       style OpenCircuit fill:#FFB6C1
+       style CloseCircuit fill:#90EE90
+   ```
 
-        TODO:
-        1. Check current state
-        2. Execute function if allowed
-        3. Track success/failure
-        4. Transition states as needed
-        """
-        pass
-
-    def record_success(self):
-        """Record successful call"""
-        pass
-
-    def record_failure(self):
-        """Record failed call"""
-        pass
-
-    def reset(self):
-        """Manual reset of circuit breaker"""
-        pass
-```
+3. **Create a Thread-Safety Design**
+   ```mermaid
+   graph LR
+       subgraph "Concurrent Access Control"
+           T1[Thread 1] --> Lock[Acquire Lock]
+           T2[Thread 2] --> Lock
+           T3[Thread 3] --> Lock
+           
+           Lock --> CS[Critical Section<br/>State Check/Update]
+           CS --> Release[Release Lock]
+       end
+       
+       subgraph "Atomic Operations"
+           State[Circuit State<br/>Atomic Reference]
+           Counter[Failure Counter<br/>Atomic Integer]
+           Timer[Last Failure Time<br/>Atomic Long]
+       end
+       
+       CS --> State & Counter & Timer
+   ```
 
 <details>
 <summary>Solution</summary>
@@ -292,52 +342,96 @@ if __name__ == "__main__":
 
 </details>
 
-## Exercise 2: Implement a Rate Limiter
+## Exercise 2: Design Rate Limiting Systems
 
-**Challenge**: Build multiple rate limiting algorithms.
+**Challenge**: Create visual designs for multiple rate limiting algorithms.
 
-```python
-class RateLimiter:
-    """Base class for rate limiters"""
-    def allow_request(self, key):
-        raise NotImplementedError
+**Design Tasks**:
 
-class TokenBucketLimiter(RateLimiter):
-    def __init__(self, rate, capacity):
-        """
-        Token bucket rate limiter
+1. **Compare Rate Limiting Algorithms**
+   ```mermaid
+   graph TB
+       subgraph "Token Bucket"
+           TB[Token Bucket<br/>Capacity: 100]
+           TBRefill[+10 tokens/sec]
+           TBReq[Request -1 token]
+           
+           TBRefill -->|Continuous| TB
+           TB -->|Has tokens?| TBReq
+       end
+       
+       subgraph "Sliding Window"
+           SW[Window: 60s<br/>Limit: 100 req]
+           SWTime[Current Time]
+           SWCount[Count requests in<br/>last 60s]
+           
+           SWTime --> SWCount
+           SWCount -->|< 100?| SWAllow[Allow]
+       end
+       
+       subgraph "Leaky Bucket"
+           LB[Queue<br/>Capacity: 100]
+           LBIn[Requests In]
+           LBOut[Process at<br/>10 req/sec]
+           
+           LBIn -->|Queue not full?| LB
+           LB -->|Constant rate| LBOut
+       end
+   ```
 
-        Args:
-            rate: Tokens added per second
-            capacity: Maximum tokens in bucket
-        """
-        # TODO: Implement token bucket algorithm
-        pass
+2. **Design Token Bucket State Flow**
+   ```mermaid
+   flowchart TD
+       Start[Request Arrives]
+       Start --> Refill[Calculate Token Refill<br/>tokens += (now - lastUpdate) * rate]
+       
+       Refill --> Cap[Cap at Bucket Size<br/>tokens = min(tokens, capacity)]
+       
+       Cap --> Check{tokens ≥ 1?}
+       
+       Check -->|Yes| Consume[tokens -= 1<br/>Allow Request]
+       Check -->|No| Reject[Reject Request]
+       
+       Consume --> Update1[lastUpdate = now]
+       Reject --> Update2[lastUpdate = now]
+       
+       subgraph "Example State"
+           State["Time: 10:00:05<br/>Tokens: 45/100<br/>Rate: 10/sec<br/>Last Update: 10:00:04"]
+       end
+       
+       style Consume fill:#90EE90
+       style Reject fill:#FFB6C1
+   ```
 
-class SlidingWindowLimiter(RateLimiter):
-    def __init__(self, requests_per_window, window_size):
-        """
-        Sliding window rate limiter
-
-        Args:
-            requests_per_window: Max requests in window
-            window_size: Window size in seconds
-        """
-        # TODO: Implement sliding window algorithm
-        pass
-
-class LeakyBucketLimiter(RateLimiter):
-    def __init__(self, rate, capacity):
-        """
-        Leaky bucket rate limiter
-
-        Args:
-            rate: Requests processed per second
-            capacity: Queue capacity
-        """
-        # TODO: Implement leaky bucket algorithm
-        pass
-```
+3. **Create a Multi-User Rate Limiter Architecture**
+   ```mermaid
+   graph LR
+       subgraph "Rate Limiter Service"
+           subgraph "User Buckets"
+               U1[User1<br/>Tokens: 80/100]
+               U2[User2<br/>Tokens: 15/100]
+               U3[User3<br/>Tokens: 95/100]
+           end
+           
+           subgraph "Global Limits"
+               Global[Global<br/>10K req/sec]
+               PerIP[Per IP<br/>100 req/sec]
+           end
+       end
+       
+       subgraph "Request Flow"
+           Req1[Request<br/>User: 1<br/>IP: 1.2.3.4]
+           Req1 --> UC{User Check}
+           UC --> IC{IP Check}
+           IC --> GC{Global Check}
+           GC --> Decision{All Pass?}
+           Decision -->|Yes| Allow
+           Decision -->|No| Deny
+       end
+       
+       style Allow fill:#90EE90
+       style Deny fill:#FFB6C1
+   ```
 
 <details>
 <summary>Solution</summary>
@@ -577,165 +671,391 @@ if __name__ == "__main__":
 
 </details>
 
-## Exercise 3: Build a Distributed Lock
+## Exercise 3: Design a Distributed Lock System
 
-**Challenge**: Implement a distributed lock with automatic expiry and fencing tokens.
+**Challenge**: Create visual designs for a distributed lock with automatic expiry and fencing tokens.
 
-```python
-class DistributedLock:
-    def __init__(self, name, ttl=30):
-        """
-        Distributed lock implementation
+**Design Tasks**:
 
-        Args:
-            name: Lock name
-            ttl: Time to live in seconds
-        """
-        self.name = name
-        self.ttl = ttl
+1. **Design Lock Acquisition Flow**
+   ```mermaid
+   sequenceDiagram
+       participant Client
+       participant LockService
+       participant Storage
+       
+       Client->>LockService: acquire("resource-1", ttl=30s)
+       LockService->>Storage: SET resource-1 IF NOT EXISTS
+       
+       alt Lock Available
+           Storage-->>LockService: Success
+           LockService->>LockService: Generate Fencing Token
+           LockService-->>Client: Token: 12345, Expires: 30s
+       else Lock Held
+           Storage-->>LockService: Key Exists
+           LockService-->>Client: Lock Unavailable
+           
+           opt With Timeout
+               loop Wait with backoff
+                   Client->>LockService: Retry acquire
+                   Note over Client: Until timeout or success
+               end
+           end
+       end
+   ```
 
-    def acquire(self, timeout=None):
-        """
-        Acquire lock with optional timeout
+2. **Create Fencing Token State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Available: Lock Released
+       
+       Available --> Acquired: Client Acquires
+       Acquired --> Extended: Client Extends TTL
+       Extended --> Extended: Further Extensions
+       Extended --> Released: Client Releases
+       Acquired --> Released: Client Releases
+       
+       Acquired --> Expired: TTL Exceeded
+       Extended --> Expired: TTL Exceeded
+       Expired --> Available: Auto-Release
+       
+       state Acquired {
+           [*] --> Active
+           Active --> Checking: Heartbeat
+           Checking --> Active: Valid Token
+           Checking --> [*]: Invalid Token
+       }
+       
+       note right of Expired: Prevents deadlocks from<br/>crashed clients
+   ```
 
-        TODO:
-        1. Try to acquire lock atomically
-        2. Set expiry to prevent deadlocks
-        3. Return fencing token if successful
-        """
-        pass
+3. **Design Lock Safety with Fencing Tokens**
+   ```mermaid
+   flowchart LR
+       subgraph "Unsafe Without Fencing"
+           C1A[Client 1<br/>Acquires Lock]
+           C1A --> Pause1[Network Pause]
+           Pause1 --> Expire1[Lock Expires]
+           Expire1 --> C2A[Client 2<br/>Acquires Lock]
+           C2A --> C1W[Client 1 Writes<br/>DANGER!]
+           C1W --> C2W[Client 2 Writes<br/>CONFLICT!]
+           
+           style C1W fill:#FF6B6B
+           style C2W fill:#FF6B6B
+       end
+       
+       subgraph "Safe With Fencing"
+           C1B[Client 1<br/>Lock + Token:100]
+           C1B --> Pause2[Network Pause]
+           Pause2 --> Expire2[Lock Expires]
+           Expire2 --> C2B[Client 2<br/>Lock + Token:101]
+           C2B --> C1R[Client 1 Write<br/>Token:100]
+           C1R --> Reject[Storage Rejects<br/>Token too old]
+           
+           style Reject fill:#90EE90
+       end
+   ```
 
-    def release(self, token):
-        """
-        Release lock if we own it
+## Exercise 4: Design Backpressure Mechanisms
 
-        TODO:
-        1. Verify token matches
-        2. Release atomically
-        """
-        pass
+**Challenge**: Create visual designs for a system that applies backpressure when overwhelmed.
 
-    def extend(self, token, extension):
-        """Extend lock TTL"""
-        pass
-```
+**Design Tasks**:
 
-## Exercise 4: Implement Backpressure
+1. **Design Backpressure State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Accepting: Initial State
+       
+       Accepting --> Pressuring: Size > High Watermark (80%)
+       Pressuring --> Rejecting: Size > Max (100%)
+       
+       Rejecting --> Pressuring: Size < Max
+       Pressuring --> Accepting: Size < Low Watermark (60%)
+       
+       state Accepting {
+           [*] --> Normal
+           Normal --> Filling: Requests Coming
+       end
+       
+       state Pressuring {
+           [*] --> Signaling
+           Signaling --> Slowing: Send Backpressure Signal
+       end
+       
+       state Rejecting {
+           [*] --> Full
+           Full --> Dropping: Reject New Items
+       end
+   ```
 
-**Challenge**: Build a system that applies backpressure when overwhelmed.
+2. **Create Backpressure Flow Diagram**
+   ```mermaid
+   flowchart TD
+       subgraph "Producer"
+           P1[Producer 1]
+           P2[Producer 2]
+           P3[Producer 3]
+       end
+       
+       subgraph "Queue System"
+           Queue[Queue<br/>Size: 850/1000]
+           Check{Check Level}
+           
+           Queue --> Check
+           Check -->|< 600| Green[Accept All<br/>Green Signal]
+           Check -->|600-800| Yellow[Accept with Delay<br/>Yellow Signal]
+           Check -->|> 800| Red[Reject New<br/>Red Signal]
+       end
+       
+       subgraph "Consumer"
+           C1[Consumer]
+           C1 -->|Process| Queue
+       end
+       
+       P1 & P2 & P3 --> Queue
+       
+       Green -->|Signal| P1 & P2 & P3
+       Yellow -->|Signal| P1 & P2 & P3
+       Red -->|Signal| P1 & P2 & P3
+       
+       style Green fill:#90EE90
+       style Yellow fill:#FFE4B5
+       style Red fill:#FFB6C1
+   ```
 
-```python
-class BackpressureQueue:
-    def __init__(self, max_size, high_watermark=0.8, low_watermark=0.6):
-        """
-        Queue with backpressure signaling
+3. **Design Multi-Level Backpressure Architecture**
+   ```mermaid
+   graph LR
+       subgraph "Level 1: Application"
+           App[Application<br/>Buffer: 70%]
+       end
+       
+       subgraph "Level 2: Network"
+           TCP[TCP Buffer<br/>85% Full]
+       end
+       
+       subgraph "Level 3: OS"
+           OS[OS Buffer<br/>95% Full]
+       end
+       
+       subgraph "Backpressure Cascade"
+           OS -->|Signal| TCP
+           TCP -->|Signal| App
+           App -->|Slow Down| Client[Client Requests]
+       end
+       
+       subgraph "Responses"
+           R1[429 Too Many Requests]
+           R2[503 Service Unavailable]
+           R3[TCP Window Shrink]
+       end
+       
+       App -.->|HTTP| R1
+       App -.->|Overload| R2
+       TCP -.->|TCP| R3
+   ```
 
-        Args:
-            max_size: Maximum queue size
-            high_watermark: Threshold to start backpressure
-            low_watermark: Threshold to stop backpressure
-        """
-        # TODO: Implement queue with backpressure
-        pass
+## Exercise 5: Design Autoscaling System
 
-    def put(self, item):
-        """Add item, may block or reject based on backpressure"""
-        pass
+**Challenge**: Visual design for autoscaler preventing flapping.
 
-    def get(self):
-        """Get item from queue"""
-        pass
+**Design Tasks**:
 
-    def is_accepting(self):
-        """Check if queue is accepting new items"""
-        pass
-```
+1. **Autoscaler Decision Flow**
+   ```mermaid
+   flowchart TD
+       Metrics["CPU: 85%<br/>Mem: 60%<br/>RPS: 1200"]
+       
+       Metrics --> Eval{Evaluate}
+       
+       Eval -->|CPU > 80%| ScaleUp[Scale Up]
+       Eval -->|CPU < 30%| ScaleDown[Scale Down]
+       Eval -->|30-80%| Hold[Maintain]
+       
+       ScaleUp --> Cool{In Cooldown?}
+       ScaleDown --> Cool
+       
+       Cool -->|Yes| Skip[Skip Action]
+       Cool -->|No| Apply[Apply Change]
+       
+       Apply --> Cooldown[Start Cooldown<br/>3 minutes]
+       
+       style Apply fill:#90EE90
+       style Skip fill:#FFE4B5
+   ```
 
-## Exercise 5: Build an Autoscaler
+2. **Anti-Flapping State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Stable
+       
+       Stable --> ScalingUp: Threshold exceeded
+       ScalingUp --> Cooldown: Action taken
+       
+       Stable --> ScalingDown: Under-utilized
+       ScalingDown --> Cooldown: Action taken
+       
+       Cooldown --> Stable: Timer expires
+       
+       state Cooldown {
+           [*] --> Waiting
+           Waiting --> [*]: 3 min
+           
+           note right of Waiting: Ignore metrics<br/>Prevent oscillation
+       }
+   ```
 
-**Challenge**: Implement an autoscaler that prevents flapping.
+3. **Multi-Metric Scaling Grid**
+   ```mermaid
+   graph TB
+       subgraph "Decision Matrix"
+           M["CPU | Mem | RPS | Action<br/>----|-----|-----|--------<br/>90% | 50% | Low | Scale +2<br/>85% | 80% | High| Scale +3<br/>40% | 30% | Low | Scale -1<br/>20% | 20% | Low | Scale -2"]
+       end
+       
+       subgraph "Instance Timeline"
+           T1["10:00 - 5 instances"]
+           T2["10:03 - 7 instances (+2)"]
+           T3["10:06 - 7 instances (cooldown)"]
+           T4["10:09 - 6 instances (-1)"]
+       end
+   ```
 
-```python
-class Autoscaler:
-    def __init__(self, min_instances=1, max_instances=10):
-        self.min_instances = min_instances
-        self.max_instances = max_instances
+## Exercise 6: Design Gossip Protocol
 
-    def decide_scaling(self, metrics):
-        """
-        Decide whether to scale up, down, or maintain
+**Challenge**: Visual design for gossip-based membership.
 
-        Args:
-            metrics: Dict with 'cpu', 'memory', 'requests_per_second', etc.
+**Design Tasks**:
 
-        TODO:
-        1. Implement scaling logic
-        2. Prevent flapping
-        3. Consider multiple metrics
-        """
-        pass
+1. **Gossip Propagation Pattern**
+   ```mermaid
+   graph TB
+       subgraph "Round 1"
+           A1[A] -.->|gossip| C1[C]
+           B1[B] -.->|gossip| D1[D]
+       end
+       
+       subgraph "Round 2"
+           C2[C] -.->|gossip| B2[B]
+           D2[D] -.->|gossip| A2[A]
+       end
+       
+       subgraph "Round 3"
+           A3[A] -.->|gossip| B3[B]
+           C3[C] -.->|gossip| D3[D]
+       end
+       
+       Note1["Info spreads<br/>exponentially<br/>O(log N) rounds"]
+   ```
 
-    def calculate_desired_instances(self, current_instances, metrics):
-        """Calculate target instance count"""
-        pass
-```
+2. **Membership State Merge**
+   ```mermaid
+   flowchart LR
+       Local["Local State<br/>A: alive v5<br/>B: alive v3<br/>C: dead v2"]
+       Remote["Remote State<br/>A: alive v4<br/>B: dead v4<br/>D: alive v1"]
+       
+       Local & Remote --> Merge{Version Compare}
+       
+       Merge --> Result["Merged State<br/>A: alive v5 (local)<br/>B: dead v4 (remote)<br/>C: dead v2 (local)<br/>D: alive v1 (new)"]
+       
+       style Result fill:#90EE90
+   ```
 
-## Exercise 6: Gossip Protocol
+3. **Failure Detection Timeline**
+   ```mermaid
+   gantt
+       title Node Failure Detection
+       dateFormat X
+       axisFormat %s
+       
+       section Node A
+       Alive :done, a1, 0, 10
+       Suspect :active, a2, 10, 5
+       Dead :crit, a3, 15, 10
+       
+       section Node B View
+       Unknown :b1, 0, 3
+       Alive :done, b2, 3, 7
+       Suspect :active, b3, 10, 8
+       Dead :crit, b4, 18, 7
+       
+       section Node C View
+       Unknown :c1, 0, 5
+       Alive :done, c2, 5, 5
+       Suspect :active, c3, 10, 10
+       Dead :crit, c4, 20, 5
+   ```
 
-**Challenge**: Implement a gossip protocol for membership detection.
+## Exercise 7: Design Health Check System
 
-```python
-class GossipNode:
-    def __init__(self, node_id, seed_nodes):
-        self.node_id = node_id
-        self.seed_nodes = seed_nodes
-        self.members = {}  # node_id -> {'status': 'alive', 'version': 0}
+**Challenge**: Visual design for configurable health checks.
 
-    def start(self):
-        """Start gossiping"""
-        # TODO: Implement gossip protocol
-        pass
+**Design Tasks**:
 
-    def gossip_round(self):
-        """Perform one round of gossip"""
-        # TODO: Select random peers and exchange state
-        pass
+1. **Health Check Architecture**
+   ```mermaid
+   graph TB
+       subgraph "Health Checks"
+           DB[DB Check<br/>Critical]
+           API[API Check<br/>Critical]
+           Cache[Cache Check<br/>Non-Critical]
+           Queue[Queue Check<br/>Non-Critical]
+       end
+       
+       subgraph "Aggregator"
+           All[All Checks] --> Eval{Evaluate}
+           Eval -->|All Critical Pass| Healthy
+           Eval -->|Any Critical Fail| Unhealthy
+           Eval -->|Only Non-Critical Fail| Degraded
+       end
+       
+       subgraph "Response"
+           Healthy["200 OK<br/>status: healthy"]
+           Degraded["200 OK<br/>status: degraded"]
+           Unhealthy["503 Unavailable<br/>status: unhealthy"]
+       end
+       
+       style Healthy fill:#90EE90
+       style Degraded fill:#FFE4B5
+       style Unhealthy fill:#FFB6C1
+   ```
 
-    def merge_state(self, remote_state):
-        """Merge remote state with local state"""
-        # TODO: Implement vector clock or version merging
-        pass
-```
+2. **Health Check State Flow**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Running
+       
+       Running --> Timeout: Exceeds limit
+       Running --> Success: Check passes
+       Running --> Failed: Check fails
+       
+       Success --> [*]
+       Failed --> [*]
+       Timeout --> [*]
+       
+       state Running {
+           [*] --> Execute
+           Execute --> Measure
+           Measure --> Validate
+       }
+       
+       note right of Timeout: Default 5s timeout<br/>Configurable per check
+   ```
 
-## Exercise 7: Implement Health Checks
-
-**Challenge**: Build a health check system with configurable checks.
-
-```python
-class HealthChecker:
-    def __init__(self):
-        self.checks = {}
-
-    def register_check(self, name, check_func, critical=True):
-        """Register a health check"""
-        # TODO: Store check with metadata
-        pass
-
-    def run_checks(self):
-        """
-        Run all health checks
-
-        TODO:
-        1. Execute checks with timeout
-        2. Aggregate results
-        3. Determine overall health
-        """
-        pass
-
-    def get_health_status(self):
-        """Return detailed health status"""
-        pass
-```
+3. **Health Status Dashboard Design**
+   ```mermaid
+   graph LR
+       subgraph "Service Health Matrix"
+           Grid["Service | DB | API | Cache | Status<br/>--------|----|----|-------|-------<br/>Auth    | ✓  | ✓  |  ✓   | OK<br/>Orders  | ✓  | X  |  ✓   | FAIL<br/>Search  | ✓  | ✓  |  X   | DEGRADED"]
+       end
+       
+       subgraph "Endpoints"
+           E1["/health - Basic"]
+           E2["/health/detailed - Full report"]
+           E3["/health/ready - K8s readiness"]
+           E4["/health/live - K8s liveness"]
+       end
+   ```
 
 ## Thought Experiments
 

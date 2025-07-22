@@ -15,53 +15,74 @@ last_updated: 2025-07-20
 
 # State Management Exercises
 
-## Exercise 1: Build a Distributed Key-Value Store
+## Exercise 1: Design a Distributed Key-Value Store Architecture
 
-**Challenge**: Implement a simplified distributed key-value store with the following features:
+**Challenge**: Create a visual architecture design for a distributed key-value store with the following features:
 - Consistent hashing for data distribution
 - Replication factor of 3
 - Read/write quorums
 - Basic failure handling
 
-```python
-class DistributedKVStore:
-    def __init__(self, nodes, replication_factor=3):
-        self.nodes = nodes
-        self.replication_factor = replication_factor
-        self.hash_ring = ConsistentHashRing(nodes)
+**Design Tasks**:
 
-    def put(self, key, value, consistency_level='QUORUM'):
-        """
-        Store a key-value pair with specified consistency
-        TODO: Implement the following:
-        1. Find replica nodes using consistent hashing
-        2. Send write requests to all replicas
-        3. Wait for required acknowledgments
-        4. Handle failures gracefully
-        """
-        pass
+1. **Draw a Consistent Hash Ring Diagram**
+   ```mermaid
+   graph LR
+       subgraph "Hash Ring (0-360°)"
+           N1[Node 1<br/>45°] --> N2[Node 2<br/>120°]
+           N2 --> N3[Node 3<br/>200°]
+           N3 --> N4[Node 4<br/>290°]
+           N4 --> N1
+           
+           K1((Key: user:123<br/>Hash: 75°))
+           K2((Key: order:456<br/>Hash: 150°))
+           K3((Key: product:789<br/>Hash: 250°))
+       end
+   ```
+   - Show how keys map to nodes
+   - Illustrate replication to N successor nodes
+   - Demonstrate what happens when a node fails
 
-    def get(self, key, consistency_level='QUORUM'):
-        """
-        Retrieve a value with specified consistency
-        TODO: Implement the following:
-        1. Find replica nodes
-        2. Send read requests
-        3. Wait for required responses
-        4. Resolve conflicts if multiple versions exist
-        """
-        pass
+2. **Create a Quorum-Based Read/Write Flow Diagram**
+   ```mermaid
+   sequenceDiagram
+       participant Client
+       participant Coordinator
+       participant Replica1
+       participant Replica2
+       participant Replica3
+       
+       Note over Client,Replica3: Write Operation (Quorum = 2)
+       Client->>Coordinator: PUT(key, value)
+       Coordinator->>Replica1: Write Request
+       Coordinator->>Replica2: Write Request
+       Coordinator->>Replica3: Write Request
+       Replica1-->>Coordinator: ACK
+       Replica2-->>Coordinator: ACK
+       Note over Coordinator: Quorum reached (2/3)
+       Coordinator-->>Client: Success
+       Replica3-->>Coordinator: ACK (late)
+   ```
 
-    def handle_node_failure(self, failed_node):
-        """
-        Handle node failure and trigger repairs
-        TODO: Implement the following:
-        1. Detect which keys need re-replication
-        2. Find new replica nodes
-        3. Copy data to maintain replication factor
-        """
-        pass
-```
+3. **Design a State Machine for Node Failure Handling**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Healthy
+       Healthy --> Suspected: Missed Heartbeat
+       Suspected --> Healthy: Heartbeat Received
+       Suspected --> Failed: Timeout Exceeded
+       Failed --> Recovering: Node Rejoins
+       Recovering --> Healthy: Data Synced
+       
+       Failed --> [*]: Permanent Removal
+       
+       state Failed {
+           [*] --> DetectMissingReplicas
+           DetectMissingReplicas --> SelectNewNodes
+           SelectNewNodes --> CopyData
+           CopyData --> UpdateMetadata
+       }
+   ```
 
 <details>
 <summary>Solution</summary>
@@ -326,36 +347,74 @@ if __name__ == "__main__":
 
 </details>
 
-## Exercise 2: Implement Vector Clocks
+## Exercise 2: Design Vector Clock Visualization
 
-**Challenge**: Implement vector clocks for tracking causality in distributed systems.
+**Challenge**: Create visual representations for vector clocks tracking causality in distributed systems.
 
-```python
-class VectorClock:
-    def __init__(self, node_id, initial_clock=None):
-        self.node_id = node_id
-        self.clock = initial_clock or {}
+**Design Tasks**:
 
-    def increment(self):
-        """Increment this node's logical time"""
-        # TODO: Implement local event handling
-        pass
+1. **Create a Vector Clock Evolution Diagram**
+   ```mermaid
+   graph TD
+       subgraph "Node A Timeline"
+           A1["A: {A:1}"]
+           A2["A: {A:2, B:1}"]
+           A3["A: {A:3, B:1, C:1}"]
+       end
+       
+       subgraph "Node B Timeline"
+           B1["B: {B:1}"]
+           B2["B: {A:1, B:2}"]
+           B3["B: {A:1, B:3, C:1}"]
+       end
+       
+       subgraph "Node C Timeline"
+           C1["C: {C:1}"]
+           C2["C: {A:2, B:1, C:2}"]
+       end
+       
+       A1 --> A2
+       B1 --> B2
+       C1 --> C2
+       
+       A1 -.->|message| B2
+       B2 -.->|message| A2
+       A2 -.->|message| C2
+       C2 -.->|message| A3
+       B2 -.->|message| B3
+   ```
 
-    def update(self, other_clock):
-        """Update clock after receiving message"""
-        # TODO: Implement vector clock update rules
-        pass
+2. **Design a Causality Relationship Flowchart**
+   ```mermaid
+   flowchart LR
+       subgraph "Happens-Before Detection"
+           E1["Event 1<br/>{A:2, B:1}"] 
+           E2["Event 2<br/>{A:3, B:2}"]
+           
+           E1 -->|"A:2 ≤ A:3 ✓<br/>B:1 ≤ B:2 ✓<br/>At least one < ✓"| HB[Happens-Before]
+       end
+       
+       subgraph "Concurrent Detection"
+           E3["Event 3<br/>{A:2, B:3}"]
+           E4["Event 4<br/>{A:3, B:2}"]
+           
+           E3 -->|"A:2 < A:3 but<br/>B:3 > B:2"| CC[Concurrent]
+           E4 -->|"A:3 > A:2 but<br/>B:2 < B:3"| CC
+       end
+   ```
 
-    def happens_before(self, other):
-        """Check if this clock happens-before other"""
-        # TODO: Implement happens-before relation
-        pass
-
-    def are_concurrent(self, other):
-        """Check if two clocks are concurrent"""
-        # TODO: Implement concurrency detection
-        pass
-```
+3. **Create a Visual Algorithm for Vector Clock Updates**
+   ```mermaid
+   flowchart TD
+       Start([Receive Message with VC])
+       Start --> Merge["For each node in clocks"]
+       Merge --> Max["Take max(local[node], received[node])"]
+       Max --> Inc["Increment own node's counter"]
+       Inc --> Done([Updated Vector Clock])
+       
+       style Start fill:#90EE90
+       style Done fill:#87CEEB
+   ```
 
 <details>
 <summary>Solution</summary>
@@ -484,184 +543,403 @@ if __name__ == "__main__":
 
 </details>
 
-## Exercise 3: Build a Distributed Lock Manager
+## Exercise 3: Design a Distributed Lock Manager Architecture
 
-**Task**: Implement a distributed lock manager that handles:
+**Task**: Design the architecture for a distributed lock manager that handles:
 - Mutual exclusion across nodes
 - Lock timeouts
 - Deadlock detection
 - Fair queueing
 
-```python
-class DistributedLockManager:
-    def __init__(self, nodes):
-        self.nodes = nodes
-        self.locks = {}  # lock_name -> lock_info
+**Design Tasks**:
 
-    def acquire(self, client_id, lock_name, timeout=None):
-        """
-        Acquire a distributed lock
-        TODO:
-        1. Check if lock is available
-        2. Handle queuing if lock is held
-        3. Implement timeout mechanism
-        4. Ensure fault tolerance
-        """
-        pass
+1. **Create a Lock State Machine Diagram**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Available
+       Available --> Locked: Client Acquires
+       Locked --> Available: Client Releases
+       Locked --> Available: Timeout Expires
+       Locked --> Locked: Client Extends
+       
+       state Locked {
+           [*] --> Held
+           Held --> Expiring: Near Timeout
+           Expiring --> Held: Extended
+           Expiring --> [*]: Expired
+       }
+       
+       state Queue {
+           [*] --> Waiting
+           Waiting --> NextInLine: Previous Released
+           NextInLine --> [*]: Granted Lock
+       }
+   ```
 
-    def release(self, client_id, lock_name):
-        """
-        Release a distributed lock
-        TODO:
-        1. Verify client owns the lock
-        2. Grant lock to next waiter
-        3. Handle client failures
-        """
-        pass
+2. **Design a Deadlock Detection Graph**
+   ```mermaid
+   graph LR
+       subgraph "Wait-For Graph"
+           C1[Client 1] -->|waits for| L1[Lock A]
+           L1 -->|held by| C2[Client 2]
+           C2 -->|waits for| L2[Lock B]
+           L2 -->|held by| C3[Client 3]
+           C3 -->|waits for| L3[Lock C]
+           L3 -->|held by| C1
+           
+           style C1 fill:#ffcccc
+           style C2 fill:#ffcccc
+           style C3 fill:#ffcccc
+       end
+       
+       subgraph "Cycle Detection"
+           Det["Cycle: C1→L1→C2→L2→C3→L3→C1<br/>DEADLOCK DETECTED!"]
+       end
+   ```
 
-    def extend(self, client_id, lock_name, extension):
-        """Extend lock timeout"""
-        pass
-```
+3. **Create a Fair Queueing Flow Diagram**
+   ```mermaid
+   flowchart TD
+       subgraph "Lock Request Processing"
+           Req[Lock Request Arrives]
+           Req --> Check{Lock Available?}
+           Check -->|Yes| Grant[Grant Lock]
+           Check -->|No| Queue[Add to Queue]
+           
+           Queue --> Position[Assign Queue Position]
+           Position --> Wait[Wait for Turn]
+           
+           Release[Lock Released]
+           Release --> Next{Queue Empty?}
+           Next -->|No| Dequeue[Grant to First in Queue]
+           Next -->|Yes| MakeAvail[Mark Lock Available]
+       end
+       
+       style Grant fill:#90EE90
+       style MakeAvail fill:#90EE90
+   ```
 
-## Exercise 4: Implement Raft Consensus
+## Exercise 4: Design Raft Consensus Visual Model
 
-**Challenge**: Build a simplified version of the Raft consensus algorithm.
+**Challenge**: Create visual representations of the Raft consensus algorithm.
 
-```python
-class RaftNode:
-    def __init__(self, node_id, peers):
-        self.node_id = node_id
-        self.peers = peers
-        self.state = 'follower'  # follower, candidate, leader
-        self.current_term = 0
-        self.voted_for = None
-        self.log = []
+**Design Tasks**:
 
-    def start_election(self):
-        """
-        Transition to candidate and start election
-        TODO:
-        1. Increment term
-        2. Vote for self
-        3. Send RequestVote to all peers
-        4. Become leader if majority votes received
-        """
-        pass
+1. **Create a Raft State Transition Diagram**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Follower: Start
+       
+       Follower --> Candidate: Election Timeout
+       Candidate --> Follower: Discover Higher Term
+       Candidate --> Candidate: Split Vote<br/>Start New Election
+       Candidate --> Leader: Receive Majority Votes
+       Leader --> Follower: Discover Higher Term
+       
+       state Follower {
+           [*] --> Listening
+           Listening --> Listening: Receive Heartbeat
+           Listening --> [*]: Timeout
+       }
+       
+       state Leader {
+           [*] --> SendingHeartbeats
+           SendingHeartbeats --> ReplicatingLogs: New Entry
+           ReplicatingLogs --> SendingHeartbeats: Replicated
+       }
+   ```
 
-    def append_entries(self, entries, leader_commit):
-        """
-        Handle AppendEntries RPC from leader
-        TODO:
-        1. Verify term and log consistency
-        2. Append new entries
-        3. Update commit index
-        """
-        pass
+2. **Design a Leader Election Sequence Diagram**
+   ```mermaid
+   sequenceDiagram
+       participant F1 as Follower 1
+       participant C as Candidate
+       participant F2 as Follower 2
+       participant F3 as Follower 3
+       
+       Note over F1,F3: Election Timeout Occurs
+       C->>C: Increment Term<br/>Vote for Self
+       C->>F1: RequestVote(term=2)
+       C->>F2: RequestVote(term=2)
+       C->>F3: RequestVote(term=2)
+       
+       F1-->>C: VoteGranted
+       F2-->>C: VoteGranted
+       Note over C: Majority Achieved (3/4)
+       C->>C: Become Leader
+       
+       C->>F1: AppendEntries(heartbeat)
+       C->>F2: AppendEntries(heartbeat)
+       C->>F3: AppendEntries(heartbeat)
+   ```
 
-    def request_vote(self, candidate_id, term, last_log_index, last_log_term):
-        """
-        Handle RequestVote RPC
-        TODO:
-        1. Check term
-        2. Check if already voted
-        3. Check log up-to-date
-        4. Grant or deny vote
-        """
-        pass
-```
+3. **Create a Log Replication Flow Diagram**
+   ```mermaid
+   flowchart LR
+       subgraph "Leader Log"
+           L1[1: x←3] --> L2[2: y←5] --> L3[3: z←8]
+       end
+       
+       subgraph "Follower 1 Log"
+           F1L1[1: x←3] --> F1L2[2: y←5] --> F1L3[3: z←8]
+       end
+       
+       subgraph "Follower 2 Log (Lagging)"
+           F2L1[1: x←3] --> F2L2[2: y←5]
+       end
+       
+       Leader -->|AppendEntries<br/>prevIndex=2<br/>entries=[3:z←8]| Follower2
+       
+       style L3 fill:#90EE90
+       style F1L3 fill:#90EE90
+   ```
 
-## Exercise 5: Cache Coherence Protocol
+## Exercise 5: Design Cache Coherence Protocol Visualization
 
-**Task**: Implement a simple cache coherence protocol (like MSI - Modified, Shared, Invalid).
+**Task**: Create visual models for a cache coherence protocol (MSI - Modified, Shared, Invalid).
 
-```python
-class CacheCoherenceController:
-    def __init__(self):
-        self.caches = {}  # node_id -> cache
-        self.memory = {}  # authoritative storage
+**Design Tasks**:
 
-    class CacheLine:
-        def __init__(self, address, value, state='I'):
-            self.address = address
-            self.value = value
-            self.state = state  # M, S, or I
+1. **Create MSI State Transition Diagram**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Invalid
+       
+       Invalid --> Shared: Read Miss<br/>(Fetch from Memory)
+       Invalid --> Modified: Write Miss<br/>(Fetch & Modify)
+       
+       Shared --> Shared: Read Hit
+       Shared --> Modified: Write Hit<br/>(Invalidate Others)
+       Shared --> Invalid: Other Core Writes
+       
+       Modified --> Modified: Read/Write Hit
+       Modified --> Shared: Other Core Reads<br/>(Write Back)
+       Modified --> Invalid: Other Core Writes<br/>(Write Back)
+       
+       style Invalid fill:#ffcccc
+       style Shared fill:#ffffcc
+       style Modified fill:#ccffcc
+   ```
 
-    def read(self, node_id, address):
-        """
-        Handle read request from a node
-        TODO:
-        1. Check local cache state
-        2. If Invalid, fetch from memory or other caches
-        3. Update state to Shared
-        4. Handle other caches' state transitions
-        """
-        pass
+2. **Design a Cache Coherence Action Flow**
+   ```mermaid
+   flowchart TD
+       subgraph "Core 1 Writes to Address X"
+           C1Write[Core 1: Write X]
+           C1Write --> Check1{State of X<br/>in Core 1?}
+           Check1 -->|Invalid| FetchMod[Fetch X, Set Modified]
+           Check1 -->|Shared| Invalidate[Invalidate Others, Set Modified]
+           Check1 -->|Modified| WriteLocal[Write Locally]
+       end
+       
+       subgraph "Broadcast to Other Cores"
+           Invalidate --> BC[Send Invalidate X]
+           BC --> C2[Core 2: X→Invalid]
+           BC --> C3[Core 3: X→Invalid]
+       end
+       
+       style FetchMod fill:#90EE90
+       style WriteLocal fill:#90EE90
+   ```
 
-    def write(self, node_id, address, value):
-        """
-        Handle write request from a node
-        TODO:
-        1. Invalidate other copies
-        2. Update local state to Modified
-        3. Write value
-        4. Handle write-back to memory
-        """
-        pass
-```
+3. **Create a Multi-Core Cache State Table Visualization**
+   ```mermaid
+   graph LR
+       subgraph "Time T0: Initial State"
+           T0C1[Core 1<br/>X: Invalid]
+           T0C2[Core 2<br/>X: Invalid]
+           T0C3[Core 3<br/>X: Invalid]
+           T0Mem[Memory<br/>X: 100]
+       end
+       
+       subgraph "Time T1: Core 1 Reads X"
+           T1C1[Core 1<br/>X: Shared<br/>Val: 100]
+           T1C2[Core 2<br/>X: Invalid]
+           T1C3[Core 3<br/>X: Invalid]
+           T1Mem[Memory<br/>X: 100]
+       end
+       
+       subgraph "Time T2: Core 2 Writes X=200"
+           T2C1[Core 1<br/>X: Invalid]
+           T2C2[Core 2<br/>X: Modified<br/>Val: 200]
+           T2C3[Core 3<br/>X: Invalid]
+           T2Mem[Memory<br/>X: 100 (stale)]
+       end
+       
+       T0C1 -.->|Read X| T1C1
+       T1C2 -.->|Write X=200| T2C2
+       T1C1 -.->|Invalidate| T2C1
+   ```
 
-## Exercise 6: Time-Series Database Design
+## Exercise 6: Design Time-Series Database Architecture
 
-**Challenge**: Design storage for a time-series database that:
+**Challenge**: Create architectural diagrams for a time-series database that:
 - Handles 1M writes/second
 - Supports efficient range queries
 - Implements downsampling
 - Manages retention policies
 
-```python
-class TimeSeriesDB:
-    def __init__(self):
-        self.partitions = {}  # time_range -> partition
+**Design Tasks**:
 
-    def write(self, metric_name, timestamp, value, tags=None):
-        """Write a data point"""
-        pass
+1. **Create a Time-Series Storage Layout Diagram**
+   ```mermaid
+   graph TD
+       subgraph "Write Path"
+           Writer[Incoming Writes<br/>1M/sec] --> WAL[Write-Ahead Log]
+           WAL --> MemTable[In-Memory Table<br/>Recent Data]
+           MemTable -->|Flush| SSTable[SSTable Files<br/>Time-Partitioned]
+       end
+       
+       subgraph "Storage Tiers"
+           Hot[Hot Storage<br/>1 hour blocks<br/>No compression]
+           Warm[Warm Storage<br/>1 day blocks<br/>Compressed]
+           Cold[Cold Storage<br/>1 week blocks<br/>Heavy compression]
+           
+           SSTable --> Hot
+           Hot -->|Age > 24h| Warm
+           Warm -->|Age > 30d| Cold
+           Cold -->|Age > 1y| Delete[Delete]
+       end
+       
+       style Writer fill:#ffcc00
+       style Delete fill:#ff6666
+   ```
 
-    def query(self, metric_name, start_time, end_time, aggregation=None):
-        """Query time range with optional aggregation"""
-        pass
+2. **Design a Downsampling Pipeline Flow**
+   ```mermaid
+   flowchart LR
+       subgraph "Raw Data (1s resolution)"
+           R1[10:00:01 - 100]
+           R2[10:00:02 - 102]
+           R3[10:00:03 - 98]
+           R4[10:00:04 - 103]
+           R5[10:00:05 - 99]
+       end
+       
+       subgraph "1-Minute Aggregation"
+           M1["10:00 - Avg: 100.4<br/>Min: 98<br/>Max: 103"]
+       end
+       
+       subgraph "1-Hour Aggregation"
+           H1["10:00 - Avg: 101.2<br/>P95: 108<br/>P99: 112"]
+       end
+       
+       R1 & R2 & R3 & R4 & R5 -->|Downsample| M1
+       M1 -->|Further Downsample| H1
+   ```
 
-    def downsample(self, metric_name, source_resolution, target_resolution):
-        """Downsample data to lower resolution"""
-        pass
-```
+3. **Create a Query Execution Plan Visualization**
+   ```mermaid
+   flowchart TD
+       Query["SELECT avg(cpu)<br/>WHERE time > now-24h<br/>GROUP BY 5m"]
+       
+       Query --> Parser[Parse Query]
+       Parser --> Plan{Time Range?}
+       
+       Plan -->|Last 1h| MemTable[Query MemTable]
+       Plan -->|1h-24h| Hot[Query Hot Storage]
+       Plan -->|Older| Warm[Query Warm Storage]
+       
+       MemTable --> Merge[Merge Results]
+       Hot --> Merge
+       Warm --> Merge
+       
+       Merge --> Aggregate[Apply 5m Aggregation]
+       Aggregate --> Result[Return Results]
+       
+       style Query fill:#e6f3ff
+       style Result fill:#90EE90
+   ```
 
-## Exercise 7: Distributed Transaction Coordinator
+## Exercise 7: Design Distributed Transaction Coordinator
 
-**Task**: Implement a two-phase commit protocol coordinator.
+**Task**: Create visual models for a two-phase commit protocol coordinator.
 
-```python
-class TwoPhaseCommitCoordinator:
-    def __init__(self, participants):
-        self.participants = participants
-        self.transaction_log = []
+**Design Tasks**:
 
-    def begin_transaction(self, tx_id, operations):
-        """
-        Start a distributed transaction
-        TODO:
-        1. Log transaction start
-        2. Send prepare messages
-        3. Collect votes
-        4. Decide commit/abort
-        5. Send decision to participants
-        """
-        pass
+1. **Create a Two-Phase Commit State Machine**
+   ```mermaid
+   stateDiagram-v2
+       [*] --> Init: Begin Transaction
+       
+       Init --> Preparing: Send Prepare
+       Preparing --> Prepared: All Vote Yes
+       Preparing --> Aborted: Any Vote No
+       Preparing --> Aborted: Timeout
+       
+       Prepared --> Committing: Send Commit
+       Committing --> Committed: All ACK
+       Committing --> Uncertain: Some ACK Missing
+       
+       Aborted --> [*]: Send Abort
+       Committed --> [*]: Success
+       
+       state Uncertain {
+           [*] --> Retrying
+           Retrying --> Retrying: Retry Commit
+           Retrying --> [*]: All ACK
+       }
+   ```
 
-    def handle_participant_failure(self, participant_id, tx_id):
-        """Handle participant crash during transaction"""
-        pass
-```
+2. **Design a 2PC Sequence Diagram**
+   ```mermaid
+   sequenceDiagram
+       participant TC as Transaction<br/>Coordinator
+       participant P1 as Participant 1
+       participant P2 as Participant 2
+       participant P3 as Participant 3
+       
+       Note over TC,P3: Phase 1: Prepare
+       TC->>TC: Log START
+       TC->>P1: PREPARE
+       TC->>P2: PREPARE
+       TC->>P3: PREPARE
+       
+       P1->>P1: Log READY
+       P1-->>TC: VOTE YES
+       P2->>P2: Log READY
+       P2-->>TC: VOTE YES
+       P3->>P3: Log READY
+       P3-->>TC: VOTE YES
+       
+       Note over TC,P3: Phase 2: Commit
+       TC->>TC: Log COMMIT
+       TC->>P1: COMMIT
+       TC->>P2: COMMIT
+       TC->>P3: COMMIT
+       
+       P1->>P1: Log COMMIT
+       P1-->>TC: ACK
+       P2->>P2: Log COMMIT
+       P2-->>TC: ACK
+       P3->>P3: Log COMMIT
+       P3-->>TC: ACK
+       
+       TC->>TC: Log COMPLETE
+   ```
+
+3. **Create a Failure Recovery Flow Diagram**
+   ```mermaid
+   flowchart TD
+       subgraph "Coordinator Recovery"
+           CStart[Coordinator Restarts]
+           CStart --> CCheck{Check Last Log}
+           CCheck -->|START only| CAbort[Send ABORT to all]
+           CCheck -->|COMMIT logged| CRetry[Retry COMMIT to all]
+           CCheck -->|COMPLETE logged| CDone[Transaction Done]
+       end
+       
+       subgraph "Participant Recovery"
+           PStart[Participant Restarts]
+           PStart --> PCheck{Check Last Log}
+           PCheck -->|No READY| PWait[Wait for Coordinator]
+           PCheck -->|READY logged| PAsk[Ask Coordinator Status]
+           PCheck -->|COMMIT logged| PExec[Execute Commit]
+       end
+       
+       style CDone fill:#90EE90
+       style PExec fill:#90EE90
+   ```
 
 ## Thought Experiments
 

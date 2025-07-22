@@ -25,22 +25,18 @@ last_updated: 2025-07-21
 
 ### The Library Analogy
 
-Imagine a massive library with billions of books:
-- **Single library**: Eventually runs out of space, librarians overwhelmed
-- **Sharded library**: Multiple buildings, each handles books A-F, G-M, etc.
-- **Smart routing**: Card catalog tells you which building has your book
+- **Single library**: Runs out of space, librarians overwhelmed
+- **Sharded library**: Multiple buildings (A-F, G-M, N-Z)
+- **Smart routing**: Card catalog directs to correct building
 - **Parallel processing**: Multiple librarians work simultaneously
 
-### Visual Metaphor
-
 ```
-Unsharded Database:              Sharded Database:
-┌─────────────────┐             ┌──────┐ ┌──────┐ ┌──────┐
-│   All Users     │             │Users │ │Users │ │Users │
-│   (10M rows)    │     →       │ A-F  │ │ G-M  │ │ N-Z  │
-│   One Server    │             │(3.3M)│ │(3.3M)│ │(3.4M)│
-└─────────────────┘             └──────┘ └──────┘ └──────┘
-    Bottleneck!                  Distributed Load!
+Unsharded:                    Sharded:
+┌─────────────────┐          ┌──────┐ ┌──────┐ ┌──────┐
+│   All Users     │          │Users │ │Users │ │Users │
+│   (10M rows)    │    →     │ A-F  │ │ G-M  │ │ N-Z  │
+└─────────────────┘          └──────┘ └──────┘ └──────┘
+    Bottleneck!               Distributed Load!
 ```
 
 ### Basic Implementation
@@ -68,7 +64,6 @@ class SimpleShardRouter:
         
     def get_shard(self, key: str) -> ShardConfig:
         """Route key to appropriate shard"""
-        # Simple hash-based routing
         hash_value = int(hashlib.md5(key.encode()).hexdigest(), 16)
         shard_id = hash_value % self.shard_count
         return self.shards[shard_id]
@@ -80,7 +75,6 @@ class SimpleShardRouter:
     
     def _connect_to_shard(self, shard: ShardConfig):
         """Create connection to specific shard"""
-        # In practice, use connection pooling
         import psycopg2
         return psycopg2.connect(
             host=shard.host,
@@ -147,13 +141,11 @@ class RangeSharding(ShardingStrategy):
     """Range-based sharding strategy"""
     
     def __init__(self, ranges: List[tuple]):
-        # ranges = [(0, 1000, 0), (1000, 2000, 1), ...]
-        # (start, end, shard_id)
+        # ranges = [(start, end, shard_id)]
         self.ranges = sorted(ranges, key=lambda x: x[0])
         self.boundaries = [r[0] for r in ranges]
         
     def get_shard_id(self, key: int) -> int:
-        # Binary search for the right range
         idx = bisect.bisect_right(self.boundaries, key) - 1
         if idx < 0 or idx >= len(self.ranges):
             raise ValueError(f"Key {key} out of range")
@@ -180,19 +172,14 @@ class HashSharding(ShardingStrategy):
                     f"{shard_id}:{vnode}".encode()
                 ).hexdigest()
                 self.ring[hash_key] = shard_id
-        
-        # Sort ring keys for binary search
         self.sorted_keys = sorted(self.ring.keys())
     
     def get_shard_id(self, key: str) -> int:
         """Get shard using consistent hashing"""
         hash_key = hashlib.md5(str(key).encode()).hexdigest()
-        
-        # Find the first node clockwise from the hash
         idx = bisect.bisect_right(self.sorted_keys, hash_key)
         if idx == len(self.sorted_keys):
             idx = 0
-        
         return self.ring[self.sorted_keys[idx]]
 
 class GeographicSharding(ShardingStrategy):
@@ -209,14 +196,11 @@ class GeographicSharding(ShardingStrategy):
     
     def _get_region(self, lat: float, lon: float) -> str:
         """Determine region from coordinates"""
-        if lat > 0 and lon < -30:
-            return "north_america"
-        elif lat > 0 and lon > -30 and lon < 60:
-            return "europe"
-        elif lat > 0 and lon > 60:
+        if lat > 0:
+            if lon < -30: return "north_america"
+            if lon < 60: return "europe"
             return "asia"
-        else:
-            return "other"
+        return "other"
 
 class CompositeSharding(ShardingStrategy):
     """Multi-dimensional sharding"""
@@ -258,8 +242,6 @@ class CrossShardQueryExecutor:
         aggregate_func=None
     ) -> List[Any]:
         """Execute query on all shards and gather results"""
-        
-        # Execute query on all shards in parallel
         tasks = []
         for shard_id, shard in self.router.shards.items():
             task = asyncio.create_task(
@@ -267,10 +249,8 @@ class CrossShardQueryExecutor:
             )
             tasks.append(task)
         
-        # Gather results
         results = await asyncio.gather(*tasks, return_exceptions=True)
         
-        # Filter out errors
         valid_results = []
         for i, result in enumerate(results):
             if isinstance(result, Exception):
@@ -278,10 +258,8 @@ class CrossShardQueryExecutor:
             else:
                 valid_results.extend(result)
         
-        # Apply aggregation if provided
         if aggregate_func:
             return aggregate_func(valid_results)
-        
         return valid_results
     
     async def _execute_on_shard(
@@ -313,15 +291,12 @@ class CrossShardQueryExecutor:
 async def get_top_users_global(limit: int = 10):
     executor = CrossShardQueryExecutor(router)
     
-    # Get top users from each shard
     shard_results = await executor.scatter_gather_query(
         "SELECT id, name, score FROM users ORDER BY score DESC LIMIT %s",
         (limit * 2,)  # Get more than needed from each shard
     )
     
-    # Merge and get global top
     def aggregate_top_users(results):
-        # Sort all results by score
         all_users = sorted(results, key=lambda x: x[2], reverse=True)
         return all_users[:limit]
     
@@ -349,44 +324,34 @@ class DynamicResharding:
         target_shard_ids: List[int]
     ):
         """Split one shard into multiple shards"""
-        
         async with self.migration_lock:
             # Phase 1: Prepare
             migration_id = self._create_migration_record(
-                source_shard_id, 
-                target_shard_ids
+                source_shard_id, target_shard_ids
             )
             
             # Phase 2: Dual writes
             await self._enable_dual_writes(
-                source_shard_id, 
-                target_shard_ids
+                source_shard_id, target_shard_ids
             )
             
             # Phase 3: Backfill historical data
             await self._backfill_data(
-                source_shard_id, 
-                target_shard_ids,
-                migration_id
+                source_shard_id, target_shard_ids, migration_id
             )
             
             # Phase 4: Verify consistency
             consistent = await self._verify_consistency(
-                source_shard_id,
-                target_shard_ids
+                source_shard_id, target_shard_ids
             )
             
             if not consistent:
                 await self._rollback_migration(migration_id)
                 raise Exception("Migration consistency check failed")
             
-            # Phase 5: Switch reads to new shards
+            # Phase 5-7: Switch, disable, cleanup
             await self._switch_reads(target_shard_ids)
-            
-            # Phase 6: Stop writes to old shard
             await self._disable_shard(source_shard_id)
-            
-            # Phase 7: Cleanup
             await self._cleanup_old_shard(source_shard_id)
     
     async def _backfill_data(
@@ -396,11 +361,7 @@ class DynamicResharding:
         migration_id: str
     ):
         """Migrate data from source to targets"""
-        
-        # Get source connection
         source_conn = self.get_shard_connection(source_id)
-        
-        # Stream data in chunks
         cursor = source_conn.cursor('migration_cursor')
         cursor.execute("""
             SELECT * FROM users 
@@ -415,7 +376,6 @@ class DynamicResharding:
         batch = []
         
         for row in cursor:
-            # Determine target shard for this row
             target_id = self._get_target_shard(row['id'], target_ids)
             batch.append((target_id, row))
             
@@ -423,7 +383,6 @@ class DynamicResharding:
                 await self._write_batch(batch, migration_id)
                 batch = []
         
-        # Write remaining batch
         if batch:
             await self._write_batch(batch, migration_id)
     
@@ -456,19 +415,16 @@ class ShardAwareCache:
         
     async def get(self, key: str) -> Optional[Any]:
         """Get with shard-aware caching"""
-        
-        # Determine which shard owns this key
         shard_id = self.router.get_shard_id(key)
-        
-        # Check L1 cache (local to this shard)
         cache_key = f"shard:{shard_id}:key:{key}"
+        
+        # Check L1 cache
         if cache_key in self.local_cache:
             return self.local_cache[cache_key]
         
-        # Check L2 cache (distributed)
+        # Check L2 cache
         value = await self.cache.get(cache_key)
         if value is not None:
-            # Populate L1
             self.local_cache[cache_key] = value
             return value
         
@@ -477,7 +433,6 @@ class ShardAwareCache:
         value = await self._fetch_from_shard(shard_conn, key)
         
         if value is not None:
-            # Cache in both layers
             await self.cache.set(cache_key, value, ttl=300)
             self.local_cache[cache_key] = value
         
@@ -583,18 +538,11 @@ class DiscordShardingArchitecture:
     """
     
     def __init__(self):
-        # Discord uses Cassandra with custom sharding
         self.bucket_count = 4096  # Number of buckets
         self.buckets_per_shard = 32  # Buckets grouped into shards
         self.shard_count = self.bucket_count // self.buckets_per_shard
-        
-        # Consistent hashing for bucket assignment
         self.hash_ring = ConsistentHashRing(self.bucket_count)
-        
-        # Shard mapping (bucket -> physical shard)
         self.shard_map = {}
-        
-        # Hot shard detection
         self.shard_metrics = defaultdict(lambda: {
             'qps': 0,
             'size_mb': 0,
@@ -604,22 +552,11 @@ class DiscordShardingArchitecture:
     def get_message_location(self, channel_id: str, message_id: str) -> Dict:
         """
         Determine where to store/retrieve a message
-        
-        Discord uses:
-        1. Channel ID to determine bucket
-        2. Message ID (Snowflake) for time ordering
+        Discord uses Channel ID for bucket, Message ID (Snowflake) for time ordering
         """
-        
-        # Get bucket from channel ID
         bucket_id = self.hash_ring.get_bucket(channel_id)
-        
-        # Get shard from bucket
         shard_id = self.get_shard_for_bucket(bucket_id)
-        
-        # Extract timestamp from Snowflake ID
         timestamp = self.extract_timestamp(message_id)
-        
-        # Determine time bucket (for time-based partitioning within shard)
         time_bucket = self.get_time_bucket(timestamp)
         
         return {
@@ -631,51 +568,27 @@ class DiscordShardingArchitecture:
         }
     
     def handle_hot_shard(self, shard_id: int):
-        """
-        Handle hot shards by splitting buckets
-        
-        Discord's approach:
-        1. Detect hot shards via metrics
-        2. Split hot buckets to new shards
-        3. Migrate with zero downtime
-        """
-        
+        """Handle hot shards by splitting buckets"""
         metrics = self.shard_metrics[shard_id]
         
-        # Check if shard is hot
         if (metrics['qps'] > 10000 or 
             metrics['size_mb'] > 100000 or
             metrics['latency_p99'] > 100):
             
-            # Find hottest buckets in this shard
             hot_buckets = self.identify_hot_buckets(shard_id)
-            
-            # Create migration plan
             migration_plan = self.create_migration_plan(hot_buckets)
-            
-            # Execute migration
             self.execute_bucket_migration(migration_plan)
     
     def create_migration_plan(self, hot_buckets: List[int]) -> Dict:
-        """
-        Create plan to redistribute hot buckets
-        """
-        
-        plan = {
-            'migrations': [],
-            'new_shards': []
-        }
-        
-        # Find shards with capacity
+        """Create plan to redistribute hot buckets"""
+        plan = {'migrations': [], 'new_shards': []}
         available_shards = self.find_shards_with_capacity()
         
-        # If no capacity, need new shards
         if len(available_shards) < len(hot_buckets):
             new_shard_count = len(hot_buckets) - len(available_shards)
             plan['new_shards'] = self.provision_new_shards(new_shard_count)
             available_shards.extend(plan['new_shards'])
         
-        # Assign buckets to shards
         for i, bucket_id in enumerate(hot_buckets):
             target_shard = available_shards[i % len(available_shards)]
             plan['migrations'].append({
@@ -693,14 +606,9 @@ class DiscordShardingArchitecture:
         before_id: Optional[str] = None,
         limit: int = 50
     ) -> List[Dict]:
-        """
-        Query messages for a channel with pagination
-        """
-        
-        # Get bucket and shard
+        """Query messages for a channel with pagination"""
         location = self.get_message_location(channel_id, before_id or "0")
         
-        # Build query
         query = """
             SELECT message_id, author_id, content, timestamp
             FROM {table}
@@ -716,7 +624,6 @@ class DiscordShardingArchitecture:
         query += " ORDER BY message_id DESC LIMIT %s"
         params.append(limit)
         
-        # Execute on correct shard
         shard_conn = self.get_shard_connection(location['shard_id'])
         results = await shard_conn.fetch(query, *params)
         

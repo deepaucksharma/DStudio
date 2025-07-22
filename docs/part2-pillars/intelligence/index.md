@@ -24,51 +24,67 @@ Think about temperature control evolution:
 
 ### Real-World Analogy: Restaurant Kitchen Intelligence
 
-```yaml
-Evolution of a Restaurant Kitchen:
-
-Week 1: Manual Everything
-- Chef tastes every dish
-- Writes down popular items
-- Adjusts portions by memory
-
-Month 1: Basic Patterns
-- Track bestsellers
-- Standard portion sizes
-- Rush hour prep lists
-
-Year 1: Smart Operations
-- Predict busy nights
-- Dynamic menu pricing
-- Inventory optimization
-- Staff scheduling AI
-
-Intelligence emerges from:
-- Data (orders, feedback)
-- Patterns (busy times)
-- Adaptation (menu changes)
-- Feedback loops (reviews)
+```mermaid
+graph TD
+    subgraph "Restaurant Kitchen Intelligence Evolution"
+        Week1[Week 1: Manual Everything]
+        Week1 --> M1A[Chef tastes every dish]
+        Week1 --> M1B[Writes down popular items]
+        Week1 --> M1C[Adjusts portions by memory]
+        
+        Month1[Month 1: Basic Patterns]
+        Month1 --> M2A[Track bestsellers]
+        Month1 --> M2B[Standard portion sizes]
+        Month1 --> M2C[Rush hour prep lists]
+        
+        Year1[Year 1: Smart Operations]
+        Year1 --> M3A[Predict busy nights]
+        Year1 --> M3B[Dynamic menu pricing]
+        Year1 --> M3C[Inventory optimization]
+        Year1 --> M3D[Staff scheduling AI]
+        
+        Week1 --> Month1
+        Month1 --> Year1
+        
+        subgraph "Intelligence Emerges From"
+            Data[Data<br/>Orders, Feedback]
+            Patterns[Patterns<br/>Busy Times]
+            Adaptation[Adaptation<br/>Menu Changes]
+            Feedback[Feedback Loops<br/>Reviews]
+        end
+        
+        Year1 -.-> Data
+        Year1 -.-> Patterns
+        Year1 -.-> Adaptation
+        Year1 -.-> Feedback
+    end
+    
+    style Week1 fill:#f9f,stroke:#333,stroke-width:2px
+    style Month1 fill:#bbf,stroke:#333,stroke-width:2px
+    style Year1 fill:#bfb,stroke:#333,stroke-width:2px
 ```
 
 ### Your First Intelligence Experiment
 
 ### The Beginner's Intelligence Stack
 
-```text
-         🧠 Human Intelligence
-          (Strategic decisions)
-                |
-                |
-         🤖 Augmented Intelligence
-           (AI assists humans)
-                |
-                |
-         📊 Automated Intelligence
-           (Rule-based systems)
-                |
-                |
-         🔄 Adaptive Intelligence
-           (Learning systems)
+```mermaid
+graph TD
+    subgraph "Intelligence Stack"
+        Human[🧠 Human Intelligence<br/>Strategic decisions]
+        Augmented[🤖 Augmented Intelligence<br/>AI assists humans]
+        Automated[📊 Automated Intelligence<br/>Rule-based systems]
+        Adaptive[🔄 Adaptive Intelligence<br/>Learning systems]
+        
+        Human --> Augmented
+        Augmented --> Automated
+        Automated --> Adaptive
+    end
+    
+    style Human fill:#f9f,stroke:#333,stroke-width:2px
+    style Augmented fill:#bbf,stroke:#333,stroke-width:2px
+    style Automated fill:#fbb,stroke:#333,stroke-width:2px
+    style Adaptive fill:#bfb,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -95,26 +111,34 @@ Intelligence emerges from:
 
 ### Learning System Comparison
 
-```yaml
-Supervised Learning:
-  Pros: High accuracy, interpretable
-  Cons: Needs labeled data, can't adapt
-  Example: Fraud detection
-
-Unsupervised Learning:  
-  Pros: No labels needed, finds novelty
-  Cons: Hard to evaluate, noisy results
-  Example: Anomaly detection
-
-Reinforcement Learning:
-  Pros: Handles sequences, improves over time
-  Cons: Slow to train, can be unstable
-  Example: Resource allocation
-
-Online Learning:
-  Pros: Adapts to drift, low memory
-  Cons: Can forget, sensitive to order
-  Example: Recommendation systems
+```mermaid
+graph LR
+    subgraph "Learning System Comparison"
+        SL[Supervised Learning]
+        SL --> SLP[Pros:<br/>• High accuracy<br/>• Interpretable]
+        SL --> SLC[Cons:<br/>• Needs labeled data<br/>• Can't adapt]
+        SL --> SLE[Example:<br/>Fraud detection]
+        
+        UL[Unsupervised Learning]
+        UL --> ULP[Pros:<br/>• No labels needed<br/>• Finds novelty]
+        UL --> ULC[Cons:<br/>• Hard to evaluate<br/>• Noisy results]
+        UL --> ULE[Example:<br/>Anomaly detection]
+        
+        RL[Reinforcement Learning]
+        RL --> RLP[Pros:<br/>• Handles sequences<br/>• Improves over time]
+        RL --> RLC[Cons:<br/>• Slow to train<br/>• Can be unstable]
+        RL --> RLE[Example:<br/>Resource allocation]
+        
+        OL[Online Learning]
+        OL --> OLP[Pros:<br/>• Adapts to drift<br/>• Low memory]
+        OL --> OLC[Cons:<br/>• Can forget<br/>• Sensitive to order]
+        OL --> OLE[Example:<br/>Recommendation systems]
+    end
+    
+    style SL fill:#e6f3ff,stroke:#333,stroke-width:2px
+    style UL fill:#ffe6e6,stroke:#333,stroke-width:2px
+    style RL fill:#e6ffe6,stroke:#333,stroke-width:2px
+    style OL fill:#fff0e6,stroke:#333,stroke-width:2px
 ```
 
 ### 🎬 Failure Vignette: The Flash Crash of 2010
@@ -123,32 +147,59 @@ Online Learning:
 **Loss**: $1 trillion in minutes (recovered)  
 **Cause**: Algorithmic trading feedback loop
 
-```yaml
-The Timeline:
-14:32 - Large mutual fund starts selling E-Mini futures
-14:41 - HFT algorithms detect selling pressure
-14:42 - Algorithms start "hot potato" trading
-14:44 - Liquidity disappears as algos withdraw
-14:45:28 - Dow drops 600 points in 5 minutes
-14:47 - Some stocks trade at $0.01
-14:48 - Others trade at $100,000
-14:50 - Circuit breakers trigger
-15:07 - Market stabilizes
-
-The Feedback Loop:
-1. Selling pressure detected
-2. Algos sell to avoid losses
-3. More pressure created
-4. More algos sell
-5. Liquidity crisis
-6. Prices become meaningless
-
-Lessons Learned:
-- ML systems can create feedback loops
-- Need circuit breakers for algorithms
-- Diversity in strategies prevents herding
-- Human oversight still critical
-- Test for market-wide effects
+```mermaid
+graph TD
+    subgraph "Flash Crash Timeline - May 6, 2010"
+        T1[14:32<br/>Large mutual fund<br/>starts selling E-Mini futures]
+        T2[14:41<br/>HFT algorithms<br/>detect selling pressure]
+        T3[14:42<br/>Algorithms start<br/>'hot potato' trading]
+        T4[14:44<br/>Liquidity disappears<br/>as algos withdraw]
+        T5[14:45:28<br/>Dow drops 600 points<br/>in 5 minutes]
+        T6[14:47-14:48<br/>Stocks trade at<br/>$0.01 to $100,000]
+        T7[14:50<br/>Circuit breakers<br/>trigger]
+        T8[15:07<br/>Market stabilizes]
+        
+        T1 --> T2
+        T2 --> T3
+        T3 --> T4
+        T4 --> T5
+        T5 --> T6
+        T6 --> T7
+        T7 --> T8
+    end
+    
+    subgraph "The Feedback Loop"
+        F1[Selling pressure<br/>detected]
+        F2[Algos sell to<br/>avoid losses]
+        F3[More pressure<br/>created]
+        F4[More algos<br/>sell]
+        F5[Liquidity<br/>crisis]
+        F6[Prices become<br/>meaningless]
+        
+        F1 --> F2
+        F2 --> F3
+        F3 --> F4
+        F4 --> F5
+        F5 --> F6
+        F6 -.-> F1
+    end
+    
+    subgraph "Lessons Learned"
+        L1[ML systems can<br/>create feedback loops]
+        L2[Need circuit breakers<br/>for algorithms]
+        L3[Diversity in strategies<br/>prevents herding]
+        L4[Human oversight<br/>still critical]
+        L5[Test for<br/>market-wide effects]
+    end
+    
+    T8 --> L1
+    T8 --> L2
+    T8 --> L3
+    T8 --> L4
+    T8 --> L5
+    
+    style T5 fill:#ff9999,stroke:#333,stroke-width:3px
+    style F5 fill:#ffcccc,stroke:#333,stroke-width:2px
 ```
 
 ### Building Blocks of Intelligence
@@ -241,27 +292,55 @@ The fundamental problem in learning systems: Should you exploit what you know wo
 
 Netflix uses reinforcement learning to optimize video quality in real-time:
 
-```yaml
-State Space:
-  - Current bandwidth: 0.5 - 100 Mbps
-  - Buffer level: 0 - 30 seconds  
-  - Last quality: 480p/720p/1080p/4K
-  - Network variance: stable/variable
-
-Actions:
-  - Choose bitrate: 0.4/0.8/1.4/2.4/4.3/6.0 Mbps
-  - Corresponds to: 480p/720p/1080p/1440p/4K/4K+
-
-Reward Function:
-  + Video quality (higher better)
-  - Rebuffering time (stalls bad)
-  - Quality switches (jarring)
-  = Quality of Experience (QoE)
-
-Learning:
-  - Updates every chunk (2-10 seconds)
-  - Adapts to network conditions
-  - Personalizes to viewing device
+```mermaid
+graph LR
+    subgraph "Netflix Adaptive Streaming RL System"
+        subgraph "State Space"
+            S1[Current bandwidth<br/>0.5 - 100 Mbps]
+            S2[Buffer level<br/>0 - 30 seconds]
+            S3[Last quality<br/>480p/720p/1080p/4K]
+            S4[Network variance<br/>stable/variable]
+        end
+        
+        subgraph "Actions"
+            A1[Choose bitrate]
+            A1 --> B1[0.4 Mbps → 480p]
+            A1 --> B2[0.8 Mbps → 720p]
+            A1 --> B3[1.4 Mbps → 1080p]
+            A1 --> B4[2.4 Mbps → 1440p]
+            A1 --> B5[4.3 Mbps → 4K]
+            A1 --> B6[6.0 Mbps → 4K+]
+        end
+        
+        subgraph "Reward Function"
+            R1[+ Video quality<br/>Higher better]
+            R2[- Rebuffering time<br/>Stalls bad]
+            R3[- Quality switches<br/>Jarring]
+            QoE[= Quality of<br/>Experience]
+            
+            R1 --> QoE
+            R2 --> QoE
+            R3 --> QoE
+        end
+        
+        subgraph "Learning Process"
+            L1[Updates every chunk<br/>2-10 seconds]
+            L2[Adapts to<br/>network conditions]
+            L3[Personalizes to<br/>viewing device]
+        end
+        
+        S1 --> A1
+        S2 --> A1
+        S3 --> A1
+        S4 --> A1
+        
+        A1 --> QoE
+        QoE --> L1
+        L1 --> L2
+        L2 --> L3
+    end
+    
+    style QoE fill:#f9f,stroke:#333,stroke-width:3px
 ```
 
 ### Online Learning Systems
@@ -313,35 +392,58 @@ graph LR
 
 ### Production Example: DDoS Detection
 
-```yaml
-Feature Extraction:
-  Request Rate:
-    - Requests per second
-    - Variance in inter-arrival time
-    - Burst detection
-  
-  Traffic Patterns:
-    - Geographic entropy
-    - User agent diversity  
-    - Path distribution
-    - Protocol mix
-  
-  Behavioral:
-    - Session duration
-    - Click patterns
-    - Resource access order
-
-Detection Pipeline:
-  1. Real-time features (1-second window)
-  2. Statistical anomaly detection
-  3. ML classifier for attack types
-  4. Severity scoring
-  5. Mitigation decision
-
-Feedback:
-  - False positive tracking
-  - Attack pattern learning
-  - Threshold adaptation
+```mermaid
+graph TD
+    subgraph "DDoS Detection System"
+        subgraph "Feature Extraction"
+            FE1[Request Rate]
+            FE1 --> F1A[Requests per second]
+            FE1 --> F1B[Variance in inter-arrival time]
+            FE1 --> F1C[Burst detection]
+            
+            FE2[Traffic Patterns]
+            FE2 --> F2A[Geographic entropy]
+            FE2 --> F2B[User agent diversity]
+            FE2 --> F2C[Path distribution]
+            FE2 --> F2D[Protocol mix]
+            
+            FE3[Behavioral]
+            FE3 --> F3A[Session duration]
+            FE3 --> F3B[Click patterns]
+            FE3 --> F3C[Resource access order]
+        end
+        
+        subgraph "Detection Pipeline"
+            P1[1. Real-time features<br/>1-second window]
+            P2[2. Statistical<br/>anomaly detection]
+            P3[3. ML classifier<br/>for attack types]
+            P4[4. Severity<br/>scoring]
+            P5[5. Mitigation<br/>decision]
+            
+            P1 --> P2
+            P2 --> P3
+            P3 --> P4
+            P4 --> P5
+        end
+        
+        subgraph "Feedback Loop"
+            FB1[False positive<br/>tracking]
+            FB2[Attack pattern<br/>learning]
+            FB3[Threshold<br/>adaptation]
+            
+            FB1 --> FB2
+            FB2 --> FB3
+            FB3 -.-> P2
+        end
+        
+        FE1 --> P1
+        FE2 --> P1
+        FE3 --> P1
+        P5 --> FB1
+    end
+    
+    style P5 fill:#f9f,stroke:#333,stroke-width:3px
+    style FB3 fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 ### Intelligence System Decision Framework
@@ -388,37 +490,55 @@ graph TD
 
 ### Example: Feature Rollout Decision
 
-```yaml
-Experiment Setup:
-  Control: Current algorithm
-  Treatment: New ML model
-  
-  Metrics:
-    Primary: User engagement (+2% target)
-    Secondary: Revenue, latency
-    Guardrails: Error rate, complaints
-  
-  Sample Size: 1M users per group
-  Duration: 14 days
-  
-Results Analysis:
-  Week 1:
-    Engagement: +3.5% (novelty effect?)
-    Revenue: +1.2%
-    Latency: +20ms (acceptable)
+```mermaid
+graph TD
+    subgraph "A/B Test: Feature Rollout Decision"
+        subgraph "Experiment Setup"
+            ES1[Control:<br/>Current algorithm]
+            ES2[Treatment:<br/>New ML model]
+            
+            M1[Metrics]
+            M1 --> M1A[Primary: User engagement<br/>+2% target]
+            M1 --> M1B[Secondary: Revenue, latency]
+            M1 --> M1C[Guardrails: Error rate, complaints]
+            
+            Setup[Sample Size: 1M users/group<br/>Duration: 14 days]
+        end
+        
+        subgraph "Results Analysis"
+            W1[Week 1]
+            W1 --> W1A[Engagement: +3.5%<br/>novelty effect?]
+            W1 --> W1B[Revenue: +1.2%]
+            W1 --> W1C[Latency: +20ms<br/>acceptable]
+            
+            W2[Week 2]
+            W2 --> W2A[Engagement: +2.1%<br/>stabilizing]
+            W2 --> W2B[Revenue: +1.8%]
+            W2 --> W2C[Latency: +18ms]
+        end
+        
+        subgraph "Decision Framework"
+            D1[✓ Primary metric hit target]
+            D2[✓ Secondary metrics positive]
+            D3[✓ Guardrails not violated]
+            D4[✓ Effect persisted past novelty]
+            
+            Decision[→ Ship to 100%]
+            
+            D1 --> Decision
+            D2 --> Decision
+            D3 --> Decision
+            D4 --> Decision
+        end
+        
+        ES1 --> W1
+        ES2 --> W1
+        W1 --> W2
+        W2 --> D1
+    end
     
-  Week 2:
-    Engagement: +2.1% (stabilizing)
-    Revenue: +1.8%
-    Latency: +18ms
-    
-Decision Framework:
-  ✓ Primary metric hit target
-  ✓ Secondary metrics positive
-  ✓ Guardrails not violated
-  ✓ Effect persisted past novelty
-  
-  → Ship to 100%
+    style Decision fill:#90EE90,stroke:#333,stroke-width:3px
+    style W2A fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -429,35 +549,68 @@ Decision Framework:
 
 Google's Borg system uses ML to predict actual resource usage vs requested, improving cluster utilization by 20%+.
 
-```yaml
-The Problem:
-  - Jobs request 2-3x resources they actually use
-  - Wasted capacity = wasted money
-  - But underprovisioning = failures
-
-The Solution:
-  Historical Learning:
-    - Track requested vs actual for every job
-    - Learn patterns by job type, time, user
-    - Predict actual needs
-
-  Features Used:
-    - Job name/type
-    - Time of day/week
-    - Historical usage patterns
-    - User/team identity
-    - Cluster load
-
-  Results:
-    - 20% better utilization
-    - 10% fewer job failures
-    - $10M+ annual savings
-
-Key Insights:
-  - Simple linear models often sufficient
-  - Feature engineering > model complexity
-  - Online learning handles drift
-  - Safety margins still needed
+```mermaid
+graph TD
+    subgraph "Google Borg Resource Prediction System"
+        subgraph "The Problem"
+            P1[Jobs request 2-3x<br/>resources they use]
+            P2[Wasted capacity =<br/>wasted money]
+            P3[But underprovisioning =<br/>failures]
+        end
+        
+        subgraph "The Solution"
+            subgraph "Historical Learning"
+                HL1[Track requested vs<br/>actual for every job]
+                HL2[Learn patterns by<br/>job type, time, user]
+                HL3[Predict actual needs]
+                
+                HL1 --> HL2
+                HL2 --> HL3
+            end
+            
+            subgraph "Features Used"
+                F1[Job name/type]
+                F2[Time of day/week]
+                F3[Historical usage patterns]
+                F4[User/team identity]
+                F5[Cluster load]
+            end
+            
+            F1 --> HL3
+            F2 --> HL3
+            F3 --> HL3
+            F4 --> HL3
+            F5 --> HL3
+        end
+        
+        subgraph "Results"
+            R1[20% better<br/>utilization]
+            R2[10% fewer<br/>job failures]
+            R3[$10M+ annual<br/>savings]
+        end
+        
+        subgraph "Key Insights"
+            I1[Simple linear models<br/>often sufficient]
+            I2[Feature engineering ><br/>model complexity]
+            I3[Online learning<br/>handles drift]
+            I4[Safety margins<br/>still needed]
+        end
+        
+        P1 --> HL1
+        P2 --> HL1
+        P3 --> HL1
+        
+        HL3 --> R1
+        HL3 --> R2
+        HL3 --> R3
+        
+        R1 --> I1
+        R2 --> I2
+        R3 --> I3
+    end
+    
+    style R3 fill:#90EE90,stroke:#333,stroke-width:3px
+    style HL3 fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 ### 🎯 Decision Framework: ML Strategy
@@ -502,34 +655,63 @@ graph TD
 
 Train models on distributed data without centralizing it - critical for privacy.
 
-```yaml
-Traditional ML:
-  1. Collect all data centrally
-  2. Train model on all data
-  3. Deploy model
-  Problem: Privacy, bandwidth, regulations
-
-Federated Learning:
-  1. Send model to edge devices
-  2. Train locally on private data
-  3. Send only model updates back
-  4. Aggregate updates centrally
-  Benefits: Privacy preserved, bandwidth saved
-
-Example: Google Keyboard
-  - 600M+ devices
-  - Never see user typing
-  - Still improve predictions
-  - Model updates ~10KB
-  
-Process:
-  1. Download global model
-  2. Train on local typing
-  3. Compute model delta
-  4. Add noise (differential privacy)
-  5. Upload encrypted delta
-  6. Server aggregates updates
-  7. New global model
+```mermaid
+graph TD
+    subgraph "Federated Learning Architecture"
+        subgraph "Traditional ML"
+            T1[1. Collect all<br/>data centrally]
+            T2[2. Train model<br/>on all data]
+            T3[3. Deploy model]
+            T4[Problem: Privacy,<br/>bandwidth, regulations]
+            
+            T1 --> T2
+            T2 --> T3
+            T3 --> T4
+        end
+        
+        subgraph "Federated Learning"
+            F1[1. Send model to<br/>edge devices]
+            F2[2. Train locally on<br/>private data]
+            F3[3. Send only model<br/>updates back]
+            F4[4. Aggregate updates<br/>centrally]
+            F5[Benefits: Privacy preserved,<br/>bandwidth saved]
+            
+            F1 --> F2
+            F2 --> F3
+            F3 --> F4
+            F4 --> F5
+            F4 -.-> F1
+        end
+        
+        subgraph "Example: Google Keyboard"
+            E1[600M+ devices]
+            E2[Never see user typing]
+            E3[Still improve predictions]
+            E4[Model updates ~10KB]
+        end
+        
+        subgraph "Process Flow"
+            P1[1. Download<br/>global model]
+            P2[2. Train on<br/>local typing]
+            P3[3. Compute<br/>model delta]
+            P4[4. Add noise<br/>differential privacy]
+            P5[5. Upload<br/>encrypted delta]
+            P6[6. Server aggregates<br/>updates]
+            P7[7. New global<br/>model]
+            
+            P1 --> P2
+            P2 --> P3
+            P3 --> P4
+            P4 --> P5
+            P5 --> P6
+            P6 --> P7
+            P7 -.-> P1
+        end
+    end
+    
+    style T4 fill:#ffcccc,stroke:#333,stroke-width:2px
+    style F5 fill:#ccffcc,stroke:#333,stroke-width:2px
+    style P4 fill:#e6f3ff,stroke:#333,stroke-width:2px
 ```
 
 ### Production Anti-Patterns
@@ -544,61 +726,112 @@ Process:
 
 ### Real Example: Amazon's Predictive Scaling
 
-```yaml
-Multi-Signal Prediction:
-  Time Series:
-    - Historical load patterns
-    - Seasonal decomposition
-    - Holiday calendars
-    Weight: 40%
+```mermaid
+graph LR
+    subgraph "Amazon's Multi-Signal Predictive Scaling"
+        subgraph "Signal Sources"
+            TS[Time Series<br/>Weight: 40%]
+            TS --> TS1[Historical load patterns]
+            TS --> TS2[Seasonal decomposition]
+            TS --> TS3[Holiday calendars]
+            
+            BE[Business Events<br/>Weight: 30%]
+            BE --> BE1[Marketing campaigns]
+            BE --> BE2[Product launches]
+            BE --> BE3[Sales events]
+            
+            ES[External Signals<br/>Weight: 20%]
+            ES --> ES1[Weather forecasts]
+            ES --> ES2[Sports events]
+            ES --> ES3[News sentiment]
+            
+            ML[ML Model<br/>Weight: 10%]
+            ML --> ML1[Ensemble predictions]
+            ML --> ML2[Uncertainty quantification]
+            ML --> ML3[Safety bounds]
+        end
+        
+        Ensemble[Weighted<br/>Ensemble<br/>Prediction]
+        
+        TS --> Ensemble
+        BE --> Ensemble
+        ES --> Ensemble
+        ML --> Ensemble
+        
+        subgraph "Results"
+            R1[15% reduction in<br/>over-provisioning]
+            R2[90% reduction in<br/>under-provisioning]
+            R3[$50M annual<br/>savings]
+            R4[50ms better latency<br/>right-sized instances]
+        end
+        
+        Ensemble --> R1
+        Ensemble --> R2
+        Ensemble --> R3
+        Ensemble --> R4
+    end
     
-  Business Events:
-    - Marketing campaigns
-    - Product launches
-    - Sales events
-    Weight: 30%
-    
-  External Signals:
-    - Weather forecasts
-    - Sports events
-    - News sentiment
-    Weight: 20%
-    
-  ML Model:
-    - Ensemble predictions
-    - Uncertainty quantification
-    - Safety bounds
-    Weight: 10%
-
-Results:
-  - 15% reduction in over-provisioning
-  - 90% reduction in under-provisioning
-  - $50M annual savings
-  - 50ms better latency (right-sized instances)
+    style Ensemble fill:#f9f,stroke:#333,stroke-width:3px
+    style R3 fill:#90EE90,stroke:#333,stroke-width:3px
+    style TS fill:#e6f3ff,stroke:#333,stroke-width:2px
+    style BE fill:#ffe6e6,stroke:#333,stroke-width:2px
+    style ES fill:#fff0e6,stroke:#333,stroke-width:2px
+    style ML fill:#e6ffe6,stroke:#333,stroke-width:2px
 ```
 
 ### ML in Production Checklist
 
-```yaml
-Before Launch:
-  ✓ Offline metrics meet targets
-  ✓ A/B test shows positive impact
-  ✓ Monitoring dashboards ready
-  ✓ Rollback plan documented
-  ✓ Inference latency acceptable
-  
-First Week:
-  ✓ Watch for distribution shift
-  ✓ Monitor business metrics
-  ✓ Check model calibration
-  ✓ Gather user feedback
-  ✓ Verify no feedback loops
-  
-Ongoing:
-  ✓ Weekly performance review
-  ✓ Monthly retrain evaluation
-  ✓ Quarterly architecture review
-  ✓ Annual strategy assessment
+```mermaid
+graph TD
+    subgraph "ML in Production Checklist"
+        subgraph "Before Launch"
+            BL1[✓ Offline metrics<br/>meet targets]
+            BL2[✓ A/B test shows<br/>positive impact]
+            BL3[✓ Monitoring<br/>dashboards ready]
+            BL4[✓ Rollback plan<br/>documented]
+            BL5[✓ Inference latency<br/>acceptable]
+        end
+        
+        subgraph "First Week"
+            FW1[✓ Watch for<br/>distribution shift]
+            FW2[✓ Monitor<br/>business metrics]
+            FW3[✓ Check model<br/>calibration]
+            FW4[✓ Gather user<br/>feedback]
+            FW5[✓ Verify no<br/>feedback loops]
+        end
+        
+        subgraph "Ongoing"
+            O1[✓ Weekly<br/>performance review]
+            O2[✓ Monthly<br/>retrain evaluation]
+            O3[✓ Quarterly<br/>architecture review]
+            O4[✓ Annual<br/>strategy assessment]
+        end
+        
+        BL1 --> Launch[Launch]
+        BL2 --> Launch
+        BL3 --> Launch
+        BL4 --> Launch
+        BL5 --> Launch
+        
+        Launch --> FW1
+        Launch --> FW2
+        Launch --> FW3
+        Launch --> FW4
+        Launch --> FW5
+        
+        FW1 --> O1
+        FW2 --> O1
+        FW3 --> O1
+        FW4 --> O1
+        FW5 --> O1
+        
+        O1 --> O2
+        O2 --> O3
+        O3 --> O4
+    end
+    
+    style Launch fill:#f9f,stroke:#333,stroke-width:3px
+    style O1 fill:#e6f3ff,stroke:#333,stroke-width:2px
 ```
 
 ---
@@ -607,9 +840,128 @@ Ongoing:
 
 ### The Future: Autonomous AI Systems
 
+```mermaid
+graph TD
+    subgraph "Evolution to Autonomous Systems"
+        Current[Current State<br/>Human-supervised ML]
+        
+        subgraph "Near Future (2-5 years)"
+            NF1[Self-tuning systems]
+            NF2[Automated debugging]
+            NF3[Proactive optimization]
+        end
+        
+        subgraph "Medium Future (5-10 years)"
+            MF1[Self-healing infrastructure]
+            MF2[Autonomous decision making]
+            MF3[Cross-system learning]
+        end
+        
+        subgraph "Far Future (10+ years)"
+            FF1[Emergent intelligence]
+            FF2[Self-evolving architectures]
+            FF3[Human-AI collaboration]
+        end
+        
+        Current --> NF1
+        Current --> NF2
+        Current --> NF3
+        
+        NF1 --> MF1
+        NF2 --> MF2
+        NF3 --> MF3
+        
+        MF1 --> FF1
+        MF2 --> FF2
+        MF3 --> FF3
+        
+        Challenges[Challenges:<br/>• Safety guarantees<br/>• Explainability<br/>• Ethics & bias<br/>• Human oversight]
+    end
+    
+    style Current fill:#f9f,stroke:#333,stroke-width:3px
+    style FF1 fill:#90EE90,stroke:#333,stroke-width:2px
+    style Challenges fill:#ffcccc,stroke:#333,stroke-width:2px
+```
+
 ### Neuromorphic Computing
 
+```mermaid
+graph LR
+    subgraph "Neuromorphic vs Traditional Computing"
+        subgraph "Traditional ML"
+            T1[Von Neumann<br/>Architecture]
+            T2[Separate compute<br/>and memory]
+            T3[High power<br/>consumption]
+            T4[Batch processing]
+        end
+        
+        subgraph "Neuromorphic"
+            N1[Brain-inspired<br/>Architecture]
+            N2[Compute in<br/>memory]
+            N3[Ultra-low<br/>power]
+            N4[Event-driven<br/>processing]
+        end
+        
+        subgraph "Benefits for Distributed Systems"
+            B1[Edge AI<br/>Low power devices]
+            B2[Real-time<br/>Low latency]
+            B3[Adaptive<br/>Learn online]
+            B4[Scalable<br/>Parallel processing]
+        end
+        
+        N1 --> B1
+        N2 --> B2
+        N3 --> B1
+        N4 --> B2
+        N4 --> B3
+        N1 --> B4
+    end
+    
+    style N1 fill:#f9f,stroke:#333,stroke-width:3px
+    style B1 fill:#90EE90,stroke:#333,stroke-width:2px
+    style B2 fill:#90EE90,stroke:#333,stroke-width:2px
+```
+
 ### The Philosophy of Intelligence
+
+```mermaid
+graph TD
+    subgraph "Philosophy of Distributed Intelligence"
+        Q1[What is<br/>Intelligence?]
+        
+        A1[Adaptation to<br/>environment]
+        A2[Learning from<br/>experience]
+        A3[Prediction of<br/>future states]
+        A4[Optimization of<br/>outcomes]
+        
+        Q1 --> A1
+        Q1 --> A2
+        Q1 --> A3
+        Q1 --> A4
+        
+        subgraph "In Distributed Systems"
+            D1[Collective Intelligence<br/>Swarm behavior]
+            D2[Emergent Properties<br/>More than sum of parts]
+            D3[Resilient Learning<br/>Survive failures]
+            D4[Privacy-Preserving<br/>Learn without seeing]
+        end
+        
+        A1 --> D1
+        A2 --> D2
+        A3 --> D3
+        A4 --> D4
+        
+        Future[Future: Systems that<br/>understand and adapt<br/>autonomously]
+        
+        D1 --> Future
+        D2 --> Future
+        D3 --> Future
+        D4 --> Future
+    end
+    
+    style Q1 fill:#f9f,stroke:#333,stroke-width:3px
+    style Future fill:#90EE90,stroke:#333,stroke-width:3px
+```
 
 ## Summary: Key Insights by Level
 
@@ -644,11 +996,27 @@ Ongoing:
 
 Implement Thompson Sampling for A/B testing:
 
-```python
-# Track success/failure for each variant
-# Sample from Beta distribution
-# Select variant with highest sample
-# Update based on results
+```mermaid
+flowchart TD
+    subgraph "Thompson Sampling Implementation"
+        Start[Start A/B Test]
+        
+        Track[Track success/failure<br/>for each variant]
+        Sample[Sample from<br/>Beta distribution]
+        Select[Select variant with<br/>highest sample]
+        Update[Update based<br/>on results]
+        
+        Start --> Track
+        Track --> Sample
+        Sample --> Select
+        Select --> Update
+        Update --> Track
+        
+        Note[Implementation Steps:<br/>1. Initialize Beta(1,1) for each variant<br/>2. Sample θ ~ Beta(α, β)<br/>3. Choose argmax(θ)<br/>4. Observe reward<br/>5. Update α or β]
+    end
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Select fill:#bbf,stroke:#333,stroke-width:2px
 ```
 
 ### Exercise 2: Anomaly Detection Pipeline 🌿
@@ -677,18 +1045,50 @@ Match ML patterns to use cases:
 
 Build adaptive system that learns from stream:
 
-```yaml
-Requirements:
-  - Handle concept drift
-  - Bounded memory usage
-  - Incremental updates
-  - Performance tracking
-
-Components:
-  - Sliding window for recent data
-  - Exponential decay for old patterns
-  - Change detection algorithm
-  - Model versioning
+```mermaid
+graph TD
+    subgraph "Online Learning System Design"
+        subgraph "Requirements"
+            R1[Handle concept drift]
+            R2[Bounded memory usage]
+            R3[Incremental updates]
+            R4[Performance tracking]
+        end
+        
+        subgraph "Components"
+            C1[Sliding window<br/>for recent data]
+            C2[Exponential decay<br/>for old patterns]
+            C3[Change detection<br/>algorithm]
+            C4[Model versioning]
+        end
+        
+        R1 --> C3
+        R2 --> C1
+        R3 --> C2
+        R4 --> C4
+        
+        subgraph "Architecture"
+            Input[Data Stream]
+            Window[Sliding Window<br/>Buffer]
+            Detector[Drift Detector]
+            Model[Adaptive Model]
+            Version[Model Versions]
+            
+            Input --> Window
+            Window --> Detector
+            Window --> Model
+            Detector --> Version
+            Model --> Version
+        end
+        
+        C1 --> Window
+        C2 --> Model
+        C3 --> Detector
+        C4 --> Version
+    end
+    
+    style Model fill:#f9f,stroke:#333,stroke-width:3px
+    style Detector fill:#ffcccc,stroke:#333,stroke-width:2px
 ```
 
 ### Exercise 5: ML Monitoring Dashboard 🌴
@@ -704,43 +1104,43 @@ Design comprehensive ML monitoring:
 
 ## Quick Reference Card
 
-```yaml
-ML Decision Tree:
-
-Have Labels?
-├─ Yes → Supervised Learning
-│   ├─ Classification → Logistic Regression/Trees/Neural Nets
-│   └─ Regression → Linear/Trees/Neural Nets
-│
-└─ No → Unsupervised Learning
-    ├─ Clustering → K-means/DBSCAN/Hierarchical
-    ├─ Dimensionality → PCA/t-SNE/Autoencoders
-    └─ Anomaly → Isolation Forest/One-class SVM
-
-Real-time Requirements?
-├─ <100ms → Pre-computed/Cached/Simple Model
-├─ <1s → Online Model/Approximations
-└─ >1s → Full Model/Ensemble
-
-Data Volume?
-├─ <1GB → Single Machine/Scikit-learn
-├─ <1TB → Spark MLlib/Distributed
-└─ >1TB → Deep Learning/Specialized
-
-Common Patterns:
-┌─────────────────────────────────────┐
-│ Batch Training + Real-time Serving  │
-│ Most common production pattern      │
-├─────────────────────────────────────┤
-│ Online Learning + Periodic Reset    │
-│ For changing environments           │
-├─────────────────────────────────────┤
-│ Ensemble + Fallback                 │
-│ Robustness through redundancy       │
-├─────────────────────────────────────┤
-│ Human-in-the-Loop                   │
-│ For high-stakes decisions           │
-└─────────────────────────────────────┘
+```mermaid
+graph TD
+    subgraph "ML Decision Tree"
+        Labels{Have Labels?}
+        Labels -->|Yes| Supervised[Supervised Learning]
+        Labels -->|No| Unsupervised[Unsupervised Learning]
+        
+        Supervised --> Class{Classification?}
+        Class -->|Yes| ClassAlgo[Logistic Regression<br/>Trees/Neural Nets]
+        Class -->|No| RegAlgo[Linear/Trees<br/>Neural Nets]
+        
+        Unsupervised --> Cluster[Clustering<br/>K-means/DBSCAN/Hierarchical]
+        Unsupervised --> Dim[Dimensionality<br/>PCA/t-SNE/Autoencoders]
+        Unsupervised --> Anomaly[Anomaly<br/>Isolation Forest/One-class SVM]
+        
+        RT{Real-time Requirements?}
+        RT -->|<100ms| Fast[Pre-computed/Cached<br/>Simple Model]
+        RT -->|<1s| Medium[Online Model<br/>Approximations]
+        RT -->|>1s| Full[Full Model<br/>Ensemble]
+        
+        Vol{Data Volume?}
+        Vol -->|<1GB| Small[Single Machine<br/>Scikit-learn]
+        Vol -->|<1TB| Med[Spark MLlib<br/>Distributed]
+        Vol -->|>1TB| Large[Deep Learning<br/>Specialized]
+    end
+    
+    subgraph "Common Patterns"
+        P1[Batch Training +<br/>Real-time Serving<br/>Most common pattern]
+        P2[Online Learning +<br/>Periodic Reset<br/>For changing environments]
+        P3[Ensemble +<br/>Fallback<br/>Robustness through redundancy]
+        P4[Human-in-the-Loop<br/>For high-stakes decisions]
+    end
+    
+    style Labels fill:#f9f,stroke:#333,stroke-width:3px
+    style RT fill:#bbf,stroke:#333,stroke-width:3px
+    style Vol fill:#fbb,stroke:#333,stroke-width:3px
+    style P1 fill:#e6ffe6,stroke:#333,stroke-width:2px
 ```
 
 ### ML Pipeline Components
@@ -755,25 +1155,35 @@ Common Patterns:
 
 ### Common ML Metrics
 
-```yaml
-Classification:
-  Accuracy: (TP + TN) / Total
-  Precision: TP / (TP + FP)  # Few false positives
-  Recall: TP / (TP + FN)     # Few false negatives  
-  F1: 2 * (Precision * Recall) / (Precision + Recall)
-  AUC-ROC: Area under ROC curve
-
-Regression:
-  MSE: Mean Squared Error
-  MAE: Mean Absolute Error
-  R²: Explained variance
-  MAPE: Mean Absolute Percentage Error
-
-Business:
-  Revenue Impact: $ gained/lost
-  User Engagement: CTR, time spent
-  Operational: Latency, throughput
-  Cost: Infrastructure, human review
+```mermaid
+graph LR
+    subgraph "Common ML Metrics"
+        subgraph "Classification Metrics"
+            C1[Accuracy<br/>(TP + TN) / Total]
+            C2[Precision<br/>TP / (TP + FP)<br/>Few false positives]
+            C3[Recall<br/>TP / (TP + FN)<br/>Few false negatives]
+            C4[F1 Score<br/>2 * (P * R) / (P + R)]
+            C5[AUC-ROC<br/>Area under ROC curve]
+        end
+        
+        subgraph "Regression Metrics"
+            R1[MSE<br/>Mean Squared Error]
+            R2[MAE<br/>Mean Absolute Error]
+            R3[R²<br/>Explained variance]
+            R4[MAPE<br/>Mean Absolute % Error]
+        end
+        
+        subgraph "Business Metrics"
+            B1[Revenue Impact<br/>$ gained/lost]
+            B2[User Engagement<br/>CTR, time spent]
+            B3[Operational<br/>Latency, throughput]
+            B4[Cost<br/>Infrastructure, human review]
+        end
+    end
+    
+    style C1 fill:#e6f3ff,stroke:#333,stroke-width:2px
+    style R1 fill:#ffe6e6,stroke:#333,stroke-width:2px
+    style B1 fill:#e6ffe6,stroke:#333,stroke-width:2px
 ```
 
 ---

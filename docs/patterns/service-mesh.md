@@ -1059,6 +1059,55 @@ class ServiceMeshEconomics:
 | Multi-cluster/region? | ✅ Mesh handles federation | ⚠️ Consider complexity |
 | Strict observability needs? | ✅ Built-in distributed tracing | ⚠️ APM tools might work |
 
+### Service Mesh Deployment Topology
+
+```mermaid
+graph TB
+    subgraph "Production Cluster"
+        subgraph "Namespace: Frontend"
+            FE[Frontend Pod]
+            FEP[Envoy Proxy]
+            FE -.-> FEP
+        end
+        
+        subgraph "Namespace: Backend"
+            BE1[Backend Pod 1]
+            BEP1[Envoy Proxy]
+            BE1 -.-> BEP1
+            
+            BE2[Backend Pod 2]
+            BEP2[Envoy Proxy]
+            BE2 -.-> BEP2
+        end
+        
+        subgraph "Namespace: Data"
+            DB[Database Pod]
+            DBP[Envoy Proxy]
+            DB -.-> DBP
+        end
+    end
+    
+    subgraph "Control Plane"
+        Pilot[Pilot - Config]
+        Citadel[Citadel - Security]
+        Galley[Galley - Validation]
+        Mixer[Mixer - Policy]
+    end
+    
+    FEP <--> BEP1
+    FEP <--> BEP2
+    BEP1 <--> DBP
+    BEP2 <--> DBP
+    
+    FEP -.-> Pilot
+    BEP1 -.-> Pilot
+    BEP2 -.-> Pilot
+    DBP -.-> Pilot
+    
+    style Pilot fill:#f96,stroke:#333,stroke-width:2px
+    style Citadel fill:#69f,stroke:#333,stroke-width:2px
+```
+
 ### Implementation Checklist
 
 - [ ] Choose mesh technology (Istio, Linkerd, Consul)

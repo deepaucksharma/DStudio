@@ -215,6 +215,33 @@ graph TB
     style EdgeServer fill:#9f9,stroke:#333,stroke-width:4px
 ```
 
+### Edge Processing Decision Flow
+
+```mermaid
+flowchart TD
+    Start[IoT Data Received] --> Urgent{Urgent?}
+    
+    Urgent -->|Yes <1ms| Edge[Process at Edge]
+    Urgent -->|No| Complex{Complex?}
+    
+    Complex -->|Yes| Cloud[Send to Cloud]
+    Complex -->|No| Filter{Significant?}
+    
+    Filter -->|Yes| Aggregate[Aggregate at Edge]
+    Filter -->|No| Discard[Discard]
+    
+    Edge --> Action[Take Immediate Action]
+    Edge --> Notify[Async Notify Cloud]
+    
+    Aggregate --> Batch[Batch Upload]
+    
+    Cloud --> DeepAnalysis[Deep Analysis]
+    
+    style Edge fill:#9f9,stroke:#333,stroke-width:4px
+    style Cloud fill:#f9f,stroke:#333,stroke-width:4px
+    style Action fill:#f99,stroke:#333,stroke-width:4px
+```
+
 ### Core Patterns
 
 #### 1. Hierarchical Processing
@@ -460,6 +487,37 @@ class EdgeDataManager:
 ### Advanced Edge Patterns
 
 #### Federated Learning at the Edge
+
+```mermaid
+graph TB
+    subgraph "Federated Learning Round"
+        GM[Global Model v1]
+        
+        subgraph "Edge Nodes"
+            E1[Edge Node 1<br/>Local Data]
+            E2[Edge Node 2<br/>Local Data]
+            E3[Edge Node 3<br/>Local Data]
+        end
+        
+        GM -->|Distribute| E1
+        GM -->|Distribute| E2
+        GM -->|Distribute| E3
+        
+        E1 -->|Local Training| U1[Update 1]
+        E2 -->|Local Training| U2[Update 2]
+        E3 -->|Local Training| U3[Update 3]
+        
+        U1 -->|Secure Aggregation| AGG[Aggregator]
+        U2 -->|Secure Aggregation| AGG
+        U3 -->|Secure Aggregation| AGG
+        
+        AGG -->|Apply Updates| GM2[Global Model v2]
+    end
+    
+    style GM fill:#f9f,stroke:#333,stroke-width:2px
+    style GM2 fill:#9f9,stroke:#333,stroke-width:2px
+    style AGG fill:#ff9,stroke:#333,stroke-width:2px
+```
 
 ```python
 class FederatedLearningCoordinator:
@@ -1501,6 +1559,40 @@ class EdgeEconomics:
 | **Privacy** | Local processing required | Cloud processing OK |
 | **Reliability** | Must work offline | Always connected |
 | **Computing** | Simple inference | Complex training |
+
+### Edge-to-Cloud Data Pipeline
+
+```mermaid
+sequenceDiagram
+    participant D as Device
+    participant E as Edge Node
+    participant C as Cloud
+    
+    Note over D,C: Continuous Data Stream
+    
+    loop Every 100ms
+        D->>E: Raw sensor data (1MB/s)
+        E->>E: Filter & compress
+        E->>E: Local ML inference
+        
+        alt Critical event detected
+            E->>D: Immediate response (<1ms)
+            E->>C: Alert with context
+        else Normal operation
+            E->>E: Aggregate data
+        end
+    end
+    
+    Note over E,C: Periodic batch upload
+    
+    loop Every 1 minute
+        E->>C: Compressed batch (10KB)
+        C->>C: Deep analysis
+        C->>E: Model update
+    end
+    
+    Note over E: 99% data reduction
+```
 
 ### Implementation Checklist
 

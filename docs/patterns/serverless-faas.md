@@ -166,6 +166,28 @@ graph TB
     style Execute fill:#9f9,stroke:#333,stroke-width:4px
 ```
 
+### Serverless Cost Comparison
+
+```mermaid
+graph LR
+    subgraph "Traditional Server Costs"
+        S1[24/7 Server Running]
+        S2[Idle: 95% of time]
+        S3[Peak capacity provisioned]
+        S1 --> Cost1[$3000/month fixed]
+    end
+    
+    subgraph "Serverless Costs"
+        F1[Function executes on request]
+        F2[No idle time charges]
+        F3[Auto-scales infinitely]
+        F1 --> Cost2[$0.20 per million requests<br/>+ compute time]
+    end
+    
+    style Cost1 fill:#fcc,stroke:#333,stroke-width:2px
+    style Cost2 fill:#cfc,stroke:#333,stroke-width:2px
+```
+
 ### Serverless Patterns
 
 #### 1. Request-Response Pattern
@@ -1045,6 +1067,44 @@ def create_encoding_workflow():
     }
 ```
 
+### Step Functions Workflow Visualization
+
+```mermaid
+stateDiagram-v2
+    [*] --> CreateEncodingPlan: Video uploaded
+    
+    CreateEncodingPlan --> ParallelEncoding: Jobs created
+    
+    state ParallelEncoding {
+        [*] --> EncodeChunk1: Chunk 1
+        [*] --> EncodeChunk2: Chunk 2
+        [*] --> EncodeChunk3: Chunk 3
+        [*] --> EncodeChunkN: Chunk N
+        
+        EncodeChunk1 --> [*]
+        EncodeChunk2 --> [*]
+        EncodeChunk3 --> [*]
+        EncodeChunkN --> [*]
+    }
+    
+    ParallelEncoding --> GroupByFormat: All chunks encoded
+    
+    GroupByFormat --> MergeFormats: Grouped by format
+    
+    state MergeFormats {
+        [*] --> Merge4K: 4K Format
+        [*] --> Merge1080p: 1080p Format
+        [*] --> Merge720p: 720p Format
+        
+        Merge4K --> [*]
+        Merge1080p --> [*]
+        Merge720p --> [*]
+    }
+    
+    MergeFormats --> UpdateCatalog: All formats ready
+    UpdateCatalog --> [*]: Complete
+```
+
 ### Performance Optimization
 
 ```python
@@ -1566,6 +1626,43 @@ class ServerlessROI:
 | **Cost Priority** | Pay per use | Predictable costs |
 | **Ops Resources** | Limited | Available |
 | **State Requirements** | Stateless | Stateful |
+
+### Serverless Event Sources
+
+```mermaid
+graph TB
+    subgraph "Event Sources"
+        HTTP[HTTP/API Gateway]
+        S3[S3 Upload]
+        DDB[DynamoDB Stream]
+        SQS[SQS Queue]
+        Schedule[CloudWatch Schedule]
+        SNS[SNS Topic]
+        Kinesis[Kinesis Stream]
+    end
+    
+    subgraph "Lambda Functions"
+        F1[Process API Request]
+        F2[Generate Thumbnail]
+        F3[Process DB Change]
+        F4[Process Queue Message]
+        F5[Run Scheduled Job]
+        F6[Handle Notification]
+        F7[Process Stream Data]
+    end
+    
+    HTTP --> F1
+    S3 --> F2
+    DDB --> F3
+    SQS --> F4
+    Schedule --> F5
+    SNS --> F6
+    Kinesis --> F7
+    
+    style HTTP fill:#69f,stroke:#333,stroke-width:2px
+    style S3 fill:#f96,stroke:#333,stroke-width:2px
+    style DDB fill:#9f6,stroke:#333,stroke-width:2px
+```
 
 ### Implementation Checklist
 
