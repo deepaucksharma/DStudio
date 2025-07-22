@@ -52,7 +52,7 @@ Structured incident review focusing on systemic issues, not individual blame. Go
 ```
 
 ### 2. The Five Whys
-```proto
+```text
 Problem: Service outage lasted 53 minutes
 
 Why? → The service ran out of memory
@@ -226,7 +226,7 @@ graph TD
 ## Contributing Factors Analysis Framework
 
 ### The Swiss Cheese Model
-```
+```text
 ┌─────────────┐ ┌─────────────┐ ┌─────────────┐ ┌─────────────┐
 │   Process   │ │   Tools     │ │   People    │ │  External   │
 │   Failures  │ │  Failures   │ │  Factors    │ │  Factors    │
@@ -260,7 +260,7 @@ graph TD
 
 Track the effectiveness of your postmortem process:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                  Postmortem Quality Metrics                  │
 ├──────────────────┬──────────────────┬──────────────────────┤

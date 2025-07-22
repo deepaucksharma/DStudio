@@ -477,7 +477,7 @@ remaining = total_budget - network_latency - processing_time - database_query
 
 Let's dissect where latency comes from in a real system:
 
-```proto
+```text
 User Click → Response
 ├── Last Mile Network (5-50ms)
 │   ├── WiFi/Cellular (2-20ms)

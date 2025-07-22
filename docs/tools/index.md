@@ -68,7 +68,7 @@ Examples:
 
 ### Resource Calculator
 
-```python
+```text
 # Capacity Planning Formula
 Required Capacity = (Peak Load × Safety Factor) / Utilization Target
 
@@ -165,7 +165,7 @@ If MTTR = 1 hour, then:
 
 ### Race Condition Detector
 
-```python
+```text
 # Concurrent Access Pattern Analyzer
 
 Scenarios to Check:
@@ -341,7 +341,7 @@ Quality Metrics:
 
 ### Cloud Cost Estimator
 
-```python
+```text
 # Monthly Cost Calculator
 
 Compute:
