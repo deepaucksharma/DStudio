@@ -103,36 +103,91 @@ sequenceDiagram
     Coordinator-->>Client: Resolved value
 ```
 
-### DynamoDB Quorum Configuration
+#### Quorum Math: The Secret Sauce
 
-| Parameter | Description | Typical Value |
-|-----------|-------------|---------------|
-| N | Number of replicas | 3 |
-| W | Write quorum | 2 |
-| R | Read quorum | 2 |
-| DW | Durable write quorum | 1 |
-| RW | Read-write quorum | N |
+| Formula | What It Means | Example (N=3) | Result |
+|---------|---------------|---------------|--------|
+| W + R > N | Strong consistency | W=2, R=2 > 3 | ✅ Always see latest |
+| W + R ≤ N | Eventual consistency | W=1, R=1 ≤ 3 | 🔄 May see old data |
+| W = N | All replicas must write | W=3 | ⚠️ No write availability if any node fails |
+| R = 1 | Fastest reads | R=1 | ⚡ Sub-ms latency |
 
-### Consistency Guarantees
+#### Production Impact
 
-| Configuration | Consistency Level | Use Case |
-|---------------|-------------------|----------|
-| W + R > N | Strong consistency | Critical data |
-| W + R ≤ N | Eventual consistency | High availability |
-| W = N | Read availability during failures | Write-heavy workloads |
-| R = N | Write availability during failures | Read-heavy workloads |
+```mermaid
+graph LR
+    subgraph "Scale Achieved"
+        M1["10T requests/day"]
+        M2["< 10ms p99 latency"]
+        M3["99.999% uptime"]
+        M4["100K+ customers"]
+    end
+    
+    M1 --> Success["Powers Amazon.com<br/>Netflix, Lyft, Airbnb"]
+    M2 --> Success
+    M3 --> Success  
+    M4 --> Success
+    
+    style Success fill:#4ecdc4
+```
 
-**Lessons Learned**:
-- Vector clocks are powerful but complex for developers
-- Last-write-wins is often good enough with proper conflict detection
-- Conditional writes can replace many vector clock use cases
-- CRDTs enable truly conflict-free multi-region replication
+### 2. Google Spanner: The Impossible Made Possible
 
-### 2. Redis Cluster: Sharding with Availability
+!!! success "Key Takeaway"
+    **Problem**: Need global consistency AND high availability
+    **Solution**: TrueTime (atomic clocks) + Multi-Paxos
+    **Result**: First globally consistent database at scale
 
-**Problem**: Scale Redis beyond single-machine memory limits while maintaining sub-millisecond latency
+#### The TrueTime Magic
 
-**Architecture**:
+```mermaid
+graph TB
+    subgraph "Traditional DB Problem"
+        P1["❌ Can't know global time"]
+        P2["❌ Can't order events globally"]
+        P3["❌ Must sacrifice C or A"]
+    end
+    
+    subgraph "Spanner Solution"
+        S1["✅ Atomic clocks in datacenters"]
+        S2["✅ Time uncertainty < 7ms"]
+        S3["✅ Wait out uncertainty"]
+    end
+    
+    P1 --> S1
+    P2 --> S2
+    P3 --> S3
+    
+    S1 & S2 & S3 --> Result["Global consistency<br/>AND<br/>99.999% availability"]
+    
+    style Result fill:#4ecdc4
+```
+
+#### How Spanner "Breaks" CAP
+
+| CAP Element | Traditional DB | Spanner Approach |
+|-------------|----------------|------------------|
+| **C**onsistency | Sacrifice for availability | Keep via global timestamps |
+| **A**vailability | Sacrifice for consistency | Keep via multi-region replicas |
+| **P**artition tolerance | Always required | Handle via bounded wait times |
+
+#### Real-World Usage
+
+| Metric | Value | Impact |
+|--------|-------|--------|
+| Revenue protected | $200B+/year | Google Ads platform |
+| Global availability | 99.999% | 5 minutes downtime/year |
+| Query volume | Billions QPS | Planetary scale |
+| Read latency | <10ms global | Real-time applications |
+
+### 3. Redis Cluster: Sharding with Availability
+
+!!! success "Key Takeaway"
+    **Problem**: Scale beyond single-machine memory limits
+    **Solution**: Hash slot sharding (16,384 slots) + replication
+    **Result**: Linear scaling to 1000 nodes, sub-ms latency
+
+#### Architecture
 
 ```mermaid
 graph TB

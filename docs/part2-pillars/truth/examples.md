@@ -97,67 +97,79 @@ graph TB
 **Solution**: Longest chain rule with economic incentives
 
 ```mermaid
-graph LR
-    subgraph "Bitcoin Mining Process"
-        TX[Transactions Pool] --> MB[Mine Block]
-        MB --> POW{Proof of Work}
-        POW -->|Invalid Hash| INC[Increment Nonce]
-        INC --> POW
-        POW -->|Valid Hash| NB[New Block]
-        NB --> BC[Blockchain]
-        
-        style TX fill:#ffebee
-        style POW fill:#fff3e0,stroke:#ff6f00,stroke-width:3px
-        style NB fill:#e8f5e9
-        style BC fill:#c8e6c9
-    end
+graph TD
+    Start["⚡ New Transaction"] --> Mempool["📥 Transaction Pool"]
+    
+    Mempool --> Miners{"⛏️ Miners Compete"}
+    
+    Miners -->|"Find nonce:<br/>SHA256 < target"| Winner["🏆 Valid Block"]
+    Miners -->|"Keep trying..."| Miners
+    
+    Winner --> Broadcast["📡 Broadcast Block"]
+    
+    Broadcast --> Nodes{"🔍 Nodes Validate"}
+    
+    Nodes -->|"✅ Valid"| Accept["Add to chain"]
+    Nodes -->|"❌ Invalid"| Reject["Ignore block"]
+    
+    Accept --> Fork{"Chain Fork?"}
+    
+    Fork -->|"Same height"| Wait["Wait for next block"]
+    Fork -->|"Longest wins"| Consensus["📊 Consensus Achieved"]
+    
+    style Start fill:#f9f
+    style Winner fill:#4ecdc4
+    style Consensus fill:#1dd1a1
 ```
+
+#### Probabilistic Finality
+
+| Confirmations | Reversal Probability | Time | Use Case |
+|---------------|---------------------|------|----------|
+| 1 | ~3% | 10 min | Coffee purchase |
+| 3 | ~0.1% | 30 min | Online shopping |  
+| 6 | ~0.00001% | 60 min | Large transfers |
+| 100 | Practically 0 | 17 hours | Exchange deposits |
+
+### 3. Kafka: Log-Based Truth
+
+!!! success "Key Takeaway"
+    **Problem**: Coordinate microservices at scale
+    **Solution**: Immutable, ordered event log
+    **Result**: 7 trillion messages/day at LinkedIn
+
+#### The Power of Log-Based Truth
 
 ```mermaid
-sequenceDiagram
-    participant Node1
-    participant Node2
-    participant Node3
-    participant Network
-    
-    Note over Node1: Mining new block
-    Node1->>Node1: Find valid nonce
-    Node1->>Network: Broadcast new block
-    
-    Network->>Node2: New block received
-    Network->>Node3: New block received
-    
-    Node2->>Node2: Validate block
-    Node3->>Node3: Validate block
-    
-    alt Fork detected
-        Node2->>Network: Request other chains
-        Network-->>Node2: Chain from Node3
-        Node2->>Node2: Compare chain lengths
-        Note over Node2: Adopt longest valid chain
+graph LR
+    subgraph "Traditional: Shared Database"
+        S1[Service 1] -->|read/write| DB[(Database)]
+        S2[Service 2] -->|read/write| DB
+        S3[Service 3] -->|read/write| DB
+        DB -->|"🔥 Contention<br/>🐌 Coupling<br/>💥 SPOF"| Problems
     end
     
-    Note over Node1,Node3: Consensus achieved
+    subgraph "Kafka: Event Log"
+        P1[Producer 1] -->|append only| Log["📜 Immutable Log"]
+        P2[Producer 2] -->|append only| Log
+        Log -->|ordered events| C1[Consumer 1]
+        Log -->|ordered events| C2[Consumer 2]  
+        Log -->|ordered events| C3[Consumer 3]
+        Log -->|"✅ No contention<br/>🔗 Loose coupling<br/>🔄 Replay-able"| Benefits
+    end
+    
+    style Problems fill:#ff6b6b
+    style Benefits fill:#4ecdc4
 ```
 
-| Confirmation Depth | Probability of Permanence | Use Case |
-|-------------------|---------------------------|----------|
-| 0 blocks | ~0% | Unconfirmed |
-| 1 block | ~70% | Low-value transactions |
-| 3 blocks | ~95% | Standard transactions |
-| 6 blocks | >99.9% | High-value transactions |
-| 100 blocks | ~100% | Exchange deposits |
+### 4. Apache ZooKeeper: Coordination as a Service
 
-**Probabilistic Finality**:
-- After 1 block: ~70% chance of permanence
-- After 6 blocks: >99.9% chance
-- After 100 blocks: Practically irreversible
+!!! success "Key Takeaway"
+    **Problem**: Every distributed system needs locks, leader election, config
+    **Solution**: Centralized coordination service with strong consistency
+    **Result**: Powers Kafka, HBase, Solr, and 1000s more
 
-### 3. Apache ZooKeeper: Hierarchical Consensus
-
-**Problem**: Provide coordination primitives for distributed systems
-
-**Architecture**: ZAB (ZooKeeper Atomic Broadcast)
+#### One Service, Many Primitives
 
 ```mermaid
 stateDiagram-v2

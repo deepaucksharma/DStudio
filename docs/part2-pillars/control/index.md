@@ -371,10 +371,10 @@ graph TB
         Feature -.-> Proactive
 
         %% Law connections
-        Law1[Law 1: Failure ⛓️] --> Emergency
-        Law5[Law 5: Epistemology 🧠] --> Observe
-        Law6[Law 6: Human-API 🤯] --> Human
-        Law7[Law 7: Economics 💰] --> Auto
+        Law1[Law 1: Law of Correlated Failure ⛓️] --> Emergency
+        Law5[Law 5: Law of Distributed Knowledge 🧠] --> Observe
+        Law6[Law 6: Law of Cognitive Load 🤯] --> Human
+        Law7[Law 7: Law of Economic Reality 💰] --> Auto
         Ironies[Ironies of Automation] --> Cognitive
     end
 
@@ -390,9 +390,605 @@ This concept map illustrates how control distribution balances human oversight w
 
 ### Observability: The Eyes of Control
 
+Effective control requires comprehensive visibility into system behavior. Observability transforms raw data into actionable insights.
+
+```mermaid
+graph TB
+    subgraph "The Observability Stack"
+        subgraph "Data Collection Layer"
+            M[Metrics<br/>Aggregated Numbers]
+            L[Logs<br/>Discrete Events]
+            T[Traces<br/>Request Journey]
+            P[Profiles<br/>Resource Usage]
+        end
+        
+        subgraph "Processing Layer"
+            M --> Agg[Aggregation<br/>Time Series DB]
+            L --> Index[Indexing<br/>Search Engine]
+            T --> Corr[Correlation<br/>Trace Storage]
+            P --> Anal[Analysis<br/>Flame Graphs]
+        end
+        
+        subgraph "Intelligence Layer"
+            Agg --> Detect[Anomaly Detection]
+            Index --> Pattern[Pattern Recognition]
+            Corr --> Root[Root Cause Analysis]
+            Anal --> Opt[Optimization Insights]
+        end
+        
+        subgraph "Action Layer"
+            Detect --> Alert[Smart Alerting]
+            Pattern --> Predict[Prediction]
+            Root --> Auto[Auto-remediation]
+            Opt --> Scale[Scaling Decisions]
+        end
+    end
+    
+    style M fill:#99ccff
+    style L fill:#99ffcc
+    style T fill:#ffcc99
+    style P fill:#ff99cc
+```
+
+#### The Three Pillars of Observability
+
+**1. Metrics: The Vital Signs**
+
+```mermaid
+graph LR
+    subgraph "Metric Types"
+        Counter[Counter<br/>Monotonic increase<br/>requests_total]
+        Gauge[Gauge<br/>Point in time<br/>memory_usage]
+        Histogram[Histogram<br/>Distribution<br/>request_duration]
+        Summary[Summary<br/>Quantiles<br/>response_percentiles]
+    end
+    
+    subgraph "Golden Signals"
+        Latency[Latency<br/>Response time]
+        Traffic[Traffic<br/>Request rate]
+        Errors[Errors<br/>Failure rate]
+        Saturation[Saturation<br/>Resource usage]
+    end
+    
+    Counter & Gauge & Histogram & Summary --> Latency & Traffic & Errors & Saturation
+```
+
+**2. Logs: The Event Stream**
+
+| Log Level | Purpose | Example | Action Required |
+|-----------|---------|---------|-----------------|
+| DEBUG | Development info | "Cache miss for key: user_123" | None |
+| INFO | Normal operations | "Request processed in 45ms" | None |
+| WARN | Potential issues | "Connection pool 80% full" | Monitor |
+| ERROR | Failures needing attention | "Database connection failed" | Investigate |
+| FATAL | System-critical failures | "Cannot bind to port 8080" | Immediate |
+
+**3. Traces: The Request Journey**
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Gateway
+    participant Auth
+    participant API
+    participant Cache
+    participant DB
+    
+    Client->>Gateway: GET /api/user/123
+    Note over Gateway: TraceID: abc-123
+    
+    Gateway->>Auth: Validate Token
+    Note over Auth: SpanID: span-1<br/>Duration: 5ms
+    Auth-->>Gateway: Valid
+    
+    Gateway->>API: Forward Request
+    Note over API: SpanID: span-2
+    
+    API->>Cache: Check Cache
+    Note over Cache: SpanID: span-3<br/>Duration: 2ms
+    Cache-->>API: Miss
+    
+    API->>DB: Query User
+    Note over DB: SpanID: span-4<br/>Duration: 45ms
+    DB-->>API: User Data
+    
+    API->>Cache: Update Cache
+    API-->>Gateway: Response
+    Gateway-->>Client: 200 OK
+    
+    Note over Client,DB: Total Duration: 52ms<br/>Critical Path: DB Query
+```
+
+#### Observability Patterns
+
+**Pattern 1: Correlation Through Context**
+
+```mermaid
+graph TB
+    subgraph "Request Context Propagation"
+        Req[Incoming Request]
+        Req --> Ctx[Create Context<br/>- TraceID<br/>- UserID<br/>- SessionID<br/>- RequestID]
+        
+        Ctx --> S1[Service 1]
+        S1 --> Log1[Logs with Context]
+        S1 --> Met1[Metrics Tagged]
+        S1 --> Trace1[Trace Span]
+        
+        S1 --> S2[Service 2]
+        S2 --> Log2[Logs with Context]
+        S2 --> Met2[Metrics Tagged]
+        S2 --> Trace2[Trace Span]
+        
+        S2 --> S3[Service 3]
+        S3 --> Log3[Logs with Context]
+        S3 --> Met3[Metrics Tagged]
+        S3 --> Trace3[Trace Span]
+    end
+    
+    subgraph "Unified View"
+        Q[Query: TraceID=abc-123]
+        Q --> V1[All Logs]
+        Q --> V2[All Metrics]
+        Q --> V3[Full Trace]
+        V1 & V2 & V3 --> Story[Complete Request Story]
+    end
+```
+
+**Pattern 2: Synthetic Monitoring**
+
+```mermaid
+graph LR
+    subgraph "Synthetic Probes"
+        P1[Health Check<br/>Every 10s]
+        P2[API Test<br/>Every 60s]
+        P3[User Journey<br/>Every 5min]
+        P4[Cross-Region<br/>Every 15min]
+    end
+    
+    subgraph "Targets"
+        E1[Endpoint 1]
+        E2[Endpoint 2]
+        E3[Endpoint 3]
+        DB1[Database]
+        Cache[Cache Layer]
+    end
+    
+    P1 --> E1 & E2 & E3
+    P2 --> E1 & E2 & E3
+    P3 --> E1 --> DB1 --> Cache
+    P4 -.->|From Multiple Regions| E1 & E2 & E3
+    
+    subgraph "Insights"
+        Real[Real User Data]
+        Synth[Synthetic Data]
+        Real & Synth --> Baseline[Performance Baseline]
+        Real & Synth --> Detect[Anomaly Detection]
+        Real & Synth --> SLA[SLA Monitoring]
+    end
+```
+
+#### Observability Anti-Patterns to Avoid
+
+```mermaid
+graph TB
+    subgraph "Anti-Patterns"
+        A1[🚫 Metric Explosion<br/>Millions of time series]
+        A2[🚫 Log Flooding<br/>GB/s of debug logs]
+        A3[🚫 Missing Context<br/>Isolated signals]
+        A4[🚫 Tool Proliferation<br/>15 monitoring tools]
+        A5[🚫 Dashboard Sprawl<br/>1000+ dashboards]
+    end
+    
+    subgraph "Better Practices"
+        B1[✅ Selective Metrics<br/>What matters for decisions]
+        B2[✅ Dynamic Logging<br/>Adjust verbosity on demand]
+        B3[✅ Correlated Signals<br/>TraceID everywhere]
+        B4[✅ Unified Platform<br/>Single pane of glass]
+        B5[✅ Service Dashboards<br/>One per service + overview]
+    end
+    
+    A1 -.->|Instead| B1
+    A2 -.->|Instead| B2
+    A3 -.->|Instead| B3
+    A4 -.->|Instead| B4
+    A5 -.->|Instead| B5
+```
+
 ### Control System Decision Framework
 
+Making informed decisions about control strategies requires evaluating multiple dimensions of your system.
+
+```mermaid
+graph TD
+    Start[System Requiring Control]
+    
+    Start --> Dimension1{What is the<br/>failure impact?}
+    
+    Dimension1 -->|Revenue Loss| Critical[Critical Systems]
+    Dimension1 -->|User Impact| Important[Important Systems]
+    Dimension1 -->|Internal Only| Standard[Standard Systems]
+    
+    Critical --> Speed{Response time<br/>requirement?}
+    Important --> Speed
+    Standard --> Speed
+    
+    Speed -->|Milliseconds| RealTime[Real-time Control]
+    Speed -->|Seconds| NearReal[Near Real-time]
+    Speed -->|Minutes| Batch[Batch Control]
+    Speed -->|Hours| Manual[Manual Control]
+    
+    RealTime --> Hardware[Hardware Solutions<br/>- Circuit breakers<br/>- Load balancers<br/>- Edge computing]
+    
+    NearReal --> Software[Software Solutions<br/>- Service mesh<br/>- Auto-scaling<br/>- Rate limiting]
+    
+    Batch --> Orchestrated[Orchestrated Solutions<br/>- Workflow engines<br/>- Cron jobs<br/>- Batch processors]
+    
+    Manual --> Process[Process Solutions<br/>- Runbooks<br/>- Approval flows<br/>- Change management]
+```
+
+#### Decision Matrix: Control Strategy Selection
+
+| Factor | Circuit Breaker | Rate Limiter | Auto-scaler | Load Shedding | Bulkhead |
+|--------|----------------|--------------|-------------|---------------|----------|
+| **Response Time** | Milliseconds | Microseconds | Minutes | Milliseconds | Microseconds |
+| **Failure Mode** | Total failure | Overload | Capacity | Overload | Partial failure |
+| **Complexity** | Low | Low | Medium | Medium | High |
+| **State Required** | Minimal | Counter | Metrics | Priority queue | Pool tracking |
+| **Recovery** | Automatic | Immediate | Gradual | Immediate | Automatic |
+| **Best For** | External deps | API protection | Variable load | Graceful degradation | Isolation |
+
+#### Control Loop Design Patterns
+
+```mermaid
+graph TB
+    subgraph "Pattern 1: Reactive Control"
+        R1[Monitor] --> R2{Threshold<br/>Exceeded?}
+        R2 -->|Yes| R3[Take Action]
+        R3 --> R4[Wait for Effect]
+        R4 --> R1
+        R2 -->|No| R1
+        
+        RExample[Example: CPU > 80% → Add Instance]
+    end
+    
+    subgraph "Pattern 2: Predictive Control"
+        P1[Historical Data] --> P2[ML Model]
+        P2 --> P3[Forecast Load]
+        P3 --> P4{Will exceed<br/>capacity?}
+        P4 -->|Yes| P5[Proactive Scale]
+        P4 -->|No| P6[Monitor]
+        P5 & P6 --> P1
+        
+        PExample[Example: Black Friday traffic prediction]
+    end
+    
+    subgraph "Pattern 3: Adaptive Control"
+        A1[Set Initial Parameters]
+        A1 --> A2[Operate]
+        A2 --> A3[Measure Performance]
+        A3 --> A4[Adjust Parameters]
+        A4 --> A5{Performance<br/>Improving?}
+        A5 -->|Yes| A6[Continue Direction]
+        A5 -->|No| A7[Reverse Changes]
+        A6 & A7 --> A2
+        
+        AExample[Example: Dynamic timeout adjustment]
+    end
+```
+
+#### Multi-Level Control Architecture
+
+```mermaid
+graph TB
+    subgraph "Level 4: Business Control"
+        B1[SLO Targets<br/>99.9% availability]
+        B2[Cost Budgets<br/>$10k/month]
+        B3[Compliance<br/>GDPR, SOC2]
+    end
+    
+    subgraph "Level 3: Service Control"
+        S1[Service Mesh<br/>Traffic management]
+        S2[API Gateway<br/>Rate limiting]
+        S3[Orchestrator<br/>Container placement]
+    end
+    
+    subgraph "Level 2: Instance Control"
+        I1[Health Checks<br/>Liveness/Readiness]
+        I2[Resource Limits<br/>CPU/Memory]
+        I3[Auto-restart<br/>Crash recovery]
+    end
+    
+    subgraph "Level 1: Code Control"
+        C1[Timeouts<br/>Circuit breakers]
+        C2[Retries<br/>Backoff strategies]
+        C3[Graceful Degradation<br/>Feature flags]
+    end
+    
+    B1 & B2 & B3 --> S1 & S2 & S3
+    S1 & S2 & S3 --> I1 & I2 & I3
+    I1 & I2 & I3 --> C1 & C2 & C3
+    
+    subgraph "Feedback Loops"
+        C1 & C2 & C3 -->|Metrics| I1 & I2 & I3
+        I1 & I2 & I3 -->|Aggregated| S1 & S2 & S3
+        S1 & S2 & S3 -->|Reports| B1 & B2 & B3
+    end
+```
+
+#### Control Decision Checklist
+
+```mermaid
+graph LR
+    subgraph "Before Implementing Control"
+        Q1[✓ What am I controlling?<br/>Be specific about scope]
+        Q2[✓ What are failure modes?<br/>List all possibilities]
+        Q3[✓ What is the cost of false positives?<br/>Over-reaction impact]
+        Q4[✓ What is the cost of false negatives?<br/>Under-reaction impact]
+        Q5[✓ How will I test it?<br/>Chaos engineering plan]
+        Q6[✓ How will I monitor it?<br/>Observability strategy]
+        Q7[✓ How will humans interact?<br/>Override mechanisms]
+    end
+    
+    Q1 --> Q2 --> Q3 --> Q4 --> Q5 --> Q6 --> Q7 --> Implement[Ready to Implement]
+```
+
 ### Alert Design Philosophy
+
+Alerts are the critical interface between automated systems and human operators. Poor alerts lead to fatigue, missed incidents, and system failures.
+
+```mermaid
+graph TB
+    subgraph "Alert Quality Spectrum"
+        subgraph "Terrible Alerts 🚨"
+            T1[CPU is high]
+            T2[Error occurred]
+            T3[Something is wrong]
+            T4[Disk space low on server-42]
+            
+            TF[Features:<br/>- No context<br/>- No action<br/>- No impact<br/>- No priority]
+        end
+        
+        subgraph "Good Alerts ✅"
+            G1[API latency p99 > 500ms for 5min<br/>affecting checkout flow]
+            G2[Payment service error rate 15%<br/>$2k/min revenue impact]
+            G3[Database replication lag 30s<br/>affecting read consistency]
+            G4[SSL cert expires in 7 days<br/>for api.example.com]
+            
+            GF[Features:<br/>- Clear impact<br/>- Actionable<br/>- Prioritized<br/>- Contextual]
+        end
+        
+        T1 & T2 & T3 & T4 -.->|Transform| G1 & G2 & G3 & G4
+    end
+```
+
+#### The Four Rules of Alerting
+
+```mermaid
+graph LR
+    subgraph "Rule 1: Alert on Symptoms, Not Causes"
+        C1[❌ CPU 90%] -->|Better| S1[✅ User requests timing out]
+        C2[❌ Disk full] -->|Better| S2[✅ Writes failing]
+        C3[❌ Memory high] -->|Better| S3[✅ Service degraded]
+    end
+    
+    subgraph "Rule 2: Every Alert Must Be Actionable"
+        NA[Non-Actionable] -->|Fix| A[Actionable]
+        A --> Action1[Clear first step]
+        A --> Action2[Runbook link]
+        A --> Action3[Escalation path]
+    end
+    
+    subgraph "Rule 3: Minimize False Positives"
+        Sensitive[Too Sensitive] -->|Tune| Balanced[Balanced]
+        Balanced --> Thresh[Appropriate thresholds]
+        Balanced --> Duration[Minimum duration]
+        Balanced --> Context[Environmental awareness]
+    end
+    
+    subgraph "Rule 4: Include Business Impact"
+        Tech[Technical Metric] -->|Add| Impact[Business Impact]
+        Impact --> Revenue[Revenue loss]
+        Impact --> Users[Users affected]
+        Impact --> SLA[SLA impact]
+    end
+```
+
+#### Alert Fatigue Prevention
+
+```mermaid
+graph TB
+    subgraph "Sources of Alert Fatigue"
+        S1[Too Many Alerts]
+        S2[Duplicate Alerts]
+        S3[Non-Actionable]
+        S4[Poor Priority]
+        S5[No Context]
+        S6[Flapping Alerts]
+    end
+    
+    subgraph "Prevention Strategies"
+        P1[Alert Budgets<br/>Max 5 per service]
+        P2[Deduplication<br/>Group related]
+        P3[Action Required<br/>Or don't alert]
+        P4[Clear Severity<br/>P0-P4 system]
+        P5[Rich Context<br/>Dashboard links]
+        P6[Hysteresis<br/>Prevent flapping]
+    end
+    
+    S1 --> P1
+    S2 --> P2
+    S3 --> P3
+    S4 --> P4
+    S5 --> P5
+    S6 --> P6
+    
+    P1 & P2 & P3 & P4 & P5 & P6 --> Quality[High-Quality Alerts]
+```
+
+#### Alert Severity Framework
+
+| Severity | Response Time | Example | Action | Notification |
+|----------|--------------|---------|--------|--------------|
+| **P0 - Critical** | Immediate | Complete outage | Page on-call | Phone, SMS, Slack |
+| **P1 - High** | 15 minutes | Degraded service | Page on-call | SMS, Slack |
+| **P2 - Medium** | 1 hour | Single component fail | Notify team | Slack, Email |
+| **P3 - Low** | Next business day | Non-critical issue | Queue for review | Email |
+| **P4 - Info** | When convenient | Optimization opportunity | Dashboard only | None |
+
+#### Alert Lifecycle Management
+
+```mermaid
+stateDiagram-v2
+    [*] --> Proposed: New Alert Idea
+    
+    Proposed --> Review: Team Review
+    Review --> Approved: Meets Criteria
+    Review --> Rejected: Not Actionable
+    
+    Approved --> Implemented: Add to System
+    Implemented --> Active: Monitoring
+    
+    Active --> Triggered: Condition Met
+    Triggered --> Acknowledged: Human Response
+    Acknowledged --> Investigating: Working on Fix
+    Investigating --> Resolved: Issue Fixed
+    
+    Active --> Tuning: Regular Review
+    Tuning --> Active: Adjusted
+    Tuning --> Deprecated: No Longer Needed
+    
+    Resolved --> Active: Reset
+    Deprecated --> [*]
+    Rejected --> [*]
+    
+    note right of Review
+        Criteria:
+        - Actionable?
+        - Business impact?
+        - Clear resolution?
+        - Appropriate severity?
+    end note
+    
+    note right of Tuning
+        Monthly review:
+        - False positive rate
+        - Time to acknowledge
+        - Time to resolve
+        - Still relevant?
+    end note
+```
+
+#### Alert Design Patterns
+
+```mermaid
+graph TB
+    subgraph "Pattern 1: Composite Alerts"
+        M1[Metric 1: Latency] --> Correlate
+        M2[Metric 2: Error Rate] --> Correlate
+        M3[Metric 3: Traffic] --> Correlate
+        Correlate --> Composite[Service Degraded Alert<br/>when 2+ metrics bad]
+    end
+    
+    subgraph "Pattern 2: Predictive Alerts"
+        Trend[Historical Data] --> Model[Prediction Model]
+        Model --> Forecast[24hr Forecast]
+        Forecast --> Check{Will breach<br/>threshold?}
+        Check -->|Yes| PreAlert[Alert: Capacity needed<br/>in 18 hours]
+    end
+    
+    subgraph "Pattern 3: Business Hours Alerts"
+        Event[Event Occurs] --> TimeCheck{Business<br/>Hours?}
+        TimeCheck -->|Yes| Immediate[Page Immediately]
+        TimeCheck -->|No| Severity{Severity?}
+        Severity -->|P0-P1| Immediate
+        Severity -->|P2-P4| Queue[Queue for Morning]
+    end
+    
+    subgraph "Pattern 4: Alert Suppression"
+        Primary[Primary Alert:<br/>Database Down]
+        Primary --> Suppress[Suppress These:<br/>- API errors<br/>- Timeout alerts<br/>- User complaints]
+        Suppress --> Focus[Focus on Root Cause]
+    end
+```
+
+#### Alert Template
+
+```markdown
+# Alert: [Service] [Symptom]
+
+**Severity**: P[0-4]
+**Time**: [Timestamp]
+**Duration**: [How long condition persisted]
+
+## Impact
+- Users affected: [Number or percentage]
+- Features impacted: [List affected features]
+- Revenue impact: [$X per hour]
+- SLA impact: [Availability percentage]
+
+## Current State
+- Metric value: [Current vs threshold]
+- Trend: [Improving/Degrading/Stable]
+- Related systems: [Status]
+
+## Immediate Actions
+1. [First action - verify impact]
+2. [Second action - apply mitigation]
+3. [Third action - gather data]
+
+## Runbook
+[Link to detailed runbook]
+
+## Dashboard
+[Link to relevant dashboard]
+
+## Recent Changes
+- [Any deployments in last 24h]
+- [Config changes]
+- [Traffic patterns]
+
+## Escalation
+- Primary: [On-call engineer]
+- Secondary: [Team lead]
+- Manager: [If duration > 1hr]
+```
+
+#### Alert Quality Metrics
+
+```mermaid
+graph LR
+    subgraph "Track These Metrics"
+        M1[Alert Count<br/>per Week]
+        M2[False Positive<br/>Rate]
+        M3[Time to<br/>Acknowledge]
+        M4[Time to<br/>Resolve]
+        M5[Alert<br/>Usefulness]
+        M6[Duplicate<br/>Rate]
+    end
+    
+    subgraph "Target Values"
+        T1[< 10 per service]
+        T2[< 5%]
+        T3[< 5 minutes]
+        T4[< 30 minutes]
+        T5[> 90% useful]
+        T6[< 10%]
+    end
+    
+    M1 --> T1
+    M2 --> T2
+    M3 --> T3
+    M4 --> T4
+    M5 --> T5
+    M6 --> T6
+    
+    subgraph "Actions"
+        T1 & T2 & T3 & T4 & T5 & T6 --> Review[Weekly Review]
+        Review --> Tune[Tune Thresholds]
+        Review --> Remove[Remove Bad Alerts]
+        Review --> Improve[Improve Context]
+    end
+```
 
 ---
 

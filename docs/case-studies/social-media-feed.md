@@ -26,7 +26,7 @@ This case study would examine how social media platforms like Facebook, Instagra
 
 ## Related Case Studies
 - [Twitter Timeline](./twitter-timeline.md) - Twitter's approach to timeline generation
-- [News Feed](./news-feed.md) - General news feed architecture
+<!-- TODO: Add news feed case study -->
 - [Notification System](./notification-system.md) - Real-time updates
 
 ## External Resources

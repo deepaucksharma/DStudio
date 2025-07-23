@@ -1392,7 +1392,7 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 **Related Case Studies:**
 - [Amazon DynamoDB](./amazon-dynamo.md) - Production implementation of these concepts
 - [Google Spanner](./google-spanner.md) - Globally consistent alternative approach
-- [Redis Architecture](./redis-architecture.md) - In-memory KV store design
+- [Redis Architecture](./redis.md) - In-memory KV store design
 
 **Performance Optimization:**
 - [Caching Strategies](../patterns/caching.md) - Multi-level cache design

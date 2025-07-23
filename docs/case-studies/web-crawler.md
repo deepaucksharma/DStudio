@@ -2050,9 +2050,9 @@ Storage Node      32GB      8 cores  10TB
 - [Adaptive Scheduling](../patterns/adaptive-scheduling.md) - ML-based crawl prioritization
 
 **Related Case Studies:**
-- [Search Engine](./search-engine.md) - Using crawled data for indexing
-- [Web Archive](./web-archive.md) - Long-term storage of web content
-- [Price Monitor](./price-monitor.md) - Focused e-commerce crawling
+<!-- TODO: Add search engine case study -->
+<!-- TODO: Add web archive case study -->
+<!-- TODO: Add price monitor case study -->
 
 **Implementation Patterns:**
 - [Politeness Policies](../patterns/politeness.md) - Respectful crawling

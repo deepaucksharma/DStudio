@@ -1366,9 +1366,9 @@ Analytics     10M events/s    Kafka throughput
 - [Security Patterns](../patterns/security-shortener.md) - Preventing abuse and attacks
 
 **Related Case Studies:**
-- [CDN Design](./cdn-design.md) - Content delivery networks
-- [Analytics Pipeline](./analytics-pipeline.md) - Real-time analytics systems
-- [API Gateway](./api-gateway.md) - Rate limiting and routing
+<!-- TODO: Add CDN design case study -->
+<!-- TODO: Add analytics pipeline case study -->
+- [API Gateway](../patterns/api-gateway.md) - Rate limiting and routing
 
 **Implementation Patterns:**
 - [Database Sharding](../patterns/sharding.md) - Horizontal scaling

@@ -18,7 +18,7 @@ Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, s
 - **Pastry station**: Makes desserts
 - **Expeditor**: Coordinates and quality checks
 
-This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - the reality that operations happen independently in time.
+This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - the reality that operations happen independently in time.
 
 💡 **Key Insight**: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.
 
@@ -48,13 +48,13 @@ How do you break computation into pieces that can run on different machines whil
 
 ## The Fundamental Trade-offs
 
-!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Economics](../../part1-axioms/axiom7-economics/index.md))
+!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](../../part1-axioms/axiom7-economics/index.md))
     Every choice in work distribution involves trade-offs:
 
     **Parallelism vs Coordination Overhead**
     - More workers = More communication needed
     - Amdahl's Law: Serial portions limit speedup
-    - Eventually coordination costs exceed computation savings (see [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md))
+    - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md))
 
     **Latency vs Throughput**
     - Batching improves throughput but increases latency
@@ -131,11 +131,11 @@ graph TB
         WorkSteal -.-> Adaptive
 
         %% Law connections
-        Law2[Law 2: Asynchronous Reality ⏳] --> Coord
-        Law4[Law 4: Trade-offs ⚖️] --> Scale
-        Law1[Law 1: Failure ⛓️] --> WorkSteal
-        Law3[Law 3: Emergence 🌪️] --> Decomp
-        Law5[Law 5: Epistemology 🧠] --> Sched
+        Law2[Law 2: Law of Asynchronous Reality ⏳] --> Coord
+        Law4[Law 4: Law of Multidimensional Optimization ⚖️] --> Scale
+        Law1[Law 1: Law of Correlated Failure ⛓️] --> WorkSteal
+        Law3[Law 3: Law of Emergent Chaos 🌪️] --> Decomp
+        Law5[Law 5: Law of Distributed Knowledge 🧠] --> Sched
     end
 
     style Core fill:#f9f,stroke:#333,stroke-width:4px
@@ -149,6 +149,55 @@ graph TB
 This concept map shows how work distribution connects fundamental laws to practical implementation patterns. Each branch represents a key decision area, with dotted lines showing common associations between concepts.
 
 ## Work Distribution Decision Framework
+
+### Pattern Selection: Visual Decision Tree
+
+```mermaid
+graph TD
+    Start["🤔 What's your workload?"] --> Type{Data or Task<br/>parallel?}
+    
+    Type -->|"Data parallel<br/>(same operation,<br/>different data)"| Data{Dependency<br/>between items?}
+    Type -->|"Task parallel<br/>(different operations)"| Task{Task<br/>coordination?}
+    
+    Data -->|No dependencies| MapReduce["✅ MapReduce<br/>• Batch processing<br/>• Log analysis<br/>• ETL pipelines"]
+    Data -->|Has dependencies| Pipeline["✅ Pipeline<br/>• Stream processing<br/>• Video encoding<br/>• Data transforms"]
+    
+    Task -->|Independent| WorkPool["✅ Work Pool<br/>• Web servers<br/>• API handlers<br/>• Job queues"]
+    Task -->|Coordinated| Workflow["✅ Workflow<br/>• Order processing<br/>• CI/CD pipelines<br/>• Sagas"]
+    
+    MapReduce --> Scale1{Scale needs?}
+    Pipeline --> Scale2{Scale needs?}
+    WorkPool --> Scale3{Scale needs?}
+    Workflow --> Scale4{Scale needs?}
+    
+    Scale1 -->|"< 100 nodes"| Spark["Apache Spark"]
+    Scale1 -->|"> 100 nodes"| Hadoop["Hadoop/YARN"]
+    
+    Scale2 -->|Real-time| Flink["Apache Flink"]
+    Scale2 -->|Batch| Beam["Apache Beam"]
+    
+    Scale3 -->|Serverless| Lambda["AWS Lambda"]
+    Scale3 -->|Container| K8s["Kubernetes Jobs"]
+    
+    Scale4 -->|Simple| Airflow["Apache Airflow"]
+    Scale4 -->|Complex| Temporal["Temporal.io"]
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:4px
+    style MapReduce fill:#4ecdc4
+    style Pipeline fill:#4ecdc4
+    style WorkPool fill:#4ecdc4
+    style Workflow fill:#4ecdc4
+```
+
+### Quick Pattern Comparison
+
+| Pattern | Use When | Don't Use When | Complexity | Example |
+|---------|----------|----------------|------------|---------|
+| **MapReduce** | • Processing TB+ data<br/>• Embarrassingly parallel<br/>• Batch processing | • Real-time needed<br/>• Complex dependencies<br/>• Small data (< 1GB) | Medium | Log analysis |
+| **Pipeline** | • Sequential stages<br/>• Stream processing<br/>• Data transformation | • No clear stages<br/>• Need random access<br/>• Cyclic dependencies | Medium | Video encoding |
+| **Work Pool** | • Homogeneous tasks<br/>• Variable load<br/>• Stateless processing | • Task dependencies<br/>• Ordered processing<br/>• State sharing | Low | Web servers |
+| **Work Stealing** | • Uneven task sizes<br/>• Dynamic workload<br/>• Multi-core systems | • Network overhead high<br/>• Tasks too small<br/>• Strict ordering | High | Game engines |
+| **Actor Model** | • Message passing<br/>• Fault isolation<br/>• Location transparency | • Shared state needed<br/>• Low latency required<br/>• Simple workflows | High | Chat systems |
 
 ## Simple Example: Processing User Uploads
 
@@ -175,7 +224,7 @@ gantt
     Store All           :active, par5, after par3 par4, 200
 ```
 
-**Performance Comparison:** (demonstrates [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) in action)
+**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) in action)
 
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
@@ -215,7 +264,7 @@ P = Parallel fraction (can be parallelized)
 N = Number of processors
 
 Example:
-If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Emergence](../../part1-axioms/axiom3-emergence/index.md):
+If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](../../part1-axioms/axiom3-emergence/index.md):
 - With 10 processors: Speedup = 5.3x (not 10x!)
 - With 100 processors: Speedup = 9.2x (not 100x!)
 - With ∞ processors: Speedup = 10x (hard limit)
@@ -341,7 +390,7 @@ sequenceDiagram
     R-->>M: Results[]
 ```
 
-**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md))
+**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md))
 
 | Aspect | Description | Use When |
 |--------|-------------|----------|
@@ -583,7 +632,7 @@ graph LR
 
 ## The Coordination Tax
 
-Every distributed system pays a coordination tax (detailed in [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md)):
+Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md)):
 
 ## Load Balancing Strategies
 
@@ -595,7 +644,7 @@ Every distributed system pays a coordination tax (detailed in [Law 5: Epistemolo
 
 #### Universal Scalability Law
 
-Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Trade-offs](../../part1-axioms/axiom4-tradeoffs/index.md)):
+Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](../../part1-axioms/axiom4-tradeoffs/index.md)):
 
 <div class="formula-box">
 <h4>Universal Scalability Law (USL)</h4>
@@ -1087,472 +1136,260 @@ PENDING → RUNNING → COMPLETED
 </ul>
 </div>
 
-```python
-# Task States and Core Data Structures
-class TaskState(Enum):
-    PENDING = "pending"
-    RUNNING = "running"
-    COMPLETED = "completed"
-    FAILED = "failed"
-    RETRYING = "retrying"
-
-@dataclass
-class Task:
-    id: str
-    name: str
-    payload: Dict[str, Any]
-    priority: int = 0
-    max_retries: int = 3
-    timeout_seconds: int = 300
-    created_at: float = None
-    started_at: Optional[float] = None
-    completed_at: Optional[float] = None
-    retry_count: int = 0
-    state: TaskState = TaskState.PENDING
-    worker_id: Optional[str] = None
-    result: Optional[Any] = None
-    error: Optional[str] = None
-
-    def __post_init__(self):
-        if self.created_at is None:
-            self.created_at = time.time()
-
-    def __lt__(self, other):
-        # For priority queue (higher priority = lower number)
-        return self.priority < other.priority
-
-class DistributedTaskScheduler:
-    """
-    Production-grade distributed task scheduler with:
-    - Priority scheduling
-    - Work stealing
-    - Automatic retries
-    - Deadlock detection
-    - Performance monitoring
-    """
-
-    def __init__(self, redis_url: str, worker_pool_size: int = 10):
-        self.redis_url = redis_url
-        self.worker_pool_size = worker_pool_size
-        self.workers: Dict[str, 'Worker'] = {}
-        self.task_handlers: Dict[str, Callable] = {}
-        self.monitoring = MonitoringSystem()
-        self.is_running = False
-
-    async def start(self):
-        """Start the scheduler and workers"""
-        self.redis = await aioredis.create_redis_pool(self.redis_url)
-        self.is_running = True
-
-        # Start workers
-        for i in range(self.worker_pool_size):
-            worker = Worker(
-                worker_id=f"worker-{i}",
-                scheduler=self,
-                steal_threshold=5
-            )
-            self.workers[worker.worker_id] = worker
-            asyncio.create_task(worker.run())
-
-        # Start monitoring
-        asyncio.create_task(self.monitoring.run())
-
-        # Start deadlock detector
-        asyncio.create_task(self._deadlock_detector())
-
-        logging.info(f"Scheduler started with {self.worker_pool_size} workers")
-
-    def register_handler(self, task_name: str, handler: Callable):
-        """Register a task handler function"""
-        self.task_handlers[task_name] = handler
-
-    async def submit_task(self, task: Task) -> str:
-        """Submit a task for execution"""
-        # Store task in Redis
-        task_data = self._serialize_task(task)
-        await self.redis.hset(f"task:{task.id}", mapping=task_data)
-
-        # Add to appropriate queue based on priority
-        queue_name = self._get_queue_name(task.priority)
-        await self.redis.zadd(queue_name, task.created_at, task.id)
-
-        # Notify monitoring
-        self.monitoring.record_task_submitted(task)
-
-        logging.info(f"Task {task.id} submitted with priority {task.priority}")
-        return task.id
-
-    async def get_task_status(self, task_id: str) -> Optional[Task]:
-        """Get current status of a task"""
-        task_data = await self.redis.hgetall(f"task:{task_id}")
-        if not task_data:
-            return None
-        return self._deserialize_task(task_data)
-
-    def _get_queue_name(self, priority: int) -> str:
-        """Get queue name based on priority"""
-        if priority < 0:
-            return "queue:high"
-        elif priority == 0:
-            return "queue:normal"
-        else:
-            return "queue:low"
-
-    def _serialize_task(self, task: Task) -> Dict[str, str]:
-        """Serialize task for Redis storage"""
-        return {
-            'id': task.id,
-            'name': task.name,
-            'payload': json.dumps(task.payload),
-            'priority': str(task.priority),
-            'max_retries': str(task.max_retries),
-            'timeout_seconds': str(task.timeout_seconds),
-            'created_at': str(task.created_at),
-            'started_at': str(task.started_at or ''),
-            'completed_at': str(task.completed_at or ''),
-            'retry_count': str(task.retry_count),
-            'state': task.state.value,
-            'worker_id': task.worker_id or '',
-            'result': json.dumps(task.result) if task.result else '',
-            'error': task.error or ''
-        }
-
-    def _deserialize_task(self, data: Dict[bytes, bytes]) -> Task:
-        """Deserialize task from Redis"""
-        return Task(
-            id=data[b'id'].decode(),
-            name=data[b'name'].decode(),
-            payload=json.loads(data[b'payload'].decode()),
-            priority=int(data[b'priority'].decode()),
-            max_retries=int(data[b'max_retries'].decode()),
-            timeout_seconds=int(data[b'timeout_seconds'].decode()),
-            created_at=float(data[b'created_at'].decode()),
-            started_at=float(data[b'started_at'].decode()) if data[b'started_at'] else None,
-            completed_at=float(data[b'completed_at'].decode()) if data[b'completed_at'] else None,
-            retry_count=int(data[b'retry_count'].decode()),
-            state=TaskState(data[b'state'].decode()),
-            worker_id=data[b'worker_id'].decode() or None,
-            result=json.loads(data[b'result'].decode()) if data[b'result'] else None,
-            error=data[b'error'].decode() or None
-        )
-
-    async def _deadlock_detector(self):
-        """Detect and recover from deadlocks"""
-        while self.is_running:
-            await asyncio.sleep(30)  # Check every 30 seconds
-
-            # Find tasks that have been running too long
-            current_time = time.time()
-
-            # Get all running tasks
-            pattern = "task:*"
-            cursor = b'0'
-
-            while cursor:
-                cursor, keys = await self.redis.scan(cursor, match=pattern)
-
-                for key in keys:
-                    task_data = await self.redis.hgetall(key)
-                    if not task_data:
-                        continue
-
-                    task = self._deserialize_task(task_data)
-
-                    if task.state == TaskState.RUNNING and task.started_at:
-                        runtime = current_time - task.started_at
-
-                        if runtime > task.timeout_seconds:
-                            logging.warning(f"Task {task.id} timeout after {runtime}s")
-
-                            # Mark as failed and requeue if retries remain
-                            task.state = TaskState.FAILED
-                            task.error = f"Timeout after {runtime}s"
-
-                            if task.retry_count < task.max_retries:
-                                task.state = TaskState.RETRYING
-                                task.retry_count += 1
-                                await self.submit_task(task)
-
-                            # Update task state
-                            await self.redis.hset(
-                                f"task:{task.id}",
-                                mapping=self._serialize_task(task)
-                            )
-
-class Worker:
-    """Individual worker that processes tasks"""
-
-    def __init__(self, worker_id: str, scheduler: DistributedTaskScheduler,
-                 steal_threshold: int = 5):
-        self.worker_id = worker_id
-        self.scheduler = scheduler
-        self.steal_threshold = steal_threshold
-        self.local_queue: List[Task] = []
-        self.executor = ThreadPoolExecutor(max_workers=1)
-        self.current_task: Optional[Task] = None
-        self.processed_count = 0
-
-    async def run(self):
-        """Main worker loop"""
-        while self.scheduler.is_running:
-            try:
-                # Get next task
-                task = await self._get_next_task()
-
-                if task:
-                    await self._execute_task(task)
-                else:
-                    # No task available, sleep briefly
-                    await asyncio.sleep(0.1)
-
-            except Exception as e:
-                logging.error(f"Worker {self.worker_id} error: {e}")
-                await asyncio.sleep(1)
-
-    async def _get_next_task(self) -> Optional[Task]:
-        """Get next task to process"""
-        # Try local queue first
-        if self.local_queue:
-            return self.local_queue.pop(0)
-
-        # Try to get from Redis queues
-        for queue_name in ["queue:high", "queue:normal", "queue:low"]:
-            # Get multiple tasks at once for efficiency
-            task_ids = await self.scheduler.redis.zrange(
-                queue_name, 0, self.steal_threshold - 1
-            )
-
-            if task_ids:
-                # Remove from queue
-                await self.scheduler.redis.zrem(queue_name, *task_ids)
-
-                # Load tasks
-                tasks = []
-                for task_id in task_ids:
-                    task_data = await self.scheduler.redis.hgetall(
-                        f"task:{task_id.decode()}"
-                    )
-                    if task_data:
-                        task = self.scheduler._deserialize_task(task_data)
-                        tasks.append(task)
-
-                if tasks:
-                    # Keep first task, add rest to local queue
-                    self.local_queue.extend(tasks[1:])
-                    return tasks[0]
-
-        # No tasks in queues, try work stealing
-        return await self._steal_work()
-
-    async def _steal_work(self) -> Optional[Task]:
-        """Try to steal work from other workers"""
-        for worker_id, worker in self.scheduler.workers.items():
-            if worker_id == self.worker_id:
-                continue
-
-            if len(worker.local_queue) > self.steal_threshold:
-                # Steal half of their excess tasks
-                steal_count = (len(worker.local_queue) - self.steal_threshold) // 2
-                if steal_count > 0:
-                    stolen = worker.local_queue[:steal_count]
-                    worker.local_queue = worker.local_queue[steal_count:]
-
-                    # Add to our queue and return first
-                    self.local_queue.extend(stolen[1:])
-
-                    logging.info(
-                        f"Worker {self.worker_id} stole {steal_count} tasks "
-                        f"from {worker_id}"
-                    )
-
-                    return stolen[0]
-
-        return None
-
-    async def _execute_task(self, task: Task):
-        """Execute a single task"""
-        self.current_task = task
-        task.state = TaskState.RUNNING
-        task.started_at = time.time()
-        task.worker_id = self.worker_id
-
-        # Update task state in Redis
-        await self.scheduler.redis.hset(
-            f"task:{task.id}",
-            mapping=self.scheduler._serialize_task(task)
-        )
-
-        # Record start
-        self.scheduler.monitoring.record_task_started(task)
-
-        try:
-            # Get handler
-            handler = self.scheduler.task_handlers.get(task.name)
-            if not handler:
-                raise ValueError(f"No handler registered for task {task.name}")
-
-            # Execute with timeout
-            future = self.executor.submit(handler, task.payload)
-            result = await asyncio.wait_for(
-                asyncio.get_event_loop().run_in_executor(None, future.result),
-                timeout=task.timeout_seconds
-            )
-
-            # Success
-            task.result = result
-            task.state = TaskState.COMPLETED
-            task.completed_at = time.time()
-
-            logging.info(f"Task {task.id} completed successfully")
-
-        except asyncio.TimeoutError:
-            task.state = TaskState.FAILED
-            task.error = f"Timeout after {task.timeout_seconds}s"
-            logging.error(f"Task {task.id} timed out")
-
-        except Exception as e:
-            task.state = TaskState.FAILED
-            task.error = str(e)
-            logging.error(f"Task {task.id} failed: {e}")
-
-        finally:
-            # Update final state
-            await self.scheduler.redis.hset(
-                f"task:{task.id}",
-                mapping=self.scheduler._serialize_task(task)
-            )
-
-            # Record completion
-            self.scheduler.monitoring.record_task_completed(task)
-
-            self.current_task = None
-            self.processed_count += 1
-
-class MonitoringSystem:
-    """Monitor scheduler performance"""
-
-    def __init__(self):
-        self.metrics = {
-            'tasks_submitted': 0,
-            'tasks_started': 0,
-            'tasks_completed': 0,
-            'tasks_failed': 0,
-            'total_processing_time': 0,
-            'queue_depths': defaultdict(int)
-        }
-        self.task_durations = []
-
-    def record_task_submitted(self, task: Task):
-        self.metrics['tasks_submitted'] += 1
-
-    def record_task_started(self, task: Task):
-        self.metrics['tasks_started'] += 1
-
-    def record_task_completed(self, task: Task):
-        if task.state == TaskState.COMPLETED:
-            self.metrics['tasks_completed'] += 1
-        else:
-            self.metrics['tasks_failed'] += 1
-
-        if task.started_at and task.completed_at:
-            duration = task.completed_at - task.started_at
-            self.task_durations.append(duration)
-            self.metrics['total_processing_time'] += duration
-
-    async def run(self):
-        """Periodically report metrics"""
-        while True:
-            await asyncio.sleep(60)  # Report every minute
-            self._report_metrics()
-
-    def _report_metrics(self):
-        """Generate performance report"""
-        if not self.task_durations:
-            return
-
-        avg_duration = sum(self.task_durations) / len(self.task_durations)
-        p50_duration = sorted(self.task_durations)[len(self.task_durations) // 2]
-        p99_duration = sorted(self.task_durations)[int(len(self.task_durations) * 0.99)]
-
-        throughput = self.metrics['tasks_completed'] / 60  # per second
-
-        print("\n=== Scheduler Performance Report ===")
-        print(f"Tasks submitted: {self.metrics['tasks_submitted']}")
-        print(f"Tasks completed: {self.metrics['tasks_completed']}")
-        print(f"Tasks failed: {self.metrics['tasks_failed']}")
-        print(f"Throughput: {throughput:.2f} tasks/sec")
-        print(f"Avg duration: {avg_duration:.2f}s")
-        print(f"P50 duration: {p50_duration:.2f}s")
-        print(f"P99 duration: {p99_duration:.2f}s")
-
-# Example usage
-async def example_usage():
-    # Create scheduler
-    scheduler = DistributedTaskScheduler(
-        redis_url="redis://localhost",
-        worker_pool_size=10
-    )
-
-    # Register task handlers
-    def process_image(payload):
-        """Simulate image processing"""
-        time.sleep(payload.get('duration', 1))
-        return f"Processed image {payload['image_id']}"
-
-    def analyze_data(payload):
-        """Simulate data analysis"""
-        time.sleep(payload.get('duration', 2))
-        return f"Analyzed dataset {payload['dataset_id']}"
-
-    scheduler.register_handler('process_image', process_image)
-    scheduler.register_handler('analyze_data', analyze_data)
-
-    # Start scheduler
-    await scheduler.start()
-
-    # Submit tasks
-    tasks = []
-
-    # High priority image processing
-    for i in range(100):
-        task = Task(
-            id=str(uuid.uuid4()),
-            name='process_image',
-            payload={'image_id': i, 'duration': 0.5},
-            priority=-1  # High priority
-        )
-        task_id = await scheduler.submit_task(task)
-        tasks.append(task_id)
-
-    # Normal priority data analysis
-    for i in range(50):
-        task = Task(
-            id=str(uuid.uuid4()),
-            name='analyze_data',
-            payload={'dataset_id': i, 'duration': 2},
-            priority=0  # Normal priority
-        )
-        task_id = await scheduler.submit_task(task)
-        tasks.append(task_id)
-
-    # Wait for completion
-    await asyncio.sleep(30)
-
-    # Check results
-    completed = 0
-    failed = 0
-
-    for task_id in tasks:
-        task = await scheduler.get_task_status(task_id)
-        if task.state == TaskState.COMPLETED:
-            completed += 1
-        elif task.state == TaskState.FAILED:
-            failed += 1
-
-    print(f"\nFinal results: {completed} completed, {failed} failed")
-
-if __name__ == "__main__":
-    asyncio.run(example_usage())
+### Implementation Blueprint: Task Scheduler Components
+
+```mermaid
+classDiagram
+    class TaskScheduler {
+        +redis_url: str
+        +worker_pool_size: int
+        +workers: Dict[str, Worker]
+        +task_handlers: Dict[str, Callable]
+        +monitoring: MonitoringSystem
+        +start()
+        +submit_task(task)
+        +register_handler(name, func)
+    }
+    
+    class Task {
+        +id: str
+        +name: str
+        +payload: Dict
+        +priority: int
+        +state: TaskState
+        +retry_count: int
+        +created_at: float
+        +started_at: float
+        +completed_at: float
+    }
+    
+    class Worker {
+        +worker_id: str
+        +local_queue: List[Task]
+        +steal_threshold: int
+        +run()
+        +_get_next_task()
+        +_steal_work()
+        +_execute_task()
+    }
+    
+    class MonitoringSystem {
+        +metrics: Dict
+        +task_durations: List
+        +record_task_submitted()
+        +record_task_started()
+        +record_task_completed()
+        +report_metrics()
+    }
+    
+    TaskScheduler "1" --> "*" Worker
+    TaskScheduler "1" --> "1" MonitoringSystem
+    Worker "*" --> "*" Task
+    TaskScheduler "*" --> "*" Task
+```
+
+### Task Processing Flow
+
+```mermaid
+flowchart TB
+    subgraph "Task Submission"
+        Submit[Client submits task] --> Serialize[Serialize to Redis]
+        Serialize --> Priority{Determine priority}
+        Priority -->|High < 0| HQ[High Priority Queue]
+        Priority -->|Normal = 0| NQ[Normal Queue]
+        Priority -->|Low > 0| LQ[Low Priority Queue]
+    end
+    
+    subgraph "Worker Processing"
+        Worker[Worker Loop] --> CheckLocal{Local queue\nempty?}
+        CheckLocal -->|No| ProcessLocal[Process local task]
+        CheckLocal -->|Yes| FetchRedis[Fetch from Redis]
+        
+        FetchRedis --> BatchFetch[Batch fetch\n(steal_threshold tasks)]
+        BatchFetch --> Found{Tasks found?}
+        Found -->|Yes| LocalCache[Cache in local queue]
+        Found -->|No| TrySteal[Try work stealing]
+        
+        TrySteal --> CheckPeers{Check other\nworkers}
+        CheckPeers --> StealHalf[Steal half of\nexcess tasks]
+    end
+    
+    subgraph "Execution & Recovery"
+        Execute[Execute task] --> Timeout{Timeout?}
+        Timeout -->|Yes| MarkFailed[Mark FAILED]
+        Timeout -->|No| MarkComplete[Mark COMPLETED]
+        
+        MarkFailed --> CheckRetries{Retries left?}
+        CheckRetries -->|Yes| Requeue[Requeue task]
+        CheckRetries -->|No| Final[Final failure]
+    end
+    
+    style Submit fill:#e3f2fd
+    style Execute fill:#fff3e0
+    style MarkComplete fill:#c8e6c9
+    style MarkFailed fill:#ffcdd2
+```
+
+### Key Implementation Details
+
+<div class="implementation-table">
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Key Methods</th>
+<th>Data Structure</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Task State Machine</b></td>
+<td>State transitions</td>
+<td>Enum: PENDING → RUNNING → COMPLETED/FAILED</td>
+<td>Track task lifecycle</td>
+</tr>
+<tr>
+<td><b>Priority Queues</b></td>
+<td>zadd(), zrange(), zrem()</td>
+<td>Redis Sorted Sets (score = timestamp)</td>
+<td>Priority-based scheduling</td>
+</tr>
+<tr>
+<td><b>Work Stealing</b></td>
+<td>steal_work()</td>
+<td>Local queue comparison</td>
+<td>Dynamic load balancing</td>
+</tr>
+<tr>
+<td><b>Batch Fetching</b></td>
+<td>zrange(0, threshold-1)</td>
+<td>Fetch multiple tasks</td>
+<td>Reduce Redis calls</td>
+</tr>
+<tr>
+<td><b>Deadlock Detection</b></td>
+<td>Periodic timeout check</td>
+<td>Scan running tasks</td>
+<td>Prevent stuck tasks</td>
+</tr>
+<tr>
+<td><b>Monitoring</b></td>
+<td>record_*, report_metrics()</td>
+<td>In-memory metrics dict</td>
+<td>Performance tracking</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+### Work Stealing Algorithm Detail
+
+```mermaid
+flowchart LR
+    subgraph "Work Stealing Decision"
+        Start[Idle Worker] --> Scan[Scan all workers]
+        Scan --> Check{Queue > threshold?}
+        Check -->|Yes| Calculate[excess = queue_len - threshold]
+        Check -->|No| Next[Try next worker]
+        
+        Calculate --> Steal[steal_count = excess / 2]
+        Steal --> Transfer[Transfer tasks]
+        Transfer --> Update[Update both queues]
+        
+        Next --> More{More workers?}
+        More -->|Yes| Check
+        More -->|No| Wait[Wait/Idle]
+    end
+    
+    style Start fill:#ffeb3b
+    style Transfer fill:#4caf50
+```
+
+### Performance Metrics Collection
+
+<div class="metrics-table">
+<table>
+<thead>
+<tr>
+<th>Metric</th>
+<th>Collection Point</th>
+<th>Formula/Method</th>
+<th>Use Case</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><b>Throughput</b></td>
+<td>Task completion</td>
+<td>completed_tasks / time_window</td>
+<td>System capacity</td>
+</tr>
+<tr>
+<td><b>Latency P50/P99</b></td>
+<td>Task duration</td>
+<td>sorted(durations)[index]</td>
+<td>Performance SLAs</td>
+</tr>
+<tr>
+<td><b>Queue Depth</b></td>
+<td>Queue operations</td>
+<td>zcard(queue_name)</td>
+<td>Backlog monitoring</td>
+</tr>
+<tr>
+<td><b>Worker Utilization</b></td>
+<td>Worker state</td>
+<td>busy_time / total_time</td>
+<td>Resource efficiency</td>
+</tr>
+<tr>
+<td><b>Failure Rate</b></td>
+<td>Task completion</td>
+<td>failed_tasks / total_tasks</td>
+<td>System health</td>
+</tr>
+<tr>
+<td><b>Steal Success Rate</b></td>
+<td>Work stealing</td>
+<td>successful_steals / attempts</td>
+<td>Load balance effectiveness</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+### Example Usage Pattern
+
+```mermaid
+sequenceDiagram
+    participant Client
+    participant Scheduler
+    participant Redis
+    participant Worker1
+    participant Worker2
+    
+    Note over Client,Worker2: Task Submission Flow
+    
+    Client->>Scheduler: submit_task(high_priority_task)
+    Scheduler->>Redis: HSET task:123 {data}
+    Scheduler->>Redis: ZADD queue:high timestamp task:123
+    Scheduler-->>Client: task_id: 123
+    
+    Note over Client,Worker2: Worker Processing
+    
+    Worker1->>Redis: ZRANGE queue:high 0 4
+    Redis-->>Worker1: [task:123, task:124, ...]
+    Worker1->>Worker1: Cache tasks locally
+    Worker1->>Worker1: Process task:123
+    
+    Note over Client,Worker2: Work Stealing
+    
+    Worker2->>Worker2: Local queue empty
+    Worker2->>Worker1: Check queue length
+    Worker1-->>Worker2: 10 tasks (> threshold)
+    Worker2->>Worker1: Steal 3 tasks
+    Worker1-->>Worker2: [task:125, task:126, task:127]
 ```
 ## Production War Stories
 
@@ -1964,12 +1801,12 @@ flowchart TB
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md) - Handling worker failures
-- [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - Time and causality in distributed work
-- [Law 3: Emergence](../../part1-axioms/axiom3-emergence/index.md) - Complex behavior from simple rules
-- [Law 4: Trade-offs](../../part1-axioms/axiom4-tradeoffs/index.md) - Resource limits and scaling
-- [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) - Managing distributed workers
-- [Law 7: Economics](../../part1-axioms/axiom7-economics/index.md) - Cost of distribution
+- [Law 1: Law of Correlated Failure](../../part1-axioms/axiom1-failure/index.md) - Handling worker failures
+- [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - Time and causality in distributed work
+- [Law 3: Law of Emergent Chaos](../../part1-axioms/axiom3-emergence/index.md) - Complex behavior from simple rules
+- [Law 4: Law of Multidimensional Optimization](../../part1-axioms/axiom4-tradeoffs/index.md) - Resource limits and scaling
+- [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md) - Managing distributed workers
+- [Law 7: Law of Economic Reality](../../part1-axioms/axiom7-economics/index.md) - Cost of distribution
 
 ### Related Pillars
 - [Pillar 2: State](../state/index.md) - Managing distributed computation state

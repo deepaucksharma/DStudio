@@ -28,6 +28,7 @@ theme:
     - search.share
     - content.code.copy
     - content.code.annotate
+    - content.action.edit
     
   palette:
     - media: "(prefers-color-scheme)"
@@ -106,12 +107,13 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/modular.css
-  - stylesheets/laws.css
+  - stylesheets/axioms.css
 
 # Extra JavaScript
 extra_javascript:
   - https://unpkg.com/mermaid@10.6.0/dist/mermaid.min.js
   - javascripts/mermaid-init.js
+  - javascripts/summarizer.js
 
 # Extra Configuration
 extra:
@@ -125,7 +127,7 @@ extra:
   # Build date for copyright
   build_date: "2025"
 
-# Complete Navigation - Restructured for Better UX
+# Simplified Navigation - Essential Content Only
 nav:
   - Home: 
     - Welcome: introduction/index.md
@@ -133,7 +135,7 @@ nav:
     - Learning Paths: learning-paths/index.md
     
   - "Foundations":
-    - "The 7 Laws": laws/index.md
+    - "The 7 Laws": axioms/index.md
     - "The 5 Pillars": pillars/index.md
     - "Laws (Detailed)":
       - "Overview": part1-axioms/index.md
@@ -153,267 +155,217 @@ nav:
       - "Truth Distribution": part2-pillars/truth/index.md
       - "Control Distribution": part2-pillars/control/index.md
       - "Intelligence Distribution": part2-pillars/intelligence/index.md
-      - "Decision Tree": part2-pillars/decision-tree.md
-      - "Pattern Matrix": part2-pillars/pattern-matrix.md
-      - "Models Comparison": part2-pillars/models-comparison.md
-      - "Trade-off Calculus": part2-pillars/tradeoff-calculus.md
   
-      
-  - "Patterns & Solutions":
-    - "Pattern Catalog": patterns/index.md
-    - "Find Your Pattern": patterns/pattern-selector.md
-    - "Compare Patterns": patterns/pattern-comparison.md
-    - "By Problem Domain":
-      - "Reliability Patterns":
-        - "Circuit Breaker": patterns/circuit-breaker.md
-        - "Retry & Backoff": patterns/retry-backoff.md
-        - "Bulkhead": patterns/bulkhead.md
-        - "Timeout": patterns/timeout.md
-        - "Health Check": patterns/health-check.md
-        - "Graceful Degradation": patterns/graceful-degradation.md
-      - "Performance Patterns":
-        - "Caching Strategies": patterns/caching-strategies.md
-        - "Sharding": patterns/sharding.md
-        - "Load Balancing": patterns/load-balancing.md
-        - "Edge Computing": patterns/edge-computing.md
-        - "Auto-Scaling": patterns/auto-scaling.md
-      - "Consistency Patterns":
-        - "Event Sourcing": patterns/event-sourcing.md
-        - "CQRS": patterns/cqrs.md
-        - "Saga": patterns/saga.md
-        - "Outbox": patterns/outbox.md
-        - "Two-Phase Commit": patterns/two-phase-commit.md
-      - "Coordination Patterns":
-        - "Leader Election": patterns/leader-election.md
-        - "Consensus": patterns/consensus.md
-        - "Distributed Lock": patterns/distributed-lock.md
-        - "Service Discovery": patterns/service-discovery.md
-      - "Modern Architectures":
-        - "Service Mesh": patterns/service-mesh.md
-        - "Serverless/FaaS": patterns/serverless-faas.md
-        - "GraphQL Federation": patterns/graphql-federation.md
-        - "Event-Driven": patterns/event-driven.md
-  
-  - "Part III: Patterns":
-    - Overview: patterns/index.md
-    - "Core Patterns":
-      - "Queues & Streaming": patterns/queues-streaming.md
-      - "CQRS": patterns/cqrs.md
-      - "Event-Driven Architecture": patterns/event-driven.md
-      - "Event Sourcing": patterns/event-sourcing.md
-      - "Saga Pattern": patterns/saga.md
-      - "Service Mesh": patterns/service-mesh.md
-      - "GraphQL Federation": patterns/graphql-federation.md
-      - "Serverless/FaaS": patterns/serverless-faas.md
-    - "Resilience Patterns":
+  - "Patterns":
+    - "📚 Pattern Library": patterns/index.md
+    - "🔍 Pattern Finder": patterns/pattern-selector.md
+    - "⚖️ Pattern Comparison": patterns/pattern-comparison.md
+    - "🎯 Pattern Quiz": patterns/pattern-quiz.md
+    - "🔗 Pattern Combinations": patterns/pattern-combinations.md
+    
+    - "Resilience & Reliability":
       - "Circuit Breaker": patterns/circuit-breaker.md
       - "Circuit Breaker Enhanced": patterns/circuit-breaker-enhanced.md
       - "Retry & Backoff": patterns/retry-backoff.md
       - "Bulkhead": patterns/bulkhead.md
-      - "Backpressure": patterns/backpressure.md
-      - "Edge Computing": patterns/edge-computing.md
-      - "Graceful Degradation": patterns/graceful-degradation.md
-      - "Health Check": patterns/health-check.md
       - "Timeout": patterns/timeout.md
-    - "Data Patterns":
-      - "CDC (Change Data Capture)": patterns/cdc.md
-      - "Tunable Consistency": patterns/tunable-consistency.md
-      - "Sharding": patterns/sharding.md
-      - "Caching Strategies": patterns/caching-strategies.md
-      - "Geo-Replication": patterns/geo-replication.md
-      - "Multi-Region": patterns/multi-region.md
-      - "Two-Phase Commit": patterns/two-phase-commit.md
-      - "CRDT": patterns/crdt.md
-      - "Eventual Consistency": patterns/eventual-consistency.md
-      - "Polyglot Persistence": patterns/polyglot-persistence.md
-      - "Materialized View": patterns/materialized-view.md
-      - "Distributed Storage": patterns/distributed-storage.md
-      - "Metadata Service": patterns/metadata-service.md
-    - "Coordination Patterns":
-      - "Leader Election": patterns/leader-election.md
-      - "Consensus": patterns/consensus.md
-      - "Distributed Lock": patterns/distributed-lock.md
+      - "Health Check": patterns/health-check.md
+      - "Graceful Degradation": patterns/graceful-degradation.md
+      - "Backpressure": patterns/backpressure.md
+      - "Rate Limiting": patterns/rate-limiting.md
+      - "Load Shedding": patterns/load-shedding.md
+      - "Failover": patterns/failover.md
+      - "Fault Tolerance": patterns/fault-tolerance.md
+      - "Split Brain": patterns/split-brain.md
       - "Idempotent Receiver": patterns/idempotent-receiver.md
+      
+    - "Caching Patterns":
+      - "Caching Overview": patterns/caching.md
+      - "Caching Strategies": patterns/caching-strategies.md
+      - "Cache Aside": patterns/cache-aside.md
+      - "Read Through Cache": patterns/read-through-cache.md
+      - "Write Through Cache": patterns/write-through-cache.md
+      - "Write Behind Cache": patterns/write-behind-cache.md
+      - "Tile Caching": patterns/tile-caching.md
+      
+    - "Data Management":
+      - "Sharding": patterns/sharding.md
+      - "Event Sourcing": patterns/event-sourcing.md
+      - "CQRS": patterns/cqrs.md
+      - "Saga": patterns/saga.md
       - "Outbox": patterns/outbox.md
+      - "Two-Phase Commit": patterns/two-phase-commit.md
+      - "Distributed Transactions": patterns/distributed-transactions.md
+      - "Eventual Consistency": patterns/eventual-consistency.md
+      - "Tunable Consistency": patterns/tunable-consistency.md
+      - "CAP Theorem": patterns/cap-theorem.md
+      - "CDC (Change Data Capture)": patterns/cdc.md
+      - "Materialized View": patterns/materialized-view.md
+      - "Polyglot Persistence": patterns/polyglot-persistence.md
+      - "Write-Ahead Log (WAL)": patterns/wal.md
+      
+    - "Distributed Coordination":
+      - "Consensus": patterns/consensus.md
+      - "Leader Election": patterns/leader-election.md
+      - "Leader Follower": patterns/leader-follower.md
+      - "Distributed Lock": patterns/distributed-lock.md
+      - "Choreography": patterns/choreography.md
+      - "Anti-Entropy": patterns/anti-entropy.md
+      - "Gossip Protocol": patterns/gossip-protocol.md
       - "Vector Clocks": patterns/vector-clocks.md
       - "Logical Clocks": patterns/logical-clocks.md
-      - "Gossip Protocol": patterns/gossip-protocol.md
-      - "Anti-Entropy": patterns/anti-entropy.md
-      - "Split Brain": patterns/split-brain.md
-    - "Operational Patterns":
+      - "HLC (Hybrid Logical Clock)": patterns/hlc.md
+      - "Clock Sync": patterns/clock-sync.md
+      - "CAS (Compare and Swap)": patterns/cas.md
+      
+    - "Communication Patterns":
       - "API Gateway": patterns/api-gateway.md
-      - "Auto Scaling": patterns/auto-scaling.md
-      - "Load Balancing": patterns/load-balancing.md
-      - "Load Shedding": patterns/load-shedding.md
-      - "Rate Limiting": patterns/rate-limiting.md
+      - "Service Mesh": patterns/service-mesh.md
       - "Service Discovery": patterns/service-discovery.md
-      - "Observability": patterns/observability.md
-      - "FinOps": patterns/finops.md
-      - "Sidecar": patterns/sidecar.md
+      - "Service Registry": patterns/service-registry.md
+      - "Load Balancing": patterns/load-balancing.md
+      - "Request Routing": patterns/request-routing.md
+      - "Scatter Gather": patterns/scatter-gather.md
+      - "Backends for Frontends": patterns/backends-for-frontends.md
       - "Ambassador": patterns/ambassador.md
-      - "Strangler Fig": patterns/strangler-fig.md
-      - "Valet Key": patterns/valet-key.md
-    - "Advanced Patterns":
+      - "Sidecar": patterns/sidecar.md
+      - "Anti-Corruption Layer": patterns/anti-corruption-layer.md
+      - "GraphQL Federation": patterns/graphql-federation.md
+      - "WebSocket": patterns/websocket.md
+      - "Client Library Design": patterns/client-library-design.md
+      
+    - "Architectural Patterns":
+      - "Event-Driven": patterns/event-driven.md
+      - "Serverless/FaaS": patterns/serverless-faas.md
       - "Actor Model": patterns/actor-model.md
+      - "Shared Nothing": patterns/shared-nothing.md
+      - "Cell-Based Architecture": patterns/cell-based.md
+      - "Strangler Fig": patterns/strangler-fig.md
       - "Lambda Architecture": patterns/lambda-architecture.md
       - "Kappa Architecture": patterns/kappa-architecture.md
-      - "Choreography": patterns/choreography.md
-      - "Scatter-Gather": patterns/scatter-gather.md
-      - "Distributed Queue": patterns/distributed-queue.md
-      - "Distributed Transactions": patterns/distributed-transactions.md
-      - "Anti-Corruption Layer": patterns/anti-corruption-layer.md
-      - "Backends for Frontends": patterns/backends-for-frontends.md
-      - "Cell-Based Architecture": patterns/cell-based.md
-      - "Shared Nothing": patterns/shared-nothing.md
-      - "Leader-Follower": patterns/leader-follower.md
-      - "Failover": patterns/failover.md
-    - "Security Patterns":
-      - "End-to-End Encryption": patterns/e2e-encryption.md
-      - "Key Management": patterns/key-management.md
-    - "Caching Patterns":
-      - "Cache-Aside": patterns/cache-aside.md
-      - "Read-Through Cache": patterns/read-through-cache.md
-      - "Write-Through Cache": patterns/write-through-cache.md
-      - "Write-Behind Cache": patterns/write-behind-cache.md
-    - "Streaming & Data Patterns":
+      - "Edge Computing": patterns/edge-computing.md
       - "Data Lake": patterns/data-lake.md
       - "Data Mesh": patterns/data-mesh.md
+      
+    - "Performance & Scaling":
+      - "Auto-Scaling": patterns/auto-scaling.md
+      - "Adaptive Scheduling": patterns/adaptive-scheduling.md
+      - "Priority Queue": patterns/priority-queue.md
+      - "Distributed Queue": patterns/distributed-queue.md
+      - "Network Optimization": patterns/network-optimization.md
+      - "Battery Optimization": patterns/battery-optimization.md
+      - "Delta Sync": patterns/delta-sync.md
+      - "Chunking": patterns/chunking.md
       - "Analytics at Scale": patterns/analytics-scale.md
-    - "Pattern Analysis Tools":
-      - "Pattern Comparison": patterns/pattern-comparison.md
-      - "Pattern Selector": patterns/pattern-selector.md
-      - "Pattern Combinations": patterns/pattern-combinations.md
-    - "Pattern Quiz": patterns/pattern-quiz.md
+      - "ML Pipeline": patterns/ml-pipeline.md
+      - "Real-Time Processing": patterns/real-time.md
+      - "Event Streaming": patterns/event-streaming.md
+      - "Queues & Streaming": patterns/queues-streaming.md
+      
+    - "Geographic Distribution":
+      - "Multi-Region": patterns/multi-region.md
+      - "Geo-Distribution": patterns/geo-distribution.md
+      - "Geo-Replication": patterns/geo-replication.md
+      - "Geohashing": patterns/geohashing.md
+      - "Geofencing": patterns/geofencing.md
+      - "Location Privacy": patterns/location-privacy.md
+      - "Spatial Indexing": patterns/spatial-indexing.md
+      - "Vector Maps": patterns/vector-maps.md
+      - "Vector Tiles": patterns/vector-tiles.md
+      - "Tile Pyramid": patterns/tile-pyramid.md
+      
+    - "Security Patterns":
+      - "E2E Encryption": patterns/e2e-encryption.md
+      - "Key Management": patterns/key-management.md
+      - "Valet Key": patterns/valet-key.md
+      - "Consent Management": patterns/consent-management.md
+      - "Security for URL Shortener": patterns/security-shortener.md
+      
+    - "Data Structures":
+      - "Bloom Filter": patterns/bloom-filter.md
+      - "Merkle Trees": patterns/merkle-trees.md
+      - "LSM Tree": patterns/lsm-tree.md
+      - "Trie": patterns/trie.md
+      - "CRDT": patterns/crdt.md
+      - "Graph Algorithms": patterns/graph-algorithms.md
+      
+    - "Operations & Monitoring":
+      - "Observability": patterns/observability.md
+      - "Distributed Storage": patterns/distributed-storage.md
+      - "Metadata Service": patterns/metadata-service.md
+      - "FinOps": patterns/finops.md
+      
+    - "Specialized Patterns":
+      - "URL Shortener Patterns":
+        - "ID Generation at Scale": patterns/id-generation-scale.md
+        - "Time Series IDs": patterns/time-series-ids.md
+        - "URL Normalization": patterns/url-normalization.md
+        - "URL Frontier": patterns/url-frontier.md
+      - "Web Crawling Patterns":
+        - "Politeness": patterns/politeness.md
+        - "Crawler Traps": patterns/crawler-traps.md
+        - "JS Crawling": patterns/js-crawling.md
+        - "Content Extraction": patterns/content-extraction.md
+        - "Client Rendering": patterns/client-rendering.md
+      - "Deduplication Patterns":
+        - "Deduplication": patterns/deduplication.md
+        - "Distributed Dedup": patterns/distributed-dedup.md
   
-  - "Part IV: Quantitative Toolkit":
-    - Overview: quantitative/index.md
-    - "Latency & Performance":
+  - "📊 Quantitative Toolkit":
+    - "📊 All Tools": quantitative/index.md
+    - "Essential Quantitative Tools":
       - "Latency Ladder": quantitative/latency-ladder.md
       - "Little's Law": quantitative/littles-law.md
-      - "Queueing Theory": quantitative/queueing-models.md
-      - "Performance Modeling": quantitative/performance-modeling.md
-      - "Network Theory": quantitative/network-theory.md
-    - "Scaling Laws":
-      - "Amdahl & Gustafson Laws": quantitative/amdahl-gustafson.md
-      - "Universal Scalability Law": quantitative/universal-scalability.md
-      - "Power Laws": quantitative/power-laws.md
-    - "Reliability & Consistency":
       - "CAP Theorem": quantitative/cap-theorem.md
       - "Consistency Models": quantitative/consistency-models.md
-      - "Failure Models": quantitative/failure-models.md
-      - "MTBF & MTTR": quantitative/mtbf-mttr.md
-      - "Reliability Engineering": quantitative/reliability-engineering.md
-      - "Blast Radius": quantitative/blast-radius.md
-    - "Economics & Planning":
-      - "Coordination Costs": quantitative/coordination-costs.md
-      - "Cache Economics": quantitative/cache-economics.md
+      - "Universal Scalability Law": quantitative/universal-scalability.md
+      - "Queueing Theory": quantitative/queueing-models.md
       - "Availability Math": quantitative/availability-math.md
       - "Capacity Planning": quantitative/capacity-planning.md
-    - "Advanced Mathematics":
-      - "Markov Chains": quantitative/markov-chains.md
-      - "Bayesian Reasoning": quantitative/bayesian-reasoning.md
-      - "Information Theory": quantitative/information-theory.md
-      - "Graph Models": quantitative/graph-models.md
-      - "Stochastic Processes": quantitative/stochastic-processes.md
-    - "Problem Set": quantitative/problem-set.md
+      - "Problem Set": quantitative/problem-set.md
   
-  - "Part V: Human Factors":
-    - Overview: human-factors/index.md
-    - "Production Excellence":
-      - "Consistency Tuning": human-factors/consistency-tuning.md
+  - "👥 Human Factors":
+    - "👥 All Practices": human-factors/index.md
+    - "Essential Practices":
+      - "SRE Practices": human-factors/sre-practices.md
       - "Chaos Engineering": human-factors/chaos-engineering.md
       - "Observability Stacks": human-factors/observability-stacks.md
-    - "Operational Practices":
-      - "SRE Practices": human-factors/sre-practices.md
-      - "Org-Structure Physics": human-factors/org-structure.md
-      - "Runbooks & Playbooks": human-factors/runbooks-playbooks.md
-    - "Team Organization":
       - "Team Topologies": human-factors/team-topologies.md
-      - "Knowledge Management": human-factors/knowledge-management.md
-      - "On-Call Culture": human-factors/oncall-culture.md
-    - "Incident Management":
       - "Incident Response": human-factors/incident-response.md
       - "Blameless Postmortems": human-factors/blameless-postmortems.md
   
-  - Tools:
-    - Overview: tools/index.md
+  - "🛠️ Tools":
+    - "🛠️ Interactive Tools": tools/index.md
   
-  - Capstone:
+  - "🎯 Capstone":
     - "Project Framework": capstone/framework.md
     - "Evaluation Rubric": capstone/evaluation-rubric.md
   
-  - Case Studies:
-    - Overview: case-studies/index.md
-    - "Core Systems":
+  - "📚 Case Studies":
+    - "📚 All Case Studies": case-studies/index.md
+    - "Essential Case Studies":
       - "Amazon DynamoDB": case-studies/amazon-dynamo.md
-      - "Amazon Aurora": case-studies/amazon-aurora.md
-      - "Google Spanner": case-studies/google-spanner.md
+      - "Chat System": case-studies/chat-system.md
+      - "Consistent Hashing": case-studies/consistent-hashing.md
       - "PayPal Payments": case-studies/paypal-payments.md
       - "Spotify Recommendations": case-studies/spotify-recommendations.md
       - "Uber Location Services": case-studies/uber-location.md
-      - "YouTube": case-studies/youtube.md
-      - "Google Drive": case-studies/google-drive.md
-      - "Google Maps": case-studies/google-maps.md
-      - "Netflix Streaming": case-studies/netflix-streaming.md
-      - "Netflix Chaos Engineering": case-studies/netflix-chaos.md
-    - "Communication Systems":
-      - "Chat System": case-studies/chat-system.md
-      - "Distributed Message Queue": case-studies/distributed-message-queue.md
-      - "Notification System": case-studies/notification-system.md
-      - "News Feed": case-studies/news-feed.md
-    - "Search & Discovery":
-      - "Search Autocomplete": case-studies/search-autocomplete.md
-      - "Web Crawler": case-studies/web-crawler.md
-    - "Location & Proximity":
-      - "Nearby Friends": case-studies/nearby-friends.md
-      - "Proximity Service": case-studies/proximity-service.md
-    - "Storage & Data":
       - "Key-Value Store": case-studies/key-value-store.md
-      - "Object Storage": case-studies/object-storage.md
-      - "Consistent Hashing": case-studies/consistent-hashing.md
-    - "Financial Systems":
       - "Payment System": case-studies/payment-system.md
-      - "Digital Wallet (Enhanced)": case-studies/digital-wallet-enhanced.md
-      - "Hotel Reservation": case-studies/hotel-reservation.md
-      - "Stock Exchange": case-studies/stock-exchange.md
-    - "Observability & Monitoring":
-      - "Metrics & Monitoring": case-studies/metrics-monitoring.md
-      - "Prometheus": case-studies/prometheus.md
-      - "Prometheus & Datadog (Enhanced)": case-studies/prometheus-datadog-enhanced.md
-      - "Rate Limiter": case-studies/rate-limiter.md
-    - "Infrastructure Systems":
-      - "Ad Click Aggregation": case-studies/ad-click-aggregation.md
-      - "Unique ID Generator": case-studies/unique-id-generator.md
       - "URL Shortener": case-studies/url-shortener.md
-      - "Apache Kafka": case-studies/kafka.md
-      - "Redis": case-studies/redis.md
-      - "Memcached": case-studies/memcached.md
-      - "MongoDB": case-studies/mongodb.md
-      - "Cassandra": case-studies/cassandra.md
-      - "ElasticSearch": case-studies/elasticsearch.md
-      - "etcd": case-studies/etcd.md
-      - "ZooKeeper": case-studies/zookeeper.md
-      - "Kubernetes": case-studies/kubernetes.md
-      - "HashiCorp Vault": case-studies/vault.md
-      - "MapReduce": case-studies/mapreduce.md
-      - "Apache Spark": case-studies/apache-spark.md
-    - "Gaming & Entertainment":
+      - "Rate Limiter": case-studies/rate-limiter.md
+      - "Digital Wallet (Enhanced)": case-studies/digital-wallet-enhanced.md
       - "Gaming Leaderboard (Enhanced)": case-studies/gaming-leaderboard-enhanced.md
-    - "Communication Infrastructure":
       - "Distributed Email (Enhanced)": case-studies/distributed-email-enhanced.md
-      - "Twitter Timeline": case-studies/twitter-timeline.md
-    - "Enhanced Storage":
       - "S3 Object Storage (Enhanced)": case-studies/s3-object-storage-enhanced.md
-    - "Blockchain & Security":
-      - "Blockchain": case-studies/blockchain.md
-    - "Deep Dives":
       - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
   
-  - Reference:
-    - Overview: reference/index.md
-    - "Law Mapping Guide": reference/law-mapping-guide.md
-    - Glossary: reference/glossary.md
-    - Cheat Sheets: reference/cheat-sheets.md
-    - Recipe Cards: reference/recipe-cards.md
-    - Security: reference/security.md
+  - "📖 Reference":
+    - "📖 All Resources": reference/index.md
+    - "Essential References":
+      - "Law Mapping Guide": reference/axiom-mapping-guide.md
+      - "Glossary": reference/glossary.md
+      - "Cheat Sheets": reference/cheat-sheets.md
+      - "Recipe Cards": reference/recipe-cards.md
+      - "Security": reference/security.md
   

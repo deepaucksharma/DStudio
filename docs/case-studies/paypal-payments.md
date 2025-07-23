@@ -673,7 +673,7 @@ graph TB
 - **[Incident Response](../human-factors/incident-response.md)** - Payment failures require immediate response procedures
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
 - **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
-- **[Security Considerations](../reference/security-considerations.md)** - PCI compliance and fraud prevention are paramount
+- **[Security Considerations](../reference/security.md)** - PCI compliance and fraud prevention are paramount
 
 ### 🔄 Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar high-availability requirements for financial data

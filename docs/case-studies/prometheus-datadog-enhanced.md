@@ -295,7 +295,7 @@ class ShardedTSDB:
     def _create_series_id(self, metric_id: str, tags: Dict[str, str]) -> str:
         """Create unique series identifier"""
         tag_str = ','.join(f"{k}={v}" for k, v in sorted(tags.items()))
-        return f"{metric_id}{{{tag_str}}}"
+        return f"{metric_id}{'{' + tag_str + '}'}"
 ```
 
 ### 4.2 High-Performance Query Engine

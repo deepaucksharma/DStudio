@@ -20,7 +20,7 @@ Imagine a library before computers:
 - **Phone Lines Down**: Can't call other libraries
 - **Librarian Sick**: Who updates the cards?
 
-**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md) (nodes can fail) and [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) (agreement requires communication).
+**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Law 1: Law of Correlated Failure](../../part1-axioms/axiom1-failure/index.md) (nodes can fail) and [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md) (agreement requires communication).
 
 ### Real-World Analogy: Group Chat Planning
 
@@ -154,7 +154,7 @@ gantt
     - Miners voluntarily took losses
     - Proved that Bitcoin consensus is sociotechnical
 
-**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Law 6: Human-API](../../part1-axioms/axiom6-human-api/index.md) - humans remain the ultimate arbiters.
+**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Law 6: Law of Cognitive Load](../../part1-axioms/axiom6-human-api/index.md) - humans remain the ultimate arbiters.
 
 ### The FLP Impossibility Result
 
@@ -239,9 +239,9 @@ graph TB
         PBFT -.-> Federation
 
         %% Law connections
-        Law1[Law 1: Failure ⛓️] --> BFT
-        Law2[Law 2: Asynchronous Reality ⏳] --> Time
-        Law5[Law 5: Epistemology 🧠] --> Consensus
+        Law1[Law 1: Law of Correlated Failure ⛓️] --> BFT
+        Law2[Law 2: Law of Asynchronous Reality ⏳] --> Time
+        Law5[Law 5: Law of Distributed Knowledge 🧠] --> Consensus
         FLP[FLP Impossibility] --> Consensus
         CAP[CAP Theorem] --> Trust
     end
@@ -258,7 +258,7 @@ This concept map shows how distributed truth branches into consensus mechanisms,
 
 ### Understanding Raft: The Understandable Consensus
 
-Raft achieves consensus by electing a leader that manages replication (addressing [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md)).
+Raft achieves consensus by electing a leader that manages replication (addressing [Law 1: Law of Correlated Failure](../../part1-axioms/axiom1-failure/index.md)).
 
 ```mermaid
 stateDiagram-v2
@@ -338,7 +338,7 @@ sequenceDiagram
 
 ### The Vector Clock Pattern
 
-Vector clocks track causality in distributed systems without synchronized time (implementing [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) ordering guarantees).
+Vector clocks track causality in distributed systems without synchronized time (implementing [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) ordering guarantees).
 
 ### The Vector Clock Pattern
 
@@ -410,7 +410,7 @@ graph LR
 
 ### CRDTs: Conflict-Free Truth
 
-CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) costs by making all operations commutative.
+CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md) costs by making all operations commutative.
 
 ### CRDTs: Conflict-Free Truth
 
@@ -1234,16 +1234,16 @@ graph TB
         end
         
         subgraph "Spanner Nodes"
-            SN1[Node 1<br/>Uncertainty: ±7ms]
-            SN2[Node 2<br/>Uncertainty: ±7ms]
-            SN3[Node 3<br/>Uncertainty: ±7ms]
+            SN1[Node 1<br/>Uncertainty: ±1-4ms]
+            SN2[Node 2<br/>Uncertainty: ±1-4ms]
+            SN3[Node 3<br/>Uncertainty: ±1-4ms]
         end
         
         TM -->|Time sync| SN1 & SN2 & SN3
         
         subgraph "Commit Protocol"
             TS[Assign Timestamp<br/>now().latest]
-            CW[Commit Wait<br/>7ms average]
+            CW[Commit Wait<br/>1-4ms average]
             REL[Release Locks<br/>Guaranteed consistency]
             TS --> CW --> REL
         end
@@ -1277,14 +1277,14 @@ sequenceDiagram
     rect rgb(255, 235, 238)
         Note over S,TT: Commit Phase
         S->>TT: now()
-        TT-->>S: [earliest: T-7ms, latest: T+7ms]
-        S->>S: timestamp = T+7ms
+        TT-->>S: [earliest: T-ε, latest: T+ε] where ε = 1-4ms
+        S->>S: timestamp = T+ε
         S->>R: Prepare(timestamp)
         R-->>S: Prepared
         
         Note over S: Commit Wait
         S->>S: Wait until now().earliest > timestamp
-        Note over S: ~7ms wait ensures timestamp is in past
+        Note over S: ~1-4ms wait ensures timestamp is in past
     end
     
     S->>R: Commit(timestamp)
@@ -1292,14 +1292,14 @@ sequenceDiagram
 ```
 
 **Spanner's Key Insights**:
-1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md))
-2. **Wait out uncertainty** - 7ms average wait for consistency
+1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md))
+2. **Wait out uncertainty** - 1-4ms average wait for consistency (improved from 7ms in 2012)
 3. **Hardware investment** - GPS + atomic clocks per DC
 4. **Global scale** - Serves Google's entire infrastructure
 
 **The Cost of Global Truth**:
-- Hardware: $1M+ per datacenter for time infrastructure
-- Latency: 7-14ms commit wait
+- Hardware: Significant investment in GPS receivers and atomic clocks per datacenter
+- Latency: 1-4ms commit wait (down from 7-14ms in early versions)
 - Complexity: Specialized hardware and operations
 - Benefit: True global consistency at Google scale
 
@@ -1311,7 +1311,7 @@ sequenceDiagram
 3. **Majority vote is simplest consensus**
 
 ### 🌿 Intermediate
-1. **CAP theorem forces truth trade-offs** (explored in depth in [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md))
+1. **CAP theorem forces truth trade-offs** (explored in depth in [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md))
 2. **Higher consistency = Higher cost**
 3. **FLP theorem: Perfect consensus impossible**
 
@@ -1570,11 +1570,11 @@ flowchart TD
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md) - Why consensus protocols need fault tolerance
-- [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - Time uncertainty and event ordering
-- [Law 3: Emergence](../../part1-axioms/axiom3-emergence/index.md) - Unpredictable consensus behaviors
-- [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) - The cost of achieving consensus
-- [Law 6: Human-API](../../part1-axioms/axiom6-human-api/index.md) - Human intervention in consensus failures
+- [Law 1: Law of Correlated Failure](../../part1-axioms/axiom1-failure/index.md) - Why consensus protocols need fault tolerance
+- [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - Time uncertainty and event ordering
+- [Law 3: Law of Emergent Chaos](../../part1-axioms/axiom3-emergence/index.md) - Unpredictable consensus behaviors
+- [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md) - The cost of achieving consensus
+- [Law 6: Law of Cognitive Load](../../part1-axioms/axiom6-human-api/index.md) - Human intervention in consensus failures
 
 ### Related Pillars
 - [Pillar 1: Work](../work/index.md) - Coordinating distributed computation

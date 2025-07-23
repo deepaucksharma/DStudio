@@ -16,7 +16,7 @@
         <link rel="prev" href="../retry-backoff/">
       
       
-        <link rel="next" href="../backpressure/">
+        <link rel="next" href="../timeout/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -54,7 +54,7 @@
     
       <link rel="stylesheet" href="../../stylesheets/modular.css">
     
-      <link rel="stylesheet" href="../../stylesheets/laws.css">
+      <link rel="stylesheet" href="../../stylesheets/axioms.css">
     
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
@@ -268,35 +268,13 @@
     
     
       <li class="md-tabs__item">
-        <a href="../../laws/index.md" class="md-tabs__link">
+        <a href="../../axioms/" class="md-tabs__link">
           
   
   
     
   
   Foundations
-
-        </a>
-      </li>
-    
-  
-
-      
-        
-  
-  
-  
-  
-    
-    
-      <li class="md-tabs__item">
-        <a href="../" class="md-tabs__link">
-          
-  
-  
-    
-  
-  Patterns & Solutions
 
         </a>
       </li>
@@ -320,7 +298,7 @@
   
     
   
-  Part III: Patterns
+  Patterns & Solutions
 
         </a>
       </li>
@@ -641,9 +619,9 @@
     
       
         
-      
-        
           
+        
+      
         
       
         
@@ -669,7 +647,7 @@
         
           
           <div class="md-nav__link md-nav__container">
-            <a href="../../pillars/" class="md-nav__link ">
+            <a href="../../axioms/" class="md-nav__link ">
               
   
   
@@ -703,28 +681,35 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
+            
+              
                 
   
   
   
   
     <li class="md-nav__item">
-      <a href="../../laws/index.md" class="md-nav__link">
+      <a href="../../pillars/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    The 7 Laws
+    The 5 Pillars
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
     </li>
   
 
-              
-            
               
             
               
@@ -736,6 +721,8 @@
     
     
       
+        
+          
         
       
         
@@ -774,8 +761,9 @@
         <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2_3" >
         
           
-          <label class="md-nav__link" for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
-            
+          <div class="md-nav__link md-nav__container">
+            <a href="../../part1-axioms/" class="md-nav__link ">
+              
   
   
   <span class="md-ellipsis">
@@ -783,9 +771,22 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
 
-            <span class="md-nav__icon md-icon"></span>
-          </label>
+  
+
+            </a>
+            
+              
+              <label class="md-nav__link " for="__nav_2_3" id="__nav_2_3_label" tabindex="0">
+                <span class="md-nav__icon md-icon"></span>
+              </label>
+            
+          </div>
         
         <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_2_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_2_3">
@@ -795,27 +796,6 @@
           <ul class="md-nav__list" data-md-scrollfix>
             
               
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../../part1-laws/index.md" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Overview
-    
-  </span>
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -824,7 +804,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law1-failure/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom1-failure/" class="md-nav__link">
         
   
   
@@ -833,6 +813,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -847,7 +834,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law2-asynchrony/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom2-asynchrony/" class="md-nav__link">
         
   
   
@@ -856,6 +843,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -870,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law3-emergence/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom3-emergence/" class="md-nav__link">
         
   
   
@@ -879,6 +873,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -893,7 +894,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law4-tradeoffs/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom4-tradeoffs/" class="md-nav__link">
         
   
   
@@ -902,6 +903,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -916,7 +924,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law5-epistemology/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom5-epistemology/" class="md-nav__link">
         
   
   
@@ -925,6 +933,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -939,7 +954,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law6-human-api/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom6-human-api/" class="md-nav__link">
         
   
   
@@ -948,6 +963,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -962,7 +984,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/law7-economics/index.md" class="md-nav__link">
+      <a href="../../part1-axioms/axiom7-economics/" class="md-nav__link">
         
   
   
@@ -971,6 +993,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -985,7 +1014,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/synthesis.md" class="md-nav__link">
+      <a href="../../part1-axioms/synthesis/" class="md-nav__link">
         
   
   
@@ -994,6 +1023,13 @@
     
   </span>
   
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
 
       </a>
     </li>
@@ -1008,7 +1044,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../part1-laws/quiz.md" class="md-nav__link">
+      <a href="../../part1-axioms/quiz/" class="md-nav__link">
         
   
   
@@ -1016,6 +1052,13 @@
     Quiz
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>
@@ -1406,6 +1449,8 @@
       
   
   
+    
+  
   
   
     
@@ -1421,22 +1466,25 @@
       
         
       
+        
+      
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
         
           
           <div class="md-nav__link md-nav__container">
@@ -1460,13 +1508,13 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_3" id="__nav_3_label" tabindex="">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Patterns & Solutions
@@ -1539,10 +1587,22 @@
                 
   
   
+    
   
   
+  
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -1559,20 +1619,21 @@
     
       
       
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
         
           
+          
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4" >
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4" checked>
         
           
-          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_3_4" id="__nav_3_4_label" tabindex="">
             
   
   
@@ -1585,7 +1646,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4">
             <span class="md-nav__icon md-icon"></span>
             By Problem Domain
@@ -1596,8 +1657,10 @@
                 
   
   
+    
   
   
+  
     
     
       
@@ -1613,6 +1676,16 @@
       
         
       
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
     
     
     
@@ -1622,13 +1695,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--nested">
       
         
         
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_1" >
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3_4_1" checked>
         
           
           <label class="md-nav__link" for="__nav_3_4_1" id="__nav_3_4_1_label" tabindex="0">
@@ -1644,7 +1715,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_1_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_1_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_3_4_1">
             <span class="md-nav__icon md-icon"></span>
             Reliability Patterns
@@ -2303,6 +2374,156 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../circuit-breaker-enhanced/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Circuit Breaker Enhanced
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../backpressure/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Backpressure
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../rate-limiting/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Rate Limiting
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../load-shedding/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Load Shedding
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../failover/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Failover
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2319,6 +2540,8 @@
   
     
     
+      
+        
       
         
       
@@ -2518,6 +2741,36 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../api-gateway/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    API Gateway
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2534,6 +2787,26 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -2733,6 +3006,292 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../cdc/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CDC (Change Data Capture)
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../tunable-consistency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Tunable Consistency
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../crdt/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    CRDT
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../eventual-consistency/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Eventual Consistency
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../polyglot-persistence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Polyglot Persistence
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../materialized-view/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Materialized View
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../distributed-storage/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Distributed Storage
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../metadata-service/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Metadata Service
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geo-replication/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Geo-Replication
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../multi-region/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Multi-Region
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2749,6 +3308,20 @@
   
     
     
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
       
         
       
@@ -2916,2004 +3489,6 @@
 
               
             
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
-            
-  
-  
-  <span class="md-ellipsis">
-    Modern Architectures
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_3_4_5">
-            <span class="md-nav__icon md-icon"></span>
-            Modern Architectures
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../service-mesh/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Service Mesh
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../serverless-faas/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Serverless/FaaS
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../graphql-federation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    GraphQL Federation
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../event-driven/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Event-Driven
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-    
-      
-      
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-          
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-        
-        
-      
-      
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
-        
-          
-          <div class="md-nav__link md-nav__container">
-            <a href="../" class="md-nav__link ">
-              
-  
-  
-  <span class="md-ellipsis">
-    Part III: Patterns
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-            </a>
-            
-              
-              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="">
-                <span class="md-nav__icon md-icon"></span>
-              </label>
-            
-          </div>
-        
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4">
-            <span class="md-nav__icon md-icon"></span>
-            Part III: Patterns
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
-        
-          
-          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    Core Patterns
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_2">
-            <span class="md-nav__icon md-icon"></span>
-            Core Patterns
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../queues-streaming/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Queues & Streaming
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cqrs/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    CQRS
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../event-driven/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Event-Driven
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../event-sourcing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Event Sourcing
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../saga/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Saga
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../service-mesh/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Service Mesh
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../graphql-federation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    GraphQL Federation
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../serverless-faas/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Serverless/FaaS
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
-      
-        
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4_3" checked>
-        
-          
-          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    Resilience Patterns
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="true">
-          <label class="md-nav__title" for="__nav_4_3">
-            <span class="md-nav__icon md-icon"></span>
-            Resilience Patterns
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../circuit-breaker/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Circuit Breaker
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../circuit-breaker-enhanced/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Circuit Breaker Enhanced
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../retry-backoff/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Retry & Backoff
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-    
-  
-  
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  
-  <span class="md-ellipsis">
-    Bulkhead
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
-        
-  
-  
-  <span class="md-ellipsis">
-    Bulkhead
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#level-1-intuition" class="md-nav__link">
-    <span class="md-ellipsis">
-      🎯 Level 1: Intuition
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#core-concept" class="md-nav__link">
-    <span class="md-ellipsis">
-      Core Concept
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#simple-example" class="md-nav__link">
-    <span class="md-ellipsis">
-      Simple Example
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#level-2-foundation" class="md-nav__link">
-    <span class="md-ellipsis">
-      🏗️ Level 2: Foundation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bulkhead-strategies" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bulkhead Strategies
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#isolation-examples" class="md-nav__link">
-    <span class="md-ellipsis">
-      Isolation Examples
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bulkhead-sizing-formula" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bulkhead Sizing Formula
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bulkhead-architecture-pattern" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bulkhead Architecture Pattern
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bulkhead-decision-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bulkhead Decision Flow
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#bulkhead-state-machine" class="md-nav__link">
-    <span class="md-ellipsis">
-      Bulkhead State Machine
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#production-ready-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Production-Ready Implementation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#level-3-deep-dive" class="md-nav__link">
-    <span class="md-ellipsis">
-      🔧 Level 3: Deep Dive
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#advanced-bulkhead-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Bulkhead Patterns
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Advanced Bulkhead Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#adaptive-bulkhead-sizing" class="md-nav__link">
-    <span class="md-ellipsis">
-      Adaptive Bulkhead Sizing
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#multi-level-bulkheads" class="md-nav__link">
-    <span class="md-ellipsis">
-      Multi-Level Bulkheads
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#real-world-implementation-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Implementation Patterns
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Real-World Implementation Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#netflixs-hystrix-bulkheads" class="md-nav__link">
-    <span class="md-ellipsis">
-      Netflix's Hystrix Bulkheads
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#level-4-expert" class="md-nav__link">
-    <span class="md-ellipsis">
-      🚀 Level 4: Expert
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#real-world-case-study-amazons-cell-based-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      Real-World Case Study: Amazon's Cell-Based Architecture
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Real-World Case Study: Amazon&#39;s Cell-Based Architecture">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#the-challenge-2015" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Challenge (2015)
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#the-solution-cellular-architecture" class="md-nav__link">
-    <span class="md-ellipsis">
-      The Solution: Cellular Architecture
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#implementation-results" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Results
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#case-study-spotifys-squad-isolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Case Study: Spotify's Squad Isolation
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#production-monitoring-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      Production Monitoring Dashboard
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#enterprise-implementation-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Enterprise Implementation Patterns
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Enterprise Implementation Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#microsoft-azures-deployment-stamps" class="md-nav__link">
-    <span class="md-ellipsis">
-      Microsoft Azure's Deployment Stamps
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#level-5-mastery" class="md-nav__link">
-    <span class="md-ellipsis">
-      🎯 Level 5: Mastery
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#theoretical-foundations-of-isolation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Theoretical Foundations of Isolation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Theoretical Foundations of Isolation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#queueing-theory-applied-to-bulkheads" class="md-nav__link">
-    <span class="md-ellipsis">
-      Queueing Theory Applied to Bulkheads
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#quick-reference" class="md-nav__link">
-    <span class="md-ellipsis">
-      📋 Quick Reference
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#decision-matrix-choosing-bulkhead-strategy" class="md-nav__link">
-    <span class="md-ellipsis">
-      Decision Matrix: Choosing Bulkhead Strategy
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#configuration-cheat-sheet" class="md-nav__link">
-    <span class="md-ellipsis">
-      Configuration Cheat Sheet
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#common-bulkhead-sizes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Common Bulkhead Sizes
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#implementation-checklist" class="md-nav__link">
-    <span class="md-ellipsis">
-      Implementation Checklist
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Implementation Checklist">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#basic-bulkhead" class="md-nav__link">
-    <span class="md-ellipsis">
-      Basic Bulkhead
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#production-ready" class="md-nav__link">
-    <span class="md-ellipsis">
-      Production-Ready
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#advanced-implementation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Advanced Implementation
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#key-takeaways-by-level" class="md-nav__link">
-    <span class="md-ellipsis">
-      Key Takeaways by Level
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#economic-impact-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Economic Impact Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#best-practices-summary" class="md-nav__link">
-    <span class="md-ellipsis">
-      Best Practices Summary
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#related-patterns" class="md-nav__link">
-    <span class="md-ellipsis">
-      Related Patterns
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#references" class="md-nav__link">
-    <span class="md-ellipsis">
-      References
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../backpressure/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Backpressure
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../edge-computing/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Edge Computing
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../graceful-degradation/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Graceful Degradation
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../health-check/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Health Check
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../timeout/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Timeout
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    Data Patterns
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_4">
-            <span class="md-nav__icon md-icon"></span>
-            Data Patterns
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../cdc/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    CDC (Change Data Capture)
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../tunable-consistency/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Tunable Consistency
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sharding/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Sharding
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../caching-strategies/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Caching Strategies
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../geo-replication/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Geo-Replication
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../multi-region/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Multi-Region
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../two-phase-commit/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Two-Phase Commit
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../crdt/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    CRDT
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../eventual-consistency/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Eventual Consistency
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../polyglot-persistence/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Polyglot Persistence
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../materialized-view/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Materialized View
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    
-    
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-    
-    
-    
-      
-      
-        
-          
-          
-        
-      
-    
-    
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
-      
-        
-        
-          
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="">
-            
-  
-  
-  <span class="md-ellipsis">
-    Coordination Patterns
-    
-  </span>
-  
-
-            <span class="md-nav__icon md-icon"></span>
-          </label>
-        
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_5">
-            <span class="md-nav__icon md-icon"></span>
-            Coordination Patterns
-          </label>
-          <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../leader-election/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Leader Election
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../consensus/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Consensus
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../distributed-lock/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Distributed Lock
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
               
                 
   
@@ -4927,36 +3502,6 @@
   
   <span class="md-ellipsis">
     Idempotent Receiver
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../outbox/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Outbox
     
   </span>
   
@@ -5124,6 +3669,36 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../leader-follower/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Leader-Follower
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -5151,47 +3726,30 @@
       
         
       
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
     
     
     
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4_5" id="__nav_3_4_5_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Operational Patterns
+    Modern Architectures
     
   </span>
   
@@ -5199,10 +3757,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_6">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_5">
             <span class="md-nav__icon md-icon"></span>
-            Operational Patterns
+            Modern Architectures
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5213,12 +3771,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../api-gateway/" class="md-nav__link">
+      <a href="../service-mesh/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    API Gateway
+    Service Mesh
     
   </span>
   
@@ -5243,12 +3801,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../auto-scaling/" class="md-nav__link">
+      <a href="../serverless-faas/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Auto-Scaling
+    Serverless/FaaS
     
   </span>
   
@@ -5273,12 +3831,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../load-balancing/" class="md-nav__link">
+      <a href="../graphql-federation/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Load Balancing
+    GraphQL Federation
     
   </span>
   
@@ -5303,12 +3861,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../load-shedding/" class="md-nav__link">
+      <a href="../event-driven/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Load Shedding
+    Event-Driven
     
   </span>
   
@@ -5333,12 +3891,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../rate-limiting/" class="md-nav__link">
+      <a href="../queues-streaming/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Rate Limiting
+    Queues & Streaming
     
   </span>
   
@@ -5346,216 +3904,6 @@
   
   
     <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../service-discovery/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Service Discovery
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../observability/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Observability
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../finops/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    FinOps
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../sidecar/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Sidecar
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../ambassador/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Ambassador
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../strangler-fig/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Strangler Fig
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../valet-key/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Valet Key
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--stub"></span>
   
 
   
@@ -5609,33 +3957,34 @@
       
         
       
+        
+      
+        
+      
     
     
     
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_7" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_6" >
         
           
-          <label class="md-nav__link" for="__nav_4_7" id="__nav_4_7_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4_6" id="__nav_3_4_6_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Advanced Patterns
+    Advanced Architectures
     
   </span>
   
@@ -5643,10 +3992,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_7">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_6">
             <span class="md-nav__icon md-icon"></span>
-            Advanced Patterns
+            Advanced Architectures
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -5987,12 +4336,12 @@
   
   
     <li class="md-nav__item">
-      <a href="../leader-follower/" class="md-nav__link">
+      <a href="../sidecar/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Leader-Follower
+    Sidecar
     
   </span>
   
@@ -6017,12 +4366,72 @@
   
   
     <li class="md-nav__item">
-      <a href="../failover/" class="md-nav__link">
+      <a href="../ambassador/" class="md-nav__link">
         
   
   
   <span class="md-ellipsis">
-    Failover
+    Ambassador
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../strangler-fig/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Strangler Fig
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--stub"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../valet-key/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Valet Key
     
   </span>
   
@@ -6071,22 +4480,19 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_8" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_7" >
         
           
-          <label class="md-nav__link" for="__nav_4_8" id="__nav_4_8_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4_7" id="__nav_3_4_7_label" tabindex="0">
             
   
   
@@ -6099,8 +4505,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_8">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_7">
             <span class="md-nav__icon md-icon"></span>
             Caching Patterns
           </label>
@@ -6255,27 +4661,24 @@
       
       
         
-          
-          
-        
       
     
     
-    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_9" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_8" >
         
           
-          <label class="md-nav__link" for="__nav_4_9" id="__nav_4_9_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_4_8" id="__nav_3_4_8_label" tabindex="0">
             
   
   
   <span class="md-ellipsis">
-    Streaming & Data Patterns
+    Data & Analytics
     
   </span>
   
@@ -6283,10 +4686,10 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_9">
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_8">
             <span class="md-nav__icon md-icon"></span>
-            Streaming & Data Patterns
+            Data & Analytics
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
             
@@ -6401,6 +4804,236 @@
       
         
       
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_9" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_9" id="__nav_3_4_9_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Security Patterns
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_9">
+            <span class="md-nav__icon md-icon"></span>
+            Security Patterns
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../e2e-encryption/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    End-to-End Encryption
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../key-management/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Key Management
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
+        
+      
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_4_10" >
+        
+          
+          <label class="md-nav__link" for="__nav_3_4_10" id="__nav_3_4_10_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    Operational Excellence
+    
+  </span>
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="3" aria-labelledby="__nav_3_4_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_4_10">
+            <span class="md-nav__icon md-icon"></span>
+            Operational Excellence
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../observability/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Observability
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../finops/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    FinOps
+    
+  </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    
+    
+      
+        
+      
         
       
     
@@ -6421,15 +5054,15 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_10" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3_5" >
         
           
-          <label class="md-nav__link" for="__nav_4_10" id="__nav_4_10_label" tabindex="">
+          <label class="md-nav__link" for="__nav_3_5" id="__nav_3_5_label" tabindex="">
             
   
   
   <span class="md-ellipsis">
-    Pattern Analysis Tools
+    Pattern Tools
     
   </span>
   
@@ -6437,72 +5070,12 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_4_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_3_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3_5">
             <span class="md-nav__icon md-icon"></span>
-            Pattern Analysis Tools
+            Pattern Tools
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../pattern-comparison/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Compare Patterns
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../pattern-selector/" class="md-nav__link">
-        
-  
-  
-  <span class="md-ellipsis">
-    Find Your Pattern
-    
-  </span>
-  
-    
-  
-  
-    <span class="md-status md-status--complete"></span>
-  
-
-  
-
-      </a>
-    </li>
-  
-
-              
             
               
                 
@@ -6529,14 +5102,6 @@
   
 
       </a>
-    </li>
-  
-
-              
-            
-          </ul>
-        </nav>
-      
     </li>
   
 
@@ -6578,6 +5143,14 @@
     </li>
   
 
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
     
       
       
@@ -6619,7 +5192,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -6643,14 +5216,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_4" id="__nav_4_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Part IV: Quantitative Toolkit
           </label>
@@ -6692,10 +5265,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_2" >
         
           
-          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_2" id="__nav_4_2_label" tabindex="0">
             
   
   
@@ -6708,8 +5281,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_2">
             <span class="md-nav__icon md-icon"></span>
             Latency & Performance
           </label>
@@ -6903,10 +5476,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_3" >
         
           
-          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_3" id="__nav_4_3_label" tabindex="0">
             
   
   
@@ -6919,8 +5492,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_3">
             <span class="md-nav__icon md-icon"></span>
             Scaling Laws
           </label>
@@ -7060,10 +5633,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_4" >
         
           
-          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_4" id="__nav_4_4_label" tabindex="0">
             
   
   
@@ -7076,8 +5649,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_4">
             <span class="md-nav__icon md-icon"></span>
             Reliability & Consistency
           </label>
@@ -7303,10 +5876,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_5" >
         
           
-          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_5" id="__nav_4_5_label" tabindex="0">
             
   
   
@@ -7319,8 +5892,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_5">
             <span class="md-nav__icon md-icon"></span>
             Economics & Planning
           </label>
@@ -7488,10 +6061,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4_6" >
         
           
-          <label class="md-nav__link" for="__nav_5_6" id="__nav_5_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4_6" id="__nav_4_6_label" tabindex="0">
             
   
   
@@ -7504,8 +6077,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_5_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_4_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4_6">
             <span class="md-nav__icon md-icon"></span>
             Advanced Mathematics
           </label>
@@ -7742,7 +6315,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -7766,14 +6339,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_6" id="__nav_6_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_5" id="__nav_5_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Part V: Human Factors
           </label>
@@ -7811,10 +6384,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_2" >
         
           
-          <label class="md-nav__link" for="__nav_6_2" id="__nav_6_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_2" id="__nav_5_2_label" tabindex="0">
             
   
   
@@ -7827,8 +6400,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_2">
             <span class="md-nav__icon md-icon"></span>
             Production Excellence
           </label>
@@ -7955,10 +6528,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_3" >
         
           
-          <label class="md-nav__link" for="__nav_6_3" id="__nav_6_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_3" id="__nav_5_3_label" tabindex="0">
             
   
   
@@ -7971,8 +6544,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_3">
             <span class="md-nav__icon md-icon"></span>
             Operational Practices
           </label>
@@ -8106,10 +6679,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_4" >
         
           
-          <label class="md-nav__link" for="__nav_6_4" id="__nav_6_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_4" id="__nav_5_4_label" tabindex="0">
             
   
   
@@ -8122,8 +6695,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_4">
             <span class="md-nav__icon md-icon"></span>
             Team Organization
           </label>
@@ -8255,10 +6828,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5_5" >
         
           
-          <label class="md-nav__link" for="__nav_6_5" id="__nav_6_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5_5" id="__nav_5_5_label" tabindex="0">
             
   
   
@@ -8271,8 +6844,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_6_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_6_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_5_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_5_5">
             <span class="md-nav__icon md-icon"></span>
             Incident Management
           </label>
@@ -8381,7 +6954,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -8406,8 +6979,8 @@
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_7">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
             <span class="md-nav__icon md-icon"></span>
             Tools
           </label>
@@ -8450,10 +7023,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
         
           
-          <label class="md-nav__link" for="__nav_8" id="__nav_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   
@@ -8466,8 +7039,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_8">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Capstone
           </label>
@@ -8594,7 +7167,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -8618,14 +7191,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_8" id="__nav_8_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8">
             <span class="md-nav__icon md-icon"></span>
             Case Studies
           </label>
@@ -8679,10 +7252,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_2" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_2" >
         
           
-          <label class="md-nav__link" for="__nav_9_2" id="__nav_9_2_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_2" id="__nav_8_2_label" tabindex="0">
             
   
   
@@ -8695,8 +7268,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_2_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_2">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_2">
             <span class="md-nav__icon md-icon"></span>
             Core Systems
           </label>
@@ -9072,10 +7645,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_3" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_3" >
         
           
-          <label class="md-nav__link" for="__nav_9_3" id="__nav_9_3_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_3" id="__nav_8_3_label" tabindex="0">
             
   
   
@@ -9088,8 +7661,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_3_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_3">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_3">
             <span class="md-nav__icon md-icon"></span>
             Communication Systems
           </label>
@@ -9244,10 +7817,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_4" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_4" >
         
           
-          <label class="md-nav__link" for="__nav_9_4" id="__nav_9_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_4" id="__nav_8_4_label" tabindex="0">
             
   
   
@@ -9260,8 +7833,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_4_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_4">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_4">
             <span class="md-nav__icon md-icon"></span>
             Search & Discovery
           </label>
@@ -9363,10 +7936,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_5" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_5" >
         
           
-          <label class="md-nav__link" for="__nav_9_5" id="__nav_9_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_5" id="__nav_8_5_label" tabindex="0">
             
   
   
@@ -9379,8 +7952,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_5_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_5">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_5_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_5">
             <span class="md-nav__icon md-icon"></span>
             Location & Proximity
           </label>
@@ -9484,10 +8057,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_6" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_6" >
         
           
-          <label class="md-nav__link" for="__nav_9_6" id="__nav_9_6_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_6" id="__nav_8_6_label" tabindex="0">
             
   
   
@@ -9500,8 +8073,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_6_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_6">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_6">
             <span class="md-nav__icon md-icon"></span>
             Storage & Data
           </label>
@@ -9637,10 +8210,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_7" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_7" >
         
           
-          <label class="md-nav__link" for="__nav_9_7" id="__nav_9_7_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_7" id="__nav_8_7_label" tabindex="0">
             
   
   
@@ -9653,8 +8226,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_7_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_7">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_7">
             <span class="md-nav__icon md-icon"></span>
             Financial Systems
           </label>
@@ -9813,10 +8386,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_8" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_8" >
         
           
-          <label class="md-nav__link" for="__nav_9_8" id="__nav_9_8_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_8" id="__nav_8_8_label" tabindex="0">
             
   
   
@@ -9829,8 +8402,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_8_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_8">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_8_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_8">
             <span class="md-nav__icon md-icon"></span>
             Observability & Monitoring
           </label>
@@ -10011,10 +8584,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_9" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_9" >
         
           
-          <label class="md-nav__link" for="__nav_9_9" id="__nav_9_9_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_9" id="__nav_8_9_label" tabindex="0">
             
   
   
@@ -10027,8 +8600,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_9_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_9">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_9">
             <span class="md-nav__icon md-icon"></span>
             Infrastructure Systems
           </label>
@@ -10518,10 +9091,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_10" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_10" >
         
           
-          <label class="md-nav__link" for="__nav_9_10" id="__nav_9_10_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_10" id="__nav_8_10_label" tabindex="0">
             
   
   
@@ -10534,8 +9107,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_10">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_10_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_10">
             <span class="md-nav__icon md-icon"></span>
             Gaming & Entertainment
           </label>
@@ -10600,10 +9173,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_11" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_11" >
         
           
-          <label class="md-nav__link" for="__nav_9_11" id="__nav_9_11_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_11" id="__nav_8_11_label" tabindex="0">
             
   
   
@@ -10616,8 +9189,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_11_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_11">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_11_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_11">
             <span class="md-nav__icon md-icon"></span>
             Communication Infrastructure
           </label>
@@ -10710,10 +9283,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_12" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_12" >
         
           
-          <label class="md-nav__link" for="__nav_9_12" id="__nav_9_12_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_12" id="__nav_8_12_label" tabindex="0">
             
   
   
@@ -10726,8 +9299,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_12_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_12">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_12_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_12">
             <span class="md-nav__icon md-icon"></span>
             Enhanced Storage
           </label>
@@ -10790,10 +9363,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_13" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_13" >
         
           
-          <label class="md-nav__link" for="__nav_9_13" id="__nav_9_13_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_13" id="__nav_8_13_label" tabindex="0">
             
   
   
@@ -10806,8 +9379,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_13_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_13">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_13_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_13">
             <span class="md-nav__icon md-icon"></span>
             Blockchain & Security
           </label>
@@ -10877,10 +9450,10 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9_14" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_8_14" >
         
           
-          <label class="md-nav__link" for="__nav_9_14" id="__nav_9_14_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_8_14" id="__nav_8_14_label" tabindex="0">
             
   
   
@@ -10893,8 +9466,8 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_9_14_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_9_14">
+        <nav class="md-nav" data-md-level="2" aria-labelledby="__nav_8_14_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_8_14">
             <span class="md-nav__icon md-icon"></span>
             Deep Dives
           </label>
@@ -10976,7 +9549,7 @@
         
           
         
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_10" >
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_9" >
         
           
           <div class="md-nav__link md-nav__container">
@@ -11000,14 +9573,14 @@
             </a>
             
               
-              <label class="md-nav__link " for="__nav_10" id="__nav_10_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_9" id="__nav_9_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
           </div>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_10_label" aria-expanded="false">
-          <label class="md-nav__title" for="__nav_10">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_9_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_9">
             <span class="md-nav__icon md-icon"></span>
             Reference
           </label>
@@ -11022,7 +9595,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../reference/law-mapping-guide.md" class="md-nav__link">
+      <a href="../../reference/axiom-mapping-guide/" class="md-nav__link">
         
   
   
@@ -11030,6 +9603,13 @@
     Law Mapping Guide
     
   </span>
+  
+    
+  
+  
+    <span class="md-status md-status--complete"></span>
+  
+
   
 
       </a>

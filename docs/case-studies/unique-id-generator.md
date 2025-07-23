@@ -1326,8 +1326,8 @@ Database:
 
 **Related Case Studies:**
 - [URL Shortener](./url-shortener.md) - Uses ID generation for short codes
-- [Distributed Tracing](./distributed-tracing.md) - Trace ID generation requirements
-- [Event Sourcing](./event-sourcing.md) - Event ID generation patterns
+<!-- TODO: Add distributed tracing case study -->
+- [Event Sourcing](../patterns/event-sourcing.md) - Event ID generation patterns
 
 **Implementation Patterns:**
 - [Client Library Design](../patterns/client-library-design.md) - SDK best practices

@@ -24,7 +24,7 @@ This case study would cover the design and implementation of distributed social 
 
 ## Related Case Studies
 - [Chat System](./chat-system.md) - Real-time messaging infrastructure
-- [News Feed](./news-feed.md) - Content distribution in social networks
+<!-- TODO: Add news feed case study -->
 - [Nearby Friends](./nearby-friends.md) - Location-based social features
 
 ## External Resources

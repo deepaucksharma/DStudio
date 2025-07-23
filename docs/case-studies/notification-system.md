@@ -2442,10 +2442,10 @@ Analytics Service    8 cores  32GB      10TB
 - **[Rate Limiting](../patterns/rate-limiting.md)** - Preventing notification storms
 
 #### Related Case Studies
-- **[Real-time Messaging](./real-time-messaging.md)** - Similar delivery challenges
+- **[Chat System](./chat-system.md)** - Real-time messaging patterns
 - **[Search Autocomplete](./search-autocomplete.md)** - Low-latency requirements
-- **[Recommendation Engine](./recommendation-engine.md)** - Personalization techniques
-- **[Workflow Engine](./workflow-engine.md)** - Complex orchestration patterns
+- **[Spotify Recommendations](./spotify-recommendations.md)** - Personalization at scale
+<!-- TODO: Add workflow engine case study -->
 
 #### Implementation Patterns
 - **Template Management** - Version control for notification content

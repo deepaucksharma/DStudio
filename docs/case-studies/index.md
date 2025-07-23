@@ -158,3 +158,172 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 ---
 
 *"The best architects learn from others' production experiences. These case studies represent decades of collective wisdom."*
+
+---
+
+## 📚 Complete Case Study Library
+
+### Browse All 59 Case Studies
+
+Below is the complete catalog of all case studies in our library, organized by category and domain.
+
+#### 🏢 Major Technology Companies
+
+**Amazon & AWS:**
+- **[Amazon DynamoDB](amazon-dynamo.md)** ⭐ - Eventually consistent key-value store achieving 99.999% availability
+- **[Amazon Aurora](amazon-aurora.md)** - Cloud-native relational database with multi-master replication
+- **[S3 Object Storage (Enhanced)](s3-object-storage-enhanced.md)** - Scalable object storage design patterns
+
+**Google:**
+- **[Google Drive](google-drive.md)** - Distributed file storage and synchronization
+- **[Google Maps](google-maps.md)** - Real-time mapping at planetary scale
+- **[Google Spanner](google-spanner.md)** - Globally distributed, strongly consistent database
+- **[YouTube](youtube.md)** - Video streaming infrastructure serving billions
+
+**Netflix:**
+- **[Netflix Streaming](netflix-streaming.md)** - Adaptive streaming and CDN architecture
+- **[Netflix Chaos Engineering](netflix-chaos.md)** - Resilience through controlled failure
+
+**Other Tech Giants:**
+- **[Apple Maps](apple-maps.md)** - Privacy-focused mapping infrastructure
+- **[PayPal Payments](paypal-payments.md)** ⭐ - Distributed payment processing at $1.36T/year scale
+- **[Spotify Recommendations](spotify-recommendations.md)** ⭐ - ML-powered personalization serving 5B recommendations/day
+- **[Twitter Timeline](twitter-timeline.md)** - Real-time timeline generation at scale
+- **[Uber Location Services](uber-location.md)** ⭐ - Real-time location tracking for 40M concurrent users
+
+#### 💬 Communication & Messaging Systems
+
+- **[Chat System](chat-system.md)** ⭐ - Real-time messaging architecture with 2,320 lines of comprehensive design
+- **[Consistency Deep Dive Chat](consistency-deep-dive-chat.md)** ⭐ - Advanced consistency patterns in chat applications
+- **[Distributed Email (Enhanced)](distributed-email-enhanced.md)** ⭐ - Modern email architecture patterns
+- **[Distributed Message Queue](distributed-message-queue.md)** - Scalable message queuing design
+- **[News Feed](news-feed.md)** - Social media feed generation
+- **[Notification System](notification-system.md)** - Multi-channel notification delivery
+- **[Social Media Feed](social-media-feed.md)** - Feed ranking and distribution
+
+#### 🗄️ Storage & Database Systems
+
+**Core Distributed Systems:**
+- **[Apache Kafka](kafka.md)** - Distributed streaming platform
+- **[Apache Spark](apache-spark.md)** - Unified analytics engine
+- **[Cassandra](cassandra.md)** - Wide column store database
+- **[Consistent Hashing](consistent-hashing.md)** ⭐ - Fundamental distributed systems technique
+- **[ElasticSearch](elasticsearch.md)** - Distributed search and analytics
+- **[etcd](etcd.md)** - Distributed key-value store
+- **[Key-Value Store](key-value-store.md)** ⭐ - Building blocks of distributed storage
+- **[MapReduce](mapreduce.md)** - Large-scale data processing
+- **[Memcached](memcached.md)** - High-performance caching
+- **[MongoDB](mongodb.md)** - Document-oriented database
+- **[Object Storage](object-storage.md)** - Scalable unstructured data storage
+- **[Redis](redis.md)** - In-memory data structure store
+- **[Redis Architecture](redis-architecture.md)** - Deep dive into Redis internals
+- **[ZooKeeper](zookeeper.md)** - Distributed coordination service
+
+#### 💰 Financial & E-commerce Systems
+
+- **[Digital Wallet (Enhanced)](digital-wallet-enhanced.md)** ⭐ - Modern digital wallet architecture
+- **[Ecommerce Platform](ecommerce-platform.md)** - Complete e-commerce system design
+- **[Hotel Reservation](hotel-reservation.md)** - Booking system with inventory management
+- **[Payment System](payment-system.md)** ⭐ - Core payment processing patterns
+- **[Stock Exchange](stock-exchange.md)** - High-frequency trading architecture
+
+#### 📍 Location & Mapping Services
+
+- **[Find My Device](find-my-device.md)** - Device tracking infrastructure
+- **[HERE Maps](here-maps.md)** - Global mapping platform
+- **[Life360](life360.md)** - Family location sharing
+- **[Nearby Friends](nearby-friends.md)** - Proximity-based social features
+- **[OpenStreetMap](openstreetmap.md)** - Crowdsourced mapping
+- **[Proximity Service](proximity-service.md)** - Location-based discovery
+- **[Snap Map](snap-map.md)** - Real-time location sharing
+- **[Strava Heatmaps](strava-heatmaps.md)** - Activity aggregation and visualization
+- **[Uber Maps](uber-maps.md)** - Real-time navigation for ride-sharing
+
+#### 🔍 Search & Discovery
+
+- **[Search Autocomplete](search-autocomplete.md)** - Real-time search suggestions
+- **[Social Graph](social-graph.md)** - Graph database for social connections
+- **[Web Crawler](web-crawler.md)** - Distributed web crawling architecture
+
+#### 📊 Monitoring & Infrastructure
+
+- **[Ad Click Aggregation](ad-click-aggregation.md)** - Real-time analytics pipeline
+- **[Gaming Leaderboard (Enhanced)](gaming-leaderboard-enhanced.md)** ⭐ - Global ranking systems
+- **[HashiCorp Vault](vault.md)** - Secret management infrastructure
+- **[Kubernetes](kubernetes.md)** - Container orchestration platform
+- **[Metrics & Monitoring](metrics-monitoring.md)** - Observability infrastructure
+- **[Prometheus](prometheus.md)** - Time-series monitoring
+- **[Prometheus & Datadog (Enhanced)](prometheus-datadog-enhanced.md)** ⭐ - Modern monitoring stack
+- **[Rate Limiter](rate-limiter.md)** ⭐ - API rate limiting at scale
+- **[Unique ID Generator](unique-id-generator.md)** ⭐ - Distributed ID generation
+- **[URL Shortener](url-shortener.md)** ⭐ - URL shortening service design
+- **[Video Streaming](video-streaming.md)** - Adaptive video delivery
+
+#### 🔐 Security & Privacy
+
+- **[Blockchain](blockchain.md)** - Distributed ledger technology
+
+#### 📋 Administrative
+
+- **[STUB_CREATION_REPORT](STUB_CREATION_REPORT.md)** - Internal documentation
+
+---
+
+### 📊 Case Study Maturity Levels
+
+**⭐ Featured Studies (15):** Comprehensive analysis with:
+- Complete 7-law framework integration
+- Production metrics and scale numbers
+- Detailed architectural diagrams
+- Trade-off analysis and decision rationale
+- Lessons learned and best practices
+
+**🏗️ Detailed Studies (30):** Substantial content including:
+- System architecture overview
+- Key design decisions
+- Performance characteristics
+- Implementation challenges
+
+**📋 Brief Overviews (14):** Placeholder content with:
+- Basic system description
+- Primary use cases
+- Planned expansion roadmap
+
+---
+
+### 🔍 Finding the Right Case Study
+
+**By Scale:**
+- Billions of users: YouTube, Google Maps, Facebook
+- Hundreds of millions: Netflix, Spotify, Twitter
+- Tens of millions: Uber, PayPal, DynamoDB
+
+**By Problem Domain:**
+- Real-time systems: Chat, Uber Location, Gaming Leaderboard
+- Financial systems: PayPal, Payment System, Stock Exchange
+- Storage systems: DynamoDB, Cassandra, Redis
+- Streaming: Kafka, YouTube, Netflix
+
+**By Primary Law Focus:**
+- **Correlated Failure ⛓️**: DynamoDB, Netflix Chaos, Redis
+- **Asynchronous Reality ⏳**: Uber Location, Chat System, Kafka
+- **Emergent Chaos 🌪️**: YouTube, Twitter Timeline, Gaming Leaderboard
+- **Multidimensional Optimization ⚖️**: PayPal, Google Spanner, S3
+- **Distributed Knowledge 🧠**: Spotify, Prometheus, ElasticSearch
+- **Cognitive Load 🤯**: Kubernetes, Service Mesh implementations
+- **Economic Reality 💰**: All cloud services, FinOps case studies
+
+---
+
+### 📚 Learning Paths by System Type
+
+**Start with fundamentals:**
+1. [Consistent Hashing](consistent-hashing.md) - Core concept
+2. [Key-Value Store](key-value-store.md) - Basic building block
+3. [DynamoDB](amazon-dynamo.md) - Production implementation
+
+**Then explore your domain:**
+- **Backend Systems**: Kafka → Redis → Cassandra
+- **Real-time Apps**: Chat System → Uber Location → Gaming Leaderboard
+- **Financial**: Payment System → PayPal → Digital Wallet
+- **Infrastructure**: Kubernetes → Prometheus → Service Mesh

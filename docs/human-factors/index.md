@@ -133,3 +133,138 @@ Technical Excellence + Human Factors = Operational Success
 Distributed systems are fundamentally human systems that happen to use computers.
 
 **Remember**: The best system is one humans can understand, operate, and improve - all within the constraints of Law 6: Human-API. A system too complex for human comprehension will fail through misoperation, not technical flaws.
+
+---
+
+## 📚 Complete Human Factors Library
+
+### Browse All 12 Human Factors Practices
+
+Below is the complete catalog of all human and operational factors practices in our library, organized by focus area.
+
+#### 🚀 Production Excellence
+
+**System Reliability:**
+- **[Chaos Engineering](chaos-engineering.md)** ⭐ - Building confidence through controlled failure experiments
+- **[Consistency Tuning](consistency-tuning.md)** ⭐ - Real-world consistency optimization without breaking production
+- **[Observability Stacks](observability-stacks.md)** ⭐ - Making complex systems understandable within cognitive limits
+
+**Operational Practices:**
+- **[SRE Practices](sre-practices.md)** ⭐ - Site Reliability Engineering at scale
+- **[Runbooks & Playbooks](runbooks-playbooks.md)** ⭐ - Turning chaos into reliable checklists
+- **[Incident Response](incident-response.md)** - Structured approach to production incidents
+- **[Blameless Postmortems](blameless-postmortems.md)** - Learning from failure without blame
+
+#### 👥 Team & Organization
+
+**Organizational Design:**
+- **[Org-Structure Physics](org-structure.md)** ⭐ - Conway's Law and team boundaries
+- **[Team Topologies](team-topologies.md)** - Fundamental team types and interactions
+- **[On-Call Culture](oncall-culture.md)** - Building sustainable on-call practices
+
+**Knowledge & Learning:**
+- **[Knowledge Management](knowledge-management.md)** - Capturing and sharing operational wisdom
+
+---
+
+### 📊 Practice Maturity Levels
+
+**⭐ Featured Practices (6):** Comprehensive guides with:
+- Theoretical foundations aligned with Laws
+- Real-world case studies from major tech companies
+- Step-by-step implementation guides
+- Common pitfalls and solutions
+- Metrics and measurement approaches
+
+**📋 Essential Practices (6):** Core content including:
+- Fundamental concepts and principles
+- Basic implementation strategies
+- Key benefits and trade-offs
+- Starting points for adoption
+
+---
+
+### 🔍 Finding the Right Practice
+
+**By Challenge:**
+- **System keeps failing** → Chaos Engineering, Observability Stacks
+- **Incidents take too long** → Incident Response, Runbooks & Playbooks
+- **Team burnout** → On-Call Culture, SRE Practices
+- **Knowledge silos** → Knowledge Management, Blameless Postmortems
+- **Scaling issues** → Team Topologies, Org-Structure Physics
+
+**By Team Maturity:**
+- **Starting Out** → Runbooks, Incident Response, Observability
+- **Established Team** → SRE Practices, Blameless Postmortems, On-Call Culture
+- **Advanced Organization** → Chaos Engineering, Team Topologies, Conway's Law
+
+**By Cognitive Load Focus:**
+- **Reduce operator burden** → Runbooks, Observability, SRE Practices
+- **Improve team dynamics** → Team Topologies, On-Call Culture
+- **Enhance learning** → Blameless Postmortems, Knowledge Management
+- **Optimize organization** → Org-Structure Physics, Conway's Law
+
+---
+
+### 📚 Learning Paths
+
+**Foundation Path (First 90 Days):**
+1. [Observability Stacks](observability-stacks.md) - See what's happening
+2. [Runbooks & Playbooks](runbooks-playbooks.md) - Handle incidents reliably
+3. [Incident Response](incident-response.md) - Structured problem solving
+4. [Blameless Postmortems](blameless-postmortems.md) - Learn from failures
+
+**Team Building Path:**
+1. [Team Topologies](team-topologies.md) - Understand team types
+2. [On-Call Culture](oncall-culture.md) - Sustainable operations
+3. [Knowledge Management](knowledge-management.md) - Share wisdom
+4. [Org-Structure Physics](org-structure.md) - Align teams with architecture
+
+**Advanced Excellence Path:**
+1. [SRE Practices](sre-practices.md) - Professional reliability
+2. [Chaos Engineering](chaos-engineering.md) - Proactive testing
+3. [Consistency Tuning](consistency-tuning.md) - Fine-tune production
+
+---
+
+### 🎯 Quick Reference
+
+**Core SRE Metrics:**
+- Error Budget = 1 - SLO
+- Toil % = Manual Work / Total Work
+- MTTR = Total Downtime / Number of Incidents
+- Change Failure Rate = Failed Changes / Total Changes
+
+**Cognitive Load Indicators:**
+- Alert fatigue (>10 alerts/day/person)
+- Context switches (>4/hour)
+- Documentation gaps (>30% undocumented)
+- Knowledge silos (bus factor < 2)
+
+**Team Health Metrics:**
+- On-call burden (>25% = unsustainable)
+- Incident frequency (>2/week = systemic issues)
+- Postmortem completion rate (<80% = learning gaps)
+- Cross-training coverage (<50% = risk)
+
+---
+
+### 🚨 Common Anti-Patterns
+
+1. **Hero Culture** - Rewarding firefighting over prevention
+2. **Blame Game** - Postmortems that find scapegoats
+3. **Alert Fatigue** - Too many non-actionable alerts
+4. **Documentation Debt** - Runbooks that don't match reality
+5. **Siloed Knowledge** - Single points of failure in teams
+6. **Burnout Spiral** - Unsustainable on-call rotations
+
+---
+
+### ✅ Success Patterns
+
+1. **Error Budgets** - Balance reliability with velocity
+2. **Blameless Culture** - Focus on systems, not people
+3. **Progressive Disclosure** - Information when needed
+4. **Team Autonomy** - Clear boundaries and ownership
+5. **Continuous Learning** - Regular retrospectives
+6. **Sustainable Practices** - Long-term thinking

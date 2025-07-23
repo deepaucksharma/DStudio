@@ -225,7 +225,7 @@ groups:
           ) > 0.65
         annotations:
           summary: "Thread pool approaching phase transition"
-          description: "Pool at {{ $value }}% - phase transition at 70%"
+          description: "Pool at {{ '$value' }}% - phase transition at 70%"
       
       - alert: NonLinearLatencyIncrease
         expr: |

@@ -294,3 +294,190 @@ Ready to test your pattern knowledge?
 ¹¹ [Walmart Labs. (2017). How Walmart Uses Event Sourcing](https://medium.com/walmartglobaltech/building-reliable-distributed-systems-with-event-sourcing-and-cqrs-7c1a7c8c8c5d)
 
 ¹² [Lyft Engineering. (2017). Announcing Envoy: C++ L7 proxy and communication bus](https://eng.lyft.com/announcing-envoy-c-l7-proxy-and-communication-bus-92520b6c8191)
+
+---
+
+## 📚 Complete Pattern Library
+
+### Browse All 125 Patterns
+
+Below is the complete catalog of all patterns in our library, organized by category. Patterns marked with ⭐ have enhanced 5-level progressive learning structure.
+
+#### 🛡️ Resilience & Reliability Patterns
+- **[Anti-Entropy](anti-entropy.md)** - Synchronization repair mechanism
+- **[Anti-Corruption Layer](anti-corruption-layer.md)** - Boundary between subsystems
+- **[Backpressure](backpressure.md)** - Flow control mechanism
+- **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation
+- **[Circuit Breaker](circuit-breaker.md)** ⭐ - Cascade failure prevention
+- **[Circuit Breaker Enhanced](circuit-breaker-enhanced.md)** - Advanced circuit breaking
+- **[Failover](failover.md)** - Automatic recovery switching
+- **[Fault Tolerance](fault-tolerance.md)** - System resilience strategies
+- **[Graceful Degradation](graceful-degradation.md)** ⭐ - Reduced functionality under stress
+- **[Health Check](health-check.md)** ⭐ - Service health monitoring
+- **[Load Shedding](load-shedding.md)** - Overload protection
+- **[Rate Limiting](rate-limiting.md)** ⭐ - Request throttling
+- **[Retry & Backoff](retry-backoff.md)** ⭐ - Intelligent retry strategies
+- **[Split-Brain](split-brain.md)** - Network partition handling
+- **[Timeout](timeout.md)** ⭐ - Bounded operations
+
+#### 📊 Data Management Patterns
+- **[Bloom Filter](bloom-filter.md)** - Probabilistic data structure
+- **[Cache Aside](cache-aside.md)** - Lazy loading cache pattern
+- **[Caching](caching.md)** - General caching strategies
+- **[Caching Strategies](caching-strategies.md)** ⭐ - Multi-level cache design
+- **[CAS (Compare-And-Swap)](cas.md)** - Atomic operations
+- **[CDC (Change Data Capture)](cdc.md)** ⭐ - Real-time data sync
+- **[CQRS](cqrs.md)** ⭐ - Command Query Separation
+- **[CRDT](crdt.md)** - Conflict-free data types
+- **[Data Lake](data-lake.md)** - Raw data storage
+- **[Data Mesh](data-mesh.md)** - Decentralized data architecture
+- **[Distributed Storage](distributed-storage.md)** - Storage distribution strategies
+- **[Event Sourcing](event-sourcing.md)** ⭐ - Event-based state
+- **[Event Streaming](event-streaming.md)** - Real-time event processing
+- **[Eventual Consistency](eventual-consistency.md)** - Relaxed consistency model
+- **[Geo-Replication](geo-replication.md)** ⭐ - Geographic data distribution
+- **[LSM Tree](lsm-tree.md)** - Log-structured storage
+- **[Materialized View](materialized-view.md)** - Pre-computed query results
+- **[Merkle Trees](merkle-trees.md)** - Hash tree verification
+- **[Outbox Pattern](outbox.md)** ⭐ - Reliable event publishing
+- **[Polyglot Persistence](polyglot-persistence.md)** - Multiple database types
+- **[Read-Through Cache](read-through-cache.md)** - Automatic cache population
+- **[Sharding](sharding.md)** ⭐ - Horizontal partitioning
+- **[Shared-Nothing](shared-nothing.md)** - Independent nodes
+- **[Tunable Consistency](tunable-consistency.md)** ⭐ - Flexible consistency
+- **[Vector Clocks](vector-clocks.md)** - Distributed versioning
+- **[WAL (Write-Ahead Log)](wal.md)** - Durability mechanism
+- **[Write-Behind Cache](write-behind-cache.md)** - Asynchronous write
+- **[Write-Through Cache](write-through-cache.md)** - Synchronous write
+
+#### 🔄 Coordination & Consensus Patterns
+- **[Choreography](choreography.md)** - Decentralized coordination
+- **[Clock Sync](clock-sync.md)** - Time synchronization
+- **[Consensus](consensus.md)** - Agreement protocols
+- **[Distributed Lock](distributed-lock.md)** ⭐ - Mutual exclusion
+- **[Distributed Queue](distributed-queue.md)** - Message queuing
+- **[Distributed Transactions](distributed-transactions.md)** - Multi-resource transactions
+- **[Gossip Protocol](gossip-protocol.md)** - Epidemic communication
+- **[HLC (Hybrid Logical Clock)](hlc.md)** - Causal ordering
+- **[Leader Election](leader-election.md)** ⭐ - Coordinator selection
+- **[Leader-Follower](leader-follower.md)** - Replication pattern
+- **[Logical Clocks](logical-clocks.md)** - Event ordering
+- **[Saga Pattern](saga.md)** ⭐ - Distributed transactions
+- **[Two-Phase Commit](two-phase-commit.md)** - Atomic commitment
+
+#### 🏗️ Architectural Patterns
+- **[Actor Model](actor-model.md)** - Concurrent computation
+- **[Ambassador](ambassador.md)** - Proxy helper services
+- **[API Gateway](api-gateway.md)** - Single entry point
+- **[Backends for Frontends](backends-for-frontends.md)** - Client-specific backends
+- **[Cell-Based](cell-based.md)** - Isolated deployment units
+- **[Client Library Design](client-library-design.md)** - SDK best practices
+- **[Edge Computing](edge-computing.md)** ⭐ - Peripheral processing
+- **[Event-Driven Architecture](event-driven.md)** ⭐ - Event-based design
+- **[GraphQL Federation](graphql-federation.md)** - Distributed GraphQL
+- **[Kappa Architecture](kappa-architecture.md)** - Stream processing
+- **[Lambda Architecture](lambda-architecture.md)** - Batch + stream hybrid
+- **[Multi-Region](multi-region.md)** - Geographic distribution
+- **[Queues & Streaming](queues-streaming.md)** ⭐ - Message patterns
+- **[Scatter-Gather](scatter-gather.md)** - Parallel processing
+- **[Serverless/FaaS](serverless-faas.md)** ⭐ - Function deployment
+- **[Service Discovery](service-discovery.md)** ⭐ - Service location
+- **[Service Mesh](service-mesh.md)** ⭐ - Infrastructure layer
+- **[Service Registry](service-registry.md)** - Service catalog
+- **[Sidecar](sidecar.md)** - Helper container
+- **[Strangler Fig](strangler-fig.md)** - Migration pattern
+- **[Valet Key](valet-key.md)** - Direct resource access
+
+#### 🚀 Performance & Scaling Patterns
+- **[Auto-Scaling](auto-scaling.md)** ⭐ - Dynamic capacity
+- **[Load Balancing](load-balancing.md)** ⭐ - Request distribution
+- **[Network Optimization](network-optimization.md)** - Network efficiency
+- **[Priority Queue](priority-queue.md)** - Ordered processing
+- **[Request Routing](request-routing.md)** - Smart routing
+
+#### 🔍 Specialized Domain Patterns
+**Location & Mapping:**
+- **[Battery Optimization](battery-optimization.md)** - Mobile efficiency
+- **[Client Rendering](client-rendering.md)** - Client-side maps
+- **[Delta Sync](delta-sync.md)** - Incremental updates
+- **[Geo-Distribution](geo-distribution.md)** - Geographic spread
+- **[Geofencing](geofencing.md)** - Location boundaries
+- **[Geohashing](geohashing.md)** - Spatial indexing
+- **[Location Privacy](location-privacy.md)** - Privacy protection
+- **[Spatial Indexing](spatial-indexing.md)** - Space partitioning
+- **[Tile Caching](tile-caching.md)** - Map tile storage
+- **[Tile Pyramid](tile-pyramid.md)** - Multi-resolution tiles
+- **[Vector Maps](vector-maps.md)** - Vector graphics
+- **[Vector Tiles](vector-tiles.md)** - Vector map tiles
+
+**Search & Analytics:**
+- **[Analytics Scale](analytics-scale.md)** - Large-scale analytics
+- **[Chunking](chunking.md)** - Data segmentation
+- **[Content Extraction](content-extraction.md)** - Data parsing
+- **[Crawler Traps](crawler-traps.md)** - Crawler protection
+- **[Deduplication](deduplication.md)** - Duplicate removal
+- **[Distributed Dedup](distributed-dedup.md)** - Distributed deduplication
+- **[Graph Algorithms](graph-algorithms.md)** - Graph processing
+- **[JS Crawling](js-crawling.md)** - JavaScript rendering
+- **[Metadata Service](metadata-service.md)** - Metadata management
+- **[ML Pipeline](ml-pipeline.md)** - Machine learning workflow
+- **[Politeness](politeness.md)** - Crawler etiquette
+- **[Real-Time](real-time.md)** - Low-latency processing
+- **[Time Series IDs](time-series-ids.md)** - Time-based IDs
+- **[Trie](trie.md)** - Prefix tree structure
+- **[URL Frontier](url-frontier.md)** - URL prioritization
+- **[URL Normalization](url-normalization.md)** - URL canonicalization
+- **[WebSocket](websocket.md)** - Real-time communication
+
+**Security & Privacy:**
+- **[Consent Management](consent-management.md)** - Privacy compliance
+- **[E2E Encryption](e2e-encryption.md)** - End-to-end security
+- **[Key Management](key-management.md)** - Cryptographic keys
+- **[Security Shortener](security-shortener.md)** - Secure URL shortening
+
+**Operations & Management:**
+- **[Adaptive Scheduling](adaptive-scheduling.md)** - Dynamic scheduling
+- **[FinOps](finops.md)** ⭐ - Cost optimization
+- **[ID Generation Scale](id-generation-scale.md)** - Unique ID generation
+- **[Idempotent Receiver](idempotent-receiver.md)** ⭐ - Duplicate handling
+- **[Observability](observability.md)** ⭐ - System monitoring
+
+#### 📖 Theoretical Foundations
+- **[CAP Theorem](cap-theorem.md)** - Consistency-Availability-Partition tolerance
+
+#### 🎯 Pattern Resources & Tools
+- **[Pattern Combinations](pattern-combinations.md)** - Pattern synergies
+- **[Pattern Comparison](pattern-comparison.md)** - Side-by-side analysis
+- **[Pattern Quiz](pattern-quiz.md)** - Knowledge testing
+- **[Pattern Selector](pattern-selector.md)** - Interactive selection tool
+
+---
+
+### 📈 Pattern Maturity Levels
+
+**Production Ready (✅)**: 45 patterns with complete documentation, examples, and case studies
+
+**In Development (🚧)**: 50 patterns with core content available
+
+**Planned (📋)**: 30 patterns with basic structure and roadmap
+
+---
+
+### 🔍 Finding the Right Pattern
+
+**By Problem Domain:**
+- Need reliability? → Start with [Resilience Patterns](#-resilience--reliability-patterns)
+- Managing data? → Explore [Data Management Patterns](#-data-management-patterns)
+- Scaling issues? → Check [Performance Patterns](#-performance--scaling-patterns)
+- Coordination challenges? → See [Coordination Patterns](#-coordination--consensus-patterns)
+
+**By Experience Level:**
+- Beginner → Start with patterns marked ⭐
+- Intermediate → Explore architectural patterns
+- Advanced → Dive into specialized domains
+
+**By Use Case:**
+- Building microservices → Service Mesh, API Gateway, Circuit Breaker
+- Real-time systems → WebSocket, Event Streaming, CDC
+- Global applications → Edge Computing, Geo-Replication, Multi-Region
+- Data pipelines → Event Sourcing, CQRS, Lambda Architecture
