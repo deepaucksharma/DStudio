@@ -571,16 +571,97 @@ graph TD
 
 ---
 
+## 📊 Learning Analytics Dashboard
+
+<div class="analytics-dashboard">
+  <h3>Track Your Progress</h3>
+  
+  ```mermaid
+  graph LR
+      subgraph "Your Journey"
+          A[Start] -->|Week 1-2| B[Foundations]
+          B -->|Week 3-4| C[Patterns]
+          C -->|Week 5-6| D[Systems]
+          D -->|Week 7-8| E[Production]
+          E --> F[Expert]
+      end
+      
+      subgraph "Skills Gained"
+          B -.-> S1[7 Laws]
+          C -.-> S2[20+ Patterns]
+          D -.-> S3[System Design]
+          E -.-> S4[Operations]
+      end
+      
+      style A fill:#f9f,stroke:#333
+      style F fill:#9f9,stroke:#333
+  ```
+  
+  <div class="progress-metrics">
+    <div class="metric">
+      <span class="metric-value">0</span>
+      <span class="metric-label">Laws Mastered</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">0</span>
+      <span class="metric-label">Patterns Learned</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">0</span>
+      <span class="metric-label">Projects Built</span>
+    </div>
+    <div class="metric">
+      <span class="metric-value">0%</span>
+      <span class="metric-label">Path Complete</span>
+    </div>
+  </div>
+</div>
+
 ## 🤝 Join the Community
 
-- **Discord**: Join 5000+ engineers learning together
-- **Office Hours**: Weekly Q&A with experts
-- **Study Groups**: Find peers on your path
-- **Mentorship**: Get 1:1 guidance
+<div class="community-section">
+  <div class="community-card">
+    <span class="community-icon">💬</span>
+    <h4>Discord Community</h4>
+    <p>Join 5000+ engineers learning together</p>
+    <a href="#" class="community-link">Join Discord →</a>
+  </div>
+  
+  <div class="community-card">
+    <span class="community-icon">🎓</span>
+    <h4>Office Hours</h4>
+    <p>Weekly Q&A with distributed systems experts</p>
+    <a href="#" class="community-link">View Schedule →</a>
+  </div>
+  
+  <div class="community-card">
+    <span class="community-icon">👥</span>
+    <h4>Study Groups</h4>
+    <p>Find peers on the same learning path</p>
+    <a href="#" class="community-link">Find Groups →</a>
+  </div>
+  
+  <div class="community-card">
+    <span class="community-icon">🧑‍🏫</span>
+    <h4>Mentorship</h4>
+    <p>Get 1:1 guidance from industry experts</p>
+    <a href="#" class="community-link">Apply Now →</a>
+  </div>
+</div>
 
 <div class="cta-section">
   <h3>Ready to start your journey?</h3>
   <a href="#quick-path-selector" class="primary-cta">Choose Your Path ↑</a>
+  
+  <div class="quick-start-tips">
+    <h4>🚀 Quick Start Tips</h4>
+    <ul>
+      <li>📅 Block dedicated learning time in your calendar</li>
+      <li>📝 Take notes and create your own examples</li>
+      <li>💻 Apply concepts immediately in projects</li>
+      <li>🤝 Share learnings with your team</li>
+    </ul>
+  </div>
 </div>
 
 <style>
@@ -922,6 +1003,113 @@ graph TD
   border-radius: 4px;
 }
 
+/* Analytics Dashboard */
+.analytics-dashboard {
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  margin: 2rem 0;
+}
+
+.progress-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.metric {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 8px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.metric-value {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #5448C8;
+  margin-bottom: 0.5rem;
+}
+
+.metric-label {
+  font-size: 0.875rem;
+  color: #666;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Community Section */
+.community-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin: 2rem 0;
+}
+
+.community-card {
+  background: white;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 2rem;
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.community-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+  border-color: #5448C8;
+}
+
+.community-icon {
+  display: block;
+  font-size: 3rem;
+  margin-bottom: 1rem;
+}
+
+.community-link {
+  display: inline-block;
+  color: #5448C8;
+  text-decoration: none;
+  font-weight: 500;
+  margin-top: 1rem;
+  transition: color 0.3s ease;
+}
+
+.community-link:hover {
+  color: #4338A8;
+  text-decoration: underline;
+}
+
+/* Quick Start Tips */
+.quick-start-tips {
+  background: #e8f5e9;
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+  border-left: 4px solid #4CAF50;
+}
+
+.quick-start-tips h4 {
+  margin-top: 0;
+  color: #2E7D32;
+}
+
+.quick-start-tips ul {
+  list-style: none;
+  padding: 0;
+  margin: 1rem 0 0 0;
+}
+
+.quick-start-tips li {
+  padding: 0.5rem 0;
+  position: relative;
+  padding-left: 1.5rem;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
   .path-selector {
@@ -934,6 +1122,14 @@ graph TD
   
   .learning-stats {
     grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .progress-metrics {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .community-section {
+    grid-template-columns: 1fr;
   }
 }
 </style>
