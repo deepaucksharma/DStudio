@@ -1,101 +1,67 @@
-// Hugging Face Summarizer for MkDocs
+// Hugging Face Summarizer for MkDocs Material
 // Uses the free Hugging Face Inference API
 
 // Configuration
 const HF_API_URL = 'https://api-inference.huggingface.co/models/facebook/bart-large-cnn';
-const MAX_INPUT_LENGTH = 1000; // Slightly reduced to be safe
+const MAX_INPUT_LENGTH = 1000;
 const RATE_LIMIT_DELAY = 1000;
 
 // Global state
 let isProcessing = false;
 let chatWindow = null;
-let isInitialized = false;
 
-// Initialize the summarizer
+// Initialize the summarizer using MkDocs Material's document$ observable
+document$.subscribe(function() {
+    console.log("Initializing Page Summarizer for:", window.location.pathname);
+    initializeSummarizer();
+});
+
+// Main initialization function
 function initializeSummarizer() {
-    if (isInitialized) return;
+    // Remove existing elements if they exist (prevents duplicates)
+    const existingChat = document.getElementById('summarizer-chat');
+    const existingToggle = document.getElementById('summarizer-toggle');
     
+    if (existingChat) existingChat.remove();
+    if (existingToggle) existingToggle.remove();
+    
+    // Create the UI elements
     createChatUI();
     setupEventListeners();
-    console.log('Page Summarizer initialized');
-    isInitialized = true;
 }
-
-// Initialize when DOM is ready
-document.addEventListener('DOMContentLoaded', function() {
-    // Add delay to ensure page is fully loaded
-    setTimeout(initializeSummarizer, 500);
-});
-
-// Handle MkDocs Material navigation events (for SPA-like behavior)
-document.addEventListener('DOMContentLoaded', function() {
-    // Listen for MkDocs Material navigation events
-    if (typeof location$ !== 'undefined') {
-        // MkDocs Material rx.js observable
-        location$.subscribe(function() {
-            setTimeout(initializeSummarizer, 100);
-        });
-    }
-    
-    // Fallback: listen for navigation changes
-    let currentUrl = window.location.href;
-    const observer = new MutationObserver(function() {
-        if (window.location.href !== currentUrl) {
-            currentUrl = window.location.href;
-            setTimeout(initializeSummarizer, 100);
-        }
-    });
-    
-    observer.observe(document.body, {
-        childList: true,
-        subtree: true
-    });
-});
-
-// Also initialize on page load and navigation
-window.addEventListener('load', initializeSummarizer);
-window.addEventListener('popstate', function() {
-    setTimeout(initializeSummarizer, 100);
-});
 
 // Create the chat window UI
 function createChatUI() {
-    // Check if already exists
-    if (document.getElementById('summarizer-chat')) return;
-    
     // Create chat window container
     const chatHTML = `
         <div id="summarizer-chat" class="summarizer-chat" style="display: none;">
             <div class="chat-header">
-                <h4>📄 Page Summarizer</h4>
-                <button class="chat-close">&times;</button>
+                <h4>🤖 AI Page Summarizer</h4>
+                <button class="chat-close" aria-label="Close summarizer">&times;</button>
             </div>
             <div class="chat-content">
                 <div id="summary-output" class="summary-output">
                     <p>Click "Summarize" to generate an AI summary of this page.</p>
                     <div class="summary-info">
-                        <small>🤖 Powered by Hugging Face BART model (free tier)</small>
+                        <small>⚡ Powered by Hugging Face BART model (free tier)</small>
                     </div>
                 </div>
                 <div class="chat-controls">
-                    <button id="summarize-btn" class="summarize-btn">
-                        <span class="btn-text">Summarize This Page</span>
+                    <button id="summarize-btn" class="summarize-btn" type="button">
+                        <span class="btn-text">📝 Summarize This Page</span>
                         <span class="btn-spinner" style="display: none;">⏳ Processing...</span>
                     </button>
                     <div class="chat-tips">
-                        <small>💡 <a href="https://huggingface.co/join" target="_blank">Sign in to HuggingFace</a> for better rate limits</small>
+                        <small>💡 <a href="https://huggingface.co/join" target="_blank" rel="noopener">Sign in to HuggingFace</a> for better rate limits</small>
                     </div>
                 </div>
             </div>
         </div>
         
         <!-- Floating button to open chat -->
-        <button id="summarizer-toggle" class="summarizer-toggle" title="AI Page Summarizer">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                <polyline points="14 2 14 8 20 8"></polyline>
-                <line x1="16" y1="13" x2="8" y2="13"></line>
-                <line x1="16" y1="17" x2="8" y2="17"></line>
+        <button id="summarizer-toggle" class="summarizer-toggle" title="AI Page Summarizer" type="button">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
             </svg>
             <span class="toggle-tooltip">AI Summarizer</span>
         </button>
@@ -105,35 +71,62 @@ function createChatUI() {
     document.body.insertAdjacentHTML('beforeend', chatHTML);
     chatWindow = document.getElementById('summarizer-chat');
     
-    // Add event listeners
-    const toggleBtn = document.getElementById('summarizer-toggle');
-    const closeBtn = document.querySelector('.chat-close');
-    const summarizeBtn = document.getElementById('summarize-btn');
-    
-    if (toggleBtn) toggleBtn.addEventListener('click', openSummarizer);
-    if (closeBtn) closeBtn.addEventListener('click', closeSummarizer);
-    if (summarizeBtn) summarizeBtn.addEventListener('click', summarizePage);
+    // Add event listeners with proper cleanup
+    setupUIEventListeners();
     
     // Add styles
     injectStyles();
 }
 
-// Setup event listeners
+// Setup UI event listeners
+function setupUIEventListeners() {
+    const toggleBtn = document.getElementById('summarizer-toggle');
+    const closeBtn = document.querySelector('#summarizer-chat .chat-close');
+    const summarizeBtn = document.getElementById('summarize-btn');
+    
+    if (toggleBtn) {
+        toggleBtn.addEventListener('click', openSummarizer);
+    }
+    
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeSummarizer);
+    }
+    
+    if (summarizeBtn) {
+        summarizeBtn.addEventListener('click', summarizePage);
+    }
+}
+
+// Setup global event listeners
 function setupEventListeners() {
-    // Close on ESC key
-    document.addEventListener('keydown', function(e) {
-        if (e.key === 'Escape' && chatWindow && chatWindow.style.display !== 'none') {
-            closeSummarizer();
-        }
-    });
+    // Close on ESC key (only setup once)
+    if (!window.summarizerEscListenerAdded) {
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && chatWindow && chatWindow.style.display !== 'none') {
+                closeSummarizer();
+            }
+        });
+        window.summarizerEscListenerAdded = true;
+    }
 }
 
 // Open the summarizer chat window
 function openSummarizer() {
     if (chatWindow) {
         chatWindow.style.display = 'block';
+        chatWindow.setAttribute('aria-hidden', 'false');
+        
         const toggleBtn = document.getElementById('summarizer-toggle');
-        if (toggleBtn) toggleBtn.style.display = 'none';
+        if (toggleBtn) {
+            toggleBtn.style.display = 'none';
+            toggleBtn.setAttribute('aria-hidden', 'true');
+        }
+        
+        // Focus management for accessibility
+        const summarizeBtn = document.getElementById('summarize-btn');
+        if (summarizeBtn) {
+            summarizeBtn.focus();
+        }
     }
 }
 
@@ -141,8 +134,14 @@ function openSummarizer() {
 function closeSummarizer() {
     if (chatWindow) {
         chatWindow.style.display = 'none';
+        chatWindow.setAttribute('aria-hidden', 'true');
+        
         const toggleBtn = document.getElementById('summarizer-toggle');
-        if (toggleBtn) toggleBtn.style.display = 'block';
+        if (toggleBtn) {
+            toggleBtn.style.display = 'block';
+            toggleBtn.setAttribute('aria-hidden', 'false');
+            toggleBtn.focus(); // Return focus to toggle button
+        }
     }
 }
 
@@ -160,16 +159,44 @@ function extractPageContent() {
     ];
     
     let content = '';
+    let element = null;
+    
+    // Find the main content element
     for (const selector of contentSelectors) {
-        const element = document.querySelector(selector);
+        element = document.querySelector(selector);
         if (element) {
-            // Get text content, remove extra whitespace
-            content = element.innerText
-                .replace(/\s+/g, ' ')
-                .replace(/\n+/g, ' ')
-                .trim();
             break;
         }
+    }
+    
+    if (element) {
+        // Clone the element to avoid modifying the original
+        const clonedElement = element.cloneNode(true);
+        
+        // Remove unwanted elements
+        const unwantedSelectors = [
+            '.md-source',
+            '.md-nav',
+            '.md-sidebar',
+            '.md-header',
+            '.md-footer',
+            '.summarizer-chat',
+            '.summarizer-toggle',
+            '[role="navigation"]',
+            'nav',
+            'aside'
+        ];
+        
+        unwantedSelectors.forEach(selector => {
+            const unwantedElements = clonedElement.querySelectorAll(selector);
+            unwantedElements.forEach(el => el.remove());
+        });
+        
+        // Get clean text content
+        content = clonedElement.innerText
+            .replace(/\s+/g, ' ')
+            .replace(/\n+/g, ' ')
+            .trim();
     }
     
     // Fallback to body if nothing found
@@ -180,14 +207,6 @@ function extractPageContent() {
             .trim();
     }
     
-    // Remove navigation and UI elements
-    content = content
-        .replace(/Search.*?Results/g, '')
-        .replace(/Navigation.*?Toggle/g, '')
-        .replace(/Edit.*?Page/g, '')
-        .replace(/Summarize.*?Page/g, '')
-        .trim();
-    
     // Get page title
     const title = document.querySelector('h1')?.innerText || 
                   document.querySelector('.md-content h1')?.innerText || 
@@ -195,7 +214,7 @@ function extractPageContent() {
     
     // Combine title and content
     let fullText = content;
-    if (title && !content.startsWith(title)) {
+    if (title && !content.toLowerCase().includes(title.toLowerCase())) {
         fullText = `${title}: ${content}`;
     }
     
@@ -266,6 +285,7 @@ async function summarizePage() {
     const outputDiv = document.getElementById('summary-output');
     const btnText = document.querySelector('.btn-text');
     const btnSpinner = document.querySelector('.btn-spinner');
+    const summarizeBtn = document.getElementById('summarize-btn');
     
     if (!outputDiv) {
         console.error('Summary output div not found');
@@ -276,6 +296,8 @@ async function summarizePage() {
     // Show loading state
     if (btnText) btnText.style.display = 'none';
     if (btnSpinner) btnSpinner.style.display = 'inline';
+    if (summarizeBtn) summarizeBtn.disabled = true;
+    
     outputDiv.innerHTML = '<p class="loading">📝 Extracting page content...</p>';
     
     try {
@@ -317,7 +339,7 @@ async function summarizePage() {
                 <p class="summary-text">${summary}</p>
                 <div class="summary-meta">
                     <small>✨ Generated from ${pageContent.length} chars using Hugging Face BART</small>
-                    <br><small>🔄 <button class="regenerate-btn" onclick="summarizePage()">Regenerate</button></small>
+                    <br><small>🔄 <button class="regenerate-btn" onclick="summarizePage()" type="button">Regenerate</button></small>
                 </div>
             </div>
         `;
@@ -329,7 +351,7 @@ async function summarizePage() {
         let errorMessage = 'Failed to generate summary';
         
         if (error.message.includes('rate limit') || error.message.includes('429')) {
-            errorMessage = '⏱️ Rate limit reached. Please wait or <a href="https://huggingface.co/join" target="_blank">sign in to HuggingFace</a> for better limits.';
+            errorMessage = '⏱️ Rate limit reached. Please wait or <a href="https://huggingface.co/join" target="_blank" rel="noopener">sign in to HuggingFace</a> for better limits.';
         } else if (error.message.includes('Not enough content')) {
             errorMessage = '📄 This page doesn\'t have enough content to summarize.';
         } else if (error.message.includes('loading')) {
@@ -345,7 +367,7 @@ async function summarizePage() {
                 <p>❌ ${errorMessage}</p>
                 <div class="error-details">
                     <small>Technical: ${error.message}</small>
-                    <br><small>🔄 <button class="retry-btn" onclick="summarizePage()">Try Again</button></small>
+                    <br><small>🔄 <button class="retry-btn" onclick="summarizePage()" type="button">Try Again</button></small>
                 </div>
             </div>
         `;
@@ -353,6 +375,7 @@ async function summarizePage() {
         // Reset button state
         if (btnText) btnText.style.display = 'inline';
         if (btnSpinner) btnSpinner.style.display = 'none';
+        if (summarizeBtn) summarizeBtn.disabled = false;
         isProcessing = false;
     }
 }
@@ -368,11 +391,11 @@ function injectStyles() {
         position: fixed;
         right: 20px;
         top: 100px;
-        width: 400px;
+        width: 420px;
         max-width: calc(100vw - 40px);
         background: white;
         border-radius: 16px;
-        box-shadow: 0 10px 40px rgba(0,0,0,0.15);
+        box-shadow: 0 12px 48px rgba(0,0,0,0.15);
         z-index: 10000;
         font-family: var(--md-text-font, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif);
         border: 1px solid #e0e0e0;
@@ -389,6 +412,7 @@ function injectStyles() {
             right: 10px;
             top: 70px;
             width: calc(100vw - 20px);
+            max-height: calc(100vh - 100px);
         }
     }
     
@@ -396,7 +420,7 @@ function injectStyles() {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 18px 24px;
+        padding: 20px 24px;
         border-bottom: 1px solid #e0e0e0;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
@@ -415,18 +439,19 @@ function injectStyles() {
         font-size: 28px;
         cursor: pointer;
         color: rgba(255,255,255,0.8);
-        width: 36px;
-        height: 36px;
+        width: 40px;
+        height: 40px;
         display: flex;
         align-items: center;
         justify-content: center;
-        border-radius: 6px;
+        border-radius: 8px;
         transition: all 0.2s;
     }
     
-    .chat-close:hover {
+    .chat-close:hover, .chat-close:focus {
         background: rgba(255,255,255,0.2);
         color: white;
+        outline: none;
     }
     
     .chat-content {
@@ -434,65 +459,69 @@ function injectStyles() {
     }
     
     .summary-output {
-        min-height: 140px;
-        margin-bottom: 18px;
-        padding: 20px;
-        background: #f8f9fa;
+        min-height: 160px;
+        margin-bottom: 20px;
+        padding: 24px;
+        background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
         border-radius: 12px;
         border: 1px solid #e0e0e0;
-        max-height: 350px;
+        max-height: 400px;
         overflow-y: auto;
     }
     
     .summary-info {
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid #e0e0e0;
-        color: #666;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #dee2e6;
+        color: #6c757d;
+        font-size: 12px;
     }
     
     .summary-output p {
-        margin: 0 0 8px 0;
+        margin: 0 0 12px 0;
         line-height: 1.6;
-        color: #333;
+        color: #343a40;
     }
     
     .summary-result h5 {
-        margin: 0 0 16px 0;
+        margin: 0 0 18px 0;
         color: #667eea;
-        font-size: 17px;
+        font-size: 18px;
         font-weight: 600;
     }
     
     .summary-text {
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.7;
         color: #2c3e50;
-        margin-bottom: 16px !important;
+        margin-bottom: 18px !important;
+        font-weight: 400;
     }
     
     .summary-meta {
-        margin-top: 16px;
+        margin-top: 20px;
         padding-top: 16px;
-        border-top: 1px solid #e0e0e0;
-        color: #666;
+        border-top: 1px solid #dee2e6;
+        color: #6c757d;
         font-size: 12px;
     }
     
     .regenerate-btn, .retry-btn {
-        background: none;
-        border: 1px solid #667eea;
-        color: #667eea;
-        padding: 4px 8px;
-        border-radius: 4px;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 6px 12px;
+        border-radius: 6px;
         cursor: pointer;
         font-size: 11px;
+        font-weight: 500;
         transition: all 0.2s;
     }
     
-    .regenerate-btn:hover, .retry-btn:hover {
-        background: #667eea;
-        color: white;
+    .regenerate-btn:hover, .retry-btn:hover, .regenerate-btn:focus, .retry-btn:focus {
+        transform: translateY(-1px);
+        box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        outline: none;
     }
     
     .loading {
@@ -507,32 +536,32 @@ function injectStyles() {
     }
     
     .summary-error {
-        color: #d32f2f;
+        color: #dc3545;
     }
     
     .summary-error a {
-        color: #1976d2;
+        color: #0d6efd;
     }
     
     .error-details {
-        margin-top: 12px;
-        padding-top: 12px;
-        border-top: 1px solid #ffcdd2;
+        margin-top: 16px;
+        padding-top: 16px;
+        border-top: 1px solid #f8d7da;
         font-size: 12px;
     }
     
     .chat-controls {
         display: flex;
         flex-direction: column;
-        gap: 14px;
+        gap: 16px;
     }
     
     .summarize-btn {
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
-        padding: 14px 28px;
-        border-radius: 10px;
+        padding: 16px 32px;
+        border-radius: 12px;
         font-size: 16px;
         font-weight: 600;
         cursor: pointer;
@@ -543,20 +572,22 @@ function injectStyles() {
         gap: 8px;
     }
     
-    .summarize-btn:hover {
+    .summarize-btn:hover, .summarize-btn:focus {
         transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+        outline: none;
     }
     
     .summarize-btn:disabled {
-        background: #ccc;
+        background: #6c757d;
         cursor: not-allowed;
         transform: none;
+        box-shadow: none;
     }
     
     .chat-tips {
         text-align: center;
-        color: #666;
+        color: #6c757d;
         font-size: 13px;
     }
     
@@ -565,53 +596,55 @@ function injectStyles() {
         text-decoration: none;
     }
     
-    .chat-tips a:hover {
+    .chat-tips a:hover, .chat-tips a:focus {
         text-decoration: underline;
     }
     
     .summarizer-toggle {
         position: fixed;
-        right: 20px;
-        bottom: 20px;
-        width: 60px;
-        height: 60px;
+        right: 24px;
+        bottom: 24px;
+        width: 64px;
+        height: 64px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         color: white;
         border: none;
         border-radius: 50%;
         cursor: pointer;
-        box-shadow: 0 4px 20px rgba(102, 126, 234, 0.4);
-        transition: all 0.3s;
+        box-shadow: 0 6px 24px rgba(102, 126, 234, 0.4);
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         display: flex;
         align-items: center;
         justify-content: center;
         z-index: 9999;
     }
     
-    .summarizer-toggle:hover {
+    .summarizer-toggle:hover, .summarizer-toggle:focus {
         transform: scale(1.1);
-        box-shadow: 0 6px 30px rgba(102, 126, 234, 0.6);
+        box-shadow: 0 8px 32px rgba(102, 126, 234, 0.6);
+        outline: none;
     }
     
-    .summarizer-toggle:hover .toggle-tooltip {
+    .summarizer-toggle:hover .toggle-tooltip, .summarizer-toggle:focus .toggle-tooltip {
         opacity: 1;
-        transform: translateX(-10px);
+        transform: translateX(-12px);
     }
     
     .toggle-tooltip {
         position: absolute;
         right: 100%;
         white-space: nowrap;
-        background: #333;
+        background: #343a40;
         color: white;
-        padding: 10px 14px;
+        padding: 12px 16px;
         border-radius: 8px;
         font-size: 14px;
         font-weight: 500;
         opacity: 0;
-        transition: all 0.3s;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         pointer-events: none;
-        margin-right: 15px;
+        margin-right: 16px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
     }
     
     .toggle-tooltip::after {
@@ -621,7 +654,7 @@ function injectStyles() {
         left: 100%;
         transform: translateY(-50%);
         border: 8px solid transparent;
-        border-left-color: #333;
+        border-left-color: #343a40;
     }
     
     /* Dark mode support */
@@ -632,31 +665,35 @@ function injectStyles() {
     }
     
     [data-md-color-scheme="slate"] .summary-output {
-        background: #2d2d30;
+        background: linear-gradient(135deg, #2d2d30 0%, #25262b 100%);
         border-color: #444;
         color: #fff;
     }
     
     [data-md-color-scheme="slate"] .summary-output p {
-        color: #fff;
+        color: #e9ecef;
     }
     
     [data-md-color-scheme="slate"] .summary-text {
-        color: #e8e8e8;
+        color: #f8f9fa;
     }
     
-    [data-md-color-scheme="slate"] .summary-meta {
-        color: #aaa;
-        border-top-color: #444;
-    }
-    
+    [data-md-color-scheme="slate"] .summary-meta,
     [data-md-color-scheme="slate"] .summary-info {
-        border-top-color: #444;
+        color: #adb5bd;
+        border-top-color: #495057;
+    }
+    
+    [data-md-color-scheme="slate"] .error-details {
+        border-top-color: #495057;
     }
     `;
     
     document.head.appendChild(styles);
 }
+
+// Set up global event listeners once
+setupEventListeners();
 
 // Export functions for global access
 window.openSummarizer = openSummarizer;
