@@ -335,7 +335,7 @@ nav:
       - "Ad Click Aggregation": case-studies/ad-click-aggregation.md
       - "Unique ID Generator": case-studies/unique-id-generator.md
       - "URL Shortener": case-studies/url-shortener.md
-    - "Gaming & Entertainment":
+    # - "Gaming & Entertainment":
     - "Deep Dives":
       - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
   

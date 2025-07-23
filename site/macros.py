@@ -1,70 +1,77 @@
 """
-Simplified Macros for MkDocs
+MkDocs Macros Module for DStudio Documentation
+
+This module provides custom macros and variables for the MkDocs macros plugin.
 """
+
+import datetime
+
 
 def define_env(env):
     """
-    Define macros and filters for MkDocs
+    This is the hook for defining variables, macros and filters
+    
+    - variables: the dictionary that contains the variables
+    - macro: a decorator function, to declare a macro.
+    - filter: a decorator function, to declare a filter.
     """
     
+    # Add variables
+    env.variables['current_year'] = datetime.datetime.now().year
+    env.variables['project_name'] = 'The Compendium of Distributed Systems'
+    env.variables['github_repo'] = 'https://github.com/deepaucksharma/DStudio'
+    
+    # Add macros
     @env.macro
-    def grid(columns='auto', gap='md'):
-        """
-        Create a responsive grid layout
-        Usage: {{ grid(columns=3, gap='lg') }}
-        """
-        if columns == 'auto':
-            grid_class = "grid grid--auto-fit"
+    def axiom_ref(number, name):
+        """Create a reference to an axiom"""
+        return f'[Axiom {number}: {name}](../part1-axioms/axiom{number}-{name.lower().replace(" ", "-")}/)'
+    
+    @env.macro
+    def pillar_ref(number, name):
+        """Create a reference to a pillar"""
+        return f'[Pillar {number}: {name}](../part2-pillars/{name.lower()}/)'
+    
+    @env.macro
+    def pattern_ref(name):
+        """Create a reference to a pattern"""
+        slug = name.lower().replace(' ', '-')
+        return f'[{name}](../patterns/{slug}.md)'
+    
+    @env.macro
+    def case_study_ref(name):
+        """Create a reference to a case study"""
+        slug = name.lower().replace(' ', '-')
+        return f'[{name}](../case-studies/{slug}.md)'
+    
+    @env.macro
+    def latency_calc(distance_km, speed_fraction=0.67):
+        """Calculate network latency based on distance and speed of light"""
+        speed_of_light_km_ms = 300  # km/ms in vacuum
+        effective_speed = speed_of_light_km_ms * speed_fraction
+        return round(distance_km / effective_speed, 2)
+    
+    @env.macro
+    def availability_nines(nines):
+        """Convert availability nines to downtime per year"""
+        availability = float('0.' + '9' * nines)
+        downtime_minutes = (1 - availability) * 365 * 24 * 60
+        
+        if downtime_minutes < 60:
+            return f"{downtime_minutes:.1f} minutes/year"
+        elif downtime_minutes < 1440:  # Less than a day
+            hours = downtime_minutes / 60
+            return f"{hours:.1f} hours/year"
         else:
-            grid_class = f"grid grid--{columns}"
-        
-        if gap and gap != 'md':
-            grid_class += f" grid--gap-{gap}"
-        
-        return f'<div class="{grid_class}">'
+            days = downtime_minutes / 1440
+            return f"{days:.1f} days/year"
     
-    @env.macro
-    def endgrid():
-        """Close a grid layout"""
-        return '</div>'
-    
-    @env.macro
-    def card(type='default', title=None, content=None, link=None):
-        """
-        Create a card component
-        Usage: {{ card(type='feature', title='My Feature', content='Description', link='#') }}
-        """
-        card_class = f"c-card c-card--{type}"
-        
-        html = f'<div class="{card_class}">'
-        
-        if title:
-            html += f'<h3 class="c-card__title">{title}</h3>'
-        
-        if content:
-            html += f'<div class="c-card__body">{content}</div>'
-        
-        if link:
-            html += f'<a href="{link}" class="c-card__link">Learn more →</a>'
-        
-        html += '</div>'
-        
-        return html
-
-def on_pre_page_macros(env):
-    """
-    Called before processing macros on a page
-    """
-    pass
-
-def on_post_page_macros(env):
-    """
-    Called after processing macros on a page
-    """
-    pass
-
-def on_post_build(env):
-    """
-    Called after the build is complete
-    """
-    pass
+    # Add filters
+    @env.filter
+    def format_bytes(bytes_value):
+        """Format bytes into human readable format"""
+        for unit in ['B', 'KB', 'MB', 'GB', 'TB']:
+            if bytes_value < 1024.0:
+                return f"{bytes_value:.2f} {unit}"
+            bytes_value /= 1024.0
+        return f"{bytes_value:.2f} PB"
