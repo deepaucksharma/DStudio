@@ -1567,13 +1567,13 @@ graph TD
 - [Pillar 5: Intelligence](../intelligence/index.md) - Smart state placement
 
 ### Implementation Patterns
-- [Event Sourcing](../../patterns/event-sourcing/index.md) - State as event log
-- [CQRS](../../patterns/cqrs/index.md) - Separate read/write state models
-- [Sharding](../../patterns/sharding/index.md) - Horizontal state partitioning
-- [Replication](../../patterns/replication/index.md) - State redundancy patterns
+- [Event Sourcing](../../patterns/event-sourcing.md) - State as event log
+- [CQRS](../../patterns/cqrs.md) - Separate read/write state models
+- [Sharding](../../patterns/sharding.md) - Horizontal state partitioning
+- [Replication](../../patterns/geo-replication.md) - State redundancy patterns
 
 ### Real-World Case Studies
-- [DynamoDB](../../case-studies/dynamodb/index.md) - Amazon's distributed database
-- [Cassandra](../../case-studies/cassandra/index.md) - Wide-column distributed store
-- [Redis Cluster](../../case-studies/redis-cluster/index.md) - In-memory distributed state
-- [MongoDB](../../case-studies/mongodb/index.md) - Document database sharding
+- [DynamoDB](../../case-studies/amazon-dynamo.md) - Amazon's distributed database
+- [Cassandra](../../case-studies/cassandra.md) - Wide-column distributed store
+- [Redis Cluster](../../case-studies/redis.md) - In-memory distributed state
+- [MongoDB](../../case-studies/mongodb.md) - Document database sharding

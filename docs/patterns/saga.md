@@ -1059,11 +1059,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Coordination Axiom](/part1-axioms/axiom5-coordination/)**: Manages distributed consensus without locks
-2. **[Failure Axiom](/part1-axioms/axiom3-failure/)**: Explicit handling of partial failures
-3. **[Concurrency Axiom](/part1-axioms/axiom4-concurrency/)**: Handles concurrent saga executions
-4. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Full audit trail of all steps
-5. **[Economics Axiom](/part1-axioms/axiom8-economics/)**: Balances consistency costs with business needs
+1. **[Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)**: Manages distributed consensus without locks
+2. **[Failure Axiom](../part1-axioms/axiom3-failure/index.md)**: Explicit handling of partial failures
+3. **[Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md)**: Handles concurrent saga executions
+4. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Full audit trail of all steps
+5. **[Economics Axiom](../part1-axioms/axiom8-economics/index.md)**: Balances consistency costs with business needs
 </div>
 
 ### Future Directions
@@ -1184,15 +1184,15 @@ saga:
 ## Related Resources
 
 ### Patterns
-- [Event Sourcing](/patterns/event-sourcing/) - Natural event log for sagas
-- [CQRS](/patterns/cqrs/) - Separate saga execution from queries
-- [Outbox Pattern](/patterns/outbox/) - Reliable event publishing
-- [Circuit Breaker](/patterns/circuit-breaker/) - Protect saga steps
+- [Event Sourcing](../patterns/event-sourcing.md) - Natural event log for sagas
+- [CQRS](../patterns/cqrs.md) - Separate saga execution from queries
+- [Outbox Pattern](../patterns/outbox.md) - Reliable event publishing
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect saga steps
 
 ### Axioms
-- [Coordination Axiom](/part1-axioms/axiom5-coordination/) - Why distributed consensus is hard
-- [Failure Axiom](/part1-axioms/axiom3-failure/) - Handling partial failures
-- [Concurrency Axiom](/part1-axioms/axiom4-concurrency/) - Managing parallel execution
+- [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) - Why distributed consensus is hard
+- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Handling partial failures
+- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Managing parallel execution
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem
@@ -1212,9 +1212,9 @@ saga:
 
 <div class="navigation-links">
 <div class="prev-link">
-<a href="/patterns/event-sourcing/">← Previous: Event Sourcing</a>
+<a href="/patterns/event-sourcing">← Previous: Event Sourcing</a>
 </div>
 <div class="next-link">
-<a href="/patterns/service-mesh/">Next: Service Mesh →</a>
+<a href="/patterns/service-mesh">Next: Service Mesh →</a>
 </div>
 </div>

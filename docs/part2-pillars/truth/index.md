@@ -154,7 +154,7 @@ gantt
     - Miners voluntarily took losses
     - Proved that Bitcoin consensus is sociotechnical
 
-**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Axiom 7: Human Interface](../../part1-axioms/axiom7-human-interface/index.md) - humans remain the ultimate arbiters.
+**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Axiom 7: Human Interface](../../part1-axioms/axiom7-human/index.md) - humans remain the ultimate arbiters.
 
 ### The FLP Impossibility Result
 
@@ -1575,7 +1575,7 @@ flowchart TD
 - [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - Ordering events across nodes
 - [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - The cost of achieving consensus
 - [Axiom 6: Observability](../../part1-axioms/axiom6-observability/index.md) - Monitoring consensus health
-- [Axiom 7: Human Interface](../../part1-axioms/axiom7-human-interface/index.md) - Human intervention in consensus failures
+- [Axiom 7: Human Interface](../../part1-axioms/axiom7-human/index.md) - Human intervention in consensus failures
 
 ### Related Pillars
 - [Pillar 1: Work](../work/index.md) - Coordinating distributed computation
@@ -1584,13 +1584,13 @@ flowchart TD
 - [Pillar 5: Intelligence](../intelligence/index.md) - Smart consensus optimization
 
 ### Implementation Patterns
-- [Consensus Protocols](../../patterns/consensus/index.md) - Raft, Paxos, PBFT
-- [Event Sourcing](../../patterns/event-sourcing/index.md) - Truth from event logs
-- [CQRS](../../patterns/cqrs/index.md) - Separating read/write models
-- [Saga Pattern](../../patterns/saga/index.md) - Distributed transaction consensus
+- [Consensus Protocols](../../patterns/consensus.md) - Raft, Paxos, PBFT
+- [Event Sourcing](../../patterns/event-sourcing.md) - Truth from event logs
+- [CQRS](../../patterns/cqrs.md) - Separating read/write models
+- [Saga Pattern](../../patterns/saga.md) - Distributed transaction consensus
 
 ### Real-World Case Studies
-- [etcd: Production Raft](../../case-studies/etcd/index.md) - Kubernetes' consensus backbone
-- [Blockchain Consensus](../../case-studies/blockchain/index.md) - Bitcoin and Ethereum
-- [Google Spanner](../../case-studies/spanner/index.md) - Global consistency at scale
-- [Apache Kafka](../../case-studies/kafka/index.md) - Distributed log consensus
+- [etcd: Production Raft](../../case-studies/etcd.md) - Kubernetes' consensus backbone
+- [Blockchain Consensus](../../case-studies/blockchain.md) - Bitcoin and Ethereum
+- [Google Spanner](../../case-studies/google-spanner.md) - Global consistency at scale
+- [Apache Kafka](../../case-studies/kafka.md) - Distributed log consensus

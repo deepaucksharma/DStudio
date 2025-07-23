@@ -1354,7 +1354,7 @@ graph TB
 
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - Managing global video infrastructure at scale
-- **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting and provisioning for viral videos
+- **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting and provisioning for viral videos
 - **[Incident Response](../human-factors/incident-response.md)** - Handling regional CDN failures and live stream issues
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Video quality metrics and viewer experience monitoring
 

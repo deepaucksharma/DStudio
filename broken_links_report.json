@@ -1,0 +1,2176 @@
+{
+  "total_broken": 143,
+  "by_source_file": {
+    "quantitative/availability-math.md": [
+      {
+        "source": "quantitative/availability-math.md",
+        "text": "App1|App2",
+        "url": "99.9999%",
+        "expected_path": "quantitative/99.9999%"
+      }
+    ],
+    "patterns/load-shedding.md": [
+      {
+        "source": "patterns/load-shedding.md",
+        "text": "req_type",
+        "url": "current_load",
+        "expected_path": "patterns/current_load"
+      },
+      {
+        "source": "patterns/load-shedding.md",
+        "text": "req_type",
+        "url": "current_load",
+        "expected_path": "patterns/current_load"
+      }
+    ],
+    "patterns/event-sourcing.md": [
+      {
+        "source": "patterns/event-sourcing.md",
+        "text": "key",
+        "url": "event",
+        "expected_path": "patterns/event"
+      }
+    ],
+    "patterns/backpressure.md": [
+      {
+        "source": "patterns/backpressure.md",
+        "text": "Queueing Theory",
+        "url": "/quantitative/queueing-models.md",
+        "expected_path": "/quantitative/queueing-models.md"
+      },
+      {
+        "source": "patterns/backpressure.md",
+        "text": "Little's Law",
+        "url": "/quantitative/littles-law.md",
+        "expected_path": "/quantitative/littles-law.md"
+      }
+    ],
+    "patterns/serverless-faas.md": [
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "route_key",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "'s3'",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "'sns'",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "'dynamodb'",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "'sqs'",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "'http'",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "'schedule'",
+        "url": "event, context",
+        "expected_path": "patterns/event, context"
+      },
+      {
+        "source": "patterns/serverless-faas.md",
+        "text": "event_type",
+        "url": "clean_event",
+        "expected_path": "patterns/clean_event"
+      }
+    ],
+    "patterns/finops.md": [
+      {
+        "source": "patterns/finops.md",
+        "text": "'value_function'",
+        "url": "my_share",
+        "expected_path": "patterns/my_share"
+      }
+    ],
+    "case-studies/paypal-payments.md": [
+      {
+        "source": "case-studies/paypal-payments.md",
+        "text": "Security Considerations",
+        "url": "../reference/security-considerations.md",
+        "expected_path": "reference/security-considerations.md"
+      }
+    ],
+    "case-studies/search-autocomplete.md": [
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Trie Data Structure",
+        "url": "../patterns/trie.md",
+        "expected_path": "patterns/trie.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Event Streaming",
+        "url": "../patterns/event-streaming.md",
+        "expected_path": "patterns/event-streaming.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Probability Theory",
+        "url": "../quantitative/probability.md",
+        "expected_path": "quantitative/probability.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Machine Learning",
+        "url": "../quantitative/ml-ranking.md",
+        "expected_path": "quantitative/ml-ranking.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Google Search",
+        "url": "google-search.md",
+        "expected_path": "case-studies/google-search.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Elasticsearch",
+        "url": "elasticsearch-internals.md",
+        "expected_path": "case-studies/elasticsearch-internals.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Facebook Typeahead",
+        "url": "facebook-typeahead.md",
+        "expected_path": "case-studies/facebook-typeahead.md"
+      },
+      {
+        "source": "case-studies/search-autocomplete.md",
+        "text": "Amazon Product Search",
+        "url": "amazon-search.md",
+        "expected_path": "case-studies/amazon-search.md"
+      }
+    ],
+    "case-studies/url-shortener.md": [
+      {
+        "source": "case-studies/url-shortener.md",
+        "text": "Geo-Distribution",
+        "url": "../patterns/geo-distribution.md",
+        "expected_path": "patterns/geo-distribution.md"
+      },
+      {
+        "source": "case-studies/url-shortener.md",
+        "text": "Security Patterns",
+        "url": "../patterns/security-shortener.md",
+        "expected_path": "patterns/security-shortener.md"
+      },
+      {
+        "source": "case-studies/url-shortener.md",
+        "text": "CDN Design",
+        "url": "./cdn-design.md",
+        "expected_path": "case-studies/cdn-design.md"
+      },
+      {
+        "source": "case-studies/url-shortener.md",
+        "text": "Analytics Pipeline",
+        "url": "./analytics-pipeline.md",
+        "expected_path": "case-studies/analytics-pipeline.md"
+      },
+      {
+        "source": "case-studies/url-shortener.md",
+        "text": "API Gateway",
+        "url": "./api-gateway.md",
+        "expected_path": "case-studies/api-gateway.md"
+      }
+    ],
+    "case-studies/web-crawler.md": [
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "JavaScript Crawling",
+        "url": "../patterns/js-crawling.md",
+        "expected_path": "patterns/js-crawling.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Trap Detection",
+        "url": "../patterns/crawler-traps.md",
+        "expected_path": "patterns/crawler-traps.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Distributed Deduplication",
+        "url": "../patterns/distributed-dedup.md",
+        "expected_path": "patterns/distributed-dedup.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Search Engine",
+        "url": "./search-engine.md",
+        "expected_path": "case-studies/search-engine.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Web Archive",
+        "url": "./web-archive.md",
+        "expected_path": "case-studies/web-archive.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Price Monitor",
+        "url": "./price-monitor.md",
+        "expected_path": "case-studies/price-monitor.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Politeness Policies",
+        "url": "../patterns/politeness.md",
+        "expected_path": "patterns/politeness.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "URL Normalization",
+        "url": "../patterns/url-normalization.md",
+        "expected_path": "patterns/url-normalization.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Content Extraction",
+        "url": "../patterns/content-extraction.md",
+        "expected_path": "patterns/content-extraction.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "Frontier Management",
+        "url": "../patterns/url-frontier.md",
+        "expected_path": "patterns/url-frontier.md"
+      },
+      {
+        "source": "case-studies/web-crawler.md",
+        "text": "URL Frontier Management",
+        "url": "../patterns/priority-queue.md",
+        "expected_path": "patterns/priority-queue.md"
+      }
+    ],
+    "case-studies/uber-location.md": [
+      {
+        "source": "case-studies/uber-location.md",
+        "text": "Google Maps",
+        "url": "google-maps-enhanced.md",
+        "expected_path": "case-studies/google-maps-enhanced.md"
+      },
+      {
+        "source": "case-studies/uber-location.md",
+        "text": "WhatsApp",
+        "url": "chat-system-enhanced.md",
+        "expected_path": "case-studies/chat-system-enhanced.md"
+      },
+      {
+        "source": "case-studies/uber-location.md",
+        "text": "Scaling Laws",
+        "url": "../quantitative/scaling-laws.md",
+        "expected_path": "quantitative/scaling-laws.md"
+      }
+    ],
+    "case-studies/distributed-message-queue.md": [
+      {
+        "source": "case-studies/distributed-message-queue.md",
+        "text": "Event Sourcing System",
+        "url": "./event-sourcing-system/",
+        "expected_path": "case-studies/event-sourcing-system"
+      },
+      {
+        "source": "case-studies/distributed-message-queue.md",
+        "text": "Real-time Analytics",
+        "url": "./real-time-analytics/",
+        "expected_path": "case-studies/real-time-analytics"
+      },
+      {
+        "source": "case-studies/distributed-message-queue.md",
+        "text": "Multi-Region Replication",
+        "url": "./multi-region-replication/",
+        "expected_path": "case-studies/multi-region-replication"
+      }
+    ],
+    "case-studies/youtube.md": [
+      {
+        "source": "case-studies/youtube.md",
+        "text": "Fault Tolerance",
+        "url": "../patterns/fault-tolerance.md",
+        "expected_path": "patterns/fault-tolerance.md"
+      }
+    ],
+    "case-studies/unique-id-generator.md": [
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Clock Synchronization",
+        "url": "../patterns/clock-sync.md",
+        "expected_path": "patterns/clock-sync.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Jepsen Analysis of ID Generators",
+        "url": "../reference/jepsen-id-generators.md",
+        "expected_path": "reference/jepsen-id-generators.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "ID Generation at Scale",
+        "url": "../patterns/id-generation-scale.md",
+        "expected_path": "patterns/id-generation-scale.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Time-Series IDs",
+        "url": "../patterns/time-series-ids.md",
+        "expected_path": "patterns/time-series-ids.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Collision Probability Math",
+        "url": "../quantitative/collision-probability.md",
+        "expected_path": "quantitative/collision-probability.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Distributed Tracing",
+        "url": "./distributed-tracing.md",
+        "expected_path": "case-studies/distributed-tracing.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Event Sourcing",
+        "url": "./event-sourcing.md",
+        "expected_path": "case-studies/event-sourcing.md"
+      },
+      {
+        "source": "case-studies/unique-id-generator.md",
+        "text": "Client Library Design",
+        "url": "../patterns/client-library-design.md",
+        "expected_path": "patterns/client-library-design.md"
+      }
+    ],
+    "case-studies/chat-system.md": [
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "End-to-End Encryption",
+        "url": "../patterns/e2e-encryption.md",
+        "expected_path": "patterns/e2e-encryption.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "Key Management",
+        "url": "../patterns/key-management.md",
+        "expected_path": "patterns/key-management.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "WebSocket",
+        "url": "../patterns/websocket.md",
+        "expected_path": "patterns/websocket.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "Message Queue",
+        "url": "../patterns/message-queue.md",
+        "expected_path": "patterns/message-queue.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "Discord Architecture",
+        "url": "discord-architecture.md",
+        "expected_path": "case-studies/discord-architecture.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "Slack's Infrastructure",
+        "url": "slack-infrastructure.md",
+        "expected_path": "case-studies/slack-infrastructure.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "Telegram's MTProto",
+        "url": "telegram-protocol.md",
+        "expected_path": "case-studies/telegram-protocol.md"
+      },
+      {
+        "source": "case-studies/chat-system.md",
+        "text": "Signal's Architecture",
+        "url": "signal-architecture.md",
+        "expected_path": "case-studies/signal-architecture.md"
+      }
+    ],
+    "case-studies/proximity-service.md": [
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Spatial Indexing",
+        "url": "../patterns/spatial-indexing.md",
+        "expected_path": "patterns/spatial-indexing.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Geohashing",
+        "url": "../patterns/geohashing.md",
+        "expected_path": "patterns/geohashing.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Haversine Distance",
+        "url": "../quantitative/haversine.md",
+        "expected_path": "quantitative/haversine.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Spatial Statistics",
+        "url": "../quantitative/spatial-stats.md",
+        "expected_path": "quantitative/spatial-stats.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Computational Geometry",
+        "url": "../quantitative/comp-geometry.md",
+        "expected_path": "quantitative/comp-geometry.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Graph Theory",
+        "url": "../quantitative/graph-theory.md",
+        "expected_path": "quantitative/graph-theory.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Uber's H3 System",
+        "url": "uber-h3.md",
+        "expected_path": "case-studies/uber-h3.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Foursquare Venues",
+        "url": "foursquare-venues.md",
+        "expected_path": "case-studies/foursquare-venues.md"
+      },
+      {
+        "source": "case-studies/proximity-service.md",
+        "text": "Pokemon Go",
+        "url": "pokemon-go-spatial.md",
+        "expected_path": "case-studies/pokemon-go-spatial.md"
+      }
+    ],
+    "case-studies/rate-limiter.md": [
+      {
+        "source": "case-studies/rate-limiter.md",
+        "text": "Bloom Filters",
+        "url": "../quantitative/probabilistic-structures.md",
+        "expected_path": "quantitative/probabilistic-structures.md"
+      }
+    ],
+    "case-studies/notification-system.md": [
+      {
+        "source": "case-studies/notification-system.md",
+        "text": "Real-time Messaging",
+        "url": "./real-time-messaging.md",
+        "expected_path": "case-studies/real-time-messaging.md"
+      },
+      {
+        "source": "case-studies/notification-system.md",
+        "text": "Recommendation Engine",
+        "url": "./recommendation-engine.md",
+        "expected_path": "case-studies/recommendation-engine.md"
+      },
+      {
+        "source": "case-studies/notification-system.md",
+        "text": "Workflow Engine",
+        "url": "./workflow-engine.md",
+        "expected_path": "case-studies/workflow-engine.md"
+      }
+    ],
+    "case-studies/google-maps.md": [
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Tile Caching",
+        "url": "../patterns/tile-caching.md",
+        "expected_path": "patterns/tile-caching.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Vector Maps",
+        "url": "../patterns/vector-maps.md",
+        "expected_path": "patterns/vector-maps.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Real-time Updates",
+        "url": "../patterns/real-time.md",
+        "expected_path": "patterns/real-time.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Tile Pyramid",
+        "url": "../patterns/tile-pyramid.md",
+        "expected_path": "patterns/tile-pyramid.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Vector Tiles",
+        "url": "../patterns/vector-tiles.md",
+        "expected_path": "patterns/vector-tiles.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Client Rendering",
+        "url": "../patterns/client-rendering.md",
+        "expected_path": "patterns/client-rendering.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Tile Pyramid",
+        "url": "../patterns/tile-pyramid.md",
+        "expected_path": "patterns/tile-pyramid.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Vector Tiles",
+        "url": "../patterns/vector-tiles.md",
+        "expected_path": "patterns/vector-tiles.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Spatial Indexing",
+        "url": "../patterns/spatial-indexing.md",
+        "expected_path": "patterns/spatial-indexing.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Graph Algorithms",
+        "url": "../patterns/graph-algorithms.md",
+        "expected_path": "patterns/graph-algorithms.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "ML Pipeline",
+        "url": "../patterns/ml-pipeline.md",
+        "expected_path": "patterns/ml-pipeline.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Graph Theory",
+        "url": "../quantitative/graph-theory.md",
+        "expected_path": "quantitative/graph-theory.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Computational Geometry",
+        "url": "../quantitative/computational-geometry.md",
+        "expected_path": "quantitative/computational-geometry.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Time-Series Analysis",
+        "url": "../quantitative/time-series.md",
+        "expected_path": "quantitative/time-series.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Computer Vision",
+        "url": "../quantitative/computer-vision.md",
+        "expected_path": "quantitative/computer-vision.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Uber Maps",
+        "url": "uber-maps.md",
+        "expected_path": "case-studies/uber-maps.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "Apple Maps",
+        "url": "apple-maps.md",
+        "expected_path": "case-studies/apple-maps.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "OpenStreetMap",
+        "url": "openstreetmap.md",
+        "expected_path": "case-studies/openstreetmap.md"
+      },
+      {
+        "source": "case-studies/google-maps.md",
+        "text": "HERE Maps",
+        "url": "here-maps.md",
+        "expected_path": "case-studies/here-maps.md"
+      }
+    ],
+    "case-studies/key-value-store.md": [
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "CAP Theorem",
+        "url": "../part2-pillars/pillar3-truth/index.md#cap-theorem",
+        "expected_path": "part2-pillars/pillar3-truth/index.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "Hybrid Logical Clocks",
+        "url": "../patterns/hlc.md",
+        "expected_path": "patterns/hlc.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "Storage Engine Internals",
+        "url": "../quantitative/storage-engines.md",
+        "expected_path": "quantitative/storage-engines.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "Redis Architecture",
+        "url": "./redis-architecture.md",
+        "expected_path": "case-studies/redis-architecture.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "Compression Algorithms",
+        "url": "../quantitative/compression.md",
+        "expected_path": "quantitative/compression.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "Network Optimization",
+        "url": "../patterns/network-optimization.md",
+        "expected_path": "patterns/network-optimization.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "LSM-Tree",
+        "url": "../patterns/lsm-tree.md",
+        "expected_path": "patterns/lsm-tree.md"
+      },
+      {
+        "source": "case-studies/key-value-store.md",
+        "text": "Write-Ahead Logging",
+        "url": "../patterns/wal.md",
+        "expected_path": "patterns/wal.md"
+      }
+    ],
+    "case-studies/google-drive.md": [
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Deduplication",
+        "url": "../patterns/deduplication.md",
+        "expected_path": "patterns/deduplication.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Delta Sync",
+        "url": "../patterns/delta-sync.md",
+        "expected_path": "patterns/delta-sync.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Distributed Storage",
+        "url": "../patterns/distributed-storage.md",
+        "expected_path": "patterns/distributed-storage.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Metadata Service",
+        "url": "../patterns/metadata-service.md",
+        "expected_path": "patterns/metadata-service.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Content-Addressed Storage",
+        "url": "../patterns/cas.md",
+        "expected_path": "patterns/cas.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Chunking",
+        "url": "../patterns/chunking.md",
+        "expected_path": "patterns/chunking.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Content-Addressed Storage",
+        "url": "../patterns/cas.md",
+        "expected_path": "patterns/cas.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Delta Sync",
+        "url": "../patterns/delta-sync.md",
+        "expected_path": "patterns/delta-sync.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Merkle Trees",
+        "url": "../patterns/merkle-trees.md",
+        "expected_path": "patterns/merkle-trees.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Storage Economics",
+        "url": "../quantitative/storage-economics.md",
+        "expected_path": "quantitative/storage-economics.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Dropbox Architecture",
+        "url": "dropbox-architecture.md",
+        "expected_path": "case-studies/dropbox-architecture.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "Box Platform",
+        "url": "box-platform.md",
+        "expected_path": "case-studies/box-platform.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "OneDrive Sync",
+        "url": "onedrive-sync.md",
+        "expected_path": "case-studies/onedrive-sync.md"
+      },
+      {
+        "source": "case-studies/google-drive.md",
+        "text": "iCloud Design",
+        "url": "icloud-design.md",
+        "expected_path": "case-studies/icloud-design.md"
+      }
+    ],
+    "case-studies/nearby-friends.md": [
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Location Privacy",
+        "url": "../patterns/location-privacy.md",
+        "expected_path": "patterns/location-privacy.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Consent Management",
+        "url": "../patterns/consent.md",
+        "expected_path": "patterns/consent.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Human Interface",
+        "url": "../part2-pillars/human/index.md",
+        "expected_path": "part2-pillars/human/index.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Location Privacy",
+        "url": "../patterns/location-privacy.md",
+        "expected_path": "patterns/location-privacy.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Consent Management",
+        "url": "../patterns/consent-management.md",
+        "expected_path": "patterns/consent-management.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Geofencing",
+        "url": "../patterns/geofencing.md",
+        "expected_path": "patterns/geofencing.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Privacy Metrics",
+        "url": "../quantitative/privacy-metrics.md",
+        "expected_path": "quantitative/privacy-metrics.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Battery Models",
+        "url": "../quantitative/battery-models.md",
+        "expected_path": "quantitative/battery-models.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Social Networks",
+        "url": "../quantitative/social-networks.md",
+        "expected_path": "quantitative/social-networks.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Spatial Statistics",
+        "url": "../quantitative/spatial-stats.md",
+        "expected_path": "quantitative/spatial-stats.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Find My Device",
+        "url": "find-my-device.md",
+        "expected_path": "case-studies/find-my-device.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Snap Map",
+        "url": "snap-map.md",
+        "expected_path": "case-studies/snap-map.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Life360",
+        "url": "life360.md",
+        "expected_path": "case-studies/life360.md"
+      },
+      {
+        "source": "case-studies/nearby-friends.md",
+        "text": "Strava Heatmaps",
+        "url": "strava-heatmaps.md",
+        "expected_path": "case-studies/strava-heatmaps.md"
+      }
+    ],
+    "human-factors/oncall-culture.md": [
+      {
+        "source": "human-factors/oncall-culture.md",
+        "text": "alert.type",
+        "url": "alert.service",
+        "expected_path": "human-factors/alert.service"
+      }
+    ],
+    "part1-axioms/axiom4-concurrency/index.md": [
+      {
+        "source": "part1-axioms/axiom4-concurrency/index.md",
+        "text": "this, key",
+        "url": "auto result",
+        "expected_path": "part1-axioms/axiom4-concurrency/auto result"
+      },
+      {
+        "source": "part1-axioms/axiom4-concurrency/index.md",
+        "text": "this, key",
+        "url": "Association assoc",
+        "expected_path": "part1-axioms/axiom4-concurrency/Association assoc"
+      },
+      {
+        "source": "part1-axioms/axiom4-concurrency/index.md",
+        "text": "this, assoc",
+        "url": "bool success",
+        "expected_path": "part1-axioms/axiom4-concurrency/bool success"
+      },
+      {
+        "source": "part1-axioms/axiom4-concurrency/index.md",
+        "text": "this, new_assoc",
+        "url": "bool success",
+        "expected_path": "part1-axioms/axiom4-concurrency/bool success"
+      },
+      {
+        "source": "part1-axioms/axiom4-concurrency/index.md",
+        "text": "this, new_data",
+        "url": "Association current",
+        "expected_path": "part1-axioms/axiom4-concurrency/Association current"
+      },
+      {
+        "source": "part1-axioms/axiom4-concurrency/index.md",
+        "text": "&hazards",
+        "url": "Node* node",
+        "expected_path": "part1-axioms/axiom4-concurrency/Node* node"
+      }
+    ],
+    "part1-axioms/axiom1-latency/examples.md": [
+      {
+        "source": "part1-axioms/axiom1-latency/examples.md",
+        "text": "content_type",
+        "url": "pattern, current_content",
+        "expected_path": "part1-axioms/axiom1-latency/pattern, current_content"
+      }
+    ],
+    "part1-axioms/axiom8-economics/examples.md": [
+      {
+        "source": "part1-axioms/axiom8-economics/examples.md",
+        "text": "'messages_per_op'",
+        "url": "nodes",
+        "expected_path": "part1-axioms/axiom8-economics/nodes"
+      },
+      {
+        "source": "part1-axioms/axiom8-economics/examples.md",
+        "text": "'latency_ms'",
+        "url": "nodes",
+        "expected_path": "part1-axioms/axiom8-economics/nodes"
+      }
+    ],
+    "part1-axioms/axiom8-economics/exercises.md": [
+      {
+        "source": "part1-axioms/axiom8-economics/exercises.md",
+        "text": "Part I Summary",
+        "url": "../summary.md",
+        "expected_path": "part1-axioms/summary.md"
+      }
+    ],
+    "part1-axioms/axiom3-failure/index.md": [
+      {
+        "source": "part1-axioms/axiom3-failure/index.md",
+        "text": "'experiment'",
+        "url": "self.cluster",
+        "expected_path": "part1-axioms/axiom3-failure/self.cluster"
+      }
+    ]
+  },
+  "by_target_url": {
+    "99.9999%": [
+      "quantitative/availability-math.md"
+    ],
+    "current_load": [
+      "patterns/load-shedding.md",
+      "patterns/load-shedding.md"
+    ],
+    "event": [
+      "patterns/event-sourcing.md"
+    ],
+    "/quantitative/queueing-models.md": [
+      "patterns/backpressure.md"
+    ],
+    "/quantitative/littles-law.md": [
+      "patterns/backpressure.md"
+    ],
+    "event, context": [
+      "patterns/serverless-faas.md",
+      "patterns/serverless-faas.md",
+      "patterns/serverless-faas.md",
+      "patterns/serverless-faas.md",
+      "patterns/serverless-faas.md",
+      "patterns/serverless-faas.md",
+      "patterns/serverless-faas.md"
+    ],
+    "clean_event": [
+      "patterns/serverless-faas.md"
+    ],
+    "my_share": [
+      "patterns/finops.md"
+    ],
+    "../reference/security-considerations.md": [
+      "case-studies/paypal-payments.md"
+    ],
+    "../patterns/trie.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "../patterns/event-streaming.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "../quantitative/probability.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "../quantitative/ml-ranking.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "google-search.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "elasticsearch-internals.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "facebook-typeahead.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "amazon-search.md": [
+      "case-studies/search-autocomplete.md"
+    ],
+    "../patterns/geo-distribution.md": [
+      "case-studies/url-shortener.md"
+    ],
+    "../patterns/security-shortener.md": [
+      "case-studies/url-shortener.md"
+    ],
+    "./cdn-design.md": [
+      "case-studies/url-shortener.md"
+    ],
+    "./analytics-pipeline.md": [
+      "case-studies/url-shortener.md"
+    ],
+    "./api-gateway.md": [
+      "case-studies/url-shortener.md"
+    ],
+    "../patterns/js-crawling.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/crawler-traps.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/distributed-dedup.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "./search-engine.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "./web-archive.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "./price-monitor.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/politeness.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/url-normalization.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/content-extraction.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/url-frontier.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "../patterns/priority-queue.md": [
+      "case-studies/web-crawler.md"
+    ],
+    "google-maps-enhanced.md": [
+      "case-studies/uber-location.md"
+    ],
+    "chat-system-enhanced.md": [
+      "case-studies/uber-location.md"
+    ],
+    "../quantitative/scaling-laws.md": [
+      "case-studies/uber-location.md"
+    ],
+    "./event-sourcing-system/": [
+      "case-studies/distributed-message-queue.md"
+    ],
+    "./real-time-analytics/": [
+      "case-studies/distributed-message-queue.md"
+    ],
+    "./multi-region-replication/": [
+      "case-studies/distributed-message-queue.md"
+    ],
+    "../patterns/fault-tolerance.md": [
+      "case-studies/youtube.md"
+    ],
+    "../patterns/clock-sync.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "../reference/jepsen-id-generators.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "../patterns/id-generation-scale.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "../patterns/time-series-ids.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "../quantitative/collision-probability.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "./distributed-tracing.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "./event-sourcing.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "../patterns/client-library-design.md": [
+      "case-studies/unique-id-generator.md"
+    ],
+    "../patterns/e2e-encryption.md": [
+      "case-studies/chat-system.md"
+    ],
+    "../patterns/key-management.md": [
+      "case-studies/chat-system.md"
+    ],
+    "../patterns/websocket.md": [
+      "case-studies/chat-system.md"
+    ],
+    "../patterns/message-queue.md": [
+      "case-studies/chat-system.md"
+    ],
+    "discord-architecture.md": [
+      "case-studies/chat-system.md"
+    ],
+    "slack-infrastructure.md": [
+      "case-studies/chat-system.md"
+    ],
+    "telegram-protocol.md": [
+      "case-studies/chat-system.md"
+    ],
+    "signal-architecture.md": [
+      "case-studies/chat-system.md"
+    ],
+    "../patterns/spatial-indexing.md": [
+      "case-studies/proximity-service.md",
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/geohashing.md": [
+      "case-studies/proximity-service.md"
+    ],
+    "../quantitative/haversine.md": [
+      "case-studies/proximity-service.md"
+    ],
+    "../quantitative/spatial-stats.md": [
+      "case-studies/proximity-service.md",
+      "case-studies/nearby-friends.md"
+    ],
+    "../quantitative/comp-geometry.md": [
+      "case-studies/proximity-service.md"
+    ],
+    "../quantitative/graph-theory.md": [
+      "case-studies/proximity-service.md",
+      "case-studies/google-maps.md"
+    ],
+    "uber-h3.md": [
+      "case-studies/proximity-service.md"
+    ],
+    "foursquare-venues.md": [
+      "case-studies/proximity-service.md"
+    ],
+    "pokemon-go-spatial.md": [
+      "case-studies/proximity-service.md"
+    ],
+    "../quantitative/probabilistic-structures.md": [
+      "case-studies/rate-limiter.md"
+    ],
+    "./real-time-messaging.md": [
+      "case-studies/notification-system.md"
+    ],
+    "./recommendation-engine.md": [
+      "case-studies/notification-system.md"
+    ],
+    "./workflow-engine.md": [
+      "case-studies/notification-system.md"
+    ],
+    "../patterns/tile-caching.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/vector-maps.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/real-time.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/tile-pyramid.md": [
+      "case-studies/google-maps.md",
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/vector-tiles.md": [
+      "case-studies/google-maps.md",
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/client-rendering.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/graph-algorithms.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../patterns/ml-pipeline.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../quantitative/computational-geometry.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../quantitative/time-series.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../quantitative/computer-vision.md": [
+      "case-studies/google-maps.md"
+    ],
+    "uber-maps.md": [
+      "case-studies/google-maps.md"
+    ],
+    "apple-maps.md": [
+      "case-studies/google-maps.md"
+    ],
+    "openstreetmap.md": [
+      "case-studies/google-maps.md"
+    ],
+    "here-maps.md": [
+      "case-studies/google-maps.md"
+    ],
+    "../part2-pillars/pillar3-truth/index.md#cap-theorem": [
+      "case-studies/key-value-store.md"
+    ],
+    "../patterns/hlc.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "../quantitative/storage-engines.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "./redis-architecture.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "../quantitative/compression.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "../patterns/network-optimization.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "../patterns/lsm-tree.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "../patterns/wal.md": [
+      "case-studies/key-value-store.md"
+    ],
+    "../patterns/deduplication.md": [
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/delta-sync.md": [
+      "case-studies/google-drive.md",
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/distributed-storage.md": [
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/metadata-service.md": [
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/cas.md": [
+      "case-studies/google-drive.md",
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/chunking.md": [
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/merkle-trees.md": [
+      "case-studies/google-drive.md"
+    ],
+    "../quantitative/storage-economics.md": [
+      "case-studies/google-drive.md"
+    ],
+    "dropbox-architecture.md": [
+      "case-studies/google-drive.md"
+    ],
+    "box-platform.md": [
+      "case-studies/google-drive.md"
+    ],
+    "onedrive-sync.md": [
+      "case-studies/google-drive.md"
+    ],
+    "icloud-design.md": [
+      "case-studies/google-drive.md"
+    ],
+    "../patterns/location-privacy.md": [
+      "case-studies/nearby-friends.md",
+      "case-studies/nearby-friends.md"
+    ],
+    "../patterns/consent.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "../part2-pillars/human/index.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "../patterns/consent-management.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "../patterns/geofencing.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "../quantitative/privacy-metrics.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "../quantitative/battery-models.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "../quantitative/social-networks.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "find-my-device.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "snap-map.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "life360.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "strava-heatmaps.md": [
+      "case-studies/nearby-friends.md"
+    ],
+    "alert.service": [
+      "human-factors/oncall-culture.md"
+    ],
+    "auto result": [
+      "part1-axioms/axiom4-concurrency/index.md"
+    ],
+    "Association assoc": [
+      "part1-axioms/axiom4-concurrency/index.md"
+    ],
+    "bool success": [
+      "part1-axioms/axiom4-concurrency/index.md",
+      "part1-axioms/axiom4-concurrency/index.md"
+    ],
+    "Association current": [
+      "part1-axioms/axiom4-concurrency/index.md"
+    ],
+    "Node* node": [
+      "part1-axioms/axiom4-concurrency/index.md"
+    ],
+    "pattern, current_content": [
+      "part1-axioms/axiom1-latency/examples.md"
+    ],
+    "nodes": [
+      "part1-axioms/axiom8-economics/examples.md",
+      "part1-axioms/axiom8-economics/examples.md"
+    ],
+    "../summary.md": [
+      "part1-axioms/axiom8-economics/exercises.md"
+    ],
+    "self.cluster": [
+      "part1-axioms/axiom3-failure/index.md"
+    ]
+  },
+  "all_broken_links": [
+    {
+      "source": "quantitative/availability-math.md",
+      "text": "App1|App2",
+      "url": "99.9999%",
+      "expected_path": "quantitative/99.9999%"
+    },
+    {
+      "source": "patterns/load-shedding.md",
+      "text": "req_type",
+      "url": "current_load",
+      "expected_path": "patterns/current_load"
+    },
+    {
+      "source": "patterns/load-shedding.md",
+      "text": "req_type",
+      "url": "current_load",
+      "expected_path": "patterns/current_load"
+    },
+    {
+      "source": "patterns/event-sourcing.md",
+      "text": "key",
+      "url": "event",
+      "expected_path": "patterns/event"
+    },
+    {
+      "source": "patterns/backpressure.md",
+      "text": "Queueing Theory",
+      "url": "/quantitative/queueing-models.md",
+      "expected_path": "/quantitative/queueing-models.md"
+    },
+    {
+      "source": "patterns/backpressure.md",
+      "text": "Little's Law",
+      "url": "/quantitative/littles-law.md",
+      "expected_path": "/quantitative/littles-law.md"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "route_key",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "'s3'",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "'sns'",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "'dynamodb'",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "'sqs'",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "'http'",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "'schedule'",
+      "url": "event, context",
+      "expected_path": "patterns/event, context"
+    },
+    {
+      "source": "patterns/serverless-faas.md",
+      "text": "event_type",
+      "url": "clean_event",
+      "expected_path": "patterns/clean_event"
+    },
+    {
+      "source": "patterns/finops.md",
+      "text": "'value_function'",
+      "url": "my_share",
+      "expected_path": "patterns/my_share"
+    },
+    {
+      "source": "case-studies/paypal-payments.md",
+      "text": "Security Considerations",
+      "url": "../reference/security-considerations.md",
+      "expected_path": "reference/security-considerations.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Trie Data Structure",
+      "url": "../patterns/trie.md",
+      "expected_path": "patterns/trie.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Event Streaming",
+      "url": "../patterns/event-streaming.md",
+      "expected_path": "patterns/event-streaming.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Probability Theory",
+      "url": "../quantitative/probability.md",
+      "expected_path": "quantitative/probability.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Machine Learning",
+      "url": "../quantitative/ml-ranking.md",
+      "expected_path": "quantitative/ml-ranking.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Google Search",
+      "url": "google-search.md",
+      "expected_path": "case-studies/google-search.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Elasticsearch",
+      "url": "elasticsearch-internals.md",
+      "expected_path": "case-studies/elasticsearch-internals.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Facebook Typeahead",
+      "url": "facebook-typeahead.md",
+      "expected_path": "case-studies/facebook-typeahead.md"
+    },
+    {
+      "source": "case-studies/search-autocomplete.md",
+      "text": "Amazon Product Search",
+      "url": "amazon-search.md",
+      "expected_path": "case-studies/amazon-search.md"
+    },
+    {
+      "source": "case-studies/url-shortener.md",
+      "text": "Geo-Distribution",
+      "url": "../patterns/geo-distribution.md",
+      "expected_path": "patterns/geo-distribution.md"
+    },
+    {
+      "source": "case-studies/url-shortener.md",
+      "text": "Security Patterns",
+      "url": "../patterns/security-shortener.md",
+      "expected_path": "patterns/security-shortener.md"
+    },
+    {
+      "source": "case-studies/url-shortener.md",
+      "text": "CDN Design",
+      "url": "./cdn-design.md",
+      "expected_path": "case-studies/cdn-design.md"
+    },
+    {
+      "source": "case-studies/url-shortener.md",
+      "text": "Analytics Pipeline",
+      "url": "./analytics-pipeline.md",
+      "expected_path": "case-studies/analytics-pipeline.md"
+    },
+    {
+      "source": "case-studies/url-shortener.md",
+      "text": "API Gateway",
+      "url": "./api-gateway.md",
+      "expected_path": "case-studies/api-gateway.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "JavaScript Crawling",
+      "url": "../patterns/js-crawling.md",
+      "expected_path": "patterns/js-crawling.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Trap Detection",
+      "url": "../patterns/crawler-traps.md",
+      "expected_path": "patterns/crawler-traps.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Distributed Deduplication",
+      "url": "../patterns/distributed-dedup.md",
+      "expected_path": "patterns/distributed-dedup.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Search Engine",
+      "url": "./search-engine.md",
+      "expected_path": "case-studies/search-engine.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Web Archive",
+      "url": "./web-archive.md",
+      "expected_path": "case-studies/web-archive.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Price Monitor",
+      "url": "./price-monitor.md",
+      "expected_path": "case-studies/price-monitor.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Politeness Policies",
+      "url": "../patterns/politeness.md",
+      "expected_path": "patterns/politeness.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "URL Normalization",
+      "url": "../patterns/url-normalization.md",
+      "expected_path": "patterns/url-normalization.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Content Extraction",
+      "url": "../patterns/content-extraction.md",
+      "expected_path": "patterns/content-extraction.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "Frontier Management",
+      "url": "../patterns/url-frontier.md",
+      "expected_path": "patterns/url-frontier.md"
+    },
+    {
+      "source": "case-studies/web-crawler.md",
+      "text": "URL Frontier Management",
+      "url": "../patterns/priority-queue.md",
+      "expected_path": "patterns/priority-queue.md"
+    },
+    {
+      "source": "case-studies/uber-location.md",
+      "text": "Google Maps",
+      "url": "google-maps-enhanced.md",
+      "expected_path": "case-studies/google-maps-enhanced.md"
+    },
+    {
+      "source": "case-studies/uber-location.md",
+      "text": "WhatsApp",
+      "url": "chat-system-enhanced.md",
+      "expected_path": "case-studies/chat-system-enhanced.md"
+    },
+    {
+      "source": "case-studies/uber-location.md",
+      "text": "Scaling Laws",
+      "url": "../quantitative/scaling-laws.md",
+      "expected_path": "quantitative/scaling-laws.md"
+    },
+    {
+      "source": "case-studies/distributed-message-queue.md",
+      "text": "Event Sourcing System",
+      "url": "./event-sourcing-system/",
+      "expected_path": "case-studies/event-sourcing-system"
+    },
+    {
+      "source": "case-studies/distributed-message-queue.md",
+      "text": "Real-time Analytics",
+      "url": "./real-time-analytics/",
+      "expected_path": "case-studies/real-time-analytics"
+    },
+    {
+      "source": "case-studies/distributed-message-queue.md",
+      "text": "Multi-Region Replication",
+      "url": "./multi-region-replication/",
+      "expected_path": "case-studies/multi-region-replication"
+    },
+    {
+      "source": "case-studies/youtube.md",
+      "text": "Fault Tolerance",
+      "url": "../patterns/fault-tolerance.md",
+      "expected_path": "patterns/fault-tolerance.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Clock Synchronization",
+      "url": "../patterns/clock-sync.md",
+      "expected_path": "patterns/clock-sync.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Jepsen Analysis of ID Generators",
+      "url": "../reference/jepsen-id-generators.md",
+      "expected_path": "reference/jepsen-id-generators.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "ID Generation at Scale",
+      "url": "../patterns/id-generation-scale.md",
+      "expected_path": "patterns/id-generation-scale.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Time-Series IDs",
+      "url": "../patterns/time-series-ids.md",
+      "expected_path": "patterns/time-series-ids.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Collision Probability Math",
+      "url": "../quantitative/collision-probability.md",
+      "expected_path": "quantitative/collision-probability.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Distributed Tracing",
+      "url": "./distributed-tracing.md",
+      "expected_path": "case-studies/distributed-tracing.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Event Sourcing",
+      "url": "./event-sourcing.md",
+      "expected_path": "case-studies/event-sourcing.md"
+    },
+    {
+      "source": "case-studies/unique-id-generator.md",
+      "text": "Client Library Design",
+      "url": "../patterns/client-library-design.md",
+      "expected_path": "patterns/client-library-design.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "End-to-End Encryption",
+      "url": "../patterns/e2e-encryption.md",
+      "expected_path": "patterns/e2e-encryption.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "Key Management",
+      "url": "../patterns/key-management.md",
+      "expected_path": "patterns/key-management.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "WebSocket",
+      "url": "../patterns/websocket.md",
+      "expected_path": "patterns/websocket.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "Message Queue",
+      "url": "../patterns/message-queue.md",
+      "expected_path": "patterns/message-queue.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "Discord Architecture",
+      "url": "discord-architecture.md",
+      "expected_path": "case-studies/discord-architecture.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "Slack's Infrastructure",
+      "url": "slack-infrastructure.md",
+      "expected_path": "case-studies/slack-infrastructure.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "Telegram's MTProto",
+      "url": "telegram-protocol.md",
+      "expected_path": "case-studies/telegram-protocol.md"
+    },
+    {
+      "source": "case-studies/chat-system.md",
+      "text": "Signal's Architecture",
+      "url": "signal-architecture.md",
+      "expected_path": "case-studies/signal-architecture.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Spatial Indexing",
+      "url": "../patterns/spatial-indexing.md",
+      "expected_path": "patterns/spatial-indexing.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Geohashing",
+      "url": "../patterns/geohashing.md",
+      "expected_path": "patterns/geohashing.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Haversine Distance",
+      "url": "../quantitative/haversine.md",
+      "expected_path": "quantitative/haversine.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Spatial Statistics",
+      "url": "../quantitative/spatial-stats.md",
+      "expected_path": "quantitative/spatial-stats.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Computational Geometry",
+      "url": "../quantitative/comp-geometry.md",
+      "expected_path": "quantitative/comp-geometry.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Graph Theory",
+      "url": "../quantitative/graph-theory.md",
+      "expected_path": "quantitative/graph-theory.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Uber's H3 System",
+      "url": "uber-h3.md",
+      "expected_path": "case-studies/uber-h3.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Foursquare Venues",
+      "url": "foursquare-venues.md",
+      "expected_path": "case-studies/foursquare-venues.md"
+    },
+    {
+      "source": "case-studies/proximity-service.md",
+      "text": "Pokemon Go",
+      "url": "pokemon-go-spatial.md",
+      "expected_path": "case-studies/pokemon-go-spatial.md"
+    },
+    {
+      "source": "case-studies/rate-limiter.md",
+      "text": "Bloom Filters",
+      "url": "../quantitative/probabilistic-structures.md",
+      "expected_path": "quantitative/probabilistic-structures.md"
+    },
+    {
+      "source": "case-studies/notification-system.md",
+      "text": "Real-time Messaging",
+      "url": "./real-time-messaging.md",
+      "expected_path": "case-studies/real-time-messaging.md"
+    },
+    {
+      "source": "case-studies/notification-system.md",
+      "text": "Recommendation Engine",
+      "url": "./recommendation-engine.md",
+      "expected_path": "case-studies/recommendation-engine.md"
+    },
+    {
+      "source": "case-studies/notification-system.md",
+      "text": "Workflow Engine",
+      "url": "./workflow-engine.md",
+      "expected_path": "case-studies/workflow-engine.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Tile Caching",
+      "url": "../patterns/tile-caching.md",
+      "expected_path": "patterns/tile-caching.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Vector Maps",
+      "url": "../patterns/vector-maps.md",
+      "expected_path": "patterns/vector-maps.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Real-time Updates",
+      "url": "../patterns/real-time.md",
+      "expected_path": "patterns/real-time.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Tile Pyramid",
+      "url": "../patterns/tile-pyramid.md",
+      "expected_path": "patterns/tile-pyramid.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Vector Tiles",
+      "url": "../patterns/vector-tiles.md",
+      "expected_path": "patterns/vector-tiles.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Client Rendering",
+      "url": "../patterns/client-rendering.md",
+      "expected_path": "patterns/client-rendering.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Tile Pyramid",
+      "url": "../patterns/tile-pyramid.md",
+      "expected_path": "patterns/tile-pyramid.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Vector Tiles",
+      "url": "../patterns/vector-tiles.md",
+      "expected_path": "patterns/vector-tiles.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Spatial Indexing",
+      "url": "../patterns/spatial-indexing.md",
+      "expected_path": "patterns/spatial-indexing.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Graph Algorithms",
+      "url": "../patterns/graph-algorithms.md",
+      "expected_path": "patterns/graph-algorithms.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "ML Pipeline",
+      "url": "../patterns/ml-pipeline.md",
+      "expected_path": "patterns/ml-pipeline.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Graph Theory",
+      "url": "../quantitative/graph-theory.md",
+      "expected_path": "quantitative/graph-theory.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Computational Geometry",
+      "url": "../quantitative/computational-geometry.md",
+      "expected_path": "quantitative/computational-geometry.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Time-Series Analysis",
+      "url": "../quantitative/time-series.md",
+      "expected_path": "quantitative/time-series.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Computer Vision",
+      "url": "../quantitative/computer-vision.md",
+      "expected_path": "quantitative/computer-vision.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Uber Maps",
+      "url": "uber-maps.md",
+      "expected_path": "case-studies/uber-maps.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "Apple Maps",
+      "url": "apple-maps.md",
+      "expected_path": "case-studies/apple-maps.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "OpenStreetMap",
+      "url": "openstreetmap.md",
+      "expected_path": "case-studies/openstreetmap.md"
+    },
+    {
+      "source": "case-studies/google-maps.md",
+      "text": "HERE Maps",
+      "url": "here-maps.md",
+      "expected_path": "case-studies/here-maps.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "CAP Theorem",
+      "url": "../part2-pillars/pillar3-truth/index.md#cap-theorem",
+      "expected_path": "part2-pillars/pillar3-truth/index.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "Hybrid Logical Clocks",
+      "url": "../patterns/hlc.md",
+      "expected_path": "patterns/hlc.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "Storage Engine Internals",
+      "url": "../quantitative/storage-engines.md",
+      "expected_path": "quantitative/storage-engines.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "Redis Architecture",
+      "url": "./redis-architecture.md",
+      "expected_path": "case-studies/redis-architecture.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "Compression Algorithms",
+      "url": "../quantitative/compression.md",
+      "expected_path": "quantitative/compression.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "Network Optimization",
+      "url": "../patterns/network-optimization.md",
+      "expected_path": "patterns/network-optimization.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "LSM-Tree",
+      "url": "../patterns/lsm-tree.md",
+      "expected_path": "patterns/lsm-tree.md"
+    },
+    {
+      "source": "case-studies/key-value-store.md",
+      "text": "Write-Ahead Logging",
+      "url": "../patterns/wal.md",
+      "expected_path": "patterns/wal.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Deduplication",
+      "url": "../patterns/deduplication.md",
+      "expected_path": "patterns/deduplication.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Delta Sync",
+      "url": "../patterns/delta-sync.md",
+      "expected_path": "patterns/delta-sync.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Distributed Storage",
+      "url": "../patterns/distributed-storage.md",
+      "expected_path": "patterns/distributed-storage.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Metadata Service",
+      "url": "../patterns/metadata-service.md",
+      "expected_path": "patterns/metadata-service.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Content-Addressed Storage",
+      "url": "../patterns/cas.md",
+      "expected_path": "patterns/cas.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Chunking",
+      "url": "../patterns/chunking.md",
+      "expected_path": "patterns/chunking.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Content-Addressed Storage",
+      "url": "../patterns/cas.md",
+      "expected_path": "patterns/cas.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Delta Sync",
+      "url": "../patterns/delta-sync.md",
+      "expected_path": "patterns/delta-sync.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Merkle Trees",
+      "url": "../patterns/merkle-trees.md",
+      "expected_path": "patterns/merkle-trees.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Storage Economics",
+      "url": "../quantitative/storage-economics.md",
+      "expected_path": "quantitative/storage-economics.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Dropbox Architecture",
+      "url": "dropbox-architecture.md",
+      "expected_path": "case-studies/dropbox-architecture.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "Box Platform",
+      "url": "box-platform.md",
+      "expected_path": "case-studies/box-platform.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "OneDrive Sync",
+      "url": "onedrive-sync.md",
+      "expected_path": "case-studies/onedrive-sync.md"
+    },
+    {
+      "source": "case-studies/google-drive.md",
+      "text": "iCloud Design",
+      "url": "icloud-design.md",
+      "expected_path": "case-studies/icloud-design.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Location Privacy",
+      "url": "../patterns/location-privacy.md",
+      "expected_path": "patterns/location-privacy.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Consent Management",
+      "url": "../patterns/consent.md",
+      "expected_path": "patterns/consent.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Human Interface",
+      "url": "../part2-pillars/human/index.md",
+      "expected_path": "part2-pillars/human/index.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Location Privacy",
+      "url": "../patterns/location-privacy.md",
+      "expected_path": "patterns/location-privacy.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Consent Management",
+      "url": "../patterns/consent-management.md",
+      "expected_path": "patterns/consent-management.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Geofencing",
+      "url": "../patterns/geofencing.md",
+      "expected_path": "patterns/geofencing.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Privacy Metrics",
+      "url": "../quantitative/privacy-metrics.md",
+      "expected_path": "quantitative/privacy-metrics.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Battery Models",
+      "url": "../quantitative/battery-models.md",
+      "expected_path": "quantitative/battery-models.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Social Networks",
+      "url": "../quantitative/social-networks.md",
+      "expected_path": "quantitative/social-networks.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Spatial Statistics",
+      "url": "../quantitative/spatial-stats.md",
+      "expected_path": "quantitative/spatial-stats.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Find My Device",
+      "url": "find-my-device.md",
+      "expected_path": "case-studies/find-my-device.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Snap Map",
+      "url": "snap-map.md",
+      "expected_path": "case-studies/snap-map.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Life360",
+      "url": "life360.md",
+      "expected_path": "case-studies/life360.md"
+    },
+    {
+      "source": "case-studies/nearby-friends.md",
+      "text": "Strava Heatmaps",
+      "url": "strava-heatmaps.md",
+      "expected_path": "case-studies/strava-heatmaps.md"
+    },
+    {
+      "source": "human-factors/oncall-culture.md",
+      "text": "alert.type",
+      "url": "alert.service",
+      "expected_path": "human-factors/alert.service"
+    },
+    {
+      "source": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, key",
+      "url": "auto result",
+      "expected_path": "part1-axioms/axiom4-concurrency/auto result"
+    },
+    {
+      "source": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, key",
+      "url": "Association assoc",
+      "expected_path": "part1-axioms/axiom4-concurrency/Association assoc"
+    },
+    {
+      "source": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, assoc",
+      "url": "bool success",
+      "expected_path": "part1-axioms/axiom4-concurrency/bool success"
+    },
+    {
+      "source": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, new_assoc",
+      "url": "bool success",
+      "expected_path": "part1-axioms/axiom4-concurrency/bool success"
+    },
+    {
+      "source": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "this, new_data",
+      "url": "Association current",
+      "expected_path": "part1-axioms/axiom4-concurrency/Association current"
+    },
+    {
+      "source": "part1-axioms/axiom4-concurrency/index.md",
+      "text": "&hazards",
+      "url": "Node* node",
+      "expected_path": "part1-axioms/axiom4-concurrency/Node* node"
+    },
+    {
+      "source": "part1-axioms/axiom1-latency/examples.md",
+      "text": "content_type",
+      "url": "pattern, current_content",
+      "expected_path": "part1-axioms/axiom1-latency/pattern, current_content"
+    },
+    {
+      "source": "part1-axioms/axiom8-economics/examples.md",
+      "text": "'messages_per_op'",
+      "url": "nodes",
+      "expected_path": "part1-axioms/axiom8-economics/nodes"
+    },
+    {
+      "source": "part1-axioms/axiom8-economics/examples.md",
+      "text": "'latency_ms'",
+      "url": "nodes",
+      "expected_path": "part1-axioms/axiom8-economics/nodes"
+    },
+    {
+      "source": "part1-axioms/axiom8-economics/exercises.md",
+      "text": "Part I Summary",
+      "url": "../summary.md",
+      "expected_path": "part1-axioms/summary.md"
+    },
+    {
+      "source": "part1-axioms/axiom3-failure/index.md",
+      "text": "'experiment'",
+      "url": "self.cluster",
+      "expected_path": "part1-axioms/axiom3-failure/self.cluster"
+    }
+  ]
+}

@@ -886,11 +886,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Latency Axiom](/part1-axioms/axiom1-latency/)**: Optimized read models eliminate complex queries
-2. **[Capacity Axiom](/part1-axioms/axiom2-capacity/)**: Independent scaling of read/write workloads  
-3. **[Concurrency Axiom](/part1-axioms/axiom4-concurrency/)**: Event ordering provides natural concurrency control
-4. **[Coordination Axiom](/part1-axioms/axiom5-coordination/)**: Asynchronous projections reduce coupling
-5. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Event stream provides complete audit trail
+1. **[Latency Axiom](../part1-axioms/axiom1-latency/index.md)**: Optimized read models eliminate complex queries
+2. **[Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)**: Independent scaling of read/write workloads  
+3. **[Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md)**: Event ordering provides natural concurrency control
+4. **[Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)**: Asynchronous projections reduce coupling
+5. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Event stream provides complete audit trail
 </div>
 
 ### Future Directions
@@ -1009,14 +1009,14 @@ cqrs:
 ## Related Resources
 
 ### Patterns
-- [Event Sourcing](/patterns/event-sourcing/) - Natural companion for event-driven CQRS
-- [Saga Pattern](/patterns/saga/) - Handling distributed transactions with CQRS
-- [Event-Driven Architecture](/patterns/event-driven/) - Foundation for CQRS communication
+- [Event Sourcing](../patterns/event-sourcing.md) - Natural companion for event-driven CQRS
+- [Saga Pattern](../patterns/saga.md) - Handling distributed transactions with CQRS
+- [Event-Driven Architecture](../patterns/event-driven.md) - Foundation for CQRS communication
 
 ### Axioms
-- [Latency Axiom](/part1-axioms/axiom1-latency/) - Why read optimization matters
-- [Concurrency Axiom](/part1-axioms/axiom4-concurrency/) - Managing parallel operations
-- [Coordination Axiom](/part1-axioms/axiom5-coordination/) - Reducing system coupling
+- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Why read optimization matters
+- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Managing parallel operations
+- [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) - Reducing system coupling
 
 ### Further Reading
 - [Greg Young's CQRS Documents](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) - Original CQRS papers
@@ -1036,9 +1036,9 @@ cqrs:
 
 <div class="navigation-links">
 <div class="prev-link">
-<a href="/patterns/queues-streaming/">← Previous: Queues & Streaming</a>
+<a href="/patterns/queues-streaming">← Previous: Queues & Streaming</a>
 </div>
 <div class="next-link">
-<a href="/patterns/event-driven/">Next: Event-Driven Architecture →</a>
+<a href="/patterns/event-driven">Next: Event-Driven Architecture →</a>
 </div>
 </div>

@@ -1261,11 +1261,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Capacity Axiom](/part1-axioms/axiom2-capacity/)**: Buffers handle capacity mismatches
-2. **[Latency Axiom](/part1-axioms/axiom1-latency/)**: Decoupling reduces blocking
-3. **[Failure Axiom](/part1-axioms/axiom3-failure/)**: Messages survive consumer failures
-4. **[Coordination Axiom](/part1-axioms/axiom5-coordination/)**: Async coordination via messages
-5. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Message flow visibility
+1. **[Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)**: Buffers handle capacity mismatches
+2. **[Latency Axiom](../part1-axioms/axiom1-latency/index.md)**: Decoupling reduces blocking
+3. **[Failure Axiom](../part1-axioms/axiom3-failure/index.md)**: Messages survive consumer failures
+4. **[Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)**: Async coordination via messages
+5. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Message flow visibility
 </div>
 
 ### Future Directions
@@ -1386,15 +1386,15 @@ messaging:
 ## Related Resources
 
 ### Patterns
-- [Event-Driven Architecture](/patterns/event-driven/) - Built on queues/streams
-- [CQRS](/patterns/cqrs/) - Commands via queues
-- [Saga Pattern](/patterns/saga/) - Orchestration via queues
-- [Circuit Breaker](/patterns/circuit-breaker/) - Protect consumers
+- [Event-Driven Architecture](../patterns/event-driven.md) - Built on queues/streams
+- [CQRS](../patterns/cqrs.md) - Commands via queues
+- [Saga Pattern](../patterns/saga.md) - Orchestration via queues
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Protect consumers
 
 ### Axioms
-- [Capacity Axiom](/part1-axioms/axiom2-capacity/) - Why buffering matters
-- [Latency Axiom](/part1-axioms/axiom1-latency/) - Async vs sync trade-offs
-- [Failure Axiom](/part1-axioms/axiom3-failure/) - Message durability
+- [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) - Why buffering matters
+- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Async vs sync trade-offs
+- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly
@@ -1419,6 +1419,6 @@ messaging:
 <a href="/patterns/">← Previous: Patterns Overview</a>
 </div>
 <div class="next-link">
-<a href="/patterns/cqrs/">Next: CQRS →</a>
+<a href="/patterns/cqrs">Next: CQRS →</a>
 </div>
 </div>

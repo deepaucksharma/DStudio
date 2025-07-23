@@ -64,20 +64,20 @@ Two-Phase Commit (2PC) is a distributed algorithm that coordinates all processes
 ## Related Resources
 
 ### Patterns
-- [Saga Pattern](/patterns/saga/) - Alternative for long-running transactions
-- [Outbox Pattern](/patterns/outbox/) - Ensuring consistency with messaging
-- [Event Sourcing](/patterns/event-sourcing/) - Event-based consistency
+- [Saga Pattern](../patterns/saga.md) - Alternative for long-running transactions
+- [Outbox Pattern](../patterns/outbox.md) - Ensuring consistency with messaging
+- [Event Sourcing](../patterns/event-sourcing.md) - Event-based consistency
 
 ### Axioms
-- [Coordination Axiom](/part1-axioms/axiom5-coordination/) - Consensus fundamentals
-- [Failure Axiom](/part1-axioms/axiom3-failure/) - Handling distributed failures
-- [Latency Axiom](/part1-axioms/axiom1-latency/) - Performance implications
+- [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) - Consensus fundamentals
+- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Handling distributed failures
+- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Performance implications
 
 ---
 
 <div class="navigation-links">
 <div class="prev-link">
-<a href="/patterns/tunable-consistency/">← Previous: Tunable Consistency</a>
+<a href="/patterns/tunable-consistency">← Previous: Tunable Consistency</a>
 </div>
 <div class="next-link">
 <a href="/patterns/">Back to Patterns →</a>

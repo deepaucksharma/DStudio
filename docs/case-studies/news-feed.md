@@ -1245,8 +1245,8 @@ The hybrid architecture balances the trade-offs between different approaches, us
 ### 👥 Human Factors Considerations
 - **[SRE Practices](../human-factors/sre-practices.md)** - Managing feed generation SLOs and error budgets
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 monitoring for feed availability
-- **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting growth and viral content spikes
-- **[Post-Mortem Culture](../human-factors/postmortem-culture.md)** - Learning from feed outages and relevance drops
+- **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting growth and viral content spikes
+- **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Learning from feed outages and relevance drops
 
 ### 🔄 Similar Case Studies
 - **[Spotify Recommendations](spotify-recommendations.md)** - Similar ML personalization challenges

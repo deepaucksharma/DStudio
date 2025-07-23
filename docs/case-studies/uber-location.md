@@ -673,7 +673,7 @@ Trade-off: Temporary inconsistency for convergence⁹
 - **[Little's Law](../quantitative/littles-law.md)** - Driver utilization: L = λW (active drivers = arrival rate × trip duration)
 - **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for driver dispatch optimization
 - **[Scaling Laws](../quantitative/scaling-laws.md)** - Square root scaling: doubling drivers reduces wait time by √2
-- **[CAP Theorem](../quantitative/cap-pacelc.md)** - Chooses AP: available during network partitions with eventual consistency
+- **[CAP Theorem](../patterns/cap-theorem.md)** - Chooses AP: available during network partitions with eventual consistency
 
 ### 👥 Human Factors Considerations
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global operations require follow-the-sun support model

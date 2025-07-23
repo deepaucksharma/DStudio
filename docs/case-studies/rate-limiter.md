@@ -1028,14 +1028,14 @@ graph TD
 ### 📊 Quantitative Models
 - **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for pending checks
 - **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for rate limiter node sizing
-- **[CAP Theorem](../quantitative/cap-pacelc.md)** - AP choice: available during partitions with approximate counts
+- **[CAP Theorem](../patterns/cap-theorem.md)** - AP choice: available during partitions with approximate counts
 - **[Bloom Filters](../quantitative/probabilistic-structures.md)** - Space-efficient first-time user detection
 
 ### 👥 Human Factors Considerations
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - Rate limiter failures directly impact users
 - **[Incident Response](../human-factors/incident-response.md)** - Runbooks for common scenarios (Redis failure, DDoS)
 - **[Observability Tools](../human-factors/observability-stacks.md)** - Dashboards show rate limit utilization per API/user
-- **[Capacity Planning](../human-factors/capacity-planning.md)** - Predicting rate limit needs based on growth
+- **[Capacity Planning](../quantitative/capacity-planning.md)** - Predicting rate limit needs based on growth
 
 ### 🔄 Similar Case Studies
 - **[Amazon DynamoDB](amazon-dynamo.md)** - Similar distributed counting challenges

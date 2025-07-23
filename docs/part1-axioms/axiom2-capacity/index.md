@@ -1245,15 +1245,15 @@ Required Capacity =
 - [Axiom 8: Economics](../axiom8-economics/index.md) - Cost optimization within capacity constraints
 
 ### Quantitative Tools
-- [Capacity Planning Calculator](../../tools/capacity-planning.md) - Interactive capacity estimation
+- [Capacity Planning Calculator](../../quantitative/capacity-planning.md) - Interactive capacity estimation
 - [Little's Law](../../quantitative/littles-law.md) - Relationship between capacity, latency, and throughput
 - [Queueing Theory](../../quantitative/queueing-models.md) - Mathematical models for capacity and utilization
-- [Scaling Laws](../../quantitative/scaling-laws.md) - How capacity scales with system size
+- [Scaling Laws](../../quantitative/amdahl-gustafson.md) - How capacity scales with system size
 - [Performance Testing](../../quantitative/performance-testing.md) - Finding actual capacity limits
 
 ### Human Factors
 - [SRE Practices](../../human-factors/sre-practices.md) - Managing capacity through SLOs and error budgets
-- [Capacity Planning](../../human-factors/capacity-planning.md) - Human aspects of predicting future needs
+- [Capacity Planning](../../quantitative/capacity-planning.md) - Human aspects of predicting future needs
 - [Incident Response](../../human-factors/incident-response.md) - Handling capacity-related outages
 
 ---

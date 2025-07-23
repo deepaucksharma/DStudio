@@ -699,7 +699,7 @@ Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing t
 </div>
 #### Queue Theory for Work Distribution
 
-Little's Law provides fundamental insights (see also [Quantitative Analysis: Queueing Theory](../../quantitative/queueing/index.md)):
+Little's Law provides fundamental insights (see also [Quantitative Analysis: Queueing Theory](../../quantitative/queueing-models.md)):
 
 <div class="formula-box">
 <h4>Little's Law</h4>
@@ -1977,12 +1977,12 @@ flowchart TB
 - [Pillar 4: Control](../control/index.md) - Orchestrating distributed work
 
 ### Implementation Patterns
-- [MapReduce Pattern](../../patterns/mapreduce/index.md) - Classic work distribution
-- [Service Mesh](../../patterns/service-mesh/index.md) - Modern microservice coordination
-- [Event Streaming](../../patterns/event-streaming/index.md) - Async work distribution
-- [Circuit Breaker](../../patterns/circuit-breaker/index.md) - Handling worker failures
+- [MapReduce Pattern](../../case-studies/mapreduce.md) - Classic work distribution
+- [Service Mesh](../../patterns/service-mesh.md) - Modern microservice coordination
+- [Event Streaming](../../patterns/queues-streaming.md) - Async work distribution
+- [Circuit Breaker](../../patterns/circuit-breaker.md) - Handling worker failures
 
 ### Real-World Case Studies
-- [Netflix: Chaos Engineering](../../case-studies/netflix-chaos/index.md) - Resilient work distribution
-- [Google: MapReduce](../../case-studies/google-mapreduce/index.md) - Planet-scale processing
-- [Apache Spark](../../case-studies/apache-spark/index.md) - In-memory distributed computing
+- [Netflix: Chaos Engineering](../../case-studies/netflix-chaos.md) - Resilient work distribution
+- [Google: MapReduce](../../case-studies/mapreduce.md) - Planet-scale processing
+- [Apache Spark](../../case-studies/apache-spark.md) - In-memory distributed computing

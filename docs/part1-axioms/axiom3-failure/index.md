@@ -1822,15 +1822,15 @@ class RegionEvacuation:
 - [Retry & Backoff](../../patterns/retry-backoff.md) - Recover from transient failures gracefully
 - [Bulkhead](../../patterns/bulkhead.md) - Isolate failures to prevent system-wide impact
 - [Timeout](../../patterns/timeout.md) - Detect and handle unresponsive components
-- [Health Checks](../../patterns/health-checks.md) - Proactive failure detection
-- [Chaos Engineering](../../patterns/chaos-engineering.md) - Intentional failure injection for resilience
+- [Health Checks](../../patterns/health-check.md) - Proactive failure detection
+- [Chaos Engineering](../../human-factors/chaos-engineering.md) - Intentional failure injection for resilience
 - [Saga Pattern](../../patterns/saga.md) - Managing distributed transactions with failure compensation
 
 ### Case Studies Demonstrating Failure Handling
 - [Netflix Chaos Engineering](../../case-studies/netflix-chaos.md) - Simian Army and production failure testing
 - [Amazon Aurora](../../case-studies/amazon-aurora.md) - Survivable database with quorum-based replication
 - [Google Spanner](../../case-studies/google-spanner.md) - Global consistency despite failures
-- [Uber's Ringpop](../../case-studies/uber-ringpop.md) - Gossip-based failure detection
+- [Uber's Ringpop](../../case-studies/uber-location.md) - Gossip-based failure detection
 
 ### Other Axioms That Interact
 - [Axiom 1: Latency](../axiom1-latency/index.md) - Network partitions appear as infinite latency
@@ -1847,10 +1847,10 @@ class RegionEvacuation:
 
 ### Human Factors
 - [Incident Response](../../human-factors/incident-response.md) - Human processes for handling failures
-- [Post-Mortems](../../human-factors/post-mortems.md) - Learning from failures without blame
-- [On-Call Practices](../../human-factors/on-call.md) - Sustainable approaches to 24/7 operations
-- [Runbooks](../../human-factors/runbooks.md) - Documented procedures for failure scenarios
-- [Game Days](../../human-factors/game-days.md) - Practicing failure response
+- [Post-Mortems](../../human-factors/blameless-postmortems.md) - Learning from failures without blame
+- [On-Call Practices](../../human-factors/oncall-culture.md) - Sustainable approaches to 24/7 operations
+- [Runbooks](../../human-factors/runbooks-playbooks.md) - Documented procedures for failure scenarios
+- [Game Days](../../human-factors/chaos-engineering.md) - Practicing failure response
 
 ---
 

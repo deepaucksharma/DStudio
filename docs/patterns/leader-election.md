@@ -1505,3 +1505,21 @@ How leader election works with other patterns:
 3. **No pre-vote** - Disrupts stable clusters
 4. **Ignoring clock skew** - Incorrect timeout calculations
 5. **Single leader dependency** - No read scaling
+
+---
+
+## 🎓 Key Takeaways
+
+1. **Consensus is hard** - Use proven algorithms (Raft, Paxos)
+2. **Quorum matters** - Always use odd numbers (3, 5, 7)
+3. **Timeouts are critical** - Too short causes instability
+4. **Network partitions happen** - Design for split-brain
+5. **Monitoring is essential** - Elections should be rare
+
+---
+
+*"In distributed systems, agreeing on who's in charge is often harder than doing the actual work."*
+
+---
+
+**Previous**: [← Bulkhead Pattern](bulkhead.md) | **Next**: [Service Discovery →](service-discovery.md)

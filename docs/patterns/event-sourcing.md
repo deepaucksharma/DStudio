@@ -1069,11 +1069,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Events capture exact time of state changes
-2. **[Concurrency Axiom](/part1-axioms/axiom4-concurrency/)**: Event sequence provides total ordering
-3. **[Coordination Axiom](/part1-axioms/axiom5-coordination/)**: Complete history enables perfect knowledge
-4. **[Observability Axiom](/part1-axioms/axiom6-observability/)**: Every change is observable
-5. **[Human Interface Axiom](/part1-axioms/axiom7-human/)**: Natural audit trail for compliance
+1. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Events capture exact time of state changes
+2. **[Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md)**: Event sequence provides total ordering
+3. **[Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)**: Complete history enables perfect knowledge
+4. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Every change is observable
+5. **[Human Interface Axiom](../part1-axioms/axiom7-human/index.md)**: Natural audit trail for compliance
 </div>
 
 ### Future Directions
@@ -1195,14 +1195,14 @@ event_sourcing:
 ## Related Resources
 
 ### Patterns
-- [CQRS](/patterns/cqrs/) - Natural companion for read model separation
-- [Saga Pattern](/patterns/saga/) - Distributed transactions with events
-- [Event-Driven Architecture](/patterns/event-driven/) - Events as first-class citizens
+- [CQRS](../patterns/cqrs.md) - Natural companion for read model separation
+- [Saga Pattern](../patterns/saga.md) - Distributed transactions with events
+- [Event-Driven Architecture](../patterns/event-driven.md) - Events as first-class citizens
 
 ### Axioms
-- [Observability Axiom](/part1-axioms/axiom6-observability/) - Why event timing matters
-- [Concurrency Axiom](/part1-axioms/axiom4-concurrency/) - Event sequence guarantees
-- [Human Interface Axiom](/part1-axioms/axiom7-human/) - Complete system knowledge
+- [Observability Axiom](../part1-axioms/axiom6-observability/index.md) - Why event timing matters
+- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Event sequence guarantees
+- [Human Interface Axiom](../part1-axioms/axiom7-human/index.md) - Complete system knowledge
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database
@@ -1222,9 +1222,9 @@ event_sourcing:
 
 <div class="navigation-links">
 <div class="prev-link">
-<a href="/patterns/event-driven/">← Previous: Event-Driven Architecture</a>
+<a href="/patterns/event-driven">← Previous: Event-Driven Architecture</a>
 </div>
 <div class="next-link">
-<a href="/patterns/saga/">Next: Saga Pattern →</a>
+<a href="/patterns/saga">Next: Saga Pattern →</a>
 </div>
 </div>

@@ -81,27 +81,27 @@ Backpressure provides flow control through:
 ## Related Resources
 
 ### Patterns
-- [Circuit Breaker](/patterns/circuit-breaker/) - Failing fast under overload
-- [Bulkhead](/patterns/bulkhead/) - Isolating resources
-- [Rate Limiting](/patterns/rate-limiting/) - Controlling request rates
-- [Queues & Streaming](/patterns/queues-streaming/) - Message flow patterns
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Failing fast under overload
+- [Bulkhead](../patterns/bulkhead.md) - Isolating resources
+- [Rate Limiting](../patterns/rate-limiting.md) - Controlling request rates
+- [Queues & Streaming](../patterns/queues-streaming.md) - Message flow patterns
 
 ### Axioms
-- [Capacity Axiom](/part1-axioms/axiom2-capacity/) - Finite resources
-- [Failure Axiom](/part1-axioms/axiom3-failure/) - Preventing cascade failures
-- [Concurrency Axiom](/part1-axioms/axiom4-concurrency/) - Managing parallel flows
+- [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) - Finite resources
+- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Preventing cascade failures
+- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Managing parallel flows
 
 ### Quantitative Analysis
-- [Queueing Theory](/quantitative/queueing-models/) - Mathematical foundations
-- [Little's Law](/quantitative/littles-law/) - Understanding system capacity
+- [Queueing Theory](/quantitative/queueing-models.md) - Mathematical foundations
+- [Little's Law](/quantitative/littles-law.md) - Understanding system capacity
 
 ---
 
 <div class="navigation-links">
 <div class="prev-link">
-<a href="/patterns/bulkhead/">← Previous: Bulkhead Pattern</a>
+<a href="/patterns/bulkhead">← Previous: Bulkhead Pattern</a>
 </div>
 <div class="next-link">
-<a href="/patterns/rate-limiting/">Next: Rate Limiting →</a>
+<a href="/patterns/rate-limiting">Next: Rate Limiting →</a>
 </div>
 </div>

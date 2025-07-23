@@ -75,22 +75,22 @@ Multi-Region Architecture enables:
 ## Related Resources
 
 ### Patterns
-- [Geo-Replication](/patterns/geo-replication/) - Data replication strategies
-- [Edge Computing](/patterns/edge-computing/) - Processing at network edge
-- [Tunable Consistency](/patterns/tunable-consistency/) - Balancing consistency and availability
+- [Geo-Replication](../patterns/geo-replication.md) - Data replication strategies
+- [Edge Computing](../patterns/edge-computing.md) - Processing at network edge
+- [Tunable Consistency](../patterns/tunable-consistency.md) - Balancing consistency and availability
 
 ### Axioms
-- [Latency Axiom](/part1-axioms/axiom1-latency/) - Speed of light constraints
-- [Economics Axiom](/part1-axioms/axiom8-economics/) - Cost implications
-- [Failure Axiom](/part1-axioms/axiom3-failure/) - Regional failure modes
+- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Speed of light constraints
+- [Economics Axiom](../part1-axioms/axiom8-economics/index.md) - Cost implications
+- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Regional failure modes
 
 ---
 
 <div class="navigation-links">
 <div class="prev-link">
-<a href="/patterns/geo-replication/">← Previous: Geo-Replication</a>
+<a href="/patterns/geo-replication">← Previous: Geo-Replication</a>
 </div>
 <div class="next-link">
-<a href="/patterns/edge-computing/">Next: Edge Computing →</a>
+<a href="/patterns/edge-computing">Next: Edge Computing →</a>
 </div>
 </div>

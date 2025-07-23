@@ -665,7 +665,7 @@ graph TB
 - **[Retry & Backoff](../patterns/retry-backoff.md)** - Handles transient failures in external integrations
 
 ### 📊 Quantitative Models
-- **[CAP Theorem](../quantitative/cap-pacelc.md)** - Chooses AP with eventual consistency through compensations
+- **[CAP Theorem](../patterns/cap-theorem.md)** - Chooses AP with eventual consistency through compensations
 - **[Little's Law](../quantitative/littles-law.md)** - Queue depth = arrival rate × processing time for fraud checks
 - **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for payment processor pool sizing
 - **[Two-Phase Commit](../quantitative/consistency-models.md)** - Rejected due to availability and latency constraints
@@ -673,7 +673,7 @@ graph TB
 ### 👥 Human Factors Considerations
 - **[Incident Response](../human-factors/incident-response.md)** - Payment failures require immediate response procedures
 - **[On-Call Culture](../human-factors/oncall-culture.md)** - 24/7 global payments need follow-the-sun support
-- **[Post-Mortem Culture](../human-factors/postmortem-culture.md)** - Every payment failure analyzed for systemic improvements
+- **[Post-Mortem Culture](../human-factors/blameless-postmortems.md)** - Every payment failure analyzed for systemic improvements
 - **[Security Considerations](../reference/security-considerations.md)** - PCI compliance and fraud prevention are paramount
 
 ### 🔄 Similar Case Studies

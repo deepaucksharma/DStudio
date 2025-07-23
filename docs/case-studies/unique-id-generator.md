@@ -1351,5 +1351,5 @@ Database:
 **Related Patterns:**
 - [Lamport Timestamps](../patterns/logical-clocks.md)
 - [Vector Clocks](../patterns/vector-clocks.md)
-- [Consistent Hashing](../patterns/consistent-hashing.md)
+- [Consistent Hashing](../case-studies/consistent-hashing.md)
 - [Leader Election](../patterns/leader-election.md)

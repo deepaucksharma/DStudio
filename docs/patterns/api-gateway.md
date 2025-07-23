@@ -73,14 +73,14 @@ An API Gateway acts as a reverse proxy that:
 ## Related Resources
 
 ### Patterns
-- [Service Mesh](/patterns/service-mesh/) - Alternative for service-to-service communication
-- [Circuit Breaker](/patterns/circuit-breaker/) - Handling downstream failures
-- [Rate Limiting](/patterns/rate-limiting/) - Protecting backend services
+- [Service Mesh](../patterns/service-mesh.md) - Alternative for service-to-service communication
+- [Circuit Breaker](../patterns/circuit-breaker.md) - Handling downstream failures
+- [Rate Limiting](../patterns/rate-limiting.md) - Protecting backend services
 
 ### Axioms
-- [Human Interface Axiom](/part1-axioms/axiom7-human/) - API design principles
-- [Latency Axiom](/part1-axioms/axiom1-latency/) - Performance considerations
-- [Observability Axiom](/part1-axioms/axiom6-observability/) - Monitoring API usage
+- [Human Interface Axiom](../part1-axioms/axiom7-human/index.md) - API design principles
+- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Performance considerations
+- [Observability Axiom](../part1-axioms/axiom6-observability/index.md) - Monitoring API usage
 
 ---
 
@@ -89,6 +89,6 @@ An API Gateway acts as a reverse proxy that:
 <a href="/patterns/">← Back to Patterns</a>
 </div>
 <div class="next-link">
-<a href="/patterns/service-mesh/">Next: Service Mesh →</a>
+<a href="/patterns/service-mesh">Next: Service Mesh →</a>
 </div>
 </div>

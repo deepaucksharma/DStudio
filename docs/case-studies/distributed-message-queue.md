@@ -1293,15 +1293,15 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 - 💰 **[Axiom 8: Economics](../part1-axioms/axiom8-economics/)** - Cost-effective storage with compression
 
 ### Related Patterns
-- 📨 **[Event-Driven Architecture](../patterns/event-driven/)** - Kafka as event backbone
-- 📚 **[Event Sourcing](../patterns/event-sourcing/)** - Log as source of truth
-- 🔄 **[Saga Pattern](../patterns/saga/)** - Distributed transactions over messaging
-- 🎯 **[CQRS](../patterns/cqrs/)** - Separate read/write paths with Kafka
+- 📨 **[Event-Driven Architecture](../patterns/event-driven.md)** - Kafka as event backbone
+- 📚 **[Event Sourcing](../patterns/event-sourcing.md)** - Log as source of truth
+- 🔄 **[Saga Pattern](../patterns/saga.md)** - Distributed transactions over messaging
+- 🎯 **[CQRS](../patterns/cqrs.md)** - Separate read/write paths with Kafka
 
 ### Quantitative Models
-- 📊 **[Little's Law](../quantitative/littles-law/)** - Queue depth and latency relationship
-- 📈 **[Queueing Theory](../quantitative/queueing-models/)** - M/M/c model for brokers
-- 🚀 **[Universal Scalability Law](../quantitative/universal-scalability/)** - Coordination overhead in consumer groups
+- 📊 **[Little's Law](../quantitative/littles-law.md)** - Queue depth and latency relationship
+- 📈 **[Queueing Theory](../quantitative/queueing-models.md)** - M/M/c model for brokers
+- 🚀 **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
 - 🔄 **[Event Sourcing System](./event-sourcing-system/)** - Using Kafka for event store

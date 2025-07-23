@@ -1380,7 +1380,7 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 **Prerequisite Understanding:**
 - [Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md) - Consensus and distributed coordination
 - [Axiom 3: Failure](../part1-axioms/axiom3-failure/index.md) - Failure modes and recovery strategies
-- [Consistent Hashing Pattern](../patterns/consistent-hashing.md) - Data distribution technique
+- [Consistent Hashing Pattern](../case-studies/consistent-hashing.md) - Data distribution technique
 - [CAP Theorem](../part2-pillars/pillar3-truth/index.md#cap-theorem) - Fundamental trade-offs
 
 **Advanced Topics:**
