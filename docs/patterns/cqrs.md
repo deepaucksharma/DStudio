@@ -302,174 +302,147 @@ class OrderCommandHandler:
         return order.order_id
 ```
 
-#### Production-Ready Implementation
+#### Production Architecture
+
+```mermaid
+graph TB
+    subgraph "Write Side"
+        CMD[Commands] --> CH[Command Handler]
+        CH --> AGG[Aggregate]
+        AGG --> ES[(Event Store)]
+        ES --> EB[Event Bus]
+    end
+    
+    subgraph "Read Side"
+        EB --> P1[Order Projector]
+        EB --> P2[Analytics Projector]
+        EB --> P3[Search Projector]
+        
+        P1 --> RM1[(Order Read Model)]
+        P2 --> RM2[(Analytics DB)]
+        P3 --> RM3[(Search Index)]
+        
+        Q[Queries] --> QH[Query Handlers]
+        QH --> RM1
+        QH --> RM2
+        QH --> RM3
+        
+        QH --> C[(Cache)]
+        C -.->|Miss| RM1
+    end
+    
+    style ES fill:#2196f3
+    style EB fill:#4db6ac
+    style C fill:#ffa726
+```
+
+#### Data Flow Architecture
+
+```mermaid
+sequenceDiagram
+    participant UI as User Interface
+    participant CMD as Command Handler
+    participant AGG as Aggregate
+    participant ES as Event Store
+    participant EB as Event Bus
+    participant P as Projector
+    participant RM as Read Model
+    participant C as Cache
+    participant QH as Query Handler
+
+    UI->>CMD: Send Command
+    CMD->>AGG: Load & Execute
+    AGG->>ES: Save Events
+    ES->>EB: Publish Events
+    
+    par Async Projection
+        EB->>P: Process Event
+        P->>RM: Update Read Model
+        P->>C: Invalidate Cache
+    end
+    
+    UI->>QH: Query Data
+    QH->>C: Check Cache
+    alt Cache Hit
+        C-->>QH: Return Cached
+    else Cache Miss
+        QH->>RM: Query
+        RM-->>QH: Return Data
+        QH->>C: Update Cache
+    end
+    QH-->>UI: Return Results
+```
+
+#### Key Implementation Components
+
+| Component | Purpose | Considerations |
+|-----------|---------|----------------|
+| **Event Store** | Persist domain events | - Optimistic concurrency control<br/>- Event ordering guarantees<br/>- Transactional append |
+| **Projectors** | Build read models | - Idempotent operations<br/>- Checkpoint management<br/>- Error recovery |
+| **Query Handlers** | Serve read requests | - Caching strategy<br/>- Fallback mechanisms<br/>- Query optimization |
+| **Event Bus** | Event distribution | - At-least-once delivery<br/>- Ordering guarantees<br/>- Backpressure handling |
+
+#### Database Schema Design
+
+```sql
+-- Write side: Event store
+CREATE TABLE events (
+    sequence_id BIGSERIAL PRIMARY KEY,
+    aggregate_id UUID NOT NULL,
+    event_type VARCHAR(255) NOT NULL,
+    event_data JSONB NOT NULL,
+    event_version INT NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    INDEX idx_aggregate (aggregate_id, event_version)
+);
+
+-- Read side: Denormalized views
+CREATE TABLE order_read_model (
+    order_id UUID PRIMARY KEY,
+    customer_name VARCHAR(255),
+    total_amount DECIMAL(10,2),
+    status VARCHAR(50),
+    items JSONB,
+    created_at TIMESTAMP,
+    updated_at TIMESTAMP,
+    INDEX idx_customer (customer_name),
+    INDEX idx_status (status)
+);
+
+-- Projection checkpoints
+CREATE TABLE projection_checkpoints (
+    projection_name VARCHAR(255) PRIMARY KEY,
+    last_event_id BIGINT NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+```
+
+#### Example: Optimized Query with Caching
 
 ```python
-import asyncio
-from contextlib import asynccontextmanager
-from typing import AsyncIterator
-import logging
-import json
-from dataclasses import asdict
-
-# Production Event Store with proper error handling
-class EventStore:
-    def __init__(self, connection_pool, config):
-        self.pool = connection_pool
-        self.config = config
-        self.logger = logging.getLogger(__name__)
-        self.subscribers = []
-        self.retry_policy = RetryPolicy(max_attempts=3)
-    
-    async def append(self, aggregate_id: str, events: List[DomainEvent]):
-        """Append events with transactional guarantees"""
-        async with self._transaction() as tx:
-            try:
-                # Check for concurrent modifications
-                current_version = await self._get_aggregate_version(aggregate_id, tx)
-                
-                for event in events:
-                    if event.version <= current_version:
-                        raise ConcurrencyException(
-                            f"Version conflict: expected {event.version}, found {current_version}"
-                        )
-                    
-                    # Persist event
-                    await self._insert_event(aggregate_id, event, tx)
-                    
-                    # Update aggregate version
-                    current_version = event.version
-                
-                await tx.commit()
-                
-                # Publish events after successful commit
-                await self._publish_events(events)
-                
-            except Exception as e:
-                await tx.rollback()
-                self.logger.error(f"Failed to append events: {e}")
-                raise
-    
-    async def _publish_events(self, events: List[DomainEvent]):
-        """Publish events to subscribers with retry logic"""
-        tasks = []
-        for event in events:
-            for subscriber in self.subscribers:
-                task = self._publish_with_retry(subscriber, event)
-                tasks.append(task)
-        
-        # Wait for all publications with timeout
-        await asyncio.gather(*tasks, return_exceptions=True)
-    
-    @asynccontextmanager
-    async def _transaction(self) -> AsyncIterator:
-        """Database transaction context manager"""
-        conn = await self.pool.acquire()
-        tx = await conn.begin()
-        try:
-            yield tx
-        finally:
-            await self.pool.release(conn)
-
-# Production Read Model Projector
-class ReadModelProjector:
-    def __init__(self, read_db, cache, config):
-        self.read_db = read_db
-        self.cache = cache
-        self.config = config
-        self.logger = logging.getLogger(__name__)
-        self.projection_handlers = {}
-        self.checkpoint_manager = CheckpointManager(read_db)
-    
-    def register_handler(self, event_type: type, handler):
-        """Register projection handler for event type"""
-        self.projection_handlers[event_type] = handler
-    
-    async def project_event(self, event: DomainEvent):
-        """Project event to read model with error handling"""
-        event_type = type(event)
-        handler = self.projection_handlers.get(event_type)
-        
-        if not handler:
-            self.logger.warning(f"No handler for event type: {event_type}")
-            return
-        
-        try:
-            # Load checkpoint
-            checkpoint = await self.checkpoint_manager.get_checkpoint(
-                f"{event_type.__name__}_projection"
-            )
-            
-            # Skip if already processed
-            if checkpoint and event.timestamp <= checkpoint:
-                return
-            
-            # Project event
-            async with self.read_db.transaction() as tx:
-                await handler(event, tx)
-                
-                # Update checkpoint
-                await self.checkpoint_manager.update_checkpoint(
-                    f"{event_type.__name__}_projection",
-                    event.timestamp,
-                    tx
-                )
-            
-            # Invalidate relevant caches
-            await self._invalidate_caches(event)
-            
-        except Exception as e:
-            self.logger.error(f"Projection failed for {event.event_id}: {e}")
-            # Could implement dead letter queue here
-            raise
-
-# Optimized Query Handler with caching
-class OrderQueryHandler:
-    def __init__(self, read_db, cache, config):
-        self.read_db = read_db
-        self.cache = cache
-        self.config = config
-        self.logger = logging.getLogger(__name__)
-    
-    async def get_order_details(self, order_id: str) -> Dict[str, Any]:
-        """Get order with caching and fallback"""
-        # Try cache first
+class QueryHandler:
+    async def get_order(self, order_id: str) -> Dict:
+        # Multi-level caching strategy
         cache_key = f"order:{order_id}"
-        cached = await self.cache.get(cache_key)
-        if cached:
-            return json.loads(cached)
         
-        # Query read model
-        try:
-            async with self.read_db.acquire() as conn:
-                result = await conn.fetchone("""
-                    SELECT * FROM order_read_model 
-                    WHERE order_id = $1
-                """, order_id)
-                
-                if not result:
-                    raise OrderNotFoundException(order_id)
-                
-                order_data = dict(result)
-                
-                # Cache for future queries
-                await self.cache.setex(
-                    cache_key,
-                    self.config.cache_ttl,
-                    json.dumps(order_data, default=str)
-                )
-                
-                return order_data
-                
-        except Exception as e:
-            self.logger.error(f"Failed to query order {order_id}: {e}")
+        # L1: Local memory cache (fastest)
+        if cached := self.memory_cache.get(cache_key):
+            return cached
             
-            # Try stale cache as fallback
-            stale = await self.cache.get(f"{cache_key}:stale")
-            if stale:
-                return json.loads(stale)
+        # L2: Redis cache
+        if cached := await self.redis.get(cache_key):
+            order = json.loads(cached)
+            self.memory_cache.set(cache_key, order, ttl=60)
+            return order
             
-            raise
+        # L3: Database query
+        order = await self.db.fetch_order(order_id)
+        
+        # Update caches
+        await self.redis.setex(cache_key, 300, json.dumps(order))
+        self.memory_cache.set(cache_key, order, ttl=60)
+        
+        return order
 ```
 
 ### State Management

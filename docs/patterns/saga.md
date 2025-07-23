@@ -184,442 +184,242 @@ graph TB
 
 ### Implementation Patterns
 
-#### Basic Implementation
+#### Saga Execution Flow
 
-```python
-from abc import ABC, abstractmethod
-from enum import Enum
-from typing import Dict, List, Any, Optional
-from dataclasses import dataclass
-import uuid
-import asyncio
-import logging
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant SO as Saga Orchestrator
+    participant S1 as Step 1: Create Order
+    participant S2 as Step 2: Process Payment
+    participant S3 as Step 3: Reserve Inventory
+    participant S4 as Step 4: Create Shipment
+    participant DB as State Store
 
-# Saga Step Definition
-class StepStatus(Enum):
-    PENDING = "pending"
-    EXECUTING = "executing"
-    COMPLETED = "completed"
-    COMPENSATING = "compensating"
-    COMPENSATED = "compensated"
-    FAILED = "failed"
-
-@dataclass
-class SagaContext:
-    """Shared context across saga steps"""
-    saga_id: str
-    initial_request: Dict[str, Any]
-    step_results: Dict[str, Any] = None
+    C->>SO: Start Saga
+    SO->>DB: Save Initial State
     
-    def __post_init__(self):
-        if self.step_results is None:
-            self.step_results = {}
-
-class SagaStep(ABC):
-    """Base class for saga steps"""
+    SO->>S1: Execute
+    S1-->>SO: Success
+    SO->>DB: Update State
     
-    def __init__(self, name: str):
-        self.name = name
-        self.status = StepStatus.PENDING
-        
-    @abstractmethod
-    async def execute(self, context: SagaContext) -> Any:
-        """Execute the forward transaction"""
-        pass
-        
-    @abstractmethod
-    async def compensate(self, context: SagaContext) -> None:
-        """Compensate (undo) the transaction"""
-        pass
-        
-    def can_compensate(self) -> bool:
-        """Check if this step can be compensated"""
-        return self.status == StepStatus.COMPLETED
-
-# Example Saga Steps
-class CreateOrderStep(SagaStep):
-    def __init__(self, order_service):
-        super().__init__("create_order")
-        self.order_service = order_service
-        
-    async def execute(self, context: SagaContext) -> str:
-        self.status = StepStatus.EXECUTING
-        try:
-            order = await self.order_service.create_order(
-                customer_id=context.initial_request['customer_id'],
-                items=context.initial_request['items']
-            )
-            context.step_results['order_id'] = order.id
-            self.status = StepStatus.COMPLETED
-            return order.id
-        except Exception as e:
-            self.status = StepStatus.FAILED
-            raise
-            
-    async def compensate(self, context: SagaContext) -> None:
-        if 'order_id' in context.step_results:
-            self.status = StepStatus.COMPENSATING
-            await self.order_service.cancel_order(
-                context.step_results['order_id']
-            )
-            self.status = StepStatus.COMPENSATED
-
-class ProcessPaymentStep(SagaStep):
-    def __init__(self, payment_service):
-        super().__init__("process_payment")
-        self.payment_service = payment_service
-        
-    async def execute(self, context: SagaContext) -> str:
-        self.status = StepStatus.EXECUTING
-        try:
-            payment = await self.payment_service.charge(
-                amount=context.initial_request['total_amount'],
-                payment_method=context.initial_request['payment_method'],
-                idempotency_key=f"{context.saga_id}-payment"
-            )
-            context.step_results['payment_id'] = payment.id
-            self.status = StepStatus.COMPLETED
-            return payment.id
-        except Exception as e:
-            self.status = StepStatus.FAILED
-            raise
-            
-    async def compensate(self, context: SagaContext) -> None:
-        if 'payment_id' in context.step_results:
-            self.status = StepStatus.COMPENSATING
-            await self.payment_service.refund(
-                payment_id=context.step_results['payment_id'],
-                reason="Saga compensation"
-            )
-            self.status = StepStatus.COMPENSATED
-
-# Saga Orchestrator
-class SagaOrchestrator:
-    """Orchestrates saga execution with automatic compensation"""
+    SO->>S2: Execute
+    S2-->>SO: Success
+    SO->>DB: Update State
     
-    def __init__(self, saga_id: Optional[str] = None):
-        self.saga_id = saga_id or str(uuid.uuid4())
-        self.steps: List[SagaStep] = []
-        self.completed_steps: List[SagaStep] = []
-        self.status = "initialized"
-        self.logger = logging.getLogger(__name__)
-        
-    def add_step(self, step: SagaStep) -> 'SagaOrchestrator':
-        """Add a step to the saga"""
-        self.steps.append(step)
-        return self
-        
-    async def execute(self, initial_request: Dict[str, Any]) -> SagaContext:
-        """Execute the saga with automatic compensation on failure"""
-        context = SagaContext(
-            saga_id=self.saga_id,
-            initial_request=initial_request
-        )
-        
-        self.status = "running"
-        self.logger.info(f"Starting saga {self.saga_id}")
-        
-        try:
-            # Execute steps in sequence
-            for step in self.steps:
-                self.logger.info(f"Executing step: {step.name}")
-                
-                result = await step.execute(context)
-                self.completed_steps.append(step)
-                
-                # Persist saga state after each step
-                await self._persist_state(context)
-                
-                self.logger.info(f"Step {step.name} completed: {result}")
-                
-            self.status = "completed"
-            self.logger.info(f"Saga {self.saga_id} completed successfully")
-            return context
-            
-        except Exception as e:
-            self.logger.error(f"Saga {self.saga_id} failed at step {step.name}: {e}")
-            self.status = "compensating"
-            
-            # Run compensations in reverse order
-            await self._run_compensations(context)
-            
-            self.status = "failed"
-            raise SagaFailedException(
-                f"Saga {self.saga_id} failed and was compensated"
-            ) from e
-            
-    async def _run_compensations(self, context: SagaContext):
-        """Run compensation for completed steps in reverse order"""
-        for step in reversed(self.completed_steps):
-            if step.can_compensate():
-                try:
-                    self.logger.info(f"Compensating step: {step.name}")
-                    await step.compensate(context)
-                    await self._persist_state(context)
-                except Exception as e:
-                    self.logger.error(
-                        f"Compensation failed for {step.name}: {e}"
-                    )
-                    # Continue compensating other steps
-                    
-    async def _persist_state(self, context: SagaContext):
-        """Persist saga state for recovery"""
-        # In production, save to database
-        # This enables saga recovery after crashes
-        pass
+    SO->>S3: Execute
+    S3-->>SO: Failure ❌
+    SO->>DB: Mark Failed
+    
+    Note over SO: Start Compensation
+    
+    SO->>S2: Compensate
+    S2-->>SO: Refunded
+    SO->>DB: Update State
+    
+    SO->>S1: Compensate
+    S1-->>SO: Cancelled
+    SO->>DB: Update State
+    
+    SO-->>C: Saga Failed & Compensated
 ```
 
-#### Production-Ready Implementation
+#### Core Components
+
+```mermaid
+classDiagram
+    class SagaStep {
+        <<abstract>>
+        +String name
+        +StepStatus status
+        +execute(context): Any
+        +compensate(context): void
+        +canCompensate(): boolean
+    }
+    
+    class SagaContext {
+        +String sagaId
+        +Dict initialRequest
+        +Dict stepResults
+        +addResult(key, value)
+        +getResult(key)
+    }
+    
+    class SagaOrchestrator {
+        +String sagaId
+        +List~SagaStep~ steps
+        +String status
+        +execute(request): SagaContext
+        +addStep(step)
+        -runCompensations(context)
+        -persistState(context)
+    }
+    
+    class ConcreteStep {
+        +Service service
+        +execute(context): Result
+        +compensate(context): void
+    }
+    
+    SagaOrchestrator ..> SagaStep : orchestrates
+    SagaOrchestrator ..> SagaContext : manages
+    ConcreteStep --|> SagaStep : implements
+    SagaStep ..> SagaContext : uses
+```
+
+#### Step Status Transitions
+
+```mermaid
+stateDiagram-v2
+    [*] --> PENDING: Step Created
+    PENDING --> EXECUTING: Start Execution
+    EXECUTING --> COMPLETED: Success
+    EXECUTING --> FAILED: Error
+    COMPLETED --> COMPENSATING: Rollback Needed
+    COMPENSATING --> COMPENSATED: Rollback Success
+    COMPENSATING --> FAILED: Rollback Failed
+    COMPENSATED --> [*]
+    FAILED --> [*]
+```
+
+#### Example: E-commerce Order Saga
 
 ```python
-import asyncio
-from typing import Dict, List, Optional, Any
-from datetime import datetime, timedelta
-import json
-from dataclasses import dataclass, asdict
-
-# Saga Persistence for Recovery
-class SagaRepository:
-    """Persist saga state for crash recovery"""
-    
-    def __init__(self, db_pool):
-        self.db_pool = db_pool
-        
-    async def save_saga(self, saga_id: str, state: Dict[str, Any]):
-        async with self.db_pool.acquire() as conn:
-            await conn.execute("""
-                INSERT INTO sagas (id, state, updated_at)
-                VALUES ($1, $2, $3)
-                ON CONFLICT (id) DO UPDATE
-                SET state = $2, updated_at = $3
-            """, saga_id, json.dumps(state), datetime.utcnow())
-            
-    async def load_saga(self, saga_id: str) -> Optional[Dict[str, Any]]:
-        async with self.db_pool.acquire() as conn:
-            row = await conn.fetchone(
-                "SELECT state FROM sagas WHERE id = $1",
-                saga_id
-            )
-            return json.loads(row['state']) if row else None
-            
-    async def delete_saga(self, saga_id: str):
-        async with self.db_pool.acquire() as conn:
-            await conn.execute(
-                "DELETE FROM sagas WHERE id = $1",
-                saga_id
-            )
-
-# Event-Driven Choreography
-@dataclass
-class SagaEvent:
-    saga_id: str
-    step_name: str
-    status: str
-    payload: Dict[str, Any]
-    timestamp: datetime = None
-    
-    def __post_init__(self):
-        if self.timestamp is None:
-            self.timestamp = datetime.utcnow()
-
-class ChoreographedSaga:
-    """Event-driven saga implementation"""
-    
-    def __init__(self, event_bus, saga_repository):
-        self.event_bus = event_bus
-        self.saga_repository = saga_repository
-        self.active_sagas: Dict[str, Dict] = {}
-        
-        # Subscribe to events
-        self._subscribe_to_events()
-        
-    def _subscribe_to_events(self):
-        """Subscribe to all saga-related events"""
-        self.event_bus.subscribe('OrderCreated', self.handle_order_created)
-        self.event_bus.subscribe('PaymentProcessed', self.handle_payment_processed)
-        self.event_bus.subscribe('InventoryReserved', self.handle_inventory_reserved)
-        self.event_bus.subscribe('ShipmentCreated', self.handle_shipment_created)
-        
-        # Failure events
-        self.event_bus.subscribe('PaymentFailed', self.handle_payment_failed)
-        self.event_bus.subscribe('InventoryFailed', self.handle_inventory_failed)
-        self.event_bus.subscribe('ShipmentFailed', self.handle_shipment_failed)
-        
-    async def handle_order_created(self, event: SagaEvent):
-        """Start saga when order is created"""
-        saga_id = event.saga_id
-        
-        # Initialize saga state
-        self.active_sagas[saga_id] = {
-            'status': 'processing_payment',
-            'order': event.payload,
-            'completed_steps': ['order_created']
-        }
-        
-        await self.saga_repository.save_saga(saga_id, self.active_sagas[saga_id])
-        
-        # Trigger next step
-        await self.event_bus.publish(SagaEvent(
-            saga_id=saga_id,
-            step_name='process_payment',
-            status='started',
-            payload={
-                'amount': event.payload['total_amount'],
-                'payment_method': event.payload['payment_method']
-            }
-        ))
-        
-    async def handle_payment_processed(self, event: SagaEvent):
-        """Handle successful payment"""
-        saga_id = event.saga_id
-        saga = self.active_sagas.get(saga_id)
-        
-        if not saga:
-            saga = await self.saga_repository.load_saga(saga_id)
-            if not saga:
-                return
-                
-        saga['payment'] = event.payload
-        saga['completed_steps'].append('payment_processed')
-        saga['status'] = 'reserving_inventory'
-        
-        await self.saga_repository.save_saga(saga_id, saga)
-        
-        # Next step
-        await self.event_bus.publish(SagaEvent(
-            saga_id=saga_id,
-            step_name='reserve_inventory',
-            status='started',
-            payload={
-                'items': saga['order']['items']
-            }
-        ))
-        
-    async def handle_inventory_failed(self, event: SagaEvent):
-        """Handle inventory reservation failure - start compensation"""
-        saga_id = event.saga_id
-        saga = self.active_sagas.get(saga_id)
-        
-        if not saga:
-            saga = await self.saga_repository.load_saga(saga_id)
-            if not saga:
-                return
-                
-        saga['status'] = 'compensating'
-        saga['failure_reason'] = event.payload.get('reason')
-        
-        # Start compensation based on completed steps
-        if 'payment_processed' in saga['completed_steps']:
-            await self.event_bus.publish(SagaEvent(
-                saga_id=saga_id,
-                step_name='refund_payment',
-                status='started',
-                payload={
-                    'payment_id': saga['payment']['payment_id']
-                }
-            ))
-            
-        if 'order_created' in saga['completed_steps']:
-            await self.event_bus.publish(SagaEvent(
-                saga_id=saga_id,
-                step_name='cancel_order',
-                status='started',
-                payload={
-                    'order_id': saga['order']['order_id']
-                }
-            ))
-
-# Saga Monitoring and Timeouts
-class SagaMonitor:
-    """Monitor saga execution and handle timeouts"""
-    
-    def __init__(self, saga_repository, event_bus, timeout_minutes=30):
-        self.saga_repository = saga_repository
-        self.event_bus = event_bus
-        self.timeout_minutes = timeout_minutes
-        
-    async def check_stuck_sagas(self):
-        """Periodically check for stuck sagas"""
-        while True:
-            try:
-                stuck_sagas = await self._find_stuck_sagas()
-                
-                for saga_id, saga_state in stuck_sagas:
-                    await self._handle_stuck_saga(saga_id, saga_state)
-                    
-            except Exception as e:
-                logging.error(f"Error checking stuck sagas: {e}")
-                
-            await asyncio.sleep(60)  # Check every minute
-            
-    async def _find_stuck_sagas(self) -> List[tuple]:
-        """Find sagas that haven't progressed"""
-        cutoff_time = datetime.utcnow() - timedelta(minutes=self.timeout_minutes)
-        
-        async with self.saga_repository.db_pool.acquire() as conn:
-            rows = await conn.fetch("""
-                SELECT id, state 
-                FROM sagas 
-                WHERE updated_at < $1 
-                AND state->>'status' NOT IN ('completed', 'failed')
-            """, cutoff_time)
-            
-            return [(row['id'], json.loads(row['state'])) for row in rows]
-            
-    async def _handle_stuck_saga(self, saga_id: str, saga_state: Dict):
-        """Handle a saga that's stuck"""
-        logging.warning(f"Saga {saga_id} is stuck in state: {saga_state['status']}")
-        
-        # Trigger timeout compensation
-        await self.event_bus.publish(SagaEvent(
-            saga_id=saga_id,
-            step_name='saga_timeout',
-            status='failed',
-            payload={
-                'reason': 'Saga execution timeout',
-                'last_status': saga_state['status']
-            }
-        ))
-
-# Saga with Distributed Locking
-class DistributedSagaLock:
-    """Ensure only one instance processes a saga"""
-    
-    def __init__(self, redis_client):
-        self.redis = redis_client
-        self.lock_timeout = 300  # 5 minutes
-        
-    async def acquire_lock(self, saga_id: str) -> bool:
-        """Try to acquire exclusive lock for saga"""
-        lock_key = f"saga_lock:{saga_id}"
-        lock_value = str(uuid.uuid4())
-        
-        acquired = await self.redis.set(
-            lock_key, 
-            lock_value,
-            nx=True,  # Only set if not exists
-            ex=self.lock_timeout
+# Concise example of saga step implementation
+class ProcessPaymentStep(SagaStep):
+    async def execute(self, context):
+        payment = await self.payment_service.charge(
+            amount=context.initial_request['amount'],
+            idempotency_key=f"{context.saga_id}-payment"
         )
+        context.step_results['payment_id'] = payment.id
+        return payment.id
         
-        if acquired:
-            # Store lock value for safe release
-            return lock_value
-        return None
+    async def compensate(self, context):
+        if payment_id := context.step_results.get('payment_id'):
+            await self.payment_service.refund(payment_id)
+```
+
+#### Saga Patterns Comparison
+
+| Pattern | Coordination | State Management | Complexity | Use Case |
+|---------|--------------|------------------|------------|-----------|
+| **Orchestration** | Central coordinator | Orchestrator manages | Medium | Clear workflows |
+| **Choreography** | Event-driven | Distributed | High | Loosely coupled |
+| **Hybrid** | Mixed approach | Both patterns | Very High | Complex systems |
+
+#### Production Architecture
+
+```mermaid
+graph TB
+    subgraph "Orchestration Pattern"
+        OC[Orchestrator] --> S1[Service 1]
+        OC --> S2[Service 2]
+        OC --> S3[Service 3]
+        OC --> S4[Service 4]
+        OC --> DB[(State Store)]
         
-    async def release_lock(self, saga_id: str, lock_value: str):
-        """Safely release lock if we own it"""
-        lock_key = f"saga_lock:{saga_id}"
+        S1 -.->|Failure| OC
+        S2 -.->|Failure| OC
+        S3 -.->|Failure| OC
+        S4 -.->|Failure| OC
+    end
+    
+    subgraph "Choreography Pattern"
+        E1[Order Created] --> ES1[Service 1]
+        ES1 --> E2[Payment Processed]
+        E2 --> ES2[Service 2]
+        ES2 --> E3[Inventory Reserved]
+        E3 --> ES3[Service 3]
         
-        # Lua script for atomic check and delete
-        lua_script = """
-        if redis.call("get", KEYS[1]) == ARGV[1] then
-            return redis.call("del", KEYS[1])
-        else
-            return 0
-        end
-        """
-        
-        await self.redis.eval(lua_script, 1, lock_key, lock_value)
+        E3 -.->|Failed| CF[Compensation Flow]
+        CF --> CE1[Refund Payment]
+        CE1 --> CE2[Cancel Order]
+    end
+    
+    style OC fill:#4db6ac
+    style DB fill:#2196f3
+    style CF fill:#ef5350
+```
+
+#### Saga State Persistence
+
+```sql
+-- Saga state table for recovery
+CREATE TABLE sagas (
+    id UUID PRIMARY KEY,
+    status VARCHAR(50) NOT NULL,
+    state JSONB NOT NULL,
+    created_at TIMESTAMP NOT NULL,
+    updated_at TIMESTAMP NOT NULL,
+    completed_at TIMESTAMP,
+    INDEX idx_status (status),
+    INDEX idx_updated_at (updated_at)
+);
+
+-- Saga step history for audit
+CREATE TABLE saga_steps (
+    saga_id UUID NOT NULL,
+    step_name VARCHAR(100) NOT NULL,
+    status VARCHAR(50) NOT NULL,
+    started_at TIMESTAMP NOT NULL,
+    completed_at TIMESTAMP,
+    error_message TEXT,
+    compensation_at TIMESTAMP,
+    PRIMARY KEY (saga_id, step_name),
+    FOREIGN KEY (saga_id) REFERENCES sagas(id)
+);
+```
+
+#### Event-Driven Choreography Flow
+
+```mermaid
+sequenceDiagram
+    participant EB as Event Bus
+    participant OS as Order Service
+    participant PS as Payment Service
+    participant IS as Inventory Service
+    participant SS as Shipping Service
+    
+    OS->>EB: OrderCreated
+    EB->>PS: Process Payment
+    PS->>EB: PaymentProcessed ✓
+    
+    EB->>IS: Reserve Inventory
+    IS->>EB: InventoryFailed ❌
+    
+    Note over EB: Start Compensation
+    
+    EB->>PS: Refund Payment
+    PS->>EB: PaymentRefunded ✓
+    
+    EB->>OS: Cancel Order
+    OS->>EB: OrderCancelled ✓
+```
+
+#### Monitoring & Recovery
+
+| Component | Purpose | Implementation |
+|-----------|---------|----------------|
+| **State Persistence** | Crash recovery | Save state after each step |
+| **Timeout Detection** | Handle stuck sagas | Background monitor with configurable timeout |
+| **Distributed Lock** | Prevent duplicate processing | Redis/Zookeeper with TTL |
+| **Idempotency** | Safe retries | Unique keys per operation |
+| **Event Ordering** | Consistent flow | Message queue with ordering guarantees |
+
+```python
+# Example: Idempotent payment processing
+class PaymentService:
+    async def charge(self, amount, idempotency_key):
+        # Check if already processed
+        existing = await self.db.get_payment(idempotency_key)
+        if existing:
+            return existing
+            
+        # Process payment
+        payment = await self._process_payment(amount)
+        await self.db.save_payment(idempotency_key, payment)
+        return payment
 ```
 
 ### State Management
