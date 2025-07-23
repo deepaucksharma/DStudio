@@ -11,7 +11,7 @@ last_updated: 2025-01-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Bloom Filter**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Bloom Filter**
 
 # Bloom Filter Pattern
 

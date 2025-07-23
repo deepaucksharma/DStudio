@@ -62,15 +62,15 @@ Design a comprehensive digital wallet system like PayPal, Venmo, or Alipay that 
 - **Compliance**: PCI DSS, PSD2, GDPR, local regulations
 - **Security**: End-to-end encryption, tokenization
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Instant payment confirmation critical
-- **Axiom 2 (Capacity)**: Account balance limits and reserves
-- **Axiom 3 (Failure)**: Zero tolerance for money loss
-- **Axiom 4 (Concurrency)**: Handle concurrent transactions safely
-- **Axiom 5 (Coordination)**: Distributed transaction management
-- **Axiom 6 (Observability)**: Complete audit trail required
-- **Axiom 7 (Interface)**: Simple UX for complex operations
-- **Axiom 8 (Economics)**: Optimize transaction costs
+### Law Mapping
+- **Law 1 (Latency)**: Instant payment confirmation critical
+- **Law 2 (Capacity)**: Account balance limits and reserves
+- **Law 3 (Failure)**: Zero tolerance for money loss
+- **Law 4 (Concurrency)**: Handle concurrent transactions safely
+- **Law 5 (Coordination)**: Distributed transaction management
+- **Law 6 (Observability)**: Complete audit trail required
+- **Law 7 (Interface)**: Simple UX for complex operations
+- **Law 8 (Economics)**: Optimize transaction costs
 
 ## 3. Architecture Evolution
 

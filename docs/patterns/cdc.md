@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Change Data Capture (CDC)**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Change Data Capture (CDC)**
 
 # Change Data Capture (CDC)
 

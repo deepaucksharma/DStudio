@@ -11,11 +11,10 @@ prerequisites:
 pattern_type: "core"
 when_to_use: "Handling traffic spikes, decoupling services, event streaming, work distribution"
 when_not_to_use: "Synchronous request-response, low latency requirements, simple direct calls"
-related_axioms:
-  - optimization
-  - asynchrony
-  - failure
-  - optimization
+related_laws:
+  - 4
+  - 2
+  - 1
 related_patterns:
   - "Event-Driven Architecture"
   - "CQRS"
@@ -1254,18 +1253,18 @@ timeline
          : Edge message routing
 ```
 
-### Axiom Connections
+### Law Connections
 
 <div class="axiom-box">
 <h4>🔗 Fundamental Laws</h4>
 
 This pattern directly addresses:
 
-1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)**: Buffers handle capacity mismatches
-2. **[Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)**: Decoupling reduces blocking
-3. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)**: Messages survive consumer failures
-4. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)**: Async coordination via messages
-5. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)**: Message flow visibility
+1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)**: Buffers handle capacity mismatches
+2. **[Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md)**: Decoupling reduces blocking
+3. **[Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md)**: Messages survive consumer failures
+4. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)**: Async coordination via messages
+5. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Message flow visibility
 </div>
 
 ### Future Directions
@@ -1392,9 +1391,9 @@ messaging:
 - [Circuit Breaker](../patterns/circuit-breaker.md) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) - Why buffering matters
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Message durability
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) - Why buffering matters
+- [Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly

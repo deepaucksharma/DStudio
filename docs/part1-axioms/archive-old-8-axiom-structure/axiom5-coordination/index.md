@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 5](index.md) → **Axiom 5: Cost of Coordination**
+[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 5](index.md) → **Axiom 5: Cost of Coordination**
 
 # Axiom 5: Cost of Coordination
 

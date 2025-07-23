@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Distributed Message Queue Design**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Distributed Message Queue Design**
 
 # 📨 Distributed Message Queue Design (Kafka/RabbitMQ)
 
@@ -120,7 +120,7 @@ graph TB
 - 🔧 Pattern: [Leader-Follower Replication](../patterns/leader-follower.md)
 - 🔧 Pattern: [Partitioning](../patterns/sharding.md) - Topic partitions
 - 🏛️ Pillar: [State Distribution](../part2-pillars/state/index.md) - Distributed logs
-- 🏛️ Pillar: [Truth & Consistency](../part2-pillars/truth/index.md) - Ordered delivery
+- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Ordered delivery
 
 ### Phase 4: Modern Streaming Platform (2014-Present)
 
@@ -231,11 +231,11 @@ graph LR
 graph TD
     MQ[Message Queue System]
     
-    MQ --> A1[Axiom 1: Latency]
-    MQ --> A2[Axiom 2: Finite Capacity]
-    MQ --> A3[Axiom 3: Failure]
-    MQ --> A4[Axiom 4: Consistency]
-    MQ --> A5[Axiom 5: Coordination]
+    MQ --> A1[Law 1: Latency]
+    MQ --> A2[Law 2: Finite Capacity]
+    MQ --> A3[Law 3: Failure]
+    MQ --> A4[Law 4: Consistency]
+    MQ --> A5[Law 5: Coordination]
     
     A1 --> L1[Sequential I/O]
     A1 --> L2[Zero-Copy]
@@ -705,7 +705,7 @@ kafka-reassign-partitions.sh \
 - Set alerts on increasing lag
 - Investigate root cause (slow processing vs. high load)
 
-## 🎯 Axiom Mapping & Design Decisions
+## 🎯 Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
@@ -1282,15 +1282,14 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 
 ## 🔗 Related Concepts & Deep Dives
 
-### Axioms Applied
-- 🏃 **[Axiom 1: Latency](../part1-axioms/axiom1-latency/)** - Network RTT dominates replication latency
-- 📦 **[Axiom 2: Capacity](../part1-axioms/axiom2-capacity/)** - Partitioning for horizontal scaling
-- 💥 **[Axiom 3: Failure](../part1-axioms/axiom3-failure/)** - Replication for fault tolerance
-- 🔄 **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/)** - Producer and consumer parallelism
-- 🤝 **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/)** - Consumer group coordination
-- 👁️ **[Axiom 6: Observability](../part1-axioms/axiom6-observability/)** - Metrics and monitoring
-- 🧑 **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/)** - Simple producer/consumer API
-- 💰 **[Axiom 8: Economics](../part1-axioms/axiom8-economics/)** - Cost-effective storage with compression
+### Laws Applied
+- ⏳ **[Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)** - Network RTT dominates replication latency
+- ⚖️ **[Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)** - Partitioning for horizontal scaling
+- ⛓️ **[Law 1: Failure](../part1-laws/axiom1-failure/index.md)** - Replication for fault tolerance
+- 🌪️ **[Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)** - Producer and consumer parallelism
+- 🧠 **[Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)** - Consumer group coordination and monitoring
+- 🤯 **[Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)** - Simple producer/consumer API
+- 💰 **[Law 7: Economics](../part1-laws/axiom7-economics/index.md)** - Cost-effective storage with compression
 
 ### Related Patterns
 - 📨 **[Event-Driven Architecture](../patterns/event-driven.md)** - Kafka as event backbone
@@ -1304,7 +1303,7 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 - 🚀 **[Universal Scalability Law](../quantitative/universal-scalability.md)** - Coordination overhead in consumer groups
 
 ### Similar Case Studies
-- 🔄 **[Event Sourcing System](./event-sourcing-system/)** - Using Kafka for event store
+- 🔄 **[Event Sourcing System](../patterns/event-sourcing.md)** - Using Kafka for event store
 - 📊 **[Real-time Analytics](./real-time-analytics/)** - Stream processing with Kafka Streams
 - 🌍 **[Multi-Region Replication](./multi-region-replication/)** - Cross-DC messaging
 

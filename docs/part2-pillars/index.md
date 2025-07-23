@@ -1,6 +1,6 @@
 ---
 title: "Part II: Foundational Pillars"
-description: The axioms teach us what constrains distributed systems. The pillars teach us how to work within those constraints.
+description: The laws teach us what constrains distributed systems. The pillars teach us how to work within those constraints.
 type: pillar
 difficulty: intermediate
 reading_time: 15 min
@@ -10,22 +10,22 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part II: Pillars](index.md) → **Part II: Foundational Pillars**
+[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **Part II: Foundational Pillars**
 
 # Part II: Foundational Pillars
 
-**Learning Objective**: Understand how axioms combine to create fundamental architectural patterns.
+**Learning Objective**: Understand how laws combine to create fundamental architectural patterns.
 
 ## Why Pillars?
 
-The axioms teach us *what* constrains distributed systems. The pillars teach us *how* to work within those constraints.
+The laws teach us *what* constrains distributed systems. The pillars teach us *how* to work within those constraints.
 
-Think of it this way: if axioms are Newton's laws of motion, then pillars are aerospace engineering. Physics constrains what's possible; engineering shows us how to achieve it.
+Think of it this way: if laws are Newton's laws of motion, then pillars are aerospace engineering. Physics constrains what's possible; engineering shows us how to achieve it.
 
 ## The Emergence Principle
 
 ```dockerfile
-Axioms = Constraints (what you cannot change)
+Laws = Constraints (what you cannot change)
 Pillars = Patterns (how you work within constraints)
 
 Just as chemistry emerges from physics, and biology from chemistry,
@@ -34,14 +34,14 @@ distributed system patterns emerge from fundamental constraints.
 
 ## From Constraints to Capabilities
 
-The seven laws reveal fundamental limits:
-- Law 1: Correlated Failure ⛓️ - Components fail together in unexpected ways
+The seven fundamental laws reveal inescapable limits:
+- Law 1: Failure ⛓️ - Components fail together in unexpected ways
 - Law 2: Asynchronous Reality ⏳ - Time and causality are relative
-- Law 3: Emergent Chaos 🌪️ - Complex behavior emerges from simple rules
-- Law 4: Multidimensional Optimization ⚖️ - You can't optimize everything
-- Law 5: Distributed Knowledge 🧠 - Information is fragmented and stale
-- Law 6: Cognitive Load 🤯 - Human capacity is the ultimate constraint
-- Law 7: Economic Reality 💰 - Everything has a cost
+- Law 3: Emergence 🌪️ - Complex behavior emerges from simple rules
+- Law 4: Trade-offs ⚖️ - You can't optimize everything
+- Law 5: Epistemology 🧠 - Information is fragmented and stale
+- Law 6: Human-API 🤯 - Human capacity is the ultimate constraint
+- Law 7: Economics 💰 - Everything has a cost
 
 But within these constraints, we can build remarkable systems. The five pillars show us how:
 
@@ -50,13 +50,13 @@ But within these constraints, we can build remarkable systems. The five pillars 
 ```mermaid
 graph TD
     subgraph "Fundamental Laws"
-        L1[Law 1: Correlated Failure ⛓️]
+        L1[Law 1: Failure ⛓️]
         L2[Law 2: Asynchronous Reality ⏳]
-        L3[Law 3: Emergent Chaos 🌪️]
-        L4[Law 4: Multidimensional Optimization ⚖️]
-        L5[Law 5: Distributed Knowledge 🧠]
-        L6[Law 6: Cognitive Load 🤯]
-        L7[Law 7: Economic Reality 💰]
+        L3[Law 3: Emergence 🌪️]
+        L4[Law 4: Trade-offs ⚖️]
+        L5[Law 5: Epistemology 🧠]
+        L6[Law 6: Human-API 🤯]
+        L7[Law 7: Economics 💰]
     end
     
     subgraph "Core Pillars"
@@ -157,11 +157,11 @@ graph TB
 ## How Pillars Build on Laws
 
 Each pillar respects all seven laws, but typically wrestles most directly with a subset:
-- **Work** primarily grapples with [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchronous/index.md) and [Law 4: Multidimensional Optimization](../part1-axioms/axiom4-optimization/index.md)
-- **State** wrestles with [Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md) and [Law 3: Emergent Chaos](../part1-axioms/axiom3-chaos/index.md)
-- **Truth** deals with [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchronous/index.md) and [Law 5: Distributed Knowledge](../part1-axioms/axiom5-knowledge/index.md)
-- **Control** balances [Law 5: Distributed Knowledge](../part1-axioms/axiom5-knowledge/index.md) and [Law 6: Cognitive Load](../part1-axioms/axiom6-cognitive/index.md)
-- **Intelligence** emerges from [all laws](../part1-axioms/index.md) working together
+- **Work** primarily grapples with [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) and [Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)
+- **State** wrestles with [Law 1: Failure](../part1-laws/axiom1-failure/index.md) and [Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)
+- **Truth** deals with [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) and [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)
+- **Control** balances [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) and [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)
+- **Intelligence** emerges from [all laws](../part1-laws/index.md) working together
 
 ## The Five Pillars with Theoretical Foundations
 
@@ -174,7 +174,7 @@ Each pillar respects all seven laws, but typically wrestles most directly with a
 - Service mesh patterns
 - Serverless architectures
 
-[Related: Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchronous/index.md) | [Law 4: Multidimensional Optimization](../part1-axioms/axiom4-optimization/index.md) | [Load Balancing Pattern](../patterns/load-balancing.md) | [Serverless Pattern](../patterns/serverless-faas.md)
+[Related: Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) | [Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md) | [Load Balancing Pattern](../patterns/load-balancing.md) | [Serverless Pattern](../patterns/serverless-faas.md)
 
 **Real-World Example**: **Google MapReduce**
 In 2004, Google published the MapReduce paper¹, showing how to process 20TB of data across 1800 machines in just 30 minutes. This work distribution pattern spawned Hadoop and revolutionized big data processing.
@@ -191,7 +191,7 @@ In 2004, Google published the MapReduce paper¹, showing how to process 20TB of 
 - Consistency models (eventual, strong, causal)
 - Distributed storage systems
 
-[Related: Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md) | [Law 3: Emergent Chaos](../part1-axioms/axiom3-chaos/index.md) | [Sharding Pattern](../patterns/sharding.md) | [CDC Pattern](../patterns/cdc.md)
+[Related: Law 1: Failure](../part1-laws/axiom1-failure/index.md) | [Law 3: Emergence](../part1-laws/axiom3-emergence/index.md) | [Sharding Pattern](../patterns/sharding.md) | [CDC Pattern](../patterns/cdc.md)
 
 **Real-World Example**: **Apache Cassandra at Netflix**
 Netflix uses Cassandra³ to store viewing history for 200+ million users across multiple regions. They chose AP (availability + partition tolerance) over consistency, accepting that viewing history might be slightly out of sync between regions.
@@ -208,7 +208,7 @@ Netflix uses Cassandra³ to store viewing history for 200+ million users across 
 - Clock synchronization
 - Byzantine fault tolerance
 
-[Related: Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchronous/index.md) | [Law 5: Distributed Knowledge](../part1-axioms/axiom5-knowledge/index.md) | [Event Sourcing Pattern](../patterns/event-sourcing.md) | [Saga Pattern](../patterns/saga.md)
+[Related: Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) | [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) | [Event Sourcing Pattern](../patterns/event-sourcing.md) | [Saga Pattern](../patterns/saga.md)
 
 **Real-World Example**: **Google Spanner**
 Google Spanner⁷ uses atomic clocks (TrueTime) to achieve globally consistent transactions across continents. It's the first system to provide consistency + availability at global scale by cleverly working around CAP theorem limitations.
@@ -225,7 +225,7 @@ Google Spanner⁷ uses atomic clocks (TrueTime) to achieve globally consistent t
 - Health checking and circuit breaking
 - Deployment strategies
 
-[Related: Law 5: Distributed Knowledge](../part1-axioms/axiom5-knowledge/index.md) | [Law 6: Cognitive Load](../part1-axioms/axiom6-cognitive/index.md) | [Service Mesh Pattern](../patterns/service-mesh.md) | [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
+[Related: Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) | [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md) | [Service Mesh Pattern](../patterns/service-mesh.md) | [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
 
 **Real-World Example**: **Kubernetes**
 Kubernetes⁸ exemplifies control distribution, managing millions of containers across thousands of nodes. Its control plane continuously reconciles desired state with actual state, handling failures automatically.
@@ -242,7 +242,7 @@ Kubernetes⁸ exemplifies control distribution, managing millions of containers 
 - Anomaly detection
 - Chaos engineering
 
-[Related: All 7 Laws](../part1-axioms/index.md) | [Auto-Scaling Pattern](../patterns/auto-scaling.md) | [Spotify ML Case Study](../case-studies/spotify-recommendations.md)
+[Related: All 7 Laws](../part1-laws/index.md) | [Auto-Scaling Pattern](../patterns/auto-scaling.md) | [Spotify ML Case Study](../case-studies/spotify-recommendations.md)
 
 **Real-World Example**: **Netflix Chaos Engineering**
 Netflix pioneered chaos engineering¹⁰ with Chaos Monkey, deliberately breaking production systems to build resilience. Their intelligent systems detect and route around failures automatically.
@@ -330,11 +330,11 @@ Ready to see how work gets distributed across the planet?
 ## 🔗 Quick Navigation
 
 ## From Laws to Pillars
-- [7 Fundamental Laws](../part1-axioms/index.md) - The constraints that shape these pillars
-- [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchronous/index.md) → Work Distribution
-- [Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md) → State Distribution
-- [Law 5: Distributed Knowledge](../part1-axioms/axiom5-knowledge/index.md) → Truth Distribution
-- [Law 6: Cognitive Load](../part1-axioms/axiom6-cognitive/index.md) → Control Distribution
+- [7 Fundamental Laws](../part1-laws/index.md) - The constraints that shape these pillars
+- [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) → Work Distribution
+- [Law 1: Failure](../part1-laws/axiom1-failure/index.md) → State Distribution
+- [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) → Truth Distribution
+- [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md) → Control Distribution
 
 ## Pillars in Practice
 - [CQRS Pattern](../patterns/cqrs.md) - Separating reads and writes (Work + State)

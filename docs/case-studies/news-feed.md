@@ -14,7 +14,7 @@ News feeds: Simple UI, complex backend. Billions of users, real-time personaliza
 
 ## Part 1: Concept Map - The Physics of Information Flow
 
-### Axiom 1: Latency - The Speed of Relevance
+### Law 1: Latency - The Speed of Relevance
 
 In news feed systems, latency isn't just about speed—it's about relevance decay. The value of content decreases exponentially with time.
 
@@ -116,7 +116,7 @@ class PrecomputedFeedManager:
 
 **Production Impact**: Facebook's edge caching reduces P50 latency to 50ms and P99 to 200ms for feed loading, serving 2.9 billion monthly active users.
 
-### Axiom 2: Capacity - The Quadratic Growth Challenge
+### Law 2: Capacity - The Quadratic Growth Challenge
 
 News feed systems face quadratic growth: N users producing content for N users creates N² potential connections.
 
@@ -191,7 +191,7 @@ class HybridFanoutStrategy:
 
 **Real Numbers**: Twitter processes 500M tweets/day with 330M users, requiring careful capacity planning to handle 150B+ timeline deliveries daily.
 
-### Axiom 3: Failure - Content Must Flow
+### Law 3: Failure - Content Must Flow
 
 Feed systems must remain available even during cascading failures.
 
@@ -273,7 +273,7 @@ class ContentReplicationStrategy:
         pass
 ```
 
-### Axiom 4: Concurrency - The Timeline Merge Challenge
+### Law 4: Concurrency - The Timeline Merge Challenge
 
 Multiple content streams must be merged in real-time while maintaining consistency.
 
@@ -383,7 +383,7 @@ class ConcurrentFeedBuilder:
                 future.set_exception(e)
 ```
 
-### Axiom 5: Coordination - Global Consistency at Scale
+### Law 5: Coordination - Global Consistency at Scale
 
 Coordinating state across geo-distributed systems while maintaining feed consistency.
 
@@ -453,7 +453,7 @@ class EventualConsistencyManager:
         return max(items, key=lambda x: x.engagement_score)
 ```
 
-### Axiom 6: Observability - Understanding Feed Health
+### Law 6: Observability - Understanding Feed Health
 
 Comprehensive monitoring of feed quality and system health.
 
@@ -529,7 +529,7 @@ class PerformanceTracker:
             print(f"SLA violation: {latency:.0f}ms for user {user_id}")
 ```
 
-### Axiom 7: Human Interface - The Ergonomics of Engagement
+### Law 7: Human Interface - The Ergonomics of Engagement
 
 Optimizing for human attention patterns and engagement.
 
@@ -624,7 +624,7 @@ class FeedPacingController:
         return paced_feed
 ```
 
-### Axiom 8: Economics - The Attention Economy
+### Law 7: Economics - The Attention Economy
 
 Balancing user satisfaction with platform economics.
 
@@ -928,7 +928,7 @@ class HybridFeedArchitecture:
         return final_feed
 ```
 
-## Axiom Mapping Matrix
+## Law Mapping Matrix
 
 ### Design Decision Impact
 
@@ -941,28 +941,28 @@ class HybridFeedArchitecture:
 | **ML Ranking** | Personalization, engagement boost | Inference overhead, cold start |
 | **Timeline Merging** | Diverse content sources | Merge complexity at scale |
 
-### Axiom Implementation Priority
+### Law Implementation Priority
 
 ```mermaid
 graph TB
     subgraph "User Experience Critical"
-        A1[Axiom 1: Latency<br/>Feed Load Time]
-        A7[Axiom 7: Human<br/>Personalization]
+        A1[Law 1: Latency<br/>Feed Load Time]
+        A7[Law 7: Human<br/>Personalization]
     end
     
     subgraph "Scale Critical"
-        A2[Axiom 2: Capacity<br/>Quadratic Growth]
-        A4[Axiom 4: Concurrency<br/>Parallel Processing]
+        A2[Law 2: Capacity<br/>Quadratic Growth]
+        A4[Law 4: Concurrency<br/>Parallel Processing]
     end
     
     subgraph "Reliability"
-        A3[Axiom 3: Failure<br/>Always Available]
-        A5[Axiom 5: Coordination<br/>Consistency]
+        A3[Law 3: Failure<br/>Always Available]
+        A5[Law 5: Coordination<br/>Consistency]
     end
     
     subgraph "Business"
-        A6[Axiom 6: Observability<br/>Engagement Tracking]
-        A8[Axiom 8: Economics<br/>Cost Control]
+        A6[Law 6: Observability<br/>Engagement Tracking]
+        A8[Law 7: Economics<br/>Cost Control]
     end
     
     A1 --> A7
@@ -1211,21 +1211,20 @@ graph TD
 
 ## Conclusion
 
-The news feed system represents the convergence of distributed systems challenges: scale, personalization, real-time processing, and economics. By understanding the fundamental axioms and their interactions, we can build systems that serve billions while maintaining sub-second latency and high relevance.
+The news feed system represents the convergence of distributed systems challenges: scale, personalization, real-time processing, and economics. By understanding the fundamental laws and their interactions, we can build systems that serve billions while maintaining sub-second latency and high relevance.
 
 The hybrid architecture balances the trade-offs between different approaches, using push for normal users, pull for celebrities, and ML for personalization. The key insight is that no single approach works for all use cases—the art lies in combining them intelligently based on user patterns and system constraints.
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Pre-computed feeds and edge caching achieve <100ms load times
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Multiple fallback strategies ensure feed availability
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Async fanout and parallel timeline merging handle scale
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Eventually consistent timelines with causal ordering
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Engagement metrics drive ML model improvements
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Personalization and pacing optimize for human attention
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Ad placement and infrastructure costs drive architectural decisions
+### 📚 Relevant Laws (Part I)
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Pre-computed feeds and edge caching achieve <100ms load times
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Hybrid push/pull prevents O(n²) fanout explosion for celebrities
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Multiple fallback strategies ensure feed availability
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Async fanout and parallel timeline merging handle scale
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Eventually consistent timelines with causal ordering and engagement metrics
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Personalization and pacing optimize for human attention
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Ad placement and infrastructure costs drive architectural decisions
 
 ### 🏛️ Related Patterns (Part III)
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Post creation triggers fanout pipeline

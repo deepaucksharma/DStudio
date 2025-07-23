@@ -1,4 +1,4 @@
-# Axiom 6: Law of Cognitive Load - Exercises
+# Law 6: Law of Cognitive Load - Exercises
 
 ## Overview
 

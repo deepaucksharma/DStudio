@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Pattern Combinations**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Combinations**
 
 # Pattern Combination Guide
 

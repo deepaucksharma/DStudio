@@ -4,7 +4,7 @@ description: "How to implement learning and adaptive systems across distributed 
 type: pillar
 difficulty: advanced
 reading_time: 50 min
-prerequisites: ["law5-knowledge", "law6-cognitive", "law7-economics"]
+prerequisites: ["axiom5-epistemology", "axiom6-human-api", "axiom7-economics"]
 status: complete
 last_updated: 2025-07-20
 ---
@@ -257,10 +257,10 @@ graph TB
 
         %% Law connections
         Law2[Law 2: Asynchronous Reality ⏳] --> Edge
-        Law4[Law 4: Multidimensional Optimization ⚖️] --> Architecture
-        Law5[Law 5: Distributed Knowledge 🧠] --> Explainability
-        Law6[Law 6: Cognitive Load 🤯] --> Governance
-        Law7[Law 7: Economic Reality 💰] --> Feedback
+        Law4[Law 4: Trade-offs ⚖️] --> Architecture
+        Law5[Law 5: Epistemology 🧠] --> Explainability
+        Law6[Law 6: Human-API 🤯] --> Governance
+        Law7[Law 7: Economics 💰] --> Feedback
     end
 
     style Core fill:#f9f,stroke:#333,stroke-width:4px

@@ -14,7 +14,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Payment System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Payment System**
 
 # Design a Payment System
 
@@ -92,15 +92,15 @@ Payment systems form the backbone of digital commerce, processing trillions of d
 - **Security**: PCI DSS, SOC 2, ISO 27001 compliant
 - **Global**: Multi-region, multi-currency support
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Sub-200ms payment authorization
-- **Axiom 2 (Capacity)**: Bounded queue sizes prevent overload
-- **Axiom 3 (Failure)**: Graceful degradation on component failure
-- **Axiom 4 (Concurrency)**: Distributed locking for payment idempotency
-- **Axiom 5 (Coordination)**: Saga pattern for distributed transactions
-- **Axiom 6 (Observability)**: Complete audit trail for every cent
-- **Axiom 7 (Interface)**: Simple, secure merchant APIs
-- **Axiom 8 (Economics)**: Optimize for transaction cost efficiency
+### Law Mapping
+- **Law 1 (Latency)**: Sub-200ms payment authorization
+- **Law 2 (Capacity)**: Bounded queue sizes prevent overload
+- **Law 3 (Failure)**: Graceful degradation on component failure
+- **Law 4 (Concurrency)**: Distributed locking for payment idempotency
+- **Law 5 (Coordination)**: Saga pattern for distributed transactions
+- **Law 6 (Observability)**: Complete audit trail for every cent
+- **Law 7 (Interface)**: Simple, secure merchant APIs
+- **Law 8 (Economics)**: Optimize for transaction cost efficiency
 
 ## Architecture Evolution
 
@@ -191,11 +191,11 @@ graph TD
 graph TD
     PAY[Payment System]
     
-    PAY --> A3[Axiom 3: Failure]
-    PAY --> A4[Axiom 4: Consistency]
-    PAY --> A5[Axiom 5: Coordination]
-    PAY --> A6[Axiom 6: Observability]
-    PAY --> A8[Axiom 8: Economics]
+    PAY --> A3[Law 3: Failure]
+    PAY --> A4[Law 4: Consistency]
+    PAY --> A5[Law 5: Coordination]
+    PAY --> A6[Law 6: Observability]
+    PAY --> A8[Law 7: Economics]
     
     A3 --> F1[Idempotency]
     A3 --> F2[Retry Logic]

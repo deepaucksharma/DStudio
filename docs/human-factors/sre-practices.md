@@ -4,19 +4,19 @@ description: "Site Reliability Engineering treats operations as a software probl
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: ["part1-axioms/axiom6-human-api/index.md"]
+prerequisites: ["part1-laws/axiom6-human-api"]
 status: complete
 last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **SRE Practices**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **SRE Practices**
 
 # SRE Practices
 
-**Running systems reliably at scale while respecting Law 6: The Law of Cognitive Load 🤯**
+**Running systems reliably at scale while respecting Law 6: Human-API 🤯**
 
-## Core SRE Tenets (Aligned with Law 6: Cognitive Load)
+## Core SRE Tenets (Aligned with Law 6: Human-API)
 
 1. **Embrace Risk** - 100% reliability is wrong target and cognitively unsustainable
 2. **Service Level Objectives** - Define and measure reliability within human comprehension
@@ -578,7 +578,7 @@ See: [Observability Stacks](observability-stacks.md)
 ### Runbooks
 See: [Runbooks & Playbooks](runbooks-playbooks.md)
 
-## Best Practices (Law 6: Cognitive Load Aware)
+## Best Practices (Law 6: Human-API Aware)
 
 1. **Measure Wisely**: Only track what fits in operator mental models (7±2 key metrics)
 2. **Gradual Rollouts**: Progressive disclosure prevents cognitive overload

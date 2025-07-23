@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Knowledge Management in Distributed Systems**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Knowledge Management in Distributed Systems**
 
 # Knowledge Management in Distributed Systems
 

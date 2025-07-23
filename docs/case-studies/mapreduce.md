@@ -11,7 +11,7 @@ last_updated: 2025-01-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case-Studies](index.md) → **Mapreduce**
+[Home](../introduction/index.md) → [Case-Studies](index.md) → **Mapreduce**
 
 # Mapreduce
 

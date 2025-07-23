@@ -14,7 +14,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Metrics Monitoring and Alerting System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Metrics Monitoring and Alerting System**
 
 # Design a Metrics Monitoring and Alerting System
 
@@ -107,11 +107,11 @@ graph TD
 graph TD
     MM[Metrics Monitoring]
     
-    MM --> A1[Axiom 1: Latency]
-    MM --> A2[Axiom 2: Finite Capacity]
-    MM --> A3[Axiom 3: Failure]
-    MM --> A4[Axiom 4: Consistency]
-    MM --> A6[Axiom 6: Observability]
+    MM --> A1[Law 2: Asynchronous Reality ⏳]
+    MM --> A2[Law 4: Trade-offs ⚖️]
+    MM --> A3[Law 1: Failure ⛓️]
+    MM --> A4[Law 3: Emergence 🌪️]
+    MM --> A6[Law 5: Epistemology 🧠]
     
     A1 --> L1[In-memory Aggregation]
     A1 --> L2[Index Optimization]

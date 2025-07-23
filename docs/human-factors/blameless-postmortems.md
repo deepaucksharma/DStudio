@@ -1,22 +1,22 @@
 ---
 title: Blameless Postmortems
-description: "A structured review of incidents focusing on systemic issues rather than individual blame, designed to prevent future failures"
+description: "A structured review of incidents focusing on systemic issues rather than individual blame, designed to prevent future failures while respecting cognitive limits"
 type: human-factors
 difficulty: beginner
 reading_time: 10 min
-prerequisites: []
+prerequisites: ["part1-laws/axiom6-human-api", "part1-laws/axiom1-failure"]
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Blameless Postmortems**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Blameless Postmortems**
 
 # Blameless Postmortems
 
-**Learning from failures without finger-pointing**
+**Learning from failures without finger-pointing (Law 6: Human-API 🤯)**
 
-> *"We seek to understand not who failed, but how the system allowed failure to occur."*
+> *"We seek to understand not who failed, but how the system allowed failure to occur - recognizing that human error often stems from cognitive overload."*
 
 ---
 
@@ -24,19 +24,22 @@ last_updated: 2025-07-20
 
 Structured incident review focusing on systemic issues, not individual blame. Goal: learn and improve.
 
-## Key Principles
+## Key Principles (Aligned with Law 6: Human-API)
 
 ### 1. Systems Thinking
 - Focus on how system allowed error
-- Look for contributing factors
+- Look for contributing factors beyond individual capacity
+- Recognize cognitive overload as a system failure
 
 ### 2. Psychological Safety
-- Safe to share mistakes
+- Safe to share mistakes without blame
 - Honest discussion → improvements
+- Cognitive capacity drops 80% under stress - plan for it
 
 ### 3. Learning Culture
-- Every incident = learning opportunity
-- Share knowledge widely
+- Every incident = learning opportunity (Law 1: Failure)
+- Share knowledge widely to distribute cognitive load (Law 5: Epistemology)
+- Document learnings to offload from working memory
 
 ## Postmortem Process
 
@@ -179,14 +182,14 @@ Understanding how blameless postmortems relate to our fundamental laws:
 
 | Law | Impact on Postmortems | Key Insights |
 |-----|----------------------|--------------|
-| **Law 2: Asynchronous Reality ⏳** | Incident detection and response time | Faster detection through better monitoring reduces incident duration |
-| **Law 4: Multidimensional Optimization ⚖️** | Resource constraints during incidents | Postmortems reveal capacity planning gaps and resource bottlenecks |
-| **Law 1: Correlated Failure ⛓️** | Core focus - learning from failures | Every failure is a learning opportunity to build resilience |
-| **Law 4: Multidimensional Optimization ⚖️** | Inconsistent states often cause incidents | Postmortems uncover consistency violations and their impacts |
-| **Law 2: Asynchronous Reality ⏳** | Timeline reconstruction challenges | Clock skew can make incident timelines difficult to reconstruct |
-| **Law 3: Emergent Chaos 🌪️** | Race conditions and timing bugs | Many incidents stem from unexpected operation ordering |
-| **Law 5: Distributed Knowledge 🧠** | Incomplete system understanding | Postmortems reveal knowledge gaps and documentation needs |
-| **Law 7: Economic Reality 💰** | Scaling challenges cause incidents | Growth patterns often trigger new failure modes |
+| **Law 2: Asynchronous Reality ⏱️** | Incident detection and response time | Faster detection through better monitoring reduces incident duration |
+| **Law 4: Trade-offs 📊** | Resource constraints during incidents | Postmortems reveal capacity planning gaps and resource bottlenecks |
+| **Law 1: Failure ⛓️** | Core focus - learning from failures | Every failure is a learning opportunity to build resilience |
+| **Law 4: Trade-offs 🔐** | Inconsistent states often cause incidents | Postmortems uncover consistency violations and their impacts |
+| **Law 5: Epistemology 🧠** | Incomplete system understanding | Postmortems reveal knowledge gaps and documentation needs |
+| **Law 6: Human-API 🤯** | Human errors during incidents | Cognitive overload is a primary cause of operational mistakes |
+| **Law 5: Epistemology 🤝** | Coordination failures during response | Poor handoffs and unclear ownership extend incident duration |
+| **Law 7: Economics 💰** | Cost of incidents and prevention | Balance incident prevention cost against business impact |
 
 ## Postmortem Effectiveness Matrix
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part IV: Quantitative](index.md) → **Latency Ladder 2025**
+[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Latency Ladder 2025**
 
 # Latency Ladder 2025
 
@@ -429,7 +429,7 @@ Total: 30ms (constant!)
 
 ## Law Connections
 
-### Law 1: Asynchronous Reality ⏳
+### Law 2: Asynchronous Reality ⏳
 ```mermaid
 graph LR
     A[Speed of Light] --> B[Physical Distance]
@@ -440,9 +440,9 @@ graph LR
     style D fill:#ffcccc
 ```
 
-Every operation proves [Law 1](../part1-axioms/law1-asynchronous/index.md) - even L1 cache (0.5ns) > 0.
+Every operation proves [Law 1](../part1-laws/axiom1-failure/index.md) - even L1 cache (0.5ns) > 0.
 
-### Law 4: Multidimensional Optimization ⚖️
+### Law 4: Trade-offs ⚖️
 <div class="failure-vignette">
 <h4>📈 Latency Under Load</h4>
 
@@ -502,10 +502,10 @@ Every operation proves [Law 1](../part1-axioms/law1-asynchronous/index.md) - eve
 
 See [Queueing Theory](queueing-models.md): utilization → 100% = latency → ∞
 
-### Law 2: Failure as Design 💥
+### Law 1: Failure 💥
 Timeouts, cascading failures, retry storms from high latency.
 
-### Law 4: Multidimensional Optimization ⚖️ (Consistency Trade-off)
+### Law 4: Trade-offs ⚖️ (Consistency Trade-off)
 Consensus = multiple RTTs. Strong consistency = more hops.
 
 ## Visual Latency Comparison

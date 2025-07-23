@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 1](index.md) → **Latency Exercises**
+[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 1](index.md) → **Latency Exercises**
 
 # Latency Exercises
 

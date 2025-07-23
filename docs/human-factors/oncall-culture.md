@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **On-Call Culture**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **On-Call Culture**
 
 # On-Call Culture
 
@@ -257,13 +257,13 @@ Understanding how on-call culture relates to distributed systems laws:
 | Law | Impact on On-Call Culture | Strategic Implications |
 |-----|---------------------------|----------------------|
 | **Law 2: Asynchronous Reality ⏳** | Alert latency affects response time | Optimize alerting paths, minimize notification delays, pre-warm systems |
-| **Law 4: Multidimensional Optimization ⚖️** | Human capacity is limited | Prevent burnout, size rotations appropriately, automate repetitive tasks |
-| **Law 1: Correlated Failure ⛓️** | On-call exists because systems fail | Build resilient systems to reduce on-call burden, embrace failure as learning |
-| **Law 4: Multidimensional Optimization ⚖️** | Inconsistent practices cause confusion | Standardize procedures, maintain consistent tooling, clear documentation |
+| **Law 4: Trade-offs ⚖️** | Human capacity is limited | Prevent burnout, size rotations appropriately, automate repetitive tasks |
+| **Law 1: Failure ⛓️** | On-call exists because systems fail | Build resilient systems to reduce on-call burden, embrace failure as learning |
+| **Law 4: Trade-offs ⚖️** | Inconsistent practices cause confusion | Standardize procedures, maintain consistent tooling, clear documentation |
 | **Law 2: Asynchronous Reality ⏳** | Time zones affect global teams | Consider follow-the-sun models, respect off-hours, plan handoffs carefully |
-| **Law 3: Emergent Chaos 🌪️** | Alert storms need prioritization | Define clear severity levels, prevent duplicate alerts, order matters |
-| **Law 5: Distributed Knowledge 🧠** | On-call requires system knowledge | Invest in training, maintain runbooks, share tribal knowledge |
-| **Law 7: Economic Reality 💰** | Team/system growth impacts on-call | Plan rotation scaling, update procedures as systems grow |
+| **Law 3: Emergence 🌪️** | Alert storms need prioritization | Define clear severity levels, prevent duplicate alerts, order matters |
+| **Law 5: Epistemology 🧠** | On-call requires system knowledge | Invest in training, maintain runbooks, share tribal knowledge |
+| **Law 7: Economics 💰** | Team/system growth impacts on-call | Plan rotation scaling, update procedures as systems grow |
 
 ## On-Call Health Assessment Framework
 

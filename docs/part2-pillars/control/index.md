@@ -4,7 +4,7 @@ description: "How to manage automated systems while maintaining human oversight,
 type: pillar
 difficulty: intermediate
 reading_time: 45 min
-prerequisites: ["law1-failure", "law5-knowledge", "law6-cognitive"]
+prerequisites: ["axiom1-failure", "axiom5-epistemology", "axiom6-human-api"]
 status: complete
 last_updated: 2025-07-20
 ---
@@ -371,10 +371,10 @@ graph TB
         Feature -.-> Proactive
 
         %% Law connections
-        Law1[Law 1: Correlated Failure ⛓️] --> Emergency
-        Law5[Law 5: Distributed Knowledge 🧠] --> Observe
-        Law6[Law 6: Cognitive Load 🤯] --> Human
-        Law7[Law 7: Economic Reality 💰] --> Auto
+        Law1[Law 1: Failure ⛓️] --> Emergency
+        Law5[Law 5: Epistemology 🧠] --> Observe
+        Law6[Law 6: Human-API 🤯] --> Human
+        Law7[Law 7: Economics 💰] --> Auto
         Ironies[Ironies of Automation] --> Cognitive
     end
 

@@ -5,8 +5,8 @@ type: case-study
 difficulty: intermediate
 reading_time: 25 min
 prerequisites: 
-  - axiom3-failure
-  - axiom2-capacity
+  - axiom1-failure
+  - axiom4-tradeoffs
   - patterns/rate-limiting
 status: complete
 last_updated: 2025-07-20
@@ -691,7 +691,7 @@ Cost per billion requests: $0.34
 
 5. **Cost Optimization Through Caching**: 80% of rate limit checks can be served from local cache, dramatically reducing infrastructure costs while maintaining accuracy.
 
-## Axiom Mapping Matrix
+## Law Mapping Matrix
 
 | Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
 |----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
@@ -703,25 +703,25 @@ Cost per billion requests: $0.34
 | **Bloom Filters** | O(1) | 1MB/1M items | - | Lock-free | - | FP rate | - | Memory efficient |
 | **Fallback** | No block | - | Graceful | - | Mode switch | Metrics | Available | SLA compliant |
 
-### Axiom Implementation Priority
+### Law Implementation Priority
 
 ```mermaid
 graph TB
     subgraph "Performance Critical"
-        A1[Axiom 1: Latency<br/>Sub-millisecond]
-        A4[Axiom 4: Concurrency<br/>10M req/sec]
+        A1[Law 1: Latency<br/>Sub-millisecond]
+        A4[Law 4: Concurrency<br/>10M req/sec]
     end
     
     subgraph "Reliability Critical"
-        A3[Axiom 3: Failure<br/>Graceful Degradation]
-        A5[Axiom 5: Coordination<br/>Distributed State]
+        A3[Law 3: Failure<br/>Graceful Degradation]
+        A5[Law 5: Coordination<br/>Distributed State]
     end
     
     subgraph "Operational"
-        A2[Axiom 2: Capacity<br/>Scale Management]
-        A6[Axiom 6: Observability<br/>Monitoring]
-        A7[Axiom 7: Human<br/>Operations]
-        A8[Axiom 8: Economics<br/>Cost Control]
+        A2[Law 2: Capacity<br/>Scale Management]
+        A6[Law 6: Observability<br/>Monitoring]
+        A7[Law 7: Human<br/>Operations]
+        A8[Law 7: Economics<br/>Cost Control]
     end
     
     A1 --> A3
@@ -1006,15 +1006,14 @@ graph TD
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Rate limiting protects backend capacity from overload
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Gossip protocol synchronizes distributed counters
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Every allow/deny decision tracked for debugging
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Clear error messages with retry-after headers
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Local caching reduces infrastructure costs by 80%
+### 📚 Relevant Laws (Part I)
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Clear error messages with retry-after headers
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛️ Related Patterns (Part III)
 - **[Rate Limiting](../patterns/rate-limiting.md)** - Core pattern implemented with token bucket algorithm

@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Search Autocomplete System Design**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Search Autocomplete System Design**
 
 # 🔍 Search Autocomplete System Design
 
@@ -25,7 +25,7 @@ Typeahead requires <50ms response. Google: 3.5B queries/day, sub-100ms latency w
 
 ## Core Concepts
 
-### Axiom 1: Latency - The 100ms Perception Barrier
+### Law 2: Asynchronous Reality ⏳ - The 100ms Perception Barrier
 
 ```python
 import asyncio
@@ -188,7 +188,7 @@ class EdgeCacheStrategy:
 
 **Production Reality**: Google's autocomplete serves suggestions in <50ms globally by maintaining edge caches in 100+ locations and precomputing popular queries.
 
-### Axiom 2: Capacity - The Vocabulary Explosion
+### Law 4: Trade-offs ⚖️ - The Vocabulary Explosion
 
 Search systems must handle exponentially growing vocabularies and query combinations.
 
@@ -330,7 +330,7 @@ class ShardedAutocomplete:
 
 **Real Numbers**: Google processes 3.5 billion searches daily with a vocabulary of over 1 trillion unique queries, requiring sophisticated compression and sharding.
 
-### Axiom 3: Failure - Graceful Degradation
+### Law 1: Failure ⛓️ - Graceful Degradation
 
 Autocomplete must remain functional even during partial system failures.
 
@@ -431,7 +431,7 @@ class CircuitBreaker:
             print(f"Circuit breaker opened at {time.time()}")
 ```
 
-### Axiom 4: Concurrency - Handling Parallel Queries
+### Law 3: Emergence 🌪️ - Handling Parallel Queries
 
 Millions of users typing simultaneously requires careful concurrency management.
 
@@ -565,7 +565,7 @@ class ParallelIndexBuilder:
             trie.insert(term, freq)
 ```
 
-### Axiom 5: Coordination - Global Consistency
+### Law 4: Trade-offs ⚖️ - Global Consistency
 
 Coordinating autocomplete suggestions across regions while maintaining consistency.
 
@@ -654,7 +654,7 @@ class ConsistentRanking:
         return [s[0] for s in scored_suggestions]
 ```
 
-### Axiom 6: Observability - Understanding Search Patterns
+### Law 5: Epistemology 🧠 - Understanding Search Patterns
 
 Monitoring and analyzing search patterns to improve suggestions.
 
@@ -758,7 +758,7 @@ class AnomalyDetector:
         return False
 ```
 
-### Axiom 7: Human Interface - Natural Query Understanding
+### Law 6: Human-API 🤯 - Natural Query Understanding
 
 Autocomplete must understand human typing patterns and intent.
 
@@ -876,7 +876,7 @@ class PersonalizedRanker:
         return [s[0] for s in scored]
 ```
 
-### Axiom 8: Economics - Balancing Quality and Cost
+### Law 7: Economics 💰 - Balancing Quality and Cost
 
 Optimizing the trade-off between suggestion quality and infrastructure costs.
 
@@ -1332,11 +1332,11 @@ class NeuralAutocomplete:
 - ❌ Expensive compute
 - ❌ May generate inappropriate content
 
-## 🎯 Axiom Mapping & Design Decisions
+## 🎯 Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
+| Design Decision | Law 2<br/>⏳ Async Reality | Law 4<br/>⚖️ Optimization | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Chaos | Law 4<br/>⚖️ Optimization | Law 5<br/>🧠 Knowledge | Law 6<br/>🤯 Cognitive | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|----------|----------|
 | **In-Memory Trie** | ✅ <10ms lookup | ✅ Compact structure | ✅ Replicated copies | ✅ Lock-free reads | ⚪ | ✅ Memory metrics | ✅ Instant response | ✅ RAM vs disk trade-off |
 | **Pre-computed Suggestions** | ✅ No computation | ✅ Storage for top-N | ⚪ | ✅ Read-only access | ✅ Batch updates | ✅ Hit rate tracking | ✅ Relevant results | ✅ Compute once |
@@ -1662,15 +1662,15 @@ class DistributedAutocomplete:
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Sub-100ms response critical for UX
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Memory limits drive sharding
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Graceful degradation strategies
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Lock-free trie operations
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Distributed trie updates
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Query performance tracking
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Typo tolerance, personalization
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Memory cost vs latency
+### 📚 Relevant Laws
+- **[Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)** - Sub-100ms response critical for UX
+- **[Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)** - Memory limits drive sharding
+- **[Law 1: Failure](../part1-laws/axiom1-failure/index.md)** - Graceful degradation strategies
+- **[Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)** - Lock-free trie operations
+- **[Law 4: Trade-offs](../part1-laws/axiom5-epistemology/index.md)** - Distributed trie updates
+- **[Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)** - Query performance tracking
+- **[Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)** - Typo tolerance, personalization
+- **[Law 7: Economics](../part1-laws/axiom7-economics/index.md)** - Memory cost vs latency
 
 ### 🏛️ Related Patterns
 - **[Trie Data Structure](../patterns/trie.md)** - Core search structure

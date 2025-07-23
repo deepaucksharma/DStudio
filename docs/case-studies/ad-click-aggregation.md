@@ -14,7 +14,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Ad Click Event Aggregation System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Ad Click Event Aggregation System**
 
 # Design an Ad Click Event Aggregation System
 
@@ -125,11 +125,11 @@ graph TD
 graph TD
     AC[Ad Click Aggregation]
     
-    AC --> A1[Axiom 1: Latency]
-    AC --> A2[Axiom 2: Finite Capacity]
-    AC --> A3[Axiom 3: Failure]
-    AC --> A4[Axiom 4: Consistency]
-    AC --> A5[Axiom 5: Coordination]
+    AC --> A1[Law 1: Latency]
+    AC --> A2[Law 2: Finite Capacity]
+    AC --> A3[Law 3: Failure]
+    AC --> A4[Law 4: Consistency]
+    AC --> A5[Law 5: Coordination]
     
     A1 --> L1[Stream Processing]
     A1 --> L2[In-Memory Aggregation]

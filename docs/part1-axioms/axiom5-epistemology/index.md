@@ -1,15 +1,15 @@
 ---
-title: "Axiom 5: The Law of Distributed Knowledge 🧠"
+title: "Law 5: The Law of Distributed Knowledge 🧠"
 description: In distributed systems, truth is local, knowledge is partial, and certainty is expensive
 type: axiom
 difficulty: expert
 reading_time: 12 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md"]
+prerequisites: ["part1-laws/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
 
-# Axiom 5: The Law of Distributed Knowledge 🧠
+# Law 5: The Law of Distributed Knowledge 🧠
 
 > In distributed systems, truth is local, knowledge is partial, and certainty is expensive.
 
@@ -526,4 +526,4 @@ Perfect knowledge is impossible in distributed systems. The art lies in:
 - "CRDTs: Consistency without Concurrency Control" - Shapiro et al.
 - "Epistemology of Distributed Systems" - Fagin et al.
 
-[**← Previous: Law of Multidimensional Optimization**](../axiom4-tradeoffs/index.md) | [**→ Next: Law of Cognitive Load**](../axiom6-cognitive-load/index.md)
+[**← Previous: Law of Multidimensional Optimization**](../axiom4-tradeoffs/index.md) | [**→ Next: Law of Cognitive Load**](../axiom6-human-api/index.md)

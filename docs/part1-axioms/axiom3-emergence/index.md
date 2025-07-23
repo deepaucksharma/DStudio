@@ -1,15 +1,15 @@
 ---
-title: "Axiom 3: The Law of Emergent Chaos 🌪️"
+title: "Law 3: The Law of Emergent Chaos 🌪️"
 description: At scale, systems exhibit behaviors that cannot be predicted from their components
 type: axiom
 difficulty: expert
 reading_time: 10 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md"]
+prerequisites: ["part1-laws/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
 
-# Axiom 3: The Law of Emergent Chaos 🌪️
+# Law 3: The Law of Emergent Chaos 🌪️
 
 > At scale, systems exhibit behaviors that cannot be predicted from their components.
 

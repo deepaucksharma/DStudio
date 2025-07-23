@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → **Part III: Modern Architectural Patterns**
+[Home](../introduction/index.md) → **Part III: Modern Architectural Patterns**
 
 # Part III: Modern Architectural Patterns
 
@@ -30,10 +30,10 @@ last_updated: 2025-07-21
 Fundamental architectural patterns that shape modern distributed systems:
 
 - **[Queues & Streaming](queues-streaming.md)** ⭐ - Decoupling producers from consumers [Related: Work Distribution](../part2-pillars/work/index.md)
-- **[CQRS](cqrs.md)** ⭐ - Command Query Responsibility Segregation (Greg Young, 2010)¹ [Related: Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
-- **[Event-Driven Architecture](event-driven.md)** ⭐ - Choreography over orchestration [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)
+- **[CQRS](cqrs.md)** ⭐ - Command Query Responsibility Segregation (Greg Young, 2010)¹ [Related: Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
+- **[Event-Driven Architecture](event-driven.md)** ⭐ - Choreography over orchestration [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)
 - **[Event Sourcing](event-sourcing.md)** ⭐ - State as a sequence of events (Martin Fowler)² [Related: State Distribution](../part2-pillars/state/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
-- **[Saga Pattern](saga.md)** ⭐ - Distributed transaction management (Garcia-Molina & Salem, 1987)³ [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) | [PayPal Case Study](../case-studies/paypal-payments.md)
+- **[Saga Pattern](saga.md)** ⭐ - Distributed transaction management (Garcia-Molina & Salem, 1987)³ [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) | [PayPal Case Study](../case-studies/paypal-payments.md)
 - **[Service Mesh](service-mesh.md)** ⭐ - Infrastructure layer for service communication [Related: Control Distribution](../part2-pillars/control/index.md)
 - **[GraphQL Federation](graphql-federation.md)** - Unified data graph across services
 - **[Serverless/FaaS](serverless-faas.md)** ⭐ - Functions as the unit of deployment [Related: Work Distribution](../part2-pillars/work/index.md)
@@ -41,41 +41,41 @@ Fundamental architectural patterns that shape modern distributed systems:
 ### Resilience Patterns
 Patterns that ensure systems survive failures:
 
-- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures (Nygard, 2007)⁴ [Related: Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
-- **[Retry & Backoff](retry-backoff.md)** ⭐ - Intelligent retry strategies [Related: Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)
-- **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation through partitioning (Nygard)⁴ [Related: Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)
-- **[Timeout](timeout.md)** ⭐ - Bounded wait times for operations [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)
-- **[Health Check](health-check.md)** - Service liveness and readiness [Related: Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)
-- **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress [Related: Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-cognitive/index.md)
-- **[Rate Limiting](rate-limiting.md)** ⭐ - Protecting from overload [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)
-- **[Load Shedding](load-shedding.md)** - Dropping work to survive [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)
+- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures (Nygard, 2007)⁴ [Related: Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
+- **[Retry & Backoff](retry-backoff.md)** ⭐ - Intelligent retry strategies [Related: Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md)
+- **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation through partitioning (Nygard)⁴ [Related: Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md)
+- **[Timeout](timeout.md)** ⭐ - Bounded wait times for operations [Related: Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md)
+- **[Health Check](health-check.md)** - Service liveness and readiness [Related: Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)
+- **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress [Related: Law 6 (Cognitive Load 🤯)](../part1-laws/axiom6-human-api/index.md)
+- **[Rate Limiting](rate-limiting.md)** ⭐ - Protecting from overload [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)
+- **[Load Shedding](load-shedding.md)** - Dropping work to survive [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)
 
 ### Data Patterns
 Managing data in distributed environments:
 
 - **[CDC (Change Data Capture)](cdc.md)** ⭐ - Real-time data synchronization [Related: State Distribution](../part2-pillars/state/index.md)
 - **[Tunable Consistency](tunable-consistency.md)** ⭐ - Flexible consistency guarantees (Dynamo)⁵ [Related: Truth Distribution](../part2-pillars/truth/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
-- **[Sharding](sharding.md)** ⭐ - Horizontal data partitioning [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) | [State Distribution](../part2-pillars/state/index.md)
-- **[Caching Strategies](caching-strategies.md)** ⭐ - Multi-level cache hierarchies [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)
-- **[Geo-Replication](geo-replication.md)** ⭐ - Global data distribution [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) | [Uber Case Study](../case-studies/uber-location.md)
-- **[Outbox Pattern](outbox.md)** ⭐ - Reliable event publishing [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)
+- **[Sharding](sharding.md)** ⭐ - Horizontal data partitioning [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) | [State Distribution](../part2-pillars/state/index.md)
+- **[Caching Strategies](caching-strategies.md)** ⭐ - Multi-level cache hierarchies [Related: Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md)
+- **[Geo-Replication](geo-replication.md)** ⭐ - Global data distribution [Related: Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md) | [Uber Case Study](../case-studies/uber-location.md)
+- **[Outbox Pattern](outbox.md)** ⭐ - Reliable event publishing [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)
 
 ### Coordination Patterns
 Patterns for distributed coordination and messaging:
 
-- **[Leader Election](leader-election.md)** ⭐ - Single coordinator selection (Raft/Paxos)⁶⁷ [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
-- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)
-- **[Idempotent Receiver](idempotent-receiver.md)** ⭐ - Handling duplicate messages [Related: Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md)
+- **[Leader Election](leader-election.md)** ⭐ - Single coordinator selection (Raft/Paxos)⁶⁷ [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
+- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)
+- **[Idempotent Receiver](idempotent-receiver.md)** ⭐ - Handling duplicate messages [Related: Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md)
 - **[Service Discovery](service-discovery.md)** - Dynamic service location [Related: Control Distribution](../part2-pillars/control/index.md)
 
 ### Operational Patterns
 Patterns for running systems in production:
 
-- **[Observability](observability.md)** - Metrics, logs, and traces [Related: Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md) | [Control Distribution](../part2-pillars/control/index.md)
-- **[Auto-Scaling](auto-scaling.md)** ⭐ - Dynamic resource adjustment [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) | [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) | [Intelligence Distribution](../part2-pillars/intelligence/index.md)
-- **[Load Balancing](load-balancing.md)** - Request distribution strategies [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) | [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) | [Work Distribution](../part2-pillars/work/index.md)
-- **[Edge Computing](edge-computing.md)** ⭐ - Processing at the periphery [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) | [Uber Case Study](../case-studies/uber-location.md)
-- **[FinOps](finops.md)** - Cloud cost optimization [Related: Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md)
+- **[Observability](observability.md)** - Metrics, logs, and traces [Related: Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md) | [Control Distribution](../part2-pillars/control/index.md)
+- **[Auto-Scaling](auto-scaling.md)** ⭐ - Dynamic resource adjustment [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) | [Law 7 (Economic Reality 💰)](../part1-laws/axiom7-economics/index.md) | [Intelligence Distribution](../part2-pillars/intelligence/index.md)
+- **[Load Balancing](load-balancing.md)** - Request distribution strategies [Related: Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md) | [Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) | [Work Distribution](../part2-pillars/work/index.md)
+- **[Edge Computing](edge-computing.md)** ⭐ - Processing at the periphery [Related: Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md) | [Uber Case Study](../case-studies/uber-location.md)
+- **[FinOps](finops.md)** - Cloud cost optimization [Related: Law 7 (Economic Reality 💰)](../part1-laws/axiom7-economics/index.md)
 
 *⭐ = Enhanced with 5-level progressive learning structure*
 
@@ -115,12 +115,12 @@ graph TD
     style I fill:#ffebee
 ```
 
-## How Patterns Relate to Axioms
+## How Patterns Relate to Laws
 
 Each pattern addresses specific axiom constraints:
 
 ```proto
-Pattern               Primary Axioms        Trade-offs
+Pattern               Primary Laws        Trade-offs
 -------               --------------        ----------
 Circuit Breaker       Failure, Latency      Availability vs Accuracy
 CQRS                 Concurrency, State    Consistency vs Complexity
@@ -247,7 +247,7 @@ Ready to test your pattern knowledge?
 ## 🔗 Quick Navigation
 
 ### Patterns Emerge From
-- [8 Fundamental Axioms](../part1-axioms/index.md) - The constraints that create patterns
+- [7 Fundamental Laws](../part1-laws/index.md) - The constraints that create patterns
 - [5 Foundational Pillars](../part2-pillars/index.md) - How patterns combine into architectures
 
 ### Pattern Categories by Axiom

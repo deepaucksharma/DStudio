@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part IV: Quantitative](index.md) → **Part IV: Quantitative Toolkit**
+[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Part IV: Quantitative Toolkit**
 
 # Part IV: Quantitative Toolkit
 

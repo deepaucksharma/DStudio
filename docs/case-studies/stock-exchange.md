@@ -14,7 +14,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Stock Exchange**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Stock Exchange**
 
 # Design a Stock Exchange
 
@@ -92,15 +92,15 @@ Modern stock exchanges process millions of orders per second with latencies meas
 - **Fairness**: No unfair advantage to any participant
 - **Compliance**: Full audit trail, regulatory reporting
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Microsecond latency critical for fairness
-- **Axiom 2 (Capacity)**: Finite order book depth and bandwidth
-- **Axiom 3 (Failure)**: Zero tolerance for lost orders
-- **Axiom 4 (Concurrency)**: Massive parallel order processing
-- **Axiom 5 (Coordination)**: Deterministic event ordering
-- **Axiom 6 (Observability)**: Complete audit trail required
-- **Axiom 7 (Interface)**: FIX protocol and native APIs
-- **Axiom 8 (Economics)**: Optimize for transaction costs
+### Law Mapping
+- **Law 1 (Latency)**: Microsecond latency critical for fairness
+- **Law 2 (Capacity)**: Finite order book depth and bandwidth
+- **Law 3 (Failure)**: Zero tolerance for lost orders
+- **Law 4 (Concurrency)**: Massive parallel order processing
+- **Law 5 (Coordination)**: Deterministic event ordering
+- **Law 6 (Observability)**: Complete audit trail required
+- **Law 7 (Interface)**: FIX protocol and native APIs
+- **Law 8 (Economics)**: Optimize for transaction costs
 
 ## Architecture Evolution
 
@@ -182,11 +182,11 @@ graph TD
 graph TD
     EX[Stock Exchange]
     
-    EX --> A1[Axiom 1: Latency]
-    EX --> A3[Axiom 3: Failure]
-    EX --> A4[Axiom 4: Consistency]
-    EX --> A5[Axiom 5: Coordination]
-    EX --> A7[Axiom 7: Human Interface]
+    EX --> A1[Law 1: Latency]
+    EX --> A3[Law 3: Failure]
+    EX --> A4[Law 4: Consistency]
+    EX --> A5[Law 5: Coordination]
+    EX --> A7[Law 7: Human Interface]
     
     A1 --> L1[FPGA Processing]
     A1 --> L2[Kernel Bypass]

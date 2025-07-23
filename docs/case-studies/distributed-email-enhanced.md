@@ -62,15 +62,15 @@ Design a global email service like Gmail or Outlook that can:
 - **Durability**: 99.999999999% (11 nines)
 - **Compliance**: GDPR, HIPAA, SOC 2
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Sub-second email delivery critical
-- **Axiom 2 (Capacity)**: Storage limits require intelligent management
-- **Axiom 3 (Failure)**: Email must never be lost
-- **Axiom 4 (Concurrency)**: Millions of simultaneous connections
-- **Axiom 5 (Coordination)**: Distributed delivery coordination
-- **Axiom 6 (Observability)**: Track every email's journey
-- **Axiom 7 (Interface)**: Intuitive UI across all devices
-- **Axiom 8 (Economics)**: Cost-effective storage at scale
+### Law Mapping
+- **Law 1 (Latency)**: Sub-second email delivery critical
+- **Law 2 (Capacity)**: Storage limits require intelligent management
+- **Law 3 (Failure)**: Email must never be lost
+- **Law 4 (Concurrency)**: Millions of simultaneous connections
+- **Law 5 (Coordination)**: Distributed delivery coordination
+- **Law 6 (Observability)**: Track every email's journey
+- **Law 7 (Interface)**: Intuitive UI across all devices
+- **Law 8 (Economics)**: Cost-effective storage at scale
 
 ## 3. Architecture Evolution
 

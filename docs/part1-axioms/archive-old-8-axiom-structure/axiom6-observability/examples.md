@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part I: Axioms](../index.md) → [Axiom 6](index.md) → **Observability Examples**
+[Home](../../introduction/index.md) → [Part I: Axioms](../index.md) → [Axiom 6](index.md) → **Observability Examples**
 
 # Observability Examples
 

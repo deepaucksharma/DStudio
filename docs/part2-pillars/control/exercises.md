@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../../index.md) → [Part II: Pillars](../index.md) → [Control](index.md) → **Control & Coordination Exercises**
+[Home](../../introduction/index.md) → [Part II: Pillars](../index.md) → [Control](index.md) → **Control & Coordination Exercises**
 
 # Control & Coordination Exercises
 

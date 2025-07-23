@@ -11,7 +11,7 @@ last_updated: 2025-01-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Quantitative](index.md) → **Power Laws**
+[Home](../introduction/index.md) → [Quantitative](index.md) → **Power Laws**
 
 # Power Laws
 

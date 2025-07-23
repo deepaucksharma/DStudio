@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Reference](index.md) → **Recipe Cards: Step-by-Step Procedures**
+[Home](../introduction/index.md) → [Reference](index.md) → **Recipe Cards: Step-by-Step Procedures**
 
 # Recipe Cards: Step-by-Step Procedures
 

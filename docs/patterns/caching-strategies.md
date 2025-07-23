@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Caching Strategies**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Caching Strategies**
 
 # Caching Strategies
 

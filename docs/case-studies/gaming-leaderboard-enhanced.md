@@ -62,15 +62,15 @@ Design a real-time gaming leaderboard system that can:
 - **Consistency**: Eventually consistent within seconds
 - **Fair Play**: Robust anti-cheat mechanisms
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Real-time updates critical for engagement
-- **Axiom 2 (Capacity)**: Memory constraints for millions of players
-- **Axiom 3 (Failure)**: Graceful degradation during failures
-- **Axiom 4 (Concurrency)**: Handle concurrent score updates
-- **Axiom 5 (Coordination)**: Distributed ranking coordination
-- **Axiom 6 (Observability)**: Track cheating patterns
-- **Axiom 7 (Interface)**: Simple API for game integration
-- **Axiom 8 (Economics)**: Cost-effective at scale
+### Law Mapping
+- **Law 2 (Asynchronous Reality ⏳)**: Real-time updates critical for engagement
+- **Law 4 (Multidimensional Optimization ⚖️)**: Memory constraints for millions of players
+- **Law 1 (Correlated Failure ⛓️)**: Graceful degradation during failures
+- **Law 3 (Emergent Chaos 🌪️)**: Handle concurrent score updates
+- **Law 4 (Multidimensional Optimization ⚖️)**: Distributed ranking coordination
+- **Law 5 (Distributed Knowledge 🧠)**: Track cheating patterns
+- **Law 6 (Cognitive Load 🤯)**: Simple API for game integration
+- **Law 7 (Economic Reality 💰)**: Cost-effective at scale
 
 ## 3. Architecture Evolution
 

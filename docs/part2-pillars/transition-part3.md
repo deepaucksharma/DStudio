@@ -1,6 +1,6 @@
 ---
 title: Transition Page (Part III Preview)
-description: "Part I: Axioms          Part II: Pillars
+description: "Part I: Laws          Part II: Pillars
          ↓                        ↓
     [Constraints]           [Principles]
          ↓                   ..."
@@ -14,7 +14,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part II: Pillars](index.md) → **Transition Page (Part III Preview)**
+[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **Transition Page (Part III Preview)**
 
 # Transition Page (Part III Preview)
 
@@ -25,7 +25,7 @@ last_updated: 2025-07-20
       theory and practice. In practice, there is."
                                     - Yogi Berra
 
-    Part I: Axioms          Part II: Pillars
+    Part I: Laws          Part II: Pillars
          ↓                        ↓
     [Constraints]           [Principles]
          ↓                        ↓
@@ -40,7 +40,7 @@ last_updated: 2025-07-20
 
 ## What's Next
 
-In Part III, we'll explore 20 battle-tested patterns that emerge from the axioms and pillars. Each pattern is:
+In Part III, we'll explore 20 battle-tested patterns that emerge from the laws and pillars. Each pattern is:
 
 - **Derived**: Not arbitrary, but logical consequences of constraints
 - **Proven**: Used in production at scale
@@ -66,7 +66,7 @@ Remember: Patterns are tools, not rules. The best architects know when to break 
 
 ## Part III Preview: Modern Architectural Patterns
 
-Having established the fundamental constraints (Axioms) and organizing principles (Pillars), Part III presents the patterns that naturally emerge when building real systems under these constraints.
+Having established the fundamental constraints (Laws) and organizing principles (Pillars), Part III presents the patterns that naturally emerge when building real systems under these constraints.
 
 Each pattern will be presented with:
 1. **The physics** that makes it necessary

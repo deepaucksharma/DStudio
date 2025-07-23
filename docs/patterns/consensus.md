@@ -13,7 +13,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Consensus Pattern**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Consensus Pattern**
 
 # Consensus Pattern
 

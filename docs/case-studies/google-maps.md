@@ -10,7 +10,7 @@ last_updated: 2025-07-22
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Google Maps Architecture Design**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Google Maps Architecture Design**
 
 # 🗺️ Google Maps Architecture Design
 
@@ -29,7 +29,7 @@ Google Maps: Complex distributed system with geographic data processing, real-ti
 
 ## Part 1: Concept Map - The Physics of Digital Cartography
 
-### Axiom 1: Latency - The Speed of Navigation
+### Law 1: Latency - The Speed of Navigation
 
 ```mermaid
 graph LR
@@ -68,7 +68,7 @@ graph TB
     end
 ```
 
-### Axiom 2: Capacity - The World in Bytes
+### Law 2: Capacity - The World in Bytes
 
 ```mermaid
 graph TB
@@ -108,7 +108,7 @@ graph LR
     end
 ```
 
-### Axiom 3: Failure - Navigation Must Continue
+### Law 3: Failure - Navigation Must Continue
 
 The system must provide navigation even during partial failures.
 
@@ -136,7 +136,7 @@ graph TB
 | Traffic API Failed | Stale traffic | Historical estimates |
 | Tile Server Failed | Missing maps | Vector tile fallback |
 
-### Axiom 4: Concurrency - Millions Navigating Simultaneously
+### Law 4: Concurrency - Millions Navigating Simultaneously
 
 Handle concurrent route requests and map updates from millions of users.
 
@@ -171,7 +171,7 @@ graph TB
 | Search | Distributed index sharding | 500K QPS |
 | User Location | Batched updates | 1M updates/sec |
 
-### Axiom 5: Coordination - Global Map Consistency
+### Law 5: Coordination - Global Map Consistency
 
 Maintaining consistent map data across regions while incorporating updates.
 
@@ -204,7 +204,7 @@ graph TB
 | User Location | Best Effort | 5 seconds |
 | Route Cache | Read-after-write | Immediate |
 
-### Axiom 6: Observability - Understanding the World
+### Law 6: Observability - Understanding the World
 
 Monitoring both system health and real-world accuracy.
 
@@ -233,7 +233,7 @@ graph LR
 | Usage | QPS, Active navigations | Anomaly detection |
 | Quality | Map freshness, Report rate | > 7 days old |
 
-### Axiom 7: Human Interface - Intuitive Navigation
+### Law 7: Human Interface - Intuitive Navigation
 
 Making complex geographic data understandable and actionable.
 
@@ -264,7 +264,7 @@ graph TB
 | Offline Maps | Local storage | Works anywhere |
 | Multi-stop | Optimization algorithm | Efficient trips |
 
-### Axiom 8: Economics - Balancing Free and Profitable
+### Law 7: Economics - Balancing Free and Profitable
 
 Providing free navigation while monetizing through APIs and ads.
 
@@ -1586,7 +1586,7 @@ class Geocoder:
         return results
 ```
 
-## 🎯 Axiom Mapping & Design Decisions
+## 🎯 Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
@@ -1806,15 +1806,14 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Tile serving, routing speed
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Petabyte-scale storage
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Multi-region redundancy
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Parallel tile generation
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Global data consistency
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Traffic accuracy metrics
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Intuitive navigation
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Infrastructure costs
+### 📚 Relevant Laws
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Tile serving, routing speed
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Petabyte-scale storage
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Multi-region redundancy
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Parallel tile generation
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Intuitive navigation
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
 - **[Tile Pyramid](../patterns/tile-pyramid.md)** - Multi-zoom tiles

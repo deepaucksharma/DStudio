@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → **Capstone Project Evaluation Rubric**
+[Home](../introduction/index.md) → **Capstone Project Evaluation Rubric**
 
 # Capstone Project Evaluation Rubric
 

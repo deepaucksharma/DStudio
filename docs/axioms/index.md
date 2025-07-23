@@ -11,14 +11,14 @@ last_updated: 2025-01-23
 
 # The 7 Fundamental Laws of Distributed Systems
 
-<div class="axioms-hero">
+<div class="laws-hero">
   <p class="hero-quote">"Moving beyond simplifications to confront the profound complexity that defines distributed systems"</p>
 </div>
 
 !!! tip "Quick Overview"
-    This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed axioms section](/part1-axioms/)**.
+    This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed laws section](../part1-axioms/index.md)**.
 
-## 🌌 Why Laws, Not Axioms?
+## 🌌 Why Laws, Not Laws?
 
 These aren't simple observations or rules of thumb. They are fundamental laws that emerge from physics, mathematics, and information theory. Understanding these laws enables you to:
 
@@ -31,8 +31,8 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 
 <div class="laws-structure">
   <h3>Physical Laws (1-3)</h3>
-  <div class="axioms-grid">
-    <a href="/part1-axioms/axiom1-failure/" class="axiom-card axiom-1">
+  <div class="laws-grid">
+    <a href="../part1-axioms/axiom1-failure/index.md" class="axiom-card axiom-1">
       <div class="axiom-number">1</div>
       <div class="axiom-content">
         <h3>⛓️ Law of Correlated Failure</h3>
@@ -46,7 +46,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="/part1-axioms/axiom2-asynchrony/" class="axiom-card axiom-2">
+    <a href="../part1-axioms/axiom2-asynchrony/index.md" class="axiom-card axiom-2">
       <div class="axiom-number">2</div>
       <div class="axiom-content">
         <h3>⏳ Law of Asynchronous Reality</h3>
@@ -60,7 +60,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="/part1-axioms/axiom3-emergence/" class="axiom-card axiom-3">
+    <a href="../part1-axioms/axiom3-emergence/index.md" class="axiom-card axiom-3">
       <div class="axiom-number">3</div>
       <div class="axiom-content">
         <h3>🌪️ Law of Emergent Chaos</h3>
@@ -76,8 +76,8 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
   </div>
 
   <h3>Trade-offs (4-5)</h3>
-  <div class="axioms-grid">
-    <a href="/part1-axioms/axiom4-tradeoffs/" class="axiom-card axiom-4">
+  <div class="laws-grid">
+    <a href="../part1-axioms/axiom4-tradeoffs/index.md" class="axiom-card axiom-4">
       <div class="axiom-number">4</div>
       <div class="axiom-content">
         <h3>⚖️ Law of Multidimensional Optimization</h3>
@@ -91,7 +91,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="/part1-axioms/axiom5-epistemology/" class="axiom-card axiom-5">
+    <a href="../part1-axioms/axiom5-epistemology/index.md" class="axiom-card axiom-5">
       <div class="axiom-number">5</div>
       <div class="axiom-content">
         <h3>🧠 Law of Distributed Knowledge</h3>
@@ -107,8 +107,8 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
   </div>
 
   <h3>Human Interface (6-7)</h3>
-  <div class="axioms-grid">
-    <a href="/part1-axioms/axiom6-human-api/" class="axiom-card axiom-6">
+  <div class="laws-grid">
+    <a href="../part1-axioms/axiom6-human-api/index.md" class="axiom-card axiom-6">
       <div class="axiom-number">6</div>
       <div class="axiom-content">
         <h3>🤯 Law of Cognitive Load</h3>
@@ -122,7 +122,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="/part1-axioms/axiom7-economics/" class="axiom-card axiom-7">
+    <a href="../part1-axioms/axiom7-economics/index.md" class="axiom-card axiom-7">
       <div class="axiom-number">7</div>
       <div class="axiom-content">
         <h3>💰 Law of Economic Reality</h3>
@@ -174,7 +174,7 @@ graph TD
 
 ## 📚 Evolution from Basic to Advanced
 
-### Basic Framework (8 Axioms)
+### Basic Framework (Traditional Laws)
 - Simple, approachable concepts
 - Binary trade-offs (CAP theorem)
 - Practical patterns
@@ -208,20 +208,20 @@ graph TD
 ## 🚀 Next Steps
 
 <div class="next-steps">
-  <a href="/part1-axioms/" class="primary-cta">
+  <a href="../part1-axioms/index.md" class="primary-cta">
     Explore the Complete Framework →
   </a>
   
   <div class="alternative-paths">
     <p>Or start with a specific law:</p>
-    <a href="/part1-axioms/axiom1-failure/">⛓️ Law of Correlated Failure →</a>
-    <a href="/part1-axioms/axiom2-asynchrony/">⏳ Law of Asynchronous Reality →</a>
-    <a href="/part1-axioms/axiom3-emergence/">🌪️ Law of Emergent Chaos →</a>
+    <a href="../part1-axioms/axiom1-failure/index.md">⛓️ Law of Correlated Failure →</a>
+    <a href="../part1-axioms/axiom2-asynchrony/index.md">⏳ Law of Asynchronous Reality →</a>
+    <a href="../part1-axioms/axiom3-emergence/index.md">🌪️ Law of Emergent Chaos →</a>
   </div>
 </div>
 
 <style>
-.axioms-hero {
+.laws-hero {
   text-align: center;
   padding: 2rem;
   background: linear-gradient(135deg, #5448C8 0%, #764ba2 100%);
@@ -244,7 +244,7 @@ graph TD
   padding-bottom: 0.5rem;
 }
 
-.axioms-grid {
+.laws-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;

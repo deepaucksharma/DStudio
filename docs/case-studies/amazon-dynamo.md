@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Amazon's DynamoDB: Building a Database That Never Goes Down**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Amazon's DynamoDB: Building a Database That Never Goes Down**
 
 # 🛒 Amazon's DynamoDB: Building a Database That Never Goes Down
 
@@ -60,7 +60,7 @@ timeline
 
 ### Complete Law Mapping Table
 
-| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|------------------------|--------------------------|-------------------|
 | **Consistent Hashing** | Minimizes data movement during scaling | Enables infinite horizontal scaling | Isolates node failures to specific key ranges | Allows parallel operations across nodes | Clear ownership mapping for debugging | Simple mental model for ops | Predictable capacity distribution |
 | **Quorum Reads/Writes** | Tunable latency (R=1 for speed) | Distributes load across replicas | Tolerates N-R node failures | Concurrent reads from any replica | Clear success/failure criteria | Configurable consistency levels | Pay only for active replicas |
@@ -478,13 +478,13 @@ Level 4: Correlated Failures
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
-- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
-- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - Simple put/get API and clear error handling reduce cognitive load
-- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Simple put/get API and clear error handling reduce cognitive load
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing minimizes data movement during scaling

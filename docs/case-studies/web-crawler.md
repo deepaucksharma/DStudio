@@ -5,8 +5,8 @@ type: case-study
 difficulty: advanced
 reading_time: 35 min
 prerequisites: 
-  - axiom4-concurrency
-  - axiom7-human
+  - axiom3-emergence
+  - axiom6-human-api
   - patterns/queues-streaming
   - patterns/bulkhead
 status: complete
@@ -1552,7 +1552,7 @@ graph TB
     end
 ```
 
-### 🔍 Comprehensive Axiom Mapping
+### 🔍 Comprehensive Law Mapping
 
 | Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
 |-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
@@ -2038,8 +2038,8 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md) - Massive parallelism patterns
-- [Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md) - Crawler ethics and robots.txt
+- [Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md) - Massive parallelism patterns
+- [Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md) - Crawler ethics and robots.txt
 - [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
 - [Bulkhead Pattern](../patterns/bulkhead.md) - Domain isolation strategies
 

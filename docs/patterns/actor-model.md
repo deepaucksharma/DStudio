@@ -11,7 +11,7 @@ last_updated: 2025-01-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Patterns](index.md) → **Actor Model**
+[Home](../introduction/index.md) → [Patterns](index.md) → **Actor Model**
 
 # Actor Model
 

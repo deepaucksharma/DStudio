@@ -11,7 +11,7 @@ last_updated: 2025-01-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Failover Pattern**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Failover Pattern**
 
 # Failover Pattern
 

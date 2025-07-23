@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Nearby Friends System Design**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Nearby Friends System Design**
 
 # 👥 Nearby Friends System Design
 
@@ -105,15 +105,15 @@ graph TB
 
 **Patterns & Pillars Applied**:
 - 🔧 Pattern: [Location Privacy](../patterns/location-privacy.md) - K-anonymity
-- 🔧 Pattern: [Consent Management](../patterns/consent.md) - Mutual opt-in
-- 🏛️ Pillar: [Human Interface](../part2-pillars/human/index.md) - Privacy UX
-- 🏛️ Pillar: [Truth & Consistency](../part2-pillars/truth/index.md) - Location accuracy
+- 🔧 Pattern: [Consent Management](../patterns/consent-management.md) - Mutual opt-in
+- 🏛️ Pillar: [Control Distribution](../part2-pillars/control/index.md) - Privacy UX
+- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Location accuracy
 
 ### Phase 4: Modern Distributed Architecture (2018-Present)
 
 ## Part 1: Concept Map - The Physics of Moving Friends
 
-### Axiom 1: Latency - Real-time Friend Discovery
+### Axiom 2: Asynchronous Reality ⏳ - Real-time Friend Discovery
 
 Location updates must propagate fast enough to show friends' movements in near real-time.
 
@@ -154,7 +154,7 @@ graph TB
     end
 ```
 
-### Axiom 2: Capacity - The N×M Friend Location Problem
+### Law 4: Trade-offs ⚖️ - The N×M Friend Location Problem
 
 Each user has M friends, creating N×M potential location relationships to track.
 
@@ -195,7 +195,7 @@ graph LR
     end
 ```
 
-### Axiom 3: Failure - Privacy-First Failure Modes
+### Law 1: Failure ⛓️ - Privacy-First Failure Modes
 
 System must fail closed - never expose location without explicit permission.
 
@@ -224,7 +224,7 @@ graph TB
 | Notification Failure | Friends unaware of presence | Retry with backoff |
 | Regional Outage | Friends appear offline | Graceful degradation |
 
-### Axiom 4: Concurrency - Millions Moving Simultaneously
+### Law 3: Emergence 🌪️ - Millions Moving Simultaneously
 
 Handle concurrent location updates from millions of users efficiently.
 
@@ -258,7 +258,7 @@ graph TB
 | Read Replicas | Scale friend queries | 10M reads/sec |
 | Write-Through Cache | Recent locations | 90% cache hit |
 
-### Axiom 5: Coordination - Global Friend Graph Consistency
+### Law 4: Trade-offs ⚖️ - Global Friend Graph Consistency
 
 Maintaining consistent friend relationships and permissions across regions.
 
@@ -292,7 +292,7 @@ graph TB
 | Location History | Eventual | < 1 minute | Not real-time critical |
 | Presence Status | Causal | < 10 seconds | User experience |
 
-### Axiom 6: Observability - Privacy-Aware Monitoring
+### Law 5: Epistemology 🧠 - Privacy-Aware Monitoring
 
 Monitor system health without compromising user privacy.
 
@@ -320,7 +320,7 @@ graph LR
 | Battery Impact | Update frequency distribution | Device-type aggregated |
 | Friend Graph | Average friend count | Statistical only |
 
-### Axiom 7: Human Interface - Privacy and Control
+### Law 6: Human-API 🤯 - Privacy and Control
 
 Give users intuitive control over their location sharing.
 
@@ -349,7 +349,7 @@ graph TB
 | Geofencing | Hide in certain areas | Location-based privacy |
 | Activity-based | Hide when stationary | Context awareness |
 
-### Axiom 8: Economics - Balancing Features and Costs
+### Law 7: Economics 💰 - Balancing Features and Costs
 
 Optimize costs while providing free service to hundreds of millions.
 
@@ -379,11 +379,11 @@ graph TB
 | Edge Computing | Process locally | 50% compute |
 | Adaptive Frequency | Movement-based updates | 80% battery/data |
 
-## Part 2: Comprehensive Axiom Analysis Matrix
+## Part 2: Comprehensive Law Analysis Matrix
 
-### Axiom Mapping for Core Design Decisions
+### Law Mapping for Core Design Decisions
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
 | **Pub/Sub Architecture** | ✅ Real-time delivery<br/>Push model | ⚠️ Fan-out overhead<br/>N×M messages | ✅ Graceful degradation<br/>Queue persistence | ✅ Parallel delivery<br/>Natural decoupling | ⚠️ Ordering challenges<br/>Cross-region sync | ✅ Clear flow<br/>Message tracing | ✅ Instant updates<br/>Live experience | ⚠️ Infrastructure cost<br/>Message volume |
 | **Geohash Clustering** | ✅ Fast friend lookup<br/>O(1) operations | ✅ Spatial efficiency<br/>Reduce comparisons | ✅ Simple recovery<br/>Stateless design | ✅ Parallel processing<br/>Independent cells | ✅ Natural sharding<br/>Geographic bounds | ✅ Clear metrics<br/>Cell-based stats | ⚠️ Grid boundaries<br/>Edge cases | ✅ Efficient indexing<br/>Low compute |
@@ -391,11 +391,11 @@ graph TB
 | **Adaptive Updates** | ✅ Optimize frequency<br/>Based on movement | ✅ Reduce volume<br/>80% fewer updates | ✅ Fallback rates<br/>Never lose user | ✅ Independent logic<br/>Per-user rates | ⚠️ Rate sync issues<br/>Clock skew | ✅ Movement patterns<br/>Clear analytics | ✅ Battery saving<br/>User happiness | ✅ Major savings<br/>Compute and network |
 | **Friend Graph Cache** | ✅ Instant lookup<br/>Memory speed | ⚠️ Memory usage<br/>Redundant storage | ✅ Stale but safe<br/>Old permissions OK | ✅ Read scaling<br/>No graph locks | ⚠️ Cache coherency<br/>Update propagation | ✅ Hit rates<br/>Cache effectiveness | ✅ Fast friend list<br/>Smooth UX | ✅ Reduce DB load<br/>90% fewer queries |
 
-### Axiom Interaction Complexity
+### Law Interaction Complexity
 
 ```mermaid
 graph TB
-    subgraph "Nearby Friends Axiom Tensions"
+    subgraph "Nearby Friends Law Tensions"
         L[Low Latency] <-->|Conflicts| P[Privacy Checks]
         P <-->|Requires| C[Coordination]
         C <-->|Impacts| L
@@ -1357,11 +1357,11 @@ class ProximityDetectionFunction(CoProcessFunction):
                     ))
 ```
 
-## 🎯 Axiom Mapping & Design Decisions
+## 🎯 Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
+| Design Decision | Law 2<br/>⏳ Async Reality | Law 4<br/>⚖️ Optimization | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Chaos | Law 4<br/>⚖️ Optimization | Law 5<br/>🧠 Knowledge | Law 6<br/>🤯 Cognitive | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Location Fuzzing** | ⚪ Minimal overhead | ⚪ | ✅ Privacy protection | ⚪ | ✅ Consistent fuzzing | ✅ Privacy metrics | ✅ User trust | ✅ Compliance |
 | **Grid Quantization** | ✅ Fast lookups | ✅ Reduced storage | ✅ Privacy fallback | ✅ Parallel cells | ✅ Grid consistency | ✅ Cell density | ✅ Intuitive privacy | ✅ Storage efficiency |
@@ -1672,15 +1672,14 @@ class PrivacyDashboard:
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Real-time location updates
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Battery and bandwidth limits
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Privacy fail-safes
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Parallel proximity checks
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Consent synchronization
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Privacy analytics
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Privacy UX, battery life
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Infrastructure costs
+### 📚 Relevant Laws
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Real-time location updates
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Battery and bandwidth limits
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Privacy fail-safes
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Parallel proximity checks
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Privacy UX, battery life
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
 - **[Location Privacy](../patterns/location-privacy.md)** - K-anonymity, fuzzing

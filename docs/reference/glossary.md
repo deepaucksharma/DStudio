@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Reference](index.md) → **Distributed Systems Glossary**
+[Home](../introduction/index.md) → [Reference](index.md) → **Distributed Systems Glossary**
 
 # Distributed Systems Glossary
 
@@ -18,10 +18,10 @@ last_updated: 2025-07-20
 
 ## A
 
-### Axiom (Law)
-Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws (formerly axioms).
+### Law (Law)
+Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws (formerly laws).
 
-**Examples**: [Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-optimization/index.md)
+**Examples**: [Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-laws/axiom4-tradeoffs/index.md)
 
 ### At-Least-Once Delivery
 Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
@@ -44,14 +44,14 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)
+**Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Correlated Failure ⛓️](../part1-laws/axiom1-failure/index.md)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
 
 **Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
-**Related**: [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md), consensus algorithms
+**Related**: [Correlated Failure ⛓️](../part1-laws/axiom1-failure/index.md), consensus algorithms
 
 ## C
 
@@ -60,7 +60,7 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-optimization/index.md)
+**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Multidimensional Optimization ⚖️](../part1-laws/axiom4-tradeoffs/index.md)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.
@@ -76,7 +76,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-optimization/index.md), [Leader Election](../patterns/leader-election.md)
+**Related**: [Multidimensional Optimization ⚖️](../part1-laws/axiom4-tradeoffs/index.md), [Leader Election](../patterns/leader-election.md)
 
 ### Consistent Hashing
 Distributes data across nodes with minimal disruption when adding/removing nodes.
@@ -327,7 +327,7 @@ Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Implementation**: [Emergent Chaos 🌪️](../part1-axioms/axiom3-chaos/index.md)
+**Implementation**: [Emergent Chaos 🌪️](../part1-laws/axiom3-emergence/index.md)
 
 ## W
 

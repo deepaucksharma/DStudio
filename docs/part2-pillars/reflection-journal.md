@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part II: Pillars](index.md) → **Micro-Reflection Journal**
+[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **Micro-Reflection Journal**
 
 # Micro-Reflection Journal
 

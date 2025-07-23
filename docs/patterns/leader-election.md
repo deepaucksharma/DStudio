@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Leader Election Pattern**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Leader Election Pattern**
 
 # Leader Election Pattern
 
@@ -1355,7 +1355,7 @@ graph LR
 
 ## 📊 Analysis & Trade-offs
 
-### Axiom Relationships
+### Law Relationships
 
 | Axiom | How Leader Election Addresses It |
 |-------|----------------------------------|

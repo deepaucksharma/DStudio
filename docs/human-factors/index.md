@@ -4,21 +4,21 @@ description: "Managing cognitive load and operational excellence in distributed 
 type: human-factors
 difficulty: beginner
 reading_time: 3 min
-prerequisites: ["part1-axioms/axiom6-human-api/index.md"]
+prerequisites: ["part1-laws/axiom6-human-api"]
 status: complete
 last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Part V: Human & Operational Factors**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Part V: Human & Operational Factors**
 
 # Part V: Human & Operational Factors
 
-**Where the silicon meets the soul - respecting Law 6: The Law of Cognitive Load 🤯**
+**Where the silicon meets the soul - respecting Law 6: Human-API 🤯**
 
 ## Overview
 
-Systems are built, operated, and debugged by humans. This section covers the human and operational factors crucial for production success, all grounded in Law 6: The Law of Cognitive Load - the principle that a system's complexity must fit within human cognitive limits, or it will fail through misoperation.
+Systems are built, operated, and debugged by humans. This section covers the human and operational factors crucial for production success, all grounded in Law 6: Human-API - the principle that a system's complexity must fit within human cognitive limits, or it will fail through misoperation.
 
 ## Chapters
 
@@ -32,7 +32,7 @@ Systems are built, operated, and debugged by humans. This section covers the hum
 - [Org-Structure Physics](org-structure.md) - Conway's Law in action: You ship your org chart
 - [Runbooks & Playbooks](runbooks-playbooks.md) - Turning chaos into checklist
 
-## Key Concepts (Aligned with Law 6: Cognitive Load)
+## Key Concepts (Aligned with Law 6: Human-API)
 
 1. **Production Reality**: Tune based on actual behavior, not theory - simplify mental models
 2. **Controlled Chaos**: Break things purposefully to find weaknesses within cognitive safety
@@ -104,13 +104,13 @@ Technical Excellence + Human Factors = Operational Success
 ### 📚 Prerequisites
 
 **Required**: 
-- Understanding of [Law 6: The Law of Cognitive Load](../part1-axioms/axiom6-human-api/index.md)
+- Understanding of [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)
 - 1-2 years operating production systems
 - Distributed systems basics
 - Process improvement mindset
 
 **Helpful**: 
-- Understanding of [Law 5: The Law of Distributed Knowledge](../part1-axioms/axiom5-epistemology/index.md)
+- Understanding of [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)
 - Incident response experience
 - Team leadership
 - Cognitive science background
@@ -132,4 +132,4 @@ Technical Excellence + Human Factors = Operational Success
 
 Distributed systems are fundamentally human systems that happen to use computers.
 
-**Remember**: The best system is one humans can understand, operate, and improve - all within the constraints of Law 6: The Law of Cognitive Load. A system too complex for human comprehension will fail through misoperation, not technical flaws.
+**Remember**: The best system is one humans can understand, operate, and improve - all within the constraints of Law 6: Human-API. A system too complex for human comprehension will fail through misoperation, not technical flaws.

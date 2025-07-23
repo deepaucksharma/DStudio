@@ -14,13 +14,13 @@ This compendium teaches distributed systems from first principles—starting wit
 ## What You'll Learn
 
 - **7 Fundamental Laws** - Advanced framework from physics, mathematics, and complexity theory
-  - Law 1: Correlated Failure ⛓️
+  - Law 1: Failure ⛓️
   - Law 2: Asynchronous Reality ⏳
-  - Law 3: Emergent Chaos 🌪️
-  - Law 4: Multidimensional Optimization ⚖️
-  - Law 5: Distributed Knowledge 🧠
-  - Law 6: Cognitive Load 🤯
-  - Law 7: Economic Reality 💰
+  - Law 3: Emergence 🌪️
+  - Law 4: Trade-offs ⚖️
+  - Law 5: Epistemology 🧠
+  - Law 6: Human-API 🤯
+  - Law 7: Economics 💰
 - **5 Foundational Pillars** - How laws combine to create architectural challenges  
 - **Battle-tested Patterns** - Solutions derived from first principles, not fashion
 - **Quantitative Tools** - Make decisions with math, not opinions

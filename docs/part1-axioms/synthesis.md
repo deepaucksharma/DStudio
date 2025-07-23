@@ -1,21 +1,21 @@
 ---
 title: "Synthesis: The Meta-Framework"
-description: Understanding how the seven axioms interact, compound, and define the boundaries of distributed systems engineering
+description: Understanding how the seven laws interact, compound, and define the boundaries of distributed systems engineering
 type: synthesis
 difficulty: expert
 reading_time: 15 min
-prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md", "axiom5-epistemology/index.md", "axiom6-human-api/index.md", "axiom7-economics/index.md"]
+prerequisites: ["part1-laws/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md", "axiom5-epistemology/index.md", "axiom6-human-api/index.md", "axiom7-economics/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
 
 # Synthesis: The Meta-Framework
 
-> "The axioms don't exist in isolation—they form a complex web where each reinforces and amplifies the others."
+> "The laws don't exist in isolation—they form a complex web where each reinforces and amplifies the others."
 
 ## The Axiom Interaction Matrix
 
-The true complexity of distributed systems emerges from how the axioms interact:
+The true complexity of distributed systems emerges from how the laws interact:
 
 ```mermaid
 graph TD
@@ -156,7 +156,7 @@ class KnowledgeHumanGap:
 ```python
 def economics_constrains_everything():
     """
-    Money limits all other axioms
+    Money limits all other laws
     """
     
     constraints = {
@@ -328,7 +328,7 @@ Experienced distributed systems engineers develop intuition for navigating the a
 class DistributedSystemsIntuition:
     def sense_danger(self, system_state):
         """
-        Pattern recognition across axioms
+        Pattern recognition across laws
         """
         
         danger_signals = []
@@ -382,13 +382,13 @@ flowchart TD
 
 ## The Path to Mastery
 
-### Level 1: Understanding Individual Axioms
+### Level 1: Understanding Individual Laws
 - Learn each axiom in isolation
 - Understand the theory
 - Recognize patterns
 
 ### Level 2: Seeing Interactions
-- Notice when axioms compound
+- Notice when laws compound
 - Predict cascading effects
 - Design for interactions
 
@@ -398,15 +398,15 @@ flowchart TD
 - Know which battles to fight
 
 ### Level 4: Transcending the Framework
-- Recognize when axioms don't apply
+- Recognize when laws don't apply
 - Create new models for new domains
 - Teach others the journey
 
 ## The Final Wisdom
 
-> "The axioms are not rules to follow but lenses through which to see. Master them, then forget them, then find them again in every system you build."
+> "The laws are not rules to follow but lenses through which to see. Master them, then forget them, then find them again in every system you build."
 
-The framework succeeds not when you memorize seven axioms, but when you:
+The framework succeeds not when you memorize seven laws, but when you:
 1. **See the invisible forces** shaping your system
 2. **Predict the compound effects** before they manifest
 3. **Design with humility** accepting what cannot be overcome
@@ -424,7 +424,7 @@ This framework opens doors to deeper study:
 - Economic mechanism design
 
 ### Practical Applications
-- Applying axioms to specific domains
+- Applying laws to specific domains
 - Building axiom-aware tools
 - Teaching operators axiom thinking
 - Creating axiom-based metrics
@@ -441,7 +441,7 @@ The ultimate paradox of distributed systems:
 
 > **To build systems that bring order to chaos, we must first accept that perfect order is impossible.**
 
-The axioms teach us not how to eliminate complexity, but how to dance with it. They show us not how to achieve perfection, but how to fail gracefully. They guide us not to certainty, but to wisdom in the face of uncertainty.
+The laws teach us not how to eliminate complexity, but how to dance with it. They show us not how to achieve perfection, but how to fail gracefully. They guide us not to certainty, but to wisdom in the face of uncertainty.
 
 Master these seven laws, and you master not just distributed systems, but the art of building in an imperfect universe.
 

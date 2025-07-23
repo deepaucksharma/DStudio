@@ -62,15 +62,15 @@ Design a distributed object storage system like Amazon S3, MinIO, or Azure Blob 
 - **Availability**: 99.99% uptime
 - **Consistency**: Strong read-after-write consistency
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Global edge locations for low latency
-- **Axiom 2 (Capacity)**: Hierarchical storage with intelligent tiering
-- **Axiom 3 (Failure)**: Erasure coding for durability
-- **Axiom 4 (Concurrency)**: Parallel operations on objects
-- **Axiom 5 (Coordination)**: Distributed metadata management
-- **Axiom 6 (Observability)**: Comprehensive access logging
-- **Axiom 7 (Interface)**: S3-compatible REST API
-- **Axiom 8 (Economics)**: Storage class optimization
+### Law Mapping
+- **Law 1 (Latency)**: Global edge locations for low latency
+- **Law 2 (Capacity)**: Hierarchical storage with intelligent tiering
+- **Law 3 (Failure)**: Erasure coding for durability
+- **Law 4 (Concurrency)**: Parallel operations on objects
+- **Law 5 (Coordination)**: Distributed metadata management
+- **Law 6 (Observability)**: Comprehensive access logging
+- **Law 7 (Interface)**: S3-compatible REST API
+- **Law 8 (Economics)**: Storage class optimization
 
 ## 3. Architecture Evolution
 

@@ -14,7 +14,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **S3-like Object Storage System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **S3-like Object Storage System**
 
 # Design an S3-like Object Storage System
 
@@ -120,11 +120,11 @@ graph TD
 graph TD
     OS[Object Storage]
     
-    OS --> A1[Axiom 1: Latency]
-    OS --> A2[Axiom 2: Finite Capacity]
-    OS --> A3[Axiom 3: Failure]
-    OS --> A4[Axiom 4: Consistency]
-    OS --> A8[Axiom 8: Economics]
+    OS --> A1[Law 1: Latency]
+    OS --> A2[Law 2: Finite Capacity]
+    OS --> A3[Law 3: Failure]
+    OS --> A4[Law 4: Consistency]
+    OS --> A8[Law 7: Economics]
     
     A1 --> L1[Caching Layers]
     A1 --> L2[Geographic Distribution]

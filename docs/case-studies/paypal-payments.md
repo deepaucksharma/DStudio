@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **PayPal's Payment Processing System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **PayPal's Payment Processing System**
 
 # 🏦 PayPal's Payment Processing System
 
@@ -230,7 +230,7 @@ class IdempotentPaymentProcessor:
 
 ## 📊 Law Analysis
 
-### Law 4: Multidimensional Optimization ⚖️ (Truth Through Event Sourcing)
+### Law 4: Trade-offs ⚖️ (Truth Through Event Sourcing)
 
 ```python
 @dataclass
@@ -266,7 +266,7 @@ class EventStore:
 
 **Audit Requirements:** Who (user/system/API), What (amount/status/metadata), When (microsecond precision), Why (business rule/user action), Where (IP/device/location)
 
-### Law 4: Multidimensional Optimization ⚖️ (Control Through Orchestration)
+### Law 4: Trade-offs ⚖️ (Control Through Orchestration)
 
 ```python
 class PaymentOrchestrator:
@@ -309,7 +309,7 @@ class PaymentOrchestrator:
             )
 ```
 
-### Law 1: Correlated Failure ⛓️
+### Law 1: Failure ⛓️
 
 ```python
 class PaymentFailureHandler:
@@ -359,7 +359,7 @@ class PaymentFailureHandler:
 
 ### Comprehensive Law Mapping
 
-| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
 | **SAGA Pattern** | Async steps reduce blocking | Each step scales independently | Compensations handle failures | Parallel saga execution | Local coordination only | Full transaction tracing | Clear transaction states | No 2PC lock overhead |
 | **Event Sourcing** | Append-only writes are fast | Infinite audit trail storage | Complete recovery possible | No update conflicts | Event ordering preserved | Time-travel debugging | Regulatory compliance | Storage tiering saves cost |
@@ -646,13 +646,13 @@ graph TB
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Processing costs optimized through batching and routing
 
 ### 🏛️ Related Patterns (Part III)
 - **[SAGA Pattern](../patterns/saga.md)** - Orchestrates distributed transactions with compensation logic

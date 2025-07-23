@@ -10,14 +10,14 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part II: Pillars](index.md) → **Pattern Interconnection Matrix v2**
+[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **Pattern Interconnection Matrix v2**
 
 # Pattern Interconnection Matrix v2
 
 ## The Full Pattern Relationship Heatmap
 
 ```yaml
-                    Patterns (Impact on Axioms)
+                    Patterns (Impact on Laws)
          Queue  CQRS  Event  Saga  Mesh  Lambda  Cache  Shard
 Latency    +     ++    +     --    -      +      +++    +
 Capacity   +++   ++    ++    +     +      +++    ++     +++

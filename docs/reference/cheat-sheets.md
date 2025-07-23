@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Reference](index.md) → **Distributed Systems Cheat Sheets**
+[Home](../introduction/index.md) → [Reference](index.md) → **Distributed Systems Cheat Sheets**
 
 # Distributed Systems Cheat Sheets
 
@@ -85,7 +85,7 @@ Need strong consistency?
 ├─ YES → Financial/Safety Critical
 │   ├─ Single region? → ACID database
 │   └─ Multi-region? → Consensus (Raft/Paxos)
-│       └─ Consider Law 4: Multidimensional Optimization ⚖️
+│       └─ Consider Law 4: Trade-offs ⚖️
 └─ NO → Can tolerate eventual consistency?
     ├─ YES →
     │   ├─ Conflict resolution needed? → CRDTs

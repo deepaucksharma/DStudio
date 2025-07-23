@@ -14,7 +14,7 @@ last_updated: 2025-07-23
 
 > "The previous axiomatic framework serves as a valuable introduction, making the core challenges of distributed systems approachable. However, this simplification, while useful, elides the profound complexity and nuance that defines the field."
 
-This advanced framework refactors the original axioms to be more precise, acknowledges their limitations, and introduces new principles derived from information theory, complexity science, and epistemology. It is designed not to provide easy answers, but to foster a more rigorous and critical mode of thinking about distributed systems engineering.
+This advanced framework refactors the original laws to be more precise, acknowledges their limitations, and introduces new principles derived from information theory, complexity science, and epistemology. It is designed not to provide easy answers, but to foster a more rigorous and critical mode of thinking about distributed systems engineering.
 
 ## The Core Challenge: Bringing Order to Chaos
 
@@ -63,9 +63,9 @@ graph TD
 
 ## Part 1: The Foundational Constraints
 
-These axioms represent the most fundamental, irreducible laws governing distributed systems. They are not analogies; they are direct consequences of physics, mathematics, and logic.
+These laws represent the most fundamental, irreducible laws governing distributed systems. They are not analogies; they are direct consequences of physics, mathematics, and logic.
 
-### Axiom 1: The Law of Correlated Failure ⛓️
+### Law 1: The Law of Correlated Failure ⛓️
 > Components fail. Most catastrophically, they fail together.
 
 !!! danger "Beyond Fail-Stop vs Byzantine"
@@ -81,7 +81,7 @@ These axioms represent the most fundamental, irreducible laws governing distribu
 
 [**→ Deep Dive into Failure Models**](axiom1-failure/index.md) | [**→ Failure Injection Lab**](axiom1-failure/exercises.md)
 
-### Axiom 2: The Law of Asynchronous Reality ⏳
+### Law 2: The Law of Asynchronous Reality ⏳
 > Information travels at finite speed. Therefore, the present is unknowable.
 
 !!! info "Latency is Not a Single Number"
@@ -96,7 +96,7 @@ These axioms represent the most fundamental, irreducible laws governing distribu
 
 [**→ Master Asynchrony & Time**](axiom2-asynchrony/index.md) | [**→ Temporal Logic Exercises**](axiom2-asynchrony/exercises.md)
 
-### Axiom 3: The Law of Emergent Chaos 🌪️
+### Law 3: The Law of Emergent Chaos 🌪️
 > At scale, systems exhibit behaviors that cannot be predicted from their components.
 
 !!! warning "Complexity Theory in Action"
@@ -115,7 +115,7 @@ These axioms represent the most fundamental, irreducible laws governing distribu
 
 Given the foundational constraints, we must design systems according to rules that govern coordination, trade-offs, and knowledge itself.
 
-### Axiom 4: The Law of Multidimensional Optimization ⚖️
+### Law 4: The Law of Multidimensional Optimization ⚖️
 > System design is not choosing two of three. It's finding acceptable points in an n-dimensional space of trade-offs.
 
 !!! example "Beyond CAP and PACELC"
@@ -135,7 +135,7 @@ Given the foundational constraints, we must design systems according to rules th
 
 [**→ Navigate Trade-off Space**](axiom4-tradeoffs/index.md) | [**→ Trade-off Analysis Tools**](axiom4-tradeoffs/exercises.md)
 
-### Axiom 5: The Law of Distributed Knowledge 🧠
+### Law 5: The Law of Distributed Knowledge 🧠
 > In distributed systems, truth is local, knowledge is partial, and certainty is expensive.
 
 !!! info "Levels of Distributed Knowledge"
@@ -152,9 +152,9 @@ Given the foundational constraints, we must design systems according to rules th
 
 ## Part 3: The Operational Realities
 
-These axioms ground the framework in the pragmatic concerns of building, running, and paying for these systems.
+These laws ground the framework in the pragmatic concerns of building, running, and paying for these systems.
 
-### Axiom 6: The Law of Cognitive Load 🤯
+### Law 6: The Law of Cognitive Load 🤯
 > A system's complexity must fit within human cognitive limits, or it will fail through misoperation.
 
 !!! success "Beyond Generic Human Fallibility"
@@ -169,7 +169,7 @@ These axioms ground the framework in the pragmatic concerns of building, running
 
 [**→ Design Human Interfaces**](axiom6-human-api/index.md) | [**→ Operator Experience Lab**](axiom6-human-api/exercises.md)
 
-### Axiom 7: The Law of Economic Reality 💰
+### Law 7: The Law of Economic Reality 💰
 > Every architectural decision is ultimately a financial decision.
 
 !!! quote "The Ultimate Constraint"
@@ -211,7 +211,7 @@ By acknowledging these limitations, we know when to seek different models for di
 ```mermaid
 graph LR
     subgraph "Basic Framework"
-        B1[8 Simple Axioms]
+        B1[8 Simple Laws]
         B2[Clear Trade-offs]
         B3[Practical Patterns]
     end

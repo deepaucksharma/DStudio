@@ -4,13 +4,13 @@ description: "Theory says "just set consistency level to QUORUM." Reality says "
 type: human-factors
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: []
+prerequisites: ["part1-laws/axiom2-asynchrony", "part1-laws/axiom4-tradeoffs"]
 status: complete
 last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Consistency Tuning in Production**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Consistency Tuning in Production**
 
 # Consistency Tuning in Production
 
@@ -184,13 +184,13 @@ Understanding how consistency tuning relates to our fundamental laws helps make 
 | Law | Impact on Consistency Tuning | Key Considerations |
 |-----|------------------------------|-------------------|
 | **Law 2: Asynchronous Reality ⏳** | Higher consistency = higher latency | Balance consistency needs with latency SLOs. QUORUM adds network round trips. |
-| **Law 4: Multidimensional Optimization ⚖️** | Stronger consistency consumes more resources | ALL writes can exhaust capacity during failures. Plan for degraded modes. |
-| **Law 1: Correlated Failure ⛓️** | Consistency levels determine failure tolerance | LOCAL_ONE survives most failures but risks inconsistency. ALL fails if any node is down. |
-| **Law 4: Multidimensional Optimization ⚖️** | Core law - defines data agreement guarantees | Choose appropriate levels per operation based on business requirements. |
+| **Law 4: Trade-offs ⚖️** | Stronger consistency consumes more resources | ALL writes can exhaust capacity during failures. Plan for degraded modes. |
+| **Law 1: Failure ⛓️** | Consistency levels determine failure tolerance | LOCAL_ONE survives most failures but risks inconsistency. ALL fails if any node is down. |
+| **Law 4: Trade-offs ⚖️** | Core law - defines data agreement guarantees | Choose appropriate levels per operation based on business requirements. |
 | **Law 2: Asynchronous Reality ⏳** | Clock skew affects consistency guarantees | Last-write-wins resolution depends on synchronized clocks. |
-| **Law 3: Emergent Chaos 🌪️** | Consistency levels affect operation ordering | Weaker consistency may see operations out of order. |
-| **Law 5: Distributed Knowledge 🧠** | Nodes have incomplete knowledge | Consistency levels determine how much agreement before proceeding. |
-| **Law 7: Economic Reality 💰** | Scaling impacts consistency performance | More nodes = higher latency for QUORUM/ALL operations. |
+| **Law 3: Emergence 🌪️** | Consistency levels affect operation ordering | Weaker consistency may see operations out of order. |
+| **Law 5: Epistemology 🧠** | Nodes have incomplete knowledge | Consistency levels determine how much agreement before proceeding. |
+| **Law 7: Economics 💰** | Scaling impacts consistency performance | More nodes = higher latency for QUORUM/ALL operations. |
 
 ## Consistency Decision Matrix
 

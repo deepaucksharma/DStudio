@@ -10,7 +10,7 @@ last_updated: 2025-07-22
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Google Drive Cloud Storage Architecture**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Google Drive Cloud Storage Architecture**
 
 # ☁️ Google Drive Cloud Storage Architecture
 
@@ -36,7 +36,7 @@ Google Drive represents one of the most complex distributed systems challenges: 
 
 ## Part 1: Concept Map - The Physics of Distributed Storage
 
-### Law 2: Asynchronous Reality ⏳ - Making Cloud Feel Local
+### Axiom 2: Asynchronous Reality ⏳ - Making Cloud Feel Local
 
 Cloud storage must overcome the speed of light to make remote files feel instantly accessible.
 
@@ -75,7 +75,7 @@ graph TB
     end
 ```
 
-### Law 4: Multidimensional Optimization ⚖️ - The Exabyte Challenge
+### Axiom 4: Trade-offs ⚖️ - The Exabyte Challenge
 
 Managing billions of files across millions of users requires sophisticated capacity planning.
 
@@ -122,7 +122,7 @@ graph LR
 | Delta Encoding | 90%+ | Version storage |
 | Smart Tiering | 60% cost | Inactive data |
 
-### Law 1: Correlated Failure ⛓️ - Data Durability and Availability
+### Axiom 1: Failure ⛓️ - Data Durability and Availability
 
 Drive must never lose data despite constant hardware failures.
 
@@ -157,7 +157,7 @@ graph TB
 - Erasure coding (6+3): 99.99999999999% (13 nines)
 - Geo-distributed EC: 99.999999999999999% (17 nines)
 
-### Law 3: Emergent Chaos 🌪️ - Real-time Collaboration
+### Axiom 3: Emergence 🌪️ - Real-time Collaboration
 
 Multiple users editing the same document requires sophisticated concurrency control.
 
@@ -195,7 +195,7 @@ graph LR
     end
 ```
 
-### Law 4: Multidimensional Optimization ⚖️ - Global Consistency
+### Axiom 4: Trade-offs ⚖️ - Global Consistency
 
 Maintaining consistency across global data centers while enabling collaboration.
 
@@ -238,7 +238,7 @@ stateDiagram-v2
     Idle --> Scanning: Change Detected
 ```
 
-### Law 5: Distributed Knowledge 🧠 - Understanding System Health
+### Axiom 5: Epistemology 🧠 - Understanding System Health
 
 Monitoring billions of file operations requires comprehensive observability.
 
@@ -269,7 +269,7 @@ graph TB
 | Security | Auth failures, Suspicious access | Anomaly based |
 | Business | Active users, Storage growth | Trend deviation |
 
-### Law 6: Cognitive Load 🤯 - Seamless User Experience
+### Axiom 6: Human-API 🤯 - Seamless User Experience
 
 Making complex distributed systems feel simple and intuitive.
 
@@ -307,7 +307,7 @@ graph TB
     end
 ```
 
-### Law 7: Economic Reality 💰 - Balancing Features and Costs
+### Axiom 7: Economics 💰 - Balancing Features and Costs
 
 Optimizing storage costs while providing generous free tiers and premium features.
 
@@ -343,13 +343,13 @@ graph TB
 | 2TB | $2.00 | $9.99 | 80% |
 | Enterprise | $5.00 | $25.00 | 80% |
 
-## Part 2: Comprehensive Law Analysis Matrix
+## Part 2: Comprehensive Axiom Analysis Matrix
 
 Understanding how each design decision in Google Drive maps to fundamental laws reveals the intricate balance required for cloud storage at scale.
 
 ### Law Mapping for Core Design Decisions
 
-| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
 | **Chunking (4MB blocks)** | ✅ Parallel transfer<br/>Resume capability | ✅ Deduplication<br/>30-40% savings | ✅ Partial recovery<br/>Chunk-level retry | ✅ Parallel upload<br/>No lock contention | ✅ Simple sync<br/>Block-level tracking | ✅ Progress tracking<br/>Clear metrics | ✅ Progress bars<br/>Resume on failure | ✅ Storage efficiency<br/>Network optimization |
 | **Erasure Coding** | ⚠️ Encoding overhead<br/>~10ms penalty | ✅ 1.5x vs 3x storage<br/>50% savings | ✅ Survives failures<br/>13 nines durability | ✅ Parallel reconstruction<br/>No blocking | ⚠️ Complex placement<br/>Cross-DC coordination | ✅ Health monitoring<br/>Continuous verification | ✅ Invisible to users<br/>Same reliability | ✅ Massive savings<br/>50% cost reduction |
@@ -357,11 +357,11 @@ Understanding how each design decision in Google Drive maps to fundamental laws 
 | **Operational Transform** | ✅ Real-time collab<br/>< 100ms updates | ⚠️ Transform overhead<br/>Complex state | ✅ Graceful degradation<br/>Eventual consistency | ✅ Lock-free editing<br/>Unlimited users | ✅ Causal ordering<br/>Convergence guaranteed | ⚠️ Complex debugging<br/>Transform chains | ✅ Live collaboration<br/>See others' cursors | ⚠️ Server compute<br/>Transform processing |
 | **Tiered Storage** | ⚠️ Cold tier slow<br/>Minutes to retrieve | ✅ 60% cost savings<br/>Efficient use | ✅ Multiple copies<br/>Tier-appropriate | ✅ Async migration<br/>No user impact | ✅ Policy-based<br/>Automated movement | ✅ Access patterns<br/>Clear analytics | ⚠️ Retrieval delays<br/>Set expectations | ✅ Major savings<br/>Sustainable model |
 
-### Detailed Law Interaction Analysis
+### Detailed Axiom Interaction Analysis
 
 ```mermaid
 graph TB
-    subgraph "Drive Law Dependencies"
+    subgraph "Drive Axiom Dependencies"
         L[Latency] -->|Conflicts with| CAP[Capacity]
         CAP -->|Drives| E[Economics]
         E -->|Constrains| F[Failure Protection]
@@ -384,7 +384,7 @@ graph TB
 
 ### Architecture Decision Framework
 
-| Architecture Choice | Primary Law Driver | Secondary Impacts | Trade-off Analysis |
+| Architecture Choice | Primary Axiom Driver | Secondary Impacts | Trade-off Analysis |
 |-------------------|-------------------|------------------|-------------------|
 | **Block vs File Dedup** | Capacity (storage efficiency) | Latency (chunking overhead) | Block dedup wins despite complexity |
 | **Strong vs Eventual Consistency** | Coordination (correctness) | Latency (sync speed) | Eventual for files, strong for permissions |
@@ -1480,7 +1480,7 @@ class StorageLifecycleManager:
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Multidimensional Optimization | Law 1<br/>⛓️ Correlated Failure | Law 3<br/>🌪️ Emergent Chaos | Law 4<br/>⚖️ Multidimensional Optimization | Law 5<br/>🧠 Distributed Knowledge | Law 6<br/>🤯 Cognitive Load | Law 7<br/>💰 Economic Reality |
+| Design Decision | Axiom 2<br/>⏳ Asynchronous Reality | Axiom 4<br/>⚖️ Trade-offs | Axiom 1<br/>⛓️ Failure | Axiom 3<br/>🌪️ Emergence | Axiom 4<br/>⚖️ Trade-offs | Axiom 5<br/>🧠 Epistemology | Axiom 6<br/>🤯 Human-API | Axiom 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------||
 | **Content-Addressed Storage** | ⚪ | ✅ Deduplication | ✅ Immutable data | ✅ Parallel access | ✅ Simple sync | ✅ Hash verification | ⚪ | ✅ 30% storage saved |
 | **Chunking Algorithm** | ✅ Resume uploads | ✅ Efficient transfer | ✅ Partial recovery | ✅ Parallel chunks | ⚪ | ✅ Transfer metrics | ✅ Progress tracking | ✅ Bandwidth efficiency |
@@ -1500,14 +1500,14 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/law2-asynchronous-reality/index.md)** - Sync speed, cache placement
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-laws/law4-multidimensional-optimization/index.md)** - Storage tiering, deduplication
-- **[Law 1: Correlated Failure ⛓️](../part1-laws/law1-correlated-failure/index.md)** - Replication, conflict resolution
-- **[Law 3: Emergent Chaos 🌪️](../part1-laws/law3-emergent-chaos/index.md)** - Parallel uploads, collaborative editing
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-laws/law4-multidimensional-optimization/index.md)** - Distributed sync, consistency
-- **[Law 5: Distributed Knowledge 🧠](../part1-laws/law5-distributed-knowledge/index.md)** - Sync tracking, storage metrics
-- **[Law 6: Cognitive Load 🤯](../part1-laws/law6-cognitive-load/index.md)** - Selective sync, offline mode
-- **[Law 7: Economic Reality 💰](../part1-laws/law7-economic-reality/index.md)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Sync speed, cache placement
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Storage tiering, deduplication
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Replication, conflict resolution
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Distributed sync, consistency
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Sync tracking, storage metrics
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Selective sync, offline mode
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Storage costs, tiering strategy
 
 ### 🏛️ Related Patterns
 - **[Content-Addressed Storage](../patterns/cas.md)** - Deduplication foundation
@@ -1525,10 +1525,14 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 - **[Storage Economics](../quantitative/storage-economics.md)** - Cost optimization
 
 ### 🔄 Similar Case Studies
+<!-- TODO: Add when available
 - **[Dropbox Architecture](dropbox-architecture.md)** - Pioneer in cloud sync
+-->
+<!-- TODO: Add when available
 - **[Box Platform](box-platform.md)** - Enterprise file sharing
 - **[OneDrive Sync](onedrive-sync.md)** - Microsoft's approach
 - **[iCloud Design](icloud-design.md)** - Apple's ecosystem integration
+-->
 
 ---
 

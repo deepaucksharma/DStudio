@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part IV: Quantitative](index.md) → **Availability Math & Nines**
+[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Availability Math & Nines**
 
 # Availability Math & Nines
 
@@ -195,7 +195,7 @@ if availability < target_sla:
 
 ## Law Connections
 
-### Law 1: Correlated Failure ⛓️
+### Law 1: Failure ⛓️
 ```mermaid
 graph TD
     A[Component Failure] --> B[System Response]
@@ -209,14 +209,14 @@ graph TD
     style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Law 2: Failure as Design 💥](../part1-axioms/law2-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
 
-### Law 4: Multidimensional Optimization ⚖️
+### Law 4: Trade-offs ⚖️
 - Redundancy requires 2x resources for high availability
 - N+M patterns trade capacity for reliability
 - During failures, remaining capacity must handle full load
 
-### Law 4: Multidimensional Optimization ⚖️ (CAP Trade-offs)
+### Law 4: Trade-offs ⚖️ (CAP Trade-offs)
 ```python
 # Consistency vs Availability Trade-off
 Strong Consistency + Partition = No Availability
@@ -224,7 +224,7 @@ High Availability + Partition = Inconsistency
 # CAP theorem in action
 ```
 
-### Law 8: Resource Economics 💰
+### Law 7: Economics 💰
 - As systems grow, probability of component failure increases
 - More components = more failure modes
 - Availability targets become harder to maintain at scale

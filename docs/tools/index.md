@@ -1,26 +1,26 @@
 ---
 title: Interactive Tools & Calculators
-description: Apply the axioms and pillars with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.
+description: Apply the seven fundamental laws with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.
 type: general
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: ["part1-axioms", "part2-pillars"]
+prerequisites: ["part1-laws", "part2-pillars"]
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → **Interactive Tools & Calculators**
+[Home](../introduction/index.md) → **Interactive Tools & Calculators**
 
 # Interactive Tools & Calculators
 
-Apply the axioms and pillars with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.
+Apply the seven fundamental laws with practical calculators, worksheets, and decision frameworks that help you design systems within physics constraints.
 
 ---
 
 ## 🧮 Latency Calculator
 
-**Apply Axiom 1: Understand the speed of causality**
+**Apply Law 2: Asynchronous Reality ⏳ - Information travels at finite speed**
 
 ### Geographic Latency Estimator
 
@@ -64,7 +64,7 @@ Examples:
 
 ## ⚖️ Capacity Planning Worksheet
 
-**Apply Axiom 2: Size your finite boxes**
+**Apply Law 4: Trade-offs ⚖️ - Finding acceptable points in n-dimensional trade-off space**
 
 ### Resource Calculator
 
@@ -116,7 +116,7 @@ Example: Logging System
 
 ## 💥 Failure Analysis Framework
 
-**Apply Axiom 3: Plan for inevitable entropy**
+**Apply Law 1: Failure ⛓️ - Components fail together, not independently**
 
 ### Failure Mode Scoring
 
@@ -161,7 +161,7 @@ If MTTR = 1 hour, then:
 
 ## 🎲 Concurrency Analysis Tools
 
-**Apply Axiom 4: Model distributed timelines**
+**Apply Law 2 & 3: Asynchronous Reality ⏳ and Emergent Chaos 🌪️**
 
 ### Race Condition Detector
 
@@ -206,7 +206,7 @@ Prevention Strategies:
 
 ## 🤝 Consensus Decision Matrix
 
-**Apply Axiom 5: Choose coordination mechanisms**
+**Apply Law 5: Epistemology 🧠 - Truth is local, knowledge is partial**
 
 ### Consensus Algorithm Selector
 
@@ -242,7 +242,7 @@ Examples for N=5:
 
 ## 👁️ Observability Metrics Dashboard
 
-**Apply Axiom 6: Instrument for knowledge**
+**Apply Law 5 & 6: Distributed Knowledge 🧠 and Cognitive Load 🤯**
 
 ### Golden Signals Calculator
 
@@ -286,7 +286,7 @@ The Four Golden Signals:
 
 ## 👤 Human Interface Assessment
 
-**Apply Axiom 7: Design the organic API**
+**Apply Law 6: Human-API 🤯 - Complexity must fit human cognitive limits**
 
 ### Cognitive Load Scorer
 
@@ -337,7 +337,7 @@ Quality Metrics:
 
 ## 💰 Cost Calculator
 
-**Apply Axiom 8: Optimize cost at scale**
+**Apply Law 7: Economics 💰 - Every architectural decision is a financial decision**
 
 ### Cloud Cost Estimator
 
@@ -387,7 +387,7 @@ With Growth (20%): $____
 
 ## 🏗️ Architecture Decision Records (ADRs)
 
-**Apply All Axioms: Document trade-offs**
+**Apply All Laws: Document trade-offs**
 
 ### ADR Template
 
@@ -417,11 +417,14 @@ What is the change that we're proposing and/or doing?
 - Side effect 1
 - Side effect 2
 
-## Axioms Applied
-- Axiom 1 (Latency): How does this affect speed?
-- Axiom 2 (Capacity): How does this affect resources?
-- Axiom 3 (Failure): How does this handle failures?
-- [Continue for relevant axioms...]
+## Laws Applied
+- Law 1 (Correlated Failure ⛓️): How does this handle correlated failures?
+- Law 2 (Asynchronous Reality ⏳): How does this handle delays and partial knowledge?
+- Law 3 (Emergent Chaos 🌪️): What emergent behaviors might arise?
+- Law 4 (Multidimensional Optimization ⚖️): What trade-offs are we making?
+- Law 5 (Distributed Knowledge 🧠): How do we handle partial/local truth?
+- Law 6 (Cognitive Load 🤯): Can operators understand and debug this?
+- Law 7 (Economic Reality 💰): What is the cost impact?
 ```
 
 ---

@@ -1,4 +1,4 @@
-# Axiom 7: Law of Economic Reality - Exercises
+# Law 7: Law of Economic Reality - Exercises
 
 ## Overview
 

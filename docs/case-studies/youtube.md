@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **YouTube's Video Platform Architecture**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **YouTube's Video Platform Architecture**
 
 # 🎬 YouTube's Video Platform Architecture
 
@@ -30,7 +30,7 @@ YouTube: 1B+ hours watched daily, 500 hours uploaded per minute, 2B+ monthly use
 
 ## Part 1: Concept Map - The Physics of Video at Scale
 
-### Law 2: Asynchronous Reality ⏳ - The Buffering Boundary
+### Axiom 2: Asynchronous Reality ⏳ - The Buffering Boundary
 
 Video streaming requires maintaining continuous data flow to prevent buffering, making latency management critical.
 
@@ -61,7 +61,7 @@ graph LR
 | Predictive Buffering | -40% startup time | Bandwidth waste |
 | HTTP/3 QUIC | -25% packet loss impact | CPU overhead |
 
-### Law 4: Multidimensional Optimization ⚖️ - The Exabyte Challenge
+### Axiom 4: Trade-offs ⚖️ - The Exabyte Challenge
 
 YouTube's capacity requirements grow exponentially with both users and video quality improvements.
 
@@ -93,7 +93,7 @@ graph TB
 3. **Tiered Storage**: 80% cost reduction using cold storage
 4. **Regional Replication**: Store popular content closer to users
 
-### Law 1: Correlated Failure ⛓️ - Resilience at Every Layer
+### Axiom 1: Failure ⛓️ - Resilience at Every Layer
 
 With millions of servers, failures are constant and must be handled transparently.
 
@@ -126,7 +126,7 @@ graph TB
 | Corrupted Upload | 1000/day | Checksum validation |
 | CDN Node Failure | 50/day | Dynamic rerouting |
 
-### Law 3: Emergent Chaos 🌪️ - Parallel Everything
+### Axiom 3: Emergence 🌪️ - Parallel Everything
 
 Handling millions of concurrent uploads, transcodes, and streams requires massive parallelization.
 
@@ -158,7 +158,7 @@ graph LR
 | Comments | Sharded by video ID | 1M writes/sec |
 | Analytics | Stream processing | 100M events/sec |
 
-### Law 4: Multidimensional Optimization ⚖️ - Global Consistency
+### Axiom 4: Trade-offs ⚖️ - Global Consistency
 
 Coordinating video metadata, views, and user state across regions while maintaining consistency.
 
@@ -189,7 +189,7 @@ graph TB
 | Comments | Causal Consistency | < 10 seconds |
 | Monetization | Strong Consistency | Immediate |
 
-### Law 5: Distributed Knowledge 🧠 - Understanding the Platform
+### Axiom 5: Epistemology 🧠 - Understanding the Platform
 
 Monitoring billions of video streams requires sophisticated observability.
 
@@ -222,7 +222,7 @@ graph LR
 | Content | Upload rate, Transcode queue | 1 minute |
 | Security | Abuse detection, Copyright | Real-time |
 
-### Law 6: Cognitive Load 🤯 - Creator and Viewer Experience
+### Axiom 6: Human-API 🤯 - Creator and Viewer Experience
 
 Optimizing for both content creators and viewers with different needs and expectations.
 
@@ -254,7 +254,7 @@ graph TB
 | Mobile Users | Data usage, Battery life | Efficient codec, Offline support |
 | Smart TV | 4K availability, UI responsiveness | High quality, Simple navigation |
 
-### Law 7: Economic Reality 💰 - Balancing Cost and Quality
+### Axiom 7: Economics 💰 - Balancing Cost and Quality
 
 YouTube must balance infrastructure costs with user experience and creator monetization.
 
@@ -956,7 +956,7 @@ class AdaptiveBitrateStreaming:
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Multidimensional Optimization | Law 1<br/>⛓️ Correlated Failure | Law 3<br/>🌪️ Emergent Chaos | Law 4<br/>⚖️ Multidimensional Optimization | Law 5<br/>🧠 Distributed Knowledge | Law 6<br/>🤯 Cognitive Load | Law 7<br/>💰 Economic Reality |
+| Design Decision | Axiom 2<br/>⏳ Asynchronous Reality | Axiom 4<br/>⚖️ Trade-offs | Axiom 1<br/>⛓️ Failure | Axiom 3<br/>🌪️ Emergence | Axiom 4<br/>⚖️ Trade-offs | Axiom 5<br/>🧠 Epistemology | Axiom 6<br/>🤯 Human-API | Axiom 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Multi-tier CDN** | ✅ Edge servers reduce RTT to <50ms | ✅ Distributed storage across regions | ✅ Multiple CDN failover | ⚪ | ✅ Cache invalidation protocols | ✅ CDN hit rate metrics | ✅ Low buffering for users | ✅ Bandwidth cost optimization |
 | **Adaptive Bitrate** | ✅ Instant quality adjustment | ✅ Multiple quality versions | ✅ Fallback to lower quality | ✅ Parallel encoding | ⚪ | ✅ Quality switch tracking | ✅ Smooth playback | ✅ Bandwidth efficiency |
@@ -975,22 +975,22 @@ class AdaptiveBitrateStreaming:
 graph LR
     subgraph "Critical Path Laws"
         A1[Law 2: Asynchronous Reality ⏳<br/>Video Start Time]
-        A2[Law 4: Multidimensional Optimization ⚖️<br/>Storage Scale]
-        A3[Law 1: Correlated Failure ⛓️<br/>Always Available]
+        A2[Law 4: Trade-offs ⚖️<br/>Storage Scale]
+        A3[Law 1: Failure ⛓️<br/>Always Available]
     end
     
     subgraph "Optimization Laws"
-        A4[Law 3: Emergent Chaos 🌪️<br/>Parallel Processing]
-        A8[Law 7: Economic Reality 💰<br/>Cost Efficiency]
+        A4[Law 3: Emergence 🌪️<br/>Parallel Processing]
+        A8[Law 7: Economics 💰<br/>Cost Efficiency]
     end
     
     subgraph "Quality Laws"
-        A6[Law 5: Distributed Knowledge 🧠<br/>System Health]
-        A7[Law 6: Cognitive Load 🤯<br/>User Experience]
+        A6[Law 5: Epistemology 🧠<br/>System Health]
+        A7[Law 6: Human-API 🤯<br/>User Experience]
     end
     
-    subgraph "Consistency Law"
-        A5[Law 4: Multidimensional Optimization ⚖️<br/>Global Sync]
+    subgraph "Consistency Axiom"
+        A5[Law 4: Trade-offs ⚖️<br/>Global Sync]
     end
     
     A1 --> A7
@@ -1328,14 +1328,14 @@ graph TB
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/law2-asynchronous-reality/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-laws/law4-multidimensional-optimization/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Correlated Failure ⛓️](../part1-laws/law1-correlated-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergent Chaos 🌪️](../part1-laws/law3-emergent-chaos/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-laws/law4-multidimensional-optimization/index.md)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Distributed Knowledge 🧠](../part1-laws/law5-distributed-knowledge/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Cognitive Load 🤯](../part1-laws/law6-cognitive-load/index.md)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economic Reality 💰](../part1-laws/law7-economic-reality/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛️ Related Patterns (Part III)
 - **[Edge Computing](../patterns/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs

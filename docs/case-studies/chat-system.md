@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Real-Time Chat System Architecture**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Real-Time Chat System Architecture**
 
 # 💬 Real-Time Chat System Architecture
 
@@ -124,8 +124,8 @@ graph TB
 **Patterns & Pillars Applied**:
 - 🔧 Pattern: [End-to-End Encryption](../patterns/e2e-encryption.md)
 - 🔧 Pattern: [Key Management](../patterns/key-management.md)
-- 🏛️ Pillar: [Truth & Consistency](../part2-pillars/truth/index.md) - Cryptographic guarantees
-- 🏛️ Pillar: [Control Flow](../part2-pillars/control/index.md) - Secure message routing
+- 🏛️ Pillar: [Truth Distribution](../part2-pillars/truth/index.md) - Cryptographic guarantees
+- 🏛️ Pillar: [Control Distribution](../part2-pillars/control/index.md) - Secure message routing
 
 ### Phase 4: Global Scale Architecture (2016-Present)
 
@@ -221,7 +221,7 @@ graph LR
 
 ## Part 1: Concept Map - The Physics of Real-Time Communication
 
-### Law 1: Latency - Racing Against Human Perception
+### Law 2: Asynchronous Reality - Racing Against Human Perception
 
 In chat systems, latency directly impacts conversation flow. Human perception requires sub-200ms response times for interactions to feel "instant."
 
@@ -364,7 +364,7 @@ class WebSocketConnectionManager:
 
 **Production**: WhatsApp: 200ms median latency, 15+ edge locations, MQTT protocol.
 
-### Law 2: Capacity - The Quadratic Connection Problem
+### Law 4: Trade-offs - The Quadratic Connection Problem
 
 Chat systems face O(N²) potential connections between N users, requiring careful capacity management.
 
@@ -451,7 +451,7 @@ class MessageShardingStrategy:
 
 **Real Numbers**: Discord: 4B messages/day, 150M MAU, sophisticated sharding.
 
-### Law 3: Failure - Messages Must Not Be Lost
+### Law 1: Failure - Messages Must Not Be Lost
 
 Chat systems must handle failures gracefully without losing messages or breaking conversation flow.
 
@@ -558,7 +558,7 @@ class MessagePersistence:
             raise Exception("Insufficient replicas")
 ```
 
-### Law 4: Concurrency - Handling Simultaneous Conversations
+### Law 3: Emergence - Handling Simultaneous Conversations
 
 Multiple users typing and sending messages simultaneously requires careful concurrency control.
 
@@ -635,7 +635,7 @@ class OptimisticConcurrencyControl:
         return True, {'version': new_version}
 ```
 
-### Law 5: Coordination - Global Message Ordering
+### Law 5: Epistemology - Global Message Ordering
 
 Ensuring consistent message ordering across distributed servers is crucial for coherent conversations.
 
@@ -721,7 +721,7 @@ class GlobalMessageSequencer:
         return self.sequence_number
 ```
 
-### Law 6: Observability - Understanding System Health
+### Law 5: Epistemology - Understanding System Health
 
 Comprehensive monitoring is essential for maintaining chat system reliability.
 
@@ -815,7 +815,7 @@ class ConversationAnalytics:
         }
 ```
 
-### Law 7: Human Interface - Optimizing for Natural Conversation
+### Law 6: Human-API - Optimizing for Natural Conversation
 
 Chat systems must feel natural and responsive to human communication patterns.
 
@@ -929,7 +929,7 @@ class SuggestionEngine:
         return suggestions
 ```
 
-### Law 8: Economics - Balancing Cost and Features
+### Law 7: Economics - Balancing Cost and Features
 
 Chat systems must balance rich features with operational costs.
 
@@ -1282,7 +1282,7 @@ sequenceDiagram
 
 Every architectural choice in a chat system must respect all 7 fundamental laws. This comprehensive mapping shows how each design decision impacts and is impacted by each law:
 
-| Design Decision | Law 1: Latency | Law 2: Capacity | Law 3: Failure | Law 4: Concurrency | Law 5: Coordination | Law 6: Observability | Law 7: Human Interface |
+| Design Decision | Law 2: Asynchronous Reality | Law 4: Trade-offs | Law 1: Failure | Law 3: Emergence | Law 5: Epistemology | Law 5: Epistemology | Law 6: Human-API |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|----------------------|------------------------|-------------------|
 | **WebSocket Connections** | ✅ Real-time delivery<br/>❌ Connection overhead | ❌ Limited connections per server<br/>✅ Efficient for active users | ❌ Connection drops<br/>✅ Instant failure detection | ✅ Full-duplex communication<br/>❌ State management complexity | ✅ Direct message ordering<br/>❌ Cross-connection sync | ✅ Connection health monitoring<br/>✅ Real-time metrics | ✅ Instant feedback<br/>✅ Natural conversation flow |
 | **Message Queuing** | ❌ Added hop latency<br/>✅ Batch processing | ✅ Decouples producers/consumers<br/>✅ Elastic scaling | ✅ Durable message storage<br/>✅ Retry mechanisms | ✅ Natural buffering<br/>✅ Rate limiting | ✅ FIFO guarantees<br/>✅ Distributed ordering | ✅ Queue depth metrics<br/>✅ Processing rates | ❌ Perceived delays<br/>✅ Reliable delivery indication |
@@ -2265,17 +2265,16 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 1: Latency](../part1-axioms/axiom1-latency/index.md)** - WebSocket for real-time, regional servers
-- **[Law 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Connection pooling, message queuing
-- **[Law 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Offline queue, retry mechanisms
-- **[Law 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Actor model, parallel delivery
-- **[Law 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Group state sync, message ordering
-- **[Law 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Message tracking, connection monitoring
-- **[Law 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Connection pooling, message queuing
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Actor model, parallel delivery
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Typing indicators, read receipts
 
 ### 🏛️ Related Patterns
 - **[WebSocket](../patterns/websocket.md)** - Persistent connections
-- **[Message Queue](../patterns/message-queue.md)** - Reliable delivery
+- **[Distributed Queue](../patterns/distributed-queue.md)** - Reliable delivery
 - **[Actor Model](../patterns/actor-model.md)** - Concurrent message handling
 - **[Circuit Breaker](../patterns/circuit-breaker.md)** - Service protection
 - **[Event Sourcing](../patterns/event-sourcing.md)** - Message history
@@ -2289,10 +2288,14 @@ Regional servers reduce latency; cross-region replication; compliance ready
 - **[Network Theory](../quantitative/network-theory.md)** - Optimal server placement
 
 ### 🔄 Similar Case Studies
+<!-- TODO: Add when available
 - **[Discord Architecture](discord-architecture.md)** - Gaming chat at scale
 - **[Slack's Infrastructure](slack-infrastructure.md)** - Enterprise messaging
 - **[Telegram's MTProto](telegram-protocol.md)** - Custom protocol design
+-->
+<!-- TODO: Add when available
 - **[Signal's Architecture](signal-architecture.md)** - Privacy-first messaging
+-->
 
 ## Conclusion
 

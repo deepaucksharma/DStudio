@@ -5,8 +5,8 @@ type: case-study
 difficulty: intermediate
 reading_time: 35 min
 prerequisites: 
-  - axiom1-latency
-  - axiom8-economics
+  - axiom2-asynchrony
+  - axiom7-economics
   - patterns/caching-strategies
   - patterns/rate-limiting
 status: complete
@@ -879,7 +879,7 @@ gantt
     Monthly Savings $4.8K :milestone, 2024-04, 0d
 ```
 
-### 🔍 Comprehensive Axiom Mapping
+### 🔍 Comprehensive Law Mapping
 
 | Design Decision | Axiom 1 (Latency) | Axiom 2 (Capacity) | Axiom 3 (Failure) | Axiom 4 (Concurrency) | Axiom 5 (Coordination) | Axiom 6 (Observability) | Axiom 7 (Human Interface) | Axiom 8 (Economics) |
 |-----------------|-------------------|-------------------|-------------------|---------------------|---------------------|----------------------|------------------------|--------------------|
@@ -1354,8 +1354,8 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md) - CDN and caching strategies
-- [Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md) - Cost optimization techniques
+- [Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md) - CDN and caching strategies
+- [Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md) - Cost optimization techniques
 - [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
 - [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
 

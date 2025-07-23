@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → **Capstone Project Framework**
+[Home](../introduction/index.md) → **Capstone Project Framework**
 
 # Capstone Project Framework
 
@@ -72,7 +72,7 @@ Propose your own distributed systems project that demonstrates comprehensive und
 **Proposal Requirements**:
 - Clear problem statement
 - Architectural overview
-- Mapping to axioms and pillars
+- Mapping to laws and pillars
 - Success criteria
 - Timeline and milestones
 

@@ -11,7 +11,7 @@ last_updated: 2025-01-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Patterns](index.md) → **Anti Corruption Layer**
+[Home](../introduction/index.md) → [Patterns](index.md) → **Anti Corruption Layer**
 
 # Anti Corruption Layer
 

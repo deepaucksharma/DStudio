@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Uber's Real-Time Location System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Uber's Real-Time Location System**
 
 # 🚗 Uber's Real-Time Location System
 
@@ -180,7 +180,7 @@ graph LR
 
 ### Comprehensive Law Mapping Table
 
-| Design Decision | Law 1: Correlated Failure ⛓️ | Law 2: Asynchronous Reality ⏳ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+| Design Decision | Law 1: Failure ⛓️ | Law 2: Asynchronous Reality ⏳ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |-----------------|------------------|-------------------|----------------------|-------------------|------------------------|--------------------------|-------------------|
 | **H3 Hexagonal Grid**⁴ | Cell boundaries remain stable | 10ms lookup time vs 50ms for lat/lng | Parallel spatial queries | 40% less storage, no coordinate conflicts | Clear cell ownership | Intuitive hex visualization | Reduces compute by 40% |
 | **Geospatial Sharding**¹ | City-level failure isolation | Data locality reduces latency | Independent city operations | Natural partition boundaries, no cross-city coordination | Per-city metrics | City-based debugging | Infrastructure per market |
@@ -196,11 +196,11 @@ graph LR
 **Solution**: 35+ edge PoPs, regional DCs, multi-tier caching
 **Results**¹: P50: 45ms, P99: 200ms, Location update: 20ms
 
-#### Law 4: Multidimensional Optimization ⚖️ (Capacity)
+#### Law 4: Trade-offs ⚖️ (Capacity)
 **Solution**: Adaptive sampling, delta encoding, smart batching
 **Impact**²: Writes: 1.25M/s → 400K/s (-68%), Bandwidth: 625 MB/s → 200 MB/s (-68%), Storage: 43.2 GB/day → 13 GB/day (-70%)
 
-#### Law 1: Correlated Failure ⛓️
+#### Law 1: Failure ⛓️
 **Pillar Applied**: Control Distribution - Autonomous regional operation, self-healing, progressive degradation
 **Patterns**: Circuit Breaker, Bulkhead, Graceful Degradation, Health Checks
 
@@ -230,7 +230,7 @@ graph TD
     F1 --> R1 --> R2 --> R3
 ```
 
-#### Law 3: Emergent Chaos 🌪️
+#### Law 3: Emergence 🌪️
 **Pillar Applied**: Truth Distribution - Eventually consistent, CRDTs, event sourcing
 **Patterns**: Event Sourcing, CQRS, Saga Pattern, Idempotent Operations
 
@@ -250,11 +250,11 @@ stateDiagram-v2
     note right of IN_TRIP: Location updates<br/>Every 4 seconds
 ```
 
-#### Law 4: Multidimensional Optimization ⚖️ (Coordination)
+#### Law 4: Trade-offs ⚖️ (Coordination)
 **Pillar Applied**: Truth Distribution - Regional autonomy, eventual consistency, gossip protocols
 **Patterns**: Leader Election, Consensus, Vector Clocks, Tunable Consistency
 
-#### Law 5: Distributed Knowledge 🧠
+#### Law 5: Epistemology 🧠
 **Pillar Applied**: Intelligence Distribution - Real-time dashboards, predictive analytics, anomaly detection
 **Patterns**: Observability Stack, Distributed Tracing, SLI/SLO/SLA
 
@@ -276,11 +276,11 @@ Logging (ELK):
 - 7-day hot storage
 ```
 
-#### Law 6: Cognitive Load 🤯
+#### Law 6: Human-API 🤯
 **Pillar Applied**: Control Distribution - Intuitive dashboards, automated runbooks, progressive rollouts
 **Patterns**: Runbook Automation, Progressive Deployment, Feature Flags
 
-#### Law 7: Economic Reality 💰
+#### Law 7: Economics 💰
 **Pillar Applied**: Intelligence Distribution - Adaptive resource allocation, spot instances, multi-cloud arbitrage
 **Patterns**: Auto-scaling, Cost Optimization, Serverless
 
@@ -651,13 +651,13 @@ Trade-off: Temporary inconsistency for convergence⁹
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Lock-free data structures handle millions of concurrent location updates
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
-- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Real-time dashboards track driver density and system health per region
-- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - Driver app design optimizes for one-handed operation while driving
-- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Lock-free data structures handle millions of concurrent location updates
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Real-time dashboards track driver density and system health per region
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Driver app design optimizes for one-handed operation while driving
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - H3 hexagonal grid provides natural geographic sharding boundaries

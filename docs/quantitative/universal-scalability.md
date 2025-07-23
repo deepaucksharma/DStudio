@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part IV: Quantitative](index.md) → **Universal Scalability Law**
+[Home](../introduction/index.md) → [Part IV: Quantitative](index.md) → **Universal Scalability Law**
 
 # Universal Scalability Law
 

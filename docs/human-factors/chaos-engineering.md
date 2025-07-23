@@ -1,28 +1,28 @@
 ---
 title: Chaos Engineering
-description: "Scientific approach to discovering system weaknesses through controlled experiments"
+description: "Scientific approach to discovering system weaknesses through controlled experiments while respecting cognitive limits"
 type: human-factors
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: []
+prerequisites: ["part1-laws/axiom6-human-api", "part1-laws/axiom1-failure"]
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Chaos Engineering**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Chaos Engineering**
 
 # Chaos Engineering
 
-**Breaking things on purpose to build confidence**
+**Breaking things on purpose to build confidence within cognitive limits (Law 6: Human-API 🤯)**
 
-## Core Principles
+## Core Principles (Aligned with Law 1: Failure & Law 6: Human-API)
 
-1. Build hypothesis around steady state
-2. Vary real-world events
-3. Run experiments in production
-4. Automate experiments
-5. Minimize blast radius
+1. Build hypothesis around steady state - Simple mental models
+2. Vary real-world events - Within operator comprehension
+3. Run experiments in production - With cognitive safety nets
+4. Automate experiments - Reduce operator burden
+5. Minimize blast radius - Respect cognitive capacity under stress
 
 ## Chaos Experiment Lifecycle
 
@@ -312,10 +312,12 @@ flowchart TD
 | Stakeholders informed | PM | ✅ | Email sent |
 | Runbooks updated | SRE | ✅ | Latest version |
 
-### GameDay Roles
+### GameDay Roles (Law 6: Human-API Distribution)
 
-**Game Master**: Runs experiment | **Observer**: Monitors metrics | **Communicator**: Updates stakeholders
-**Fixer**: Ready to intervene | **Scribe**: Documents everything
+**Game Master**: Runs experiment | **Observer**: Monitors metrics (7±2 key metrics max) | **Communicator**: Updates stakeholders
+**Fixer**: Ready to intervene | **Scribe**: Documents everything (cognitive offload)
+
+**Role Cognitive Load**: Each role limited to prevent overload during high-stress scenarios
 
 ### GameDay Timeline
 
@@ -417,13 +419,13 @@ flowchart LR
 | **Unknown Failures** | 8 found in prod | 2 found in prod | 75% caught early |
 | **Team Readiness** | Ad-hoc response | Practiced response | Measurable improvement |
 
-## Best Practices
+## Best Practices (Law 6: Human-API Aware)
 
-1. **Start Small**: Single service, known failures, test environment
-2. **Automate Early**: Reproducible experiments, consistent results
-3. **Communicate Well**: Clear hypotheses, share learnings
-4. **Safety First**: Limit blast radius, test abort procedures
-5. **Learn Always**: Document findings, update runbooks
+1. **Start Small**: Single service, known failures, test environment - Build confidence within cognitive limits
+2. **Automate Early**: Reproducible experiments, consistent results - Reduce operator cognitive burden
+3. **Communicate Well**: Clear hypotheses, share learnings - Simplify mental models for all stakeholders
+4. **Safety First**: Limit blast radius, test abort procedures - Preserve cognitive capacity for recovery
+5. **Learn Always**: Document findings, update runbooks - Offload knowledge from working memory
 
 ## Common Pitfalls
 
@@ -432,12 +434,13 @@ flowchart LR
 3. **No Learning**: Fix findings, track improvements
 4. **Production Cowboy**: Always have safety measures
 
-## Key Takeaways
+## Key Takeaways (Grounded in Law 1: Failure & Law 6: Human-API)
 
-- Chaos finds unknown unknowns
-- Production testing reveals real issues
-- Small experiments minimize risk
-- Automation enables scale
-- Culture of learning from failure is essential
+- Chaos finds unknown unknowns within operator comprehension limits
+- Production testing reveals real issues while respecting cognitive capacity
+- Small experiments minimize both technical risk and cognitive overload
+- Automation enables scale by reducing human cognitive burden
+- Culture of learning from failure is essential (Law 1: Failure)
+- GameDays practice failure response when cognitive capacity is high
 
-**Remember**: Discover weaknesses before they break in production.
+**Remember**: Discover weaknesses before they break in production, when your team's cognitive capacity is at its lowest. Systems fail not just technically (Law 3) but through operator overwhelm (Law 6).

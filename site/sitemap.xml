@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/LEARNING_PATHS/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/LEARNING_PATHS/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/axioms/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -66,6 +66,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/distributed-message-queue/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/ecommerce-platform/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -185,6 +189,14 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/social-graph/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/social-media-feed/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/spotify-recommendations/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -210,6 +222,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/vault/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/case-studies/video-streaming/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -281,7 +297,15 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/learning-paths/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/cross-reference-report/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -293,99 +317,187 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-latency/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-capacity/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom1-latency/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-capacity/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-capacity/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-failure/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom2-capacity/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-failure/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-failure/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-concurrency/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom3-failure/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-concurrency/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-concurrency/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-coordination/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom4-concurrency/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-coordination/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-coordination/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-observability/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom5-coordination/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-observability/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-observability/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-human/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom6-observability/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-human/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom7-human/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-human/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom7-human/examples/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom8-economics/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom7-human/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom8-economics/examples/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom8-economics/exercises/</loc>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/archive-old-8-axiom-structure/axiom8-economics/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-failure/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-failure/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom1-failure/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-asynchrony/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-asynchrony/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom2-asynchrony/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-emergence/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-emergence/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom3-emergence/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-tradeoffs/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-tradeoffs/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom4-tradeoffs/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-epistemology/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-epistemology/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom5-epistemology/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-human-api/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-human-api/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom6-human-api/exercises/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-economics/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-economics/examples/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/part1-axioms/axiom7-economics/exercises/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -573,6 +685,10 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/cas/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/cdc/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -585,6 +701,10 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/chunking/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/circuit-breaker-enhanced/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -594,6 +714,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/consensus/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/consent-management/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -613,6 +737,14 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/deduplication/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/delta-sync/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/distributed-lock/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -621,7 +753,15 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/distributed-storage/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/distributed-transactions/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/e2e-encryption/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -653,11 +793,19 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/geofencing/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/gossip-protocol/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/graceful-degradation/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/graph-algorithms/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -669,11 +817,19 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/hlc/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/idempotent-receiver/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/kappa-architecture/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/key-management/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -697,11 +853,27 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/location-privacy/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/logical-clocks/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/materialized-view/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/merkle-trees/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/metadata-service/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/ml-pipeline/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -793,6 +965,10 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/spatial-indexing/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/split-brain/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -801,7 +977,19 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/tile-caching/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/tile-pyramid/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/timeout/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/trie/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -821,11 +1009,23 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/vector-tiles/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/patterns/websocket/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/write-behind-cache/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/patterns/write-through-cache/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/pillars/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -842,6 +1042,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/availability/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/battery-models/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -865,6 +1069,18 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/compression/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/computational-geometry/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/computer-vision/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/consistency-models/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -878,6 +1094,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/graph-models/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/graph-theory/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -921,6 +1141,10 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/privacy-metrics/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/problem-set/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -941,7 +1165,15 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/social-networks/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/space-complexity/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/spatial-stats/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -949,7 +1181,15 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/storage-economics/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
          <loc>https://deepaucksharma.github.io/DStudio/quantitative/time-complexity/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/quantitative/time-series/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -958,6 +1198,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/reference/axiom-mapping-guide/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>

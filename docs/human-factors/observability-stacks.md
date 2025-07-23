@@ -4,13 +4,13 @@ description: "Making distributed knowledge visible while respecting cognitive li
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: ["part1-axioms/axiom5-epistemology/index.md", "part1-axioms/axiom6-human-api/index.md"]
+prerequisites: ["part1-laws/axiom5-epistemology", "part1-laws/axiom6-human-api"]
 status: complete
 last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Observability Stacks**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Observability Stacks**
 
 # Observability Stacks
 
@@ -34,11 +34,11 @@ graph TB
         T <--> M
     end
     
-    subgraph "Law 5: Distributed Knowledge"
+    subgraph "Law 5: Epistemology"
         DK[Each node has partial truth]
     end
     
-    subgraph "Law 6: Cognitive Load"
+    subgraph "Law 6: Human-API"
         CL[Must fit in human head]
     end
     

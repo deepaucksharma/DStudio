@@ -10,7 +10,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Proximity Service Design**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Proximity Service Design**
 
 # 📍 Proximity Service Design (Yelp/Google Places)
 
@@ -133,7 +133,7 @@ graph TB
 
 ## Part 1: Concept Map - The Physics of Space and Time
 
-### Axiom 1: Latency - The Speed of Location
+### Law 2: Asynchronous Reality ⏳ - The Speed of Location
 Queries must feel instantaneous (<200ms).
 
 ```mermaid
@@ -159,7 +159,7 @@ graph LR
 
 **Query Path**: User → Edge (5-10ms) → Regional (20-30ms) → Global (100ms+)
 
-### Axiom 2: Capacity - The Curse of Dimensionality
+### Law 4: Trade-offs ⚖️ - The Curse of Dimensionality
 Spatial data grows quadratically with area, linearly with density.
 
 ```mermaid
@@ -208,7 +208,7 @@ graph TB
     end
 ```
 
-### Axiom 3: Failure - Location Service Availability
+### Law 1: Failure ⛓️ - Location Service Availability
 Handle failures gracefully without incorrect locations.
 
 ```mermaid
@@ -236,7 +236,7 @@ graph TB
 | Region Outage | < 30s | Cross-region failover | None |
 | Split Brain | < 60s | Quorum resolution | Possible conflicts |
 
-### Axiom 4: Concurrency - Parallel Spatial Queries
+### Law 3: Emergence 🌪️ - Parallel Spatial Queries
 Millions of concurrent queries require parallelization.
 
 ```mermaid
@@ -264,7 +264,7 @@ graph TB
 | Batch Processing | Bulk geocoding | 20x efficiency |
 | Async Updates | Location updates | 10x write throughput |
 
-### Axiom 5: Coordination - Global Consistency
+### Law 4: Trade-offs ⚖️ - Global Consistency
 
 Maintaining consistent location data across regions while handling updates.
 
@@ -300,7 +300,7 @@ graph TB
 | Emergency Services | Strong Consistency | 0 seconds | Primary Region |
 | User Location History | Causal Consistency | 1 minute | Vector Clocks |
 
-### Axiom 6: Observability - Location Service Monitoring
+### Law 5: Epistemology 🧠 - Location Service Monitoring
 
 Understanding system behavior through comprehensive monitoring.
 
@@ -330,7 +330,7 @@ graph LR
 | Data Quality | Missing POIs, Outdated info | Staleness > 7 days |
 | Capacity | Index size, Query volume | > 80% capacity |
 
-### Axiom 7: Human Interface - Intuitive Location UX
+### Law 6: Human-API 🤯 - Intuitive Location UX
 
 Making geographic queries feel natural and intuitive for users.
 
@@ -360,7 +360,7 @@ graph TB
 | Visual Feedback | Loading indicators, animations | Perceived speed |
 | Offline Mode | Cached nearby data | Works everywhere |
 
-### Axiom 8: Economics - Balancing Cost and Coverage
+### Law 7: Economics 💰 - Balancing Cost and Coverage
 
 Optimizing the trade-off between global coverage and operational costs.
 
@@ -395,13 +395,13 @@ graph TB
 | Selective Loading | On-demand regions | 50% memory |
 | CDN Distribution | Edge caching | 60% bandwidth |
 
-## Part 2: Comprehensive Axiom Analysis Matrix
+## Part 2: Comprehensive Law Analysis Matrix
 
-Understanding how each design decision maps to fundamental axioms helps reveal the true trade-offs in building proximity services.
+Understanding how each design decision maps to fundamental laws helps reveal the true trade-offs in building proximity services.
 
-### Axiom Mapping for Core Design Decisions
+### Law Mapping for Core Design Decisions
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
 | **Geohash Indexing** | ✅ O(1) prefix lookup<br/>Fast range queries | ⚠️ Fixed grid size<br/>Boundary inefficiencies | ✅ Simple recovery<br/>Stateless design | ✅ Natural sharding<br/>No locks needed | ✅ Simple consistency<br/>Location-based partitions | ✅ Easy to monitor<br/>Clear performance metrics | ⚠️ Grid boundaries<br/>Non-intuitive for users | ✅ Low compute cost<br/>Efficient storage |
 | **Edge Caching** | ✅ Sub-10ms response<br/>Local data access | ⚠️ Storage duplication<br/>Cache coherency | ✅ Graceful degradation<br/>Multiple fallbacks | ⚠️ Cache stampedes<br/>Update conflicts | ⚠️ Eventual consistency<br/>Stale data risk | ✅ Cache hit rates<br/>Clear metrics | ✅ Instant results<br/>Better UX | ⚠️ Higher infrastructure<br/>Multiple locations |
@@ -409,11 +409,11 @@ Understanding how each design decision maps to fundamental axioms helps reveal t
 | **Spatial Sharding** | ✅ Local queries fast<br/>Data locality | ✅ Even distribution<br/>Predictable growth | ✅ Independent failures<br/>Blast radius limited | ✅ Parallel queries<br/>No contention | ⚠️ Cross-shard queries<br/>Complex boundaries | ✅ Per-shard metrics<br/>Clear ownership | ✅ Regional results<br/>Intuitive model | ✅ Efficient scaling<br/>Pay per region |
 | **ML Prefetching** | ✅ Predictive caching<br/>0ms for hits | ⚠️ Speculative storage<br/>Wasted predictions | ✅ Fallback to direct<br/>Non-critical path | ✅ Async training<br/>No query blocking | ✅ Model consistency<br/>Version control | ⚠️ Complex metrics<br/>Prediction accuracy | ✅ Feels instant<br/>Anticipates needs | ⚠️ Training costs<br/>GPU requirements |
 
-### Detailed Axiom Impact Analysis
+### Detailed Law Impact Analysis
 
 ```mermaid
 graph TB
-    subgraph "Axiom Interaction Matrix"
+    subgraph "Law Interaction Matrix"
         L[Latency] -->|Drives| C[Caching Strategy]
         C -->|Increases| CAP[Capacity Needs]
         CAP -->|Affects| E[Economics]
@@ -432,7 +432,7 @@ graph TB
 
 ### Architecture Decision Framework
 
-| Architecture Choice | Primary Axiom Driver | Secondary Impacts | Trade-off Analysis |
+| Architecture Choice | Primary Law Driver | Secondary Impacts | Trade-off Analysis |
 |-------------------|-------------------|------------------|-------------------|
 | **Geohash vs R-tree** | Latency (simple lookups) | Capacity (storage efficiency) | Geohash wins for point queries but loses for complex polygons |
 | **Sync vs Async Updates** | Concurrency (write throughput) | Consistency (data freshness) | Async enables scale but adds complexity |
@@ -1040,11 +1040,11 @@ class SpatialAnalytics:
         return analysis
 ```
 
-## 🎯 Axiom Mapping & Design Decisions
+## 🎯 Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
+| Design Decision | Law 2<br/>⏳ Async Reality | Law 4<br/>⚖️ Optimization | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Chaos | Law 4<br/>⚖️ Optimization | Law 5<br/>🧠 Knowledge | Law 6<br/>🤯 Cognitive | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **H3 Hexagonal Grid** | ✅ O(1) lookups | ✅ Fixed-size cells | ✅ Redundant indices | ✅ Parallel queries | ✅ No overlap | ✅ Clear boundaries | ✅ Intuitive regions | ✅ Efficient coverage |
 | **Multi-Index Strategy** | ✅ Query optimization | ✅ Memory vs disk | ✅ Fallback indices | ✅ Index selection | ✅ Consistency protocol | ✅ Index performance | ⚪ | ✅ Storage trade-offs |
@@ -1377,15 +1377,15 @@ class SpatialCacheWarmer:
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Sub-100ms spatial queries
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Index memory limits
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Redundant indices
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Parallel spatial queries
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Index consistency
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Query pattern analysis
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Intuitive results
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Index storage costs
+### 📚 Relevant Laws
+- **[Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)** - Sub-100ms spatial queries
+- **[Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)** - Index memory limits
+- **[Law 1: Failure](../part1-laws/axiom1-failure/index.md)** - Redundant indices
+- **[Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)** - Parallel spatial queries
+- **[Law 4: Trade-offs](../part1-laws/axiom5-epistemology/index.md)** - Index consistency
+- **[Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)** - Query pattern analysis
+- **[Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)** - Intuitive results
+- **[Law 7: Economics](../part1-laws/axiom7-economics/index.md)** - Index storage costs
 
 ### 🏛️ Related Patterns
 - **[Spatial Indexing](../patterns/spatial-indexing.md)** - R-tree, QuadTree, KD-tree
@@ -1648,7 +1648,7 @@ graph TB
 
 *With cache hit, otherwise fallback to base method
 
-### Axiom-Based Architecture Selection Guide
+### Law-Based Architecture Selection Guide
 
 ```mermaid
 graph TD

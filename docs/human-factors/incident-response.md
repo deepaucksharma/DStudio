@@ -4,17 +4,17 @@ description: "Managing system failures within cognitive limits - applying Law 6 
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: ["part1-axioms/axiom6-human-api/index.md"]
+prerequisites: ["part1-laws/axiom6-human-api"]
 status: complete
 last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Incident Response**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Incident Response**
 
 # Incident Response
 
-**Coordinated action when systems fail - designed for Law 6: Cognitive Load under stress**
+**Coordinated action when systems fail - designed for Law 6: Human-API under stress**
 
 > *"The best incident response works when cognitive capacity drops 80% under stress—simple, clear, practiced."*
 
@@ -61,7 +61,7 @@ flowchart LR
     style F fill:#e0f2f1
 ```
 
-## Key Roles (Law 6: Cognitive Load Distribution)
+## Key Roles (Law 6: Human-API Distribution)
 
 ### 1. Incident Commander (IC) - Managing Attention
 - Overall coordination (max 7±2 active concerns)
@@ -369,14 +369,14 @@ How incident response connects to fundamental distributed systems laws:
 
 | Law | Impact on Incident Response | Strategic Considerations |
 |-----|----------------------------|-------------------------|
-| **Law 2: Asynchronous Reality ⏳** | Detection and response time critical | Minimize alert latency, optimize communication channels, pre-position resources |
-| **Law 4: Multidimensional Optimization ⚖️** | Incidents often triggered by capacity limits | Plan for degraded modes, have scaling runbooks ready, monitor resource usage |
-| **Law 1: Correlated Failure ⛓️** | Core trigger for incident response | Build resilient systems, plan for failure scenarios, practice recovery |
-| **Law 4: Multidimensional Optimization ⚖️** | Inconsistencies complicate debugging | Include consistency checks in runbooks, understand trade-offs during incidents |
-| **Law 2: Asynchronous Reality ⏳** | Critical for correlation and timeline | Ensure clock sync, timestamp everything, account for timezone differences |
-| **Law 3: Emergent Chaos 🌪️** | Race conditions cause complex incidents | Document expected order, have tools to trace operation flow |
-| **Law 5: Distributed Knowledge 🧠** | Incomplete info hampers response | Invest in observability, maintain up-to-date documentation, share knowledge |
-| **Law 7: Economic Reality 💰** | Scale triggers new incident patterns | Plan for growth-related failures, update runbooks as systems evolve |
+| **Law 2: Asynchronous Reality ⏱️** | Detection and response time critical | Minimize alert latency, optimize communication channels, pre-position resources |
+| **Law 4: Trade-offs 📊** | Incidents often triggered by capacity limits | Plan for degraded modes, have scaling runbooks ready, monitor resource usage |
+| **Law 1: Failure ⛓️** | Core trigger for incident response | Build resilient systems, plan for failure scenarios, practice recovery |
+| **Law 4: Trade-offs 🔐** | Inconsistencies complicate debugging | Include consistency checks in runbooks, understand trade-offs during incidents |
+| **Law 5: Epistemology 🧠** | Incomplete info hampers response | Invest in observability, maintain up-to-date documentation, share knowledge |
+| **Law 6: Human-API 🤯** | Stress reduces capacity by 80% | Simple runbooks, clear roles, practiced procedures, cognitive offload tools |
+| **Law 5: Epistemology 🤝** | Coordination failures extend incidents | Clear ownership, defined handoffs, single communication channel |
+| **Law 7: Economics 💰** | Scale triggers new incident patterns | Plan for growth-related failures, update runbooks as systems evolve |
 
 ## Incident Response Decision Tree
 

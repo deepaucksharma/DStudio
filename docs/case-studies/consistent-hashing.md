@@ -5,8 +5,8 @@ type: case-study
 difficulty: advanced
 reading_time: 30 min
 prerequisites: 
-  - axiom3-failure
-  - axiom5-coordination
+  - axiom1-failure
+  - axiom5-epistemology
   - patterns/sharding
 status: complete
 last_updated: 2025-07-20
@@ -955,7 +955,7 @@ Nodes   Simple Ring   Virtual(150)   Jump Hash   Maglev
 - Rebalance rate: 10-50MB/s per node
 - Memory per virtual node: 50-200 bytes
 
-## Axiom Mapping Matrix
+## Law Mapping Matrix
 
 ### Comprehensive Design Decision Mapping
 
@@ -972,28 +972,28 @@ Nodes   Simple Ring   Virtual(150)   Jump Hash   Maglev
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
 
-### Axiom Implementation Priority
+### Law Implementation Priority
 
 ```mermaid
 graph LR
     subgraph "Core Functionality"
-        A1[Axiom 1: Latency<br/>Fast Routing]
-        A2[Axiom 2: Capacity<br/>Even Distribution]
+        A1[Law 1: Latency<br/>Fast Routing]
+        A2[Law 2: Capacity<br/>Even Distribution]
     end
     
     subgraph "Reliability"
-        A3[Axiom 3: Failure<br/>Minimal Movement]
-        A5[Axiom 5: Coordination<br/>Ring Consensus]
+        A3[Law 3: Failure<br/>Minimal Movement]
+        A5[Law 5: Coordination<br/>Ring Consensus]
     end
     
     subgraph "Operations"
-        A6[Axiom 6: Observability<br/>Load Monitoring]
-        A8[Axiom 8: Economics<br/>Efficient Scaling]
+        A6[Law 6: Observability<br/>Load Monitoring]
+        A8[Law 7: Economics<br/>Efficient Scaling]
     end
     
     subgraph "Advanced"
-        A4[Axiom 4: Concurrency<br/>Parallel Operations]
-        A7[Axiom 7: Human<br/>Operational Simplicity]
+        A4[Law 4: Concurrency<br/>Parallel Operations]
+        A7[Law 7: Human<br/>Operational Simplicity]
     end
     
     A1 --> A2
@@ -1318,15 +1318,14 @@ class ConsistentHashRing:
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - O(log n) lookup time with client-side caching reduces routing latency
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Even distribution prevents capacity hot spots across nodes
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Ring lookups are lock-free read operations
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Gossip protocol provides eventual consistency for ring topology
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Load distribution metrics identify imbalance early
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Visual ring representation aids debugging and operations
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Efficient scaling without full data redistribution saves bandwidth
+### 📚 Relevant Laws (Part I)
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - O(log n) lookup time with client-side caching reduces routing latency
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Even distribution prevents capacity hot spots across nodes
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Minimal key movement (K/n) during node failures ensures stability
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Ring lookups are lock-free read operations
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Gossip protocol provides eventual consistency for ring topology and load distribution metrics
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Visual ring representation aids debugging and operations
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Efficient scaling without full data redistribution saves bandwidth
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing is the foundation for data sharding

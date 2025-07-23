@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Edge Computing/IoT Patterns**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Edge Computing/IoT Patterns**
 
 # Edge Computing/IoT Patterns
 

@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part II: Pillars](index.md) → **When Models Collide**
+[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **When Models Collide**
 
 # When Models Collide
 

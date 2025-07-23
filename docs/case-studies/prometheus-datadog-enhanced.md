@@ -57,15 +57,15 @@ Design a comprehensive metrics monitoring and alerting system like Prometheus or
 - **Availability**: 99.99% for ingestion, 99.9% for queries
 - **Retention**: 15 minutes (raw) → 13 months (aggregated)
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Sub-second metric collection and alerting
-- **Axiom 2 (Capacity)**: Finite storage requires intelligent downsampling
-- **Axiom 3 (Failure)**: Component failures must not lose metrics
-- **Axiom 4 (Concurrency)**: Parallel query execution across shards
-- **Axiom 5 (Coordination)**: Distributed aggregation coordination
-- **Axiom 6 (Observability)**: Self-monitoring and meta-metrics
-- **Axiom 7 (Interface)**: Intuitive query language and dashboards
-- **Axiom 8 (Economics)**: Cost-effective storage with compression
+### Law Mapping
+- **Law 1 (Latency)**: Sub-second metric collection and alerting
+- **Law 2 (Capacity)**: Finite storage requires intelligent downsampling
+- **Law 3 (Failure)**: Component failures must not lose metrics
+- **Law 4 (Concurrency)**: Parallel query execution across shards
+- **Law 5 (Coordination)**: Distributed aggregation coordination
+- **Law 6 (Observability)**: Self-monitoring and meta-metrics
+- **Law 7 (Interface)**: Intuitive query language and dashboards
+- **Law 8 (Economics)**: Cost-effective storage with compression
 
 ## 3. Architecture Evolution
 

@@ -4,13 +4,13 @@ description: "Think: Runbook = Recipe, Playbook = Cooking principles"
 type: human-factors
 difficulty: intermediate
 reading_time: 55 min
-prerequisites: []
+prerequisites: [laws/axiom4-multidimensional-optimization, laws/axiom6-cognitive-load, laws/axiom7-economic-gravity]
 status: complete
 last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Runbooks & Playbooks**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Runbooks & Playbooks**
 
 # Runbooks & Playbooks
 

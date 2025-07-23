@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Introduction](index.md) → **The Philosophy: Learning from First Principles**
+[Home](../introduction/index.md) → [Introduction](index.md) → **The Philosophy: Learning from First Principles**
 
 # The Philosophy: Learning from First Principles
 
@@ -93,9 +93,9 @@ Studies show that learning from mistakes activates different neural pathways tha
 5. **Therefore**: Caching emerges as optimization strategy
 
 Once you understand this, you can derive:
-- Cache invalidation strategies (from Law 5: Distributed Knowledge)
-- Cache hierarchies (from Law 7: Economic Reality)
-- Cache coherence protocols (from Law 1: Correlated Failure)
+- Cache invalidation strategies (from Law 5: Epistemology)
+- Cache hierarchies (from Law 7: Economics)
+- Cache coherence protocols (from Law 1: Failure)
 
 ### Example 2: Why Do Microservices Exist?
 
@@ -210,10 +210,10 @@ Each law creates a mental model:
 
 ```mermaid
 graph LR
-    A[Law 1: Correlated Failure] --> B[Mental Model:<br/>Failures cascade]
+    A[Law 1: Failure] --> B[Mental Model:<br/>Failures cascade]
     B --> C[Prediction:<br/>Need isolation boundaries]
 
-    D[Law 5: Distributed Knowledge] --> E[Mental Model:<br/>No single truth]
+    D[Law 5: Epistemology] --> E[Mental Model:<br/>No single truth]
     E --> F[Prediction:<br/>Need consistency protocols]
 
     G[Combined] --> H[Insight:<br/>Isolated systems must handle<br/>knowledge gaps during failures]
@@ -339,9 +339,9 @@ Keep a notebook where you:
 
 #### First-Principles Path:
 1. Understand queue theory (Little's Law)
-2. Derive need for persistence (Law 3: Failure)
-3. Understand ordering guarantees (Law 4: Concurrency)
-4. Calculate throughput limits (Law 2: Capacity)
+2. Derive need for persistence (Law 1: Failure)
+3. Understand ordering guarantees (Law 3: Emergence)
+4. Calculate throughput limits (Law 4: Trade-offs)
 5. Any message queue maps to these concepts
 6. Can design custom queue for specific needs
 

@@ -13,7 +13,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Rate Limiting Pattern**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Rate Limiting Pattern**
 
 # Rate Limiting Pattern
 

@@ -12,13 +12,13 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **Goal**: Build strong foundations in distributed systems
 
 #### Week 1-2: Fundamentals
-1. Start with [Law 1: Correlated Failure](part1-axioms/axiom1-failure/index.md)
+1. Start with [Law 1: Failure](part1-axioms/axiom1-failure/index.md)
    - Read examples of cascading failures
    - Complete hands-on exercises
 2. Progress through Laws 2-4:
    - [Law 2: Asynchronous Reality](part1-axioms/axiom2-asynchrony/index.md)
-   - [Law 3: Emergent Chaos](part1-axioms/axiom3-emergence/index.md)
-   - [Law 4: Multidimensional Optimization](part1-axioms/axiom4-tradeoffs/index.md)
+   - [Law 3: Emergence](part1-axioms/axiom3-emergence/index.md)
+   - [Law 4: Trade-offs](part1-axioms/axiom4-tradeoffs/index.md)
    - Focus on examples sections first
    - Try exercises after understanding concepts
 
@@ -96,7 +96,7 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 
 1. **Foundation**
    - [Law 2: Asynchronous Reality](part1-axioms/axiom2-asynchrony/index.md)
-   - [Law 5: Distributed Knowledge](part1-axioms/axiom5-epistemology/index.md)
+   - [Law 5: Epistemology](part1-axioms/axiom5-epistemology/index.md)
    
 2. **Theory**
    - [CAP Theorem implications](part2-pillars/truth/index.md)
@@ -114,8 +114,8 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **For**: Performance engineers, SREs
 
 1. **Foundation**
-   - [Law 4: Multidimensional Optimization](part1-axioms/axiom4-tradeoffs/index.md)
-   - [Law 3: Emergent Chaos](part1-axioms/axiom3-emergence/index.md)
+   - [Law 4: Trade-offs](part1-axioms/axiom4-tradeoffs/index.md)
+   - [Law 3: Emergence](part1-axioms/axiom3-emergence/index.md)
    
 2. **Quantitative**
    - [Latency Ladder](quantitative/latency-ladder.md)
@@ -134,30 +134,30 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **For**: FinOps practitioners, Engineering leaders
 
 1. **Foundation**
-   - [Law 7: Economic Reality](part1-axioms/axiom7-economics/index.md)
+   - [Law 7: Economics](part1-axioms/axiom7-economics/index.md)
    
 2. **Analysis**
-   - [True Cost Calculator](part1-axioms/axiom7-economics/exercises.md#lab-1)
-   - [Multi-cloud Optimizer](part1-axioms/axiom7-economics/exercises.md#lab-2)
+   - [Total Cost of Ownership Calculator](part1-axioms/axiom7-economics/exercises.md#exercise-1-total-cost-of-ownership-tco-calculator)
+   - [Build vs Buy Decision Framework](part1-axioms/axiom7-economics/exercises.md#exercise-2-build-vs-buy-decision-framework)
    
 3. **Architecture Impact**
    - Review all "Economics" rows in law mapping tables
    - Study cost trade-offs in architecture alternatives
    
 4. **Optimization**
-   - [Serverless vs Containers](part1-axioms/axiom7-economics/exercises.md#lab-3)
-   - [Reserved Capacity Planning](part1-axioms/axiom7-economics/exercises.md#lab-4)
+   - [Cloud Cost Optimization Strategies](part1-axioms/axiom7-economics/exercises.md#exercise-3-cloud-cost-optimization-strategies)
+   - [Multi-Region Deployment Cost Analysis](part1-axioms/axiom7-economics/exercises.md#exercise-4-multi-region-deployment-cost-analysis)
 
 ### 🛡️ Path 4: Reliability and Resilience
 **For**: Site reliability engineers, Platform teams
 
 1. **Foundation**
-   - [Law 1: Correlated Failure](part1-axioms/axiom1-failure/index.md)
-   - [Law 5: Distributed Knowledge](part1-axioms/axiom5-epistemology/index.md)
+   - [Law 1: Failure](part1-axioms/axiom1-failure/index.md)
+   - [Law 5: Epistemology](part1-axioms/axiom5-epistemology/index.md)
    
 2. **Mathematics**
    - [Availability Math](quantitative/availability-math.md)
-   - [Failure Probability](part1-axioms/axiom1-failure/index.md#the-mathematics-of-failure)
+   - [Theoretical Foundations](part1-axioms/axiom1-failure/index.md#theoretical-foundations)
    
 3. **Patterns**
    - [Circuit Breaker](patterns/circuit-breaker.md)

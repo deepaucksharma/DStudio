@@ -1,15 +1,15 @@
 ---
-title: "Axiom 1: The Law of Inevitable and Correlated Failure"
+title: "Law 1: The Law of Inevitable and Correlated Failure"
 description: Any component can fail, and failures are often correlated, not independent
 type: axiom
 difficulty: expert
 reading_time: 8 min
-prerequisites: ["part1-axioms/index.md"]
+prerequisites: ["part1-laws/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---
 
-# Axiom 1: The Law of Inevitable and Correlated Failure
+# Law 1: The Law of Inevitable and Correlated Failure
 
 > "Any component can fail, and failures are often correlated, not independent."
 

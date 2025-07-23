@@ -5,8 +5,8 @@ type: case-study
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: 
-  - axiom5-coordination
-  - axiom7-human
+  - axiom5-epistemology
+  - axiom6-human-api
   - patterns/leader-election
 status: complete
 last_updated: 2025-07-20
@@ -30,9 +30,9 @@ Distributed ID generator for database keys, tracing IDs, and transactions. Must 
 - Optional: Lexicographically sortable
 - Tolerate clock skew and node failures
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Generation Speed
+#### 🚀 Law 2: Asynchronous Reality ⏳: Generation Speed
 ```text
 Latency Requirements:
 - ID generation: <1μs (in-process)
@@ -114,7 +114,7 @@ graph LR
     L2 --> L3 --> L4
 ```
 
-#### 💾 Axiom 2 (Capacity): ID Space Management
+#### 💾 Law 4: Trade-offs ⚖️: ID Space Management
 ```text
 ID Space Analysis (64-bit):
 - Total IDs: 2^63 ≈ 9.2 × 10^18
@@ -189,7 +189,7 @@ graph LR
     C2 --> C3
 ```
 
-#### 🔥 Axiom 3 (Failure): Clock and Node Failures
+#### 🔥 Law 1: Failure ⛓️: Clock and Node Failures
 ```text
 Failure Modes:
 1. Clock skew between nodes
@@ -260,7 +260,7 @@ sequenceDiagram
     G->>G: Validate age < 24h
 ```
 
-#### 🔀 Axiom 4 (Concurrency): Lock-Free Generation
+#### 🔀 Law 3: Emergence 🌪️: Lock-Free Generation
 ```text
 Concurrency Challenges:
 - Multiple threads generating IDs
@@ -337,7 +337,7 @@ sequenceDiagram
     Pool->>Client: Combined [1-1000]
 ```
 
-#### 🤝 Axiom 5 (Coordination): Distributed Agreement
+#### 🤝 Law 4: Trade-offs ⚖️: Distributed Agreement
 ```text
 Coordination Requirements:
 - Node ID assignment
@@ -436,7 +436,7 @@ stateDiagram-v2
     Abort --> [*]: Cancelled
 ```
 
-#### 👁️ Axiom 6 (Observability): ID Analytics
+#### 👁️ Law 5: Epistemology 🧠: ID Analytics
 ```text
 Monitoring Requirements:
 - Generation rate per node
@@ -542,7 +542,7 @@ graph TB
     end
 ```
 
-#### 👤 Axiom 7 (Human Interface): Developer Experience
+#### 👤 Law 6: Human-API 🤯: Developer Experience
 ```text
 Developer Needs:
 - Simple API
@@ -638,7 +638,7 @@ gantt
     Drop UUID Column   :after 30d, 1d
 ```
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 7: Economics 💰: Cost Optimization
 ```text
 Cost Factors:
 - Infrastructure (ID service servers)
@@ -733,7 +733,7 @@ sequenceDiagram
     Note over Client,Gen: Only 1 network call per 10K IDs
 ```
 
-### 🔍 Axiom Mapping Summary
+### 🔍 Law Mapping Summary
 
 | Design Decision | Key Impact | Trade-offs |
 |-----------------|------------|------------|
@@ -1313,8 +1313,8 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md) - Node ID assignment and consensus
-- [Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md) - Developer experience considerations
+- [Law 4: Trade-offs](../part1-laws/axiom5-epistemology/index.md) - Node ID assignment and consensus
+- [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md) - Developer experience considerations
 - [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
 - [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
 

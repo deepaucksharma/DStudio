@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Reference](index.md) → **Security Considerations in Distributed Systems**
+[Home](../introduction/index.md) → [Reference](index.md) → **Security Considerations in Distributed Systems**
 
 # Security Considerations in Distributed Systems
 
@@ -537,12 +537,12 @@ class AuditLogger:
 - Service impersonation without proper authentication
 - Data leakage through verbose error messages
 
-**State Management** (Law 3: Emergent Chaos 🌪️):
+**State Management** (Law 3: Emergence 🌪️):
 - Race conditions in distributed locks
 - State corruption through concurrent updates
 - Inconsistent security policies across replicas
 
-**Coordination** (Law 4: Multidimensional Optimization ⚖️):
+**Coordination** (Law 4: Trade-offs ⚖️):
 - Byzantine faults in consensus protocols
 - Split-brain scenarios in leader election
 - Denial of service through resource exhaustion

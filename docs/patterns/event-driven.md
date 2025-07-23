@@ -11,7 +11,7 @@ last_updated: 2025-07-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Event-Driven Architecture**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Event-Driven Architecture**
 
 # Event-Driven Architecture
 

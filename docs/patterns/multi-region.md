@@ -11,11 +11,11 @@ prerequisites:
 pattern_type: "architectural"
 when_to_use: "Global user base, disaster recovery, data sovereignty, low-latency requirements"
 when_not_to_use: "Single market applications, cost-sensitive projects, simple architectures"
-related_axioms:
-  - asynchrony
-  - optimization
-  - economics
-  - failure
+related_laws:
+  - 2
+  - 4
+  - 7
+  - 1
 related_patterns:
   - "Geo-Replication"
   - "Edge Computing"
@@ -1019,15 +1019,15 @@ failover test --dry-run
 - [CQRS](../patterns/cqrs.md) - Separate read/write paths
 
 ### Laws
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Speed of light constraints
-- [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) - Cost implications
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Regional failure modes
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) - Regional capacity planning
+- [Law 2 (Asynchronous Reality ⏳)](../part1-laws/axiom2-asynchrony/index.md) - Speed of light constraints
+- [Law 7 (Economic Reality 💰)](../part1-laws/axiom7-economics/index.md) - Cost implications
+- [Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md) - Regional failure modes
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) - Regional capacity planning
 
 ### Case Studies
-- [Video Streaming Platform](/case-studies/video-streaming.md) - Netflix's approach
-- [Social Media Feed](/case-studies/social-media-feed.md) - Facebook's architecture
-- [E-commerce Platform](/case-studies/ecommerce-platform.md) - Amazon's strategy
+- [Video Streaming Platform](../case-studies/video-streaming.md) - Netflix's approach
+- [Social Media Feed](../case-studies/social-media-feed.md) - Facebook's architecture
+- [E-commerce Platform](../case-studies/ecommerce-platform.md) - Amazon's strategy
 
 ### Tools & Technologies
 - **Cloud Providers**: AWS Global Infrastructure, Azure Regions, GCP Regions

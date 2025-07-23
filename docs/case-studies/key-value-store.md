@@ -5,7 +5,7 @@ type: case-study
 difficulty: expert
 reading_time: 40 min
 prerequisites: 
-  - axiom5-coordination
+  - axiom5-epistemology
   - patterns/consistent-hashing
   - patterns/consensus
   - patterns/cdc
@@ -967,7 +967,7 @@ sequenceDiagram
 }
 ```
 
-### 🔍 Comprehensive Axiom Mapping
+### 🔍 Comprehensive Law Mapping
 
 | Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
 |-----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
@@ -1378,10 +1378,10 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md) - Consensus and distributed coordination
-- [Axiom 3: Failure](../part1-axioms/axiom3-failure/index.md) - Failure modes and recovery strategies
+- [Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md) - Consensus and distributed coordination
+- [Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md) - Failure modes and recovery strategies
 - [Consistent Hashing Pattern](../case-studies/consistent-hashing.md) - Data distribution technique
-- [CAP Theorem](../part2-pillars/pillar3-truth/index.md#cap-theorem) - Fundamental trade-offs
+- [CAP Theorem](../part2-pillars/truth/index.md#cap-theorem) - Fundamental trade-offs
 
 **Advanced Topics:**
 - [Multi-Region Replication](../patterns/multi-region.md) - Global distribution strategies

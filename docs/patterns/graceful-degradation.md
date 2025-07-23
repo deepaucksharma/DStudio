@@ -11,7 +11,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part III: Patterns](index.md) → **Graceful Degradation Pattern**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Graceful Degradation Pattern**
 
 # Graceful Degradation Pattern
 

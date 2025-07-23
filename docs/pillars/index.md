@@ -1,10 +1,10 @@
 ---
 title: The 5 Foundational Pillars
-description: How axioms combine to create the fundamental challenges of distributed systems
+description: How laws combine to create the fundamental challenges of distributed systems
 type: pillar
 difficulty: intermediate
 reading_time: 8 min
-prerequisites: [axioms]
+prerequisites: [laws]
 status: complete
 last_updated: 2025-01-23
 ---
@@ -21,31 +21,31 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
 
 <div class="axiom-to-pillar-flow">
   <div class="flow-item">
-    <div class="flow-axioms">Asynchrony + Optimization</div>
+    <div class="flow-laws">Asynchrony + Optimization</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Work Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Failure + Emergence</div>
+    <div class="flow-laws">Failure + Emergence</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">State Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Optimization + Knowledge</div>
+    <div class="flow-laws">Optimization + Knowledge</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Truth Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Knowledge + Cognitive Load</div>
+    <div class="flow-laws">Knowledge + Cognitive Load</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Control Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Emergence + Economics</div>
+    <div class="flow-laws">Emergence + Economics</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Intelligence Distribution</div>
   </div>
@@ -54,7 +54,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
 ## 🔍 The 5 Pillars Overview
 
 <div class="pillars-grid">
-  <a href="../part2-pillars/work/index.md" class="pillar-card pillar-work">
+  <a href="work/index.md" class="pillar-card pillar-work">
     <div class="pillar-icon">⚡</div>
     <h3>Work Distribution</h3>
     <p class="pillar-question">How do we spread computation?</p>
@@ -68,7 +68,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="../part2-pillars/state/index.md" class="pillar-card pillar-state">
+  <a href="state/index.md" class="pillar-card pillar-state">
     <div class="pillar-icon">💾</div>
     <h3>State Distribution</h3>
     <p class="pillar-question">How do we manage distributed data?</p>
@@ -82,7 +82,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="../part2-pillars/truth/index.md" class="pillar-card pillar-truth">
+  <a href="truth/index.md" class="pillar-card pillar-truth">
     <div class="pillar-icon">⚖️</div>
     <h3>Truth Distribution</h3>
     <p class="pillar-question">How do we achieve consensus?</p>
@@ -96,7 +96,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="../part2-pillars/control/index.md" class="pillar-card pillar-control">
+  <a href="control/index.md" class="pillar-card pillar-control">
     <div class="pillar-icon">🎛️</div>
     <h3>Control Distribution</h3>
     <p class="pillar-question">How do we operate at scale?</p>
@@ -110,7 +110,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="../part2-pillars/intelligence/index.md" class="pillar-card pillar-intelligence">
+  <a href="intelligence/index.md" class="pillar-card pillar-intelligence">
     <div class="pillar-icon">🧠</div>
     <h3>Intelligence Distribution</h3>
     <p class="pillar-question">How do systems adapt and learn?</p>
@@ -272,31 +272,31 @@ Each pillar includes hands-on labs:
   <div class="lab-card">
     <h4>⚡ Load Balancer Lab</h4>
     <p>Build work distribution algorithms</p>
-    <a href="../part2-pillars/work/exercises.md">Start Lab →</a>
+    <a href="work/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>💾 Replication Lab</h4>
     <p>Implement state synchronization</p>
-    <a href="../part2-pillars/state/exercises.md">Start Lab →</a>
+    <a href="state/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>⚖️ Consensus Lab</h4>
     <p>Build a simple Raft implementation</p>
-    <a href="../part2-pillars/truth/exercises.md">Start Lab →</a>
+    <a href="truth/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>🎛️ Observability Lab</h4>
     <p>Create distributed tracing</p>
-    <a href="../part2-pillars/control/exercises.md">Start Lab →</a>
+    <a href="control/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>🧠 Auto-scaling Lab</h4>
     <p>Build adaptive systems</p>
-    <a href="../part2-pillars/intelligence/exercises.md">Start Lab →</a>
+    <a href="intelligence/exercises.md">Start Lab →</a>
   </div>
 </div>
 
@@ -322,7 +322,7 @@ Each pillar includes hands-on labs:
 ## 🚀 Next Steps
 
 <div class="next-steps">
-  <a href="../part2-pillars/work/index.md" class="primary-cta">
+  <a href="work/index.md" class="primary-cta">
     Explore Work Distribution →
   </a>
   
@@ -366,7 +366,7 @@ Each pillar includes hands-on labs:
   margin: 1rem 0;
 }
 
-.flow-axioms {
+.flow-laws {
   background: white;
   padding: 0.5rem 1rem;
   border-radius: 20px;

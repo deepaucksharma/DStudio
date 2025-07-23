@@ -1,6 +1,6 @@
 ---
 title: Immutable Laws Quiz
-description: Test your understanding of the fundamental axioms with these questions.
+description: Test your understanding of the fundamental laws with these questions.
 type: axiom
 difficulty: advanced
 reading_time: 5 min
@@ -10,11 +10,11 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part I: Axioms](index.md) → **Immutable Laws Quiz**
+[Home](../introduction/index.md) → [Part I: Laws](index.md) → **Immutable Laws Quiz**
 
 # Immutable Laws Quiz
 
-Test your understanding of the fundamental axioms with these questions.
+Test your understanding of the fundamental laws with these questions.
 
 ## Sample Questions
 
@@ -112,11 +112,11 @@ d) Economic Reality
 The CAP theorem is best understood as a consequence of:
 
 a) Poor design
-b) Physics and axioms ✓
+b) Physics and laws ✓
 c) Database limitations
 d) Network protocols
 
-**Explanation**: CAP emerges from the fundamental axioms - latency makes partitions inevitable, forcing a choice between consistency and availability.
+**Explanation**: CAP emerges from the fundamental laws - latency makes partitions inevitable, forcing a choice between consistency and availability.
 
 ## More Practice Questions
 
@@ -162,12 +162,12 @@ d) Cognitive Load
 
 | Score | Level | What It Means |
 |-------|-------|---------------|
-| 0-3 | Beginner | Review axioms fundamentals |
+| 0-3 | Beginner | Review laws fundamentals |
 | 4-6 | Intermediate | Good grasp, practice applications |
 | 7-9 | Advanced | Ready for complex scenarios |
 | 10+ | Expert | Teach others! |
 
-## Axiom Mastery Assessment
+## Law Mastery Assessment
 
 Rate your understanding of each axiom:
 
@@ -189,11 +189,11 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 
 | Myth | Reality | Axiom |
 |------|---------|-------|
-| "Just add more servers" | Coordination costs grow with emergent complexity | Axiom 3: Emergent Complexity |
-| "Use microservices for speed" | Network calls add latency | Axiom 2: Asynchronous Reality |
-| "100% uptime is possible" | Failures are inevitable and correlated | Axiom 1: Correlated Failure |
-| "Strong consistency is always best" | It has latency and availability costs | Axiom 4: Multidimensional Optimization |
-| "More monitoring is always better" | Observer effect has cognitive and economic costs | Axioms 6 & 7 |
+| "Just add more servers" | Coordination costs grow with emergent complexity | Law 3: Emergent Complexity |
+| "Use microservices for speed" | Network calls add latency | Law 2: Asynchronous Reality |
+| "100% uptime is possible" | Failures are inevitable and correlated | Law 1: Correlated Failure |
+| "Strong consistency is always best" | It has latency and availability costs | Law 4: Multidimensional Optimization |
+| "More monitoring is always better" | Observer effect has cognitive and economic costs | Laws 6 & 7 |
 
 ## Study Resources by Learning Style
 
@@ -208,7 +208,7 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 - Create your own examples
 
 ### 🎧 Auditory Learners
-- Explain axioms to a colleague
+- Explain laws to a colleague
 - Join study groups
 - Listen to distributed systems podcasts
 
@@ -219,7 +219,7 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 
 ## Next Steps
 
-1. **Weak Areas**: Focus on axioms where you scored lowest
+1. **Weak Areas**: Focus on laws where you scored lowest
 2. **Practice**: Work through exercises in each axiom section
 3. **Apply**: Use the reflection journal to connect to your work
 4. **Share**: Teach someone else - best way to solidify understanding

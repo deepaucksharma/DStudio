@@ -14,7 +14,7 @@ last_updated: 2025-01-21
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Hotel Reservation System**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Hotel Reservation System**
 
 # Design a Hotel Reservation System
 
@@ -92,15 +92,15 @@ Hotel reservation systems must handle massive search volumes while maintaining a
 - **Global**: Multi-region deployment, 40+ languages
 - **Accuracy**: Real-time inventory across all channels
 
-### Axiom Mapping
-- **Axiom 1 (Latency)**: Fast search results improve conversion
-- **Axiom 2 (Capacity)**: Finite room inventory requires careful management
-- **Axiom 3 (Failure)**: Booking must succeed despite component failures
-- **Axiom 4 (Concurrency)**: Distributed locking prevents double-booking
-- **Axiom 5 (Coordination)**: Channel synchronization critical
-- **Axiom 6 (Observability)**: Track every search and booking
-- **Axiom 7 (Interface)**: Intuitive search and booking flow
-- **Axiom 8 (Economics)**: Optimize for booking conversion rate
+### Law Mapping
+- **Law 2 (Asynchronous Reality ⏳)**: Fast search results improve conversion
+- **Law 4 (Multidimensional Optimization ⚖️)**: Finite room inventory requires careful management
+- **Law 1 (Correlated Failure ⛓️)**: Booking must succeed despite component failures
+- **Law 3 (Emergent Chaos 🌪️)**: Distributed locking prevents double-booking
+- **Law 4 (Multidimensional Optimization ⚖️)**: Channel synchronization critical
+- **Law 5 (Distributed Knowledge 🧠)**: Track every search and booking
+- **Law 6 (Cognitive Load 🤯)**: Intuitive search and booking flow
+- **Law 7 (Economic Reality 💰)**: Optimize for booking conversion rate
 
 ## Architecture Evolution
 
@@ -199,11 +199,11 @@ graph TD
 graph TD
     HR[Hotel Reservation]
     
-    HR --> A2[Axiom 2: Finite Capacity]
-    HR --> A3[Axiom 3: Failure]
-    HR --> A4[Axiom 4: Consistency]
-    HR --> A5[Axiom 5: Coordination]
-    HR --> A8[Axiom 8: Economics]
+    HR --> A2[Law 4: Trade-offs ⚖️]
+    HR --> A3[Law 1: Failure ⛓️]
+    HR --> A4[Law 3: Emergence 🌪️]
+    HR --> A5[Law 4: Trade-offs ⚖️]
+    HR --> A8[Law 7: Economics 💰]
     
     A2 --> C1[Room Inventory]
     A2 --> C2[Rate Limiting]

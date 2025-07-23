@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Team Topologies for Distributed Systems**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Team Topologies for Distributed Systems**
 
 # Team Topologies for Distributed Systems
 

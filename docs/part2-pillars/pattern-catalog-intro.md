@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part II: Pillars](index.md) → **PATTERN CATALOG INTRO**
+[Home](../introduction/index.md) → [Part II: Pillars](index.md) → **PATTERN CATALOG INTRO**
 
 # PATTERN CATALOG INTRO
 
@@ -55,7 +55,7 @@ Each pattern in Part III follows this structure:
 ```text
 1. Identify dominant axiom pressure
 2. Find patterns that relieve it
-3. Check trade-offs against other axioms
+3. Check trade-offs against other laws
 4. Validate with "Choose When" criteria
 5. Plan for "Beware Of" scenarios
 ```

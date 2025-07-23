@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Part V: Human Factors](index.md) → **Org-Structure Physics**
+[Home](../introduction/index.md) → [Part V: Human Factors](index.md) → **Org-Structure Physics**
 
 # Org-Structure Physics
 

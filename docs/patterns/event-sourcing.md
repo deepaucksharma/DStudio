@@ -11,11 +11,11 @@ prerequisites:
 pattern_type: "data"
 when_to_use: "Audit requirements, complex domains, time-travel debugging, event-driven systems"
 when_not_to_use: "Simple CRUD operations, storage constraints, real-time aggregations"
-related_axioms:
-  - knowledge
-  - chaos
-  - optimization
-  - cognitive
+related_laws:
+  - 5
+  - 3
+  - 4
+  - 6
 related_patterns:
   - "CQRS"
   - "Saga Pattern"
@@ -1062,18 +1062,18 @@ timeline
          : Blockchain integration emerging
 ```
 
-### Axiom Connections
+### Law Connections
 
 <div class="axiom-box">
 <h4>🔗 Fundamental Laws</h4>
 
 This pattern directly addresses:
 
-1. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)**: Events capture exact time of state changes
-2. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md)**: Event sequence provides total ordering
-3. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)**: Complete history enables perfect knowledge
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)**: Every change is observable
-5. **[Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-cognitive/index.md)**: Natural audit trail for compliance
+1. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Events capture exact time of state changes
+2. **[Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md)**: Event sequence provides total ordering
+3. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Complete history enables perfect knowledge
+4. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Every change is observable
+5. **[Law 6 (Cognitive Load 🤯)](../part1-laws/axiom6-human-api/index.md)**: Natural audit trail for compliance
 </div>
 
 ### Future Directions
@@ -1200,9 +1200,9 @@ event_sourcing:
 - [Event-Driven Architecture](../patterns/event-driven.md) - Events as first-class citizens
 
 ### Laws
-- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md) - Why event timing matters
-- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md) - Event sequence guarantees
-- [Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-cognitive/index.md) - Complete system knowledge
+- [Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md) - Why event timing matters
+- [Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md) - Event sequence guarantees
+- [Law 6 (Cognitive Load 🤯)](../part1-laws/axiom6-human-api/index.md) - Complete system knowledge
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database

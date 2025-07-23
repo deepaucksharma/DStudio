@@ -5,8 +5,8 @@ type: case-study
 difficulty: advanced
 reading_time: 35 min
 prerequisites: 
-  - axiom3-failure
-  - axiom5-coordination
+  - axiom1-failure
+  - axiom5-epistemology
   - patterns/event-driven
   - patterns/queues-streaming
 status: complete
@@ -1833,7 +1833,7 @@ graph LR
     ES --> PR
 ```
 
-### 📊 Comprehensive Axiom Mapping
+### 📊 Comprehensive Law Mapping
 
 | Design Decision | Latency | Capacity | Failure | Concurrency | Coordination | Observability | Human Interface | Economics |
 |-----------------|---------|----------|---------|-------------|--------------|---------------|-----------------|-----------|
@@ -2429,11 +2429,11 @@ Analytics Service    8 cores  32GB      10TB
 
 ### 🔗 Related Concepts & Deep Dives
 
-#### Prerequisite Axioms
-- **[Axiom 3: Failure](../part1-axioms/axiom3-failure/)** - Foundation for reliable delivery
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/)** - Multi-channel orchestration
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/)** - Real-time delivery constraints
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/)** - Cost optimization strategies
+#### Prerequisite Laws
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Real-time delivery constraints
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing

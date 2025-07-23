@@ -10,7 +10,7 @@ last_updated: 2025-07-20
 ---
 
 <!-- Navigation -->
-[Home](../index.md) → [Case Studies](index.md) → **Spotify's Music Recommendation Engine**
+[Home](../introduction/index.md) → [Case Studies](index.md) → **Spotify's Music Recommendation Engine**
 
 # 🎵 Spotify's Music Recommendation Engine
 
@@ -209,7 +209,7 @@ sequenceDiagram
 
 ### Comprehensive Law Mapping Table
 
-| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
 | **Feature Store** | Pre-computed features <10ms | Distributed storage scales | Replicated for availability | Lock-free reads | Eventually consistent updates | Feature freshness metrics | Centralized feature catalog | Reusable features reduce compute |
 | **Model Quantization** | 32-bit → 8-bit reduces inference 75% | 4x more models per server | Graceful accuracy degradation | Parallel model serving | No coordination for inference | Model performance tracking | Transparent to users | 75% less infrastructure |
@@ -223,7 +223,7 @@ sequenceDiagram
 
 ### Detailed Law Application
 
-### Law 4: Multidimensional Optimization ⚖️ (State Distribution)
+### Law 4: Trade-offs ⚖️ (State Distribution)
 **Challenge**: User taste profiles across 500M users
 
 **Solution**: Sharded feature store
@@ -238,7 +238,7 @@ Storage:
 - Warm features: Cassandra (500TB)
 - Cold features: HDFS (10PB)
 ```bash
-### Law 5: Distributed Knowledge 🧠 (Intelligence at Scale)
+### Law 5: Epistemology 🧠 (Intelligence at Scale)
 **Challenge**: Train models on billions of interactions
 
 **ML Infrastructure**:
@@ -571,13 +571,13 @@ graph TB
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛️ Related Patterns (Part III)
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams
