@@ -1,15 +1,16 @@
 ---
 title: FinOps Patterns
-description: "Optimize cloud costs and financial efficiency in distributed systems operations"
+description: Optimize cloud costs and financial efficiency in distributed systems operations
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 20 min
 prerequisites: []
-pattern_type: "operations"
-status: complete
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **FinOps Patterns**
 

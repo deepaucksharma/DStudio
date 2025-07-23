@@ -2,16 +2,17 @@
 title: Vector Clocks Pattern
 description: Track causality and ordering in distributed systems
 type: pattern
+category: distributed-data
 difficulty: advanced
 reading_time: 35 min
 prerequisites: [logical-clocks, eventual-consistency]
-pattern_type: "coordination"
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Vector Clocks**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Vector Clocks Pattern**
 
 # Vector Clocks Pattern
 

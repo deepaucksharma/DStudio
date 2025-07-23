@@ -1,15 +1,16 @@
 ---
 title: Service Mesh
-description: "Infrastructure layer for managing service-to-service communication with built-in reliability, security, and observability"
+description: Infrastructure layer for managing service-to-service communication with built-in reliability, security, and observability
 type: pattern
+category: architectural
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
-pattern_type: "infrastructure"
+when_to_use: When dealing with architectural challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Service Mesh**
 

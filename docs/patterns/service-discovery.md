@@ -2,14 +2,15 @@
 title: Service Discovery Pattern
 description: Pattern for distributed systems coordination and reliability
 type: pattern
+category: specialized
 difficulty: advanced
 reading_time: 25 min
 prerequisites: []
-pattern_type: "general"
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Service Discovery Pattern**
 

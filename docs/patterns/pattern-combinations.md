@@ -1,16 +1,18 @@
 ---
 title: Pattern Combination Guide
-description: "Combine distributed systems patterns effectively for real-world architectures"
-type: guide
+description: Combine distributed systems patterns effectively for real-world architectures
+type: pattern
+category: specialized
 difficulty: advanced
 reading_time: 45 min
 prerequisites: ["Understanding of individual patterns"]
-status: complete
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: partial
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Combinations**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Combination Guide**
 
 # Pattern Combination Guide
 

@@ -2,16 +2,15 @@
 title: Bulkhead Pattern
 description: Isolate system resources to prevent cascading failures, inspired by ship compartmentalization
 type: pattern
+category: resilience
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: [failure, capacity, concurrency]
-pattern_type: "resilience"
-when_to_use: "Shared resource pools, multi-tenant systems, microservices, preventing cascade failures"
-when_not_to_use: "Simple applications, single-purpose services, when isolation overhead exceeds benefits"
+when_to_use: Shared resource pools, multi-tenant systems, microservices, preventing cascade failures
+when_not_to_use: Simple applications, single-purpose services, when isolation overhead exceeds benefits
 status: complete
 last_updated: 2025-01-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Bulkhead Pattern**
 

@@ -2,14 +2,15 @@
 title: Change Data Capture (CDC)
 description: Stream database changes reliably to other systems in real-time
 type: pattern
+category: distributed-data
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-pattern_type: "data"
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Change Data Capture (CDC)**
 

@@ -1,16 +1,18 @@
 ---
 title: Interactive Pattern Selector
-description: "Find the right distributed systems pattern for your use case"
-type: tool
+description: Find the right distributed systems pattern for your use case
+type: pattern
+category: specialized
 difficulty: beginner
 reading_time: 10 min
 prerequisites: []
-status: complete
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: partial
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Selector**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Interactive Pattern Selector**
 
 # Interactive Pattern Selector
 

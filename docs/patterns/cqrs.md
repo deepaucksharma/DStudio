@@ -2,28 +2,20 @@
 title: CQRS (Command Query Responsibility Segregation)
 description: Separate read and write models for optimized performance and scalability
 type: pattern
+category: architectural
 difficulty: advanced
 reading_time: 30 min
 prerequisites: 
-  - "Event-driven architecture basics"
-  - "Domain-driven design concepts"
-  - "Database normalization/denormalization"
-pattern_type: "core"
-when_to_use: "High-performance reads, complex domain logic, different read/write scaling needs"
-when_not_to_use: "Simple CRUD applications, low traffic systems, small teams"
-related_laws:
-  - 2
-  - 4
-  - 3
-related_patterns:
-  - "Event Sourcing"
-  - "Saga Pattern"
-  - "Event-Driven Architecture"
+when_to_use: High-performance reads, complex domain logic, different read/write scaling needs
+when_not_to_use: Simple CRUD applications, low traffic systems, small teams
 status: complete
 last_updated: 2025-07-21
 ---
-
 # CQRS (Command Query Responsibility Segregation)
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **CQRS (Command Query Responsibility Segregation)**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > CQRS

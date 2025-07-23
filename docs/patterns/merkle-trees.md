@@ -1,9 +1,21 @@
 ---
 title: Merkle Trees
-description: "TODO: Add description"
+description: TODO: Add description
+type: pattern
+category: distributed-data
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Merkle Trees
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Merkle Trees**
 
 > 🚧 This pattern documentation is under construction.
 

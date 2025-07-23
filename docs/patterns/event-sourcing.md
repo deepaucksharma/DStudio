@@ -2,29 +2,20 @@
 title: Event Sourcing
 description: Store all changes as a sequence of events - the log is the database
 type: pattern
+category: distributed-data
 difficulty: advanced
 reading_time: 35 min
 prerequisites: 
-  - "Domain-driven design"
-  - "CQRS pattern understanding"
-  - "Event-driven architecture"
-pattern_type: "data"
-when_to_use: "Audit requirements, complex domains, time-travel debugging, event-driven systems"
-when_not_to_use: "Simple CRUD operations, storage constraints, real-time aggregations"
-related_laws:
-  - 5
-  - 3
-  - 4
-  - 6
-related_patterns:
-  - "CQRS"
-  - "Saga Pattern"
-  - "Event-Driven Architecture"
+when_to_use: Audit requirements, complex domains, time-travel debugging, event-driven systems
+when_not_to_use: Simple CRUD operations, storage constraints, real-time aggregations
 status: complete
 last_updated: 2025-07-21
 ---
-
 # Event Sourcing
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Event Sourcing**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Event Sourcing

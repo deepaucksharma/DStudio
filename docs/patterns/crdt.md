@@ -2,16 +2,17 @@
 title: CRDT (Conflict-free Replicated Data Types)
 description: Data structures that automatically resolve conflicts in distributed systems
 type: pattern
+category: distributed-data
 difficulty: advanced
 reading_time: 40 min
 prerequisites: [eventual-consistency, vector-clocks]
-pattern_type: "data-structure"
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **CRDT**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **CRDT (Conflict-free Replicated Data Types)**
 
 # CRDT (Conflict-free Replicated Data Types)
 

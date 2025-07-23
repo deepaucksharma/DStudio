@@ -2,16 +2,15 @@
 title: Circuit Breaker Pattern
 description: Prevent cascade failures in distributed systems by failing fast when services are unhealthy
 type: pattern
+category: resilience
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "resilience"
-when_to_use: "External service calls, microservice communication, database connections"
-when_not_to_use: "Internal method calls, non-network operations, CPU-bound tasks"
+when_to_use: External service calls, microservice communication, database connections
+when_not_to_use: Internal method calls, non-network operations, CPU-bound tasks
 status: complete
 last_updated: 2025-07-20
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Circuit Breaker Pattern**
 

@@ -2,14 +2,15 @@
 title: Timeout Pattern
 description: Protection against indefinite waits and resource exhaustion in distributed systems
 type: pattern
+category: resilience
 difficulty: beginner
 reading_time: 30 min
 prerequisites: []
-pattern_type: "resilience"
+when_to_use: When dealing with resilience challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Timeout Pattern**
 

@@ -2,14 +2,15 @@
 title: Graceful Degradation Pattern
 description: Pattern for distributed systems coordination and reliability
 type: pattern
+category: resilience
 difficulty: beginner
 reading_time: 20 min
 prerequisites: []
-pattern_type: "general"
+when_to_use: When dealing with resilience challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-20
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Graceful Degradation Pattern**
 

@@ -1,15 +1,16 @@
 ---
 title: GraphQL Federation
-description: "Compose multiple GraphQL services into a unified API gateway to reduce client round trips"
+description: Compose multiple GraphQL services into a unified API gateway to reduce client round trips
 type: pattern
+category: communication
 difficulty: intermediate
 reading_time: 20 min
 prerequisites: []
-pattern_type: "api"
+when_to_use: When dealing with communication challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **GraphQL Federation**
 

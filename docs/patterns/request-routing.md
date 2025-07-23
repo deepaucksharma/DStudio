@@ -2,13 +2,18 @@
 title: Request Routing Pattern
 description: Directing requests to appropriate service instances based on various criteria
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: ["load-balancing", "service-discovery"]
-pattern_type: "communication"
-status: complete
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: partial
 last_updated: 2025-01-23
 ---
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Request Routing Pattern**
 
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Patterns](index.md) → **Request Routing**

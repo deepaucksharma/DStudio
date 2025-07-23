@@ -2,29 +2,20 @@
 title: Multi-Region Architecture
 description: Deploying applications across multiple geographic regions for performance, availability, and compliance
 type: pattern
+category: distributed-data
 difficulty: expert
 reading_time: 30 min
 prerequisites: 
-  - "Distributed systems fundamentals"
-  - "Data replication strategies"
-  - "Network architecture"
-pattern_type: "architectural"
-when_to_use: "Global user base, disaster recovery, data sovereignty, low-latency requirements"
-when_not_to_use: "Single market applications, cost-sensitive projects, simple architectures"
-related_laws:
-  - 2
-  - 4
-  - 7
-  - 1
-related_patterns:
-  - "Geo-Replication"
-  - "Edge Computing"
-  - "Tunable Consistency"
+when_to_use: Global user base, disaster recovery, data sovereignty, low-latency requirements
+when_not_to_use: Single market applications, cost-sensitive projects, simple architectures
 status: complete
 last_updated: 2025-07-21
 ---
-
 # Multi-Region Architecture
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Multi-Region Architecture**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Multi-Region Architecture

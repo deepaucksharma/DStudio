@@ -1,15 +1,16 @@
 ---
 title: Geo-Replication Patterns
-description: "Replicate data across geographical regions for global availability and disaster recovery"
+description: Replicate data across geographical regions for global availability and disaster recovery
 type: pattern
+category: distributed-data
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
-pattern_type: "data"
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Geo-Replication Patterns**
 

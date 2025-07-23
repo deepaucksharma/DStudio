@@ -1,9 +1,21 @@
 ---
 title: URL Shortener Security
-description: "TODO: Add description - Security patterns for URL shortening services"
+description: TODO: Add description - Security patterns for URL shortening services
+type: pattern
+category: security
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with security challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # URL Shortener Security
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **URL Shortener Security**
 
 > 🚧 This pattern documentation is under construction.
 

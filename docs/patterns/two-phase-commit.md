@@ -2,28 +2,20 @@
 title: Two-Phase Commit (2PC)
 description: Distributed transaction protocol ensuring atomicity across multiple resources
 type: pattern
+category: specialized
 difficulty: advanced
 reading_time: 25 min
 prerequisites: 
-  - "Distributed transactions basics"
-  - "ACID properties"
-  - "Network partitions"
-pattern_type: "coordination"
-when_to_use: "Strong consistency requirements, financial transactions, inventory management"
-when_not_to_use: "High-performance systems, microservices, eventual consistency acceptable"
-related_laws:
-  - 4
-  - 1
-  - 2
-related_patterns:
-  - "Saga Pattern"
-  - "Outbox Pattern"
-  - "Event Sourcing"
+when_to_use: Strong consistency requirements, financial transactions, inventory management
+when_not_to_use: High-performance systems, microservices, eventual consistency acceptable
 status: complete
 last_updated: 2025-07-21
 ---
-
 # Two-Phase Commit (2PC)
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Two-Phase Commit (2PC)**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Two-Phase Commit

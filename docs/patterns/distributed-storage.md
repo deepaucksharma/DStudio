@@ -1,9 +1,21 @@
 ---
 title: Distributed Storage
-description: "TODO: Add description - Patterns for storing and managing data across multiple nodes"
+description: TODO: Add description - Patterns for storing and managing data across multiple nodes
+type: pattern
+category: distributed-data
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Distributed Storage
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Distributed Storage**
 
 > 🚧 This pattern documentation is under construction.
 

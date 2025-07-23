@@ -2,14 +2,15 @@
 title: Failover Pattern
 description: Automatic switching to backup systems during failures
 type: pattern
+category: resilience
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: [health-check, load-balancing]
-pattern_type: "resilience"
+when_to_use: When dealing with resilience challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Failover Pattern**
 

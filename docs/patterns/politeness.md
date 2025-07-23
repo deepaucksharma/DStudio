@@ -1,9 +1,21 @@
 ---
 title: Crawler Politeness
-description: "TODO: Add description - Respectful web crawling practices"
+description: TODO: Add description - Respectful web crawling practices
+type: pattern
+category: specialized
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Crawler Politeness
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Crawler Politeness**
 
 > 🚧 This pattern documentation is under construction.
 

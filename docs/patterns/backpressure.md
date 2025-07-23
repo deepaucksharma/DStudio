@@ -2,29 +2,20 @@
 title: Backpressure Pattern
 description: Flow control mechanism to prevent system overload by signaling upstream components to slow down
 type: pattern
+category: resilience
 difficulty: intermediate
 reading_time: 20 min
 prerequisites: 
-  - "Queueing theory basics"
-  - "Reactive systems concepts"
-  - "Flow control principles"
-pattern_type: "resilience"
-when_to_use: "Stream processing, reactive systems, preventing cascade failures"
-when_not_to_use: "Simple request-response systems, unbounded queues acceptable"
-related_laws:
-  - 4
-  - 1
-  - 3
-related_patterns:
-  - "Circuit Breaker"
-  - "Bulkhead"
-  - "Rate Limiting"
-  - "Queues & Streaming"
+when_to_use: Stream processing, reactive systems, preventing cascade failures
+when_not_to_use: Simple request-response systems, unbounded queues acceptable
 status: complete
 last_updated: 2025-07-21
 ---
-
 # Backpressure Pattern
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Backpressure Pattern**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Backpressure

@@ -2,14 +2,15 @@
 title: Caching Strategies
 description: Optimize performance by storing frequently accessed data in fast storage layers
 type: pattern
+category: caching
 difficulty: beginner
 reading_time: 30 min
 prerequisites: []
-pattern_type: "data"
+when_to_use: When dealing with caching challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Caching Strategies**
 

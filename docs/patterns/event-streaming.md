@@ -1,9 +1,21 @@
 ---
 title: Event Streaming
-description: "TODO: Add description - Real-time event processing and distribution"
+description: TODO: Add description - Real-time event processing and distribution
+type: pattern
+category: specialized
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Event Streaming
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Event Streaming**
 
 > 🚧 This pattern documentation is under construction.
 

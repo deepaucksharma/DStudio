@@ -2,13 +2,18 @@
 title: Backends For Frontends
 description: This topic is under development
 type: pattern
+category: communication
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-pattern_type: "various"
+when_to_use: When dealing with communication challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Backends For Frontends**
 
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Patterns](index.md) → **Backends For Frontends**

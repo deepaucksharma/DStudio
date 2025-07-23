@@ -2,16 +2,17 @@
 title: Bloom Filter Pattern
 description: Probabilistic data structure for efficient set membership testing
 type: pattern
+category: distributed-data
 difficulty: intermediate
 reading_time: 25 min
 prerequisites: [hashing, probability]
-pattern_type: "data-structure"
+when_to_use: When dealing with distributed-data challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Bloom Filter**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Bloom Filter Pattern**
 
 # Bloom Filter Pattern
 

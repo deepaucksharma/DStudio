@@ -2,16 +2,15 @@
 title: Consensus Pattern
 description: Achieving agreement among distributed nodes in the presence of failures
 type: pattern
+category: specialized
 difficulty: advanced
 reading_time: 30 min
 prerequisites: []
-pattern_type: "coordination"
-when_to_use: "Leader election, distributed configuration, replicated state machines"
-when_not_to_use: "High-throughput data processing, eventually consistent systems"
+when_to_use: Leader election, distributed configuration, replicated state machines
+when_not_to_use: High-throughput data processing, eventually consistent systems
 status: complete
 last_updated: 2025-07-20
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Consensus Pattern**
 

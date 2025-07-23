@@ -1,9 +1,21 @@
 ---
 title: Consent Management
-description: "TODO: Add description"
+description: TODO: Add description
+type: pattern
+category: security
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with security challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Consent Management
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Consent Management**
 
 > 🚧 This pattern documentation is under construction.
 

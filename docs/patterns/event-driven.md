@@ -1,15 +1,16 @@
 ---
 title: Event-Driven Architecture
-description: "Decoupling services through asynchronous event-based communication for scalability and resilience"
+description: Decoupling services through asynchronous event-based communication for scalability and resilience
 type: pattern
+category: architectural
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "architectural"
+when_to_use: When dealing with architectural challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Event-Driven Architecture**
 

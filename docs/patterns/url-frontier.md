@@ -1,9 +1,21 @@
 ---
 title: URL Frontier
-description: "TODO: Add description - Managing URLs to be crawled in web crawlers"
+description: TODO: Add description - Managing URLs to be crawled in web crawlers
+type: pattern
+category: specialized
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # URL Frontier
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **URL Frontier**
 
 > 🚧 This pattern documentation is under construction.
 

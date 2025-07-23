@@ -2,28 +2,20 @@
 title: Queues & Stream Processing
 description: Decouple producers from consumers using message queues and event streams
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 35 min
 prerequisites: 
-  - "Basic distributed systems concepts"
-  - "Producer-consumer pattern"
-  - "Event-driven architecture basics"
-pattern_type: "core"
-when_to_use: "Handling traffic spikes, decoupling services, event streaming, work distribution"
-when_not_to_use: "Synchronous request-response, low latency requirements, simple direct calls"
-related_laws:
-  - 4
-  - 2
-  - 1
-related_patterns:
-  - "Event-Driven Architecture"
-  - "CQRS"
-  - "Saga Pattern"
+when_to_use: Handling traffic spikes, decoupling services, event streaming, work distribution
+when_not_to_use: Synchronous request-response, low latency requirements, simple direct calls
 status: complete
 last_updated: 2025-07-21
 ---
-
 # Queues & Stream Processing
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Queues & Stream Processing**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Queues & Stream Processing

@@ -2,16 +2,17 @@
 title: Cell-Based Architecture Pattern
 description: Isolate failures and scale independently with cellular architecture
 type: pattern
+category: architectural
 difficulty: advanced
 reading_time: 30 min
 prerequisites: [sharding, bulkhead, multi-region]
-pattern_type: "architectural"
+when_to_use: When dealing with architectural challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Cell-Based Architecture**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Cell-Based Architecture Pattern**
 
 # Cell-Based Architecture Pattern
 

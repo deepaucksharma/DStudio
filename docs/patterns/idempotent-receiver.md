@@ -1,15 +1,16 @@
 ---
 title: Idempotent Receiver Pattern
-description: "Handle duplicate messages safely by ensuring operations can be applied multiple times without changing the result"
+description: Handle duplicate messages safely by ensuring operations can be applied multiple times without changing the result
 type: pattern
+category: communication
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "messaging"
+when_to_use: When dealing with communication challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Idempotent Receiver Pattern**
 

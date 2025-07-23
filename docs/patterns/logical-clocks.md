@@ -2,16 +2,17 @@
 title: Logical Clocks (Lamport Clocks)
 description: Order events in distributed systems without synchronized physical clocks
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: [distributed-systems-basics]
-pattern_type: "coordination"
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
 status: stub
 last_updated: 2025-01-23
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Logical Clocks**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Logical Clocks (Lamport Clocks)**
 
 # Logical Clocks (Lamport Clocks)
 

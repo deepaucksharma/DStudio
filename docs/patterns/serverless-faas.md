@@ -1,17 +1,18 @@
 ---
 title: Serverless/FaaS (Function-as-a-Service)
-description: "Execute code without managing servers, paying only for actual compute time with automatic scaling"
+description: Execute code without managing servers, paying only for actual compute time with automatic scaling
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: []
-pattern_type: "architectural"
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Serverless/FaaS**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Serverless/FaaS (Function-as-a-Service)**
 
 # Serverless/FaaS (Function-as-a-Service)
 

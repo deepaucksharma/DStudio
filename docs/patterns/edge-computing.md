@@ -1,15 +1,16 @@
 ---
 title: Edge Computing/IoT Patterns
-description: "Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter"
+description: Optimize distributed systems for edge devices and IoT deployments where latency and connectivity matter
 type: pattern
+category: architectural
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
-pattern_type: "infrastructure"
+when_to_use: When dealing with architectural challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Edge Computing/IoT Patterns**
 

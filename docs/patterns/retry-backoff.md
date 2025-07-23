@@ -2,16 +2,15 @@
 title: Retry & Backoff Strategies
 description: Master the art of intelligent failure recovery with exponential backoff, jitter, and adaptive retry policies
 type: pattern
+category: resilience
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: [latency, failure, capacity]
-pattern_type: "resilience"
-when_to_use: "Network calls, external APIs, distributed services, temporary failures"
-when_not_to_use: "Permanent failures, business logic errors, data validation failures"
+when_to_use: Network calls, external APIs, distributed services, temporary failures
+when_not_to_use: Permanent failures, business logic errors, data validation failures
 status: complete
 last_updated: 2025-01-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Retry & Backoff Strategies**
 

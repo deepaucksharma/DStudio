@@ -1,9 +1,21 @@
 ---
 title: Crawler Trap Detection
-description: "TODO: Add description - Detecting and avoiding infinite crawling loops"
+description: TODO: Add description - Detecting and avoiding infinite crawling loops
+type: pattern
+category: specialized
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Crawler Trap Detection
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Crawler Trap Detection**
 
 > 🚧 This pattern documentation is under construction.
 

@@ -309,7 +309,6 @@ Below is the complete catalog of all patterns in our library, organized by categ
 - **[Backpressure](backpressure.md)** - Flow control mechanism
 - **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation
 - **[Circuit Breaker](circuit-breaker.md)** ⭐ - Cascade failure prevention
-- **[Circuit Breaker Enhanced](circuit-breaker-enhanced.md)** - Advanced circuit breaking
 - **[Failover](failover.md)** - Automatic recovery switching
 - **[Fault Tolerance](fault-tolerance.md)** - System resilience strategies
 - **[Graceful Degradation](graceful-degradation.md)** ⭐ - Reduced functionality under stress

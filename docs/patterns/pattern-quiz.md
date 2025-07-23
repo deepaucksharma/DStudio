@@ -1,15 +1,16 @@
 ---
 title: Pattern Catalog Quiz
-description: "Test your understanding of distributed system patterns"
+description: Test your understanding of distributed system patterns
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 5 min
 prerequisites: []
-pattern_type: "general"
-status: complete
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: partial
 last_updated: 2025-07-20
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Catalog Quiz**
 

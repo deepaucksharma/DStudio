@@ -1,15 +1,16 @@
 ---
 title: Observability Patterns
-description: "Implement comprehensive monitoring, logging, and tracing to understand system behavior in production"
+description: Implement comprehensive monitoring, logging, and tracing to understand system behavior in production
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 20 min
 prerequisites: []
-pattern_type: "operations"
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Observability Patterns**
 

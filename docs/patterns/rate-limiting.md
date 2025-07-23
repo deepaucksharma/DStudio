@@ -2,16 +2,15 @@
 title: Rate Limiting Pattern
 description: Control request flow to protect systems from overload while ensuring fair resource allocation
 type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 45 min
 prerequisites: [capacity, observability, economics]
-pattern_type: "operational"
-when_to_use: "API protection, resource allocation, cost control, DDoS mitigation"
-when_not_to_use: "Internal trusted services, batch processing, event streams"
+when_to_use: API protection, resource allocation, cost control, DDoS mitigation
+when_not_to_use: Internal trusted services, batch processing, event streams
 status: complete
 last_updated: 2025-01-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Rate Limiting Pattern**
 

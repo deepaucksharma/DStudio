@@ -1,15 +1,16 @@
 ---
 title: Leader Election Pattern
-description: "Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios"
+description: Distributed coordination pattern for selecting a single node to perform critical operations and avoid split-brain scenarios
 type: pattern
+category: specialized
 difficulty: advanced
 reading_time: 45 min
 prerequisites: []
-pattern_type: "coordination"
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
 status: complete
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Leader Election Pattern**
 

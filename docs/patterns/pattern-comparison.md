@@ -1,16 +1,18 @@
 ---
 title: Pattern Comparison Guide
-description: "Compare distributed systems patterns to choose the right ones"
-type: reference
+description: Compare distributed systems patterns to choose the right ones
+type: pattern
+category: specialized
 difficulty: intermediate
 reading_time: 30 min
 prerequisites: []
-status: complete
+when_to_use: When dealing with specialized challenges
+when_not_to_use: When simpler solutions suffice
+status: partial
 last_updated: 2025-07-21
 ---
-
 <!-- Navigation -->
-[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Comparison**
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Comparison Guide**
 
 # Pattern Comparison Guide
 

@@ -2,29 +2,20 @@
 title: Saga Pattern
 description: Manage distributed transactions using coordinated sequences of local transactions with compensations
 type: pattern
+category: communication
 difficulty: advanced
 reading_time: 35 min
 prerequisites: 
-  - "Microservices architecture"
-  - "Event-driven systems"
-  - "ACID transactions"
-pattern_type: "coordination"
-when_to_use: "Cross-service transactions, workflow orchestration, distributed business processes"
-when_not_to_use: "Simple local transactions, strongly consistent requirements, simple CRUD operations"
-related_laws:
-  - 4
-  - 1
-  - 3
-  - 5
-related_patterns:
-  - "Event Sourcing"
-  - "CQRS"
-  - "Outbox Pattern"
+when_to_use: Cross-service transactions, workflow orchestration, distributed business processes
+when_not_to_use: Simple local transactions, strongly consistent requirements, simple CRUD operations
 status: complete
 last_updated: 2025-07-21
 ---
-
 # Saga Pattern
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Saga Pattern**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > Saga Pattern

@@ -28,27 +28,33 @@ rm -rf site/
 ## Architecture & Key Files
 
 ### Core Structure
-- `mkdocs.yml` - Main configuration (186 lines) defining site structure, theme, plugins, and navigation
+- `mkdocs.yml` - Main configuration defining site structure, theme, plugins, and navigation
 - `requirements.txt` - Python dependencies for MkDocs and plugins
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for automatic deployment to GitHub Pages
+- `automation/` - Scripts for site maintenance and content validation
+  - `fix_broken_links.py` - Script to fix common broken links
+  - `validate_links.py` - Script to check for broken links
+  - `generate_site_tree.py` - Script to generate site structure
+  - And many more utility scripts
+- `artifacts/` - Generated reports and analysis files
 - `docs/` - All documentation content organized hierarchically:
-  - `index.md` - Homepage with navigation cards, journey map, and philosophy
   - `introduction/` - Getting started guides and learning paths
-  - `part1-axioms/` - 8 fundamental axioms (Latency, Capacity, Failure, Concurrency, Coordination, Observability, Human Interface, Economics)
+  - `part1-axioms/` - 7 fundamental laws (Correlated Failure, Asynchronous Reality, Emergent Chaos, etc.)
   - `part2-pillars/` - 5 foundational pillars (Work, State, Truth, Control, Intelligence)
-  - `patterns/` - Modern architectural patterns (21 patterns including CQRS, Event Sourcing, Service Mesh, etc.)
+  - `patterns/` - Modern architectural patterns (CQRS, Event Sourcing, Service Mesh, etc.)
   - `quantitative/` - Mathematical toolkit (Little's Law, Queueing Theory, Scaling Laws, etc.)
   - `human-factors/` - Operational excellence (SRE, Chaos Engineering, Observability, etc.)
   - `reference/` - Glossary, cheat sheets, recipe cards, security considerations
-  - `tools/` - Interactive calculators (latency, capacity planning)
-  - `stylesheets/extra.css` - Extensive custom styling (784 lines)
+  - `tools/` - Interactive calculators
+  - `stylesheets/extra.css` - Extensive custom styling
 
 ### Content Philosophy
 The documentation follows a unique pedagogical approach:
-1. **8 Fundamental Axioms**: Latency, Finite Capacity, Failure, Consistency, Time, Ordering, Knowledge, Growth
-2. **Physics-first**: Derives patterns from speed of light and thermodynamics
-3. **Multiple learning paths**: Tailored for new grads, senior engineers, managers, and express learners
-4. **Real failure stories**: Production disaster case studies
+1. **7 Fundamental Laws**: Correlated Failure, Asynchronous Reality, Emergent Chaos, Multidimensional Optimization, Distributed Knowledge, Cognitive Load, Economic Reality
+2. **5 Foundational Pillars**: Work Distribution, State Distribution, Truth Distribution, Control Distribution, Intelligence Distribution
+3. **Physics-first**: Derives patterns from speed of light and thermodynamics
+4. **Multiple learning paths**: Tailored for new grads, senior engineers, managers, and express learners
+5. **Real failure stories**: Production disaster case studies
 
 ### Visual Components
 The site uses custom-styled components defined in `extra.css`:

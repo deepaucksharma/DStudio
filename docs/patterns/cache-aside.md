@@ -2,13 +2,18 @@
 title: Cache-Aside Pattern
 description: Lazy loading pattern where application controls cache population and invalidation
 type: pattern
+category: caching
 difficulty: intermediate
 reading_time: 25 min
 prerequisites: [caching-strategies]
-pattern_type: "data"
-status: complete
+when_to_use: When dealing with caching challenges
+when_not_to_use: When simpler solutions suffice
+status: partial
 last_updated: 2025-07-23
 ---
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Cache-Aside Pattern**
 
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Patterns](index.md) → [Caching Strategies](caching-strategies.md) → **Cache-Aside**

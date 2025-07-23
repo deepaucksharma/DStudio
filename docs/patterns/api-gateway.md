@@ -2,28 +2,20 @@
 title: API Gateway Pattern
 description: Unified entry point for microservices providing routing, authentication, and cross-cutting concerns
 type: pattern
+category: communication
 difficulty: intermediate
 reading_time: 20 min
 prerequisites: 
-  - "Microservices architecture"
-  - "REST API basics"
-  - "Authentication/authorization"
-pattern_type: "architectural"
-when_to_use: "Microservices architectures, mobile backends, third-party API access"
-when_not_to_use: "Monolithic applications, simple architectures, low-latency requirements"
-related_laws:
-  - 6
-  - 2
-  - 5
-related_patterns:
-  - "Service Mesh"
-  - "Circuit Breaker"
-  - "Rate Limiting"
+when_to_use: Microservices architectures, mobile backends, third-party API access
+when_not_to_use: Monolithic applications, simple architectures, low-latency requirements
 status: complete
 last_updated: 2025-07-21
 ---
-
 # API Gateway Pattern
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **API Gateway Pattern**
 
 <div class="navigation-breadcrumb">
 <a href="/">Home</a> > <a href="/patterns/">Patterns</a> > API Gateway

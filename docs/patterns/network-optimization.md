@@ -1,9 +1,21 @@
 ---
 title: Network Optimization
-description: "TODO: Add description - Techniques for reducing network latency and bandwidth usage"
+description: TODO: Add description - Techniques for reducing network latency and bandwidth usage
+type: pattern
+category: performance
+difficulty: intermediate
+reading_time: 30 min
+prerequisites: []
+when_to_use: When dealing with performance challenges
+when_not_to_use: When simpler solutions suffice
+status: stub
+last_updated: 2025-07-23
 ---
-
 # Network Optimization
+
+
+<!-- Navigation -->
+[Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Network Optimization**
 
 > 🚧 This pattern documentation is under construction.
 
