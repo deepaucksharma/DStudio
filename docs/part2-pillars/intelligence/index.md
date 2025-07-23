@@ -1188,6 +1188,6 @@ graph LR
 
 ---
 
-**Next**: [Tools →](../../tools/index.md)
+**Next**: [Case Studies →](../../case-studies/index.md)
 
 *"The best AI systems make humans smarter, not obsolete."*

@@ -45,7 +45,6 @@ rm -rf site/
   - `quantitative/` - Mathematical toolkit (Little's Law, Queueing Theory, Scaling Laws, etc.)
   - `human-factors/` - Operational excellence (SRE, Chaos Engineering, Observability, etc.)
   - `reference/` - Glossary, cheat sheets, recipe cards, security considerations
-  - `tools/` - Interactive calculators
   - `stylesheets/extra.css` - Extensive custom styling
 
 ### Content Philosophy

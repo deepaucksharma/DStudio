@@ -16,6 +16,9 @@ last_updated: 2025-07-20
 
 **The Challenge**: Build a database that never goes down during Black Friday
 
+!!! info "About the Metrics"
+    Performance figures and scale metrics mentioned in this case study are based on AWS public documentation, re:Invent presentations, and the original Dynamo paper. Specific numbers represent typical performance characteristics and may vary based on configuration, region, and workload.
+
 ## 📅 Timeline & Evolution
 
 ```mermaid
@@ -422,22 +425,24 @@ Level 4: Correlated Failures
 
 ## 📊 Production Metrics
 
-### System Performance (2023)
-- **Requests**: 89.2 trillion per month
-- **Availability**: 99.999% (5.26 minutes downtime/year)
-- **P99 Latency**: 4.9ms (single-digit milliseconds)
-- **Peak Traffic**: 105.2M requests/second
+### System Performance
+- **Requests**: Trillions per month across all AWS customers
+- **Availability**: Industry-leading 99.999% SLA
+- **P99 Latency**: Single-digit milliseconds
+- **Peak Traffic**: Handles massive request volumes during events like Prime Day
 
 ### Infrastructure Scale
-- **Storage**: Exabytes of data
-- **Tables**: 10M+ active tables
-- **Regions**: Available in 30+ AWS regions
-- **Nodes**: 100,000+ servers globally
+- **Storage**: Exabyte-scale across the platform
+- **Tables**: Millions of active tables
+- **Regions**: Available in all major AWS regions globally
+- **Infrastructure**: Massive distributed infrastructure
 
 ### Cost Efficiency
-- **Storage Cost**: $0.25 per GB-month
-- **Request Cost**: $0.25 per million requests
-- **TCO Reduction**: 70% vs traditional databases
+- **Storage Cost**: Competitive pricing per GB-month
+- **Request Cost**: Pay-per-request model available
+- **TCO Reduction**: Significant savings versus traditional databases
+
+*Note: Specific performance metrics are based on AWS public documentation and may vary by region and configuration*
 
 ## 🎓 Lessons Learned
 

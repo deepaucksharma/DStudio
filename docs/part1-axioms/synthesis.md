@@ -13,7 +13,7 @@ last_updated: 2025-07-23
 
 > "The laws don't exist in isolation—they form a complex web where each reinforces and amplifies the others."
 
-## The Axiom Interaction Matrix
+## The Law Interaction Matrix
 
 The true complexity of distributed systems emerges from how the laws interact:
 
@@ -293,7 +293,7 @@ def choose_framework(context):
         
     else:
         # Traditional distributed systems
-        return 'This seven-axiom framework'
+        return 'This seven-law framework'
 ```
 
 ### Alternative Paradigms Not Covered
@@ -318,11 +318,11 @@ def choose_framework(context):
    - Extreme elasticity
    - Different cost model
 
-## Navigating the Axiom Space
+## Navigating the Law Space
 
 ### The Master's Intuition
 
-Experienced distributed systems engineers develop intuition for navigating the axiom interactions:
+Experienced distributed systems engineers develop intuition for navigating the law interactions:
 
 ```python
 class DistributedSystemsIntuition:
@@ -356,7 +356,7 @@ class DistributedSystemsIntuition:
 ```mermaid
 flowchart TD
     START[Identify Primary Constraint]
-    START --> CHECK{Which Axiom Dominates?}
+    START --> CHECK{Which Law Dominates?}
     
     CHECK -->|Failure| FAIL[Design for Resilience]
     CHECK -->|Asynchrony| ASYNC[Design for Uncertainty]
@@ -383,7 +383,7 @@ flowchart TD
 ## The Path to Mastery
 
 ### Level 1: Understanding Individual Laws
-- Learn each axiom in isolation
+- Learn each law in isolation
 - Understand the theory
 - Recognize patterns
 
@@ -425,9 +425,9 @@ This framework opens doors to deeper study:
 
 ### Practical Applications
 - Applying laws to specific domains
-- Building axiom-aware tools
-- Teaching operators axiom thinking
-- Creating axiom-based metrics
+- Building law-aware tools
+- Teaching operators law thinking
+- Creating law-based metrics
 
 ### Philosophical Questions
 - Is eventual consistency inevitable?

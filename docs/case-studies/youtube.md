@@ -16,6 +16,9 @@ last_updated: 2025-07-21
 
 **The Challenge**: Store, process, and deliver billions of hours of video content globally with minimal buffering
 
+!!! warning "Disclaimer"
+    The metrics and technical details in this case study are based on publicly available information, conference talks, and engineering blog posts. Specific numbers are estimates or examples to illustrate scale and should not be considered exact or current.
+
 !!! info "Case Study Sources"
     This analysis is based on:
     - Google Engineering Blog: "YouTube's Video Infrastructure"¹
@@ -79,13 +82,13 @@ graph TB
 
 **Capacity Planning Model:**
 
-| Metric | Value | Growth Rate |
+| Metric | Description | Growth Trend |
 |--------|-------|-------------|
-| Daily Uploads | 720,000 hours | +20% YoY |
-| Storage per Hour | 5 GB (multi-quality) | Increasing with 4K/8K |
-| Total Storage | 10+ Exabytes | Doubling every 2 years |
-| Bandwidth | 10+ Tbps peak | +35% YoY |
-| Transcoding Compute | 1M+ cores | +25% YoY |
+| Daily Uploads | Hundreds of thousands of hours | Steady growth year-over-year |
+| Storage per Hour | Multiple GB (multi-quality) | Increasing with higher resolutions |
+| Total Storage | Exabyte-scale | Rapid expansion |
+| Bandwidth | Multi-Tbps peak | Growing with user base |
+| Transcoding Compute | Massive compute clusters | Scaling with content |
 
 **Storage Optimization:**
 1. **Deduplication**: 15-20% savings via content fingerprinting
@@ -273,12 +276,14 @@ graph LR
 
 **Cost Breakdown:**
 
-| Component | Cost/Month | Percentage |
-|-----------|------------|------------|
-| Storage | $2M | 20% |
-| Bandwidth | $4M | 40% |
-| Compute | $2.5M | 25% |
-| Operations | $1.5M | 15% |
+| Component | Percentage | Priority |
+|-----------|------------|----------|
+| Storage | ~20% | High optimization focus |
+| Bandwidth | ~40% | Largest cost component |
+| Compute | ~25% | Significant expense |
+| Operations | ~15% | Ongoing optimization |
+
+*Note: Actual costs are proprietary. Percentages represent typical industry distributions for video platforms at scale*
 
 **Optimization Strategies:**
 
@@ -468,23 +473,23 @@ graph LR
    - Quality-aware compression
 
 3. **Edge Computing**
-   - 15K+ edge locations
+   - Thousands of edge locations globally
    - P2P-assisted delivery
    - Regional content caches
 
 ## 📊 Scale Metrics & Performance
 
-### Current Scale (2024)
+### Current Scale
 
-| Metric | Value | Context |
+| Metric | Description | Context |
 |--------|-------|---------|  
-| **Monthly Active Users** | 2.7B | 35% of global population |
-| **Hours Watched Daily** | 1B+ | 41M+ hours per hour |
-| **Videos Uploaded/Min** | 500 hours | 30K hours per hour |
-| **Storage Total** | 10+ EB | Exabyte scale |
-| **Bandwidth Peak** | 15+ Tbps | Netflix + Amazon combined |
-| **Transcoding Cores** | 1M+ | Largest compute cluster |
-| **Edge Locations** | 15K+ | Global presence |
+| **Monthly Active Users** | Billions globally | One of the world's largest platforms |
+| **Hours Watched Daily** | Billions of hours | Massive daily engagement |
+| **Videos Uploaded/Min** | Hundreds of hours | Continuous content growth |
+| **Storage Total** | Exabyte-scale | Among the largest storage systems |
+| **Bandwidth Peak** | Multi-Tbps | Significant global traffic |
+| **Transcoding Cores** | Massive compute clusters | Distributed processing |
+| **Edge Locations** | Thousands globally | Worldwide presence |
 | **Languages Supported** | 100+ | Auto-captioning |
 
 ### Performance Targets

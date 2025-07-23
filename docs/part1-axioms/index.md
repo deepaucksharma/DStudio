@@ -1,7 +1,7 @@
 ---
-title: "Part I: An Advanced Axiomatic Framework for Distributed Systems"
+title: "Part I: An Advanced Law-Based Framework for Distributed Systems"
 description: Moving beyond simplifications to confront the profound complexity and nuance that defines distributed systems engineering
-type: axiom
+type: law
 difficulty: expert
 reading_time: 10 min
 prerequisites: ["introduction/index.md"]
@@ -9,10 +9,10 @@ status: complete
 last_updated: 2025-07-23
 ---
 
-# Part I: An Advanced Axiomatic Framework for Distributed Systems
+# Part I: An Advanced Law-Based Framework for Distributed Systems
 ## Bridging Theory and Practice Through Fundamental Laws
 
-> "The previous axiomatic framework serves as a valuable introduction, making the core challenges of distributed systems approachable. However, this simplification, while useful, elides the profound complexity and nuance that defines the field."
+> "The previous law-based framework serves as a valuable introduction, making the core challenges of distributed systems approachable. However, this simplification, while useful, elides the profound complexity and nuance that defines the field."
 
 This advanced framework refactors the original laws to be more precise, acknowledges their limitations, and introduces new principles derived from information theory, complexity science, and epistemology. It is designed not to provide easy answers, but to foster a more rigorous and critical mode of thinking about distributed systems engineering.
 

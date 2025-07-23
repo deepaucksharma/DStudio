@@ -1,7 +1,7 @@
 ---
 title: Immutable Laws Quiz
 description: Test your understanding of the fundamental laws with these questions.
-type: axiom
+type: law
 difficulty: advanced
 reading_time: 5 min
 prerequisites: []
@@ -99,7 +99,7 @@ d) Deployment time
 **Explanation**: Retries can multiply costs dramatically - 5 retries means 6x the invocations, 6x the cost.
 
 ### Question 9
-Which axiom most directly leads to eventual consistency?
+Which law most directly leads to eventual consistency?
 
 a) Asynchronous Reality ✓
 b) Emergent Complexity
@@ -125,7 +125,7 @@ Want more questions? Each axiom section includes specific exercises and scenario
 ## Advanced Scenario Questions
 
 ### Scenario 1: Global Payment System
-You're designing a payment system across 5 continents. Which axiom combination most constrains your design?
+You're designing a payment system across 5 continents. Which law combination most constrains your design?
 
 a) Asynchronous Reality + Emergent Complexity
 b) Distributed Knowledge + Economic Reality
@@ -149,7 +149,7 @@ d) Memory leak
 **Explanation**: Leader election relies on timeouts. Clock skew between nodes can cause them to disagree on when timeouts occur, leading to split-brain scenarios.
 
 ### Scenario 3: Microservices Debugging
-Debugging takes 10x longer in microservices vs monolith. Primary axiom responsible?
+Debugging takes 10x longer in microservices vs monolith. Primary law responsible?
 
 a) Asynchronous Reality
 b) Correlated Failure
@@ -169,9 +169,9 @@ d) Cognitive Load
 
 ## Law Mastery Assessment
 
-Rate your understanding of each axiom:
+Rate your understanding of each law:
 
-| Axiom | Concept | Math/Formulas | Real Applications | Trade-offs |
+| Law | Concept | Math/Formulas | Real Applications | Trade-offs |
 |-------|---------|---------------|-------------------|------------|
 | 1. Correlated Failure ⛓️ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
 | 2. Asynchronous Reality ⏳ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
@@ -187,7 +187,7 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 
 ### ❌ Myth vs ✅ Reality
 
-| Myth | Reality | Axiom |
+| Myth | Reality | Law |
 |------|---------|-------|
 | "Just add more servers" | Coordination costs grow with emergent complexity | Law 3: Emergent Complexity |
 | "Use microservices for speed" | Network calls add latency | Law 2: Asynchronous Reality |
@@ -198,7 +198,7 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 ## Study Resources by Learning Style
 
 ### 🎯 Visual Learners
-- Review axiom diagrams
+- Review law diagrams
 - Trace through architecture diagrams
 - Watch latency animations
 
@@ -220,7 +220,7 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 ## Next Steps
 
 1. **Weak Areas**: Focus on laws where you scored lowest
-2. **Practice**: Work through exercises in each axiom section
+2. **Practice**: Work through exercises in each law section
 3. **Apply**: Use the reflection journal to connect to your work
 4. **Share**: Teach someone else - best way to solidify understanding
 

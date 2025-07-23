@@ -18,8 +18,8 @@ last_updated: 2025-07-20
 
 ## A
 
-### Law (Law)
-Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws (formerly laws).
+### Law
+Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws.
 
 **Examples**: [Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)
 

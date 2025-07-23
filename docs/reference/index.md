@@ -32,7 +32,7 @@ Step-by-step procedures for implementing patterns and debugging. Cross-reference
 Security implications, vulnerabilities, and defensive strategies. Mapped to the fundamental laws.
 
 ### [Law Mapping Guide](axiom-mapping-guide.md)
-Complete mapping between old 8-axiom structure and new 7-law framework 🗺️.
+Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ---
 

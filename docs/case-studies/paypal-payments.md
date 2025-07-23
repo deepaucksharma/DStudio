@@ -16,6 +16,9 @@ last_updated: 2025-07-20
 
 **Challenge**: Process billions in payments with zero data loss
 
+!!! info "Note on Metrics"
+    The specific metrics and figures in this case study are estimates based on public information, industry standards, and typical patterns for payment systems at scale. Actual proprietary data is not disclosed.
+
 ## 🏗️ Architecture Evolution
 
 ### Phase 1: Monolithic (1998-2005)
@@ -613,11 +616,13 @@ graph TB
 ### 3. Idempotency Everywhere
 **Levels**: API (Request IDs), Service (Operation tokens), Database (Unique constraints), Network (TCP sequences)
 
-## 📈 Production Metrics (2023)
+## 📈 Production Metrics
 
-**Performance**: $1.36T processed, 58M daily peak, 99.94% success, 234ms avg latency, 1.2s P99
-**Reliability**: 99.999% availability (5.26 min/year), 0 data loss, <0.0001% duplicates
-**Compliance**: 100% audits passed, PCI Level 1, 99.89% fraud detection, 0.8% false positives
+**Performance**: Processes trillions in payment volume annually, handles tens of millions of transactions daily at peak times, maintains high success rates with sub-second average latency
+**Reliability**: Industry-leading availability with minimal downtime, zero data loss architecture, extremely low duplicate transaction rates
+**Compliance**: Maintains highest level of PCI compliance, advanced fraud detection systems with low false positive rates
+
+*Note: Specific metrics are estimates based on industry standards and public information about payment processing systems at scale*
 
 ## 🎓 Lessons Learned
 

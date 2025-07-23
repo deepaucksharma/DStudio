@@ -1,5 +1,5 @@
 ---
-title: "Axiom Framework Transition Guide"
+title: "Law Framework Transition Guide"
 description: A comprehensive mapping guide for transitioning from the old 8-axiom structure to the new 7-law framework
 type: reference
 status: complete
@@ -9,11 +9,11 @@ last_updated: 2025-07-23
 # Law Framework Transition Guide
 ## From 8 Simple Laws to 7 Fundamental Laws
 
-This guide helps users familiar with the original 8-axiom framework navigate to the new 7-law structure. The new framework provides deeper theoretical foundations while maintaining practical applicability.
+This guide helps users familiar with the original 8-law framework navigate to the new 7-law structure. The new framework provides deeper theoretical foundations while maintaining practical applicability.
 
 ## Quick Reference Mapping
 
-| Old Axiom (8-Axiom Framework) | New Law (7-Law Framework) | Key Changes |
+| Old Law (8-Law Framework) | New Law (7-Law Framework) | Key Changes |
 |-------------------------------|---------------------------|-------------|
 | **1. Latency** 🏃‍♂️<br/>*Speed of light limits* | **2. Law of Asynchronous Reality** ⏳<br/>*Information travels at finite speed* | Expanded beyond just latency to include temporal uncertainty, information theory limits, and partial ordering |
 | **2. Finite Capacity** 📦<br/>*All resources have limits* | **Merged into multiple laws** | Capacity constraints now appear in trade-offs (Law 4) and emergence (Law 3) |
@@ -154,9 +154,9 @@ The old laws were empirical observations. The new laws are grounded in formal th
 
 ### Old Framework Mindset
 - "Here are 8 things that make distributed systems hard"
-- Each axiom is a separate challenge
+- Each law is a separate challenge
 - Focus on individual problems
-- Practical patterns for each axiom
+- Practical patterns for each law
 
 ### New Framework Mindset
 - "Here are 7 fundamental laws governing all distributed systems"
@@ -199,8 +199,8 @@ The old laws were empirical observations. The new laws are grounded in formal th
 
 ## Archived Content
 
-The original 8-axiom content is preserved in the archive for reference:
-- [Archive: Old 8-Axiom Structure](../part1-axioms/archive-old-8-axiom-structure/README.md)
+The original 8-law content is preserved in the archive for reference:
+- [Archive: Old 8-Law Structure](../part1-axioms/archive-old-8-law-structure/README.md)
 
 ## Summary: What You Gain with the New Framework
 
@@ -212,4 +212,4 @@ The original 8-axiom content is preserved in the archive for reference:
 
 ---
 
-*"The evolution from laws to laws represents our field's maturation from empirical observation to theoretical understanding."*
+*"The evolution from simple laws to fundamental laws represents our field's maturation from empirical observation to theoretical understanding."*

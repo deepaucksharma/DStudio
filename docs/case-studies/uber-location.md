@@ -16,6 +16,9 @@ last_updated: 2025-07-20
 
 **Challenge**: Track millions of drivers and riders globally with sub-second updates
 
+!!! note "Metrics Disclaimer"
+    All metrics, costs, and specific technical details in this case study are based on public engineering blogs, conference presentations, and industry estimates. Actual proprietary data is not disclosed. Numbers should be considered illustrative of scale rather than exact figures.
+
 !!! info "Sources"
     - Uber Engineering: "Scaling Real-time Infrastructure"¹
     - QCon: "How Uber Scales Real-Time Platform"²  
@@ -284,14 +287,16 @@ Logging (ELK):
 **Pillar Applied**: Intelligence Distribution - Adaptive resource allocation, spot instances, multi-cloud arbitrage
 **Patterns**: Auto-scaling, Cost Optimization, Serverless
 
-**Cost Optimization Results**¹²:
+**Cost Optimization Strategies**:
 ```yaml
-Infrastructure Costs:
-- Compute: $2.3M/month → $1.5M (35% reduction via spot instances)
-- Storage: $800K/month → $500K (37% reduction via tiering)
-- Network: $1.2M/month → $700K (42% reduction via edge caching)
-- Total Annual Savings: $15.6M
+Infrastructure Optimization:
+- Compute: Significant reduction through spot instances and auto-scaling
+- Storage: Cost savings via intelligent data tiering
+- Network: Reduced bandwidth costs through edge caching
+- Overall: Continuous infrastructure optimization
 ```
+
+*Note: Specific cost figures are proprietary and not publicly disclosed*
 
 ---
 
@@ -531,20 +536,22 @@ Based on Uber's 2023 engineering reports¹³:
 ### System Scale
 ```yaml
 Global Statistics:
-- Active Cities: 10,000+
-- Countries: 70+
-- Monthly Active Drivers: 5.4 million
-- Monthly Active Riders: 130 million
-- Trips per Day: 25 million
-- Location Updates: 4 million/second (peak)
+- Active Cities: Thousands globally
+- Countries: Operates in dozens of countries
+- Monthly Active Drivers: Millions
+- Monthly Active Riders: Over 100 million
+- Trips per Day: Tens of millions
+- Location Updates: Millions per second at peak
 
 Infrastructure Scale:
-- Kafka Messages: 4 trillion/day
-- Redis Operations: 10 million/second
-- Cassandra Nodes: 10,000+
-- Container Instances: 100,000+
-- Microservices: 4,000+
+- Kafka Messages: Trillions per day
+- Redis Operations: Millions per second
+- Cassandra Nodes: Thousands
+- Container Instances: Tens of thousands
+- Microservices: Thousands
 ```
+
+*Note: Exact figures vary and are based on public reports and industry estimates*
 
 ### Reliability Metrics
 ```yaml
