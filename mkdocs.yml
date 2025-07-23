@@ -105,9 +105,10 @@ markdown_extensions:
 
 # Extra CSS
 extra_css:
-  - stylesheets/extra.css
+  - stylesheets/colors.css
   - stylesheets/modular.css
   - stylesheets/laws.css
+  - stylesheets/extra.css
 
 # Extra JavaScript
 extra_javascript:
@@ -361,6 +362,7 @@ nav:
       - "Capacity Planning": tools/capacity-calculator.md
       - "Availability Calculator": tools/availability-calculator.md
       - "Throughput Optimizer": tools/throughput-calculator.md
+      - "Cost Optimizer": tools/cost-optimizer.md
   
   - "📖 Reference":
     - "📖 All Resources": reference/index.md

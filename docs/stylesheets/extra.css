@@ -9,10 +9,10 @@
 .hero-banner {
   text-align: center;
   padding: 3rem 2rem;
-  background: linear-gradient(135deg, #5448C8 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
   border-radius: 16px;
   margin: -1rem -1rem 2rem -1rem;
-  color: white;
+  color: var(--text-on-primary);
   position: relative;
   overflow: hidden;
 }
@@ -52,22 +52,22 @@
 .hero-cta {
   display: inline-block;
   background: white;
-  color: #5448C8;
+  color: var(--brand-primary);
   padding: 1rem 2.5rem;
   border-radius: 50px;
   text-decoration: none;
   font-weight: 600;
   font-size: 1.1rem;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
   position: relative;
   z-index: 1;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+  box-shadow: var(--shadow-lg);
 }
 
 .hero-cta:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-  background: #f8f8f8;
+  box-shadow: var(--shadow-xl);
+  background: var(--color-gray-50);
 }
 
 /* Quick Stats */
@@ -81,9 +81,9 @@
 
 .stat-item {
   padding: 1rem;
-  background: #f5f5f5;
+  background: var(--color-gray-100);
   border-radius: 12px;
-  transition: transform 0.3s ease;
+  transition: var(--transition-normal);
 }
 
 .stat-item:hover {
@@ -93,13 +93,13 @@
 .stat-number {
   font-size: 2.5rem;
   font-weight: 700;
-  color: #5448C8;
+  color: var(--brand-primary);
   margin-bottom: 0.5rem;
 }
 
 .stat-label {
   font-size: 0.9rem;
-  color: #666;
+  color: var(--color-gray-500);
   text-transform: uppercase;
   letter-spacing: 0.5px;
 }
@@ -115,15 +115,15 @@
 .feature-card {
   text-align: center;
   padding: 2rem 1rem;
-  background: white;
+  background: var(--md-default-bg-color);
   border-radius: 12px;
-  border: 1px solid #e0e0e0;
-  transition: all 0.3s ease;
+  border: 1px solid var(--color-gray-200);
+  transition: var(--transition-normal);
 }
 
 .feature-card:hover {
-  border-color: #5448C8;
-  box-shadow: 0 4px 12px rgba(84, 72, 200, 0.15);
+  border-color: var(--brand-primary);
+  box-shadow: var(--shadow-md);
 }
 
 .feature-icon {
@@ -134,12 +134,12 @@
 .feature-card h3 {
   font-size: 1.2rem;
   margin: 0 0 0.5rem 0;
-  color: #333;
+  color: var(--md-default-fg-color);
 }
 
 .feature-card p {
   margin: 0;
-  color: #666;
+  color: var(--md-default-fg-color--light);
   font-size: 0.95rem;
 }
 
@@ -155,19 +155,19 @@
   display: block;
   text-align: center;
   padding: 1.5rem;
-  background: white;
-  border: 2px solid #e0e0e0;
+  background: var(--md-default-bg-color);
+  border: 2px solid var(--color-gray-200);
   border-radius: 12px;
   text-decoration: none;
   color: inherit;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
   position: relative;
 }
 
 .path-preview-card:hover {
-  border-color: #5448C8;
+  border-color: var(--brand-primary);
   transform: translateY(-4px);
-  box-shadow: 0 6px 16px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-lg);
 }
 
 .path-preview-card .path-icon {
@@ -178,22 +178,22 @@
 .path-preview-card h4 {
   margin: 0.5rem 0;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--md-default-fg-color);
 }
 
 .path-preview-card p {
   margin: 0.25rem 0;
   font-size: 0.9rem;
-  color: #666;
+  color: var(--md-default-fg-color--light);
 }
 
 .path-duration {
   display: inline-block;
-  background: #f5f5f5;
+  background: var(--color-gray-100);
   padding: 0.25rem 0.75rem;
   border-radius: 20px;
   font-size: 0.8rem;
-  color: #666;
+  color: var(--color-gray-500);
   margin-top: 0.5rem;
 }
 
@@ -204,18 +204,18 @@
 
 .secondary-cta {
   display: inline-block;
-  color: #5448C8;
+  color: var(--brand-primary);
   text-decoration: none;
   font-weight: 600;
   padding: 0.75rem 1.5rem;
-  border: 2px solid #5448C8;
+  border: 2px solid var(--brand-primary);
   border-radius: 6px;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
 }
 
 .secondary-cta:hover {
-  background: #5448C8;
-  color: white;
+  background: var(--brand-primary);
+  color: var(--text-on-primary);
 }
 
 /* Quick Start Grid */
@@ -228,31 +228,31 @@
 
 .quick-option {
   padding: 1.5rem;
-  background: #f8f9fa;
+  background: var(--color-gray-50);
   border-radius: 12px;
-  border-left: 4px solid #5448C8;
-  transition: all 0.3s ease;
+  border-left: 4px solid var(--brand-primary);
+  transition: var(--transition-normal);
 }
 
 .quick-option:hover {
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  box-shadow: var(--shadow-md);
   transform: translateX(4px);
 }
 
 .quick-option h3 {
   margin: 0 0 0.5rem 0;
   font-size: 1.1rem;
-  color: #333;
+  color: var(--md-default-fg-color);
 }
 
 .quick-option p {
   margin: 0 0 1rem 0;
-  color: #666;
+  color: var(--md-default-fg-color--light);
   font-size: 0.95rem;
 }
 
 .option-link {
-  color: #5448C8;
+  color: var(--brand-primary);
   text-decoration: none;
   font-weight: 600;
   display: inline-flex;
@@ -272,10 +272,10 @@
 .hero-section {
   text-align: center;
   padding: 2rem 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
   border-radius: 12px;
   margin: 2rem 0;
-  color: white;
+  color: var(--text-on-primary);
 }
 
 .hero-section h2 {
@@ -305,37 +305,37 @@
 }
 
 .path-card {
-  border: 2px solid #e1e5e9;
+  border: 2px solid var(--color-gray-200);
   border-radius: 12px;
   padding: 1.5rem;
-  background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
-  transition: all 0.3s ease;
+  background: linear-gradient(135deg, var(--color-gray-50) 0%, var(--md-default-bg-color) 100%);
+  transition: var(--transition-normal);
   position: relative;
 }
 
 .path-card:hover {
   transform: translateY(-4px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
 }
 
 .path-card.beginner {
-  border-color: #28a745;
-  background: linear-gradient(135deg, #d4edda 0%, #ffffff 100%);
+  border-color: var(--color-success);
+  background: linear-gradient(135deg, var(--color-success-bg) 0%, var(--md-default-bg-color) 100%);
 }
 
 .path-card.intermediate {
-  border-color: #007bff;
-  background: linear-gradient(135deg, #cce5ff 0%, #ffffff 100%);
+  border-color: var(--color-info);
+  background: linear-gradient(135deg, var(--color-info-bg) 0%, var(--md-default-bg-color) 100%);
 }
 
 .path-card.manager {
-  border-color: #fd7e14;
-  background: linear-gradient(135deg, #ffe6cc 0%, #ffffff 100%);
+  border-color: var(--color-warning);
+  background: linear-gradient(135deg, var(--color-warning-bg) 0%, var(--md-default-bg-color) 100%);
 }
 
 .path-card.express {
-  border-color: #dc3545;
-  background: linear-gradient(135deg, #f8d7da 0%, #ffffff 100%);
+  border-color: var(--color-danger);
+  background: linear-gradient(135deg, var(--color-danger-bg) 0%, var(--md-default-bg-color) 100%);
 }
 
 .path-card h3 {
@@ -370,19 +370,19 @@
 
 .path-cta {
   display: inline-block;
-  background: #5448c8;
-  color: white !important;
+  background: var(--brand-primary);
+  color: var(--text-on-primary) !important;
   padding: 0.75rem 1.5rem;
   border-radius: 6px;
   text-decoration: none !important;
   font-weight: 500;
-  transition: background 0.3s ease;
+  transition: var(--transition-normal);
   margin-top: 1rem;
 }
 
 .path-cta:hover {
-  background: #4c41b6;
-  color: white !important;
+  background: var(--brand-primary-dark);
+  color: var(--text-on-primary) !important;
 }
 
 /* Content Map */
@@ -883,32 +883,32 @@
 
 /* Original law boxes for backward compatibility */
 .law-box {
-  background: #7e57c2;
-  color: white;
+  background: var(--brand-primary);
+  color: var(--text-on-primary);
   padding: 1.5rem;
   border-radius: 8px;
   margin: 1.5rem 0;
 }
 
 .decision-box {
-  background: #66bb6a;
-  color: white;
+  background: var(--color-success);
+  color: var(--text-on-primary);
   padding: 1.5rem;
   border-radius: 8px;
   margin: 1.5rem 0;
 }
 
 .failure-vignette {
-  background: #ef5350;
-  color: white;
+  background: var(--color-danger);
+  color: var(--text-on-primary);
   padding: 1.5rem;
   border-radius: 8px;
   margin: 1.5rem 0;
 }
 
 .truth-box {
-  background: #42a5f5;
-  color: white;
+  background: var(--color-info);
+  color: var(--text-on-primary);
   padding: 1.5rem;
   border-radius: 8px;
   margin: 1.5rem 0;
@@ -924,15 +924,15 @@
 
 .journey-path {
   padding: 1.5rem;
-  border: 2px solid var(--md-primary-fg-color);
+  border: 2px solid var(--brand-primary);
   border-radius: 8px;
   text-align: center;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
 }
 
 .journey-path:hover {
-  background: var(--md-primary-fg-color);
-  color: white;
+  background: var(--brand-primary);
+  color: var(--text-on-primary);
   transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-lg);
 }

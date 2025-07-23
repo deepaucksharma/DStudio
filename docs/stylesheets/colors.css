@@ -1,0 +1,237 @@
+/* ============================================
+   STANDARDIZED COLOR SYSTEM
+   ============================================ */
+
+:root {
+  /* ==========================================
+     PRIMARY BRAND COLORS
+     ========================================== */
+  --brand-primary: #5448C8;       /* Indigo - main brand color */
+  --brand-primary-light: #6D5FD5;
+  --brand-primary-dark: #4C41B6;
+  --brand-accent: #00BCD4;        /* Cyan - accent color */
+  --brand-accent-light: #26C6DA;
+  --brand-accent-dark: #0097A7;
+
+  /* ==========================================
+     SEMANTIC COLORS (Light Mode)
+     ========================================== */
+  --color-success: #10B981;       /* Green - success, positive actions */
+  --color-success-light: #34D399;
+  --color-success-dark: #059669;
+  --color-success-bg: #ECFDF5;
+
+  --color-warning: #F59E0B;       /* Amber - warnings, caution */
+  --color-warning-light: #FBBF24;
+  --color-warning-dark: #D97706;
+  --color-warning-bg: #FFFBEB;
+
+  --color-danger: #EF4444;        /* Red - errors, failures */
+  --color-danger-light: #F87171;
+  --color-danger-dark: #DC2626;
+  --color-danger-bg: #FEF2F2;
+
+  --color-info: #3B82F6;          /* Blue - information, examples */
+  --color-info-light: #60A5FA;
+  --color-info-dark: #2563EB;
+  --color-info-bg: #EFF6FF;
+
+  --color-purple: #8B5CF6;        /* Purple - insights, advanced concepts */
+  --color-purple-light: #A78BFA;
+  --color-purple-dark: #7C3AED;
+  --color-purple-bg: #F3F4F6;
+
+  /* ==========================================
+     NEUTRAL COLORS (Light Mode)
+     ========================================== */
+  --color-gray-50: #F9FAFB;
+  --color-gray-100: #F3F4F6;
+  --color-gray-200: #E5E7EB;
+  --color-gray-300: #D1D5DB;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #6B7280;
+  --color-gray-600: #4B5563;
+  --color-gray-700: #374151;
+  --color-gray-800: #1F2937;
+  --color-gray-900: #111827;
+
+  /* ==========================================
+     LAW-SPECIFIC COLORS
+     ========================================== */
+  --law-failure: #EF4444;         /* Red - Law 1: Correlated Failure */
+  --law-async: #F59E0B;           /* Amber - Law 2: Asynchronous Reality */
+  --law-emergence: #EF4444;       /* Red - Law 3: Emergent Chaos */
+  --law-tradeoffs: #8B5CF6;       /* Purple - Law 4: Multidimensional Optimization */
+  --law-knowledge: #3B82F6;       /* Blue - Law 5: Distributed Knowledge */
+  --law-cognitive: #F59E0B;       /* Amber - Law 6: Cognitive Load */
+  --law-economics: #10B981;       /* Green - Law 7: Economic Reality */
+
+  /* ==========================================
+     COMPONENT COLORS
+     ========================================== */
+  --box-law: var(--brand-primary);
+  --box-decision: var(--color-success);
+  --box-failure: var(--color-danger);
+  --box-truth: var(--color-info);
+  --box-insight: var(--color-purple);
+  --box-example: var(--color-info);
+  --box-try-this: var(--color-warning);
+  --box-antipattern: var(--color-danger);
+  --box-measure: var(--color-gray-500);
+  --box-pattern: var(--color-success);
+  --box-formula: var(--color-warning);
+}
+
+/* ==========================================
+   DARK MODE COLORS
+   ========================================== */
+[data-md-color-scheme="slate"] {
+  /* Brand colors remain the same */
+  --brand-primary: #6D5FD5;       /* Slightly lighter for dark mode */
+  --brand-primary-light: #8B7ADB;
+  --brand-primary-dark: #5448C8;
+  --brand-accent: #26C6DA;        /* Slightly lighter for dark mode */
+  --brand-accent-light: #4DD0E1;
+  --brand-accent-dark: #00BCD4;
+
+  /* Semantic colors - adjusted for dark mode */
+  --color-success: #34D399;
+  --color-success-light: #6EE7B7;
+  --color-success-dark: #10B981;
+  --color-success-bg: #064E3B;
+
+  --color-warning: #FBBF24;
+  --color-warning-light: #FCD034;
+  --color-warning-dark: #F59E0B;
+  --color-warning-bg: #451A03;
+
+  --color-danger: #F87171;
+  --color-danger-light: #FCA5A5;
+  --color-danger-dark: #EF4444;
+  --color-danger-bg: #450A0A;
+
+  --color-info: #60A5FA;
+  --color-info-light: #93C5FD;
+  --color-info-dark: #3B82F6;
+  --color-info-bg: #1E3A8A;
+
+  --color-purple: #A78BFA;
+  --color-purple-light: #C4B5FD;
+  --color-purple-dark: #8B5CF6;
+  --color-purple-bg: #312E81;
+
+  /* Dark neutral colors */
+  --color-gray-50: #1F2937;
+  --color-gray-100: #374151;
+  --color-gray-200: #4B5563;
+  --color-gray-300: #6B7280;
+  --color-gray-400: #9CA3AF;
+  --color-gray-500: #D1D5DB;
+  --color-gray-600: #E5E7EB;
+  --color-gray-700: #F3F4F6;
+  --color-gray-800: #F9FAFB;
+  --color-gray-900: #FFFFFF;
+
+  /* Law colors adjusted for dark mode */
+  --law-failure: #F87171;
+  --law-async: #FBBF24;
+  --law-emergence: #F87171;
+  --law-tradeoffs: #A78BFA;
+  --law-knowledge: #60A5FA;
+  --law-cognitive: #FBBF24;
+  --law-economics: #34D399;
+}
+
+/* ==========================================
+   COMPONENT BACKGROUND COLORS
+   ========================================== */
+
+/* Light mode backgrounds */
+:root,
+[data-md-color-scheme="default"] {
+  --bg-law: linear-gradient(135deg, var(--brand-primary) 0%, var(--brand-primary-light) 100%);
+  --bg-decision: var(--color-success-bg);
+  --bg-failure: var(--color-danger-bg);
+  --bg-truth: var(--color-info-bg);
+  --bg-insight: #F3F4F6;
+  --bg-example: var(--color-info-bg);
+  --bg-try-this: var(--color-warning-bg);
+  --bg-antipattern: var(--color-danger-bg);
+  --bg-measure: var(--color-gray-100);
+  --bg-pattern: var(--color-success-bg);
+  --bg-formula: var(--color-warning-bg);
+}
+
+/* Dark mode backgrounds */
+[data-md-color-scheme="slate"] {
+  --bg-law: linear-gradient(135deg, var(--brand-primary-dark) 0%, var(--brand-primary) 100%);
+  --bg-decision: var(--color-success-bg);
+  --bg-failure: var(--color-danger-bg);
+  --bg-truth: var(--color-info-bg);
+  --bg-insight: var(--color-purple-bg);
+  --bg-example: var(--color-info-bg);
+  --bg-try-this: var(--color-warning-bg);
+  --bg-antipattern: var(--color-danger-bg);
+  --bg-measure: var(--color-gray-50);
+  --bg-pattern: var(--color-success-bg);
+  --bg-formula: var(--color-warning-bg);
+}
+
+/* ==========================================
+   TEXT COLORS ON COLORED BACKGROUNDS
+   ========================================== */
+
+/* Text colors for light backgrounds */
+:root,
+[data-md-color-scheme="default"] {
+  --text-on-primary: #FFFFFF;
+  --text-on-success: var(--color-success-dark);
+  --text-on-warning: var(--color-warning-dark);
+  --text-on-danger: var(--color-danger-dark);
+  --text-on-info: var(--color-info-dark);
+  --text-on-purple: var(--color-purple-dark);
+}
+
+/* Text colors for dark backgrounds */
+[data-md-color-scheme="slate"] {
+  --text-on-primary: #FFFFFF;
+  --text-on-success: var(--color-success-light);
+  --text-on-warning: var(--color-warning-light);
+  --text-on-danger: var(--color-danger-light);
+  --text-on-info: var(--color-info-light);
+  --text-on-purple: var(--color-purple-light);
+}
+
+/* ==========================================
+   HOVER AND FOCUS STATES
+   ========================================== */
+
+:root {
+  --hover-opacity: 0.8;
+  --focus-ring: 0 0 0 3px rgba(84, 72, 200, 0.1);
+  --transition-fast: 0.15s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+}
+
+[data-md-color-scheme="slate"] {
+  --focus-ring: 0 0 0 3px rgba(109, 95, 213, 0.2);
+}
+
+/* ==========================================
+   SHADOW SYSTEM
+   ========================================== */
+
+:root {
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.1), 0 10px 10px rgba(0, 0, 0, 0.04);
+}
+
+[data-md-color-scheme="slate"] {
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.5), 0 1px 2px rgba(0, 0, 0, 0.6);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3), 0 2px 4px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4), 0 4px 6px rgba(0, 0, 0, 0.2);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.5), 0 10px 10px rgba(0, 0, 0, 0.3);
+}

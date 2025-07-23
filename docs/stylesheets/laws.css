@@ -4,8 +4,8 @@
 
 /* Law Header */
 .law-header {
-  background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
-  color: white;
+  background: var(--bg-law);
+  color: var(--text-on-primary);
   padding: 2rem;
   border-radius: 8px;
   margin-bottom: 2rem;
@@ -18,8 +18,8 @@
 
 /* Definition Box */
 .definition-box {
-  background: var(--md-code-bg-color);
-  border-left: 4px solid var(--md-primary-fg-color);
+  background: var(--color-gray-50);
+  border-left: 4px solid var(--brand-primary);
   padding: 1.5rem;
   margin: 2rem 0;
   border-radius: 4px;
@@ -27,45 +27,39 @@
 }
 
 .definition-box strong {
-  color: var(--md-primary-fg-color);
+  color: var(--brand-primary);
   font-size: 1.1rem;
+}
+
+[data-md-color-scheme="slate"] .definition-box {
+  background: var(--color-gray-50);
 }
 
 /* Failure Vignette */
 .failure-vignette {
-  background: #fff5f5;
-  border: 2px solid #ff6b6b;
+  background: var(--bg-failure);
+  border: 2px solid var(--color-danger);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .failure-vignette {
-  background: #2a1f1f;
-  border-color: #c92a2a;
-}
-
 .failure-vignette h3 {
-  color: #c92a2a;
+  color: var(--text-on-danger);
   margin-top: 0;
 }
 
 /* Decision Box */
 .decision-box {
-  background: #f0fdf4;
-  border: 2px solid #10b981;
+  background: var(--bg-decision);
+  border: 2px solid var(--color-success);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .decision-box {
-  background: #1a2f23;
-  border-color: #059669;
-}
-
 .decision-box h3 {
-  color: #059669;
+  color: var(--text-on-success);
   margin-top: 0;
 }
 
@@ -76,40 +70,30 @@
 
 /* Try This Box */
 .try-this {
-  background: #fef3c7;
-  border: 2px solid #f59e0b;
+  background: var(--bg-try-this);
+  border: 2px solid var(--color-warning);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .try-this {
-  background: #2a2517;
-  border-color: #d97706;
-}
-
 .try-this h3 {
-  color: #d97706;
+  color: var(--text-on-warning);
   margin-top: 0;
 }
 
 /* Insight Box */
 .insight-box {
-  background: #ede9fe;
-  border: 2px solid #7c3aed;
+  background: var(--bg-insight);
+  border: 2px solid var(--color-purple);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
   position: relative;
 }
 
-[data-md-color-scheme="slate"] .insight-box {
-  background: #1e1a2e;
-  border-color: #6d28d9;
-}
-
 .insight-box h3 {
-  color: #6d28d9;
+  color: var(--text-on-purple);
   margin-top: 0;
 }
 
@@ -125,20 +109,15 @@
 
 /* Example Box */
 .example-box {
-  background: #f0f9ff;
-  border: 2px solid #0284c7;
+  background: var(--bg-example);
+  border: 2px solid var(--color-info);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .example-box {
-  background: #1a202e;
-  border-color: #0369a1;
-}
-
 .example-box h3 {
-  color: #0369a1;
+  color: var(--text-on-info);
   margin-top: 0;
 }
 
@@ -163,103 +142,73 @@
 
 /* Anti-patterns Box */
 .antipatterns {
-  background: #fef2f2;
-  border: 2px solid #ef4444;
+  background: var(--bg-antipattern);
+  border: 2px solid var(--color-danger);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .antipatterns {
-  background: #2a1a1a;
-  border-color: #dc2626;
-}
-
 .antipatterns h3 {
-  color: #dc2626;
+  color: var(--text-on-danger);
   margin-top: 0;
 }
 
 /* Measure This Box */
 .measure-this {
-  background: #f3f4f6;
-  border: 2px solid #6b7280;
+  background: var(--bg-measure);
+  border: 2px solid var(--color-gray-500);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .measure-this {
-  background: #1f2937;
-  border-color: #4b5563;
-}
-
 .measure-this h3 {
-  color: #4b5563;
+  color: var(--color-gray-600);
   margin-top: 0;
 }
 
 /* Cross Links */
 .cross-links {
-  background: #fdf4ff;
-  border: 2px solid #a855f7;
+  background: var(--bg-insight);
+  border: 2px solid var(--color-purple);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
 }
 
-[data-md-color-scheme="slate"] .cross-links {
-  background: #1a1a2e;
-  border-color: #9333ea;
-}
-
 .cross-links h3 {
-  color: #9333ea;
+  color: var(--text-on-purple);
   margin-top: 0;
 }
 
 /* Reference Card */
 .reference-card {
-  background: linear-gradient(to bottom, #f9fafb, #f3f4f6);
-  border: 1px solid #d1d5db;
+  background: linear-gradient(to bottom, var(--color-gray-50), var(--color-gray-100));
+  border: 1px solid var(--color-gray-300);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-}
-
-[data-md-color-scheme="slate"] .reference-card {
-  background: linear-gradient(to bottom, #1f2937, #111827);
-  border-color: #374151;
+  box-shadow: var(--shadow-sm);
 }
 
 /* Pattern Box */
 .pattern-box {
-  background: #ecfdf5;
-  border: 2px solid #10b981;
+  background: var(--bg-pattern);
+  border: 2px solid var(--color-success);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
-}
-
-[data-md-color-scheme="slate"] .pattern-box {
-  background: #1a2f26;
-  border-color: #059669;
 }
 
 /* Formula Box */
 .formula-box {
-  background: #fefce8;
-  border: 2px solid #facc15;
+  background: var(--bg-formula);
+  border: 2px solid var(--color-warning);
   border-radius: 8px;
   padding: 1.5rem;
   margin: 2rem 0;
   font-family: var(--md-code-font-family);
-}
-
-[data-md-color-scheme="slate"] .formula-box {
-  background: #2a2a1a;
-  border-color: #eab308;
 }
 
 /* Limits Table */
@@ -269,33 +218,33 @@
 }
 
 .limits-table th {
-  background: var(--md-primary-fg-color);
-  color: white;
+  background: var(--brand-primary);
+  color: var(--text-on-primary);
   padding: 0.75rem;
   text-align: left;
 }
 
 .limits-table td {
   padding: 0.75rem;
-  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  border-bottom: 1px solid var(--color-gray-200);
 }
 
 /* Law Grid */
 .laws-grid .c-card--law {
-  background: #7e57c2;
-  color: white;
+  background: var(--brand-primary);
+  color: var(--text-on-primary);
   border: none;
-  transition: all 0.3s ease;
+  transition: var(--transition-normal);
 }
 
 .laws-grid .c-card--law:hover {
-  background: #6a4ca5;
+  background: var(--brand-primary-dark);
   transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(126, 87, 194, 0.3);
+  box-shadow: var(--shadow-lg);
 }
 
 .laws-grid .c-card--law .c-card__title {
-  color: white;
+  color: var(--text-on-primary);
   font-size: 1.3rem;
 }
 
@@ -305,14 +254,10 @@
 
 /* Metro Map */
 .metro-map {
-  background: #f9fafb;
+  background: var(--color-gray-50);
   border-radius: 8px;
   padding: 2rem;
   margin: 2rem 0;
-}
-
-[data-md-color-scheme="slate"] .metro-map {
-  background: #1f2937;
 }
 
 .learning-paths {
@@ -320,10 +265,10 @@
   height: auto;
 }
 
-.path-newgrad { stroke: #10b981; stroke-width: 4; fill: none; }
-.path-senior { stroke: #3b82f6; stroke-width: 4; fill: none; }
-.path-manager { stroke: #f97316; stroke-width: 4; fill: none; }
-.path-express { stroke: #ef4444; stroke-width: 4; fill: none; }
+.path-newgrad { stroke: var(--color-success); stroke-width: 4; fill: none; }
+.path-senior { stroke: var(--color-info); stroke-width: 4; fill: none; }
+.path-manager { stroke: var(--color-warning); stroke-width: 4; fill: none; }
+.path-express { stroke: var(--color-danger); stroke-width: 4; fill: none; }
 
 /* Start Buttons */
 .start-buttons {
