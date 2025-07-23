@@ -16,7 +16,7 @@ last_updated: 2025-07-20
 
 **The limits of parallelization**
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>📊 Amdahl's Law Formula</h4>
 
 <div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">
@@ -190,7 +190,7 @@ Serial = 10% → Max speedup = 10x (even with 1000 cores!)
 
 ## Gustafson's Law
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🌐 Gustafson's Law Formula</h4>
 
 <div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">

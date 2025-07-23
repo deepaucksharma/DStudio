@@ -83,6 +83,35 @@ flowchart TD
     style J fill:#c8e6c9
 ```
 
+### Error Budget Policy Decision Tree
+
+```mermaid
+flowchart TD
+    A[Check Error Budget Status] --> B{Budget Level?}
+    
+    B -->|< 0%| C[🔴 CRITICAL]
+    B -->|0-25%| D[🟠 WARNING]
+    B -->|25-50%| E[🟡 CAUTION]
+    B -->|50-100%| F[🟢 HEALTHY]
+    
+    C --> C1[Actions:<br/>• Stop all feature work<br/>• All hands on reliability<br/>• Executive escalation<br/>• Daily status updates]
+    
+    D --> D1[Actions:<br/>• High-risk deploys only<br/>• Reliability sprint<br/>• Double approvals<br/>• Enhanced monitoring]
+    
+    E --> E1[Actions:<br/>• Normal deploys + caution<br/>• Extra testing required<br/>• Monitor closely<br/>• Review at standup]
+    
+    F --> F1[Actions:<br/>• Normal operations<br/>• Innovation allowed<br/>• Experiment freely<br/>• Standard process]
+    
+    A --> G{Single Incident Impact?}
+    G -->|> 10% budget| H[🚨 Major Incident Protocol<br/>• Mandatory postmortem<br/>• Executive briefing<br/>• Action plan required]
+    
+    style C fill:#ffcdd2
+    style D fill:#ffe0b2
+    style E fill:#fff9c4
+    style F fill:#c8e6c9
+    style H fill:#ff5252,color:#fff
+```
+
 **Budget Policy Decision Table:**
 
 | Budget Remaining | Action Required | Team Response |
@@ -99,6 +128,42 @@ flowchart TD
 - Postmortem for any incident >10% of budget
 
 ## SLI/SLO/SLA Hierarchy
+
+### Visual Workflow: SLI/SLO/SLA Relationship
+
+```mermaid
+flowchart TB
+    subgraph "SLI/SLO/SLA Hierarchy"
+        SLI[SLI: Service Level Indicator<br/>What we measure]
+        SLO[SLO: Service Level Objective<br/>Internal target]
+        SLA[SLA: Service Level Agreement<br/>External promise]
+        
+        SLI --> SLO
+        SLO --> SLA
+        
+        style SLI fill:#e3f2fd
+        style SLO fill:#fff9c4
+        style SLA fill:#ffebee
+    end
+    
+    subgraph "Example: API Service"
+        SLI1[Measure: Response Time<br/>Current: p95 = 87ms]
+        SLO1[Target: 95% < 100ms<br/>Internal goal]
+        SLA1[Promise: 95% < 200ms<br/>Customer contract]
+        
+        SLI1 --> SLO1
+        SLO1 --> SLA1
+    end
+    
+    subgraph "Safety Margins"
+        M1[Measurement] -->|+Buffer| M2[Internal Target]
+        M2 -->|+Buffer| M3[External Promise]
+        
+        style M1 fill:#c8e6c9
+        style M2 fill:#fff9c4
+        style M3 fill:#ffcdd2
+    end
+```
 
 **SLI**: What we measure (latency, errors, availability)
 **SLO**: Internal target (99.9% requests < 100ms)

@@ -16,7 +16,7 @@ last_updated: 2025-07-20
 
 **The most important equation in systems thinking**
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>📐 Little's Law Formula</h3>
 
 <div class="formula-highlight">
@@ -226,7 +226,7 @@ Connection Pool: 50/60 (83% utilization at peak)
 </div>
 
 ### Database Connection Needs
-<div class="axiom-box">
+<div class="law-box">
 <h4>🔗 Connection Pool Sizing</h4>
 
 | Component | Value | Calculation |
@@ -351,7 +351,7 @@ Decompose into subsystems, apply to each
 ## Advanced Applications
 
 ### AWS S3's Upload Pipeline
-<div class="axiom-box">
+<div class="law-box">
 <h4>☁️ AWS S3 Multi-Stage Analysis</h4>
 
 <div class="pipeline-flow" style="text-align: center; margin: 15px 0;">
@@ -416,7 +416,7 @@ Decompose into subsystems, apply to each
 </div>
 
 ### Batch Processing
-<div class="axiom-box">
+<div class="law-box">
 <h4>📦 Batch Processing Formula</h4>
 
 <div class="formula-box" style="background: #F3E5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
@@ -535,7 +535,7 @@ Decompose into subsystems, apply to each
 </div>
 
 ### Example 2: Kafka Consumer Sizing
-<div class="axiom-box">
+<div class="law-box">
 <h4>📊 Kafka Consumer Calculator</h4>
 
 <div class="input-parameters" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">

@@ -391,6 +391,43 @@ team_api:
 
 ## Organizational Evolution
 
+### Team Structure Selection Decision Matrix
+
+```mermaid
+flowchart TD
+    A[Choose Team Structure] --> B{Primary Challenge?}
+    
+    B -->|Value Delivery| C[Stream-Aligned Team]
+    B -->|Technical Foundation| D[Platform Team]
+    B -->|Knowledge Gap| E[Enabling Team]
+    B -->|Deep Expertise| F[Complicated Subsystem]
+    
+    C --> C1{Team Size?}
+    C1 -->|5-9 people| C2[✅ Optimal Size]
+    C1 -->|> 9 people| C3[⚠️ Consider Split]
+    C1 -->|< 5 people| C4[⚠️ Add Members]
+    
+    D --> D1{User Teams?}
+    D1 -->|> 3 teams| D2[✅ Platform Justified]
+    D1 -->|< 3 teams| D3[❌ Embed in Teams]
+    
+    E --> E1{Engagement Type?}
+    E1 -->|Teaching| E2[3-month rotation]
+    E1 -->|Coaching| E3[6-month embed]
+    
+    F --> F1{Cognitive Load?}
+    F1 -->|Very High| F2[✅ Subsystem Team]
+    F1 -->|Manageable| F3[❌ Keep in Stream Team]
+    
+    style C2 fill:#c8e6c9
+    style D2 fill:#c8e6c9
+    style F2 fill:#c8e6c9
+    style C3 fill:#fff9c4
+    style C4 fill:#fff9c4
+    style D3 fill:#ffcdd2
+    style F3 fill:#ffcdd2
+```
+
 ### Scaling Patterns
 
 ```python
@@ -472,6 +509,89 @@ class TeamEffectivenessMetrics:
                 'handoffs': self.count_handoffs(team)
             }
         }
+```
+
+## Visual Org Transition Templates
+
+### Transition from Component to Stream-Aligned Teams
+
+```mermaid
+flowchart LR
+    subgraph "Before: Component Teams"
+        FE[Frontend Team<br/>15 engineers] 
+        API[API Team<br/>10 engineers]
+        BE[Backend Team<br/>12 engineers]
+        DB[Database Team<br/>8 engineers]
+        
+        FE -->|handoff| API
+        API -->|handoff| BE
+        BE -->|handoff| DB
+        
+        style FE fill:#ffebee
+        style API fill:#ffebee
+        style BE fill:#ffebee
+        style DB fill:#ffebee
+    end
+    
+    subgraph "Transition Phase"
+        T1[Form Pilot Team]
+        T2[Prove Success]
+        T3[Scale Pattern]
+        T4[Dissolve Old Teams]
+        
+        T1 --> T2
+        T2 --> T3
+        T3 --> T4
+    end
+    
+    subgraph "After: Stream-Aligned Teams"
+        CHECKOUT[Checkout Team<br/>8 engineers<br/>Full stack ownership]
+        SEARCH[Search Team<br/>7 engineers<br/>Full stack ownership]
+        CATALOG[Catalog Team<br/>8 engineers<br/>Full stack ownership]
+        USER[User Team<br/>7 engineers<br/>Full stack ownership]
+        
+        PLATFORM[Platform Team<br/>10 engineers<br/>Self-service tools]
+        
+        CHECKOUT -.->|uses| PLATFORM
+        SEARCH -.->|uses| PLATFORM
+        CATALOG -.->|uses| PLATFORM
+        USER -.->|uses| PLATFORM
+        
+        style CHECKOUT fill:#c8e6c9
+        style SEARCH fill:#c8e6c9
+        style CATALOG fill:#c8e6c9
+        style USER fill:#c8e6c9
+        style PLATFORM fill:#bbdefb
+    end
+```
+
+### Organizational Transition Roadmap
+
+```mermaid
+gantt
+    title Team Topology Transformation Timeline
+    dateFormat YYYY-MM-DD
+    axisFormat %b
+    
+    section Phase 1 Assessment
+    Current State Analysis    :done, p1a, 2024-01-01, 30d
+    Identify Value Streams    :done, p1b, 2024-01-15, 30d
+    Design Target Topology    :done, p1c, 2024-02-01, 30d
+    
+    section Phase 2 Pilot
+    Form First Stream Team    :active, p2a, 2024-03-01, 45d
+    Platform Team Setup       :active, p2b, 2024-03-15, 60d
+    Measure & Learn          :p2c, 2024-04-01, 60d
+    
+    section Phase 3 Scale
+    Second Stream Team        :p3a, 2024-05-01, 45d
+    Third Stream Team         :p3b, 2024-06-01, 45d
+    Enabling Team Formation   :p3c, 2024-06-15, 30d
+    
+    section Phase 4 Complete
+    Final Teams Transition    :p4a, 2024-07-01, 60d
+    Dissolve Component Teams  :p4b, 2024-08-01, 30d
+    Optimization             :p4c, 2024-09-01, 90d
 ```
 
 ## Case Study: Distributed System Team Design

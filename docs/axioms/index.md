@@ -18,7 +18,7 @@ last_updated: 2025-01-23
 !!! tip "Quick Overview"
     This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed laws section](../part1-axioms/index.md)**.
 
-## 🌌 Why Laws, Not Axioms?
+## 🌌 Why These Are Laws
 
 These aren't simple observations or rules of thumb. They are fundamental laws that emerge from physics, mathematics, and information theory. Understanding these laws enables you to:
 
@@ -32,13 +32,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 <div class="laws-structure">
   <h3>Physical Laws (1-3)</h3>
   <div class="laws-grid">
-    <a href="../part1-axioms/axiom1-failure/index.md" class="axiom-card axiom-1">
-      <div class="axiom-number">1</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom1-failure/index.md" class="law-card law-1">
+      <div class="law-number">1</div>
+      <div class="law-content">
         <h3>⛓️ Law of Correlated Failure</h3>
-        <p class="axiom-law">Components fail together, not independently</p>
-        <p class="axiom-impact">Shared dependencies amplify impact</p>
-        <div class="axiom-examples">
+        <p class="law-principle">Components fail together, not independently</p>
+        <p class="law-impact">Shared dependencies amplify impact</p>
+        <div class="law-examples">
           <span>✓ Metastable failures</span>
           <span>✓ Gray failures</span>
           <span>✓ Cascade effects</span>
@@ -46,13 +46,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom2-asynchrony/index.md" class="axiom-card axiom-2">
-      <div class="axiom-number">2</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom2-asynchrony/index.md" class="law-card law-2">
+      <div class="law-number">2</div>
+      <div class="law-content">
         <h3>⏳ Law of Asynchronous Reality</h3>
-        <p class="axiom-law">The present is unknowable</p>
-        <p class="axiom-impact">Information has uncertainty</p>
-        <div class="axiom-examples">
+        <p class="law-principle">The present is unknowable</p>
+        <p class="law-impact">Information has uncertainty</p>
+        <div class="law-examples">
           <span>✓ FLP impossibility</span>
           <span>✓ Temporal logic</span>
           <span>✓ Eventual consistency</span>
@@ -60,13 +60,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom3-emergence/index.md" class="axiom-card axiom-3">
-      <div class="axiom-number">3</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom3-emergence/index.md" class="law-card law-3">
+      <div class="law-number">3</div>
+      <div class="law-content">
         <h3>🌪️ Law of Emergent Chaos</h3>
-        <p class="axiom-law">Scale creates unpredictable behaviors</p>
-        <p class="axiom-impact">Components can't predict the whole</p>
-        <div class="axiom-examples">
+        <p class="law-principle">Scale creates unpredictable behaviors</p>
+        <p class="law-impact">Components can't predict the whole</p>
+        <div class="law-examples">
           <span>✓ Phase transitions</span>
           <span>✓ Feedback loops</span>
           <span>✓ Chaos engineering</span>
@@ -77,13 +77,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 
   <h3>Trade-offs (4-5)</h3>
   <div class="laws-grid">
-    <a href="../part1-axioms/axiom4-tradeoffs/index.md" class="axiom-card axiom-4">
-      <div class="axiom-number">4</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom4-tradeoffs/index.md" class="law-card law-4">
+      <div class="law-number">4</div>
+      <div class="law-content">
         <h3>⚖️ Law of Multidimensional Optimization</h3>
-        <p class="axiom-law">Trade-offs exist in n-dimensional space</p>
-        <p class="axiom-impact">Beyond CAP to harvest/yield</p>
-        <div class="axiom-examples">
+        <p class="law-principle">Trade-offs exist in n-dimensional space</p>
+        <p class="law-impact">Beyond CAP to harvest/yield</p>
+        <div class="law-examples">
           <span>✓ Cost vs complexity</span>
           <span>✓ Security vs usability</span>
           <span>✓ Non-linear trade-offs</span>
@@ -91,13 +91,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom5-epistemology/index.md" class="axiom-card axiom-5">
-      <div class="axiom-number">5</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom5-epistemology/index.md" class="law-card law-5">
+      <div class="law-number">5</div>
+      <div class="law-content">
         <h3>🧠 Law of Distributed Knowledge</h3>
-        <p class="axiom-law">Truth is local, certainty is expensive</p>
-        <p class="axiom-impact">Byzantine epistemology</p>
-        <div class="axiom-examples">
+        <p class="law-principle">Truth is local, certainty is expensive</p>
+        <p class="law-impact">Byzantine epistemology</p>
+        <div class="law-examples">
           <span>✓ Belief vs knowledge</span>
           <span>✓ Common knowledge</span>
           <span>✓ Probabilistic truth</span>
@@ -108,13 +108,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 
   <h3>Human Interface (6-7)</h3>
   <div class="laws-grid">
-    <a href="../part1-axioms/axiom6-human-api/index.md" class="axiom-card axiom-6">
-      <div class="axiom-number">6</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom6-human-api/index.md" class="law-card law-6">
+      <div class="law-number">6</div>
+      <div class="law-content">
         <h3>🤯 Law of Cognitive Load</h3>
-        <p class="axiom-law">Complexity must fit human minds</p>
-        <p class="axiom-impact">Mental models determine success</p>
-        <div class="axiom-examples">
+        <p class="law-principle">Complexity must fit human minds</p>
+        <p class="law-impact">Mental models determine success</p>
+        <div class="law-examples">
           <span>✓ Error design</span>
           <span>✓ Observability UI</span>
           <span>✓ Pit of success</span>
@@ -122,13 +122,13 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom7-economics/index.md" class="axiom-card axiom-7">
-      <div class="axiom-number">7</div>
-      <div class="axiom-content">
+    <a href="../part1-axioms/axiom7-economics/index.md" class="law-card law-7">
+      <div class="law-number">7</div>
+      <div class="law-content">
         <h3>💰 Law of Economic Reality</h3>
-        <p class="axiom-law">Every decision has a financial impact</p>
-        <p class="axiom-impact">TCO drives architecture</p>
-        <div class="axiom-examples">
+        <p class="law-principle">Every decision has a financial impact</p>
+        <p class="law-impact">TCO drives architecture</p>
+        <div class="law-examples">
           <span>✓ Build vs buy</span>
           <span>✓ Performance/dollar</span>
           <span>✓ FinOps modeling</span>
@@ -174,7 +174,7 @@ graph TD
 
 ## 📚 Evolution from Basic to Advanced
 
-### Basic Framework (Traditional Axioms)
+### Basic Framework (Traditional View)
 - Simple, approachable concepts
 - Binary trade-offs (CAP theorem)
 - Practical patterns
@@ -251,7 +251,7 @@ graph TD
   margin: 1.5rem 0;
 }
 
-.axiom-card {
+.law-card {
   display: flex;
   gap: 1rem;
   padding: 1.5rem;
@@ -265,66 +265,66 @@ graph TD
   overflow: hidden;
 }
 
-.axiom-card::before {
+.law-card::before {
   content: "";
   position: absolute;
   top: 0;
   left: 0;
   right: 0;
   height: 4px;
-  background: linear-gradient(90deg, var(--axiom-color) 0%, var(--axiom-color-light) 100%);
+  background: linear-gradient(90deg, var(--law-color) 0%, var(--law-color-light) 100%);
 }
 
-.axiom-1 { --axiom-color: #e74c3c; --axiom-color-light: #ec7063; }
-.axiom-2 { --axiom-color: #3498db; --axiom-color-light: #5dade2; }
-.axiom-3 { --axiom-color: #9b59b6; --axiom-color-light: #bb8fce; }
-.axiom-4 { --axiom-color: #f39c12; --axiom-color-light: #f8c471; }
-.axiom-5 { --axiom-color: #1abc9c; --axiom-color-light: #48c9b0; }
-.axiom-6 { --axiom-color: #e67e22; --axiom-color-light: #eb984e; }
-.axiom-7 { --axiom-color: #27ae60; --axiom-color-light: #52be80; }
+.law-1 { --law-color: #e74c3c; --law-color-light: #ec7063; }
+.law-2 { --law-color: #3498db; --law-color-light: #5dade2; }
+.law-3 { --law-color: #9b59b6; --law-color-light: #bb8fce; }
+.law-4 { --law-color: #f39c12; --law-color-light: #f8c471; }
+.law-5 { --law-color: #1abc9c; --law-color-light: #48c9b0; }
+.law-6 { --law-color: #e67e22; --law-color-light: #eb984e; }
+.law-7 { --law-color: #27ae60; --law-color-light: #52be80; }
 
-.axiom-card:hover {
+.law-card:hover {
   transform: translateY(-4px);
   box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border-color: var(--axiom-color);
+  border-color: var(--law-color);
 }
 
-.axiom-number {
+.law-number {
   font-size: 3rem;
   font-weight: 700;
-  color: var(--axiom-color);
+  color: var(--law-color);
   opacity: 0.3;
   line-height: 1;
 }
 
-.axiom-content h3 {
+.law-content h3 {
   margin: 0 0 0.5rem 0;
   font-size: 1.2rem;
   color: #333;
 }
 
-.axiom-law {
+.law-principle {
   font-style: italic;
   color: #666;
   margin: 0.25rem 0;
   font-size: 0.95rem;
 }
 
-.axiom-impact {
+.law-impact {
   font-weight: 600;
-  color: var(--axiom-color);
+  color: var(--law-color);
   margin: 0.5rem 0;
   font-size: 0.9rem;
 }
 
-.axiom-examples {
+.law-examples {
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
   margin-top: 0.5rem;
 }
 
-.axiom-examples span {
+.law-examples span {
   font-size: 0.8rem;
   color: #666;
   background: #f5f5f5;

@@ -390,14 +390,14 @@
   margin: 3rem 0;
 }
 
-.axioms-grid {
+.laws-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 1rem;
   margin: 1.5rem 0;
 }
 
-.axiom-card {
+.law-card {
   border: 1px solid #dee2e6;
   border-radius: 8px;
   padding: 1rem;
@@ -405,34 +405,34 @@
   transition: transform 0.2s ease;
 }
 
-.axiom-card:hover {
+.law-card:hover {
   transform: translateY(-2px);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.axiom-card.physics {
+.law-card.physics {
   border-left: 4px solid #ff6b6b;
 }
 
-.axiom-card.coordination {
+.law-card.coordination {
   border-left: 4px solid #4ecdc4;
 }
 
-.axiom-card.operational {
+.law-card.operational {
   border-left: 4px solid #45b7d1;
 }
 
-.axiom-card h4 {
+.law-card h4 {
   margin: 0 0 0.5rem 0;
   color: #333;
 }
 
-.axiom-card ul {
+.law-card ul {
   margin: 0;
   padding-left: 1rem;
 }
 
-.axiom-card li {
+.law-card li {
   margin: 0.25rem 0;
 }
 
@@ -793,7 +793,7 @@
 
 /* Dark Mode Support */
 [data-md-color-scheme="slate"] .path-card,
-[data-md-color-scheme="slate"] .axiom-card,
+[data-md-color-scheme="slate"] .law-card,
 [data-md-color-scheme="slate"] .pattern-category,
 [data-md-color-scheme="slate"] .tool-card,
 [data-md-color-scheme="slate"] .case-study-card,
@@ -823,7 +823,7 @@
     grid-template-columns: 1fr;
   }
   
-  .axioms-grid {
+  .laws-grid {
     grid-template-columns: 1fr;
   }
   
@@ -881,8 +881,8 @@
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* Original axiom boxes for backward compatibility */
-.axiom-box {
+/* Original law boxes for backward compatibility */
+.law-box {
   background: #7e57c2;
   color: white;
   padding: 1.5rem;

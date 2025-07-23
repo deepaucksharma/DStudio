@@ -39,6 +39,18 @@ Percentage of time a system is operational. Often measured as "nines".
 
 ## B
 
+### BASE (Basically Available, Soft state, Eventual consistency)
+Alternative to ACID for distributed systems prioritizing availability.
+
+**Components**: 
+- Basically Available: System remains operational, possibly degraded
+- Soft state: State changes over time even without input
+- Eventual consistency: System becomes consistent given time
+
+**Trade-offs**: Higher availability vs. immediate consistency
+
+**Related**: [CAP Theorem](#cap-theorem), [Eventually Consistent](#eventually-consistent)
+
 ### Bulkhead Pattern
 Isolation pattern preventing failures from spreading between components.
 
@@ -154,6 +166,20 @@ Nodes periodically exchange state with random peers for eventual propagation.
 
 **Use Cases**: Failure detection, membership management, data replication
 
+### Gray Failure
+Failures that are subtle, partial, or inconsistent across different observers.
+
+**Characteristics**: 
+- System appears healthy to monitoring but fails for users
+- Component works for some requests but not others
+- Performance degradation rather than complete failure
+
+**Examples**: Slow network links, partial packet loss, CPU throttling
+
+**Detection**: Multi-perspective monitoring, synthetic transactions
+
+**Related**: [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md), [Observability](../human-factors/observability.md)
+
 ## H
 
 ### Hinted Handoff
@@ -218,6 +244,24 @@ Orders events without physical time synchronization.
 
 ## M
 
+### Metastable Failure
+System state where minor triggers cause cascading performance collapse.
+
+**Characteristics**:
+- System operates normally until trigger event
+- Positive feedback loops amplify problems
+- Recovery requires breaking feedback cycle
+- Often caused by retry storms or work amplification
+
+**Examples**: 
+- Retry storms during overload
+- Cache stampedes after eviction
+- Connection pool exhaustion
+
+**Prevention**: Circuit breakers, admission control, jitter in retries
+
+**Related**: [Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md), [Case Study: Facebook's Metastable Failures](../case-studies/facebook-metastable.md)
+
 ### Microservices
 Small, independently deployable services.
 
@@ -245,6 +289,20 @@ Stores outgoing messages in same transaction as business data.
 **Implementation**: [Outbox Pattern](../patterns/outbox.md)
 
 ## P
+
+### PACELC Theorem
+Extension of CAP theorem including latency considerations.
+
+**Statement**: If Partition (P), choose Availability (A) or Consistency (C); Else (E), choose Latency (L) or Consistency (C)
+
+**Implication**: Even without partitions, must trade consistency for performance
+
+**Examples**:
+- PA/EL: DynamoDB, Cassandra (available, low latency)
+- PC/EC: MongoDB, HBase (consistent, higher latency)
+- PA/EC: Some configurations prioritize availability but consistency when stable
+
+**Related**: [CAP Theorem](#cap-theorem), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)
 
 ### Partition Tolerance
 Continues operating despite network partitions.

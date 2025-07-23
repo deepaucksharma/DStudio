@@ -18,7 +18,7 @@ last_updated: 2025-07-20
 
 ## Cache Break-Even Formula
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>💰 Cache Break-Even Formula</h4>
 
 <div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">

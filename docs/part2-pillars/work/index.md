@@ -966,7 +966,7 @@ sequenceDiagram
     C->>L: Log: TX_COMPLETE
 ```
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>Two-Phase Commit Protocol</h4>
 
 <b>Protocol Guarantees:</b>
@@ -1636,7 +1636,7 @@ stateDiagram-v2
     UpdateStats --> [*]
 ```
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>Priority Queue with Anti-Starvation</h4>
 
 <b>Priority Levels:</b>

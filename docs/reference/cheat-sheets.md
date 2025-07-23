@@ -26,6 +26,8 @@ last_updated: 2025-07-20
 
 **Example**: 100 req/s × 0.5s = 50 concurrent requests
 
+**Learn More**: [Little's Law in Detail](../quantitative/littles-law.md)
+
 ---
 
 ### Availability Math
@@ -73,6 +75,8 @@ last_updated: 2025-07-20
 **Keep utilization < 80%**
 
 **Scaling**: Linear O(n), Database O(n log n), Coordination O(n²)
+
+**Learn More**: [Queueing Theory](../quantitative/queueing-theory.md), [Scaling Laws](../quantitative/scaling-laws.md)
 
 ---
 

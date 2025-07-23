@@ -41,6 +41,73 @@ Structured incident review focusing on systemic issues, not individual blame. Go
 - Share knowledge widely to distribute cognitive load (Law 5: Epistemology)
 - Document learnings to offload from working memory
 
+## Postmortem Process Decision Tree
+
+```mermaid
+flowchart TD
+    A[Incident Resolved] --> B{Postmortem Required?}
+    
+    B -->|Customer Impact| C[Full Postmortem]
+    B -->|SEV-1/2| C
+    B -->|Data Loss| C
+    B -->|Learning Value| D[Lightweight Postmortem]
+    B -->|No Impact| E[Document Only]
+    
+    C --> F[Schedule Meeting<br/>Within 48 hours]
+    F --> G[Prepare Data<br/>• Timeline<br/>• Metrics<br/>• Logs]
+    G --> H[Conduct Meeting<br/>• Blameless focus<br/>• System issues<br/>• Learning]
+    H --> I[Action Items<br/>• Owner assigned<br/>• Due dates<br/>• Priority]
+    I --> J[Share Widely<br/>• Wiki/Confluence<br/>• Team channels<br/>• Company blog]
+    
+    D --> K[Async Review<br/>• Document findings<br/>• Quick actions<br/>• Share summary]
+    
+    E --> L[Update KB<br/>• Add to runbook<br/>• Tag for search]
+    
+    style C fill:#ffcdd2
+    style D fill:#fff9c4
+    style E fill:#c8e6c9
+    style J fill:#e1bee7
+```
+
+## Postmortem Timeline Visualization Template
+
+```mermaid
+timeline
+    title Production Incident Timeline Example
+    
+    section Detection Phase
+        14:32 : 🚨 Alert triggered
+                : Error rate spike to 15%
+                : PagerDuty fired
+        
+        14:35 : 👤 On-call acknowledged
+                : Initial assessment started
+                : Slack channel created
+    
+    section Investigation Phase  
+        14:40 : 🔍 Investigation began
+                : Checked recent deployments
+                : Analyzed error logs
+        
+        14:45 : 📊 Metrics correlation
+                : Memory usage anomaly found
+                : Database connection exhaustion
+    
+    section Resolution Phase
+        14:52 : 💡 Root cause identified
+                : Memory leak in v2.5.0
+                : Payment validation issue
+        
+        15:10 : 🔧 Fix deployed
+                : Rolled back to v2.4.9
+                : Monitoring intensified
+    
+    section Recovery Phase
+        15:25 : ✅ System normal
+                : Error rate < 0.1%
+                : Performance restored
+```
+
 ## Postmortem Process
 
 ### 1. Incident Timeline

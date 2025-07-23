@@ -28,7 +28,7 @@ last_updated: 2025-07-20
 ## Fundamental Formulas
 
 ### Average Queue Length
-<div class="axiom-box">
+<div class="law-box">
 <h4>📈 Queue Length Formula</h4>
 
 <div class="formula-highlight" style="text-align: center; padding: 20px; background: #F3E5F5; margin: 10px 0; border-radius: 5px;">
@@ -407,7 +407,7 @@ Servers @ 80% util: 1→80%, 2→44%, 4→23%, 8→11%, 16→5% queue probabilit
 This sizing directly impacts [Availability](availability-math.md) - overloaded servers fail, reducing system availability.
 
 ### Database Connection Pool
-<div class="axiom-box">
+<div class="law-box">
 <h4>🔗 Connection Pool Calculator</h4>
 
 <div class="problem-statement" style="background: #F3E5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">

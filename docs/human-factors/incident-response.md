@@ -26,6 +26,37 @@ Organized approach to managing failures when human cognitive capacity is severel
 
 ## Incident Severity Levels
 
+### Severity Classification Decision Tree
+
+```mermaid
+flowchart TD
+    A[Incident Detected] --> B{Customer Impact?}
+    
+    B -->|Complete Outage| C[SEV-1: Critical]
+    B -->|Major Features Down| D[SEV-2: Major]
+    B -->|Minor Features| E[SEV-3: Minor]
+    B -->|Cosmetic/Internal| F[SEV-4: Low]
+    
+    C --> C1{Data Loss?}
+    C1 -->|Yes| C2[🔴 SEV-1 CRITICAL<br/>• < 5 min response<br/>• Executive escalation<br/>• War room required]
+    C1 -->|No| C3[🔴 SEV-1 HIGH<br/>• < 15 min response<br/>• All hands on deck<br/>• Immediate action]
+    
+    D --> D1{Revenue Impact?}
+    D1 -->|Yes| D2[🟠 SEV-2 HIGH<br/>• < 20 min response<br/>• Team escalation<br/>• Priority fix]
+    D1 -->|No| D3[🟠 SEV-2 MEDIUM<br/>• < 30 min response<br/>• Standard process<br/>• Quick resolution]
+    
+    E --> E1[🟡 SEV-3<br/>• < 2 hour response<br/>• Normal priority<br/>• Scheduled fix]
+    
+    F --> F1[🟢 SEV-4<br/>• < 24 hour response<br/>• Low priority<br/>• Next sprint]
+    
+    style C2 fill:#d32f2f,color:#fff
+    style C3 fill:#f44336,color:#fff
+    style D2 fill:#ff6f00,color:#fff
+    style D3 fill:#ffa726
+    style E1 fill:#fdd835
+    style F1 fill:#66bb6a
+```
+
 | Level | Definition | Response Time | Example |
 |-------|------------|---------------|---------|
 | **SEV-1** | Critical business impact | < 15 minutes | Complete outage, data loss |
@@ -125,6 +156,50 @@ flowchart TD
 | **Resolution** | Deploy fix | ASAP | Dev Team |
 | **Verification** | Confirm fixed | +15 minutes | QA/Ops |
 | **Documentation** | Timeline complete | +2 hours | Scribe |
+
+### Visual Incident Flow Diagram
+
+```mermaid
+flowchart TB
+    subgraph "Incident Response Flow"
+        START[🚨 Alert Triggered] --> DETECT[Detection & Acknowledgment<br/>⏱️ < 5 min]
+        
+        DETECT --> TRIAGE[Triage & Severity<br/>🔍 Assess impact]
+        
+        TRIAGE --> ASSEMBLE[Assemble Team<br/>👥 Based on severity]
+        
+        ASSEMBLE --> PARALLEL{Parallel Actions}
+        
+        PARALLEL --> INVESTIGATE[Investigation<br/>🔧 Find root cause]
+        PARALLEL --> COMMUNICATE[Communication<br/>📢 Update stakeholders]
+        PARALLEL --> MITIGATE[Mitigation<br/>🛡️ Stop bleeding]
+        
+        INVESTIGATE --> FIX[Implement Fix<br/>💻 Deploy solution]
+        MITIGATE --> FIX
+        
+        FIX --> VERIFY[Verification<br/>✅ Confirm resolution]
+        
+        VERIFY --> CLOSE[Close Incident<br/>📝 Document timeline]
+        
+        CLOSE --> POSTMORTEM[Postmortem<br/>📊 Learn & improve]
+        
+        COMMUNICATE -.-> STATUS[Status Updates<br/>Every 30 min]
+        STATUS -.-> COMMUNICATE
+    end
+    
+    subgraph "Time Targets"
+        T1[Detection: < 5 min]
+        T2[Triage: < 10 min]
+        T3[Team: < 15 min]
+        T4[First Update: < 30 min]
+        T5[Resolution: ASAP]
+    end
+    
+    style START fill:#ff5252,color:#fff
+    style DETECT fill:#ffcdd2
+    style VERIFY fill:#c8e6c9
+    style POSTMORTEM fill:#e1bee7
+```
 
 ### Communication Templates
 

@@ -17,7 +17,7 @@ last_updated: 2025-01-23
 
 **The impossible trinity of distributed systems**
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🔺 CAP Theorem Statement</h3>
 
 <div class="formula-highlight">
@@ -208,7 +208,7 @@ Example: 50ms network + 100ms convergence = 150ms inconsistency
 
 ### Availability Calculation
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>📊 System Availability Formula</h4>
 
 For a CP system requiring majority quorum:
@@ -302,7 +302,7 @@ Latency: <200ms
 
 ### Network Partition Probability
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🔢 Partition Frequency Estimation</h4>
 
 | Factor | Value | Impact |
@@ -400,7 +400,7 @@ Example: N=3, W=2, R=2 → 2+2 > 3 ✓ Strong consistency
 
 ## Key Takeaways
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🎯 CAP Theorem Essentials</h4>
 
 1. **Network partitions are inevitable** - Plan for them

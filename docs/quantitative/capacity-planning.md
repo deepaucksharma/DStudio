@@ -19,7 +19,7 @@ last_updated: 2025-07-20
 ## Capacity Planning Framework
 
 ### Step 1: Baseline Measurement
-<div class="axiom-box">
+<div class="law-box">
 <h4>📏 Current State Assessment</h4>
 
 <div class="measurement-form" style="background: #F3E5F5; padding: 20px; border-radius: 5px;">

@@ -307,7 +307,7 @@ sequenceDiagram
 
 ### Key Algorithms Summary
 
-<div class="axiom-box">
+<div class="law-box">
 
 **1. Epsilon-Greedy Selection**
 - ε probability: Random exploration

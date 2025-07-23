@@ -32,6 +32,70 @@ Systems are built, operated, and debugged by humans. This section covers the hum
 - [Org-Structure Physics](org-structure.md) - Conway's Law in action: You ship your org chart
 - [Runbooks & Playbooks](runbooks-playbooks.md) - Turning chaos into checklist
 
+## Visual Journey Map: Human Factors Maturity
+
+```mermaid
+graph LR
+    subgraph "Human Factors Maturity Journey"
+        A[Reactive<br/>Fighting Fires] -->|Awareness| B[Systematic<br/>Basic Processes]
+        B -->|Learning| C[Proactive<br/>Prevention Focus]
+        C -->|Culture| D[Adaptive<br/>Self-Improving]
+        D -->|Innovation| E[Leading<br/>Industry Standard]
+        
+        style A fill:#ffcdd2
+        style B fill:#ffe0b2
+        style C fill:#fff9c4
+        style D fill:#c8e6c9
+        style E fill:#a5d6a7
+    end
+    
+    subgraph "Key Milestones"
+        A -.-> A1[Incident Response<br/>Basic Runbooks]
+        B -.-> B1[SRE Practices<br/>Error Budgets]
+        C -.-> C1[Chaos Engineering<br/>Observability]
+        D -.-> D1[Team Topologies<br/>Knowledge Mgmt]
+        E -.-> E1[Org Physics<br/>Continuous Learning]
+    end
+```
+
+## Decision Tree: Choosing Focus Areas
+
+```mermaid
+flowchart TD
+    A[Starting Human Factors Journey] --> B{Current Pain Point?}
+    
+    B -->|Frequent Incidents| C[Focus: Incident Response]
+    B -->|Team Burnout| D[Focus: SRE Practices]
+    B -->|Unknown Failures| E[Focus: Observability]
+    B -->|Slow Delivery| F[Focus: Team Topologies]
+    
+    C --> C1{Incident Duration?}
+    C1 -->|> 2 hours| C2[Improve Runbooks<br/>& Automation]
+    C1 -->|< 2 hours| C3[Focus on Prevention<br/>via Chaos Engineering]
+    
+    D --> D1{On-Call Load?}
+    D1 -->|> 25%| D2[Implement Error Budgets<br/>& Toil Reduction]
+    D1 -->|< 25%| D3[Optimize Team Structure<br/>& Knowledge Sharing]
+    
+    E --> E1{Debugging Time?}
+    E1 -->|> 1 hour| E2[Build Observability Stack<br/>with Dashboards]
+    E1 -->|< 1 hour| E3[Enhance Alerting<br/>& Correlation]
+    
+    F --> F1{Team Size?}
+    F1 -->|> 10 people| F2[Split Teams Along<br/>Service Boundaries]
+    F1 -->|< 10 people| F3[Clarify Ownership<br/>& Interactions]
+    
+    style A fill:#e3f2fd
+    style C2 fill:#c8e6c9
+    style C3 fill:#c8e6c9
+    style D2 fill:#c8e6c9
+    style D3 fill:#c8e6c9
+    style E2 fill:#c8e6c9
+    style E3 fill:#c8e6c9
+    style F2 fill:#c8e6c9
+    style F3 fill:#c8e6c9
+```
+
 ## Key Concepts (Aligned with Law 6: Human-API)
 
 1. **Production Reality**: Tune based on actual behavior, not theory - simplify mental models

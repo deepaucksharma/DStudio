@@ -845,7 +845,7 @@ timeline
 
 ### Law Connections
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🔗 Fundamental Laws</h4>
 
 This pattern directly addresses:

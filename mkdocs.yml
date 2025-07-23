@@ -107,7 +107,7 @@ markdown_extensions:
 extra_css:
   - stylesheets/extra.css
   - stylesheets/modular.css
-  - stylesheets/axioms.css
+  - stylesheets/laws.css
 
 # Extra JavaScript
 extra_javascript:
@@ -129,8 +129,10 @@ extra:
 
 # Simplified Navigation - Essential Content Only
 nav:
-  - Home: 
+  - Home: index.md
+  - Introduction:
     - Welcome: introduction/index.md
+    - Getting Started: introduction/getting-started.md
     - Philosophy: introduction/philosophy.md
     - Learning Paths: learning-paths/index.md
     
@@ -165,7 +167,6 @@ nav:
     
     - "Resilience & Reliability":
       - "Circuit Breaker": patterns/circuit-breaker.md
-      - "Circuit Breaker": patterns/circuit-breaker.md
       - "Retry & Backoff": patterns/retry-backoff.md
       - "Bulkhead": patterns/bulkhead.md
       - "Timeout": patterns/timeout.md
@@ -180,7 +181,6 @@ nav:
       - "Idempotent Receiver": patterns/idempotent-receiver.md
       
     - "Caching Patterns":
-      - "Caching Overview": patterns/caching.md
       - "Caching Strategies": patterns/caching-strategies.md
       - "Cache Aside": patterns/cache-aside.md
       - "Read Through Cache": patterns/read-through-cache.md

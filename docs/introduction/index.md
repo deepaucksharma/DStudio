@@ -41,4 +41,4 @@ This compendium teaches distributed systems from first principles—starting wit
 
 ---
 
-Ready to begin? [Explore the 7 Laws →](../axioms/index.md)
+Ready to begin? [Explore the 7 Laws →](../part1-axioms/index.md)

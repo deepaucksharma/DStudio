@@ -18,7 +18,7 @@ last_updated: 2025-07-20
 
 ## The USL Equation
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>📊 The Universal Scalability Law</h4>
 
 <div class="formula-highlight" style="text-align: center; padding: 20px; background: #F3E5F5; margin: 15px 0; border-radius: 5px;">
@@ -103,7 +103,7 @@ last_updated: 2025-07-20
   </div>
   
   <!-- Contention Limited -->
-  <div class="axiom-box" style="padding: 15px;">
+  <div class="law-box" style="padding: 15px;">
     <h4 style="margin: 0; color: #FF9800;">🔒 Contention-Limited</h4>
     <div style="text-align: center; margin: 10px 0;">
       <strong>α > 0, β = 0</strong>

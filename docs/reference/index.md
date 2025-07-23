@@ -5,8 +5,8 @@ type: reference
 difficulty: intermediate
 reading_time: 5 min
 prerequisites: []
-status: stub
-completion_percentage: 29
+status: complete
+completion_percentage: 100
 last_updated: 2025-07-20
 ---
 
@@ -40,22 +40,28 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 
 ### Popular Terms
 - [CAP Theorem](glossary.md#cap-theorem)
+- [PACELC Theorem](glossary.md#pacelc-theorem)
+- [BASE Principles](glossary.md#base-basically-available-soft-state-eventual-consistency)
 - [Eventually Consistent](glossary.md#eventually-consistent)
 - [Vector Clock](glossary.md#vector-clock)
 - [Circuit Breaker](../patterns/circuit-breaker.md)
 - [Saga Pattern](glossary.md#saga-pattern)
+- [Metastable Failures](glossary.md#metastable-failure)
+- [Gray Failures](glossary.md#gray-failure)
 
 ### Essential Calculations
 - [Little's Law](cheat-sheets.md#littles-law) - L = λW
 - [Availability Math](cheat-sheets.md#availability-math)
-- [Latency Budget](../part1-axioms/axiom2-asynchrony/index.md)
-- [Capacity Planning](../part1-axioms/axiom4-tradeoffs/index.md)
+- [Latency Budget](cheat-sheets.md#latency-budget-planning)
+- [Capacity Planning](cheat-sheets.md#capacity-planning)
+- [M/M/1 Queue](../quantitative/queueing-theory.md)
 
 ### Common Procedures
-- [Implementing Circuit Breaker](../patterns/circuit-breaker.md)
-- [Debugging Distributed Failures](../part1-axioms/axiom1-failure/index.md)
-- [Performance Tuning](recipe-cards.md#recipe-performance-investigation)
+- [Implementing Circuit Breaker](recipe-cards.md#recipe-implementing-circuit-breaker)
+- [Debugging Distributed Failures](recipe-cards.md#recipe-debugging-distributed-system-failures)
+- [Performance Investigation](recipe-cards.md#recipe-performance-investigation)
 - [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack)
+- [Capacity Planning](recipe-cards.md#recipe-determining-system-capacity)
 
 ---
 

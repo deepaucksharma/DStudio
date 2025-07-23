@@ -349,7 +349,7 @@ iotop # Watch disk
 
 ## Real Capacity Limits (2024)
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>📊 Real-World Capacity Limits</h3>
 
 **AWS EC2 Limits (2024):**

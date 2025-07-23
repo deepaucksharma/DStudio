@@ -37,7 +37,7 @@ CA → Netherlands packet           150 ms      4.8 years
 
 ## 2025 Hardware Update
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🚀 2025 Hardware Evolution</h4>
 
 <table style="width: 100%; border-collapse: collapse;">
@@ -510,7 +510,7 @@ Consensus = multiple RTTs. Strong consistency = more hops.
 
 ## Visual Latency Comparison
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🕐 Human-Scale Latency Comparison</h4>
 
 <div style="background: #F3E5F5; padding: 20px; border-radius: 8px;">

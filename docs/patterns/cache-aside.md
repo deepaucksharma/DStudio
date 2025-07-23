@@ -361,7 +361,7 @@ class AdvancedCacheAside(CacheAsidePattern):
 
 ### Performance Optimization
 
-<div class="axiom-box">
+<div class="law-box">
 
 **Cache-Aside Performance Guidelines**
 

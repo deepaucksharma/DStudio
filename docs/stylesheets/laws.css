@@ -1,9 +1,9 @@
 /* ============================================
-   AXIOMS & FIRST PRINCIPLES STYLING
+   LAWS & FIRST PRINCIPLES STYLING
    ============================================ */
 
-/* Axiom Header */
-.axiom-header {
+/* Law Header */
+.law-header {
   background: linear-gradient(135deg, var(--md-primary-fg-color) 0%, var(--md-accent-fg-color) 100%);
   color: white;
   padding: 2rem;
@@ -280,26 +280,26 @@
   border-bottom: 1px solid var(--md-default-fg-color--lightest);
 }
 
-/* Axiom Grid */
-.axiom-grid .c-card--axiom {
+/* Law Grid */
+.laws-grid .c-card--law {
   background: #7e57c2;
   color: white;
   border: none;
   transition: all 0.3s ease;
 }
 
-.axiom-grid .c-card--axiom:hover {
+.laws-grid .c-card--law:hover {
   background: #6a4ca5;
   transform: translateY(-4px);
   box-shadow: 0 8px 24px rgba(126, 87, 194, 0.3);
 }
 
-.axiom-grid .c-card--axiom .c-card__title {
+.laws-grid .c-card--law .c-card__title {
   color: white;
   font-size: 1.3rem;
 }
 
-.axiom-grid .c-card--axiom .c-card__body {
+.laws-grid .c-card--law .c-card__body {
   color: rgba(255, 255, 255, 0.9);
 }
 
@@ -350,18 +350,18 @@
   margin-top: 2rem;
 }
 
-.axiom-color {
+.law-color {
   padding: 0.5rem 1rem;
   border-radius: 4px;
   font-weight: 600;
   color: white;
 }
 
-.axiom-color.latency { background: #e91e63; }
-.axiom-color.capacity { background: #ff5722; }
-.axiom-color.failure { background: #ff9800; }
-.axiom-color.concurrency { background: #ffc107; }
-.axiom-color.coordination { background: #8bc34a; }
-.axiom-color.observability { background: #00bcd4; }
-.axiom-color.human { background: #3f51b5; }
-.axiom-color.economics { background: #9c27b0; }
+.law-color.latency { background: #e91e63; }
+.law-color.capacity { background: #ff5722; }
+.law-color.failure { background: #ff9800; }
+.law-color.concurrency { background: #ffc107; }
+.law-color.coordination { background: #8bc34a; }
+.law-color.observability { background: #00bcd4; }
+.law-color.human { background: #3f51b5; }
+.law-color.economics { background: #9c27b0; }
