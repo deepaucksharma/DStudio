@@ -57,6 +57,8 @@ theme:
 plugins:
   - search:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      min_search_length: 3
+      prebuild_index: false
   - macros:
       module_name: docs/macros
 
@@ -125,88 +127,71 @@ extra:
   # Build date for copyright
   build_date: "2025"
 
-# Complete Navigation - Including All Existing Content
+# Complete Navigation - Restructured for Better UX
 nav:
   - Home: index.md
-  - Introduction: 
-    - Overview: introduction/index.md
-    - Philosophy: introduction/philosophy.md
   
-  - "Part I: Axioms":
-    - Overview: part1-axioms/index.md
-    - "Axiom 1: Latency":
-      - Overview: part1-axioms/axiom1-latency/index.md
-      - Examples: part1-axioms/axiom1-latency/examples.md
-      - Exercises: part1-axioms/axiom1-latency/exercises.md
-    - "Axiom 2: Capacity":
-      - Overview: part1-axioms/axiom2-capacity/index.md
-      - Examples: part1-axioms/axiom2-capacity/examples.md
-      - Exercises: part1-axioms/axiom2-capacity/exercises.md
-    - "Axiom 3: Failure":
-      - Overview: part1-axioms/axiom3-failure/index.md
-      - Examples: part1-axioms/axiom3-failure/examples.md
-      - Exercises: part1-axioms/axiom3-failure/exercises.md
-    - "Axiom 4: Concurrency":
-      - Overview: part1-axioms/axiom4-concurrency/index.md
-      - Examples: part1-axioms/axiom4-concurrency/examples.md
-      - Exercises: part1-axioms/axiom4-concurrency/exercises.md
-    - "Axiom 5: Coordination":
-      - Overview: part1-axioms/axiom5-coordination/index.md
-      - Examples: part1-axioms/axiom5-coordination/examples.md
-      - Exercises: part1-axioms/axiom5-coordination/exercises.md
-    - "Axiom 6: Observability":
-      - Overview: part1-axioms/axiom6-observability/index.md
-      - Examples: part1-axioms/axiom6-observability/examples.md
-      - Exercises: part1-axioms/axiom6-observability/exercises.md
-    - "Axiom 7: Human Interface":
-      - Overview: part1-axioms/axiom7-human/index.md
-      - Examples: part1-axioms/axiom7-human/examples.md
-      - Exercises: part1-axioms/axiom7-human/exercises.md
-    - "Axiom 8: Economics":
-      - Overview: part1-axioms/axiom8-economics/index.md
-      - Examples: part1-axioms/axiom8-economics/examples.md
-      - Exercises: part1-axioms/axiom8-economics/exercises.md
-    - Synthesis:
-      - Summary: part1-axioms/synthesis.md
-      - Quiz: part1-axioms/quiz.md
+  - "Start Here":
+    - "Choose Your Path": learning-paths/index.md
+    - "Quick Start Guide": introduction/index.md
+    - "Core Philosophy": introduction/philosophy.md
+    
+  - "Foundations":
+    - "The 8 Axioms": axioms/index.md
+    - "The 5 Pillars": pillars/index.md
+    - "Axioms (Detailed)":
+      - "Overview": part1-axioms/index.md
+      - "Axiom 1: Latency": part1-axioms/axiom1-latency/index.md
+      - "Axiom 2: Capacity": part1-axioms/axiom2-capacity/index.md
+      - "Axiom 3: Failure": part1-axioms/axiom3-failure/index.md
+      - "Axiom 4: Concurrency": part1-axioms/axiom4-concurrency/index.md
+      - "Axiom 5: Coordination": part1-axioms/axiom5-coordination/index.md
+      - "Axiom 6: Observability": part1-axioms/axiom6-observability/index.md
+      - "Axiom 7: Human Interface": part1-axioms/axiom7-human/index.md
+      - "Axiom 8: Economics": part1-axioms/axiom8-economics/index.md
+    - "Pillars (Detailed)":
+      - "Overview": part2-pillars/index.md
+      - "Work Distribution": part2-pillars/work/index.md
+      - "State Distribution": part2-pillars/state/index.md
+      - "Truth Distribution": part2-pillars/truth/index.md
+      - "Control Distribution": part2-pillars/control/index.md
+      - "Intelligence Distribution": part2-pillars/intelligence/index.md
   
-  - "Part II: Pillars":
-    - Overview: part2-pillars/index.md
-    - "Pillar 1: Work":
-      - Overview: part2-pillars/work/index.md
-      - Examples: part2-pillars/work/examples.md
-      - Exercises: part2-pillars/work/exercises.md
-    - "Pillar 2: State": 
-      - Overview: part2-pillars/state/index.md
-      - Examples: part2-pillars/state/examples.md
-      - Exercises: part2-pillars/state/exercises.md
-    - "Pillar 3: Truth":
-      - Overview: part2-pillars/truth/index.md
-      - Examples: part2-pillars/truth/examples.md
-      - Exercises: part2-pillars/truth/exercises.md
-    - "Pillar 4: Control":
-      - Overview: part2-pillars/control/index.md
-      - Examples: part2-pillars/control/examples.md
-      - Exercises: part2-pillars/control/exercises.md
-    - "Pillar 5: Intelligence":
-      - Overview: part2-pillars/intelligence/index.md
-      - Examples: part2-pillars/intelligence/examples.md
-      - Exercises: part2-pillars/intelligence/exercises.md
-    - "Analysis Tools":
-      - "CAST vs SPACE Models": part2-pillars/models-comparison.md
-      - "When Models Collide": part2-pillars/models-collide.md
-      - "Pattern Matrix": part2-pillars/pattern-matrix.md
-      - "Trade-off Calculus": part2-pillars/tradeoff-calculus.md
-      - "Decision Tree": part2-pillars/decision-tree.md
-    - "Exercises & Reflection":
-      - "Pillar Checkpoint": part2-pillars/pillar-checkpoint.md
-      - "Failure Recap": part2-pillars/failure-recap.md
-      - "Reflection Journal": part2-pillars/reflection-journal.md
-    - "Pattern Preview":
-      - "Pattern Catalog Intro": part2-pillars/pattern-catalog-intro.md
-      - "Pattern Legend": part2-pillars/pattern-legend.md
-      - "Pillars ↔ Patterns Map": part2-pillars/pillars-patterns-map.md
-      - "Transition to Part III": part2-pillars/transition-part3.md
+      
+  - "Patterns & Solutions":
+    - "Pattern Catalog": patterns/index.md
+    - "Find Your Pattern": patterns/pattern-selector.md
+    - "Compare Patterns": patterns/pattern-comparison.md
+    - "By Problem Domain":
+      - "Reliability Patterns":
+        - "Circuit Breaker": patterns/circuit-breaker.md
+        - "Retry & Backoff": patterns/retry-backoff.md
+        - "Bulkhead": patterns/bulkhead.md
+        - "Timeout": patterns/timeout.md
+        - "Health Check": patterns/health-check.md
+        - "Graceful Degradation": patterns/graceful-degradation.md
+      - "Performance Patterns":
+        - "Caching Strategies": patterns/caching-strategies.md
+        - "Sharding": patterns/sharding.md
+        - "Load Balancing": patterns/load-balancing.md
+        - "Edge Computing": patterns/edge-computing.md
+        - "Auto-Scaling": patterns/auto-scaling.md
+      - "Consistency Patterns":
+        - "Event Sourcing": patterns/event-sourcing.md
+        - "CQRS": patterns/cqrs.md
+        - "Saga": patterns/saga.md
+        - "Outbox": patterns/outbox.md
+        - "Two-Phase Commit": patterns/two-phase-commit.md
+      - "Coordination Patterns":
+        - "Leader Election": patterns/leader-election.md
+        - "Consensus": patterns/consensus.md
+        - "Distributed Lock": patterns/distributed-lock.md
+        - "Service Discovery": patterns/service-discovery.md
+      - "Modern Architectures":
+        - "Service Mesh": patterns/service-mesh.md
+        - "Serverless/FaaS": patterns/serverless-faas.md
+        - "GraphQL Federation": patterns/graphql-federation.md
+        - "Event-Driven": patterns/event-driven.md
   
   - "Part III: Patterns":
     - Overview: patterns/index.md

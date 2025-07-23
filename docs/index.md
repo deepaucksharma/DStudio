@@ -3,79 +3,136 @@ title: The Compendium of Distributed Systems
 description: "Learn distributed systems from first principles - physics, mathematics, and human factors. Complete learning roadmap from beginner to expert."
 type: general
 difficulty: intermediate
-reading_time: 5 min
+reading_time: 3 min
 prerequisites: []
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-01-23
 ---
-
-<!-- Navigation -->
-[Home](index.md) → **The Compendium of Distributed Systems**
 
 # The Compendium of Distributed Systems
 
+<div class="hero-banner">
+  <h2 class="hero-tagline">Master distributed systems from physics to production</h2>
+  <p class="hero-description">Join 10,000+ engineers learning through first principles, real failures, and hands-on labs</p>
+  <a href="learning-paths/index.md" class="hero-cta">🚀 Start Your Journey</a>
+</div>
+
+<div class="quick-stats">
+  <div class="stat-item">
+    <div class="stat-number">8</div>
+    <div class="stat-label">Fundamental Axioms</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">50+</div>
+    <div class="stat-label">Battle-tested Patterns</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">25</div>
+    <div class="stat-label">Real-world Case Studies</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">4</div>
+    <div class="stat-label">Learning Paths</div>
+  </div>
+</div>
+
 ---
 
-## 🗺️ Your Complete Learning Roadmap
+## 🎯 What Makes This Different?
 
-**Your Journey:**
-```mermaid
-graph TD
-    A[Start: Physics & Math] --> B[8 Axioms]
-    B --> C[5 Pillars]
-    C --> D[Core Patterns]
-    D --> E[Hands-on Projects]
-    E --> F[Production Ready]
+<div class="features-grid">
+  <div class="feature-card">
+    <div class="feature-icon">⚛️</div>
+    <h3>Physics-First Approach</h3>
+    <p>Understand WHY systems work the way they do, not just how. Start from speed of light and thermodynamics.</p>
+  </div>
+  
+  <div class="feature-card">
+    <div class="feature-icon">💥</div>
+    <h3>Real Failure Stories</h3>
+    <p>Learn from actual production disasters at Netflix, Amazon, and Google. Every axiom includes failure case studies.</p>
+  </div>
+  
+  <div class="feature-card">
+    <div class="feature-icon">🛠️</div>
+    <h3>Hands-On Learning</h3>
+    <p>Build real systems with guided labs. From simple counters to complex distributed databases.</p>
+  </div>
+  
+  <div class="feature-card">
+    <div class="feature-icon">📊</div>
+    <h3>Quantitative Tools</h3>
+    <p>Interactive calculators for capacity planning, cost optimization, and performance analysis.</p>
+  </div>
+</div>
 
-    style A fill:#e1f5fe
-    style F fill:#c8e6c9
-```
+---
 
-<a href="part1-axioms/index.md" class="path-cta">Start Foundation Path →</a>
+## 🗺️ Choose Your Learning Path
 
-**Your Journey:**
-```mermaid
-graph TD
-    A[Advanced Axioms] --> B[Complex Patterns]
-    B --> C[Quantitative Analysis]
-    C --> D[Human Factors]
-    D --> E[Economics & Trade-offs]
-    E --> F[Architecture Mastery]
+<div class="paths-preview">
+  <a href="learning-paths/index.md#beginner-path" class="path-preview-card">
+    <div class="path-icon">🎓</div>
+    <h4>Beginner</h4>
+    <p>New to distributed systems</p>
+    <span class="path-duration">6-8 weeks</span>
+  </a>
+  
+  <a href="learning-paths/index.md#practitioner-path" class="path-preview-card">
+    <div class="path-icon">🛠️</div>
+    <h4>Practitioner</h4>
+    <p>Building production systems</p>
+    <span class="path-duration">4-6 weeks</span>
+  </a>
+  
+  <a href="learning-paths/index.md#architect-path" class="path-preview-card">
+    <div class="path-icon">🏗️</div>
+    <h4>Architect</h4>
+    <p>Designing at scale</p>
+    <span class="path-duration">3-4 weeks</span>
+  </a>
+  
+  <a href="learning-paths/index.md#leader-path" class="path-preview-card">
+    <div class="path-icon">💼</div>
+    <h4>Leader</h4>
+    <p>Strategic decisions</p>
+    <span class="path-duration">1-2 weeks</span>
+  </a>
+</div>
 
-    style A fill:#fff3e0
-    style F fill:#c8e6c9
-```
+<div class="explore-paths-cta">
+  <a href="learning-paths/index.md" class="secondary-cta">Explore All Learning Paths →</a>
+</div>
 
-<a href="part2-pillars/index.md" class="path-cta">Advance Your Skills →</a>
+---
 
-**Your Journey:**
-```mermaid
-graph TD
-    A[Business Axioms] --> B[Trade-off Analysis]
-    B --> C[Team Topology]
-    C --> D[Cost Management]
-    D --> E[Risk Assessment]
-    E --> F[Strategic Planning]
+## 🏃 Quick Start Options
 
-    style A fill:#f3e5f5
-    style F fill:#c8e6c9
-```
-
-<a href="human-factors/index.md" class="path-cta">Lead Technical Teams →</a>
-
-**Your Journey:**
-```mermaid
-graph TD
-    A[Problem Definition] --> B[Pattern Matching]
-    B --> C[Quick Implementation]
-    C --> D[Validation]
-    D --> E[Production Deploy]
-
-    style A fill:#ffebee
-    style E fill:#c8e6c9
-```
-
-<a href="patterns/index.md" class="path-cta">Find Solutions Now →</a>
+<div class="quick-start-grid">
+  <div class="quick-option">
+    <h3>🔍 I have a specific problem</h3>
+    <p>Find the right pattern for your use case</p>
+    <a href="patterns/pattern-selector.md" class="option-link">Pattern Selector Tool →</a>
+  </div>
+  
+  <div class="quick-option">
+    <h3>📚 I want to understand concepts</h3>
+    <p>Start with the fundamental axioms</p>
+    <a href="part1-axioms/index.md" class="option-link">Explore Axioms →</a>
+  </div>
+  
+  <div class="quick-option">
+    <h3>🎯 I learn by example</h3>
+    <p>Study real-world implementations</p>
+    <a href="case-studies/index.md" class="option-link">Browse Case Studies →</a>
+  </div>
+  
+  <div class="quick-option">
+    <h3>🧮 I need to calculate something</h3>
+    <p>Use our interactive tools</p>
+    <a href="tools/index.md" class="option-link">Open Calculators →</a>
+  </div>
+</div>
 
 ---
 

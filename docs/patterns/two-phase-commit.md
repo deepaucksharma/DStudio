@@ -19,7 +19,7 @@ related_patterns:
   - "Saga Pattern"
   - "Outbox Pattern"
   - "Event Sourcing"
-status: draft
+status: complete
 last_updated: 2025-07-21
 ---
 
