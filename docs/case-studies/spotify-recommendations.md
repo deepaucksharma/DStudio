@@ -205,11 +205,11 @@ sequenceDiagram
     A-->>U: Show recommendations
 ```
 
-## 📊 Complete Axiom Analysis
+## 📊 Complete Law Analysis
 
-### Comprehensive Axiom Mapping Table
+### Comprehensive Law Mapping Table
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
 | **Feature Store** | Pre-computed features <10ms | Distributed storage scales | Replicated for availability | Lock-free reads | Eventually consistent updates | Feature freshness metrics | Centralized feature catalog | Reusable features reduce compute |
 | **Model Quantization** | 32-bit → 8-bit reduces inference 75% | 4x more models per server | Graceful accuracy degradation | Parallel model serving | No coordination for inference | Model performance tracking | Transparent to users | 75% less infrastructure |
@@ -221,9 +221,9 @@ sequenceDiagram
 | **Microservices** | Service-level optimization | Independent scaling | Fault isolation | Service autonomy | API contracts only | Distributed tracing | Clean API boundaries | Per-service cost tracking |
 | **A/B Testing Platform** | Minimal overhead | Scales to millions | Experiment isolation | Parallel experiments | Statistical significance | Experiment dashboards | Data-driven decisions | ROI measurement |
 
-### Detailed Axiom Application
+### Detailed Law Application
 
-### Axiom 2: State Distribution
+### Law 4: Multidimensional Optimization ⚖️ (State Distribution)
 **Challenge**: User taste profiles across 500M users
 
 **Solution**: Sharded feature store
@@ -238,7 +238,7 @@ Storage:
 - Warm features: Cassandra (500TB)
 - Cold features: HDFS (10PB)
 ```bash
-### Axiom 5: Intelligence at Scale
+### Law 5: Distributed Knowledge 🧠 (Intelligence at Scale)
 **Challenge**: Train models on billions of interactions
 
 **ML Infrastructure**:
@@ -256,7 +256,7 @@ Scale:
 - 50 production models
 - 1M predictions/second
 ```bash
-### Axiom 1: Latency Constraints
+### Law 2: Asynchronous Reality ⏳ (Latency Constraints)
 **Challenge**: Real-time recommendations under 100ms
 
 **Optimization Stack**:
@@ -570,15 +570,14 @@ graph TB
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - GPU clusters for model training require careful resource scheduling
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Fallback to popular playlists when recommendation service fails
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Feature store synchronization across multiple data pipelines
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - A/B testing framework measures recommendation quality in real-time
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - UI design balances algorithmic recommendations with user control
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
+### 📚 Relevant Laws (Part I)
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛️ Related Patterns (Part III)
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams

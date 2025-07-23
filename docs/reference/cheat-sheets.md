@@ -85,22 +85,24 @@ Need strong consistency?
 ├─ YES → Financial/Safety Critical
 │   ├─ Single region? → ACID database
 │   └─ Multi-region? → Consensus (Raft/Paxos)
+│       └─ Consider Law 4: Multidimensional Optimization ⚖️
 └─ NO → Can tolerate eventual consistency?
     ├─ YES →
     │   ├─ Conflict resolution needed? → CRDTs
     │   └─ Simple case? → Last-write-wins
+    │       └─ See Law 2: Asynchronous Reality ⏳
     └─ NO → Causal consistency
 ```
 
 ### Pattern Selection
 
-**Latency**: Caching, Edge Computing, Circuit Breaker, Async Processing
+**Law 2 (Asynchronous Reality ⏳)**: Caching, Edge Computing, Circuit Breaker, Async Processing
 
-**Reliability**: Retry+Backoff, Circuit Breaker, Bulkhead, Health Checks
+**Law 1 (Correlated Failure ⛓️)**: Retry+Backoff, Circuit Breaker, Bulkhead, Health Checks
 
-**Scale**: Sharding, Load Balancing, Caching, Async Processing
+**Law 3 (Emergent Chaos 🌪️)**: Sharding, Load Balancing, Caching, Async Processing
 
-**Consistency**: Event Sourcing, CQRS, Saga, Outbox
+**Law 4 (Multidimensional Optimization ⚖️)**: Event Sourcing, CQRS, Saga, Outbox
 
 ---
 

@@ -56,22 +56,22 @@ timeline
          : Analytics Integration
 ```
 
-## 🔬 Comprehensive Axiom Analysis
+## 🔬 Comprehensive Law Analysis
 
-### Complete Axiom Mapping Table
+### Complete Law Mapping Table
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
-|-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
-| **Consistent Hashing** | Minimizes data movement during scaling | Enables infinite horizontal scaling | Isolates node failures to specific key ranges | Allows parallel operations across nodes | No central coordinator needed | Clear ownership mapping for debugging | Simple mental model for ops | Predictable capacity distribution |
-| **Quorum Reads/Writes** | Tunable latency (R=1 for speed) | Distributes load across replicas | Tolerates N-R node failures | Concurrent reads from any replica | No consensus protocol overhead | Clear success/failure criteria | Configurable consistency levels | Pay only for active replicas |
-| **Vector Clocks** | Small metadata overhead (<1ms) | Compact representation scales | Preserves data during conflicts | Tracks concurrent updates | Enables conflict resolution | Version history for debugging | Complex but necessary | Storage overhead is minimal |
-| **Hinted Handoff** | Maintains low latency during failures | Temporary storage burden | Handles transient failures gracefully | Allows writes during partitions | Eventually delivers hints | Trackable hint queue depth | Transparent to applications | Reduces manual intervention costs |
-| **Merkle Trees** | Background sync doesn't impact latency | Efficient delta computation | Detects and repairs divergence | Non-blocking repair process | Gossip-based tree exchange | Quantifiable inconsistency | Self-healing system | Automated repair reduces ops cost |
-| **SSD Storage** | 1ms average access time | High IOPS capacity | No mechanical failures | Lock-free data structures | No disk head contention | Predictable performance | Consistent user experience | Higher $/GB but better $/IOPS |
-| **Request Routers** | Client-side routing saves hops | Distributed routing scales | No SPOF in routing layer | Parallel request dispatch | Gossip protocol for updates | Router health metrics | SDK handles complexity | No proxy infrastructure costs |
-| **Partition Splits** | Maintains target latency | Automatic capacity expansion | Isolated to single partition | Online operation | Coordinated via state machine | Split metrics and alarms | Zero-downtime scaling | Elastic resource utilization |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+|-----------------|------------------|-------------------|------------------|----------------------|------------------------|--------------------------|-------------------|
+| **Consistent Hashing** | Minimizes data movement during scaling | Enables infinite horizontal scaling | Isolates node failures to specific key ranges | Allows parallel operations across nodes | Clear ownership mapping for debugging | Simple mental model for ops | Predictable capacity distribution |
+| **Quorum Reads/Writes** | Tunable latency (R=1 for speed) | Distributes load across replicas | Tolerates N-R node failures | Concurrent reads from any replica | Clear success/failure criteria | Configurable consistency levels | Pay only for active replicas |
+| **Vector Clocks** | Small metadata overhead (<1ms) | Compact representation scales | Preserves data during conflicts | Tracks concurrent updates | Version history for debugging | Complex but necessary | Storage overhead is minimal |
+| **Hinted Handoff** | Maintains low latency during failures | Temporary storage burden | Handles transient failures gracefully | Allows writes during partitions | Trackable hint queue depth | Transparent to applications | Reduces manual intervention costs |
+| **Merkle Trees** | Background sync doesn't impact latency | Efficient delta computation | Detects and repairs divergence | Non-blocking repair process | Quantifiable inconsistency | Self-healing system | Automated repair reduces ops cost |
+| **SSD Storage** | 1ms average access time | High IOPS capacity | No mechanical failures | Lock-free data structures | Predictable performance | Consistent user experience | Higher $/GB but better $/IOPS |
+| **Request Routers** | Client-side routing saves hops | Distributed routing scales | No SPOF in routing layer | Parallel request dispatch | Router health metrics | SDK handles complexity | No proxy infrastructure costs |
+| **Partition Splits** | Maintains target latency | Automatic capacity expansion | Isolated to single partition | Online operation | Split metrics and alarms | Zero-downtime scaling | Elastic resource utilization |
 
-### 🚀 Axiom 1 (Latency): Physics-Based Design
+### 🚀 Law 2 (Asynchronous Reality ⏳): Physics-Based Design
 ```text
 Latency Budget Analysis:
 - User tolerance: 100ms for page load
@@ -86,7 +86,7 @@ DynamoDB Solution:
 - Result: 5-10ms database latency
 ```
 
-### 📦 Axiom 2 (Capacity): Infinite Scale Illusion
+### 📦 Law 4 (Multidimensional Optimization ⚖️): Infinite Scale Illusion
 ```yaml
 Scaling Requirements:
 - Black Friday: 10x normal traffic
@@ -100,7 +100,7 @@ Implementation:
 - Backpressure to applications
 ```
 
-### 💥 Axiom 3 (Failure): Always Available
+### 💥 Law 1 (Correlated Failure ⛓️): Always Available
 ```yaml
 Failure Scenarios:
 - Node failures: 100s per day
@@ -115,7 +115,7 @@ Recovery Mechanisms:
 - Multi-region replication
 ```
 
-### ⏰ Axiom 4 (Concurrency): Time is Relative
+### ⏰ Law 3 (Emergent Chaos 🌪️): Time is Relative
 ```dockerfile
 Concurrent Operations:
 - Shopping cart updates from multiple devices
@@ -129,7 +129,7 @@ Resolution Strategy:
 - Conflict-free replicated data types
 ```
 
-### 🤝 Axiom 5 (Coordination): Gossip over Consensus
+### 🤝 Law 4 (Multidimensional Optimization ⚖️): Gossip over Consensus
 ```yaml
 Traditional Consensus Problems:
 - Paxos requires majority (3/5 nodes)
@@ -145,7 +145,7 @@ Dynamo's Innovation:
 Trade-off: Availability over consistency
 ```
 
-### 👁️ Axiom 6 (Observability): Operational Excellence
+### 👁️ Law 5 (Distributed Knowledge 🧠): Operational Excellence
 ```yaml
 Monitoring Stack:
 - CloudWatch metrics (latency, throughput)
@@ -160,7 +160,7 @@ Key Metrics:
 - SuccessfulRequestLatency
 ```
 
-### 👤 Axiom 7 (Human Interface): Developer First
+### 👤 Law 6 (Cognitive Load 🤯): Developer First
 ```yaml
 API Design Principles:
 - Simple put/get/delete operations
@@ -175,7 +175,7 @@ SDK Features:
 - Local development mode
 ```
 
-### 💰 Axiom 8 (Economics): Pay for What You Use
+### 💰 Law 7 (Economic Reality 💰): Pay for What You Use
 ```yaml
 Pricing Models:
 - On-demand: No capacity planning
@@ -477,15 +477,14 @@ Level 4: Correlated Failures
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Automatic partition splits and admission control handle Black Friday's 10x traffic spikes
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Gossip protocol and quorum consensus avoid centralized coordination bottlenecks
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Simple put/get API and clear error handling reduce cognitive load
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
+### 📚 Relevant Laws (Part I)
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
+- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
+- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
+- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - Simple put/get API and clear error handling reduce cognitive load
+- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing minimizes data movement during scaling

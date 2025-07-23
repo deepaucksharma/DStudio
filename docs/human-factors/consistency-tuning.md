@@ -177,20 +177,20 @@ if consistency_slo_met < target:
 - Overall availability: 99.95%
 - Cost: $5k/day
 
-## Axiom Impact Analysis
+## Law Impact Analysis
 
-Understanding how consistency tuning relates to our fundamental axioms helps make better decisions:
+Understanding how consistency tuning relates to our fundamental laws helps make better decisions:
 
-| Axiom | Impact on Consistency Tuning | Key Considerations |
-|-------|------------------------------|-------------------|
-| **Latency** | Higher consistency = higher latency | Balance consistency needs with latency SLOs. QUORUM adds network round trips. |
-| **Finite Capacity** | Stronger consistency consumes more resources | ALL writes can exhaust capacity during failures. Plan for degraded modes. |
-| **Failure** | Consistency levels determine failure tolerance | LOCAL_ONE survives most failures but risks inconsistency. ALL fails if any node is down. |
-| **Consistency** | Core axiom - defines data agreement guarantees | Choose appropriate levels per operation based on business requirements. |
-| **Time** | Clock skew affects consistency guarantees | Last-write-wins resolution depends on synchronized clocks. |
-| **Ordering** | Consistency levels affect operation ordering | Weaker consistency may see operations out of order. |
-| **Knowledge** | Nodes have incomplete knowledge | Consistency levels determine how much agreement before proceeding. |
-| **Growth** | Scaling impacts consistency performance | More nodes = higher latency for QUORUM/ALL operations. |
+| Law | Impact on Consistency Tuning | Key Considerations |
+|-----|------------------------------|-------------------|
+| **Law 2: Asynchronous Reality ⏳** | Higher consistency = higher latency | Balance consistency needs with latency SLOs. QUORUM adds network round trips. |
+| **Law 4: Multidimensional Optimization ⚖️** | Stronger consistency consumes more resources | ALL writes can exhaust capacity during failures. Plan for degraded modes. |
+| **Law 1: Correlated Failure ⛓️** | Consistency levels determine failure tolerance | LOCAL_ONE survives most failures but risks inconsistency. ALL fails if any node is down. |
+| **Law 4: Multidimensional Optimization ⚖️** | Core law - defines data agreement guarantees | Choose appropriate levels per operation based on business requirements. |
+| **Law 2: Asynchronous Reality ⏳** | Clock skew affects consistency guarantees | Last-write-wins resolution depends on synchronized clocks. |
+| **Law 3: Emergent Chaos 🌪️** | Consistency levels affect operation ordering | Weaker consistency may see operations out of order. |
+| **Law 5: Distributed Knowledge 🧠** | Nodes have incomplete knowledge | Consistency levels determine how much agreement before proceeding. |
+| **Law 7: Economic Reality 💰** | Scaling impacts consistency performance | More nodes = higher latency for QUORUM/ALL operations. |
 
 ## Consistency Decision Matrix
 

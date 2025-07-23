@@ -12,10 +12,10 @@ pattern_type: "coordination"
 when_to_use: "Cross-service transactions, workflow orchestration, distributed business processes"
 when_not_to_use: "Simple local transactions, strongly consistent requirements, simple CRUD operations"
 related_axioms:
-  - coordination
+  - optimization
   - failure
-  - concurrency
-  - observability
+  - chaos
+  - knowledge
 related_patterns:
   - "Event Sourcing"
   - "CQRS"
@@ -1055,15 +1055,15 @@ timeline
 ### Axiom Connections
 
 <div class="axiom-box">
-<h4>🔗 Fundamental Axioms</h4>
+<h4>🔗 Fundamental Laws</h4>
 
 This pattern directly addresses:
 
-1. **[Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)**: Manages distributed consensus without locks
-2. **[Failure Axiom](../part1-axioms/axiom3-failure/index.md)**: Explicit handling of partial failures
-3. **[Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md)**: Handles concurrent saga executions
-4. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Full audit trail of all steps
-5. **[Economics Axiom](../part1-axioms/axiom8-economics/index.md)**: Balances consistency costs with business needs
+1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)**: Manages distributed consensus without locks
+2. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)**: Explicit handling of partial failures
+3. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md)**: Handles concurrent saga executions
+4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)**: Full audit trail of all steps
+5. **[Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md)**: Balances consistency costs with business needs
 </div>
 
 ### Future Directions
@@ -1189,10 +1189,10 @@ saga:
 - [Outbox Pattern](../patterns/outbox.md) - Reliable event publishing
 - [Circuit Breaker](../patterns/circuit-breaker.md) - Protect saga steps
 
-### Axioms
-- [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) - Why distributed consensus is hard
-- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Handling partial failures
-- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Managing parallel execution
+### Laws
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) - Why distributed consensus is hard
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Handling partial failures
+- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md) - Managing parallel execution
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem

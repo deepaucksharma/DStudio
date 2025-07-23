@@ -18,7 +18,7 @@ Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, s
 - **Pastry station**: Makes desserts
 - **Expeditor**: Coordinates and quality checks
 
-This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - the ability to execute multiple tasks simultaneously.
+This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchronous/index.md) - the reality that operations happen independently in time.
 
 💡 **Key Insight**: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.
 
@@ -48,13 +48,13 @@ How do you break computation into pieces that can run on different machines whil
 
 ## The Fundamental Trade-offs
 
-!!! warning "No Free Lunch in Work Distribution" (Related to [Axiom 8: Economics](../../part1-axioms/axiom8-economics/index.md))
+!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Economic Reality](../../part1-axioms/axiom7-economics/index.md))
     Every choice in work distribution involves trade-offs:
 
     **Parallelism vs Coordination Overhead**
     - More workers = More communication needed
     - Amdahl's Law: Serial portions limit speedup
-    - Eventually coordination costs exceed computation savings (see [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md))
+    - Eventually coordination costs exceed computation savings (see [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md))
 
     **Latency vs Throughput**
     - Batching improves throughput but increases latency
@@ -130,20 +130,20 @@ graph TB
         Pipeline -.-> MasterWorker
         WorkSteal -.-> Adaptive
 
-        %% Axiom connections
-        Axiom1[Axiom 1: Latency] --> Coord
-        Axiom2[Axiom 2: Capacity] --> Scale
-        Axiom3[Axiom 3: Failure] --> WorkSteal
-        Axiom4[Axiom 4: Concurrency] --> Decomp
-        Axiom5[Axiom 5: Coordination] --> Sched
+        %% Law connections
+        Law2[Law 2: Asynchronous Reality ⏳] --> Coord
+        Law4[Law 4: Multidimensional Optimization ⚖️] --> Scale
+        Law1[Law 1: Correlated Failure ⛓️] --> WorkSteal
+        Law3[Law 3: Emergent Chaos 🌪️] --> Decomp
+        Law5[Law 5: Distributed Knowledge 🧠] --> Sched
     end
 
     style Core fill:#f9f,stroke:#333,stroke-width:4px
-    style Axiom1 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom2 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom4 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law2 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law4 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law1 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law3 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law5 fill:#e1e1ff,stroke:#333,stroke-width:2px
 ```
 
 This concept map shows how work distribution connects fundamental axioms to practical implementation patterns. Each branch represents a key decision area, with dotted lines showing common associations between concepts.
@@ -175,7 +175,7 @@ gantt
     Store All           :active, par5, after par3 par4, 200
 ```
 
-**Performance Comparison:** (demonstrates [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) in action)
+**Performance Comparison:** (demonstrates [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchronous/index.md) in action)
 
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
@@ -215,7 +215,7 @@ P = Parallel fraction (can be parallelized)
 N = Number of processors
 
 Example:
-If 10% must be sequential (S=0.1) - a fundamental constraint from [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md):
+If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Emergent Chaos](../../part1-axioms/axiom3-chaos/index.md):
 - With 10 processors: Speedup = 5.3x (not 10x!)
 - With 100 processors: Speedup = 9.2x (not 100x!)
 - With ∞ processors: Speedup = 10x (hard limit)
@@ -341,7 +341,7 @@ sequenceDiagram
     R-->>M: Results[]
 ```
 
-**Master-Worker Characteristics:** (implements coordination patterns from [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md))
+**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md))
 
 | Aspect | Description | Use When |
 |--------|-------------|----------|
@@ -583,7 +583,7 @@ graph LR
 
 ## The Coordination Tax
 
-Every distributed system pays a coordination tax (detailed in [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md)):
+Every distributed system pays a coordination tax (detailed in [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md)):
 
 ## Load Balancing Strategies
 
@@ -595,7 +595,7 @@ Every distributed system pays a coordination tax (detailed in [Axiom 5: Coordina
 
 #### Universal Scalability Law
 
-Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Axiom 2: Capacity](../../part1-axioms/axiom2-capacity/index.md):
+Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Multidimensional Optimization](../../part1-axioms/axiom4-optimization/index.md):
 
 <div class="formula-box">
 <h4>Universal Scalability Law (USL)</h4>
@@ -1963,13 +1963,13 @@ flowchart TB
 
 ## Related Resources
 
-### Foundational Axioms
-- [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) - Network delays affect work distribution
-- [Axiom 2: Capacity](../../part1-axioms/axiom2-capacity/index.md) - Resource limits and scaling
-- [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) - Handling worker failures
-- [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - Parallel execution fundamentals
-- [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - Managing distributed workers
-- [Axiom 8: Economics](../../part1-axioms/axiom8-economics/index.md) - Cost of distribution
+### Foundational Laws
+- [Law 1: Correlated Failure](../../part1-axioms/axiom1-failure/index.md) - Handling worker failures
+- [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchronous/index.md) - Time and causality in distributed work
+- [Law 3: Emergent Chaos](../../part1-axioms/axiom3-chaos/index.md) - Complex behavior from simple rules
+- [Law 4: Multidimensional Optimization](../../part1-axioms/axiom4-optimization/index.md) - Resource limits and scaling
+- [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md) - Managing distributed workers
+- [Law 7: Economic Reality](../../part1-axioms/axiom7-economics/index.md) - Cost of distribution
 
 ### Related Pillars
 - [Pillar 2: State](../state/index.md) - Managing distributed computation state

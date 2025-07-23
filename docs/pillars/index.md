@@ -12,40 +12,40 @@ last_updated: 2025-01-23
 # The 5 Foundational Pillars of Distributed Systems
 
 <div class="pillars-hero">
-  <p class="hero-quote">"If axioms are the laws of physics, pillars are the engineering challenges they create"</p>
+  <p class="hero-quote">"If laws are the physics constraints, pillars are the engineering challenges they create"</p>
 </div>
 
-## 🏛️ From Axioms to Architecture
+## 🏛️ From Laws to Architecture
 
-The 8 axioms don't exist in isolation - they interact and compound to create five fundamental challenges that every distributed system must address:
+The 7 laws don't exist in isolation - they interact and compound to create five fundamental challenges that every distributed system must address:
 
 <div class="axiom-to-pillar-flow">
   <div class="flow-item">
-    <div class="flow-axioms">Latency + Capacity</div>
+    <div class="flow-axioms">Asynchrony + Optimization</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Work Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Capacity + Failure</div>
+    <div class="flow-axioms">Failure + Emergence</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">State Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Concurrency + Coordination</div>
+    <div class="flow-axioms">Optimization + Knowledge</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Truth Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">Observability + Human</div>
+    <div class="flow-axioms">Knowledge + Cognitive Load</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Control Distribution</div>
   </div>
   
   <div class="flow-item">
-    <div class="flow-axioms">All Axioms + Time</div>
+    <div class="flow-axioms">Emergence + Economics</div>
     <div class="flow-arrow">→</div>
     <div class="flow-pillar">Intelligence Distribution</div>
   </div>
@@ -328,7 +328,7 @@ Each pillar includes hands-on labs:
   
   <div class="alternative-paths">
     <p>Or explore:</p>
-    <a href="../axioms/index.md">← Review the 8 Axioms</a>
+    <a href="../axioms/index.md">← Review the 7 Laws</a>
     <a href="../patterns/index.md">See Patterns by Pillar →</a>
     <a href="../case-studies/index.md">Study Pillar Trade-offs →</a>
   </div>

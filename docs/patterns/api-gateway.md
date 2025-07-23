@@ -12,9 +12,9 @@ pattern_type: "architectural"
 when_to_use: "Microservices architectures, mobile backends, third-party API access"
 when_not_to_use: "Monolithic applications, simple architectures, low-latency requirements"
 related_axioms:
-  - human-interface
-  - latency
-  - observability
+  - cognitive
+  - asynchrony
+  - knowledge
 related_patterns:
   - "Service Mesh"
   - "Circuit Breaker"
@@ -1066,10 +1066,10 @@ POST /circuit-breakers/{service}/reset
 - [Rate Limiting](../patterns/rate-limiting.md) - Protecting backend services
 - [Saga Pattern](../patterns/saga.md) - Distributed transactions through gateway
 
-### Axioms
-- [Human Interface Axiom](../part1-axioms/axiom7-human/index.md) - API design principles
-- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Performance implications
-- [Observability Axiom](../part1-axioms/axiom6-observability/index.md) - Monitoring and tracing
+### Laws
+- [Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-cognitive/index.md) - API design principles
+- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Performance implications
+- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md) - Monitoring and tracing
 
 ### Tools & Technologies
 - **Open Source**: Kong, Zuul, Tyk, Express Gateway

@@ -20,16 +20,19 @@ last_updated: 2025-07-20
 ## 📚 What's in This Section
 
 ### [Glossary](glossary.md)
-Definitions of all distributed systems terms. From "Axiom" to "Vector Clock".
+Definitions of all distributed systems terms. From "Law" to "Vector Clock". Updated for the 7-law framework.
 
 ### [Cheat Sheets](cheat-sheets.md)
-Quick reference for calculations, decisions, and pattern selection.
+Quick reference for calculations, decisions, and pattern selection. Aligned with the 7 fundamental laws.
 
 ### [Recipe Cards](recipe-cards.md)
-Step-by-step procedures for implementing patterns and debugging.
+Step-by-step procedures for implementing patterns and debugging. Cross-referenced with relevant laws.
 
 ### [Security Considerations](security.md)
-Security implications, vulnerabilities, and defensive strategies.
+Security implications, vulnerabilities, and defensive strategies. Mapped to the fundamental laws.
+
+### [Axiom Mapping Guide](axiom-mapping-guide.md)
+Complete mapping between old 8-axiom structure and new 7-law framework 🗺️.
 
 ---
 
@@ -45,12 +48,12 @@ Security implications, vulnerabilities, and defensive strategies.
 ### Essential Calculations
 - [Little's Law](cheat-sheets.md#littles-law) - L = λW
 - [Availability Math](cheat-sheets.md#availability-math)
-- [Latency Budget](../part1-axioms/axiom1-latency/index.md)
-- [Capacity Planning](../part1-axioms/axiom2-capacity/index.md)
+- [Latency Budget](../part1-axioms/axiom2-asynchrony/index.md)
+- [Capacity Planning](../part1-axioms/axiom4-optimization/index.md)
 
 ### Common Procedures
 - [Implementing Circuit Breaker](../patterns/circuit-breaker.md)
-- [Debugging Distributed Failures](../part1-axioms/axiom3-failure/index.md)
+- [Debugging Distributed Failures](../part1-axioms/axiom1-failure/index.md)
 - [Performance Tuning](recipe-cards.md#recipe-performance-investigation)
 - [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack)
 

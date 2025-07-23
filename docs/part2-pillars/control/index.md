@@ -4,7 +4,7 @@ description: "How to manage automated systems while maintaining human oversight,
 type: pillar
 difficulty: intermediate
 reading_time: 45 min
-prerequisites: ["axiom3-failure", "axiom6-observability", "axiom7-human"]
+prerequisites: ["law1-failure", "law5-knowledge", "law6-cognitive"]
 status: complete
 last_updated: 2025-07-20
 ---
@@ -370,19 +370,19 @@ graph TB
         Runbooks -.-> Reactive
         Feature -.-> Proactive
 
-        %% Axiom connections
-        Axiom3[Axiom 3: Failure] --> Emergency
-        Axiom6[Axiom 6: Observability] --> Observe
-        Axiom7[Axiom 7: Human Interface] --> Human
-        Axiom8[Axiom 8: Economics] --> Auto
+        %% Law connections
+        Law1[Law 1: Correlated Failure ⛓️] --> Emergency
+        Law5[Law 5: Distributed Knowledge 🧠] --> Observe
+        Law6[Law 6: Cognitive Load 🤯] --> Human
+        Law7[Law 7: Economic Reality 💰] --> Auto
         Ironies[Ironies of Automation] --> Cognitive
     end
 
     style Core fill:#f9f,stroke:#333,stroke-width:4px
-    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom6 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom7 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom8 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law1 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law6 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law7 fill:#e1e1ff,stroke:#333,stroke-width:2px
     style Ironies fill:#ffe1e1,stroke:#333,stroke-width:2px
 ```
 

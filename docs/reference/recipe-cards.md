@@ -78,6 +78,8 @@ last_updated: 2025-07-20
 
 5. **Test Scenarios**: Normal operation, failure threshold, recovery, half-open state
 
+**Related Laws**: Law 1 (Correlated Failure ⛓️), Law 3 (Emergent Chaos 🌪️)
+
 ---
 
 ### Recipe: Implementing Retry with Exponential Backoff
@@ -166,6 +168,8 @@ last_updated: 2025-07-20
 
 **Common Causes**: Network issues, Resource exhaustion, Database locks, External failures, Config changes, Bad deployments, Traffic spikes, Cascades
 
+**Consider**: Law 1 (Correlated Failure ⛓️) for cascade analysis, Law 2 (Asynchronous Reality ⏳) for timing issues
+
 ---
 
 ### Recipe: Performance Investigation
@@ -246,6 +250,8 @@ last_updated: 2025-07-20
        expr: rate(requests_total{status=~"5.."}[5m]) > 0.1
        for: 2m
    ```
+
+**Related Laws**: Law 5 (Distributed Knowledge 🧠) for observability, Law 6 (Cognitive Load 🤯) for operator experience
 
 ---
 
@@ -418,6 +424,8 @@ last_updated: 2025-07-20
 4. **Plan Scaling**: Horizontal vs vertical, Auto-scaling thresholds, Regional distribution
 
 5. **Test Plan**: Load test at target, Validate auto-scaling, Measure response times
+
+**Related Laws**: Law 4 (Multidimensional Optimization ⚖️) for trade-offs, Law 7 (Economic Reality 💰) for cost planning
 
 
 ---

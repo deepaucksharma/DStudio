@@ -173,20 +173,20 @@ class PostmortemAutomation:
         return sorted(events, key=lambda x: x['time'])
 ```
 
-## Axiom Impact Analysis
+## Law Impact Analysis
 
-Understanding how blameless postmortems relate to our fundamental axioms:
+Understanding how blameless postmortems relate to our fundamental laws:
 
-| Axiom | Impact on Postmortems | Key Insights |
-|-------|----------------------|--------------|
-| **Latency** | Incident detection and response time | Faster detection through better monitoring reduces incident duration |
-| **Finite Capacity** | Resource constraints during incidents | Postmortems reveal capacity planning gaps and resource bottlenecks |
-| **Failure** | Core focus - learning from failures | Every failure is a learning opportunity to build resilience |
-| **Consistency** | Inconsistent states often cause incidents | Postmortems uncover consistency violations and their impacts |
-| **Time** | Timeline reconstruction challenges | Clock skew can make incident timelines difficult to reconstruct |
-| **Ordering** | Race conditions and timing bugs | Many incidents stem from unexpected operation ordering |
-| **Knowledge** | Incomplete system understanding | Postmortems reveal knowledge gaps and documentation needs |
-| **Growth** | Scaling challenges cause incidents | Growth patterns often trigger new failure modes |
+| Law | Impact on Postmortems | Key Insights |
+|-----|----------------------|--------------|
+| **Law 2: Asynchronous Reality ⏳** | Incident detection and response time | Faster detection through better monitoring reduces incident duration |
+| **Law 4: Multidimensional Optimization ⚖️** | Resource constraints during incidents | Postmortems reveal capacity planning gaps and resource bottlenecks |
+| **Law 1: Correlated Failure ⛓️** | Core focus - learning from failures | Every failure is a learning opportunity to build resilience |
+| **Law 4: Multidimensional Optimization ⚖️** | Inconsistent states often cause incidents | Postmortems uncover consistency violations and their impacts |
+| **Law 2: Asynchronous Reality ⏳** | Timeline reconstruction challenges | Clock skew can make incident timelines difficult to reconstruct |
+| **Law 3: Emergent Chaos 🌪️** | Race conditions and timing bugs | Many incidents stem from unexpected operation ordering |
+| **Law 5: Distributed Knowledge 🧠** | Incomplete system understanding | Postmortems reveal knowledge gaps and documentation needs |
+| **Law 7: Economic Reality 💰** | Scaling challenges cause incidents | Growth patterns often trigger new failure modes |
 
 ## Postmortem Effectiveness Matrix
 

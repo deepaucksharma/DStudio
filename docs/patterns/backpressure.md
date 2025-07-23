@@ -12,9 +12,9 @@ pattern_type: "resilience"
 when_to_use: "Stream processing, reactive systems, preventing cascade failures"
 when_not_to_use: "Simple request-response systems, unbounded queues acceptable"
 related_axioms:
-  - capacity
+  - optimization
   - failure
-  - concurrency
+  - chaos
 related_patterns:
   - "Circuit Breaker"
   - "Bulkhead"
@@ -1054,11 +1054,11 @@ subscriber.request(10)  # Request 10 items
 - [Rate Limiting](../patterns/rate-limiting.md) - Request throttling
 - [Queues & Streaming](../patterns/queues-streaming.md) - Message patterns
 
-### Axioms
-- [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) - Finite resources
-- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Cascade prevention
-- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Parallel flows
-- [Economics Axiom](../part1-axioms/axiom8-economics/index.md) - Cost of dropping
+### Laws
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) - Finite resources
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Cascade prevention
+- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md) - Parallel flows
+- [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) - Cost of dropping
 
 ### Quantitative Analysis
 - [Queueing Theory](/quantitative/queueing-models.md) - Mathematical models

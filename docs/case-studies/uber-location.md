@@ -176,31 +176,31 @@ graph LR
 
 **Patterns**: Event-driven (Kafka), Service mesh (Envoy), Circuit breakers, CQRS, Bulkheads
 
-## 🔬 Complete Axiom Analysis
+## 🔬 Complete Law Analysis
 
-### Comprehensive Axiom Mapping Table
+### Comprehensive Law Mapping Table
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
-|-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
-| **H3 Hexagonal Grid**⁴ | 10ms lookup time vs 50ms for lat/lng | 40% less storage than rectangles | Cell boundaries remain stable | Parallel spatial queries | No coordinate conflicts | Clear cell ownership | Intuitive hex visualization | Reduces compute by 40% |
-| **Geospatial Sharding**¹ | Data locality reduces latency | Natural partition boundaries | City-level failure isolation | Independent city operations | No cross-city coordination | Per-city metrics | City-based debugging | Infrastructure per market |
-| **Event Streaming (Kafka)**² | Async processing, no blocking | Handles 4M events/sec | Replayable from any point | Multiple consumers | Ordered event delivery | Event flow tracing | Event-driven mental model | Shared infrastructure |
-| **Redis for Live State**⁶ | Sub-ms reads, 5ms writes | In-memory scales horizontally | Replicas for failover | Optimistic concurrency | No distributed locks | Real-time metrics | Simple key-value model | Memory cost vs disk |
-| **Adaptive Sampling**⁷ | Reduces network overhead | 68% less data transmitted | Graceful degradation | Per-driver rate limiting | Client-side decisions | Sampling rate metrics | Transparent to drivers | Bandwidth cost reduction |
-| **Service Mesh (Envoy)**⁸ | Circuit breakers prevent cascades | Request routing at edge | Automatic failover | Retry with backoff | Distributed tracing | Service dependency maps | Clear service boundaries | Reduces ops overhead |
-| **CRDT Location Updates**⁹ | Conflict-free by design | Mergeable across partitions | Eventually consistent | Concurrent updates safe | No coordination needed | Convergence tracking | Simple last-write-wins | No consensus overhead |
+| Design Decision | Law 1: Correlated Failure ⛓️ | Law 2: Asynchronous Reality ⏳ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
+|-----------------|------------------|-------------------|----------------------|-------------------|------------------------|--------------------------|-------------------|
+| **H3 Hexagonal Grid**⁴ | Cell boundaries remain stable | 10ms lookup time vs 50ms for lat/lng | Parallel spatial queries | 40% less storage, no coordinate conflicts | Clear cell ownership | Intuitive hex visualization | Reduces compute by 40% |
+| **Geospatial Sharding**¹ | City-level failure isolation | Data locality reduces latency | Independent city operations | Natural partition boundaries, no cross-city coordination | Per-city metrics | City-based debugging | Infrastructure per market |
+| **Event Streaming (Kafka)**² | Replayable from any point | Async processing, no blocking | Multiple consumers | Handles 4M events/sec, ordered delivery | Event flow tracing | Event-driven mental model | Shared infrastructure |
+| **Redis for Live State**⁶ | Replicas for failover | Sub-ms reads, 5ms writes | Optimistic concurrency | In-memory scales horizontally, no distributed locks | Real-time metrics | Simple key-value model | Memory cost vs disk |
+| **Adaptive Sampling**⁷ | Graceful degradation | Reduces network overhead | Per-driver rate limiting | 68% less data transmitted, client-side decisions | Sampling rate metrics | Transparent to drivers | Bandwidth cost reduction |
+| **Service Mesh (Envoy)**⁸ | Automatic failover | Circuit breakers prevent cascades | Retry with backoff | Request routing at edge, distributed tracing | Service dependency maps | Clear service boundaries | Reduces ops overhead |
+| **CRDT Location Updates**⁹ | Eventually consistent | Conflict-free by design | Concurrent updates safe | Mergeable across partitions, no coordination needed | Convergence tracking | Simple last-write-wins | No consensus overhead |
 
-### Axiom Impact Analysis
+### Law Impact Analysis
 
-#### Axiom 1: Latency is Non-Zero
+#### Law 2: Asynchronous Reality ⏳
 **Solution**: 35+ edge PoPs, regional DCs, multi-tier caching
 **Results**¹: P50: 45ms, P99: 200ms, Location update: 20ms
 
-#### Axiom 2: Capacity is Finite
+#### Law 4: Multidimensional Optimization ⚖️ (Capacity)
 **Solution**: Adaptive sampling, delta encoding, smart batching
 **Impact**²: Writes: 1.25M/s → 400K/s (-68%), Bandwidth: 625 MB/s → 200 MB/s (-68%), Storage: 43.2 GB/day → 13 GB/day (-70%)
 
-#### Axiom 3: Failure is Inevitable
+#### Law 1: Correlated Failure ⛓️
 **Pillar Applied**: Control Distribution - Autonomous regional operation, self-healing, progressive degradation
 **Patterns**: Circuit Breaker, Bulkhead, Graceful Degradation, Health Checks
 
@@ -230,7 +230,7 @@ graph TD
     F1 --> R1 --> R2 --> R3
 ```
 
-#### Axiom 4: Concurrency Requires Coordination
+#### Law 3: Emergent Chaos 🌪️
 **Pillar Applied**: Truth Distribution - Eventually consistent, CRDTs, event sourcing
 **Patterns**: Event Sourcing, CQRS, Saga Pattern, Idempotent Operations
 
@@ -250,11 +250,11 @@ stateDiagram-v2
     note right of IN_TRIP: Location updates<br/>Every 4 seconds
 ```
 
-#### Axiom 5: Coordination is Hard
+#### Law 4: Multidimensional Optimization ⚖️ (Coordination)
 **Pillar Applied**: Truth Distribution - Regional autonomy, eventual consistency, gossip protocols
 **Patterns**: Leader Election, Consensus, Vector Clocks, Tunable Consistency
 
-#### Axiom 6: Observability is Required
+#### Law 5: Distributed Knowledge 🧠
 **Pillar Applied**: Intelligence Distribution - Real-time dashboards, predictive analytics, anomaly detection
 **Patterns**: Observability Stack, Distributed Tracing, SLI/SLO/SLA
 
@@ -276,11 +276,11 @@ Logging (ELK):
 - 7-day hot storage
 ```
 
-#### Axiom 7: Human Interface Matters
+#### Law 6: Cognitive Load 🤯
 **Pillar Applied**: Control Distribution - Intuitive dashboards, automated runbooks, progressive rollouts
 **Patterns**: Runbook Automation, Progressive Deployment, Feature Flags
 
-#### Axiom 8: Economics Drive Decisions
+#### Law 7: Economic Reality 💰
 **Pillar Applied**: Intelligence Distribution - Adaptive resource allocation, spot instances, multi-cloud arbitrage
 **Patterns**: Auto-scaling, Cost Optimization, Serverless
 
@@ -650,15 +650,14 @@ Trade-off: Temporary inconsistency for convergence⁹
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - H3 hexagonal grid partitioning ensures even load distribution across cells
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Lock-free data structures handle millions of concurrent location updates
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Ringpop gossip protocol coordinates without central authority
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Real-time dashboards track driver density and system health per region
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Driver app design optimizes for one-handed operation while driving
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
+### 📚 Relevant Laws (Part I)
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Lock-free data structures handle millions of concurrent location updates
+- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
+- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Real-time dashboards track driver density and system health per region
+- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - Driver app design optimizes for one-handed operation while driving
+- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - H3 hexagonal grid provides natural geographic sharding boundaries

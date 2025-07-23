@@ -36,7 +36,7 @@ Google Drive represents one of the most complex distributed systems challenges: 
 
 ## Part 1: Concept Map - The Physics of Distributed Storage
 
-### Axiom 1: Latency - Making Cloud Feel Local
+### Law 2: Asynchronous Reality ⏳ - Making Cloud Feel Local
 
 Cloud storage must overcome the speed of light to make remote files feel instantly accessible.
 
@@ -75,7 +75,7 @@ graph TB
     end
 ```
 
-### Axiom 2: Capacity - The Exabyte Challenge
+### Law 4: Multidimensional Optimization ⚖️ - The Exabyte Challenge
 
 Managing billions of files across millions of users requires sophisticated capacity planning.
 
@@ -122,7 +122,7 @@ graph LR
 | Delta Encoding | 90%+ | Version storage |
 | Smart Tiering | 60% cost | Inactive data |
 
-### Axiom 3: Failure - Data Durability and Availability
+### Law 1: Correlated Failure ⛓️ - Data Durability and Availability
 
 Drive must never lose data despite constant hardware failures.
 
@@ -157,7 +157,7 @@ graph TB
 - Erasure coding (6+3): 99.99999999999% (13 nines)
 - Geo-distributed EC: 99.999999999999999% (17 nines)
 
-### Axiom 4: Concurrency - Real-time Collaboration
+### Law 3: Emergent Chaos 🌪️ - Real-time Collaboration
 
 Multiple users editing the same document requires sophisticated concurrency control.
 
@@ -195,7 +195,7 @@ graph LR
     end
 ```
 
-### Axiom 5: Coordination - Global Consistency
+### Law 4: Multidimensional Optimization ⚖️ - Global Consistency
 
 Maintaining consistency across global data centers while enabling collaboration.
 
@@ -238,7 +238,7 @@ stateDiagram-v2
     Idle --> Scanning: Change Detected
 ```
 
-### Axiom 6: Observability - Understanding System Health
+### Law 5: Distributed Knowledge 🧠 - Understanding System Health
 
 Monitoring billions of file operations requires comprehensive observability.
 
@@ -269,7 +269,7 @@ graph TB
 | Security | Auth failures, Suspicious access | Anomaly based |
 | Business | Active users, Storage growth | Trend deviation |
 
-### Axiom 7: Human Interface - Seamless User Experience
+### Law 6: Cognitive Load 🤯 - Seamless User Experience
 
 Making complex distributed systems feel simple and intuitive.
 
@@ -307,7 +307,7 @@ graph TB
     end
 ```
 
-### Axiom 8: Economics - Balancing Features and Costs
+### Law 7: Economic Reality 💰 - Balancing Features and Costs
 
 Optimizing storage costs while providing generous free tiers and premium features.
 
@@ -343,13 +343,13 @@ graph TB
 | 2TB | $2.00 | $9.99 | 80% |
 | Enterprise | $5.00 | $25.00 | 80% |
 
-## Part 2: Comprehensive Axiom Analysis Matrix
+## Part 2: Comprehensive Law Analysis Matrix
 
-Understanding how each design decision in Google Drive maps to fundamental axioms reveals the intricate balance required for cloud storage at scale.
+Understanding how each design decision in Google Drive maps to fundamental laws reveals the intricate balance required for cloud storage at scale.
 
-### Axiom Mapping for Core Design Decisions
+### Law Mapping for Core Design Decisions
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
 | **Chunking (4MB blocks)** | ✅ Parallel transfer<br/>Resume capability | ✅ Deduplication<br/>30-40% savings | ✅ Partial recovery<br/>Chunk-level retry | ✅ Parallel upload<br/>No lock contention | ✅ Simple sync<br/>Block-level tracking | ✅ Progress tracking<br/>Clear metrics | ✅ Progress bars<br/>Resume on failure | ✅ Storage efficiency<br/>Network optimization |
 | **Erasure Coding** | ⚠️ Encoding overhead<br/>~10ms penalty | ✅ 1.5x vs 3x storage<br/>50% savings | ✅ Survives failures<br/>13 nines durability | ✅ Parallel reconstruction<br/>No blocking | ⚠️ Complex placement<br/>Cross-DC coordination | ✅ Health monitoring<br/>Continuous verification | ✅ Invisible to users<br/>Same reliability | ✅ Massive savings<br/>50% cost reduction |
@@ -357,11 +357,11 @@ Understanding how each design decision in Google Drive maps to fundamental axiom
 | **Operational Transform** | ✅ Real-time collab<br/>< 100ms updates | ⚠️ Transform overhead<br/>Complex state | ✅ Graceful degradation<br/>Eventual consistency | ✅ Lock-free editing<br/>Unlimited users | ✅ Causal ordering<br/>Convergence guaranteed | ⚠️ Complex debugging<br/>Transform chains | ✅ Live collaboration<br/>See others' cursors | ⚠️ Server compute<br/>Transform processing |
 | **Tiered Storage** | ⚠️ Cold tier slow<br/>Minutes to retrieve | ✅ 60% cost savings<br/>Efficient use | ✅ Multiple copies<br/>Tier-appropriate | ✅ Async migration<br/>No user impact | ✅ Policy-based<br/>Automated movement | ✅ Access patterns<br/>Clear analytics | ⚠️ Retrieval delays<br/>Set expectations | ✅ Major savings<br/>Sustainable model |
 
-### Detailed Axiom Interaction Analysis
+### Detailed Law Interaction Analysis
 
 ```mermaid
 graph TB
-    subgraph "Drive Axiom Dependencies"
+    subgraph "Drive Law Dependencies"
         L[Latency] -->|Conflicts with| CAP[Capacity]
         CAP -->|Drives| E[Economics]
         E -->|Constrains| F[Failure Protection]
@@ -384,16 +384,16 @@ graph TB
 
 ### Architecture Decision Framework
 
-| Architecture Choice | Primary Axiom Driver | Secondary Impacts | Trade-off Analysis |
+| Architecture Choice | Primary Law Driver | Secondary Impacts | Trade-off Analysis |
 |-------------------|-------------------|------------------|-------------------|
 | **Block vs File Dedup** | Capacity (storage efficiency) | Latency (chunking overhead) | Block dedup wins despite complexity |
 | **Strong vs Eventual Consistency** | Coordination (correctness) | Latency (sync speed) | Eventual for files, strong for permissions |
 | **Client vs Server Processing** | Latency (responsiveness) | Economics (compute location) | Hybrid approach optimal |
 | **Replication vs Erasure Coding** | Failure (durability) | Capacity (storage cost) | EC for cold, replication for hot |
 
-### Axiom Priority by Use Case
+### Law Priority by Use Case
 
-| Use Case | Top 3 Axioms | Architecture Implications |
+| Use Case | Top 3 Laws | Architecture Implications |
 |----------|--------------|-------------------------|
 | **Personal Backup** | Capacity > Economics > Failure | Aggressive dedup, cold storage, basic redundancy |
 | **Team Collaboration** | Latency > Concurrency > Human Interface | Real-time sync, OT, rich presence indicators |
@@ -665,7 +665,7 @@ graph TB
 
 *For popular files only
 
-### Axiom-Based Architecture Selection Guide
+### Law-Based Architecture Selection Guide
 
 ```mermaid
 graph TD
@@ -1476,11 +1476,11 @@ class StorageLifecycleManager:
         await self._log_migration(file_id, from_tier, to_tier)
 ```
 
-## 🎯 Axiom Mapping & Design Decisions
+## 🎯 Law Mapping & Design Decisions
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
+| Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Multidimensional Optimization | Law 1<br/>⛓️ Correlated Failure | Law 3<br/>🌪️ Emergent Chaos | Law 4<br/>⚖️ Multidimensional Optimization | Law 5<br/>🧠 Distributed Knowledge | Law 6<br/>🤯 Cognitive Load | Law 7<br/>💰 Economic Reality |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------||
 | **Content-Addressed Storage** | ⚪ | ✅ Deduplication | ✅ Immutable data | ✅ Parallel access | ✅ Simple sync | ✅ Hash verification | ⚪ | ✅ 30% storage saved |
 | **Chunking Algorithm** | ✅ Resume uploads | ✅ Efficient transfer | ✅ Partial recovery | ✅ Parallel chunks | ⚪ | ✅ Transfer metrics | ✅ Progress tracking | ✅ Bandwidth efficiency |
@@ -1499,15 +1499,15 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - Sync speed, cache placement
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Storage tiering, deduplication
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Replication, conflict resolution
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Parallel uploads, collaborative editing
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Distributed sync, consistency
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Sync tracking, storage metrics
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Selective sync, offline mode
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Storage costs, tiering strategy
+### 📚 Relevant Laws
+- **[Law 2: Asynchronous Reality ⏳](../part1-laws/law2-asynchronous-reality/index.md)** - Sync speed, cache placement
+- **[Law 4: Multidimensional Optimization ⚖️](../part1-laws/law4-multidimensional-optimization/index.md)** - Storage tiering, deduplication
+- **[Law 1: Correlated Failure ⛓️](../part1-laws/law1-correlated-failure/index.md)** - Replication, conflict resolution
+- **[Law 3: Emergent Chaos 🌪️](../part1-laws/law3-emergent-chaos/index.md)** - Parallel uploads, collaborative editing
+- **[Law 4: Multidimensional Optimization ⚖️](../part1-laws/law4-multidimensional-optimization/index.md)** - Distributed sync, consistency
+- **[Law 5: Distributed Knowledge 🧠](../part1-laws/law5-distributed-knowledge/index.md)** - Sync tracking, storage metrics
+- **[Law 6: Cognitive Load 🤯](../part1-laws/law6-cognitive-load/index.md)** - Selective sync, offline mode
+- **[Law 7: Economic Reality 💰](../part1-laws/law7-economic-reality/index.md)** - Storage costs, tiering strategy
 
 ### 🏛️ Related Patterns
 - **[Content-Addressed Storage](../patterns/cas.md)** - Deduplication foundation

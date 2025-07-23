@@ -20,7 +20,7 @@ Imagine a library before computers:
 - **Phone Lines Down**: Can't call other libraries
 - **Librarian Sick**: Who updates the cards?
 
-**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) (nodes can fail) and [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) (agreement requires communication).
+**This is distributed truth**: Multiple copies, no master, must agree somehow. This fundamental challenge emerges from [Law 1: Correlated Failure](../../part1-axioms/axiom1-failure/index.md) (nodes can fail) and [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md) (agreement requires communication).
 
 ### Real-World Analogy: Group Chat Planning
 
@@ -154,7 +154,7 @@ gantt
     - Miners voluntarily took losses
     - Proved that Bitcoin consensus is sociotechnical
 
-**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Axiom 7: Human Interface](../../part1-axioms/axiom7-human/index.md) - humans remain the ultimate arbiters.
+**Lesson**: Even "trustless" systems require human coordination when consensus breaks. This illustrates [Law 6: Cognitive Load](../../part1-axioms/axiom6-cognitive/index.md) - humans remain the ultimate arbiters.
 
 ### The FLP Impossibility Result
 
@@ -238,18 +238,18 @@ graph TB
         Vector -.-> CRDTs
         PBFT -.-> Federation
 
-        %% Axiom connections
-        Axiom3[Axiom 3: Failure] --> BFT
-        Axiom4[Axiom 4: Concurrency] --> Time
-        Axiom5[Axiom 5: Coordination] --> Consensus
+        %% Law connections
+        Law1[Law 1: Correlated Failure ⛓️] --> BFT
+        Law2[Law 2: Asynchronous Reality ⏳] --> Time
+        Law5[Law 5: Distributed Knowledge 🧠] --> Consensus
         FLP[FLP Impossibility] --> Consensus
         CAP[CAP Theorem] --> Trust
     end
 
     style Core fill:#f9f,stroke:#333,stroke-width:4px
-    style Axiom3 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom4 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law1 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law2 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law5 fill:#e1e1ff,stroke:#333,stroke-width:2px
     style FLP fill:#ffe1e1,stroke:#333,stroke-width:2px
     style CAP fill:#ffe1e1,stroke:#333,stroke-width:2px
 ```
@@ -258,7 +258,7 @@ This concept map shows how distributed truth branches into consensus mechanisms,
 
 ### Understanding Raft: The Understandable Consensus
 
-Raft achieves consensus by electing a leader that manages replication (addressing [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md)).
+Raft achieves consensus by electing a leader that manages replication (addressing [Law 1: Correlated Failure](../../part1-axioms/axiom1-failure/index.md)).
 
 ```mermaid
 stateDiagram-v2
@@ -338,7 +338,7 @@ sequenceDiagram
 
 ### The Vector Clock Pattern
 
-Vector clocks track causality in distributed systems without synchronized time (implementing [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) ordering guarantees).
+Vector clocks track causality in distributed systems without synchronized time (implementing [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchronous/index.md) ordering guarantees).
 
 ### The Vector Clock Pattern
 
@@ -410,7 +410,7 @@ graph LR
 
 ### CRDTs: Conflict-Free Truth
 
-CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) costs by making all operations commutative.
+CRDTs (Conflict-Free Replicated Data Types) guarantee eventual consistency without coordination. They elegantly sidestep [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md) costs by making all operations commutative.
 
 ### CRDTs: Conflict-Free Truth
 
@@ -1292,7 +1292,7 @@ sequenceDiagram
 ```
 
 **Spanner's Key Insights**:
-1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md))
+1. **Expose uncertainty** - Don't pretend time is precise (acknowledging [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchronous/index.md))
 2. **Wait out uncertainty** - 7ms average wait for consistency
 3. **Hardware investment** - GPS + atomic clocks per DC
 4. **Global scale** - Serves Google's entire infrastructure
@@ -1311,7 +1311,7 @@ sequenceDiagram
 3. **Majority vote is simplest consensus**
 
 ### 🌿 Intermediate
-1. **CAP theorem forces truth trade-offs** (explored in depth in [Axiom 6: Observability](../../part1-axioms/axiom6-observability/index.md))
+1. **CAP theorem forces truth trade-offs** (explored in depth in [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md))
 2. **Higher consistency = Higher cost**
 3. **FLP theorem: Perfect consensus impossible**
 
@@ -1569,13 +1569,12 @@ flowchart TD
 
 ## Related Resources
 
-### Foundational Axioms
-- [Axiom 1: Latency](../../part1-axioms/axiom1-latency/index.md) - Time uncertainty in distributed systems
-- [Axiom 3: Failure](../../part1-axioms/axiom3-failure/index.md) - Why consensus protocols need fault tolerance
-- [Axiom 4: Concurrency](../../part1-axioms/axiom4-concurrency/index.md) - Ordering events across nodes
-- [Axiom 5: Coordination](../../part1-axioms/axiom5-coordination/index.md) - The cost of achieving consensus
-- [Axiom 6: Observability](../../part1-axioms/axiom6-observability/index.md) - Monitoring consensus health
-- [Axiom 7: Human Interface](../../part1-axioms/axiom7-human/index.md) - Human intervention in consensus failures
+### Foundational Laws
+- [Law 1: Correlated Failure](../../part1-axioms/axiom1-failure/index.md) - Why consensus protocols need fault tolerance
+- [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchronous/index.md) - Time uncertainty and event ordering
+- [Law 3: Emergent Chaos](../../part1-axioms/axiom3-chaos/index.md) - Unpredictable consensus behaviors
+- [Law 5: Distributed Knowledge](../../part1-axioms/axiom5-knowledge/index.md) - The cost of achieving consensus
+- [Law 6: Cognitive Load](../../part1-axioms/axiom6-cognitive/index.md) - Human intervention in consensus failures
 
 ### Related Pillars
 - [Pillar 1: Work](../work/index.md) - Coordinating distributed computation

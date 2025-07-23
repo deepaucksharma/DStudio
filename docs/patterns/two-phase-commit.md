@@ -12,9 +12,9 @@ pattern_type: "coordination"
 when_to_use: "Strong consistency requirements, financial transactions, inventory management"
 when_not_to_use: "High-performance systems, microservices, eventual consistency acceptable"
 related_axioms:
-  - coordination
+  - optimization
   - failure
-  - latency
+  - asynchrony
 related_patterns:
   - "Saga Pattern"
   - "Outbox Pattern"

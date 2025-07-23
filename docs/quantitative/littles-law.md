@@ -684,9 +684,9 @@ Decompose into subsystems, apply to each
 </div>
 </div>
 
-## Axiom Connections
+## Law Connections
 
-### Axiom 1: Latency is Non-Zero
+### Law 1: Asynchronous Reality ⏳
 ```mermaid
 graph LR
     A[Arrival λ] --> B[System]
@@ -696,9 +696,9 @@ graph LR
     style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Axiom 1: Latency is Non-Zero](../part1-axioms/axiom1-latency/index.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 1: Asynchronous Reality ⏳](../part1-axioms/law1-asynchronous/index.md).
 
-### Axiom 2: Finite Capacity
+### Law 4: Multidimensional Optimization ⚖️
 <div class="failure-vignette">
 <h4>⚠️ Capacity Overflow Scenario</h4>
 
@@ -735,12 +735,12 @@ graph LR
 </div>
 </div>
 
-### Axiom 5: Time and Order
+### Law 4: Multidimensional Optimization ⚖️ (Coordination Aspect)
 - Little's Law assumes FIFO (First In, First Out) for average calculations
 - Different queueing disciplines (LIFO, Priority) change individual wait times
 - But the law still holds for averages
 
-### Axiom 7: Observability is Limited
+### Law 5: Distributed Knowledge 🧠
 <div class="truth-box">
 <h4>📊 Observability Challenge</h4>
 

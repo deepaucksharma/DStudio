@@ -32,6 +32,8 @@ Multiple security layers prevent single-point failures.
 
 ## 🔒 Pattern-Specific Security Considerations
 
+**Note**: These patterns are affected by the fundamental laws of distributed systems.
+
 ### Circuit Breaker Security
 
 **Vulnerability: Information Disclosure**
@@ -530,17 +532,17 @@ class AuditLogger:
 
 ### Distributed Systems Specific Risks
 
-**Service Communication**:
+**Service Communication** (Law 2: Asynchronous Reality ⏳):
 - Man-in-the-middle attacks on unencrypted channels
 - Service impersonation without proper authentication
 - Data leakage through verbose error messages
 
-**State Management**:
+**State Management** (Law 3: Emergent Chaos 🌪️):
 - Race conditions in distributed locks
 - State corruption through concurrent updates
 - Inconsistent security policies across replicas
 
-**Coordination**:
+**Coordination** (Law 4: Multidimensional Optimization ⚖️):
 - Byzantine faults in consensus protocols
 - Split-brain scenarios in leader election
 - Denial of service through resource exhaustion

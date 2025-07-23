@@ -357,15 +357,15 @@ Test Scenarios:
    - Verify appropriate response
 ```
 
-### Axiom Connections
+### Law Connections
 
-| Axiom | How Circuit Breaker Helps | Trade-off |
+| Law | How Circuit Breaker Helps | Trade-off |
 |-------|--------------------------|-----------|
-| **Axiom 1 (Latency)** | Fails fast instead of waiting | Less accurate during recovery |
-| **Axiom 3 (Failure)** | Prevents cascade failures | May reject good requests |
-| **Axiom 5 (Coordination)** | Each instance decides independently | Inconsistent states possible |
-| **Axiom 7 (Human)** | Clear failure signal to operators | Requires monitoring setup |
-| **Axiom 8 (Economics)** | Saves resources during outages | Complexity cost |
+| **Law 2 (Asynchronous Reality ⏳)** | Fails fast instead of waiting | Less accurate during recovery |
+| **Law 1 (Correlated Failure ⛓️)** | Prevents cascade failures | May reject good requests |
+| **Law 4 (Multidimensional Optimization ⚖️)** | Each instance decides independently | Inconsistent states possible |
+| **Law 6 (Cognitive Load 🤯)** | Clear failure signal to operators | Requires monitoring setup |
+| **Law 7 (Economic Reality 💰)** | Saves resources during outages | Complexity cost |
 
 ---
 

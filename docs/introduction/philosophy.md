@@ -51,8 +51,8 @@ We move systematically up the learning hierarchy:
 
 ```mermaid
 graph BT
-    A[Remember: Know the 8 axioms] --> B[Understand: Explain why they matter]
-    B --> C[Apply: Use axioms to analyze systems]
+    A[Remember: Know the 7 laws] --> B[Understand: Explain why they matter]
+    B --> C[Apply: Use laws to analyze systems]
     C --> D[Analyze: Decompose complex systems]
     D --> E[Evaluate: Make trade-off decisions]
     E --> F[Create: Design novel solutions]
@@ -73,7 +73,7 @@ Research by Ebbinghaus and modern cognitive scientists shows that spaced repetit
 
 #### 4. **Active Learning Through Failure**⁷
 Real disasters make better teachers than success stories:
-- Each failure maps to violated axioms
+- Each failure maps to violated laws
 - Students predict failure modes before reading solutions
 - Exercises include "break this system" challenges
 
@@ -86,28 +86,28 @@ Studies show that learning from mistakes activates different neural pathways tha
 **Traditional Explanation**: "Caching improves performance by storing frequently accessed data closer to users."
 
 **First Principles Derivation**:
-1. **Axiom 1 (Latency)**: Information travels at finite speed
-2. **Axiom 2 (Capacity)**: Storage/bandwidth are limited
-3. **Therefore**: Trade space (cheap) for time (expensive)
-4. **Therefore**: Store copies closer to usage
-5. **Therefore**: Caching emerges inevitably
+1. **Law 1 (Correlated Failure)**: Failures cascade and correlate
+2. **Law 4 (Multidimensional Optimization)**: Must balance multiple constraints
+3. **Therefore**: Trade reliability (replicas) for consistency
+4. **Therefore**: Store copies closer to usage for availability
+5. **Therefore**: Caching emerges as optimization strategy
 
 Once you understand this, you can derive:
-- Cache invalidation strategies (from Axiom 5: Coordination)
-- Cache hierarchies (from economics of distance/size)
-- Cache coherence protocols (from Axiom 3: Failure)
+- Cache invalidation strategies (from Law 5: Distributed Knowledge)
+- Cache hierarchies (from Law 7: Economic Reality)
+- Cache coherence protocols (from Law 1: Correlated Failure)
 
 ### Example 2: Why Do Microservices Exist?
 
 **Traditional Explanation**: "Microservices enable teams to work independently and deploy separately."
 
 **First Principles Derivation**:
-1. **Axiom 7 (Human Interface)**: Human cognitive capacity is limited
-2. **Axiom 4 (Concurrency)**: Multiple teams need to work in parallel
-3. **Axiom 3 (Failure)**: Smaller failure domains improve reliability
+1. **Law 6 (Cognitive Load)**: Human cognitive capacity is limited
+2. **Law 3 (Emergent Chaos)**: Complex interactions create unpredictability
+3. **Law 1 (Correlated Failure)**: Smaller failure domains improve reliability
 4. **Therefore**: Decompose systems along team boundaries
-5. **Therefore**: Accept network overhead for human parallelism
-6. **Therefore**: Microservices emerge as a trade-off
+5. **Therefore**: Accept network overhead for human comprehension
+6. **Therefore**: Microservices emerge as cognitive trade-off
 
 This derivation explains why:
 - Not everything should be a microservice (network cost)
@@ -119,9 +119,9 @@ This derivation explains why:
 **Traditional Explanation**: "Consensus algorithms ensure distributed systems agree on state."
 
 **First Principles Derivation**:
-1. **Axiom 5 (Coordination)**: No global clock exists
-2. **Axiom 3 (Failure)**: Nodes can fail or lie (Byzantine failures)
-3. **Axiom 1 (Latency)**: Messages take time and can be lost
+1. **Law 2 (Asynchronous Reality)**: No global clock exists
+2. **Law 1 (Correlated Failure)**: Nodes can fail together or lie
+3. **Law 5 (Distributed Knowledge)**: No single source of truth
 4. **Therefore**: Need protocols for agreement despite failures
 5. **Therefore**: Must trade between safety and liveness
 6. **Therefore**: Consensus algorithms like Raft/Paxos emerge
@@ -167,9 +167,9 @@ flowchart LR
     E -.- R4[Innovation]
 ```
 
-**Novice**: Follow axioms as rules  
-**Competent**: Map problems to axioms  
-**Proficient**: See axiom interactions  
+**Novice**: Follow laws as rules  
+**Competent**: Map problems to laws  
+**Proficient**: See law interactions  
 **Expert**: Predict from constraints
 
 ### Metacognition: Learning How to Learn
@@ -206,17 +206,17 @@ By focusing on principles, knowledge transfers across:
 
 ### Building Accurate Mental Models
 
-Each axiom creates a mental model:
+Each law creates a mental model:
 
 ```mermaid
 graph LR
-    A[Axiom 1: Latency] --> B[Mental Model:<br/>Distance = Delay]
-    B --> C[Prediction:<br/>Geo-distribution needs caching]
+    A[Law 1: Correlated Failure] --> B[Mental Model:<br/>Failures cascade]
+    B --> C[Prediction:<br/>Need isolation boundaries]
 
-    D[Axiom 3: Failure] --> E[Mental Model:<br/>Everything breaks]
-    E --> F[Prediction:<br/>Need redundancy]
+    D[Law 5: Distributed Knowledge] --> E[Mental Model:<br/>No single truth]
+    E --> F[Prediction:<br/>Need consistency protocols]
 
-    G[Combined] --> H[Insight:<br/>Cached replicas must handle<br/>inconsistency during failures]
+    G[Combined] --> H[Insight:<br/>Isolated systems must handle<br/>knowledge gaps during failures]
 
     C --> H
     F --> H
@@ -225,7 +225,7 @@ graph LR
 ### Debugging with Mental Models
 
 When systems misbehave:
-1. Which axiom is being violated?
+1. Which law is being violated?
 2. What does the mental model predict?
 3. Where does reality diverge?
 4. What assumption was wrong?
@@ -252,9 +252,9 @@ Our approach isn't just philosophical preference - it's grounded in decades of c
 
 ### For Teams
 
-- **Shared Vocabulary**: Everyone speaks "axioms"
+- **Shared Vocabulary**: Everyone speaks "laws"
 - **Principled Debates**: Arguments grounded in physics
-- **Better Design Reviews**: "Which axioms does this violate?"
+- **Better Design Reviews**: "Which laws does this violate?"
 - **Knowledge Transfer**: Onboard through principles
 
 ### For Organizations
@@ -282,21 +282,21 @@ This mirrors our approach exactly - start with physics, derive patterns, learn f
 ### Active Reading Strategies
 
 1. **Predict Before Reading**
-   - Given axiom X, what patterns should emerge?
+   - Given law X, what patterns should emerge?
    - What would happen if we violated this constraint?
 
 2. **Connect While Reading**
    - How does this relate to systems I've built?
-   - Where have I seen this axiom in action?
+   - Where have I seen this law in action?
 
 3. **Challenge After Reading**
-   - What if the axiom changed?
+   - What if the law changed?
    - Are there edge cases not covered?
 
 ### The Feynman Notebook Method
 
 Keep a notebook where you:
-1. Write the axiom in your own words
+1. Write the law in your own words
 2. Create your own examples
 3. Draw your own diagrams
 4. Explain to an imaginary student
@@ -321,7 +321,7 @@ Keep a notebook where you:
 |--------|---------------------|--------------------------|----------------|
 | **Starting Point** | Popular technologies (Kafka, Redis) | Laws of physics (speed of light) | Technologies become obsolete; physics doesn't |
 | **Problem Solving** | Pattern matching from examples | Deriving solutions from constraints | Can handle novel problems |
-| **Failure Analysis** | "It broke, try these fixes" | "It violated Axiom X, therefore..." | Systematic debugging |
+| **Failure Analysis** | "It broke, try these fixes" | "It violated Law X, therefore..." | Systematic debugging |
 | **Technology Changes** | Start learning from scratch | Map new tech to known principles | 10x faster adoption |
 | **Architecture Decisions** | "Industry best practices" | Quantified trade-offs | Decisions fit your constraints |
 | **Knowledge Depth** | Surface-level how | Deep understanding of why | Can innovate, not just implement |
@@ -339,9 +339,9 @@ Keep a notebook where you:
 
 #### First-Principles Path:
 1. Understand queue theory (Little's Law)
-2. Derive need for persistence (Axiom 3: Failure)
-3. Understand ordering guarantees (Axiom 4: Concurrency)
-4. Calculate throughput limits (Axiom 2: Capacity)
+2. Derive need for persistence (Law 3: Failure)
+3. Understand ordering guarantees (Law 4: Concurrency)
+4. Calculate throughput limits (Law 2: Capacity)
 5. Any message queue maps to these concepts
 6. Can design custom queue for specific needs
 

@@ -12,8 +12,8 @@ pattern_type: "architectural"
 when_to_use: "Global user base, disaster recovery, data sovereignty, low-latency requirements"
 when_not_to_use: "Single market applications, cost-sensitive projects, simple architectures"
 related_axioms:
-  - latency
-  - capacity
+  - asynchrony
+  - optimization
   - economics
   - failure
 related_patterns:
@@ -1018,11 +1018,11 @@ failover test --dry-run
 - [Tunable Consistency](../patterns/tunable-consistency.md) - Consistency models
 - [CQRS](../patterns/cqrs.md) - Separate read/write paths
 
-### Axioms
-- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Speed of light constraints
-- [Economics Axiom](../part1-axioms/axiom8-economics/index.md) - Cost implications
-- [Failure Axiom](../part1-axioms/axiom3-failure/index.md) - Regional failure modes
-- [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md) - Regional capacity planning
+### Laws
+- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Speed of light constraints
+- [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) - Cost implications
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Regional failure modes
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) - Regional capacity planning
 
 ### Case Studies
 - [Video Streaming Platform](/case-studies/video-streaming.md) - Netflix's approach

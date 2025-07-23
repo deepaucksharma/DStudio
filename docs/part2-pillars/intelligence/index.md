@@ -4,7 +4,7 @@ description: "How to implement learning and adaptive systems across distributed 
 type: pillar
 difficulty: advanced
 reading_time: 50 min
-prerequisites: ["axiom6-observability", "axiom7-human", "axiom8-economics"]
+prerequisites: ["law5-knowledge", "law6-cognitive", "law7-economics"]
 status: complete
 last_updated: 2025-07-20
 ---
@@ -255,20 +255,20 @@ graph TB
         Reinforcement -.-> Safety
         Swarm -.-> Unsupervised
 
-        %% Axiom connections
-        Axiom1[Axiom 1: Latency] --> Edge
-        Axiom2[Axiom 2: Capacity] --> Architecture
-        Axiom6[Axiom 6: Observability] --> Explainability
-        Axiom7[Axiom 7: Human Interface] --> Governance
-        Axiom8[Axiom 8: Economics] --> Feedback
+        %% Law connections
+        Law2[Law 2: Asynchronous Reality ⏳] --> Edge
+        Law4[Law 4: Multidimensional Optimization ⚖️] --> Architecture
+        Law5[Law 5: Distributed Knowledge 🧠] --> Explainability
+        Law6[Law 6: Cognitive Load 🤯] --> Governance
+        Law7[Law 7: Economic Reality 💰] --> Feedback
     end
 
     style Core fill:#f9f,stroke:#333,stroke-width:4px
-    style Axiom1 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom2 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom6 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom7 fill:#e1e1ff,stroke:#333,stroke-width:2px
-    style Axiom8 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law2 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law4 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law5 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law6 fill:#e1e1ff,stroke:#333,stroke-width:2px
+    style Law7 fill:#e1e1ff,stroke:#333,stroke-width:2px
 ```
 
 This concept map shows how distributed intelligence encompasses learning paradigms, architectural choices, feedback mechanisms, and governance requirements. Each aspect must balance performance, privacy, and practical constraints.

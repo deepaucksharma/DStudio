@@ -12,10 +12,10 @@ pattern_type: "core"
 when_to_use: "High-performance reads, complex domain logic, different read/write scaling needs"
 when_not_to_use: "Simple CRUD applications, low traffic systems, small teams"
 related_axioms:
-  - latency
-  - capacity
-  - concurrency
-  - coordination
+  - asynchrony
+  - optimization
+  - chaos
+  - optimization
 related_patterns:
   - "Event Sourcing"
   - "Saga Pattern"
@@ -882,15 +882,15 @@ timeline
 ### Axiom Connections
 
 <div class="axiom-box">
-<h4>🔗 Fundamental Axioms</h4>
+<h4>🔗 Fundamental Laws</h4>
 
 This pattern directly addresses:
 
-1. **[Latency Axiom](../part1-axioms/axiom1-latency/index.md)**: Optimized read models eliminate complex queries
-2. **[Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)**: Independent scaling of read/write workloads  
-3. **[Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md)**: Event ordering provides natural concurrency control
-4. **[Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)**: Asynchronous projections reduce coupling
-5. **[Observability Axiom](../part1-axioms/axiom6-observability/index.md)**: Event stream provides complete audit trail
+1. **[Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)**: Optimized read models eliminate complex queries
+2. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)**: Independent scaling of read/write workloads  
+3. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md)**: Event ordering provides natural concurrency control
+4. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md)**: Asynchronous projections reduce coupling
+5. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-knowledge/index.md)**: Event stream provides complete audit trail
 </div>
 
 ### Future Directions
@@ -1013,10 +1013,10 @@ cqrs:
 - [Saga Pattern](../patterns/saga.md) - Handling distributed transactions with CQRS
 - [Event-Driven Architecture](../patterns/event-driven.md) - Foundation for CQRS communication
 
-### Axioms
-- [Latency Axiom](../part1-axioms/axiom1-latency/index.md) - Why read optimization matters
-- [Concurrency Axiom](../part1-axioms/axiom4-concurrency/index.md) - Managing parallel operations
-- [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md) - Reducing system coupling
+### Laws
+- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Why read optimization matters
+- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-chaos/index.md) - Managing parallel operations
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-optimization/index.md) - Reducing system coupling
 
 ### Further Reading
 - [Greg Young's CQRS Documents](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) - Original CQRS papers

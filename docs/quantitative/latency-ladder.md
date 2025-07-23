@@ -427,9 +427,9 @@ After: Batch + parallel
 Total: 30ms (constant!)
 ```
 
-## Axiom Connections
+## Law Connections
 
-### Axiom 1: Latency is Non-Zero
+### Law 1: Asynchronous Reality ⏳
 ```mermaid
 graph LR
     A[Speed of Light] --> B[Physical Distance]
@@ -440,9 +440,9 @@ graph LR
     style D fill:#ffcccc
 ```
 
-Every operation proves [Axiom 1](../part1-axioms/axiom1-latency/index.md) - even L1 cache (0.5ns) > 0.
+Every operation proves [Law 1](../part1-axioms/law1-asynchronous/index.md) - even L1 cache (0.5ns) > 0.
 
-### Axiom 2: Finite Capacity
+### Law 4: Multidimensional Optimization ⚖️
 <div class="failure-vignette">
 <h4>📈 Latency Under Load</h4>
 
@@ -502,10 +502,10 @@ Every operation proves [Axiom 1](../part1-axioms/axiom1-latency/index.md) - even
 
 See [Queueing Theory](queueing-models.md): utilization → 100% = latency → ∞
 
-### Axiom 3: Failure is Inevitable
+### Law 2: Failure as Design 💥
 Timeouts, cascading failures, retry storms from high latency.
 
-### Axiom 4: Consistency Has a Cost
+### Law 4: Multidimensional Optimization ⚖️ (Consistency Trade-off)
 Consensus = multiple RTTs. Strong consistency = more hops.
 
 ## Visual Latency Comparison

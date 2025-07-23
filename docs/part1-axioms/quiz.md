@@ -101,12 +101,12 @@ d) Deployment time
 ### Question 9
 Which axiom most directly leads to eventual consistency?
 
-a) Latency ✓
-b) Capacity
-c) Failure
-d) Economics
+a) Asynchronous Reality ✓
+b) Emergent Complexity
+c) Correlated Failure
+d) Economic Reality
 
-**Explanation**: Latency constraints make synchronous global consistency too slow, leading to eventual consistency as a practical choice.
+**Explanation**: Asynchronous Reality (latency constraints) makes synchronous global consistency too slow, leading to eventual consistency as a practical choice.
 
 ### Question 10
 The CAP theorem is best understood as a consequence of:
@@ -127,15 +127,15 @@ Want more questions? Each axiom section includes specific exercises and scenario
 ### Scenario 1: Global Payment System
 You're designing a payment system across 5 continents. Which axiom combination most constrains your design?
 
-a) Latency + Capacity
-b) Consistency + Economics
-c) Latency + Consistency + Economics ✓
-d) Failure + Human Interface
+a) Asynchronous Reality + Emergent Complexity
+b) Distributed Knowledge + Economic Reality
+c) Asynchronous Reality + Distributed Knowledge + Economic Reality ✓
+d) Correlated Failure + Cognitive Load
 
 **Explanation**: 
-- **Latency**: Cross-continent RTT = 150-300ms
-- **Consistency**: Money must not be double-spent
-- **Economics**: Each region needs local infrastructure
+- **Asynchronous Reality**: Cross-continent RTT = 150-300ms
+- **Distributed Knowledge**: Money state must be consistent globally (no double-spend)
+- **Economic Reality**: Each region needs local infrastructure
 Together they force complex trade-offs between speed, correctness, and cost.
 
 ### Scenario 2: Distributed Lock Service
@@ -151,12 +151,12 @@ d) Memory leak
 ### Scenario 3: Microservices Debugging
 Debugging takes 10x longer in microservices vs monolith. Primary axiom responsible?
 
-a) Latency
-b) Failure
-c) Observability ✓
-d) Coordination
+a) Asynchronous Reality
+b) Correlated Failure
+c) Distributed Knowledge ✓
+d) Cognitive Load
 
-**Explanation**: Partial observability across service boundaries makes debugging exponentially harder. You can't see the full system state from any single vantage point.
+**Explanation**: Distributed Knowledge means each service has only partial knowledge of the system state. You can't see the full system state from any single vantage point, making debugging exponentially harder.
 
 ## Quiz Results Interpretation
 
@@ -173,14 +173,13 @@ Rate your understanding of each axiom:
 
 | Axiom | Concept | Math/Formulas | Real Applications | Trade-offs |
 |-------|---------|---------------|-------------------|------------|
-| 1. Latency | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 2. Capacity | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 3. Failure | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 4. Concurrency | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 5. Coordination | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 6. Observability | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 7. Human Interface | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
-| 8. Economics | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 1. Correlated Failure ⛓️ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 2. Asynchronous Reality ⏳ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 3. Emergent Complexity 🌪️ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 4. Multidimensional Optimization ⚖️ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 5. Distributed Knowledge 🧠 | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 6. Cognitive Load 🤯 | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
+| 7. Economic Reality 💰 | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
 
 Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Confident
 
@@ -190,11 +189,11 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 
 | Myth | Reality | Axiom |
 |------|---------|-------|
-| "Just add more servers" | Coordination costs grow quadratically | Axiom 5 |
-| "Use microservices for speed" | Network calls add latency | Axiom 1 |
-| "100% uptime is possible" | Failures are inevitable | Axiom 3 |
-| "Strong consistency is always best" | It has latency and availability costs | Axiom 4 |
-| "More monitoring is always better" | Observer effect has costs | Axiom 6 |
+| "Just add more servers" | Coordination costs grow with emergent complexity | Axiom 3: Emergent Complexity |
+| "Use microservices for speed" | Network calls add latency | Axiom 2: Asynchronous Reality |
+| "100% uptime is possible" | Failures are inevitable and correlated | Axiom 1: Correlated Failure |
+| "Strong consistency is always best" | It has latency and availability costs | Axiom 4: Multidimensional Optimization |
+| "More monitoring is always better" | Observer effect has cognitive and economic costs | Axioms 6 & 7 |
 
 ## Study Resources by Learning Style
 

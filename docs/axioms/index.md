@@ -1,261 +1,222 @@
 ---
-title: The 8 Fundamental Axioms
-description: Universal constraints that govern all distributed systems, derived from physics and mathematics
+title: The 7 Fundamental Laws
+description: Advanced framework for distributed systems, derived from physics, mathematics, and complexity theory
 type: axiom
-difficulty: beginner
-reading_time: 10 min
+difficulty: advanced
+reading_time: 8 min
 prerequisites: []
 status: complete
 last_updated: 2025-01-23
 ---
 
-# The 8 Fundamental Axioms of Distributed Systems
+# The 7 Fundamental Laws of Distributed Systems
 
 <div class="axioms-hero">
-  <p class="hero-quote">"These aren't choices or trade-offs - they're the laws of physics applied to computing"</p>
+  <p class="hero-quote">"Moving beyond simplifications to confront the profound complexity that defines distributed systems"</p>
 </div>
 
-## 🌌 Why Start with Axioms?
+!!! tip "Quick Overview"
+    This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed axioms section](/part1-axioms/)**.
 
-Just as physics has fundamental laws that constrain all physical systems, distributed systems have fundamental axioms that constrain all designs. Understanding these axioms helps you:
+## 🌌 Why Laws, Not Axioms?
 
-- **Avoid impossible designs** - Don't fight physics
-- **Make better trade-offs** - Know what you're sacrificing
-- **Debug faster** - Recognize axiom violations
-- **Communicate clearly** - Share a common language
+These aren't simple observations or rules of thumb. They are fundamental laws that emerge from physics, mathematics, and information theory. Understanding these laws enables you to:
 
-## 🔍 The 8 Axioms at a Glance
+- **Think critically** about system design
+- **Navigate trade-offs** in multi-dimensional space
+- **Predict emergent behaviors** before they manifest
+- **Design for reality** not idealized models
 
-<div class="axioms-grid">
-  <a href="../part1-axioms/axiom1-latency/index.md" class="axiom-card axiom-1">
-    <div class="axiom-number">1</div>
-    <div class="axiom-content">
-      <h3>Latency is Non-Zero</h3>
-      <p class="axiom-law">Nothing travels faster than light</p>
-      <p class="axiom-impact">NYC ↔ London = 28ms minimum</p>
-      <div class="axiom-examples">
-        <span>✓ CDNs exist</span>
-        <span>✓ Edge computing</span>
-        <span>✓ Caching layers</span>
+## 🔍 The 7 Laws Overview
+
+<div class="laws-structure">
+  <h3>Physical Laws (1-3)</h3>
+  <div class="axioms-grid">
+    <a href="/part1-axioms/axiom1-failure/" class="axiom-card axiom-1">
+      <div class="axiom-number">1</div>
+      <div class="axiom-content">
+        <h3>⛓️ Law of Correlated Failure</h3>
+        <p class="axiom-law">Components fail together, not independently</p>
+        <p class="axiom-impact">Shared dependencies amplify impact</p>
+        <div class="axiom-examples">
+          <span>✓ Metastable failures</span>
+          <span>✓ Gray failures</span>
+          <span>✓ Cascade effects</span>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
 
-  <a href="../part1-axioms/axiom2-capacity/index.md" class="axiom-card axiom-2">
-    <div class="axiom-number">2</div>
-    <div class="axiom-content">
-      <h3>Capacity is Finite</h3>
-      <p class="axiom-law">Resources always have limits</p>
-      <p class="axiom-impact">CPU, Memory, Network, Disk</p>
-      <div class="axiom-examples">
-        <span>✓ Auto-scaling</span>
-        <span>✓ Load balancing</span>
-        <span>✓ Sharding</span>
+    <a href="/part1-axioms/axiom2-asynchrony/" class="axiom-card axiom-2">
+      <div class="axiom-number">2</div>
+      <div class="axiom-content">
+        <h3>⏳ Law of Asynchronous Reality</h3>
+        <p class="axiom-law">The present is unknowable</p>
+        <p class="axiom-impact">Information has uncertainty</p>
+        <div class="axiom-examples">
+          <span>✓ FLP impossibility</span>
+          <span>✓ Temporal logic</span>
+          <span>✓ Eventual consistency</span>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
 
-  <a href="../part1-axioms/axiom3-failure/index.md" class="axiom-card axiom-3">
-    <div class="axiom-number">3</div>
-    <div class="axiom-content">
-      <h3>Failure is Inevitable</h3>
-      <p class="axiom-law">Everything breaks eventually</p>
-      <p class="axiom-impact">MTBF × Nodes = Constant failures</p>
-      <div class="axiom-examples">
-        <span>✓ Circuit breakers</span>
-        <span>✓ Retry logic</span>
-        <span>✓ Redundancy</span>
+    <a href="/part1-axioms/axiom3-emergence/" class="axiom-card axiom-3">
+      <div class="axiom-number">3</div>
+      <div class="axiom-content">
+        <h3>🌪️ Law of Emergent Chaos</h3>
+        <p class="axiom-law">Scale creates unpredictable behaviors</p>
+        <p class="axiom-impact">Components can't predict the whole</p>
+        <div class="axiom-examples">
+          <span>✓ Phase transitions</span>
+          <span>✓ Feedback loops</span>
+          <span>✓ Chaos engineering</span>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 
-  <a href="../part1-axioms/axiom4-concurrency/index.md" class="axiom-card axiom-4">
-    <div class="axiom-number">4</div>
-    <div class="axiom-content">
-      <h3>Concurrency Creates Conflicts</h3>
-      <p class="axiom-law">Simultaneous operations collide</p>
-      <p class="axiom-impact">Race conditions everywhere</p>
-      <div class="axiom-examples">
-        <span>✓ Locks</span>
-        <span>✓ MVCC</span>
-        <span>✓ CRDTs</span>
+  <h3>Trade-offs (4-5)</h3>
+  <div class="axioms-grid">
+    <a href="/part1-axioms/axiom4-tradeoffs/" class="axiom-card axiom-4">
+      <div class="axiom-number">4</div>
+      <div class="axiom-content">
+        <h3>⚖️ Law of Multidimensional Optimization</h3>
+        <p class="axiom-law">Trade-offs exist in n-dimensional space</p>
+        <p class="axiom-impact">Beyond CAP to harvest/yield</p>
+        <div class="axiom-examples">
+          <span>✓ Cost vs complexity</span>
+          <span>✓ Security vs usability</span>
+          <span>✓ Non-linear trade-offs</span>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
 
-  <a href="../part1-axioms/axiom5-coordination/index.md" class="axiom-card axiom-5">
-    <div class="axiom-number">5</div>
-    <div class="axiom-content">
-      <h3>Coordination Has Cost</h3>
-      <p class="axiom-law">Agreement requires communication</p>
-      <p class="axiom-impact">O(n²) message complexity</p>
-      <div class="axiom-examples">
-        <span>✓ Consensus protocols</span>
-        <span>✓ 2PC/3PC</span>
-        <span>✓ Gossip</span>
+    <a href="/part1-axioms/axiom5-epistemology/" class="axiom-card axiom-5">
+      <div class="axiom-number">5</div>
+      <div class="axiom-content">
+        <h3>🧠 Law of Distributed Knowledge</h3>
+        <p class="axiom-law">Truth is local, certainty is expensive</p>
+        <p class="axiom-impact">Byzantine epistemology</p>
+        <div class="axiom-examples">
+          <span>✓ Belief vs knowledge</span>
+          <span>✓ Common knowledge</span>
+          <span>✓ Probabilistic truth</span>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
+  </div>
 
-  <a href="../part1-axioms/axiom6-observability/index.md" class="axiom-card axiom-6">
-    <div class="axiom-number">6</div>
-    <div class="axiom-content">
-      <h3>Observability is Limited</h3>
-      <p class="axiom-law">Can't see everything at once</p>
-      <p class="axiom-impact">Heisenberg's uncertainty principle</p>
-      <div class="axiom-examples">
-        <span>✓ Sampling</span>
-        <span>✓ Aggregation</span>
-        <span>✓ Tracing</span>
+  <h3>Human Interface (6-7)</h3>
+  <div class="axioms-grid">
+    <a href="/part1-axioms/axiom6-human-api/" class="axiom-card axiom-6">
+      <div class="axiom-number">6</div>
+      <div class="axiom-content">
+        <h3>🤯 Law of Cognitive Load</h3>
+        <p class="axiom-law">Complexity must fit human minds</p>
+        <p class="axiom-impact">Mental models determine success</p>
+        <div class="axiom-examples">
+          <span>✓ Error design</span>
+          <span>✓ Observability UI</span>
+          <span>✓ Pit of success</span>
+        </div>
       </div>
-    </div>
-  </a>
+    </a>
 
-  <a href="../part1-axioms/axiom7-human/index.md" class="axiom-card axiom-7">
-    <div class="axiom-number">7</div>
-    <div class="axiom-content">
-      <h3>Humans Have Limits</h3>
-      <p class="axiom-law">Cognitive capacity is bounded</p>
-      <p class="axiom-impact">7±2 items in working memory</p>
-      <div class="axiom-examples">
-        <span>✓ Dashboards</span>
-        <span>✓ Alerts</span>
-        <span>✓ Runbooks</span>
+    <a href="/part1-axioms/axiom7-economics/" class="axiom-card axiom-7">
+      <div class="axiom-number">7</div>
+      <div class="axiom-content">
+        <h3>💰 Law of Economic Reality</h3>
+        <p class="axiom-law">Every decision has a financial impact</p>
+        <p class="axiom-impact">TCO drives architecture</p>
+        <div class="axiom-examples">
+          <span>✓ Build vs buy</span>
+          <span>✓ Performance/dollar</span>
+          <span>✓ FinOps modeling</span>
+        </div>
       </div>
-    </div>
-  </a>
-
-  <a href="../part1-axioms/axiom8-economics/index.md" class="axiom-card axiom-8">
-    <div class="axiom-number">8</div>
-    <div class="axiom-content">
-      <h3>Everything Has a Cost</h3>
-      <p class="axiom-law">No free lunch in distributed systems</p>
-      <p class="axiom-impact">Time × Resources × Complexity</p>
-      <div class="axiom-examples">
-        <span>✓ Cloud bills</span>
-        <span>✓ Operational overhead</span>
-        <span>✓ Technical debt</span>
-      </div>
-    </div>
-  </a>
+    </a>
+  </div>
 </div>
 
-## 🔗 How Axioms Connect
+## 🔗 How the Laws Connect
 
 ```mermaid
-graph LR
-    A1[Latency] --> C[Performance Limits]
-    A2[Capacity] --> C
+graph TD
+    subgraph "Physical Reality"
+        L1[Correlated Failure]
+        L2[Asynchronous Reality]
+        L3[Emergent Chaos]
+    end
     
-    A3[Failure] --> R[Reliability Challenges]
-    A4[Concurrency] --> R
+    subgraph "Design Space"
+        L4[Multidimensional Optimization]
+        L5[Distributed Knowledge]
+    end
     
-    A5[Coordination] --> S[System Complexity]
-    A6[Observability] --> S
+    subgraph "Human Systems"
+        L6[Cognitive Load]
+        L7[Economic Reality]
+    end
     
-    A7[Human Limits] --> O[Operational Reality]
-    A8[Economics] --> O
+    L1 & L2 & L3 --> L4
+    L4 --> L5
+    L5 --> L6
+    L6 --> L7
     
-    C --> T[Trade-offs]
-    R --> T
-    S --> T
-    O --> T
-    
-    style A1 fill:#e3f2fd
-    style A2 fill:#e3f2fd
-    style A3 fill:#ffebee
-    style A4 fill:#ffebee
-    style A5 fill:#fff3e0
-    style A6 fill:#fff3e0
-    style A7 fill:#f3e5f5
-    style A8 fill:#f3e5f5
+    style L1 fill:#e74c3c,color:#fff
+    style L2 fill:#e74c3c,color:#fff
+    style L3 fill:#e74c3c,color:#fff
+    style L4 fill:#f39c12,color:#fff
+    style L5 fill:#f39c12,color:#fff
+    style L6 fill:#27ae60,color:#fff
+    style L7 fill:#27ae60,color:#fff
 ```
 
-## 📚 Learning Path Through Axioms
+## 📚 Evolution from Basic to Advanced
 
-### 🎯 For Beginners: Start Simple
-1. **Week 1**: Axioms 1-2 (Latency & Capacity)
-   - Understand physical constraints
-   - Build intuition with examples
-   
-2. **Week 2**: Axioms 3-4 (Failure & Concurrency)
-   - Learn why things break
-   - See how race conditions emerge
+### Basic Framework (8 Axioms)
+- Simple, approachable concepts
+- Binary trade-offs (CAP theorem)
+- Practical patterns
+- Good for learning fundamentals
 
-3. **Week 3**: Axioms 5-6 (Coordination & Observability)
-   - Grasp distributed complexity
-   - Understand monitoring limits
-
-4. **Week 4**: Axioms 7-8 (Human & Economics)
-   - Factor in operational reality
-   - Calculate true costs
-
-### 🚀 For Practitioners: Deep Dive
-- **Focus on interactions**: How axioms compound each other
-- **Study violations**: Learn from real production failures
-- **Apply to your systems**: Find axiom violations in your architecture
-
-## 🎮 Interactive Exercises
-
-Each axiom includes hands-on exercises:
-
-<div class="exercise-preview">
-  <div class="exercise-card">
-    <h4>🌍 Latency Calculator</h4>
-    <p>Calculate speed-of-light delays between data centers</p>
-    <a href="../part1-axioms/axiom1-latency/exercises.md#latency-calculator">Try it →</a>
-  </div>
-  
-  <div class="exercise-card">
-    <h4>📊 Capacity Planner</h4>
-    <p>Model system limits and bottlenecks</p>
-    <a href="../part1-axioms/axiom2-capacity/exercises.md#capacity-planner">Try it →</a>
-  </div>
-  
-  <div class="exercise-card">
-    <h4>💥 Failure Simulator</h4>
-    <p>See how failures cascade through systems</p>
-    <a href="../part1-axioms/axiom3-failure/exercises.md#failure-simulator">Try it →</a>
-  </div>
-  
-  <div class="exercise-card">
-    <h4>🏃 Race Condition Visualizer</h4>
-    <p>Watch concurrent operations collide</p>
-    <a href="../part1-axioms/axiom4-concurrency/exercises.md#race-visualizer">Try it →</a>
-  </div>
-</div>
+### Advanced Framework (7 Laws)
+- Deep theoretical foundations
+- Multi-dimensional trade-offs
+- Emergent complexity
+- For critical system design
 
 ## 💡 Key Insights
 
 <div class="insights-grid">
   <div class="insight-box">
-    <h4>🔄 Axioms Compound</h4>
-    <p>Latency + Failure = Timeout decisions. Capacity + Concurrency = Contention. The real complexity emerges from interactions.</p>
+    <h4>🔄 Laws Compound</h4>
+    <p>Failure + Asynchrony = Uncertainty. Emergence + Knowledge = Unpredictability. Real complexity comes from interactions.</p>
   </div>
   
   <div class="insight-box">
     <h4>⚖️ No Perfect Solutions</h4>
-    <p>Every design violates some axiom. The art is choosing which constraints to embrace and which to fight.</p>
+    <p>Every design exists as a point in n-dimensional trade-off space. The art is finding acceptable compromises.</p>
   </div>
   
   <div class="insight-box">
-    <h4>🎯 Axioms Guide Design</h4>
-    <p>When stuck, return to axioms. They'll show you what's possible and what's fantasy.</p>
+    <h4>🎯 Critical Thinking</h4>
+    <p>These laws don't provide answers—they equip you to ask better questions and challenge assumptions.</p>
   </div>
 </div>
 
 ## 🚀 Next Steps
 
 <div class="next-steps">
-  <a href="../part1-axioms/axiom1-latency/index.md" class="primary-cta">
-    Start with Axiom 1: Latency →
+  <a href="/part1-axioms/" class="primary-cta">
+    Explore the Complete Framework →
   </a>
   
   <div class="alternative-paths">
-    <p>Or jump to:</p>
-    <a href="../part2-pillars/index.md">See how axioms create the 5 Pillars →</a>
-    <a href="../patterns/index.md">Explore patterns that handle axioms →</a>
-    <a href="../case-studies/index.md">Study real-world axiom violations →</a>
+    <p>Or start with a specific law:</p>
+    <a href="/part1-axioms/axiom1-failure/">⛓️ Law of Correlated Failure →</a>
+    <a href="/part1-axioms/axiom2-asynchrony/">⏳ Law of Asynchronous Reality →</a>
+    <a href="/part1-axioms/axiom3-emergence/">🌪️ Law of Emergent Chaos →</a>
   </div>
 </div>
 
@@ -276,11 +237,18 @@ Each axiom includes hands-on exercises:
   opacity: 0.95;
 }
 
+.laws-structure h3 {
+  margin: 2rem 0 1rem 0;
+  color: #5448C8;
+  border-bottom: 2px solid #e0e0e0;
+  padding-bottom: 0.5rem;
+}
+
 .axioms-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
   gap: 1.5rem;
-  margin: 2rem 0;
+  margin: 1.5rem 0;
 }
 
 .axiom-card {
@@ -307,14 +275,13 @@ Each axiom includes hands-on exercises:
   background: linear-gradient(90deg, var(--axiom-color) 0%, var(--axiom-color-light) 100%);
 }
 
-.axiom-1 { --axiom-color: #2196F3; --axiom-color-light: #64B5F6; }
-.axiom-2 { --axiom-color: #4CAF50; --axiom-color-light: #81C784; }
-.axiom-3 { --axiom-color: #F44336; --axiom-color-light: #E57373; }
-.axiom-4 { --axiom-color: #FF9800; --axiom-color-light: #FFB74D; }
-.axiom-5 { --axiom-color: #9C27B0; --axiom-color-light: #BA68C8; }
-.axiom-6 { --axiom-color: #00BCD4; --axiom-color-light: #4DD0E1; }
-.axiom-7 { --axiom-color: #795548; --axiom-color-light: #A1887F; }
-.axiom-8 { --axiom-color: #607D8B; --axiom-color-light: #90A4AE; }
+.axiom-1 { --axiom-color: #e74c3c; --axiom-color-light: #ec7063; }
+.axiom-2 { --axiom-color: #3498db; --axiom-color-light: #5dade2; }
+.axiom-3 { --axiom-color: #9b59b6; --axiom-color-light: #bb8fce; }
+.axiom-4 { --axiom-color: #f39c12; --axiom-color-light: #f8c471; }
+.axiom-5 { --axiom-color: #1abc9c; --axiom-color-light: #48c9b0; }
+.axiom-6 { --axiom-color: #e67e22; --axiom-color-light: #eb984e; }
+.axiom-7 { --axiom-color: #27ae60; --axiom-color-light: #52be80; }
 
 .axiom-card:hover {
   transform: translateY(-4px);
@@ -363,37 +330,6 @@ Each axiom includes hands-on exercises:
   background: #f5f5f5;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-}
-
-.exercise-preview {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 1rem;
-  margin: 2rem 0;
-}
-
-.exercise-card {
-  padding: 1.5rem;
-  background: #f8f9fa;
-  border-radius: 8px;
-  border-left: 4px solid #5448C8;
-}
-
-.exercise-card h4 {
-  margin: 0 0 0.5rem 0;
-  color: #333;
-}
-
-.exercise-card p {
-  margin: 0 0 1rem 0;
-  color: #666;
-  font-size: 0.95rem;
-}
-
-.exercise-card a {
-  color: #5448C8;
-  text-decoration: none;
-  font-weight: 600;
 }
 
 .insights-grid {

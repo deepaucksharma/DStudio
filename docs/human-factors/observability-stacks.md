@@ -1,12 +1,12 @@
 ---
 title: Observability Stacks
-description: "Building comprehensive observability with metrics, logs, and traces to understand distributed system behavior"
+description: "Making distributed knowledge visible while respecting cognitive limits - Laws 5 & 6 in practice"
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: []
+prerequisites: ["part1-axioms/axiom5-epistemology/index.md", "part1-axioms/axiom6-human-api/index.md"]
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
@@ -14,18 +14,18 @@ last_updated: 2025-07-20
 
 # Observability Stacks
 
-**You can't fix what you can't see**
+**You can't fix what you can't see - Making Law 5 (Distributed Knowledge) comprehensible via Law 6 (Cognitive Load)**
 
-## The Observability Triad
+## The Observability Triad (Laws 5 & 6 United)
 
 ```mermaid
 graph TB
-    subgraph "The Observability Triad"
-        M[Metrics<br/>What is broken?]
-        L[Logs<br/>Why is it broken?]
-        T[Traces<br/>Where is it broken?]
+    subgraph "The Observability Triad - Distributed Knowledge Made Comprehensible"
+        M[Metrics<br/>What is broken?<br/>(Aggregated knowledge)]
+        L[Logs<br/>Why is it broken?<br/>(Local truth)]
+        T[Traces<br/>Where is it broken?<br/>(Causal chain)]
         
-        M <--> I[INSIGHTS]
+        M <--> I[INSIGHTS<br/>Within Cognitive Limits]
         L <--> I
         T <--> I
         
@@ -33,6 +33,17 @@ graph TB
         L <--> T
         T <--> M
     end
+    
+    subgraph "Law 5: Distributed Knowledge"
+        DK[Each node has partial truth]
+    end
+    
+    subgraph "Law 6: Cognitive Load"
+        CL[Must fit in human head]
+    end
+    
+    DK --> I
+    CL --> I
     
     style I fill:#ffd54f,stroke:#333,stroke-width:3px
     style M fill:#e3f2fd
@@ -523,58 +534,58 @@ flowchart TD
 | 4. Infrastructure | Prometheus | CPU, memory, disk | 1min |
 | 5. Dependencies | Service map | Upstream/downstream | 1min |
 
-## Observability Maturity
+## Observability Maturity (Laws 5 & 6 Progression)
 
-### Level 1: Reactive
-- Basic logging to files
-- Manual log searching
-- CPU/memory graphs
-- Email alerts
+### Level 1: Reactive (High Cognitive Load)
+- Basic logging to files (Law 5: Local truth only)
+- Manual log searching (Exceeds Law 6: Too much data)
+- CPU/memory graphs (Limited context)
+- Email alerts (No prioritization)
 
-### Level 2: Proactive
-- Centralized logging
-- Basic dashboards
-- Threshold alerts
-- Some tracing
+### Level 2: Proactive (Reducing Load)
+- Centralized logging (Law 5: Aggregating partial truths)
+- Basic dashboards (Law 6: Visual chunking)
+- Threshold alerts (Clear mental models)
+- Some tracing (Causal understanding)
 
-### Level 3: Predictive
-- Full observability stack
-- Correlation across signals
-- Anomaly detection
-- SLO-based alerts
+### Level 3: Predictive (Cognitive Optimization)
+- Full observability stack (Law 5: Complete knowledge graph)
+- Correlation across signals (Law 6: Automated pattern matching)
+- Anomaly detection (Reduces monitoring burden)
+- SLO-based alerts (Business-aligned mental models)
 
-### Level 4: Prescriptive
-- AIOps integration
-- Automated remediation
-- Predictive scaling
-- Cost optimization
+### Level 4: Prescriptive (Cognitive Augmentation)
+- AIOps integration (Law 5: Machine-assisted truth finding)
+- Automated remediation (Law 6: Reduces operator decisions)
+- Predictive scaling (Proactive vs reactive)
+- Cost optimization (Clear trade-off visibility)
 
-## Best Practices
+## Best Practices (Respecting Laws 5 & 6)
 
-1. **Structured Everything**
-   - JSON logs
-   - Tagged metrics
-   - Attributed traces
+1. **Structured Everything (Law 5: Knowledge Format)**
+   - JSON logs (machine-parseable partial truths)
+   - Tagged metrics (queryable distributed state)
+   - Attributed traces (causal chains across nodes)
 
-2. **Correlation is Key**
-   - Use correlation IDs
-   - Link metrics to traces
-   - Connect logs to requests
+2. **Correlation is Key (Law 5: Connecting Partial Truths)**
+   - Use correlation IDs (link distributed events)
+   - Link metrics to traces (multiple perspectives)
+   - Connect logs to requests (complete story)
 
-3. **Sample Intelligently**
-   - Keep all errors
-   - Sample success cases
-   - Adaptive sampling
+3. **Sample Intelligently (Law 6: Cognitive Limits)**
+   - Keep all errors (important for mental models)
+   - Sample success cases (reduce noise)
+   - Adaptive sampling (focus on anomalies)
 
-4. **Dashboard Discipline**
-   - Standard layouts
-   - Consistent naming
-   - Regular review
+4. **Dashboard Discipline (Law 6: 7±2 Rule)**
+   - Standard layouts (recognition over recall)
+   - Consistent naming (reduce cognitive load)
+   - Regular review (prune unused metrics)
 
-5. **Alert Thoughtfully**
-   - SLO-based alerts
-   - Business impact focus
-   - Actionable messages
+5. **Alert Thoughtfully (Law 6: Attention Management)**
+   - SLO-based alerts (clear mental models)
+   - Business impact focus (meaningful context)
+   - Actionable messages (reduce decision fatigue)
 
 ## Key Takeaways
 
@@ -584,4 +595,4 @@ flowchart TD
 - **Correlation enables debugging** - Connect the dots across signals
 - **Culture drives adoption** - Teams must value observability
 
-Remember: Observability is not a product you buy, but a property of systems you build.
+Remember: Observability bridges Law 5 (Distributed Knowledge) and Law 6 (Cognitive Load) - it makes partial, distributed truths comprehensible to human operators within their cognitive limits.

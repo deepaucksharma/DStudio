@@ -1,12 +1,12 @@
 ---
 title: SRE Practices
-description: "Site Reliability Engineering treats operations as a software problem"
+description: "Site Reliability Engineering treats operations as a software problem while respecting cognitive limits"
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: []
+prerequisites: ["part1-axioms/axiom6-human-api/index.md"]
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
@@ -14,23 +14,23 @@ last_updated: 2025-07-20
 
 # SRE Practices
 
-**Running systems reliably at scale**
+**Running systems reliably at scale while respecting Law 6: The Law of Cognitive Load 🤯**
 
-## Core SRE Tenets
+## Core SRE Tenets (Aligned with Law 6: Cognitive Load)
 
-1. **Embrace Risk** - 100% reliability is wrong target
-2. **Service Level Objectives** - Define and measure reliability
-3. **Eliminate Toil** - Automate repetitive work
-4. **Monitoring** - Measure everything that matters
-5. **Release Engineering** - Make releases boring
-6. **Simplicity** - Complexity is the enemy
+1. **Embrace Risk** - 100% reliability is wrong target and cognitively unsustainable
+2. **Service Level Objectives** - Define and measure reliability within human comprehension
+3. **Eliminate Toil** - Automate to reduce cognitive burden on operators
+4. **Monitoring** - Measure what matters, display within 7±2 cognitive limit
+5. **Release Engineering** - Make releases boring to preserve cognitive capacity
+6. **Simplicity** - Complexity exceeds cognitive limits and causes failures
 
 !!! quote "Ben Treynor Sloss, Google VP"
     "SRE is what happens when you ask a software engineer to design an operations team."
-    - 50% cap on ops work
-    - Error budgets shared between teams
-    - Blameless culture
-    - 20% project time for reliability
+    - 50% cap on ops work (prevents cognitive overload)
+    - Error budgets shared between teams (clear mental model)
+    - Blameless culture (preserves cognitive function under stress)
+    - 20% project time for reliability (cognitive recovery time)
 
 ## Error Budgets
 
@@ -284,20 +284,20 @@ flowchart TD
     
     **Cloudflare**: Follow-the-sun (Singapore → London → SF). No night shifts
 
-### Effective Handoffs
+### Effective Handoffs (Cognitive Load Transfer)
 
 ```mermaid
 flowchart TB
-    subgraph "On-Call Handoff Process"
-        A[Outgoing On-Call] --> B[Document Active Issues]
-        B --> C[List Completed Incidents]
-        C --> D[Note Pending Changes]
-        D --> E[Highlight Watch Areas]
-        E --> F[Share Learnings]
+    subgraph "On-Call Handoff Process (Law 6 Aware)"
+        A[Outgoing On-Call] --> B[Document Active Issues<br/>(Max 7±2 items)]
+        B --> C[List Completed Incidents<br/>(Key learnings only)]
+        C --> D[Note Pending Changes<br/>(Prioritized list)]
+        D --> E[Highlight Watch Areas<br/>(Top 3-5 concerns)]
+        E --> F[Share Learnings<br/>(Chunked for memory)]
         F --> G[Incoming On-Call]
         
-        G --> H[Review & Ask Questions]
-        H --> I[Acknowledge Receipt]
+        G --> H[Review & Ask Questions<br/>(Clarify mental model)]
+        H --> I[Acknowledge Receipt<br/>(Confirm understanding)]
         I --> J[Update On-Call Schedule]
     end
     
@@ -316,9 +316,9 @@ flowchart TB
 | **Watch Areas** | • Trending metrics<br/>• Customer feedback<br/>• Resource usage | ☐ |
 | **Knowledge Transfer** | • Updated runbooks<br/>• New alerts<br/>• Lessons learned | ☐ |
 
-### Alert Quality
+### Alert Quality (Respecting Cognitive Load)
 
-**Good Alert:**
+**Good Alert (Law 6 Compliant):**
 **Good Alert Configuration:**
 
 | Component | Value | Purpose |
@@ -399,13 +399,14 @@ timeline
 | P1 | Extend canary to 30 minutes | Release Eng | 1 week | ⏳ |
 | P1 | Add memory-based auto-rollback | SRE Team | 3 weeks | ⏳ |
 
-### Postmortem Metrics
+### Postmortem Metrics (Cognitive Load Indicators)
 
 Track improvement over time:
-- MTTR by category
-- Repeat incidents
-- Action item completion rate
-- Time to postmortem publication
+- MTTR by category (complexity indicator)
+- Repeat incidents (mental model failures)
+- Action item completion rate (cognitive capacity)
+- Time to postmortem publication (learning efficiency)
+- Cognitive load score during incident (stress multiplier)
 
 ## Change Management
 
@@ -577,18 +578,19 @@ See: [Observability Stacks](observability-stacks.md)
 ### Runbooks
 See: [Runbooks & Playbooks](runbooks-playbooks.md)
 
-## Best Practices
+## Best Practices (Law 6: Cognitive Load Aware)
 
-1. **Measure Everything**: User-impacting → SLI → Alert → Fix
-2. **Gradual Rollouts**: Canary everything, use feature flags
-3. **Practice Failures**: Monthly game days, weekly chaos, quarterly DR
-4. **Document Everything**: Runbooks, postmortems, architecture decisions
-5. **Invest in Tooling**: Automation compounds time savings
+1. **Measure Wisely**: Only track what fits in operator mental models (7±2 key metrics)
+2. **Gradual Rollouts**: Progressive disclosure prevents cognitive overload
+3. **Practice Failures**: Build muscle memory when cognitive capacity is high
+4. **Document for Stress**: Runbooks that work when capacity drops 80%
+5. **Invest in Simplicity**: Tools that reduce, not increase, cognitive burden
 
-## Key Takeaways
+## Key Takeaways (Grounded in Law 6)
 
-- Reliability is a feature requiring planning
-- Error budgets balance speed vs stability
-- Automate toil relentlessly
-- Blameless culture enables learning
-- Right reliability at right cost > perfect reliability
+- Reliability requires planning within cognitive constraints
+- Error budgets provide clear mental models for trade-offs
+- Automate toil to preserve cognitive capacity for complex problems
+- Blameless culture prevents stress-induced cognitive collapse
+- Sustainable reliability respects human cognitive limits
+- Systems too complex for operators will fail through misoperation

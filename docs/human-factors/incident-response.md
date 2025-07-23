@@ -1,12 +1,12 @@
 ---
 title: Incident Response
-description: "Organized approach to addressing system failures and security breaches with clear procedures for crisis management"
+description: "Managing system failures within cognitive limits - applying Law 6 when stress reduces capacity by 80%"
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: []
+prerequisites: ["part1-axioms/axiom6-human-api/index.md"]
 status: complete
-last_updated: 2025-07-20
+last_updated: 2025-07-23
 ---
 
 <!-- Navigation -->
@@ -14,15 +14,15 @@ last_updated: 2025-07-20
 
 # Incident Response
 
-**Coordinated action when systems fail**
+**Coordinated action when systems fail - designed for Law 6: Cognitive Load under stress**
 
-> *"The best incident response is like a well-rehearsed fire drill—everyone knows their role."*
+> *"The best incident response works when cognitive capacity drops 80% under stress—simple, clear, practiced."*
 
 ---
 
-## What is Incident Response?
+## What is Incident Response? (Law 6 Context)
 
-Organized approach to managing security breaches or system failures. Goal: limit damage, reduce recovery time and costs.
+Organized approach to managing failures when human cognitive capacity is severely reduced by stress. Goal: provide simple, clear procedures that work within the 7±2 cognitive limit even when operators are at 20% mental capacity.
 
 ## Incident Severity Levels
 
@@ -33,17 +33,24 @@ Organized approach to managing security breaches or system failures. Goal: limit
 | **SEV-3** | Minor functionality impaired | < 2 hours | Non-critical features affected |
 | **SEV-4** | Minimal impact | < 24 hours | Cosmetic issues |
 
-## Incident Response Lifecycle
+## Incident Response Lifecycle (Cognitive Load Aware)
 
 ```mermaid
 flowchart LR
-    subgraph "Incident Response Lifecycle"
-        A[Detection<br/>👀] --> B[Triage<br/>🔍]
-        B --> C[Response<br/>🔨]
-        C --> D[Recovery<br/>✅]
-        D --> E[Analysis<br/>📊]
-        E --> F[Improvement<br/>📝]
+    subgraph "Incident Response Lifecycle - Law 6 Optimized"
+        A[Detection<br/>👀<br/>(Clear signals)] --> B[Triage<br/>🔍<br/>(Simple decision tree)]
+        B --> C[Response<br/>🔨<br/>(Practiced actions)] --> D[Recovery<br/>✅<br/>(Verification steps)]
+        D --> E[Analysis<br/>📊<br/>(When calm)] --> F[Improvement<br/>📝<br/>(Update runbooks)]
         F -.-> A
+    end
+    
+    subgraph "Cognitive Load at Each Stage"
+        CL1[High stress<br/>20% capacity] --> A
+        CL1 --> B
+        CL2[Moderate stress<br/>40% capacity] --> C
+        CL2 --> D
+        CL3[Low stress<br/>80% capacity] --> E
+        CL3 --> F
     end
     
     style A fill:#ffebee
@@ -54,13 +61,13 @@ flowchart LR
     style F fill:#e0f2f1
 ```
 
-## Key Roles
+## Key Roles (Law 6: Cognitive Load Distribution)
 
-### 1. Incident Commander (IC)
-- Overall coordination
-- Decision authority
-- External communication
-- NOT debugging
+### 1. Incident Commander (IC) - Managing Attention
+- Overall coordination (max 7±2 active concerns)
+- Decision authority (reduces cognitive burden on others)
+- External communication (single voice principle)
+- NOT debugging (preserves cognitive capacity for coordination)
 
 ### 2. Technical Lead
 - Investigation
@@ -297,23 +304,41 @@ flowchart TD
   - Error rate
   - Latency (p50, p95, p99)
 
-## Common Issues
+## Common Issues (Pre-computed Solutions for Stressed Minds)
 
 ### Issue 1: High Memory Usage
-**Symptoms**: Memory alerts, OOM kills
-**Diagnosis**: Check memory metrics, heap dumps
-**Resolution**:
-1. Restart service (immediate relief)
-2. Investigate memory leak
-3. Scale horizontally if needed
+**Symptoms** (Recognition cues): Memory alerts, OOM kills, slow responses
+**Diagnosis** (Simple steps): 
+- Check dashboard link #1
+- Look for red memory graph
+**Resolution** (Copy-paste ready):
+```bash
+# Step 1: Immediate relief (do this first)
+kubectl rollout restart deployment/service-name
 
-### Issue 2: Database Connection Exhaustion
-**Symptoms**: Connection timeout errors
-**Diagnosis**: Check connection pool metrics
-**Resolution**:
-1. Kill idle connections
-2. Increase connection limit
-3. Investigate connection leak
+# Step 2: If persists (after 5 min)
+kubectl scale deployment/service-name --replicas=+2
+
+# Step 3: Investigate later (when calm)
+# Memory leak analysis runbook: [link]
+```
+
+### Issue 2: Database Connection Exhaustion  
+**Symptoms** (Recognition cues): "connection refused", timeout errors
+**Diagnosis** (Simple check):
+- Dashboard link #2 
+- Connection count > 90%
+**Resolution** (Copy-paste ready):
+```sql
+-- Step 1: Kill idle connections
+SELECT pg_terminate_backend(pid) 
+FROM pg_stat_activity 
+WHERE state = 'idle' AND state_change < NOW() - INTERVAL '10 minutes';
+
+-- Step 2: Emergency increase
+ALTER SYSTEM SET max_connections = 500;
+SELECT pg_reload_conf();
+```
 
 ## Emergency Procedures
 
@@ -338,20 +363,20 @@ kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
 ```text
 ```
 
-## Axiom Impact Analysis
+## Law Impact Analysis
 
-How incident response connects to fundamental distributed systems axioms:
+How incident response connects to fundamental distributed systems laws:
 
-| Axiom | Impact on Incident Response | Strategic Considerations |
-|-------|----------------------------|-------------------------|
-| **Latency** | Detection and response time critical | Minimize alert latency, optimize communication channels, pre-position resources |
-| **Finite Capacity** | Incidents often triggered by capacity limits | Plan for degraded modes, have scaling runbooks ready, monitor resource usage |
-| **Failure** | Core trigger for incident response | Build resilient systems, plan for failure scenarios, practice recovery |
-| **Consistency** | Inconsistencies complicate debugging | Include consistency checks in runbooks, understand trade-offs during incidents |
-| **Time** | Critical for correlation and timeline | Ensure clock sync, timestamp everything, account for timezone differences |
-| **Ordering** | Race conditions cause complex incidents | Document expected order, have tools to trace operation flow |
-| **Knowledge** | Incomplete info hampers response | Invest in observability, maintain up-to-date documentation, share knowledge |
-| **Growth** | Scale triggers new incident patterns | Plan for growth-related failures, update runbooks as systems evolve |
+| Law | Impact on Incident Response | Strategic Considerations |
+|-----|----------------------------|-------------------------|
+| **Law 2: Asynchronous Reality ⏳** | Detection and response time critical | Minimize alert latency, optimize communication channels, pre-position resources |
+| **Law 4: Multidimensional Optimization ⚖️** | Incidents often triggered by capacity limits | Plan for degraded modes, have scaling runbooks ready, monitor resource usage |
+| **Law 1: Correlated Failure ⛓️** | Core trigger for incident response | Build resilient systems, plan for failure scenarios, practice recovery |
+| **Law 4: Multidimensional Optimization ⚖️** | Inconsistencies complicate debugging | Include consistency checks in runbooks, understand trade-offs during incidents |
+| **Law 2: Asynchronous Reality ⏳** | Critical for correlation and timeline | Ensure clock sync, timestamp everything, account for timezone differences |
+| **Law 3: Emergent Chaos 🌪️** | Race conditions cause complex incidents | Document expected order, have tools to trace operation flow |
+| **Law 5: Distributed Knowledge 🧠** | Incomplete info hampers response | Invest in observability, maintain up-to-date documentation, share knowledge |
+| **Law 7: Economic Reality 💰** | Scale triggers new incident patterns | Plan for growth-related failures, update runbooks as systems evolve |
 
 ## Incident Response Decision Tree
 

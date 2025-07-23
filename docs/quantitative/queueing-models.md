@@ -576,9 +576,9 @@ L (queue), W (wait), ρ (util), λ (arrival), μ (service)
 Options: 2x servers | Optimize service | Add cache
 ```
 
-## Axiom Connections
+## Law Connections
 
-### Axiom 2: Finite Capacity
+### Law 4: Multidimensional Optimization ⚖️
 ```mermaid
 graph LR
     A[Arrival Rate λ] --> B{Queue}
@@ -592,14 +592,14 @@ graph LR
     style F fill:#ff0000
 ```
 
-**Key Insight**: M/M/1 models directly demonstrate [Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
+**Key Insight**: M/M/1 models directly demonstrate [Law 4: Multidimensional Optimization ⚖️](../part1-axioms/law4-multidimensional/index.md) - when ρ ≥ 1, the queue grows infinitely until system resources are exhausted.
 
-### Axiom 3: Failure is Inevitable
+### Law 2: Failure as Design 💥
 - At high utilization (>90%), small disruptions cause catastrophic queue growth
 - Variance in service times creates unpredictable failure modes
 - Queue overflow leads to dropped requests and cascading failures
 
-### Axiom 5: Time and Order
+### Law 4: Multidimensional Optimization ⚖️ (Ordering Constraints)
 ```python
 # FIFO Queue Ordering
 Customer 1 arrives at t=0, waits 0ms
@@ -608,7 +608,7 @@ Customer 3 arrives at t=2, waits 20ms
 # Order preserved, but wait times compound
 ```
 
-### Axiom 7: Observability is Limited
+### Law 5: Distributed Knowledge 🧠
 - Queue depth is observable, but individual wait times require tracking
 - Utilization is measurable, but doesn't capture variance effects
 - True service time distribution often unknown

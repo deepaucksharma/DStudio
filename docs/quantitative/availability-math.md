@@ -193,9 +193,9 @@ if availability < target_sla:
     alert()
 ```
 
-## Axiom Connections
+## Law Connections
 
-### Axiom 3: Failure is Inevitable
+### Law 1: Correlated Failure ⛓️
 ```mermaid
 graph TD
     A[Component Failure] --> B[System Response]
@@ -209,14 +209,14 @@ graph TD
     style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Axiom 3: Failure is Inevitable](../part1-axioms/axiom3-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 2: Failure as Design 💥](../part1-axioms/law2-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
 
-### Axiom 2: Finite Capacity
+### Law 4: Multidimensional Optimization ⚖️
 - Redundancy requires 2x resources for high availability
 - N+M patterns trade capacity for reliability
 - During failures, remaining capacity must handle full load
 
-### Axiom 4: Consistency Has a Cost
+### Law 4: Multidimensional Optimization ⚖️ (CAP Trade-offs)
 ```python
 # Consistency vs Availability Trade-off
 Strong Consistency + Partition = No Availability
@@ -224,7 +224,7 @@ High Availability + Partition = Inconsistency
 # CAP theorem in action
 ```
 
-### Axiom 8: Growth Changes Everything
+### Law 8: Resource Economics 💰
 - As systems grow, probability of component failure increases
 - More components = more failure modes
 - Availability targets become harder to maintain at scale

@@ -221,7 +221,7 @@ graph LR
 
 ## Part 1: Concept Map - The Physics of Real-Time Communication
 
-### Axiom 1: Latency - Racing Against Human Perception
+### Law 1: Latency - Racing Against Human Perception
 
 In chat systems, latency directly impacts conversation flow. Human perception requires sub-200ms response times for interactions to feel "instant."
 
@@ -364,7 +364,7 @@ class WebSocketConnectionManager:
 
 **Production**: WhatsApp: 200ms median latency, 15+ edge locations, MQTT protocol.
 
-### Axiom 2: Capacity - The Quadratic Connection Problem
+### Law 2: Capacity - The Quadratic Connection Problem
 
 Chat systems face O(N²) potential connections between N users, requiring careful capacity management.
 
@@ -451,7 +451,7 @@ class MessageShardingStrategy:
 
 **Real Numbers**: Discord: 4B messages/day, 150M MAU, sophisticated sharding.
 
-### Axiom 3: Failure - Messages Must Not Be Lost
+### Law 3: Failure - Messages Must Not Be Lost
 
 Chat systems must handle failures gracefully without losing messages or breaking conversation flow.
 
@@ -558,7 +558,7 @@ class MessagePersistence:
             raise Exception("Insufficient replicas")
 ```
 
-### Axiom 4: Concurrency - Handling Simultaneous Conversations
+### Law 4: Concurrency - Handling Simultaneous Conversations
 
 Multiple users typing and sending messages simultaneously requires careful concurrency control.
 
@@ -635,7 +635,7 @@ class OptimisticConcurrencyControl:
         return True, {'version': new_version}
 ```
 
-### Axiom 5: Coordination - Global Message Ordering
+### Law 5: Coordination - Global Message Ordering
 
 Ensuring consistent message ordering across distributed servers is crucial for coherent conversations.
 
@@ -721,7 +721,7 @@ class GlobalMessageSequencer:
         return self.sequence_number
 ```
 
-### Axiom 6: Observability - Understanding System Health
+### Law 6: Observability - Understanding System Health
 
 Comprehensive monitoring is essential for maintaining chat system reliability.
 
@@ -815,7 +815,7 @@ class ConversationAnalytics:
         }
 ```
 
-### Axiom 7: Human Interface - Optimizing for Natural Conversation
+### Law 7: Human Interface - Optimizing for Natural Conversation
 
 Chat systems must feel natural and responsive to human communication patterns.
 
@@ -929,7 +929,7 @@ class SuggestionEngine:
         return suggestions
 ```
 
-### Axiom 8: Economics - Balancing Cost and Features
+### Law 8: Economics - Balancing Cost and Features
 
 Chat systems must balance rich features with operational costs.
 
@@ -1276,30 +1276,30 @@ sequenceDiagram
 | 51-100 members | Batched Fanout | Server-grouped | Balanced |
 | 101-256 members | Optimized Fanout | Multi-tier | High efficiency |
 
-## Axiom Mapping Analysis - Design Decisions vs Fundamental Constraints
+## Law Mapping Analysis - Design Decisions vs Fundamental Constraints
 
 ### 🎯 Comprehensive Design Decision Matrix
 
-Every architectural choice in a chat system must respect all 8 fundamental axioms. This comprehensive mapping shows how each design decision impacts and is impacted by each axiom:
+Every architectural choice in a chat system must respect all 7 fundamental laws. This comprehensive mapping shows how each design decision impacts and is impacted by each law:
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+| Design Decision | Law 1: Latency | Law 2: Capacity | Law 3: Failure | Law 4: Concurrency | Law 5: Coordination | Law 6: Observability | Law 7: Human Interface |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|----------------------|------------------------|-------------------|
-| **WebSocket Connections** | ✅ Real-time delivery<br/>❌ Connection overhead | ❌ Limited connections per server<br/>✅ Efficient for active users | ❌ Connection drops<br/>✅ Instant failure detection | ✅ Full-duplex communication<br/>❌ State management complexity | ✅ Direct message ordering<br/>❌ Cross-connection sync | ✅ Connection health monitoring<br/>✅ Real-time metrics | ✅ Instant feedback<br/>✅ Natural conversation flow | ❌ Higher server costs<br/>❌ Connection state overhead |
-| **Message Queuing** | ❌ Added hop latency<br/>✅ Batch processing | ✅ Decouples producers/consumers<br/>✅ Elastic scaling | ✅ Durable message storage<br/>✅ Retry mechanisms | ✅ Natural buffering<br/>✅ Rate limiting | ✅ FIFO guarantees<br/>✅ Distributed ordering | ✅ Queue depth metrics<br/>✅ Processing rates | ❌ Perceived delays<br/>✅ Reliable delivery indication | ✅ Cost-effective scaling<br/>✅ Pay per message |
-| **Edge Caching** | ✅ Sub-10ms reads<br/>✅ Geographic distribution | ✅ Reduces origin load<br/>❌ Cache invalidation overhead | ✅ Fallback to origin<br/>❌ Stale data risk | ✅ Read scaling<br/>❌ Write consistency | ❌ Cache coherence issues<br/>✅ Eventually consistent | ✅ Cache hit rates<br/>✅ Regional performance | ✅ Faster message history<br/>✅ Offline access | ✅ Reduced bandwidth<br/>✅ Lower compute costs |
-| **End-to-End Encryption** | ❌ Crypto overhead (5-10ms)<br/>❌ No server caching | ❌ Larger message sizes<br/>❌ No compression | ✅ Forward secrecy<br/>❌ No server-side recovery | ✅ Client-side only<br/>❌ Key exchange complexity | ❌ No server validation<br/>✅ Client trust model | ❌ Limited server visibility<br/>✅ Client-side metrics only | ✅ User privacy<br/>❌ No server features | ❌ Higher client CPU<br/>✅ Legal compliance value |
-| **Message Routing** | ✅ Direct paths<br/>❌ Route computation | ❌ Routing table memory<br/>✅ Efficient multicast | ✅ Multiple path options<br/>✅ Automatic rerouting | ✅ Parallel routing<br/>❌ Route consistency | ✅ Ordered delivery paths<br/>❌ Global coordination | ✅ Route performance<br/>✅ Bottleneck detection | ✅ Group chat efficiency<br/>✅ @ mention routing | ✅ Bandwidth optimization<br/>❌ Compute overhead |
-| **Offline Sync** | ❌ Sync delay on reconnect<br/>✅ Background sync | ❌ Storage for offline messages<br/>❌ Sync bandwidth spikes | ✅ Message durability<br/>✅ Conflict resolution | ✅ Optimistic updates<br/>❌ Merge conflicts | ✅ Vector clock sync<br/>✅ Causal ordering | ✅ Sync progress tracking<br/>✅ Conflict metrics | ✅ Seamless experience<br/>✅ Work offline | ❌ Storage costs<br/>❌ Sync compute costs |
-| **Read Receipts** | ✅ Instant feedback<br/>❌ Extra round trips | ❌ Receipt storage<br/>❌ Delivery tracking overhead | ✅ Delivery confirmation<br/>❌ Receipt delivery failures | ✅ Async receipt processing<br/>✅ Batch updates | ✅ Receipt ordering<br/>❌ Cross-device sync | ✅ Delivery analytics<br/>✅ Read rate metrics | ✅ Conversation awareness<br/>❌ Privacy concerns | ❌ Extra messages<br/>✅ User engagement value |
-| **Typing Indicators** | ✅ Real-time feedback<br/>❌ Frequent updates | ❌ High message volume<br/>✅ Ephemeral data | ✅ Best effort delivery<br/>✅ No persistence needed | ✅ Debounced updates<br/>✅ Client aggregation | ❌ No ordering needed<br/>✅ Latest value only | ✅ Engagement metrics<br/>❌ Noise in monitoring | ✅ Natural conversation<br/>✅ Presence awareness | ❌ Network overhead<br/>✅ Engagement value |
-| **Media Handling** | ❌ Upload/download time<br/>✅ CDN distribution | ❌ Storage intensive<br/>❌ Bandwidth heavy | ✅ Separate media pipeline<br/>✅ Progressive download | ✅ Async upload<br/>✅ Parallel processing | ✅ Media before message<br/>✅ Reference architecture | ✅ Media pipeline metrics<br/>✅ CDN performance | ✅ Progress indicators<br/>✅ Preview generation | ❌ High storage costs<br/>❌ CDN bandwidth costs |
-| **Group Chats** | ❌ Fan-out latency<br/>❌ Member count impact | ❌ O(N) delivery<br/>❌ State per group | ✅ Partial delivery OK<br/>❌ Consistency challenges | ✅ Concurrent speakers<br/>❌ Message ordering | ❌ Total order required<br/>❌ Distributed consensus | ✅ Group health metrics<br/>✅ Member analytics | ✅ Active discussions<br/>❌ Notification overload | ❌ Linear cost scaling<br/>❌ Storage multiplication |
+| **WebSocket Connections** | ✅ Real-time delivery<br/>❌ Connection overhead | ❌ Limited connections per server<br/>✅ Efficient for active users | ❌ Connection drops<br/>✅ Instant failure detection | ✅ Full-duplex communication<br/>❌ State management complexity | ✅ Direct message ordering<br/>❌ Cross-connection sync | ✅ Connection health monitoring<br/>✅ Real-time metrics | ✅ Instant feedback<br/>✅ Natural conversation flow |
+| **Message Queuing** | ❌ Added hop latency<br/>✅ Batch processing | ✅ Decouples producers/consumers<br/>✅ Elastic scaling | ✅ Durable message storage<br/>✅ Retry mechanisms | ✅ Natural buffering<br/>✅ Rate limiting | ✅ FIFO guarantees<br/>✅ Distributed ordering | ✅ Queue depth metrics<br/>✅ Processing rates | ❌ Perceived delays<br/>✅ Reliable delivery indication |
+| **Edge Caching** | ✅ Sub-10ms reads<br/>✅ Geographic distribution | ✅ Reduces origin load<br/>❌ Cache invalidation overhead | ✅ Fallback to origin<br/>❌ Stale data risk | ✅ Read scaling<br/>❌ Write consistency | ❌ Cache coherence issues<br/>✅ Eventually consistent | ✅ Cache hit rates<br/>✅ Regional performance | ✅ Faster message history<br/>✅ Offline access |
+| **End-to-End Encryption** | ❌ Crypto overhead (5-10ms)<br/>❌ No server caching | ❌ Larger message sizes<br/>❌ No compression | ✅ Forward secrecy<br/>❌ No server-side recovery | ✅ Client-side only<br/>❌ Key exchange complexity | ❌ No server validation<br/>✅ Client trust model | ❌ Limited server visibility<br/>✅ Client-side metrics only | ✅ User privacy<br/>❌ No server features |
+| **Message Routing** | ✅ Direct paths<br/>❌ Route computation | ❌ Routing table memory<br/>✅ Efficient multicast | ✅ Multiple path options<br/>✅ Automatic rerouting | ✅ Parallel routing<br/>❌ Route consistency | ✅ Ordered delivery paths<br/>❌ Global coordination | ✅ Route performance<br/>✅ Bottleneck detection | ✅ Group chat efficiency<br/>✅ @ mention routing |
+| **Offline Sync** | ❌ Sync delay on reconnect<br/>✅ Background sync | ❌ Storage for offline messages<br/>❌ Sync bandwidth spikes | ✅ Message durability<br/>✅ Conflict resolution | ✅ Optimistic updates<br/>❌ Merge conflicts | ✅ Vector clock sync<br/>✅ Causal ordering | ✅ Sync progress tracking<br/>✅ Conflict metrics | ✅ Seamless experience<br/>✅ Work offline |
+| **Read Receipts** | ✅ Instant feedback<br/>❌ Extra round trips | ❌ Receipt storage<br/>❌ Delivery tracking overhead | ✅ Delivery confirmation<br/>❌ Receipt delivery failures | ✅ Async receipt processing<br/>✅ Batch updates | ✅ Receipt ordering<br/>❌ Cross-device sync | ✅ Delivery analytics<br/>✅ Read rate metrics | ✅ Conversation awareness<br/>❌ Privacy concerns |
+| **Typing Indicators** | ✅ Real-time feedback<br/>❌ Frequent updates | ❌ High message volume<br/>✅ Ephemeral data | ✅ Best effort delivery<br/>✅ No persistence needed | ✅ Debounced updates<br/>✅ Client aggregation | ❌ No ordering needed<br/>✅ Latest value only | ✅ Engagement metrics<br/>❌ Noise in monitoring | ✅ Natural conversation<br/>✅ Presence awareness |
+| **Media Handling** | ❌ Upload/download time<br/>✅ CDN distribution | ❌ Storage intensive<br/>❌ Bandwidth heavy | ✅ Separate media pipeline<br/>✅ Progressive download | ✅ Async upload<br/>✅ Parallel processing | ✅ Media before message<br/>✅ Reference architecture | ✅ Media pipeline metrics<br/>✅ CDN performance | ✅ Progress indicators<br/>✅ Preview generation |
+| **Group Chats** | ❌ Fan-out latency<br/>❌ Member count impact | ❌ O(N) delivery<br/>❌ State per group | ✅ Partial delivery OK<br/>❌ Consistency challenges | ✅ Concurrent speakers<br/>❌ Message ordering | ❌ Total order required<br/>❌ Distributed consensus | ✅ Group health metrics<br/>✅ Member analytics | ✅ Active discussions<br/>❌ Notification overload |
 
 ### Decision Framework Matrix
 
 When designing your chat system, use this matrix to evaluate trade-offs:
 
-| Architecture Choice | Best For | Avoid When | Axiom Alignment Score |
+| Architecture Choice | Best For | Avoid When | Law Alignment Score |
 |-------------------|----------|------------|---------------------|
 | **Pure WebSocket** | < 10K users, Gaming chat, Trading platforms | Large scale, Mobile apps, Poor connectivity | Latency: 5/5<br/>Scale: 2/5<br/>Reliability: 2/5 |
 | **Queue-Based** | Enterprise, Compliance required, Async communication | Real-time gaming, Video chat sync, Low latency critical | Latency: 2/5<br/>Scale: 5/5<br/>Reliability: 5/5 |
@@ -2264,15 +2264,14 @@ Regional servers reduce latency; cross-region replication; compliance ready
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - WebSocket for real-time, regional servers
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Connection pooling, message queuing
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Offline queue, retry mechanisms
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Actor model, parallel delivery
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Group state sync, message ordering
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Message tracking, connection monitoring
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Typing indicators, read receipts
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Bandwidth optimization, server efficiency
+### 📚 Relevant Laws
+- **[Law 1: Latency](../part1-axioms/axiom1-latency/index.md)** - WebSocket for real-time, regional servers
+- **[Law 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Connection pooling, message queuing
+- **[Law 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - Offline queue, retry mechanisms
+- **[Law 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Actor model, parallel delivery
+- **[Law 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Group state sync, message ordering
+- **[Law 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Message tracking, connection monitoring
+- **[Law 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Typing indicators, read receipts
 
 ### 🏛️ Related Patterns
 - **[WebSocket](../patterns/websocket.md)** - Persistent connections
@@ -2301,7 +2300,7 @@ Building instant-feeling chat at billions-scale requires hybrid architecture: We
 
 Key insights:
 1. **No single architecture fits all** - Choose based on privacy, scale, features
-2. **Design impacts all 8 axioms** - Every choice affects latency, capacity, failures, economics
+2. **Design impacts all 7 laws** - Every choice affects latency, capacity, failures, and more
 3. **Hybrid architectures dominate** - Blend patterns for different message types
 4. **Start simple, evolve deliberately** - Begin centralized, add distribution as needed
 

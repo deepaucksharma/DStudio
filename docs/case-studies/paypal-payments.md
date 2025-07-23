@@ -228,9 +228,9 @@ class IdempotentPaymentProcessor:
         ).hexdigest()
 ```
 
-## 📊 Axiom Analysis
+## 📊 Law Analysis
 
-### Axiom 3: Truth Through Event Sourcing
+### Law 4: Multidimensional Optimization ⚖️ (Truth Through Event Sourcing)
 
 ```python
 @dataclass
@@ -266,7 +266,7 @@ class EventStore:
 
 **Audit Requirements:** Who (user/system/API), What (amount/status/metadata), When (microsecond precision), Why (business rule/user action), Where (IP/device/location)
 
-### Axiom 4: Control Through Orchestration
+### Law 4: Multidimensional Optimization ⚖️ (Control Through Orchestration)
 
 ```python
 class PaymentOrchestrator:
@@ -309,7 +309,7 @@ class PaymentOrchestrator:
             )
 ```
 
-### Axiom 3: Failure Handling
+### Law 1: Correlated Failure ⛓️
 
 ```python
 class PaymentFailureHandler:
@@ -357,9 +357,9 @@ class PaymentFailureHandler:
         return FailureResult.MANUAL_REVIEW
 ```
 
-### Comprehensive Axiom Mapping
+### Comprehensive Law Mapping
 
-| Design Decision | Axiom 1: Latency | Axiom 2: Capacity | Axiom 3: Failure | Axiom 4: Concurrency | Axiom 5: Coordination | Axiom 6: Observability | Axiom 7: Human Interface | Axiom 8: Economics |
+| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Multidimensional Optimization ⚖️ | Law 1: Correlated Failure ⛓️ | Law 3: Emergent Chaos 🌪️ | Law 4: Multidimensional Optimization ⚖️ | Law 5: Distributed Knowledge 🧠 | Law 6: Cognitive Load 🤯 | Law 7: Economic Reality 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
 | **SAGA Pattern** | Async steps reduce blocking | Each step scales independently | Compensations handle failures | Parallel saga execution | Local coordination only | Full transaction tracing | Clear transaction states | No 2PC lock overhead |
 | **Event Sourcing** | Append-only writes are fast | Infinite audit trail storage | Complete recovery possible | No update conflicts | Event ordering preserved | Time-travel debugging | Regulatory compliance | Storage tiering saves cost |
@@ -371,11 +371,11 @@ class PaymentFailureHandler:
 | **Polyglot Persistence** | Optimized per data type | Storage scales by type | Independent failure domains | No global locks | Eventually consistent views | Per-store metrics | Appropriate APIs | Right tool for job |
 | **Stateless Services** | No session affinity needed | Horizontal scaling | Any instance can serve | No shared state | External state stores | Service health checks | Simple deployment model | Auto-scaling efficiency |
 
-**Key Axiom Applications:**
-- **Axiom 3 (Truth)**: Immutable event sourcing for perfect audit trails and time-travel debugging
-- **Axiom 4 (Control)**: SAGA patterns with compensation logic avoiding 2PC penalties
-- **Axiom 5 (Coordination)**: Async events reduce coupling while maintaining integrity
-- **Axiom 6 (Observability)**: End-to-end distributed tracing across payment flow
+**Key Law Applications:**
+- **Law 4 (Multidimensional Optimization ⚖️)**: Immutable event sourcing for perfect audit trails and time-travel debugging
+- **Law 4 (Multidimensional Optimization ⚖️)**: SAGA patterns with compensation logic avoiding 2PC penalties
+- **Law 4 (Multidimensional Optimization ⚖️)**: Async events reduce coupling while maintaining integrity
+- **Law 5 (Distributed Knowledge 🧠)**: End-to-end distributed tracing across payment flow
 
 ## 🏛️ Architecture Alternatives
 
@@ -645,15 +645,14 @@ graph TB
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Axioms (Part I)
-- **[Axiom 1: Latency](../part1-axioms/axiom1-latency/index.md)** - 234ms average latency balances fraud checks with user experience
-- **[Axiom 2: Finite Capacity](../part1-axioms/axiom2-capacity/index.md)** - Cell architecture isolates load and prevents cascade failures
-- **[Axiom 3: Failure is Normal](../part1-axioms/axiom3-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
-- **[Axiom 4: Concurrency](../part1-axioms/axiom4-concurrency/index.md)** - Optimistic locking prevents double-spending without blocking
-- **[Axiom 5: Coordination](../part1-axioms/axiom5-coordination/index.md)** - Event-driven choreography avoids central coordination bottlenecks
-- **[Axiom 6: Observability](../part1-axioms/axiom6-observability/index.md)** - Distributed tracing tracks payments across 20+ services
-- **[Axiom 7: Human Interface](../part1-axioms/axiom7-human/index.md)** - Clear error messages and status updates reduce support calls
-- **[Axiom 8: Economics](../part1-axioms/axiom8-economics/index.md)** - Processing costs optimized through batching and routing
+### 📚 Relevant Laws (Part I)
+- **[Law 1: Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Distributed Knowledge 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Cognitive Load 🤯](../part1-axioms/axiom6-human-api/index.md)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)** - Processing costs optimized through batching and routing
 
 ### 🏛️ Related Patterns (Part III)
 - **[SAGA Pattern](../patterns/saga.md)** - Orchestrates distributed transactions with compensation logic

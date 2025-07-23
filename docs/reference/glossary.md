@@ -18,10 +18,10 @@ last_updated: 2025-07-20
 
 ## A
 
-### Axiom
-Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 8 core axioms.
+### Axiom (Law)
+Fundamental constraint that cannot be violated in distributed systems. The Compendium identifies 7 core laws (formerly axioms).
 
-**Examples**: [Latency Axiom](../part1-axioms/axiom1-latency/index.md), [Capacity Axiom](../part1-axioms/axiom2-capacity/index.md)
+**Examples**: [Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-optimization/index.md)
 
 ### At-Least-Once Delivery
 Messages may be delivered multiple times but will not be lost. Requires idempotent processing.
@@ -44,14 +44,14 @@ Isolation pattern preventing failures from spreading between components.
 
 **Implementation**: Separate thread pools, connection pools, compute resources
 
-**Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Failure Axiom](../part1-axioms/axiom3-failure/index.md)
+**Related**: [Circuit Breaker](../patterns/circuit-breaker.md), [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md)
 
 ### Byzantine Fault
 Components behave arbitrarily, sending conflicting information to different parts.
 
 **Examples**: Malicious actors, hardware corruption, inconsistent software behavior
 
-**Related**: [Failure Axiom](../part1-axioms/axiom3-failure/index.md), consensus algorithms
+**Related**: [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md), consensus algorithms
 
 ## C
 
@@ -60,7 +60,7 @@ Distributed systems can provide at most two of: Consistency, Availability, Parti
 
 **Implication**: Must choose between consistency and availability during partitions
 
-**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md)
+**Related**: [Truth Pillar](../part2-pillars/truth/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-optimization/index.md)
 
 ### Circuit Breaker
 Prevents cascade failures by failing fast when error thresholds exceeded.
@@ -76,7 +76,7 @@ Prevents cascade failures by failing fast when error thresholds exceeded.
 
 **Trade-offs**: Strong consistency vs. availability and performance
 
-**Related**: [Coordination Axiom](../part1-axioms/axiom5-coordination/index.md), [Leader Election](../patterns/leader-election.md)
+**Related**: [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-optimization/index.md), [Leader Election](../patterns/leader-election.md)
 
 ### Consistent Hashing
 Distributes data across nodes with minimal disruption when adding/removing nodes.
@@ -327,7 +327,7 @@ Captures causality relationships between events.
 
 **Format**: Array of counters, one per node
 
-**Implementation**: [Concurrency axiom](../part1-axioms/axiom4-concurrency/index.md)
+**Implementation**: [Emergent Chaos 🌪️](../part1-axioms/axiom3-chaos/index.md)
 
 ## W
 

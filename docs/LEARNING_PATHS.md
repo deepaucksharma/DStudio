@@ -12,16 +12,19 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **Goal**: Build strong foundations in distributed systems
 
 #### Week 1-2: Fundamentals
-1. Start with [Axiom 1: Latency](part1-axioms/axiom1-latency/index.md)
-   - Read examples of real latency disasters
+1. Start with [Law 1: Correlated Failure](part1-axioms/axiom1-failure/index.md)
+   - Read examples of cascading failures
    - Complete hands-on exercises
-2. Progress through Axioms 2-4 (Capacity, Failure, Concurrency)
+2. Progress through Laws 2-4:
+   - [Law 2: Asynchronous Reality](part1-axioms/axiom2-asynchrony/index.md)
+   - [Law 3: Emergent Chaos](part1-axioms/axiom3-emergence/index.md)
+   - [Law 4: Multidimensional Optimization](part1-axioms/axiom4-tradeoffs/index.md)
    - Focus on examples sections first
    - Try exercises after understanding concepts
 
 #### Week 3-4: Practical Application
 1. Study [Rate Limiter Case Study](case-studies/rate-limiter.md)
-   - See how axioms apply in practice
+   - See how laws apply in practice
    - Review architecture alternatives
 2. Explore [Circuit Breaker Pattern](patterns/circuit-breaker.md)
    - Understand failure handling
@@ -37,13 +40,13 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **Goal**: Design better distributed systems
 
 #### Fast Track (1 week)
-1. Review all [Axiom Mapping Tables](case-studies/index.md)
-   - See how Netflix, Uber, Google apply axioms
+1. Review all [Law Mapping Tables](case-studies/index.md)
+   - See how Netflix, Uber, Google apply laws
    - Study architecture trade-offs
-2. Deep dive into [Coordination Costs](part1-axioms/axiom5-coordination/index.md)
-   - Understand CAP theorem implications
-   - Calculate real coordination costs
-3. Master [Economics](part1-axioms/axiom8-economics/index.md)
+2. Deep dive into [Distributed Knowledge](part1-axioms/axiom5-epistemology/index.md)
+   - Understand truth and certainty in distributed systems
+   - Master Byzantine epistemology
+3. Master [Economic Reality](part1-axioms/axiom7-economics/index.md)
    - Make cost-aware architecture decisions
 
 #### Architecture Focus (2 weeks)
@@ -59,10 +62,10 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **Goal**: Make strategic technical decisions
 
 #### Executive Path (3 days)
-1. Start with [Economics Axiom](part1-axioms/axiom8-economics/index.md)
+1. Start with [Economic Reality](part1-axioms/axiom7-economics/index.md)
    - Understand cost drivers
    - Review cloud optimization strategies
-2. Study [Human Interface](part1-axioms/axiom7-human/index.md)
+2. Study [Cognitive Load](part1-axioms/axiom6-human-api/index.md)
    - Plan for operational load
    - Design sustainable on-call
 3. Review [Trade-off Matrices](case-studies/amazon-dynamo.md#trade-off-analysis)
@@ -77,7 +80,7 @@ This guide helps you navigate the enhanced documentation based on your role, exp
    - Map patterns to business problems
    - Understand implementation complexity
 2. For each relevant pattern, review:
-   - Axiom connections
+   - Law connections
    - Trade-off analysis
    - Real-world examples
 3. Study relevant case studies:
@@ -92,8 +95,8 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **For**: Database engineers, financial systems developers
 
 1. **Foundation**
-   - [Axiom 4: Concurrency](part1-axioms/axiom4-concurrency/index.md)
-   - [Axiom 5: Coordination](part1-axioms/axiom5-coordination/index.md)
+   - [Law 2: Asynchronous Reality](part1-axioms/axiom2-asynchrony/index.md)
+   - [Law 5: Distributed Knowledge](part1-axioms/axiom5-epistemology/index.md)
    
 2. **Theory**
    - [CAP Theorem implications](part2-pillars/truth/index.md)
@@ -104,15 +107,15 @@ This guide helps you navigate the enhanced documentation based on your role, exp
    - [DynamoDB](case-studies/amazon-dynamo.md) - Eventually consistent at scale
    
 4. **Advanced**
-   - [Coordination Cost Calculator](part1-axioms/axiom5-coordination/exercises.md)
+   - [Distributed Knowledge Exercises](part1-axioms/axiom5-epistemology/exercises.md)
    - [Consistency Tuning](human-factors/consistency-tuning.md)
 
 ### 🚀 Path 2: Performance and Scale
 **For**: Performance engineers, SREs
 
 1. **Foundation**
-   - [Axiom 1: Latency](part1-axioms/axiom1-latency/index.md)
-   - [Axiom 2: Capacity](part1-axioms/axiom2-capacity/index.md)
+   - [Law 4: Multidimensional Optimization](part1-axioms/axiom4-tradeoffs/index.md)
+   - [Law 3: Emergent Chaos](part1-axioms/axiom3-emergence/index.md)
    
 2. **Quantitative**
    - [Latency Ladder](quantitative/latency-ladder.md)
@@ -131,30 +134,30 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 **For**: FinOps practitioners, Engineering leaders
 
 1. **Foundation**
-   - [Axiom 8: Economics](part1-axioms/axiom8-economics/index.md)
+   - [Law 7: Economic Reality](part1-axioms/axiom7-economics/index.md)
    
 2. **Analysis**
-   - [True Cost Calculator](part1-axioms/axiom8-economics/exercises.md#lab-1)
-   - [Multi-cloud Optimizer](part1-axioms/axiom8-economics/exercises.md#lab-2)
+   - [True Cost Calculator](part1-axioms/axiom7-economics/exercises.md#lab-1)
+   - [Multi-cloud Optimizer](part1-axioms/axiom7-economics/exercises.md#lab-2)
    
 3. **Architecture Impact**
-   - Review all "Economics" rows in axiom mapping tables
+   - Review all "Economics" rows in law mapping tables
    - Study cost trade-offs in architecture alternatives
    
 4. **Optimization**
-   - [Serverless vs Containers](part1-axioms/axiom8-economics/exercises.md#lab-3)
-   - [Reserved Capacity Planning](part1-axioms/axiom8-economics/exercises.md#lab-4)
+   - [Serverless vs Containers](part1-axioms/axiom7-economics/exercises.md#lab-3)
+   - [Reserved Capacity Planning](part1-axioms/axiom7-economics/exercises.md#lab-4)
 
 ### 🛡️ Path 4: Reliability and Resilience
 **For**: Site reliability engineers, Platform teams
 
 1. **Foundation**
-   - [Axiom 3: Failure](part1-axioms/axiom3-failure/index.md)
-   - [Axiom 6: Observability](part1-axioms/axiom6-observability/index.md)
+   - [Law 1: Correlated Failure](part1-axioms/axiom1-failure/index.md)
+   - [Law 5: Distributed Knowledge](part1-axioms/axiom5-epistemology/index.md)
    
 2. **Mathematics**
    - [Availability Math](quantitative/availability-math.md)
-   - [Failure Probability](part1-axioms/axiom3-failure/index.md#the-mathematics-of-failure)
+   - [Failure Probability](part1-axioms/axiom1-failure/index.md#the-mathematics-of-failure)
    
 3. **Patterns**
    - [Circuit Breaker](patterns/circuit-breaker.md)
@@ -195,19 +198,19 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 ## 📈 Skill Progression Tracker
 
 ### Level 1: Foundation (1-2 months)
-- [ ] Understand all 8 axioms
-- [ ] Complete 50% of axiom exercises
+- [ ] Understand all 7 laws (Correlated Failure ⛓️, Asynchronous Reality ⏳, Emergent Chaos 🌪️, Multidimensional Optimization ⚖️, Distributed Knowledge 🧠, Cognitive Load 🤯, Economic Reality 💰)
+- [ ] Complete 50% of law exercises
 - [ ] Read 5 case studies
 - [ ] Implement 1 pattern
 
 ### Level 2: Practitioner (3-6 months)
-- [ ] Complete all axiom exercises
+- [ ] Complete all law exercises
 - [ ] Analyze all case study trade-offs
 - [ ] Implement 5 patterns
 - [ ] Apply to real project
 
 ### Level 3: Expert (6-12 months)
-- [ ] Design custom architectures using axioms
+- [ ] Design custom architectures using laws
 - [ ] Lead architecture reviews
 - [ ] Mentor others using this material
 - [ ] Contribute improvements
@@ -222,21 +225,21 @@ This guide helps you navigate the enhanced documentation based on your role, exp
 4. **Share Knowledge**: Teach others what you learn
 5. **Iterate**: Return to deepen understanding
 
-Remember: The goal isn't to read everything, but to understand deeply and apply effectively. The axioms are your foundation - everything else builds upon them.
+Remember: The goal isn't to read everything, but to understand deeply and apply effectively. The laws are your foundation - everything else builds upon them.
 
 ---
 
 ## 📚 Quick Reference
 
 ### Essential Starting Points
-- **Theory**: [8 Axioms Overview](part1-axioms/index.md)
+- **Theory**: [7 Laws Overview](part1-axioms/index.md)
 - **Practice**: [Case Studies Index](case-studies/index.md)
 - **Patterns**: [Pattern Catalog](patterns/index.md)
 - **Math**: [Quantitative Toolkit](quantitative/index.md)
 - **Operations**: [Human Factors](human-factors/index.md)
 
 ### Most Popular Content
-1. [Latency Examples](part1-axioms/axiom1-latency/examples.md) - Speed of light reality
+1. [Correlated Failure Examples](part1-axioms/axiom1-failure/examples.md) - Cascading failure reality
 2. [Amazon DynamoDB](case-studies/amazon-dynamo.md) - Eventually consistent design
 3. [Circuit Breaker](patterns/circuit-breaker.md) - Failure isolation
 4. [Little's Law](quantitative/littles-law.md) - Queue fundamentals
