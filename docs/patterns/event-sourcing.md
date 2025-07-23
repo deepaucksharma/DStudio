@@ -204,68 +204,75 @@ graph TB
 
 ### Implementation Patterns
 
-#### Basic Implementation
+#### Event Flow Architecture
+
+```mermaid
+sequenceDiagram
+    participant C as Client
+    participant CH as Command Handler
+    participant A as Aggregate
+    participant ES as Event Store
+    participant EB as Event Bus
+    participant P as Projections
+
+    C->>CH: Send Command
+    CH->>ES: Load Events
+    ES-->>CH: Event History
+    CH->>A: Reconstruct from Events
+    CH->>A: Execute Command
+    A->>A: Validate Business Rules
+    A-->>CH: Generate Events
+    CH->>ES: Append Events
+    ES->>EB: Publish Events
+    EB->>P: Update Read Models
+    CH-->>C: Command Result
+```
+
+#### Core Components
+
+```mermaid
+classDiagram
+    class DomainEvent {
+        +String aggregateId
+        +String eventId
+        +DateTime timestamp
+        +int version
+        +Dict metadata
+    }
+    
+    class EventSourcedAggregate {
+        +String id
+        +int version
+        +List~DomainEvent~ uncommittedEvents
+        +applyEvent(event)
+        +raiseEvent(event)
+        +loadFromHistory(events)
+    }
+    
+    class EventStore {
+        +appendEvents(aggregateId, events)
+        +getEvents(aggregateId, fromVersion)
+        +getAggregate(aggregateClass, aggregateId)
+        +saveAggregate(aggregate)
+    }
+    
+    class Projection {
+        +String name
+        +int checkpoint
+        +handle(event)
+        +canHandle(event)
+    }
+    
+    EventSourcedAggregate ..> DomainEvent : raises
+    EventStore ..> DomainEvent : stores
+    EventStore ..> EventSourcedAggregate : loads/saves
+    Projection ..> DomainEvent : processes
+```
+
+#### Example: Order Aggregate Events
 
 ```python
-from dataclasses import dataclass, field
-from datetime import datetime
-from typing import List, Dict, Any, Optional
-from abc import ABC, abstractmethod
-import uuid
-import json
-
-# Event Base Classes
-@dataclass
-class DomainEvent(ABC):
-    aggregate_id: str
-    event_id: str = field(default_factory=lambda: str(uuid.uuid4()))
-    event_type: str = field(init=False)
-    timestamp: datetime = field(default_factory=datetime.utcnow)
-    version: int = 1
-    metadata: Dict[str, Any] = field(default_factory=dict)
-    
-    def __post_init__(self):
-        self.event_type = self.__class__.__name__
-
-# Event Sourced Aggregate Base
-class EventSourcedAggregate(ABC):
-    def __init__(self, aggregate_id: str):
-        self.id = aggregate_id
-        self.version = 0
-        self.uncommitted_events: List[DomainEvent] = []
-        
-    def apply_event(self, event: DomainEvent, is_new: bool = True):
-        """Apply event to aggregate state"""
-        # Use method naming convention for event handlers
-        handler_name = f"_on_{event.event_type}"
-        handler = getattr(self, handler_name, None)
-        
-        if handler:
-            handler(event)
-        else:
-            raise ValueError(f"No handler for event type: {event.event_type}")
-            
-        if is_new:
-            self.uncommitted_events.append(event)
-            
-        self.version = event.version
-    
-    def raise_event(self, event: DomainEvent):
-        """Raise a new domain event"""
-        event.aggregate_id = self.id
-        event.version = self.version + 1
-        self.apply_event(event, is_new=True)
-    
-    def mark_events_committed(self):
-        """Clear uncommitted events after persistence"""
-        self.uncommitted_events.clear()
-    
-    def load_from_history(self, events: List[DomainEvent]):
-        """Rebuild aggregate state from events"""
-        for event in events:
-            self.apply_event(event, is_new=False)
-
-# Example: Order Aggregate
+# Key event types for an Order aggregate
 @dataclass
 class OrderCreatedEvent(DomainEvent):
     customer_id: str
@@ -274,366 +281,131 @@ class OrderCreatedEvent(DomainEvent):
 @dataclass
 class ItemAddedEvent(DomainEvent):
     product_id: str
-    product_name: str
     quantity: int
     unit_price: float
 
 @dataclass
-class ItemRemovedEvent(DomainEvent):
-    product_id: str
-
-@dataclass
 class OrderSubmittedEvent(DomainEvent):
     total_amount: float
-    item_count: int
-
-class Order(EventSourcedAggregate):
-    def __init__(self, order_id: str):
-        super().__init__(order_id)
-        self.customer_id: Optional[str] = None
-        self.order_number: Optional[str] = None
-        self.items: Dict[str, Dict[str, Any]] = {}
-        self.status: str = "DRAFT"
-        self.total_amount: float = 0.0
-        
-    @classmethod
-    def create(cls, order_id: str, customer_id: str, order_number: str) -> 'Order':
-        """Factory method to create new order"""
-        order = cls(order_id)
-        order.raise_event(OrderCreatedEvent(
-            aggregate_id=order_id,
-            customer_id=customer_id,
-            order_number=order_number
-        ))
-        return order
-    
-    def add_item(self, product_id: str, product_name: str, 
-                 quantity: int, unit_price: float):
-        """Add item to order with business rules"""
-        # Business rule: Cannot modify submitted orders
-        if self.status == "SUBMITTED":
-            raise ValueError("Cannot modify submitted order")
-            
-        # Business rule: Validate quantity and price
-        if quantity <= 0:
-            raise ValueError("Quantity must be positive")
-        if unit_price < 0:
-            raise ValueError("Price cannot be negative")
-            
-        self.raise_event(ItemAddedEvent(
-            aggregate_id=self.id,
-            product_id=product_id,
-            product_name=product_name,
-            quantity=quantity,
-            unit_price=unit_price
-        ))
-    
-    def remove_item(self, product_id: str):
-        """Remove item from order"""
-        if self.status == "SUBMITTED":
-            raise ValueError("Cannot modify submitted order")
-            
-        if product_id not in self.items:
-            raise ValueError(f"Product {product_id} not in order")
-            
-        self.raise_event(ItemRemovedEvent(
-            aggregate_id=self.id,
-            product_id=product_id
-        ))
-    
-    def submit(self):
-        """Submit order for processing"""
-        if self.status == "SUBMITTED":
-            raise ValueError("Order already submitted")
-            
-        if not self.items:
-            raise ValueError("Cannot submit empty order")
-            
-        total = sum(item['quantity'] * item['unit_price'] 
-                   for item in self.items.values())
-        
-        self.raise_event(OrderSubmittedEvent(
-            aggregate_id=self.id,
-            total_amount=total,
-            item_count=len(self.items)
-        ))
-    
-    # Event Handlers
-    def _on_OrderCreatedEvent(self, event: OrderCreatedEvent):
-        self.customer_id = event.customer_id
-        self.order_number = event.order_number
-        self.status = "DRAFT"
-    
-    def _on_ItemAddedEvent(self, event: ItemAddedEvent):
-        if event.product_id in self.items:
-            # Update existing item
-            self.items[event.product_id]['quantity'] += event.quantity
-        else:
-            # Add new item
-            self.items[event.product_id] = {
-                'product_name': event.product_name,
-                'quantity': event.quantity,
-                'unit_price': event.unit_price
-            }
-        self._recalculate_total()
-    
-    def _on_ItemRemovedEvent(self, event: ItemRemovedEvent):
-        del self.items[event.product_id]
-        self._recalculate_total()
-    
-    def _on_OrderSubmittedEvent(self, event: OrderSubmittedEvent):
-        self.status = "SUBMITTED"
-        self.total_amount = event.total_amount
-    
-    def _recalculate_total(self):
-        self.total_amount = sum(
-            item['quantity'] * item['unit_price'] 
-            for item in self.items.values()
-        )
 ```
 
-#### Production-Ready Implementation
+#### Business Rule Enforcement
 
-```python
-import asyncio
-from typing import Optional, AsyncIterator, Callable
-import asyncpg
-from dataclasses import asdict
+| Operation | Business Rule | Validation Point |
+|-----------|--------------|------------------|
+| Add Item | Cannot modify submitted orders | Check status before event |
+| Add Item | Quantity must be positive | Validate in command handler |
+| Remove Item | Item must exist in order | Check items collection |
+| Submit | Cannot submit empty order | Verify items count > 0 |
+| Submit | Cannot re-submit order | Check current status |
 
-# Production Event Store with PostgreSQL
-class EventStore:
-    def __init__(self, connection_pool: asyncpg.Pool, config: dict):
-        self.pool = connection_pool
-        self.config = config
-        self.event_handlers: List[Callable] = []
-        
-    async def initialize(self):
-        """Create event store schema"""
-        async with self.pool.acquire() as conn:
-            await conn.execute("""
-                CREATE TABLE IF NOT EXISTS events (
-                    sequence_number BIGSERIAL PRIMARY KEY,
-                    aggregate_id UUID NOT NULL,
-                    event_id UUID NOT NULL UNIQUE,
-                    event_type VARCHAR(255) NOT NULL,
-                    event_data JSONB NOT NULL,
-                    metadata JSONB NOT NULL,
-                    version INTEGER NOT NULL,
-                    timestamp TIMESTAMP NOT NULL,
-                    INDEX idx_aggregate_id (aggregate_id),
-                    INDEX idx_timestamp (timestamp),
-                    UNIQUE(aggregate_id, version)
-                );
-                
-                CREATE TABLE IF NOT EXISTS snapshots (
-                    aggregate_id UUID PRIMARY KEY,
-                    version INTEGER NOT NULL,
-                    data JSONB NOT NULL,
-                    timestamp TIMESTAMP NOT NULL
-                );
-            """)
-    
-    async def append_events(self, aggregate_id: str, 
-                           events: List[DomainEvent],
-                           expected_version: Optional[int] = None):
-        """Append events with optimistic concurrency control"""
-        async with self.pool.acquire() as conn:
-            async with conn.transaction():
-                # Check expected version if provided
-                if expected_version is not None:
-                    current_version = await conn.fetchval("""
-                        SELECT MAX(version) FROM events 
-                        WHERE aggregate_id = $1
-                    """, aggregate_id)
-                    
-                    if current_version != expected_version:
-                        raise ConcurrencyException(
-                            f"Expected version {expected_version}, "
-                            f"but current version is {current_version}"
-                        )
-                
-                # Insert events
-                for event in events:
-                    await conn.execute("""
-                        INSERT INTO events (
-                            aggregate_id, event_id, event_type,
-                            event_data, metadata, version, timestamp
-                        ) VALUES ($1, $2, $3, $4, $5, $6, $7)
-                    """, 
-                        event.aggregate_id,
-                        event.event_id,
-                        event.event_type,
-                        json.dumps(asdict(event)),
-                        json.dumps(event.metadata),
-                        event.version,
-                        event.timestamp
-                    )
-                
-                # Publish events asynchronously
-                for event in events:
-                    asyncio.create_task(self._publish_event(event))
-    
-    async def get_events(self, aggregate_id: str, 
-                        from_version: int = 0) -> List[DomainEvent]:
-        """Get events for aggregate"""
-        async with self.pool.acquire() as conn:
-            rows = await conn.fetch("""
-                SELECT event_type, event_data, version, timestamp
-                FROM events
-                WHERE aggregate_id = $1 AND version > $2
-                ORDER BY version
-            """, aggregate_id, from_version)
-            
-            events = []
-            for row in rows:
-                event_class = self._get_event_class(row['event_type'])
-                event_data = json.loads(row['event_data'])
-                event = event_class(**event_data)
-                events.append(event)
-                
-            return events
-    
-    async def get_aggregate(self, aggregate_class: type,
-                           aggregate_id: str) -> Optional[EventSourcedAggregate]:
-        """Load aggregate with snapshot optimization"""
-        # Try to load from snapshot
-        snapshot_data = await self._load_snapshot(aggregate_id)
-        
-        if snapshot_data:
-            aggregate = self._deserialize_aggregate(
-                aggregate_class, 
-                snapshot_data['data']
-            )
-            from_version = snapshot_data['version']
-        else:
-            aggregate = aggregate_class(aggregate_id)
-            from_version = 0
-        
-        # Load events after snapshot
-        events = await self.get_events(aggregate_id, from_version)
-        
-        if not events and from_version == 0:
-            return None  # Aggregate doesn't exist
-            
-        # Apply events
-        aggregate.load_from_history(events)
-        
-        # Create snapshot if needed
-        if len(events) > self.config.get('snapshot_frequency', 100):
-            await self._save_snapshot(aggregate)
-            
-        return aggregate
-    
-    async def save_aggregate(self, aggregate: EventSourcedAggregate):
-        """Save aggregate events"""
-        if not aggregate.uncommitted_events:
-            return
-            
-        expected_version = aggregate.version - len(aggregate.uncommitted_events)
-        await self.append_events(
-            aggregate.id,
-            aggregate.uncommitted_events,
-            expected_version
-        )
-        
-        aggregate.mark_events_committed()
+#### Production Architecture
 
-# Event Store with Event Sourcing Projections
-class ProjectionManager:
-    def __init__(self, event_store: EventStore):
-        self.event_store = event_store
-        self.projections: Dict[str, EventProjection] = {}
-        self.checkpoints: Dict[str, int] = {}
-        
-    async def register_projection(self, projection: 'EventProjection'):
-        """Register a projection handler"""
-        self.projections[projection.name] = projection
-        
-        # Load checkpoint
-        checkpoint = await self._load_checkpoint(projection.name)
-        self.checkpoints[projection.name] = checkpoint
-        
-    async def start(self):
-        """Start processing events for all projections"""
-        tasks = []
-        for name, projection in self.projections.items():
-            task = asyncio.create_task(
-                self._process_projection(name, projection)
-            )
-            tasks.append(task)
-            
-        await asyncio.gather(*tasks)
+```mermaid
+graph TB
+    subgraph "Write Path"
+        CMD[Commands] --> CV{Concurrency<br/>Check}
+        CV -->|Version Match| AE[Append Events]
+        CV -->|Version Mismatch| CE[Concurrency Error]
+        AE --> ES[(Event Store)]
+        ES --> EB[Event Bus]
+    end
     
-    async def _process_projection(self, name: str, projection: 'EventProjection'):
-        """Process events for a single projection"""
-        checkpoint = self.checkpoints.get(name, 0)
+    subgraph "Read Path"
+        ES --> SN[(Snapshots)]
+        ES --> PM[Projection Manager]
+        PM --> P1[Order List View]
+        PM --> P2[Customer View]
+        PM --> P3[Analytics View]
         
-        while True:
-            try:
-                # Get new events
-                events = await self.event_store.get_all_events_after(checkpoint)
-                
-                if events:
-                    # Process events
-                    for event in events:
-                        if projection.can_handle(event):
-                            await projection.handle(event)
-                            
-                    # Update checkpoint
-                    checkpoint = events[-1].sequence_number
-                    await self._save_checkpoint(name, checkpoint)
-                    self.checkpoints[name] = checkpoint
-                else:
-                    # No new events, wait
-                    await asyncio.sleep(1)
-                    
-            except Exception as e:
-                # Log error and continue
-                print(f"Projection {name} error: {e}")
-                await asyncio.sleep(5)
-
-# Temporal Queries
-class TemporalQueryService:
-    def __init__(self, event_store: EventStore):
-        self.event_store = event_store
-        
-    async def get_aggregate_at_time(self, aggregate_class: type,
-                                   aggregate_id: str,
-                                   timestamp: datetime) -> Optional[EventSourcedAggregate]:
-        """Get aggregate state at specific time"""
-        events = await self.event_store.get_events_before(
-            aggregate_id, 
-            timestamp
-        )
-        
-        if not events:
-            return None
-            
-        aggregate = aggregate_class(aggregate_id)
-        aggregate.load_from_history(events)
-        return aggregate
+        P1 --> RDB[(Read DB)]
+        P2 --> RDB
+        P3 --> RDB
+    end
     
-    async def get_aggregate_history(self, aggregate_id: str,
-                                   start_time: datetime,
-                                   end_time: datetime) -> List[Dict[str, Any]]:
-        """Get change history in time range"""
-        events = await self.event_store.get_events_in_range(
-            aggregate_id,
-            start_time,
-            end_time
-        )
-        
-        return [
-            {
-                'version': event.version,
-                'type': event.event_type,
-                'timestamp': event.timestamp,
-                'changes': self._extract_changes(event),
-                'metadata': event.metadata
-            }
-            for event in events
-        ]
+    subgraph "Query Path"
+        Q[Queries] --> TQ[Temporal Query]
+        TQ --> ES
+        Q --> RQ[Regular Query]
+        RQ --> RDB
+    end
+    
+    style ES fill:#2196f3,stroke:#1565c0,stroke-width:3px
+    style SN fill:#78909c
+    style EB fill:#4db6ac
+    style RDB fill:#66bb6a
 ```
+
+#### Database Schema Design
+
+```sql
+-- Core event store tables
+CREATE TABLE events (
+    sequence_number BIGSERIAL PRIMARY KEY,
+    aggregate_id UUID NOT NULL,
+    event_id UUID NOT NULL UNIQUE,
+    event_type VARCHAR(255) NOT NULL,
+    event_data JSONB NOT NULL,
+    metadata JSONB NOT NULL,
+    version INTEGER NOT NULL,
+    timestamp TIMESTAMP NOT NULL,
+    INDEX idx_aggregate_id (aggregate_id),
+    INDEX idx_timestamp (timestamp),
+    UNIQUE(aggregate_id, version)
+);
+
+CREATE TABLE snapshots (
+    aggregate_id UUID PRIMARY KEY,
+    version INTEGER NOT NULL,
+    data JSONB NOT NULL,
+    timestamp TIMESTAMP NOT NULL
+);
+
+CREATE TABLE projection_checkpoints (
+    projection_name VARCHAR(255) PRIMARY KEY,
+    last_sequence_number BIGINT NOT NULL,
+    updated_at TIMESTAMP NOT NULL
+);
+```
+
+#### Projection Processing Flow
+
+```mermaid
+sequenceDiagram
+    participant ES as Event Store
+    participant PM as Projection Manager
+    participant P as Projection
+    participant CP as Checkpoint Store
+    participant RDB as Read Database
+
+    loop Continuous Processing
+        PM->>CP: Get Checkpoint
+        CP-->>PM: Last Sequence Number
+        PM->>ES: Get Events After Checkpoint
+        ES-->>PM: New Events
+        
+        loop For Each Event
+            PM->>P: Can Handle Event?
+            alt Can Handle
+                P->>RDB: Update Read Model
+                PM->>CP: Update Checkpoint
+            else Cannot Handle
+                PM->>PM: Skip Event
+            end
+        end
+        
+        PM->>PM: Sleep if No Events
+    end
+```
+
+#### Key Implementation Considerations
+
+| Component | Purpose | Key Features |
+|-----------|---------|--------------|
+| **Event Store** | Persistent event storage | - Optimistic concurrency control<br/>- Event ordering guarantees<br/>- Efficient range queries |
+| **Snapshot Store** | Performance optimization | - Periodic state snapshots<br/>- Configurable frequency<br/>- Compression support |
+| **Projection Manager** | Read model updates | - Parallel processing<br/>- Checkpoint management<br/>- Error recovery |
+| **Temporal Queries** | Historical state access | - Point-in-time queries<br/>- Time range analysis<br/>- Audit trail support |
 
 ### State Management
 
@@ -675,130 +447,94 @@ stateDiagram-v2
 
 ### Advanced Techniques
 
-#### Event Versioning and Upcasting
+#### Event Versioning and Schema Evolution
+
+```mermaid
+graph LR
+    subgraph "Event Version Evolution"
+        V1[Event v1.0] --> U1[Upgrader v1→v2]
+        U1 --> V2[Event v2.0]
+        V2 --> U2[Upgrader v2→v3]
+        U2 --> V3[Event v3.0]
+    end
+    
+    subgraph "Version Strategies"
+        S1[Weak Schema<br/>Add optional fields]
+        S2[Upcasting<br/>Transform on read]
+        S3[Multiple Versions<br/>Support all versions]
+        S4[Copy & Transform<br/>Migrate all events]
+    end
+    
+    style V1 fill:#ffecb3
+    style V2 fill:#fff9c4
+    style V3 fill:#f0f4c3
+```
+
+##### Version Evolution Patterns
+
+| Strategy | When to Use | Pros | Cons |
+|----------|-------------|------|------|
+| **Weak Schema** | Adding optional fields | Simple, backward compatible | Limited changes |
+| **Upcasting** | Structural changes | No data migration | Runtime overhead |
+| **Multi-Version** | Breaking changes | Full compatibility | Complex handlers |
+| **Copy-Transform** | Major refactoring | Clean result | Downtime, risky |
 
 ```python
-class EventUpgrader:
-    """Handle event schema evolution"""
-    
-    def __init__(self):
-        self.upgraders: Dict[Tuple[str, str, str], Callable] = {}
-        
-    def register_upgrader(self, event_type: str, 
-                         from_version: str, 
-                         to_version: str,
-                         upgrader: Callable):
-        """Register event version upgrader"""
-        key = (event_type, from_version, to_version)
-        self.upgraders[key] = upgrader
-        
-    def upgrade_event(self, event: Dict[str, Any]) -> Dict[str, Any]:
-        """Upgrade event to current version"""
-        event_type = event['event_type']
-        current_version = event.get('schema_version', '1.0')
-        target_version = self._get_current_version(event_type)
-        
-        while current_version < target_version:
-            next_version = self._get_next_version(event_type, current_version)
-            key = (event_type, current_version, next_version)
-            
-            if key in self.upgraders:
-                event = self.upgraders[key](event)
-                current_version = next_version
-            else:
-                raise ValueError(f"No upgrader for {key}")
-                
-        return event
-
-# Example upgraders
-def upgrade_order_created_v1_to_v2(event: Dict[str, Any]) -> Dict[str, Any]:
-    """Add shipping address to order created event"""
-    event['shipping_address'] = event.get('customer_address', {})
-    event['schema_version'] = '2.0'
-    return event
-
-def upgrade_item_added_v1_to_v2(event: Dict[str, Any]) -> Dict[str, Any]:
-    """Add tax information to item added event"""
-    event['tax_rate'] = 0.08  # Default 8% tax
-    event['tax_amount'] = event['unit_price'] * event['quantity'] * 0.08
+# Example: Simple event upgrader
+def upgrade_order_event_v1_to_v2(event):
+    """Add tax information to v1 events"""
+    event['tax_rate'] = 0.08  # Default 8%
     event['schema_version'] = '2.0'
     return event
 ```
 
 #### Event Stream Processing
 
-```python
-class EventStreamProcessor:
-    """Process event streams for complex event detection"""
+```mermaid
+graph TB
+    subgraph "Stream Processing Architecture"
+        ES[(Event Store)] --> SW[Sliding Window]
+        SW --> P1[Fraud Detector]
+        SW --> P2[Anomaly Detector]
+        SW --> P3[Business Rules]
+        
+        P1 --> A1[Alert: Fraud]
+        P2 --> A2[Alert: Anomaly]
+        P3 --> A3[Alert: Rule Violation]
+    end
     
-    def __init__(self, event_store: EventStore):
-        self.event_store = event_store
-        self.processors: List[StreamProcessor] = []
-        
-    async def process_stream(self, 
-                           window_size: timedelta,
-                           slide_interval: timedelta):
-        """Process event stream with sliding windows"""
-        
-        last_timestamp = datetime.utcnow() - window_size
-        
-        while True:
-            # Get events in window
-            end_time = datetime.utcnow()
-            events = await self.event_store.get_global_events_in_range(
-                last_timestamp - window_size,
-                end_time
-            )
-            
-            # Process patterns
-            for processor in self.processors:
-                patterns = await processor.detect_patterns(events)
-                
-                for pattern in patterns:
-                    await self._handle_pattern(pattern)
-            
-            # Slide window
-            last_timestamp = end_time - slide_interval
-            await asyncio.sleep(slide_interval.total_seconds())
+    subgraph "Window Types"
+        TW[Tumbling Window<br/>Fixed, non-overlapping]
+        SLW[Sliding Window<br/>Fixed, overlapping]
+        SW2[Session Window<br/>Activity-based]
+    end
     
-    async def _handle_pattern(self, pattern: Dict[str, Any]):
-        """Handle detected pattern"""
-        if pattern['type'] == 'fraud_suspected':
-            await self._trigger_fraud_investigation(pattern)
-        elif pattern['type'] == 'unusual_activity':
-            await self._alert_monitoring(pattern)
+    style ES fill:#2196f3
+    style SW fill:#4db6ac
+    style A1 fill:#ef5350
+    style A2 fill:#ffa726
+    style A3 fill:#ffee58
+```
 
-# Example: Fraud Detection Processor
-class FraudDetectionProcessor:
-    async def detect_patterns(self, events: List[DomainEvent]) -> List[Dict]:
-        patterns = []
-        
-        # Group events by customer
-        customer_events = defaultdict(list)
-        for event in events:
-            if hasattr(event, 'customer_id'):
-                customer_events[event.customer_id].append(event)
-        
-        # Detect suspicious patterns
-        for customer_id, events in customer_events.items():
-            # Multiple orders in short time
-            order_events = [e for e in events 
-                          if e.event_type == 'OrderCreatedEvent']
-            
-            if len(order_events) > 5:
-                time_span = (order_events[-1].timestamp - 
-                           order_events[0].timestamp)
-                
-                if time_span < timedelta(minutes=10):
-                    patterns.append({
-                        'type': 'fraud_suspected',
-                        'customer_id': customer_id,
-                        'reason': 'multiple_orders_short_time',
-                        'event_count': len(order_events),
-                        'time_span': time_span
-                    })
-        
-        return patterns
+##### Pattern Detection Examples
+
+| Pattern | Detection Logic | Action |
+|---------|----------------|--------|
+| **Fraud** | >5 orders in 10 minutes | Flag account, notify security |
+| **Anomaly** | 10x normal volume | Scale resources, investigate |
+| **Business Rule** | Order > credit limit | Block transaction, notify |
+| **System Health** | Error rate > 5% | Page on-call, rollback |
+
+```python
+# Example: Simple fraud detection
+def detect_fraud_pattern(customer_events):
+    order_events = [e for e in customer_events 
+                    if e.type == 'OrderCreated']
+    
+    if len(order_events) > 5:
+        time_span = order_events[-1].time - order_events[0].time
+        if time_span < timedelta(minutes=10):
+            return {'type': 'fraud', 'severity': 'high'}
 ```
 
 ### Performance Optimization

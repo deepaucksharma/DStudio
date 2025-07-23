@@ -24,7 +24,7 @@ This guide ensures all patterns in the Compendium follow a consistent structure 
 - **Implementation Example**: Clean, commented code example
 
 ### 4. Analysis & Trade-offs (📊)
-- **Axiom Relationships**: How pattern relates to 8 axioms
+- **Law Relationships**: How pattern relates to 7 laws
 - **Trade-off Analysis**: What you gain vs what you lose
 - **Common Pitfalls**: Top 3-5 mistakes and how to avoid
 
@@ -65,7 +65,7 @@ All patterns should include:
 - Show both basic and advanced usage
 
 ### Cross-References
-- Link to related axioms
+- Link to related laws
 - Link to complementary patterns
 - Link to anti-patterns
 
@@ -84,7 +84,7 @@ All patterns should include:
 - [ ] Decision table for when to use
 - [ ] At least one Mermaid diagram
 - [ ] Implementation code example
-- [ ] All 8 axioms addressed
+- [ ] All 7 laws addressed
 - [ ] Configuration guidelines provided
 - [ ] Monitoring metrics defined
 - [ ] Real-world examples included

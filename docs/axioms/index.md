@@ -1,7 +1,7 @@
 ---
 title: The 7 Fundamental Laws
 description: Advanced framework for distributed systems, derived from physics, mathematics, and complexity theory
-type: axiom
+type: law
 difficulty: advanced
 reading_time: 8 min
 prerequisites: []
@@ -18,7 +18,7 @@ last_updated: 2025-01-23
 !!! tip "Quick Overview"
     This page provides a high-level overview of the 7 fundamental laws. For the complete framework with theoretical foundations, examples, and exercises, visit the **[detailed laws section](../part1-axioms/index.md)**.
 
-## 🌌 Why Laws, Not Laws?
+## 🌌 Why Laws, Not Axioms?
 
 These aren't simple observations or rules of thumb. They are fundamental laws that emerge from physics, mathematics, and information theory. Understanding these laws enables you to:
 
@@ -174,7 +174,7 @@ graph TD
 
 ## 📚 Evolution from Basic to Advanced
 
-### Basic Framework (Traditional Laws)
+### Basic Framework (Traditional Axioms)
 - Simple, approachable concepts
 - Binary trade-offs (CAP theorem)
 - Practical patterns

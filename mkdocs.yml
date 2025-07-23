@@ -165,7 +165,7 @@ nav:
     
     - "Resilience & Reliability":
       - "Circuit Breaker": patterns/circuit-breaker.md
-      - "Circuit Breaker Enhanced": patterns/circuit-breaker-enhanced.md
+      - "Circuit Breaker": patterns/circuit-breaker.md
       - "Retry & Backoff": patterns/retry-backoff.md
       - "Bulkhead": patterns/bulkhead.md
       - "Timeout": patterns/timeout.md
@@ -352,6 +352,7 @@ nav:
       - "Distributed Email (Enhanced)": case-studies/distributed-email-enhanced.md
       - "S3 Object Storage (Enhanced)": case-studies/s3-object-storage-enhanced.md
       - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
+      - "Prometheus & Datadog (Enhanced)": case-studies/prometheus-datadog-enhanced.md
   
   - "📖 Reference":
     - "📖 All Resources": reference/index.md

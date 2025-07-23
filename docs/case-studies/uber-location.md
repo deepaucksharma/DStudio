@@ -623,7 +623,7 @@ Trade-off: Temporary inconsistency for convergence⁹
 
 **Patterns**: Event-driven, Geospatial sharding, Service mesh, CQRS, Circuit breaker, Bulkhead, Edge computing
 
-**Similar Systems**: [Google Maps](google-maps-enhanced.md), [WhatsApp](chat-system-enhanced.md)
+**Similar Systems**: Google Maps, WhatsApp
 
 ## References
 

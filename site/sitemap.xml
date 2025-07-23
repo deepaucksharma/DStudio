@@ -9,14 +9,6 @@
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
-         <loc>https://deepaucksharma.github.io/DStudio/capstone/evaluation-rubric/</loc>
-         <lastmod>2025-07-23</lastmod>
-    </url>
-    <url>
-         <loc>https://deepaucksharma.github.io/DStudio/capstone/framework/</loc>
-         <lastmod>2025-07-23</lastmod>
-    </url>
-    <url>
          <loc>https://deepaucksharma.github.io/DStudio/case-studies/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
@@ -330,6 +322,10 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/introduction/</loc>
+         <lastmod>2025-07-23</lastmod>
+    </url>
+    <url>
+         <loc>https://deepaucksharma.github.io/DStudio/introduction/getting-started/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
     <url>
@@ -1374,10 +1370,6 @@
     </url>
     <url>
          <loc>https://deepaucksharma.github.io/DStudio/reference/security/</loc>
-         <lastmod>2025-07-23</lastmod>
-    </url>
-    <url>
-         <loc>https://deepaucksharma.github.io/DStudio/tools/</loc>
          <lastmod>2025-07-23</lastmod>
     </url>
 </urlset>
