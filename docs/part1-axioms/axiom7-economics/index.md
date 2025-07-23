@@ -4,7 +4,7 @@ description: Every architectural decision is ultimately a financial decision
 type: axiom
 difficulty: expert
 reading_time: 10 min
-prerequisites: ["part1-laws/index.md"]
+prerequisites: ["part1-axioms/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---

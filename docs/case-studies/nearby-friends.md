@@ -154,7 +154,7 @@ graph TB
     end
 ```
 
-### Law 4: Trade-offs ⚖️ - The N×M Friend Location Problem
+### Axiom 4: Trade-offs ⚖️ - The N×M Friend Location Problem
 
 Each user has M friends, creating N×M potential location relationships to track.
 
@@ -195,7 +195,7 @@ graph LR
     end
 ```
 
-### Law 1: Failure ⛓️ - Privacy-First Failure Modes
+### Axiom 1: Failure ⛓️ - Privacy-First Failure Modes
 
 System must fail closed - never expose location without explicit permission.
 
@@ -224,7 +224,7 @@ graph TB
 | Notification Failure | Friends unaware of presence | Retry with backoff |
 | Regional Outage | Friends appear offline | Graceful degradation |
 
-### Law 3: Emergence 🌪️ - Millions Moving Simultaneously
+### Axiom 3: Emergence 🌪️ - Millions Moving Simultaneously
 
 Handle concurrent location updates from millions of users efficiently.
 
@@ -258,7 +258,7 @@ graph TB
 | Read Replicas | Scale friend queries | 10M reads/sec |
 | Write-Through Cache | Recent locations | 90% cache hit |
 
-### Law 4: Trade-offs ⚖️ - Global Friend Graph Consistency
+### Axiom 4: Trade-offs ⚖️ - Global Friend Graph Consistency
 
 Maintaining consistent friend relationships and permissions across regions.
 
@@ -292,7 +292,7 @@ graph TB
 | Location History | Eventual | < 1 minute | Not real-time critical |
 | Presence Status | Causal | < 10 seconds | User experience |
 
-### Law 5: Epistemology 🧠 - Privacy-Aware Monitoring
+### Axiom 5: Epistemology 🧠 - Privacy-Aware Monitoring
 
 Monitor system health without compromising user privacy.
 
@@ -320,7 +320,7 @@ graph LR
 | Battery Impact | Update frequency distribution | Device-type aggregated |
 | Friend Graph | Average friend count | Statistical only |
 
-### Law 6: Human-API 🤯 - Privacy and Control
+### Axiom 6: Human-API 🤯 - Privacy and Control
 
 Give users intuitive control over their location sharing.
 
@@ -349,7 +349,7 @@ graph TB
 | Geofencing | Hide in certain areas | Location-based privacy |
 | Activity-based | Hide when stationary | Context awareness |
 
-### Law 7: Economics 💰 - Balancing Features and Costs
+### Axiom 7: Economics 💰 - Balancing Features and Costs
 
 Optimize costs while providing free service to hundreds of millions.
 
@@ -379,11 +379,11 @@ graph TB
 | Edge Computing | Process locally | 50% compute |
 | Adaptive Frequency | Movement-based updates | 80% battery/data |
 
-## Part 2: Comprehensive Law Analysis Matrix
+## Part 2: Comprehensive Axiom Analysis Matrix
 
-### Law Mapping for Core Design Decisions
+### Axiom Mapping for Core Design Decisions
 
-| Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
+| Design Decision | Axiom 2: Asynchronous Reality ⏳ | Axiom 4: Trade-offs ⚖️ | Axiom 1: Failure ⛓️ | Axiom 3: Emergence 🌪️ | Axiom 4: Trade-offs ⚖️ | Axiom 5: Epistemology 🧠 | Axiom 6: Human-API 🤯 | Axiom 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
 | **Pub/Sub Architecture** | ✅ Real-time delivery<br/>Push model | ⚠️ Fan-out overhead<br/>N×M messages | ✅ Graceful degradation<br/>Queue persistence | ✅ Parallel delivery<br/>Natural decoupling | ⚠️ Ordering challenges<br/>Cross-region sync | ✅ Clear flow<br/>Message tracing | ✅ Instant updates<br/>Live experience | ⚠️ Infrastructure cost<br/>Message volume |
 | **Geohash Clustering** | ✅ Fast friend lookup<br/>O(1) operations | ✅ Spatial efficiency<br/>Reduce comparisons | ✅ Simple recovery<br/>Stateless design | ✅ Parallel processing<br/>Independent cells | ✅ Natural sharding<br/>Geographic bounds | ✅ Clear metrics<br/>Cell-based stats | ⚠️ Grid boundaries<br/>Edge cases | ✅ Efficient indexing<br/>Low compute |
@@ -391,7 +391,7 @@ graph TB
 | **Adaptive Updates** | ✅ Optimize frequency<br/>Based on movement | ✅ Reduce volume<br/>80% fewer updates | ✅ Fallback rates<br/>Never lose user | ✅ Independent logic<br/>Per-user rates | ⚠️ Rate sync issues<br/>Clock skew | ✅ Movement patterns<br/>Clear analytics | ✅ Battery saving<br/>User happiness | ✅ Major savings<br/>Compute and network |
 | **Friend Graph Cache** | ✅ Instant lookup<br/>Memory speed | ⚠️ Memory usage<br/>Redundant storage | ✅ Stale but safe<br/>Old permissions OK | ✅ Read scaling<br/>No graph locks | ⚠️ Cache coherency<br/>Update propagation | ✅ Hit rates<br/>Cache effectiveness | ✅ Fast friend list<br/>Smooth UX | ✅ Reduce DB load<br/>90% fewer queries |
 
-### Law Interaction Complexity
+### Axiom Interaction Complexity
 
 ```mermaid
 graph TB
@@ -1672,14 +1672,14 @@ class PrivacyDashboard:
 
 ## 🔍 Related Concepts & Deep Dives
 
-### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Real-time location updates
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Battery and bandwidth limits
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Privacy fail-safes
-- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Parallel proximity checks
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Privacy UX, battery life
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Infrastructure costs
+### 📚 Relevant Axioms
+- **[Axiom 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Real-time location updates
+- **[Axiom 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Battery and bandwidth limits
+- **[Axiom 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Privacy fail-safes
+- **[Axiom 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Parallel proximity checks
+- **[Axiom 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Consent synchronization and privacy analytics
+- **[Axiom 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Privacy UX, battery life
+- **[Axiom 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
 - **[Location Privacy](../patterns/location-privacy.md)** - K-anonymity, fuzzing

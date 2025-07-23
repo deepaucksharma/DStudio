@@ -4,7 +4,7 @@ description: System design is not choosing two of three. It's finding acceptable
 type: axiom
 difficulty: expert
 reading_time: 12 min
-prerequisites: ["part1-laws/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md"]
+prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---

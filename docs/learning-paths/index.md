@@ -89,11 +89,11 @@ last_updated: 2025-01-23
 
 #### Week 1-2: Core Concepts
 1. **Start Here**: [What Makes Systems Distributed?](../introduction/index.md)
-2. **Foundation**: [The 7 Fundamental Laws](../part1-laws/index.md)
-   - Day 1-2: [Correlated Failure - Components Fail Together](../part1-laws/axiom1-failure/index.md)
-   - Day 3-4: [Asynchronous Reality - The Present is Unknowable](../part1-laws/axiom2-asynchrony/index.md)
-   - Day 5-6: [Emergent Chaos - Scale Creates Unpredictability](../part1-laws/axiom3-emergence/index.md)
-   - Day 7-8: [Multidimensional Trade-offs - Beyond CAP](../part1-laws/axiom4-tradeoffs/index.md)
+2. **Foundation**: [The 7 Fundamental Laws](../part1-axioms/index.md)
+   - Day 1-2: [Correlated Failure - Components Fail Together](../part1-axioms/axiom1-failure/index.md)
+   - Day 3-4: [Asynchronous Reality - The Present is Unknowable](../part1-axioms/axiom2-asynchrony/index.md)
+   - Day 5-6: [Emergent Chaos - Scale Creates Unpredictability](../part1-axioms/axiom3-emergence/index.md)
+   - Day 7-8: [Multidimensional Trade-offs - Beyond CAP](../part1-axioms/axiom4-tradeoffs/index.md)
 3. **Exercise**: Build a simple distributed counter
 
 #### Week 3-4: Essential Patterns
@@ -111,9 +111,9 @@ last_updated: 2025-01-23
 
 #### Week 7-8: Production Readiness
 1. **Complete the Laws**:
-   - [Distributed Knowledge - Truth is Local](../part1-laws/axiom5-epistemology/index.md)
-   - [Cognitive Load - Design for Humans](../part1-laws/axiom6-human-api/index.md)
-   - [Economic Reality - Cost Drives Design](../part1-laws/axiom7-economics/index.md)
+   - [Distributed Knowledge - Truth is Local](../part1-axioms/axiom5-epistemology/index.md)
+   - [Cognitive Load - Design for Humans](../part1-axioms/axiom6-human-api/index.md)
+   - [Economic Reality - Cost Drives Design](../part1-axioms/axiom7-economics/index.md)
 2. **Operations**: [Observability Basics](../patterns/observability.md)
 3. **Capstone**: Deploy your system with monitoring
 
@@ -162,10 +162,10 @@ last_updated: 2025-01-23
 **Goal**: Design large-scale systems with confidence
 
 #### Week 1: System Design Fundamentals
-1. **Advanced Framework**: [The 7 Fundamental Laws](../part1-laws/index.md)
+1. **Advanced Framework**: [The 7 Fundamental Laws](../part1-axioms/index.md)
 2. **Analysis Tools**:
-   - [Multidimensional Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)
-   - [Distributed Knowledge & Epistemology](../part1-laws/axiom5-epistemology/index.md)
+   - [Multidimensional Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
+   - [Distributed Knowledge & Epistemology](../part1-axioms/axiom5-epistemology/index.md)
    - [Trade-off Matrices](../part2-pillars/tradeoff-calculus.md)
 3. **Exercise**: Design a video streaming platform
 
@@ -200,15 +200,15 @@ last_updated: 2025-01-23
 
 #### Week 1: Economics & Trade-offs
 1. **Cost Analysis**:
-   - [Economics of Distribution](../part1-laws/axiom7-economics/index.md)
-   - [Multidimensional Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)
+   - [Economics of Distribution](../part1-axioms/axiom7-economics/index.md)
+   - [Multidimensional Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
    - [FinOps Best Practices](../patterns/finops.md)
 2. **Exercise**: ROI analysis for microservices migration
 
 #### Week 2: Organizational Impact
 1. **Human & Economic Laws**:
-   - [Cognitive Load - Design for Human Minds](../part1-laws/axiom6-human-api/index.md)
-   - [Economic Reality - Every Decision Has Cost](../part1-laws/axiom7-economics/index.md)
+   - [Cognitive Load - Design for Human Minds](../part1-axioms/axiom6-human-api/index.md)
+   - [Economic Reality - Every Decision Has Cost](../part1-axioms/axiom7-economics/index.md)
    - [Conway's Law in Practice](../human-factors/org-structure.md)
    - [Team Topologies](../human-factors/team-topologies.md)
 2. **Case Study**: How Amazon organizes teams

@@ -38,7 +38,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Formal temporal logic and partial ordering
 - The unknowability of the present in distributed systems
 
-**Find it here:** [Law of Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)
+**Find it here:** [Law of Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md)
 
 ### 🔄 Old Law 2: Finite Capacity → Distributed Across Multiple Laws
 
@@ -64,7 +64,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Metastable failure states
 - Cascading failure analysis
 
-**Find it here:** [Law of Correlated Failure](../part1-laws/axiom1-failure/index.md)
+**Find it here:** [Law of Correlated Failure](../part1-axioms/axiom1-failure/index.md)
 
 ### 🔄 Old Law 4: Concurrency → New Law 3: Emergence
 
@@ -78,7 +78,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Non-linear dynamics and tipping points
 - Chaos engineering as a response to emergence
 
-**Find it here:** [Law of Emergent Chaos](../part1-laws/axiom3-emergence/index.md)
+**Find it here:** [Law of Emergent Chaos](../part1-axioms/axiom3-emergence/index.md)
 
 ### 🔄 Old Law 5: Coordination → New Law 4: Trade-offs
 
@@ -92,7 +92,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Non-linear trade-off surfaces
 - Context-dependent optimization
 
-**Find it here:** [Law of Multidimensional Optimization](../part1-laws/axiom4-tradeoffs/index.md)
+**Find it here:** [Law of Multidimensional Optimization](../part1-axioms/axiom4-tradeoffs/index.md)
 
 ### 🔄 Old Law 6: Observability → New Law 5: Epistemology
 
@@ -106,7 +106,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Probabilistic certainty (Bloom filters, HyperLogLog)
 - The cost of certainty in distributed systems
 
-**Find it here:** [Law of Distributed Knowledge](../part1-laws/axiom5-epistemology/index.md)
+**Find it here:** [Law of Distributed Knowledge](../part1-axioms/axiom5-epistemology/index.md)
 
 ### 🔄 Old Law 7: Human Interface → New Law 6: Human-API
 
@@ -120,7 +120,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Cognitive load of different consistency models
 - Observability as user interface design
 
-**Find it here:** [Law of Cognitive Load](../part1-laws/axiom6-human-api/index.md)
+**Find it here:** [Law of Cognitive Load](../part1-axioms/axiom6-human-api/index.md)
 
 ### 🔄 Old Law 7: Economics → New Law 7: Economics
 
@@ -134,7 +134,7 @@ This guide helps users familiar with the original 8-axiom framework navigate to 
 - Economic modeling of architectural choices
 - Cost-aware system design
 
-**Find it here:** [Law of Economic Reality](../part1-laws/axiom7-economics/index.md)
+**Find it here:** [Law of Economic Reality](../part1-axioms/axiom7-economics/index.md)
 
 ## Why the Framework Was Restructured
 
@@ -188,19 +188,19 @@ The old laws were empirical observations. The new laws are grounded in formal th
 
 ### If you're looking for content on...
 
-- **Latency, RTT, speed of light** → [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)
-- **Capacity planning, limits** → [Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md) and [Law 7: Economics](../part1-laws/axiom7-economics/index.md)
-- **Failure modes, fault tolerance** → [Law 1: Failure](../part1-laws/axiom1-failure/index.md)
-- **Race conditions, concurrency** → [Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)
-- **Consensus, coordination** → [Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md) and [Law 5: Knowledge](../part1-laws/axiom5-epistemology/index.md)
-- **Monitoring, observability** → [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)
-- **UX, operations, tooling** → [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)
-- **Cost, resources, scaling** → [Law 7: Economics](../part1-laws/axiom7-economics/index.md)
+- **Latency, RTT, speed of light** → [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md)
+- **Capacity planning, limits** → [Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md) and [Law 7: Economics](../part1-axioms/axiom7-economics/index.md)
+- **Failure modes, fault tolerance** → [Law 1: Failure](../part1-axioms/axiom1-failure/index.md)
+- **Race conditions, concurrency** → [Law 3: Emergence](../part1-axioms/axiom3-emergence/index.md)
+- **Consensus, coordination** → [Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md) and [Law 5: Knowledge](../part1-axioms/axiom5-epistemology/index.md)
+- **Monitoring, observability** → [Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md)
+- **UX, operations, tooling** → [Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md)
+- **Cost, resources, scaling** → [Law 7: Economics](../part1-axioms/axiom7-economics/index.md)
 
 ## Archived Content
 
 The original 8-axiom content is preserved in the archive for reference:
-- [Archive: Old 8-Axiom Structure](../part1-laws/archive-old-8-axiom-structure/README.md)
+- [Archive: Old 8-Axiom Structure](../part1-axioms/archive-old-8-axiom-structure/README.md)
 
 ## Summary: What You Gain with the New Framework
 

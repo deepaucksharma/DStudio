@@ -1378,8 +1378,8 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md) - Consensus and distributed coordination
-- [Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md) - Failure modes and recovery strategies
+- [Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md) - Consensus and distributed coordination
+- [Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md) - Failure modes and recovery strategies
 - [Consistent Hashing Pattern](../case-studies/consistent-hashing.md) - Data distribution technique
 - [CAP Theorem](../part2-pillars/truth/index.md#cap-theorem) - Fundamental trade-offs
 

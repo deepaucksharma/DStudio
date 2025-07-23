@@ -571,13 +571,13 @@ graph TB
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Fallback to popular playlists when recommendation service fails
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
-- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Millions of concurrent users require lock-free serving infrastructure
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - A/B testing framework measures recommendation quality in real-time
-- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - UI design balances algorithmic recommendations with user control
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
+- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Fallback to popular playlists when recommendation service fails
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - 50ms budget for recommendation serving drives caching and pre-computation strategies
+- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Millions of concurrent users require lock-free serving infrastructure
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - GPU clusters and feature store synchronization balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - A/B testing framework measures recommendation quality in real-time
+- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - UI design balances algorithmic recommendations with user control
+- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Recommendation quality directly impacts user retention and revenue
 
 ### 🏛️ Related Patterns (Part III)
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - User events (plays, skips, likes) flow through Kafka streams

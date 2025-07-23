@@ -1378,14 +1378,14 @@ class SpatialCacheWarmer:
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)** - Sub-100ms spatial queries
-- **[Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)** - Index memory limits
-- **[Law 1: Failure](../part1-laws/axiom1-failure/index.md)** - Redundant indices
-- **[Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)** - Parallel spatial queries
-- **[Law 4: Trade-offs](../part1-laws/axiom5-epistemology/index.md)** - Index consistency
-- **[Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)** - Query pattern analysis
-- **[Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)** - Intuitive results
-- **[Law 7: Economics](../part1-laws/axiom7-economics/index.md)** - Index storage costs
+- **[Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md)** - Sub-100ms spatial queries
+- **[Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)** - Index memory limits
+- **[Law 1: Failure](../part1-axioms/axiom1-failure/index.md)** - Redundant indices
+- **[Law 3: Emergence](../part1-axioms/axiom3-emergence/index.md)** - Parallel spatial queries
+- **[Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md)** - Index consistency
+- **[Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md)** - Query pattern analysis
+- **[Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md)** - Intuitive results
+- **[Law 7: Economics](../part1-axioms/axiom7-economics/index.md)** - Index storage costs
 
 ### 🏛️ Related Patterns
 - **[Spatial Indexing](../patterns/spatial-indexing.md)** - R-tree, QuadTree, KD-tree

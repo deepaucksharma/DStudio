@@ -1807,13 +1807,13 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Tile serving, routing speed
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Petabyte-scale storage
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Multi-region redundancy
-- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Parallel tile generation
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Intuitive navigation
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Tile serving, routing speed
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Petabyte-scale storage
+- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Multi-region redundancy
+- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Parallel tile generation
+- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Intuitive navigation
+- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
 - **[Tile Pyramid](../patterns/tile-pyramid.md)** - Multi-zoom tiles

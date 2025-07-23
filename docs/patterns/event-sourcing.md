@@ -1069,11 +1069,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Events capture exact time of state changes
-2. **[Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md)**: Event sequence provides total ordering
-3. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Complete history enables perfect knowledge
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Every change is observable
-5. **[Law 6 (Cognitive Load 🤯)](../part1-laws/axiom6-human-api/index.md)**: Natural audit trail for compliance
+1. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md)**: Events capture exact time of state changes
+2. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md)**: Event sequence provides total ordering
+3. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md)**: Complete history enables perfect knowledge
+4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md)**: Every change is observable
+5. **[Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-human-api/index.md)**: Natural audit trail for compliance
 </div>
 
 ### Future Directions
@@ -1200,9 +1200,9 @@ event_sourcing:
 - [Event-Driven Architecture](../patterns/event-driven.md) - Events as first-class citizens
 
 ### Laws
-- [Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md) - Why event timing matters
-- [Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md) - Event sequence guarantees
-- [Law 6 (Cognitive Load 🤯)](../part1-laws/axiom6-human-api/index.md) - Complete system knowledge
+- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md) - Why event timing matters
+- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md) - Event sequence guarantees
+- [Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-human-api/index.md) - Complete system knowledge
 
 ### Further Reading
 - [Greg Young's Event Store](https://eventstore.com/) - Purpose-built event database

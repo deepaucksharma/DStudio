@@ -4,7 +4,7 @@ description: Any component can fail, and failures are often correlated, not inde
 type: axiom
 difficulty: expert
 reading_time: 8 min
-prerequisites: ["part1-laws/index.md"]
+prerequisites: ["part1-axioms/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---

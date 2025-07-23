@@ -646,13 +646,13 @@ graph TB
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - 234ms average latency balances fraud checks with user experience
-- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Optimistic locking prevents double-spending without blocking
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Distributed tracing tracks payments across 20+ services
-- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Clear error messages and status updates reduce support calls
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Processing costs optimized through batching and routing
+- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - SAGA compensations handle partial failures in distributed transactions
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - 234ms average latency balances fraud checks with user experience
+- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Optimistic locking prevents double-spending without blocking
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Cell architecture and event-driven choreography balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Distributed tracing tracks payments across 20+ services
+- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Clear error messages and status updates reduce support calls
+- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Processing costs optimized through batching and routing
 
 ### 🏛️ Related Patterns (Part III)
 - **[SAGA Pattern](../patterns/saga.md)** - Orchestrates distributed transactions with compensation logic

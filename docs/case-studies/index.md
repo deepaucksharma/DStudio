@@ -23,13 +23,13 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 ### [Uber: Real-Time Location System](uber-location.md)
 **Scale**: 40M concurrent users | **Challenge**: Sub-100ms global location updates  
 **Key Insights**: H3 hexagonal grid system, edge computing, eventual consistency trade-offs  
-**Laws in Focus**: [Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-laws/axiom4-tradeoffs/index.md), [State Distribution](../part2-pillars/state/index.md)  
+**Laws in Focus**: [Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md), [State Distribution](../part2-pillars/state/index.md)  
 **Related Patterns**: [Edge Computing](../patterns/edge-computing.md) | [Geo-Replication](../patterns/geo-replication.md) | [Load Balancing](../patterns/load-balancing.md)
 
 ### [Amazon DynamoDB: Eventually Consistent by Design](amazon-dynamo.md)
 **Scale**: 105M requests/second | **Challenge**: 99.999% availability globally  
 **Key Insights**: Masterless architecture, vector clocks, consistent hashing, anti-entropy  
-**Laws in Focus**: [Correlated Failure ⛓️](../part1-laws/axiom1-failure/index.md), [Multidimensional Optimization ⚖️](../part1-laws/axiom4-tradeoffs/index.md), Availability Trade-offs  
+**Laws in Focus**: [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md), [Multidimensional Optimization ⚖️](../part1-axioms/axiom4-tradeoffs/index.md), Availability Trade-offs  
 **Related Patterns**: [Tunable Consistency](../patterns/tunable-consistency.md) | [Sharding](../patterns/sharding.md) | [Circuit Breaker](../patterns/circuit-breaker.md)
 
 ### [Spotify: ML-Powered Recommendations](spotify-recommendations.md)
@@ -41,7 +41,7 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 ### [PayPal: Distributed Payment Processing](paypal-payments.md)
 **Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale  
 **Key Insights**: Distributed sagas, idempotency, compensating transactions  
-**Laws in Focus**: [Truth Distribution](../part2-pillars/truth/index.md), [Control Distribution](../part2-pillars/control/index.md), [Economic Reality 💰](../part1-laws/axiom7-economics/index.md)  
+**Laws in Focus**: [Truth Distribution](../part2-pillars/truth/index.md), [Control Distribution](../part2-pillars/control/index.md), [Economic Reality 💰](../part1-axioms/axiom7-economics/index.md)  
 **Related Patterns**: [Saga Pattern](../patterns/saga.md) | [Idempotent Receiver](../patterns/idempotent-receiver.md) | [Event Sourcing](../patterns/event-sourcing.md)
 
 ---
@@ -132,7 +132,7 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 ## 🔗 Quick Navigation
 
 ### Understanding the Theory
-- [7 Fundamental Laws](../part1-laws/index.md) - The constraints these systems navigate
+- [7 Fundamental Laws](../part1-axioms/index.md) - The constraints these systems navigate
 - [5 Foundational Pillars](../part2-pillars/index.md) - How these systems organize solutions
 - [Modern Patterns](../patterns/index.md) - The patterns these systems implement
 

@@ -157,11 +157,11 @@ graph TB
 ## How Pillars Build on Laws
 
 Each pillar respects all seven laws, but typically wrestles most directly with a subset:
-- **Work** primarily grapples with [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) and [Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)
-- **State** wrestles with [Law 1: Failure](../part1-laws/axiom1-failure/index.md) and [Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)
-- **Truth** deals with [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) and [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)
-- **Control** balances [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) and [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)
-- **Intelligence** emerges from [all laws](../part1-laws/index.md) working together
+- **Work** primarily grapples with [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md) and [Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
+- **State** wrestles with [Law 1: Failure](../part1-axioms/axiom1-failure/index.md) and [Law 3: Emergence](../part1-axioms/axiom3-emergence/index.md)
+- **Truth** deals with [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md) and [Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md)
+- **Control** balances [Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md) and [Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md)
+- **Intelligence** emerges from [all laws](../part1-axioms/index.md) working together
 
 ## The Five Pillars with Theoretical Foundations
 
@@ -174,7 +174,7 @@ Each pillar respects all seven laws, but typically wrestles most directly with a
 - Service mesh patterns
 - Serverless architectures
 
-[Related: Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) | [Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md) | [Load Balancing Pattern](../patterns/load-balancing.md) | [Serverless Pattern](../patterns/serverless-faas.md)
+[Related: Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md) | [Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md) | [Load Balancing Pattern](../patterns/load-balancing.md) | [Serverless Pattern](../patterns/serverless-faas.md)
 
 **Real-World Example**: **Google MapReduce**
 In 2004, Google published the MapReduce paper¹, showing how to process 20TB of data across 1800 machines in just 30 minutes. This work distribution pattern spawned Hadoop and revolutionized big data processing.
@@ -191,7 +191,7 @@ In 2004, Google published the MapReduce paper¹, showing how to process 20TB of 
 - Consistency models (eventual, strong, causal)
 - Distributed storage systems
 
-[Related: Law 1: Failure](../part1-laws/axiom1-failure/index.md) | [Law 3: Emergence](../part1-laws/axiom3-emergence/index.md) | [Sharding Pattern](../patterns/sharding.md) | [CDC Pattern](../patterns/cdc.md)
+[Related: Law 1: Failure](../part1-axioms/axiom1-failure/index.md) | [Law 3: Emergence](../part1-axioms/axiom3-emergence/index.md) | [Sharding Pattern](../patterns/sharding.md) | [CDC Pattern](../patterns/cdc.md)
 
 **Real-World Example**: **Apache Cassandra at Netflix**
 Netflix uses Cassandra³ to store viewing history for 200+ million users across multiple regions. They chose AP (availability + partition tolerance) over consistency, accepting that viewing history might be slightly out of sync between regions.
@@ -208,7 +208,7 @@ Netflix uses Cassandra³ to store viewing history for 200+ million users across 
 - Clock synchronization
 - Byzantine fault tolerance
 
-[Related: Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) | [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) | [Event Sourcing Pattern](../patterns/event-sourcing.md) | [Saga Pattern](../patterns/saga.md)
+[Related: Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md) | [Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md) | [Event Sourcing Pattern](../patterns/event-sourcing.md) | [Saga Pattern](../patterns/saga.md)
 
 **Real-World Example**: **Google Spanner**
 Google Spanner⁷ uses atomic clocks (TrueTime) to achieve globally consistent transactions across continents. It's the first system to provide consistency + availability at global scale by cleverly working around CAP theorem limitations.
@@ -225,7 +225,7 @@ Google Spanner⁷ uses atomic clocks (TrueTime) to achieve globally consistent t
 - Health checking and circuit breaking
 - Deployment strategies
 
-[Related: Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) | [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md) | [Service Mesh Pattern](../patterns/service-mesh.md) | [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
+[Related: Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md) | [Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md) | [Service Mesh Pattern](../patterns/service-mesh.md) | [Circuit Breaker Pattern](../patterns/circuit-breaker.md)
 
 **Real-World Example**: **Kubernetes**
 Kubernetes⁸ exemplifies control distribution, managing millions of containers across thousands of nodes. Its control plane continuously reconciles desired state with actual state, handling failures automatically.
@@ -242,7 +242,7 @@ Kubernetes⁸ exemplifies control distribution, managing millions of containers 
 - Anomaly detection
 - Chaos engineering
 
-[Related: All 7 Laws](../part1-laws/index.md) | [Auto-Scaling Pattern](../patterns/auto-scaling.md) | [Spotify ML Case Study](../case-studies/spotify-recommendations.md)
+[Related: All 7 Laws](../part1-axioms/index.md) | [Auto-Scaling Pattern](../patterns/auto-scaling.md) | [Spotify ML Case Study](../case-studies/spotify-recommendations.md)
 
 **Real-World Example**: **Netflix Chaos Engineering**
 Netflix pioneered chaos engineering¹⁰ with Chaos Monkey, deliberately breaking production systems to build resilience. Their intelligent systems detect and route around failures automatically.
@@ -330,11 +330,11 @@ Ready to see how work gets distributed across the planet?
 ## 🔗 Quick Navigation
 
 ## From Laws to Pillars
-- [7 Fundamental Laws](../part1-laws/index.md) - The constraints that shape these pillars
-- [Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md) → Work Distribution
-- [Law 1: Failure](../part1-laws/axiom1-failure/index.md) → State Distribution
-- [Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md) → Truth Distribution
-- [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md) → Control Distribution
+- [7 Fundamental Laws](../part1-axioms/index.md) - The constraints that shape these pillars
+- [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md) → Work Distribution
+- [Law 1: Failure](../part1-axioms/axiom1-failure/index.md) → State Distribution
+- [Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md) → Truth Distribution
+- [Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md) → Control Distribution
 
 ## Pillars in Practice
 - [CQRS Pattern](../patterns/cqrs.md) - Separating reads and writes (Work + State)

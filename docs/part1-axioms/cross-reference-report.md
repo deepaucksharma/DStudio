@@ -25,7 +25,7 @@ The laws have been restructured with new directory names, but many cross-referen
 ### 2. Broken Navigation Links
 
 #### Part 1: Laws
-- **File**: `part1-laws/axiom5-epistemology/index.md:529`
+- **File**: `part1-axioms/axiom5-epistemology/index.md:529`
   - **Issue**: Link to `../axiom6-cognitive-load/index.md`
   - **Fix**: Should be `../axiom6-human-api/index.md`
 

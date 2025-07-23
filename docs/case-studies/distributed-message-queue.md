@@ -1283,13 +1283,13 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 ## 🔗 Related Concepts & Deep Dives
 
 ### Laws Applied
-- ⏳ **[Law 2: Asynchronous Reality](../part1-laws/axiom2-asynchrony/index.md)** - Network RTT dominates replication latency
-- ⚖️ **[Law 4: Trade-offs](../part1-laws/axiom4-tradeoffs/index.md)** - Partitioning for horizontal scaling
-- ⛓️ **[Law 1: Failure](../part1-laws/axiom1-failure/index.md)** - Replication for fault tolerance
-- 🌪️ **[Law 3: Emergence](../part1-laws/axiom3-emergence/index.md)** - Producer and consumer parallelism
-- 🧠 **[Law 5: Epistemology](../part1-laws/axiom5-epistemology/index.md)** - Consumer group coordination and monitoring
-- 🤯 **[Law 6: Human-API](../part1-laws/axiom6-human-api/index.md)** - Simple producer/consumer API
-- 💰 **[Law 7: Economics](../part1-laws/axiom7-economics/index.md)** - Cost-effective storage with compression
+- ⏳ **[Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md)** - Network RTT dominates replication latency
+- ⚖️ **[Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)** - Partitioning for horizontal scaling
+- ⛓️ **[Law 1: Failure](../part1-axioms/axiom1-failure/index.md)** - Replication for fault tolerance
+- 🌪️ **[Law 3: Emergence](../part1-axioms/axiom3-emergence/index.md)** - Producer and consumer parallelism
+- 🧠 **[Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md)** - Consumer group coordination and monitoring
+- 🤯 **[Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md)** - Simple producer/consumer API
+- 💰 **[Law 7: Economics](../part1-axioms/axiom7-economics/index.md)** - Cost-effective storage with compression
 
 ### Related Patterns
 - 📨 **[Event-Driven Architecture](../patterns/event-driven.md)** - Kafka as event backbone

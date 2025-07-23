@@ -1055,10 +1055,10 @@ subscriber.request(10)  # Request 10 items
 - [Queues & Streaming](../patterns/queues-streaming.md) - Message patterns
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) - Finite resources
-- [Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md) - Cascade prevention
-- [Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md) - Parallel flows
-- [Law 7 (Economic Reality 💰)](../part1-laws/axiom7-economics/index.md) - Cost of dropping
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) - Finite resources
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Cascade prevention
+- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md) - Parallel flows
+- [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) - Cost of dropping
 
 ### Quantitative Analysis
 - [Queueing Theory](/quantitative/queueing-models.md) - Mathematical models

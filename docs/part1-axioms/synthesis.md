@@ -4,7 +4,7 @@ description: Understanding how the seven laws interact, compound, and define the
 type: synthesis
 difficulty: expert
 reading_time: 15 min
-prerequisites: ["part1-laws/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md", "axiom5-epistemology/index.md", "axiom6-human-api/index.md", "axiom7-economics/index.md"]
+prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md", "axiom5-epistemology/index.md", "axiom6-human-api/index.md", "axiom7-economics/index.md"]
 status: complete
 last_updated: 2025-07-23
 ---

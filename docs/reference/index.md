@@ -48,12 +48,12 @@ Complete mapping between old 8-axiom structure and new 7-law framework 🗺️.
 ### Essential Calculations
 - [Little's Law](cheat-sheets.md#littles-law) - L = λW
 - [Availability Math](cheat-sheets.md#availability-math)
-- [Latency Budget](../part1-laws/axiom2-asynchrony/index.md)
-- [Capacity Planning](../part1-laws/axiom4-tradeoffs/index.md)
+- [Latency Budget](../part1-axioms/axiom2-asynchrony/index.md)
+- [Capacity Planning](../part1-axioms/axiom4-tradeoffs/index.md)
 
 ### Common Procedures
 - [Implementing Circuit Breaker](../patterns/circuit-breaker.md)
-- [Debugging Distributed Failures](../part1-laws/axiom1-failure/index.md)
+- [Debugging Distributed Failures](../part1-axioms/axiom1-failure/index.md)
 - [Performance Tuning](recipe-cards.md#recipe-performance-investigation)
 - [Monitoring Setup](recipe-cards.md#recipe-essential-observability-stack)
 

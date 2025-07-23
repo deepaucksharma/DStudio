@@ -4,7 +4,7 @@ description: Apply the seven fundamental laws with practical calculators, worksh
 type: general
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: ["part1-laws", "part2-pillars"]
+prerequisites: ["part1-axioms", "part2-pillars"]
 status: complete
 last_updated: 2025-07-23
 ---

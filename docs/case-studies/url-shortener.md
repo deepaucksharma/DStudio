@@ -1354,8 +1354,8 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md) - CDN and caching strategies
-- [Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md) - Cost optimization techniques
+- [Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md) - CDN and caching strategies
+- [Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md) - Cost optimization techniques
 - [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
 - [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
 

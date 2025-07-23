@@ -34,7 +34,7 @@ Imagine a massive library with millions of books. How do you organize the catalo
 - Con: What about books covering multiple topics?
 - Con: How do you keep them synchronized?
 
-That's distributed state in a nutshell! This challenge arises from [Law 4: Trade-offs](../../part1-laws/axiom4-tradeoffs/index.md) (finite resources require distribution) and [Law 1: Failure](../../part1-laws/axiom1-failure/index.md) (replicas for fault tolerance).
+That's distributed state in a nutshell! This challenge arises from [Law 4: Trade-offs](../../part1-axioms/axiom4-tradeoffs/index.md) (finite resources require distribution) and [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md) (replicas for fault tolerance).
 
 ---
 
@@ -86,7 +86,7 @@ sequenceDiagram
 | Problem | Description | Real-World Impact |
 |---------|-------------|-------------------|
 | **Stale Cache** | ATMs see outdated balance | Double-spending attacks |
-| **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Asynchronous Reality](../../part1-laws/axiom2-asynchrony/index.md)) |
+| **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md)) |
 | **Lost Update** | One update overwrites another | Missing transactions |
 | **Version Mismatch** | Cache version != source version | Inconsistent state |
 
@@ -181,7 +181,7 @@ Think of distributed state like:
 **Date**: October 21, 2018
 **Impact**: 24 hours of degraded service
 
-This incident perfectly illustrates [Law 1: Failure](../../part1-laws/axiom1-failure/index.md) and the challenges of maintaining [Pillar 3: Truth](../truth/index.md) across distributed state.
+This incident perfectly illustrates [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md) and the challenges of maintaining [Pillar 3: Truth](../truth/index.md) across distributed state.
 
 ```mermaid
 graph TB
@@ -236,7 +236,7 @@ graph LR
 
 ### The CAP Theorem Visualized
 
-The CAP theorem directly connects to [Law 5: Epistemology](../../part1-laws/axiom5-epistemology/index.md) - you can't have perfect coordination (consistency) and availability during network partitions.
+The CAP theorem directly connects to [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) - you can't have perfect coordination (consistency) and availability during network partitions.
 
 ```mermaid
 graph TB
@@ -426,7 +426,7 @@ graph LR
 
 ### Advanced Replication: Chain Replication Architecture
 
-Chain replication leverages [Law 2: Asynchronous Reality](../../part1-laws/axiom2-asynchrony/index.md) trade-offs - higher write latency for stronger consistency and simpler failure handling.
+Chain replication leverages [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) trade-offs - higher write latency for stronger consistency and simpler failure handling.
 
 ```mermaid
 graph LR
@@ -546,7 +546,7 @@ graph TB
 
 ### Vector Clocks: Tracking Causality
 
-Vector clocks implement the ordering requirements from [Law 2: Asynchronous Reality](../../part1-laws/axiom2-asynchrony/index.md), enabling distributed systems to reason about happened-before relationships.
+Vector clocks implement the ordering requirements from [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md), enabling distributed systems to reason about happened-before relationships.
 
 ```mermaid
 sequenceDiagram
@@ -612,7 +612,7 @@ graph TB
 
 ### CRDTs: Conflict-Free Replicated Data Types
 
-CRDTs bypass [Law 5: Epistemology](../../part1-laws/axiom5-epistemology/index.md) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](../truth/index.md) for consensus alternatives).
+CRDTs bypass [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) overhead by ensuring all operations commute - achieving consistency without consensus (see [Pillar 3: Truth](../truth/index.md) for consensus alternatives).
 
 ```mermaid
 graph TB
@@ -708,7 +708,7 @@ sequenceDiagram
 
 ### DynamoDB: Eventually Consistent at Scale
 
-DynamoDB exemplifies the [Law 7: Economics](../../part1-laws/axiom7-economics/index.md) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
+DynamoDB exemplifies the [Law 7: Economics](../../part1-axioms/axiom7-economics/index.md) trade-offs - offering tunable consistency levels that balance cost, performance, and correctness.
 
 ```mermaid
 graph TB
@@ -813,7 +813,7 @@ graph LR
 
 ### Google Spanner: Globally Consistent Database
 
-Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Law 2: Asynchronous Reality](../../part1-laws/axiom2-asynchrony/index.md) and achieve global consistency (detailed in [Pillar 3: Truth](../truth/index.md)).
+Spanner represents the pinnacle of distributed state management, using atomic clocks to tame [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) and achieve global consistency (detailed in [Pillar 3: Truth](../truth/index.md)).
 
 ```mermaid
 graph TB
@@ -1553,12 +1553,12 @@ graph TD
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Failure](../../part1-laws/axiom1-failure/index.md) - Replication for fault tolerance
-- [Law 2: Asynchronous Reality](../../part1-laws/axiom2-asynchrony/index.md) - How network delays affect state consistency
-- [Law 3: Emergence](../../part1-laws/axiom3-emergence/index.md) - Unpredictable state mutations
-- [Law 4: Trade-offs](../../part1-laws/axiom4-tradeoffs/index.md) - Why we must distribute state
-- [Law 5: Epistemology](../../part1-laws/axiom5-epistemology/index.md) - Synchronizing state updates
-- [Law 7: Economics](../../part1-laws/axiom7-economics/index.md) - Cost of consistency levels
+- [Law 1: Failure](../../part1-axioms/axiom1-failure/index.md) - Replication for fault tolerance
+- [Law 2: Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - How network delays affect state consistency
+- [Law 3: Emergence](../../part1-axioms/axiom3-emergence/index.md) - Unpredictable state mutations
+- [Law 4: Trade-offs](../../part1-axioms/axiom4-tradeoffs/index.md) - Why we must distribute state
+- [Law 5: Epistemology](../../part1-axioms/axiom5-epistemology/index.md) - Synchronizing state updates
+- [Law 7: Economics](../../part1-axioms/axiom7-economics/index.md) - Cost of consistency levels
 
 ### Related Pillars
 - [Pillar 1: Work](../work/index.md) - Stateless vs stateful computation

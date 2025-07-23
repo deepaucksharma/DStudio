@@ -1007,13 +1007,13 @@ graph TD
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Clear error messages with retry-after headers
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
+- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Clear error messages with retry-after headers
+- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛️ Related Patterns (Part III)
 - **[Rate Limiting](../patterns/rate-limiting.md)** - Core pattern implemented with token bucket algorithm

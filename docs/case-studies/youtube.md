@@ -1328,14 +1328,14 @@ graph TB
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
-- **[Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
-- **[Law 4: Trade-offs ⚖️](../part1-laws/axiom4-tradeoffs/index.md)** - Global CDN cache invalidation and content synchronization challenges
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
-- **[Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md)** - Adaptive UI for different devices and network conditions
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Video start time (<100ms) drives multi-tier CDN architecture and edge caching strategy
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Exabyte-scale storage requires intelligent tiering (hot/warm/cold) to manage costs
+- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Multi-CDN strategy and chunked uploads ensure resilience against infrastructure failures
+- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Millions of concurrent uploads/views require distributed processing pipelines
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Global CDN cache invalidation and content synchronization challenges
+- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Real-time monitoring of video quality, buffering, and viewer engagement
+- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Adaptive UI for different devices and network conditions
+- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Bandwidth costs (40% of total) drive compression and quality optimization
 
 ### 🏛️ Related Patterns (Part III)
 - **[Edge Computing](../patterns/edge-computing.md)** - Regional transcoding and caching reduce latency and bandwidth costs

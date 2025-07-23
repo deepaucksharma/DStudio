@@ -1313,8 +1313,8 @@ Database:
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 4: Trade-offs](../part1-laws/axiom5-epistemology/index.md) - Node ID assignment and consensus
-- [Law 6: Human-API](../part1-laws/axiom6-human-api/index.md) - Developer experience considerations
+- [Law 4: Trade-offs](../part1-axioms/axiom5-epistemology/index.md) - Node ID assignment and consensus
+- [Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md) - Developer experience considerations
 - [Clock Synchronization](../patterns/clock-sync.md) - NTP and time coordination
 - [Logical Clocks](../patterns/logical-clocks.md) - Alternative to wall-clock time
 

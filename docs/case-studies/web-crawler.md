@@ -2038,8 +2038,8 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence 🌪️](../part1-laws/axiom3-emergence/index.md) - Massive parallelism patterns
-- [Law 6: Human-API 🤯](../part1-laws/axiom6-human-api/index.md) - Crawler ethics and robots.txt
+- [Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md) - Massive parallelism patterns
+- [Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md) - Crawler ethics and robots.txt
 - [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
 - [Bulkhead Pattern](../patterns/bulkhead.md) - Domain isolation strategies
 

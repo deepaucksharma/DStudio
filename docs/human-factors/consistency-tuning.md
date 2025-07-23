@@ -4,7 +4,7 @@ description: "Theory says "just set consistency level to QUORUM." Reality says "
 type: human-factors
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: ["part1-laws/axiom2-asynchrony", "part1-laws/axiom4-tradeoffs"]
+prerequisites: ["part1-axioms/axiom2-asynchrony", "part1-axioms/axiom4-tradeoffs"]
 status: complete
 last_updated: 2025-07-20
 ---

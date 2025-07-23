@@ -1059,11 +1059,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md)**: Manages distributed consensus without locks
-2. **[Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md)**: Explicit handling of partial failures
-3. **[Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md)**: Handles concurrent saga executions
-4. **[Law 5 (Distributed Knowledge 🧠)](../part1-laws/axiom5-epistemology/index.md)**: Full audit trail of all steps
-5. **[Law 7 (Economic Reality 💰)](../part1-laws/axiom7-economics/index.md)**: Balances consistency costs with business needs
+1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)**: Manages distributed consensus without locks
+2. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)**: Explicit handling of partial failures
+3. **[Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md)**: Handles concurrent saga executions
+4. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md)**: Full audit trail of all steps
+5. **[Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md)**: Balances consistency costs with business needs
 </div>
 
 ### Future Directions
@@ -1190,9 +1190,9 @@ saga:
 - [Circuit Breaker](../patterns/circuit-breaker.md) - Protect saga steps
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-laws/axiom4-tradeoffs/index.md) - Why distributed consensus is hard
-- [Law 1 (Correlated Failure ⛓️)](../part1-laws/axiom1-failure/index.md) - Handling partial failures
-- [Law 3 (Emergent Chaos 🌪️)](../part1-laws/axiom3-emergence/index.md) - Managing parallel execution
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) - Why distributed consensus is hard
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Handling partial failures
+- [Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md) - Managing parallel execution
 
 ### Further Reading
 - [Original Sagas Paper (1987)](https://www.cs.cornell.edu/andru/cs711/2002fa/reading/sagas.pdf) - Garcia-Molina & Salem

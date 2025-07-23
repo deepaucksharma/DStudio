@@ -2430,10 +2430,10 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ⛓️](../part1-laws/axiom1-failure/index.md)** - Foundation for reliable delivery
-- **[Law 5: Epistemology 🧠](../part1-laws/axiom5-epistemology/index.md)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ⏳](../part1-laws/axiom2-asynchrony/index.md)** - Real-time delivery constraints
-- **[Law 7: Economics 💰](../part1-laws/axiom7-economics/index.md)** - Cost optimization strategies
+- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Real-time delivery constraints
+- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing
