@@ -18,6 +18,22 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 
 ---
 
+## 🌟 Featured: Google System Design Interview Guide
+
+### [🌐 Google System Design Problems](google-systems/index.md)
+**NEW!** Comprehensive guides for the most commonly asked Google system design interview questions, with detailed solutions focusing on scale, performance, and real-world trade-offs.
+
+#### Core Problems Covered:
+- **[Design Google Search](google-systems/google-search.md)**: 100B+ pages, <100ms latency, PageRank
+- **[Design YouTube](google-systems/google-youtube.md)**: 500hrs/min uploads, adaptive streaming, recommendations  
+- **[Design Google Maps](google-systems/google-maps-system.md)**: Real-time traffic, routing algorithms, offline maps
+- **[Design Gmail](google-systems/google-gmail.md)**: 300B emails/day, spam filtering, search
+- **[Design Google Docs](google-systems/google-docs.md)**: Real-time collaboration, conflict resolution, OT
+
+Each guide includes problem clarification, capacity estimation, API design, detailed architecture, and interview tips.
+
+---
+
 ## 📚 Available Case Studies
 
 ### [Uber: Real-Time Location System](uber-location.md)

@@ -363,6 +363,42 @@ graph TB
     style P3 fill:#ef4444,stroke:#dc2626
 ```
 
+### Lock Implementation Comparison
+
+```mermaid
+graph TB
+    subgraph "Implementation Approaches"
+        subgraph "Database Locks"
+            DB1[Pros:<br/>ACID guarantees<br/>Simple to implement]
+            DB2[Cons:<br/>DB becomes SPOF<br/>Performance bottleneck]
+        end
+        
+        subgraph "Redis Locks"
+            R1[Pros:<br/>Fast<br/>TTL support]
+            R2[Cons:<br/>No strong consistency<br/>Clock dependency]
+        end
+        
+        subgraph "ZooKeeper Locks"
+            Z1[Pros:<br/>Strong consistency<br/>Ordered locks]
+            Z2[Cons:<br/>Complex setup<br/>External dependency]
+        end
+        
+        subgraph "Consensus Locks"
+            C1[Pros:<br/>Strongest guarantees<br/>Partition tolerant]
+            C2[Cons:<br/>Higher latency<br/>Complex]
+        end
+    end
+    
+    style DB1 fill:#10b981,stroke:#059669
+    style R1 fill:#10b981,stroke:#059669
+    style Z1 fill:#10b981,stroke:#059669
+    style C1 fill:#10b981,stroke:#059669
+    style DB2 fill:#ef4444,stroke:#dc2626
+    style R2 fill:#ef4444,stroke:#dc2626
+    style Z2 fill:#ef4444,stroke:#dc2626
+    style C2 fill:#ef4444,stroke:#dc2626
+```
+
 ### Problems with Distributed Locks
 
 ### Fencing Tokens for Safety
@@ -635,6 +671,54 @@ graph LR
     Timeouts --> M3
     Cache --> M1
 ```
+
+### Production Lock Patterns
+
+```mermaid
+graph TB
+    subgraph "Common Lock Usage Patterns"
+        subgraph "Leader Election"
+            LE1[Single active leader]
+            LE2[Automatic failover]
+            LE3[Grace period on failure]
+        end
+        
+        subgraph "Resource Access"
+            RA1[Exclusive access]
+            RA2[Time-bounded operations]
+            RA3[Renewal for long tasks]
+        end
+        
+        subgraph "Rate Limiting"
+            RL1[Distributed counters]
+            RL2[Time windows]
+            RL3[Fair queueing]
+        end
+        
+        subgraph "Job Scheduling"
+            JS1[Prevent duplicate runs]
+            JS2[Distributed cron]
+            JS3[Work distribution]
+        end
+    end
+    
+    style LE1 fill:#10b981,stroke:#059669
+    style RA1 fill:#3b82f6,stroke:#2563eb
+    style RL1 fill:#f59e0b,stroke:#d97706
+    style JS1 fill:#8b5cf6,stroke:#7c3aed
+```
+
+### Lock Debugging Checklist
+
+| ✅ Check | Description | Command/Tool |
+|----------|-------------|-------------|
+| **Lock holder** | Who currently holds the lock? | `GET lock:name` |
+| **TTL remaining** | Time until expiration | `TTL lock:name` |
+| **Lock history** | Recent acquisitions | Check logs |
+| **Network latency** | Connection health | `ping` / `traceroute` |
+| **Clock sync** | NTP synchronization | `ntpq -p` |
+| **Process state** | GC pauses, CPU | `jstat` / `top` |
+| **Deadlock graph** | Circular dependencies | Custom tooling |
 ---
 
 ## 🎯 Level 5: Mastery
@@ -747,6 +831,62 @@ graph TB
 
 ---
 
+### Lock Pattern Visual Guide
+
+```mermaid
+flowchart TD
+    Start[Need mutual exclusion?]
+    
+    Start --> Q1{Critical for<br/>correctness?}
+    Q1 -->|Yes| Q2{Fault tolerance<br/>required?}
+    Q1 -->|No| Local[Use local locks]
+    
+    Q2 -->|Yes| Q3{Byzantine<br/>threats?}
+    Q2 -->|No| Simple[Redis with TTL]
+    
+    Q3 -->|Yes| Byzantine[Use Byzantine<br/>consensus]
+    Q3 -->|No| Q4{Performance<br/>critical?}
+    
+    Q4 -->|Yes| Hybrid[ZooKeeper +<br/>local caching]
+    Q4 -->|No| Consensus[etcd/Consul]
+    
+    style Start fill:#e0e7ff,stroke:#6366f1,stroke-width:3px
+    style Consensus fill:#10b981,stroke:#059669,stroke-width:2px
+    style Byzantine fill:#f59e0b,stroke:#d97706,stroke-width:2px
+    style Simple fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
+```
+
+### Lock Performance Benchmarks
+
+```mermaid
+graph LR
+    subgraph "Lock Acquisition Time"
+        Local[Local Lock<br/>0.001ms]
+        Redis[Redis Lock<br/>1-2ms]
+        Database[DB Lock<br/>5-10ms]
+        ZK[ZooKeeper<br/>10-20ms]
+        Consensus[Consensus<br/>20-50ms]
+    end
+    
+    Local --> Redis --> Database --> ZK --> Consensus
+    
+    style Local fill:#10b981,stroke:#059669
+    style Redis fill:#3b82f6,stroke:#2563eb
+    style Database fill:#f59e0b,stroke:#d97706
+    style ZK fill:#8b5cf6,stroke:#7c3aed
+    style Consensus fill:#ef4444,stroke:#dc2626
+```
+
+### Lock Safety Spectrum
+
+| Safety Level | Implementation | Use Cases | Trade-offs |
+|--------------|----------------|-----------|------------|
+| **Level 1** | Redis SET NX | Cache locks, rate limiting | Fast but unsafe with pauses |
+| **Level 2** | Database row locks | Resource allocation | ACID but single point of failure |
+| **Level 3** | ZooKeeper ephemeral | Service coordination | Reliable but complex |
+| **Level 4** | etcd with fencing | Critical sections | Safe but slower |
+| **Level 5** | Byzantine consensus | Financial systems | Maximum safety, high cost |
+
 ## 📋 Quick Reference
 
 ### Lock Selection Guide
@@ -771,6 +911,39 @@ graph TB
 - [ ] Implement deadlock detection
 
 ---
+
+### Distributed Lock Troubleshooting
+
+```mermaid
+flowchart TD
+    Problem[Lock Issue]
+    
+    Problem --> P1{Lock not<br/>acquired?}
+    Problem --> P2{Lock stuck?}
+    Problem --> P3{Multiple<br/>holders?}
+    Problem --> P4{Performance<br/>issues?}
+    
+    P1 --> S1[Check TTL expired]
+    P1 --> S2[Verify connectivity]
+    P1 --> S3[Check permissions]
+    
+    P2 --> S4[Owner crashed?]
+    P2 --> S5[Network partition?]
+    P2 --> S6[Force expire]
+    
+    P3 --> S7[Clock skew]
+    P3 --> S8[Split brain]
+    P3 --> S9[Add fencing]
+    
+    P4 --> S10[Lock contention]
+    P4 --> S11[Network latency]
+    P4 --> S12[Reduce granularity]
+    
+    style Problem fill:#ef4444,stroke:#dc2626,stroke-width:3px
+    style S6 fill:#f59e0b,stroke:#d97706
+    style S9 fill:#10b981,stroke:#059669
+    style S12 fill:#10b981,stroke:#059669
+```
 
 ---
 

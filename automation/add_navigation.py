@@ -62,7 +62,7 @@ class NavigationAdder:
                 if subsection.startswith('axiom'):
                     num = re.search(r'\d+', subsection)
                     if num:
-                        breadcrumb.append(f'[Axiom {num.group()}](/{section}/{subsection}/)')
+                        breadcrumb.append(f'[Law {num.group()}](/{section}/{subsection}/)')
                 elif subsection.startswith('pillar'):
                     breadcrumb.append(f'[{subsection.replace("-", " ").title()}](/{section}/{subsection}/)')
                 else:

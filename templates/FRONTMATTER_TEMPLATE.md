@@ -55,11 +55,11 @@ weight: 10
 
 ## Category-Specific Templates
 
-### Axiom Pages
+### Law Pages
 
 ```yaml
 ---
-title: "Axiom N: [Name]"
+title: "Law N: [Name]"
 description: "Fundamental constraint of distributed systems: [brief description]"
 category: "axioms"
 axiom_number: N

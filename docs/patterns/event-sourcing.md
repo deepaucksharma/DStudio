@@ -143,12 +143,30 @@ graph LR
 
 ### Trade-offs
 
-| Aspect | Gain | Cost |
-|--------|------|------|
-| Auditability | Complete history | Storage requirements |
-| Debugging | Time travel capability | Query complexity |
-| Flexibility | Multiple projections | Eventual consistency |
-| Integration | Natural event flow | Schema evolution |
+```
+     GAINS                           COSTS
+       ↓                              ↓
+┌──────────────┐              ┌──────────────┐
+│ Auditability │              │   Storage    │
+│              │◄────VS────►  │              │
+│  Complete    │              │  Unbounded   │
+│  History     │              │   Growth     │
+└──────────────┘              └──────────────┘
+
+┌──────────────┐              ┌──────────────┐
+│  Debugging   │              │    Query     │
+│              │◄────VS────►  │              │
+│ Time Travel  │              │  Complex     │
+│  Capability  │              │  Rebuilding  │
+└──────────────┘              └──────────────┘
+
+┌──────────────┐              ┌──────────────┐
+│ Flexibility  │              │ Consistency  │
+│              │◄────VS────►  │              │
+│  Multiple    │              │  Eventually  │
+│ Projections  │              │  Consistent  │
+└──────────────┘              └──────────────┘
+```
 
 ---
 

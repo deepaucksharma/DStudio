@@ -22,23 +22,97 @@ Quantitative tools for informed decisions: calculating limits, modeling behavior
 
 ## Chapters
 
-### Latency & Performance
-- [Latency Ladder 2025](latency-ladder.md) - Know your physics: every operation has a cost
-- [Little's Law Deep-Dive](littles-law.md) - The most important equation in systems thinking
-- [Queueing Theory](queueing-models.md) - When will your system hit the wall?
+<div class="quantitative-sections">
 
-### Scaling Laws
-- [Amdahl & Gustafson Laws](amdahl-gustafson.md) - The limits of parallelization
-- [Universal Scalability Law](universal-scalability.md) - Why systems don't scale linearly
+<div class="quant-category">
+<h3>⏱️ Latency & Performance</h3>
+<div class="quant-grid">
 
-### Economics & Planning
-- [Coordination Costs](coordination-costs.md) - The hidden tax of distributed systems
-- [Cache Economics](cache-economics.md) - When caching saves money
-- [Availability Math](availability-math.md) - Building reliable systems from unreliable parts
-- [Capacity Planning](capacity-planning.md) - Right-sizing for the future
+<a href="latency-ladder.md" class="quant-card">
+<div class="quant-icon">🪜</div>
+<h4>Latency Ladder 2025</h4>
+<p>Know your physics: every operation has a cost</p>
+</a>
 
-### Practice
-- [Numerical Problem Set](problem-set.md) - Practice problems with real-world parameters
+<a href="littles-law.md" class="quant-card">
+<div class="quant-icon">📐</div>
+<h4>Little's Law Deep-Dive</h4>
+<p>The most important equation in systems thinking</p>
+</a>
+
+<a href="queueing-models.md" class="quant-card">
+<div class="quant-icon">📊</div>
+<h4>Queueing Theory</h4>
+<p>When will your system hit the wall?</p>
+</a>
+
+</div>
+</div>
+
+<div class="quant-category">
+<h3>📈 Scaling Laws</h3>
+<div class="quant-grid">
+
+<a href="amdahl-gustafson.md" class="quant-card">
+<div class="quant-icon">🔀</div>
+<h4>Amdahl & Gustafson Laws</h4>
+<p>The limits of parallelization</p>
+</a>
+
+<a href="universal-scalability.md" class="quant-card">
+<div class="quant-icon">🌐</div>
+<h4>Universal Scalability Law</h4>
+<p>Why systems don't scale linearly</p>
+</a>
+
+</div>
+</div>
+
+<div class="quant-category">
+<h3>💰 Economics & Planning</h3>
+<div class="quant-grid">
+
+<a href="coordination-costs.md" class="quant-card">
+<div class="quant-icon">🤝</div>
+<h4>Coordination Costs</h4>
+<p>The hidden tax of distributed systems</p>
+</a>
+
+<a href="cache-economics.md" class="quant-card">
+<div class="quant-icon">💾</div>
+<h4>Cache Economics</h4>
+<p>When caching saves money</p>
+</a>
+
+<a href="availability-math.md" class="quant-card">
+<div class="quant-icon">✅</div>
+<h4>Availability Math</h4>
+<p>Building reliable systems from unreliable parts</p>
+</a>
+
+<a href="capacity-planning.md" class="quant-card">
+<div class="quant-icon">📊</div>
+<h4>Capacity Planning</h4>
+<p>Right-sizing for the future</p>
+</a>
+
+</div>
+</div>
+
+<div class="quant-category">
+<h3>🎯 Practice</h3>
+<div class="quant-grid">
+
+<a href="problem-set.md" class="quant-card">
+<div class="quant-icon">📝</div>
+<h4>Numerical Problem Set</h4>
+<p>Practice problems with real-world parameters</p>
+</a>
+
+</div>
+</div>
+
+</div>
 
 ## Key Concepts
 

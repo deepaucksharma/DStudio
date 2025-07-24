@@ -76,7 +76,7 @@ last_updated: 2025-07-20
 
 **Scaling**: Linear O(n), Database O(n log n), Coordination O(n²)
 
-**Learn More**: [Queueing Theory](../quantitative/queueing-theory.md), [Scaling Laws](../quantitative/scaling-laws.md)
+**Learn More**: [Queueing Theory](../quantitative/queueing-models.md), [Scaling Laws](../quantitative/universal-scalability.md)
 
 ---
 
@@ -84,18 +84,26 @@ last_updated: 2025-07-20
 
 ### Consistency Model Selection
 
-```text
-Need strong consistency?
-├─ YES → Financial/Safety Critical
-│   ├─ Single region? → ACID database
-│   └─ Multi-region? → Consensus (Raft/Paxos)
-│       └─ Consider Law 4: Trade-offs ⚖️
-└─ NO → Can tolerate eventual consistency?
-    ├─ YES →
-    │   ├─ Conflict resolution needed? → CRDTs
-    │   └─ Simple case? → Last-write-wins
-    │       └─ See Law 2: Asynchronous Reality ⏳
-    └─ NO → Causal consistency
+```mermaid
+graph TD
+    Start[Need Strong Consistency?]
+    Start -->|YES| Financial[Financial/Safety Critical]
+    Start -->|NO| Eventual[Can Tolerate Eventual?]
+    
+    Financial -->|Single Region| ACID[ACID Database]
+    Financial -->|Multi-Region| Consensus[Consensus Protocol<br/>Raft/Paxos]
+    
+    Eventual -->|YES| Conflicts{Conflict Resolution?}
+    Eventual -->|NO| Causal[Causal Consistency]
+    
+    Conflicts -->|Needed| CRDT[CRDTs]
+    Conflicts -->|Simple| LWW[Last-Write-Wins]
+    
+    classDef decision fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef solution fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    
+    class Start,Financial,Eventual,Conflicts decision
+    class ACID,Consensus,Causal,CRDT,LWW solution
 ```
 
 ### Pattern Selection

@@ -108,6 +108,36 @@ sequenceDiagram
 **Definition**: Each node processes at its own rate, affected by load, GC, and other tasks.
 
 **The Uncertainty Principle**:
+
+```mermaid
+gantt
+    title Request Processing Timeline - The Uncertainty
+    dateFormat X
+    axisFormat %L
+    
+    section Best Case (7ms)
+    CPU Available       :done, cpu1, 0, 0
+    Lock Available      :done, lock1, 0, 0  
+    Work Processing     :active, work1, 0, 1
+    DB Cache Hit        :done, db1, 1, 5
+    Network Fast        :done, net1, 6, 1
+    
+    section Typical Case (250ms)
+    CPU Wait            :crit, cpu2, 0, 20
+    Lock Contention     :crit, lock2, 20, 50
+    Work Processing     :active, work2, 70, 5
+    DB Query            :done, db2, 75, 150
+    Network Send        :done, net2, 225, 25
+    
+    section Worst Case (7600ms)
+    CPU Starved         :crit, cpu3, 0, 100
+    Lock Blocked        :crit, lock3, 100, 1000
+    GC Pause            :crit, gc3, 1100, 500
+    Work Processing     :active, work3, 1600, 10
+    DB Slow Query       :crit, db3, 1610, 5000
+    Network Congested   :crit, net3, 6610, 990
+```
+
 ```python
 class AsynchronousNode:
     def process_request(self, request):
@@ -143,6 +173,30 @@ class AsynchronousNode:
 ### 1. The FLP Impossibility Result (Deep Dive)
 
 The Fischer-Lynch-Paterson result proves that in a purely asynchronous system, no algorithm can guarantee consensus. Here's why:
+
+```mermaid
+flowchart TB
+    subgraph "The FLP Dilemma"
+        A[Node A] -->|"Are you alive?"| B[Node B]
+        B -.->|???| A
+        
+        A --> T{Set Timeout?}
+        T -->|"Short (1s)"| F1[False Death<br/>B was just slow]
+        T -->|"Long (∞)"| F2[Never Detect<br/>Real Failures]
+        T -->|"Medium (5s)"| F3[Still Can't<br/>Distinguish!]
+        
+        F1 --> V1[Violates Safety<br/>Split Brain]
+        F2 --> V2[Violates Liveness<br/>System Hangs]
+        F3 --> V3[No Perfect<br/>Solution]
+        
+        style F1 fill:#ffcdd2
+        style F2 fill:#ffcdd2
+        style F3 fill:#ffcdd2
+        style V1 fill:#d32f2f,color:#fff
+        style V2 fill:#d32f2f,color:#fff
+        style V3 fill:#d32f2f,color:#fff
+    end
+```
 
 ```python
 def flp_intuition():
@@ -270,6 +324,28 @@ graph LR
 
 Every node operates on a **stale, inconsistent view** of the system!
 
+```mermaid
+sequenceDiagram
+    participant A as Node A
+    participant B as Node B
+    participant C as Node C
+    participant D as Node D
+    
+    Note over A,D: Actual State at T=100
+    Note over A: Balance: $1000
+    Note over B: Balance: $800
+    Note over C: Balance: $1200
+    Note over D: Balance: $500
+    
+    Note over A,D: Node A's View at T=100
+    A->>A: My balance: $1000 ✓
+    B-->>A: B's balance: $750<br/>(5ms old)
+    C-->>A: C's balance: $1100<br/>(12ms old)
+    D-->>A: D's balance: $600<br/>(20ms old)
+    
+    Note over A: Total in system: $3450<br/>Actual total: $3500<br/>Off by $50!
+```
+
 ## Percentiles: The Devil in the Tail
 
 ### Why P99.9 Matters More Than Average
@@ -342,6 +418,26 @@ class AdaptiveTimeout:
 ```
 
 ### 2. Batching and Amortization
+
+```mermaid
+graph TB
+    subgraph "Without Batching"
+        W1[Write 1] -->|50ms| C1[Coordinate]
+        W2[Write 2] -->|50ms| C2[Coordinate]
+        W3[Write 3] -->|50ms| C3[Coordinate]
+        W100[Write 100] -->|50ms| C100[Coordinate]
+        T1["Total: 100 × 50ms = 5000ms"]
+        
+        style T1 fill:#ff5252,color:#fff
+    end
+    
+    subgraph "With Batching"
+        B1[Batch 100 Writes] -->|50ms| BC[Coordinate Once]
+        T2["Total: 50ms<br/>100x improvement!"]
+        
+        style T2 fill:#4caf50,color:#fff
+    end
+```
 
 ```python
 def amortize_coordination_cost():

@@ -740,6 +740,57 @@ class ShardManager(LeaderElectedService):
         self.shard_assignments = assignments
 ```
 
+### Visual Guide: Election State Transitions
+
+```mermaid
+stateDiagram-v2
+    [*] --> Follower: Initialize
+    
+    state Follower {
+        [*] --> Waiting
+        Waiting --> Timeout: No heartbeat
+        Timeout --> [*]: Start election
+    }
+    
+    state Candidate {
+        [*] --> RequestingVotes
+        RequestingVotes --> CountingVotes
+        CountingVotes --> Won: Majority
+        CountingVotes --> Lost: No majority
+        CountingVotes --> Lost: Higher term seen
+    }
+    
+    state Leader {
+        [*] --> SendingHeartbeats
+        SendingHeartbeats --> ProcessingRequests
+        ProcessingRequests --> SendingHeartbeats
+        SendingHeartbeats --> SteppingDown: Higher term
+    }
+    
+    Follower --> Candidate: Election timeout
+    Candidate --> Leader: Win election
+    Candidate --> Follower: Lose election
+    Leader --> Follower: Discover higher term
+    
+    note right of Follower
+        Passive state
+        Responds to leader
+        Monitors heartbeats
+    end note
+    
+    note right of Candidate
+        Active campaigning
+        Requests votes
+        Times out if split
+    end note
+    
+    note right of Leader
+        Active coordinator
+        Sends heartbeats
+        Processes all writes
+    end note
+```
+
 ---
 
 ## 🔧 Level 3: Deep Dive
@@ -1204,6 +1255,38 @@ ALERTS = [
 
 **Fischer-Lynch-Paterson (1985)**: Cannot guarantee both safety and liveness in asynchronous systems with failures.
 
+```mermaid
+graph TB
+    subgraph "FLP Impossibility"
+        FLP["Cannot achieve consensus with:<br/>1. Asynchronous network<br/>2. Even one faulty process<br/>3. Deterministic algorithm"]
+        
+        subgraph "The Dilemma"
+            D1[Wait forever?<br/>(No liveness)]
+            D2[Decide anyway?<br/>(No safety)]
+            D3[Can't distinguish<br/>slow from dead]
+        end
+        
+        FLP --> D3
+        D3 --> D1
+        D3 --> D2
+    end
+    
+    subgraph "Practical Solutions"
+        S1[Partial Synchrony<br/>Assume eventual delivery]
+        S2[Randomization<br/>Break symmetry]
+        S3[Failure Detectors<br/>Unreliable but useful]
+        
+        D1 -.->|Fix with| S1
+        D2 -.->|Fix with| S2
+        D3 -.->|Fix with| S3
+    end
+    
+    style FLP fill:#ef4444,stroke:#dc2626,stroke-width:3px
+    style S1 fill:#10b981,stroke:#059669
+    style S2 fill:#10b981,stroke:#059669
+    style S3 fill:#10b981,stroke:#059669
+```
+
 - **Problem**: Can't distinguish slow node from failed node
 - **Trade-off**: Safety (no split brain) vs Liveness (always elect)
 - **Solution**: Assume partial synchrony, use timeouts
@@ -1467,6 +1550,109 @@ How leader election works with other patterns:
 
 ---
 
+### Leader Election Visual Decision Guide
+
+```mermaid
+flowchart TD
+    Start[Need coordination?]
+    
+    Start --> Q1{Single point<br/>of control?}
+    Q1 -->|Yes| Q2{Failure<br/>tolerance?}
+    Q1 -->|No| Distributed[Use distributed<br/>coordination]
+    
+    Q2 -->|Critical| Q3{Network<br/>partitions?}
+    Q2 -->|Not critical| Simple[Single instance<br/>with restart]
+    
+    Q3 -->|Frequent| Q4{Geographic<br/>distribution?}
+    Q3 -->|Rare| Basic[Basic Raft/Paxos]
+    
+    Q4 -->|Global| Hierarchical[Hierarchical<br/>election]
+    Q4 -->|Regional| MultiRaft[Multi-Raft<br/>groups]
+    
+    Distributed --> CRDT[CRDTs]
+    Distributed --> Gossip[Gossip protocol]
+    
+    style Start fill:#e0e7ff,stroke:#6366f1,stroke-width:3px
+    style Basic fill:#10b981,stroke:#059669,stroke-width:2px
+    style Hierarchical fill:#f59e0b,stroke:#d97706,stroke-width:2px
+    style CRDT fill:#8b5cf6,stroke:#7c3aed,stroke-width:2px
+```
+
+### Election Performance Characteristics
+
+```mermaid
+graph LR
+    subgraph "Election Times by Algorithm"
+        Raft[Raft<br/>150-300ms]
+        Paxos[Multi-Paxos<br/>100-200ms]
+        ZK[ZooKeeper<br/>200-500ms]
+        Etcd[etcd<br/>100-300ms]
+        Custom[Custom<br/>50-1000ms]
+    end
+    
+    subgraph "Factors"
+        Network[Network RTT]
+        Timeout[Timeout Settings]
+        Nodes[Number of Nodes]
+        Load[System Load]
+    end
+    
+    Network --> Raft
+    Timeout --> Raft
+    Nodes --> Paxos
+    Load --> Custom
+    
+    style Raft fill:#10b981,stroke:#059669
+    style Paxos fill:#3b82f6,stroke:#2563eb
+    style ZK fill:#f59e0b,stroke:#d97706
+```
+
+### Leader Election Failure Modes
+
+```mermaid
+graph TB
+    subgraph "Common Failure Scenarios"
+        subgraph "Split Brain"
+            SB1[Network partition]
+            SB2[Two leaders elected]
+            SB3[Data inconsistency]
+            SB1 --> SB2 --> SB3
+        end
+        
+        subgraph "Election Storm"
+            ES1[Leader fails]
+            ES2[Multiple candidates]
+            ES3[Split votes]
+            ES4[Repeated elections]
+            ES1 --> ES2 --> ES3 --> ES4
+        end
+        
+        subgraph "Zombie Leader"
+            ZL1[Leader isolated]
+            ZL2[Thinks still leader]
+            ZL3[Continues operations]
+            ZL1 --> ZL2 --> ZL3
+        end
+    end
+    
+    subgraph "Prevention Strategies"
+        P1[Majority quorum]
+        P2[Randomized timeouts]
+        P3[Fencing tokens]
+        
+        SB3 -.->|Prevents| P1
+        ES4 -.->|Prevents| P2
+        ZL3 -.->|Prevents| P3
+    end
+    
+    style SB3 fill:#ef4444,stroke:#dc2626
+    style ES4 fill:#ef4444,stroke:#dc2626
+    style ZL3 fill:#ef4444,stroke:#dc2626
+    style P1 fill:#10b981,stroke:#059669
+    style P2 fill:#10b981,stroke:#059669
+    style P3 fill:#10b981,stroke:#059669
+```
+
 ---
 
 *"In distributed systems, leadership is not about power—it's about responsibility for coordination."*
@@ -1506,6 +1692,84 @@ How leader election works with other patterns:
 3. **No pre-vote** - Disrupts stable clusters
 4. **Ignoring clock skew** - Incorrect timeout calculations
 5. **Single leader dependency** - No read scaling
+
+### Real-World Implementation Example
+
+```mermaid
+sequenceDiagram
+    participant App as Application
+    participant LE as Leader Election
+    participant Redis as Redis/etcd
+    participant Monitor as Monitoring
+    
+    Note over App,Monitor: Startup Phase
+    App->>LE: Initialize with node ID
+    LE->>Redis: Register node
+    LE->>LE: Start election timer
+    
+    Note over App,Monitor: Election Phase
+    LE->>Redis: Check current leader
+    Redis-->>LE: No leader exists
+    LE->>LE: Become candidate
+    LE->>Redis: Atomic compare-and-swap
+    Redis-->>LE: Success - you are leader
+    LE->>App: OnBecameLeader()
+    
+    Note over App,Monitor: Leader Operations
+    loop Every 50ms
+        LE->>Redis: Refresh lease/TTL
+        LE->>Monitor: Report metrics
+    end
+    
+    App->>LE: Do leader work
+    LE->>Redis: Hold exclusive lock
+    
+    Note over App,Monitor: Failure Handling
+    LE->>Redis: Lease expires
+    Redis->>Redis: Auto-delete key
+    LE->>App: OnLostLeadership()
+    App->>App: Stop leader tasks
+```
+
+### Production Deployment Checklist
+
+```mermaid
+graph TB
+    subgraph "Pre-Production"
+        PP1[Test split-brain scenarios]
+        PP2[Verify clock synchronization]
+        PP3[Load test elections]
+        PP4[Chaos engineering tests]
+    end
+    
+    subgraph "Configuration"
+        C1[Set appropriate timeouts]
+        C2[Configure monitoring]
+        C3[Setup alerting rules]
+        C4[Document procedures]
+    end
+    
+    subgraph "Operations"
+        O1[Monitor election frequency]
+        O2[Track leader stability]
+        O3[Watch for flapping]
+        O4[Regular failover drills]
+    end
+    
+    PP1 --> C1
+    PP2 --> C2
+    PP3 --> C3
+    PP4 --> C4
+    
+    C1 --> O1
+    C2 --> O2
+    C3 --> O3
+    C4 --> O4
+    
+    style PP1 fill:#ef4444,stroke:#dc2626
+    style C1 fill:#f59e0b,stroke:#d97706
+    style O1 fill:#10b981,stroke:#059669
+```
 
 ---
 

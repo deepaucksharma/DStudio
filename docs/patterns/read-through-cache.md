@@ -957,7 +957,7 @@ class FeatureFlagLoader(DataLoader):
 - **[Cache-Aside](cache-aside.md)**: Application-managed caching
 - **[Write-Through Cache](write-through-cache.md)**: Synchronous write caching
 - **[Write-Behind Cache](write-behind-cache.md)**: Asynchronous write caching
-- **[Lazy Loading](lazy-loading.md)**: Related lazy initialization pattern
+- **[Lazy Loading](cache-aside.md)**: Related lazy initialization pattern
 
 ---
 

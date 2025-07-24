@@ -1110,6 +1110,328 @@ class ScalableTransactionManager:
         return [manager.execute(txn) for txn in batch]
 ```
 
+## Visual Protocol Comparison
+
+### State Diagrams for Transaction Protocols
+
+#### Two-Phase Commit (2PC) State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initial
+    Initial --> Preparing: begin_transaction
+    
+    Preparing --> Prepared: all_votes_yes
+    Preparing --> Aborting: any_vote_no
+    Preparing --> Aborting: timeout
+    
+    Prepared --> Committing: commit_decision
+    Prepared --> Aborting: abort_decision
+    
+    Committing --> Committed: all_acks_received
+    Committing --> Uncertain: partial_acks
+    
+    Aborting --> Aborted: all_aborts_acked
+    
+    Committed --> [*]
+    Aborted --> [*]
+    
+    note right of Uncertain
+        Requires recovery protocol
+        May lead to blocking
+    end note
+```
+
+#### Three-Phase Commit (3PC) State Machine
+
+```mermaid
+stateDiagram-v2
+    [*] --> Initial
+    Initial --> CanCommit: begin_transaction
+    
+    CanCommit --> PreCommit: all_can_commit
+    CanCommit --> Aborting: any_cannot_commit
+    CanCommit --> Aborting: coordinator_timeout
+    
+    PreCommit --> DoCommit: all_pre_committed
+    PreCommit --> Aborting: pre_commit_failure
+    PreCommit --> DoCommit: participant_timeout
+    
+    DoCommit --> Committed: all_committed
+    
+    Aborting --> Aborted: all_aborted
+    
+    Committed --> [*]
+    Aborted --> [*]
+    
+    note right of PreCommit
+        Non-blocking if coordinator fails
+        Participants can proceed on timeout
+    end note
+```
+
+#### Saga Pattern Flow
+
+```mermaid
+graph TB
+    subgraph "Saga Execution Flow"
+        Start([Start Saga])
+        
+        Start --> T1[Transaction 1]
+        T1 -->|Success| T2[Transaction 2]
+        T2 -->|Success| T3[Transaction 3]
+        T3 -->|Success| Complete([Complete])
+        
+        T1 -->|Failure| C1[Compensate T1]
+        T2 -->|Failure| C2[Compensate T2]
+        C2 --> C1
+        T3 -->|Failure| C3[Compensate T3]
+        C3 --> C2
+        
+        C1 --> Failed([Failed & Compensated])
+    end
+    
+    subgraph "Compensation Chain"
+        direction RL
+        CT3[Undo T3] --> CT2[Undo T2]
+        CT2 --> CT1[Undo T1]
+    end
+```
+
+### Failure Scenario Visualizations
+
+#### 2PC Coordinator Failure Scenarios
+
+```mermaid
+sequenceDiagram
+    participant C as Coordinator
+    participant P1 as Participant 1
+    participant P2 as Participant 2
+    participant P3 as Participant 3
+    
+    Note over C,P3: Scenario 1: Coordinator fails during prepare
+    C->>P1: prepare
+    C->>P2: prepare
+    P1-->>C: vote yes
+    P2-->>C: vote yes
+    C-xP3: prepare (fails before sending)
+    Note over P1,P2: P1, P2 in uncertain state
+    Note over P3: P3 remains in initial state
+    
+    Note over C,P3: Scenario 2: Coordinator fails after prepare
+    C->>P1: prepare
+    C->>P2: prepare
+    C->>P3: prepare
+    P1-->>C: vote yes
+    P2-->>C: vote yes
+    P3-->>C: vote yes
+    Note over C: Coordinator crashes
+    Note over P1,P3: All participants blocked in prepared state
+    
+    Note over C,P3: Scenario 3: Network partition during commit
+    C->>P1: commit
+    C->>P2: commit
+    C--xP3: commit (network partition)
+    P1-->>C: ack
+    P2-->>C: ack
+    Note over P1,P2: Committed
+    Note over P3: Still prepared (inconsistent state)
+```
+
+#### 3PC Handling Coordinator Failures
+
+```mermaid
+sequenceDiagram
+    participant C as Coordinator
+    participant P1 as Participant 1
+    participant P2 as Participant 2
+    participant P3 as Participant 3
+    
+    Note over C,P3: 3PC with coordinator failure
+    C->>P1: can-commit?
+    C->>P2: can-commit?
+    C->>P3: can-commit?
+    P1-->>C: yes
+    P2-->>C: yes
+    P3-->>C: yes
+    
+    C->>P1: pre-commit
+    C->>P2: pre-commit
+    C->>P3: pre-commit
+    P1-->>C: ack
+    P2-->>C: ack
+    P3-->>C: ack
+    
+    Note over C: Coordinator fails
+    Note over P1,P3: Participants in pre-commit state
+    
+    Note over P1: Timeout expires
+    P1->>P2: coordinator failed, commit?
+    P1->>P3: coordinator failed, commit?
+    P2-->>P1: in pre-commit, let's commit
+    P3-->>P1: in pre-commit, let's commit
+    
+    Note over P1,P3: All commit independently
+```
+
+### Performance Comparison Tables
+
+#### Latency Breakdown by Protocol
+
+| Phase | 2PC | 3PC | Saga (Orchestrated) | Saga (Choreographed) |
+|-------|-----|-----|---------------------|---------------------|
+| **Phase 1** | Prepare request + response<br>(2 × network RTT) | Can-commit request + response<br>(2 × network RTT) | Execute T1<br>(1 × service latency) | Event publish<br>(1 × message latency) |
+| **Phase 2** | Commit request + response<br>(2 × network RTT) | Pre-commit request + response<br>(2 × network RTT) | Execute T2<br>(1 × service latency) | Event reaction<br>(1 × message latency) |
+| **Phase 3** | - | Do-commit request + response<br>(2 × network RTT) | Execute T3..Tn<br>(n × service latency) | Event cascade<br>(n × message latency) |
+| **Total** | 4 × network RTT | 6 × network RTT | Sum of service latencies | Sum of message latencies |
+| **Parallelism** | Yes (prepare phase) | Yes (all phases) | No (sequential) | Possible (depends on flow) |
+
+#### Consistency vs Performance Trade-offs
+
+```mermaid
+scatter
+    title Consistency vs Performance Trade-offs
+    x-axis "Performance (Transactions/sec)" 0 --> 10000
+    y-axis "Consistency Strength" 0 --> 10
+    
+    "2PC": [1000, 10]
+    "3PC": [500, 10]
+    "Saga Orchestrated": [5000, 3]
+    "Saga Choreographed": [8000, 2]
+    "Optimistic Locking": [9000, 6]
+    "MVCC": [7000, 7]
+    "Eventually Consistent": [10000, 1]
+```
+
+### Decision Matrix for Protocol Selection
+
+#### Protocol Selection Based on Requirements
+
+```mermaid
+graph TD
+    Start([Start: Select Protocol])
+    
+    Start --> ConsistencyCheck{Strong Consistency<br/>Required?}
+    
+    ConsistencyCheck -->|Yes| LatencyCheck{Latency<br/>Sensitive?}
+    ConsistencyCheck -->|No| AvailabilityCheck{High Availability<br/>Required?}
+    
+    LatencyCheck -->|Yes| ScaleCheck{High Scale<br/>Required?}
+    LatencyCheck -->|No| NetworkCheck{Reliable<br/>Network?}
+    
+    ScaleCheck -->|Yes| OCC[Optimistic<br/>Concurrency Control]
+    ScaleCheck -->|No| TwoPC[Two-Phase<br/>Commit]
+    
+    NetworkCheck -->|Yes| ThreePC[Three-Phase<br/>Commit]
+    NetworkCheck -->|No| TwoPC
+    
+    AvailabilityCheck -->|Yes| CompensationCheck{Complex<br/>Compensation?}
+    AvailabilityCheck -->|No| MVCC[Multi-Version<br/>Concurrency Control]
+    
+    CompensationCheck -->|Yes| Orchestrated[Orchestrated<br/>Saga]
+    CompensationCheck -->|No| Choreographed[Choreographed<br/>Saga]
+    
+    style OCC fill:#e8f5e9
+    style TwoPC fill:#e3f2fd
+    style ThreePC fill:#e3f2fd
+    style MVCC fill:#fff3e0
+    style Orchestrated fill:#fce4ec
+    style Choreographed fill:#fce4ec
+```
+
+#### Detailed Comparison Matrix
+
+| Criteria | 2PC | 3PC | Orchestrated Saga | Choreographed Saga | Optimistic Locking | MVCC |
+|----------|-----|-----|-------------------|-------------------|-------------------|------|
+| **Consistency Model** | Strong | Strong | Eventual | Eventual | Snapshot | Snapshot |
+| **Blocking** | Yes | No* | No | No | No | No |
+| **Coordinator Required** | Yes | Yes | Yes | No | No | No |
+| **Network Round Trips** | 2 | 3 | 1 per step | 1 per event | 1 | 1 |
+| **Failure Recovery** | Complex | Complex | Built-in | Event-driven | Retry | Version-based |
+| **Scalability** | Low | Low | High | Very High | High | High |
+| **Latency** | High | Very High | Medium | Low | Low | Low |
+| **Resource Locking** | Yes | Yes | No | No | No | No |
+| **Deadlock Risk** | High | High | None | None | None | None |
+| **Use Case Fit** | Banking | Critical Systems | E-commerce | Microservices | Read-heavy | Databases |
+
+*Non-blocking only if majority of participants are available
+
+### Failure Recovery Strategies
+
+#### Recovery Decision Tree
+
+```mermaid
+graph TD
+    Failure([Transaction Failure])
+    
+    Failure --> FailureType{Failure Type?}
+    
+    FailureType -->|Coordinator| CoordRecovery{Has Decision<br/>Been Made?}
+    FailureType -->|Participant| PartRecovery{Transaction<br/>State?}
+    FailureType -->|Network| NetRecovery{Partition<br/>Duration?}
+    
+    CoordRecovery -->|Yes| ReplayDecision[Replay Decision<br/>to Participants]
+    CoordRecovery -->|No| ConsultParticipants[Consult Participant<br/>States]
+    
+    PartRecovery -->|Initial| Abort[Safe to Abort]
+    PartRecovery -->|Prepared| WaitCoordinator[Wait for<br/>Coordinator]
+    PartRecovery -->|Pre-Commit| CanCommit[Can Commit<br/>After Timeout]
+    
+    NetRecovery -->|Short| Retry[Retry with<br/>Exponential Backoff]
+    NetRecovery -->|Long| CompensateOrAccept[Compensate or<br/>Accept Split Brain]
+    
+    ConsultParticipants --> MajorityDecision{Majority<br/>Agreement?}
+    MajorityDecision -->|Yes| FollowMajority[Follow Majority<br/>Decision]
+    MajorityDecision -->|No| ManualIntervention[Manual<br/>Intervention]
+```
+
+### Real-World Failure Patterns
+
+#### Common Failure Scenarios and Solutions
+
+| Failure Scenario | Impact | 2PC Solution | 3PC Solution | Saga Solution |
+|-----------------|---------|--------------|--------------|---------------|
+| **Coordinator crashes before prepare** | No impact | Participants timeout and abort | Same as 2PC | Not applicable |
+| **Coordinator crashes after prepare** | Participants blocked | Manual recovery required | Participants can proceed after timeout | Not applicable |
+| **Participant crashes during prepare** | Transaction aborts | Coordinator timeouts and aborts | Same as 2PC | Skip or compensate |
+| **Network partition during commit** | Split brain risk | Some nodes committed, others blocked | Majority can proceed | Eventually consistent |
+| **Cascading failures** | System-wide impact | Manual intervention | Partial automation | Self-healing via compensation |
+| **Byzantine failures** | Data corruption | Not handled | Not handled | Depends on implementation |
+
+### Performance Optimization Strategies
+
+#### Optimization Techniques by Protocol
+
+```mermaid
+graph TB
+    subgraph "2PC Optimizations"
+        PC1[Presumed Commit]
+        PC2[Presumed Abort]
+        PC3[Read-only Optimization]
+        PC4[Single-phase Commit]
+    end
+    
+    subgraph "3PC Optimizations"
+        TC1[Quorum-based Decisions]
+        TC2[Timeout Optimization]
+        TC3[State Compression]
+    end
+    
+    subgraph "Saga Optimizations"
+        S1[Parallel Execution]
+        S2[Compensation Caching]
+        S3[Idempotent Operations]
+        S4[Event Batching]
+    end
+    
+    subgraph "General Optimizations"
+        G1[Connection Pooling]
+        G2[Batching Requests]
+        G3[Async Processing]
+        G4[Caching Decisions]
+    end
+```
+
 ## Trade-off Analysis
 
 ### Decision Framework
@@ -1132,16 +1454,6 @@ graph TD
     F --> L[Handle Timeouts]
     G --> M[Handle Conflicts]
 ```
-
-### Comparison Matrix
-
-| Protocol | Consistency | Availability | Latency | Complexity | Use Case |
-|----------|------------|--------------|---------|------------|----------|
-| 2PC | Strong | Low | High | Medium | Financial transactions |
-| 3PC | Strong | Medium | Higher | High | Critical systems |
-| Saga | Eventual | High | Low | Medium | E-commerce, workflows |
-| OCC | Snapshot | High | Low | Low | Read-heavy workloads |
-| MVCC | Snapshot | High | Medium | Medium | Databases |
 
 ### Best Practices
 
@@ -1167,7 +1479,7 @@ graph TD
 
 ## Related Patterns
 
-- [Saga Pattern](saga-pattern.md) - Long-running transactions
+- [Saga Pattern](saga.md) - Long-running transactions
 - [Event Sourcing](event-sourcing.md) - Transaction as events
 - [CQRS](cqrs.md) - Separate read/write paths
 - [Eventual Consistency](eventual-consistency.md) - Relaxed consistency

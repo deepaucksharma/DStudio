@@ -100,7 +100,7 @@ The site uses custom-styled components defined in `extra.css`:
 4. View at http://127.0.0.1:8000
 
 ### Adding Content
-1. New axiom/pillar pages go in respective directories with `index.md`, `examples.md`, `exercises.md`
+1. New law/pillar pages go in respective directories with `index.md`, `examples.md`, `exercises.md`
 2. Update navigation in `mkdocs.yml`
 3. Use established visual components (axiom-box, decision-box, etc.)
 4. Follow existing markdown patterns for consistency

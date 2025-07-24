@@ -1255,6 +1255,175 @@ class ConsistencyMonitor:
         return metrics
 ```
 
+## 📊 Interactive Decision Support Tools
+
+### 🎯 Consistency Model Decision Tree
+
+```mermaid
+flowchart TD
+    Start[Choose Consistency Model] --> Q1{Can tolerate<br/>temporary inconsistency?}
+    
+    Q1 -->|No| SC[Strong Consistency]
+    Q1 -->|Yes| Q2{Need causal<br/>relationships?}
+    
+    Q2 -->|Yes| Q3{Cross-region<br/>deployment?}
+    Q2 -->|No| Q4{Session guarantees<br/>needed?}
+    
+    Q3 -->|Yes| CC[Causal Consistency<br/>with Vector Clocks]
+    Q3 -->|No| CC2[Causal Consistency<br/>with Logical Clocks]
+    
+    Q4 -->|Yes| Q5{Which guarantees?}
+    Q4 -->|No| EC[Basic Eventual<br/>Consistency]
+    
+    Q5 -->|Read Your Writes| RYW[Session-based<br/>Read Your Writes]
+    Q5 -->|Monotonic| MR[Monotonic Reads/<br/>Writes]
+    Q5 -->|Both| BOTH[Full Session<br/>Guarantees]
+    
+    SC --> SCEx[Examples:<br/>• Banking<br/>• Inventory<br/>• Auctions]
+    CC --> CCEx[Examples:<br/>• Social feeds<br/>• Comments<br/>• Messaging]
+    EC --> ECEx[Examples:<br/>• Analytics<br/>• Metrics<br/>• Logs]
+    
+    style SC fill:#f96,stroke:#333,stroke-width:2px
+    style CC fill:#fc6,stroke:#333,stroke-width:2px
+    style EC fill:#9f6,stroke:#333,stroke-width:2px
+```
+
+### 💰 Consistency Trade-off Calculator
+
+| Factor | Strong Consistency | Eventual Consistency | Your Score (1-10) |
+|--------|-------------------|---------------------|-------------------|
+| **Latency** | 🔴 100-500ms | ✅ 10-50ms | ___ |
+| **Availability** | 🟡 99.9% | ✅ 99.99% | ___ |
+| **Throughput** | 🔴 Low | ✅ High | ___ |
+| **Cost** | 🔴 High | ✅ Low | ___ |
+| **Complexity** | ✅ Simple | 🔴 Complex | ___ |
+| **Conflict Handling** | ✅ None needed | 🔴 Required | ___ |
+| **Geographic Scale** | 🔴 Limited | ✅ Global | ___ |
+| **User Experience** | ✅ Predictable | 🟡 Variable | ___ |
+
+**Decision Formula:**
+- Strong Consistency Score = (Latency×2) + (Complexity×3) + (UX×3) - (Cost×2)
+- Eventual Consistency Score = (Availability×3) + (Throughput×2) + (Scale×3) - (Complexity×2)
+
+### 🔄 Conflict Resolution Strategy Selector
+
+```mermaid
+graph TD
+    subgraph "Conflict Type Analysis"
+        CT[Conflict Type] --> Q1{Data Type?}
+        
+        Q1 -->|Numeric| Q2{Operation?}
+        Q1 -->|Set/List| Q3{Semantics?}
+        Q1 -->|Object| Q4{Domain?}
+        
+        Q2 -->|Counter| CRDT1[Use PN-Counter CRDT]
+        Q2 -->|Max/Min| LWW1[Last Write Wins]
+        
+        Q3 -->|Add Only| CRDT2[Use G-Set CRDT]
+        Q3 -->|Add/Remove| CRDT3[Use OR-Set CRDT]
+        
+        Q4 -->|Shopping Cart| SEM1[Semantic Merge<br/>Union of items]
+        Q4 -->|Document| SEM2[Three-way merge<br/>Track changes]
+        Q4 -->|Custom| APP[Application-specific<br/>Resolution]
+    end
+    
+    style CRDT1 fill:#9f6,stroke:#333,stroke-width:2px
+    style CRDT2 fill:#9f6,stroke:#333,stroke-width:2px
+    style CRDT3 fill:#9f6,stroke:#333,stroke-width:2px
+    style LWW1 fill:#69f,stroke:#333,stroke-width:2px
+    style SEM1 fill:#fc6,stroke:#333,stroke-width:2px
+```
+
+### 📈 Convergence Time Estimator
+
+| Parameter | Value | Impact on Convergence |
+|-----------|-------|----------------------|
+| **Network Topology** | | |
+| Number of Nodes | ___ | Linear increase |
+| Geographic Distribution | ___ regions | 50-200ms per region hop |
+| **Synchronization** | | |
+| Gossip Interval | ___ seconds | Direct impact |
+| Fanout Factor | ___ nodes | Logarithmic improvement |
+| **Data Characteristics** | | |
+| Update Rate | ___ per second | May delay convergence |
+| Conflict Rate | ___% | Increases resolution time |
+| **Anti-Entropy** | | |
+| Merkle Tree Depth | ___ levels | Log(n) comparison time |
+| Sync Interval | ___ seconds | Maximum convergence time |
+
+**Convergence Time Formula:**
+```
+T_convergence = O(log(N) × gossip_interval) + network_latency + conflict_resolution_time
+
+Where:
+- N = number of nodes
+- gossip_interval = time between gossip rounds
+- network_latency = average RTT between nodes
+- conflict_resolution_time = time to resolve conflicts
+```
+
+### 🎴 Quick Reference Cards
+
+#### Session Guarantees Cheat Sheet
+
+<div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
+
+**READ YOUR WRITES** ✅
+- User sees their own updates immediately
+- Track session writes with version/timestamp
+- Route reads to up-to-date replicas
+- ❌ Complexity: Medium
+
+**MONOTONIC READS** ✅
+- Never see older data after seeing newer
+- Track last read version per session
+- Ensure replica selection consistency
+- ❌ Complexity: Low-Medium
+
+**MONOTONIC WRITES** ✅
+- Writes applied in session order
+- Buffer writes if dependencies not met
+- Use logical timestamps
+- ❌ Complexity: Medium-High
+
+**CAUSAL CONSISTENCY** ✅
+- Respects happened-before relationships
+- Requires vector clocks or similar
+- Most complex to implement
+- ❌ Complexity: High
+
+</div>
+
+#### Implementation Readiness Checklist
+
+<div style="border: 2px solid #059669; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0fdf4;">
+
+**Before Implementing Eventual Consistency:**
+- [ ] Identified acceptable inconsistency window
+- [ ] Designed conflict resolution strategy
+- [ ] Planned monitoring for divergence
+- [ ] Created data model supporting merges
+- [ ] Implemented vector clocks or similar
+- [ ] Tested partition scenarios
+- [ ] Prepared user-facing sync indicators
+- [ ] Documented consistency guarantees
+
+</div>
+
+#### Common Pitfalls to Avoid
+
+<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fef2f2;">
+
+**⚠️ Critical Mistakes:**
+1. **No Conflict Resolution** - Assuming conflicts won't happen
+2. **Unbounded Divergence** - No anti-entropy mechanism
+3. **Hidden Inconsistency** - Users unaware of sync state
+4. **Wrong Use Cases** - Using for financial transactions
+5. **No Monitoring** - Can't detect convergence issues
+6. **Complex Merges** - Making conflict resolution too complex
+
+</div>
+
 ## Trade-offs and Best Practices
 
 ### When to Use Eventual Consistency
@@ -1313,11 +1482,11 @@ class ConsistencyMonitor:
 
 ## Related Patterns
 
-- [CAP Theorem](../part1-axioms/consistency/index.md) - Fundamental trade-offs
+- [CAP Theorem](../quantitative/cap-theorem.md) - Fundamental trade-offs
 - [Vector Clocks](vector-clocks.md) - Tracking causality
 - [CRDT](crdt.md) - Conflict-free data types
 - [Gossip Protocol](gossip-protocol.md) - Dissemination mechanism
-- [Read Repair](read-repair.md) - Fixing inconsistencies
+- [Read Repair] (Pattern: Read Repair - Coming Soon) - Fixing inconsistencies
 
 ## References
 

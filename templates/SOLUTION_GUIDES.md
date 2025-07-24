@@ -1593,7 +1593,7 @@ if __name__ == "__main__":
     connection_pool_example()
 ```
 
-This solution guide provides comprehensive implementations for the key exercises in State Management and fundamental Axiom exercises. Each solution includes:
+This solution guide provides comprehensive implementations for the key exercises in State Management and fundamental Law exercises. Each solution includes:
 
 1. **Complete working code** with proper error handling
 2. **Detailed explanations** in comments

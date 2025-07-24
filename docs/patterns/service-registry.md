@@ -1558,7 +1558,7 @@ graph TB
 1. **[Service Discovery](service-discovery.md)**: Runtime instance location (registry stores the metadata)
 2. **[Request Routing](request-routing.md)**: Uses registry data for routing decisions
 3. **[API Gateway](api-gateway.md)**: Consumes registry for service information
-4. **[Configuration Management](configuration-management.md)**: Registry often stores configuration
+4. **[Configuration Management](service-registry.md)**: Registry often stores configuration
 5. **[Health Check](health-check.md)**: Registry tracks service health status
 
 ---

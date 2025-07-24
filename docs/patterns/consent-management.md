@@ -1136,7 +1136,7 @@ def test_consent_lifecycle():
 ## Related Patterns
 - [Event Sourcing](event-sourcing.md) - Audit trail implementation
 - [CQRS](cqrs.md) - Separate consent reads from writes
-- [Zero Trust Security](zero-trust.md) - Never assume consent
+- [Zero Trust Security] (Pattern: Zero Trust - Coming Soon) - Never assume consent
 - [API Gateway](api-gateway.md) - Centralized consent enforcement
 
 ## References

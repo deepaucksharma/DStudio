@@ -36,7 +36,7 @@ Google Drive represents one of the most complex distributed systems challenges: 
 
 ## Part 1: Concept Map - The Physics of Distributed Storage
 
-### Axiom 2: Asynchronous Reality ⏳ - Making Cloud Feel Local
+### Law 2: Asynchronous Reality ⏳ - Making Cloud Feel Local
 
 Cloud storage must overcome the speed of light to make remote files feel instantly accessible.
 
@@ -75,7 +75,7 @@ graph TB
     end
 ```
 
-### Axiom 4: Trade-offs ⚖️ - The Exabyte Challenge
+### Law 4: Trade-offs ⚖️ - The Exabyte Challenge
 
 Managing billions of files across millions of users requires sophisticated capacity planning.
 
@@ -122,7 +122,7 @@ graph LR
 | Delta Encoding | 90%+ | Version storage |
 | Smart Tiering | 60% cost | Inactive data |
 
-### Axiom 1: Failure ⛓️ - Data Durability and Availability
+### Law 1: Failure ⛓️ - Data Durability and Availability
 
 Drive must never lose data despite constant hardware failures.
 
@@ -157,7 +157,7 @@ graph TB
 - Erasure coding (6+3): 99.99999999999% (13 nines)
 - Geo-distributed EC: 99.999999999999999% (17 nines)
 
-### Axiom 3: Emergence 🌪️ - Real-time Collaboration
+### Law 3: Emergence 🌪️ - Real-time Collaboration
 
 Multiple users editing the same document requires sophisticated concurrency control.
 
@@ -195,7 +195,7 @@ graph LR
     end
 ```
 
-### Axiom 4: Trade-offs ⚖️ - Global Consistency
+### Law 4: Trade-offs ⚖️ - Global Consistency
 
 Maintaining consistency across global data centers while enabling collaboration.
 
@@ -238,7 +238,7 @@ stateDiagram-v2
     Idle --> Scanning: Change Detected
 ```
 
-### Axiom 5: Epistemology 🧠 - Understanding System Health
+### Law 5: Epistemology 🧠 - Understanding System Health
 
 Monitoring billions of file operations requires comprehensive observability.
 
@@ -269,7 +269,7 @@ graph TB
 | Security | Auth failures, Suspicious access | Anomaly based |
 | Business | Active users, Storage growth | Trend deviation |
 
-### Axiom 6: Human-API 🤯 - Seamless User Experience
+### Law 6: Human-API 🤯 - Seamless User Experience
 
 Making complex distributed systems feel simple and intuitive.
 
@@ -307,7 +307,7 @@ graph TB
     end
 ```
 
-### Axiom 7: Economics 💰 - Balancing Features and Costs
+### Law 7: Economics 💰 - Balancing Features and Costs
 
 Optimizing storage costs while providing generous free tiers and premium features.
 
@@ -343,7 +343,7 @@ graph TB
 | 2TB | $2.00 | $9.99 | 80% |
 | Enterprise | $5.00 | $25.00 | 80% |
 
-## Part 2: Comprehensive Axiom Analysis Matrix
+## Part 2: Comprehensive Law Analysis Matrix
 
 Understanding how each design decision in Google Drive maps to fundamental laws reveals the intricate balance required for cloud storage at scale.
 
@@ -357,11 +357,11 @@ Understanding how each design decision in Google Drive maps to fundamental laws 
 | **Operational Transform** | ✅ Real-time collab<br/>< 100ms updates | ⚠️ Transform overhead<br/>Complex state | ✅ Graceful degradation<br/>Eventual consistency | ✅ Lock-free editing<br/>Unlimited users | ✅ Causal ordering<br/>Convergence guaranteed | ⚠️ Complex debugging<br/>Transform chains | ✅ Live collaboration<br/>See others' cursors | ⚠️ Server compute<br/>Transform processing |
 | **Tiered Storage** | ⚠️ Cold tier slow<br/>Minutes to retrieve | ✅ 60% cost savings<br/>Efficient use | ✅ Multiple copies<br/>Tier-appropriate | ✅ Async migration<br/>No user impact | ✅ Policy-based<br/>Automated movement | ✅ Access patterns<br/>Clear analytics | ⚠️ Retrieval delays<br/>Set expectations | ✅ Major savings<br/>Sustainable model |
 
-### Detailed Axiom Interaction Analysis
+### Detailed Law Interaction Analysis
 
 ```mermaid
 graph TB
-    subgraph "Drive Axiom Dependencies"
+    subgraph "Drive Law Dependencies"
         L[Latency] -->|Conflicts with| CAP[Capacity]
         CAP -->|Drives| E[Economics]
         E -->|Constrains| F[Failure Protection]
@@ -384,7 +384,7 @@ graph TB
 
 ### Architecture Decision Framework
 
-| Architecture Choice | Primary Axiom Driver | Secondary Impacts | Trade-off Analysis |
+| Architecture Choice | Primary Law Driver | Secondary Impacts | Trade-off Analysis |
 |-------------------|-------------------|------------------|-------------------|
 | **Block vs File Dedup** | Capacity (storage efficiency) | Latency (chunking overhead) | Block dedup wins despite complexity |
 | **Strong vs Eventual Consistency** | Coordination (correctness) | Latency (sync speed) | Eventual for files, strong for permissions |
@@ -1480,7 +1480,7 @@ class StorageLifecycleManager:
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 2<br/>⏳ Asynchronous Reality | Axiom 4<br/>⚖️ Trade-offs | Axiom 1<br/>⛓️ Failure | Axiom 3<br/>🌪️ Emergence | Axiom 4<br/>⚖️ Trade-offs | Axiom 5<br/>🧠 Epistemology | Axiom 6<br/>🤯 Human-API | Axiom 7<br/>💰 Economics |
+| Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Trade-offs | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Emergence | Law 4<br/>⚖️ Trade-offs | Law 5<br/>🧠 Epistemology | Law 6<br/>🤯 Human-API | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------||
 | **Content-Addressed Storage** | ⚪ | ✅ Deduplication | ✅ Immutable data | ✅ Parallel access | ✅ Simple sync | ✅ Hash verification | ⚪ | ✅ 30% storage saved |
 | **Chunking Algorithm** | ✅ Resume uploads | ✅ Efficient transfer | ✅ Partial recovery | ✅ Parallel chunks | ⚪ | ✅ Transfer metrics | ✅ Progress tracking | ✅ Bandwidth efficiency |

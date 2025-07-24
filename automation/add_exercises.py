@@ -120,7 +120,7 @@ class ExerciseAdder:
 
 **Question 2**: Give an example of a system that appears to "violate" this axiom and explain how it actually confirms it.
 
-**Question 3**: How does {axiom_name} interact with the other fundamental axioms?
+**Question 3**: How does {axiom_name} interact with the other fundamental laws?
 
 ---
 

@@ -2405,4 +2405,4 @@ class KeyManagementEconomics:
 
 ---
 
-**Previous**: [← End-to-End Encryption](e2e-encryption.md) | **Next**: [GraphQL →](graphql.md)
+**Previous**: [← End-to-End Encryption](e2e-encryption.md) | **Next**: [GraphQL →] (Pattern: Graphql - Coming Soon)

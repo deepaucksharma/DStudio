@@ -28,10 +28,28 @@ last_updated: 2025-07-20
 ## 🏗️ Architecture Evolution
 
 ### Phase 1: Simple Polling (2009-2011)
-```text
-Driver App → API Gateway → MySQL → Dispatcher
+
+```mermaid
+flowchart LR
+    subgraph "Initial Architecture"
+        DA[Driver App] -->|Poll every 5s| AG[API Gateway]
+        AG -->|Query| DB[(MySQL<br/>Single DB)]
+        DB -->|Return locations| AG
+        AG -->|Dispatch logic| DISP[Dispatcher]
+        
+        style DB fill:#ff5252,stroke:#d32f2f,stroke-width:3px
+    end
+    
+    subgraph "Problems at Scale"
+        P1[" 💥 Database Overwhelmed<br/>1000 drivers = 200 QPS"]
+        P2["⏱️ No Real-time Updates<br/>5 second delays"]
+        P3["🔄 Synchronous Polling<br/>Wasted bandwidth"]
+        
+        style P1 fill:#ffcdd2
+        style P2 fill:#ffcdd2  
+        style P3 fill:#ffcdd2
+    end
 ```
-**Problems**: Database overwhelmed, no real-time updates, synchronous polling
 
 ### Phase 2: In-Memory Grid (2011-2013)
 
@@ -66,8 +84,20 @@ graph TB
     style RC fill:#ff9999
 ```
 
-**Key Decision**: Redis for hot data - 100x performance gain
-- Latency: 500ms → 50ms¹
+**Key Improvements**:
+```mermaid
+graph LR
+    subgraph "Performance Gains"
+        OLD[MySQL Only<br/>500ms latency<br/>100 QPS max] -->|Add Redis| NEW[Redis + MySQL<br/>5ms latency<br/>10,000 QPS]
+        
+        style OLD fill:#ff5252,color:#fff
+        style NEW fill:#4caf50,color:#fff
+    end
+```
+
+- **Latency**: 500ms → 5ms (100x improvement)
+- **Throughput**: 100 QPS → 10,000 QPS
+- **Architecture**: Hot data in memory, cold in MySQL
 
 ### Phase 3: Geospatial Sharding (2013-2016)
 
@@ -110,8 +140,41 @@ graph TB
     K1 & K2 & K3 -.-> MK
 ```
 
-**H3 Innovation**⁴: Hexagonal grid system (0-15 resolution levels)
-- Efficient neighbor queries, predictable sharding
+**H3 Hexagonal Grid Innovation**⁴:
+
+```mermaid
+graph TB
+    subgraph "Traditional Lat/Long Grid"
+        TG[Rectangular Grid]
+        TP1[Problem: Variable cell sizes<br/>at different latitudes]
+        TP2[Problem: 8 neighbors<br/>but unequal distances]
+        TP3[Problem: Complex<br/>proximity queries]
+        
+        TG --> TP1 & TP2 & TP3
+        style TP1 fill:#ffcdd2
+        style TP2 fill:#ffcdd2
+        style TP3 fill:#ffcdd2
+    end
+    
+    subgraph "H3 Hexagonal Grid"
+        HG[Hexagonal Grid]
+        HS1[Equal area cells<br/>at all locations]
+        HS2[6 equidistant<br/>neighbors]
+        HS3[15 resolution levels<br/>122m to 0.9m²]
+        HS4[Natural sharding<br/>boundaries]
+        
+        HG --> HS1 & HS2 & HS3 & HS4
+        style HS1 fill:#c8e6c9
+        style HS2 fill:#c8e6c9
+        style HS3 fill:#c8e6c9
+        style HS4 fill:#c8e6c9
+    end
+```
+
+**Benefits**:
+- Efficient neighbor queries (O(1) vs O(n))
+- Predictable sharding across regions
+- 40% less storage than lat/long grids
 
 ### Phase 4: Event-Driven Architecture (2016-Present)
 
@@ -196,12 +259,78 @@ graph LR
 ### Law Impact Analysis
 
 #### Law 2: Asynchronous Reality ⏳
-**Solution**: 35+ edge PoPs, regional DCs, multi-tier caching
-**Results**¹: P50: 45ms, P99: 200ms, Location update: 20ms
+
+```mermaid
+graph TB
+    subgraph "Global Latency Optimization"
+        subgraph "35+ Edge PoPs"
+            EP1[San Francisco<br/>PoP]
+            EP2[New York<br/>PoP]
+            EP3[London<br/>PoP]
+            EP4[Singapore<br/>PoP]
+        end
+        
+        subgraph "Regional Data Centers"
+            DC1[US West DC]
+            DC2[US East DC]
+            DC3[EU DC]
+            DC4[APAC DC]
+        end
+        
+        subgraph "Caching Layers"
+            L1[CDN Cache<br/>1-5ms]
+            L2[Redis Cache<br/>5-10ms]
+            L3[Application Cache<br/>10-20ms]
+        end
+        
+        EP1 --> DC1
+        EP2 --> DC2
+        EP3 --> DC3
+        EP4 --> DC4
+        
+        DC1 & DC2 & DC3 & DC4 --> L1 --> L2 --> L3
+    end
+    
+    RESULT["Results: P50: 45ms | P99: 200ms | Updates: 20ms"]
+    
+    style RESULT fill:#4caf50,color:#fff,stroke-width:3px
+```
 
 #### Law 4: Trade-offs ⚖️ (Capacity)
-**Solution**: Adaptive sampling, delta encoding, smart batching
-**Impact**²: Writes: 1.25M/s → 400K/s (-68%), Bandwidth: 625 MB/s → 200 MB/s (-68%), Storage: 43.2 GB/day → 13 GB/day (-70%)
+
+```mermaid
+graph LR
+    subgraph "Optimization Techniques"
+        subgraph "Before"
+            B1["Every Update<br/>1.25M writes/s"]
+            B2["Full Payload<br/>625 MB/s"]
+            B3["All Data<br/>43.2 GB/day"]
+        end
+        
+        subgraph "Optimizations"
+            O1["Adaptive Sampling<br/>Skip stationary"]
+            O2["Delta Encoding<br/>Send only changes"]
+            O3["Smart Batching<br/>Combine updates"]
+        end
+        
+        subgraph "After"
+            A1["Smart Updates<br/>400K writes/s<br/>-68%"]
+            A2["Compressed<br/>200 MB/s<br/>-68%"]
+            A3["Efficient<br/>13 GB/day<br/>-70%"]
+        end
+        
+        B1 -->|Apply| O1 -->|Result| A1
+        B2 -->|Apply| O2 -->|Result| A2
+        B3 -->|Apply| O3 -->|Result| A3
+        
+        style B1 fill:#ff5252,color:#fff
+        style B2 fill:#ff5252,color:#fff
+        style B3 fill:#ff5252,color:#fff
+        style A1 fill:#4caf50,color:#fff
+        style A2 fill:#4caf50,color:#fff
+        style A3 fill:#4caf50,color:#fff
+    end
+```
 
 #### Law 1: Failure ⛓️
 **Pillar Applied**: Control Distribution - Autonomous regional operation, self-healing, progressive degradation
@@ -520,11 +649,32 @@ graph TB
 
 ### 4. Matching Algorithm
 **Decision**: Hierarchical search with ML ranking
-```text
-1. Coarse filter: H3 cells within radius
-2. Fine filter: Actual distance calculation
-3. ML ranking: Driver behavior, traffic, history
-4. Assignment: Distributed lock for atomicity
+
+```mermaid
+flowchart TD
+    RR[Ride Request] --> CF[Coarse Filter<br/>H3 cells within radius]
+    CF --> FF[Fine Filter<br/>Actual distance calc]
+    FF --> ML[ML Ranking]
+    
+    subgraph "ML Features"
+        F1[Driver Rating]
+        F2[Completion Rate]
+        F3[Current Traffic]
+        F4[Historical Patterns]
+        F5[Driver Preferences]
+    end
+    
+    F1 & F2 & F3 & F4 & F5 --> ML
+    
+    ML --> AS[Atomic Assignment<br/>Distributed Lock]
+    AS --> D1[Driver 1<br/>Score: 0.95]
+    AS --> D2[Driver 2<br/>Score: 0.87]
+    AS --> D3[Driver 3<br/>Score: 0.76]
+    
+    AS -->|Select Best| MATCH[Matched Driver]
+    
+    style ML fill:#9c27b0,color:#fff
+    style MATCH fill:#4caf50,color:#fff
 ```
 
 ---
@@ -576,6 +726,31 @@ Performance SLOs:
 **Impact**: Computation -40%, Storage -60%
 
 ### 2. Adaptive Sampling
+
+```mermaid
+stateDiagram-v2
+    [*] --> Moving: Speed > 5mph
+    Moving --> Stationary: Speed < 5mph<br/>for 60s
+    Stationary --> Moving: Speed > 5mph
+    Moving --> InTrip: Trip Started
+    InTrip --> Moving: Trip Ended
+    
+    state Moving {
+        [*] --> Default
+        Default: Update every 10s
+    }
+    
+    state Stationary {
+        [*] --> Parked
+        Parked: Update every 30s
+    }
+    
+    state InTrip {
+        [*] --> Active
+        Active: Update every 4s
+    }
+```
+
 ```python
 if driver.speed < 5 mph and driver.stationary_time > 60s:
     update_frequency = 30s  # Stationary
@@ -598,8 +773,41 @@ Trade-off: Temporary inconsistency for convergence⁹
 ## 🧪 Failure Scenarios & Mitigations
 
 ### Scenario 1: Regional Data Center Failure
-**Impact**: 5M users affected
-**Mitigation**: Auto-failover < 30s, degraded mode with cache, progressive restoration
+
+```mermaid
+sequenceDiagram
+    participant U as Users (5M)
+    participant LB as Load Balancer
+    participant DC1 as Primary DC
+    participant DC2 as Secondary DC
+    participant C as Cache Layer
+    
+    Note over DC1: Data Center Fails
+    U->>LB: Location requests
+    LB->>DC1: Route traffic
+    DC1--xLB: No response
+    
+    Note over LB: Failure Detection (5s)
+    LB->>LB: Health check failed
+    
+    Note over LB,DC2: Auto-Failover (< 30s)
+    LB->>DC2: Route to secondary
+    LB->>C: Serve from cache
+    
+    Note over U,C: Degraded Mode
+    C-->>U: Stale locations (< 5min old)
+    DC2-->>U: Fresh data (gradual)
+    
+    Note over DC2: Progressive Restoration
+    DC2->>DC2: Scale up capacity
+    DC2->>U: Full service restored
+```
+
+**Timeline**:
+- T+0s: DC failure
+- T+5s: Detection
+- T+30s: Full failover
+- T+5min: Normal operations
 
 ### Scenario 2: Kafka Cluster Partition
 **Impact**: Location update delays

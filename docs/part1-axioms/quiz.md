@@ -120,7 +120,7 @@ d) Network protocols
 
 ## More Practice Questions
 
-Want more questions? Each axiom section includes specific exercises and scenarios to test your understanding.
+Want more questions? Each law section includes specific exercises and scenarios to test your understanding.
 
 ## Advanced Scenario Questions
 

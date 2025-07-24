@@ -1235,8 +1235,8 @@ def test_differential_privacy_bounds():
 ## Related Patterns
 - [Consent Management](consent-management.md) - User privacy preferences
 - [Edge Computing](edge-computing.md) - Local privacy processing
-- [Zero Trust Security](zero-trust.md) - Never trust location claims
-- [Data Minimization](data-minimization.md) - Collect only necessary data
+- [Zero Trust Security] (Pattern: Zero Trust - Coming Soon) - Never trust location claims
+- [Data Minimization] (Pattern: Data Minimization - Coming Soon) - Collect only necessary data
 
 ## References
 - [Differential Privacy for Location Data](https://privacytools.seas.harvard.edu/publications/differential-privacy-location-data) - Harvard Privacy Tools

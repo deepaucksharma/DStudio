@@ -33,7 +33,7 @@ YouTube: 1B+ hours watched daily, 500 hours uploaded per minute, 2B+ monthly use
 
 ## Part 1: Concept Map - The Physics of Video at Scale
 
-### Axiom 2: Asynchronous Reality ⏳ - The Buffering Boundary
+### Law 2: Asynchronous Reality ⏳ - The Buffering Boundary
 
 Video streaming requires maintaining continuous data flow to prevent buffering, making latency management critical.
 
@@ -64,7 +64,7 @@ graph LR
 | Predictive Buffering | -40% startup time | Bandwidth waste |
 | HTTP/3 QUIC | -25% packet loss impact | CPU overhead |
 
-### Axiom 4: Trade-offs ⚖️ - The Exabyte Challenge
+### Law 4: Trade-offs ⚖️ - The Exabyte Challenge
 
 YouTube's capacity requirements grow exponentially with both users and video quality improvements.
 
@@ -96,7 +96,7 @@ graph TB
 3. **Tiered Storage**: 80% cost reduction using cold storage
 4. **Regional Replication**: Store popular content closer to users
 
-### Axiom 1: Failure ⛓️ - Resilience at Every Layer
+### Law 1: Failure ⛓️ - Resilience at Every Layer
 
 With millions of servers, failures are constant and must be handled transparently.
 
@@ -129,7 +129,7 @@ graph TB
 | Corrupted Upload | 1000/day | Checksum validation |
 | CDN Node Failure | 50/day | Dynamic rerouting |
 
-### Axiom 3: Emergence 🌪️ - Parallel Everything
+### Law 3: Emergence 🌪️ - Parallel Everything
 
 Handling millions of concurrent uploads, transcodes, and streams requires massive parallelization.
 
@@ -161,7 +161,7 @@ graph LR
 | Comments | Sharded by video ID | 1M writes/sec |
 | Analytics | Stream processing | 100M events/sec |
 
-### Axiom 4: Trade-offs ⚖️ - Global Consistency
+### Law 4: Trade-offs ⚖️ - Global Consistency
 
 Coordinating video metadata, views, and user state across regions while maintaining consistency.
 
@@ -192,7 +192,7 @@ graph TB
 | Comments | Causal Consistency | < 10 seconds |
 | Monetization | Strong Consistency | Immediate |
 
-### Axiom 5: Epistemology 🧠 - Understanding the Platform
+### Law 5: Epistemology 🧠 - Understanding the Platform
 
 Monitoring billions of video streams requires sophisticated observability.
 
@@ -225,7 +225,7 @@ graph LR
 | Content | Upload rate, Transcode queue | 1 minute |
 | Security | Abuse detection, Copyright | Real-time |
 
-### Axiom 6: Human-API 🤯 - Creator and Viewer Experience
+### Law 6: Human-API 🤯 - Creator and Viewer Experience
 
 Optimizing for both content creators and viewers with different needs and expectations.
 
@@ -257,7 +257,7 @@ graph TB
 | Mobile Users | Data usage, Battery life | Efficient codec, Offline support |
 | Smart TV | 4K availability, UI responsiveness | High quality, Simple navigation |
 
-### Axiom 7: Economics 💰 - Balancing Cost and Quality
+### Law 7: Economics 💰 - Balancing Cost and Quality
 
 YouTube must balance infrastructure costs with user experience and creator monetization.
 
@@ -961,7 +961,7 @@ class AdaptiveBitrateStreaming:
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 2<br/>⏳ Asynchronous Reality | Axiom 4<br/>⚖️ Trade-offs | Axiom 1<br/>⛓️ Failure | Axiom 3<br/>🌪️ Emergence | Axiom 4<br/>⚖️ Trade-offs | Axiom 5<br/>🧠 Epistemology | Axiom 6<br/>🤯 Human-API | Axiom 7<br/>💰 Economics |
+| Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Trade-offs | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Emergence | Law 4<br/>⚖️ Trade-offs | Law 5<br/>🧠 Epistemology | Law 6<br/>🤯 Human-API | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Multi-tier CDN** | ✅ Edge servers reduce RTT to <50ms | ✅ Distributed storage across regions | ✅ Multiple CDN failover | ⚪ | ✅ Cache invalidation protocols | ✅ CDN hit rate metrics | ✅ Low buffering for users | ✅ Bandwidth cost optimization |
 | **Adaptive Bitrate** | ✅ Instant quality adjustment | ✅ Multiple quality versions | ✅ Fallback to lower quality | ✅ Parallel encoding | ⚪ | ✅ Quality switch tracking | ✅ Smooth playback | ✅ Bandwidth efficiency |
@@ -994,7 +994,7 @@ graph LR
         A7[Law 6: Human-API 🤯<br/>User Experience]
     end
     
-    subgraph "Consistency Axiom"
+    subgraph "Consistency Law"
         A5[Law 4: Trade-offs ⚖️<br/>Global Sync]
     end
     

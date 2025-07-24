@@ -37,15 +37,15 @@ class LamportClock:
     
     def send_event(self) -> Tuple[str, int]:
         """Prepare timestamp for sending a message"""
-        # TODO: Implement
-        # Return (node_id, timestamp) tuple
-        pass
+        with self.lock:
+            self.time += 1
+            return (self.node_id, self.time)
     
     def receive_event(self, sender_id: str, sender_time: int) -> int:
         """Update clock when receiving a message"""
-        # TODO: Implement Lamport's rule
-        # time = max(local_time, received_time) + 1
-        pass
+        with self.lock:
+            self.time = max(self.time, sender_time) + 1
+            return self.time
 
 # Test your implementation
 def test_lamport_clocks():
@@ -62,8 +62,11 @@ def test_lamport_clocks():
     sender, ts = clock_b.send_event()
     clock_c.receive_event(sender, ts)
     
-    # TODO: Verify causality is preserved
-    # If A -> B -> C, then timestamp_A < timestamp_B < timestamp_C
+    # Verify causality is preserved
+    print(f"Clock A: {clock_a.time}")  # Should be 1
+    print(f"Clock B: {clock_b.time}")  # Should be 2
+    print(f"Clock C: {clock_c.time}")  # Should be 3
+    assert clock_a.time < clock_b.time < clock_c.time, "Causality not preserved!"
 ```
 
 ### Task 2: Vector Clocks
@@ -76,28 +79,33 @@ class VectorClock:
     
     def local_event(self) -> Dict[str, int]:
         """Process a local event"""
-        # TODO: Increment only this node's counter
-        pass
+        with self.lock:
+            self.clock[self.node_id] += 1
+            return self.clock.copy()
     
     def send_event(self) -> Dict[str, int]:
         """Prepare vector clock for sending"""
-        # TODO: Increment local counter and return full vector
-        pass
+        with self.lock:
+            self.clock[self.node_id] += 1
+            return self.clock.copy()
     
     def receive_event(self, sender_vector: Dict[str, int]) -> Dict[str, int]:
         """Update vector clock on receive"""
-        # TODO: Implement vector clock merge
-        # For each node: clock[node] = max(local[node], received[node])
-        # Then increment local node's counter
-        pass
+        with self.lock:
+            # Merge: take max of each component
+            for node in self.clock:
+                self.clock[node] = max(self.clock[node], sender_vector.get(node, 0))
+            # Increment local counter
+            self.clock[self.node_id] += 1
+            return self.clock.copy()
     
     def happens_before(self, other: Dict[str, int]) -> bool:
         """Check if this clock happens-before other"""
-        # TODO: Implement happens-before relation
-        # A happens-before B if:
-        # - For all i: A[i] <= B[i]
-        # - Exists j: A[j] < B[j]
-        pass
+        all_less_equal = all(self.clock[node] <= other.get(node, 0) 
+                            for node in self.clock)
+        exists_less = any(self.clock[node] < other.get(node, 0) 
+                         for node in self.clock)
+        return all_less_equal and exists_less
     
     def concurrent_with(self, other: Dict[str, int]) -> bool:
         """Check if events are concurrent"""
@@ -278,34 +286,60 @@ class DistributedNode:
         
     def initiate_snapshot(self):
         """Node initiates global snapshot"""
-        # TODO: Implement snapshot initiation
         # 1. Save local state
+        self.snapshot = self.state.copy()
+        self.recording = True
+        
         # 2. Send marker to all neighbors
+        marker = {"type": "MARKER", "from": self.node_id}
+        for neighbor in self.neighbors:
+            # In real system, this would be network send
+            self.send_marker_to(neighbor, marker)
+        
         # 3. Start recording incoming channels
-        pass
+        self.channel_states = {n: [] for n in self.neighbors}
     
     def receive_marker(self, from_node: str):
         """Receive snapshot marker from neighbor"""
-        # TODO: Implement marker reception
-        # If first marker:
-        #   1. Save local state
-        #   2. Send marker to all OTHER neighbors
-        #   3. Start recording all channels except from_node
-        # If already recording:
-        #   1. Stop recording channel from from_node
-        #   2. Save channel state
-        pass
+        if not self.recording:
+            # First marker received
+            # 1. Save local state
+            self.snapshot = self.state.copy()
+            self.recording = True
+            
+            # 2. Send marker to all OTHER neighbors
+            marker = {"type": "MARKER", "from": self.node_id}
+            for neighbor in self.neighbors:
+                if neighbor != from_node:
+                    self.send_marker_to(neighbor, marker)
+            
+            # 3. Start recording all channels except from_node
+            self.channel_states = {n: [] for n in self.neighbors if n != from_node}
+            # Channel from from_node is empty (marker arrived first)
+            self.channel_states[from_node] = []
+        else:
+            # Already recording
+            # Stop recording channel from from_node
+            # Channel state is whatever we recorded
+            if from_node not in self.channel_states:
+                self.channel_states[from_node] = []
     
     def receive_message(self, from_node: str, message: Dict):
         """Receive regular message"""
-        # TODO: If recording this channel, save message
-        # Otherwise, process normally
-        pass
+        # If recording this channel, save message
+        if self.recording and from_node in self.channel_states:
+            if isinstance(self.channel_states[from_node], list):
+                self.channel_states[from_node].append(message)
+        
+        # Process message normally (update state, etc.)
+        self.process_message(message)
     
     def is_snapshot_complete(self) -> bool:
         """Check if snapshot is complete"""
-        # TODO: Complete when received marker from all neighbors
-        pass
+        # Complete when received marker from all neighbors
+        if not self.recording:
+            return False
+        return len(self.channel_states) == len(self.neighbors)
 
 # Test snapshot consistency
 def test_distributed_snapshot():

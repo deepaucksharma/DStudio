@@ -26,58 +26,329 @@ last_updated: 2025-07-21
 
 ## Pattern Categories
 
-### Core Patterns
-Fundamental architectural patterns that shape modern distributed systems:
+<div class="pattern-categories">
 
-- **[Queues & Streaming](queues-streaming.md)** ⭐ - Decoupling producers from consumers [Related: Work Distribution](../part2-pillars/work/index.md)
-- **[CQRS](cqrs.md)** ⭐ - Command Query Responsibility Segregation (Greg Young, 2010)¹ [Related: Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
-- **[Event-Driven Architecture](event-driven.md)** ⭐ - Choreography over orchestration [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)
-- **[Event Sourcing](event-sourcing.md)** ⭐ - State as a sequence of events (Martin Fowler)² [Related: State Distribution](../part2-pillars/state/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
-- **[Saga Pattern](saga.md)** ⭐ - Distributed transaction management (Garcia-Molina & Salem, 1987)³ [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) | [PayPal Case Study](../case-studies/paypal-payments.md)
-- **[Service Mesh](service-mesh.md)** ⭐ - Infrastructure layer for service communication [Related: Control Distribution](../part2-pillars/control/index.md)
-- **[GraphQL Federation](graphql-federation.md)** - Unified data graph across services
-- **[Serverless/FaaS](serverless-faas.md)** ⭐ - Functions as the unit of deployment [Related: Work Distribution](../part2-pillars/work/index.md)
+<div class="pattern-category-section">
+<h3>🏗️ Core Patterns</h3>
+<p class="category-desc">Fundamental architectural patterns that shape modern distributed systems</p>
+<div class="pattern-grid">
 
-### Resilience Patterns
-Patterns that ensure systems survive failures:
+<a href="queues-streaming.md" class="pattern-card enhanced">
+<div class="pattern-icon">📬</div>
+<h4>Queues & Streaming</h4>
+<p>Decoupling producers from consumers</p>
+<div class="pattern-meta">
+<span class="law-link">Work Distribution</span>
+</div>
+</a>
 
-- **[Circuit Breaker](circuit-breaker.md)** - Preventing cascade failures (Nygard, 2007)⁴ [Related: Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
-- **[Retry & Backoff](retry-backoff.md)** ⭐ - Intelligent retry strategies [Related: Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)
-- **[Bulkhead](bulkhead.md)** ⭐ - Failure isolation through partitioning (Nygard)⁴ [Related: Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)
-- **[Timeout](timeout.md)** ⭐ - Bounded wait times for operations [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)
-- **[Health Check](health-check.md)** - Service liveness and readiness [Related: Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md)
-- **[Graceful Degradation](graceful-degradation.md)** - Reduced functionality under stress [Related: Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-human-api/index.md)
-- **[Rate Limiting](rate-limiting.md)** ⭐ - Protecting from overload [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)
-- **[Load Shedding](load-shedding.md)** - Dropping work to survive [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)
+<a href="cqrs.md" class="pattern-card enhanced">
+<div class="pattern-icon">🔀</div>
+<h4>CQRS</h4>
+<p>Command Query Responsibility Segregation</p>
+<div class="pattern-meta">
+<span class="law-link">Law 3 | Truth Distribution</span>
+</div>
+</a>
 
-### Data Patterns
-Managing data in distributed environments:
+<a href="event-driven.md" class="pattern-card enhanced">
+<div class="pattern-icon">⚡</div>
+<h4>Event-Driven Architecture</h4>
+<p>Choreography over orchestration</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4: Trade-offs</span>
+</div>
+</a>
 
-- **[CDC (Change Data Capture)](cdc.md)** ⭐ - Real-time data synchronization [Related: State Distribution](../part2-pillars/state/index.md)
-- **[Tunable Consistency](tunable-consistency.md)** ⭐ - Flexible consistency guarantees (Dynamo)⁵ [Related: Truth Distribution](../part2-pillars/truth/index.md) | [DynamoDB Case Study](../case-studies/amazon-dynamo.md)
-- **[Sharding](sharding.md)** ⭐ - Horizontal data partitioning [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) | [State Distribution](../part2-pillars/state/index.md)
-- **[Caching Strategies](caching-strategies.md)** ⭐ - Multi-level cache hierarchies [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)
-- **[Geo-Replication](geo-replication.md)** ⭐ - Global data distribution [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) | [Uber Case Study](../case-studies/uber-location.md)
-- **[Outbox Pattern](outbox.md)** ⭐ - Reliable event publishing [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)
+<a href="event-sourcing.md" class="pattern-card enhanced">
+<div class="pattern-icon">📜</div>
+<h4>Event Sourcing</h4>
+<p>State as a sequence of events</p>
+<div class="pattern-meta">
+<span class="law-link">State & Truth Distribution</span>
+</div>
+</a>
 
-### Coordination Patterns
-Patterns for distributed coordination and messaging:
+<a href="saga.md" class="pattern-card enhanced">
+<div class="pattern-icon">🎭</div>
+<h4>Saga Pattern</h4>
+<p>Distributed transaction management</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4 | PayPal Case Study</span>
+</div>
+</a>
 
-- **[Leader Election](leader-election.md)** ⭐ - Single coordinator selection (Raft/Paxos)⁶⁷ [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) | [Truth Distribution](../part2-pillars/truth/index.md)
-- **[Distributed Lock](distributed-lock.md)** - Mutual exclusion across nodes [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)
-- **[Idempotent Receiver](idempotent-receiver.md)** ⭐ - Handling duplicate messages [Related: Law 3 (Emergent Chaos 🌪️)](../part1-axioms/axiom3-emergence/index.md)
-- **[Service Discovery](service-discovery.md)** - Dynamic service location [Related: Control Distribution](../part2-pillars/control/index.md)
+<a href="service-mesh.md" class="pattern-card enhanced">
+<div class="pattern-icon">🕸️</div>
+<h4>Service Mesh</h4>
+<p>Infrastructure layer for service communication</p>
+<div class="pattern-meta">
+<span class="law-link">Control Distribution</span>
+</div>
+</a>
 
-### Operational Patterns
-Patterns for running systems in production:
+<a href="graphql-federation.md" class="pattern-card">
+<div class="pattern-icon">🔗</div>
+<h4>GraphQL Federation</h4>
+<p>Unified data graph across services</p>
+</a>
 
-- **[Observability](observability.md)** - Metrics, logs, and traces [Related: Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md) | [Control Distribution](../part2-pillars/control/index.md)
-- **[Auto-Scaling](auto-scaling.md)** ⭐ - Dynamic resource adjustment [Related: Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) | [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) | [Intelligence Distribution](../part2-pillars/intelligence/index.md)
-- **[Load Balancing](load-balancing.md)** - Request distribution strategies [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) | [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) | [Work Distribution](../part2-pillars/work/index.md)
-- **[Edge Computing](edge-computing.md)** ⭐ - Processing at the periphery [Related: Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) | [Uber Case Study](../case-studies/uber-location.md)
-- **[FinOps](finops.md)** - Cloud cost optimization [Related: Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md)
+<a href="serverless-faas.md" class="pattern-card enhanced">
+<div class="pattern-icon">λ</div>
+<h4>Serverless/FaaS</h4>
+<p>Functions as the unit of deployment</p>
+<div class="pattern-meta">
+<span class="law-link">Work Distribution</span>
+</div>
+</a>
 
-*⭐ = Enhanced with 5-level progressive learning structure*
+</div>
+</div>
+
+<div class="pattern-category-section">
+<h3>🛡️ Resilience Patterns</h3>
+<p class="category-desc">Patterns that ensure systems survive failures</p>
+<div class="pattern-grid">
+
+<a href="circuit-breaker.md" class="pattern-card">
+<div class="pattern-icon">⚡</div>
+<h4>Circuit Breaker</h4>
+<p>Preventing cascade failures</p>
+<div class="pattern-meta">
+<span class="law-link">Law 1 | DynamoDB Study</span>
+</div>
+</a>
+
+<a href="retry-backoff.md" class="pattern-card enhanced">
+<div class="pattern-icon">🔄</div>
+<h4>Retry & Backoff</h4>
+<p>Intelligent retry strategies</p>
+<div class="pattern-meta">
+<span class="law-link">Law 1: Correlated Failure</span>
+</div>
+</a>
+
+<a href="bulkhead.md" class="pattern-card enhanced">
+<div class="pattern-icon">🚪</div>
+<h4>Bulkhead</h4>
+<p>Failure isolation through partitioning</p>
+<div class="pattern-meta">
+<span class="law-link">Law 1: Correlated Failure</span>
+</div>
+</a>
+
+<a href="timeout.md" class="pattern-card enhanced">
+<div class="pattern-icon">⏱️</div>
+<h4>Timeout</h4>
+<p>Bounded wait times for operations</p>
+<div class="pattern-meta">
+<span class="law-link">Law 2: Async Reality</span>
+</div>
+</a>
+
+<a href="health-check.md" class="pattern-card">
+<div class="pattern-icon">💓</div>
+<h4>Health Check</h4>
+<p>Service liveness and readiness</p>
+<div class="pattern-meta">
+<span class="law-link">Law 5: Distributed Knowledge</span>
+</div>
+</a>
+
+<a href="graceful-degradation.md" class="pattern-card">
+<div class="pattern-icon">🎚️</div>
+<h4>Graceful Degradation</h4>
+<p>Reduced functionality under stress</p>
+<div class="pattern-meta">
+<span class="law-link">Law 6: Cognitive Load</span>
+</div>
+</a>
+
+<a href="rate-limiting.md" class="pattern-card enhanced">
+<div class="pattern-icon">🚦</div>
+<h4>Rate Limiting</h4>
+<p>Protecting from overload</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4: Trade-offs</span>
+</div>
+</a>
+
+<a href="load-shedding.md" class="pattern-card">
+<div class="pattern-icon">🏗️</div>
+<h4>Load Shedding</h4>
+<p>Dropping work to survive</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4: Trade-offs</span>
+</div>
+</a>
+
+</div>
+</div>
+
+<div class="pattern-category-section">
+<h3>💾 Data Patterns</h3>
+<p class="category-desc">Managing data in distributed environments</p>
+<div class="pattern-grid">
+
+<a href="cdc.md" class="pattern-card enhanced">
+<div class="pattern-icon">🔄</div>
+<h4>CDC (Change Data Capture)</h4>
+<p>Real-time data synchronization</p>
+<div class="pattern-meta">
+<span class="law-link">State Distribution</span>
+</div>
+</a>
+
+<a href="tunable-consistency.md" class="pattern-card enhanced">
+<div class="pattern-icon">🎛️</div>
+<h4>Tunable Consistency</h4>
+<p>Flexible consistency guarantees</p>
+<div class="pattern-meta">
+<span class="law-link">Truth Distribution | DynamoDB</span>
+</div>
+</a>
+
+<a href="sharding.md" class="pattern-card enhanced">
+<div class="pattern-icon">🔪</div>
+<h4>Sharding</h4>
+<p>Horizontal data partitioning</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4 | State Distribution</span>
+</div>
+</a>
+
+<a href="caching-strategies.md" class="pattern-card enhanced">
+<div class="pattern-icon">💾</div>
+<h4>Caching Strategies</h4>
+<p>Multi-level cache hierarchies</p>
+<div class="pattern-meta">
+<span class="law-link">Law 2: Async Reality</span>
+</div>
+</a>
+
+<a href="geo-replication.md" class="pattern-card enhanced">
+<div class="pattern-icon">🌍</div>
+<h4>Geo-Replication</h4>
+<p>Global data distribution</p>
+<div class="pattern-meta">
+<span class="law-link">Law 2 | Uber Case Study</span>
+</div>
+</a>
+
+<a href="outbox.md" class="pattern-card enhanced">
+<div class="pattern-icon">📤</div>
+<h4>Outbox Pattern</h4>
+<p>Reliable event publishing</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4: Trade-offs</span>
+</div>
+</a>
+
+</div>
+</div>
+
+<div class="pattern-category-section">
+<h3>🤝 Coordination Patterns</h3>
+<p class="category-desc">Patterns for distributed coordination and messaging</p>
+<div class="pattern-grid">
+
+<a href="leader-election.md" class="pattern-card enhanced">
+<div class="pattern-icon">👑</div>
+<h4>Leader Election</h4>
+<p>Single coordinator selection (Raft/Paxos)</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4 | Truth Distribution</span>
+</div>
+</a>
+
+<a href="distributed-lock.md" class="pattern-card">
+<div class="pattern-icon">🔒</div>
+<h4>Distributed Lock</h4>
+<p>Mutual exclusion across nodes</p>
+<div class="pattern-meta">
+<span class="law-link">Law 4: Trade-offs</span>
+</div>
+</a>
+
+<a href="idempotent-receiver.md" class="pattern-card enhanced">
+<div class="pattern-icon">🎯</div>
+<h4>Idempotent Receiver</h4>
+<p>Handling duplicate messages</p>
+<div class="pattern-meta">
+<span class="law-link">Law 3: Emergent Chaos</span>
+</div>
+</a>
+
+<a href="service-discovery.md" class="pattern-card">
+<div class="pattern-icon">🔍</div>
+<h4>Service Discovery</h4>
+<p>Dynamic service location</p>
+<div class="pattern-meta">
+<span class="law-link">Control Distribution</span>
+</div>
+</a>
+
+</div>
+</div>
+
+<div class="pattern-category-section">
+<h3>⚙️ Operational Patterns</h3>
+<p class="category-desc">Patterns for running systems in production</p>
+<div class="pattern-grid">
+
+<a href="observability.md" class="pattern-card">
+<div class="pattern-icon">👁️</div>
+<h4>Observability</h4>
+<p>Metrics, logs, and traces</p>
+<div class="pattern-meta">
+<span class="law-link">Law 5 | Control Distribution</span>
+</div>
+</a>
+
+<a href="auto-scaling.md" class="pattern-card enhanced">
+<div class="pattern-icon">📈</div>
+<h4>Auto-Scaling</h4>
+<p>Dynamic resource adjustment</p>
+<div class="pattern-meta">
+<span class="law-link">Laws 4 & 7 | Intelligence</span>
+</div>
+</a>
+
+<a href="load-balancing.md" class="pattern-card">
+<div class="pattern-icon">⚖️</div>
+<h4>Load Balancing</h4>
+<p>Request distribution strategies</p>
+<div class="pattern-meta">
+<span class="law-link">Laws 2 & 4 | Work Distribution</span>
+</div>
+</a>
+
+<a href="edge-computing.md" class="pattern-card enhanced">
+<div class="pattern-icon">🌐</div>
+<h4>Edge Computing</h4>
+<p>Processing at the periphery</p>
+<div class="pattern-meta">
+<span class="law-link">Law 2 | Uber Case Study</span>
+</div>
+</a>
+
+<a href="finops.md" class="pattern-card">
+<div class="pattern-icon">💰</div>
+<h4>FinOps</h4>
+<p>Cloud cost optimization</p>
+<div class="pattern-meta">
+<span class="law-link">Law 7: Economic Reality</span>
+</div>
+</a>
+
+</div>
+</div>
+
+</div>
+
+<div class="pattern-legend">
+<p><strong>⭐</strong> = Enhanced with 5-level progressive learning structure</p>
+</div>
 
 ---
 

@@ -35,9 +35,9 @@ Consistent hashing is a distributed hashing scheme that operates independently o
 - Support for heterogeneous node capacities
 - Fault tolerance with replication
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Hash Ring Traversal
+#### 🚀 Law 1 (Latency): Hash Ring Traversal
 ```text
 Latency Components:
 - Hash computation: 0.001ms (SHA-256)
@@ -107,7 +107,7 @@ class ConsistentHashRing:
         return node
 ```
 
-#### 💾 Axiom 2 (Capacity): Load Distribution
+#### 💾 Law 2 (Capacity): Load Distribution
 ```text
 Virtual Nodes Analysis:
 - Physical nodes: 100
@@ -173,7 +173,7 @@ class LoadBalancedHashRing(ConsistentHashRing):
                 self.add_node(node, weight)
 ```
 
-#### 🔥 Axiom 3 (Failure): Node Failures and Recovery
+#### 🔥 Law 3 (Failure): Node Failures and Recovery
 ```text
 Failure Scenarios:
 1. Node crash: Keys rehashed to next node
@@ -244,7 +244,7 @@ class ResilientHashRing(ConsistentHashRing):
                        f"from {failed_node} to {next_healthy_node}")
 ```
 
-#### 🔀 Axiom 4 (Concurrency): Concurrent Ring Modifications
+#### 🔀 Law 4 (Concurrency): Concurrent Ring Modifications
 ```text
 Concurrency Challenges:
 - Multiple nodes joining simultaneously
@@ -315,7 +315,7 @@ class ConcurrentHashRing(ConsistentHashRing):
             self.pending_changes.clear()
 ```
 
-#### 🤝 Axiom 5 (Coordination): Ring Topology Consensus
+#### 🤝 Law 5 (Coordination): Ring Topology Consensus
 ```text
 Coordination Requirements:
 - All nodes must agree on ring membership
@@ -398,7 +398,7 @@ class CoordinatedHashRing(ConsistentHashRing):
             await asyncio.sleep(self.gossip_interval)
 ```
 
-#### 👁️ Axiom 6 (Observability): Ring Monitoring
+#### 👁️ Law 6 (Observability): Ring Monitoring
 ```text
 Key Metrics:
 - Load distribution (standard deviation)
@@ -482,7 +482,7 @@ class ObservableHashRing(ConsistentHashRing):
         }
 ```
 
-#### 👤 Axiom 7 (Human Interface): Operational Tools
+#### 👤 Law 7 (Human Interface): Operational Tools
 ```text
 Operational Requirements:
 - Visual ring representation
@@ -570,7 +570,7 @@ class OperationalHashRing(ConsistentHashRing):
         }
 ```
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 8 (Economics): Cost Optimization
 ```text
 Cost Factors:
 - Memory: Virtual nodes storage
@@ -959,7 +959,7 @@ Nodes   Simple Ring   Virtual(150)   Jump Hash   Maglev
 
 ### Comprehensive Design Decision Mapping
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
+| Design Decision | Law 1<br/>🚀 Latency | Law 2<br/>💾 Capacity | Law 3<br/>🔥 Failure | Law 4<br/>🔀 Concurrency | Law 5<br/>🤝 Coordination | Law 6<br/>👁️ Observability | Law 7<br/>👤 Human | Law 8<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Hash Ring** | ✅ O(log n) lookup | ✅ Even distribution | ✅ Minimal data movement | ⚪ | ✅ Deterministic routing | ✅ Ring visualization | ✅ Simple concept | ✅ Efficient scaling |
 | **Virtual Nodes** | ⚪ More comparisons | ✅ Better balance | ✅ Smoother rebalancing | ⚪ | ✅ Fine-grained control | ✅ Distribution metrics | ⚪ | ✅ Handles heterogeneity |

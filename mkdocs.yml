@@ -170,14 +170,14 @@ nav:
       - "Circuit Breaker": patterns/circuit-breaker.md
       - "Retry & Backoff": patterns/retry-backoff.md
       - "Bulkhead": patterns/bulkhead.md
-      - "Timeout 🚧": patterns/timeout.md
-      - "Health Check 🚧": patterns/health-check.md
-      - "Graceful Degradation 🚧": patterns/graceful-degradation.md
+      - "Timeout": patterns/timeout.md
+      - "Health Check": patterns/health-check.md
+      - "Graceful Degradation": patterns/graceful-degradation.md
       - "Backpressure": patterns/backpressure.md
-      - "Rate Limiting 🚧": patterns/rate-limiting.md
-      - "Load Shedding 🚧": patterns/load-shedding.md
-      - "Failover 🚧": patterns/failover.md
-      - "Fault Tolerance 🚧": patterns/fault-tolerance.md
+      - "Rate Limiting": patterns/rate-limiting.md
+      - "Load Shedding": patterns/load-shedding.md
+      - "Failover": patterns/failover.md
+      - "Fault Tolerance": patterns/fault-tolerance.md
       - "Split Brain 🚧": patterns/split-brain.md
       - "Idempotent Receiver 🚧": patterns/idempotent-receiver.md
       
@@ -220,14 +220,14 @@ nav:
       - "CAS (Compare and Swap) 🚧": patterns/cas.md
       
     - "Communication Patterns":
-      - "API Gateway 🚧": patterns/api-gateway.md
+      - "API Gateway": patterns/api-gateway.md
       - "Service Mesh 🚧": patterns/service-mesh.md
-      - "Service Discovery 🚧": patterns/service-discovery.md
+      - "Service Discovery": patterns/service-discovery.md
       - "Service Registry 🚧": patterns/service-registry.md
       - "Load Balancing": patterns/load-balancing.md
       - "Request Routing 🚧": patterns/request-routing.md
       - "Scatter Gather 🚧": patterns/scatter-gather.md
-      - "Backends for Frontends 🚧": patterns/backends-for-frontends.md
+      - "Backends for Frontends": patterns/backends-for-frontends.md
       - "Ambassador 🚧": patterns/ambassador.md
       - "Sidecar": patterns/sidecar.md
       - "Anti-Corruption Layer 🚧": patterns/anti-corruption-layer.md
@@ -337,6 +337,13 @@ nav:
   
   - "📚 Case Studies":
     - "📚 All Case Studies": case-studies/index.md
+    - "🌐 Google System Design Interview":
+      - "Google Systems Overview": case-studies/google-systems/index.md
+      - "Design Google Search": case-studies/google-systems/google-search.md
+      - "Design YouTube": case-studies/google-systems/google-youtube.md
+      - "Design Google Maps": case-studies/google-systems/google-maps-system.md
+      - "Design Gmail": case-studies/google-systems/google-gmail.md
+      - "Design Google Docs": case-studies/google-systems/google-docs.md
     - "Essential Case Studies":
       - "Amazon DynamoDB": case-studies/amazon-dynamo.md
       - "Chat System": case-studies/chat-system.md
@@ -363,6 +370,25 @@ nav:
       - "Availability Calculator": tools/availability-calculator.md
       - "Throughput Optimizer": tools/throughput-calculator.md
       - "Cost Optimizer": tools/cost-optimizer.md
+  
+  - "🎯 Interview Prep":
+    - "🎯 Google System Design Guide": google-interviews/index.md
+    - "Preparation Guide": google-interviews/preparation-guide.md
+    - "Common Mistakes": google-interviews/common-mistakes.md
+    - "Core Google Services":
+      - "Google Search": google-interviews/google-search.md
+      - "YouTube": google-interviews/youtube.md
+      - "Google Maps": google-interviews/google-maps.md
+      - "Gmail": google-interviews/gmail.md
+      - "Google Drive": google-interviews/google-drive.md
+      - "Google Docs": google-interviews/google-docs.md
+      - "Google Photos": google-interviews/google-photos.md
+      - "Google Calendar": google-interviews/google-calendar.md
+      - "Google Assistant": google-interviews/google-assistant.md
+    - "Infrastructure & Ads":
+      - "Google Ads": google-interviews/google-ads.md
+      - "Bigtable": google-interviews/bigtable.md
+      - "Spanner": google-interviews/spanner.md
   
   - "📖 Reference":
     - "📖 All Resources": reference/index.md

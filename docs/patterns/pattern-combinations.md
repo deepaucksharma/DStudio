@@ -8,8 +8,8 @@ reading_time: 45 min
 prerequisites: ["Understanding of individual patterns"]
 when_to_use: When dealing with specialized challenges
 when_not_to_use: When simpler solutions suffice
-status: partial
-last_updated: 2025-07-21
+status: complete
+last_updated: 2025-07-23
 ---
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Pattern Combination Guide**
@@ -29,6 +29,115 @@ Real systems face multiple challenges simultaneously: Performance AND Reliabilit
 1. **Law of Synergy**: Combined patterns enhance each other's strengths
 2. **Law of Simplicity**: Each pattern must justify its complexity
 3. **Law of Harmony**: Patterns must not conflict fundamentally
+
+---
+
+## 🗺️ Visual Pattern Relationship Map
+
+```mermaid
+graph TB
+    subgraph "Foundation Layer"
+        LB[Load Balancer]
+        SD[Service Discovery]
+        SR[Service Registry]
+    end
+    
+    subgraph "Communication Layer"
+        AG[API Gateway]
+        SM[Service Mesh]
+        MQ[Message Queue]
+        EB[Event Bus]
+    end
+    
+    subgraph "Data Layer"
+        CQRS[CQRS]
+        ES[Event Sourcing]
+        CDC[CDC]
+        SH[Sharding]
+        CACHE[Caching]
+    end
+    
+    subgraph "Resilience Layer"
+        CB[Circuit Breaker]
+        RT[Retry & Backoff]
+        BH[Bulkhead]
+        TO[Timeout]
+        RL[Rate Limiting]
+    end
+    
+    subgraph "Coordination Layer"
+        SAGA[Saga]
+        LE[Leader Election]
+        DL[Distributed Lock]
+        OUT[Outbox]
+    end
+    
+    subgraph "Scale Layer"
+        AS[Auto-Scaling]
+        EC[Edge Computing]
+        GR[Geo-Replication]
+        CDN[CDN]
+    end
+    
+    %% Foundation connections
+    LB --> AG
+    SD --> SR
+    SR --> SM
+    
+    %% Communication connections
+    AG --> SM
+    SM --> MQ
+    MQ --> EB
+    EB --> ES
+    
+    %% Data connections
+    ES --> CQRS
+    CQRS --> CDC
+    CDC --> CACHE
+    CACHE --> SH
+    
+    %% Resilience connections
+    CB --> RT
+    RT --> BH
+    BH --> TO
+    TO --> RL
+    
+    %% Coordination connections
+    SAGA --> OUT
+    OUT --> ES
+    LE --> DL
+    
+    %% Scale connections
+    AS --> EC
+    EC --> GR
+    GR --> CDN
+    
+    %% Cross-layer connections
+    SM -.-> CB
+    SM -.-> RL
+    AG -.-> RL
+    CQRS -.-> SAGA
+    ES -.-> OUT
+    
+    style LB fill:#e1f5fe,stroke:#0288d1,stroke-width:2px
+    style AG fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style CQRS fill:#e8f5e9,stroke:#388e3c,stroke-width:2px
+    style CB fill:#ffebee,stroke:#c62828,stroke-width:2px
+    style SAGA fill:#fff3e0,stroke:#e65100,stroke-width:2px
+    style AS fill:#e3f2fd,stroke:#1565c0,stroke-width:2px
+```
+
+### Pattern Dependency Matrix
+
+| Pattern | Requires | Works Well With | Conflicts With |
+|---------|----------|-----------------|----------------|
+| **CQRS** | Event Store or Separate DBs | Event Sourcing, CDC, Saga | Synchronous Projections |
+| **Event Sourcing** | Event Store, Idempotent Handlers | CQRS, Saga, Outbox | Direct State Updates |
+| **Saga** | Message Queue/Event Bus | Event Sourcing, Outbox | Two-Phase Commit |
+| **Service Mesh** | Service Registry | Circuit Breaker, Rate Limiting | Direct Service Calls |
+| **Circuit Breaker** | Monitoring, Metrics | Retry, Timeout, Bulkhead | Unbounded Retries |
+| **Sharding** | Consistent Hashing | CQRS, Caching | Cross-Shard Joins |
+| **Edge Computing** | CDN, Geographic Distribution | Geo-Replication, Caching | Centralized Processing |
 
 ---
 
@@ -586,6 +695,258 @@ class PatternCombinationMetrics:
 
 ---
 
+## 🏛️ Layered Architecture Pattern Integration
+
+### Complete System Architecture with Patterns
+
+```mermaid
+graph TB
+    subgraph "Client Layer"
+        WEB[Web App]
+        MOB[Mobile App]
+        API[External APIs]
+    end
+    
+    subgraph "Gateway Layer"
+        subgraph "API Gateway"
+            AUTH[Authentication]
+            RL[Rate Limiting]
+            ROUTE[Routing]
+            TRANS[Transformation]
+        end
+    end
+    
+    subgraph "Service Layer"
+        subgraph "Service A"
+            SA[Business Logic]
+            SCA[Sidecar Proxy]
+        end
+        
+        subgraph "Service B"
+            SB[Business Logic]
+            SCB[Sidecar Proxy]
+        end
+        
+        subgraph "Service C"
+            SC[Business Logic]
+            SCC[Sidecar Proxy]
+        end
+    end
+    
+    subgraph "Data Layer"
+        subgraph "Write Path"
+            CMD[Commands]
+            AGG[Aggregates]
+            EVT[Event Store]
+            OUT[Outbox]
+        end
+        
+        subgraph "Read Path"
+            PROJ[Projections]
+            READ[Read Models]
+            CACHE[Cache Layer]
+        end
+    end
+    
+    subgraph "Infrastructure Layer"
+        MQ[Message Queue]
+        SD[Service Discovery]
+        CONFIG[Configuration]
+        METRICS[Metrics/Monitoring]
+    end
+    
+    %% Client connections
+    WEB --> AUTH
+    MOB --> AUTH
+    API --> AUTH
+    
+    %% Gateway to services
+    ROUTE --> SCA
+    ROUTE --> SCB
+    ROUTE --> SCC
+    
+    %% Service mesh
+    SCA <--> SCB
+    SCB <--> SCC
+    SCA <--> SCC
+    
+    %% Write path
+    SA --> CMD
+    CMD --> AGG
+    AGG --> EVT
+    EVT --> OUT
+    OUT --> MQ
+    
+    %% Read path
+    MQ --> PROJ
+    PROJ --> READ
+    READ --> CACHE
+    
+    %% Service connections
+    SB --> READ
+    SC --> CACHE
+    
+    %% Infrastructure
+    SCA --> SD
+    SCB --> SD
+    SCC --> SD
+    SA --> CONFIG
+    SB --> CONFIG
+    SC --> CONFIG
+    
+    style AUTH fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px
+    style EVT fill:#c8e6c9,stroke:#4caf50,stroke-width:2px
+    style MQ fill:#e1bee7,stroke:#9c27b0,stroke-width:2px
+    style CACHE fill:#ffecb3,stroke:#ff9800,stroke-width:2px
+```
+
+### Pattern Integration Points
+
+| Layer | Primary Patterns | Integration Patterns | Key Considerations |
+|-------|-----------------|---------------------|--------------------|
+| **Client** | BFF, Client Library | Retry, Circuit Breaker | User experience, Network reliability |
+| **Gateway** | API Gateway, Rate Limiting | Authentication, Routing | Security, Traffic management |
+| **Service** | Service Mesh, Sidecar | Circuit Breaker, Bulkhead | Inter-service communication |
+| **Data Write** | Event Sourcing, CQRS | Saga, Outbox | Consistency, Audit trail |
+| **Data Read** | Materialized Views, Cache | CDC, Projections | Performance, Staleness |
+| **Infrastructure** | Service Discovery, Config | Monitoring, Logging | Observability, Management |
+
+---
+
+## 🔄 Migration Paths Between Patterns
+
+### Progressive Pattern Evolution
+
+```mermaid
+graph LR
+    subgraph "Phase 1: Monolith"
+        M[Monolithic App]
+    end
+    
+    subgraph "Phase 2: Modular"
+        M --> MM[Modular Monolith]
+        MM --> C1[Add Caching]
+        C1 --> Q1[Add Queue]
+    end
+    
+    subgraph "Phase 3: Services"
+        Q1 --> MS[Microservices]
+        MS --> AG[API Gateway]
+        AG --> CB[Circuit Breaker]
+    end
+    
+    subgraph "Phase 4: Event-Driven"
+        CB --> ES[Event Sourcing]
+        ES --> CQRS[CQRS]
+        CQRS --> SAGA[Saga Pattern]
+    end
+    
+    subgraph "Phase 5: Mesh"
+        SAGA --> SM[Service Mesh]
+        SM --> EC[Edge Computing]
+        EC --> GEO[Geo-Distribution]
+    end
+    
+    style M fill:#ffebee,stroke:#f44336,stroke-width:2px
+    style MS fill:#e3f2fd,stroke:#2196f3,stroke-width:2px
+    style ES fill:#e8f5e9,stroke:#4caf50,stroke-width:2px
+    style SM fill:#f3e5f5,stroke:#9c27b0,stroke-width:2px
+    style GEO fill:#fff3e0,stroke:#ff9800,stroke-width:2px
+```
+
+### Migration Decision Framework
+
+| Current State | Pain Points | Next Pattern | Implementation Effort |
+|--------------|-------------|--------------|----------------------|
+| **Monolith** | Slow deployments | Modular Monolith | Low ⭐⭐ |
+| **Monolith** | Performance issues | Add Caching | Low ⭐⭐ |
+| **Modular Monolith** | Team conflicts | Microservices | High ⭐⭐⭐⭐ |
+| **Microservices** | Service failures | Circuit Breaker | Medium ⭐⭐⭐ |
+| **Microservices** | Complex workflows | Saga Pattern | High ⭐⭐⭐⭐ |
+| **Services + Events** | Network complexity | Service Mesh | High ⭐⭐⭐⭐ |
+| **Service Mesh** | Global latency | Edge Computing | Very High ⭐⭐⭐⭐⭐ |
+
+---
+
+## ⚠️ Anti-Pattern Combinations Deep Dive
+
+### Detailed Anti-Pattern Analysis
+
+```mermaid
+graph TB
+    subgraph "Anti-Pattern: Distributed Monolith"
+        S1[Service 1] -->|Sync| S2[Service 2]
+        S2 -->|Sync| S3[Service 3]
+        S3 -->|Sync| S4[Service 4]
+        S4 -->|Sync| S1
+    end
+    
+    subgraph "Anti-Pattern: Chatty Services"
+        A[Service A] -->|100 calls/request| B[Service B]
+        B -->|50 calls/request| C[Service C]
+        C -->|200 calls/request| A
+    end
+    
+    subgraph "Anti-Pattern: Shared Database"
+        MS1[Microservice 1] --> DB[(Shared DB)]
+        MS2[Microservice 2] --> DB
+        MS3[Microservice 3] --> DB
+        MS4[Microservice 4] --> DB
+    end
+    
+    style S1 fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px
+    style A fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px
+    style DB fill:#ffcdd2,stroke:#d32f2f,stroke-width:3px
+```
+
+### Anti-Pattern Remediation Guide
+
+| Anti-Pattern | Symptoms | Solution Patterns | Migration Steps |
+|--------------|----------|------------------|----------------|
+| **Distributed Monolith** | Cascading failures, Synchronized deployments | Event-Driven, Saga, Async messaging | 1. Identify boundaries<br>2. Add message queue<br>3. Convert sync to async<br>4. Implement saga |
+| **Chatty Services** | High latency, Network congestion | BFF, GraphQL, CQRS | 1. Analyze call patterns<br>2. Create aggregation layer<br>3. Implement caching<br>4. Batch requests |
+| **Shared Database** | Schema conflicts, Coupling | Database per service, Event Sourcing, CDC | 1. Identify ownership<br>2. Split by subdomain<br>3. Implement CDC<br>4. Eventual consistency |
+| **Synchronous Event Processing** | Poor performance, Tight coupling | Async messaging, Event streaming | 1. Add message broker<br>2. Make handlers async<br>3. Implement backpressure<br>4. Add monitoring |
+
+---
+
+## 🎯 Problem-to-Pattern Quick Reference
+
+### Common Scenarios and Pattern Solutions
+
+```mermaid
+graph TD
+    Start[Problem] --> Type{Problem Type?}
+    
+    Type -->|Performance| Perf{Specific Issue?}
+    Perf -->|High Latency| PerfSol1[Caching + CDN]
+    Perf -->|Low Throughput| PerfSol2[CQRS + Sharding]
+    Perf -->|Slow Queries| PerfSol3[Materialized Views + Indexes]
+    
+    Type -->|Reliability| Rel{Failure Type?}
+    Rel -->|Service Failures| RelSol1[Circuit Breaker + Retry]
+    Rel -->|Data Loss| RelSol2[Event Sourcing + Outbox]
+    Rel -->|Cascading Failures| RelSol3[Bulkhead + Timeout]
+    
+    Type -->|Scale| Scale{Scale Dimension?}
+    Scale -->|Users| ScaleSol1[Load Balancing + Auto-scaling]
+    Scale -->|Data| ScaleSol2[Sharding + Partitioning]
+    Scale -->|Geographic| ScaleSol3[Edge Computing + Geo-replication]
+    
+    Type -->|Consistency| Cons{Requirements?}
+    Cons -->|Strong| ConsSol1[2PC / Distributed Lock]
+    Cons -->|Eventual| ConsSol2[Saga + Event Sourcing]
+    Cons -->|Flexible| ConsSol3[CRDT + Tunable Consistency]
+    
+    style Start fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    style PerfSol1 fill:#c8e6c9,stroke:#388e3c,stroke-width:2px
+    style RelSol1 fill:#ffcdd2,stroke:#d32f2f,stroke-width:2px
+    style ScaleSol1 fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    style ConsSol1 fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+```
+
+---
+
 ## 🎓 Key Takeaways
 
 ### Golden Rules
@@ -602,6 +963,29 @@ class PatternCombinationMetrics:
 - **Performance**: CQRS + Caching + CDN + Edge Computing  
 - **Scale**: Sharding + Service Mesh + Event Streaming
 - **Consistency**: Event Sourcing + Saga + Outbox + Idempotent Receiver
+
+### Pattern Combination Checklist
+
+**Before Combining:**
+- [ ] Understand each pattern individually
+- [ ] Identify pattern dependencies
+- [ ] Check for conflicts
+- [ ] Assess team capabilities
+- [ ] Calculate complexity cost
+
+**During Implementation:**
+- [ ] Start with core pattern
+- [ ] Add supporting patterns incrementally
+- [ ] Monitor metrics at each step
+- [ ] Document integration points
+- [ ] Train team on operations
+
+**After Implementation:**
+- [ ] Measure combined effectiveness
+- [ ] Identify operational challenges
+- [ ] Optimize configuration
+- [ ] Plan next evolution
+- [ ] Share learnings
 
 ---
 

@@ -178,7 +178,7 @@ Failures that are subtle, partial, or inconsistent across different observers.
 
 **Detection**: Multi-perspective monitoring, synthetic transactions
 
-**Related**: [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md), [Observability](../human-factors/observability.md)
+**Related**: [Correlated Failure ⛓️](../part1-axioms/axiom1-failure/index.md), [Observability](../patterns/observability.md)
 
 ## H
 
@@ -260,7 +260,7 @@ System state where minor triggers cause cascading performance collapse.
 
 **Prevention**: Circuit breakers, admission control, jitter in retries
 
-**Related**: [Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md), [Case Study: Facebook's Metastable Failures](../case-studies/facebook-metastable.md)
+**Related**: [Emergent Chaos 🌪️](../part1-axioms/axiom3-emergence/index.md), [Case Study: Facebook's Metastable Failures](../case-studies/consistent-hashing.md)
 
 ### Microservices
 Small, independently deployable services.

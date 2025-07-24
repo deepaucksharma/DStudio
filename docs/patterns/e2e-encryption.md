@@ -1941,4 +1941,4 @@ class E2EImpactAnalysis:
 
 ---
 
-**Previous**: [← WebRTC](webrtc.md) | **Next**: [Key Management →](key-management.md)
+**Previous**: [← WebRTC] (Pattern: Webrtc - Coming Soon) | **Next**: [Key Management →](key-management.md)

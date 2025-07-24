@@ -1554,7 +1554,7 @@ app.post('/shorten', async (req, res) => {
 - [Rate Limiting](rate-limiting.md) - Control request flow
 - [Bloom Filter](bloom-filter.md) - Efficient blacklist checking
 - [Circuit Breaker](circuit-breaker.md) - Handle external service failures
-- [Zero Trust Security](zero-trust.md) - Never trust, always verify
+- [Zero Trust Security] (Pattern: Zero Trust - Coming Soon) - Never trust, always verify
 
 ## References
 - [OWASP URL Shortener Security](https://owasp.org/www-community/vulnerabilities/URL_Shortener_Abuse) - Security guidelines

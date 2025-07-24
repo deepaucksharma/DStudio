@@ -8,7 +8,7 @@ This guide ensures consistent formatting and presentation across all documentati
 ```
 docs/
 ├── introduction/          # Introductory content
-├── part1-axioms/         # Fundamental axioms
+├── part1-axioms/         # Fundamental laws
 ├── part2-pillars/        # Core pillars
 ├── patterns/             # Design patterns
 ├── case-studies/         # Real-world examples

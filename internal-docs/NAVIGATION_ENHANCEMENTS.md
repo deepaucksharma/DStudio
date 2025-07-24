@@ -18,19 +18,19 @@ This document outlines the comprehensive cross-reference system implemented thro
 
 ## Cross-Reference System
 
-### 1. Axiom Cross-References
+### 1. Law Cross-References
 
-Each axiom should link to:
-- **Related Axioms**: Other axioms that frequently interact
-- **Relevant Patterns**: Specific patterns that address the axiom
-- **Case Studies**: Real-world examples that demonstrate the axiom
+Each law should link to:
+- **Related Laws**: Other laws that frequently interact
+- **Relevant Patterns**: Specific patterns that address the law
+- **Case Studies**: Real-world examples that demonstrate the law
 - **Quantitative Tools**: Mathematical tools for analysis
 - **Exercises**: Hands-on practice
 
 ### 2. Pattern Cross-References
 
 Each pattern should link to:
-- **Primary Axioms**: Which axioms drive the need for this pattern
+- **Primary Laws**: Which laws drive the need for this pattern
 - **Related Patterns**: Complementary or alternative patterns
 - **Case Studies**: Systems that implement this pattern
 - **Implementation Guides**: Step-by-step implementations
@@ -91,7 +91,7 @@ Each pillar should link to:
 ## Implementation Strategy
 
 ### Phase 1: Add Quick Navigation Boxes
-- Add to all axiom pages
+- Add to all law pages
 - Add to all pattern pages
 - Add to all case study sections
 
@@ -112,7 +112,7 @@ Each pillar should link to:
 
 ## Navigation Templates
 
-### For Axiom Pages
+### For Law Pages
 
 ```markdown
 <!-- Content here -->

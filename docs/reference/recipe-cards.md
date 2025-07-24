@@ -172,7 +172,7 @@ last_updated: 2025-07-20
 
 **Consider**: Law 1 (Correlated Failure ⛓️) for cascade analysis, Law 2 (Asynchronous Reality ⏳) for timing issues
 
-**Case Studies**: [Amazon DynamoDB Outage](../case-studies/amazon-dynamo.md), [Facebook's Metastable Failures](../case-studies/facebook-metastable.md)
+**Case Studies**: [Amazon DynamoDB Outage](../case-studies/amazon-dynamo.md), [Facebook's Metastable Failures](../case-studies/consistent-hashing.md)
 
 ---
 
@@ -257,7 +257,7 @@ last_updated: 2025-07-20
 
 **Related Laws**: Law 5 (Distributed Knowledge 🧠) for observability, Law 6 (Cognitive Load 🤯) for operator experience
 
-**Learn More**: [Observability Best Practices](../human-factors/observability.md), [Monitoring Patterns](../patterns/monitoring.md)
+**Learn More**: [Observability Best Practices](../patterns/observability.md), [Monitoring Patterns](../patterns/observability.md)
 
 ---
 

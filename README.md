@@ -18,7 +18,7 @@ mkdocs serve
 
 DStudio is an educational resource that teaches distributed systems through:
 
-- **8 Fundamental Axioms**: Starting from physics (speed of light, thermodynamics)
+- **7 Fundamental Laws**: Starting from physics (speed of light, thermodynamics)
 - **5 Foundational Pillars**: Building up to practical system design
 - **30+ Patterns**: Modern architectural patterns with visual explanations
 - **40+ Case Studies**: Real-world systems analyzed and visualized
@@ -39,7 +39,7 @@ This documentation has been transformed to prioritize visual learning:
 docs/
 ├── index.md                    # Homepage with navigation
 ├── introduction/               # Getting started and philosophy
-├── part1-axioms/              # 8 fundamental axioms
+├── part1-axioms/              # 7 fundamental laws
 │   ├── axiom1-latency/        # Latency constraints
 │   ├── axiom2-capacity/       # Finite capacity
 │   ├── axiom3-failure/        # Partial failure

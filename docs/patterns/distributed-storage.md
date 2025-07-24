@@ -1788,7 +1788,7 @@ class StorageHealthMonitor:
 - [Sharding](sharding.md) - Data partitioning strategies
 - [Replication](leader-follower.md) - Data replication patterns
 - [Consistent Hashing](sharding.md#consistent-hashing) - Distributed data placement
-- [CAP Theorem](../part1-axioms/consistency/index.md) - Fundamental trade-offs
+- [CAP Theorem](../quantitative/cap-theorem.md) - Fundamental trade-offs
 - [Eventual Consistency](eventual-consistency.md) - Consistency models
 
 ## References

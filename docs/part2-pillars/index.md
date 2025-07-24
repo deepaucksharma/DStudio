@@ -24,11 +24,11 @@ last_updated: 2025-07-20
 
 | Pillar | Problem It Solves | Key Pattern | Real Example |
 |--------|-------------------|-------------|---------------|
-| **Work** 💪 | "Too much for one machine" | Load balancing | Google processes 100B+ searches/day |
-| **State** 💾 | "Data won't fit/survive" | Sharding + replication | DynamoDB: 10 trillion requests/day |
-| **Truth** 🤝 | "Who's right?" | Consensus algorithms | Visa: 150M transactions/day |
-| **Control** 🎮 | "How do I manage this mess?" | Orchestration | Kubernetes: 5.6M developers |
-| **Intelligence** 🧠 | "Can it fix itself?" | Self-healing | Netflix: 1000+ auto-recoveries/day |
+| **Work** 💪 | "Too much for one machine" | Load balancing | Google processes 100B+ searches/day* |
+| **State** 💾 | "Data won't fit/survive" | Sharding + replication | DynamoDB: 10 trillion requests/day* |
+| **Truth** 🤝 | "Who's right?" | Consensus algorithms | Visa: 150M transactions/day* |
+| **Control** 🎮 | "How do I manage this mess?" | Orchestration | Kubernetes: 5.6M developers* |
+| **Intelligence** 🧠 | "Can it fix itself?" | Self-healing | Netflix: 1000+ auto-recoveries/day* |
 
 ## From Laws to Pillars: The Mapping
 
@@ -328,10 +328,10 @@ graph LR
 **Foundations**: [7 Laws](../part1-axioms/index.md) | [Patterns](../patterns/index.md) | [Case Studies](../case-studies/index.md)
 
 **By Problem**:
-- **Scale**: [Load Balancing](../patterns/load-balancing.md) | [Sharding](../patterns/sharding.md) | [CDN](../patterns/cdn.md)
-- **Reliability**: [Replication](../patterns/replication.md) | [Circuit Breaker](../patterns/circuit-breaker.md)
+- **Scale**: [Load Balancing](../patterns/load-balancing.md) | [Sharding](../patterns/sharding.md) | [Caching](../patterns/caching-strategies.md)
+- **Reliability**: [Geo-Replication](../patterns/geo-replication.md) | [Circuit Breaker](../patterns/circuit-breaker.md)
 - **Consistency**: [Event Sourcing](../patterns/event-sourcing.md) | [Saga](../patterns/saga.md) | [CQRS](../patterns/cqrs.md)
-- **Operations**: [Service Mesh](../patterns/service-mesh.md) | [Blue-Green](../patterns/blue-green.md)
+- **Operations**: [Service Mesh](../patterns/service-mesh.md) | [Health Check](../patterns/health-check.md)
 - **Intelligence**: [Auto-scaling](../patterns/auto-scaling.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
 
 ---
@@ -357,3 +357,5 @@ graph LR
 ⁹ [Verma, A., et al. (2015). Large-scale cluster management at Google with Borg](https://research.google/pubs/pub43438/)
 
 ¹⁰ [Basiri, A., et al. (2016). Chaos Engineering: Building confidence in system behavior through experiments](https://netflixtechblog.com/tagged/chaos-engineering)
+
+*Estimated figures based on publicly available information and company-published data about system scale and performance.

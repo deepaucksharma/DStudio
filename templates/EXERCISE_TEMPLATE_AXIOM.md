@@ -1,16 +1,16 @@
-# Exercise Template: Axioms
+# Exercise Template: Laws
 
-This template ensures consistent, high-quality exercises for all axiom content.
+This template ensures consistent, high-quality exercises for all law content.
 
 ## Structure
 
 ```markdown
-# [Axiom Name] Exercises
+# [Law Name] Exercises
 
 ## 🧪 Hands-On Labs
 
-### Lab 1: [Experiencing the Axiom]
-**Objective**: Directly experience and measure the axiom's effects
+### Lab 1: [Experiencing the Law]
+**Objective**: Directly experience and measure the law's effects
 **Time**: 15-30 minutes
 **Prerequisites**: Basic command line knowledge
 
@@ -28,17 +28,17 @@ This template ensures consistent, high-quality exercises for all axiom content.
 - [What students should observe]
 - [Key measurements to record]
 
-### Lab 2: [Breaking the Axiom]
-**Objective**: Understand what happens when you ignore this axiom
+### Lab 2: [Breaking the Law]
+**Objective**: Understand what happens when you ignore this law
 **Time**: 20-30 minutes
 
 #### Scenario
-[Description of a system that violates the axiom]
+[Description of a system that violates the law]
 
 #### Tasks
 1. [Implementation task that will fail]
 2. [Measurement of failure]
-3. [Fix implementation respecting the axiom]
+3. [Fix implementation respecting the law]
 
 #### Reflection Questions
 - What failed and why?
@@ -249,4 +249,4 @@ For those who finish early or want extra challenges:
 - [ ] Appropriate time estimates
 - [ ] Progressive difficulty levels
 - [ ] Solutions provided but hidden
-- [ ] Connection to other axioms noted
+- [ ] Connection to other laws noted

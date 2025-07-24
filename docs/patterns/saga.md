@@ -701,7 +701,25 @@ No compensation → Inconsistent state → Manual fixes.
 
 **Challenge**: Coordinate driver matching, fare, payment, tracking with graceful failures.
 
-**Steps**: Driver reservation → Fare calculation → Payment auth → Trip creation → Notifications → Tracking
+```mermaid
+flowchart LR
+    subgraph "Uber Trip Booking Saga Steps"
+        S1[1. Driver<br/>Reservation] --> S2[2. Fare<br/>Calculation]
+        S2 --> S3[3. Payment<br/>Authorization]
+        S3 --> S4[4. Trip<br/>Creation]
+        S4 --> S5[5. Send<br/>Notifications]
+        S5 --> S6[6. Start<br/>Tracking]
+        
+        S3 -.->|Failure| C1[Release<br/>Driver]
+        C1 --> C2[Cancel<br/>Fare]
+        
+        style S1 fill:#e8f5e9
+        style S2 fill:#e3f2fd
+        style S3 fill:#ffcdd2
+        style C1 fill:#fff3e0
+        style C2 fill:#fff3e0
+    end
+```
 
 **Architecture**:
 
@@ -735,11 +753,39 @@ graph TB
     style TRS fill:#795548
 ```
 
-**Decisions**:
-1. Hybrid: Orchestration for creation, choreography for updates
-2. Optimistic driver locking with compensation
-3. Allow partial completion for non-critical steps
-4. Geographic saga sharding
+**Architecture Decisions**:
+
+```mermaid
+graph TB
+    subgraph "Hybrid Saga Architecture"
+        subgraph "Orchestrated Flow"
+            RQ[Ride Request] --> TSO[Trip Saga<br/>Orchestrator]
+            TSO --> DS[Driver Service]
+            TSO --> PS[Payment Service]
+            TSO --> TS[Trip Service]
+        end
+        
+        subgraph "Choreographed Updates"
+            TS -->|Trip Started Event| LS[Location Service]
+            LS -->|Location Update Event| NS[Notification Service]
+            NS -->|ETA Update Event| RA[Rider App]
+        end
+        
+        subgraph "Failure Handling"
+            TSO -->|Timeout/Failure| COMP[Compensation<br/>Manager]
+            COMP -->|Rollback Commands| DS
+            COMP -->|Rollback Commands| PS
+        end
+    end
+    
+    style TSO fill:#9c27b0,stroke:#6a1b9a,stroke-width:3px,color:#fff
+    style COMP fill:#ff5252,stroke:#d32f2f,stroke-width:2px,color:#fff
+```
+
+1. **Hybrid Approach**: Orchestration for trip creation (consistency critical), choreography for real-time updates (scalability critical)
+2. **Optimistic Locking**: Reserve driver optimistically, compensate if needed (reduces latency)
+3. **Partial Completion**: Non-critical steps (notifications) can fail without full rollback
+4. **Geographic Sharding**: Each region runs independent saga orchestrators
 
 **Results**: <500ms latency, 99.7% success, 2.3% compensations, zero inconsistencies
 
@@ -751,6 +797,29 @@ graph TB
 </div>
 
 ### Economic Analysis
+
+```mermaid
+graph LR
+    subgraph "Without Saga Pattern"
+        WS1[Manual Coordination] --> WS2[High Failure Rate<br/>5-10%]
+        WS2 --> WS3[Manual Resolution<br/>$10-50 per incident]
+        WS3 --> WS4[Customer Impact<br/>Lost revenue]
+        
+        style WS2 fill:#ffcdd2
+        style WS3 fill:#ffcdd2
+        style WS4 fill:#ef5350,color:#fff
+    end
+    
+    subgraph "With Saga Pattern"
+        S1[Automated Coordination] --> S2[Auto-Recovery<br/>90% success]
+        S2 --> S3[Reduced Manual Work<br/>10% of incidents]
+        S3 --> S4[Better Experience<br/>Retained revenue]
+        
+        style S2 fill:#c8e6c9
+        style S3 fill:#c8e6c9
+        style S4 fill:#4caf50,color:#fff
+    end
+```
 
 #### Cost Model
 

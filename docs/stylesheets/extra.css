@@ -791,6 +791,49 @@
   margin: 0.5rem 0;
 }
 
+/* Google Interview Styles */
+.google-interview-hero {
+  background: linear-gradient(135deg, #4285f4 0%, #34a853 50%, #fbbc04 100%);
+  border-radius: 12px;
+  padding: 3rem 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: white;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+}
+
+.google-interview-hero h1 {
+  color: white !important;
+  margin: 0 0 1rem 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.google-interview-hero p {
+  color: rgba(255,255,255,0.95);
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.timeline-container {
+  margin: 2rem 0;
+}
+
+.timeline-container h4 {
+  margin-top: 2rem;
+  color: #1a73e8;
+  font-weight: 600;
+}
+
+.difficulty {
+  background: #f1f3f4;
+  padding: 0.25rem 0.75rem;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  color: #5f6368;
+  font-weight: 500;
+}
+
 /* Dark Mode Support */
 [data-md-color-scheme="slate"] .path-card,
 [data-md-color-scheme="slate"] .law-card,

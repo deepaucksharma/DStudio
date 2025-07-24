@@ -419,5 +419,5 @@ It means you must explicitly choose what to sacrifice when things go wrong."
 
 - [Consistency Models](consistency-models.md) - Deep dive into consistency levels
 - [Consensus Algorithms](../patterns/consensus-algorithms.md) - Achieving agreement
-- [Network Partitions](../part1-axioms/failure/index.md) - Understanding failure modes
+- [Network Partitions](../part1-axioms/axiom1-failure/index.md) - Understanding failure modes
 - [Eventual Consistency](../patterns/eventual-consistency.md) - AP system patterns

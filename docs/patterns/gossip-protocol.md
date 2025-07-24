@@ -1817,11 +1817,11 @@ graph TB
 
 ## 🤝 Related Patterns
 
-1. **[Distributed Consensus](distributed-consensus.md)**: Gossip can implement weak consistency
+1. **[Distributed Consensus](consensus.md)**: Gossip can implement weak consistency
 2. **[Eventual Consistency](eventual-consistency.md)**: Natural outcome of gossip protocols
 3. **[Vector Clocks](vector-clocks.md)**: Often used with gossip for ordering
-4. **[Failure Detection](failure-detection.md)**: SWIM-style gossip for detection
-5. **[Peer-to-Peer](peer-to-peer.md)**: Gossip is fundamental to P2P systems
+4. **[Failure Detection](fault-tolerance.md)**: SWIM-style gossip for detection
+5. **[Peer-to-Peer](distributed-storage.md)**: Gossip is fundamental to P2P systems
 
 ---
 

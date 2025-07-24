@@ -54,7 +54,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
 ## 🔍 The 5 Pillars Overview
 
 <div class="pillars-grid">
-  <a href="work/index.md" class="pillar-card pillar-work">
+  <a href="../part2-pillars/work/index.md" class="pillar-card pillar-work">
     <div class="pillar-icon">⚡</div>
     <h3>Work Distribution</h3>
     <p class="pillar-question">How do we spread computation?</p>
@@ -68,7 +68,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="state/index.md" class="pillar-card pillar-state">
+  <a href="../part2-pillars/state/index.md" class="pillar-card pillar-state">
     <div class="pillar-icon">💾</div>
     <h3>State Distribution</h3>
     <p class="pillar-question">How do we manage distributed data?</p>
@@ -82,7 +82,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="truth/index.md" class="pillar-card pillar-truth">
+  <a href="../part2-pillars/truth/index.md" class="pillar-card pillar-truth">
     <div class="pillar-icon">⚖️</div>
     <h3>Truth Distribution</h3>
     <p class="pillar-question">How do we achieve consensus?</p>
@@ -96,7 +96,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="control/index.md" class="pillar-card pillar-control">
+  <a href="../part2-pillars/control/index.md" class="pillar-card pillar-control">
     <div class="pillar-icon">🎛️</div>
     <h3>Control Distribution</h3>
     <p class="pillar-question">How do we operate at scale?</p>
@@ -110,7 +110,7 @@ The 7 laws don't exist in isolation - they interact and compound to create five 
     </div>
   </a>
 
-  <a href="intelligence/index.md" class="pillar-card pillar-intelligence">
+  <a href="../part2-pillars/intelligence/index.md" class="pillar-card pillar-intelligence">
     <div class="pillar-icon">🧠</div>
     <h3>Intelligence Distribution</h3>
     <p class="pillar-question">How do systems adapt and learn?</p>
@@ -272,31 +272,31 @@ Each pillar includes hands-on labs:
   <div class="lab-card">
     <h4>⚡ Load Balancer Lab</h4>
     <p>Build work distribution algorithms</p>
-    <a href="work/exercises.md">Start Lab →</a>
+    <a href="../part2-pillars/work/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>💾 Replication Lab</h4>
     <p>Implement state synchronization</p>
-    <a href="state/exercises.md">Start Lab →</a>
+    <a href="../part2-pillars/state/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>⚖️ Consensus Lab</h4>
     <p>Build a simple Raft implementation</p>
-    <a href="truth/exercises.md">Start Lab →</a>
+    <a href="../part2-pillars/truth/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>🎛️ Observability Lab</h4>
     <p>Create distributed tracing</p>
-    <a href="control/exercises.md">Start Lab →</a>
+    <a href="../part2-pillars/control/exercises.md">Start Lab →</a>
   </div>
   
   <div class="lab-card">
     <h4>🧠 Auto-scaling Lab</h4>
     <p>Build adaptive systems</p>
-    <a href="intelligence/exercises.md">Start Lab →</a>
+    <a href="../part2-pillars/intelligence/exercises.md">Start Lab →</a>
   </div>
 </div>
 
@@ -322,7 +322,7 @@ Each pillar includes hands-on labs:
 ## 🚀 Next Steps
 
 <div class="next-steps">
-  <a href="work/index.md" class="primary-cta">
+  <a href="../part2-pillars/work/index.md" class="primary-cta">
     Explore Work Distribution →
   </a>
   
