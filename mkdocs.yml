@@ -395,6 +395,8 @@ nav:
       - "Trade-off Analysis": google-interviews/tradeoff-analysis.md
       - "Architecture Patterns": google-interviews/architecture-patterns.md
       - "Success Strategies": google-interviews/success-strategies.md
+    
+    - "📦 Amazon System Design Guide": amazon-interviews/index.md
   
   - "📖 Reference":
     - "📖 All Resources": reference/index.md
