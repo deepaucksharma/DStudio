@@ -1,7 +1,7 @@
 ---
 title: "Law 6: The Law of Cognitive Load 🤯"
 description: A system's complexity must fit within human cognitive limits, or it will fail through misoperation
-type: axiom
+type: law
 difficulty: expert
 reading_time: 10 min
 prerequisites: ["part1-axioms/index.md"]

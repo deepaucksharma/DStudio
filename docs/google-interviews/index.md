@@ -14,7 +14,7 @@ Google system design interviews are known for their emphasis on:
 - **Performance**: Meeting strict latency requirements
 - **Cost**: Optimizing for efficiency at scale
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 Key Insight</h3>
 <p>Google values candidates who can think at planetary scale while keeping designs simple and maintainable. The best solutions often leverage Google's existing infrastructure patterns.</p>
 </div>
@@ -229,7 +229,7 @@ Google system design interviews are known for their emphasis on:
 
 ## 📚 Must-Read Google Papers
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>📖 Essential Reading List</h3>
 <ol>
 <li><strong>MapReduce (2004)</strong> - Simplified data processing on large clusters</li>
@@ -306,10 +306,22 @@ graph LR
 <p>Learn what to avoid in interviews</p>
 </a>
 
+<a href="interview-experiences.md" class="pattern-card">
+<div class="pattern-icon">💬</div>
+<h4>Interview Experiences & Tips</h4>
+<p>Real scenarios, communication strategies, and proven techniques</p>
+</a>
+
 <a href="mock-questions.md" class="pattern-card">
 <div class="pattern-icon">💯</div>
 <h4>Mock Questions</h4>
 <p>20+ Google-specific practice problems</p>
+</a>
+
+<a href="evaluation-rubric.md" class="pattern-card">
+<div class="pattern-icon">📊</div>
+<h4>Evaluation Rubric</h4>
+<p>Comprehensive scoring guide and self-assessment</p>
 </a>
 
 </div>

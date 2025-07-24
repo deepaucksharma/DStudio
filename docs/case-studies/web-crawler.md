@@ -25,9 +25,9 @@ Systematic web browsing for discovering and fetching pages, balancing aggressive
 
 **Requirements:** 10B+ pages/month, robots.txt compliance, JavaScript handling, deduplication, 100B+ URL frontier, focused/broad crawling, failure handling, freshness maintenance
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Crawl Speed Optimization
+#### 🚀 Law 1 (Latency): Crawl Speed Optimization
 ```text
 Latency: DNS 10-50ms, TCP 10-100ms, TLS 20-200ms, HTTP 50-500ms, Download 100-5000ms, Processing 10-100ms
 Optimizations: DNS caching/prefetch, connection pooling, HTTP/2, parallel crawling, geo-distribution, async I/O
@@ -161,7 +161,7 @@ gantt
     Content Stream   :cont2, 70, 300
 ```
 
-#### 💾 Axiom 2 (Capacity): URL Frontier Management
+#### 💾 Law 2 (Capacity): URL Frontier Management
 ```text
 Storage: URL frontier 10TB (100B URLs), Crawled pages 500TB, Link graph 16TB, Metadata 10TB
 Challenges: Frontier growth, duplicate detection, content storage, index management, bandwidth limits
@@ -401,7 +401,7 @@ graph LR
 | **Shingles** | Text similarity | O(n) | Variable | ~1KB/doc |
 | **MinHash** | Set similarity | O(k) | 90%+ | 128 bytes/URL |
 
-#### 🔥 Axiom 3 (Failure): Robust Crawling
+#### 🔥 Law 3 (Failure): Robust Crawling
 ```text
 Failures: Network timeouts, DNS failures, server errors, malformed HTML, infinite redirects, spider/crawler traps, rate limits
 Mitigations: Exponential backoff, circuit breakers, redirect limits, pattern detection, checkpointing, distributed coordination
@@ -559,7 +559,7 @@ graph TB
     # Trap detection and recovery implementation details...
 ```
 
-#### 🔀 Axiom 4 (Concurrency): Parallel Crawling
+#### 🔀 Law 4 (Concurrency): Parallel Crawling
 ```text
 Concurrency Challenges:
 - Thousands of parallel connections
@@ -762,7 +762,7 @@ graph LR
     SL --> UF
 ```
 
-#### 🤝 Axiom 5 (Coordination): Distributed Crawling
+#### 🤝 Law 5 (Coordination): Distributed Crawling
 ```text
 Coordination Requirements:
 - URL assignment without duplication
@@ -955,7 +955,7 @@ graph TB
                     time.sleep(1)
 ```
 
-#### 👁️ Axiom 6 (Observability): Crawl Monitoring
+#### 👁️ Law 6 (Observability): Crawl Monitoring
 ```text
 Monitoring Requirements:
 - Crawl rate and coverage
@@ -1139,7 +1139,7 @@ graph TB
     FC -->|Critical Fail| U[Unhealthy]
 ```
 
-#### 👤 Axiom 7 (Human Interface): Crawler Management
+#### 👤 Law 7 (Human Interface): Crawler Management
 ```text
 Management Requirements:
 - Start/stop/pause crawling
@@ -1352,7 +1352,7 @@ graph LR
     BG -.-> QD
 ```
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 8 (Economics): Cost Optimization
 ```text
 Cost Components:
 - Bandwidth: $0.05/GB
@@ -2038,8 +2038,8 @@ Storage Node      32GB      8 cores  10TB
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md) - Massive parallelism patterns
-- [Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md) - Crawler ethics and robots.txt
+- [Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md) - Massive parallelism patterns
+- [Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md) - Crawler ethics and robots.txt
 - [Queue Patterns](../patterns/queues-streaming.md) - Priority queue implementations
 - [Bulkhead Pattern](../patterns/bulkhead.md) - Domain isolation strategies
 

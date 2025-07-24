@@ -440,7 +440,7 @@ graph LR
     style D fill:#ffcccc
 ```
 
-Every operation proves [Law 1](../part1-axioms/axiom1-failure/index.md) - even L1 cache (0.5ns) > 0.
+Every operation proves [Law 1](../part1-axioms/law1-failure/index.md) - even L1 cache (0.5ns) > 0.
 
 ### Law 4: Trade-offs ⚖️
 <div class="failure-vignette">

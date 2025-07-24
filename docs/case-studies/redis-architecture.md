@@ -31,7 +31,7 @@ Redis achieves extraordinary performance through radical simplicity: a single-th
 
 ### Axiom 1: Latency - The Cost of Context Switching
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>🕰️ Latency Axiom in Action</h4>
 <p><strong>Context switches cost 1-10 microseconds</strong> - Redis eliminates this by processing all operations on a single thread, achieving sub-microsecond command processing.</p>
 </div>
@@ -73,7 +73,7 @@ graph LR
 
 ### Axiom 2: Finite Capacity - Memory as the Limiting Factor
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>💾 Capacity Axiom in Action</h4>
 <p><strong>Memory is the scarcest resource</strong> - Redis uses custom data structures that can reduce memory usage by 50-90% compared to naive implementations.</p>
 </div>

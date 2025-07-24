@@ -213,11 +213,11 @@ nav:
       - "Choreography 🚧": patterns/choreography.md
       - "Anti-Entropy 🚧": patterns/anti-entropy.md
       - "Gossip Protocol 🚧": patterns/gossip-protocol.md
-      - "Vector Clocks 🚧": patterns/vector-clocks.md
-      - "Logical Clocks 🚧": patterns/logical-clocks.md
+      - "Vector Clocks": patterns/vector-clocks.md
+      - "Logical Clocks": patterns/logical-clocks.md
       - "HLC (Hybrid Logical Clock) 🚧": patterns/hlc.md
-      - "Clock Sync 🚧": patterns/clock-sync.md
-      - "CAS (Compare and Swap) 🚧": patterns/cas.md
+      - "Clock Sync": patterns/clock-sync.md
+      - "CAS (Compare and Swap)": patterns/cas.md
       
     - "Communication Patterns":
       - "API Gateway": patterns/api-gateway.md
@@ -249,7 +249,7 @@ nav:
       - "Data Mesh 🚧": patterns/data-mesh.md
       
     - "Performance & Scaling":
-      - "Auto-Scaling 🚧": patterns/auto-scaling.md
+      - "Auto-Scaling": patterns/auto-scaling.md
       - "Adaptive Scheduling 🚧": patterns/adaptive-scheduling.md
       - "Priority Queue 🚧": patterns/priority-queue.md
       - "Distributed Queue 🚧": patterns/distributed-queue.md
@@ -260,7 +260,7 @@ nav:
       - "Analytics at Scale 🚧": patterns/analytics-scale.md
       - "ML Pipeline 🚧": patterns/ml-pipeline.md
       - "Real-Time Processing 🚧": patterns/real-time.md
-      - "Event Streaming 🚧": patterns/event-streaming.md
+      - "Event Streaming": patterns/event-streaming.md
       - "Queues & Streaming": patterns/queues-streaming.md
       
     - "Geographic Distribution":
@@ -283,27 +283,27 @@ nav:
       - "Security for URL Shortener": patterns/security-shortener.md
       
     - "Data Structures":
-      - "Bloom Filter 🚧": patterns/bloom-filter.md
+      - "Bloom Filter": patterns/bloom-filter.md
       - "Merkle Trees 🚧": patterns/merkle-trees.md
-      - "LSM Tree 🚧": patterns/lsm-tree.md
+      - "LSM Tree": patterns/lsm-tree.md
       - "Trie 🚧": patterns/trie.md
       - "CRDT": patterns/crdt.md
       - "Graph Algorithms 🚧": patterns/graph-algorithms.md
       
     - "Operations & Monitoring":
-      - "Observability 🚧": patterns/observability.md
+      - "Observability": patterns/observability.md
       - "Distributed Storage": patterns/distributed-storage.md
       - "Metadata Service 🚧": patterns/metadata-service.md
       - "FinOps 🚧": patterns/finops.md
       
     - "Specialized Patterns":
       - "URL Shortener Patterns":
-        - "ID Generation at Scale 🚧": patterns/id-generation-scale.md
-        - "Time Series IDs 🚧": patterns/time-series-ids.md
-        - "URL Normalization 🚧": patterns/url-normalization.md
-        - "URL Frontier 🚧": patterns/url-frontier.md
+        - "ID Generation at Scale": patterns/id-generation-scale.md
+        - "Time Series IDs": patterns/time-series-ids.md
+        - "URL Normalization": patterns/url-normalization.md
+        - "URL Frontier": patterns/url-frontier.md
       - "Web Crawling Patterns":
-        - "Politeness 🚧": patterns/politeness.md
+        - "Politeness": patterns/politeness.md
         - "Crawler Traps 🚧": patterns/crawler-traps.md
         - "JS Crawling 🚧": patterns/js-crawling.md
         - "Content Extraction 🚧": patterns/content-extraction.md
@@ -375,6 +375,7 @@ nav:
     - "🎯 Google System Design Guide": google-interviews/index.md
     - "Preparation Guide": google-interviews/preparation-guide.md
     - "Common Mistakes": google-interviews/common-mistakes.md
+    - "Interview Experiences & Tips": google-interviews/interview-experiences.md
     - "Core Google Services":
       - "Google Search": google-interviews/google-search.md
       - "YouTube": google-interviews/youtube.md

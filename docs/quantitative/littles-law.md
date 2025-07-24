@@ -696,7 +696,7 @@ graph LR
     style C fill:#ff6b6b
 ```
 
-**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md).
+**Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md).
 
 ### Law 4: Trade-offs ⚖️
 <div class="failure-vignette">

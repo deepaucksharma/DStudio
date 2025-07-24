@@ -282,7 +282,7 @@ This comprehensive test plan verifies that all navigation improvements are worki
 
 **Test Cases**:
 1. Direct access to deep pages:
-   - [ ] `/part1-axioms/axiom1-failure/examples/`
+   - [ ] `/part1-axioms/law1-failure/examples/`
    - [ ] `/patterns/circuit-breaker/#implementation`
    - [ ] `/case-studies/uber-location/`
 

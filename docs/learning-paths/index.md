@@ -143,10 +143,10 @@ graph TD
     <div class="timeline-content">
       <h5>Days 2-8: The 7 Fundamental Laws</h5>
       <ul>
-        <li>Day 1-2: <a href="../part1-axioms/axiom1-failure/index.md">Law 1: Correlated Failure ⛓️</a></li>
-        <li>Day 3-4: <a href="../part1-axioms/axiom2-asynchrony/index.md">Law 2: Asynchronous Reality ⏳</a></li>
-        <li>Day 5-6: <a href="../part1-axioms/axiom3-emergence/index.md">Law 3: Emergent Chaos 🌪️</a></li>
-        <li>Day 7-8: <a href="../part1-axioms/axiom4-tradeoffs/index.md">Law 4: Multidimensional Trade-offs ⚖️</a></li>
+        <li>Day 1-2: <a href="../part1-axioms/law1-failure/index.md">Law 1: Correlated Failure ⛓️</a></li>
+        <li>Day 3-4: <a href="../part1-axioms/law2-asynchrony/index.md">Law 2: Asynchronous Reality ⏳</a></li>
+        <li>Day 5-6: <a href="../part1-axioms/law3-emergence/index.md">Law 3: Emergent Chaos 🌪️</a></li>
+        <li>Day 7-8: <a href="../part1-axioms/law4-tradeoffs/index.md">Law 4: Multidimensional Trade-offs ⚖️</a></li>
       </ul>
       <span class="time-estimate">⏱️ 16 hours total</span>
     </div>
@@ -177,9 +177,9 @@ graph TD
 
 #### Week 7-8: Production Readiness
 1. **Complete the Laws**:
-   - [Distributed Knowledge - Truth is Local](../part1-axioms/axiom5-epistemology/index.md)
-   - [Cognitive Load - Design for Humans](../part1-axioms/axiom6-human-api/index.md)
-   - [Economic Reality - Cost Drives Design](../part1-axioms/axiom7-economics/index.md)
+   - [Distributed Knowledge - Truth is Local](../part1-axioms/law5-epistemology/index.md)
+   - [Cognitive Load - Design for Humans](../part1-axioms/law6-human-api/index.md)
+   - [Economic Reality - Cost Drives Design](../part1-axioms/law7-economics/index.md)
 2. **Operations**: [Observability Basics](../patterns/observability.md)
 3. **Capstone**: Deploy your system with monitoring
 
@@ -285,8 +285,8 @@ graph LR
 
 1. **Advanced Framework**: [The 7 Fundamental Laws](../part1-axioms/index.md)
 2. **Analysis Tools**:
-   - [Multidimensional Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
-   - [Distributed Knowledge & Epistemology](../part1-axioms/axiom5-epistemology/index.md)
+   - [Multidimensional Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
+   - [Distributed Knowledge & Epistemology](../part1-axioms/law5-epistemology/index.md)
    - [Trade-off Matrices](../part2-pillars/tradeoff-calculus.md)
 3. **Exercise**: Design a video streaming platform
 
@@ -321,15 +321,15 @@ graph LR
 
 #### Week 1: Economics & Trade-offs
 1. **Cost Analysis**:
-   - [Economics of Distribution](../part1-axioms/axiom7-economics/index.md)
-   - [Multidimensional Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
+   - [Economics of Distribution](../part1-axioms/law7-economics/index.md)
+   - [Multidimensional Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
    - [FinOps Best Practices](../patterns/finops.md)
 2. **Exercise**: ROI analysis for microservices migration
 
 #### Week 2: Organizational Impact
 1. **Human & Economic Laws**:
-   - [Cognitive Load - Design for Human Minds](../part1-axioms/axiom6-human-api/index.md)
-   - [Economic Reality - Every Decision Has Cost](../part1-axioms/axiom7-economics/index.md)
+   - [Cognitive Load - Design for Human Minds](../part1-axioms/law6-human-api/index.md)
+   - [Economic Reality - Every Decision Has Cost](../part1-axioms/law7-economics/index.md)
    - [Conway's Law in Practice](../human-factors/org-structure.md)
    - [Team Topologies](../human-factors/team-topologies.md)
 2. **Case Study**: How Amazon organizes teams

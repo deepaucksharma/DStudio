@@ -173,7 +173,7 @@ Use this checklist for any distributed system:
 
 **Theory**: Load balancing, queueing theory (M/M/c)
 **Patterns**: MapReduce, Load Balancing, Serverless
-**Laws**: [Asynchrony](../part1-axioms/axiom2-asynchrony/index.md), [Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
+**Laws**: [Asynchrony](../part1-axioms/law2-asynchrony/index.md), [Trade-offs](../part1-axioms/law4-tradeoffs/index.md)
 
 **Quick Decision Guide**:
 ```
@@ -192,7 +192,7 @@ Steady? → Load balancer
 
 **Theory**: CAP theorem², consistent hashing
 **Patterns**: Sharding, Replication, CDC
-**Laws**: [Failure](../part1-axioms/axiom1-failure/index.md), [Chaos](../part1-axioms/axiom3-emergence/index.md)
+**Laws**: [Failure](../part1-axioms/law1-failure/index.md), [Chaos](../part1-axioms/law3-emergence/index.md)
 
 **CAP Trade-offs**:
 | Choose 2 | Sacrifice | Example |
@@ -210,7 +210,7 @@ Steady? → Load balancer
 
 **Theory**: FLP impossibility⁴, Paxos⁵, Raft⁶
 **Patterns**: Event Sourcing, Saga, 2PC
-**Laws**: [Asynchrony](../part1-axioms/axiom2-asynchrony/index.md), [Knowledge](../part1-axioms/axiom5-epistemology/index.md)
+**Laws**: [Asynchrony](../part1-axioms/law2-asynchrony/index.md), [Knowledge](../part1-axioms/law5-epistemology/index.md)
 
 **Consensus Comparison**:
 | Algorithm | Fault Tolerance | Complexity | Use Case |
@@ -229,7 +229,7 @@ Steady? → Load balancer
 
 **Theory**: Control theory, observability
 **Patterns**: Service Mesh, Circuit Breakers, Blue-Green
-**Laws**: [Knowledge](../part1-axioms/axiom5-epistemology/index.md), [Human API](../part1-axioms/axiom6-human-api/index.md)
+**Laws**: [Knowledge](../part1-axioms/law5-epistemology/index.md), [Human API](../part1-axioms/law6-human-api/index.md)
 
 **Orchestration vs Choreography**:
 | Approach | Control | Flexibility | Debugging | Example |

@@ -15,7 +15,7 @@ last_updated: 2025-01-23
 
 # Network Theory for Distributed Systems
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 Core Principle</h3>
 Network theory provides mathematical tools to analyze communication patterns, failure propagation, and information flow in distributed systems. Understanding network properties helps design more resilient and efficient architectures.
 </div>
@@ -481,4 +481,4 @@ def network_latency(distance_km, processing_ms=1, queuing_ms=0):
 
 - **Theory**: [Graph Theory](graph-theory.md) | [Queueing Networks](queuing-networks.md) | [Information Theory](information-theory.md)
 - **Practice**: [Network Protocols](../patterns/network-protocols.md) | [Consensus](../patterns/consensus.md) | [P2P Systems](../patterns/p2p.md)
-- **Laws**: [Law 2: Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md) | [Law 5: Distributed Knowledge](../part1-axioms/axiom5-epistemology/index.md)
+- **Laws**: [Law 2: Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md) | [Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/index.md)

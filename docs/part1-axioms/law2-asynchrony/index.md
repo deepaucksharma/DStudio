@@ -1,7 +1,7 @@
 ---
 title: "Law 2: The Law of Physical and Information Asynchrony"
 description: The time required for information to propagate between nodes is variable, non-zero, and creates fundamental uncertainty
-type: axiom
+type: law
 difficulty: expert
 reading_time: 10 min
 prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md"]

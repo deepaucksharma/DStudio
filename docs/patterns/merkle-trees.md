@@ -18,7 +18,7 @@ last_updated: 2025-01-23
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **Merkle Trees Pattern**
 
-<div class="axiom-box">
+<div class="law-box">
 Merkle trees provide cryptographic proof of data integrity with logarithmic verification complexity - transforming the problem of verifying large datasets from O(n) comparisons to O(log n) hash checks.
 </div>
 
@@ -665,7 +665,7 @@ graph TD
 
 ## Summary
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 When to Use Merkle Trees</h3>
 
 **Perfect for:**

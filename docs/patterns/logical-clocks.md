@@ -58,7 +58,7 @@ graph TD
     end
 ```
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🔑 Lamport's Insight</h3>
 
 If we can't synchronize physical clocks perfectly, let's abandon physical time altogether and use logical time based on causality:

@@ -25,9 +25,9 @@ Distributed system orchestrating message delivery across channels with preferenc
 
 **Requirements:** 10B+ daily volume, <1s critical latency, at-least-once delivery, templates/personalization, preferences, rate limiting, analytics, multi-channel
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Speed of Notification
+#### 🚀 Law 1 (Latency): Speed of Notification
 ```text
 Latency: Critical <1s, Push <5s, Email <30s, SMS <10s, In-app <100ms
 Optimizations: Priority queues, regional deployment, connection pooling, batching, WebSocket, edge servers
@@ -357,7 +357,7 @@ class PushNotificationHandler:
                 logger.error(f"FCM batch send failed: {e}")
 ```
 
-#### 💾 Axiom 2 (Capacity): Scale Management
+#### 💾 Law 2 (Capacity): Scale Management
 ```text
 Scale Requirements:
 - 10B notifications/day = 115K/second average
@@ -693,7 +693,7 @@ class TemplateManager:
         return result
 ```
 
-#### 🔥 Axiom 3 (Failure): Reliable Delivery
+#### 🔥 Law 3 (Failure): Reliable Delivery
 ```text
 Failure Modes:
 1. Channel provider outages (FCM, APNS, SendGrid)
@@ -911,7 +911,7 @@ class CircuitBreaker:
             logger.warning("Circuit breaker reopened after failure in half-open state")
 ```
 
-#### 🔀 Axiom 4 (Concurrency): Parallel Processing
+#### 🔀 Law 4 (Concurrency): Parallel Processing
 ```text
 Concurrency Challenges:
 - Millions of concurrent notifications
@@ -1069,7 +1069,7 @@ stateDiagram-v2
     SimpleRender --> [*]
 ```
 
-#### 🤝 Axiom 5 (Coordination): Multi-Channel Orchestration
+#### 🤝 Law 5 (Coordination): Multi-Channel Orchestration
 ```text
 Requirements: Preferences, delivery order, deduplication, rate limits, failover, DND rules
 Strategies: Central preferences, distributed locks, priority ordering, global rate tracking, leader election
@@ -1252,7 +1252,7 @@ graph TB
     # Rules engine implementation details...
 ```
 
-#### 👁️ Axiom 6 (Observability): Analytics & Monitoring
+#### 👁️ Law 6 (Observability): Analytics & Monitoring
 ```text
 Monitoring: Delivery rates, latency percentiles, failures, engagement, provider performance, costs, abuse
 Analytics: Real-time dashboards, receipts, click/open tracking, unsubscribes, A/B testing
@@ -1450,7 +1450,7 @@ graph LR
     # Analytics engine implementation details...
 ```
 
-#### 👤 Axiom 7 (Human Interface): User Control
+#### 👤 Law 7 (Human Interface): User Control
 ```text
 User Control Requirements:
 - Preference management UI
@@ -1620,7 +1620,7 @@ graph TB
     end
 ```
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 8 (Economics): Cost Optimization
 ```text
 Cost Components:
 - Push notifications: $0.001/notification (FCM/APNS)
@@ -2430,10 +2430,10 @@ Analytics Service    8 cores  32GB      10TB
 ### 🔗 Related Concepts & Deep Dives
 
 #### Prerequisite Laws
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Foundation for reliable delivery
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Multi-channel orchestration
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Real-time delivery constraints
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Cost optimization strategies
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Foundation for reliable delivery
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Multi-channel orchestration
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Real-time delivery constraints
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Cost optimization strategies
 
 #### Advanced Topics
 - **[Event-Driven Architecture](../patterns/event-driven.md)** - Asynchronous notification processing

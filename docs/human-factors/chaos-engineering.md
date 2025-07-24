@@ -4,7 +4,7 @@ description: "Scientific approach to discovering system weaknesses through contr
 type: human-factors
 difficulty: intermediate
 reading_time: 20 min
-prerequisites: ["part1-axioms/axiom6-human-api", "part1-axioms/axiom1-failure"]
+prerequisites: ["part1-axioms/law6-human-api", "part1-axioms/law1-failure"]
 status: complete
 last_updated: 2025-07-23
 ---

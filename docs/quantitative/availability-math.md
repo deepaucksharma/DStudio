@@ -26,6 +26,52 @@ last_updated: 2025-07-20
 99.999% (5 nines)= 5.26 minutes/year
 ```
 
+## Visual Availability Framework
+
+```mermaid
+graph TB
+    subgraph "Availability Patterns"
+        subgraph "Series (Chain) - Multiply"
+            S1[Service A<br/>99.9%] --> S2[Service B<br/>99.9%]
+            S2 --> S3[Service C<br/>99.9%]
+            S3 --> SR[System: 99.7%<br/>(0.999³)]
+        end
+        
+        subgraph "Parallel (Redundant) - Complement"
+            P1[Service A<br/>99.9%]
+            P2[Service B<br/>99.9%]
+            P1 & P2 --> PR[System: 99.9999%<br/>(1 - 0.001²)]
+        end
+        
+        subgraph "Mixed: Chain + Redundancy"
+            M1[LB<br/>99.99%] --> M2A[App A<br/>99.9%]
+            M1 --> M2B[App B<br/>99.9%]
+            M2A --> M3[DB<br/>99.9%]
+            M2B --> M3
+            M3 --> MR[System: 99.89%]
+        end
+    end
+    
+    subgraph "Availability Impact Visualization"
+        AV1[1 Nine: 36.5 days/year]
+        AV2[2 Nines: 3.65 days/year]
+        AV3[3 Nines: 8.76 hours/year]
+        AV4[4 Nines: 52.6 min/year]
+        AV5[5 Nines: 5.26 min/year]
+        
+        AV1 --> AV2
+        AV2 --> AV3
+        AV3 --> AV4
+        AV4 --> AV5
+    end
+    
+    style SR fill:#ffcccc
+    style PR fill:#ccffcc
+    style MR fill:#ffffcc
+    style AV5 fill:#ccffcc
+    style AV1 fill:#ffcccc
+```
+
 ## Availability Calculations
 
 ### Series (AND): Multiply
@@ -132,6 +178,48 @@ Reality: 99.5-99.7%
 
 ## MTBF and MTTR
 
+### Visual MTBF/MTTR Relationship
+
+```mermaid
+graph LR
+    subgraph "System Lifecycle"
+        WORK1[Working] --> FAIL1[Failed]
+        FAIL1 --> WORK2[Working]
+        WORK2 --> FAIL2[Failed]
+        FAIL2 --> WORK3[Working]
+    end
+    
+    subgraph "Time Measurements"
+        MTBF1[MTBF<br/>Mean Time Between Failures]
+        MTTR1[MTTR<br/>Mean Time To Recovery]
+        
+        WORK1 -.->|Measure| MTBF1
+        FAIL1 -.->|Measure| MTTR1
+    end
+    
+    subgraph "Availability Formula"
+        FORMULA[Availability = MTBF / (MTBF + MTTR)]
+        
+        EXAMPLE1[MTBF=30d, MTTR=30min<br/>→ 99.93%]
+        EXAMPLE2[MTBF=30d, MTTR=15min<br/>→ 99.97%]
+        
+        FORMULA --> EXAMPLE1
+        FORMULA --> EXAMPLE2
+    end
+    
+    subgraph "Improvement Strategies"
+        PREVENT[Improve MTBF<br/>Testing (+20%)<br/>Reviews (+30%)<br/>Redundancy (+100%)]
+        
+        RECOVER[Improve MTTR<br/>Monitoring (-50%)<br/>Automation (-80%)<br/>Runbooks (-30%)]
+        
+        INSIGHT[🎯 Key Insight:<br/>Faster recovery ><br/>preventing failures!]
+    end
+    
+    style INSIGHT fill:#fff3cd,stroke:#856404
+    style EXAMPLE2 fill:#ccffcc
+    style RECOVER fill:#ccffcc
+```
+
 ```python
 Availability = MTBF / (MTBF + MTTR)
 
@@ -209,7 +297,7 @@ graph TD
     style F fill:#ffd700
 ```
 
-**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
+**Key Insight**: Availability math quantifies [Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md) - we can't prevent failures, but we can design systems that survive them.
 
 ### Law 4: Trade-offs ⚖️
 - Redundancy requires 2x resources for high availability

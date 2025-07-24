@@ -1252,11 +1252,11 @@ timeline
 
 This pattern directly addresses:
 
-1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)**: Buffers handle capacity mismatches
-2. **[Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md)**: Decoupling reduces blocking
-3. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md)**: Messages survive consumer failures
-4. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md)**: Async coordination via messages
-5. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md)**: Message flow visibility
+1. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md)**: Buffers handle capacity mismatches
+2. **[Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md)**: Decoupling reduces blocking
+3. **[Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md)**: Messages survive consumer failures
+4. **[Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md)**: Async coordination via messages
+5. **[Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md)**: Message flow visibility
 </div>
 
 ### Future Directions
@@ -1383,9 +1383,9 @@ messaging:
 - [Circuit Breaker](../patterns/circuit-breaker.md) - Protect consumers
 
 ### Laws
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) - Why buffering matters
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Async vs sync trade-offs
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Message durability
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Why buffering matters
+- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Async vs sync trade-offs
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Message durability
 
 ### Further Reading
 - [Kafka: The Definitive Guide](https://www.confluent.io/resources/kafka-the-definitive-guide/) - O'Reilly

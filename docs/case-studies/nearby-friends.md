@@ -1673,13 +1673,13 @@ class PrivacyDashboard:
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Real-time location updates
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Battery and bandwidth limits
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Privacy fail-safes
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Parallel proximity checks
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Consent synchronization and privacy analytics
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Privacy UX, battery life
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Real-time location updates
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Battery and bandwidth limits
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Privacy fail-safes
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Parallel proximity checks
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Consent synchronization and privacy analytics
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Privacy UX, battery life
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
 - **[Location Privacy](../patterns/location-privacy.md)** - K-anonymity, fuzzing

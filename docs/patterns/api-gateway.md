@@ -1059,9 +1059,9 @@ POST /circuit-breakers/{service}/reset
 - [Saga Pattern](../patterns/saga.md) - Distributed transactions through gateway
 
 ### Laws
-- [Law 6 (Cognitive Load 🤯)](../part1-axioms/axiom6-human-api/index.md) - API design principles
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Performance implications
-- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/axiom5-epistemology/index.md) - Monitoring and tracing
+- [Law 6 (Cognitive Load 🤯)](../part1-axioms/law6-human-api/index.md) - API design principles
+- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Performance implications
+- [Law 5 (Distributed Knowledge 🧠)](../part1-axioms/law5-epistemology/index.md) - Monitoring and tracing
 
 ### Tools & Technologies
 - **Open Source**: Kong, Zuul, Tyk, Express Gateway

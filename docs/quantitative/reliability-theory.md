@@ -15,7 +15,7 @@ last_updated: 2025-01-23
 
 # Reliability Theory for Distributed Systems
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 Core Principle</h3>
 Reliability theory provides mathematical tools to predict, measure, and improve system dependability. It quantifies the probability that a system performs correctly throughout a specified time duration under stated conditions.
 </div>
@@ -522,4 +522,4 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 
 - **Theory**: [Failure Models](failure-models.md) | [MTBF/MTTR](mtbf-mttr.md) | [Availability Math](availability-math.md)
 - **Practice**: [Fault Tolerance](../patterns/fault-tolerance.md) | [Chaos Engineering](../human-factors/chaos-engineering.md)
-- **Laws**: [Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md) | [Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)
+- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)

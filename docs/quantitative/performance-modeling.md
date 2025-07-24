@@ -15,7 +15,7 @@ last_updated: 2025-01-23
 
 # Performance Modeling for Distributed Systems
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 Core Principle</h3>
 Performance models help predict system behavior under various conditions, enabling data-driven capacity planning and optimization decisions before problems occur in production.
 </div>
@@ -540,4 +540,4 @@ graph LR
 
 - **Theory**: [Little's Law](littles-law.md) | [Queueing Models](queueing-models.md) | [Universal Scalability](universal-scalability.md)
 - **Practice**: [Capacity Planning](capacity-planning.md) | [Load Testing](load-testing.md) | [Monitoring](../patterns/observability.md)
-- **Laws**: [Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md) | [Law 7: Economics](../part1-axioms/axiom7-economics/index.md)
+- **Laws**: [Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md) | [Law 7: Economics](../part1-axioms/law7-economics/index.md)

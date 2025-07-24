@@ -1,7 +1,7 @@
 ---
 title: "Law 7: The Law of Economic Reality 💰"
 description: Every architectural decision is ultimately a financial decision
-type: axiom
+type: law
 difficulty: expert
 reading_time: 10 min
 prerequisites: ["part1-axioms/index.md"]

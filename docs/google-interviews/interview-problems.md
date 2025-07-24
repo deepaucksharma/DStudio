@@ -1,6 +1,6 @@
 # Google System Design Interview Problems
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>How to Use This Guide</h4>
 
 Each problem includes:
@@ -522,7 +522,7 @@ graph TD
 
 ## Practice Exercises
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>Self-Assessment Questions</h4>
 
 After each practice session, ask yourself:

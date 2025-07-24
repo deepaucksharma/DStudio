@@ -1,7 +1,7 @@
 ---
 title: "Law 5: The Law of Distributed Knowledge 🧠"
 description: In distributed systems, truth is local, knowledge is partial, and certainty is expensive
-type: axiom
+type: law
 difficulty: expert
 reading_time: 12 min
 prerequisites: ["part1-axioms/index.md", "axiom1-failure/index.md", "axiom2-asynchrony/index.md", "axiom3-emergence/index.md", "axiom4-tradeoffs/index.md"]

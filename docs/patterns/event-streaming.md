@@ -75,7 +75,7 @@ graph LR
 
 ### Key Properties
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🔑 Stream Processing Principles</h3>
 
 1. **Infinite Data**: Streams are unbounded sequences

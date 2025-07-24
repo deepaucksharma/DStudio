@@ -34,7 +34,7 @@ From powering GitHub's code search across 200+ million repositories to enabling 
 
 ### Law 4: Multidimensional Optimization - Search Quality vs Speed
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>⚖️ Multidimensional Optimization in Action</h4>
 <p><strong>Search involves fundamental trade-offs</strong> - You can optimize for search speed, relevance quality, or resource usage, but optimizing all three simultaneously requires careful architectural choices.</p>
 </div>
@@ -75,7 +75,7 @@ graph TB
 
 ### Law 2: Asynchronous Reality - Real-time Indexing
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>⏱️ Asynchronous Reality in Action</h4>
 <p><strong>Search indexes lag behind reality</strong> - Documents become searchable with near-real-time latency, not instantly. Elasticsearch optimizes this gap to under 1 second.</p>
 </div>

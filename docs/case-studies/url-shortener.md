@@ -33,9 +33,9 @@ A URL shortener converts long URLs into short, manageable links while providing 
 - Spam/malware detection
 - URL expiration handling
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Redirect Performance
+#### 🚀 Law 1 (Latency): Redirect Performance
 ```text
 Latency Budget (50ms total):
 - DNS lookup: 10ms
@@ -135,7 +135,7 @@ graph LR
     end
 ```
 
-#### 💾 Axiom 2 (Capacity): Storage Optimization
+#### 💾 Law 2 (Capacity): Storage Optimization
 ```text
 Storage Requirements:
 - URLs: 100M/day × 365 days × 5 years = 180B URLs
@@ -217,7 +217,7 @@ graph LR
 | Warm | Regular URLs | 1-100 hits/day | $0.05 | Age > 30 days |
 | Cold | Archive | <1 hit/day | $0.02 | Age > 90 days & access < 10 |
 
-#### 🔥 Axiom 3 (Failure): Resilience and Recovery
+#### 🔥 Law 3 (Failure): Resilience and Recovery
 ```text
 Failure Modes:
 1. Database failures
@@ -328,7 +328,7 @@ graph TD
     T -->|Yes| R2[Use Modified]
 ```
 
-#### 🔀 Axiom 4 (Concurrency): Parallel Processing
+#### 🔀 Law 4 (Concurrency): Parallel Processing
 ```text
 Concurrency Challenges:
 - Simultaneous URL shortening
@@ -427,7 +427,7 @@ graph LR
     T1 --> T2 --> T3 --> T4
 ```
 
-#### 🤝 Axiom 5 (Coordination): Distributed Consensus
+#### 🤝 Law 5 (Coordination): Distributed Consensus
 ```text
 Coordination Needs:
 - Short code uniqueness
@@ -541,7 +541,7 @@ stateDiagram-v2
     Wait --> [*]
 ```
 
-#### 👁️ Axiom 6 (Observability): Analytics Pipeline
+#### 👁️ Law 6 (Observability): Analytics Pipeline
 ```text
 Analytics Requirements:
 - Click tracking (time, location, device)
@@ -662,7 +662,7 @@ graph LR
 | Geographic | <200ms | 5K/s | Materialized views |
 | Full report | <1s | 1K/s | Parallel queries |
 
-#### 👤 Axiom 7 (Human Interface): Management Tools
+#### 👤 Law 7 (Human Interface): Management Tools
 ```text
 User Interfaces:
 - Developer API
@@ -778,7 +778,7 @@ sequenceDiagram
     Note over C,DB: Rate limiting applied per key
 ```
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 8 (Economics): Cost Optimization
 ```text
 Cost Components:
 - Storage: $0.10/GB/month
@@ -1354,8 +1354,8 @@ Analytics     10M events/s    Kafka throughput
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md) - CDN and caching strategies
-- [Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md) - Cost optimization techniques
+- [Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md) - CDN and caching strategies
+- [Law 7: Economics 💰](../part1-axioms/law7-economics/index.md) - Cost optimization techniques
 - [Caching Strategies](../patterns/caching-strategies.md) - Multi-level cache design
 - [Rate Limiting](../patterns/rate-limiting.md) - Protecting against abuse
 

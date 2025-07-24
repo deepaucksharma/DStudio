@@ -18,7 +18,7 @@ last_updated: 2025-01-23
 
 **Tracking causality and ordering of events in distributed systems**
 
-<div class="axiom-box">
+<div class="law-box">
 Vector clocks solve the fundamental problem of determining event ordering in distributed systems without synchronized physical clocks - they capture the "happens-before" relationship between events across multiple nodes.
 </div>
 
@@ -699,7 +699,7 @@ graph TD
 
 ## Summary and Best Practices
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 Vector Clock Decision Framework</h3>
 
 **Use Vector Clocks when:**

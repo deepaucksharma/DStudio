@@ -34,7 +34,7 @@ Originally developed at Facebook for inbox search, Cassandra powers mission-crit
 
 ### Law 1: Correlated Failure - No Single Point of Failure
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>⛓️ Correlated Failure Law in Action</h4>
 <p><strong>Traditional databases fail together</strong> - Master-slave architectures create correlated failure points. Cassandra's ring topology eliminates this by making every node a master.</p>
 </div>
@@ -84,7 +84,7 @@ graph TB
 
 ### Law 4: Multidimensional Optimization - CAP Theorem Trade-offs
 
-<div class="axiom-box">
+<div class="law-box">
 <h4>⚖️ Multidimensional Optimization in Action</h4>
 <p><strong>You can't have it all</strong> - Cassandra chooses Availability and Partition tolerance over strict Consistency, then provides tunable consistency levels to find the right balance.</p>
 </div>

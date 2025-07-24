@@ -59,7 +59,7 @@ graph TB
 
 ### The WAL Protocol
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🔑 The Golden Rule</h3>
 
 **Write-Ahead Logging Protocol**:

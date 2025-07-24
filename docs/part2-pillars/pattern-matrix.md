@@ -29,7 +29,7 @@ Human      +     -     -     --    ++     +      +      --
 Cost       +     -     +     --    --     +/-    ++     -
 
 Legend:
-+++ Strongly improves axiom constraint
++++ Strongly improves law constraint
 ++  Moderately improves
 +   Slightly improves
 +/- Context dependent

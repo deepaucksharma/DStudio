@@ -483,13 +483,13 @@ Level 4: Correlated Failures
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Simple put/get API and clear error handling reduce cognitive load
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Hinted handoff and Merkle trees ensure availability despite 100s of daily node failures
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - DynamoDB's SSD storage and in-memory caching achieve <10ms latency by respecting physical constraints
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Vector clocks track causality and enable conflict resolution for concurrent updates
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Automatic partition splits, gossip protocol, and quorum consensus balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - CloudWatch metrics and X-Ray tracing provide deep operational visibility
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Simple put/get API and clear error handling reduce cognitive load
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Multiple pricing models (on-demand, provisioned, reserved) optimize costs
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - Consistent hashing minimizes data movement during scaling

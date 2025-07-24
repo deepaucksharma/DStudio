@@ -53,7 +53,7 @@ Each pattern in Part III follows this structure:
 ## Pattern Selection Mental Model
 
 ```text
-1. Identify dominant axiom pressure
+1. Identify dominant law pressure
 2. Find patterns that relieve it
 3. Check trade-offs against other laws
 4. Validate with "Choose When" criteria

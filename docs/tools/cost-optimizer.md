@@ -188,7 +188,7 @@
 
 ## Related Resources
 
-- [Economic Reality Law](../part1-axioms/axiom7-economics/index.md)
+- [Economic Reality Law](../part1-axioms/law7-economics/index.md)
 - [FinOps Best Practices](../patterns/finops.md)
 - [Multi-Region Architecture](../patterns/multi-region.md)
 - [Storage Economics](../quantitative/storage-economics.md)

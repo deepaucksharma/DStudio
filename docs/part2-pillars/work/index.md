@@ -18,7 +18,7 @@ Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, s
 - **Pastry station**: Makes desserts
 - **Expeditor**: Coordinates and quality checks
 
-This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - the reality that operations happen independently in time.
+This is distributed work: **breaking down complex tasks into parallel, specialized units that can execute independently while maintaining overall coordination**. This directly connects to [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) - the reality that operations happen independently in time.
 
 💡 **Key Insight**: The best kitchens aren't the ones with the most chefs, but the ones with the smartest work distribution.
 
@@ -48,13 +48,13 @@ How do you break computation into pieces that can run on different machines whil
 
 ## The Fundamental Trade-offs
 
-!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](../../part1-axioms/axiom7-economics/index.md))
+!!! warning "No Free Lunch in Work Distribution" (Related to [Law 7: Law of Economic Reality](../../part1-axioms/law7-economics/index.md))
     Every choice in work distribution involves trade-offs:
 
     **Parallelism vs Coordination Overhead**
     - More workers = More communication needed
     - Amdahl's Law: Serial portions limit speedup
-    - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md))
+    - Eventually coordination costs exceed computation savings (see [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md))
 
     **Latency vs Throughput**
     - Batching improves throughput but increases latency
@@ -224,7 +224,7 @@ gantt
     Store All           :active, par5, after par3 par4, 200
 ```
 
-**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) in action)
+**Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) in action)
 
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
@@ -264,7 +264,7 @@ P = Parallel fraction (can be parallelized)
 N = Number of processors
 
 Example:
-If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](../../part1-axioms/axiom3-emergence/index.md):
+If 10% must be sequential (S=0.1) - a fundamental constraint from [Law 3: Law of Emergent Chaos](../../part1-axioms/law3-emergence/index.md):
 - With 10 processors: Speedup = 5.3x (not 10x!)
 - With 100 processors: Speedup = 9.2x (not 100x!)
 - With ∞ processors: Speedup = 10x (hard limit)
@@ -390,7 +390,7 @@ sequenceDiagram
     R-->>M: Results[]
 ```
 
-**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md))
+**Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md))
 
 | Aspect | Description | Use When |
 |--------|-------------|----------|
@@ -632,7 +632,7 @@ graph LR
 
 ## The Coordination Tax
 
-Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md)):
+Every distributed system pays a coordination tax (detailed in [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md)):
 
 ## Load Balancing Strategies
 
@@ -644,7 +644,7 @@ Every distributed system pays a coordination tax (detailed in [Law 5: Law of Dis
 
 #### Universal Scalability Law
 
-Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](../../part1-axioms/axiom4-tradeoffs/index.md)):
+Neil Gunther's USL extends Amdahl's Law to include coherency costs, addressing the scalability challenges from [Law 4: Law of Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/index.md)):
 
 <div class="formula-box">
 <h4>Universal Scalability Law (USL)</h4>
@@ -1801,12 +1801,12 @@ flowchart TB
 ## Related Resources
 
 ### Foundational Laws
-- [Law 1: Law of Correlated Failure](../../part1-axioms/axiom1-failure/index.md) - Handling worker failures
-- [Law 2: Law of Asynchronous Reality](../../part1-axioms/axiom2-asynchrony/index.md) - Time and causality in distributed work
-- [Law 3: Law of Emergent Chaos](../../part1-axioms/axiom3-emergence/index.md) - Complex behavior from simple rules
-- [Law 4: Law of Multidimensional Optimization](../../part1-axioms/axiom4-tradeoffs/index.md) - Resource limits and scaling
-- [Law 5: Law of Distributed Knowledge](../../part1-axioms/axiom5-epistemology/index.md) - Managing distributed workers
-- [Law 7: Law of Economic Reality](../../part1-axioms/axiom7-economics/index.md) - Cost of distribution
+- [Law 1: Law of Correlated Failure](../../part1-axioms/law1-failure/index.md) - Handling worker failures
+- [Law 2: Law of Asynchronous Reality](../../part1-axioms/law2-asynchrony/index.md) - Time and causality in distributed work
+- [Law 3: Law of Emergent Chaos](../../part1-axioms/law3-emergence/index.md) - Complex behavior from simple rules
+- [Law 4: Law of Multidimensional Optimization](../../part1-axioms/law4-tradeoffs/index.md) - Resource limits and scaling
+- [Law 5: Law of Distributed Knowledge](../../part1-axioms/law5-epistemology/index.md) - Managing distributed workers
+- [Law 7: Law of Economic Reality](../../part1-axioms/law7-economics/index.md) - Cost of distribution
 
 ### Related Pillars
 - [Pillar 2: State](../state/index.md) - Managing distributed computation state

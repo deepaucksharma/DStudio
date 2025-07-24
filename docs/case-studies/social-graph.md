@@ -31,10 +31,10 @@ The key insight: **treat the social graph as both a storage and computation prob
 
 ## Part 1: The Physics of Social Networks
 
-### Axiom 1: Growth - Power Law Distribution
+### Law 1: Growth - Power Law Distribution
 
-<div class="axiom-box">
-<h4>📈 Growth Axiom in Action</h4>
+<div class="law-box">
+<h4>📈 Growth Law in Action</h4>
 <p><strong>Social networks follow power laws</strong> - 80% of users have <200 friends, while 0.1% (celebrities) have >1M followers, creating extreme load imbalances.</p>
 </div>
 
@@ -75,10 +75,10 @@ graph LR
 | Influencers | 0.9% | 50,000 | High | High QPS |
 | Celebrities | 0.1% | 10M+ | Extreme | Hotspot risk |
 
-### Axiom 2: Concurrency - Six Degrees of Separation
+### Law 2: Concurrency - Six Degrees of Separation
 
-<div class="axiom-box">
-<h4>🔗 Concurrency Axiom in Action</h4>
+<div class="law-box">
+<h4>🔗 Concurrency Law in Action</h4>
 <p><strong>Graph traversal requires massive parallelism</strong> - finding connections between any two users typically requires exploring millions of paths simultaneously.</p>
 </div>
 

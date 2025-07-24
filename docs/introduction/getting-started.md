@@ -173,7 +173,7 @@ graph LR
 
 | Week | Focus | Key Activities | Deliverables |
 |------|-------|----------------|-------------|
-| **1-2** | Core Laws | • Read [Law 1: Failure](../part1-axioms/axiom1-failure/index.md)<br/>• Study Laws 2-4<br/>• Work examples | Understanding checklist |
+| **1-2** | Core Laws | • Read [Law 1: Failure](../part1-axioms/law1-failure/index.md)<br/>• Study Laws 2-4<br/>• Work examples | Understanding checklist |
 | **3-4** | First Patterns | • [Circuit Breaker](../patterns/circuit-breaker.md)<br/>• [Retry Logic](../patterns/retry-backoff.md)<br/>• [Load Balancing](../patterns/load-balancing.md) | Implement 1 pattern |
 | **5-6** | Quantitative Tools | • [Little's Law](../quantitative/littles-law.md)<br/>• [Availability Math](../quantitative/availability-math.md)<br/>• Use calculators | Capacity plan |
 | **7-8** | Real Systems | • Study [case studies](../case-studies/index.md)<br/>• [Synthesis exercises](../part1-axioms/synthesis.md) | Final project |
@@ -252,13 +252,13 @@ graph LR
 
 Our advanced framework presents 7 laws that govern all distributed systems:
 
-1. **[Correlated Failure](../part1-axioms/axiom1-failure/index.md)** - Failures cascade and correlate
-2. **[Asynchronous Reality](../part1-axioms/axiom2-asynchrony/index.md)** - No shared time, only happens-before
-3. **[Emergent Chaos](../part1-axioms/axiom3-emergence/index.md)** - Complexity breeds unpredictability
-4. **[Multidimensional Optimization](../part1-axioms/axiom4-tradeoffs/index.md)** - Every choice has ripple effects
-5. **[Distributed Knowledge](../part1-axioms/axiom5-epistemology/index.md)** - Truth is local and uncertain
-6. **[Cognitive Load](../part1-axioms/axiom6-human-api/index.md)** - Human understanding has limits
-7. **[Economic Reality](../part1-axioms/axiom7-economics/index.md)** - Resources shape all decisions
+1. **[Correlated Failure](../part1-axioms/law1-failure/index.md)** - Failures cascade and correlate
+2. **[Asynchronous Reality](../part1-axioms/law2-asynchrony/index.md)** - No shared time, only happens-before
+3. **[Emergent Chaos](../part1-axioms/law3-emergence/index.md)** - Complexity breeds unpredictability
+4. **[Multidimensional Optimization](../part1-axioms/law4-tradeoffs/index.md)** - Every choice has ripple effects
+5. **[Distributed Knowledge](../part1-axioms/law5-epistemology/index.md)** - Truth is local and uncertain
+6. **[Cognitive Load](../part1-axioms/law6-human-api/index.md)** - Human understanding has limits
+7. **[Economic Reality](../part1-axioms/law7-economics/index.md)** - Resources shape all decisions
 
 ### 🔧 Patterns & Solutions
 
@@ -490,13 +490,13 @@ Ready to begin your journey? Here are your immediate next steps:
 
 1. **Choose Your Path**: Select one of the learning paths above
 2. **Set a Schedule**: Block time for focused learning
-3. **Start with Law 1**: [Begin with failure](../part1-axioms/axiom1-failure/index.md)
+3. **Start with Law 1**: [Begin with failure](../part1-axioms/law1-failure/index.md)
 4. **Join the Community**: Engage with other learners
 
 !!! success "You're Ready!"
     You now have everything you need to master distributed systems from first principles. Remember: this isn't about memorizing solutions—it's about understanding the fundamental constraints that shape all distributed systems.
     
-    **Your journey starts here. Let's begin! →** [Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md)
+    **Your journey starts here. Let's begin! →** [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md)
 
 ---
 

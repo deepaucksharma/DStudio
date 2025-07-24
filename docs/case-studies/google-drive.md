@@ -1500,14 +1500,14 @@ Google Drive demonstrates how modern distributed systems can make cloud storage 
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Sync speed, cache placement
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Storage tiering, deduplication
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Replication, conflict resolution
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Parallel uploads, collaborative editing
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Distributed sync, consistency
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Sync tracking, storage metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Selective sync, offline mode
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Storage costs, tiering strategy
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Sync speed, cache placement
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Storage tiering, deduplication
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Replication, conflict resolution
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Parallel uploads, collaborative editing
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Distributed sync, consistency
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Sync tracking, storage metrics
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Selective sync, offline mode
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Storage costs, tiering strategy
 
 ### 🏛️ Related Patterns
 - **[Content-Addressed Storage](../patterns/cas.md)** - Deduplication foundation

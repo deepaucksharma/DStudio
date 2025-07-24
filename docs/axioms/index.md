@@ -32,7 +32,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 <div class="laws-structure">
   <h3>Physical Laws (1-3)</h3>
   <div class="laws-grid">
-    <a href="../part1-axioms/axiom1-failure/index.md" class="law-card law-1">
+    <a href="../part1-axioms/law1-failure/index.md" class="law-card law-1">
       <div class="law-number">1</div>
       <div class="law-content">
         <h3>⛓️ Law of Correlated Failure</h3>
@@ -46,7 +46,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom2-asynchrony/index.md" class="law-card law-2">
+    <a href="../part1-axioms/law2-asynchrony/index.md" class="law-card law-2">
       <div class="law-number">2</div>
       <div class="law-content">
         <h3>⏳ Law of Asynchronous Reality</h3>
@@ -60,7 +60,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom3-emergence/index.md" class="law-card law-3">
+    <a href="../part1-axioms/law3-emergence/index.md" class="law-card law-3">
       <div class="law-number">3</div>
       <div class="law-content">
         <h3>🌪️ Law of Emergent Chaos</h3>
@@ -77,7 +77,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 
   <h3>Trade-offs (4-5)</h3>
   <div class="laws-grid">
-    <a href="../part1-axioms/axiom4-tradeoffs/index.md" class="law-card law-4">
+    <a href="../part1-axioms/law4-tradeoffs/index.md" class="law-card law-4">
       <div class="law-number">4</div>
       <div class="law-content">
         <h3>⚖️ Law of Multidimensional Optimization</h3>
@@ -91,7 +91,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom5-epistemology/index.md" class="law-card law-5">
+    <a href="../part1-axioms/law5-epistemology/index.md" class="law-card law-5">
       <div class="law-number">5</div>
       <div class="law-content">
         <h3>🧠 Law of Distributed Knowledge</h3>
@@ -108,7 +108,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 
   <h3>Human Interface (6-7)</h3>
   <div class="laws-grid">
-    <a href="../part1-axioms/axiom6-human-api/index.md" class="law-card law-6">
+    <a href="../part1-axioms/law6-human-api/index.md" class="law-card law-6">
       <div class="law-number">6</div>
       <div class="law-content">
         <h3>🤯 Law of Cognitive Load</h3>
@@ -122,7 +122,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
       </div>
     </a>
 
-    <a href="../part1-axioms/axiom7-economics/index.md" class="law-card law-7">
+    <a href="../part1-axioms/law7-economics/index.md" class="law-card law-7">
       <div class="law-number">7</div>
       <div class="law-content">
         <h3>💰 Law of Economic Reality</h3>
@@ -214,9 +214,9 @@ graph TD
   
   <div class="alternative-paths">
     <p>Or start with a specific law:</p>
-    <a href="../part1-axioms/axiom1-failure/index.md">⛓️ Law of Correlated Failure →</a>
-    <a href="../part1-axioms/axiom2-asynchrony/index.md">⏳ Law of Asynchronous Reality →</a>
-    <a href="../part1-axioms/axiom3-emergence/index.md">🌪️ Law of Emergent Chaos →</a>
+    <a href="../part1-axioms/law1-failure/index.md">⛓️ Law of Correlated Failure →</a>
+    <a href="../part1-axioms/law2-asynchrony/index.md">⏳ Law of Asynchronous Reality →</a>
+    <a href="../part1-axioms/law3-emergence/index.md">🌪️ Law of Emergent Chaos →</a>
   </div>
 </div>
 

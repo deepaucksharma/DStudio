@@ -1590,7 +1590,7 @@ class Geocoder:
 
 ### Comprehensive Design Decision Matrix
 
-| Design Decision | Axiom 1<br/>🚀 Latency | Axiom 2<br/>💾 Capacity | Axiom 3<br/>🔥 Failure | Axiom 4<br/>🔀 Concurrency | Axiom 5<br/>🤝 Coordination | Axiom 6<br/>👁️ Observability | Axiom 7<br/>👤 Human | Axiom 8<br/>💰 Economics |
+| Design Decision | Law 1<br/>🚀 Latency | Law 2<br/>💾 Capacity | Law 3<br/>🔥 Failure | Law 4<br/>🔀 Concurrency | Law 5<br/>🤝 Coordination | Law 6<br/>👁️ Observability | Law 7<br/>👤 Human | Law 8<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------||
 | **Vector Tiles** | ✅ Client rendering | ✅ 70% smaller | ✅ Offline capable | ✅ GPU parallel | ⚪ | ✅ Render metrics | ✅ Smooth zoom | ✅ Bandwidth savings |
 | **Contraction Hierarchies** | ✅ <10ms routing | ✅ Preprocessed | ✅ Static fallback | ✅ Bidirectional | ✅ Graph updates | ✅ Route timing | ✅ Fast directions | ✅ CPU efficient |
@@ -1807,13 +1807,13 @@ The success of Google Maps comes from treating the Earth not as a static dataset
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Tile serving, routing speed
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Petabyte-scale storage
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Multi-region redundancy
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Parallel tile generation
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Global data consistency and traffic accuracy metrics
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Intuitive navigation
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Infrastructure costs
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Tile serving, routing speed
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Petabyte-scale storage
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Multi-region redundancy
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Parallel tile generation
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Global data consistency and traffic accuracy metrics
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Intuitive navigation
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Infrastructure costs
 
 ### 🏛️ Related Patterns
 - **[Tile Pyramid](../patterns/tile-pyramid.md)** - Multi-zoom tiles

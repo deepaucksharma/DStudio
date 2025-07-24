@@ -31,9 +31,9 @@ A distributed key-value store provides a simple get/put/delete interface while h
 - Multi-datacenter support
 - ACID transactions (optional)
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Storage Hierarchy
+#### 🚀 Law 1 (Latency): Storage Hierarchy
 ```text
 Latency Breakdown:
 - CPU cache: 0.5ns
@@ -98,7 +98,7 @@ graph TB
 | sync | Wait for local disk | ~10ms | Important data |
 | quorum | Wait for replication | ~50ms | Critical data |
 
-#### 💾 Axiom 2 (Capacity): Storage Engine Design
+#### 💾 Law 2 (Capacity): Storage Engine Design
 ```text
 Storage Requirements:
 - 10B keys × 1KB avg value = 10TB data
@@ -197,7 +197,7 @@ sequenceDiagram
     end
 ```
 
-#### 🔥 Axiom 3 (Failure): Replication & Recovery
+#### 🔥 Law 3 (Failure): Replication & Recovery
 ```text
 Failure Modes:
 1. Node crash - data on disk survives
@@ -324,7 +324,7 @@ graph TB
 | Disk Failure | I/O errors | Re-replicate from peers | No loss if replicas exist |
 | Data Corruption | Checksum mismatch | Restore from replica | Self-healing |
 
-#### 🔀 Axiom 4 (Concurrency): Conflict Resolution
+#### 🔀 Law 4 (Concurrency): Conflict Resolution
 ```text
 Concurrency Challenges:
 - Concurrent writes to same key
@@ -445,7 +445,7 @@ graph LR
     style DEL fill:#ff6b6b
 ```
 
-#### 🤝 Axiom 5 (Coordination): Consensus & Membership
+#### 🤝 Law 5 (Coordination): Consensus & Membership
 ```text
 Coordination Needs:
 - Cluster membership
@@ -571,7 +571,7 @@ sequenceDiagram
 | Max Log Size | 1GB | Trigger snapshot |
 | Snapshot Threshold | 10K entries | Compact log |
 
-#### 👁️ Axiom 6 (Observability): Metrics & Debugging
+#### 👁️ Law 6 (Observability): Metrics & Debugging
 ```text
 Key Metrics:
 - Operations: get/put/delete per second
@@ -689,7 +689,7 @@ sequenceDiagram
 | Heap Profiler | Memory analysis | Detect memory leaks |
 | Query Analyzer | Access patterns | Optimize schema |
 
-#### 👤 Axiom 7 (Human Interface): Operations & Management
+#### 👤 Law 7 (Human Interface): Operations & Management
 ```text
 Operational Needs:
 - Easy cluster management
@@ -812,7 +812,7 @@ alerts:
     severity: info
 ```
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 8 (Economics): Cost Optimization
 ```text
 Cost Factors:
 - Storage: $0.10/GB/month (SSD)
@@ -1378,8 +1378,8 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 ### 🔗 Related Concepts & Deep Dives
 
 **Prerequisite Understanding:**
-- [Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md) - Consensus and distributed coordination
-- [Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md) - Failure modes and recovery strategies
+- [Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md) - Consensus and distributed coordination
+- [Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md) - Failure modes and recovery strategies
 - [Consistent Hashing Pattern](../case-studies/consistent-hashing.md) - Data distribution technique
 - [CAP Theorem](../part2-pillars/truth/index.md#cap-theorem) - Fundamental trade-offs
 

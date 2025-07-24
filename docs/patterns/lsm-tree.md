@@ -578,9 +578,9 @@ def handle_tombstones(self):
 ## Related Patterns
 
 - [Write-Ahead Log (WAL)](wal.md) - Durability mechanism
-- [B-Tree](b-tree.md) - Alternative storage structure
-- [Merge Sort](../algorithms/merge-sort.md) - Used in compaction
-- [Bloom Filter](../probabilistic/bloom-filter.md) - Read optimization
+- [Bloom Filter](bloom-filter.md) - Read optimization for LSM trees
+- [Sharding](sharding.md) - Distributing LSM trees across nodes
+- [Consistent Hashing](../case-studies/consistent-hashing.md) - Key distribution
 
 ## References
 

@@ -30,9 +30,9 @@ Distributed rate limiter protecting backend services across multiple servers wit
 
 **Requirements:** Sub-ms latency, multiple strategies, accurate distributed counting, graceful degradation, hot configuration
 
-### 📐 Axiom Analysis
+### 📐 Law Analysis
 
-#### 🚀 Axiom 1 (Latency): Speed of Light Constraints
+#### 🚀 Law 1 (Latency): Speed of Light Constraints
 ```text
 Latency Budget:
 - Total API call budget: 100ms
@@ -83,7 +83,7 @@ graph TB
 | Local Threshold | 80% of limit | Reduce distributed calls |
 | Sync Interval | 100ms | Balance accuracy vs load |
 
-#### 💾 Axiom 2 (Capacity): Finite Resources
+#### 💾 Law 2 (Capacity): Finite Resources
 ```text
 Scale Requirements:
 - 10M requests/second across fleet
@@ -144,7 +144,7 @@ graph TB
 | Replicas | 100 | - | 10M total req/s |
 | Storage | 10Gi | - | Persistent state |
 
-#### 🔥 Axiom 3 (Failure): Byzantine Failures
+#### 🔥 Law 3 (Failure): Byzantine Failures
 ```text
 Failure Modes:
 1. Rate limiter node crash
@@ -194,7 +194,7 @@ stateDiagram-v2
 | Fallback Strategy | Fail open | Prioritize availability |
 | Local Limits | Conservative | Prevent abuse during outage |
 
-#### 🔀 Axiom 4 (Concurrency): Race Conditions
+#### 🔀 Law 4 (Concurrency): Race Conditions
 ```text
 Concurrency Challenges:
 - Simultaneous requests from same user
@@ -248,7 +248,7 @@ graph LR
 
 **Atomicity Guarantee:** All operations execute atomically in Redis, preventing race conditions.
 
-#### 🤝 Axiom 5 (Coordination): Distributed Consensus
+#### 🤝 Law 5 (Coordination): Distributed Consensus
 ```text
 Coordination Requirements:
 - Consistent rate limit enforcement
@@ -302,7 +302,7 @@ graph TB
 | Seed Nodes | 3 | Bootstrap discovery |
 | CRDT Type | G-Counter | Conflict-free counting |
 
-#### 👁️ Axiom 6 (Observability): Monitoring
+#### 👁️ Law 6 (Observability): Monitoring
 ```text
 Key Metrics:
 - Request rate by endpoint/user
@@ -360,7 +360,7 @@ graph TB
 | rate_limiter.denials | Counter | reason, endpoint | rate > 10% |
 | rate_limiter.fallbacks | Counter | reason | rate > 1% |
 
-#### 👤 Axiom 7 (Human Interface): Operations
+#### 👤 Law 7 (Human Interface): Operations
 ```text
 Operational Requirements:
 - Dynamic limit adjustments
@@ -415,7 +415,7 @@ sequenceDiagram
 | /api/v1/metrics | GET | Current metrics |
 | /api/v1/debug/{key} | GET | Debug specific key |
 
-#### 💰 Axiom 8 (Economics): Cost Optimization
+#### 💰 Law 8 (Economics): Cost Optimization
 ```text
 Cost Factors:
 - Redis cluster: $500/month
@@ -1007,13 +1007,13 @@ graph TD
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Clear error messages with retry-after headers
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Sub-millisecond checks require local caching with 80% hit rate
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Rate limiting protects backend capacity from overload
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Fail-open strategy ensures availability during Redis outages
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Lock-free algorithms handle 10M concurrent requests/sec
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Gossip protocol synchronizes distributed counters and enables debugging
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Clear error messages with retry-after headers
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Local caching reduces infrastructure costs by 80%
 
 ### 🏛️ Related Patterns (Part III)
 - **[Rate Limiting](../patterns/rate-limiting.md)** - Core pattern implemented with token bucket algorithm

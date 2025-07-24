@@ -388,7 +388,7 @@ graph TD
 
 ## How Patterns Relate to Laws
 
-Each pattern addresses specific axiom constraints:
+Each pattern addresses specific law constraints:
 
 ```proto
 Pattern               Primary Laws        Trade-offs
@@ -491,7 +491,7 @@ Ready to test your pattern knowledge?
 
 ### 📚 Universal Principles
 
-1. **Patterns emerge from constraints** - Every pattern solves specific axiom limitations
+1. **Patterns emerge from constraints** - Every pattern solves specific law limitations
 2. **Trade-offs are mandatory** - No free lunch
 3. **Context determines choice** - Same problem + different constraints = different pattern
 4. **Simple beats complex** - Start with simplest working solution

@@ -4,7 +4,7 @@ description: "Making distributed knowledge visible while respecting cognitive li
 type: human-factors
 difficulty: beginner
 reading_time: 25 min
-prerequisites: ["part1-axioms/axiom5-epistemology", "part1-axioms/axiom6-human-api"]
+prerequisites: ["part1-axioms/law5-epistemology", "part1-axioms/law6-human-api"]
 status: complete
 last_updated: 2025-07-23
 ---

@@ -19,7 +19,7 @@ last_updated: 2025-01-23
 
 The 7 laws don't exist in isolation - they interact and compound to create five fundamental challenges that every distributed system must address:
 
-<div class="axiom-to-pillar-flow">
+<div class="law-to-pillar-flow">
   <div class="flow-item">
     <div class="flow-laws">Asynchrony + Optimization</div>
     <div class="flow-arrow">→</div>
@@ -351,7 +351,7 @@ Each pillar includes hands-on labs:
   opacity: 0.95;
 }
 
-.axiom-to-pillar-flow {
+.law-to-pillar-flow {
   background: #f5f5f5;
   padding: 2rem;
   border-radius: 12px;

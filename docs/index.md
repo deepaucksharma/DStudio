@@ -32,7 +32,7 @@ hide:
 
     Discover the irreducible constraints that shape all distributed systems
 
-    [:octicons-arrow-right-24: Explore the Laws](axioms/index.md)
+    [:octicons-arrow-right-24: Explore the Laws](part1-axioms/index.md)
 
 -   :material-pillar:{ .lg .middle } __The 5 Foundational Pillars__
 

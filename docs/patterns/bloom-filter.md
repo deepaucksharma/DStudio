@@ -18,7 +18,7 @@ last_updated: 2025-01-23
 
 **Space-efficient probabilistic set membership testing**
 
-<div class="axiom-box">
+<div class="law-box">
 A Bloom filter trades perfect accuracy for massive space savings - it can tell you "definitely not in set" with 100% certainty, but "probably in set" with measurable uncertainty.
 </div>
 
@@ -653,7 +653,7 @@ graph LR
 
 ## Summary
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 When to Use Bloom Filters</h3>
 
 **Perfect for:**

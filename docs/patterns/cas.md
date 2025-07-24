@@ -8,7 +8,7 @@ reading_time: 30 min
 prerequisites: []
 when_to_use: When building lock-free concurrent data structures
 when_not_to_use: When locks are simpler and sufficient
-status: stub
+status: complete
 last_updated: 2025-07-23
 ---
 # CAS (Compare-and-Swap)
@@ -16,7 +16,7 @@ last_updated: 2025-07-23
 <!-- Navigation -->
 [Home](../introduction/index.md) → [Part III: Patterns](index.md) → **CAS (Compare-and-Swap)**
 
-> 🚧 This pattern documentation is planned for future development.
+**Lock-free atomic operation for building high-performance concurrent data structures**
 
 ## Overview
 

@@ -866,13 +866,13 @@ sequenceDiagram
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws (Part I)
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Lock-free data structures handle millions of concurrent location updates
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Real-time dashboards track driver density and system health per region
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Driver app design optimizes for one-handed operation while driving
-- **[Law 7: Economics 💰](../part1-axioms/axiom7-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Multi-region replication and graceful degradation handle infrastructure failures
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - Speed of light limits (150ms SF→Singapore) drive regional architecture decisions
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Lock-free data structures handle millions of concurrent location updates
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - H3 hexagonal grid partitioning and Ringpop gossip protocol balance multiple trade-offs
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Real-time dashboards track driver density and system health per region
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Driver app design optimizes for one-handed operation while driving
+- **[Law 7: Economics 💰](../part1-axioms/law7-economics/index.md)** - Efficient matching algorithms reduce driver idle time and fuel costs
 
 ### 🏛️ Related Patterns (Part III)
 - **[Sharding & Partitioning](../patterns/sharding.md)** - H3 hexagonal grid provides natural geographic sharding boundaries

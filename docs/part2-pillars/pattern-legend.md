@@ -16,7 +16,7 @@ last_updated: 2025-07-20
 
 ## Visual Language for Quick Scanning
 
-### AXIOM PRESSURE INDICATORS
+### LAW PRESSURE INDICATORS
 ```text
 🎯 Latency critical      ⚡ Capacity constrained
 🔧 Failure prone        🔄 Concurrency heavy

@@ -2265,12 +2265,12 @@ Regional servers reduce latency; cross-region replication; compliance ready
 ## 🔍 Related Concepts & Deep Dives
 
 ### 📚 Relevant Laws
-- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/axiom2-asynchrony/index.md)** - WebSocket for real-time, regional servers
-- **[Law 4: Trade-offs ⚖️](../part1-axioms/axiom4-tradeoffs/index.md)** - Connection pooling, message queuing
-- **[Law 1: Failure ⛓️](../part1-axioms/axiom1-failure/index.md)** - Offline queue, retry mechanisms
-- **[Law 3: Emergence 🌪️](../part1-axioms/axiom3-emergence/index.md)** - Actor model, parallel delivery
-- **[Law 5: Epistemology 🧠](../part1-axioms/axiom5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
-- **[Law 6: Human-API 🤯](../part1-axioms/axiom6-human-api/index.md)** - Typing indicators, read receipts
+- **[Law 2: Asynchronous Reality ⏳](../part1-axioms/law2-asynchrony/index.md)** - WebSocket for real-time, regional servers
+- **[Law 4: Trade-offs ⚖️](../part1-axioms/law4-tradeoffs/index.md)** - Connection pooling, message queuing
+- **[Law 1: Failure ⛓️](../part1-axioms/law1-failure/index.md)** - Offline queue, retry mechanisms
+- **[Law 3: Emergence 🌪️](../part1-axioms/law3-emergence/index.md)** - Actor model, parallel delivery
+- **[Law 5: Epistemology 🧠](../part1-axioms/law5-epistemology/index.md)** - Group state sync, message ordering, and monitoring
+- **[Law 6: Human-API 🤯](../part1-axioms/law6-human-api/index.md)** - Typing indicators, read receipts
 
 ### 🏛️ Related Patterns
 - **[WebSocket](../patterns/websocket.md)** - Persistent connections

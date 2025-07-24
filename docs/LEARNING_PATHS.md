@@ -64,15 +64,15 @@ graph LR
 
 **Time Investment**: 🕒 20-25 hours
 
-1. **Day 1-2**: Start with [Law 1: Failure](part1-axioms/axiom1-failure/index.md)
+1. **Day 1-2**: Start with [Law 1: Failure](part1-axioms/law1-failure/index.md)
    - 📖 Read theory (2 hours)
    - 👀 Study cascading failure examples (2 hours)
    - 💻 Complete hands-on exercises (4 hours)
    
 2. **Day 3-8**: Progress through Laws 2-4:
-   - [Law 2: Asynchronous Reality](part1-axioms/axiom2-asynchrony/index.md) - ⏳ Time has no meaning
-   - [Law 3: Emergence](part1-axioms/axiom3-emergence/index.md) - 🌪️ Chaos from scale
-   - [Law 4: Trade-offs](part1-axioms/axiom4-tradeoffs/index.md) - ⚖️ Beyond CAP
+   - [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index.md) - ⏳ Time has no meaning
+   - [Law 3: Emergence](part1-axioms/law3-emergence/index.md) - 🌪️ Chaos from scale
+   - [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index.md) - ⚖️ Beyond CAP
    
    **Learning Strategy**:
    - 🎯 Focus on examples sections first
@@ -130,12 +130,12 @@ graph TD
    - 📊 Study architecture trade-offs
    - 💡 Extract patterns from real systems
    
-2. **Day 3-4**: Deep dive into [Distributed Knowledge](part1-axioms/axiom5-epistemology/index.md)
+2. **Day 3-4**: Deep dive into [Distributed Knowledge](part1-axioms/law5-epistemology/index.md)
    - 🧠 Understand truth and certainty in distributed systems
    - 🏛️ Master Byzantine epistemology
    - 🔍 Apply to consensus protocols
    
-3. **Day 5-7**: Master [Economic Reality](part1-axioms/axiom7-economics/index.md)
+3. **Day 5-7**: Master [Economic Reality](part1-axioms/law7-economics/index.md)
    - 💰 Make cost-aware architecture decisions
    - 📈 Build TCO models
    - ⚖️ Balance performance vs cost
@@ -153,10 +153,10 @@ graph TD
 **Goal**: Make strategic technical decisions
 
 #### Executive Path (3 days)
-1. Start with [Economic Reality](part1-axioms/axiom7-economics/index.md)
+1. Start with [Economic Reality](part1-axioms/law7-economics/index.md)
    - Understand cost drivers
    - Review cloud optimization strategies
-2. Study [Cognitive Load](part1-axioms/axiom6-human-api/index.md)
+2. Study [Cognitive Load](part1-axioms/law6-human-api/index.md)
    - Plan for operational load
    - Design sustainable on-call
 3. Review [Trade-off Matrices](case-studies/amazon-dynamo.md#trade-off-analysis)
@@ -205,8 +205,8 @@ journey
 **Learning Milestones**:
 
 1. **Foundation** (🕒 1 week)
-   - ⏳ [Law 2: Asynchronous Reality](part1-axioms/axiom2-asynchrony/index.md)
-   - 🧠 [Law 5: Epistemology](part1-axioms/axiom5-epistemology/index.md)
+   - ⏳ [Law 2: Asynchronous Reality](part1-axioms/law2-asynchrony/index.md)
+   - 🧠 [Law 5: Epistemology](part1-axioms/law5-epistemology/index.md)
    
 2. **Theory** (🕒 1 week)
    - 🔺 [CAP Theorem implications](part2-pillars/truth/index.md)
@@ -217,15 +217,15 @@ journey
    - 📋 [DynamoDB](case-studies/amazon-dynamo.md) - Eventually consistent at scale
    
 4. **Advanced** (🕒 1 week)
-   - 🧪 [Distributed Knowledge Exercises](part1-axioms/axiom5-epistemology/exercises.md)
+   - 🧪 [Distributed Knowledge Exercises](part1-axioms/law5-epistemology/exercises.md)
    - 🎯 [Consistency Tuning](human-factors/consistency-tuning.md)
 
 ### 🚀 Path 2: Performance and Scale
 **For**: Performance engineers, SREs
 
 1. **Foundation**
-   - [Law 4: Trade-offs](part1-axioms/axiom4-tradeoffs/index.md)
-   - [Law 3: Emergence](part1-axioms/axiom3-emergence/index.md)
+   - [Law 4: Trade-offs](part1-axioms/law4-tradeoffs/index.md)
+   - [Law 3: Emergence](part1-axioms/law3-emergence/index.md)
    
 2. **Quantitative**
    - [Latency Ladder](quantitative/latency-ladder.md)
@@ -244,30 +244,30 @@ journey
 **For**: FinOps practitioners, Engineering leaders
 
 1. **Foundation**
-   - [Law 7: Economics](part1-axioms/axiom7-economics/index.md)
+   - [Law 7: Economics](part1-axioms/law7-economics/index.md)
    
 2. **Analysis**
-   - [Total Cost of Ownership Calculator](part1-axioms/axiom7-economics/exercises.md#exercise-1-total-cost-of-ownership-tco-calculator)
-   - [Build vs Buy Decision Framework](part1-axioms/axiom7-economics/exercises.md#exercise-2-build-vs-buy-decision-framework)
+   - [Total Cost of Ownership Calculator](part1-axioms/law7-economics/exercises.md#exercise-1-total-cost-of-ownership-tco-calculator)
+   - [Build vs Buy Decision Framework](part1-axioms/law7-economics/exercises.md#exercise-2-build-vs-buy-decision-framework)
    
 3. **Architecture Impact**
    - Review all "Economics" rows in law mapping tables
    - Study cost trade-offs in architecture alternatives
    
 4. **Optimization**
-   - [Cloud Cost Optimization Strategies](part1-axioms/axiom7-economics/exercises.md#exercise-3-cloud-cost-optimization-strategies)
-   - [Multi-Region Deployment Cost Analysis](part1-axioms/axiom7-economics/exercises.md#exercise-4-multi-region-deployment-cost-analysis)
+   - [Cloud Cost Optimization Strategies](part1-axioms/law7-economics/exercises.md#exercise-3-cloud-cost-optimization-strategies)
+   - [Multi-Region Deployment Cost Analysis](part1-axioms/law7-economics/exercises.md#exercise-4-multi-region-deployment-cost-analysis)
 
 ### 🛡️ Path 4: Reliability and Resilience
 **For**: Site reliability engineers, Platform teams
 
 1. **Foundation**
-   - [Law 1: Failure](part1-axioms/axiom1-failure/index.md)
-   - [Law 5: Epistemology](part1-axioms/axiom5-epistemology/index.md)
+   - [Law 1: Failure](part1-axioms/law1-failure/index.md)
+   - [Law 5: Epistemology](part1-axioms/law5-epistemology/index.md)
    
 2. **Mathematics**
    - [Availability Math](quantitative/availability-math.md)
-   - [Theoretical Foundations](part1-axioms/axiom1-failure/index.md#theoretical-foundations)
+   - [Theoretical Foundations](part1-axioms/law1-failure/index.md#theoretical-foundations)
    
 3. **Patterns**
    - [Circuit Breaker](patterns/circuit-breaker.md)
@@ -289,7 +289,7 @@ journey
 3. Use the visual decision frameworks
 
 ### 🔨 For Hands-On Learners
-1. Begin with exercises in each axiom
+1. Begin with exercises in each law
 2. Build the code examples in patterns
 3. Try the calculators and simulations
 
@@ -419,7 +419,7 @@ pie title Time Investment by Role
 - **Operations**: [Human Factors](human-factors/index.md)
 
 ### Most Popular Content
-1. [Correlated Failure Examples](part1-axioms/axiom1-failure/examples.md) - Cascading failure reality
+1. [Correlated Failure Examples](part1-axioms/law1-failure/examples.md) - Cascading failure reality
 2. [Amazon DynamoDB](case-studies/amazon-dynamo.md) - Eventually consistent design
 3. [Circuit Breaker](patterns/circuit-breaker.md) - Failure isolation
 4. [Little's Law](quantitative/littles-law.md) - Queue fundamentals

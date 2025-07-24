@@ -25,7 +25,7 @@ def define_env(env):
     @env.macro
     def law_ref(number, name):
         """Create a reference to a law"""
-        return f'[Law {number}: {name}](../part1-axioms/axiom{number}-{name.lower().replace(" ", "-")}/)'
+        return f'[Law {number}: {name}](../part1-axioms/law{number}-{name.lower().replace(" ", "-")}/)'
     
     @env.macro
     def pillar_ref(number, name):

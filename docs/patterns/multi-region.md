@@ -1010,10 +1010,10 @@ failover test --dry-run
 - [CQRS](../patterns/cqrs.md) - Separate read/write paths
 
 ### Laws
-- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/axiom2-asynchrony/index.md) - Speed of light constraints
-- [Law 7 (Economic Reality 💰)](../part1-axioms/axiom7-economics/index.md) - Cost implications
-- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/axiom1-failure/index.md) - Regional failure modes
-- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/axiom4-tradeoffs/index.md) - Regional capacity planning
+- [Law 2 (Asynchronous Reality ⏳)](../part1-axioms/law2-asynchrony/index.md) - Speed of light constraints
+- [Law 7 (Economic Reality 💰)](../part1-axioms/law7-economics/index.md) - Cost implications
+- [Law 1 (Correlated Failure ⛓️)](../part1-axioms/law1-failure/index.md) - Regional failure modes
+- [Law 4 (Multidimensional Optimization ⚖️)](../part1-axioms/law4-tradeoffs/index.md) - Regional capacity planning
 
 ### Case Studies
 - [Video Streaming Platform](../case-studies/video-streaming.md) - Netflix's approach

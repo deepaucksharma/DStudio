@@ -15,7 +15,7 @@ last_updated: 2025-01-23
 
 # Failure Models in Distributed Systems
 
-<div class="axiom-box">
+<div class="law-box">
 <h3>🎯 Core Insight</h3>
 Different failure models have vastly different detection and recovery complexities. Understanding these models is crucial for designing resilient systems that can handle real-world failures gracefully.
 </div>
@@ -449,7 +449,7 @@ budgets = {
 
 ## Related Concepts
 
-- **Laws**: [Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md) | [Law 3: Emergent Chaos](../part1-axioms/axiom3-emergence/index.md)
+- **Laws**: [Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md) | [Law 3: Emergent Chaos](../part1-axioms/law3-emergence/index.md)
 - **Patterns**: [Circuit Breaker](../patterns/circuit-breaker.md) | [Bulkhead](../patterns/bulkhead.md) | [Timeout](../patterns/timeout.md)
 - **Quantitative**: [Availability Math](availability-math.md) | [Reliability Theory](reliability-theory.md)
 - **Case Studies**: [Netflix Chaos](../case-studies/netflix-chaos.md) | [AWS Outages](../case-studies/aws-outages.md)

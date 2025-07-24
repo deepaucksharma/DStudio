@@ -423,6 +423,6 @@ graph TB
 
 ## Law Connections
 
-- **[Law 1: Correlated Failure](../part1-axioms/axiom1-failure/index.md)**: Leader failure affects all writes
-- **[Law 4: Trade-offs](../part1-axioms/axiom4-tradeoffs/index.md)**: Consistency vs availability balance
-- **[Law 5: Distributed Knowledge](../part1-axioms/axiom5-epistemology/index.md)**: Split-brain from partial knowledge
+- **[Law 1: Correlated Failure](../part1-axioms/law1-failure/index.md)**: Leader failure affects all writes
+- **[Law 4: Trade-offs](../part1-axioms/law4-tradeoffs/index.md)**: Consistency vs availability balance
+- **[Law 5: Distributed Knowledge](../part1-axioms/law5-epistemology/index.md)**: Split-brain from partial knowledge

@@ -4,7 +4,7 @@ description: "Managing cognitive load and operational excellence in distributed 
 type: human-factors
 difficulty: beginner
 reading_time: 3 min
-prerequisites: ["part1-axioms/axiom6-human-api"]
+prerequisites: ["part1-axioms/law6-human-api"]
 status: complete
 last_updated: 2025-07-23
 ---
@@ -168,13 +168,13 @@ Technical Excellence + Human Factors = Operational Success
 ### 📚 Prerequisites
 
 **Required**: 
-- Understanding of [Law 6: Human-API](../part1-axioms/axiom6-human-api/index.md)
+- Understanding of [Law 6: Human-API](../part1-axioms/law6-human-api/index.md)
 - 1-2 years operating production systems
 - Distributed systems basics
 - Process improvement mindset
 
 **Helpful**: 
-- Understanding of [Law 5: Epistemology](../part1-axioms/axiom5-epistemology/index.md)
+- Understanding of [Law 5: Epistemology](../part1-axioms/law5-epistemology/index.md)
 - Incident response experience
 - Team leadership
 - Cognitive science background
