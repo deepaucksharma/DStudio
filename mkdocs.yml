@@ -71,9 +71,6 @@ theme:
   icon:
     logo: material/book-open-variant
     repo: fontawesome/brands/github
-    
-  # Mobile navigation improvements
-  custom_dir: overrides
 
 # Plugins
 plugins:
@@ -132,12 +129,14 @@ extra_css:
   - stylesheets/modular.css
   - stylesheets/laws.css
   - stylesheets/extra.css
+  - stylesheets/pattern-explorer.css
 
 # Extra JavaScript
 extra_javascript:
   - https://unpkg.com/mermaid@10.6.0/dist/mermaid.min.js
   - javascripts/mermaid-init.js
   - javascripts/summarizer.js
+  - javascripts/ui-enhancements.js
 
 # Extra Configuration
 extra:
@@ -188,6 +187,7 @@ nav:
     - "⚖️ Pattern Comparison": patterns/pattern-comparison.md
     - "🎯 Pattern Quiz": patterns/pattern-quiz.md
     - "🔗 Pattern Combinations": patterns/pattern-combinations.md
+    - "🕸️ Pattern Relationships": patterns/pattern-relationships.md
     
     - "Resilience & Reliability":
       - "Circuit Breaker": patterns/circuit-breaker.md
