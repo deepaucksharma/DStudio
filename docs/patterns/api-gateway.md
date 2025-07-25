@@ -58,14 +58,12 @@ Like an airport hub - all flights go through the hub which handles security, cus
 
 ### The Problem Space
 
-<div class="failure-vignette">
-<h4>🔥 Without API Gateway: Mobile App Meltdown</h4>
-E-commerce app talking directly to 20 microservices:
-- 20 different authentication checks
-- Network calls increased battery drain by 300%
-- API changes broke the app constantly
-- Customer complaints about slow performance
-</div>
+!!! danger "🔥 Without API Gateway: Mobile App Meltdown"
+    E-commerce app talking directly to 20 microservices:
+    - 20 different authentication checks
+    - Network calls increased battery drain by 300%
+    - API changes broke the app constantly
+    - Customer complaints about slow performance
 
 ### Core Responsibilities
 
@@ -718,18 +716,15 @@ class VersioningPlugin(GatewayPlugin):
 
 ### Performance Optimization
 
-<div class="decision-box">
-<h4>🎯 Performance Best Practices</h4>
-
-- **Connection Pooling**: Reuse connections to backend services
-- **Async I/O**: Use non-blocking I/O for all operations
-- **Response Streaming**: Stream large responses instead of buffering
-- **Compression**: Enable gzip/brotli for responses
-- **HTTP/2**: Use multiplexing for backend connections
-- **Cache Headers**: Leverage browser and CDN caching
-- **Request Coalescing**: Combine duplicate concurrent requests
-- **Timeout Management**: Set appropriate timeouts for each service
-</div>
+!!! note "🎯 Performance Best Practices"
+    - **Connection Pooling**: Reuse connections to backend services
+    - **Async I/O**: Use non-blocking I/O for all operations
+    - **Response Streaming**: Stream large responses instead of buffering
+    - **Compression**: Enable gzip/brotli for responses
+    - **HTTP/2**: Use multiplexing for backend connections
+    - **Cache Headers**: Leverage browser and CDN caching
+    - **Request Coalescing**: Combine duplicate concurrent requests
+    - **Timeout Management**: Set appropriate timeouts for each service
 
 ### Monitoring and Observability
 
@@ -771,15 +766,12 @@ metrics:
 
 ### Security Considerations
 
-<div class="failure-vignette">
-<h4>⚠️ Common Security Pitfall: Insufficient Rate Limiting</h4>
-API Gateway without proper rate limiting → DDoS attack overwhelmed backend services.
-
-**Solution**:
-- Multiple rate limit levels (global, per-user, per-endpoint)
-- Distributed rate limiting with Redis
-- Adaptive rate limiting based on backend health
-</div>
+!!! danger "⚠️ Common Security Pitfall: Insufficient Rate Limiting"
+    API Gateway without proper rate limiting → DDoS attack overwhelmed backend services.
+    **Solution**:
+    - Multiple rate limit levels (global, per-user, per-endpoint)
+    - Distributed rate limiting with Redis
+    - Adaptive rate limiting based on backend health
 
 ---
 
@@ -787,77 +779,62 @@ API Gateway without proper rate limiting → DDoS attack overwhelmed backend ser
 
 ### Case Study: Netflix's Edge Gateway
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: Netflix
-**Scale**: 200M+ subscribers, 1000+ microservices, 100B+ requests/day
-
-**Challenge**: Provide optimal API for diverse clients (TV, mobile, web) across global infrastructure.
-
-**Architecture**:
-
-```mermaid
-graph TB
+!!! info "🏢 Real-World Implementation"
+    **Company**: Netflix
+    **Scale**: 200M+ subscribers, 1000+ microservices, 100B+ requests/day
+    **Challenge**: Provide optimal API for diverse clients (TV, mobile, web) across global infrastructure.
+    **Architecture**:
+    ```mermaid
+    graph TB
     subgraph "Client Devices"
-        TV[Smart TVs]
-        MOB[Mobile Apps]
-        WEB[Web Browsers]
-        GAME[Game Consoles]
+    TV[Smart TVs]
+    MOB[Mobile Apps]
+    WEB[Web Browsers]
+    GAME[Game Consoles]
     end
-    
     subgraph "Edge Tier"
-        CDN[CDN/PoPs]
-        ZUUL[Zuul Gateway]
-        BFF1[TV BFF]
-        BFF2[Mobile BFF]
-        BFF3[Web BFF]
+    CDN[CDN/PoPs]
+    ZUUL[Zuul Gateway]
+    BFF1[TV BFF]
+    BFF2[Mobile BFF]
+    BFF3[Web BFF]
     end
-    
     subgraph "Mid-Tier"
-        API[API Services]
-        FALCOR[Falcor Layer]
+    API[API Services]
+    FALCOR[Falcor Layer]
     end
-    
     subgraph "Backend Services"
-        US[User Service]
-        RS[Recommendation Service]
-        PS[Playback Service]
-        AS[Account Service]
+    US[User Service]
+    RS[Recommendation Service]
+    PS[Playback Service]
+    AS[Account Service]
     end
-    
     TV --> CDN --> ZUUL --> BFF1 --> FALCOR
     MOB --> CDN --> ZUUL --> BFF2 --> FALCOR
     WEB --> CDN --> ZUUL --> BFF3 --> FALCOR
     GAME --> CDN --> ZUUL --> BFF1 --> FALCOR
-    
     FALCOR --> API
     API --> US
     API --> RS
     API --> PS
     API --> AS
-    
     style ZUUL fill:#e91e63,stroke:#880e4f,stroke-width:3px
-```
-
-**Key Decisions**:
-1. **Device-specific BFFs**: Optimize for each client's needs
-2. **Falcor for data fetching**: Efficient JSON graph queries
-3. **Zuul for edge routing**: Dynamic routing and filtering
-4. **Hystrix integration**: Circuit breaking and fallbacks
-
-**Results**:
-- 50% reduction in client requests
-- 75% decrease in payload sizes for mobile
-- 99.99% availability despite backend failures
-- Sub-second response times globally
-
-**Lessons**:
-1. One size doesn't fit all clients
-2. Edge caching crucial for performance
-3. Graceful degradation over perfect consistency
-4. Observability is non-negotiable
-</div>
+    ```
+    **Key Decisions**:
+    1. **Device-specific BFFs**: Optimize for each client's needs
+    2. **Falcor for data fetching**: Efficient JSON graph queries
+    3. **Zuul for edge routing**: Dynamic routing and filtering
+    4. **Hystrix integration**: Circuit breaking and fallbacks
+    **Results**:
+    - 50% reduction in client requests
+    - 75% decrease in payload sizes for mobile
+    - 99.99% availability despite backend failures
+    - Sub-second response times globally
+    **Lessons**:
+    1. One size doesn't fit all clients
+    2. Edge caching crucial for performance
+    3. Graceful degradation over perfect consistency
+    4. Observability is non-negotiable
 
 ### Economic Analysis
 

@@ -80,15 +80,12 @@ last_updated: 2025-07-20
 </div>
 
 ### Step 2: Growth Projection
-<div class="decision-box">
-<h4>📈 Growth Model Selection</h4>
-
-<div class="growth-models" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 15px 0;">
-  <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
+!!! note "📈 Growth Model Selection"
+    <div class="growth-models" style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin: 15px 0;">
+    <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
     <h5 style="margin: 0;">Linear Growth</h5>
     <div style="text-align: center; margin: 10px 0;">
-      <span style="font-size: 1.2em; color: #4CAF50;">Future = Current × (1 + rate × months)</span>
-    </div>
+    <span style="font-size: 1.2em; color: #4CAF50;">Future = Current × (1 + rate × months)</span>
     <svg viewBox="0 0 150 100" style="width: 100%;">
       <line x1="10" y1="80" x2="140" y2="20" stroke="#4CAF50" stroke-width="3"/>
       <line x1="10" y1="90" x2="140" y2="90" stroke="#333" stroke-width="1"/>
@@ -155,70 +152,62 @@ last_updated: 2025-07-20
 </div>
 
 ### Step 3: Safety Margins
-<div class="truth-box">
-<h4>🛟️ Safety Margin Guidelines</h4>
-
-<div class="safety-margins-chart" style="margin: 20px 0;">
-  <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
+!!! info "🛟️ Safety Margin Guidelines"
+    <div class="safety-margins-chart" style="margin: 20px 0;">
+    <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
     <!-- Title -->
     <text x="300" y="20" text-anchor="middle" font-weight="bold">Recommended Safety Margins by Component</text>
-    
     <!-- CPU -->
     <g transform="translate(50, 50)">
-      <text x="0" y="15" font-weight="bold">CPU</text>
-      <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
-      <rect x="100" y="0" width="180" height="30" fill="#4CAF50" rx="3"/>
-      <rect x="280" y="0" width="120" height="30" fill="#81C784" rx="3" opacity="0.7"/>
-      <text x="190" y="20" text-anchor="middle" fill="white">60% Usage</text>
-      <text x="340" y="20" text-anchor="middle" fill="white">40% Margin</text>
-      <text x="420" y="20" font-size="12">Burst handling</text>
+    <text x="0" y="15" font-weight="bold">CPU</text>
+    <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
+    <rect x="100" y="0" width="180" height="30" fill="#4CAF50" rx="3"/>
+    <rect x="280" y="0" width="120" height="30" fill="#81C784" rx="3" opacity="0.7"/>
+    <text x="190" y="20" text-anchor="middle" fill="white">60% Usage</text>
+    <text x="340" y="20" text-anchor="middle" fill="white">40% Margin</text>
+    <text x="420" y="20" font-size="12">Burst handling</text>
     </g>
-    
     <!-- Memory -->
     <g transform="translate(50, 90)">
-      <text x="0" y="15" font-weight="bold">Memory</text>
-      <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
-      <rect x="100" y="0" width="210" height="30" fill="#2196F3" rx="3"/>
-      <rect x="310" y="0" width="90" height="30" fill="#64B5F6" rx="3" opacity="0.7"/>
-      <text x="205" y="20" text-anchor="middle" fill="white">70% Usage</text>
-      <text x="355" y="20" text-anchor="middle" fill="white">30% Margin</text>
-      <text x="420" y="20" font-size="12">GC headroom</text>
+    <text x="0" y="15" font-weight="bold">Memory</text>
+    <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
+    <rect x="100" y="0" width="210" height="30" fill="#2196F3" rx="3"/>
+    <rect x="310" y="0" width="90" height="30" fill="#64B5F6" rx="3" opacity="0.7"/>
+    <text x="205" y="20" text-anchor="middle" fill="white">70% Usage</text>
+    <text x="355" y="20" text-anchor="middle" fill="white">30% Margin</text>
+    <text x="420" y="20" font-size="12">GC headroom</text>
     </g>
-    
     <!-- Network -->
     <g transform="translate(50, 130)">
-      <text x="0" y="15" font-weight="bold">Network</text>
-      <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
-      <rect x="100" y="0" width="150" height="30" fill="#FF9800" rx="3"/>
-      <rect x="250" y="0" width="150" height="30" fill="#FFB74D" rx="3" opacity="0.7"/>
-      <text x="175" y="20" text-anchor="middle" fill="white">50% Usage</text>
-      <text x="325" y="20" text-anchor="middle" fill="white">50% Margin</text>
-      <text x="420" y="20" font-size="12">DDoS/spikes</text>
+    <text x="0" y="15" font-weight="bold">Network</text>
+    <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
+    <rect x="100" y="0" width="150" height="30" fill="#FF9800" rx="3"/>
+    <rect x="250" y="0" width="150" height="30" fill="#FFB74D" rx="3" opacity="0.7"/>
+    <text x="175" y="20" text-anchor="middle" fill="white">50% Usage</text>
+    <text x="325" y="20" text-anchor="middle" fill="white">50% Margin</text>
+    <text x="420" y="20" font-size="12">DDoS/spikes</text>
     </g>
-    
     <!-- Storage -->
     <g transform="translate(50, 170)">
-      <text x="0" y="15" font-weight="bold">Storage</text>
-      <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
-      <rect x="100" y="0" width="150" height="30" fill="#9C27B0" rx="3"/>
-      <rect x="250" y="0" width="150" height="30" fill="#BA68C8" rx="3" opacity="0.7"/>
-      <text x="175" y="20" text-anchor="middle" fill="white">50% Usage</text>
-      <text x="325" y="20" text-anchor="middle" fill="white">50% Margin</text>
-      <text x="420" y="20" font-size="12">Log growth</text>
+    <text x="0" y="15" font-weight="bold">Storage</text>
+    <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
+    <rect x="100" y="0" width="150" height="30" fill="#9C27B0" rx="3"/>
+    <rect x="250" y="0" width="150" height="30" fill="#BA68C8" rx="3" opacity="0.7"/>
+    <text x="175" y="20" text-anchor="middle" fill="white">50% Usage</text>
+    <text x="325" y="20" text-anchor="middle" fill="white">50% Margin</text>
+    <text x="420" y="20" font-size="12">Log growth</text>
     </g>
-    
     <!-- DB Connections -->
     <g transform="translate(50, 210)">
-      <text x="0" y="15" font-weight="bold">DB Conn</text>
-      <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
-      <rect x="100" y="0" width="210" height="30" fill="#795548" rx="3"/>
-      <rect x="310" y="0" width="90" height="30" fill="#A1887F" rx="3" opacity="0.7"/>
-      <text x="205" y="20" text-anchor="middle" fill="white">70% Usage</text>
-      <text x="355" y="20" text-anchor="middle" fill="white">30% Margin</text>
-      <text x="420" y="20" font-size="12">Connection storms</text>
+    <text x="0" y="15" font-weight="bold">DB Conn</text>
+    <rect x="100" y="0" width="300" height="30" fill="#E0E0E0" rx="3"/>
+    <rect x="100" y="0" width="210" height="30" fill="#795548" rx="3"/>
+    <rect x="310" y="0" width="90" height="30" fill="#A1887F" rx="3" opacity="0.7"/>
+    <text x="205" y="20" text-anchor="middle" fill="white">70% Usage</text>
+    <text x="355" y="20" text-anchor="middle" fill="white">30% Margin</text>
+    <text x="420" y="20" font-size="12">Connection storms</text>
     </g>
-  </svg>
-</div>
+    </svg>
 
 <div class="margin-rationale" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
   <strong>💡 Why These Margins?</strong>
@@ -262,18 +251,14 @@ Horizontal: 10→15 instances
 ```
 
 ### Resource Planning Table
-<div class="decision-box">
-<h4>📊 Capacity Growth Timeline</h4>
-
-<div class="planning-visualization" style="margin: 20px 0;">
-  <svg viewBox="0 0 700 400" style="width: 100%; max-width: 700px;">
+!!! note "📊 Capacity Growth Timeline"
+    <div class="planning-visualization" style="margin: 20px 0;">
+    <svg viewBox="0 0 700 400" style="width: 100%; max-width: 700px;">
     <!-- Title -->
     <text x="350" y="20" text-anchor="middle" font-weight="bold">12-Month Capacity Projection</text>
-    
     <!-- Axes -->
     <line x1="60" y1="320" x2="650" y2="320" stroke="#333" stroke-width="2"/>
     <line x1="60" y1="320" x2="60" y2="40" stroke="#333" stroke-width="2"/>
-    
     <!-- Y-axis labels (Traffic) -->
     <text x="40" y="325" text-anchor="end" font-size="10">0</text>
     <text x="40" y="265" text-anchor="end" font-size="10">1000</text>
@@ -282,7 +267,6 @@ Horizontal: 10→15 instances
     <text x="40" y="85" text-anchor="end" font-size="10">4000</text>
     <text x="40" y="45" text-anchor="end" font-size="10">5000</text>
     <text x="20" y="180" text-anchor="middle" transform="rotate(-90 20 180)" font-size="12">Traffic (rps)</text>
-    
     <!-- X-axis labels (Months) -->
     <text x="60" y="340" text-anchor="middle" font-size="10">0</text>
     <text x="210" y="340" text-anchor="middle" font-size="10">3</text>
@@ -290,32 +274,27 @@ Horizontal: 10→15 instances
     <text x="510" y="340" text-anchor="middle" font-size="10">9</text>
     <text x="650" y="340" text-anchor="middle" font-size="10">12</text>
     <text x="350" y="365" text-anchor="middle" font-size="12">Months</text>
-    
     <!-- Traffic growth curve -->
-    <path d="M 60,260 L 210,230 L 360,180 L 510,120 L 650,60" 
-          stroke="#2196F3" stroke-width="3" fill="none"/>
-    
+    <path d="M 60,260 L 210,230 L 360,180 L 510,120 L 650,60"
+    stroke="#2196F3" stroke-width="3" fill="none"/>
     <!-- Data points -->
     <circle cx="60" cy="260" r="5" fill="#2196F3"/>
     <circle cx="210" cy="230" r="5" fill="#2196F3"/>
     <circle cx="360" cy="180" r="5" fill="#FF5722"/>
     <circle cx="650" cy="60" r="5" fill="#F44336"/>
-    
     <!-- Architecture change indicator -->
     <line x1="360" y1="40" x2="360" y2="320" stroke="#FF5722" stroke-width="2" stroke-dasharray="5,5"/>
     <rect x="280" y="50" width="160" height="30" fill="#FFE0B2" rx="3"/>
     <text x="360" y="70" text-anchor="middle" font-weight="bold">Architecture Change</text>
-    
     <!-- Cost indicators -->
     <g transform="translate(680, 100)">
-      <text x="0" y="0" font-size="10" font-weight="bold">Cost Impact</text>
-      <text x="0" y="20" font-size="9">Month 0: $10k</text>
-      <text x="0" y="40" font-size="9">Month 3: $15k</text>
-      <text x="0" y="60" font-size="9" fill="#FF5722">Month 6: $22k</text>
-      <text x="0" y="80" font-size="9" fill="#F44336">Month 12: $50k</text>
+    <text x="0" y="0" font-size="10" font-weight="bold">Cost Impact</text>
+    <text x="0" y="20" font-size="9">Month 0: $10k</text>
+    <text x="0" y="40" font-size="9">Month 3: $15k</text>
+    <text x="0" y="60" font-size="9" fill="#FF5722">Month 6: $22k</text>
+    <text x="0" y="80" font-size="9" fill="#F44336">Month 12: $50k</text>
     </g>
-  </svg>
-</div>
+    </svg>
 
 <div class="planning-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
   <table class="responsive-table" style="width: 100%; text-align: center;">

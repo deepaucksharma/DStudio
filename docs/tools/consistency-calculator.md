@@ -249,38 +249,32 @@ P(available) = Σ(k=R to N) C(N,k) × p^k × (1-p)^(N-k)
 <div class="decision-tree">
 <h3>When to Use Each Consistency Model</h3>
 
-<div class="decision-box">
-<h4>Choose Strong Consistency When:</h4>
-<ul>
-<li>Financial transactions or inventory management</li>
-<li>Sequential ID generation</li>
-<li>Configuration management</li>
-<li>Any scenario where stale reads cause business impact</li>
-</ul>
-<p class="trade-off">⚠️ Trade-off: Higher latency, reduced availability during partitions</p>
-</div>
+!!! note "Choose Strong Consistency When:"
+    <ul>
+    <li>Financial transactions or inventory management</li>
+    <li>Sequential ID generation</li>
+    <li>Configuration management</li>
+    <li>Any scenario where stale reads cause business impact</li>
+    </ul>
+    <p class="trade-off">⚠️ Trade-off: Higher latency, reduced availability during partitions</p>
 
-<div class="decision-box">
-<h4>Choose Eventual Consistency When:</h4>
-<ul>
-<li>Social media feeds and timelines</li>
-<li>Product catalogs and descriptions</li>
-<li>Analytics and metrics collection</li>
-<li>Caching layers</li>
-</ul>
-<p class="trade-off">✅ Benefit: Maximum availability and performance</p>
-</div>
+!!! note "Choose Eventual Consistency When:"
+    <ul>
+    <li>Social media feeds and timelines</li>
+    <li>Product catalogs and descriptions</li>
+    <li>Analytics and metrics collection</li>
+    <li>Caching layers</li>
+    </ul>
+    <p class="trade-off">✅ Benefit: Maximum availability and performance</p>
 
-<div class="decision-box">
-<h4>Choose Session Consistency When:</h4>
-<ul>
-<li>Shopping carts and user sessions</li>
-<li>User profile updates</li>
-<li>Collaborative editing (with conflict resolution)</li>
-<li>Most user-facing applications</li>
-</ul>
-<p class="trade-off">⚖️ Balance: Good UX with reasonable performance</p>
-</div>
+!!! note "Choose Session Consistency When:"
+    <ul>
+    <li>Shopping carts and user sessions</li>
+    <li>User profile updates</li>
+    <li>Collaborative editing (with conflict resolution)</li>
+    <li>Most user-facing applications</li>
+    </ul>
+    <p class="trade-off">⚖️ Balance: Good UX with reasonable performance</p>
 </div>
 
 ## Real-World Examples

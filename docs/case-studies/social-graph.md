@@ -148,11 +148,9 @@ erDiagram
 
 #### 1. Adjacency List Approach
 
-<div class="decision-box">
-<h4>🎯 Design Decision: Adjacency Lists vs Edge Tables</h4>
-<p><strong>Problem</strong>: How to efficiently store and query billions of graph edges?<br/>
-<strong>Solution</strong>: Use adjacency lists for fast neighbor lookups with edge tables for complex queries</p>
-</div>
+!!! note "🎯 Design Decision: Adjacency Lists vs Edge Tables"
+    <strong>Problem</strong>: How to efficiently store and query billions of graph edges?
+    <strong>Solution</strong>: Use adjacency lists for fast neighbor lookups with edge tables for complex queries
 
 ```mermaid
 graph LR
@@ -267,10 +265,8 @@ graph LR
 
 ### Facebook TAO Architecture
 
-<div class="truth-box">
-<h4>💡 Insight: TAO's Three-Layer Architecture</h4>
-<p>Facebook's TAO (The Associations and Objects) uses a three-tier architecture: social graph API, cache layer, and persistent storage, handling 1B+ queries per second.</p>
-</div>
+!!! info "💡 Insight: TAO's Three-Layer Architecture"
+    Facebook's TAO (The Associations and Objects) uses a three-tier architecture: social graph API, cache layer, and persistent storage, handling 1B+ queries per second.
 
 ```mermaid
 graph TB
@@ -522,12 +518,10 @@ class GraphEmbeddingRecommender:
 
 ### Event-Driven Architecture
 
-<div class="failure-vignette">
-<h4>⚠️ Failure Scenario: Celebrity Following Spike</h4>
-<p><strong>Problem</strong>: Celebrity gains 1M followers in 1 hour during viral event<br/>
-<strong>Impact</strong>: Graph update storm overwhelms database, friend recommendations lag<br/>
-<strong>Solution</strong>: Implement async processing with rate limiting and backpressure</p>
-</div>
+!!! danger "⚠️ Failure Scenario: Celebrity Following Spike"
+    <strong>Problem</strong>: Celebrity gains 1M followers in 1 hour during viral event
+    <strong>Impact</strong>: Graph update storm overwhelms database, friend recommendations lag
+    <strong>Solution</strong>: Implement async processing with rate limiting and backpressure
 
 ```mermaid
 sequenceDiagram
@@ -668,11 +662,9 @@ graph TB
 
 ### Privacy-Preserving Graph Queries
 
-<div class="decision-box">
-<h4>🎯 Design Decision: Privacy-First Graph Traversal</h4>
-<p><strong>Challenge</strong>: Enable friend discovery while respecting privacy settings<br/>
-<strong>Solution</strong>: Implement privacy-aware graph algorithms with access control at every step</p>
-</div>
+!!! note "🎯 Design Decision: Privacy-First Graph Traversal"
+    <strong>Challenge</strong>: Enable friend discovery while respecting privacy settings
+    <strong>Solution</strong>: Implement privacy-aware graph algorithms with access control at every step
 
 ```python
 class PrivacyAwareGraphTraversal:

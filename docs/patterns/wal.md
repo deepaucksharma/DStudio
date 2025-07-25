@@ -379,18 +379,13 @@ graph TB
 
 ### 2. Log Amplification
 
-<div class="failure-vignette">
-<h4>⚠️ Write Amplification Scenario</h4>
-
-A system updating a single byte:
-1. Write 8KB full page to WAL (first update after checkpoint)
-2. Write update record to WAL
-3. Eventually write 8KB page to data file
-
-**Result**: 16KB+ written for 1 byte change!
-
-**Mitigation**: Incremental checkpoints, compression, larger pages
-</div>
+!!! danger "⚠️ Write Amplification Scenario"
+    A system updating a single byte:
+    1. Write 8KB full page to WAL (first update after checkpoint)
+    2. Write update record to WAL
+    3. Eventually write 8KB page to data file
+    **Result**: 16KB+ written for 1 byte change!
+    **Mitigation**: Incremental checkpoints, compression, larger pages
 
 ## Trade-offs
 

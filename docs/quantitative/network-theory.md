@@ -464,16 +464,13 @@ def network_latency(distance_km, processing_ms=1, queuing_ms=0):
 
 ## Key Insights
 
-<div class="truth-box">
-<h4>🎯 Network Theory Principles</h4>
-
-1. **Diameter matters**: Affects worst-case latency
-2. **Clustering creates redundancy**: Higher resilience
-3. **Hubs are double-edged**: Efficient but vulnerable
-4. **Topology determines properties**: Choose wisely
-5. **Partitions are inevitable**: Design for split-brain
-6. **Communication complexity**: Often quadratic in nodes
-</div>
+!!! info "🎯 Network Theory Principles"
+    1. **Diameter matters**: Affects worst-case latency
+    2. **Clustering creates redundancy**: Higher resilience
+    3. **Hubs are double-edged**: Efficient but vulnerable
+    4. **Topology determines properties**: Choose wisely
+    5. **Partitions are inevitable**: Design for split-brain
+    6. **Communication complexity**: Often quadratic in nodes
 
 ## Related Topics
 

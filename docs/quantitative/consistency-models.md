@@ -50,27 +50,22 @@ last_updated: 2025-01-23
 
 ### Formal Definitions
 
-<div class="decision-box">
-<h4>📐 Consistency Models Formally</h4>
-
-**History H**: Sequence of operations (read/write) with:
-- Process that issued it (pi)
-- Operation type and arguments
-- Invocation and response times
-- Return value
-
-<div class="formal-definition" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: 'Courier New', monospace;">
-<strong>Linearizability</strong>:<br>
-∃ total order ≺ on operations in H such that:<br>
-1. If op1 returns before op2 starts, then op1 ≺ op2 (real-time)<br>
-2. Each read returns the value of the most recent write in ≺<br>
-<br>
-<strong>Sequential Consistency</strong>:<br>
-∃ total order ≺ on operations in H such that:<br>
-1. ≺ respects program order for each process<br>
-2. Each read returns the value of the most recent write in ≺<br>
-(No real-time constraint!)
-</div>
+!!! note "📐 Consistency Models Formally"
+    **History H**: Sequence of operations (read/write) with:
+    - Process that issued it (pi)
+    - Operation type and arguments
+    - Invocation and response times
+    - Return value
+    <div class="formal-definition" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: 'Courier New', monospace;">
+    <strong>Linearizability</strong>:
+    ∃ total order ≺ on operations in H such that:
+    1. If op1 returns before op2 starts, then op1 ≺ op2 (real-time)
+    2. Each read returns the value of the most recent write in ≺
+    <strong>Sequential Consistency</strong>:
+    ∃ total order ≺ on operations in H such that:
+    1. ≺ respects program order for each process
+    2. Each read returns the value of the most recent write in ≺
+    (No real-time constraint!)
 </div>
 
 ### Visualization of Guarantees
@@ -115,13 +110,10 @@ last_updated: 2025-01-23
 
 ## Consistency Model Hierarchy
 
-<div class="truth-box">
-<h4>🎯 Consistency Strength Ordering</h4>
-
-<div style="text-align: center; margin: 20px 0;">
-<div style="display: inline-block; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px;">
-<strong>Linearizable</strong>
-</div>
+!!! info "🎯 Consistency Strength Ordering"
+    <div style="text-align: center; margin: 20px 0;">
+    <div style="display: inline-block; padding: 10px 20px; background: #4CAF50; color: white; border-radius: 5px;">
+    <strong>Linearizable</strong>
 <div style="margin: 10px;">⬇️ implies</div>
 <div style="display: inline-block; padding: 10px 20px; background: #2196F3; color: white; border-radius: 5px;">
 <strong>Sequential</strong>
@@ -199,19 +191,14 @@ PBS(t) = P(read returns latest value after time t)
 
 ### k-Atomicity
 
-<div class="decision-box">
-<h4>🔢 k-Atomicity: Bounded Staleness</h4>
-
-A system is **k-atomic** if reads return one of the last k written values.
-
-<div class="example-calculation" style="background: #E8F5E9; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<strong>Example: 3-atomic system</strong><br>
-Writes: v1 → v2 → v3 → v4 → v5<br>
-Valid reads after v5: {v3, v4, v5}<br>
-<br>
-<strong>Staleness bound</strong> = k × (average write interval)<br>
-If writes occur every 10ms: max staleness = 3 × 10ms = 30ms
-</div>
+!!! note "🔢 k-Atomicity: Bounded Staleness"
+    A system is **k-atomic** if reads return one of the last k written values.
+    <div class="example-calculation" style="background: #E8F5E9; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <strong>Example: 3-atomic system</strong>
+    Writes: v1 → v2 → v3 → v4 → v5
+    Valid reads after v5: {v3, v4, v5}
+    <strong>Staleness bound</strong> = k × (average write interval)
+    If writes occur every 10ms: max staleness = 3 × 10ms = 30ms
 
 **Real-world k-atomicity**:
 | System | k value | Use case |
@@ -225,23 +212,17 @@ If writes occur every 10ms: max staleness = 3 × 10ms = 30ms
 
 ### Vector Clocks Implementation
 
-<div class="truth-box">
-<h4>⏰ Causal Consistency with Vector Clocks</h4>
-
-<div class="algorithm-box" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: 'Courier New', monospace;">
-<strong>Vector Clock VC[n]</strong> where n = number of processes<br>
-<br>
-On local event at Pi:<br>
-  VC[i] = VC[i] + 1<br>
-<br>
-On send message m at Pi:<br>
-  VC[i] = VC[i] + 1<br>
-  attach VC to m<br>
-<br>
-On receive message m at Pj:<br>
-  VC[j] = max(VC[j], m.VC[j]) + 1<br>
-  ∀k≠j: VC[k] = max(VC[k], m.VC[k])
-</div>
+!!! info "⏰ Causal Consistency with Vector Clocks"
+    <div class="algorithm-box" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px; font-family: 'Courier New', monospace;">
+    <strong>Vector Clock VC[n]</strong> where n = number of processes
+    On local event at Pi:
+    VC[i] = VC[i] + 1
+    On send message m at Pi:
+    VC[i] = VC[i] + 1
+    attach VC to m
+    On receive message m at Pj:
+    VC[j] = max(VC[j], m.VC[j]) + 1
+    ∀k≠j: VC[k] = max(VC[k], m.VC[k])
 
 **Causal ordering**: e1 → e2 iff VC(e1) < VC(e2)
 
@@ -317,51 +298,40 @@ On receive message m at Pj:<br>
 
 ### Consistency SLA Calculator
 
-<div class="decision-box">
-<h4>💰 Business Impact of Consistency</h4>
-
-| Operation | Consistency Need | Latency Budget | Revenue Impact |
-|-----------|-----------------|----------------|----------------|
-| Product view | Eventual | 100ms | -1% per 100ms |
-| Add to cart | Causal | 200ms | -0.5% per 100ms |
-| Checkout | Sequential | 500ms | -0.1% per 100ms |
-| Payment | Linearizable | 2000ms | Must complete |
-
-<div class="calculation-example" style="margin-top: 15px;">
-<strong>Revenue calculation for 1M requests/day</strong>:<br>
-• Eventual (50ms) vs Linearizable (500ms) for product views<br>
-• Δ = 450ms = 4.5% conversion loss<br>
-• Daily impact = 1M × $100 AOV × 2% conversion × 4.5% = <span style="color: #FF5722; font-weight: bold;">$90,000/day</span>
-</div>
+!!! note "💰 Business Impact of Consistency"
+    | Operation | Consistency Need | Latency Budget | Revenue Impact |
+    |-----------|-----------------|----------------|----------------|
+    | Product view | Eventual | 100ms | -1% per 100ms |
+    | Add to cart | Causal | 200ms | -0.5% per 100ms |
+    | Checkout | Sequential | 500ms | -0.1% per 100ms |
+    | Payment | Linearizable | 2000ms | Must complete |
+    <div class="calculation-example" style="margin-top: 15px;">
+    <strong>Revenue calculation for 1M requests/day</strong>:
+    • Eventual (50ms) vs Linearizable (500ms) for product views
+    • Δ = 450ms = 4.5% conversion loss
+    • Daily impact = 1M × $100 AOV × 2% conversion × 4.5% = <span style="color: #FF5722; font-weight: bold;">$90,000/day</span>
 </div>
 
 ## Session Guarantees
 
-<div class="truth-box">
-<h4>📱 Practical Session Consistency</h4>
-
-**Four session guarantees** (Terry et al., 1994):
-
-| Guarantee | Description | Implementation |
-|-----------|-------------|----------------|
-| **Read Your Writes** | See your own updates | Session ID → last write version |
-| **Monotonic Reads** | No time travel | Track highest version seen |
-| **Monotonic Writes** | Writes preserve order | Sequence writes per session |
-| **Writes Follow Reads** | Causal consistency | Track read dependencies |
-
-<div class="implementation-code" style="margin-top: 15px; background: #F5F5F5; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace;">
-<strong>Session vector example</strong>:<br>
-Session S1: {lastWrite: v5, highestRead: v7, deps: [v3, v4]}<br>
-<br>
-On read request:<br>
-  if (replica.version < session.highestRead) {<br>
-    &nbsp;&nbsp;// Forward to newer replica or wait<br>
-  }<br>
-<br>
-On write request:<br>
-  ensure(all session.deps are applied)<br>
-  newVersion = max(session.lastWrite, replica.version) + 1
-</div>
+!!! info "📱 Practical Session Consistency"
+    **Four session guarantees** (Terry et al., 1994):
+    | Guarantee | Description | Implementation |
+    |-----------|-------------|----------------|
+    | **Read Your Writes** | See your own updates | Session ID → last write version |
+    | **Monotonic Reads** | No time travel | Track highest version seen |
+    | **Monotonic Writes** | Writes preserve order | Sequence writes per session |
+    | **Writes Follow Reads** | Causal consistency | Track read dependencies |
+    <div class="implementation-code" style="margin-top: 15px; background: #F5F5F5; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace;">
+    <strong>Session vector example</strong>:
+    Session S1: {lastWrite: v5, highestRead: v7, deps: [v3, v4]}
+    On read request:
+    if (replica.version < session.highestRead) {
+    &nbsp;&nbsp;// Forward to newer replica or wait
+    }
+    On write request:
+    ensure(all session.deps are applied)
+    newVersion = max(session.lastWrite, replica.version) + 1
 </div>
 
 ## Tunable Consistency
@@ -399,59 +369,56 @@ Example (3 replicas: 10ms, 15ms, 50ms):<br>
 
 ### Consistency Level Performance
 
-<div class="decision-box">
-<h4>📈 Cassandra Consistency Levels</h4>
-
-<div style="overflow-x: auto;">
-<table class="responsive-table" style="width: 100%; min-width: 600px;">
-  <thead>
+!!! note "📈 Cassandra Consistency Levels"
+    <div style="overflow-x: auto;">
+    <table class="responsive-table" style="width: 100%; min-width: 600px;">
+    <thead>
     <tr>
-<th>Level</th>
-<th>Write Latency</th>
-<th>Read Latency</th>
-<th>Consistency</th>
-<th>Availability (3 replicas)</th>
-</tr>
-  </thead>
-  <tbody>
+    <th>Level</th>
+    <th>Write Latency</th>
+    <th>Read Latency</th>
+    <th>Consistency</th>
+    <th>Availability (3 replicas)</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-<td data-label="Level"><strong>ANY</strong></td>
-<td data-label="Write Latency">5ms (p50)</td>
-<td data-label="Read Latency">N/A</td>
-<td data-label="Consistency">None</td>
-<td data-label="Availability (3 replicas)">100%</td>
-</tr>
+    <td data-label="Level"><strong>ANY</strong></td>
+    <td data-label="Write Latency">5ms (p50)</td>
+    <td data-label="Read Latency">N/A</td>
+    <td data-label="Consistency">None</td>
+    <td data-label="Availability (3 replicas)">100%</td>
+    </tr>
     <tr>
-<td data-label="Level"><strong>ONE</strong></td>
-<td data-label="Write Latency">10ms (p50)</td>
-<td data-label="Read Latency">10ms (p50)</td>
-<td data-label="Consistency">Eventual</td>
-<td data-label="Availability (3 replicas)">99.9%</td>
-</tr>
+    <td data-label="Level"><strong>ONE</strong></td>
+    <td data-label="Write Latency">10ms (p50)</td>
+    <td data-label="Read Latency">10ms (p50)</td>
+    <td data-label="Consistency">Eventual</td>
+    <td data-label="Availability (3 replicas)">99.9%</td>
+    </tr>
     <tr>
-<td data-label="Level"><strong>TWO</strong></td>
-<td data-label="Write Latency">15ms (p50)</td>
-<td data-label="Read Latency">15ms (p50)</td>
-<td data-label="Consistency">Stronger</td>
-<td data-label="Availability (3 replicas)">99%</td>
-</tr>
+    <td data-label="Level"><strong>TWO</strong></td>
+    <td data-label="Write Latency">15ms (p50)</td>
+    <td data-label="Read Latency">15ms (p50)</td>
+    <td data-label="Consistency">Stronger</td>
+    <td data-label="Availability (3 replicas)">99%</td>
+    </tr>
     <tr>
-<td data-label="Level"><strong>QUORUM</strong></td>
-<td data-label="Write Latency">15ms (p50)</td>
-<td data-label="Read Latency">15ms (p50)</td>
-<td data-label="Consistency">Strong</td>
-<td data-label="Availability (3 replicas)">99%</td>
-</tr>
+    <td data-label="Level"><strong>QUORUM</strong></td>
+    <td data-label="Write Latency">15ms (p50)</td>
+    <td data-label="Read Latency">15ms (p50)</td>
+    <td data-label="Consistency">Strong</td>
+    <td data-label="Availability (3 replicas)">99%</td>
+    </tr>
     <tr>
-<td data-label="Level"><strong>ALL</strong></td>
-<td data-label="Write Latency">50ms (p50)</td>
-<td data-label="Read Latency">50ms (p50)</td>
-<td data-label="Consistency">Strongest</td>
-<td data-label="Availability (3 replicas)">90%</td>
-</tr>
-  </tbody>
-</table>
-</div>
+    <td data-label="Level"><strong>ALL</strong></td>
+    <td data-label="Write Latency">50ms (p50)</td>
+    <td data-label="Read Latency">50ms (p50)</td>
+    <td data-label="Consistency">Strongest</td>
+    <td data-label="Availability (3 replicas)">90%</td>
+    </tr>
+    </tbody>
+    </table>
 
 <div class="percentile-note" style="margin-top: 10px; background: #FFF3E0; padding: 10px; border-left: 4px solid #FF9800;">
 📊 <strong>p99 latencies</strong> are typically 3-10× higher than p50
@@ -462,81 +429,62 @@ Example (3 replicas: 10ms, 15ms, 50ms):<br>
 
 ### Social Media Timeline
 
-<div class="truth-box">
-<h4>🐦 Twitter Timeline Consistency</h4>
-
-**Mixed consistency model**:
-1. **Your tweets**: Read-your-writes (immediate)
-2. **Following timeline**: Causal consistency (ordered)
-3. **Trending topics**: Eventual consistency (delayed)
-
-<div class="architecture-diagram" style="margin-top: 15px;">
-<svg viewBox="0 0 700 400" style="width: 100%; max-width: 700px;">
-  <!-- User -->
-  <circle cx="100" cy="200" r="30" fill="#4CAF50"/>
-  <text x="100" y="205" text-anchor="middle" fill="white">User</text>
-  
-  <!-- Write path -->
-  <rect x="200" y="100" width="120" height="40" fill="#2196F3" rx="5"/>
-  <text x="260" y="125" text-anchor="middle" fill="white">Write API</text>
-  <path d="M 130 200 L 200 120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
-  
-  <!-- Storage -->
-  <rect x="400" y="80" width="100" height="40" fill="#FF9800" rx="5"/>
-  <text x="450" y="105" text-anchor="middle">Tweet Store</text>
-  <text x="450" y="130" text-anchor="middle" font-size="10">(Linearizable)</text>
-  
-  <rect x="400" y="180" width="100" height="40" fill="#9C27B0" rx="5"/>
-  <text x="450" y="205" text-anchor="middle">Timeline</text>
-  <text x="450" y="230" text-anchor="middle" font-size="10">(Causal)</text>
-  
-  <rect x="400" y="280" width="100" height="40" fill="#607D8B" rx="5"/>
-  <text x="450" y="305" text-anchor="middle">Trending</text>
-  <text x="450" y="330" text-anchor="middle" font-size="10">(Eventual)</text>
-  
-  <!-- Connections -->
-  <path d="M 320 120 L 400 100" stroke="#333" stroke-width="2"/>
-  <path d="M 320 120 L 400 200" stroke="#333" stroke-width="2"/>
-  <path d="M 320 120 L 400 300" stroke="#333" stroke-width="2"/>
-  
-  <!-- Read paths -->
-  <path d="M 500 100 L 580 150" stroke="#4CAF50" stroke-width="2"/>
-  <path d="M 500 200 L 580 170" stroke="#9C27B0" stroke-width="2"/>
-  <path d="M 500 300 L 580 190" stroke="#607D8B" stroke-width="2"/>
-  
-  <rect x="580" y="140" width="80" height="60" fill="#E0E0E0" rx="5"/>
-  <text x="620" y="165" text-anchor="middle">Read</text>
-  <text x="620" y="185" text-anchor="middle">API</text>
-  
-  <defs>
+!!! info "🐦 Twitter Timeline Consistency"
+    **Mixed consistency model**:
+    1. **Your tweets**: Read-your-writes (immediate)
+    2. **Following timeline**: Causal consistency (ordered)
+    3. **Trending topics**: Eventual consistency (delayed)
+    <div class="architecture-diagram" style="margin-top: 15px;">
+    <svg viewBox="0 0 700 400" style="width: 100%; max-width: 700px;">
+    <!-- User -->
+    <circle cx="100" cy="200" r="30" fill="#4CAF50"/>
+    <text x="100" y="205" text-anchor="middle" fill="white">User</text>
+    <!-- Write path -->
+    <rect x="200" y="100" width="120" height="40" fill="#2196F3" rx="5"/>
+    <text x="260" y="125" text-anchor="middle" fill="white">Write API</text>
+    <path d="M 130 200 L 200 120" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+    <!-- Storage -->
+    <rect x="400" y="80" width="100" height="40" fill="#FF9800" rx="5"/>
+    <text x="450" y="105" text-anchor="middle">Tweet Store</text>
+    <text x="450" y="130" text-anchor="middle" font-size="10">(Linearizable)</text>
+    <rect x="400" y="180" width="100" height="40" fill="#9C27B0" rx="5"/>
+    <text x="450" y="205" text-anchor="middle">Timeline</text>
+    <text x="450" y="230" text-anchor="middle" font-size="10">(Causal)</text>
+    <rect x="400" y="280" width="100" height="40" fill="#607D8B" rx="5"/>
+    <text x="450" y="305" text-anchor="middle">Trending</text>
+    <text x="450" y="330" text-anchor="middle" font-size="10">(Eventual)</text>
+    <!-- Connections -->
+    <path d="M 320 120 L 400 100" stroke="#333" stroke-width="2"/>
+    <path d="M 320 120 L 400 200" stroke="#333" stroke-width="2"/>
+    <path d="M 320 120 L 400 300" stroke="#333" stroke-width="2"/>
+    <!-- Read paths -->
+    <path d="M 500 100 L 580 150" stroke="#4CAF50" stroke-width="2"/>
+    <path d="M 500 200 L 580 170" stroke="#9C27B0" stroke-width="2"/>
+    <path d="M 500 300 L 580 190" stroke="#607D8B" stroke-width="2"/>
+    <rect x="580" y="140" width="80" height="60" fill="#E0E0E0" rx="5"/>
+    <text x="620" y="165" text-anchor="middle">Read</text>
+    <text x="620" y="185" text-anchor="middle">API</text>
+    <defs>
     <marker id="arrow" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
-      <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
+    <polygon points="0 0, 10 3.5, 0 7" fill="#333"/>
     </marker>
-  </defs>
-</svg>
-</div>
+    </defs>
+    </svg>
 </div>
 
 ### E-Commerce Inventory
 
-<div class="decision-box">
-<h4>🛒 Inventory Consistency Strategy</h4>
-
-**Reservation-based approach**:
-
-<div class="implementation-flow" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-1. <strong>Check availability</strong> (Eventual - 5ms)<br>
-   → Show "In Stock" if inventory > threshold<br>
-<br>
-2. <strong>Reserve on add-to-cart</strong> (Causal - 20ms)<br>
-   → Create soft reservation with TTL<br>
-<br>
-3. <strong>Confirm on checkout</strong> (Linearizable - 100ms)<br>
-   → Convert to hard reservation<br>
-<br>
-4. <strong>Finalize on payment</strong> (Linearizable - 200ms)<br>
-   → Deduct from inventory
-</div>
+!!! note "🛒 Inventory Consistency Strategy"
+    **Reservation-based approach**:
+    <div class="implementation-flow" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    1. <strong>Check availability</strong> (Eventual - 5ms)
+    → Show "In Stock" if inventory > threshold
+    2. <strong>Reserve on add-to-cart</strong> (Causal - 20ms)
+    → Create soft reservation with TTL
+    3. <strong>Confirm on checkout</strong> (Linearizable - 100ms)
+    → Convert to hard reservation
+    4. <strong>Finalize on payment</strong> (Linearizable - 200ms)
+    → Deduct from inventory
 
 **Oversell prevention**:
 ```
@@ -576,27 +524,22 @@ GROUP BY datacenter
 
 ### Decision Framework
 
-<div class="decision-box">
-<h4>🎯 Consistency Selection Guide</h4>
-
-<div style="background: #F5F5F5; padding: 20px; border-radius: 8px;">
-<strong>Step 1: Identify operation type</strong><br>
-□ Financial transaction → Linearizable<br>
-□ User-generated content → Causal<br>
-□ Analytics/Reporting → Eventual<br>
-□ Configuration → Sequential<br>
-<br>
-<strong>Step 2: Determine SLA requirements</strong><br>
-□ Latency budget: _____ms<br>
-□ Availability target: _____%<br>
-□ Geographic distribution: ______<br>
-<br>
-<strong>Step 3: Calculate trade-offs</strong><br>
-Using formulas from this guide:<br>
-• Expected latency = <em>consistency_overhead + network_RTT</em><br>
-• Availability = <em>based on quorum requirements</em><br>
-• Conflict probability = <em>write_rate × consistency_window</em>
-</div>
+!!! note "🎯 Consistency Selection Guide"
+    <div style="background: #F5F5F5; padding: 20px; border-radius: 8px;">
+    <strong>Step 1: Identify operation type</strong>
+    □ Financial transaction → Linearizable
+    □ User-generated content → Causal
+    □ Analytics/Reporting → Eventual
+    □ Configuration → Sequential
+    <strong>Step 2: Determine SLA requirements</strong>
+    □ Latency budget: _____ms
+    □ Availability target: _____%
+    □ Geographic distribution: ______
+    <strong>Step 3: Calculate trade-offs</strong>
+    Using formulas from this guide:
+    • Expected latency = <em>consistency_overhead + network_RTT</em>
+    • Availability = <em>based on quorum requirements</em>
+    • Conflict probability = <em>write_rate × consistency_window</em>
 </div>
 
 ## Key Takeaways

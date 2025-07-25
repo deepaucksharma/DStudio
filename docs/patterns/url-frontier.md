@@ -786,16 +786,14 @@ async def benchmark_frontier():
 # asyncio.run(benchmark_frontier())
 ```
 
-<div class="decision-box">
-<strong>Decision Framework</strong>:
-
-- **Large-scale crawlers**: Distributed frontier with Redis
-- **Focused crawlers**: In-memory frontier with priority queues
-- **News aggregators**: Freshness-aware frontier
-- **Respectful crawlers**: Robots.txt aware frontier
-- **High-throughput systems**: Batch processing with async operations
-- **Multi-tenant crawlers**: Separate frontiers per user/domain
-</div>
+!!! note
+    <strong>Decision Framework</strong>:
+    - **Large-scale crawlers**: Distributed frontier with Redis
+    - **Focused crawlers**: In-memory frontier with priority queues
+    - **News aggregators**: Freshness-aware frontier
+    - **Respectful crawlers**: Robots.txt aware frontier
+    - **High-throughput systems**: Batch processing with async operations
+    - **Multi-tenant crawlers**: Separate frontiers per user/domain
 
 ## Trade-offs
 

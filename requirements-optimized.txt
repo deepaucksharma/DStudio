@@ -1,0 +1,80 @@
+# Core MkDocs Dependencies
+mkdocs>=1.5.3
+mkdocs-material>=9.5.0
+pymdown-extensions>=10.7
+
+# Essential Plugins - Content Management
+mkdocs-macros-plugin>=1.0.5
+mkdocs-mermaid2-plugin>=1.1.1
+mkdocs-snippets>=1.0.0
+
+# Essential Plugins - Search & Navigation
+mkdocs-tags-plugin>=0.4.0
+mkdocs-section-index>=0.3.8
+mkdocs-literate-nav>=0.6.1
+
+# Essential Plugins - Build Optimization
+mkdocs-minify-plugin>=0.8.0
+mkdocs-optimize-plugin>=1.8.0
+
+# Essential Plugins - Git Integration
+mkdocs-git-revision-date-localized-plugin>=1.2.4
+mkdocs-git-authors-plugin>=0.7.2
+mkdocs-git-committers-plugin>=0.2.3
+
+# Essential Plugins - Documentation Enhancement
+mkdocs-print-site-plugin>=2.3.6
+mkdocs-pdf-export-plugin>=0.5.10
+mkdocs-material-extensions>=1.3.1
+
+# Advanced Plugins - Content Processing
+mkdocs-include-markdown-plugin>=6.0.4
+mkdocs-markdown-include-plugin>=4.0.0
+mkdocs-markdown-captions>=1.0.0
+mkdocs-exclude>=1.0.2
+
+# Advanced Plugins - Rich Content
+mkdocs-jupyter>=0.24.0
+mkdocs-charts-plugin>=0.0.10
+mkdocs-drawio-exporter>=0.8.0
+mkdocs-kroki-plugin>=0.8.0
+
+# Advanced Plugins - SEO & Social
+mkdocs-redirects>=1.2.1
+mkdocs-social-cards>=0.1.0
+mkdocs-seo-plugin>=0.1.0
+
+# Mathematical Content Support
+mkdocs-math>=1.0.0
+
+# Table Support
+mkdocs-table-reader-plugin>=2.0.3
+mkdocs-charts-plugin>=0.0.10
+
+# Additional Python Dependencies
+Jinja2>=3.1.2
+Markdown>=3.5
+MarkupSafe>=2.1.3
+python-dateutil>=2.8.2
+PyYAML>=6.0
+requests>=2.31.0
+beautifulsoup4>=4.12.2
+lxml>=4.9.3
+
+# Development Dependencies (optional)
+mkdocs-awesome-pages-plugin>=2.9.2
+mkdocs-enumerate-headings-plugin>=0.6.1
+mkdocs-exclude-search>=0.6.5
+mkdocs-multirepo-plugin>=0.8.1
+
+# Build Performance
+cairosvg>=2.7.1
+pillow>=10.1.0
+pngquant>=1.0.7
+
+# Code Quality
+mkdocs-spellcheck>=1.0.0
+mkdocs-linkcheck>=1.0.0
+
+# Analytics & Monitoring (optional)
+# mkdocs-google-analytics-plugin>=0.1.0

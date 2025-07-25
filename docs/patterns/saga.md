@@ -62,14 +62,13 @@ Like reversible dominoes - knock them down in sequence, but can stand them back 
 
 ### The Problem Space
 
-<div class="failure-vignette">
-<h4>🔥 Without Saga: Ticketmaster Disaster</h4>
-Concert sale: Charged cards but seat reservation failed.
-- 50K+ charged without tickets
-- 3-week manual refunds
-- $5M fees/penalties
-- Major reputation damage
-</div>
+!!! danger "🔥 Without Saga: Ticketmaster Disaster"
+    Concert sale: Charged cards but seat reservation failed.
+    
+    - 50K+ charged without tickets
+    - 3-week manual refunds
+    - $5M fees/penalties
+    - Major reputation damage
 
 ### Core Concept
 
@@ -595,18 +594,16 @@ class SagaTestFramework:
 
 ### Performance Optimization
 
-<div class="decision-box">
-<h4>🎯 Performance Tuning Checklist</h4>
-
-- [ ] **Parallel Execution**: Run independent steps concurrently
-- [ ] **Async I/O**: Use async/await throughout
-- [ ] **Connection Pooling**: Reuse database connections
-- [ ] **Batch Operations**: Group related operations
-- [ ] **Caching**: Cache read-only data during saga
-- [ ] **Timeout Tuning**: Set appropriate step timeouts
-- [ ] **Circuit Breakers**: Fail fast on unavailable services
-- [ ] **Monitoring**: Track saga execution times
-</div>
+!!! tip "🎯 Performance Tuning Checklist"
+    
+    - [ ] **Parallel Execution**: Run independent steps concurrently
+    - [ ] **Async I/O**: Use async/await throughout
+    - [ ] **Connection Pooling**: Reuse database connections
+    - [ ] **Batch Operations**: Group related operations
+    - [ ] **Caching**: Cache read-only data during saga
+    - [ ] **Timeout Tuning**: Set appropriate step timeouts
+    - [ ] **Circuit Breakers**: Fail fast on unavailable services
+    - [ ] **Monitoring**: Track saga execution times
 
 ### Monitoring & Observability
 
@@ -653,19 +650,15 @@ metrics:
 
 ### Common Pitfalls
 
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Non-Idempotent Steps</h4>
-Network retries → Multiple charges, double inventory decrements.
+!!! warning "⚠️ Pitfall: Non-Idempotent Steps"
+    Network retries → Multiple charges, double inventory decrements.
+    
+    **Solution**: Idempotent steps with keys and duplicate checks.
 
-**Solution**: Idempotent steps with keys and duplicate checks.
-</div>
-
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Missing Compensation Logic</h4>
-No compensation → Inconsistent state → Manual fixes.
-
-**Solution**: Every forward transaction needs compensation. Test all paths.
-</div>
+!!! warning "⚠️ Pitfall: Missing Compensation Logic"
+    No compensation → Inconsistent state → Manual fixes.
+    
+    **Solution**: Every forward transaction needs compensation. Test all paths.
 
 ### Production Checklist
 
@@ -684,13 +677,11 @@ No compensation → Inconsistent state → Manual fixes.
 
 ### Case Study: Uber's Trip Booking Saga
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: Uber  
-**Scale**: 25M+ trips/day, 100+ services, sub-second response, 99.99% consistency
-
-**Challenge**: Coordinate driver matching, fare, payment, tracking with graceful failures.
+!!! info "🏢 Real-World Implementation"
+    **Company**: Uber  
+    **Scale**: 25M+ trips/day, 100+ services, sub-second response, 99.99% consistency
+    
+    **Challenge**: Coordinate driver matching, fare, payment, tracking with graceful failures.
 
 ```mermaid
 flowchart LR
@@ -778,14 +769,14 @@ graph TB
 3. **Partial Completion**: Non-critical steps (notifications) can fail without full rollback
 4. **Geographic Sharding**: Each region runs independent saga orchestrators
 
-**Results**: <500ms latency, 99.7% success, 2.3% compensations, zero inconsistencies
-
-**Lessons**:
-1. Design for partial failure
-2. Compensation isn't always reverse
-3. Monitor compensation paths
-4. Saga observability crucial
-</div>
+    **Results**: <500ms latency, 99.7% success, 2.3% compensations, zero inconsistencies
+    
+    **Lessons**:
+    
+    1. Design for partial failure
+    2. Compensation isn't always reverse
+    3. Monitor compensation paths
+    4. Saga observability crucial
 
 ### Economic Analysis
 
@@ -905,17 +896,14 @@ timeline
 
 ### Law Connections
 
-<div class="law-box">
-<h4>🔗 Fundamental Laws</h4>
-
-This pattern directly addresses:
-
-1. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Manages distributed consensus without locks
-2. **[Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/)**: Explicit handling of partial failures
-3. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Handles concurrent saga executions
-4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Full audit trail of all steps
-5. **[Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/)**: Balances consistency costs with business needs
-</div>
+!!! abstract "🔗 Fundamental Laws"
+    This pattern directly addresses:
+    
+    1. **[Law 4 (Multidimensional Optimization ⚖️)](/part1-axioms/law4-tradeoffs/)**: Manages distributed consensus without locks
+    2. **[Law 1 (Correlated Failure ⛓️)](/part1-axioms/law1-failure/)**: Explicit handling of partial failures
+    3. **[Law 3 (Emergent Chaos 🌪️)](/part1-axioms/law3-emergence/)**: Handles concurrent saga executions
+    4. **[Law 5 (Distributed Knowledge 🧠)](/part1-axioms/law5-epistemology/)**: Full audit trail of all steps
+    5. **[Law 7 (Economic Reality 💰)](/part1-axioms/law7-economics/)**: Balances consistency costs with business needs
 
 ### Future Directions
 

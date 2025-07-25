@@ -472,16 +472,13 @@ def handle_leap_second(timestamp):
 
 ### 1. Virtual Machine Clock Drift
 
-<div class="failure-vignette">
-<h4>⚠️ VM Time Warp</h4>
-
-**Problem**: VMs can pause, causing massive clock jumps
-**Symptom**: Sudden 30-second time jumps
-**Solution**: 
-- Use VM-aware time sync
-- Monitor for clock jumps
-- Implement monotonic clocks
-</div>
+!!! danger "⚠️ VM Time Warp"
+    **Problem**: VMs can pause, causing massive clock jumps
+    **Symptom**: Sudden 30-second time jumps
+    **Solution**:
+    - Use VM-aware time sync
+    - Monitor for clock jumps
+    - Implement monotonic clocks
 
 ### 2. Asymmetric Network Delays
 
@@ -497,17 +494,14 @@ graph LR
 
 ## Best Practices
 
-<div class="truth-box">
-<h4>🎯 Clock Synchronization Guidelines</h4>
-
-1. **Use UTC everywhere**: Never use local time
-2. **Monitor clock drift**: Alert on excessive drift
-3. **Handle failures gracefully**: Fallback to logical clocks
-4. **Test time jumps**: Simulate clock adjustments
-5. **Use monotonic clocks**: For measuring intervals
-6. **Document precision needs**: Not everyone needs microseconds
-7. **Consider time zones**: Store UTC, display local
-</div>
+!!! info "🎯 Clock Synchronization Guidelines"
+    1. **Use UTC everywhere**: Never use local time
+    2. **Monitor clock drift**: Alert on excessive drift
+    3. **Handle failures gracefully**: Fallback to logical clocks
+    4. **Test time jumps**: Simulate clock adjustments
+    5. **Use monotonic clocks**: For measuring intervals
+    6. **Document precision needs**: Not everyone needs microseconds
+    7. **Consider time zones**: Store UTC, display local
 
 ## When to Use Physical vs Logical Clocks
 

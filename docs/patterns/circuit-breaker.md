@@ -694,27 +694,23 @@ Continuous Validation:
 
 #### Circuit Breaker Metrics Dashboard
 
-<div class="decision-box">
-<h4>🎯 Production Monitoring Dashboard</h4>
-
-**Circuit Breaker Health Status**
-
-| Service | State | Success Rate | Status |
-|---------|-------|--------------|--------|
-| Service A | 🟢 CLOSED | 99.9% | Healthy, normal operation |
-| Service B | 🟡 HALF-OPEN | Testing | Testing recovery with limited traffic |
-| Service C | 🔴 OPEN | 0% | Failed, recovering in 45s |
-
-**Performance Impact Metrics**
-
-| Metric | Value | Trend |
-|--------|-------|-------|
-| Prevented Cascade Failures | 23 this week | ↓ 15% |
-| Average Recovery Time | 2.3 minutes | ↓ 0.5 min |
-| Fallback Success Rate | 96.7% | ↑ 2.1% |
-| Circuit Trip Events | 45 this week | ↓ 8% |
-
-</div>
+!!! tip "🎯 Production Monitoring Dashboard"
+    **Circuit Breaker Health Status**
+    
+    | Service | State | Success Rate | Status |
+    |---------|-------|--------------|--------|
+    | Service A | 🟢 CLOSED | 99.9% | Healthy, normal operation |
+    | Service B | 🟡 HALF-OPEN | Testing | Testing recovery with limited traffic |
+    | Service C | 🔴 OPEN | 0% | Failed, recovering in 45s |
+    
+    **Performance Impact Metrics**
+    
+    | Metric | Value | Trend |
+    |--------|-------|-------|
+    | Prevented Cascade Failures | 23 this week | ↓ 15% |
+    | Average Recovery Time | 2.3 minutes | ↓ 0.5 min |
+    | Fallback Success Rate | 96.7% | ↑ 2.1% |
+    | Circuit Trip Events | 45 this week | ↓ 8% |
 
 ### Future Directions
 

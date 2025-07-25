@@ -19,9 +19,8 @@ last_updated: 2025-07-24
 
 Chunking divides large datasets, files, or operations into smaller, manageable pieces that can be processed independently. This pattern improves memory efficiency, enables parallel processing, provides fault tolerance, and creates better user experiences through progressive loading and processing.
 
-<div class="axiom-box">
-<strong>Axiom 2: Finite Capacity</strong>: Systems have limited memory, bandwidth, and processing power. Chunking allows systems to handle arbitrarily large data by processing it in bounded segments that fit within system constraints.
-</div>
+!!! abstract
+    <strong>Axiom 2: Finite Capacity</strong>: Systems have limited memory, bandwidth, and processing power. Chunking allows systems to handle arbitrarily large data by processing it in bounded segments that fit within system constraints.
 
 ## The Large Data Problem
 
@@ -737,16 +736,14 @@ efficient_chunker = MemoryEfficientChunker(chunk_size=1024*1024)  # 1MB chunks
 # results = efficient_chunker.process_large_file_mmap('huge_file.txt', count_patterns_in_chunk)
 ```
 
-<div class="decision-box">
-<strong>Chunking Strategy Selection</strong>:
-
-- **File processing**: Fixed-size chunks with progress tracking
-- **Stream processing**: Time-based or count-based chunks
-- **Database queries**: Keyset pagination for efficiency
-- **Variable complexity**: Adaptive chunking
-- **Dependencies**: Dependency-aware parallel processing
-- **Memory constraints**: Memory-mapped chunking
-</div>
+!!! note
+    <strong>Chunking Strategy Selection</strong>:
+    - **File processing**: Fixed-size chunks with progress tracking
+    - **Stream processing**: Time-based or count-based chunks
+    - **Database queries**: Keyset pagination for efficiency
+    - **Variable complexity**: Adaptive chunking
+    - **Dependencies**: Dependency-aware parallel processing
+    - **Memory constraints**: Memory-mapped chunking
 
 ## Performance Considerations
 

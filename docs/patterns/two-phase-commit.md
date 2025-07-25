@@ -61,14 +61,12 @@ Like a group reservation at multiple restaurants - first confirm availability at
 
 ### The Problem Space
 
-<div class="failure-vignette">
-<h4>🔥 Without 2PC: Banking Disaster</h4>
-International transfer: Deducted from source, network failure, never credited to destination.
-- $50M disappeared for 3 days
-- Manual reconciliation of 10K+ transactions
-- Regulatory fines of $2M
-- Customer trust severely damaged
-</div>
+!!! danger "🔥 Without 2PC: Banking Disaster"
+    International transfer: Deducted from source, network failure, never credited to destination.
+    - $50M disappeared for 3 days
+    - Manual reconciliation of 10K+ transactions
+    - Regulatory fines of $2M
+    - Customer trust severely damaged
 
 ### Core Concept
 
@@ -667,22 +665,17 @@ Combines 2PC with Paxos for fault tolerance:
 
 ### Performance Analysis
 
-<div class="decision-box">
-<h4>🎯 Performance Characteristics</h4>
-
-**Latency**: 2 × RTT minimum (prepare + commit)
-- WAN: 100-500ms typical
-- LAN: 2-10ms typical
-
-**Throughput**: Limited by coordinator
-- Single coordinator: ~1000 TPS
-- Sharded coordinators: ~10K TPS
-
-**Resource Usage**:
-- Locks held for entire duration
-- Log writes at each phase
-- Network: 3N messages minimum
-</div>
+!!! note "🎯 Performance Characteristics"
+    **Latency**: 2 × RTT minimum (prepare + commit)
+    - WAN: 100-500ms typical
+    - LAN: 2-10ms typical
+    **Throughput**: Limited by coordinator
+    - Single coordinator: ~1000 TPS
+    - Sharded coordinators: ~10K TPS
+    **Resource Usage**:
+    - Locks held for entire duration
+    - Log writes at each phase
+    - Network: 3N messages minimum
 
 ### When to Use 2PC vs Alternatives
 
@@ -696,15 +689,12 @@ Combines 2PC with Paxos for fault tolerance:
 
 ### Production Considerations
 
-<div class="failure-vignette">
-<h4>⚠️ Common Pitfall: Coordinator SPOF</h4>
-Single coordinator crashes → All participants blocked indefinitely.
-
-**Solution**: 
-- Coordinator replication
-- Participant timeout + heuristic decisions
-- Manual intervention procedures
-</div>
+!!! danger "⚠️ Common Pitfall: Coordinator SPOF"
+    Single coordinator crashes → All participants blocked indefinitely.
+    **Solution**:
+    - Coordinator replication
+    - Participant timeout + heuristic decisions
+    - Manual intervention procedures
 
 ### Monitoring Metrics
 
@@ -752,59 +742,46 @@ metrics:
 
 ### Case Study: Global Bank Transfer System
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: Major International Bank
-**Scale**: 10M+ transfers/day, 50+ country presence, $1T+ daily volume
-
-**Challenge**: SWIFT transfers across multiple banking systems with regulatory compliance.
-
-**Architecture**:
-
-```mermaid
-graph TB
+!!! info "🏢 Real-World Implementation"
+    **Company**: Major International Bank
+    **Scale**: 10M+ transfers/day, 50+ country presence, $1T+ daily volume
+    **Challenge**: SWIFT transfers across multiple banking systems with regulatory compliance.
+    **Architecture**:
+    ```mermaid
+    graph TB
     subgraph "Sender Country"
-        C1[Customer] --> SB[Sender Bank]
-        SB --> SWIFT1[SWIFT Gateway]
+    C1[Customer] --> SB[Sender Bank]
+    SB --> SWIFT1[SWIFT Gateway]
     end
-    
     subgraph "2PC Coordination"
-        SWIFT1 --> GC[Global Coordinator]
-        GC --> CB[Correspondent Banks]
-        GC --> FX[FX System]
-        GC --> AML[AML Check]
-        GC --> REG[Regulatory Report]
+    SWIFT1 --> GC[Global Coordinator]
+    GC --> CB[Correspondent Banks]
+    GC --> FX[FX System]
+    GC --> AML[AML Check]
+    GC --> REG[Regulatory Report]
     end
-    
     subgraph "Receiver Country"
-        RB[Receiver Bank] --> C2[Customer]
-        SWIFT2[SWIFT Gateway] --> RB
+    RB[Receiver Bank] --> C2[Customer]
+    SWIFT2[SWIFT Gateway] --> RB
     end
-    
     GC --> SWIFT2
-    
     style GC fill:#ff9800,stroke:#e65100,stroke-width:3px
-```
-
-**Implementation Decisions**:
-1. Hierarchical 2PC with regional coordinators
-2. 5-minute timeout with manual escalation
-3. Presumed abort with compensation
-4. Full audit trail for compliance
-
-**Results**: 
-- 99.99% success rate
-- 15-second average completion
-- Zero fund loss in 5 years
-- Regulatory compliance in all jurisdictions
-
-**Lessons**:
-1. Timeout strategy critical
-2. Manual procedures essential
-3. Monitoring prevents disasters
-4. Testing failure paths vital
-</div>
+    ```
+    **Implementation Decisions**:
+    1. Hierarchical 2PC with regional coordinators
+    2. 5-minute timeout with manual escalation
+    3. Presumed abort with compensation
+    4. Full audit trail for compliance
+    **Results**:
+    - 99.99% success rate
+    - 15-second average completion
+    - Zero fund loss in 5 years
+    - Regulatory compliance in all jurisdictions
+    **Lessons**:
+    1. Timeout strategy critical
+    2. Manual procedures essential
+    3. Monitoring prevents disasters
+    4. Testing failure paths vital
 
 ### Economic Analysis
 

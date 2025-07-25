@@ -130,52 +130,45 @@ graph TB
 
 ### Core Concepts
 
-<div class="decision-box">
-<h4>🎯 The Three Pillars of FinOps</h4>
-
-```mermaid
-graph LR
+!!! note "🎯 The Three Pillars of FinOps"
+    ```mermaid
+    graph LR
     subgraph "FinOps Lifecycle"
-        I[INFORM<br/>Make costs visible]
-        O[OPTIMIZE<br/>Eliminate waste]
-        OP[OPERATE<br/>Build culture]
-        
-        I -->|Data drives| O
-        O -->|Continuous| OP
-        OP -->|Feedback| I
+    I[INFORM
+    Make costs visible]
+    O[OPTIMIZE
+    Eliminate waste]
+    OP[OPERATE
+    Build culture]
+    I -->|Data drives| O
+    O -->|Continuous| OP
+    OP -->|Feedback| I
     end
-    
     subgraph "Inform Activities"
-        I1[Cost Tagging]
-        I2[Dashboards]
-        I3[Allocation]
-        I4[Showback]
+    I1[Cost Tagging]
+    I2[Dashboards]
+    I3[Allocation]
+    I4[Showback]
     end
-    
     subgraph "Optimize Activities"
-        O1[Rightsizing]
-        O2[Scheduling]
-        O3[Reserved Instances]
-        O4[Architecture]
+    O1[Rightsizing]
+    O2[Scheduling]
+    O3[Reserved Instances]
+    O4[Architecture]
     end
-    
     subgraph "Operate Activities"
-        OP1[Automation]
-        OP2[Governance]
-        OP3[Culture]
-        OP4[Metrics]
+    OP1[Automation]
+    OP2[Governance]
+    OP3[Culture]
+    OP4[Metrics]
     end
-    
     I --> I1 & I2 & I3 & I4
     O --> O1 & O2 & O3 & O4
     OP --> OP1 & OP2 & OP3 & OP4
-    
     style I fill:#4ecdc4
     style O fill:#95e1d3
     style OP fill:#f7dc6f
-```
-
-</div>
+    ```
 
 <div class="comparison-table">
 <table class="responsive-table">
@@ -695,67 +688,64 @@ class ProductionFinOpsSystem:
 
 ### Spotify's FinOps Journey
 
-<div class="truth-box">
-<h4>🎵 Spotify's Squad-Based FinOps</h4>
-
-```mermaid
-graph TD
+!!! info "🎵 Spotify's Squad-Based FinOps"
+    ```mermaid
+    graph TD
     subgraph "Before: Centralized Costs"
-        A[Platform Team] --> A1[$10M/month]
-        A1 --> A2[No visibility]
-        A2 --> A3[Uncontrolled growth]
+    A[Platform Team] --> A1[$10M/month]
+    A1 --> A2[No visibility]
+    A2 --> A3[Uncontrolled growth]
     end
-    
     subgraph "After: Squad Ownership"
-        B1[Squad A: $1M] --> B1M[Weekly reports]
-        B2[Squad B: $2M] --> B2M[Cost dashboards]
-        B3[Squad C: $1.5M] --> B3M[Budget alerts]
-        B4[Squad D: $2.5M] --> B4M[Optimization OKRs]
-        
-        B1M & B2M & B3M & B4M --> RESULT[30% reduction]
+    B1[Squad A: $1M] --> B1M[Weekly reports]
+    B2[Squad B: $2M] --> B2M[Cost dashboards]
+    B3[Squad C: $1.5M] --> B3M[Budget alerts]
+    B4[Squad D: $2.5M] --> B4M[Optimization OKRs]
+    B1M & B2M & B3M & B4M --> RESULT[30% reduction]
     end
-    
     style A3 fill:#ff6b6b
     style RESULT fill:#4CAF50
-```
-
-**Key Metrics:**
-- Cost per stream: $0.0002
-- Cost per user: $0.025/month
-- Infrastructure margin: 73%
-- YoY improvement: 30%
-</div>
+    ```
+    **Key Metrics:**
+    - Cost per stream: $0.0002
+    - Cost per user: $0.025/month
+    - Infrastructure margin: 73%
+    - YoY improvement: 30%
 
 ### Airbnb's Dynamic Pricing Model
 
-<div class="truth-box">
-<h4>🏠 Airbnb's Demand-Based Optimization</h4>
-
-```mermaid
-graph TB
+!!! info "🏠 Airbnb's Demand-Based Optimization"
+    ```mermaid
+    graph TB
     subgraph "Resource Allocation by Demand"
-        D1[Low Demand<br/>2am-6am] --> R1[20% Reserved<br/>80% Spot]
-        D2[Medium Demand<br/>6am-6pm] --> R2[50% Reserved<br/>30% On-Demand<br/>20% Spot]
-        D3[Peak Demand<br/>6pm-12am] --> R3[40% Reserved<br/>40% On-Demand<br/>20% Spot]
-        D4[Special Events] --> R4[30% Reserved<br/>60% On-Demand<br/>10% Spot]
+    D1[Low Demand
+    2am-6am] --> R1[20% Reserved
+    80% Spot]
+    D2[Medium Demand
+    6am-6pm] --> R2[50% Reserved
+    30% On-Demand
+    20% Spot]
+    D3[Peak Demand
+    6pm-12am] --> R3[40% Reserved
+    40% On-Demand
+    20% Spot]
+    D4[Special Events] --> R4[30% Reserved
+    60% On-Demand
+    10% Spot]
     end
-    
     R1 --> S1[Cost: $500/hour]
     R2 --> S2[Cost: $2000/hour]
     R3 --> S3[Cost: $3500/hour]
     R4 --> S4[Cost: $5000/hour]
-    
     style D1 fill:#95e1d3
     style D3 fill:#ff6b6b
     style D4 fill:#f7dc6f
-```
-
-**Results:**
-- 40% cost reduction vs static provisioning
-- 99.99% availability maintained
-- <100ms provisioning time
-- Predictive scaling accuracy: 92%
-</div>
+    ```
+    **Results:**
+    - 40% cost reduction vs static provisioning
+    - 99.99% availability maintained
+    - <100ms provisioning time
+    - Predictive scaling accuracy: 92%
 
 ### Real Production Metrics
 

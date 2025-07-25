@@ -668,75 +668,60 @@ class WebSocketMetrics:
 
 ## Common Pitfalls
 
-<div class="failure-vignette">
-<h4>⚠️ Memory Leak from Unclosed Connections</h4>
-
-**Problem**: Connections not properly cleaned up
-**Symptom**: Memory usage grows unbounded
-**Solution**: Implement connection timeout and proper cleanup
-
-```python
-# Always use try/finally for cleanup
-try:
+!!! danger "⚠️ Memory Leak from Unclosed Connections"
+    **Problem**: Connections not properly cleaned up
+    **Symptom**: Memory usage grows unbounded
+    **Solution**: Implement connection timeout and proper cleanup
+    ```python
+    # Always use try/finally for cleanup
+    try:
     async for message in websocket:
-        await process_message(message)
-finally:
+    await process_message(message)
+    finally:
     await cleanup_connection(websocket)
-```
-</div>
+    ```
 
-<div class="failure-vignette">
-<h4>⚠️ Message Ordering Issues</h4>
-
-**Problem**: Messages arrive out of order
-**Symptom**: UI inconsistencies, data corruption
-**Solution**: Add sequence numbers or timestamps
-
-```python
-class OrderedMessageHandler:
+!!! danger "⚠️ Message Ordering Issues"
+    **Problem**: Messages arrive out of order
+    **Symptom**: UI inconsistencies, data corruption
+    **Solution**: Add sequence numbers or timestamps
+    ```python
+    class OrderedMessageHandler:
     def __init__(self):
-        self.message_buffer = {}
-        self.expected_seq = 0
-        
+    self.message_buffer = {}
+    self.expected_seq = 0
     async def handle_message(self, message):
-        seq = message['sequence']
-        if seq == self.expected_seq:
-            await self.process_message(message)
-            self.expected_seq += 1
-# Process buffered messages
-            while self.expected_seq in self.message_buffer:
-                await self.process_message(
-                    self.message_buffer.pop(self.expected_seq)
-                )
-                self.expected_seq += 1
-        else:
-# Buffer out-of-order message
-            self.message_buffer[seq] = message
-```
-</div>
+    seq = message['sequence']
+    if seq == self.expected_seq:
+    await self.process_message(message)
+    self.expected_seq += 1
+    # Process buffered messages
+    while self.expected_seq in self.message_buffer:
+    await self.process_message(
+    self.message_buffer.pop(self.expected_seq)
+    )
+    self.expected_seq += 1
+    else:
+    # Buffer out-of-order message
+    self.message_buffer[seq] = message
+    ```
 
 ## When to Use WebSockets
 
-<div class="decision-box">
-<h4>✅ Good Fit</h4>
+!!! note "✅ Good Fit"
+    - **Real-time collaboration**: Google Docs, Figma
+    - **Live notifications**: Social media, monitoring
+    - **Chat applications**: Slack, Discord
+    - **Financial data**: Stock tickers, trading
+    - **Gaming**: Multiplayer games, live scores
+    - **IoT**: Device monitoring, control
 
-- **Real-time collaboration**: Google Docs, Figma
-- **Live notifications**: Social media, monitoring
-- **Chat applications**: Slack, Discord
-- **Financial data**: Stock tickers, trading
-- **Gaming**: Multiplayer games, live scores
-- **IoT**: Device monitoring, control
-</div>
-
-<div class="decision-box">
-<h4>❌ Poor Fit</h4>
-
-- **Simple CRUD**: REST is simpler
-- **File uploads**: HTTP is more suitable
-- **Caching needed**: HTTP has better support
-- **Stateless operations**: Overhead not justified
-- **Limited client support**: Fallbacks needed
-</div>
+!!! note "❌ Poor Fit"
+    - **Simple CRUD**: REST is simpler
+    - **File uploads**: HTTP is more suitable
+    - **Caching needed**: HTTP has better support
+    - **Stateless operations**: Overhead not justified
+    - **Limited client support**: Fallbacks needed
 
 ## Implementation Checklist
 

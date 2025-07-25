@@ -18,18 +18,14 @@ Practice these with a timer and whiteboard!
 
 ### 1. Design Google Search
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design a web search engine like Google Search that can index billions of web pages and serve search results with sub-second latency."
-
-**Key Requirements:**
-- Web crawling and indexing
-- Query processing and ranking
-- Spell correction and suggestions
-- Personalized results
-- Real-time updates for news/trending
-</div>
+!!! note "Problem Statement"
+    "Design a web search engine like Google Search that can index billions of web pages and serve search results with sub-second latency."
+    **Key Requirements:**
+    - Web crawling and indexing
+    - Query processing and ranking
+    - Spell correction and suggestions
+    - Personalized results
+    - Real-time updates for news/trending
 
 **Clarifying Questions:**
 - Scale: How many web pages? (Billions)
@@ -84,19 +80,15 @@ graph TB
 
 ### 2. Design YouTube
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design a video sharing platform like YouTube that supports uploading, storing, and streaming videos to billions of users worldwide."
-
-**Key Requirements:**
-- Video upload and processing
-- Multiple quality transcoding
-- Global video delivery
-- View counting and analytics
-- Comments and interactions
-- Recommendation system
-</div>
+!!! note "Problem Statement"
+    "Design a video sharing platform like YouTube that supports uploading, storing, and streaming videos to billions of users worldwide."
+    **Key Requirements:**
+    - Video upload and processing
+    - Multiple quality transcoding
+    - Global video delivery
+    - View counting and analytics
+    - Comments and interactions
+    - Recommendation system
 
 **Scale Estimation:**
 ```
@@ -149,19 +141,15 @@ graph TB
 
 ### 3. Design Google Drive
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design a cloud storage service like Google Drive that allows users to store, sync, and share files across multiple devices."
-
-**Key Requirements:**
-- File upload/download
-- Automatic sync across devices
-- File sharing and permissions
-- Version history
-- Real-time collaboration
-- Mobile and desktop clients
-</div>
+!!! note "Problem Statement"
+    "Design a cloud storage service like Google Drive that allows users to store, sync, and share files across multiple devices."
+    **Key Requirements:**
+    - File upload/download
+    - Automatic sync across devices
+    - File sharing and permissions
+    - Version history
+    - Real-time collaboration
+    - Mobile and desktop clients
 
 **Key Design Decisions:**
 
@@ -207,19 +195,15 @@ sequenceDiagram
 
 ### 4. Design Google Maps
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design a mapping service like Google Maps that provides directions, real-time traffic, and location search for billions of users."
-
-**Key Requirements:**
-- Map rendering at multiple zoom levels
-- Route calculation
-- Real-time traffic updates
-- Location search and geocoding
-- Offline maps
-- Turn-by-turn navigation
-</div>
+!!! note "Problem Statement"
+    "Design a mapping service like Google Maps that provides directions, real-time traffic, and location search for billions of users."
+    **Key Requirements:**
+    - Map rendering at multiple zoom levels
+    - Route calculation
+    - Real-time traffic updates
+    - Location search and geocoding
+    - Offline maps
+    - Turn-by-turn navigation
 
 **Core Components:**
 
@@ -261,19 +245,15 @@ graph TB
 
 ### 5. Design Gmail
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design an email service like Gmail that handles billions of emails daily with features like search, spam filtering, and high availability."
-
-**Key Requirements:**
-- Send/receive emails (SMTP/IMAP)
-- Spam and virus detection
-- Full-text search
-- Labels and filters
-- Attachments up to 25MB
-- 99.9% availability
-</div>
+!!! note "Problem Statement"
+    "Design an email service like Gmail that handles billions of emails daily with features like search, spam filtering, and high availability."
+    **Key Requirements:**
+    - Send/receive emails (SMTP/IMAP)
+    - Spam and virus detection
+    - Full-text search
+    - Labels and filters
+    - Attachments up to 25MB
+    - 99.9% availability
 
 **Email Flow Architecture:**
 ```mermaid
@@ -311,19 +291,15 @@ graph LR
 
 ### 6. Design Google Ads Platform
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design an advertising platform that serves billions of ads daily, handles real-time bidding, and provides analytics to advertisers."
-
-**Components:**
-- Ad serving system (<100ms latency)
-- Real-time bidding (RTB)
-- Click tracking and attribution
-- Budget pacing
-- Fraud detection
-- Advertiser dashboard
-</div>
+!!! note "Problem Statement"
+    "Design an advertising platform that serves billions of ads daily, handles real-time bidding, and provides analytics to advertisers."
+    **Components:**
+    - Ad serving system (<100ms latency)
+    - Real-time bidding (RTB)
+    - Click tracking and attribution
+    - Budget pacing
+    - Fraud detection
+    - Advertiser dashboard
 
 **RTB Flow:**
 ```mermaid
@@ -353,19 +329,15 @@ sequenceDiagram
 
 ### 7. Design Google Photos
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design a photo storage service that provides unlimited storage, automatic backup, AI-powered search, and sharing capabilities."
-
-**Key Features:**
-- Automatic backup from devices
-- Compression without visible quality loss
-- Face recognition and grouping
-- Object/scene recognition
-- Location-based organization
-- Shared albums
-</div>
+!!! note "Problem Statement"
+    "Design a photo storage service that provides unlimited storage, automatic backup, AI-powered search, and sharing capabilities."
+    **Key Features:**
+    - Automatic backup from devices
+    - Compression without visible quality loss
+    - Face recognition and grouping
+    - Object/scene recognition
+    - Location-based organization
+    - Shared albums
 
 **ML Pipeline Architecture:**
 ```mermaid
@@ -403,19 +375,15 @@ graph TB
 
 ### 8. Design Android Play Store
 
-<div class="decision-box">
-<h4>Problem Statement</h4>
-
-"Design an app store that serves billions of Android devices, handles app uploads, updates, and provides personalized recommendations."
-
-**Requirements:**
-- App upload and review process
-- Binary distribution to 3B+ devices
-- Incremental updates
-- Recommendation system
-- Reviews and ratings
-- Developer console
-</div>
+!!! note "Problem Statement"
+    "Design an app store that serves billions of Android devices, handles app uploads, updates, and provides personalized recommendations."
+    **Requirements:**
+    - App upload and review process
+    - Binary distribution to 3B+ devices
+    - Incremental updates
+    - Recommendation system
+    - Reviews and ratings
+    - Developer console
 
 **Update Distribution System:**
 ```mermaid
@@ -449,29 +417,23 @@ graph TB
 
 ## Interview Tips for Each Problem
 
-<div class="truth-box">
-<h4>Pattern Recognition</h4>
-
-**Storage-Heavy Systems** (Drive, Photos):
-- Focus on chunking and deduplication
-- Discuss consistency vs availability trade-offs
-- Consider sync protocols
-
-**Latency-Critical Systems** (Search, Maps):
-- Emphasize caching at every level
-- Discuss precomputation strategies
-- Consider edge serving
-
-**ML-Integrated Systems** (YouTube, Photos):
-- Separate online/offline pipelines
-- Discuss feature storage
-- Consider privacy implications
-
-**Real-time Systems** (Ads, Maps Traffic):
-- Focus on stream processing
-- Discuss approximation algorithms
-- Consider exactly-once semantics
-</div>
+!!! info "Pattern Recognition"
+    **Storage-Heavy Systems** (Drive, Photos):
+    - Focus on chunking and deduplication
+    - Discuss consistency vs availability trade-offs
+    - Consider sync protocols
+    **Latency-Critical Systems** (Search, Maps):
+    - Emphasize caching at every level
+    - Discuss precomputation strategies
+    - Consider edge serving
+    **ML-Integrated Systems** (YouTube, Photos):
+    - Separate online/offline pipelines
+    - Discuss feature storage
+    - Consider privacy implications
+    **Real-time Systems** (Ads, Maps Traffic):
+    - Focus on stream processing
+    - Discuss approximation algorithms
+    - Consider exactly-once semantics
 
 ## Common Follow-up Deep Dives
 

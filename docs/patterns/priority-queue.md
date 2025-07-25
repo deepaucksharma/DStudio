@@ -642,16 +642,14 @@ deadline_queue.enqueue("Batch job", 4, now + timedelta(minutes=2))
 # Messages will be processed considering both priority and deadline urgency
 ```
 
-<div class="decision-box">
-<strong>Decision Framework</strong>:
-
-- **Task scheduling systems**: Multi-level feedback queue
-- **Emergency response**: Deadline-aware priority queue
-- **Distributed systems**: Redis-based priority queue
-- **Real-time processing**: Heap-based with age boosting
-- **Background job processing**: Simple priority levels
-- **Web crawling**: Priority with politeness constraints
-</div>
+!!! note
+    <strong>Decision Framework</strong>:
+    - **Task scheduling systems**: Multi-level feedback queue
+    - **Emergency response**: Deadline-aware priority queue
+    - **Distributed systems**: Redis-based priority queue
+    - **Real-time processing**: Heap-based with age boosting
+    - **Background job processing**: Simple priority levels
+    - **Web crawling**: Priority with politeness constraints
 
 ## Trade-offs
 

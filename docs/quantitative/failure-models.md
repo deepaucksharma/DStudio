@@ -434,16 +434,13 @@ budgets = {
 
 ## Key Insights
 
-<div class="truth-box">
-<h4>🔍 Critical Learnings</h4>
-
-1. **Crash failures are easiest** - Design for them first
-2. **Byzantine failures are rare** - But catastrophic when they occur
-3. **Gray failures are common** - And hardest to detect
-4. **Correlation kills** - Independence assumptions often wrong
-5. **Detection trade-offs** - Fast vs accurate, choose wisely
-6. **Cascades amplify** - Small failures can bring down systems
-</div>
+!!! info "🔍 Critical Learnings"
+    1. **Crash failures are easiest** - Design for them first
+    2. **Byzantine failures are rare** - But catastrophic when they occur
+    3. **Gray failures are common** - And hardest to detect
+    4. **Correlation kills** - Independence assumptions often wrong
+    5. **Detection trade-offs** - Fast vs accurate, choose wisely
+    6. **Cascades amplify** - Small failures can bring down systems
 
 ## Related Concepts
 

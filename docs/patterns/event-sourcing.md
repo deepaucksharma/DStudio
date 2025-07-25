@@ -14,18 +14,10 @@ last_updated: 2025-07-25
 
 # Event Sourcing
 
-<div class="pattern-card">
-  <span class="pattern-card__category">Data Pattern</span>
-  <div class="pattern-card__content">
-    <p class="pattern-card__description">
-      Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
-    </p>
-    <div class="pattern-card__laws">
-      <span class="pattern-card__law-badge">Law 5: Distributed Knowledge</span>
-      <span class="pattern-card__law-badge">Law 3: Emergent Chaos</span>
-    </div>
-  </div>
-</div>
+!!! abstract "📊 Data Pattern"
+    Store all changes as immutable events to maintain complete audit history while enabling state reconstruction at any point in time.
+    
+    **Connected Laws**: Law 5 (Distributed Knowledge) • Law 3 (Emergent Chaos)
 
 ## Problem Statement
 
@@ -322,18 +314,15 @@ def detect_fraud_pattern(customer_events):
 
 ### Performance Optimization
 
-<div class="decision-box">
-<h4>🎯 Performance Tuning Checklist</h4>
-
-- [ ] **Snapshotting**: Create snapshots every N events (typically 100-1000)
-- [ ] **Event Batching**: Batch event writes for throughput
-- [ ] **Projection Caching**: Cache frequently accessed projections
-- [ ] **Event Compression**: Compress old events to save storage
-- [ ] **Parallel Replay**: Replay events in parallel when possible
-- [ ] **Index Optimization**: Index on aggregate_id, timestamp, event_type
-- [ ] **Connection Pooling**: Separate pools for writes and reads
-- [ ] **Async Processing**: Use async/await for all I/O operations
-</div>
+!!! note "🎯 Performance Tuning Checklist"
+    - [ ] **Snapshotting**: Create snapshots every N events (typically 100-1000)
+    - [ ] **Event Batching**: Batch event writes for throughput
+    - [ ] **Projection Caching**: Cache frequently accessed projections
+    - [ ] **Event Compression**: Compress old events to save storage
+    - [ ] **Parallel Replay**: Replay events in parallel when possible
+    - [ ] **Index Optimization**: Index on aggregate_id, timestamp, event_type
+    - [ ] **Connection Pooling**: Separate pools for writes and reads
+    - [ ] **Async Processing**: Use async/await for all I/O operations
 
 ### Monitoring & Observability
 
@@ -380,19 +369,13 @@ metrics:
 
 ### Common Pitfalls
 
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Mutable Events</h4>
-Team modified historical events → Broke replay, destroyed audit, diverged projections.
+!!! danger "⚠️ Pitfall: Mutable Events"
+    Team modified historical events → Broke replay, destroyed audit, diverged projections.
+    **Solution**: Events are immutable. Use compensating events for corrections.
 
-**Solution**: Events are immutable. Use compensating events for corrections.
-</div>
-
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Missing Event Versioning</h4>
-Team added fields without versioning → Couldn't deserialize old events → System failure.
-
-**Solution**: Version events immediately. Implement upcasting.
-</div>
+!!! danger "⚠️ Pitfall: Missing Event Versioning"
+    Team added fields without versioning → Couldn't deserialize old events → System failure.
+    **Solution**: Version events immediately. Implement upcasting.
 
 ### Production Checklist
 
@@ -411,36 +394,27 @@ Team added fields without versioning → Couldn't deserialize old events → Sys
 
 ### Case Study: Walmart's Inventory System
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: Walmart  
-**Scale**: 4,700+ stores, 350M+ items/day, 1M+ events/sec, 20TB+ daily
-
-**Challenge**: Track all inventory movements with auditability and real-time queries.
-
-**Event Types**: ItemReceived, ItemSold, ItemReturned, ItemMoved, ItemDamaged, InventoryAdjusted
-
-**Architecture**:
-
-```mermaid
-graph TB
+!!! info "🏢 Real-World Implementation"
+    **Company**: Walmart
+    **Scale**: 4,700+ stores, 350M+ items/day, 1M+ events/sec, 20TB+ daily
+    **Challenge**: Track all inventory movements with auditability and real-time queries.
+    **Event Types**: ItemReceived, ItemSold, ItemReturned, ItemMoved, ItemDamaged, InventoryAdjusted
+    **Architecture**:
+    ```mermaid
+    graph TB
     POS[POS Systems] --> K[Kafka]
     K --> ES[(Event Store)]
     K --> AS[(Archival Storage)]
-    
     ES --> P1[Current Stock]
     ES --> P2[Location Map]
     ES --> P3[Reorder Alerts]
     ES --> P4[Loss Prevention]
-    
     subgraph "Projections / Multiple Views"
-        P1
-        P2
-        P3
-        P4
+    P1
+    P2
+    P3
+    P4
     end
-    
     style K fill:#4db6ac
     style ES fill:#2196f3,stroke:#1565c0,stroke-width:3px
     style AS fill:#78909c
@@ -448,26 +422,22 @@ graph TB
     style P2 fill:#ffca28
     style P3 fill:#ef5350
     style P4 fill:#ab47bc
-```
-
-**Technical**:
-1. Partitioning: Store + department
-2. Snapshots: Daily per SKU
-3. Compression: 10:1 after 30 days
-4. Retention: 7 years + archive
-
-**Results**:
-- Shrinkage detection: +40%
-- Accuracy: 95% → 99.8%
-- Audit: Days → Minutes
-- Savings: $2B/year
-
-**Lessons**:
-1. Event granularity balance
-2. Partition strategy critical
-3. Index projections
-4. Plan archival early
-</div>
+    ```
+    **Technical**:
+    1. Partitioning: Store + department
+    2. Snapshots: Daily per SKU
+    3. Compression: 10:1 after 30 days
+    4. Retention: 7 years + archive
+    **Results**:
+    - Shrinkage detection: +40%
+    - Accuracy: 95% → 99.8%
+    - Audit: Days → Minutes
+    - Savings: $2B/year
+    **Lessons**:
+    1. Event granularity balance
+    2. Partition strategy critical
+    3. Index projections
+    4. Plan archival early
 
 ### Economic Analysis
 

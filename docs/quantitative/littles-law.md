@@ -46,18 +46,14 @@ last_updated: 2025-07-20
 
 ### 1. Thread Pool Sizing
 
-<div class="decision-box">
-<h4>🧵 Thread Pool Calculator</h4>
-
-| Parameter | Value | Unit |
-|-----------|-------|------|
-| Request rate (λ) | 1,000 | req/s |
-| Processing time (W) | 200 | ms |
-| Target | No queueing | - |
-
-<div class="calculation-result">
-<strong>Required threads = λ × W = 1,000 × 0.2 = 200 threads</strong>
-</div>
+!!! note "🧵 Thread Pool Calculator"
+    | Parameter | Value | Unit |
+    |-----------|-------|------|
+    | Request rate (λ) | 1,000 | req/s |
+    | Processing time (W) | 200 | ms |
+    | Target | No queueing | - |
+    <div class="calculation-result">
+    <strong>Required threads = λ × W = 1,000 × 0.2 = 200 threads</strong>
 
 <div style="margin-top: 10px;">
 📊 <em>Visualization: Each thread handles 5 requests/second</em>
@@ -66,19 +62,15 @@ last_updated: 2025-07-20
 
 ### 2. Connection Pool Sizing
 
-<div class="decision-box">
-<h4>🔌 Connection Pool Calculator</h4>
-
-| Parameter | Value | Unit |
-|-----------|-------|------|
-| Query rate (λ) | 500 | queries/s |
-| Query duration (W) | 50 | ms |
-| Safety margin | 20% | - |
-
-<div class="calculation-result">
-<strong>Base connections = 500 × 0.05 = 25</strong><br>
-<strong>With safety margin = 25 × 1.2 = 30 connections</strong>
-</div>
+!!! note "🔌 Connection Pool Calculator"
+    | Parameter | Value | Unit |
+    |-----------|-------|------|
+    | Query rate (λ) | 500 | queries/s |
+    | Query duration (W) | 50 | ms |
+    | Safety margin | 20% | - |
+    <div class="calculation-result">
+    <strong>Base connections = 500 × 0.05 = 25</strong>
+    <strong>With safety margin = 25 × 1.2 = 30 connections</strong>
 
 <div class="progress-bar" style="margin-top: 10px;">
 <div style="width: 83%; background: #4CAF50; padding: 5px; color: white;">83% utilization at peak</div>
@@ -87,19 +79,15 @@ last_updated: 2025-07-20
 
 ### 3. Queue Depth Estimation
 
-<div class="failure-vignette">
-<h4>⚠️ Queue Growth Calculator</h4>
-
-| Parameter | Value | Unit |
-|-----------|-------|------|
-| Message arrival rate | 1,000 | msg/s |
-| Processing rate | 800 | msg/s |
-| Observation period | 60 | seconds |
-
-<div class="calculation-result">
-<strong>Net accumulation = 1,000 - 800 = 200 msg/s</strong><br>
-<strong>Queue growth = 200 × 60 = 12,000 messages</strong>
-</div>
+!!! danger "⚠️ Queue Growth Calculator"
+    | Parameter | Value | Unit |
+    |-----------|-------|------|
+    | Message arrival rate | 1,000 | msg/s |
+    | Processing rate | 800 | msg/s |
+    | Observation period | 60 | seconds |
+    <div class="calculation-result">
+    <strong>Net accumulation = 1,000 - 800 = 200 msg/s</strong>
+    <strong>Queue growth = 200 × 60 = 12,000 messages</strong>
 
 <div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
 ⚡ <strong>System Overload!</strong> Queue will grow indefinitely - add capacity or implement backpressure
@@ -108,19 +96,15 @@ last_updated: 2025-07-20
 
 ### 4. Memory Requirements
 
-<div class="truth-box">
-<h4>💾 Memory Sizing Calculator</h4>
-
-| Parameter | Value | Unit |
-|-----------|-------|------|
-| Request rate (λ) | 100 | req/s |
-| Request lifetime (W) | 5 | seconds |
-| Memory per request | 10 | MB |
-
-<div class="calculation-result">
-<strong>Concurrent requests (L) = 100 × 5 = 500</strong><br>
-<strong>Total memory = 500 × 10MB = 5,000MB = 5GB</strong>
-</div>
+!!! info "💾 Memory Sizing Calculator"
+    | Parameter | Value | Unit |
+    |-----------|-------|------|
+    | Request rate (λ) | 100 | req/s |
+    | Request lifetime (W) | 5 | seconds |
+    | Memory per request | 10 | MB |
+    <div class="calculation-result">
+    <strong>Concurrent requests (L) = 100 × 5 = 500</strong>
+    <strong>Total memory = 500 × 10MB = 5,000MB = 5GB</strong>
 
 <div class="memory-visualization" style="margin-top: 10px;">
 <div style="background: linear-gradient(to right, #2196F3 0%, #2196F3 78%, #E0E0E0 78%); padding: 10px; text-align: center; color: white;">
@@ -131,32 +115,25 @@ last_updated: 2025-07-20
 
 ## Little's Law Variants
 
-<div class="decision-box">
-<h4>📐 Three Forms</h4>
-
-- **L = λ × W** (queue length from rate & time)
-- **W = L / λ** (response time from queue & rate)
-- **λ = L / W** (throughput from queue & time)
-</div>
+!!! note "📐 Three Forms"
+    - **L = λ × W** (queue length from rate & time)
+    - **W = L / λ** (response time from queue & rate)
+    - **λ = L / W** (throughput from queue & time)
 
 ## Real Production Examples
 
 ### Netflix Video Encoding Pipeline
-<div class="truth-box">
-<h4>🎬 Netflix's Real Implementation</h4>
-
-| Parameter | Value | Calculation |
-|-----------|-------|-------------|
-| Upload rate (λ) | 100 videos/hour | - |
-| Encoding time (W) | 2 hours/video | - |
-| Videos in process (L) | **200 videos** | = 100 × 2 |
-| Videos per server | 4 | - |
-| **Minimum servers** | **50** | = 200 ÷ 4 |
-| **Actual deployment** | **300+ servers** | 6x for peaks & redundancy |
-
-<div class="insight-banner" style="margin-top: 10px; background: #E8F5E9; padding: 10px; border-left: 4px solid #4CAF50;">
-💡 <strong>Key Insight</strong>: Netflix provisions 6x minimum capacity for reliability and traffic spikes
-</div>
+!!! info "🎬 Netflix's Real Implementation"
+    | Parameter | Value | Calculation |
+    |-----------|-------|-------------|
+    | Upload rate (λ) | 100 videos/hour | - |
+    | Encoding time (W) | 2 hours/video | - |
+    | Videos in process (L) | **200 videos** | = 100 × 2 |
+    | Videos per server | 4 | - |
+    | **Minimum servers** | **50** | = 200 ÷ 4 |
+    | **Actual deployment** | **300+ servers** | 6x for peaks & redundancy |
+    <div class="insight-banner" style="margin-top: 10px; background: #E8F5E9; padding: 10px; border-left: 4px solid #4CAF50;">
+    💡 <strong>Key Insight</strong>: Netflix provisions 6x minimum capacity for reliability and traffic spikes
 
 <div class="capacity-visualization" style="margin-top: 15px; text-align: center;">
 <svg viewBox="0 0 600 200" style="width: 100%; max-width: 600px;">
@@ -185,42 +162,34 @@ last_updated: 2025-07-20
 </div>
 
 ### Uber's Driver Matching
-<div class="truth-box">
-<h4>🚗 Uber's Peak Hour Challenge</h4>
-
-| Metric | Manhattan Peak | Calculation |
-|--------|----------------|-------------|
-| Ride requests (λ) | 1,000/minute | - |
-| Match time (W) | 3 seconds | = 0.05 minutes |
-| **Concurrent matches (L)** | **50** | = 1,000 × 0.05 |
-| Safety margin | 20% | Industry standard |
-| **DB connections needed** | **60** | = 50 × 1.2 |
-
-<div class="performance-meter" style="margin-top: 10px;">
-<div style="background: linear-gradient(to right, #FF5722 0%, #FF5722 83%, #E0E0E0 83%); padding: 10px; text-align: center; color: white;">
-Connection Pool: 50/60 (83% utilization at peak)
-</div>
+!!! info "🚗 Uber's Peak Hour Challenge"
+    | Metric | Manhattan Peak | Calculation |
+    |--------|----------------|-------------|
+    | Ride requests (λ) | 1,000/minute | - |
+    | Match time (W) | 3 seconds | = 0.05 minutes |
+    | **Concurrent matches (L)** | **50** | = 1,000 × 0.05 |
+    | Safety margin | 20% | Industry standard |
+    | **DB connections needed** | **60** | = 50 × 1.2 |
+    <div class="performance-meter" style="margin-top: 10px;">
+    <div style="background: linear-gradient(to right, #FF5722 0%, #FF5722 83%, #E0E0E0 83%); padding: 10px; text-align: center; color: white;">
+    Connection Pool: 50/60 (83% utilization at peak)
 </div>
 </div>
 
 ## Practical Calculations
 
 ### Microservice Capacity
-<div class="decision-box">
-<h4>📦 Service Capacity Calculator</h4>
-
-| Constraint | Value | Impact |
-|------------|-------|--------|
-| CPU cores | 8 | Parallelism limit |
-| CPU time per request | 100ms | Processing constraint |
-| Target utilization | 70% | Safety margin |
-
-<div class="calculation-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<strong>Step 1:</strong> Requests per core = 1000ms ÷ 100ms = 10<br>
-<strong>Step 2:</strong> Total capacity = 8 cores × 10 = 80<br>
-<strong>Step 3:</strong> Safe capacity = 80 × 0.7 = 56 concurrent<br>
-<strong>Result:</strong> Max throughput = 56 ÷ 0.1s = <span style="color: #4CAF50; font-weight: bold;">560 req/s</span>
-</div>
+!!! note "📦 Service Capacity Calculator"
+    | Constraint | Value | Impact |
+    |------------|-------|--------|
+    | CPU cores | 8 | Parallelism limit |
+    | CPU time per request | 100ms | Processing constraint |
+    | Target utilization | 70% | Safety margin |
+    <div class="calculation-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <strong>Step 1:</strong> Requests per core = 1000ms ÷ 100ms = 10
+    <strong>Step 2:</strong> Total capacity = 8 cores × 10 = 80
+    <strong>Step 3:</strong> Safe capacity = 80 × 0.7 = 56 concurrent
+    <strong>Result:</strong> Max throughput = 56 ÷ 0.1s = <span style="color: #4CAF50; font-weight: bold;">560 req/s</span>
 </div>
 
 ### Database Connection Needs
@@ -246,58 +215,55 @@ Connection Pool: 50/60 (83% utilization at peak)
 ## Little's Law in Practice
 
 ### Case Study: Slack's 2021 Outage
-<div class="failure-vignette">
-<h4>🔥 Slack's Cascade Failure Timeline</h4>
-
-<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
-  <thead>
+!!! danger "🔥 Slack's Cascade Failure Timeline"
+    <table class="responsive-table" style="width: 100%; border-collapse: collapse;">
+    <thead>
     <tr style="background: #F5F5F5;">
-<th style="padding: 10px; text-align: left;">Stage</th>
-<th>Metrics</th>
-<th>Impact</th>
-</tr>
-  </thead>
-  <tbody>
+    <th style="padding: 10px; text-align: left;">Stage</th>
+    <th>Metrics</th>
+    <th>Impact</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-<td data-label="Stage"><strong>1. Normal State</strong></td>
-<td data-label="Metrics">L = 10,000<br>λ = 50,000 req/s<br>W = 0.2s ✓</td>
-<td data-label="Impact">Healthy</td>
-</tr>
+    <td data-label="Stage"><strong>1. Normal State</strong></td>
+    <td data-label="Metrics">L = 10,000
+    λ = 50,000 req/s
+    W = 0.2s ✓</td>
+    <td data-label="Impact">Healthy</td>
+    </tr>
     <tr style="background: #FFF3E0;">
-<td data-label="Stage"><strong>2. DB Slowdown</strong></td>
-<td data-label="Metrics">W → 2s<br>L → 100,000</td>
-<td data-label="Impact">10x queue growth!</td>
-</tr>
+    <td data-label="Stage"><strong>2. DB Slowdown</strong></td>
+    <td data-label="Metrics">W → 2s
+    L → 100,000</td>
+    <td data-label="Impact">10x queue growth!</td>
+    </tr>
     <tr style="background: #FFEBEE;">
-<td data-label="Stage"><strong>3. Thread Exhaustion</strong></td>
-<td data-label="Metrics">Max threads: 50,000<br>Queue: 50,000 waiting</td>
-<td data-label="Impact">Resources depleted</td>
-</tr>
+    <td data-label="Stage"><strong>3. Thread Exhaustion</strong></td>
+    <td data-label="Metrics">Max threads: 50,000
+    Queue: 50,000 waiting</td>
+    <td data-label="Impact">Resources depleted</td>
+    </tr>
     <tr style="background: #FFCDD2;">
-<td data-label="Stage"><strong>4. Cascade Failure</strong></td>
-<td data-label="Metrics">λ → 100,000 req/s<br>(retries double load)</td>
-<td data-label="Impact">Total collapse</td>
-</tr>
-  </tbody>
-</table>
-
-<div class="lesson-learned" style="margin-top: 15px; background: #E3F2FD; padding: 15px; border-left: 4px solid #2196F3;">
-📊 <strong>Key Lesson</strong>: Monitoring L (queue depth) provides early warning - it grows exponentially before visible failures occur. Set alerts at L > 2x normal.
-</div>
+    <td data-label="Stage"><strong>4. Cascade Failure</strong></td>
+    <td data-label="Metrics">λ → 100,000 req/s
+    (retries double load)</td>
+    <td data-label="Impact">Total collapse</td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="lesson-learned" style="margin-top: 15px; background: #E3F2FD; padding: 15px; border-left: 4px solid #2196F3;">
+    📊 <strong>Key Lesson</strong>: Monitoring L (queue depth) provides early warning - it grows exponentially before visible failures occur. Set alerts at L > 2x normal.
 </div>
 
 ### Debugging Performance Issues
-<div class="decision-box">
-<h4>🔍 Performance Diagnosis Tool</h4>
-
-<strong>Symptom:</strong> Response times increasing 📈
-
-<div class="diagnostic-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<strong>Step 1:</strong> Measure current requests in system (L) = <span style="color: #F44336; font-weight: bold;">500</span><br>
-<strong>Step 2:</strong> Measure arrival rate (λ) = <span style="color: #2196F3; font-weight: bold;">100 req/s</span><br>
-<strong>Step 3:</strong> Calculate response time W = L/λ = <span style="color: #FF5722; font-weight: bold;">5 seconds</span><br>
-<strong>Step 4:</strong> Compare to normal (1 second)
-</div>
+!!! note "🔍 Performance Diagnosis Tool"
+    <strong>Symptom:</strong> Response times increasing 📈
+    <div class="diagnostic-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <strong>Step 1:</strong> Measure current requests in system (L) = <span style="color: #F44336; font-weight: bold;">500</span>
+    <strong>Step 2:</strong> Measure arrival rate (λ) = <span style="color: #2196F3; font-weight: bold;">100 req/s</span>
+    <strong>Step 3:</strong> Calculate response time W = L/λ = <span style="color: #FF5722; font-weight: bold;">5 seconds</span>
+    <strong>Step 4:</strong> Compare to normal (1 second)
 
 <div class="diagnosis-result" style="background: #FFEBEE; padding: 15px; border-left: 4px solid #F44336;">
 🚨 <strong>Diagnosis:</strong> System is 5x overloaded!<br>
@@ -306,23 +272,19 @@ Connection Pool: 50/60 (83% utilization at peak)
 </div>
 
 ### Capacity Planning
-<div class="truth-box">
-<h4>📈 Growth Planning Calculator</h4>
-
-| Scenario | Current | Future | Required Action |
-|----------|---------|---------|----------------|
-| Traffic growth | 1x | 2x | Double arrival rate |
-| Response time target | Same | Same | Maintain W |
-| Current queue (L) | 100 | - | - |
-| **Future queue needed** | - | **200** | = 100 × 2 |
-
-<div class="planning-result" style="background: #E8F5E9; padding: 15px; margin-top: 10px; border-radius: 5px;">
-🎯 <strong>Capacity Plan:</strong><br>
-• Double server instances<br>
-• Double thread pools<br>
-• Double connection pools<br>
-• Linear scaling maintains performance
-</div>
+!!! info "📈 Growth Planning Calculator"
+    | Scenario | Current | Future | Required Action |
+    |----------|---------|---------|----------------|
+    | Traffic growth | 1x | 2x | Double arrival rate |
+    | Response time target | Same | Same | Maintain W |
+    | Current queue (L) | 100 | - | - |
+    | **Future queue needed** | - | **200** | = 100 × 2 |
+    <div class="planning-result" style="background: #E8F5E9; padding: 15px; margin-top: 10px; border-radius: 5px;">
+    🎯 <strong>Capacity Plan:</strong>
+    • Double server instances
+    • Double thread pools
+    • Double connection pools
+    • Linear scaling maintains performance
 </div>
 
 ## Common Misconceptions
@@ -379,12 +341,9 @@ Decompose into subsystems, apply to each
 </div>
 
 ### Multi-Stage Systems
-<div class="decision-box">
-<h4>🔗 Pipeline Formula</h4>
-
-<div style="text-align: center; margin: 15px 0;">
-<strong>Pipeline: A → B → C</strong>
-</div>
+!!! note "🔗 Pipeline Formula"
+    <div style="text-align: center; margin: 15px 0;">
+    <strong>Pipeline: A → B → C</strong>
 
 | Stage | Queue Formula | Total Impact |
 |-------|---------------|---------------|
@@ -399,16 +358,13 @@ Decompose into subsystems, apply to each
 </div>
 
 ### Variable Arrival Rates
-<div class="decision-box">
-<h4>📈 Traffic Pattern Planning</h4>
-
-| Time Period | Arrival Rate (λ) | Queue Size (L) | Resource Strategy |
-|-------------|------------------|----------------|-------------------|
-| Peak Hours | 1,000 req/s | 1,000 × W | Full capacity |
-| Off Hours | 100 req/s | 100 × W | Scale down 90% |
-
-<div class="scaling-visualization" style="margin-top: 15px;">
-<div style="background: #FF5722; width: 100%; padding: 5px; color: white; text-align: center;">Peak: 100% Resources</div>
+!!! note "📈 Traffic Pattern Planning"
+    | Time Period | Arrival Rate (λ) | Queue Size (L) | Resource Strategy |
+    |-------------|------------------|----------------|-------------------|
+    | Peak Hours | 1,000 req/s | 1,000 × W | Full capacity |
+    | Off Hours | 100 req/s | 100 × W | Scale down 90% |
+    <div class="scaling-visualization" style="margin-top: 15px;">
+    <div style="background: #FF5722; width: 100%; padding: 5px; color: white; text-align: center;">Peak: 100% Resources
 <div style="background: #4CAF50; width: 10%; padding: 5px; color: white; text-align: center; margin-top: 5px;">Off: 10%</div>
 </div>
 
@@ -494,25 +450,22 @@ Decompose into subsystems, apply to each
 ## Real-World Examples
 
 ### Example 1: API Rate Limiting
-<div class="decision-box">
-<h4>🚦 API Rate Limit Calculator</h4>
-
-<div class="formula-box" style="background: #E3F2FD; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
-<tr>
-<td style="padding: 5px;"><strong>API Limit:</strong></td>
-<td>1000 requests/minute = 16.67 req/s</td>
-</tr>
-<tr>
-<td style="padding: 5px;"><strong>Processing Time:</strong></td>
-<td>100ms = 0.1 seconds</td>
-</tr>
-<tr style="background: #BBDEFB;">
-<td style="padding: 5px;"><strong>Concurrent Requests (L):</strong></td>
-<td><strong>16.67 × 0.1 = 1.67</strong></td>
-</tr>
-</table>
-</div>
+!!! note "🚦 API Rate Limit Calculator"
+    <div class="formula-box" style="background: #E3F2FD; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <table class="responsive-table" style="width: 100%; border-collapse: collapse;">
+    <tr>
+    <td style="padding: 5px;"><strong>API Limit:</strong></td>
+    <td>1000 requests/minute = 16.67 req/s</td>
+    </tr>
+    <tr>
+    <td style="padding: 5px;"><strong>Processing Time:</strong></td>
+    <td>100ms = 0.1 seconds</td>
+    </tr>
+    <tr style="background: #BBDEFB;">
+    <td style="padding: 5px;"><strong>Concurrent Requests (L):</strong></td>
+    <td><strong>16.67 × 0.1 = 1.67</strong></td>
+    </tr>
+    </table>
 
 <div class="result-visualization" style="margin-top: 10px; text-align: center;">
 <svg viewBox="0 0 400 100" style="width: 100%; max-width: 400px;">
@@ -625,13 +578,11 @@ Decompose into subsystems, apply to each
 </div>
 
 ### Example 3: Cache Sizing
-<div class="truth-box">
-<h4>💾 Cache Memory Calculator</h4>
-
-<div class="parameters-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
-  <div style="background: #F5F5F5; padding: 10px; border-radius: 5px;">
-    <strong>Request Rate (λ):</strong><br>1,000 req/s
-  </div>
+!!! info "💾 Cache Memory Calculator"
+    <div class="parameters-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+    <div style="background: #F5F5F5; padding: 10px; border-radius: 5px;">
+    <strong>Request Rate (λ):</strong>
+    1,000 req/s
   <div style="background: #F5F5F5; padding: 10px; border-radius: 5px;">
     <strong>Cache TTL (W):</strong><br>300s (5 minutes)
   </div>
@@ -701,44 +652,40 @@ graph LR
 **Key Insight**: Little's Law proves that W (time in system) is never zero, which means L (items in system) is never zero for any non-zero arrival rate. This mathematically validates [Law 2: Asynchronous Reality ⏳](/part1-axioms/law2-asynchrony/).
 
 ### Law 4: Trade-offs
-<div class="failure-vignette">
-<h4>⚠️ Capacity Overflow Scenario</h4>
-
-<table class="responsive-table" style="width: 100%; margin: 10px 0;">
-  <thead>
+!!! danger "⚠️ Capacity Overflow Scenario"
+    <table class="responsive-table" style="width: 100%; margin: 10px 0;">
+    <thead>
     <tr style="background: #F5F5F5;">
-<th style="padding: 10px; text-align: left;">Parameter</th>
-<th>Value</th>
-<th>Result</th>
-</tr>
-  </thead>
-  <tbody>
+    <th style="padding: 10px; text-align: left;">Parameter</th>
+    <th>Value</th>
+    <th>Result</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-<td data-label="Parameter"><strong>System Capacity (Max_L)</strong></td>
-<td data-label="Value">1,000 items</td>
-<td data-label="Result">✓ Limit</td>
-</tr>
+    <td data-label="Parameter"><strong>System Capacity (Max_L)</strong></td>
+    <td data-label="Value">1,000 items</td>
+    <td data-label="Result">✓ Limit</td>
+    </tr>
     <tr>
-<td data-label="Parameter"><strong>Arrival Rate (λ)</strong></td>
-<td data-label="Value">500/s</td>
-<td data-label="Result">-</td>
-</tr>
+    <td data-label="Parameter"><strong>Arrival Rate (λ)</strong></td>
+    <td data-label="Value">500/s</td>
+    <td data-label="Result">-</td>
+    </tr>
     <tr>
-<td data-label="Parameter"><strong>Wait Time (W)</strong></td>
-<td data-label="Value">3 seconds</td>
-<td data-label="Result">-</td>
-</tr>
+    <td data-label="Parameter"><strong>Wait Time (W)</strong></td>
+    <td data-label="Value">3 seconds</td>
+    <td data-label="Result">-</td>
+    </tr>
     <tr style="background: #FFEBEE;">
-<td data-label="Parameter"><strong>Calculated Queue (L)</strong></td>
-<td data-label="Value">500 × 3 = 1,500</td>
-<td data-label="Result">⚠️ OVERFLOW!</td>
-</tr>
-  </tbody>
-</table>
-
-<div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
-⚡ <strong>System Failure</strong>: Queue overflow! Need capacity upgrade or backpressure
-</div>
+    <td data-label="Parameter"><strong>Calculated Queue (L)</strong></td>
+    <td data-label="Value">500 × 3 = 1,500</td>
+    <td data-label="Result">⚠️ OVERFLOW!</td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
+    ⚡ <strong>System Failure</strong>: Queue overflow! Need capacity upgrade or backpressure
 </div>
 
 ### Law 4: Trade-offs (Coordination Aspect)
@@ -747,17 +694,14 @@ graph LR
 - But the law still holds for averages
 
 ### Law 5: Epistemology
-<div class="truth-box">
-<h4>📊 Observability Challenge</h4>
-
-<div class="measurement-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
-  <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
+!!! info "📊 Observability Challenge"
+    <div class="measurement-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 15px 0;">
+    <div style="background: #E8F5E9; padding: 15px; border-radius: 5px;">
     <strong>✅ Directly Observable</strong>
     <ul style="margin: 10px 0;">
-      <li><strong>L</strong> = count(items_in_system)</li>
-      <li><strong>λ</strong> = count(arrivals) / time</li>
+    <li><strong>L</strong> = count(items_in_system)</li>
+    <li><strong>λ</strong> = count(arrivals) / time</li>
     </ul>
-  </div>
   <div style="background: #FFEBEE; padding: 15px; border-radius: 5px;">
     <strong>❌ Must Calculate</strong>
     <ul style="margin: 10px 0;">
@@ -844,43 +788,39 @@ graph LR
 ```
 
 ### Resource Calculation
-<div class="decision-box">
-<h4>🔧 Resource Calculation Summary</h4>
-
-<table class="responsive-table" style="width: 100%; margin: 15px 0; border-collapse: collapse;">
-  <thead>
+!!! note "🔧 Resource Calculation Summary"
+    <table class="responsive-table" style="width: 100%; margin: 15px 0; border-collapse: collapse;">
+    <thead>
     <tr style="background: #E3F2FD;">
-<th style="padding: 10px; text-align: left; border: 1px solid #90CAF9;">Component</th>
-<th style="padding: 10px; border: 1px solid #90CAF9;">Thread/Connection Requirements</th>
-<th style="padding: 10px; border: 1px solid #90CAF9;">Queue Depth (L)</th>
-</tr>
-  </thead>
-  <tbody>
+    <th style="padding: 10px; text-align: left; border: 1px solid #90CAF9;">Component</th>
+    <th style="padding: 10px; border: 1px solid #90CAF9;">Thread/Connection Requirements</th>
+    <th style="padding: 10px; border: 1px solid #90CAF9;">Queue Depth (L)</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-<td data-label="Component"><strong>Auth Service</strong></td>
-<td data-label="Thread/Connection Requirements">10 threads</td>
-<td data-label="Queue Depth (L)">L = 10</td>
-</tr>
+    <td data-label="Component"><strong>Auth Service</strong></td>
+    <td data-label="Thread/Connection Requirements">10 threads</td>
+    <td data-label="Queue Depth (L)">L = 10</td>
+    </tr>
     <tr style="background: #F5F5F5;">
-<td data-label="Component"><strong>Business Logic</strong></td>
-<td data-label="Thread/Connection Requirements">40 threads</td>
-<td data-label="Queue Depth (L)">L = 40</td>
-</tr>
+    <td data-label="Component"><strong>Business Logic</strong></td>
+    <td data-label="Thread/Connection Requirements">40 threads</td>
+    <td data-label="Queue Depth (L)">L = 40</td>
+    </tr>
     <tr>
-<td data-label="Component"><strong>DB Connections</strong></td>
-<td data-label="Thread/Connection Requirements">48 connections</td>
-<td data-label="Queue Depth (L)">L = 48</td>
-</tr>
-  </tbody>
-</table>
-
-<div class="memory-calculation" style="background: #E8F5E9; padding: 15px; margin-top: 15px; border-radius: 5px;">
-  <h5 style="margin: 0 0 10px 0;">💾 Memory Requirements (1MB per request)</h5>
-  <div style="display: flex; align-items: center; gap: 10px;">
+    <td data-label="Component"><strong>DB Connections</strong></td>
+    <td data-label="Thread/Connection Requirements">48 connections</td>
+    <td data-label="Queue Depth (L)">L = 48</td>
+    </tr>
+    </tbody>
+    </table>
+    <div class="memory-calculation" style="background: #E8F5E9; padding: 15px; margin-top: 15px; border-radius: 5px;">
+    <h5 style="margin: 0 0 10px 0;">💾 Memory Requirements (1MB per request)</h5>
+    <div style="display: flex; align-items: center; gap: 10px;">
     <span>5 + 10 + 40 + 48 =</span>
     <span style="font-size: 1.2em; font-weight: bold; color: #2E7D32;">103MB</span>
     <span>active memory</span>
-  </div>
   <div class="memory-bar" style="margin-top: 10px; background: #E0E0E0; height: 30px; border-radius: 15px; overflow: hidden;">
     <div style="width: 10%; background: #4CAF50; height: 100%; float: left;"></div>
     <div style="width: 20%; background: #66BB6A; height: 100%; float: left;"></div>

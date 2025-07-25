@@ -244,38 +244,33 @@ graph LR
 
 ### 3. Distributed Storage Systems
 
-<div class="decision-box">
-<h4>Amazon DynamoDB Anti-Entropy</h4>
-
-```mermaid
-graph TB
+!!! note "Amazon DynamoDB Anti-Entropy"
+    ```mermaid
+    graph TB
     subgraph "Replica A"
-        RA[Root: abc123]
-        RAData[1M items]
+    RA[Root: abc123]
+    RAData[1M items]
     end
-    
     subgraph "Replica B"
-        RB[Root: def456]
-        RBData[1M items]
+    RB[Root: def456]
+    RBData[1M items]
     end
-    
     subgraph "Sync Process"
-        Compare[Roots differ!]
-        Traverse[Find differences<br/>via tree traversal]
-        Sync[Sync only<br/>changed branches]
+    Compare[Roots differ!]
+    Traverse[Find differences
+    via tree traversal]
+    Sync[Sync only
+    changed branches]
     end
-    
     RA --> Compare
     RB --> Compare
     Compare --> Traverse
     Traverse --> Sync
-```
-
-**Benefits:**
-- Minimize data transfer
-- Quick divergence detection
-- Efficient reconciliation
-</div>
+    ```
+    **Benefits:**
+    - Minimize data transfer
+    - Quick divergence detection
+    - Efficient reconciliation
 
 ## Implementation Patterns
 
@@ -413,17 +408,14 @@ graph TD
 
 ### Attack Vectors and Mitigations
 
-<div class="truth-box">
-<h4>Common Security Threats</h4>
-
-| Attack Type | Description | Mitigation |
-|-------------|-------------|------------|
-| **Second Preimage** | Find different data with same hash | Use strong hash (SHA-256+) |
-| **Collision Attack** | Find any two inputs with same hash | Avoid MD5, SHA-1 |
-| **Length Extension** | Append data to hash | Use HMAC or hash twice |
-| **Proof Replay** | Reuse old valid proofs | Include timestamps/nonces |
-| **Tree Malleability** | Different trees, same root | Canonical ordering |
-</div>
+!!! info "Common Security Threats"
+    | Attack Type | Description | Mitigation |
+    |-------------|-------------|------------|
+    | **Second Preimage** | Find different data with same hash | Use strong hash (SHA-256+) |
+    | **Collision Attack** | Find any two inputs with same hash | Avoid MD5, SHA-1 |
+    | **Length Extension** | Append data to hash | Use HMAC or hash twice |
+    | **Proof Replay** | Reuse old valid proofs | Include timestamps/nonces |
+    | **Tree Malleability** | Different trees, same root | Canonical ordering |
 
 ### Secure Implementation Checklist
 

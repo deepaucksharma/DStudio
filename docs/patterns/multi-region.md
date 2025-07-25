@@ -62,15 +62,13 @@ Like a global retail chain - stores in every region stock local preferences whil
 
 ### The Problem Space
 
-<div class="failure-vignette">
-<h4>🔥 Without Multi-Region: Gaming Platform Disaster</h4>
-Online game hosted in US-East only:
-- Asian players: 300ms+ latency, unplayable
-- AWS us-east-1 outage: 8 hours global downtime
-- Lost 2M daily active users
-- $10M revenue impact
-- Competitors gained permanent market share
-</div>
+!!! danger "🔥 Without Multi-Region: Gaming Platform Disaster"
+    Online game hosted in US-East only:
+    - Asian players: 300ms+ latency, unplayable
+    - AWS us-east-1 outage: 8 hours global downtime
+    - Lost 2M daily active users
+    - $10M revenue impact
+    - Competitors gained permanent market share
 
 ### Core Architecture Patterns
 
@@ -594,18 +592,15 @@ class EdgeRegionHierarchy:
 
 ### Performance Optimization
 
-<div class="decision-box">
-<h4>🎯 Multi-Region Performance Tips</h4>
-
-- **Smart Caching**: Cache at edge, invalidate globally
-- **Read Replicas**: Place read replicas near users
-- **Async Replication**: Don't block on cross-region sync
-- **Regional Sharding**: Shard data by user geography
-- **Connection Pooling**: Reuse cross-region connections
-- **Compression**: Compress cross-region transfers
-- **Batching**: Batch updates to reduce round trips
-- **CDN Integration**: Use CDN for static content
-</div>
+!!! note "🎯 Multi-Region Performance Tips"
+    - **Smart Caching**: Cache at edge, invalidate globally
+    - **Read Replicas**: Place read replicas near users
+    - **Async Replication**: Don't block on cross-region sync
+    - **Regional Sharding**: Shard data by user geography
+    - **Connection Pooling**: Reuse cross-region connections
+    - **Compression**: Compress cross-region transfers
+    - **Batching**: Batch updates to reduce round trips
+    - **CDN Integration**: Use CDN for static content
 
 ### Monitoring Multi-Region Systems
 
@@ -653,23 +648,15 @@ metrics:
 
 ### Common Pitfalls
 
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Ignoring CAP Theorem</h4>
-Tried to maintain strong consistency across regions during network partition.
+!!! danger "⚠️ Pitfall: Ignoring CAP Theorem"
+    Tried to maintain strong consistency across regions during network partition.
+    **Result**: Complete system halt when regions couldn't communicate.
+    **Solution**: Design for partition tolerance, choose appropriate consistency level.
 
-**Result**: Complete system halt when regions couldn't communicate.
-
-**Solution**: Design for partition tolerance, choose appropriate consistency level.
-</div>
-
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Underestimating Costs</h4>
-Replicated everything everywhere without considering transfer costs.
-
-**Result**: $100K+ monthly bill for cross-region transfers.
-
-**Solution**: Selective replication, regional data tiers, transfer optimization.
-</div>
+!!! danger "⚠️ Pitfall: Underestimating Costs"
+    Replicated everything everywhere without considering transfer costs.
+    **Result**: $100K+ monthly bill for cross-region transfers.
+    **Solution**: Selective replication, regional data tiers, transfer optimization.
 
 ---
 
@@ -677,76 +664,69 @@ Replicated everything everywhere without considering transfer costs.
 
 ### Case Study: Spotify's Global Architecture
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: Spotify
-**Scale**: 500M+ users, 180+ countries, 4B+ streams/day
-
-**Challenge**: Stream music with <200ms startup time globally while maintaining catalog consistency.
-
-**Architecture**:
-
-```mermaid
-graph TB
+!!! info "🏢 Real-World Implementation"
+    **Company**: Spotify
+    **Scale**: 500M+ users, 180+ countries, 4B+ streams/day
+    **Challenge**: Stream music with <200ms startup time globally while maintaining catalog consistency.
+    **Architecture**:
+    ```mermaid
+    graph TB
     subgraph "User Layer"
-        US[US Users]
-        EU[EU Users]
-        AS[Asia Users]
+    US[US Users]
+    EU[EU Users]
+    AS[Asia Users]
     end
-    
     subgraph "Edge PoPs"
-        CDN1[CDN US]
-        CDN2[CDN EU]
-        CDN3[CDN Asia]
+    CDN1[CDN US]
+    CDN2[CDN EU]
+    CDN3[CDN Asia]
     end
-    
     subgraph "Regional Clusters"
-        R1[US Cluster<br/>- API<br/>- Metadata<br/>- ML]
-        R2[EU Cluster<br/>- API<br/>- Metadata<br/>- ML]
-        R3[Asia Cluster<br/>- API<br/>- Metadata<br/>- ML]
+    R1[US Cluster
+    - API
+    - Metadata
+    - ML]
+    R2[EU Cluster
+    - API
+    - Metadata
+    - ML]
+    R3[Asia Cluster
+    - API
+    - Metadata
+    - ML]
     end
-    
     subgraph "Global Services"
-        CAT[Catalog Master]
-        USER[User Profile Master]
-        ML[ML Training]
+    CAT[Catalog Master]
+    USER[User Profile Master]
+    ML[ML Training]
     end
-    
     US --> CDN1 --> R1
     EU --> CDN2 --> R2
     AS --> CDN3 --> R3
-    
     R1 <--> CAT
     R2 <--> CAT
     R3 <--> CAT
-    
     R1 <--> USER
     R2 <--> USER
     R3 <--> USER
-    
     style CAT fill:#4caf50,stroke:#2e7d32,stroke-width:3px
-```
-
-**Key Decisions**:
-1. **Audio cached at edge**: 90% hit rate reduces latency
-2. **Metadata replicated regionally**: Fast browsing
-3. **User data geo-sharded**: Compliance + performance
-4. **ML models deployed regionally**: Personalized recommendations
-5. **Async catalog updates**: Eventually consistent
-
-**Results**:
-- 150ms average start time globally
-- 99.95% availability
-- 60% reduction in infrastructure costs
-- Seamless regional failovers
-
-**Lessons**:
-1. Cache aggressively at edge
-2. Shard by user geography when possible
-3. Async replication for non-critical data
-4. Regional ML inference beats centralized
-</div>
+    ```
+    **Key Decisions**:
+    1. **Audio cached at edge**: 90% hit rate reduces latency
+    2. **Metadata replicated regionally**: Fast browsing
+    3. **User data geo-sharded**: Compliance + performance
+    4. **ML models deployed regionally**: Personalized recommendations
+    5. **Async catalog updates**: Eventually consistent
+    **Results**:
+    - 150ms average start time globally
+    - 99.95% availability
+    - 60% reduction in infrastructure costs
+    - Seamless regional failovers
+    **Lessons**:
+    1. Cache aggressively at edge
+    2. Shard by user geography when possible
+    3. Async replication for non-critical data
+    4. Regional ML inference beats centralized
 
 ### Economic Analysis
 

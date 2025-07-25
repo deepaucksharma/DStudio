@@ -117,12 +117,9 @@ last_updated: 2025-07-20
 </div>
 
 ### Average Wait Time
-<div class="decision-box">
-<h4>⏱️ Wait Time Calculator</h4>
-
-<div class="formula-highlight" style="text-align: center; padding: 20px; background: #E8F5E9; margin: 10px 0; border-radius: 5px;">
-  <span style="font-size: 1.3em; color: #4CAF50;">Wq = Lq/λ = ρ/(μ-λ)</span>
-</div>
+!!! note "⏱️ Wait Time Calculator"
+    <div class="formula-highlight" style="text-align: center; padding: 20px; background: #E8F5E9; margin: 10px 0; border-radius: 5px;">
+    <span style="font-size: 1.3em; color: #4CAF50;">Wq = Lq/λ = ρ/(μ-λ)</span>
 
 <div class="interactive-calculator" style="background: #F5F5F5; padding: 20px; border-radius: 5px; margin: 15px 0;">
   <div style="text-align: center; margin-bottom: 15px;">
@@ -184,18 +181,14 @@ P(response > t) = e^(-μ(1-ρ)t)
 
 ## The Knee of the Curve
 
-<div class="truth-box">
-<h4>📉 The Exponential Growth Zone</h4>
-
-<div class="curve-visualization" style="margin: 20px 0;">
-  <svg viewBox="0 0 600 400" style="width: 100%; max-width: 600px;">
+!!! info "📉 The Exponential Growth Zone"
+    <div class="curve-visualization" style="margin: 20px 0;">
+    <svg viewBox="0 0 600 400" style="width: 100%; max-width: 600px;">
     <!-- Title -->
     <text x="300" y="20" text-anchor="middle" font-weight="bold">Response Time vs Utilization</text>
-    
     <!-- Axes -->
     <line x1="60" y1="350" x2="550" y2="350" stroke="#333" stroke-width="2"/>
     <line x1="60" y1="350" x2="60" y2="30" stroke="#333" stroke-width="2"/>
-    
     <!-- Y-axis labels (ms) -->
     <text x="40" y="355" text-anchor="end" font-size="10">0</text>
     <text x="40" y="305" text-anchor="end" font-size="10">100</text>
@@ -204,7 +197,6 @@ P(response > t) = e^(-μ(1-ρ)t)
     <text x="40" y="155" text-anchor="end" font-size="10">400</text>
     <text x="40" y="105" text-anchor="end" font-size="10">500</text>
     <text x="40" y="55" text-anchor="end" font-size="10">1000</text>
-    
     <!-- X-axis labels (utilization) -->
     <text x="110" y="370" text-anchor="middle" font-size="10">50%</text>
     <text x="210" y="370" text-anchor="middle" font-size="10">60%</text>
@@ -213,25 +205,20 @@ P(response > t) = e^(-μ(1-ρ)t)
     <text x="460" y="370" text-anchor="middle" font-size="10">85%</text>
     <text x="510" y="370" text-anchor="middle" font-size="10">90%</text>
     <text x="540" y="370" text-anchor="middle" font-size="10">95%</text>
-    
     <!-- The curve -->
-    <path d="M 110,340 C 210,335 310,320 410,300 460,280 510,200 540,50" 
-          stroke="#2196F3" stroke-width="3" fill="none"/>
-    
+    <path d="M 110,340 C 210,335 310,320 410,300 460,280 510,200 540,50"
+    stroke="#2196F3" stroke-width="3" fill="none"/>
     <!-- Safe zone -->
     <rect x="60" y="30" width="350" height="320" fill="#4CAF50" opacity="0.1"/>
     <text x="235" y="190" text-anchor="middle" font-size="14" fill="#2E7D32" font-weight="bold">SAFE ZONE</text>
-    
     <!-- Danger zone -->
     <rect x="410" y="30" width="140" height="320" fill="#FF5722" opacity="0.2"/>
     <text x="480" y="190" text-anchor="middle" font-size="14" fill="#B71C1C" font-weight="bold">DANGER</text>
-    
     <!-- The knee -->
     <circle cx="410" cy="300" r="8" fill="#FF5722"/>
     <text x="410" y="280" text-anchor="middle" font-size="12" font-weight="bold">The Knee</text>
     <text x="410" y="265" text-anchor="middle" font-size="10">80% utilization</text>
-  </svg>
-</div>
+    </svg>
 
 <div class="response-time-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
   <table class="responsive-table" style="width: 100%;">
@@ -327,17 +314,14 @@ Servers @ 80% util: 1→80%, 2→44%, 4→23%, 8→11%, 16→5% queue probabilit
 ## Real-World Applications
 
 ### API Server Sizing
-<div class="decision-box">
-<h4>🖥️ Server Capacity Planning</h4>
-
-<div class="requirements-box" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-  <strong>Given Requirements:</strong>
-  <table class="responsive-table" style="width: 100%; margin-top: 10px;">
+!!! note "🖥️ Server Capacity Planning"
+    <div class="requirements-box" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <strong>Given Requirements:</strong>
+    <table class="responsive-table" style="width: 100%; margin-top: 10px;">
     <tr><td>Request rate:</td><td><strong>1000 req/s</strong></td></tr>
     <tr><td>Service time:</td><td><strong>50ms</strong></td></tr>
     <tr><td>Target:</td><td><strong>95% requests < 200ms</strong></td></tr>
-  </table>
-</div>
+    </table>
 
 <div class="calculation-visualization" style="margin: 20px 0; text-align: center;">
   <svg viewBox="0 0 600 350" style="width: 100%; max-width: 600px;">
@@ -458,12 +442,10 @@ This sizing directly impacts [Availability](availability-math.md) - overloaded s
 </div>
 
 ### Message Queue Sizing
-<div class="decision-box">
-<h4>📦 Queue Worker Calculator</h4>
-
-<div class="requirements" style="background: #E8F5E9; padding: 15px; margin: 10px 0; border-radius: 5px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-    <div><strong>Message rate:</strong> 1,000 msg/s</div>
+!!! note "📦 Queue Worker Calculator"
+    <div class="requirements" style="background: #E8F5E9; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div><strong>Message rate:</strong> 1,000 msg/s
     <div><strong>Process time:</strong> 10ms/msg</div>
     <div><strong>Target latency:</strong> &lt; 100ms</div>
     <div><strong>Service time:</strong> 10ms</div>

@@ -86,17 +86,13 @@ Two 99.9% DBs = 1 - 0.001² = 99.9999%
 
 ### N+M Redundancy
 
-<div class="truth-box">
-<h4>📈 N+M Redundancy Formula</h4>
-
-<div style="background: #E3F2FD; padding: 20px; border-radius: 8px; margin: 15px 0;">
-  <p><strong>Scenario</strong>: Need N components working, have N+M total</p>
-  <p><strong>System fails when</strong>: More than M components fail</p>
-  
-  <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: 'Courier New', monospace;">
-    <strong>For identical components with availability A:</strong><br><br>
+!!! info "📈 N+M Redundancy Formula"
+    <div style="background: #E3F2FD; padding: 20px; border-radius: 8px; margin: 15px 0;">
+    <strong>Scenario</strong>: Need N components working, have N+M total
+    <strong>System fails when</strong>: More than M components fail
+    <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; font-family: 'Courier New', monospace;">
+    <strong>For identical components with availability A:</strong>
     Availability = Σ<sub>k=0</sub><sup>M</sup> C(N+M,k) × A<sup>(N+M-k)</sup> × (1-A)<sup>k</sup>
-  </div>
   
   <div style="margin-top: 15px;">
     <strong>Example: 3+2 Redundancy (Need 3, Have 5)</strong>

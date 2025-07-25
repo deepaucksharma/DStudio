@@ -160,23 +160,21 @@ Email:          5 s       (expectation)
 
 Practical approaches to reduce latency:
 
-<div class="decision-box">
-<h4>💡 Latency Reduction Strategies</h4>
-
-<table class="responsive-table" style="width: 100%; border-collapse: collapse;">
-  <thead>
+!!! note "💡 Latency Reduction Strategies"
+    <table class="responsive-table" style="width: 100%; border-collapse: collapse;">
+    <thead>
     <tr style="background: #E8F5E9;">
-<th style="padding: 12px; text-align: left; border: 1px solid #A5D6A7;">Strategy</th>
-<th style="padding: 12px; border: 1px solid #A5D6A7;">Typical Improvement</th>
-<th style="padding: 12px; border: 1px solid #A5D6A7;">Cost</th>
-<th style="padding: 12px; border: 1px solid #A5D6A7;">Implementation</th>
-</tr>
-  </thead>
-  <tbody>
+    <th style="padding: 12px; text-align: left; border: 1px solid #A5D6A7;">Strategy</th>
+    <th style="padding: 12px; border: 1px solid #A5D6A7;">Typical Improvement</th>
+    <th style="padding: 12px; border: 1px solid #A5D6A7;">Cost</th>
+    <th style="padding: 12px; border: 1px solid #A5D6A7;">Implementation</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-<td data-label="Strategy"><strong>Add regional cache</strong></td>
-<td data-label="Typical Improvement">
-  <div style="background: #4CAF50; width: 90%; height: 20px; border-radius: 10px;"></div>
+    <td data-label="Strategy"><strong>Add regional cache</strong></td>
+    <td data-label="Typical Improvement">
+    <div style="background: #4CAF50; width: 90%; height: 20px; border-radius: 10px;">
   <span>50-90%</span>
 </td>
 <td data-label="Cost">$</td>
@@ -275,13 +273,10 @@ Practical approaches to reduce latency:
 
 ## Example 1: E-commerce Checkout
 
-<div class="truth-box">
-<h4>🛍️ E-commerce Checkout Flow</h4>
-
-<div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
-  <div style="text-align: center; margin-bottom: 15px;">
+!!! info "🛍️ E-commerce Checkout Flow"
+    <div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
+    <div style="text-align: center; margin-bottom: 15px;">
     <strong>User clicks "Buy Now" → Order confirmed</strong>
-  </div>
   
   <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
   <thead>
@@ -352,13 +347,10 @@ Practical approaches to reduce latency:
 
 ## Example 2: Real-time Gaming
 
-<div class="failure-vignette">
-<h4>🎮 Real-time Gaming Latency</h4>
-
-<div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
-  <div style="text-align: center; margin-bottom: 15px;">
+!!! danger "🎮 Real-time Gaming Latency"
+    <div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
+    <div style="text-align: center; margin-bottom: 15px;">
     <strong>Player input → Other players see action</strong>
-  </div>
   
   <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
     <svg viewBox="0 0 600 200" style="width: 100%;">
@@ -453,18 +445,14 @@ graph LR
 Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5ns) > 0.
 
 ### Law 4: Trade-offs
-<div class="failure-vignette">
-<h4>📈 Latency Under Load</h4>
-
-<div style="background: #FFF3E0; padding: 20px; border-radius: 8px;">
-  <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
+!!! danger "📈 Latency Under Load"
+    <div style="background: #FFF3E0; padding: 20px; border-radius: 8px;">
+    <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
     <!-- Title -->
     <text x="300" y="20" text-anchor="middle" font-weight="bold">Latency vs System Utilization</text>
-    
     <!-- Axes -->
     <line x1="50" y1="250" x2="550" y2="250" stroke="#333" stroke-width="2"/>
     <line x1="50" y1="250" x2="50" y2="50" stroke="#333" stroke-width="2"/>
-    
     <!-- X-axis labels -->
     <text x="50" y="270" text-anchor="middle" font-size="12">0%</text>
     <text x="150" y="270" text-anchor="middle" font-size="12">25%</text>
@@ -473,7 +461,6 @@ Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5
     <text x="450" y="270" text-anchor="middle" font-size="12">90%</text>
     <text x="550" y="270" text-anchor="middle" font-size="12">99%</text>
     <text x="300" y="290" text-anchor="middle" font-size="12">System Utilization</text>
-    
     <!-- Y-axis labels -->
     <text x="40" y="250" text-anchor="end" font-size="12">10ms</text>
     <text x="40" y="200" text-anchor="end" font-size="12">100ms</text>
@@ -481,29 +468,22 @@ Every operation proves [Law 1](/part1-axioms/law1-failure/) - even L1 cache (0.5
     <text x="40" y="100" text-anchor="end" font-size="12">10s</text>
     <text x="40" y="50" text-anchor="end" font-size="12">100s</text>
     <text x="20" y="150" text-anchor="middle" font-size="12" transform="rotate(-90 20 150)">Latency</text>
-    
     <!-- Exponential curve -->
-    <path d="M 50 240 Q 250 240, 350 230 T 450 150 Q 500 100, 550 50" 
-          stroke="#FF5722" stroke-width="3" fill="none"/>
-    
+    <path d="M 50 240 Q 250 240, 350 230 T 450 150 Q 500 100, 550 50"
+    stroke="#FF5722" stroke-width="3" fill="none"/>
     <!-- Data points -->
     <circle cx="250" cy="240" r="5" fill="#4CAF50"/>
     <text x="250" y="230" text-anchor="middle" font-size="10">50%: 10ms</text>
-    
     <circle cx="450" cy="150" r="5" fill="#FF9800"/>
     <text x="450" y="140" text-anchor="middle" font-size="10">90%: 100ms</text>
-    
     <circle cx="550" cy="50" r="5" fill="#F44336"/>
     <text x="480" y="40" text-anchor="middle" font-size="10">99%: 1000ms</text>
-    
     <!-- Warning zones -->
     <rect x="350" y="50" width="100" height="200" fill="#FF9800" opacity="0.1"/>
     <text x="400" y="70" text-anchor="middle" font-size="10" fill="#E65100">Danger Zone</text>
-    
     <rect x="450" y="50" width="100" height="200" fill="#F44336" opacity="0.2"/>
     <text x="500" y="70" text-anchor="middle" font-size="10" fill="#B71C1C">Critical</text>
-  </svg>
-</div>
+    </svg>
 
 <div class="warning-note" style="margin-top: 15px; background: #FFEBEE; padding: 15px; border-left: 4px solid #F44336;">
 ⚠️ <strong>Key Insight</strong>: Latency grows exponentially as utilization approaches 100%. Keep systems under 80% utilization for predictable performance!

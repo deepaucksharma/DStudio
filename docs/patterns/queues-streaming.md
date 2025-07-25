@@ -58,17 +58,14 @@ Like factory assembly lines - controlled pace, adjustable workers, continuous fl
 
 ### The Problem Space
 
-<div class="failure-vignette">
-<h4>🔥 Without Queues: Instagram Explore Meltdown</h4>
-Explore launch with direct calls + viral moment:
-- 100x traffic spike
-- ML servers overwhelmed
-- Cascading failures
-- 4-hour outage, 500M users
-- $2M+ lost revenue
-
-Queues would have absorbed and gradually processed the spike.
-</div>
+!!! danger "🔥 Without Queues: Instagram Explore Meltdown"
+    Explore launch with direct calls + viral moment:
+    - 100x traffic spike
+    - ML servers overwhelmed
+    - Cascading failures
+    - 4-hour outage, 500M users
+    - $2M+ lost revenue
+    Queues would have absorbed and gradually processed the spike.
 
 ### Core Concept
 
@@ -1022,18 +1019,15 @@ class StreamJoiner:
 
 ### Performance Optimization
 
-<div class="decision-box">
-<h4>🎯 Performance Tuning Checklist</h4>
-
-- [ ] **Batch Processing**: Process multiple messages per receive
-- [ ] **Connection Pooling**: Reuse connections to queue service
-- [ ] **Compression**: Compress large messages
-- [ ] **Partitioning**: Distribute load across partitions
-- [ ] **Prefetch**: Optimize consumer prefetch count
-- [ ] **Async I/O**: Non-blocking message processing
-- [ ] **Circuit Breakers**: Protect downstream services
-- [ ] **Monitoring**: Track queue depth and latency
-</div>
+!!! note "🎯 Performance Tuning Checklist"
+    - [ ] **Batch Processing**: Process multiple messages per receive
+    - [ ] **Connection Pooling**: Reuse connections to queue service
+    - [ ] **Compression**: Compress large messages
+    - [ ] **Partitioning**: Distribute load across partitions
+    - [ ] **Prefetch**: Optimize consumer prefetch count
+    - [ ] **Async I/O**: Non-blocking message processing
+    - [ ] **Circuit Breakers**: Protect downstream services
+    - [ ] **Monitoring**: Track queue depth and latency
 
 ### Monitoring & Observability
 
@@ -1083,19 +1077,13 @@ metrics:
 
 ### Common Pitfalls
 
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Poison Messages</h4>
-Malformed message crashed consumers repeatedly, blocked entire queue.
+!!! danger "⚠️ Pitfall: Poison Messages"
+    Malformed message crashed consumers repeatedly, blocked entire queue.
+    **Solution**: Retry limits, DLQ, message validation.
 
-**Solution**: Retry limits, DLQ, message validation.
-</div>
-
-<div class="failure-vignette">
-<h4>⚠️ Pitfall: Unbounded Queue Growth</h4>
-Traffic spike → Unbounded growth → Memory exhaustion → Crash.
-
-**Solution**: Size limits, backpressure, depth monitoring.
-</div>
+!!! danger "⚠️ Pitfall: Unbounded Queue Growth"
+    Traffic spike → Unbounded growth → Memory exhaustion → Crash.
+    **Solution**: Size limits, backpressure, depth monitoring.
 
 ### Production Checklist
 
@@ -1114,32 +1102,23 @@ Traffic spike → Unbounded growth → Memory exhaustion → Crash.
 
 ### Case Study: LinkedIn's Kafka Infrastructure
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: LinkedIn  
-**Scale**: 7T messages/day, 100+ clusters, 4K+ brokers, PBs of data
-
-**Challenge**: Real-time pipelines with sub-second latency.
-
-**Architecture**: Producers → Kafka → Stream Processors → Consumers
-
-**Design**:
-1. Partition by member ID
-2. 3x cross-AZ replication
-3. 3-7 day retention
-4. Snappy compression
-
-**Optimizations**: Custom partitioning, tiered storage, adaptive batching, zero-copy
-
-**Results**: <10ms p99, 99.99% availability, 30MB/s/broker, <30s recovery
-
-**Lessons**:
-1. Monitor everything
-2. Thoughtful partitioning
-3. Plan for failure
-4. Workload-specific tuning
-</div>
+!!! info "🏢 Real-World Implementation"
+    **Company**: LinkedIn
+    **Scale**: 7T messages/day, 100+ clusters, 4K+ brokers, PBs of data
+    **Challenge**: Real-time pipelines with sub-second latency.
+    **Architecture**: Producers → Kafka → Stream Processors → Consumers
+    **Design**:
+    1. Partition by member ID
+    2. 3x cross-AZ replication
+    3. 3-7 day retention
+    4. Snappy compression
+    **Optimizations**: Custom partitioning, tiered storage, adaptive batching, zero-copy
+    **Results**: <10ms p99, 99.99% availability, 30MB/s/broker, <30s recovery
+    **Lessons**:
+    1. Monitor everything
+    2. Thoughtful partitioning
+    3. Plan for failure
+    4. Workload-specific tuning
 
 ### Economic Analysis
 

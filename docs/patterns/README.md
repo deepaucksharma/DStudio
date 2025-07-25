@@ -48,20 +48,14 @@ We use custom-styled boxes to highlight different types of information:
   <p>Core concept explained visually</p>
 </div>
 
-<div class="decision-box">
-  <h4>💡 When to Use</h4>
-  <p>Decision criteria and use cases</p>
-</div>
+!!! note "💡 When to Use"
+    Decision criteria and use cases
 
-<div class="failure-vignette">
-  <h4>💥 Failure Story</h4>
-  <p>Real-world failure scenarios</p>
-</div>
+!!! danger "💥 Failure Story"
+    Real-world failure scenarios
 
-<div class="truth-box">
-  <h4>🔍 Key Insight</h4>
-  <p>Fundamental truth about the pattern</p>
-</div>
+!!! info "🔍 Key Insight"
+    Fundamental truth about the pattern
 ```
 
 ### 2. Mermaid Diagrams

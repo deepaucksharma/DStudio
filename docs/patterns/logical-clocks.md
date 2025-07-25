@@ -412,17 +412,14 @@ class BoundedLamportClock(LamportClock):
 
 ## Best Practices
 
-<div class="truth-box">
-<h4>🎯 Lamport Clock Guidelines</h4>
-
-1. **Increment before events**: Never forget to increment
-2. **Thread safety**: Protect clock updates in concurrent systems
-3. **Message validation**: Check timestamp validity on receive
-4. **Overflow handling**: Plan for clock value overflow
-5. **Total ordering**: Use process IDs to break ties
-6. **Persistence**: Save clock value across restarts
-7. **Monitoring**: Track clock skew between processes
-</div>
+!!! info "🎯 Lamport Clock Guidelines"
+    1. **Increment before events**: Never forget to increment
+    2. **Thread safety**: Protect clock updates in concurrent systems
+    3. **Message validation**: Check timestamp validity on receive
+    4. **Overflow handling**: Plan for clock value overflow
+    5. **Total ordering**: Use process IDs to break ties
+    6. **Persistence**: Save clock value across restarts
+    7. **Monitoring**: Track clock skew between processes
 
 ## Real-World Usage
 
@@ -485,20 +482,16 @@ class DistributedTransaction:
 
 ## Key Insights
 
-<div class="decision-box">
-<h4>When to Use Lamport Clocks</h4>
-
-✅ **Use when**:
-- Need total ordering of events
-- Don't need to detect concurrent events
-- Want simple, low-overhead solution
-- Building replicated state machines
-
-❌ **Don't use when**:
-- Need to detect concurrent updates (use vector clocks)
-- Need actual wall-clock time (use NTP)
-- System has high churn (clock values lost)
-</div>
+!!! note "When to Use Lamport Clocks"
+    ✅ **Use when**:
+    - Need total ordering of events
+    - Don't need to detect concurrent events
+    - Want simple, low-overhead solution
+    - Building replicated state machines
+    ❌ **Don't use when**:
+    - Need to detect concurrent updates (use vector clocks)
+    - Need actual wall-clock time (use NTP)
+    - System has high churn (clock values lost)
 
 ## Implementation Checklist
 

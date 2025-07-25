@@ -291,11 +291,9 @@ graph TB
 
 ### Tunable Consistency Levels
 
-<div class="decision-box">
-<h4>🎯 Design Decision: Tunable Consistency</h4>
-<p><strong>Problem</strong>: Different use cases need different consistency guarantees<br/>
-<strong>Solution</strong>: Allow per-query consistency level selection</p>
-</div>
+!!! note "🎯 Design Decision: Tunable Consistency"
+    **Problem**: Different use cases need different consistency guarantees  
+    **Solution**: Allow per-query consistency level selection
 
 ```mermaid
 graph TB
@@ -387,10 +385,8 @@ sequenceDiagram
 
 ### Linear Scalability
 
-<div class="truth-box">
-<h4>💡 Insight: True Linear Scaling</h4>
-<p>Cassandra is one of the few databases that actually achieves linear scaling - doubling nodes roughly doubles throughput, even at massive scale.</p>
-</div>
+!!! info "💡 Insight: True Linear Scaling"
+    Cassandra is one of the few databases that actually achieves linear scaling - doubling nodes roughly doubles throughput, even at massive scale.
 
 ```mermaid
 graph LR
@@ -502,12 +498,10 @@ CREATE TABLE users_by_email_domain (
 
 ### Netflix's Cassandra Journey
 
-<div class="failure-vignette">
-<h4>💥 Case Study: The Great Cassandra Migration</h4>
-<p><strong>Problem</strong>: Netflix needed to migrate from Oracle to Cassandra for global scale<br/>
-<strong>Challenge</strong>: Zero downtime migration of critical user data<br/>
-<strong>Solution</strong>: Dual-write pattern with gradual read migration</p>
-</div>
+!!! danger "💥 Case Study: The Great Cassandra Migration"
+    **Problem**: Netflix needed to migrate from Oracle to Cassandra for global scale  
+    **Challenge**: Zero downtime migration of critical user data  
+    **Solution**: Dual-write pattern with gradual read migration
 
 ```mermaid
 sequenceDiagram
@@ -548,10 +542,8 @@ sequenceDiagram
 
 ### Discord's Scaling Story
 
-<div class="truth-box">
-<h4>💡 Insight: From Millions to Billions</h4>
-<p>Discord scaled from 1 million to 14 billion messages using Cassandra, but had to solve hot partition problems through better data modeling.</p>
-</div>
+!!! info "💡 Insight: From Millions to Billions"
+    Discord scaled from 1 million to 14 billion messages using Cassandra, but had to solve hot partition problems through better data modeling.
 
 **Original Schema (Hot Partition Problem):**
 
@@ -751,15 +743,13 @@ GRANT MODIFY ON user_data.user_events TO 'event_service';
 
 ### Cassandra Design Philosophy
 
-<div class="decision-box">
-<h4>🎯 Core Design Principles</h4>
-<ol>
-<li><strong>Masterless architecture</strong>: Every node is equal, no single point of failure</li>
-<li><strong>Tunable consistency</strong>: Choose the right consistency level per query</li>
-<li><strong>Query-first modeling</strong>: Design tables for your access patterns</li>
-<li><strong>Linear scalability</strong>: Adding nodes increases capacity predictably</li>
-</ol>
-</div>
+!!! note "🎯 Core Design Principles"
+    <ol>
+    <li><strong>Masterless architecture</strong>: Every node is equal, no single point of failure</li>
+    <li><strong>Tunable consistency</strong>: Choose the right consistency level per query</li>
+    <li><strong>Query-first modeling</strong>: Design tables for your access patterns</li>
+    <li><strong>Linear scalability</strong>: Adding nodes increases capacity predictably</li>
+    </ol>
 
 ### When to Choose Cassandra
 

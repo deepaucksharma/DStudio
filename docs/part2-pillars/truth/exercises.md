@@ -44,16 +44,12 @@ sequenceDiagram
 
 ### Exercise Components
 
-<div class="truth-box">
-<h4>Lamport Clock Rules</h4>
-
-Design a flowchart showing:
-- Local event: clock++
-- Send event: clock++, attach timestamp
-- Receive event: clock = max(local, received) + 1
-
-**Key Insight**: Physical time doesn't matter, only causal ordering
-</div>
+!!! info "Lamport Clock Rules"
+    Design a flowchart showing:
+    - Local event: clock++
+    - Send event: clock++, attach timestamp
+    - Receive event: clock = max(local, received) + 1
+    **Key Insight**: Physical time doesn't matter, only causal ordering
 
 ### Design Deliverables
 
@@ -119,26 +115,20 @@ stateDiagram-v2
 
 ### Protocol Design Options
 
-<div class="decision-box">
-<h4>Election Algorithm Comparison</h4>
-
-Design comparison charts for:
-
-1. **Bully Algorithm**
-   - Nodes ordered by ID
-   - Higher IDs have priority
-   - Message complexity: O(n²)
-
-2. **Ring Algorithm**
-   - Nodes in logical ring
-   - Token passing election
-   - Message complexity: O(n)
-
-3. **Raft Election**
-   - Randomized timeouts
-   - Term-based voting
-   - Split-vote handling
-</div>
+!!! note "Election Algorithm Comparison"
+    Design comparison charts for:
+    1. **Bully Algorithm**
+    - Nodes ordered by ID
+    - Higher IDs have priority
+    - Message complexity: O(n²)
+    2. **Ring Algorithm**
+    - Nodes in logical ring
+    - Token passing election
+    - Message complexity: O(n)
+    3. **Raft Election**
+    - Randomized timeouts
+    - Term-based voting
+    - Split-vote handling
 
 ### Visual Design Requirements
 
@@ -233,24 +223,19 @@ sequenceDiagram
 
 ### Protocol State Machines
 
-<div class="truth-box">
-<h4>2PC State Transitions</h4>
-
-Design state machines for both coordinator and participants:
-
-**Coordinator States:**
-- INIT → WAITING (send prepare)
-- WAITING → COMMIT (all vote yes)
-- WAITING → ABORT (any vote no/timeout)
-- COMMIT → END (all acknowledged)
-- ABORT → END (all acknowledged)
-
-**Participant States:**
-- INIT → READY (receive prepare, vote yes)
-- INIT → ABORT (receive prepare, vote no)
-- READY → COMMIT (receive global commit)
-- READY → ABORT (receive global abort)
-</div>
+!!! info "2PC State Transitions"
+    Design state machines for both coordinator and participants:
+    **Coordinator States:**
+    - INIT → WAITING (send prepare)
+    - WAITING → COMMIT (all vote yes)
+    - WAITING → ABORT (any vote no/timeout)
+    - COMMIT → END (all acknowledged)
+    - ABORT → END (all acknowledged)
+    **Participant States:**
+    - INIT → READY (receive prepare, vote yes)
+    - INIT → ABORT (receive prepare, vote no)
+    - READY → COMMIT (receive global commit)
+    - READY → ABORT (receive global abort)
 
 ### Visual Design Requirements
 
@@ -351,23 +336,17 @@ graph TB
 
 ### Byzantine Agreement Protocol
 
-<div class="decision-box">
-<h4>Byzantine Fault Tolerance Rules</h4>
-
-Design visual representations for:
-
-1. **3f+1 Rule**
-   - Need 3f+1 nodes to tolerate f Byzantine faults
-   - Visual proof of why 3f nodes are insufficient
-
-2. **Message Rounds**
-   - f+1 rounds of message exchange
-   - Exponential message growth visualization
-
-3. **Decision Making**
-   - Majority voting after all rounds
-   - Handling conflicting messages
-</div>
+!!! note "Byzantine Fault Tolerance Rules"
+    Design visual representations for:
+    1. **3f+1 Rule**
+    - Need 3f+1 nodes to tolerate f Byzantine faults
+    - Visual proof of why 3f nodes are insufficient
+    2. **Message Rounds**
+    - f+1 rounds of message exchange
+    - Exponential message growth visualization
+    3. **Decision Making**
+    - Majority voting after all rounds
+    - Handling conflicting messages
 
 ### Visual Design Requirements
 
@@ -501,26 +480,20 @@ stateDiagram-v2
 
 ### Raft Protocol Components
 
-<div class="truth-box">
-<h4>Raft Design Principles</h4>
-
-Create visual representations for:
-
-1. **Leader Election**
-   - Term-based voting
-   - Randomized timeouts
-   - Vote persistence
-
-2. **Log Replication**
-   - Leader append-only
-   - Consistency check
-   - Commitment rules
-
-3. **Safety Properties**
-   - Election Safety: One leader per term
-   - Log Matching: Identical logs have same entries
-   - Leader Completeness: Committed entries persist
-</div>
+!!! info "Raft Design Principles"
+    Create visual representations for:
+    1. **Leader Election**
+    - Term-based voting
+    - Randomized timeouts
+    - Vote persistence
+    2. **Log Replication**
+    - Leader append-only
+    - Consistency check
+    - Commitment rules
+    3. **Safety Properties**
+    - Election Safety: One leader per term
+    - Log Matching: Identical logs have same entries
+    - Leader Completeness: Committed entries persist
 
 ### Visual Design Requirements
 
@@ -650,26 +623,20 @@ sequenceDiagram
 
 ### Snapshot Algorithm Components
 
-<div class="truth-box">
-<h4>Chandy-Lamport Rules</h4>
-
-Design visual representations for:
-
-1. **Marker Propagation**
-   - Process records state before sending markers
-   - Markers sent on all outgoing channels
-   - Channel recording rules
-
-2. **State Recording**
-   - Local state: Process variables at marker receipt
-   - Channel state: Messages in transit
-   - Consistency guarantee
-
-3. **Global State Assembly**
-   - Combine all local states
-   - Include recorded channel states
-   - Result: Consistent cut
-</div>
+!!! info "Chandy-Lamport Rules"
+    Design visual representations for:
+    1. **Marker Propagation**
+    - Process records state before sending markers
+    - Markers sent on all outgoing channels
+    - Channel recording rules
+    2. **State Recording**
+    - Local state: Process variables at marker receipt
+    - Channel state: Messages in transit
+    - Consistency guarantee
+    3. **Global State Assembly**
+    - Combine all local states
+    - Include recorded channel states
+    - Result: Consistent cut
 
 ### Visual Design Requirements
 
@@ -792,26 +759,20 @@ graph TB
 
 ### Failure Handling Patterns
 
-<div class="decision-box">
-<h4>Consensus Under Failures</h4>
-
-Design visual models for:
-
-1. **Failure Detection**
-   - Timeout mechanisms
-   - Heartbeat monitoring
-   - Suspected vs confirmed failures
-
-2. **Recovery Strategies**
-   - View change protocols
-   - Coordinator election
-   - State reconstruction
-
-3. **Progress Guarantees**
-   - Quorum requirements
-   - Liveness conditions
-   - Termination protocols
-</div>
+!!! note "Consensus Under Failures"
+    Design visual models for:
+    1. **Failure Detection**
+    - Timeout mechanisms
+    - Heartbeat monitoring
+    - Suspected vs confirmed failures
+    2. **Recovery Strategies**
+    - View change protocols
+    - Coordinator election
+    - State reconstruction
+    3. **Progress Guarantees**
+    - Quorum requirements
+    - Liveness conditions
+    - Termination protocols
 
 ### Visual Design Requirements
 

@@ -14,18 +14,10 @@ last_updated: 2025-07-25
 
 # CQRS (Command Query Responsibility Segregation)
 
-<div class="pattern-card">
-  <span class="pattern-card__category">Architectural Pattern</span>
-  <div class="pattern-card__content">
-    <p class="pattern-card__description">
-      Separate read and write models to independently optimize complex business operations and high-performance queries.
-    </p>
-    <div class="pattern-card__laws">
-      <span class="pattern-card__law-badge">Law 2: Asynchronous Reality</span>
-      <span class="pattern-card__law-badge">Law 4: Multidimensional Optimization</span>
-    </div>
-  </div>
-</div>
+!!! abstract "⚙️ Architectural Pattern"
+    Separate read and write models to independently optimize complex business operations and high-performance queries.
+    
+    **Connected Laws**: Law 2 (Asynchronous Reality) • Law 4 (Multidimensional Optimization)
 
 ## Problem Statement
 
@@ -79,6 +71,94 @@ graph TB
     style RM3 fill:#c8e6c9
 ```
 
+## Implementation Approaches
+
+=== "Simple CQRS"
+
+    ```python
+    # Separate models for commands and queries
+    class OrderCommandService:
+        def create_order(self, command: CreateOrderCommand):
+            # Complex business logic
+            order = Order.create(command)
+            self.repository.save(order)
+            self.event_bus.publish(OrderCreatedEvent(order))
+    
+    class OrderQueryService:
+        def get_order_summary(self, order_id: str):
+            # Optimized read from denormalized view
+            return self.read_db.query(
+                "SELECT * FROM order_summaries WHERE id = ?", 
+                order_id
+            )
+    ```
+
+=== "CQRS with Event Sourcing"
+
+    ```python
+    # Commands produce events, queries read from projections
+    class OrderAggregate:
+        def handle(self, command: CreateOrderCommand):
+            # Validate business rules
+            if not self.can_create_order(command):
+                raise InvalidOrderException()
+            
+            # Return domain events
+            return [
+                OrderCreatedEvent(command.order_id, command.items),
+                PaymentRequestedEvent(command.order_id, command.total)
+            ]
+    
+    class OrderProjection:
+        def apply(self, event: OrderCreatedEvent):
+            # Update read model
+            self.db.execute("""
+                INSERT INTO order_summaries 
+                (id, status, total, created_at)
+                VALUES (?, ?, ?, ?)
+            """, event.order_id, 'pending', event.total, event.timestamp)
+    ```
+
+=== "CQRS with Microservices"
+
+    ```yaml
+    # Separate services for commands and queries
+    services:
+      order-command-service:
+        image: order-command:latest
+        environment:
+          - EVENT_STORE_URL=kafka:9092
+          - WRITE_DB=postgresql://write-db:5432
+        
+      order-query-service:
+        image: order-query:latest
+        environment:
+          - EVENT_SOURCE=kafka:9092
+          - READ_DB=elasticsearch:9200
+        scale: 5  # Scale read side independently
+    ```
+
+=== "CQRS with GraphQL"
+
+    ```typescript
+    // Separate GraphQL schemas for mutations and queries
+    const commandSchema = `
+      type Mutation {
+        createOrder(input: CreateOrderInput!): Order!
+        updateOrder(id: ID!, input: UpdateOrderInput!): Order!
+        cancelOrder(id: ID!): Boolean!
+      }
+    `;
+    
+    const querySchema = `
+      type Query {
+        order(id: ID!): OrderView
+        ordersByCustomer(customerId: ID!): [OrderSummary!]!
+        orderAnalytics(timeRange: TimeRange!): OrderStats!
+      }
+    `;
+    ```
+
 ## Implementation Considerations
 
 ### Trade-offs
@@ -117,23 +197,32 @@ graph TB
 
 ### Key Metrics
 
-<div class="grid" markdown>
-  <div class="card">
-    <div class="card__title">Write Latency</div>
-    <div class="card__description">P99: < 200ms</div>
-  </div>
-  <div class="card">
-    <div class="card__title">Read Latency</div>
-    <div class="card__description">P99: < 50ms</div>
-  </div>
-  <div class="card">
-    <div class="card__title">Projection Lag</div>
-    <div class="card__description">< 5 seconds</div>
-  </div>
-  <div class="card">
-    <div class="card__title">Consistency</div>
-    <div class="card__description">Eventually consistent</div>
-  </div>
+<div class="grid cards" markdown>
+
+-   :material-speedometer:{ .lg .middle } **Write Latency**
+
+    ---
+
+    P99: < 200ms
+
+-   :material-flash:{ .lg .middle } **Read Latency**
+
+    ---
+
+    P99: < 50ms
+
+-   :material-sync:{ .lg .middle } **Projection Lag**
+
+    ---
+
+    < 5 seconds
+
+-   :material-check-circle:{ .lg .middle } **Consistency**
+
+    ---
+
+    Eventually consistent
+
 </div>
 
 ## Real-World Examples

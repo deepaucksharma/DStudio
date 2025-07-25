@@ -814,16 +814,14 @@ report = monitor.generate_politeness_report()
 print(f"Politeness Score: {report['politeness_score']:.1f}/100")
 ```
 
-<div class="decision-box">
-<strong>Decision Framework</strong>:
-
-- **Large-scale crawlers**: Distributed politeness with Redis coordination
-- **Research crawlers**: Adaptive politeness with detailed monitoring
-- **Commercial crawlers**: Strict robots.txt compliance with rate limiting
-- **News aggregators**: Lightweight politeness with error handling
-- **SEO tools**: Enhanced politeness with competitive analysis
-- **Academic research**: Maximum politeness with detailed logging
-</div>
+!!! note
+    <strong>Decision Framework</strong>:
+    - **Large-scale crawlers**: Distributed politeness with Redis coordination
+    - **Research crawlers**: Adaptive politeness with detailed monitoring
+    - **Commercial crawlers**: Strict robots.txt compliance with rate limiting
+    - **News aggregators**: Lightweight politeness with error handling
+    - **SEO tools**: Enhanced politeness with competitive analysis
+    - **Academic research**: Maximum politeness with detailed logging
 
 ## Trade-offs
 

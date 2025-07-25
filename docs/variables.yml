@@ -1,0 +1,46 @@
+# Global Variables for MkDocs Macros Plugin
+# This file contains site-wide variables used across documentation
+
+# Site Information
+site:
+  name: "The Compendium of Distributed Systems"
+  description: "Learn distributed systems from first principles through physics and mathematics"
+  url: "https://deepaucksharma.github.io/DStudio/"
+  repo: "https://github.com/deepaucksharma/DStudio"
+  
+# Author Information
+author:
+  name: "Deepak Sharma"
+  github: "deepaucksharma"
+  twitter: "deepaucksharma"
+
+# Version Information
+version:
+  current: "2.0"
+  status: "stable"
+  
+# Educational Paths
+learning_paths:
+  foundation_builder: "12 weeks"
+  experienced_engineer: "8 weeks"
+  senior_architect: "6 weeks"
+  express_learner: "4 weeks"
+  
+# System Metrics
+metrics:
+  latency:
+    light_speed_km_ms: 300
+    fiber_speed_fraction: 0.67
+    copper_speed_fraction: 0.59
+  availability:
+    two_nines: "99%"
+    three_nines: "99.9%"
+    four_nines: "99.99%"
+    five_nines: "99.999%"
+    
+# Common Constants
+constants:
+  max_tcp_connections: 65535
+  ipv4_addresses: 4294967296
+  seconds_per_year: 31536000
+  milliseconds_per_year: 31536000000

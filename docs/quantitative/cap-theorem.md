@@ -48,22 +48,17 @@ last_updated: 2025-01-23
 
 ### Formal Proof Sketch
 
-<div class="decision-box">
-<h4>📐 Proof by Contradiction</h4>
-
-**Assume**: System has all three properties (C, A, P)
-
-**Setup**: Two nodes (N1, N2) with network partition between them
-
-<div class="proof-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
-<strong>Step 1:</strong> Client writes value V to N1<br>
-<strong>Step 2:</strong> By Availability, N1 must accept write<br>
-<strong>Step 3:</strong> By Partition tolerance, system continues despite no N1↔N2 communication<br>
-<strong>Step 4:</strong> Client reads from N2<br>
-<strong>Step 5:</strong> By Availability, N2 must respond<br>
-<strong>Step 6:</strong> N2 hasn't received V (partition!), returns old value<br>
-<strong>Contradiction:</strong> Violates Consistency! ❌
-</div>
+!!! note "📐 Proof by Contradiction"
+    **Assume**: System has all three properties (C, A, P)
+    **Setup**: Two nodes (N1, N2) with network partition between them
+    <div class="proof-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
+    <strong>Step 1:</strong> Client writes value V to N1
+    <strong>Step 2:</strong> By Availability, N1 must accept write
+    <strong>Step 3:</strong> By Partition tolerance, system continues despite no N1↔N2 communication
+    <strong>Step 4:</strong> Client reads from N2
+    <strong>Step 5:</strong> By Availability, N2 must respond
+    <strong>Step 6:</strong> N2 hasn't received V (partition!), returns old value
+    <strong>Contradiction:</strong> Violates Consistency! ❌
 
 <div class="conclusion" style="margin-top: 10px; background: #E8F5E9; padding: 10px; border-left: 4px solid #4CAF50;">
 ✓ <strong>Therefore</strong>: Can't have all three during partition
@@ -74,19 +69,15 @@ last_updated: 2025-01-23
 
 ### CP Systems (Consistency + Partition Tolerance)
 
-<div class="truth-box">
-<h4>🔒 CP System Characteristics</h4>
-
-| System | Consistency Model | Availability Trade-off |
-|--------|------------------|------------------------|
-| **Zookeeper** | Sequential consistency | Minority partition unavailable |
-| **HBase** | Strong consistency | Region unavailable during split |
-| **MongoDB (default)** | Linearizable reads | Primary election = downtime |
-
-<div class="calculation-result">
-<strong>Availability Impact = (Partition Duration) × (Affected Partition %)</strong><br>
-Example: 30s partition × 40% minority = 12s unavailability for 40% of requests
-</div>
+!!! info "🔒 CP System Characteristics"
+    | System | Consistency Model | Availability Trade-off |
+    |--------|------------------|------------------------|
+    | **Zookeeper** | Sequential consistency | Minority partition unavailable |
+    | **HBase** | Strong consistency | Region unavailable during split |
+    | **MongoDB (default)** | Linearizable reads | Primary election = downtime |
+    <div class="calculation-result">
+    <strong>Availability Impact = (Partition Duration) × (Affected Partition %)</strong>
+    Example: 30s partition × 40% minority = 12s unavailability for 40% of requests
 
 <div class="visual-diagram" style="margin-top: 15px;">
 <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
@@ -119,19 +110,15 @@ Example: 30s partition × 40% minority = 12s unavailability for 40% of requests
 
 ### AP Systems (Availability + Partition Tolerance)
 
-<div class="truth-box">
-<h4>🌐 AP System Characteristics</h4>
-
-| System | Consistency Model | Convergence Time |
-|--------|------------------|------------------|
-| **Cassandra** | Eventual consistency | ~100ms typical |
-| **DynamoDB** | Eventual consistency | <1s globally |
-| **CouchDB** | Eventual consistency | Depends on replication |
-
-<div class="calculation-result">
-<strong>Inconsistency Window = Network Delay + Convergence Time</strong><br>
-Example: 50ms network + 100ms convergence = 150ms inconsistency
-</div>
+!!! info "🌐 AP System Characteristics"
+    | System | Consistency Model | Convergence Time |
+    |--------|------------------|------------------|
+    | **Cassandra** | Eventual consistency | ~100ms typical |
+    | **DynamoDB** | Eventual consistency | <1s globally |
+    | **CouchDB** | Eventual consistency | Depends on replication |
+    <div class="calculation-result">
+    <strong>Inconsistency Window = Network Delay + Convergence Time</strong>
+    Example: 50ms network + 100ms convergence = 150ms inconsistency
 
 <div class="visual-diagram" style="margin-top: 15px;">
 <svg viewBox="0 0 600 300" style="width: 100%; max-width: 600px;">
@@ -164,39 +151,31 @@ Example: 50ms network + 100ms convergence = 150ms inconsistency
 
 ### CA Systems (Consistency + Availability)
 
-<div class="failure-vignette">
-<h4>⚠️ CA Systems: The Myth</h4>
-
-| Property | Single Node | Distributed | Reality |
-|----------|-------------|-------------|---------|
-| Consistency | ✓ Trivial | ✗ Network delays | Can't ignore P |
-| Availability | ✓ No coordination | ✗ Node failures | P happens anyway |
-| Partition tolerance | N/A | Required | Can't opt out |
-
-<div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
-⚡ <strong>Key Insight</strong>: CA only exists in single-node systems. In distributed systems, partitions are inevitable!
-</div>
+!!! danger "⚠️ CA Systems: The Myth"
+    | Property | Single Node | Distributed | Reality |
+    |----------|-------------|-------------|---------|
+    | Consistency | ✓ Trivial | ✗ Network delays | Can't ignore P |
+    | Availability | ✓ No coordination | ✗ Node failures | P happens anyway |
+    | Partition tolerance | N/A | Required | Can't opt out |
+    <div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
+    ⚡ <strong>Key Insight</strong>: CA only exists in single-node systems. In distributed systems, partitions are inevitable!
 </div>
 
 ## Quantifying CAP Trade-offs
 
 ### Consistency Cost Calculator
 
-<div class="decision-box">
-<h4>💰 Strong Consistency Overhead</h4>
-
-| Parameter | Value | Unit |
-|-----------|-------|------|
-| Write nodes (W) | 3 | nodes |
-| Total nodes (N) | 5 | nodes |
-| Network RTT | 10 | ms |
-| Consensus rounds | 2 | - |
-
-<div class="calculation-result">
-<strong>Write latency = Consensus rounds × max(RTT to W nodes)</strong><br>
-<strong>= 2 × 10ms = 20ms minimum</strong><br>
-<strong>99th percentile ≈ 3 × 20ms = 60ms</strong>
-</div>
+!!! note "💰 Strong Consistency Overhead"
+    | Parameter | Value | Unit |
+    |-----------|-------|------|
+    | Write nodes (W) | 3 | nodes |
+    | Total nodes (N) | 5 | nodes |
+    | Network RTT | 10 | ms |
+    | Consensus rounds | 2 | - |
+    <div class="calculation-result">
+    <strong>Write latency = Consensus rounds × max(RTT to W nodes)</strong>
+    <strong>= 2 × 10ms = 20ms minimum</strong>
+    <strong>99th percentile ≈ 3 × 20ms = 60ms</strong>
 
 <div class="latency-comparison" style="margin-top: 10px;">
 <div style="background: #FF5722; width: 20%; padding: 5px; color: white; display: inline-block;">Local: 1ms</div>
@@ -231,15 +210,11 @@ P(available) = P(3 up) + P(4 up) + P(5 up)<br>
 
 ## PACELC Extension
 
-<div class="truth-box">
-<h4>🔄 PACELC: The Complete Picture</h4>
-
-**CAP + Normal Operation Trade-offs**
-
-<div style="text-align: center; font-size: 1.2em; margin: 20px 0;">
-<strong>IF</strong> Partition (P) <strong>THEN</strong> Availability (A) <strong>OR</strong> Consistency (C)<br>
-<strong>ELSE</strong> Latency (L) <strong>OR</strong> Consistency (C)
-</div>
+!!! info "🔄 PACELC: The Complete Picture"
+    **CAP + Normal Operation Trade-offs**
+    <div style="text-align: center; font-size: 1.2em; margin: 20px 0;">
+    <strong>IF</strong> Partition (P) <strong>THEN</strong> Availability (A) <strong>OR</strong> Consistency (C)
+    <strong>ELSE</strong> Latency (L) <strong>OR</strong> Consistency (C)
 
 | System | Partition | Else | Trade-off |
 |--------|-----------|------|-----------|
@@ -253,41 +228,32 @@ P(available) = P(3 up) + P(4 up) + P(5 up)<br>
 
 ### Banking System Design
 
-<div class="decision-box">
-<h4>🏦 Financial Transaction System</h4>
-
-**Requirements Analysis**:
-
-| Operation | CAP Choice | Reasoning |
-|-----------|------------|-----------|
-| Balance check | AP | Stale data acceptable |
-| Withdrawal | CP | Must prevent overdraft |
-| Deposit | CP | Must be durable |
-| Transaction history | AP | Eventually consistent OK |
-
-<div class="implementation-note" style="margin-top: 10px; background: #E3F2FD; padding: 10px; border-left: 4px solid #2196F3;">
-💡 <strong>Pattern</strong>: Use CP for writes, AP for reads with consistency levels
-</div>
+!!! note "🏦 Financial Transaction System"
+    **Requirements Analysis**:
+    | Operation | CAP Choice | Reasoning |
+    |-----------|------------|-----------|
+    | Balance check | AP | Stale data acceptable |
+    | Withdrawal | CP | Must prevent overdraft |
+    | Deposit | CP | Must be durable |
+    | Transaction history | AP | Eventually consistent OK |
+    <div class="implementation-note" style="margin-top: 10px; background: #E3F2FD; padding: 10px; border-left: 4px solid #2196F3;">
+    💡 <strong>Pattern</strong>: Use CP for writes, AP for reads with consistency levels
 </div>
 
 ### E-commerce Platform
 
-<div class="truth-box">
-<h4>🛒 Shopping Cart Architecture</h4>
-
-| Component | CAP Choice | SLA Impact |
-|-----------|------------|------------|
-| Product catalog | AP | 99.99% availability |
-| Shopping cart | AP | Merge on conflicts |
-| Inventory | CP | Prevent overselling |
-| Payment | CP | Exactly-once guarantee |
-
-<div class="metric-display" style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-<div style="background: #4CAF50; color: white; padding: 10px; text-align: center;">
-<strong>AP Components</strong><br>
-Availability: 99.99%<br>
-Latency: <50ms
-</div>
+!!! info "🛒 Shopping Cart Architecture"
+    | Component | CAP Choice | SLA Impact |
+    |-----------|------------|------------|
+    | Product catalog | AP | 99.99% availability |
+    | Shopping cart | AP | Merge on conflicts |
+    | Inventory | CP | Prevent overselling |
+    | Payment | CP | Exactly-once guarantee |
+    <div class="metric-display" style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+    <div style="background: #4CAF50; color: white; padding: 10px; text-align: center;">
+    <strong>AP Components</strong>
+    Availability: 99.99%
+    Latency: <50ms
 <div style="background: #FF5722; color: white; padding: 10px; text-align: center;">
 <strong>CP Components</strong><br>
 Availability: 99.9%<br>
@@ -319,81 +285,63 @@ Latency: <200ms
 
 ### Consistency Window Calculator
 
-<div class="decision-box">
-<h4>⏱️ Eventual Consistency Timing</h4>
-
-| Parameter | Value | Description |
-|-----------|-------|-------------|
-| Replication factor | 3 | Copies of data |
-| Network latency | 50ms | Between regions |
-| Processing time | 10ms | Per update |
-| Anti-entropy interval | 60s | Background sync |
-
-<div class="timeline-visualization" style="margin-top: 15px;">
-<svg viewBox="0 0 600 200" style="width: 100%; max-width: 600px;">
-  <!-- Timeline -->
-  <line x1="50" y1="100" x2="550" y2="100" stroke="#333" stroke-width="2"/>
-  
-  <!-- Events -->
-  <circle cx="50" cy="100" r="5" fill="#4CAF50"/>
-  <text x="50" y="85" text-anchor="middle">Write</text>
-  
-  <circle cx="150" cy="100" r="5" fill="#2196F3"/>
-  <text x="150" y="85" text-anchor="middle">Replica 1</text>
-  <text x="150" y="120" text-anchor="middle" font-size="12">50ms</text>
-  
-  <circle cx="250" cy="100" r="5" fill="#2196F3"/>
-  <text x="250" y="85" text-anchor="middle">Replica 2</text>
-  <text x="250" y="120" text-anchor="middle" font-size="12">100ms</text>
-  
-  <circle cx="350" cy="100" r="5" fill="#FF9800"/>
-  <text x="350" y="85" text-anchor="middle">Consistent</text>
-  <text x="350" y="120" text-anchor="middle" font-size="12" font-weight="bold">100ms window</text>
-  
-  <circle cx="500" cy="100" r="5" fill="#9C27B0"/>
-  <text x="500" y="85" text-anchor="middle">Anti-entropy</text>
-  <text x="500" y="120" text-anchor="middle" font-size="12">60s (worst case)</text>
-</svg>
-</div>
+!!! note "⏱️ Eventual Consistency Timing"
+    | Parameter | Value | Description |
+    |-----------|-------|-------------|
+    | Replication factor | 3 | Copies of data |
+    | Network latency | 50ms | Between regions |
+    | Processing time | 10ms | Per update |
+    | Anti-entropy interval | 60s | Background sync |
+    <div class="timeline-visualization" style="margin-top: 15px;">
+    <svg viewBox="0 0 600 200" style="width: 100%; max-width: 600px;">
+    <!-- Timeline -->
+    <line x1="50" y1="100" x2="550" y2="100" stroke="#333" stroke-width="2"/>
+    <!-- Events -->
+    <circle cx="50" cy="100" r="5" fill="#4CAF50"/>
+    <text x="50" y="85" text-anchor="middle">Write</text>
+    <circle cx="150" cy="100" r="5" fill="#2196F3"/>
+    <text x="150" y="85" text-anchor="middle">Replica 1</text>
+    <text x="150" y="120" text-anchor="middle" font-size="12">50ms</text>
+    <circle cx="250" cy="100" r="5" fill="#2196F3"/>
+    <text x="250" y="85" text-anchor="middle">Replica 2</text>
+    <text x="250" y="120" text-anchor="middle" font-size="12">100ms</text>
+    <circle cx="350" cy="100" r="5" fill="#FF9800"/>
+    <text x="350" y="85" text-anchor="middle">Consistent</text>
+    <text x="350" y="120" text-anchor="middle" font-size="12" font-weight="bold">100ms window</text>
+    <circle cx="500" cy="100" r="5" fill="#9C27B0"/>
+    <text x="500" y="85" text-anchor="middle">Anti-entropy</text>
+    <text x="500" y="120" text-anchor="middle" font-size="12">60s (worst case)</text>
+    </svg>
 </div>
 
 ## CAP in Modern Systems
 
 ### Multi-Region Deployments
 
-<div class="truth-box">
-<h4>🌍 Geographic CAP Challenges</h4>
-
-| Regions | RTT | Partition Risk | Common Choice |
-|---------|-----|----------------|---------------|
-| US East-West | 60ms | Low | CP feasible |
-| US-Europe | 100ms | Medium | AP common |
-| US-Asia | 150ms | High | AP required |
-| Global (5 regions) | 200ms+ | Very High | AP + local CP |
-
-<div class="insight-box" style="margin-top: 10px; background: #F3E5F5; padding: 10px; border-left: 4px solid #9C27B0;">
-🔍 <strong>Pattern</strong>: Use CP within region, AP across regions with conflict resolution
-</div>
+!!! info "🌍 Geographic CAP Challenges"
+    | Regions | RTT | Partition Risk | Common Choice |
+    |---------|-----|----------------|---------------|
+    | US East-West | 60ms | Low | CP feasible |
+    | US-Europe | 100ms | Medium | AP common |
+    | US-Asia | 150ms | High | AP required |
+    | Global (5 regions) | 200ms+ | Very High | AP + local CP |
+    <div class="insight-box" style="margin-top: 10px; background: #F3E5F5; padding: 10px; border-left: 4px solid #9C27B0;">
+    🔍 <strong>Pattern</strong>: Use CP within region, AP across regions with conflict resolution
 </div>
 
 ### Tunable Consistency
 
-<div class="decision-box">
-<h4>🎛️ Cassandra's Approach</h4>
-
-**Consistency Levels**:
-
-| Level | Write Nodes | Read Nodes | Guarantee |
-|-------|------------|------------|-----------|
-| ONE | 1 | 1 | Lowest latency |
-| QUORUM | ⌈(N+1)/2⌉ | ⌈(N+1)/2⌉ | Strong consistency |
-| ALL | N | N | Highest consistency |
-| LOCAL_QUORUM | ⌈(RF+1)/2⌉ | ⌈(RF+1)/2⌉ | DC consistency |
-
-<div class="formula-note" style="margin-top: 10px;">
-<strong>Consistency guarantee</strong>: R + W > N<br>
-Example: N=3, W=2, R=2 → 2+2 > 3 ✓ Strong consistency
-</div>
+!!! note "🎛️ Cassandra's Approach"
+    **Consistency Levels**:
+    | Level | Write Nodes | Read Nodes | Guarantee |
+    |-------|------------|------------|-----------|
+    | ONE | 1 | 1 | Lowest latency |
+    | QUORUM | ⌈(N+1)/2⌉ | ⌈(N+1)/2⌉ | Strong consistency |
+    | ALL | N | N | Highest consistency |
+    | LOCAL_QUORUM | ⌈(RF+1)/2⌉ | ⌈(RF+1)/2⌉ | DC consistency |
+    <div class="formula-note" style="margin-top: 10px;">
+    <strong>Consistency guarantee</strong>: R + W > N
+    Example: N=3, W=2, R=2 → 2+2 > 3 ✓ Strong consistency
 </div>
 
 ## Key Takeaways

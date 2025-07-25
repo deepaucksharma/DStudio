@@ -161,19 +161,15 @@ graph LR
 
 ### False Positive Rate Visualization
 
-<div class="decision-box">
-<h4>False Positive Rate by Filter Saturation</h4>
-
-| Fill Rate | k=3 | k=5 | k=7 | k=10 |
-|-----------|-----|-----|-----|------|
-| **10%** | 0.008 | 0.009 | 0.012 | 0.020 |
-| **25%** | 0.046 | 0.041 | 0.042 | 0.051 |
-| **50%** | 0.146 | 0.092 | 0.061 | 0.031 |
-| **75%** | 0.316 | 0.154 | 0.074 | 0.021 |
-| **90%** | 0.507 | 0.204 | 0.080 | 0.018 |
-
-*Lower is better. Notice how more hash functions help when filter is fuller.*
-</div>
+!!! note "False Positive Rate by Filter Saturation"
+    | Fill Rate | k=3 | k=5 | k=7 | k=10 |
+    |-----------|-----|-----|-----|------|
+    | **10%** | 0.008 | 0.009 | 0.012 | 0.020 |
+    | **25%** | 0.046 | 0.041 | 0.042 | 0.051 |
+    | **50%** | 0.146 | 0.092 | 0.061 | 0.031 |
+    | **75%** | 0.316 | 0.154 | 0.074 | 0.021 |
+    | **90%** | 0.507 | 0.204 | 0.080 | 0.018 |
+    *Lower is better. Notice how more hash functions help when filter is fuller.*
 
 ## Real-World Applications
 
@@ -369,15 +365,12 @@ graph TB
 
 ### 2. SIMD Acceleration
 
-<div class="truth-box">
-<h4>Parallel Bit Checking with SIMD</h4>
-
-| Operation | Scalar | SIMD-128 | SIMD-256 | SIMD-512 |
-|-----------|--------|----------|----------|----------|
-| **Bits/cycle** | 1 | 128 | 256 | 512 |
-| **Speedup** | 1x | 8-16x | 16-32x | 32-64x |
-| **Use case** | Small filters | Medium | Large | Very large |
-</div>
+!!! info "Parallel Bit Checking with SIMD"
+    | Operation | Scalar | SIMD-128 | SIMD-256 | SIMD-512 |
+    |-----------|--------|----------|----------|----------|
+    | **Bits/cycle** | 1 | 128 | 256 | 512 |
+    | **Speedup** | 1x | 8-16x | 16-32x | 32-64x |
+    | **Use case** | Small filters | Medium | Large | Very large |
 
 ## Common Pitfalls and Solutions
 
@@ -580,27 +573,27 @@ graph LR
 
 ### Visual Size Comparison
 
-<div class="decision-box">
-<h4>Space Savings Visualization</h4>
-
-| Data Structure | 1M URLs (avg 50 chars) | Space Used | Savings |
-|----------------|------------------------|------------|---------|  
-| **HashSet** | 50MB + overhead | ~60MB | 0% |
-| **Sorted Array** | 50MB | 50MB | 17% |
-| **Bloom (1% FP)** | Formula-based | 1.2MB | 98% |
-| **Bloom (0.1% FP)** | Formula-based | 1.8MB | 97% |
-| **Bloom (0.01% FP)** | Formula-based | 2.4MB | 96% |
-
-```mermaid
-graph LR
+!!! note "Space Savings Visualization"
+    | Data Structure | 1M URLs (avg 50 chars) | Space Used | Savings |
+    |----------------|------------------------|------------|---------|
+    | **HashSet** | 50MB + overhead | ~60MB | 0% |
+    | **Sorted Array** | 50MB | 50MB | 17% |
+    | **Bloom (1% FP)** | Formula-based | 1.2MB | 98% |
+    | **Bloom (0.1% FP)** | Formula-based | 1.8MB | 97% |
+    | **Bloom (0.01% FP)** | Formula-based | 2.4MB | 96% |
+    ```mermaid
+    graph LR
     subgraph "Visual Space Comparison"
-        HS[HashSet<br/>############ 60MB]
-        BF1[Bloom 1%<br/># 1.2MB]
-        BF2[Bloom 0.1%<br/>## 1.8MB]
-        BF3[Bloom 0.01%<br/>### 2.4MB]
+    HS[HashSet
+    ############ 60MB]
+    BF1[Bloom 1%
+    # 1.2MB]
+    BF2[Bloom 0.1%
+    ## 1.8MB]
+    BF3[Bloom 0.01%
+    ### 2.4MB]
     end
-```
-</div>
+    ```
 
 ## Mathematical Foundation Visualized
 

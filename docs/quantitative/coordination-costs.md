@@ -60,46 +60,41 @@ last_updated: 2025-07-20
 </div>
 
 ### Example Calculation
-<div class="failure-vignette">
-<h4>💸 Real Cost Example: Cross-Region 2PC</h4>
-
-<div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
-  <h5 style="margin: 0 0 15px 0;">Scenario: 5 participants across regions</h5>
-  
-  <table class="responsive-table" style="width: 100%; margin-bottom: 15px; background: white; border-radius: 5px;">
-  <thead>
+!!! danger "💸 Real Cost Example: Cross-Region 2PC"
+    <div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
+    <h5 style="margin: 0 0 15px 0;">Scenario: 5 participants across regions</h5>
+    <table class="responsive-table" style="width: 100%; margin-bottom: 15px; background: white; border-radius: 5px;">
+    <thead>
     <tr style="background: #FFCDD2;">
-      <th style="padding: 10px; text-align: left;">Parameter</th>
-      <th style="padding: 10px;">Value</th>
-      <th style="padding: 10px;">Calculation</th>
+    <th style="padding: 10px; text-align: left;">Parameter</th>
+    <th style="padding: 10px;">Value</th>
+    <th style="padding: 10px;">Calculation</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
-      <td data-label="Parameter">Message cost</td>
-      <td data-label="Value">$0.01 per 1000</td>
-      <td data-label="Calculation">AWS pricing</td>
+    <td data-label="Parameter">Message cost</td>
+    <td data-label="Value">$0.01 per 1000</td>
+    <td data-label="Calculation">AWS pricing</td>
     </tr>
     <tr style="background: #FFF5F5;">
-      <td data-label="Parameter">RTT</td>
-      <td data-label="Value">100ms</td>
-      <td data-label="Calculation">Cross-region latency</td>
+    <td data-label="Parameter">RTT</td>
+    <td data-label="Value">100ms</td>
+    <td data-label="Calculation">Cross-region latency</td>
     </tr>
     <tr>
-      <td data-label="Parameter">Latency cost</td>
-      <td data-label="Value">$1 per second</td>
-      <td data-label="Calculation">Business impact</td>
+    <td data-label="Parameter">Latency cost</td>
+    <td data-label="Value">$1 per second</td>
+    <td data-label="Calculation">Business impact</td>
     </tr>
-  </tbody>
-</table>
-  
-  <div style="background: #FFF; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+    </tbody>
+    </table>
+    <div style="background: #FFF; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
     <h5 style="margin: 0 0 10px 0;">Per Transaction Breakdown:</h5>
     <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
-      <div style="padding: 10px; background: #FFF3E0; border-radius: 5px;">
-        <strong>Messages:</strong><br>
-        15 messages × $0.01/1000 = <span style="color: #E65100;">$0.00015</span>
-      </div>
+    <div style="padding: 10px; background: #FFF3E0; border-radius: 5px;">
+    <strong>Messages:</strong>
+    15 messages × $0.01/1000 = <span style="color: #E65100;">$0.00015</span>
       <div style="padding: 10px; background: #FFEBEE; border-radius: 5px;">
         <strong>Latency:</strong><br>
         300ms × $1/s = <span style="color: #C62828;">$0.30</span>
@@ -125,28 +120,25 @@ last_updated: 2025-07-20
 
 Modern consensus protocols:
 
-<div class="decision-box">
-<h4>🏛️ Paxos/Raft Consensus Costs</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+!!! note "🏛️ Paxos/Raft Consensus Costs"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div>
-      <h5 style="margin: 0 0 10px 0; color: #2E7D32;">Normal Operation</h5>
-      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
-        <tr style="background: #C8E6C9;">
-          <td style="padding: 8px;"><strong>Messages/round</strong></td>
-          <td style="padding: 8px; text-align: right;">2N</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;"><strong>Rounds</strong></td>
-          <td style="padding: 8px; text-align: right;">2</td>
-        </tr>
-        <tr style="background: #F1F8E9;">
-          <td style="padding: 8px;"><strong>Total messages</strong></td>
-          <td style="padding: 8px; text-align: right; font-weight: bold;">2N</td>
-        </tr>
-      </table>
-    </div>
+    <h5 style="margin: 0 0 10px 0; color: #2E7D32;">Normal Operation</h5>
+    <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+    <tr style="background: #C8E6C9;">
+    <td style="padding: 8px;"><strong>Messages/round</strong></td>
+    <td style="padding: 8px; text-align: right;">2N</td>
+    </tr>
+    <tr>
+    <td style="padding: 8px;"><strong>Rounds</strong></td>
+    <td style="padding: 8px; text-align: right;">2</td>
+    </tr>
+    <tr style="background: #F1F8E9;">
+    <td style="padding: 8px;"><strong>Total messages</strong></td>
+    <td style="padding: 8px; text-align: right; font-weight: bold;">2N</td>
+    </tr>
+    </table>
     
     <div>
       <h5 style="margin: 0 0 10px 0; color: #E65100;">During Failures</h5>
@@ -216,35 +208,32 @@ Amortized: ~1 message per decision
 ## Coordination Patterns Compared
 
 ### Gossip Protocol
-<div class="truth-box">
-<h4>💬 Gossip Protocol Characteristics</h4>
-
-<div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
-  <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
+!!! info "💬 Gossip Protocol Characteristics"
+    <div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 20px;">
     <div>
-      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
-  <thead>
+    <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+    <thead>
     <tr style="background: #BBDEFB;">
-          <th style="padding: 10px; text-align: left;">Metric</th>
-          <th style="padding: 10px;">Value</th>
-        </tr>
-  </thead>
-  <tbody>
+    <th style="padding: 10px; text-align: left;">Metric</th>
+    <th style="padding: 10px;">Value</th>
+    </tr>
+    </thead>
+    <tbody>
     <tr>
-          <td data-label="Metric"><strong>Messages</strong></td>
-          <td data-label="Value">O(log N) average</td>
-        </tr>
+    <td data-label="Metric"><strong>Messages</strong></td>
+    <td data-label="Value">O(log N) average</td>
+    </tr>
     <tr style="background: #F5F5F5;">
-          <td data-label="Metric"><strong>Convergence</strong></td>
-          <td data-label="Value">O(log N) rounds</td>
-        </tr>
+    <td data-label="Metric"><strong>Convergence</strong></td>
+    <td data-label="Value">O(log N) rounds</td>
+    </tr>
     <tr>
-          <td data-label="Metric"><strong>Consistency</strong></td>
-          <td data-label="Value">Eventual only</td>
-        </tr>
-  </tbody>
-</table>
-    </div>
+    <td data-label="Metric"><strong>Consistency</strong></td>
+    <td data-label="Value">Eventual only</td>
+    </tr>
+    </tbody>
+    </table>
     
     <div>
       <div style="background: white; padding: 15px; border-radius: 5px;">
@@ -281,26 +270,23 @@ Byzantine: O(N²) messages, multi-round (slow/strong/untrusted)
 ## Real Dollar Costs
 
 ### Cross-Region Coordination
-<div class="failure-vignette">
-<h4>💰 Real Dollar Costs: AWS Cross-Region Coordination</h4>
-
-<div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
-  <h5 style="margin: 0 0 15px 0;">AWS Data Transfer Pricing</h5>
-  
-  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
-  <thead>
+!!! danger "💰 Real Dollar Costs: AWS Cross-Region Coordination"
+    <div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
+    <h5 style="margin: 0 0 15px 0;">AWS Data Transfer Pricing</h5>
+    <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+    <thead>
     <tr style="background: #FFCDD2;">
-      <th style="padding: 12px; text-align: left;">Transfer Type</th>
-      <th style="padding: 12px;">Cost</th>
-      <th style="padding: 12px;">Visual</th>
+    <th style="padding: 12px; text-align: left;">Transfer Type</th>
+    <th style="padding: 12px;">Cost</th>
+    <th style="padding: 12px;">Visual</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
-      <td data-label="Transfer Type"><strong>Same AZ</strong></td>
-      <td data-label="Cost">$0</td>
-      <td data-label="Visual">
-        <div style="background: #4CAF50; width: 1px; height: 15px;"></div>
+    <td data-label="Transfer Type"><strong>Same AZ</strong></td>
+    <td data-label="Cost">$0</td>
+    <td data-label="Visual">
+    <div style="background: #4CAF50; width: 1px; height: 15px;">
       </td>
     </tr>
     <tr style="background: #FFF5F5;">
@@ -351,36 +337,33 @@ Byzantine: O(N²) messages, multi-round (slow/strong/untrusted)
 </div>
 
 ### Optimization Strategies
-<div class="decision-box">
-<h4>🎯 Optimization Strategies</h4>
-
-<div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0;">
-  <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border: 2px solid #66BB6A;">
+!!! note "🎯 Optimization Strategies"
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 15px 0;">
+    <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; border: 2px solid #66BB6A;">
     <h5 style="margin: 0 0 10px 0; color: #2E7D32;">1. Hierarchical Coordination</h5>
     <div style="text-align: center; margin: 15px 0;">
-      <svg viewBox="0 0 150 100" style="width: 100%;">
-        <circle cx="75" cy="20" r="15" fill="#1976D2"/>
-        <text x="75" y="25" text-anchor="middle" fill="white" font-size="10">Global</text>
-        <circle cx="40" cy="50" r="12" fill="#42A5F5"/>
-        <text x="40" y="54" text-anchor="middle" fill="white" font-size="8">Region</text>
-        <circle cx="110" cy="50" r="12" fill="#42A5F5"/>
-        <text x="110" y="54" text-anchor="middle" fill="white" font-size="8">Region</text>
-        <circle cx="20" cy="80" r="8" fill="#90CAF9"/>
-        <circle cx="40" cy="80" r="8" fill="#90CAF9"/>
-        <circle cx="60" cy="80" r="8" fill="#90CAF9"/>
-        <circle cx="90" cy="80" r="8" fill="#90CAF9"/>
-        <circle cx="110" cy="80" r="8" fill="#90CAF9"/>
-        <circle cx="130" cy="80" r="8" fill="#90CAF9"/>
-        <line x1="75" y1="35" x2="40" y2="38" stroke="#666" stroke-width="1"/>
-        <line x1="75" y1="35" x2="110" y2="38" stroke="#666" stroke-width="1"/>
-        <line x1="40" y1="62" x2="20" y2="72" stroke="#666" stroke-width="1"/>
-        <line x1="40" y1="62" x2="40" y2="72" stroke="#666" stroke-width="1"/>
-        <line x1="40" y1="62" x2="60" y2="72" stroke="#666" stroke-width="1"/>
-        <line x1="110" y1="62" x2="90" y2="72" stroke="#666" stroke-width="1"/>
-        <line x1="110" y1="62" x2="110" y2="72" stroke="#666" stroke-width="1"/>
-        <line x1="110" y1="62" x2="130" y2="72" stroke="#666" stroke-width="1"/>
-      </svg>
-    </div>
+    <svg viewBox="0 0 150 100" style="width: 100%;">
+    <circle cx="75" cy="20" r="15" fill="#1976D2"/>
+    <text x="75" y="25" text-anchor="middle" fill="white" font-size="10">Global</text>
+    <circle cx="40" cy="50" r="12" fill="#42A5F5"/>
+    <text x="40" y="54" text-anchor="middle" fill="white" font-size="8">Region</text>
+    <circle cx="110" cy="50" r="12" fill="#42A5F5"/>
+    <text x="110" y="54" text-anchor="middle" fill="white" font-size="8">Region</text>
+    <circle cx="20" cy="80" r="8" fill="#90CAF9"/>
+    <circle cx="40" cy="80" r="8" fill="#90CAF9"/>
+    <circle cx="60" cy="80" r="8" fill="#90CAF9"/>
+    <circle cx="90" cy="80" r="8" fill="#90CAF9"/>
+    <circle cx="110" cy="80" r="8" fill="#90CAF9"/>
+    <circle cx="130" cy="80" r="8" fill="#90CAF9"/>
+    <line x1="75" y1="35" x2="40" y2="38" stroke="#666" stroke-width="1"/>
+    <line x1="75" y1="35" x2="110" y2="38" stroke="#666" stroke-width="1"/>
+    <line x1="40" y1="62" x2="20" y2="72" stroke="#666" stroke-width="1"/>
+    <line x1="40" y1="62" x2="40" y2="72" stroke="#666" stroke-width="1"/>
+    <line x1="40" y1="62" x2="60" y2="72" stroke="#666" stroke-width="1"/>
+    <line x1="110" y1="62" x2="90" y2="72" stroke="#666" stroke-width="1"/>
+    <line x1="110" y1="62" x2="110" y2="72" stroke="#666" stroke-width="1"/>
+    <line x1="110" y1="62" x2="130" y2="72" stroke="#666" stroke-width="1"/>
+    </svg>
     <div style="background: #C8E6C9; padding: 10px; border-radius: 5px; text-align: center;">
       <strong>Reduces cross-region: 90%</strong>
     </div>

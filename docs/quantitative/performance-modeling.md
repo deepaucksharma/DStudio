@@ -523,16 +523,13 @@ graph LR
 
 ## Key Takeaways
 
-<div class="truth-box">
-<h4>🎯 Performance Modeling Best Practices</h4>
-
-1. **Start simple** - Basic models often provide 80% of insights
-2. **Measure everything** - Models are only as good as input data
-3. **Focus on bottlenecks** - Optimize the constraining resource
-4. **Consider variability** - Averages hide tail latency issues
-5. **Validate continuously** - Production behavior changes
-6. **Plan for peaks** - Size for 95th percentile, not average
-</div>
+!!! info "🎯 Performance Modeling Best Practices"
+    1. **Start simple** - Basic models often provide 80% of insights
+    2. **Measure everything** - Models are only as good as input data
+    3. **Focus on bottlenecks** - Optimize the constraining resource
+    4. **Consider variability** - Averages hide tail latency issues
+    5. **Validate continuously** - Production behavior changes
+    6. **Plan for peaks** - Size for 95th percentile, not average
 
 ## Related Topics
 

@@ -156,26 +156,21 @@ last_updated: 2025-07-20
 
 ## Measuring Your Parameters
 
-<div class="truth-box">
-<h4>📊 Parameter Discovery Process</h4>
-
-### Data Collection
-<div class="measurement-visualization" style="margin: 20px 0;">
-  <svg viewBox="0 0 600 350" style="width: 100%; max-width: 600px;">
+!!! info "📊 Parameter Discovery Process"
+    ### Data Collection
+    <div class="measurement-visualization" style="margin: 20px 0;">
+    <svg viewBox="0 0 600 350" style="width: 100%; max-width: 600px;">
     <!-- Title -->
     <text x="300" y="20" text-anchor="middle" font-weight="bold">Actual System Measurement</text>
-    
     <!-- Axes -->
     <line x1="60" y1="300" x2="550" y2="300" stroke="#333" stroke-width="2"/>
     <line x1="60" y1="300" x2="60" y2="40" stroke="#333" stroke-width="2"/>
-    
     <!-- Y-axis labels (Throughput) -->
     <text x="40" y="305" text-anchor="end" font-size="10">0</text>
     <text x="40" y="245" text-anchor="end" font-size="10">2000</text>
     <text x="40" y="185" text-anchor="end" font-size="10">4000</text>
     <text x="40" y="125" text-anchor="end" font-size="10">6000</text>
     <text x="40" y="65" text-anchor="end" font-size="10">8000</text>
-    
     <!-- X-axis labels (Nodes) -->
     <text x="60" y="320" text-anchor="middle" font-size="10">0</text>
     <text x="120" y="320" text-anchor="middle" font-size="10">1</text>
@@ -184,35 +179,26 @@ last_updated: 2025-07-20
     <text x="360" y="320" text-anchor="middle" font-size="10">8</text>
     <text x="480" y="320" text-anchor="middle" font-size="10">16</text>
     <text x="540" y="320" text-anchor="middle" font-size="10">32</text>
-    
     <!-- Data points -->
     <circle cx="120" cy="270" r="5" fill="#4CAF50"/>
     <text x="120" y="260" text-anchor="middle" font-size="9">1000</text>
-    
     <circle cx="180" cy="230" r="5" fill="#4CAF50"/>
     <text x="180" y="220" text-anchor="middle" font-size="9">1900</text>
-    
     <circle cx="240" cy="170" r="5" fill="#4CAF50"/>
     <text x="240" y="160" text-anchor="middle" font-size="9">3400</text>
-    
     <circle cx="360" cy="110" r="5" fill="#FFA726"/>
     <text x="360" y="100" text-anchor="middle" font-size="9">5200</text>
-    
     <circle cx="480" cy="80" r="5" fill="#FF5722"/>
     <text x="480" y="70" text-anchor="middle" font-size="9">6400</text>
-    
     <circle cx="540" cy="90" r="5" fill="#F44336"/>
     <text x="540" y="80" text-anchor="middle" font-size="9">5800↓</text>
-    
     <!-- Curve fit -->
-    <path d="M 120,270 C 180,230 240,170 360,110 480,80 540,90 540,90" 
-          stroke="#2196F3" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
-    
+    <path d="M 120,270 C 180,230 240,170 360,110 480,80 540,90 540,90"
+    stroke="#2196F3" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
     <!-- Performance degradation marker -->
     <rect x="490" y="50" width="100" height="30" fill="#FFCDD2" rx="3"/>
     <text x="540" y="70" text-anchor="middle" font-weight="bold" font-size="10">Degradation!</text>
-  </svg>
-</div>
+    </svg>
 
 <div class="data-table" style="background: #F5F5F5; padding: 15px; border-radius: 5px;">
   <table class="responsive-table" style="width: 100%; text-align: center;">

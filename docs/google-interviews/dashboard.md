@@ -2,23 +2,32 @@
 
 ## Section Overview
 
-<div class="dashboard-stats">
-<div class="stat-box">
-<h3>30+</h3>
-<p>Total Resources</p>
-</div>
-<div class="stat-box">
-<h3>25</h3>
-<p>Google Systems</p>
-</div>
-<div class="stat-box">
-<h3>120 hrs</h3>
-<p>Total Study Time</p>
-</div>
-<div class="stat-box">
-<h3>85%</h3>
-<p>Success Rate*</p>
-</div>
+<div class="grid cards" markdown>
+
+-   :material-library-books:{ .lg .middle } **30+**
+
+    ---
+
+    Total Resources
+
+-   :material-google:{ .lg .middle } **25**
+
+    ---
+
+    Google Systems
+
+-   :material-clock:{ .lg .middle } **120 hrs**
+
+    ---
+
+    Total Study Time
+
+-   :material-chart-line:{ .lg .middle } **85%**
+
+    ---
+
+    Success Rate*
+
 </div>
 
 *Based on candidates who completed full preparation
@@ -100,43 +109,44 @@ graph TD
 
 ### Most Important Patterns to Know
 
-<div class="grid" markdown>
-<div class="pattern-card">
-<h4>🏗️ Infrastructure</h4>
-<ul>
-<li>Sharding & Partitioning</li>
-<li>Load Balancing (L4/L7)</li>
-<li>Service Mesh</li>
-<li>Multi-Region Architecture</li>
-</ul>
-</div>
-<div class="pattern-card">
-<h4>📊 Data</h4>
-<ul>
-<li>Lambda Architecture</li>
-<li>Event Sourcing</li>
-<li>CQRS</li>
-<li>Data Lakes</li>
-</ul>
-</div>
-<div class="pattern-card">
-<h4>🤖 ML/AI</h4>
-<ul>
-<li>Feature Stores</li>
-<li>Model Serving</li>
-<li>A/B Testing</li>
-<li>Feedback Loops</li>
-</ul>
-</div>
-<div class="pattern-card">
-<h4>🔧 Operational</h4>
-<ul>
-<li>SRE Practices</li>
-<li>Observability Stack</li>
-<li>Chaos Engineering</li>
-<li>Progressive Rollouts</li>
-</ul>
-</div>
+<div class="grid cards" markdown>
+
+-   :material-server:{ .lg .middle } **Infrastructure**
+
+    ---
+
+    - Sharding & Partitioning
+    - Load Balancing (L4/L7)
+    - Service Mesh
+    - Multi-Region Architecture
+
+-   :material-database:{ .lg .middle } **Data**
+
+    ---
+
+    - Lambda Architecture
+    - Event Sourcing
+    - CQRS
+    - Data Lakes
+
+-   :material-robot:{ .lg .middle } **ML/AI**
+
+    ---
+
+    - Feature Stores
+    - Model Serving
+    - A/B Testing
+    - Feedback Loops
+
+-   :material-cog:{ .lg .middle } **Operational**
+
+    ---
+
+    - SRE Practices
+    - Observability Stack
+    - Chaos Engineering
+    - Progressive Rollouts
+
 </div>
 
 ### Common Evaluation Criteria
@@ -225,23 +235,32 @@ graph TD
 
 ## Next Steps
 
-<div class="action-cards">
-<div class="action-card">
-<h3>👋 New to Google Interviews?</h3>
-<p>Start with the <a href="study-guide.md">Complete Study Guide</a> for a structured approach</p>
-</div>
-<div class="action-card">
-<h3>⏱️ Short on Time?</h3>
-<p>Jump to <a href="quick-reference.md">Quick Reference</a> and <a href="cheat-sheets.md">Cheat Sheets</a></p>
-</div>
-<div class="action-card">
-<h3>💪 Ready to Practice?</h3>
-<p>Try our <a href="practice-problems.md">Mock Problems</a> with solutions</p>
-</div>
-<div class="action-card">
-<h3>🎓 Want Mastery?</h3>
-<p>Follow the <a href="study-plans.md#mastery">12-Week Path</a> for comprehensive preparation</p>
-</div>
+<div class="grid cards" markdown>
+
+-   :material-hand-wave:{ .lg .middle } **New to Google Interviews?**
+
+    ---
+
+    Start with the [Complete Study Guide](study-guide.md) for a structured approach
+
+-   :material-clock-fast:{ .lg .middle } **Short on Time?**
+
+    ---
+
+    Jump to [Quick Reference](quick-reference.md) and [Cheat Sheets](cheat-sheets.md)
+
+-   :material-dumbbell:{ .lg .middle } **Ready to Practice?**
+
+    ---
+
+    Try our [Mock Problems](practice-problems.md) with solutions
+
+-   :material-school:{ .lg .middle } **Want Mastery?**
+
+    ---
+
+    Follow the [12-Week Path](study-plans.md#mastery) for comprehensive preparation
+
 </div>
 
 ## Success Metrics

@@ -52,23 +52,41 @@ last_updated: 2025-07-21
 
 ### How Patterns Work Together
 
-```
-Legend: 
-✅ Excellent combination
-🟡 Good combination
-⚠️ Possible but complex
-❌ Not recommended
-```
+=== "Legend"
 
-| Pattern | CQRS | Event Sourcing | Saga | Service Mesh | Caching | Sharding | Rate Limiting |
-|---------|------|----------------|------|--------------|---------|-----------|---------------|
-| **CQRS** | - | ✅ | 🟡 | 🟡 | ✅ | ✅ | 🟡 |
-| **Event Sourcing** | ✅ | - | ✅ | 🟡 | ⚠️ | 🟡 | 🟡 |
-| **Saga** | 🟡 | ✅ | - | 🟡 | ⚠️ | 🟡 | 🟡 |
-| **Service Mesh** | 🟡 | 🟡 | 🟡 | - | 🟡 | 🟡 | ✅ |
-| **Caching** | ✅ | ⚠️ | ⚠️ | 🟡 | - | ✅ | 🟡 |
-| **Sharding** | ✅ | 🟡 | 🟡 | 🟡 | ✅ | - | 🟡 |
-| **Rate Limiting** | 🟡 | 🟡 | 🟡 | ✅ | 🟡 | 🟡 | - |
+    | Symbol | Meaning | Description |
+    |--------|---------|-------------|
+    | ✅ | Excellent combination | Patterns complement each other perfectly |
+    | 🟡 | Good combination | Works well with some configuration |
+    | ⚠️ | Possible but complex | Requires careful implementation |
+    | ❌ | Not recommended | Patterns conflict or add unnecessary complexity |
+
+=== "Core Patterns"
+
+    | Pattern | CQRS | Event Sourcing | Saga | Service Mesh |
+    |---------|------|----------------|------|--------------|
+    | **CQRS** | - | ✅ | 🟡 | 🟡 |
+    | **Event Sourcing** | ✅ | - | ✅ | 🟡 |
+    | **Saga** | 🟡 | ✅ | - | 🟡 |
+    | **Service Mesh** | 🟡 | 🟡 | 🟡 | - |
+
+=== "Data Patterns"
+
+    | Pattern | Caching | Sharding | Geo-Replication | CDC |
+    |---------|---------|----------|-----------------|-----|
+    | **Caching** | - | ✅ | 🟡 | ⚠️ |
+    | **Sharding** | ✅ | - | ⚠️ | 🟡 |
+    | **Geo-Replication** | 🟡 | ⚠️ | - | 🟡 |
+    | **CDC** | ⚠️ | 🟡 | 🟡 | - |
+
+=== "Resilience Patterns"
+
+    | Pattern | Circuit Breaker | Retry | Bulkhead | Rate Limiting |
+    |---------|----------------|-------|----------|---------------|
+    | **Circuit Breaker** | - | ✅ | ✅ | 🟡 |
+    | **Retry** | ✅ | - | 🟡 | ✅ |
+    | **Bulkhead** | ✅ | 🟡 | - | 🟡 |
+    | **Rate Limiting** | 🟡 | ✅ | 🟡 | - |
 
 ### Synergy Explanations
 
@@ -124,18 +142,32 @@ Caching → Rate Limiting → Timeout → Retry & Backoff → Circuit Breaker �
 
 ### Consistency vs Availability
 
-| Pattern | Consistency | Availability | Use When |
-|---------|-------------|--------------|----------|
-| **Strong Consistency Patterns** |||
-| Leader Election | ⭐⭐⭐⭐⭐ | ⭐⭐ | Need single source of truth |
-| Two-Phase Commit | ⭐⭐⭐⭐⭐ | ⭐ | ACID transactions required |
-| **Balanced Patterns** |||
-| Tunable Consistency | ⭐⭐⭐ to ⭐⭐⭐⭐⭐ | ⭐⭐⭐ to ⭐⭐⭐⭐⭐ | Different operations need different guarantees |
-| Saga | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Long-running transactions |
-| **High Availability Patterns** |||
-| Event Sourcing | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Can replay events |
-| CQRS | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Read replicas everywhere |
-| Geo-Replication | ⭐⭐ | ⭐⭐⭐⭐⭐ | Global availability |
+=== "Strong Consistency"
+
+    | Pattern | Consistency | Availability | Use When |
+    |---------|-------------|--------------|----------|
+    | Leader Election | ⭐⭐⭐⭐⭐ | ⭐⭐ | Need single source of truth |
+    | Two-Phase Commit | ⭐⭐⭐⭐⭐ | ⭐ | ACID transactions required |
+    | Distributed Lock | ⭐⭐⭐⭐⭐ | ⭐⭐ | Mutual exclusion needed |
+    | Consensus (Raft/Paxos) | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Distributed agreement |
+
+=== "Balanced Trade-offs"
+
+    | Pattern | Consistency | Availability | Use When |
+    |---------|-------------|--------------|----------|
+    | Tunable Consistency | ⭐⭐⭐ to ⭐⭐⭐⭐⭐ | ⭐⭐⭐ to ⭐⭐⭐⭐⭐ | Different operations need different guarantees |
+    | Saga | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Long-running transactions |
+    | Event Sourcing + CQRS | ⭐⭐⭐ | ⭐⭐⭐⭐ | Complex domain with audit needs |
+    | Outbox Pattern | ⭐⭐⭐⭐ | ⭐⭐⭐ | Reliable message delivery |
+
+=== "High Availability"
+
+    | Pattern | Consistency | Availability | Use When |
+    |---------|-------------|--------------|----------|
+    | Event Sourcing | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Can replay events |
+    | CQRS | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Read replicas everywhere |
+    | Geo-Replication | ⭐⭐ | ⭐⭐⭐⭐⭐ | Global availability |
+    | Circuit Breaker | ⭐⭐ | ⭐⭐⭐⭐⭐ | Fail fast, recover quickly |
 
 ---
 

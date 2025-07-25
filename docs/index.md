@@ -8,64 +8,79 @@ hide:
 
 # The Compendium of Distributed Systems
 
-<div class="hero-section">
-  <h1 class="hero-title">Learn Distributed Systems from First Principles</h1>
-  <p class="hero-subtitle">
+!!! tip ""
+
+    **Learn Distributed Systems from First Principles**
+    
     Master the fundamental laws of physics and mathematics that govern all distributed systems.
     No buzzwords, just timeless principles.
-  </p>
-  <a href="introduction/getting-started/" class="hero-cta">Start Your Journey</a>
-</div>
+    
+    [Start Your Journey :fontawesome-solid-rocket:](introduction/getting-started/){ .md-button .md-button--primary }
 
-<div class="quick-stats">
-  <div class="stat-item">
-    <div class="stat-number">7</div>
-    <div class="stat-label">Fundamental Laws</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">5</div>
-    <div class="stat-label">Core Pillars</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">50+</div>
-    <div class="stat-label">Design Patterns</div>
-  </div>
-  <div class="stat-item">
-    <div class="stat-number">20+</div>
-    <div class="stat-label">Case Studies</div>
-  </div>
+<div class="grid cards" markdown>
+
+-   :material-numeric-7-box:{ .lg .middle } **7**
+    
+    ---
+    
+    Fundamental Laws
+
+-   :material-numeric-5-box:{ .lg .middle } **5**
+    
+    ---
+    
+    Core Pillars
+
+-   :material-plus:{ .lg .middle } **50+**
+    
+    ---
+    
+    Design Patterns
+
+-   :material-library:{ .lg .middle } **20+**
+    
+    ---
+    
+    Case Studies
+
 </div>
 
 ## Start Here
 
-<div class="grid" markdown>
-  <a href="introduction/getting-started/" class="feature-card">
-    <h3 class="feature-card__title">Getting Started</h3>
-    <p class="feature-card__description">
-      New to distributed systems? Start with our guided learning paths tailored to your experience level.
-    </p>
-  </a>
-  
-  <a href="part1-axioms/" class="feature-card">
-    <h3 class="feature-card__title">The 7 Laws</h3>
-    <p class="feature-card__description">
-      Discover the fundamental laws derived from physics that govern all distributed systems.
-    </p>
-  </a>
-  
-  <a href="part2-pillars/" class="feature-card">
-    <h3 class="feature-card__title">The 5 Pillars</h3>
-    <p class="feature-card__description">
-      Learn how to organize solutions around fundamental distributed concepts.
-    </p>
-  </a>
-  
-  <a href="patterns/" class="feature-card">
-    <h3 class="feature-card__title">Design Patterns</h3>
-    <p class="feature-card__description">
-      Explore battle-tested patterns for building resilient, scalable distributed systems.
-    </p>
-  </a>
+<div class="grid cards" markdown>
+
+-   :material-play-circle:{ .lg .middle } __Getting Started__
+
+    ---
+
+    New to distributed systems? Start with our guided learning paths tailored to your experience level.
+
+    [:octicons-arrow-right-24: Get Started](introduction/getting-started/)
+
+-   :material-scale-balance:{ .lg .middle } __The 7 Laws__
+
+    ---
+
+    Discover the fundamental laws derived from physics that govern all distributed systems.
+
+    [:octicons-arrow-right-24: Explore Laws](part1-axioms/)
+
+-   :material-pillar:{ .lg .middle } __The 5 Pillars__
+
+    ---
+
+    Learn how to organize solutions around fundamental distributed concepts.
+
+    [:octicons-arrow-right-24: Study Pillars](part2-pillars/)
+
+-   :material-puzzle:{ .lg .middle } __Design Patterns__
+
+    ---
+
+    Explore battle-tested patterns for building resilient, scalable distributed systems.
+
+    [:octicons-arrow-right-24: Browse Patterns](patterns/)
+
 </div>
 
 ## Choose Your Learning Path
@@ -80,57 +95,69 @@ hide:
 
 ## Why This Approach?
 
-<div class="grid" markdown>
-  <div class="card">
-    <h3 class="card__title">Physics-Based</h3>
-    <p class="card__description">
-      Every concept derives from fundamental constraints like the speed of light and thermodynamics.
-    </p>
-  </div>
-  
-  <div class="card">
-    <h3 class="card__title">Timeless Principles</h3>
-    <p class="card__description">
-      Learn principles that remain true regardless of technology trends or vendor solutions.
-    </p>
-  </div>
-  
-  <div class="card">
-    <h3 class="card__title">Practical Application</h3>
-    <p class="card__description">
-      Each concept includes real-world case studies, failure scenarios, and implementation guidance.
-    </p>
-  </div>
+<div class="grid cards" markdown>
+
+-   :material-atom:{ .lg .middle } __Physics-Based__
+
+    ---
+
+    Every concept derives from fundamental constraints like the speed of light and thermodynamics.
+
+-   :material-infinity:{ .lg .middle } __Timeless Principles__
+
+    ---
+
+    Learn principles that remain true regardless of technology trends or vendor solutions.
+
+-   :material-cog:{ .lg .middle } __Practical Application__
+
+    ---
+
+    Each concept includes real-world case studies, failure scenarios, and implementation guidance.
+
 </div>
 
 ## What You'll Learn
 
-### Foundations
-- The 7 fundamental laws that govern all distributed systems
-- The 5 pillars of distributed system design
-- How physics constrains what's possible
+<div class="grid cards" markdown>
 
-### Practical Skills
-- Choosing the right consistency model
-- Designing for failure and partition tolerance
-- Scaling systems from 1 to 1 billion users
-- Debugging complex distributed failures
+-   :material-foundation:{ .lg .middle } __Foundations__
 
-### Advanced Topics
-- Consensus algorithms and their trade-offs
-- Global-scale system design
-- Edge computing architectures
-- Quantum-resistant distributed systems
+    ---
+
+    - The 7 fundamental laws that govern all distributed systems
+    - The 5 pillars of distributed system design  
+    - How physics constrains what's possible
+
+-   :material-tools:{ .lg .middle } __Practical Skills__
+
+    ---
+
+    - Choosing the right consistency model
+    - Designing for failure and partition tolerance
+    - Scaling systems from 1 to 1 billion users
+    - Debugging complex distributed failures
+
+-   :material-rocket-launch:{ .lg .middle } __Advanced Topics__
+
+    ---
+
+    - Consensus algorithms and their trade-offs
+    - Global-scale system design
+    - Edge computing architectures
+    - Quantum-resistant distributed systems
+
+</div>
 
 ## Latest Updates
 
-!!! note
-    - **New**: Interactive consistency calculator
-    - **Updated**: Google system design interview guide
-    - **Added**: 5 new case studies from 2024 outages
+!!! success "Recent Updates"
+    - :material-new-box:{ .middle } **New**: Interactive consistency calculator
+    - :material-update:{ .middle } **Updated**: Google system design interview guide  
+    - :material-plus-circle:{ .middle } **Added**: 5 new case studies from 2024 outages
 
 ## Ready to Begin?
 
-<div class="text-center mt-4">
-  <a href="introduction/getting-started/" class="btn-primary">Start Learning</a>
+<div class="text-center" markdown>
+[Start Learning :fontawesome-solid-graduation-cap:](introduction/getting-started/){ .md-button .md-button--primary .md-button--stretch }
 </div>

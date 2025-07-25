@@ -893,37 +893,32 @@ graph TB
     style K fill:#ffebee
 ```
 
-<div class="truth-box">
-<h4>Consistent Hashing Algorithm Flow</h4>
-
-<b>Ring Construction:</b>
-<ol>
-<li>For each physical node, create 150 virtual nodes</li>
-<li>Hash each virtual node: hash("node:index")</li>
-<li>Place virtual nodes on ring at hash positions</li>
-<li>Sort all hash values for binary search</li>
-</ol>
-
-<b>Key Lookup Process:</b>
-<ol>
-<li>Hash the key to get position on ring</li>
-<li>Binary search for first node ≥ hash</li>
-<li>If past end, wrap to beginning</li>
-<li>Return physical node mapped to virtual node</li>
-</ol>
-
-<b>Node Operations:</b>
-<table class="responsive-table">
-  <thead>
+!!! info "Consistent Hashing Algorithm Flow"
+    <b>Ring Construction:</b>
+    <ol>
+    <li>For each physical node, create 150 virtual nodes</li>
+    <li>Hash each virtual node: hash("node:index")</li>
+    <li>Place virtual nodes on ring at hash positions</li>
+    <li>Sort all hash values for binary search</li>
+    </ol>
+    <b>Key Lookup Process:</b>
+    <ol>
+    <li>Hash the key to get position on ring</li>
+    <li>Binary search for first node ≥ hash</li>
+    <li>If past end, wrap to beginning</li>
+    <li>Return physical node mapped to virtual node</li>
+    </ol>
+    <b>Node Operations:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Operation</th><th>Impact</th><th>Keys Moved</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Operation">Add Node</td><td data-label="Impact">Only keys between new node and next node</td><td data-label="Keys Moved">~1/N of total</td></tr>
     <tr><td data-label="Operation">Remove Node</td><td data-label="Impact">Only keys on removed node move to next</td><td data-label="Keys Moved">~1/N of total</td></tr>
     <tr><td data-label="Operation">Replication</td><td data-label="Impact">Walk ring clockwise for N unique nodes</td><td data-label="Keys Moved">No movement</td></tr>
-  </tbody>
-</table>
-</div>
+    </tbody>
+    </table>
 #### Two-Phase Commit for Distributed Work
 
 ```mermaid
@@ -1024,30 +1019,26 @@ flowchart LR
     style M fill:#ffab91
 ```
 
-<div class="decision-box">
-<h4>Speculative Execution Strategy</h4>
-
-<b>When to Use Speculation:</b>
-<ul>
-<li>Branch prediction accuracy > 60%</li>
-<li>Speculative work cost < 30% of sequential execution</li>
-<li>Idle resources available</li>
-<li>Work is safely cancellable</li>
-</ul>
-
-<b>Cost-Benefit Analysis:</b>
-<table class="responsive-table">
-  <thead>
+!!! note "Speculative Execution Strategy"
+    <b>When to Use Speculation:</b>
+    <ul>
+    <li>Branch prediction accuracy > 60%</li>
+    <li>Speculative work cost < 30% of sequential execution</li>
+    <li>Idle resources available</li>
+    <li>Work is safely cancellable</li>
+    </ul>
+    <b>Cost-Benefit Analysis:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Metric</th><th>Formula</th><th>Good Threshold</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Metric">Hit Rate</td><td data-label="Formula">correct_predictions / total</td><td data-label="Good Threshold">> 0.6</td></tr>
     <tr><td data-label="Metric">Speedup</td><td data-label="Formula">sequential_time / speculative_time</td><td data-label="Good Threshold">> 1.5x</td></tr>
     <tr><td data-label="Metric">Waste Ratio</td><td data-label="Formula">canceled_work / total_work</td><td data-label="Good Threshold">< 0.3</td></tr>
     <tr><td data-label="Metric">ROI</td><td data-label="Formula">(time_saved - time_wasted) / time_wasted</td><td data-label="Good Threshold">> 1.0</td></tr>
-  </tbody>
-</table>
-</div>
+    </tbody>
+    </table>
 ---
 
 ## ⚫ Mastery: Building Production Work Systems (60+ min read)
@@ -1115,40 +1106,35 @@ graph TB
     style FAIL fill:#ffcdd2
 ```
 
-<div class="truth-box">
-<h4>Distributed Task Scheduler Implementation</h4>
-
-<b>Task State Machine:</b>
-<pre>
-PENDING → RUNNING → COMPLETED
+!!! info "Distributed Task Scheduler Implementation"
+    <b>Task State Machine:</b>
+    <pre>
+    PENDING → RUNNING → COMPLETED
     ↓        ↓
     └──→ FAILED → RETRYING
-           ↓          ↓
-      (exhausted)  PENDING
-</pre>
-
-<b>Key Features:</b>
-<table class="responsive-table">
-  <thead>
+    ↓          ↓
+    (exhausted)  PENDING
+    </pre>
+    <b>Key Features:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Feature</th><th>Implementation</th><th>Benefit</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Feature"><b>Priority Scheduling</b></td><td data-label="Implementation">3 queues (high/normal/low)</td><td data-label="Benefit">Important work processed first</td></tr>
     <tr><td data-label="Feature"><b>Work Stealing</b></td><td data-label="Implementation">Steal when queue > threshold</td><td data-label="Benefit">Better load distribution</td></tr>
     <tr><td data-label="Feature"><b>Automatic Retries</b></td><td data-label="Implementation">Configurable max retries</td><td data-label="Benefit">Resilience to transient failures</td></tr>
     <tr><td data-label="Feature"><b>Deadlock Detection</b></td><td data-label="Implementation">30s periodic timeout check</td><td data-label="Benefit">Prevents stuck tasks</td></tr>
     <tr><td data-label="Feature"><b>Local Queues</b></td><td data-label="Implementation">Per-worker task buffer</td><td data-label="Benefit">Reduces Redis contention</td></tr>
-  </tbody>
-</table>
-
-<b>Performance Optimizations:</b>
-<ul>
-<li><b>Batch Fetching:</b> Workers grab multiple tasks at once</li>
-<li><b>Local Caching:</b> Reduce Redis roundtrips</li>
-<li><b>Binary Search:</b> Efficient task insertion in sorted queues</li>
-<li><b>Async I/O:</b> Non-blocking Redis operations</li>
-</ul>
-</div>
+    </tbody>
+    </table>
+    <b>Performance Optimizations:</b>
+    <ul>
+    <li><b>Batch Fetching:</b> Workers grab multiple tasks at once</li>
+    <li><b>Local Caching:</b> Reduce Redis roundtrips</li>
+    <li><b>Binary Search:</b> Efficient task insertion in sorted queues</li>
+    <li><b>Async I/O:</b> Non-blocking Redis operations</li>
+    </ul>
 
 ### Implementation Blueprint: Task Scheduler Components
 
@@ -1414,18 +1400,17 @@ sequenceDiagram
 
 **Original System**:
 
-<div class="failure-vignette">
-<b>Single-Threaded Processing:</b>
-<table class="responsive-table">
-  <thead>
+!!! danger
+    <b>Single-Threaded Processing:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Step</th><th>Time</th><th>Total for 1B posts</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Step">Analyze sentiment</td><td data-label="Time">100ms</td><td data-label="Total for 1B posts">150ms × 1B = 1,736 days!</td></tr>
     <tr><td data-label="Step">Save to database</td><td data-label="Time">50ms</td></tr>
-  </tbody>
-</table>
-</div>
+    </tbody>
+    </table>
 
 **First Attempt**: Naive parallelization
 
@@ -1492,21 +1477,19 @@ flowchart TB
     style R4 fill:#c8e6c9
 ```
 
-<div class="decision-box">
-<h4>Smart Processing Strategy</h4>
-<table class="responsive-table">
-  <thead>
+!!! note "Smart Processing Strategy"
+    <table class="responsive-table">
+    <thead>
     <tr><th>Component</th><th>Setting</th><th>Why It Works</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Component">Workers</td><td data-label="Setting">100 (not 1000)</td><td data-label="Why It Works">Matches DB connection pool</td></tr>
     <tr><td data-label="Component">Batch Size</td><td data-label="Setting">1000 posts</td><td data-label="Why It Works">Amortizes DB overhead</td></tr>
     <tr><td data-label="Component">Queue Limit</td><td data-label="Setting">10,000 items</td><td data-label="Why It Works">Prevents memory explosion</td></tr>
     <tr><td data-label="Component">DB Pool</td><td data-label="Setting">50 connections</td><td data-label="Why It Works">Below DB max, allows headroom</td></tr>
     <tr><td data-label="Component">Backpressure</td><td data-label="Setting">Queue blocks when full</td><td data-label="Why It Works">Self-regulating system</td></tr>
-  </tbody>
-</table>
-</div>
+    </tbody>
+    </table>
 **Lessons Learned**:
 1. More workers ≠ more speed
 2. Batch operations are crucial
@@ -1556,30 +1539,26 @@ flowchart TB
     style OK2 fill:#4caf50
 ```
 
-<div class="truth-box">
-<h4>Work Stealing Algorithm</h4>
-
-<b>Rebalancing Logic:</b>
-<ol>
-<li>Calculate average load across all workers</li>
-<li>Identify overloaded workers (load > 1.5x average)</li>
-<li>Identify underloaded workers (load < 0.5x average)</li>
-<li>Steal 30% from most loaded to least loaded</li>
-<li>Repeat every second</li>
-</ol>
-
-<b>Results:</b>
-<table class="responsive-table">
-  <thead>
+!!! info "Work Stealing Algorithm"
+    <b>Rebalancing Logic:</b>
+    <ol>
+    <li>Calculate average load across all workers</li>
+    <li>Identify overloaded workers (load > 1.5x average)</li>
+    <li>Identify underloaded workers (load < 0.5x average)</li>
+    <li>Steal 30% from most loaded to least loaded</li>
+    <li>Repeat every second</li>
+    </ol>
+    <b>Results:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Metric</th><th>Before</th><th>After</th><th>Impact</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Metric">P99 Latency</td><td data-label="Before">30s</td><td data-label="After">2s</td><td data-label="Impact">15x improvement</td></tr>
     <tr><td data-label="Metric">Success Rate</td><td data-label="Before">72%</td><td data-label="After">99.5%</td><td data-label="Impact">$2.3M revenue saved</td></tr>
     <tr><td data-label="Metric">Worker Utilization</td><td data-label="Before">10%</td><td data-label="After">85%</td><td data-label="Impact">8.5x efficiency</td></tr>
-  </tbody>
-</table>
-</div>
+    </tbody>
+    </table>
 ## Performance Optimization Cookbook
 
 #### Recipe 1: The Batch Accumulator Pattern
@@ -1608,29 +1587,25 @@ flowchart LR
     style P fill:#81c784
 ```
 
-<div class="decision-box">
-<h4>Batch Accumulator Pattern</h4>
-
-<b>Configuration:</b>
-<table class="responsive-table">
-  <thead>
+!!! note "Batch Accumulator Pattern"
+    <b>Configuration:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Parameter</th><th>Value</th><th>Purpose</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Parameter">Batch Size</td><td data-label="Value">1000</td><td data-label="Purpose">Optimal for DB bulk inserts</td></tr>
     <tr><td data-label="Parameter">Max Wait</td><td data-label="Value">50ms</td><td data-label="Purpose">Balance latency vs efficiency</td></tr>
     <tr><td data-label="Parameter">Lock</td><td data-label="Value">AsyncIO Lock</td><td data-label="Purpose">Thread-safe operations</td></tr>
-  </tbody>
-</table>
-
-<b>Benefits:</b>
-<ul>
-<li>Reduces network calls by 100x</li>
-<li>Amortizes connection overhead</li>
-<li>Improves database throughput</li>
-<li>Automatic partial batch processing</li>
-</ul>
-</div>
+    </tbody>
+    </table>
+    <b>Benefits:</b>
+    <ul>
+    <li>Reduces network calls by 100x</li>
+    <li>Amortizes connection overhead</li>
+    <li>Improves database throughput</li>
+    <li>Automatic partial batch processing</li>
+    </ul>
 #### Recipe 2: The Priority Work Queue
 
 ```mermaid
@@ -1723,32 +1698,27 @@ flowchart TB
     style K fill:#e1f5fe
 ```
 
-<div class="decision-box">
-<h4>Adaptive Batch Sizing Strategy</h4>
-
-<b>Configuration:</b>
-<table class="responsive-table">
-  <thead>
+!!! note "Adaptive Batch Sizing Strategy"
+    <b>Configuration:</b>
+    <table class="responsive-table">
+    <thead>
     <tr><th>Parameter</th><th>Default</th><th>Purpose</th></tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr><td data-label="Parameter">Min Batch</td><td data-label="Default">10</td><td data-label="Purpose">Prevent overhead dominating</td></tr>
     <tr><td data-label="Parameter">Max Batch</td><td data-label="Default">1000</td><td data-label="Purpose">Prevent memory issues</td></tr>
     <tr><td data-label="Parameter">History Size</td><td data-label="Default">100</td><td data-label="Purpose">Trend detection window</td></tr>
     <tr><td data-label="Parameter">Sample Size</td><td data-label="Default">10</td><td data-label="Purpose">Smoothing for decisions</td></tr>
-  </tbody>
-</table>
-
-<b>Adjustment Rules:</b>
-<ul>
-<li><b>Latency increases 20%:</b> Reduce batch by 20%</li>
-<li><b>Throughput increases 10%:</b> Increase batch by 20%</li>
-<li><b>Otherwise:</b> Keep current size</li>
-<li>Always respect min/max boundaries</li>
-</ul>
-
-<b>Effect:</b> Self-tuning system that finds optimal batch size for current load
-</div>
+    </tbody>
+    </table>
+    <b>Adjustment Rules:</b>
+    <ul>
+    <li><b>Latency increases 20%:</b> Reduce batch by 20%</li>
+    <li><b>Throughput increases 10%:</b> Increase batch by 20%</li>
+    <li><b>Otherwise:</b> Keep current size</li>
+    <li>Always respect min/max boundaries</li>
+    </ul>
+    <b>Effect:</b> Self-tuning system that finds optimal batch size for current load
 ## The Future of Work Distribution
 
 #### Emerging Patterns

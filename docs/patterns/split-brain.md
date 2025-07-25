@@ -19,9 +19,8 @@ last_updated: 2025-07-24
 
 Split-brain occurs when a distributed system's nodes are partitioned by network failures, causing multiple groups to operate independently. Each partition believes it's the only valid cluster, leading to data inconsistency, conflicting decisions, and potential data corruption. This pattern covers prevention and resolution strategies.
 
-<div class="axiom-box">
-<strong>Axiom 3: Failure Resilience</strong>: Network partitions are inevitable in distributed systems. Split-brain prevention requires careful coordination mechanisms to ensure only one partition can make decisions, even when communication fails.
-</div>
+!!! quote "📐 Axiom 3: Failure Resilience"
+    Network partitions are inevitable in distributed systems. Split-brain prevention requires careful coordination mechanisms to ensure only one partition can make decisions, even when communication fails.
 
 ## The Split-Brain Problem
 
@@ -963,16 +962,14 @@ class ReconciliationEnabledCluster(QuorumBasedCluster):
             return None
 ```
 
-<div class="decision-box">
-<strong>Prevention Strategy Selection</strong>:
-
-- **High availability**: Quorum-based with witness nodes
-- **Strong consistency**: Disk-based quorum (STONITH)
-- **Cloud environments**: Application-level detection
-- **Legacy systems**: Automatic reconciliation
-- **Mission critical**: Manual intervention required
-- **Geographically distributed**: Multiple quorum strategies
-</div>
+!!! note
+    <strong>Prevention Strategy Selection</strong>:
+    - **High availability**: Quorum-based with witness nodes
+    - **Strong consistency**: Disk-based quorum (STONITH)
+    - **Cloud environments**: Application-level detection
+    - **Legacy systems**: Automatic reconciliation
+    - **Mission critical**: Manual intervention required
+    - **Geographically distributed**: Multiple quorum strategies
 
 ## Real-World Split-Brain Scenarios
 

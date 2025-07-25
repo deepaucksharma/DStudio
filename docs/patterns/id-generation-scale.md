@@ -557,17 +557,15 @@ class TimeBucketedID:
         return id
 ```
 
-<div class="decision-box">
-<strong>Decision Framework</strong>:
-
-- **High throughput, ordering important**: Snowflake
-- **Database-friendly, moderate scale**: MongoDB ObjectId  
-- **Lexicographic sorting needed**: ULID
-- **URL shortening**: Custom base62 with collision detection
-- **Multi-datacenter**: Hierarchical IDs
-- **Extremely high scale**: 128-bit Flake IDs
-- **Simple, no coordination**: UUID4
-</div>
+!!! note
+    <strong>Decision Framework</strong>:
+    - **High throughput, ordering important**: Snowflake
+    - **Database-friendly, moderate scale**: MongoDB ObjectId
+    - **Lexicographic sorting needed**: ULID
+    - **URL shortening**: Custom base62 with collision detection
+    - **Multi-datacenter**: Hierarchical IDs
+    - **Extremely high scale**: 128-bit Flake IDs
+    - **Simple, no coordination**: UUID4
 
 ## Trade-offs
 

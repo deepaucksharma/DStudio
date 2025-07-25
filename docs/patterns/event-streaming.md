@@ -670,30 +670,24 @@ class StreamMetrics:
 
 ## Common Pitfalls
 
-<div class="failure-vignette">
-<h4>⚠️ Out-of-Order Event Handling</h4>
-
-**Problem**: Events arrive out of order due to network delays
-**Symptom**: Incorrect aggregations, missed patterns
-**Solution**: 
-- Use event time, not processing time
-- Implement watermarks with appropriate lateness
-- Handle late data explicitly
-</div>
+!!! danger "⚠️ Out-of-Order Event Handling"
+    **Problem**: Events arrive out of order due to network delays
+    **Symptom**: Incorrect aggregations, missed patterns
+    **Solution**:
+    - Use event time, not processing time
+    - Implement watermarks with appropriate lateness
+    - Handle late data explicitly
 
 ## Best Practices
 
-<div class="truth-box">
-<h4>🎯 Stream Processing Guidelines</h4>
-
-1. **Choose the right time semantics**: Event time for correctness
-2. **Plan for late data**: Watermarks and allowed lateness
-3. **Partition for scale**: Key-based partitioning
-4. **Checkpoint frequently**: Balance performance vs recovery time
-5. **Monitor everything**: Lag, throughput, latency
-6. **Handle backpressure**: Don't overwhelm downstream
-7. **Design for reprocessing**: Idempotent operations
-</div>
+!!! info "🎯 Stream Processing Guidelines"
+    1. **Choose the right time semantics**: Event time for correctness
+    2. **Plan for late data**: Watermarks and allowed lateness
+    3. **Partition for scale**: Key-based partitioning
+    4. **Checkpoint frequently**: Balance performance vs recovery time
+    5. **Monitor everything**: Lag, throughput, latency
+    6. **Handle backpressure**: Don't overwhelm downstream
+    7. **Design for reprocessing**: Idempotent operations
 
 ## When to Use Event Streaming
 

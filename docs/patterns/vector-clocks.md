@@ -253,26 +253,25 @@ graph LR
 
 ### 1. Pruning Inactive Nodes
 
-<div class="decision-box">
-<h4>Dynamic Node Participation</h4>
-
-```mermaid
-graph TB
-    Full[Full Vector<br/>[1,0,3,0,2,0,0,5]]
-    Detect[Detect Inactive<br/>Nodes 2,4,6,7]
-    Pruned[Pruned Vector<br/>[1,3,2,5]]
-    Map[Node Map<br/>1→1, 3→2, 5→3, 8→4]
-    
+!!! note "Dynamic Node Participation"
+    ```mermaid
+    graph TB
+    Full[Full Vector
+    [1,0,3,0,2,0,0,5]]
+    Detect[Detect Inactive
+    Nodes 2,4,6,7]
+    Pruned[Pruned Vector
+    [1,3,2,5]]
+    Map[Node Map
+    1→1, 3→2, 5→3, 8→4]
     Full --> Detect
     Detect --> Pruned
     Detect --> Map
-```
-
-**Benefits:**
-- Reduces message size by 50%+
-- Maintains causality guarantees
-- Requires node mapping table
-</div>
+    ```
+    **Benefits:**
+    - Reduces message size by 50%+
+    - Maintains causality guarantees
+    - Requires node mapping table
 
 ### 2. Version Vector Optimization
 
@@ -315,16 +314,13 @@ graph TD
 
 ### 2. Byzantine Behavior
 
-<div class="truth-box">
-<h4>Vector Clock Security Considerations</h4>
-
-| Attack Type | Impact | Mitigation |
-|-------------|---------|------------|
-| **Clock manipulation** | False causality | Signed vectors |
-| **Vector inflation** | DoS via size | Size limits |
-| **Node impersonation** | Wrong ordering | Authentication |
-| **Rollback attack** | Old state replay | Monotonic checks |
-</div>
+!!! info "Vector Clock Security Considerations"
+    | Attack Type | Impact | Mitigation |
+    |-------------|---------|------------|
+    | **Clock manipulation** | False causality | Signed vectors |
+    | **Vector inflation** | DoS via size | Size limits |
+    | **Node impersonation** | Wrong ordering | Authentication |
+    | **Rollback attack** | Old state replay | Monotonic checks |
 
 ## Implementation Patterns
 
@@ -622,30 +618,24 @@ graph TD
 
 ### Visual Troubleshooting Steps
 
-<div class="decision-box">
-<h4>Debugging Vector Clock Problems</h4>
-
-```mermaid
-graph TD
+!!! note "Debugging Vector Clock Problems"
+    ```mermaid
+    graph TD
     Problem[Vector clock issue]
     Type{What type?}
-    
     Type -->|Diverging clocks| Diverge[Check message delivery]
     Type -->|Growing size| Size[Implement pruning]
     Type -->|Wrong ordering| Order[Verify comparison logic]
     Type -->|Performance| Perf[Consider alternatives]
-    
     Diverge --> Fix1[Ensure reliable delivery]
     Size --> Fix2[Remove inactive nodes]
     Order --> Fix3[Fix implementation]
     Perf --> Fix4[Use version vectors]
-    
     style Fix1 fill:#4CAF50,color:#fff
     style Fix2 fill:#4CAF50,color:#fff
     style Fix3 fill:#4CAF50,color:#fff
     style Fix4 fill:#4CAF50,color:#fff
-```
-</div>
+    ```
 
 ## Performance Visualization
 
@@ -672,28 +662,23 @@ graph LR
 
 ### Memory Overhead Visualization
 
-<div class="truth-box">
-<h4>Vector Clock Memory Usage</h4>
-
-| Nodes | Per Clock | 1M Objects | Network Overhead |
-|-------|-----------|------------|------------------|
-| 10 | 80 bytes | 80 MB | 1.6% |
-| 100 | 800 bytes | 800 MB | 16% |
-| 1,000 | 8 KB | 8 GB | 160% |
-| 10,000 | 80 KB | 80 GB | 1600% |
-
-```mermaid
-graph TD
+!!! info "Vector Clock Memory Usage"
+    | Nodes | Per Clock | 1M Objects | Network Overhead |
+    |-------|-----------|------------|------------------|
+    | 10 | 80 bytes | 80 MB | 1.6% |
+    | 100 | 800 bytes | 800 MB | 16% |
+    | 1,000 | 8 KB | 8 GB | 160% |
+    | 10,000 | 80 KB | 80 GB | 1600% |
+    ```mermaid
+    graph TD
     subgraph "Memory Growth"
-        Linear[Linear with nodes]
-        Problem[Becomes prohibitive]
-        Solution[Need optimization]
+    Linear[Linear with nodes]
+    Problem[Becomes prohibitive]
+    Solution[Need optimization]
     end
-    
     Linear --> Problem
     Problem --> Solution
-```
-</div>
+    ```
 
 ## Summary and Best Practices
 

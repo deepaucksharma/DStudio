@@ -53,36 +53,33 @@ last_updated: 2025-07-20
 ## Cache Sizing Economics
 
 ### Memory Cost Analysis
-<div class="truth-box">
-<h4>💾 Memory Cost Analysis Example</h4>
-
-<div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+!!! info "💾 Memory Cost Analysis Example"
+    <div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div>
-      <h5 style="margin: 0 0 10px 0; color: #1565C0;">Redis Cluster Costs</h5>
-      <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
-        <tr style="background: #BBDEFB;">
-          <td style="padding: 8px;"><strong>Memory</strong></td>
-          <td style="padding: 8px; text-align: right;">100GB</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;"><strong>Monthly cost</strong></td>
-          <td style="padding: 8px; text-align: right; color: #1976D2;">$500</td>
-        </tr>
-        <tr style="background: #F5F5F5;">
-          <td style="padding: 8px;"><strong>Total keys</strong></td>
-          <td style="padding: 8px; text-align: right;">1 billion</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;"><strong>Avg key size</strong></td>
-          <td style="padding: 8px; text-align: right;">100 bytes</td>
-        </tr>
-        <tr style="background: #E3F2FD;">
-          <td style="padding: 8px;"><strong>Cost per key</strong></td>
-          <td style="padding: 8px; text-align: right; font-weight: bold;">$0.0000005</td>
-        </tr>
-      </table>
-    </div>
+    <h5 style="margin: 0 0 10px 0; color: #1565C0;">Redis Cluster Costs</h5>
+    <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
+    <tr style="background: #BBDEFB;">
+    <td style="padding: 8px;"><strong>Memory</strong></td>
+    <td style="padding: 8px; text-align: right;">100GB</td>
+    </tr>
+    <tr>
+    <td style="padding: 8px;"><strong>Monthly cost</strong></td>
+    <td style="padding: 8px; text-align: right; color: #1976D2;">$500</td>
+    </tr>
+    <tr style="background: #F5F5F5;">
+    <td style="padding: 8px;"><strong>Total keys</strong></td>
+    <td style="padding: 8px; text-align: right;">1 billion</td>
+    </tr>
+    <tr>
+    <td style="padding: 8px;"><strong>Avg key size</strong></td>
+    <td style="padding: 8px; text-align: right;">100 bytes</td>
+    </tr>
+    <tr style="background: #E3F2FD;">
+    <td style="padding: 8px;"><strong>Cost per key</strong></td>
+    <td style="padding: 8px; text-align: right; font-weight: bold;">$0.0000005</td>
+    </tr>
+    </table>
     
     <div>
       <h5 style="margin: 0 0 10px 0; color: #E65100;">Database Query Costs</h5>
@@ -114,26 +111,24 @@ last_updated: 2025-07-20
 </div>
 
 ### Hit Rate Impact
-<div class="decision-box">
-<h4>🎯 Hit Rate Impact on ROI</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; border-collapse: collapse;">
-  <thead>
+!!! note "🎯 Hit Rate Impact on ROI"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; border-collapse: collapse;">
+    <thead>
     <tr style="background: #C8E6C9;">
-      <th style="padding: 12px; text-align: left;">Hit Rate</th>
-      <th style="padding: 12px;">Backend Savings</th>
-      <th style="padding: 12px;">ROI</th>
-      <th style="padding: 12px;">Visual ROI</th>
+    <th style="padding: 12px; text-align: left;">Hit Rate</th>
+    <th style="padding: 12px;">Backend Savings</th>
+    <th style="padding: 12px;">ROI</th>
+    <th style="padding: 12px;">Visual ROI</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
-      <td data-label="Hit Rate"><strong>50%</strong></td>
-      <td data-label="Backend Savings">50%</td>
-      <td data-label="ROI">-20% (loss)</td>
-      <td data-label="Visual ROI">
-        <div style="background: #F44336; width: 20%; height: 15px; margin-left: auto;"></div>
+    <td data-label="Hit Rate"><strong>50%</strong></td>
+    <td data-label="Backend Savings">50%</td>
+    <td data-label="ROI">-20% (loss)</td>
+    <td data-label="Visual ROI">
+    <div style="background: #F44336; width: 20%; height: 15px; margin-left: auto;">
       </td>
     </tr>
     <tr style="background: #F5F5F5;">
@@ -310,28 +305,21 @@ Tag-Based:
 ## Cache Optimization Strategies
 
 ### Adaptive TTL
-<div class="decision-box">
-<h4>⏱️ Adaptive TTL Strategy</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
+!!! note "⏱️ Adaptive TTL Strategy"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 15px;">
     <pre style="margin: 0; overflow-x: auto;"><code>def calculate_ttl(key, access_pattern):
     base_ttl = 3600  # 1 hour
-
-# High-value keys: Longer TTL
+    # High-value keys: Longer TTL
     if is_expensive_query(key):
-        ttl = base_ttl * 4
-
-# Frequently changing: Shorter TTL
+    ttl = base_ttl * 4
+    # Frequently changing: Shorter TTL
     elif high_update_frequency(key):
-        ttl = base_ttl / 4
-
-# Access pattern based
+    ttl = base_ttl / 4
+    # Access pattern based
     elif access_pattern.is_periodic():
-        ttl = access_pattern.period * 1.5
-
+    ttl = access_pattern.period * 1.5
     return ttl</code></pre>
-  </div>
   
   <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px;">
   <thead>
@@ -402,81 +390,72 @@ Pareto: 20% of keys = 80% of requests
 ```
 
 ### Memory vs Hit Rate
-<div class="decision-box">
-<h4>📈 Memory vs Hit Rate Trade-offs</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
-  <thead>
+!!! note "📈 Memory vs Hit Rate Trade-offs"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
+    <thead>
     <tr style="background: #C8E6C9;">
-      <th style="padding: 12px;">Cache Size</th>
-      <th style="padding: 12px;">Hit Rate</th>
-      <th style="padding: 12px;">Cost/month</th>
-      <th style="padding: 12px;">Benefit/month</th>
-      <th style="padding: 12px;">Net Value</th>
+    <th style="padding: 12px;">Cache Size</th>
+    <th style="padding: 12px;">Hit Rate</th>
+    <th style="padding: 12px;">Cost/month</th>
+    <th style="padding: 12px;">Benefit/month</th>
+    <th style="padding: 12px;">Net Value</th>
     </tr>
-  </thead>
-  <tbody>
+    </thead>
+    <tbody>
     <tr>
-      <td data-label="Cache Size"><strong>1GB</strong></td>
-      <td data-label="Hit Rate">60%</td>
-      <td data-label="Cost/month">$10</td>
-      <td data-label="Benefit/month">$600</td>
-      <td data-label="Net Value">+$590</td>
+    <td data-label="Cache Size"><strong>1GB</strong></td>
+    <td data-label="Hit Rate">60%</td>
+    <td data-label="Cost/month">$10</td>
+    <td data-label="Benefit/month">$600</td>
+    <td data-label="Net Value">+$590</td>
     </tr>
     <tr style="background: #F1F8E9;">
-      <td data-label="Cache Size"><strong>10GB</strong></td>
-      <td data-label="Hit Rate">85%</td>
-      <td data-label="Cost/month">$100</td>
-      <td data-label="Benefit/month">$850</td>
-      <td data-label="Net Value">+$750</td>
+    <td data-label="Cache Size"><strong>10GB</strong></td>
+    <td data-label="Hit Rate">85%</td>
+    <td data-label="Cost/month">$100</td>
+    <td data-label="Benefit/month">$850</td>
+    <td data-label="Net Value">+$750</td>
     </tr>
     <tr>
-      <td data-label="Cache Size"><strong>100GB</strong></td>
-      <td data-label="Hit Rate">95%</td>
-      <td data-label="Cost/month">$1,000</td>
-      <td data-label="Benefit/month">$950</td>
-      <td data-label="Net Value">-$50</td>
+    <td data-label="Cache Size"><strong>100GB</strong></td>
+    <td data-label="Hit Rate">95%</td>
+    <td data-label="Cost/month">$1,000</td>
+    <td data-label="Benefit/month">$950</td>
+    <td data-label="Net Value">-$50</td>
     </tr>
     <tr style="background: #FFEBEE;">
-      <td data-label="Cache Size"><strong>1TB</strong></td>
-      <td data-label="Hit Rate">99%</td>
-      <td data-label="Cost/month">$10,000</td>
-      <td data-label="Benefit/month">$990</td>
-      <td data-label="Net Value">-$9,010</td>
+    <td data-label="Cache Size"><strong>1TB</strong></td>
+    <td data-label="Hit Rate">99%</td>
+    <td data-label="Cost/month">$10,000</td>
+    <td data-label="Benefit/month">$990</td>
+    <td data-label="Net Value">-$9,010</td>
     </tr>
-  </tbody>
-</table>
-  
-  <div style="text-align: center; margin-bottom: 20px;">
+    </tbody>
+    </table>
+    <div style="text-align: center; margin-bottom: 20px;">
     <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
-      <text x="250" y="20" text-anchor="middle" font-weight="bold">Cache Size vs Hit Rate vs Value</text>
-      
-      <!-- Axes -->
-      <line x1="50" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2"/>
-      <line x1="50" y1="250" x2="50" y2="50" stroke="#333" stroke-width="2"/>
-      
-      <!-- Hit rate curve -->
-      <path d="M 100 200 Q 200 120, 300 80 T 400 60" 
-            stroke="#2196F3" stroke-width="3" fill="none"/>
-      <text x="410" y="60" font-size="10" fill="#2196F3">Hit Rate</text>
-      
-      <!-- Value curve -->
-      <path d="M 100 100 Q 200 80, 300 120 T 400 200" 
-            stroke="#4CAF50" stroke-width="3" fill="none"/>
-      <text x="410" y="200" font-size="10" fill="#4CAF50">Net Value</text>
-      
-      <!-- Sweet spot area -->
-      <rect x="150" y="50" width="100" height="200" fill="#4CAF50" opacity="0.1"/>
-      <text x="200" y="40" text-anchor="middle" font-size="12" fill="#2E7D32">Sweet Spot</text>
-      
-      <!-- X-axis labels -->
-      <text x="100" y="270" text-anchor="middle" font-size="10">1GB</text>
-      <text x="200" y="270" text-anchor="middle" font-size="10">10GB</text>
-      <text x="300" y="270" text-anchor="middle" font-size="10">100GB</text>
-      <text x="400" y="270" text-anchor="middle" font-size="10">1TB</text>
+    <text x="250" y="20" text-anchor="middle" font-weight="bold">Cache Size vs Hit Rate vs Value</text>
+    <!-- Axes -->
+    <line x1="50" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2"/>
+    <line x1="50" y1="250" x2="50" y2="50" stroke="#333" stroke-width="2"/>
+    <!-- Hit rate curve -->
+    <path d="M 100 200 Q 200 120, 300 80 T 400 60"
+    stroke="#2196F3" stroke-width="3" fill="none"/>
+    <text x="410" y="60" font-size="10" fill="#2196F3">Hit Rate</text>
+    <!-- Value curve -->
+    <path d="M 100 100 Q 200 80, 300 120 T 400 200"
+    stroke="#4CAF50" stroke-width="3" fill="none"/>
+    <text x="410" y="200" font-size="10" fill="#4CAF50">Net Value</text>
+    <!-- Sweet spot area -->
+    <rect x="150" y="50" width="100" height="200" fill="#4CAF50" opacity="0.1"/>
+    <text x="200" y="40" text-anchor="middle" font-size="12" fill="#2E7D32">Sweet Spot</text>
+    <!-- X-axis labels -->
+    <text x="100" y="270" text-anchor="middle" font-size="10">1GB</text>
+    <text x="200" y="270" text-anchor="middle" font-size="10">10GB</text>
+    <text x="300" y="270" text-anchor="middle" font-size="10">100GB</text>
+    <text x="400" y="270" text-anchor="middle" font-size="10">1TB</text>
     </svg>
-  </div>
   
   <div style="background: #C8E6C9; padding: 15px; border-radius: 5px; text-align: center;">
     <strong style="font-size: 1.2em;">🎯 Sweet Spot: 10-100GB for most applications</strong>
@@ -523,21 +502,17 @@ ROI = ((R × H × B) + (R × H × L × V) - C) / C × 100%
 ```
 
 ### Example Calculation
-<div class="failure-vignette">
-<h4>🛍️ E-commerce Cache ROI Example</h4>
-
-<div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
-  <h5 style="margin: 0 0 15px 0;">Product Catalog Caching Scenario</h5>
-  
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
+!!! danger "🛍️ E-commerce Cache ROI Example"
+    <div style="background: #FFEBEE; padding: 20px; border-radius: 8px;">
+    <h5 style="margin: 0 0 15px 0;">Product Catalog Caching Scenario</h5>
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
     <div style="background: white; padding: 15px; border-radius: 5px;">
-      <h6 style="margin: 0 0 10px 0; color: #C62828;">Traffic & Performance</h6>
-      <table class="responsive-table" style="width: 100%;">
-        <tr><td>Requests/month:</td><td style="text-align: right; font-weight: bold;">100M</td></tr>
-        <tr><td>Hit rate:</td><td style="text-align: right; font-weight: bold; color: #4CAF50;">90%</td></tr>
-        <tr><td>Latency reduction:</td><td style="text-align: right; font-weight: bold;">50ms</td></tr>
-      </table>
-    </div>
+    <h6 style="margin: 0 0 10px 0; color: #C62828;">Traffic & Performance</h6>
+    <table class="responsive-table" style="width: 100%;">
+    <tr><td>Requests/month:</td><td style="text-align: right; font-weight: bold;">100M</td></tr>
+    <tr><td>Hit rate:</td><td style="text-align: right; font-weight: bold; color: #4CAF50;">90%</td></tr>
+    <tr><td>Latency reduction:</td><td style="text-align: right; font-weight: bold;">50ms</td></tr>
+    </table>
     
     <div style="background: white; padding: 15px; border-radius: 5px;">
       <h6 style="margin: 0 0 10px 0; color: #C62828;">Cost Parameters</h6>

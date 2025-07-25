@@ -245,34 +245,28 @@ graph TB
 
 ### Split Brain Prevention
 
-<div class="decision-box">
-<h4>🧠 Preventing Split Brain</h4>
-
-**Problem**: Network partition creates two leaders
-
-**Solutions**:
-1. **Quorum-based decisions**: Require majority for any operation
-2. **Fencing tokens**: Monotonically increasing leader epochs
-3. **External arbitrator**: ZooKeeper or etcd for coordination
-4. **Lease-based leadership**: Time-bound leader terms
-
-```mermaid
-graph TB
+!!! note "🧠 Preventing Split Brain"
+    **Problem**: Network partition creates two leaders
+    **Solutions**:
+    1. **Quorum-based decisions**: Require majority for any operation
+    2. **Fencing tokens**: Monotonically increasing leader epochs
+    3. **External arbitrator**: ZooKeeper or etcd for coordination
+    4. **Lease-based leadership**: Time-bound leader terms
+    ```mermaid
+    graph TB
     subgraph "Partition A"
-        L1[Old Leader<br/>3 nodes]
+    L1[Old Leader
+    3 nodes]
     end
-    
     subgraph "Partition B"
-        L2[New Leader<br/>2 nodes]
+    L2[New Leader
+    2 nodes]
     end
-    
     L1 -->|Has Majority| Active[Remains Active]
     L2 -->|No Majority| Inactive[Steps Down]
-    
     style L1 fill:#4CAF50,color:#fff
     style L2 fill:#ff6b6b,color:#fff
-```
-</div>
+    ```
 
 ## Performance Considerations
 

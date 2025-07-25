@@ -129,15 +129,54 @@ graph LR
 
 ## Pattern Categories
 
-### Pattern Complexity & Prerequisites
+<div class="grid cards" markdown>
 
-| Category | Complexity | Prerequisites | First Pattern | ROI Timeline |
-|----------|------------|---------------|---------------|--------------|
-| **🏗️ Core** | 🟡-🔴 Medium-High | Basic distributed systems | Queues & Streaming | 2-4 weeks |
-| **🛡️ Resilience** | 🟢-🟡 Low-Medium | Production experience | Circuit Breaker | 1-2 weeks |
-| **💾 Data** | 🔴 High | Database fundamentals | Caching Strategies | 3-6 weeks |
-| **🤝 Coordination** | 🔴 High | Consensus algorithms | Leader Election | 4-8 weeks |
-| **⚙️ Operational** | 🟡 Medium | DevOps basics | Observability | 2-3 weeks |
+-   :material-city:{ .lg .middle } **Core Patterns**
+
+    ---
+
+    **Complexity**: Medium-High  
+    **Prerequisites**: Basic distributed systems  
+    **Start with**: Queues & Streaming  
+    **ROI Timeline**: 2-4 weeks
+
+-   :material-shield-check:{ .lg .middle } **Resilience Patterns**
+
+    ---
+
+    **Complexity**: Low-Medium  
+    **Prerequisites**: Production experience  
+    **Start with**: Circuit Breaker  
+    **ROI Timeline**: 1-2 weeks
+
+-   :material-database:{ .lg .middle } **Data Patterns**
+
+    ---
+
+    **Complexity**: High  
+    **Prerequisites**: Database fundamentals  
+    **Start with**: Caching Strategies  
+    **ROI Timeline**: 3-6 weeks
+
+-   :material-handshake:{ .lg .middle } **Coordination Patterns**
+
+    ---
+
+    **Complexity**: High  
+    **Prerequisites**: Consensus algorithms  
+    **Start with**: Leader Election  
+    **ROI Timeline**: 4-8 weeks
+
+-   :material-cog:{ .lg .middle } **Operational Patterns**
+
+    ---
+
+    **Complexity**: Medium  
+    **Prerequisites**: DevOps basics  
+    **Start with**: Observability  
+    **ROI Timeline**: 2-3 weeks
+
+</div>
 
 ### Pattern Catalog
 

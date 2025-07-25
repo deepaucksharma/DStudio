@@ -516,16 +516,13 @@ class SSDOptimizedLSM:
 
 ### 1. Write Stalls
 
-<div class="failure-vignette">
-<h4>⚠️ Compaction Can't Keep Up</h4>
-
-**Scenario**: Write rate exceeds compaction rate
-**Result**: L0 fills up, writes stall
-**Solution**: 
-- More compaction threads
-- Larger L0 size
-- Rate limiting writes
-</div>
+!!! danger "⚠️ Compaction Can't Keep Up"
+    **Scenario**: Write rate exceeds compaction rate
+    **Result**: L0 fills up, writes stall
+    **Solution**:
+    - More compaction threads
+    - Larger L0 size
+    - Rate limiting writes
 
 ### 2. Tombstone Accumulation
 

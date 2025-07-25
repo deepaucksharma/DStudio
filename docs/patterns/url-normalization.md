@@ -625,16 +625,14 @@ async def test_async():
 asyncio.run(test_async())
 ```
 
-<div class="decision-box">
-<strong>Decision Framework</strong>:
-
-- **Web crawlers**: Full semantic normalization with redirect following
-- **URL shorteners**: Aggressive normalization with content fingerprinting
-- **Cache systems**: Basic RFC normalization with performance optimization
-- **Analytics platforms**: Parameter filtering with consistent grouping
-- **Content management**: Canonical URL extraction from HTML meta tags
-- **High-throughput systems**: Cached normalization with batch processing
-</div>
+!!! note
+    <strong>Decision Framework</strong>:
+    - **Web crawlers**: Full semantic normalization with redirect following
+    - **URL shorteners**: Aggressive normalization with content fingerprinting
+    - **Cache systems**: Basic RFC normalization with performance optimization
+    - **Analytics platforms**: Parameter filtering with consistent grouping
+    - **Content management**: Canonical URL extraction from HTML meta tags
+    - **High-throughput systems**: Cached normalization with batch processing
 
 ## Trade-offs
 

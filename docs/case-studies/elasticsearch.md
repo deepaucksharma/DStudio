@@ -337,11 +337,9 @@ def route_search_query(index_name, query):
 
 ### Query Execution Pipeline
 
-<div class="decision-box">
-<h4>🎯 Design Decision: Two-Phase Search</h4>
-<p><strong>Problem</strong>: How to rank millions of documents efficiently?<br/>
-<strong>Solution</strong>: Query phase finds top candidates, fetch phase retrieves full documents</p>
-</div>
+!!! note "🎯 Design Decision: Two-Phase Search"
+    <strong>Problem</strong>: How to rank millions of documents efficiently?
+    <strong>Solution</strong>: Query phase finds top candidates, fetch phase retrieves full documents
 
 ```mermaid
 sequenceDiagram
@@ -573,10 +571,8 @@ graph LR
 
 ### Aggregation Framework
 
-<div class="truth-box">
-<h4>💡 Insight: Analytics at Search Speed</h4>
-<p>Elasticsearch can calculate complex analytics (histograms, percentiles, geospatial stats) in milliseconds by leveraging the same inverted index structures used for search.</p>
-</div>
+!!! info "💡 Insight: Analytics at Search Speed"
+    Elasticsearch can calculate complex analytics (histograms, percentiles, geospatial stats) in milliseconds by leveraging the same inverted index structures used for search.
 
 ```mermaid
 graph TB
@@ -693,12 +689,10 @@ graph TB
 
 ### Netflix's Elasticsearch Journey
 
-<div class="failure-vignette">
-<h4>💥 Case Study: The Logging Data Explosion</h4>
-<p><strong>Problem</strong>: Netflix's log volume grew from 1TB/day to 700TB/day<br/>
-<strong>Challenge</strong>: Query performance degraded as cluster grew to 3000+ nodes<br/>
-<strong>Solution</strong>: Hot-warm-cold architecture with automated data lifecycle</p>
-</div>
+!!! danger "💥 Case Study: The Logging Data Explosion"
+    <strong>Problem</strong>: Netflix's log volume grew from 1TB/day to 700TB/day
+    <strong>Challenge</strong>: Query performance degraded as cluster grew to 3000+ nodes
+    <strong>Solution</strong>: Hot-warm-cold architecture with automated data lifecycle
 
 ```mermaid
 graph TB
@@ -795,10 +789,8 @@ graph TB
 
 ### GitHub's Code Search Scale
 
-<div class="truth-box">
-<h4>💡 Insight: Search at Code Scale</h4>
-<p>GitHub indexes 200+ million repositories with 28+ billion files, demonstrating how Elasticsearch can handle massive text corpora with specialized optimizations.</p>
-</div>
+!!! info "💡 Insight: Search at Code Scale"
+    GitHub indexes 200+ million repositories with 28+ billion files, demonstrating how Elasticsearch can handle massive text corpora with specialized optimizations.
 
 **Code Search Optimizations:**
 
@@ -1069,15 +1061,13 @@ xpack.security.authc.realms:
 
 ### Elasticsearch Design Philosophy
 
-<div class="decision-box">
-<h4>🎯 Core Design Principles</h4>
-<ol>
-<li><strong>Search-first architecture</strong>: Optimize for read-heavy workloads with complex queries</li>
-<li><strong>Distributed by default</strong>: Scale horizontally without application changes</li>
-<li><strong>Near real-time</strong>: Balance consistency with performance (1-second refresh)</li>
-<li><strong>Schema flexibility</strong>: Dynamic mapping with optional strict schemas</li>
-</ol>
-</div>
+!!! note "🎯 Core Design Principles"
+    <ol>
+    <li><strong>Search-first architecture</strong>: Optimize for read-heavy workloads with complex queries</li>
+    <li><strong>Distributed by default</strong>: Scale horizontally without application changes</li>
+    <li><strong>Near real-time</strong>: Balance consistency with performance (1-second refresh)</li>
+    <li><strong>Schema flexibility</strong>: Dynamic mapping with optional strict schemas</li>
+    </ol>
 
 ### When to Choose Elasticsearch
 

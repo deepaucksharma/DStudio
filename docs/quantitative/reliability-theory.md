@@ -504,17 +504,14 @@ def accelerated_test_planning(normal_MTTF, acceleration_factor,
 
 ## Best Practices
 
-<div class="truth-box">
-<h4>🎯 Reliability Engineering Principles</h4>
-
-1. **Design for failure**: Assume components will fail
-2. **Eliminate single points of failure**: Redundancy at all levels
-3. **Fail fast, fail safe**: Detect and contain failures quickly
-4. **Monitor everything**: Can't improve what you don't measure
-5. **Test failures regularly**: Chaos engineering approach
-6. **Consider common-mode failures**: Diversity in redundancy
-7. **Human factors matter**: Operator errors are system failures
-</div>
+!!! info "🎯 Reliability Engineering Principles"
+    1. **Design for failure**: Assume components will fail
+    2. **Eliminate single points of failure**: Redundancy at all levels
+    3. **Fail fast, fail safe**: Detect and contain failures quickly
+    4. **Monitor everything**: Can't improve what you don't measure
+    5. **Test failures regularly**: Chaos engineering approach
+    6. **Consider common-mode failures**: Diversity in redundancy
+    7. **Human factors matter**: Operator errors are system failures
 
 ## Related Topics
 

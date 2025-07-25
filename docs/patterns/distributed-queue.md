@@ -19,9 +19,8 @@ last_updated: 2025-07-24
 
 Distributed queues provide reliable, scalable message passing across multiple nodes while maintaining ordering guarantees and fault tolerance. Unlike single-node queues, distributed queues must handle network partitions, node failures, and coordination challenges while ensuring messages are neither lost nor duplicated.
 
-<div class="axiom-box">
-<strong>Axiom 3: Failure Resilience</strong>: In distributed systems, components fail independently. Distributed queues must continue operating even when individual nodes fail, ensuring message durability and system availability.
-</div>
+!!! abstract
+    <strong>Axiom 3: Failure Resilience</strong>: In distributed systems, components fail independently. Distributed queues must continue operating even when individual nodes fail, ensuring message durability and system availability.
 
 ## The Distributed Challenge
 
@@ -771,16 +770,14 @@ class LoadBalancedConsumer:
         return stats
 ```
 
-<div class="decision-box">
-<strong>Implementation Decision Framework</strong>:
-
-- **High throughput (>100K msg/s)**: Apache Kafka with batching
-- **Strong consistency**: Consensus-based queue with Raft
-- **Simple deployment**: Redis Streams or RabbitMQ
-- **Multi-cloud**: Cloud-native queues (SQS, Pub/Sub, Service Bus)
-- **Event sourcing**: Kafka with log compaction
-- **Task processing**: Celery with Redis/RabbitMQ backend
-</div>
+!!! note
+    <strong>Implementation Decision Framework</strong>:
+    - **High throughput (>100K msg/s)**: Apache Kafka with batching
+    - **Strong consistency**: Consensus-based queue with Raft
+    - **Simple deployment**: Redis Streams or RabbitMQ
+    - **Multi-cloud**: Cloud-native queues (SQS, Pub/Sub, Service Bus)
+    - **Event sourcing**: Kafka with log compaction
+    - **Task processing**: Celery with Redis/RabbitMQ backend
 
 ## Failure Scenarios
 

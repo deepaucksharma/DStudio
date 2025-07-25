@@ -210,27 +210,23 @@ Complete mapping between old 8-law structure and new 7-law framework 🗺️.
 ## Quick Decision Trees
 
 <div class="decision-trees">
-  <div class="decision-box">
-    <h4>🤔 Which Consistency Model?</h4>
+  !!! note "🤔 Which Consistency Model?"
     <ul>
-      <li>Need global ordering? → <strong>Linearizability</strong></li>
-      <li>Can tolerate stale reads? → <strong>Eventual Consistency</strong></li>
-      <li>Need causal relationships? → <strong>Causal Consistency</strong></li>
-      <li>Session guarantees enough? → <strong>Session Consistency</strong></li>
+    <li>Need global ordering? → <strong>Linearizability</strong></li>
+    <li>Can tolerate stale reads? → <strong>Eventual Consistency</strong></li>
+    <li>Need causal relationships? → <strong>Causal Consistency</strong></li>
+    <li>Session guarantees enough? → <strong>Session Consistency</strong></li>
     </ul>
     <a href="cheat-sheets.md#consistency-model-selection">Full decision tree →</a>
-  </div>
   
-  <div class="decision-box">
-    <h4>🔧 Which Pattern to Use?</h4>
+  !!! note "🔧 Which Pattern to Use?"
     <ul>
-      <li>Handling failures? → <strong>Circuit Breaker</strong></li>
-      <li>Distributed transactions? → <strong>Saga Pattern</strong></li>
-      <li>Event history needed? → <strong>Event Sourcing</strong></li>
-      <li>Read/write separation? → <strong>CQRS</strong></li>
+    <li>Handling failures? → <strong>Circuit Breaker</strong></li>
+    <li>Distributed transactions? → <strong>Saga Pattern</strong></li>
+    <li>Event history needed? → <strong>Event Sourcing</strong></li>
+    <li>Read/write separation? → <strong>CQRS</strong></li>
     </ul>
     <a href="cheat-sheets.md#pattern-selection-guide">Full pattern selector →</a>
-  </div>
 </div>
 
 ## 📖 How to Use These References

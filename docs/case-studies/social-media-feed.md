@@ -198,11 +198,9 @@ class FanoutService:
 
 ### Hybrid Model (Production Reality)
 
-<div class="decision-box">
-<h4>🎯 Design Decision: Hybrid Fan-out Strategy</h4>
-<p><strong>Problem</strong>: Pure push/pull models don't work at scale<br/>
-<strong>Solution</strong>: Segment users by follower count and apply different strategies</p>
-</div>
+!!! note "🎯 Design Decision: Hybrid Fan-out Strategy"
+    <strong>Problem</strong>: Pure push/pull models don't work at scale
+    <strong>Solution</strong>: Segment users by follower count and apply different strategies
 
 ```mermaid
 graph TB
@@ -276,10 +274,8 @@ class HybridFeedGenerator:
 
 ### Multi-Stage Ranking Architecture
 
-<div class="truth-box">
-<h4>💡 Insight: Funnel-Based Ranking</h4>
-<p>Feed ranking uses a multi-stage funnel: retrieve thousands of candidates quickly, then apply expensive ML models to top hundreds. This balances relevance with computational efficiency.</p>
-</div>
+!!! info "💡 Insight: Funnel-Based Ranking"
+    Feed ranking uses a multi-stage funnel: retrieve thousands of candidates quickly, then apply expensive ML models to top hundreds. This balances relevance with computational efficiency.
 
 ```mermaid
 graph TB
@@ -395,12 +391,10 @@ class FeedRankingPipeline:
 
 ### Real-time Model Updates
 
-<div class="failure-vignette">
-<h4>⚠️ Failure Scenario: Model Staleness Crisis</h4>
-<p><strong>Problem</strong>: Trending topic about breaking news gets 0 visibility because ML models trained on historical data<br/>
-<strong>Impact</strong>: 40% drop in engagement during major news events<br/>
-<strong>Solution</strong>: Real-time feature updates + online learning pipeline</p>
-</div>
+!!! danger "⚠️ Failure Scenario: Model Staleness Crisis"
+    <strong>Problem</strong>: Trending topic about breaking news gets 0 visibility because ML models trained on historical data
+    <strong>Impact</strong>: 40% drop in engagement during major news events
+    <strong>Solution</strong>: Real-time feature updates + online learning pipeline
 
 ```mermaid
 graph LR
@@ -524,11 +518,9 @@ class FeedCacheManager:
 
 ### Database Sharding Strategy
 
-<div class="decision-box">
-<h4>🎯 Design Decision: User-Based Sharding</h4>
-<p><strong>Problem</strong>: Single database can't handle 3B users and 1B posts/day<br/>
-<strong>Solution</strong>: Shard by user_id hash to co-locate user data and enable efficient queries</p>
-</div>
+!!! note "🎯 Design Decision: User-Based Sharding"
+    <strong>Problem</strong>: Single database can't handle 3B users and 1B posts/day
+    <strong>Solution</strong>: Shard by user_id hash to co-locate user data and enable efficient queries
 
 ```mermaid
 graph TB
@@ -791,10 +783,8 @@ class FeedRealTimeUpdater {
 
 ### CDN and Edge Caching Strategy
 
-<div class="truth-box">
-<h4>💡 Insight: Geographic Feed Optimization</h4>
-<p>User engagement varies significantly by region and time zone. Edge servers pre-compute and cache region-specific trending content to reduce latency and improve relevance.</p>
-</div>
+!!! info "💡 Insight: Geographic Feed Optimization"
+    User engagement varies significantly by region and time zone. Edge servers pre-compute and cache region-specific trending content to reduce latency and improve relevance.
 
 ```mermaid
 graph TB
@@ -1033,14 +1023,12 @@ for key, value in costs.items():
 
 ### Case Study: The Great Feed Outage of 2021
 
-<div class="failure-vignette">
-<h4>💥 Production Disaster: ML Model Deployment Gone Wrong</h4>
-<p><strong>Timeline</strong>: 14:30 UTC - New ranking model deployed<br/>
-<strong>14:35 UTC</strong>: Feed generation latency spikes to 5+ seconds<br/>
-<strong>14:45 UTC</strong>: User complaints flood support channels<br/>
-<strong>15:00 UTC</strong>: Emergency rollback initiated<br/>
-<strong>Impact</strong>: 45 minutes downtime, 500M affected users, 12% daily revenue loss</p>
-</div>
+!!! danger "💥 Production Disaster: ML Model Deployment Gone Wrong"
+    <strong>Timeline</strong>: 14:30 UTC - New ranking model deployed
+    <strong>14:35 UTC</strong>: Feed generation latency spikes to 5+ seconds
+    <strong>14:45 UTC</strong>: User complaints flood support channels
+    <strong>15:00 UTC</strong>: Emergency rollback initiated
+    <strong>Impact</strong>: 45 minutes downtime, 500M affected users, 12% daily revenue loss
 
 **Root Cause Analysis:**
 
@@ -1073,13 +1061,11 @@ class NewRankingModel:
 
 ### Case Study: Celebrity Death Surge
 
-<div class="failure-vignette">
-<h4>⚠️ Scaling Challenge: Celebrity Death Traffic Spike</h4>
-<p><strong>Event</strong>: Major celebrity death announced<br/>
-<strong>Traffic Spike</strong>: 20x normal posting rate, 50x engagement<br/>
-<strong>Problem</strong>: Fan-out service overwhelmed, feeds frozen for 2 hours<br/>
-<strong>Solution</strong>: Emergency rate limiting + manual trending content injection</p>
-</div>
+!!! danger "⚠️ Scaling Challenge: Celebrity Death Traffic Spike"
+    <strong>Event</strong>: Major celebrity death announced
+    <strong>Traffic Spike</strong>: 20x normal posting rate, 50x engagement
+    <strong>Problem</strong>: Fan-out service overwhelmed, feeds frozen for 2 hours
+    <strong>Solution</strong>: Emergency rate limiting + manual trending content injection
 
 **Auto-scaling Response System:**
 
@@ -1274,16 +1260,14 @@ class PrivacyProtectionService:
 
 ### Core Architecture Principles
 
-<div class="decision-box">
-<h4>🎯 Feed System Design Principles</h4>
-<ol>
-<li><strong>Hybrid Fan-out Strategy</strong>: No single approach works at scale - segment users by follower count</li>
-<li><strong>Multi-stage ML Pipeline</strong>: Funnel approach balances relevance with computational efficiency</li>
-<li><strong>Aggressive Caching</strong>: Cache at every level - memory, distributed, edge, and predictive</li>
-<li><strong>Graceful Degradation</strong>: System must work even when components fail or load spikes</li>
-<li><strong>Real-time Adaptation</strong>: Ranking models must adapt to trending content within minutes</li>
-</ol>
-</div>
+!!! note "🎯 Feed System Design Principles"
+    <ol>
+    <li><strong>Hybrid Fan-out Strategy</strong>: No single approach works at scale - segment users by follower count</li>
+    <li><strong>Multi-stage ML Pipeline</strong>: Funnel approach balances relevance with computational efficiency</li>
+    <li><strong>Aggressive Caching</strong>: Cache at every level - memory, distributed, edge, and predictive</li>
+    <li><strong>Graceful Degradation</strong>: System must work even when components fail or load spikes</li>
+    <li><strong>Real-time Adaptation</strong>: Ranking models must adapt to trending content within minutes</li>
+    </ol>
 
 ### When to Use Feed Architecture Patterns
 

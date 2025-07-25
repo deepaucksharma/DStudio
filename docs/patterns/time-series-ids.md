@@ -547,16 +547,14 @@ compression_ratio = len(compressed) / (len(original_tsids) * 8)
 print(f"Compression ratio: {compression_ratio:.2f}")
 ```
 
-<div class="decision-box">
-<strong>Decision Framework</strong>:
-
-- **High-throughput logs**: TSID with batch generation
-- **Multi-tenant metrics**: Prometheus-style series IDs  
-- **IoT sensor data**: InfluxDB approach with tags
-- **Large-scale monitoring**: OpenTSDB row keys with salting
-- **Financial data**: Hierarchical time buckets
-- **Query-heavy workloads**: Time-partitioned sharding
-</div>
+!!! note
+    <strong>Decision Framework</strong>:
+    - **High-throughput logs**: TSID with batch generation
+    - **Multi-tenant metrics**: Prometheus-style series IDs
+    - **IoT sensor data**: InfluxDB approach with tags
+    - **Large-scale monitoring**: OpenTSDB row keys with salting
+    - **Financial data**: Hierarchical time buckets
+    - **Query-heavy workloads**: Time-partitioned sharding
 
 ## Trade-offs
 

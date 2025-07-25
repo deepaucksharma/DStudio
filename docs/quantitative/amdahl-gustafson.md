@@ -63,13 +63,10 @@ last_updated: 2025-07-20
 ## Examples
 
 ### Example 1: 95% Parallelizable
-<div class="decision-box">
-<h4>📋 Example: 95% Parallelizable Code</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
+!!! note "📋 Example: 95% Parallelizable Code"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <div style="background: white; padding: 10px; border-radius: 5px; margin-bottom: 15px; text-align: center;">
     <strong>Given:</strong> s = 0.05 (5% serial), p = 0.95 (95% parallel)
-  </div>
   
   <table class="responsive-table" style="width: 100%; background: white; border-radius: 5px; margin-bottom: 20px;">
   <thead>
@@ -278,34 +275,31 @@ Large: 0.01% serial (bigger data scales better!)
 **Gustafson**: "Scale problem to reduce serial %"
 
 ### Real Example: Video Encoding
-<div class="truth-box">
-<h4>🎬 Real Example: Video Encoding Platform</h4>
-
-<div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+!!! info "🎬 Real Example: Video Encoding Platform"
+    <div style="background: #E3F2FD; padding: 20px; border-radius: 8px;">
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
     <div style="background: white; padding: 15px; border-radius: 5px; border: 2px solid #EF5350;">
-      <h5 style="margin: 0 0 10px 0; color: #C62828;">Amdahl View: Single Video</h5>
-      <table class="responsive-table" style="width: 100%; margin-bottom: 10px;">
-        <tr style="background: #FFEBEE;">
-          <td style="padding: 8px;">Read file</td>
-          <td style="padding: 8px; text-align: right;">5%</td>
-          <td style="padding: 8px; color: #F44336;">(serial)</td>
-        </tr>
-        <tr>
-          <td style="padding: 8px;">Encode frames</td>
-          <td style="padding: 8px; text-align: right;">90%</td>
-          <td style="padding: 8px; color: #4CAF50;">(parallel)</td>
-        </tr>
-        <tr style="background: #FFEBEE;">
-          <td style="padding: 8px;">Write output</td>
-          <td style="padding: 8px; text-align: right;">5%</td>
-          <td style="padding: 8px; color: #F44336;">(serial)</td>
-        </tr>
-      </table>
-      <div style="background: #FFCDD2; padding: 10px; border-radius: 5px; text-align: center;">
-        <strong>Max speedup: 10x</strong><br>
-        <span style="font-size: 0.9em;">Limited by 10% serial work</span>
-      </div>
+    <h5 style="margin: 0 0 10px 0; color: #C62828;">Amdahl View: Single Video</h5>
+    <table class="responsive-table" style="width: 100%; margin-bottom: 10px;">
+    <tr style="background: #FFEBEE;">
+    <td style="padding: 8px;">Read file</td>
+    <td style="padding: 8px; text-align: right;">5%</td>
+    <td style="padding: 8px; color: #F44336;">(serial)</td>
+    </tr>
+    <tr>
+    <td style="padding: 8px;">Encode frames</td>
+    <td style="padding: 8px; text-align: right;">90%</td>
+    <td style="padding: 8px; color: #4CAF50;">(parallel)</td>
+    </tr>
+    <tr style="background: #FFEBEE;">
+    <td style="padding: 8px;">Write output</td>
+    <td style="padding: 8px; text-align: right;">5%</td>
+    <td style="padding: 8px; color: #F44336;">(serial)</td>
+    </tr>
+    </table>
+    <div style="background: #FFCDD2; padding: 10px; border-radius: 5px; text-align: center;">
+    <strong>Max speedup: 10x</strong>
+    <span style="font-size: 0.9em;">Limited by 10% serial work</span>
     </div>
     
     <div style="background: white; padding: 15px; border-radius: 5px; border: 2px solid #66BB6A;">
@@ -402,15 +396,13 @@ Large: 0.01% serial (bigger data scales better!)
 ## Practical Guidelines
 
 ### Choosing Parallelization Strategy
-<div class="decision-box">
-<h4>🎯 Parallelization Strategy Guide</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
+!!! note "🎯 Parallelization Strategy Guide"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px;">
     <div style="background: #C8E6C9; padding: 15px; border-radius: 8px; border: 2px solid #4CAF50;">
-      <h5 style="margin: 0 0 10px 0; color: #2E7D32; text-align: center;">Serial < 5%</h5>
-      <div style="text-align: center; margin: 15px 0;">
-        <div style="font-size: 3em;">🚀</div>
+    <h5 style="margin: 0 0 10px 0; color: #2E7D32; text-align: center;">Serial < 5%</h5>
+    <div style="text-align: center; margin: 15px 0;">
+    <div style="font-size: 3em;">🚀
       </div>
       <div style="background: white; padding: 10px; border-radius: 5px;">
         <strong>Strategy:</strong> Aggressive parallelization
@@ -497,23 +489,20 @@ Large: 0.01% serial (bigger data scales better!)
 </div>
 
 ### Investment Decision
-<div class="decision-box">
-<h4>💰 Investment Decision Example</h4>
-
-<div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
-  <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
+!!! note "💰 Investment Decision Example"
+    <div style="background: #E8F5E9; padding: 20px; border-radius: 8px;">
+    <div style="background: white; padding: 15px; border-radius: 5px; margin-bottom: 20px;">
     <h5 style="margin: 0 0 10px 0;">Current Situation</h5>
     <table class="responsive-table" style="width: 100%;">
-      <tr>
-        <td style="padding: 5px;">Current speedup:</td>
-        <td style="padding: 5px; text-align: right; font-weight: bold;">4x with 8 cores</td>
-      </tr>
-      <tr>
-        <td style="padding: 5px;">Amdahl limit:</td>
-        <td style="padding: 5px; text-align: right; font-weight: bold; color: #F44336;">10x maximum</td>
-      </tr>
+    <tr>
+    <td style="padding: 5px;">Current speedup:</td>
+    <td style="padding: 5px; text-align: right; font-weight: bold;">4x with 8 cores</td>
+    </tr>
+    <tr>
+    <td style="padding: 5px;">Amdahl limit:</td>
+    <td style="padding: 5px; text-align: right; font-weight: bold; color: #F44336;">10x maximum</td>
+    </tr>
     </table>
-  </div>
   
   <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 20px;">
     <div style="background: #FFEBEE; padding: 15px; border-radius: 5px; border: 2px solid #EF5350;">

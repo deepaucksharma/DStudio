@@ -63,31 +63,23 @@ last_updated: 2025-07-20
 
 ### Example 1: Why Caching Exists
 
-<div class="decision-box">
-<h4>Traditional vs First Principles</h4>
-
-**Traditional**: "Caching improves performance by storing data closer to users."
-
-**First Principles**: 
-1. Law 1 (Failure) + Law 4 (Trade-offs) → Need redundancy with balanced constraints
-2. Trade reliability for consistency → Store copies closer to usage  
-3. **Result**: Caching emerges as optimization strategy
-4. **Consequences**: Cache invalidation, hierarchies, coherence protocols
-</div>
+!!! note "Traditional vs First Principles"
+    **Traditional**: "Caching improves performance by storing data closer to users."
+    **First Principles**:
+    1. Law 1 (Failure) + Law 4 (Trade-offs) → Need redundancy with balanced constraints
+    2. Trade reliability for consistency → Store copies closer to usage
+    3. **Result**: Caching emerges as optimization strategy
+    4. **Consequences**: Cache invalidation, hierarchies, coherence protocols
 
 ### Example 2: Why Microservices Exist
 
-<div class="truth-box">
-<h4>Derivation from Laws</h4>
-
-**Traditional**: "Microservices enable teams to work independently."
-
-**First Principles**:
-1. Law 6 (Cognitive Load) + Law 3 (Chaos) + Law 1 (Failure) → Decompose along team boundaries
-2. Accept network overhead for human comprehension
-3. **Result**: Microservices as cognitive trade-off
-4. **Implications**: Conway's Law, service = team boundary, not everything needs microservices
-</div>
+!!! info "Derivation from Laws"
+    **Traditional**: "Microservices enable teams to work independently."
+    **First Principles**:
+    1. Law 6 (Cognitive Load) + Law 3 (Chaos) + Law 1 (Failure) → Decompose along team boundaries
+    2. Accept network overhead for human comprehension
+    3. **Result**: Microservices as cognitive trade-off
+    4. **Implications**: Conway's Law, service = team boundary, not everything needs microservices
 
 ### Example 3: Why Consensus Algorithms Exist
 
@@ -106,32 +98,19 @@ last_updated: 2025-07-20
 ## Real-World Impact
 
 ### Case Study: NASA Apollo 11 
-<div class="failure-vignette">
-<h4>First Principles Under Pressure</h4>
-
-**Challenge**: Land on moon with 1960s technology, no existing patterns.
-
-**Constraints**: 72KB memory, CPU limits, cannot fail during landing.
-
-**First Principles Solution**: Priority scheduling + restart capability for non-critical tasks.
-
-**Result**: During landing, computer overloaded with radar data but successfully shed non-critical tasks and landed safely. Traditional approaches would have crashed.
-</div>
+!!! danger "First Principles Under Pressure"
+    **Challenge**: Land on moon with 1960s technology, no existing patterns.
+    **Constraints**: 72KB memory, CPU limits, cannot fail during landing.
+    **First Principles Solution**: Priority scheduling + restart capability for non-critical tasks.
+    **Result**: During landing, computer overloaded with radar data but successfully shed non-critical tasks and landed safely. Traditional approaches would have crashed.
 
 ### Case Study: Amazon DynamoDB
-<div class="truth-box">  
-<h4>From CAP Theorem to NoSQL Revolution</h4>
-
-**Challenge**: Amazon's massive scaling problems in 2004.
-
-**First Principles**: CAP theorem says can't have consistency + availability + partition tolerance.
-
-**Business Constraint**: Shopping cart must always be available.
-
-**Solution**: Choose availability over consistency, use eventual consistency with vector clocks.
-
-**Result**: Created DynamoDB and spawned the entire NoSQL movement.
-</div>
+!!! info "From CAP Theorem to NoSQL Revolution"
+    **Challenge**: Amazon's massive scaling problems in 2004.
+    **First Principles**: CAP theorem says can't have consistency + availability + partition tolerance.
+    **Business Constraint**: Shopping cart must always be available.
+    **Solution**: Choose availability over consistency, use eventual consistency with vector clocks.
+    **Result**: Created DynamoDB and spawned the entire NoSQL movement.
 
 ## Learning Journey Stages
 

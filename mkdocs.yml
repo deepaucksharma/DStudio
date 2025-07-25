@@ -18,6 +18,7 @@ theme:
     - navigation.instant.progress
     - navigation.tracking
     - navigation.tabs
+    - navigation.tabs.sticky
     - navigation.sections
     - navigation.expand
     - navigation.path
@@ -38,11 +39,17 @@ theme:
     # Content
     - content.code.copy
     - content.code.annotate
+    - content.code.select
     - content.action.edit
+    - content.action.view
     - content.tooltips        # Better tooltips
+    - content.tabs.link       # Link content tabs
     
     # Header
     - header.autohide         # Hide header on scroll
+    
+    # Announcement bar
+    - announce.dismiss
     
   palette:
     - media: "(prefers-color-scheme)"
@@ -76,59 +83,136 @@ theme:
 plugins:
   - search:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      min_search_length: 2
+      prebuild_index: true  # Enable for faster searches
+      lang:
+        - en
   - macros:
       module_name: docs/macros
+      include_dir: docs/templates
+      include_yaml:
+        - variables.yml
+      on_error_fail: false
+      on_undefined: strict
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(window.localStorage.getItem("data-md-color-scheme")) === "slate") ? "dark" : "default"
+        themeVariables:
+          primaryColor: "#5448C8"
+          primaryTextColor: "#ffffff"
+          primaryBorderColor: "#5448C8"
+          lineColor: "#6366f1"
+          sectionBkgColor: "#f8fafc"
+          altSectionBkgColor: "#f1f5f9"
+          gridColor: "#e2e8f0"
+          secondaryColor: "#00BCD4"
+          tertiaryColor: "#f3f4f6"
+  - tags:
+      tags_file: tags.md
+  - git-revision-date-localized:
+      enable_creation_date: true
+      type: timeago
+      fallback_to_build_date: true
 
 # Markdown Extensions
 markdown_extensions:
+  # Python Markdown Core Extensions
   - abbr
   - admonition
   - attr_list
   - def_list
   - footnotes
   - md_in_html
+  - meta
+  - tables
   - toc:
       permalink: true
+      permalink_title: Anchor link to this section
       toc_depth: 4
+  
+  # PyMdownx Extensions - Content Enhancement
   - pymdownx.arithmatex:
       generic: true
   - pymdownx.betterem:
       smart_enable: all
   - pymdownx.caret
+  - pymdownx.critic:
+      mode: view
   - pymdownx.details
   - pymdownx.emoji:
       emoji_index: !!python/name:material.extensions.emoji.twemoji
       emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: deepaucksharma
+      repo: DStudio
+      normalize_issue_symbols: true
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.tilde
+  
+  # PyMdownx Extensions - Code & Syntax
   - pymdownx.highlight:
       anchor_linenums: true
       line_spans: __span
       pygments_lang_class: true
-  - pymdownx.inlinehilite
+      use_pygments: true
+      guess_lang: false
+      linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite:
+      style_plain_text: true
   - pymdownx.keys
-  - pymdownx.mark
-  - pymdownx.smartsymbols
   - pymdownx.snippets:
       check_paths: true
+      base_path: [docs]
+      url_download: true
+      url_max_size: 33554432
+      url_timeout: 10.0
+      
+  # PyMdownx Extensions - Advanced Features
   - pymdownx.superfences:
+      preserve_tabs: true
       custom_fences:
         - name: mermaid
           class: mermaid
           format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: math
+          class: arithmatex
+          format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
+        - name: python
+          class: python
+          validator: !!python/name:markdown_exec.validator
+          format: !!python/name:markdown_exec.formatter
   - pymdownx.tabbed:
       alternate_style: true
       combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
   - pymdownx.tasklist:
       custom_checkbox: true
-  - pymdownx.tilde
+      clickable_checkbox: true
+  
+  # Additional Advanced Extensions
+  - pymdownx.striphtml:
+      strip_js_on_attributes: false
+  - pymdownx.progressbar:
+      level_class: true
+      add_classes: "progress-bar"
+  - pymdownx.escapeall:
+      hardbreak: true
+      nbsp: true
+  - nl2br  # Convert newlines to <br> tags
 
 # Extra CSS
 extra_css:
   - stylesheets/layout.css
 
-# Extra JavaScript
+# Extra JavaScript  
 extra_javascript:
-  - https://unpkg.com/mermaid@10.6.0/dist/mermaid.min.js
-  - javascripts/mermaid-init.js
+  - https://polyfill.io/v3/polyfill.min.js?features=es6
+  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
 
 # Extra Configuration
 extra:
@@ -138,40 +222,99 @@ extra:
       link: https://github.com/deepaucksharma
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/deepaucksharma
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/deepaucksharma
   
   # Build date for copyright
   build_date: "2025"
+  
+  # Version control
+  version:
+    provider: mike
+    default: stable
+    
+  # Analytics (optional)
+  analytics:
+    provider: google
+    property: !ENV GOOGLE_ANALYTICS_KEY
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: Thanks! Let us know how we can improve.
+    
+  # MathJax configuration
+  mathjax:
+    loader: 
+      load: ['[tex]/boldsymbol', '[tex]/physics', '[tex]/mathtools']
+    tex:
+      inlineMath: [['$', '$'], ['\\(', '\\)']]
+      displayMath: [['$$', '$$'], ['\\[', '\\]']]
+      packages: 
+        '[+]': ['boldsymbol', 'physics', 'mathtools']
+      macros:
+        latency: "\\text{latency}"
+        throughput: "\\text{throughput}"
+        availability: "\\text{availability}"
+        consistency: "\\text{consistency}"
+    options:
+      ignoreHtmlClass: '.*|'
+      processHtmlClass: 'arithmatex'
+  
+  # Custom variables for distributed systems
+  ds:
+    cap_theorem: "Consistency, Availability, Partition Tolerance"
+    pacelc: "If Partition then Availability vs Consistency, Else Latency vs Consistency"
+    laws_count: 7
+    pillars_count: 5
 
-# Simplified Navigation - Essential Content Only
+# Optimized Navigation with 6-Tab Structure
 nav:
   - Home: index.md
-  - Introduction:
+  
+  - Learn:
     - Welcome: introduction/index.md
     - Getting Started: introduction/getting-started.md
     - Philosophy: introduction/philosophy.md
-    - Learning Paths: learning-paths/index.md
-    
-  - "Foundations":
-    - "The 7 Laws": axioms/index.md
-    - "The 5 Pillars": pillars/index.md
-    - "Laws (Detailed)":
-      - "Overview": part1-axioms/index.md
-      - "Law 1: Correlated Failure": part1-axioms/law1-failure/index.md
-      - "Law 2: Asynchronous Reality": part1-axioms/law2-asynchrony/index.md
-      - "Law 3: Emergent Chaos": part1-axioms/law3-emergence/index.md
-      - "Law 4: Multidimensional Optimization": part1-axioms/law4-tradeoffs/index.md
-      - "Law 5: Distributed Knowledge": part1-axioms/law5-epistemology/index.md
-      - "Law 6: Cognitive Load": part1-axioms/law6-human-api/index.md
-      - "Law 7: Economic Reality": part1-axioms/law7-economics/index.md
-      - "Synthesis": part1-axioms/synthesis.md
-      - "Quiz": part1-axioms/quiz.md
-    - "Pillars (Detailed)":
-      - "Overview": part2-pillars/index.md
-      - "Work Distribution": part2-pillars/work/index.md
-      - "State Distribution": part2-pillars/state/index.md
-      - "Truth Distribution": part2-pillars/truth/index.md
-      - "Control Distribution": part2-pillars/control/index.md
-      - "Intelligence Distribution": part2-pillars/intelligence/index.md
+    - Learning Paths:
+      - Choose Your Path: learning-paths/index.md
+      - By Role:
+        - New Graduate: learning-paths/new-graduate.md
+        - Senior Engineer: learning-paths/senior-engineer.md
+        - Engineering Manager: learning-paths/manager.md
+        - Solution Architect: learning-paths/architect.md
+      - By Topic:
+        - Consistency & Coordination: learning-paths/consistency.md
+        - Performance & Scale: learning-paths/performance.md
+        - Cost Optimization: learning-paths/cost.md
+        - Reliability & Resilience: learning-paths/reliability.md
+    - Foundations:
+      - "📚 The 7 Laws":
+        - Laws Overview: axioms/index.md
+        - Detailed Laws: part1-axioms/index.md
+        - Law 1 - Correlated Failure: part1-axioms/law1-failure/index.md
+        - Law 2 - Asynchronous Reality: part1-axioms/law2-asynchrony/index.md
+        - Law 3 - Emergent Chaos: part1-axioms/law3-emergence/index.md
+        - Law 4 - Multidimensional Optimization: part1-axioms/law4-tradeoffs/index.md
+        - Law 5 - Distributed Knowledge: part1-axioms/law5-epistemology/index.md
+        - Law 6 - Cognitive Load: part1-axioms/law6-human-api/index.md
+        - Law 7 - Economic Reality: part1-axioms/law7-economics/index.md
+        - Synthesis: part1-axioms/synthesis.md
+        - Quiz: part1-axioms/quiz.md
+      - "🏛️ The 5 Pillars":
+        - Pillars Overview: pillars/index.md
+        - Detailed Pillars: part2-pillars/index.md
+        - Work Distribution: part2-pillars/work/index.md
+        - State Distribution: part2-pillars/state/index.md
+        - Truth Distribution: part2-pillars/truth/index.md
+        - Control Distribution: part2-pillars/control/index.md
+        - Intelligence Distribution: part2-pillars/intelligence/index.md
   
   - "Patterns":
     - "Pattern Library": patterns/index.md
@@ -327,116 +470,116 @@ nav:
         - "Deduplication": patterns/deduplication.md
         - "Distributed Dedup": patterns/distributed-dedup.md
   
-  - "Quantitative Toolkit":
-    - "All Tools": quantitative/index.md
-    - "Essential Quantitative Tools":
-      - "Latency Ladder": quantitative/latency-ladder.md
-      - "Little's Law": quantitative/littles-law.md
-      - "CAP Theorem": quantitative/cap-theorem.md
-      - "Consistency Models": quantitative/consistency-models.md
-      - "Universal Scalability Law": quantitative/universal-scalability.md
-      - "Queueing Theory": quantitative/queueing-models.md
-      - "Availability Math": quantitative/availability-math.md
-      - "Capacity Planning": quantitative/capacity-planning.md
-      - "Problem Set": quantitative/problem-set.md
+  - Quantitative:
+    - All Tools: quantitative/index.md
+    - "🔬 Mathematical Toolkit":
+      - Latency Ladder: quantitative/latency-ladder.md
+      - Little's Law: quantitative/littles-law.md
+      - CAP Theorem: quantitative/cap-theorem.md
+      - Consistency Models: quantitative/consistency-models.md
+      - Universal Scalability Law: quantitative/universal-scalability.md
+      - Queueing Theory: quantitative/queueing-models.md
+      - Availability Math: quantitative/availability-math.md
+      - Capacity Planning: quantitative/capacity-planning.md
+      - Problem Set: quantitative/problem-set.md
+    - "🛠️ Interactive Calculators":
+      - All Calculators: tools/index.md
+      - Latency Calculator: tools/latency-calculator.md
+      - Capacity Planning: tools/capacity-calculator.md
+      - Availability Calculator: tools/availability-calculator.md
+      - Throughput Optimizer: tools/throughput-calculator.md
+      - Cost Optimizer: tools/cost-optimizer.md
+      - Consistency Calculator: tools/consistency-calculator.md
+    - "👥 Human Factors":
+      - All Practices: human-factors/index.md
+      - SRE Practices: human-factors/sre-practices.md
+      - Chaos Engineering: human-factors/chaos-engineering.md
+      - Observability Stacks: human-factors/observability-stacks.md
+      - Team Topologies: human-factors/team-topologies.md
+      - Incident Response: human-factors/incident-response.md
+      - Blameless Postmortems: human-factors/blameless-postmortems.md
   
-  - "Human Factors":
-    - "All Practices": human-factors/index.md
-    - "Essential Practices":
-      - "SRE Practices": human-factors/sre-practices.md
-      - "Chaos Engineering": human-factors/chaos-engineering.md
-      - "Observability Stacks": human-factors/observability-stacks.md
-      - "Team Topologies": human-factors/team-topologies.md
-      - "Incident Response": human-factors/incident-response.md
-      - "Blameless Postmortems": human-factors/blameless-postmortems.md
+  - Case Studies:
+    - All Case Studies: case-studies/index.md
+    - "🌟 Google Systems":
+      - Overview: case-studies/google-systems/index.md
+      - Google Search: case-studies/google-systems/google-search.md
+      - YouTube: case-studies/google-systems/google-youtube.md
+      - Google Maps: case-studies/google-systems/google-maps-system.md
+      - Gmail: case-studies/google-systems/google-gmail.md
+      - Google Docs: case-studies/google-systems/google-docs.md
+    - "💰 Industry Systems":
+      - Amazon DynamoDB: case-studies/amazon-dynamo.md
+      - PayPal Payments: case-studies/paypal-payments.md
+      - Spotify Recommendations: case-studies/spotify-recommendations.md
+      - Uber Location Services: case-studies/uber-location.md
+      - Netflix Streaming: case-studies/netflix-streaming.md
+      - Netflix Chaos Engineering: case-studies/netflix-chaos.md
+    - "🔧 System Deep Dives":
+      - Chat System: case-studies/chat-system.md
+      - Consistent Hashing: case-studies/consistent-hashing.md
+      - Key-Value Store: case-studies/key-value-store.md
+      - Payment System: case-studies/payment-system.md
+      - URL Shortener: case-studies/url-shortener.md
+      - Rate Limiter: case-studies/rate-limiter.md
+      - Digital Wallet (Enhanced): case-studies/digital-wallet-enhanced.md
+      - Gaming Leaderboard (Enhanced): case-studies/gaming-leaderboard-enhanced.md
+      - Distributed Email (Enhanced): case-studies/distributed-email-enhanced.md
+      - S3 Object Storage (Enhanced): case-studies/s3-object-storage-enhanced.md
+      - Consistency Deep Dive Chat: case-studies/consistency-deep-dive-chat.md
+      - Prometheus & Datadog (Enhanced): case-studies/prometheus-datadog-enhanced.md
+    - "📊 Database & Streaming":
+      - Apache Kafka: case-studies/kafka.md
+      - Apache Cassandra: case-studies/cassandra.md
+      - Redis Architecture: case-studies/redis.md
+      - MongoDB: case-studies/mongodb.md
+      - etcd: case-studies/etcd.md
+      - Amazon Aurora: case-studies/amazon-aurora.md
+      - Apache Spark: case-studies/apache-spark.md
   
-  - "Case Studies":
-    - "All Case Studies": case-studies/index.md
-    - "Google System Design Interview":
-      - "Google Systems Overview": case-studies/google-systems/index.md
-      - "Design Google Search": case-studies/google-systems/google-search.md
-      - "Design YouTube": case-studies/google-systems/google-youtube.md
-      - "Design Google Maps": case-studies/google-systems/google-maps-system.md
-      - "Design Gmail": case-studies/google-systems/google-gmail.md
-      - "Design Google Docs": case-studies/google-systems/google-docs.md
-    - "Essential Case Studies":
-      - "Amazon DynamoDB": case-studies/amazon-dynamo.md
-      - "Chat System": case-studies/chat-system.md
-      - "Consistent Hashing": case-studies/consistent-hashing.md
-      - "PayPal Payments": case-studies/paypal-payments.md
-      - "Spotify Recommendations": case-studies/spotify-recommendations.md
-      - "Uber Location Services": case-studies/uber-location.md
-      - "Key-Value Store": case-studies/key-value-store.md
-      - "Payment System": case-studies/payment-system.md
-      - "URL Shortener": case-studies/url-shortener.md
-      - "Rate Limiter": case-studies/rate-limiter.md
-      - "Digital Wallet (Enhanced)": case-studies/digital-wallet-enhanced.md
-      - "Gaming Leaderboard (Enhanced)": case-studies/gaming-leaderboard-enhanced.md
-      - "Distributed Email (Enhanced)": case-studies/distributed-email-enhanced.md
-      - "S3 Object Storage (Enhanced)": case-studies/s3-object-storage-enhanced.md
-      - "Consistency Deep Dive Chat": case-studies/consistency-deep-dive-chat.md
-      - "Prometheus & Datadog (Enhanced)": case-studies/prometheus-datadog-enhanced.md
-    - "Database Systems":
-      - "Apache Kafka": case-studies/kafka.md
-      - "Apache Cassandra": case-studies/cassandra.md
-      - "Redis Architecture": case-studies/redis.md
-      - "MongoDB": case-studies/mongodb.md
-      - "etcd": case-studies/etcd.md
-      - "Amazon Aurora": case-studies/amazon-aurora.md
-    - "Big Data & Analytics":
-      - "Apache Spark": case-studies/apache-spark.md
-    - "Streaming & Media":
-      - "Netflix Streaming": case-studies/netflix-streaming.md
-      - "Netflix Chaos Engineering": case-studies/netflix-chaos.md
+  - Interviews:
+    - Overview: google-interviews/index.md
+    - "🎯 Preparation":
+      - Preparation Guide: google-interviews/preparation-guide.md
+      - Visual Roadmap: google-interviews/preparation-roadmap.md
+      - Interview Comparison: google-interviews/interview-comparison.md
+      - Focus Selector: google-interviews/focus-selector.md
+      - Time Allocation Calculator: google-interviews/time-allocation-calculator.md
+      - Visual Cheat Sheets: google-interviews/visual-cheatsheets.md
+      - Common Mistakes: google-interviews/common-mistakes.md
+      - Interview Experiences & Tips: google-interviews/interview-experiences.md
+    - "🚀 Google Services":
+      - Google Search: google-interviews/google-search.md
+      - YouTube: google-interviews/youtube.md
+      - Google Maps: google-interviews/google-maps.md
+      - Gmail: google-interviews/gmail.md
+      - Google Drive: google-interviews/google-drive.md
+      - Google Docs: google-interviews/google-docs.md
+      - Google Photos: google-interviews/google-photos.md
+      - Google Calendar: google-interviews/google-calendar.md
+      - Google Assistant: google-interviews/google-assistant.md
+    - "🏗️ Infrastructure":
+      - Google Ads: google-interviews/google-ads.md
+      - Bigtable: google-interviews/bigtable.md
+      - Spanner: google-interviews/spanner.md
+    - "🎓 Interview Mastery":
+      - Advanced Techniques: google-interviews/advanced-techniques.md
+      - Trade-off Analysis: google-interviews/tradeoff-analysis.md
+      - Architecture Patterns: google-interviews/architecture-patterns.md
+      - Success Strategies: google-interviews/success-strategies.md
+    - "📦 Other Companies":
+      - Amazon System Design Guide: amazon-interviews/index.md
+      - Behavioral Interview Guide: introduction/interview-prep/behavioral.md
   
-  - "Tools":
-    - "All Calculators": tools/index.md
-    - "Interactive Calculators":
-      - "Latency Calculator": tools/latency-calculator.md
-      - "Capacity Planning": tools/capacity-calculator.md
-      - "Availability Calculator": tools/availability-calculator.md
-      - "Throughput Optimizer": tools/throughput-calculator.md
-      - "Cost Optimizer": tools/cost-optimizer.md
-      - "Consistency Calculator": tools/consistency-calculator.md
-  
-  - "Interview Prep":
-    - "Behavioral Interview Guide": introduction/interview-prep/behavioral.md
-    - "Google System Design Guide": google-interviews/index.md
-    - "Preparation Guide": google-interviews/preparation-guide.md
-    - "Visual Roadmap": google-interviews/preparation-roadmap.md
-    - "Interview Comparison": google-interviews/interview-comparison.md
-    - "Focus Selector": google-interviews/focus-selector.md
-    - "Time Allocation Calculator": google-interviews/time-allocation-calculator.md
-    - "Visual Cheat Sheets": google-interviews/visual-cheatsheets.md
-    - "Common Mistakes": google-interviews/common-mistakes.md
-    - "Interview Experiences & Tips": google-interviews/interview-experiences.md
-    - "Core Google Services":
-      - "Google Search": google-interviews/google-search.md
-      - "YouTube": google-interviews/youtube.md
-      - "Google Maps": google-interviews/google-maps.md
-      - "Gmail": google-interviews/gmail.md
-      - "Google Drive": google-interviews/google-drive.md
-      - "Google Docs": google-interviews/google-docs.md
-      - "Google Photos": google-interviews/google-photos.md
-      - "Google Calendar": google-interviews/google-calendar.md
-      - "Google Assistant": google-interviews/google-assistant.md
-    - "Infrastructure & Ads":
-      - "Google Ads": google-interviews/google-ads.md
-      - "Bigtable": google-interviews/bigtable.md
-      - "Spanner": google-interviews/spanner.md
-    - "Interview Mastery":
-      - "Advanced Techniques": google-interviews/advanced-techniques.md
-      - "Trade-off Analysis": google-interviews/tradeoff-analysis.md
-      - "Architecture Patterns": google-interviews/architecture-patterns.md
-      - "Success Strategies": google-interviews/success-strategies.md
-    
-    - "Amazon System Design Guide": amazon-interviews/index.md
-  
-  - "Reference":
-    - "All Resources": reference/index.md
-    - "Essential References":
-      - "Law Mapping Guide": reference/law-mapping-guide.md
-      - "Glossary": reference/glossary.md
-      - "Cheat Sheets": reference/cheat-sheets.md
-      - "Recipe Cards": reference/recipe-cards.md
-      - "Security": reference/security.md
+  - Reference:
+    - All Resources: reference/index.md
+    - "📚 Quick Reference":
+      - Law Mapping Guide: reference/law-mapping-guide.md
+      - Glossary: reference/glossary.md
+      - Cheat Sheets: reference/cheat-sheets.md
+      - Recipe Cards: reference/recipe-cards.md
+      - Security: reference/security.md
+    - "🖼️ Visual Guides":
+      - Responsive Layouts Guide: examples/responsive-layouts-guide.md
+      - Responsive Patterns Showcase: examples/responsive-patterns-showcase.md
+      - MkDocs Config Guide: examples/mkdocs-responsive-config.md

@@ -60,15 +60,13 @@ Like a restaurant that stops taking orders when the kitchen is backed up - bette
 
 ### The Problem Space
 
-<div class="failure-vignette">
-<h4>🔥 Without Backpressure: Log Processing Meltdown</h4>
-Log aggregation system receiving from 1000 servers:
-- Spike during outage: 100x normal log volume
-- Processing queue grew unbounded
-- System ran out of memory and crashed
-- Lost 6 hours of critical debugging logs
-- 12-hour recovery to restart pipeline
-</div>
+!!! danger "🔥 Without Backpressure: Log Processing Meltdown"
+    Log aggregation system receiving from 1000 servers:
+    - Spike during outage: 100x normal log volume
+    - Processing queue grew unbounded
+    - System ran out of memory and crashed
+    - Lost 6 hours of critical debugging logs
+    - 12-hour recovery to restart pipeline
 
 ### Core Strategies
 
@@ -674,18 +672,15 @@ class DistributedBackpressureCoordinator:
 
 ### Performance Optimization
 
-<div class="decision-box">
-<h4>🎯 Backpressure Performance Tips</h4>
-
-- **Batch Signals**: Aggregate backpressure signals to reduce overhead
-- **Local First**: Handle backpressure locally before propagating
-- **Async Propagation**: Don't block on backpressure signals
-- **Predictive**: Use trends to predict and prevent overload
-- **Tiered Strategies**: Different strategies for different load levels
-- **Circuit Breaking**: Combine with circuit breakers for protection
-- **Metrics**: Monitor backpressure effectiveness
-- **Testing**: Load test backpressure scenarios
-</div>
+!!! note "🎯 Backpressure Performance Tips"
+    - **Batch Signals**: Aggregate backpressure signals to reduce overhead
+    - **Local First**: Handle backpressure locally before propagating
+    - **Async Propagation**: Don't block on backpressure signals
+    - **Predictive**: Use trends to predict and prevent overload
+    - **Tiered Strategies**: Different strategies for different load levels
+    - **Circuit Breaking**: Combine with circuit breakers for protection
+    - **Metrics**: Monitor backpressure effectiveness
+    - **Testing**: Load test backpressure scenarios
 
 ### Monitoring Backpressure
 
@@ -736,83 +731,72 @@ metrics:
 
 ### Case Study: LinkedIn's Kafka Streams
 
-<div class="truth-box">
-<h4>🏢 Real-World Implementation</h4>
-
-**Company**: LinkedIn
-**Scale**: 7 trillion messages/day, 100K+ partitions, 4PB+ data
-
-**Challenge**: Process massive data streams without overwhelming consumers or losing data.
-
-**Architecture**:
-
-```mermaid
-graph TB
+!!! info "🏢 Real-World Implementation"
+    **Company**: LinkedIn
+    **Scale**: 7 trillion messages/day, 100K+ partitions, 4PB+ data
+    **Challenge**: Process massive data streams without overwhelming consumers or losing data.
+    **Architecture**:
+    ```mermaid
+    graph TB
     subgraph "Producers"
-        P1[Service A]
-        P2[Service B]
-        P3[Service C]
+    P1[Service A]
+    P2[Service B]
+    P3[Service C]
     end
-    
     subgraph "Kafka Cluster"
-        K1[Broker 1<br/>Partition 1-100]
-        K2[Broker 2<br/>Partition 101-200]
-        K3[Broker 3<br/>Partition 201-300]
+    K1[Broker 1
+    Partition 1-100]
+    K2[Broker 2
+    Partition 101-200]
+    K3[Broker 3
+    Partition 201-300]
     end
-    
     subgraph "Stream Processing"
-        SP1[Stream App 1<br/>Credits: 1000]
-        SP2[Stream App 2<br/>Credits: 500]
-        SP3[Stream App 3<br/>Credits: 2000]
+    SP1[Stream App 1
+    Credits: 1000]
+    SP2[Stream App 2
+    Credits: 500]
+    SP3[Stream App 3
+    Credits: 2000]
     end
-    
     subgraph "Backpressure Signals"
-        CG[Consumer Group<br/>Lag Monitor]
-        FC[Flow Controller]
-        RM[Rate Manager]
+    CG[Consumer Group
+    Lag Monitor]
+    FC[Flow Controller]
+    RM[Rate Manager]
     end
-    
     P1 --> K1
-    P2 --> K2  
+    P2 --> K2
     P3 --> K3
-    
     K1 --> SP1
     K2 --> SP2
     K3 --> SP3
-    
     SP1 --> CG
     SP2 --> CG
     SP3 --> CG
-    
     CG --> FC
     FC --> RM
     RM -->|Throttle| P1
     RM -->|Throttle| P2
     RM -->|Throttle| P3
-    
     style CG fill:#ff9800,stroke:#e65100,stroke-width:3px
-```
-
-**Implementation Details**:
-
-1. **Consumer Lag Monitoring**: Track lag for early warning
-2. **Adaptive Batch Sizing**: Adjust batch size based on processing time
-3. **Credit-Based Flow**: Explicit credits between stages
-4. **Tiered Storage**: Move old data to cheaper storage under pressure
-5. **Smart Partitioning**: Rebalance hot partitions
-
-**Results**:
-- 99.99% message delivery
-- 60% reduction in consumer lag spikes
-- 40% improvement in throughput
-- Zero OOM incidents
-
-**Lessons**:
-1. Monitor end-to-end, not just queues
-2. Predictive backpressure beats reactive
-3. Different data needs different strategies
-4. Coordination crucial at scale
-</div>
+    ```
+    **Implementation Details**:
+    1. **Consumer Lag Monitoring**: Track lag for early warning
+    2. **Adaptive Batch Sizing**: Adjust batch size based on processing time
+    3. **Credit-Based Flow**: Explicit credits between stages
+    4. **Tiered Storage**: Move old data to cheaper storage under pressure
+    5. **Smart Partitioning**: Rebalance hot partitions
+    **Results**:
+    - 99.99% message delivery
+    - 60% reduction in consumer lag spikes
+    - 40% improvement in throughput
+    - Zero OOM incidents
+    **Lessons**:
+    1. Monitor end-to-end, not just queues
+    2. Predictive backpressure beats reactive
+    3. Different data needs different strategies
+    4. Coordination crucial at scale
 
 ### Economic Impact of Backpressure
 
