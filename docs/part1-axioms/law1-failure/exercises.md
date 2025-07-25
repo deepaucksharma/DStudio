@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Failure Engineering Lab: Correlation Analysis & Chaos Experiments
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 1: Correlated Failure](/part1-axioms/law1-failure/) > Exercises
+
 ## Exercise 1: Dependency Mapping and Correlation Analysis
 
 ### Objective
@@ -326,4 +328,10 @@ After completing these exercises, you should be able to answer:
 2. **Design a Game Day**: Plan a full correlation-focused game day for your organization
 3. **Cost Model**: Build a model that quantifies the cost of correlation vs the cost of preventing it
 
-[**← Back to Law of Failure**](index.md) | [**→ Next: Law of Asynchrony Exercises**](/part1-axioms/law2-asynchrony/exercises)
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Law 1 Examples](/part1-axioms/law1-failure/examples/) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
+[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)
+</div>

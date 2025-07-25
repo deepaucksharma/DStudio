@@ -13,7 +13,7 @@ tags:
 
 # The 7 Fundamental Laws
 
-[Home](/) > [Learn](/learn/) > The 7 Laws
+[Home](/) > [The 7 Laws](/part1-axioms/) > Overview
 
 !!! abstract "From Physics to Distributed Systems"
     These seven laws are not design choices or best practices—they are fundamental constraints derived from physics and mathematics. Every distributed system, regardless of implementation, must obey these laws.

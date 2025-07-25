@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Law 2: The Law of Physical and Information Asynchrony
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/) > Concept
+
 > "The time required for information to propagate between nodes is variable, non-zero, and creates fundamental uncertainty."
 
 ## Beyond the Speed of Light
@@ -520,4 +522,10 @@ In distributed systems, there is no "now". There are only events and their causa
 - "There Is No Now" - Justin Sheehy
 - "Living Without Atomic Clocks" - Cockroach Labs
 
-[**← Previous: Law of Failure**](/part1-axioms/law1-failure/) | [**→ Next: Law of Emergence**](/part1-axioms/law3-emergence/)
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Law 1: Correlated Failure](/part1-axioms/law1-failure/) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
+[:material-arrow-right: Law 3: Emergent Chaos](/part1-axioms/law3-emergence/)
+</div>

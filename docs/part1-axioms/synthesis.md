@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Synthesis: The Meta-Framework
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > Synthesis
+
 > "The laws don't exist in isolation—they form a complex web where each reinforces and amplifies the others."
 
 ## The Law Interaction Matrix

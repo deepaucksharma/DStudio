@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Real-World Correlated Failures: Case Studies and Lessons
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 1: Correlated Failure](/part1-axioms/law1-failure/) > Examples
+
 ## Case Study 1: The AWS S3 Outage (February 28, 2017)
 
 ### What Happened
@@ -316,4 +318,10 @@ These cases teach us that:
 3. Human systems and technical systems correlate
 4. Testing for correlation requires imagination beyond traditional failure scenarios
 
-[**← Back to Law of Failure**](index.md) | [**→ To Exercises**](./exercises.md)
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Law 1 Concept](/part1-axioms/law1-failure/) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
+[:material-arrow-right: Law 1 Exercises](/part1-axioms/law1-failure/exercises/)
+</div>

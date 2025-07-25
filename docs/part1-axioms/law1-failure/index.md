@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Law 1: The Law of Inevitable and Correlated Failure
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 1: Correlated Failure](/part1-axioms/law1-failure/) > Concept
+
 > "Any component can fail, and failures are often correlated, not independent."
 
 ## The Naïve Model vs Reality
@@ -353,4 +355,10 @@ Robust distributed systems aren't built by assuming independence—they're built
 - "The Network is Reliable" - Peter Bailis and Kyle Kingsbury
 - "Metastable Failures in Distributed Systems" - Bronson et al.
 
-[**← Back to Framework**](/part1-axioms/index.md/) | [**→ Next: Law of Asynchrony**](/part1-axioms/law2-asynchrony/)
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Overview](/part1-axioms/) | 
+[:material-arrow-up: The 7 Laws](/part1-axioms/) | 
+[:material-arrow-right: Law 2: Asynchronous Reality](/part1-axioms/law2-asynchrony/)
+</div>

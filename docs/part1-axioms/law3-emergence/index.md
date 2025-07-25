@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Law 3: The Law of Emergent Chaos
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) > Concept
+
 > At scale, systems exhibit behaviors that cannot be predicted from their components.
 
 ## The Naive View

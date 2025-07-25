@@ -11,6 +11,8 @@ last_updated: 2025-07-23
 
 # Chaos Engineering Lab: Discovering Emergent Behaviors
 
+[Home](/) > [The 7 Laws](/part1-axioms/) > [Law 3: Emergent Chaos](/part1-axioms/law3-emergence/) > Exercises
+
 ## Exercise 1: Phase Transition Detection
 
 ### Objective
