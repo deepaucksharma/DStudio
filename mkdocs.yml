@@ -123,15 +123,12 @@ markdown_extensions:
 
 # Extra CSS
 extra_css:
-  - stylesheets/unified-system.css
+  - stylesheets/layout.css
 
 # Extra JavaScript
 extra_javascript:
   - https://unpkg.com/mermaid@10.6.0/dist/mermaid.min.js
   - javascripts/mermaid-init.js
-  - javascripts/summarizer.js
-  - javascripts/ui-enhancements.js
-  - javascripts/pattern-explorer.js
 
 # Extra Configuration
 extra:
