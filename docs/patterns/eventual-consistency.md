@@ -1288,6 +1288,8 @@ flowchart TD
 
 ### Consistency Trade-off Calculator
 
+<div class="responsive-table" markdown>
+
 | Factor | Strong Consistency | Eventual Consistency | Your Score (1-10) |
 |--------|-------------------|---------------------|-------------------|
 | **Latency** | 🔴 100-500ms | ✅ 10-50ms | ___ |
@@ -1298,6 +1300,9 @@ flowchart TD
 | **Conflict Handling** | ✅ None needed | 🔴 Required | ___ |
 | **Geographic Scale** | 🔴 Limited | ✅ Global | ___ |
 | **User Experience** | ✅ Predictable | 🟡 Variable | ___ |
+
+</div>
+
 
 **Decision Formula:**
 - Strong Consistency Score = (Latency×2) + (Complexity×3) + (UX×3) - (Cost×2)
@@ -1334,6 +1339,8 @@ graph TD
 
 ### Convergence Time Estimator
 
+<div class="responsive-table" markdown>
+
 | Parameter | Value | Impact on Convergence |
 |-----------|-------|----------------------|
 | **Network Topology** | | |
@@ -1348,6 +1355,9 @@ graph TD
 | **Anti-Entropy** | | |
 | Merkle Tree Depth | ___ levels | Log(n) comparison time |
 | Sync Interval | ___ seconds | Maximum convergence time |
+
+</div>
+
 
 **Convergence Time Formula:**
 ```

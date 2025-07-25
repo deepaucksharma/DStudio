@@ -218,6 +218,8 @@ By completing this path, you will:
 
 ### Choosing Consistency Levels
 
+<div class="responsive-table" markdown>
+
 | Use Case | Consistency Level | Rationale |
 |----------|------------------|-----------|
 | Financial transactions | Strong | ACID requirements |
@@ -225,6 +227,9 @@ By completing this path, you will:
 | Inventory management | Tunable | Balance availability/accuracy |
 | Analytics data | Weak | Approximations acceptable |
 | Session data | Session | User-specific guarantees |
+
+</div>
+
 
 ### Pattern Selection Guide
 

@@ -55,13 +55,20 @@ graph TD
 ## Prerequisites
 
 !!! tip "Essential Prerequisites"
+<div class="responsive-table" markdown>
+
     | Skill | What You Need | Example |
     |-------|---------------|---------|
     | **Programming** | Basic coding in any language | Functions, loops, data structures |
     | **Networking** | HTTP fundamentals | Client-server, requests, responses |
     | **Databases** | Basic SQL knowledge | SELECT, INSERT, transactions |
 
+</div>
+
+
 !!! note "Helpful but Optional"
+<div class="responsive-table" markdown>
+
     | Topic | Why It Helps | When You'll Use It |
     |-------|--------------|-------------------|
     | **OS Concepts** | Understanding processes, threads | Concurrency patterns |
@@ -69,9 +76,14 @@ graph TD
     | **Probability** | Failure modeling | Availability calculations |
     | **Linear Algebra** | Vector clocks, consensus | Advanced topics |
 
+</div>
+
+
 ## Choose Your Learning Path
 
 !!! tip "Quick Path Selector"
+<div class="responsive-table" markdown>
+
     | Your Profile | Recommended Path | Duration | Focus |
     |-------------|------------------|----------|-------|
     | **New Graduate** | Foundation Builder | 6-8 weeks | Laws → Patterns → Tools |
@@ -79,10 +91,15 @@ graph TD
     | **Senior Engineer** | System Designer | 2-4 weeks | Advanced Patterns → Trade-offs |
     | **Technical Leader** | Strategic Overview | 2-3 weeks | Economics → Teams → Culture |
 
+</div>
+
+
 ## Learning Path Details
 
 ### Path 1: Foundation Builder (New Graduates)
 **Duration**: 6-8 weeks | **Time**: 5-10 hours/week
+
+<div class="responsive-table" markdown>
 
 | Week | Focus | Key Activities |
 |------|-------|----------------|
@@ -91,8 +108,13 @@ graph TD
 | **5-6** | Quantitative Tools | Little's Law, Availability Math, calculators |
 | **7-8** | Real Systems | Case studies, synthesis exercises |
 
+</div>
+
+
 ### Path 2: Practical Problem Solver (Mid-Level Engineers)
 **Duration**: 4-6 weeks | **Time**: 5-10 hours/week
+
+<div class="responsive-table" markdown>
 
 | Week | Focus | Key Activities |
 |------|-------|----------------|
@@ -101,8 +123,13 @@ graph TD
 | **4-5** | Quantitative Analysis | Capacity planning, performance models |
 | **6** | Case Studies | Compare systems, extract principles |
 
+</div>
+
+
 ### Path 3: System Designer (Senior Engineers)
 **Duration**: 2-4 weeks | **Time**: 10-15 hours/week
+
+<div class="responsive-table" markdown>
 
 | Week | Focus | Key Activities |
 |------|-------|----------------|
@@ -110,14 +137,22 @@ graph TD
 | **2** | Complex Patterns | Consensus, distributed transactions, multi-region |
 | **3-4** | Design Practice | System design, trade-off analysis |
 
+</div>
+
+
 ### Path 4: Technical Leader (Managers/Architects)
 **Duration**: 2-3 weeks | **Time**: 5 hours/week
+
+<div class="responsive-table" markdown>
 
 | Week | Focus | Key Activities |
 |------|-------|----------------|
 | **1** | Strategic Overview | Executive summaries, economics, human factors |
 | **2** | Decision Frameworks | Pattern selection, trade-off analysis, cost models |
 | **3** | Organization | Team topologies, SRE practices, culture |
+
+</div>
+
 
 ## What You'll Find in This Compendium
 
@@ -154,12 +189,17 @@ graph TD
 ## Study Tips
 
 !!! tip "Active Learning Strategies"
+<div class="responsive-table" markdown>
+
     | Strategy | What to Do | Why It Works |
     |----------|------------|--------------|
     | **Predict** | Before reading, guess what patterns emerge | Activates prior knowledge |
     | **Connect** | Map concepts to your experience | Creates lasting memories |
     | **Teach** | Explain concepts to others | Tests understanding |
     | **Build** | Implement patterns yourself | Develops practical skills |
+
+</div>
+
 
 !!! note "Build Your Portfolio"
     - **Document insights** as you learn
@@ -170,6 +210,8 @@ graph TD
 ## Quick Navigation
 
 !!! tip "Start Based on Your Immediate Need"
+<div class="responsive-table" markdown>
+
     | If You Need | Go To | Why |
     |-------------|-------|-----|
     | **Solve Problem Now** | [Pattern Catalog](../patterns/) | Find proven solutions |
@@ -178,7 +220,12 @@ graph TD
     | **Capacity Planning** | [Calculators](../quantitative/) | Quantify decisions |
     | **Learn from Failures** | [Case Studies](../case-studies/) | Avoid known pitfalls |
 
+</div>
+
+
 ### Reading Order Options
+
+<div class="responsive-table" markdown>
 
 | Goal | Recommended Order |
 |------|------------------|
@@ -186,15 +233,23 @@ graph TD
 | **Practical Application** | Relevant Pattern → Underlying Laws → Case Studies |
 | **Quick Reference** | Pattern Selector → Cheat Sheets → Glossary |
 
+</div>
+
+
 ## Common Learning Pitfalls
 
 !!! danger "Avoid These Mistakes"
+<div class="responsive-table" markdown>
+
     | Don't Do This | Do This Instead |
     |---------------|-----------------|
     | Skip fundamentals | Review laws deeply, find new insights |
     | Just memorize patterns | Understand why, derive from principles |
     | Ignore failure stories | Study failures, learn from others |
     | Work in isolation | Collaborate, share, and discuss |
+
+</div>
+
 
 ## Ready to Start?
 

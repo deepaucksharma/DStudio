@@ -13,6 +13,8 @@ last_updated: 2025-07-25
 # Apache Kafka: Scale and Architecture Deep Dive
 
 !!! abstract "Quick Facts"
+<div class="responsive-table" markdown>
+
     | Metric | Value |
     |--------|-------|
     | **Scale** | Trillions of events/day |
@@ -20,6 +22,9 @@ last_updated: 2025-07-25
     | **Data Volume** | Petabytes in production |
     | **Availability** | 99.95% typical uptime |
     | **Team Size** | 100+ contributors at LinkedIn |
+
+</div>
+
 
 ## Executive Summary
 
@@ -226,12 +231,17 @@ graph LR
 
 ### Resource Utilization
 
+<div class="responsive-table" markdown>
+
 | Resource | Usage | Efficiency |
 |----------|-------|------------|
 | CPU | 60-80% | High during peak processing |
 | Memory | 70% | Optimal for OS page cache |
 | Network | 40-60% | Batching improves efficiency |
 | Storage | Sequential I/O | 600+ MB/s sustained throughput |
+
+</div>
+
 
 ## Operational Excellence
 

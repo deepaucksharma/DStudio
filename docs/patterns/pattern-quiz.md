@@ -113,6 +113,8 @@ last_updated: 2025-07-20
 
 ## Pattern Selection Matrix
 
+<div class="responsive-table" markdown>
+
 | Problem | Primary Pattern | Supporting Patterns |
 |---------|----------------|-------------------|
 | Service failures | Circuit Breaker | Retry, Bulkhead |
@@ -123,6 +125,9 @@ last_updated: 2025-07-20
 | Variable load | Serverless | Auto-scaling |
 | Global users | Geo-replication | Edge Computing |
 | Cost control | FinOps | Spot Instances |
+
+</div>
+
 
 ## Next Steps
 

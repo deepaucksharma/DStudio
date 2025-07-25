@@ -141,12 +141,17 @@ sequenceDiagram
 
 ### Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Aspect | Gain | Cost |
 |--------|------|------|
 | Coupling | Loose coupling | Additional complexity |
 | Reliability | Message durability | Storage overhead |
 | Scalability | Independent scaling | Queue management |
 | Latency | Consistent processing | Added hop latency |
+
+</div>
+
 
 ---
 
@@ -568,6 +573,8 @@ class EventStream:
 
 ### Queue Technology Comparison
 
+<div class="responsive-table" markdown>
+
 | Technology | Type | Throughput | Latency | Durability | Best For |
 |------------|------|------------|---------|------------|----------|
 | **RabbitMQ** | Message Queue | 50K msg/s | <1ms | Configurable | Traditional enterprise |
@@ -577,7 +584,12 @@ class EventStream:
 | **Pulsar** | Multi-tenant Stream | 1M+ msg/s | 5-10ms | Tiered | Multi-tenancy |
 | **NATS** | Message Queue | 200K msg/s | <1ms | Optional | Microservices |
 
+</div>
+
+
 ### Message Pattern Decision Matrix
+
+<div class="responsive-table" markdown>
 
 | Requirement | Queue | Pub/Sub | Stream | Recommendation |
 |-------------|-------|---------|--------|----------------|
@@ -587,6 +599,9 @@ class EventStream:
 | Ordered processing | ✓ | ✓ | ✓✓✓ | Use Stream with partitions |
 | At-most-once | ✓✓✓ | ✓✓✓ | ✓ | Use Queue/Pub/Sub |
 | Exactly-once | ✓ | ✓ | ✓✓✓ | Use Stream with transactions |
+
+</div>
+
 
 #### Production-Ready Implementation
 
@@ -890,6 +905,8 @@ stateDiagram-v2
 
 ### Queue vs Stream Comparison
 
+<div class="responsive-table" markdown>
+
 | Aspect | Message Queue | Event Stream |
 |--------|--------------|-------------|
 | **Message Retention** | Deleted after consumption | Retained for configured period |
@@ -900,6 +917,9 @@ stateDiagram-v2
 | **Use Cases** | Task distribution, commands | Event sourcing, audit logs |
 | **Delivery** | At-least-once typical | Exactly-once possible |
 | **Performance** | Lower latency | Higher throughput |
+
+</div>
+
 
 ### Common Variations
 

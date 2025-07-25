@@ -66,12 +66,17 @@ graph LR
 
 **Power Law Implications:**
 
+<div class="responsive-table" markdown>
+
 | User Type | Population | Avg Connections | Storage Impact | Query Impact |
 |-----------|------------|----------------|----------------|---------------|
 | Regular Users | 80% | 150 | Manageable | Low QPS |
 | Active Users | 19% | 1,000 | Moderate | Medium QPS |
 | Influencers | 0.9% | 50,000 | High | High QPS |
 | Celebrities | 0.1% | 10M+ | Extreme | Hotspot risk |
+
+</div>
+
 
 ### Law 2: Concurrency - Six Degrees of Separation
 
@@ -173,11 +178,16 @@ graph LR
 
 **Storage Comparison:**
 
+<div class="responsive-table" markdown>
+
 | Approach | Read Performance | Write Performance | Storage Efficiency | Query Flexibility |
 |----------|-----------------|-------------------|-------------------|-------------------|
 | Adjacency List | O(1) neighbor lookup | O(n) list updates | 60% overhead | Limited |
 | Edge Table | O(log n) with index | O(1) insert | 95% efficient | Full SQL |
 | Hybrid | O(1) cache + O(log n) DB | O(1) + async sync | 80% with caching | Best of both |
+
+</div>
+
 
 #### 2. Graph-Specific Data Structures
 

@@ -119,6 +119,8 @@ graph LR
 
 ### Gateway Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | Description | Use Case |
 |---------|-------------|----------|
 | **Single Gateway** | One gateway for all clients | Simple architectures |
@@ -126,7 +128,12 @@ graph LR
 | **Federated Gateway** | Multiple gateways with shared config | Large organizations |
 | **GraphQL Gateway** | GraphQL interface to REST services | Flexible querying |
 
+</div>
+
+
 ### Key Benefits vs Trade-offs
+
+<div class="responsive-table" markdown>
 
 | Benefit | Trade-off |
 |---------|----------|
@@ -134,6 +141,9 @@ graph LR
 | Centralized security | Single point of failure |
 | Protocol flexibility | Gateway complexity |
 | Request aggregation | Potential bottleneck |
+
+</div>
+
 
 ---
 
@@ -1008,6 +1018,8 @@ POST /circuit-breakers/{service}/reset
 
 ### Performance Benchmarks
 
+<div class="responsive-table" markdown>
+
 | Gateway Type | Requests/sec | Latency (p99) | CPU Usage | Memory |
 |--------------|--------------|---------------|-----------|---------|
 | NGINX | 50,000 | 2ms | 20% | 100MB |
@@ -1015,6 +1027,9 @@ POST /circuit-breakers/{service}/reset
 | Kong | 25,000 | 5ms | 40% | 300MB |
 | Zuul 2 | 20,000 | 8ms | 50% | 500MB |
 | Express Gateway | 15,000 | 10ms | 60% | 200MB |
+
+</div>
+
 
 ---
 

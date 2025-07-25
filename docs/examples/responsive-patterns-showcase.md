@@ -78,6 +78,8 @@ Live examples demonstrating full-width responsive layouts optimized for all devi
 
 ## Feature Comparison
 
+<div class="responsive-table" markdown>
+
 | Feature | Monolith | Microservices | Serverless | Service Mesh |
 |---------|:--------:|:-------------:|:----------:|:------------:|
 | **Complexity** | ⭐ | ⭐⭐⭐ | ⭐⭐ | ⭐⭐⭐⭐⭐ |
@@ -86,6 +88,9 @@ Live examples demonstrating full-width responsive layouts optimized for all devi
 | **Cost (Large)** | 💰💰💰💰 | 💰💰 | 💰💰 | 💰💰💰 |
 | **Dev Speed** | ⚡⚡⚡⚡⚡ | ⚡⚡ | ⚡⚡⚡⚡ | ⚡ |
 | **Ops Overhead** | Low | High | Low | Very High |
+
+</div>
+
 
 ## Pattern Decision Matrix
 
@@ -247,6 +252,8 @@ Live examples demonstrating full-width responsive layouts optimized for all devi
 
 <div class="table-wrapper" markdown>
 
+<div class="responsive-table" markdown>
+
 | Pattern | Problem | Scale | Latency | Throughput | Consistency | Availability | Complexity | Cost |
 |---------|---------|-------|---------|------------|-------------|--------------|------------|------|
 | **Monolith** | Simple apps | Small | Low | Limited | Strong | Medium | ⭐ | $ |
@@ -258,6 +265,9 @@ Live examples demonstrating full-width responsive layouts optimized for all devi
 | **Event Sourcing** | Audit trail | Any | High | Medium | Eventual | High | ⭐⭐⭐⭐ | $$ |
 | **CQRS** | Read/Write split | Large | Low | Very High | Eventual | High | ⭐⭐⭐⭐ | $$$ |
 | **Service Mesh** | Observability | Large | Medium | High | N/A | High | ⭐⭐⭐⭐⭐ | $$$$ |
+
+</div>
+
 
 </div>
 

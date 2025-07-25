@@ -116,12 +116,17 @@ graph LR
 
 ### Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Aspect | Gain | Cost |
 |--------|------|------|
 | Consistency | Eventual consistency | No immediate consistency |
 | Complexity | Service independence | Compensation logic |
 | Debugging | Clear transaction flow | Distributed tracing needed |
 | Testing | Isolated service tests | Complex integration tests |
+
+</div>
+
 
 ---
 
@@ -292,11 +297,16 @@ class ProcessPaymentStep(SagaStep):
 
 #### Saga Patterns Comparison
 
+<div class="responsive-table" markdown>
+
 | Pattern | Coordination | State Management | Complexity | Use Case |
 |---------|--------------|------------------|------------|-----------|
 | **Orchestration** | Central coordinator | Orchestrator manages | Medium | Clear workflows |
 | **Choreography** | Event-driven | Distributed | High | Loosely coupled |
 | **Hybrid** | Mixed approach | Both patterns | Very High | Complex systems |
+
+</div>
+
 
 #### Production Architecture
 
@@ -389,6 +399,8 @@ sequenceDiagram
 
 #### Monitoring & Recovery
 
+<div class="responsive-table" markdown>
+
 | Component | Purpose | Implementation |
 |-----------|---------|----------------|
 | **State Persistence** | Crash recovery | Save state after each step |
@@ -396,6 +408,9 @@ sequenceDiagram
 | **Distributed Lock** | Prevent duplicate processing | Redis/Zookeeper with TTL |
 | **Idempotency** | Safe retries | Unique keys per operation |
 | **Event Ordering** | Consistent flow | Message queue with ordering guarantees |
+
+</div>
+
 
 ```python
 # Example: Idempotent payment processing

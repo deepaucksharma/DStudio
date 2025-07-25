@@ -256,6 +256,8 @@ metrics:
 
 ### Optimization Priority Matrix
 
+<div class="responsive-table" markdown>
+
 | Optimization | Impact | Effort | Priority |
 |--------------|--------|--------|----------|
 | Add caching | High | Low | Do First |
@@ -264,6 +266,9 @@ metrics:
 | Horizontal scaling | High | High | Plan Carefully |
 | Code optimization | Medium | Medium | Do Third |
 | Hardware upgrade | Medium | High | Last Resort |
+
+</div>
+
 
 ### Scaling Decision Tree
 

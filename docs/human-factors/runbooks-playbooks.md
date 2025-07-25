@@ -272,6 +272,8 @@ flowchart LR
 
 **Distributed Search Commands:**
 
+<div class="responsive-table" markdown>
+
 | Scope | Command | Use Case |
 |-------|---------|----------|  
 | **All Services** | `for svc in $(kubectl get deploy -o name); do kubectl logs -l app=$svc --since=1h \| grep -i "error\|timeout"; done` | Unknown error source |
@@ -279,6 +281,9 @@ flowchart LR
 | **Time Window** | `--since=2h` | Recent issues only |
 | **Severity** | Add `\| grep -E 'CRITICAL\|ERROR'` | High priority only |
 | **Save Results** | `\| tee investigation-$(date +%s).log` | Document findings |
+
+</div>
+
 ### Time Series Correlation
 
 ```mermaid
@@ -309,12 +314,17 @@ flowchart TD
 
 **Correlation Detection Patterns:**
 
+<div class="responsive-table" markdown>
+
 | Pattern | Detection Method | Likely Cause |
 |---------|-----------------|---------------|
 | **Simultaneous Spike** | Same timestamp ±30s | Direct causation |
 | **Cascade Pattern** | Sequential spikes | Dependency chain |
 | **Inverse Correlation** | One up, one down | Resource competition |
 | **Periodic Match** | Same frequency | Shared root cause |
+
+</div>
+
 ### Hypothesis Testing
 1. Form hypothesis: "DB connection exhaustion"
 2. Make prediction: "Connection count = max"
@@ -363,6 +373,8 @@ flowchart TD
 
 **Performance Measurement Commands:**
 
+<div class="responsive-table" markdown>
+
 | Layer | Command | Measures |
 |-------|---------|----------|  
 | **End-to-End** | `curl -w "@curl-format.txt" -o /dev/null URL` | Total time breakdown |
@@ -370,6 +382,9 @@ flowchart TD
 | **Application** | Enable profiler endpoint | CPU, memory hotspots |
 | **Database** | `EXPLAIN ANALYZE query` | Query execution plan |
 | **External APIs** | Check APM traces | Third-party latency |
+
+</div>
+
 ### 2. Component Breakdown
 - Network time (DNS, TLS, transfer)
 - Gateway processing
@@ -413,12 +428,17 @@ flowchart LR
 
 **Common Performance Bottlenecks:**
 
+<div class="responsive-table" markdown>
+
 | Bottleneck | Symptoms | Detection Query | Fix |
 |------------|----------|----------------|-----|
 | **N+1 Queries** | Linear degradation | Count query frequency | Batch fetch |
 | **Lock Contention** | Spiky latency | Check pg_locks | Reduce lock scope |
 | **GC Pauses** | Periodic freezes | GC logs analysis | Tune heap size |
 | **Connection Exhaustion** | Timeouts | Pool metrics | Increase pool |
+
+</div>
+
 ### Lock Contention
 Symptom: Spiky latency
 ```sql
@@ -574,12 +594,17 @@ flowchart TD
 
 **Runbook Automation Levels:**
 
+<div class="responsive-table" markdown>
+
 | Level | Description | Human Involvement | Example |
 |-------|-------------|------------------|------|
 | **Full Auto** | No human needed | Monitor only | Restart service |
 | **Semi-Auto** | Human decisions | Key decisions | Database failover |
 | **Guided Manual** | Human executes | Follow prompts | Complex recovery |
 | **Reference Only** | Human interprets | Full control | Investigation |
+
+</div>
+
 ### ChatOps Integration
 
 ### ChatOps Integration
@@ -607,12 +632,17 @@ flowchart LR
 
 **ChatOps Commands:**
 
+<div class="responsive-table" markdown>
+
 | Command | Purpose | Permission | Example |
 |---------|---------|------------|------|
 | `/runbook list` | Show available | Read | Lists all runbooks |
 | `/runbook <name>` | Execute runbook | Execute | Start guided execution |
 | `/runbook status` | Check progress | Read | Show active runbooks |
 | `/runbook abort` | Stop execution | Execute | Emergency stop |
+
+</div>
+
 ## Runbook Library Structure
 
 ### Organization
@@ -662,6 +692,8 @@ graph TD
 
 **Runbook Naming Convention:**
 
+<div class="responsive-table" markdown>
+
 | Category | Format | Example | When to Use |
 |----------|--------|---------|-------------|  
 | **Alerts** | `<metric>-<condition>.md` | `cpu-high.md` | Alert fired |
@@ -669,6 +701,9 @@ graph TD
 | **Incidents** | `<severity>-<type>.md` | `sev1-outage.md` | Major incident |
 | **Maintenance** | `<task>-<frequency>.md` | `backup-daily.md` | Planned work |
 | **Investigation** | `<symptom>-investigation.md` | `slow-api-investigation.md` | Unknown issue |
+
+</div>
+
 ### Runbook Metadata
 
 ### Runbook Metadata
@@ -698,6 +733,8 @@ graph LR
     style A fill:#e3f2fd
 ```
 
+<div class="responsive-table" markdown>
+
 | Field | Purpose | Example | Required |
 |-------|---------|---------|----------|
 | **title** | Human-readable name | "Payment Service High Latency" | Yes |
@@ -708,6 +745,9 @@ graph LR
 | **related_runbooks** | See also | [db-issues, api-timeout] | No |
 | **metrics** | Key indicators | [p99_latency, error_rate] | Yes |
 | **dashboards** | Visual tools | [grafana links] | Yes |
+
+</div>
+
 ## Testing Runbooks
 
 ### Chaos Day Validation
@@ -747,6 +787,8 @@ flowchart TD
 
 **Chaos Test Schedule:**
 
+<div class="responsive-table" markdown>
+
 | Runbook Type | Test Frequency | Environment | Duration |
 |--------------|---------------|-------------|----------|  
 | **Critical (P1)** | Weekly | Staging | < 5 min |
@@ -754,6 +796,9 @@ flowchart TD
 | **Standard (P3)** | Monthly | Dev | < 30 min |
 | **New Runbooks** | Before merge | All | Varies |
 | **Post-Incident** | Within 48hr | Staging | Match SLA |
+
+</div>
+
 ### Regular Drills
 
 ### Regular Drills
@@ -780,6 +825,8 @@ gantt
 
 **Drill Execution Protocol:**
 
+<div class="responsive-table" markdown>
+
 | Phase | Action | Time | Success Criteria |
 |-------|--------|------|------------------|
 | **Announce** | "Drill starting in 5 min" | T-5 | Team aware |
@@ -788,6 +835,9 @@ gantt
 | **Verify** | Check resolution | T+20 | System healthy |
 | **Debrief** | Lessons learned | T+30 | Improvements noted |
 | **Update** | Fix runbook issues | T+60 | PR submitted |
+
+</div>
+
 ## Best Practices
 
 1. **Write for Tired Self**: Zero context, copy-paste commands, verification steps

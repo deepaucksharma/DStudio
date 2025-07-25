@@ -22,12 +22,17 @@ last_updated: 2025-01-23
 <h2 style="text-align: center; color: #5448C8;">Consistency ≈ Ordering + Visibility + Durability</h2>
 </div>
 
+<div class="responsive-table" markdown>
+
 | Model | Ordering | Visibility | Example |
 |-------|----------|------------|---------|
 | **Linearizable** | Total order + real-time | Immediate | Distributed lock |
 | **Sequential** | Total order | Eventually | Configuration store |
 | **Causal** | Partial order | Causal | Social media comments |
 | **Eventual** | No guarantees | Eventually | DNS updates |
+
+</div>
+
 
 <div class="key-insight">
 💡 <strong>Fundamental Trade-off</strong>: Stronger consistency = Higher latency + Lower availability
@@ -132,6 +137,8 @@ last_updated: 2025-01-23
 </div>
 </div>
 
+<div class="responsive-table" markdown>
+
 | Model | Real-time | Process Order | Causal Order | Global Order |
 |-------|-----------|---------------|--------------|--------------|
 | Linearizable | ✓ | ✓ | ✓ | ✓ |
@@ -139,6 +146,9 @@ last_updated: 2025-01-23
 | Causal | ✗ | ✓ | ✓ | ✗ |
 | FIFO | ✗ | ✓ | ✗ | ✗ |
 | Eventual | ✗ | ✗ | ✗ | ✗ |
+
+</div>
+
 </div>
 
 ## Quantifying Consistency
@@ -153,6 +163,8 @@ PBS(t) = P(read returns latest value after time t)
 </div>
 
 **Amazon S3 Measurements (2011)**:
+<div class="responsive-table" markdown>
+
 | Time After Write | PBS |
 |-----------------|-----|
 | 0 ms | 0% |
@@ -160,6 +172,9 @@ PBS(t) = P(read returns latest value after time t)
 | 500 ms | 94% |
 | 1000 ms | 99.4% |
 | 5000 ms | 100% |
+
+</div>
+
 
 <div class="visualization" style="margin-top: 15px;">
 <svg viewBox="0 0 500 300" style="width: 100%; max-width: 500px;">
@@ -201,11 +216,16 @@ PBS(t) = P(read returns latest value after time t)
     If writes occur every 10ms: max staleness = 3 × 10ms = 30ms
 
 **Real-world k-atomicity**:
+<div class="responsive-table" markdown>
+
 | System | k value | Use case |
 |--------|---------|----------|
 | Cassandra (ONE) | ~N | High availability |
 | MongoDB Secondary | 1-10 | Read scaling |
 | MySQL Replica | 1-100 | Analytics |
+
+</div>
+
 </div>
 
 ## Causal Consistency
@@ -274,6 +294,8 @@ PBS(t) = P(read returns latest value after time t)
 <div class="law-box">
 <h4>⏱️ Consistency vs Latency Measurements</h4>
 
+<div class="responsive-table" markdown>
+
 | Consistency | Local DC | Cross-Region | Global | Formula |
 |-------------|----------|--------------|--------|---------|
 | Eventual | 1-5ms | 1-5ms | 1-5ms | O(1) |
@@ -282,6 +304,9 @@ PBS(t) = P(read returns latest value after time t)
 | Causal | 10-20ms | RTT | RTT×log(N) | O(RTT×log(N)) |
 | Sequential | 20-50ms | 2×RTT | 2×RTT×N | O(RTT×N) |
 | Linearizable | 50-100ms | 3×RTT | 3×RTT×N | O(RTT×N) |
+
+</div>
+
 
 <div class="real-world-example" style="margin-top: 15px; background: #E3F2FD; padding: 15px; border-radius: 5px;">
 <strong>Example: Global E-commerce Platform</strong><br>
@@ -299,12 +324,17 @@ PBS(t) = P(read returns latest value after time t)
 ### Consistency SLA Calculator
 
 !!! note "💰 Business Impact of Consistency"
+<div class="responsive-table" markdown>
+
     | Operation | Consistency Need | Latency Budget | Revenue Impact |
     |-----------|-----------------|----------------|----------------|
     | Product view | Eventual | 100ms | -1% per 100ms |
     | Add to cart | Causal | 200ms | -0.5% per 100ms |
     | Checkout | Sequential | 500ms | -0.1% per 100ms |
     | Payment | Linearizable | 2000ms | Must complete |
+
+</div>
+
     <div class="calculation-example" style="margin-top: 15px;">
     <strong>Revenue calculation for 1M requests/day</strong>:
     • Eventual (50ms) vs Linearizable (500ms) for product views
@@ -316,12 +346,17 @@ PBS(t) = P(read returns latest value after time t)
 
 !!! info "📱 Practical Session Consistency"
     **Four session guarantees** (Terry et al., 1994):
+<div class="responsive-table" markdown>
+
     | Guarantee | Description | Implementation |
     |-----------|-------------|----------------|
     | **Read Your Writes** | See your own updates | Session ID → last write version |
     | **Monotonic Reads** | No time travel | Track highest version seen |
     | **Monotonic Writes** | Writes preserve order | Sequence writes per session |
     | **Writes Follow Reads** | Causal consistency | Track read dependencies |
+
+</div>
+
     <div class="implementation-code" style="margin-top: 15px; background: #F5F5F5; padding: 15px; border-radius: 5px; font-family: 'Courier New', monospace;">
     <strong>Session vector example</strong>:
     Session S1: {lastWrite: v5, highestRead: v7, deps: [v3, v4]}
@@ -348,12 +383,17 @@ Where: R = read replicas, W = write replicas, N = total replicas
 
 **Common Configurations**:
 
+<div class="responsive-table" markdown>
+
 | Config | R | W | N | Consistency | Latency | Availability |
 |--------|---|---|---|-------------|---------|--------------|
 | Strong | 2 | 2 | 3 | Strong | High | Lower |
 | Read-heavy | 1 | 3 | 3 | Eventual | Low read | High read |
 | Write-heavy | 3 | 1 | 3 | Eventual | Low write | High write |
 | Balanced | 2 | 2 | 3 | Strong | Medium | Medium |
+
+</div>
+
 
 <div class="latency-calculation" style="margin-top: 15px;">
 <strong>Latency formulas</strong>:<br>
@@ -500,6 +540,8 @@ SafetyFactor = 1.1 (assume 10% concurrent checkouts)
 <div class="law-box">
 <h4>📊 Key Consistency Metrics</h4>
 
+<div class="responsive-table" markdown>
+
 | Metric | Definition | Target | Alert Threshold |
 |--------|------------|--------|-----------------|
 | **Staleness** | Age of returned data | <100ms | >1s |
@@ -507,6 +549,9 @@ SafetyFactor = 1.1 (assume 10% concurrent checkouts)
 | **Conflict Rate** | Concurrent updates | <0.1% | >1% |
 | **Resolution Time** | Conflict→Resolved | <500ms | >5s |
 | **Phantom Reads** | Stale read rate | <0.01% | >0.1% |
+
+</div>
+
 
 <div class="monitoring-query" style="margin-top: 15px; background: #E8F5E9; padding: 10px; border-radius: 5px; font-family: 'Courier New', monospace;">
 <strong>Example monitoring query</strong>:<br>

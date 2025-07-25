@@ -69,6 +69,8 @@ stateDiagram-v2
 
 ## Consent Types & Granularity
 
+<div class="responsive-table" markdown>
+
 | Type | Scope | Duration | Revocable | Example |
 |------|-------|----------|-----------|----------|
 | **Necessary** | Core service | Unlimited | No | Account creation |
@@ -76,6 +78,9 @@ stateDiagram-v2
 | **Analytics** | Improvement | 1-2 years | Yes | Usage tracking |
 | **Marketing** | Communications | Until revoked | Yes | Email newsletters |
 | **Third-party** | External sharing | Specific period | Yes | Partner integration |
+
+</div>
+
 
 ## GDPR Compliance Requirements
 

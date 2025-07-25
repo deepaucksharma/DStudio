@@ -284,6 +284,8 @@ metrics:
 
 ### Availability Target Selection
 
+<div class="responsive-table" markdown>
+
 | Target | Downtime/Year | Use Case | Cost |
 |--------|---------------|----------|------|
 | 99% | 3.65 days | Internal tools | $ |
@@ -291,6 +293,9 @@ metrics:
 | 99.95% | 4.38 hours | Customer-facing | $$$ |
 | 99.99% | 52.56 minutes | Critical services | $$$$ |
 | 99.999% | 5.26 minutes | Life-critical | $$$$$ |
+
+</div>
+
 
 ### Pattern Selection Matrix
 

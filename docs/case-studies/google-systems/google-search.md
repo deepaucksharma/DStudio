@@ -661,6 +661,8 @@ class RealTimeIndexer:
 
 ### Architecture Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Decision | Choice | Alternative | Trade-off |
 |----------|--------|-------------|-----------|
 | **Index Structure** | Inverted index | Forward-only index | Query speed vs storage |
@@ -668,6 +670,9 @@ class RealTimeIndexer:
 | **Sharding** | Term-based | Document-based | Query distribution vs hotspots |
 | **Consistency** | Eventual | Strong | Freshness vs complexity |
 | **Crawl Strategy** | Priority-based | Round-robin | Freshness vs coverage |
+
+</div>
+
 
 ### Alternative Architectures
 

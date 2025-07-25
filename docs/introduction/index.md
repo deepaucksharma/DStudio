@@ -77,12 +77,17 @@ description: "A physics-first approach to understanding distributed systems"
 ## How to Use This Resource
 
 !!! tip "Choose Your Approach"
+<div class="responsive-table" markdown>
+
     | If You Want | Start Here | Why |
     |-------------|------------|-----|
     | **Deep Understanding** | [7 Laws](../part1-axioms/) | Build from fundamental constraints |
     | **Solve Immediate Problems** | [Patterns](../patterns/) | Find proven solutions |
     | **Capacity Planning** | [Quantitative Tools](../quantitative/) | Mathematical analysis |
     | **Learn from Failures** | [Case Studies](../case-studies/) | Real-world examples |
+
+</div>
+
 
 ---
 

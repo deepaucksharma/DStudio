@@ -56,6 +56,8 @@ The Challenge: Keeping all copies synchronized!
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | Company | Implementation | Impact |
 |---------|----------------|---------|
 | **Netflix** | Content cached in 200+ locations | <10ms latency globally |
@@ -63,6 +65,9 @@ The Challenge: Keeping all copies synchronized!
 | **Facebook** | Social graph replicated globally | 2B users, instant updates |
 | **GitHub** | Code replicated across 3 regions | Survives region failures |
 | **Spotify** | Music catalog geo-distributed | Instant playback worldwide |
+
+</div>
+
 
 ### Geo-Replication Architecture
 
@@ -128,11 +133,16 @@ flowchart LR
 
 ### Replication Latency Matrix
 
+<div class="responsive-table" markdown>
+
 | From → To | US-East | EU-West | AP-South |
 |-----------|---------|---------|----------|
 | **US-East** | - | ~80ms | ~250ms |
 | **EU-West** | ~80ms | - | ~150ms |
 | **AP-South** | ~250ms | ~150ms | - |
+
+</div>
+
 
 ---
 
@@ -199,12 +209,17 @@ graph TB
 
 ### Replication Strategy Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Strategy | Write Latency | Consistency | Durability | Availability | Use Case |
 |----------|--------------|-------------|------------|--------------|----------|
 | **Async** | Lowest (~5ms) | Eventual | Risk of loss | Highest | Caching, Analytics |
 | **Sync** | Highest (~300ms) | Strong | Guaranteed | Lowest | Financial data |
 | **Semi-Sync** | Medium (~100ms) | Good | High | High | User data |
 | **Quorum** | Medium (~150ms) | Strong | High | Good | Critical data |
+
+</div>
+
 
 #### 2. Conflict Resolution Strategies
 
@@ -235,6 +250,8 @@ flowchart TB
 
 ### Conflict Resolution Examples
 
+<div class="responsive-table" markdown>
+
 | Data Type | Conflict Scenario | Resolution Strategy | Result |
 |-----------|------------------|--------------------|---------|
 | **User Profile** | Name changed in 2 regions | Last Write Wins | Latest timestamp |
@@ -242,6 +259,9 @@ flowchart TB
 | **Counter** | Incremented in 3 regions | Sum All | Total of all increments |
 | **Document** | Edited concurrently | Vector Clock + UI | Show conflicts to user |
 | **Inventory** | Stock decremented | Custom Business Logic | Check constraints |
+
+</div>
+
 
 #### 3. Geo-Aware Routing Logic
 
@@ -269,6 +289,8 @@ flowchart TD
 
 ### Geo-Routing Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | User Location | Consistency Need | Compliance | Selected Region | Reasoning |
 |---------------|-----------------|------------|-----------------|------------|
 | New York | Strong | - | US-East (Primary) | Lowest latency + strong consistency |
@@ -276,6 +298,9 @@ flowchart TD
 | Tokyo | Eventual | - | AP-South | Nearest region |
 | São Paulo | Strong | - | US-East (Primary) | No local region, need primary |
 | Sydney | Quorum | - | AP-South + US-East | Multi-region read |
+
+</div>
+
 
 ### Advanced Patterns
 
@@ -1267,6 +1292,8 @@ class GeoReplicationEconomics:
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Factor | Single Region | Multi-Region | Global |
 |--------|--------------|--------------|---------|
 | **User Distribution** | Local | Continental | Worldwide |
@@ -1274,6 +1301,9 @@ class GeoReplicationEconomics:
 | **Consistency Needs** | Strong easy | Tunable | Eventual/CRDT |
 | **Complexity** | Low | Medium | High |
 | **Cost** | $ | $$ | $$$ |
+
+</div>
+
 
 ### Implementation Checklist
 

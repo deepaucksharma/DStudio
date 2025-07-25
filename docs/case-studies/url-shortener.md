@@ -86,6 +86,8 @@ graph TB
 
 **Latency Budget Breakdown:**
 
+<div class="responsive-table" markdown>
+
 | Component | Target | Actual | Notes |
 |-----------|--------|--------|-------|
 | DNS Lookup | 10ms | 8ms | Pre-warmed connections |
@@ -94,6 +96,9 @@ graph TB
 | Cache Lookup | 10ms | 1ms | Redis cluster |
 | Response Time | 5ms | 2ms | HTTP/2 |
 | **Total** | **50ms** | **21ms** | **58% under budget** |
+
+</div>
+
 
 **Short Code Generation Strategy:**
 
@@ -182,6 +187,8 @@ graph TB
 
 **Storage Requirements Analysis:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Value | Calculation | Impact |
 |--------|-------|-------------|--------|
 | Daily URLs | 100M | 100M × 150 bytes | 15GB/day |
@@ -189,6 +196,9 @@ graph TB
 | With Dedup | 25.5B | 30% reduction | 3.8TB/year |
 | With Compression | 20.4B | 20% reduction | 3.1TB/year |
 | Analytics Data | 3.65T events | 10B × 365 × 100 bytes | 365TB/year |
+
+</div>
+
 
 **Sharding Strategy:**
 
@@ -211,11 +221,16 @@ graph LR
 
 **Cost Optimization Decision Matrix:**
 
+<div class="responsive-table" markdown>
+
 | Storage Tier | Use Case | Access Pattern | Cost/GB/Month | Migration Trigger |
 |--------------|----------|----------------|---------------|-------------------|
 | Hot | Premium URLs, Recent | >100 hits/day | $0.10 | Never |
 | Warm | Regular URLs | 1-100 hits/day | $0.05 | Age > 30 days |
 | Cold | Archive | <1 hit/day | $0.02 | Age > 90 days & access < 10 |
+
+</div>
+
 
 #### Law 3 (Failure): Resilience and Recovery
 ```text
@@ -277,6 +292,8 @@ graph TB
 
 **Safety Check Pipeline:**
 
+<div class="responsive-table" markdown>
+
 | Check Type | Purpose | Action on Failure | Fallback |
 |------------|---------|-------------------|----------|
 | Rate Limit | Prevent abuse | Return 429 | Graceful degradation |
@@ -284,6 +301,9 @@ graph TB
 | Malware Scan | Security | Block if certain | Fail open if uncertain |
 | Blacklist | Content policy | Block redirect | No fallback |
 | Circuit Breaker | System health | Use fallback region | Multiple regions |
+
+</div>
+
 
 **Disaster Recovery Sequence:**
 
@@ -374,6 +394,8 @@ graph TB
 
 **Concurrency Patterns Applied:**
 
+<div class="responsive-table" markdown>
+
 | Pattern | Use Case | Benefit | Implementation |
 |---------|----------|---------|----------------|
 | Sharding | URL storage | Reduce lock contention | Hash-based, 100 shards |
@@ -382,6 +404,9 @@ graph TB
 | Batch Processing | Analytics | Efficiency | 1000 events/batch |
 | Lock-Free | Counters | High throughput | CAS operations |
 | Semaphore | Rate limiting | Bounded concurrency | 100 concurrent ops |
+
+</div>
+
 
 **Batch Analytics Pipeline:**
 
@@ -476,12 +501,17 @@ graph TB
 
 **Coordination Service Comparison:**
 
+<div class="responsive-table" markdown>
+
 | Service | Consistency | Performance | Features | Use Case |
 |---------|-------------|-------------|----------|----------|
 | Zookeeper | Strong | Medium | Mature, watches | Config, locks |
 | Consul | Strong | High | Service mesh | Service discovery |
 | etcd | Strong | High | K/V, leases | Kubernetes-style |
 | Redis | Eventual | Very High | Pub/Sub, streams | Cache coordination |
+
+</div>
+
 
 **Distributed Counter Design:**
 
@@ -591,6 +621,8 @@ graph TB
 
 **Analytics Data Model:**
 
+<div class="responsive-table" markdown>
+
 | Field | Type | Purpose | Index |
 |-------|------|---------|-------|
 | event_id | UUID | Deduplication | Primary |
@@ -600,6 +632,9 @@ graph TB
 | device_type | Enum | Device breakdown | Yes |
 | visitor_id | Hash | Unique visitors | Yes |
 | referer | String | Traffic sources | Partial |
+
+</div>
+
 
 **Stream Processing Pipeline:**
 
@@ -655,12 +690,17 @@ graph LR
 
 **Analytics Query Performance:**
 
+<div class="responsive-table" markdown>
+
 | Query Type | Latency | Throughput | Optimization |
 |------------|---------|------------|-------------|
 | Real-time stats | <10ms | 100K/s | In-memory cache |
 | Time series | <100ms | 10K/s | Pre-aggregation |
 | Geographic | <200ms | 5K/s | Materialized views |
 | Full report | <1s | 1K/s | Parallel queries |
+
+</div>
+
 
 #### 👤 Law 7 (Human Interface): Management Tools
 ```text
@@ -710,12 +750,17 @@ graph TB
 
 **API Response Examples:**
 
+<div class="responsive-table" markdown>
+
 | Endpoint | Request | Response | Rate Limit |
 |----------|---------|----------|------------|
 | POST /shorten | `{"long_url": "..."}` | `{"short_url": "...", "qr_code": "..."}` | 100/min |
 | GET /expand/{code} | - | `{"long_url": "...", "clicks": 1234}` | 1000/min |
 | GET /analytics/{code} | - | `{"clicks": [...], "geographic": {...}}` | 60/min |
 | POST /bulk | `{"urls": [...]}` | `{"successful": [...], "failed": [...]}` | 10/min |
+
+</div>
+
 
 **Admin Dashboard Layout:**
 
@@ -820,6 +865,8 @@ graph TB
 
 **Cost Breakdown Analysis:**
 
+<div class="responsive-table" markdown>
+
 | Component | Current | Optimized | Savings | Strategy |
 |-----------|---------|-----------|---------|----------|
 | Storage | $2,000 | $1,200 | 40% | Dedup + Compression + Tiering |
@@ -828,6 +875,9 @@ graph TB
 | Analytics | $1,000 | $300 | 70% | Sampling + Pre-aggregation |
 | CDN | $2,500 | $1,750 | 30% | Smart TTL + Regional |
 | **Total** | **$10,000** | **$5,200** | **48%** | **Combined strategies** |
+
+</div>
+
 
 **Smart Caching Strategy:**
 
@@ -881,6 +931,8 @@ gantt
 
 ### Comprehensive Law Mapping
 
+<div class="responsive-table" markdown>
+
 | Design Decision | Axiom 1 (Latency) | Axiom 2 (Capacity) | Axiom 3 (Failure) | Axiom 4 (Concurrency) | Axiom 5 (Coordination) | Axiom 6 (Observability) | Axiom 7 (Human Interface) | Axiom 8 (Economics) |
 |-----------------|-------------------|-------------------|-------------------|---------------------|---------------------|----------------------|------------------------|--------------------|
 | **CDN Edge Caching** | 5ms redirects, global | Limited cache, LRU | Origin failover | Parallel, no contention | TTL-based coherence | Hit rate metrics | Transparent | 90% cost reduction |
@@ -893,6 +945,9 @@ gantt
 | **Real-time + Batch** | <1s key metrics | Efficient batching | Queue spillover | Parallel streams | Stream partitioning | Dual dashboards | Both use cases | Dual complexity |
 | **URL Deduplication** | Hash overhead | 30-40% savings | Rebuild capable | Race conditions | Distributed lock | Dedup ratio stats | Same short URL | Major savings |
 | **Spam Detection** | ML adds latency | Scalable blacklist | Fail open | Async checking | Blacklist sync | False positive rate | May block legitimate | Quality protection |
+
+</div>
+
 
 ### 🏛 Pillar Mapping
 
@@ -1143,6 +1198,8 @@ graph TB
 
 ### Trade-off Analysis Matrix
 
+<div class="responsive-table" markdown>
+
 | Architecture | Scalability | Latency | Consistency | Cost | Complexity | Vendor Lock-in | Reliability |
 |--------------|-------------|---------|-------------|------|------------|----------------|-------------|
 | **NoSQL Serverless** | Infinite | Medium | Eventual | Low | Low | High | High |
@@ -1150,6 +1207,9 @@ graph TB
 | **Edge-First** | High | Ultra-low | Weak | High | Medium | Medium | High |
 | **Blockchain** | Low | High | Strong | Very High | High | None | High |
 | **Hybrid Multi-Cloud** | High | Medium | Eventual | High | Very High | None | Very High |
+
+</div>
+
 
 ### Performance Comparison
 
@@ -1254,6 +1314,8 @@ graph TB
 
 ### Key Design Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **Short Code Generation** | Sequential counter | Hash-based | **Hybrid** - Counter for guaranteed uniqueness, hash for custom URLs |
@@ -1261,6 +1323,9 @@ graph TB
 | **Analytics** | Real-time all events | Sampled/batched | **Sampled for high-volume** - Balance accuracy vs cost |
 | **Caching** | Cache everything | Cache hot URLs only | **Smart caching** - LRU with predictive warming for popular URLs |
 | **Custom URLs** | Always allow | Premium feature | **Freemium model** - Basic custom URLs free, advanced features paid |
+
+</div>
+
 
 ### Alternative Architectures
 

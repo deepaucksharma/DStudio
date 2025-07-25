@@ -167,6 +167,8 @@ Total: 1 message, done
 
 ### The Beginner's Coordination Cost Sheet
 
+<div class="responsive-table" markdown>
+
 | What You Want | Coordination Required | Relative Cost |
 |---------------|----------------------|---------------|
 | "Fire and forget" | None | 1x |
@@ -175,6 +177,9 @@ Total: 1 message, done
 | "All or nothing" | 2-Phase Commit | 20x |
 | "Sorted global order" | Total Order Broadcast | 50x |
 | "Byzantine agreement" | PBFT/Blockchain | 1000x+ |
+
+</div>
+
 
 ---
 
@@ -207,12 +212,17 @@ graph TB
 
 ### The Physics of Coordination
 
+<div class="responsive-table" markdown>
+
 | Physical Law | Distributed Impact | Real Cost |
 |--------------|-------------------|------------|
 | **Speed of Light** | 100ms RTT across globe | $0.30/transaction at scale |
 | **Network Partitions** | 1-2% monthly occurrence | $50K/hour during outage |
 | **Clock Drift** | 10-100 ppm typical | Requires NTP infrastructure |
 | **Byzantine Failures** | 0.01% in practice | 10x coordination overhead |
+
+</div>
+
 
 ### Failure Vignette: The Olympic Timing Disaster
 
@@ -352,6 +362,8 @@ class TwoPhaseCommitCoordinator:
 
 ### The True Cost of Consensus
 
+<div class="responsive-table" markdown>
+
 | Protocol | Messages/Decision | Rounds | Network Cost | Latency Cost | Total/Transaction |
 |----------|------------------|--------|--------------|--------------|-------------------|
 | **2PC** | 3N | 3 | $0.0003 | $0.30 | $0.3003 |
@@ -360,7 +372,12 @@ class TwoPhaseCommitCoordinator:
 | **Raft** | N + N log entries | 2 | $0.001 | $0.20 | $0.201 |
 | **PBFT** | O(N²) | 3 | $0.01+ | $0.30+ | $0.31+ |
 
+</div>
+
+
 ### The Cost Multiplication Table
+
+<div class="responsive-table" markdown>
 
 | Factor | 2 Nodes | 5 Nodes | 10 Nodes | 100 Nodes |
 |--------|---------|---------|----------|----------|
@@ -369,6 +386,9 @@ class TwoPhaseCommitCoordinator:
 | **Probability All Succeed (99% each)** | 98% | 95% | 90% | 37% |
 | **Consensus Rounds** | 1 | 2-3 | 3-4 | 5-7 |
 | **Coordinator Load** | 2× | 5× | 10× | 100× |
+
+</div>
+
 
 ### Production War Story: The $2M Coordination Bill
 
@@ -413,6 +433,8 @@ Lessons:
 
 ### The Spectrum of Coordination
 
+<div class="responsive-table" markdown>
+
 | Pattern | Messages | Latency | Consistency | Cost/Transaction | Use When |
 |---------|----------|---------|-------------|------------------|----------|
 | **Fire & Forget** | 1 | None | None | $0.001 | Logging, metrics |
@@ -421,6 +443,9 @@ Lessons:
 | **2-Phase Commit** | 3N | 3 RTT | Strong | $0.30 | Financial txns |
 | **Paxos/Raft** | 2N+ | 2+ RTT | Strong | $0.20 | Critical state |
 | **Byzantine (PBFT)** | N² | 3+ RTT | Strong | $5.00 | Adversarial env |
+
+</div>
+
 
 ### Anti-Pattern Gallery: Coordination Disasters
 
@@ -482,6 +507,8 @@ Result: Provably safe leader election
 
 #### Real Dollar Costs (AWS Pricing)
 
+<div class="responsive-table" markdown>
+
 | Coordination Type | Components | Monthly Cost (1M txn/day) |
 |------------------|------------|---------------------------|
 | **No Coordination** | S3 writes | $3,000 |
@@ -489,6 +516,9 @@ Result: Provably safe leader election
 | **Quorum-based** | Multi-region Aurora | $25,000 |
 | **2PC Transactions** | Custom + network | $90,000 |
 | **Byzantine Consensus** | Blockchain infra | $500,000+ |
+
+</div>
+
 
 #### Cost Breakdown Example: 2-Phase Commit
 ```yaml
@@ -542,6 +572,8 @@ graph TD
 
 ### Coordination Optimization Strategies
 
+<div class="responsive-table" markdown>
+
 | Strategy | Reduction | Implementation | Trade-off |
 |----------|-----------|----------------|-----------||
 | **Hierarchical** | 90% messages | Regional → Global | Added latency |
@@ -549,6 +581,9 @@ graph TD
 | **Sharding** | N-way reduction | Partition data | Cross-shard cost |
 | **Read Replicas** | 80% coordination | Local reads | Stale data |
 | **Caching** | 95% requests | TTL-based | Consistency window |
+
+</div>
+
 
 ---
 
@@ -593,6 +628,8 @@ Solution: Hybrid Approach
 
 #### 1. CRDTs (Conflict-Free Replicated Data Types)
 
+<div class="responsive-table" markdown>
+
 | CRDT Type | Use Case | Merge Cost | Example |
 |-----------|----------|------------|---------||
 | **G-Counter** | View counts | O(1) | YouTube views |
@@ -600,6 +637,9 @@ Solution: Hybrid Approach
 | **G-Set** | Growing sets | O(n) | Friend lists |
 | **OR-Set** | Add/remove | O(n²) | Shopping carts |
 | **LWW-Register** | Last write wins | O(1) | User profiles |
+
+</div>
+
 
 #### 2. Event Sourcing + CQRS
 
@@ -787,6 +827,8 @@ Results:
 
 ### Real-World Coordination Costs
 
+<div class="responsive-table" markdown>
+
 | Company | System | Coordination Type | Annual Cost | Optimization |
 |---------|--------|------------------|-------------|---------------|
 | **Netflix** | Video Streaming | Regional consensus | $2M | Edge caching |
@@ -794,6 +836,9 @@ Results:
 | **Banking** | Global Transfers | 2PC | $50M | Batch windows |
 | **Gaming** | MMO State | Regional primary | $10M | Client prediction |
 | **Social** | Feed Generation | Eventual consistency | $1M | Read replicas |
+
+</div>
+
 
 ---
 
@@ -848,12 +893,17 @@ Results:
 
 #### Fundamental Theorems
 
+<div class="responsive-table" markdown>
+
 | Theorem | Statement | Implication | Workaround |
 |---------|-----------|-------------|------------|
 | **FLP Impossibility** | No deterministic consensus with one faulty process | Perfect consensus impossible | Use randomization/timeouts |
 | **CAP Theorem** | Can't have Consistency + Availability + Partition tolerance | Must sacrifice one | Choose per use case |
 | **PACELC** | If Partition, choose A or C; Else choose Latency or Consistency | Trade-offs even when healthy | Dynamic adaptation |
 | **CALM Theorem** | Monotonic programs are coordination-free | Some computations don't need coordination | Use when possible |
+
+</div>
+
 
 ### Consistency Models Deep Dive
 
@@ -891,6 +941,8 @@ graph LR
 
 #### Consistency Models and Coordination Cost
 
+<div class="responsive-table" markdown>
+
 | Consistency Model | Coordination Required | Latency Impact | Use Cases |
 |-------------------|---------------------|----------------|------------|
 | **Eventual Consistency** | None (async) | 0ms | Social feeds, analytics |
@@ -900,6 +952,9 @@ graph LR
 | **Bounded Staleness** | Time sync | 5-50ms | Financial quotes |
 | **Strong Consistency** | Quorum/consensus | 10-100ms | Account balances |
 | **Linearizability** | Global ordering | 50-500ms | Configuration changes |
+
+</div>
+
 
 #### Practical Consistency Patterns
 
@@ -1020,6 +1075,8 @@ graph TD
 
 #### Handling Consistency Violations
 
+<div class="responsive-table" markdown>
+
 | Violation Type | Detection Method | Resolution Strategy |
 |----------------|------------------|--------------------|
 | **Read Skew** | Version comparison | Retry with stronger consistency |
@@ -1027,6 +1084,9 @@ graph TD
 | **Phantom Reads** | Range queries | Use predicate locks |
 | **Lost Updates** | Version vectors | Last-write-wins or merge |
 | **Dirty Reads** | Read timestamps | Use read committed |
+
+</div>
+
 
 #### Physical Limits
 
@@ -1251,12 +1311,17 @@ Bonus: Design optimization to reduce costs by 50%
 
 **Build a ride-sharing dispatch system**:
 
+<div class="responsive-table" markdown>
+
 | Requirement | Constraint | Your Solution |
 |-------------|------------|---------------|
 | Match drivers & riders | <5 sec | ? |
 | Prevent double-booking | 100% accurate | ? |
 | Handle 10K requests/sec | <100ms p99 | ? |
 | Span 3 continents | Optimize cost | ? |
+
+</div>
+
 
 ### Exercise 3: Debug Coordination Failure 🌳
 
@@ -1473,6 +1538,8 @@ class DynamoDBQuorum:
 
 ### Coordination Patterns by Industry
 
+<div class="responsive-table" markdown>
+
 | Industry | Pattern | Why | Cost |
 |----------|---------|-----|------|
 | **Finance** | 2PC/3PC | Regulatory requirement | Very High |
@@ -1481,6 +1548,9 @@ class DynamoDBQuorum:
 | **E-commerce** | Hybrid ($ = strong, browse = weak) | Balance UX/cost | Medium |
 | **Healthcare** | Chain Replication | Audit trail required | High |
 | **Streaming** | Best Effort | Retries acceptable | Very Low |
+
+</div>
+
 
 ### Coordination-Free Algorithm Design
 
@@ -1587,6 +1657,8 @@ Debug Tooling:
 
 ### Protocol Feature Matrix
 
+<div class="responsive-table" markdown>
+
 | Feature | 2PC | 3PC | Paxos | Raft | PBFT | Gossip | CRDT |
 |---------|-----|-----|-------|------|------|--------|------|
 | **Consistency** | Strong | Strong | Strong | Strong | Byzantine | Eventual | Eventual |
@@ -1596,6 +1668,9 @@ Debug Tooling:
 | **Latency** | High | Very High | Medium | Medium | High | Low | None |
 | **Failure Recovery** | Manual | Auto | Auto | Auto | Auto | Auto | N/A |
 | **Use Case** | Banking | Critical | General | General | Blockchain | Discovery | Counters |
+
+</div>
+
 
 ### When to Use Each Pattern
 
@@ -1625,6 +1700,8 @@ graph TD
 
 ### Coordination Anti-Patterns to Avoid
 
+<div class="responsive-table" markdown>
+
 | Anti-Pattern | Why It's Bad | Better Alternative |
 |--------------|--------------|--------------------|
 | **Global Locks** | Single point of failure, doesn't scale | Distributed locks, sharding |
@@ -1633,6 +1710,9 @@ graph TD
 | **Perfect Consistency** | Extremely expensive, often unnecessary | Eventual consistency |
 | **One Size Fits All** | Over/under engineering | Match pattern to need |
 | **No Monitoring** | Can't optimize what you can't measure | Comprehensive metrics |
+
+</div>
+
 
 ### The Future of Coordination
 

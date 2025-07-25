@@ -42,12 +42,17 @@ Each service handles:                  Proxies handle:
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | System | Scale | Implementation |
 |--------|-------|----------------|
 | **Netflix** | 1000+ services | Envoy proxy for all networking |
 | **Uber** | 3000+ services | Unified service mesh |
 | **Twitter** | Global scale | Linkerd standardization |
 | **Airbnb** | 500+ services | Istio for consistency |
+
+</div>
+
 
 ### Basic Implementation
 
@@ -131,12 +136,17 @@ graph TB
     style CP fill:#f9f,stroke:#333,stroke-width:4px
 ```
 
+<div class="responsive-table" markdown>
+
 | Component | Purpose | Key Functions |
 |-----------|---------|---------------|
 | **Sidecar Proxy** | Traffic interception | Route, secure, observe |
 | **Control Plane** | Configuration management | Discovery, policy, certificates |
 | **Service Registry** | Service tracking | Health, endpoints, versions |
 | **Policy Engine** | Behavior definition | Traffic rules, security, resilience |
+
+</div>
+
 
 ### Traffic Management
 
@@ -431,11 +441,16 @@ def smart_retry_policy() -> dict:
 
 #### CAP Theorem in Service Mesh
 
+<div class="responsive-table" markdown>
+
 | Consistency Pattern | Use Case | Mechanism | Trade-off |
 |-------------------|----------|-----------|----------|
 | **Leader Election** | Config management | Raft consensus | Availability during election |
 | **Service Discovery** | Endpoint updates | Gossip protocol | Temporary stale routes |
 | **Tunable** | Per-service needs | Configurable levels | Complexity |
+
+</div>
+
 
 #### Partition Handling Strategies
 
@@ -489,12 +504,17 @@ def model_sidecar_latency(request_rate: float, service_time: float) -> dict:
 
 ### Economic Impact
 
+<div class="responsive-table" markdown>
+
 | Benefit | Typical Improvement | Annual Value |
 |---------|-------------------|---------------|
 | **Outage Reduction** | 70% fewer | $500K-$5M saved |
 | **Developer Productivity** | 15% time saved | $300K-$3M saved |
 | **Operational Efficiency** | 50% less ops work | $200K-$2M saved |
 | **Time to Market** | 30% faster | Strategic value |
+
+</div>
+
 
 **Typical ROI**: 6-12 month payback, 300-500% 5-year ROI
 
@@ -504,6 +524,8 @@ def model_sidecar_latency(request_rate: float, service_time: float) -> dict:
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Question | Yes → Use Service Mesh | No → Alternative |
 |----------|----------------------|-----------------|
 | >10 microservices? | ✅ Essential for managing complexity | ⚠️ Libraries might suffice |
@@ -511,6 +533,9 @@ def model_sidecar_latency(request_rate: float, service_time: float) -> dict:
 | Complex traffic patterns? | ✅ A/B testing, canary, etc. | ⚠️ Load balancer features |
 | Multi-cluster/region? | ✅ Mesh handles federation | ⚠️ Consider complexity |
 | Strict observability needs? | ✅ Built-in distributed tracing | ⚠️ APM tools might work |
+
+</div>
+
 
 ### Deployment Architecture
 

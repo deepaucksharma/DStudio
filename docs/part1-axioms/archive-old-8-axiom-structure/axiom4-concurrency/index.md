@@ -712,6 +712,8 @@ graph TB
 
 ### Consistency Anomalies in Concurrent Systems
 
+<div class="responsive-table" markdown>
+
 | Anomaly | Description | Example | Prevention |
 |---------|-------------|---------|------------|
 | **Dirty Read** | Read uncommitted data | T1 writes X=10 (uncommitted), T2 reads X=10, T1 aborts | Read Committed isolation |
@@ -719,6 +721,9 @@ graph TB
 | **Phantom Read** | New rows appear | T1 counts rows, T2 inserts, T1 counts again | Serializable isolation |
 | **Write Skew** | Constraint violated | Two doctors go off-call simultaneously | Serializable or explicit locks |
 | **Read Skew** | Inconsistent reads | Read A, B changes, Read B - inconsistent | Snapshot isolation |
+
+</div>
+
 
 ### Distributed Consistency Under Concurrency
 

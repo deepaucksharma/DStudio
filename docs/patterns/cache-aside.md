@@ -475,6 +475,8 @@ class CacheAsideMonitoring:
 
 ### Cache-Aside vs Other Caching Patterns
 
+<div class="responsive-table" markdown>
+
 | Aspect | Cache-Aside | Write-Through | Write-Behind | Read-Through |
 |--------|-------------|---------------|--------------|--------------|
 | **Control** | Application | Cache Provider | Cache Provider | Cache Provider |
@@ -483,6 +485,9 @@ class CacheAsideMonitoring:
 | **Write Performance** | Fast | Slower | Fast | N/A |
 | **Flexibility** | High | Low | Medium | Low |
 | **Use Case** | Custom logic | Simple caching | Write-heavy | Read-heavy |
+
+</div>
+
 
 ### Decision Framework
 

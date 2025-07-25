@@ -239,6 +239,8 @@ flowchart TD
 
 ### Performance vs Complexity Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Pattern | Performance | Complexity | Use When |
 |---------|------------|------------|----------|
 | **Monolithic DB** | ⭐⭐⭐ | ⭐ | Starting out |
@@ -247,7 +249,12 @@ flowchart TD
 | **CQRS** | ⭐⭐⭐⭐ | ⭐⭐⭐ | Complex domains |
 | **Event Sourcing** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Audit requirements |
 
+</div>
+
+
 ### Consistency vs Availability Trade-offs
+
+<div class="responsive-table" markdown>
 
 | Pattern | Consistency | Availability | Use When |
 |---------|------------|--------------|----------|
@@ -255,6 +262,9 @@ flowchart TD
 | **Saga** | ⭐⭐⭐ | ⭐⭐⭐⭐ | Microservices |
 | **Event Sourcing** | ⭐⭐ | ⭐⭐⭐⭐⭐ | Event-driven |
 | **Consensus** | ⭐⭐⭐⭐ | ⭐⭐⭐ | Critical state |
+
+</div>
+
 
 ---
 
@@ -321,6 +331,8 @@ flowchart TD
 
 ### Effort Estimation Matrix
 
+<div class="responsive-table" markdown>
+
 | Pattern | Dev Time | Test Complexity | Ops Burden | Total Effort |
 |---------|----------|-----------------|------------|--------------|
 | **Cache-Aside** | 1 day | Low | Low | ⭐ |
@@ -328,6 +340,9 @@ flowchart TD
 | **API Gateway** | 1 week | Medium | Medium | ⭐⭐⭐ |
 | **Event Sourcing** | 2 weeks | High | High | ⭐⭐⭐⭐ |
 | **Service Mesh** | 1 month | High | Very High | ⭐⭐⭐⭐⭐ |
+
+</div>
+
 
 ### Learning Curve Comparison
 

@@ -82,6 +82,8 @@ class TradingSystem:
 
 #### The Timeline
 
+<div class="responsive-table" markdown>
+
 | Time | Event | Position | Loss |
 |------|-------|----------|------|
 | 9:30:00 | Market opens | 0 | $0 |
@@ -90,6 +92,9 @@ class TradingSystem:
 | 9:45:00 | 15 min in | ±4M shares | -$150M |
 | 10:00:00 | 30 min in | ±7M shares | -$300M |
 | 10:15:00 | HALT! | ±8M shares | -$440M |
+
+</div>
+
 
 **Lesson**: Distributed systems must coordinate deployments atomically or handle mixed versions gracefully.
 
@@ -253,6 +258,8 @@ class BlockchainNode:
 
 #### Probability of Successful Double-Spend
 
+<div class="responsive-table" markdown>
+
 | Confirmations | Attacker has 10% hashrate | Attacker has 30% hashrate |
 |---------------|---------------------------|---------------------------|
 | 0 | 100% | 100% |
@@ -261,6 +268,9 @@ class BlockchainNode:
 | 3 | 1.3% | 26.9% |
 | 6 | 0.06% | 13.2% |
 | 10 | 0.002% | 5.1% |
+
+</div>
+
 
 **Lesson**: Consensus protocols trade immediate consistency for probabilistic finality.
 
@@ -757,6 +767,8 @@ async def critical_section(redis_client):
 
 ### Concurrency Models Comparison
 
+<div class="responsive-table" markdown>
+
 | Model | Use When | Avoid When | Example |
 |-------|----------|------------|---------||
 | **Pessimistic Locking** | Conflicts common | High contention | Traditional RDBMS |
@@ -764,6 +776,9 @@ async def critical_section(redis_client):
 | **MVCC** | Many readers | Limited memory | PostgreSQL |
 | **Event Sourcing** | Audit needed | Simple CRUD | Banking ledgers |
 | **CRDTs** | Partition tolerance | Strong consistency | Collaborative editing |
+
+</div>
+
 
 ---
 

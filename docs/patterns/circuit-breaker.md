@@ -73,11 +73,16 @@ stateDiagram-v2
 
 ### Simple State Machine
 
+<div class="responsive-table" markdown>
+
 | State | Behavior | When to Transition |
 |-------|----------|--------------------|
 | **CLOSED** | Let requests through | After X failures → OPEN |
 | **OPEN** | Reject immediately | After timeout → HALF-OPEN |
 | **HALF-OPEN** | Test with few requests | Success → CLOSED, Failure → OPEN |
+
+</div>
+
 
 !!! example "Real-World Impact: Netflix's Hystrix"
     In 2012, Netflix implemented circuit breakers across their microservices architecture using Hystrix³. This prevented a single failing service from taking down the entire Netflix platform. During a major AWS outage in 2012, Netflix remained operational while many other services failed, largely due to their circuit breaker implementation that isolated failures to specific regions⁴.
@@ -91,12 +96,17 @@ stateDiagram-v2
 #### Failure Detection
 Track failure metrics to determine service health:
 
+<div class="responsive-table" markdown>
+
 | Metric Type | Example | Threshold | Industry Example |
 |-------------|---------|-----------|------------------|
 | **Error Rate** | 5 failures in 10 requests | 50% | Twitter: 1% error rate trips circuit⁵ |
 | **Timeout Rate** | 3 timeouts in 5 requests | 60% | Amazon: 99.9th percentile latency trigger⁶ |
 | **Response Time** | Average > 5 seconds | 5s | Uber: P99 > 500ms opens circuit⁷ |
 | **Exception Count** | 10 consecutive errors | 10 | Stripe: 5 consecutive 5xx errors⁸ |
+
+</div>
+
 
 #### State Transitions
 
@@ -120,12 +130,17 @@ graph LR
 
 #### Configuration Parameters
 
+<div class="responsive-table" markdown>
+
 | Parameter | Purpose | Typical Value | Real-World Example |
 |-----------|---------|---------------|-------------------|
 | **Failure Threshold** | Errors before opening | 5-10 failures | Netflix: 20 failures in 10 seconds⁹ |
 | **Recovery Timeout** | Time before testing | 30-60 seconds | LinkedIn: 30 seconds¹⁰ |
 | **Success Threshold** | Successes to close | 2-5 successes | Airbnb: 3 consecutive successes¹¹ |
 | **Test Request Ratio** | % requests in half-open | 10-25% | Spotify: 10% test traffic¹² |
+
+</div>
+
 
 ### Implementation Flow
 
@@ -216,11 +231,16 @@ Failure Rate: Calculate across all buckets
 #### 3. Adaptive Circuit Breaker
 Adjusts thresholds based on system load:
 
+<div class="responsive-table" markdown>
+
 | Load Level | Error Threshold | Recovery Time |
 |------------|----------------|---------------|
 | Low (<100 RPS) | 50% | 60s |
 | Medium (100-1000 RPS) | 20% | 30s |
 | High (>1000 RPS) | 5% | 10s |
+
+</div>
+
 
 **Used by**: Twitter's Finagle¹⁶ (dynamic thresholds based on request rate)
 
@@ -249,12 +269,17 @@ graph TB
 
 #### 2. Fallback Strategies
 
+<div class="responsive-table" markdown>
+
 | Strategy | Use Case | Example |
 |----------|----------|---------|
 | **Default Value** | Non-critical data | Netflix: Show generic thumbnails¹⁸ |
 | **Cache** | Read-heavy operations | Twitter: Serve stale tweets¹⁹ |
 | **Queue** | Write operations | Uber: Queue ride requests²⁰ |
 | **Degraded Service** | Partial functionality | Spotify: Offline playlists²¹ |
+
+</div>
+
 
 #### 3. Monitoring and Alerting
 
@@ -275,12 +300,17 @@ Key Metrics to Track:
 
 ### Common Pitfalls and Solutions
 
+<div class="responsive-table" markdown>
+
 | Pitfall | Consequence | Solution | Case Study |
 |---------|-------------|----------|------------|
 | **Thundering Herd** | All instances test simultaneously | Jittered recovery timeout | Facebook: Random jitter prevents synchronized recovery²³ |
 | **Too Sensitive** | Opens on minor blips | Require volume threshold | Google: Minimum 100 requests before evaluating²⁴ |
 | **Too Slow to Open** | Cascading failures | Lower thresholds under load | Netflix: Adaptive thresholds based on system health²⁵ |
 | **No Fallback** | Complete feature loss | Implement degraded mode | Amazon: Read from cache when DynamoDB circuits open²⁶ |
+
+</div>
+
 
 ---
 
@@ -290,6 +320,8 @@ Key Metrics to Track:
 
 #### 1. Language-Specific Libraries
 
+<div class="responsive-table" markdown>
+
 | Language | Library | Features | Adoption |
 |----------|---------|----------|----------|
 | **Java** | Hystrix | Full featured, metrics | Netflix, Airbnb |
@@ -297,6 +329,9 @@ Key Metrics to Track:
 | **Python** | py-breaker | Decorators, async | Instagram, Pinterest |
 | **JavaScript** | opossum | Promise-based | PayPal, Walmart |
 | **.NET** | Polly | Policy-based | Microsoft, Stack Overflow |
+
+</div>
+
 
 #### 2. Service Mesh Integration
 
@@ -435,12 +470,17 @@ graph LR
 
 **Solution Comparison**:
 
+<div class="responsive-table" markdown>
+
 | Approach | Architecture | Pros | Cons |
 |----------|-------------|------|------|
 | **Redis Store** | ![Redis](https://img.shields.io/badge/Central-Store-red) | Fast (< 1ms), Consistent view | SPOF, Requires Redis cluster |
 | **Consensus** | ![Raft](https://img.shields.io/badge/Raft-Consensus-blue) | Highly available, No SPOF | Complex, Higher latency (10-50ms) |
 | **Gossip Protocol** | ![P2P](https://img.shields.io/badge/P2P-Gossip-green) | Decentralized, Fault tolerant | Eventually consistent, Convergence delay |
 | **Load Balancer** | ![LB](https://img.shields.io/badge/LB-Managed-orange) | Centralized control, Simple | Vendor lock-in, Limited flexibility |
+
+</div>
+
 
 ### Advanced Failure Cases
 
@@ -683,6 +723,8 @@ Continuous Validation:
 
 #### Cost-Benefit Matrix
 
+<div class="responsive-table" markdown>
+
 | Impact | Without Circuit Breaker | With Circuit Breaker |
 |--------|------------------------|---------------------|
 | **Availability** | 99.9% (8.76h/year down) | 99.99% (52m/year down) |
@@ -692,25 +734,38 @@ Continuous Validation:
 | **Operational Cost** | $2M/year downtime | $200K/year downtime |
 | **ROI** | - | 3,600% first year |
 
+</div>
+
+
 #### Circuit Breaker Metrics Dashboard
 
 !!! tip "🎯 Production Monitoring Dashboard"
     **Circuit Breaker Health Status**
     
+<div class="responsive-table" markdown>
+
     | Service | State | Success Rate | Status |
     |---------|-------|--------------|--------|
     | Service A | 🟢 CLOSED | 99.9% | Healthy, normal operation |
     | Service B | 🟡 HALF-OPEN | Testing | Testing recovery with limited traffic |
     | Service C | 🔴 OPEN | 0% | Failed, recovering in 45s |
+
+</div>
+
     
     **Performance Impact Metrics**
     
+<div class="responsive-table" markdown>
+
     | Metric | Value | Trend |
     |--------|-------|-------|
     | Prevented Cascade Failures | 23 this week | ↓ 15% |
     | Average Recovery Time | 2.3 minutes | ↓ 0.5 min |
     | Fallback Success Rate | 96.7% | ↑ 2.1% |
     | Circuit Trip Events | 45 this week | ↓ 8% |
+
+</div>
+
 
 ### Future Directions
 
@@ -799,6 +854,8 @@ Clear runbooks for when circuits open:
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Question | Yes → Use Circuit Breaker | No → Alternative |
 |----------|---------------------------|------------------|
 | Calling external services? | ✅ Essential | ⚠️ Consider for internal services |
@@ -806,6 +863,9 @@ Clear runbooks for when circuits open:
 | Can implement fallbacks? | ✅ Maximum benefit | ⚠️ Still valuable for fast failure |
 | Service has SLA? | ✅ Protect your SLA | ⚠️ Monitor and alert instead |
 | High traffic volume? | ✅ Prevents resource exhaustion | ⚠️ Simple timeout may work |
+
+</div>
+
 
 ### Implementation Checklist
 
@@ -834,6 +894,8 @@ Clear runbooks for when circuits open:
 
 ### Common Pitfalls
 
+<div class="responsive-table" markdown>
+
 | Pitfall | Impact | Solution |
 |---------|--------|---------|
 | **Threshold too low** | False positives | Start with 10-20 failures |
@@ -841,6 +903,9 @@ Clear runbooks for when circuits open:
 | **No fallback strategy** | Poor user experience | Always implement fallbacks |
 | **Ignoring partial failures** | Delayed problem detection | Monitor latency percentiles |
 | **Shared circuit breaker** | Resource contention | Use per-service instances |
+
+</div>
+
 
 ---
 
@@ -854,6 +919,8 @@ Clear runbooks for when circuits open:
 
 ## Quick Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Use Case | Circuit Breaker Type | Key Configuration |
 |----------|---------------------|-------------------|
 | **Microservice calls** | Basic count-based | 5 failures, 30s timeout |
@@ -861,6 +928,9 @@ Clear runbooks for when circuits open:
 | **External APIs** | Sliding window | 10-request window, 40% threshold |
 | **Critical payments** | Distributed with fallback | Redis state, cached responses |
 | **Real-time systems** | Adaptive ML-powered | Dynamic thresholds, 5s timeout |
+
+</div>
+
 
 ## Implementation Templates
 

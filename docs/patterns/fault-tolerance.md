@@ -82,6 +82,8 @@ flowchart TB
 
 ### Types of Faults
 
+<div class="responsive-table" markdown>
+
 | Fault Type | Examples | Impact | Mitigation |
 |------------|----------|--------|------------|
 | **Hardware** | Disk failure, Memory corruption | Service unavailable | Redundancy, RAID |
@@ -89,6 +91,9 @@ flowchart TB
 | **Network** | Partitions, Packet loss | Communication failure | Retries, Timeouts |
 | **Human** | Configuration errors | Unpredictable impact | Automation, Validation |
 | **Environmental** | Power outage, Cooling failure | System shutdown | UPS, Multi-DC |
+
+</div>
+
 
 ### Fault Tolerance Patterns
 
@@ -1204,6 +1209,8 @@ for key, value in roi_analysis.items():
 
 ### Fault Tolerance Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | System Type | Recommended Patterns | Availability Target | Implementation Complexity |
 |-------------|---------------------|-------------------|-------------------------|
 | **Critical Infrastructure** | Circuit Breaker + Bulkhead + Failover | 99.99% | High |
@@ -1211,6 +1218,9 @@ for key, value in roi_analysis.items():
 | **Content Delivery** | Circuit Breaker + Caching + Multi-Region | 99.95% | High |
 | **Internal Tools** | Basic Retry + Health Checks | 99.5% | Low |
 | **Real-time Systems** | Redundancy + Fast Failover | 99.999% | Very High |
+
+</div>
+
 
 ### Implementation Checklist
 

@@ -12,6 +12,8 @@ last_updated: 2025-07-25
 # Redis Architecture: Scale and Architecture Deep Dive
 
 !!! abstract "Quick Facts"
+<div class="responsive-table" markdown>
+
     | Metric | Value |
     |--------|-------|
     | **Scale** | 1M+ operations/second |
@@ -19,6 +21,9 @@ last_updated: 2025-07-25
     | **Data Volume** | TB-scale datasets |
     | **Availability** | 99.9% with replication |
     | **Team Size** | 50+ core contributors |
+
+</div>
+
 
 ## Executive Summary
 
@@ -229,12 +234,17 @@ graph LR
 
 ### Resource Utilization
 
+<div class="responsive-table" markdown>
+
 | Resource | Usage | Efficiency |
 |----------|-------|------------|
 | CPU | 70-80% single core | High for I/O bound workloads |
 | Memory | 80-90% | Extremely efficient data structures |
 | Network | Variable | Limited by single-thread processing |
 | Storage | Periodic writes | Configurable persistence trade-offs |
+
+</div>
+
 
 ## Operational Excellence
 

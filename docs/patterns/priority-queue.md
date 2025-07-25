@@ -653,6 +653,8 @@ deadline_queue.enqueue("Batch job", 4, now + timedelta(minutes=2))
 
 ## Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Fairness | Performance | Complexity | Starvation Risk |
 |----------|----------|-------------|------------|-----------------|
 | Simple Priority | Low | Very High | Low | High |
@@ -660,6 +662,9 @@ deadline_queue.enqueue("Batch job", 4, now + timedelta(minutes=2))
 | Multi-level Feedback | High | Medium | High | Very Low |
 | Deadline-Aware | Medium | Medium | High | Medium |
 | Redis Distributed | Medium | High | Medium | Medium |
+
+</div>
+
 
 ## Anti-Starvation Techniques
 

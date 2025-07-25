@@ -163,6 +163,8 @@ graph LR
 ### Wide Layout (Container Width)
 <div class="wide-layout" markdown>
 
+<div class="responsive-table" markdown>
+
 | Pattern | Use Case | Latency Impact | Complexity | Cost | Team Size |
 |---------|----------|----------------|------------|------|-----------|
 | **Circuit Breaker** | Prevent cascade failures | Minimal (+1-2ms) | Low | $ | 1-2 |
@@ -174,9 +176,14 @@ graph LR
 
 </div>
 
+
+</div>
+
 ## 4. Responsive Tables
 
 ### Standard Responsive Table
+<div class="responsive-table" markdown>
+
 <div class="responsive-table" markdown>
 
 | Feature | Basic Plan | Pro Plan | Enterprise Plan | Ultra Scale |
@@ -187,6 +194,9 @@ graph LR
 | **Support** | Email | Email + Chat | Phone + Dedicated | 24/7 + TAM |
 | **SLA** | 99% | 99.9% | 99.99% | 99.999% |
 | **Price** | $10/mo | $50/mo | $200/mo | Custom |
+
+</div>
+
 
 </div>
 

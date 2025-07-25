@@ -89,12 +89,17 @@ stateDiagram-v2
 
 ### Types of Health Checks
 
+<div class="responsive-table" markdown>
+
 | Check Type | Purpose | Frequency | Timeout |
 |------------|---------|-----------|---------|
 | **Liveness** | Is process alive? | 10-30s | 1-2s |
 | **Readiness** | Can handle traffic? | 5-10s | 2-5s |
 | **Startup** | Initialization complete? | 1-5s | 30-60s |
 | **Deep** | Full dependency check | 30-60s | 10-20s |
+
+</div>
+
 
 ### Health Check Response Standards
 

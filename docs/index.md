@@ -86,12 +86,17 @@ hide:
 ## Choose Your Learning Path
 
 !!! tip "Find Your Starting Point"
+<div class="responsive-table" markdown>
+
     | Your Background | Recommended Path | Time Investment |
     |-----------------|------------------|-----------------|
     | New Graduate | [Foundations First](introduction/getting-started/#path-1-foundation-builder-new-graduates) | 12 weeks |
     | Mid-Level Engineer | [Practical Patterns](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers) | 8 weeks |
     | Senior Engineer | [Advanced Topics](introduction/getting-started/#path-3-system-designer-senior-engineers) | 6 weeks |
     | Engineering Manager | [Strategic Overview](introduction/getting-started/#path-4-technical-leader-managersarchitects) | 4 weeks |
+
+</div>
+
 
 ## Why This Approach?
 

@@ -736,6 +736,8 @@ class ReadThroughMonitoring:
 
 ### Read-Through vs Other Caching Patterns
 
+<div class="responsive-table" markdown>
+
 | Aspect | Read-Through | Cache-Aside | Write-Through | Write-Behind |
 |--------|--------------|-------------|---------------|--------------|
 | **Read Simplicity** | Excellent | Good | Good | Good |
@@ -744,6 +746,9 @@ class ReadThroughMonitoring:
 | **Flexibility** | Low | High | Medium | Medium |
 | **Complexity** | Low | Medium | Medium | High |
 | **Use Case** | Read-heavy | General | Write-heavy | Analytics |
+
+</div>
+
 
 ### Decision Framework
 

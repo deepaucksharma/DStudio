@@ -1096,12 +1096,17 @@ graph TB
 
 **Adaptive Heartbeat Configuration**
 
+<div class="responsive-table" markdown>
+
 | Network Quality Score | Heartbeat Interval | Battery Impact | Reliability |
 |----------------------|-------------------|----------------|------------|
 | > 0.8 (Excellent) | 60s | Low | High |
 | 0.6 - 0.8 (Good) | 30-45s | Medium | High |
 | 0.4 - 0.6 (Fair) | 20-30s | Medium-High | Medium |
 | < 0.4 (Poor) | 10-20s | High | Low |
+
+</div>
+
 
 **Key Connection Metrics**
 - Concurrent connections: 2M+ per server
@@ -1185,6 +1190,8 @@ graph TB
 
 **Encryption Security Guarantees**
 
+<div class="responsive-table" markdown>
+
 | Property | Description | Benefit |
 |----------|-------------|---------|
 | **Forward Secrecy** | Past messages safe if keys compromised | Historical privacy |
@@ -1192,6 +1199,9 @@ graph TB
 | **Deniability** | Messages can't be cryptographically attributed | Plausible deniability |
 | **Message Ordering** | Detects reordering/replay attacks | Integrity protection |
 | **Break-in Recovery** | Self-heals after temporary compromise | Resilience |
+
+</div>
+
 
 ### 4. Media Handling
 
@@ -1222,12 +1232,17 @@ graph TB
 
 **Media Size Limits & Formats**
 
+<div class="responsive-table" markdown>
+
 | Media Type | Max Size | Supported Formats | Compression |
 |------------|----------|-------------------|-------------|
 | **Images** | 16 MB | JPG, PNG, GIF, WebP | WebP conversion |
 | **Videos** | 100 MB | MP4, MOV, AVI | H.264/H.265 |
 | **Voice** | 10 MB | MP3, AAC, Opus | Opus @ 16kbps |
 | **Documents** | 100 MB | PDF, DOC, DOCX | ZIP if needed |
+
+</div>
+
 
 ### 5. Group Chat Architecture
 
@@ -1268,17 +1283,24 @@ sequenceDiagram
 
 **Group Chat Configuration**
 
+<div class="responsive-table" markdown>
+
 | Group Size | Delivery Strategy | Fanout Type | Performance Impact |
 |------------|------------------|-------------|-------------------|
 | 1-50 members | Direct Fanout | Parallel | Low latency, high resource |
 | 51-100 members | Batched Fanout | Server-grouped | Balanced |
 | 101-256 members | Optimized Fanout | Multi-tier | High efficiency |
 
+</div>
+
+
 ## Law Mapping Analysis - Design Decisions vs Fundamental Constraints
 
 ### Comprehensive Design Decision Matrix
 
 Every architectural choice in a chat system must respect all 7 fundamental laws. This comprehensive mapping shows how each design decision impacts and is impacted by each law:
+
+<div class="responsive-table" markdown>
 
 | Design Decision | Law 2: Asynchronous Reality | Law 4: Trade-offs | Law 1: Failure | Law 3: Emergence | Law 5: Epistemology | Law 5: Epistemology | Law 6: Human-API |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|----------------------|------------------------|-------------------|
@@ -1293,9 +1315,14 @@ Every architectural choice in a chat system must respect all 7 fundamental laws.
 | **Media Handling** | ❌ Upload/download time<br/>✅ CDN distribution | ❌ Storage intensive<br/>❌ Bandwidth heavy | ✅ Separate media pipeline<br/>✅ Progressive download | ✅ Async upload<br/>✅ Parallel processing | ✅ Media before message<br/>✅ Reference architecture | ✅ Media pipeline metrics<br/>✅ CDN performance | ✅ Progress indicators<br/>✅ Preview generation |
 | **Group Chats** | ❌ Fan-out latency<br/>❌ Member count impact | ❌ O(N) delivery<br/>❌ State per group | ✅ Partial delivery OK<br/>❌ Consistency challenges | ✅ Concurrent speakers<br/>❌ Message ordering | ❌ Total order required<br/>❌ Distributed consensus | ✅ Group health metrics<br/>✅ Member analytics | ✅ Active discussions<br/>❌ Notification overload |
 
+</div>
+
+
 ### Decision Framework Matrix
 
 When designing your chat system, use this matrix to evaluate trade-offs:
+
+<div class="responsive-table" markdown>
 
 | Architecture Choice | Best For | Avoid When | Law Alignment Score |
 |-------------------|----------|------------|---------------------|
@@ -1304,6 +1331,9 @@ When designing your chat system, use this matrix to evaluate trade-offs:
 | **CRDT-Based** | Collaborative editing, Offline-first, P2P | Simple messaging, Centralized control needed | Latency: 4/5<br/>Scale: 4/5<br/>Reliability: 4/5 |
 | **Actor Model** | Channel-based, Isolated conversations, Gaming guilds | Global state needed, Cross-conversation queries | Latency: 4/5<br/>Scale: 4/5<br/>Reliability: 3/5 |
 | **Hybrid (Recommended)** | General purpose, Scale + real-time, Production systems | Simple prototypes, Specific regulatory requirements | Latency: 4/5<br/>Scale: 5/5<br/>Reliability: 4/5 |
+
+</div>
+
 
 ## Part 2: Architecture - Building Real-Time at Scale
 
@@ -1879,6 +1909,8 @@ class ProjectionManager:
 
 ### Architecture Comparison Matrix
 
+<div class="responsive-table" markdown>
+
 | Criteria | P2P | Centralized | Federated | Blockchain | Event Sourcing | Hybrid |
 |----------|-----|-------------|-----------|------------|----------------|---------|
 | **Latency** | 10-50ms | 20-100ms | 50-200ms | 1-15 sec | 30-150ms | 20-80ms |
@@ -1890,7 +1922,12 @@ class ProjectionManager:
 | **Offline Support** | Excellent | Poor | Good | Good | Good | Good |
 | **Compliance** | Difficult | Easy | Moderate | Complex | Easy | Easy |
 
+</div>
+
+
 ### Feature Support Comparison
+
+<div class="responsive-table" markdown>
 
 | Feature | P2P | Centralized | Federated | Blockchain | Event Sourcing | Hybrid |
 |---------|-----|-------------|-----------|------------|----------------|---------|
@@ -1905,7 +1942,12 @@ class ProjectionManager:
 | **E2E Encryption** | ✅ Native | ⚠️ Retrofit | ✅ Good | ✅ Native | ⚠️ Complex | ✅ Supported |
 | **Moderation** | ❌ None | ✅ Central | ⚠️ Per-server | ❌ Impossible | ✅ Audit trail | ✅ Flexible |
 
+</div>
+
+
 ### Scale and Performance Characteristics
+
+<div class="responsive-table" markdown>
 
 | Metric | P2P | Centralized | Federated | Blockchain | Event Sourcing | Hybrid |
 |--------|-----|-------------|-----------|------------|----------------|---------|
@@ -1916,9 +1958,14 @@ class ProjectionManager:
 | **CPU Usage** | High | Low | Moderate | Very High | Moderate | Low |
 | **Operational Cost** | Minimal | Linear | Sub-linear | Exponential | Linear | Sub-linear |
 
+</div>
+
+
 ### Decision Framework
 
 Choose your architecture based on these primary factors:
+
+<div class="responsive-table" markdown>
 
 | If You Need... | Choose... | Because... |
 |----------------|-----------|------------|
@@ -1928,6 +1975,9 @@ Choose your architecture based on these primary factors:
 | Audit compliance | Event Sourcing | Complete history |
 | Proof of authenticity | Blockchain | Cryptographic guarantees |
 | Production scale | Hybrid | Balanced trade-offs |
+
+</div>
+
 
 ### Recommended Hybrid Architecture
 
@@ -2061,6 +2111,8 @@ graph TD
 
 ### Use Case Mapping
 
+<div class="responsive-table" markdown>
+
 | Use Case | Recommended Architecture | Key Requirements |
 |----------|-------------------------|------------------|
 | **Startup MVP** | Centralized | Fast development, iterate quickly |
@@ -2070,6 +2122,9 @@ graph TD
 | **Government Comms** | Federated | Data sovereignty, interop |
 | **DAO Governance** | Blockchain | Transparent, immutable, public |
 | **WhatsApp Clone** | Hybrid | Scale, reliability, mobile-first |
+
+</div>
+
 
 ### Architecture Evolution Path
 
@@ -2124,6 +2179,8 @@ graph TB
 
 **System Performance Metrics**
 
+<div class="responsive-table" markdown>
+
 | Metric Category | Key Indicators | Alert Thresholds |
 |-----------------|----------------|------------------|
 | **Latency** | P50: 50ms<br/>P95: 200ms<br/>P99: 500ms | P99 > 1s |
@@ -2131,6 +2188,9 @@ graph TB
 | **Connections** | Active: 2M<br/>New/sec: 10K | Drops > 10% |
 | **Errors** | Delivery failures<br/>Timeout errors | Error rate > 1% |
 | **Business** | DAU: 10M<br/>Messages/user: 50 | DAU drop > 5% |
+
+</div>
+
 
 **Monitoring Stack Architecture**
 
@@ -2205,6 +2265,8 @@ graph TB
 
 **Failure Recovery Procedures**
 
+<div class="responsive-table" markdown>
+
 | Failure Type | Detection Method | Recovery Time | Recovery Action |
 |--------------|------------------|---------------|----------------|
 | **Regional Partition** | Ping failures > 3 | < 30s | DNS failover to healthy region |
@@ -2213,9 +2275,14 @@ graph TB
 | **Cache Failure** | Circuit breaker open | < 5s | Fallback to database |
 | **Queue Overflow** | Depth > 1M messages | < 120s | Spill to S3, add consumers |
 
+</div>
+
+
 ## Key Implementation Considerations
 
 ### 1. Message Ordering Strategy
+
+<div class="responsive-table" markdown>
 
 | Strategy | Use When | Trade-offs |
 |----------|----------|------------|
@@ -2224,7 +2291,12 @@ graph TB
 | **Vector Clocks** | Distributed systems | Complex but accurate |
 | **Hybrid Logical Clocks** | Best of both | Recommended for production |
 
+</div>
+
+
 ### 2. Storage Strategy
+
+<div class="responsive-table" markdown>
 
 | Data Type | Hot Storage | Warm Storage | Cold Storage |
 |-----------|-------------|--------------|--------------|
@@ -2233,7 +2305,12 @@ graph TB
 | **Media Files** | CDN Cache | S3 Standard | S3 Glacier |
 | **Search Index** | Elasticsearch | - | - |
 
+</div>
+
+
 ### 3. Scaling Triggers
+
+<div class="responsive-table" markdown>
 
 | Metric | Warning Threshold | Action Required |
 |--------|------------------|-----------------|
@@ -2242,6 +2319,9 @@ graph TB
 | **Queue Depth** | > 10K messages | Add workers |
 | **DB CPU** | > 70% sustained | Shard database |
 | **Storage Growth** | > 1TB/day | Implement archival |
+
+</div>
+
 
 ## Key Design Insights
 

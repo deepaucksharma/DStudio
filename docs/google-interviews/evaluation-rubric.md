@@ -405,6 +405,8 @@ This comprehensive evaluation framework helps candidates assess their performanc
 
 ### Scoring Matrix
 
+<div class="responsive-table" markdown>
+
 | Category | Score (1-4) | Weight | Weighted Score |
 |----------|-------------|---------|----------------|
 | Problem Analysis | ___ | 25% | ___ |
@@ -416,6 +418,9 @@ This comprehensive evaluation framework helps candidates assess their performanc
 | Operations | ___ | 5% | ___ |
 | Communication | ___ | 5% | ___ |
 | **Total Score** | | | **___/4.0** |
+
+</div>
+
 
 ### Detailed Feedback
 
@@ -519,6 +524,8 @@ This comprehensive evaluation framework helps candidates assess their performanc
 
 **Week of: ________________**
 
+<div class="responsive-table" markdown>
+
 | Day | Problem Practiced | Score | Key Learning |
 |-----|------------------|-------|--------------|
 | Mon | | | |
@@ -528,6 +535,9 @@ This comprehensive evaluation framework helps candidates assess their performanc
 | Fri | | | |
 | Sat | | | |
 | Sun | | | |
+
+</div>
+
 
 **Weekly Average Score:** ___/4.0
 **Improvement from Last Week:** +/- ___

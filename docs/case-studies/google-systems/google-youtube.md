@@ -951,6 +951,8 @@ class MultiLayerCache:
 
 ### Key Design Decisions
 
+<div class="responsive-table" markdown>
+
 | Decision | Choice | Alternative | Trade-off |
 |----------|--------|-------------|-----------|
 | **Storage** | Object Storage + CDN | Distributed File System | Simplicity vs Control |
@@ -958,6 +960,9 @@ class MultiLayerCache:
 | **Video Format** | DASH + HLS | Single Format | Compatibility vs Complexity |
 | **Transcoding** | Pre-transcode all | On-demand transcoding | Storage vs Latency |
 | **ML Platform** | Custom TensorFlow | Off-the-shelf | Control vs Development Time |
+
+</div>
+
 
 ### Alternative Architectures
 

@@ -558,6 +558,8 @@ print(f"Compression ratio: {compression_ratio:.2f}")
 
 ## Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Ordering | Query Performance | Storage Efficiency | Throughput | Complexity |
 |----------|----------|------------------|-------------------|------------|------------|
 | TSID | Perfect | Excellent | High | Very High | Low |
@@ -565,6 +567,9 @@ print(f"Compression ratio: {compression_ratio:.2f}")
 | Prometheus | By Series | Good | Medium | High | Medium |
 | OpenTSDB | Perfect | Excellent | Medium | Very High | High |
 | Sharded | Perfect | Excellent | High | Very High | High |
+
+</div>
+
 
 ## Common Pitfalls
 

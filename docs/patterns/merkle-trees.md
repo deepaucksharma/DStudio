@@ -159,6 +159,8 @@ Only log(n) hashes needed
 
 ### Complexity Analysis Table
 
+<div class="responsive-table" markdown>
+
 | Operation | Time Complexity | Space Complexity | Proof Size |
 |-----------|-----------------|------------------|------------|
 | **Build tree** | O(n) | O(n) | N/A |
@@ -167,6 +169,9 @@ Only log(n) hashes needed
 | **Find differences** | O(n) worst | O(log n) avg | N/A |
 | **Generate proof** | O(log n) | O(log n) | O(log n) |
 | **Merge trees** | O(n) | O(n) | N/A |
+
+</div>
+
 
 ### Visual Proof Size Comparison
 
@@ -371,6 +376,8 @@ graph TD
 
 ### Comparison of Merkle Tree Types
 
+<div class="responsive-table" markdown>
+
 | Variant | Structure | Use Case | Advantages | Disadvantages |
 |---------|-----------|----------|------------|---------------|
 | **Binary Merkle** | Each node has 2 children | General purpose | Simple, well-understood | Fixed structure |
@@ -378,6 +385,9 @@ graph TD
 | **Sparse Merkle** | Default empty nodes | Key-value stores | Handles sparse data | Large proof size |
 | **Verkle Trees** | Vector commitments | Future blockchains | Smaller proofs | Newer, less tested |
 | **Merkle Mountain Range** | Multiple peaks | Append-only logs | Efficient appends | Complex proofs |
+
+</div>
+
 
 ### Visual: Sparse Merkle Tree
 
@@ -409,6 +419,8 @@ graph TD
 ### Attack Vectors and Mitigations
 
 !!! info "Common Security Threats"
+<div class="responsive-table" markdown>
+
     | Attack Type | Description | Mitigation |
     |-------------|-------------|------------|
     | **Second Preimage** | Find different data with same hash | Use strong hash (SHA-256+) |
@@ -416,6 +428,9 @@ graph TD
     | **Length Extension** | Append data to hash | Use HMAC or hash twice |
     | **Proof Replay** | Reuse old valid proofs | Include timestamps/nonces |
     | **Tree Malleability** | Different trees, same root | Canonical ordering |
+
+</div>
+
 
 ### Secure Implementation Checklist
 
@@ -615,6 +630,8 @@ graph TD
 
 ### Best Practices Checklist
 
+<div class="responsive-table" markdown>
+
 | ✓ | Practice | Rationale |
 |---|----------|-----------|  
 | ☐ | Use SHA-256 or better | Security against collisions |
@@ -625,6 +642,9 @@ graph TD
 | ☐ | Document tree parameters | Maintainability |
 | ☐ | Monitor tree balance | Performance tracking |
 | ☐ | Implement incremental updates | Efficiency |
+
+</div>
+
 
 ## Decision Framework
 

@@ -825,12 +825,17 @@ print(f"Politeness Score: {report['politeness_score']:.1f}/100")
 
 ## Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Respectfulness | Performance | Complexity | Resource Usage |
 |----------|----------------|-------------|------------|----------------|
 | Basic Politeness | Good | High | Low | Low |
 | Adaptive Politeness | Excellent | Medium | Medium | Medium |
 | Distributed Politeness | Excellent | Medium | High | High |
 | Monitored Politeness | Excellent | Medium | Medium | Medium |
+
+</div>
+
 
 ## Common Politeness Violations
 

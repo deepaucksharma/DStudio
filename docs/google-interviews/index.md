@@ -305,6 +305,8 @@ gantt
 
 ### Processing & Compute
 
+<div class="responsive-table" markdown>
+
 | Technology | Use Case | Key Features |
 |------------|----------|--------------|
 | **MapReduce** | Batch processing | - Parallel processing<br>- Fault tolerant<br>- Simple programming model |
@@ -312,13 +314,21 @@ gantt
 | **Borg** | Container orchestration | - Cluster management<br>- Resource efficiency<br>- Basis for Kubernetes |
 | **Cloud Functions** | Serverless | - Event-driven<br>- Auto-scaling<br>- Pay per execution |
 
+</div>
+
+
 ### Networking & Communication
+
+<div class="responsive-table" markdown>
 
 | Technology | Use Case | Key Features |
 |------------|----------|--------------|
 | **Stubby/gRPC** | RPC framework | - Binary protocol<br>- Streaming support<br>- Multi-language |
 | **Andromeda** | SDN | - Virtual networking<br>- Global load balancing<br>- DDoS protection |
 | **Maglev** | Load balancing | - Consistent hashing<br>- Connection draining<br>- Health checking |
+
+</div>
+
 
 ## Interview Focus Areas by Role
 
@@ -559,6 +569,8 @@ graph LR
 
 ### System Design Round Format (45 minutes)
 
+<div class="responsive-table" markdown>
+
 | Time | Phase | Focus |
 |------|-------|-------|
 | 0-5 min | **Requirements** | Clarify functional & non-functional requirements |
@@ -567,6 +579,9 @@ graph LR
 | 25-35 min | **Deep Dive** | Detail 1-2 components, handle edge cases |
 | 35-40 min | **Scale & Optimize** | Discuss bottlenecks, propose improvements |
 | 40-45 min | **Wrap Up** | Summarize, answer questions |
+
+</div>
+
 
 ## 🛠 Interactive Design Checklist
 

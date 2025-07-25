@@ -83,6 +83,8 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 ### Architecture Evolution Patterns
 
+<div class="responsive-table" markdown>
+
 | Stage | Characteristics | Common Solutions |
 |-------|----------------|------------------|
 | **Startup** | Single server, <1K users | Monolith, RDBMS |
@@ -90,7 +92,12 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **Scale** | 1M+ users | Microservices, NoSQL |
 | **Hyperscale** | 100M+ users | Cell architecture, edge computing |
 
+</div>
+
+
 ### Trade-off Decisions
+
+<div class="responsive-table" markdown>
 
 | System | Chose | Over | Because |
 |--------|-------|------|---------|
@@ -99,6 +106,9 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **PayPal** | Consistency | Speed | Money must be accurate |
 | **Fortnite** | Client prediction | Server authority | Player experience |
 | **SpaceX** | Triple redundancy | Cost savings | Human lives at stake |
+
+</div>
+
 
 ### Key Success Factors
 
@@ -138,6 +148,8 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 ### By Primary Law Focus
 
+<div class="responsive-table" markdown>
+
 | Case Study | Primary Laws | Key Innovation |
 |------------|---------------|----------------|
 | **Uber** | Asynchronous Reality ⏳, Multidimensional Optimization ⚖️ | H3 hexagonal grid |
@@ -147,7 +159,12 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **Fortnite** | Asynchronous Reality ⏳, Emergent Chaos 🌪️ | Client prediction |
 | **SpaceX** | Correlated Failure ⛓️, Cognitive Load 🤯 | Formal verification |
 
+</div>
+
+
 ### By Scale Metrics
+
+<div class="responsive-table" markdown>
 
 | System | Peak Load | Data Volume | Availability |
 |--------|-----------|-------------|--------------|
@@ -157,6 +174,9 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **PayPal** | $1.36T/year | 100TB | 99.999% |
 | **Fortnite** | 12.3M concurrent | 50TB/day | 99.9% |
 | **SpaceX** | 10K metrics/sec | 1TB/mission | 100% |
+
+</div>
+
 
 ---
 

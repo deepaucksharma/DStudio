@@ -12,6 +12,8 @@ last_updated: 2025-07-25
 # Netflix Streaming: Scale and Architecture Deep Dive
 
 !!! abstract "Quick Facts"
+<div class="responsive-table" markdown>
+
     | Metric | Value |
     |--------|-------|
     | **Scale** | 260+ million subscribers |
@@ -19,6 +21,9 @@ last_updated: 2025-07-25
     | **Data Volume** | 100+ petabytes of content |
     | **Availability** | 99.99% uptime globally |
     | **Team Size** | 2000+ engineers |
+
+</div>
+
 
 ## Executive Summary
 
@@ -230,12 +235,17 @@ graph LR
 
 ### Resource Utilization
 
+<div class="responsive-table" markdown>
+
 | Resource | Usage | Efficiency |
 |----------|-------|------------|
 | CDN Storage | 100+ PB | High hit ratio (95%+) |
 | AWS Compute | 50,000+ instances | Auto-scaling based on demand |
 | Network | 15% global traffic | Optimized through ISP partnerships |
 | Content Processing | 1000s of hours/day | Parallel encoding pipelines |
+
+</div>
+
 
 ## Operational Excellence
 

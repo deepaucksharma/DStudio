@@ -191,6 +191,8 @@ graph TD
 
 ### Quick Pattern Comparison
 
+<div class="responsive-table" markdown>
+
 | Pattern | Use When | Don't Use When | Complexity | Example |
 |---------|----------|----------------|------------|---------|
 | **MapReduce** | • Processing TB+ data<br/>• Embarrassingly parallel<br/>• Batch processing | • Real-time needed<br/>• Complex dependencies<br/>• Small data (< 1GB) | Medium | Log analysis |
@@ -198,6 +200,9 @@ graph TD
 | **Work Pool** | • Homogeneous tasks<br/>• Variable load<br/>• Stateless processing | • Task dependencies<br/>• Ordered processing<br/>• State sharing | Low | Web servers |
 | **Work Stealing** | • Uneven task sizes<br/>• Dynamic workload<br/>• Multi-core systems | • Network overhead high<br/>• Tasks too small<br/>• Strict ordering | High | Game engines |
 | **Actor Model** | • Message passing<br/>• Fault isolation<br/>• Location transparency | • Shared state needed<br/>• Low latency required<br/>• Simple workflows | High | Chat systems |
+
+</div>
+
 
 ## Simple Example: Processing User Uploads
 
@@ -226,10 +231,15 @@ gantt
 
 **Performance Comparison:** (demonstrates [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/) in action)
 
+<div class="responsive-table" markdown>
+
 | Approach | Total Time | Speedup | Resource Usage |
 |----------|------------|---------|----------------|
 | Sequential | 1500ms | 1x | 1 worker |
 | Parallel | 700ms | 2.14x | 2-4 workers |
+
+</div>
+
 
 **Dependency Graph:**
 
@@ -302,11 +312,16 @@ graph TD
     style P3 fill:#fee,stroke:#c00
 ```
 
+<div class="responsive-table" markdown>
+
 | Problem | Impact | Root Cause |
 |---------|--------|------------|
 | **Sequential Processing** | 12-hour encode time | Must process each minute in order |
 | **No Fault Tolerance** | Complete restart on failure | No checkpointing or partial progress |
 | **Scaling Bottleneck** | Can't use multiple servers | Monolithic design prevents distribution |
+
+</div>
+
 
 **The Fix: Distributed Encoding Pipeline**:
 
@@ -343,12 +358,17 @@ graph LR
     style Final fill:#c8e6c9
 ```
 
+<div class="responsive-table" markdown>
+
 | Improvement | Before | After | Benefit |
 |------------|--------|-------|----------|
 | **Parallelization** | 1 sequential process | 720 parallel chunks | 36x potential speedup |
 | **Fault Tolerance** | Full restart | Retry single chunk | 99.86% progress saved |
 | **Scalability** | 1 server max | N servers | Linear scaling |
 | **Total Time** | 12 hours | 20 minutes | 36x faster |
+
+</div>
+
 
 ## Work Distribution Patterns
 
@@ -392,12 +412,17 @@ sequenceDiagram
 
 **Master-Worker Characteristics:** (implements coordination patterns from [Law 5: Law of Distributed Knowledge](/part1-axioms/law5-epistemology/))
 
+<div class="responsive-table" markdown>
+
 | Aspect | Description | Use When |
 |--------|-------------|----------|
 | **Communication** | Through queues | Tasks are independent |
 | **Scaling** | Add more workers | CPU-bound workloads |
 | **Fault Tolerance** | Worker failure = retry task | Tasks can be retried |
 | **Load Balancing** | Automatic via queue | Varying task sizes |
+
+</div>
+
 
 **Pros**: Simple, centralized control  
 **Cons**: Master is bottleneck and SPOF
@@ -454,12 +479,17 @@ flowchart LR
     Process --> Start
 ```
 
+<div class="responsive-table" markdown>
+
 | Feature | Benefit | Implementation Detail |
 |---------|---------|----------------------|
 | **No Central Coordinator** | Resilient, no SPOF | Workers manage themselves |
 | **Automatic Load Balancing** | Efficient work distribution | Idle workers steal from busy ones |
 | **Cache Locality** | Better performance | Process own tasks first (LIFO) |
 | **Minimal Contention** | Reduced conflicts | Steal from opposite end (FIFO) |
+
+</div>
+
 
 #### 3. MapReduce Pattern
 
@@ -568,11 +598,16 @@ flowchart TB
 
 **MapReduce Phases Overview:**
 
+<div class="responsive-table" markdown>
+
 | Phase | Operation | Parallelism | Data Structure | Purpose |
 |-------|-----------|-------------|----------------|---------|
 | **Map** | `map_func(chunk)` | ThreadPoolExecutor | List of chunks → List of (K,V) pairs | Transform data into key-value pairs |
 | **Shuffle** | Group by key | Sequential | defaultdict(list) | Organize data by key for reduction |
 | **Reduce** | `reduce_func(key, values)` | ThreadPoolExecutor | Dict of lists → Final results | Aggregate values for each key |
+
+</div>
+
 
 **Word Count Example Visualization:**
 
@@ -623,12 +658,17 @@ graph LR
 
 **MapReduce Usage Pattern:**
 
+<div class="responsive-table" markdown>
+
 | Step | Function | Description | Example |
 |------|----------|-------------|---------|
 | 1. **Define Map** | `word_count_map(doc)` | Emit (key, value) pairs | `yield (word.lower(), 1)` |
 | 2. **Define Reduce** | `word_count_reduce(word, counts)` | Aggregate values per key | `return sum(counts)` |
 | 3. **Create Job** | `MapReduceJob(map_func, reduce_func)` | Initialize with functions | Configures the pipeline |
 | 4. **Execute** | `job.run(documents, num_workers=10)` | Process data in parallel | Returns final results dict |
+
+</div>
+
 
 ## The Coordination Tax
 

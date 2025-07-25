@@ -1110,6 +1110,8 @@ class BusinessMetrics:
 
 ### The Observability Maturity Model
 
+<div class="responsive-table" markdown>
+
 | Level | Characteristics | Tools | Business Impact |
 |-------|----------------|-------|-----------------||
 | **1: Blind** | Logs to files, no metrics | grep, tail | Outages last hours |
@@ -1117,6 +1119,9 @@ class BusinessMetrics:
 | **3: Proactive** | Golden signals, alerting | Prometheus, Grafana | Detect before users |
 | **4: Insightful** | Distributed tracing, structured logs | Jaeger, ELK | Understand complex failures |
 | **5: Predictive** | ML anomaly detection, business KPIs | Custom ML, Datadog | Prevent problems |
+
+</div>
+
 
 ### Essential Practices
 

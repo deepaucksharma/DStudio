@@ -766,6 +766,8 @@ class WriteBehindMonitoring:
 
 ### Write-Behind vs Other Caching Patterns
 
+<div class="responsive-table" markdown>
+
 | Aspect | Write-Behind | Write-Through | Cache-Aside | Read-Through |
 |--------|--------------|---------------|-------------|--------------|
 | **Write Performance** | Excellent | Poor | Good | N/A |
@@ -774,6 +776,9 @@ class WriteBehindMonitoring:
 | **Durability** | Risk of loss | Guaranteed | Guaranteed | Guaranteed |
 | **Complexity** | High | Medium | Medium | Low |
 | **Use Case** | Analytics, logs | Financial | General | Reference data |
+
+</div>
+
 
 ### Decision Framework
 

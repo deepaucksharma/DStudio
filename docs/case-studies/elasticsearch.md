@@ -64,12 +64,17 @@ graph TB
 
 **Performance vs Quality Comparison:**
 
+<div class="responsive-table" markdown>
+
 | Approach | Search Speed | Relevance Quality | Resource Usage | Use Case |
 |----------|-------------|------------------|----------------|----------|
 | **Simple grep** | O(n) scan | Perfect recall | Low CPU | Small datasets |
 | **SQL LIKE** | Index scan | Basic matching | Medium CPU | Structured data |
 | **Elasticsearch** | O(log n) lookup | ML-enhanced scoring | High memory | Full-text search |
 | **Vector search** | ANN lookup | Semantic similarity | GPU intensive | AI applications |
+
+</div>
+
 
 ### Law 2: Asynchronous Reality - Real-time Indexing
 
@@ -114,6 +119,8 @@ graph TB
 
 **Node Responsibility Matrix:**
 
+<div class="responsive-table" markdown>
+
 | Node Type | Primary Role | CPU Usage | Memory Usage | Disk Usage |
 |-----------|-------------|-----------|-------------|------------|
 | **Master-eligible** | Cluster coordination | Low | Medium | Low |
@@ -121,6 +128,9 @@ graph TB
 | **Coordinating** | Query routing | Medium | Medium | Low |
 | **Ingest** | Document processing | High | Medium | Low |
 | **ML** | Machine learning | Very High | High | Medium |
+
+</div>
+
 
 ### Document Indexing Pipeline
 
@@ -780,12 +790,17 @@ graph TB
 
 **Performance Impact:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Before ILM | After ILM | Improvement |
 |--------|-----------|-----------|-------------|
 | Storage cost | $2M/month | $800k/month | 60% reduction |
 | Query latency (recent) | 50ms p95 | 15ms p95 | 70% improvement |
 | Query latency (old) | 200ms p95 | 500ms p95 | Acceptable trade-off |
 | Cluster stability | Weekly issues | Monthly issues | 4x improvement |
+
+</div>
+
 
 ### GitHub's Code Search Scale
 

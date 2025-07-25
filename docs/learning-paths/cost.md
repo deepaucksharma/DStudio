@@ -276,6 +276,8 @@ optimize_for:
 
 ### Build vs Buy Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Factor | Build | Buy (SaaS) | Buy (Managed) |
 |--------|-------|------------|---------------|
 | Initial Cost | Low | Medium | High |
@@ -283,6 +285,9 @@ optimize_for:
 | Control | Full | Limited | Moderate |
 | Time to Market | Slow | Fast | Medium |
 | Maintenance | Your team | Vendor | Shared |
+
+</div>
+
 
 ### Cost Optimization Checklist
 

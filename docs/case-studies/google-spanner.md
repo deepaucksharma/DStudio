@@ -12,6 +12,8 @@ last_updated: 2025-07-25
 # Google Spanner: Scale and Architecture Deep Dive
 
 !!! abstract "Quick Facts"
+<div class="responsive-table" markdown>
+
     | Metric | Value |
     |--------|-------|
     | **Scale** | Billions of users globally |
@@ -19,6 +21,9 @@ last_updated: 2025-07-25
     | **Data Volume** | Exabytes across datacenters |
     | **Availability** | 99.999% uptime SLA |
     | **Team Size** | 500+ engineers |
+
+</div>
+
 
 ## Executive Summary
 
@@ -237,12 +242,17 @@ graph LR
 
 ### Resource Utilization
 
+<div class="responsive-table" markdown>
+
 | Resource | Usage | Efficiency |
 |----------|-------|------------|
 | Storage | 5x overhead | Strong consistency guarantees |
 | Network | High inter-region | Global synchronization required |
 | CPU | Moderate | Optimized Paxos implementation |
 | Time Infrastructure | GPS + Atomic | Sub-microsecond accuracy |
+
+</div>
+
 
 ## Operational Excellence
 

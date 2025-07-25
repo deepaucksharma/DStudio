@@ -132,6 +132,8 @@ stateDiagram-v2
 
 ### Key Properties
 
+<div class="responsive-table" markdown>
+
 | Property | Description | Guarantee |
 |----------|-------------|-----------|
 | **Atomicity** | All or nothing | ✓ Strong |
@@ -139,7 +141,12 @@ stateDiagram-v2
 | **Durability** | Survives failures | ✓ With logging |
 | **Availability** | Can process requests | ✗ Blocking |
 
+</div>
+
+
 ### Trade-offs
+
+<div class="responsive-table" markdown>
 
 | Aspect | Benefit | Cost |
 |--------|---------|------|
@@ -147,6 +154,9 @@ stateDiagram-v2
 | Simplicity | Clear protocol | Complex failure handling |
 | Reliability | Guaranteed atomicity | Performance overhead |
 | Recovery | Deterministic | Can block indefinitely |
+
+</div>
+
 
 ---
 
@@ -679,6 +689,8 @@ Combines 2PC with Paxos for fault tolerance:
 
 ### When to Use 2PC vs Alternatives
 
+<div class="responsive-table" markdown>
+
 | Scenario | 2PC | Saga | Event Sourcing |
 |----------|-----|------|----------------|
 | Financial transfer between banks | ✓ | ✗ | ✗ |
@@ -686,6 +698,9 @@ Combines 2PC with Paxos for fault tolerance:
 | Inventory + Payment | ✓ | ✓ | ✗ |
 | High-throughput systems | ✗ | ✓ | ✓ |
 | Cross-database transaction | ✓ | ✗ | ✗ |
+
+</div>
+
 
 ### Production Considerations
 

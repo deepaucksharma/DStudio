@@ -105,14 +105,51 @@
 .md-typeset table {
   width: 100%;
   max-width: none;
+  border-collapse: collapse;
 }
 
-/* Responsive table wrapper for mobile */
+/* Responsive table wrapper */
+.md-typeset .responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+}
+
+.md-typeset .responsive-table table {
+  min-width: 100%;
+}
+
+/* Mobile-specific table adjustments */
 @media screen and (max-width: 59.9em) {
   .md-typeset .responsive-table {
     display: block;
-    overflow-x: auto;
+    margin: 0.5rem -1rem;
+    padding: 0 1rem;
+  }
+  
+  .md-typeset .responsive-table table {
+    font-size: 0.875rem;
+  }
+  
+  .md-typeset .responsive-table th,
+  .md-typeset .responsive-table td {
+    padding: 0.5rem;
     white-space: nowrap;
+  }
+  
+  /* Visual indicator for scrollable tables */
+  .md-typeset .responsive-table::-webkit-scrollbar {
+    height: 8px;
+  }
+  
+  .md-typeset .responsive-table::-webkit-scrollbar-track {
+    background: var(--md-default-bg-color);
+  }
+  
+  .md-typeset .responsive-table::-webkit-scrollbar-thumb {
+    background: var(--md-accent-fg-color--transparent);
+    border-radius: 4px;
   }
 }
 

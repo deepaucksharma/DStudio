@@ -29,6 +29,8 @@ graph TD
 
 ### Database Selection Matrix
 
+<div class="responsive-table" markdown>
+
 | Use Case | Best Choice | Why | Trade-offs |
 |----------|-------------|-----|------------|
 | **User Profiles** | Spanner | Global consistency, SQL | Higher latency |
@@ -40,6 +42,9 @@ graph TD
 | **Full-Text Search** | Custom inverted index | Optimized for search | Separate system |
 | **Graph Data** | Custom graph DB | Optimized traversals | Limited tooling |
 | **Blob Storage** | GCS/Colossus | Cost effective, durable | Higher latency |
+
+</div>
+
 
 ### Compute Platform Selection
 
@@ -58,6 +63,8 @@ graph LR
 
 ### Caching Strategy by Use Case
 
+<div class="responsive-table" markdown>
+
 | Data Type | Cache Level | Technology | TTL | Hit Rate Target |
 |-----------|-------------|------------|-----|-----------------|
 | **Static content** | CDN | Cloud CDN | 24h-30d | >95% |
@@ -66,6 +73,9 @@ graph LR
 | **User sessions** | In-memory | Redis | Session lifetime | 100% |
 | **Computed results** | Distributed | Hazelcast | 1-24h | >60% |
 | **Media thumbnails** | Multi-tier | CDN + Local | 7-30d | >90% |
+
+</div>
+
 
 ### Message Queue Selection
 
@@ -89,6 +99,8 @@ graph TD
 
 ### Pattern to Technology Mapping
 
+<div class="responsive-table" markdown>
+
 | Pattern | Google Technology | Open Source Alternative | When to Use |
 |---------|------------------|------------------------|-------------|
 | **Load Balancing** | Google LB (Maglev) | HAProxy, Nginx | All services |
@@ -100,6 +112,9 @@ graph TD
 | **Event Sourcing** | Spanner + Pub/Sub | Kafka + PostgreSQL | Audit trails |
 | **CQRS** | Spanner + Bigtable | PostgreSQL + Elasticsearch | Read/write split |
 | **Saga Pattern** | Workflow engine | Temporal, Airflow | Distributed transactions |
+
+</div>
+
 
 ### Scale Thresholds for Technology Changes
 
@@ -183,6 +198,8 @@ graph LR
 
 ### Quick Reference Table
 
+<div class="responsive-table" markdown>
+
 | If you need... | Consider using... | But watch out for... |
 |----------------|-------------------|---------------------|
 | Global consistency | Spanner | Latency, cost |
@@ -193,6 +210,9 @@ graph LR
 | Serverless | Cloud Functions | Cold starts |
 | ML inference | Cloud ML | Prediction latency |
 | Graph queries | Custom solution | Build complexity |
+
+</div>
+
 
 ### Red Flags in Technology Choices
 

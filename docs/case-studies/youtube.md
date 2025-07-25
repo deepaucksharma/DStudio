@@ -55,12 +55,17 @@ graph LR
 
 **Latency Optimization Strategies:**
 
+<div class="responsive-table" markdown>
+
 | Strategy | Impact | Trade-off |
 |----------|--------|-----------|
 | Edge Caching | -80% latency | Storage cost |
 | Adaptive Bitrate | -60% rebuffering | Quality variation |
 | Predictive Buffering | -40% startup time | Bandwidth waste |
 | HTTP/3 QUIC | -25% packet loss impact | CPU overhead |
+
+</div>
+
 
 ### Law 4: Trade-offs - The Exabyte Challenge
 
@@ -80,6 +85,8 @@ graph TB
 
 **Capacity Planning Model:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Description | Growth Trend |
 |--------|-------|-------------|
 | Daily Uploads | Hundreds of thousands of hours | Steady growth year-over-year |
@@ -87,6 +94,9 @@ graph TB
 | Total Storage | Exabyte-scale | Rapid expansion |
 | Bandwidth | Multi-Tbps peak | Growing with user base |
 | Transcoding Compute | Massive compute clusters | Scaling with content |
+
+</div>
+
 
 **Storage Optimization:**
 1. **Deduplication**: 15-20% savings via content fingerprinting
@@ -119,6 +129,8 @@ graph TB
 
 **Failure Scenarios and Mitigation:**
 
+<div class="responsive-table" markdown>
+
 | Failure Type | Frequency | Mitigation Strategy |
 |--------------|-----------|-------------------|
 | Server Failure | 100/day | Automatic job migration |
@@ -126,6 +138,9 @@ graph TB
 | Network Partition | 10/day | Eventual consistency |
 | Corrupted Upload | 1000/day | Checksum validation |
 | CDN Node Failure | 50/day | Dynamic rerouting |
+
+</div>
+
 
 ### Law 3: Emergence - Parallel Everything
 
@@ -151,6 +166,8 @@ graph LR
 
 **Concurrency Patterns:**
 
+<div class="responsive-table" markdown>
+
 | Component | Concurrency Model | Scale |
 |-----------|------------------|-------|
 | Upload | Chunked parallel upload | 10K concurrent |
@@ -158,6 +175,9 @@ graph LR
 | Streaming | Multi-CDN parallel delivery | 10M concurrent |
 | Comments | Sharded by video ID | 1M writes/sec |
 | Analytics | Stream processing | 100M events/sec |
+
+</div>
+
 
 ### Law 4: Trade-offs - Global Consistency
 
@@ -182,6 +202,8 @@ graph TB
 
 **Consistency Requirements:**
 
+<div class="responsive-table" markdown>
+
 | Data Type | Consistency Model | Sync Latency |
 |-----------|------------------|--------------|
 | Video Metadata | Eventually Consistent | < 1 minute |
@@ -189,6 +211,9 @@ graph TB
 | User Subscriptions | Strong Consistency | Immediate |
 | Comments | Causal Consistency | < 10 seconds |
 | Monetization | Strong Consistency | Immediate |
+
+</div>
+
 
 ### Law 5: Epistemology - Understanding the Platform
 
@@ -215,6 +240,8 @@ graph LR
 
 **Key Metrics Tracked:**
 
+<div class="responsive-table" markdown>
+
 | Metric Category | Examples | Update Frequency |
 |----------------|----------|------------------|
 | Quality of Experience | Buffering ratio, Start time | Real-time |
@@ -222,6 +249,9 @@ graph LR
 | Business | Watch time, Ad revenue | 5 minute |
 | Content | Upload rate, Transcode queue | 1 minute |
 | Security | Abuse detection, Copyright | Real-time |
+
+</div>
+
 
 ### Law 6: Human-API - Creator and Viewer Experience
 
@@ -248,12 +278,17 @@ graph TB
 
 **Experience Optimization:**
 
+<div class="responsive-table" markdown>
+
 | User Type | Key Metrics | Optimization Focus |
 |-----------|-------------|-------------------|
 | Creators | Upload success rate, Processing time | Fast feedback, Rich analytics |
 | Viewers | Start-up time, Video quality | Instant playback, Personalization |
 | Mobile Users | Data usage, Battery life | Efficient codec, Offline support |
 | Smart TV | 4K availability, UI responsiveness | High quality, Simple navigation |
+
+</div>
+
 
 ### Law 7: Economics - Balancing Cost and Quality
 
@@ -274,12 +309,17 @@ graph LR
 
 **Cost Breakdown:**
 
+<div class="responsive-table" markdown>
+
 | Component | Percentage | Priority |
 |-----------|------------|----------|
 | Storage | ~20% | High optimization focus |
 | Bandwidth | ~40% | Largest cost component |
 | Compute | ~25% | Significant expense |
 | Operations | ~15% | Ongoing optimization |
+
+</div>
+
 
 *Note: Actual costs are proprietary. Percentages represent typical industry distributions for video platforms at scale*
 
@@ -479,6 +519,8 @@ graph LR
 
 ### Current Scale
 
+<div class="responsive-table" markdown>
+
 | Metric | Description | Context |
 |--------|-------|---------|  
 | **Monthly Active Users** | Billions globally | One of the world's largest platforms |
@@ -489,6 +531,9 @@ graph LR
 | **Transcoding Cores** | Massive compute clusters | Distributed processing |
 | **Edge Locations** | Thousands globally | Worldwide presence |
 | **Languages Supported** | 100+ | Auto-captioning |
+
+</div>
+
 
 ### Performance Targets
 
@@ -704,12 +749,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Bandwidth Cost | -60% CDN costs | Complex coordination |
 | Scalability | Improves with popularity | Poor for long-tail |
 | Reliability | Multiple sources | Peer churn |
 | Security | Harder to attack | Content verification needed |
+
+</div>
+
 
 ### Alternative Architecture 2: Edge Computing
 
@@ -731,12 +781,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Latency | Ultra-low for local content | Requires many edge sites |
 | Efficiency | Reduced backbone traffic | Duplicate processing |
 | Cost | Lower bandwidth costs | Higher compute costs |
 | Management | Simpler scaling | Complex orchestration |
+
+</div>
+
 
 ### Alternative Architecture 3: Blockchain-Based
 
@@ -760,12 +815,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Censorship | Resistant | Illegal content issues |
 | Creator Control | Direct monetization | No platform features |
 | Costs | No intermediary | High blockchain fees |
 | Performance | Distributed | Much slower |
+
+</div>
+
 
 ### Alternative Architecture 4: AI-First Architecture
 
@@ -787,12 +847,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Efficiency | 70% better compression | High compute cost |
 | Quality | AI upscaling | May alter content |
 | Personalization | Per-user optimization | Privacy concerns |
 | Innovation | Cutting edge | Unproven at scale |
+
+</div>
+
 
 ### Recommended Architecture: Multi-Tier Adaptive System
 
@@ -959,6 +1024,8 @@ class AdaptiveBitrateStreaming:
 
 ### Comprehensive Design Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Trade-offs | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Emergence | Law 4<br/>⚖️ Trade-offs | Law 5<br/>🧠 Epistemology | Law 6<br/>🤯 Human-API | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Multi-tier CDN** | ✅ Edge servers reduce RTT to <50ms | ✅ Distributed storage across regions | ✅ Multiple CDN failover | ⚪ | ✅ Cache invalidation protocols | ✅ CDN hit rate metrics | ✅ Low buffering for users | ✅ Bandwidth cost optimization |
@@ -969,6 +1036,9 @@ class AdaptiveBitrateStreaming:
 | **ML Recommendations** | ✅ Real-time inference | ✅ Model caching | ✅ Rule-based fallback | ✅ Parallel predictions | ✅ A/B test coordination | ✅ CTR tracking | ✅ Personalization | ✅ Engagement optimization |
 | **Global Replication** | ✅ Regional serving | ✅ Storage distribution | ✅ Geo-redundancy | ⚪ | ✅ Cross-region sync | ✅ Replication lag | ✅ Local content | ✅ Regional efficiency |
 | **Live Streaming** | ✅ Sub-second latency | ✅ Dynamic scaling | ✅ Stream redundancy | ✅ Concurrent viewers | ✅ Stream synchronization | ✅ Stream health | ✅ Real-time interaction | ✅ Peak cost management |
+
+</div>
+
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
 
@@ -1173,6 +1243,8 @@ graph TB
 
 ### Architecture Comparison Matrix
 
+<div class="responsive-table" markdown>
+
 | Architecture | Latency | Scalability | Cost | Reliability | Complexity | Innovation |
 |-------------|---------|-------------|------|-------------|------------|------------|
 | **Current (CDN + Tiered)** | ⭐⭐⭐⭐⭐<br/>50ms global | ⭐⭐⭐⭐⭐<br/>Proven at scale | ⭐⭐⭐<br/>High but optimized | ⭐⭐⭐⭐⭐<br/>99.95% uptime | ⭐⭐⭐<br/>Complex but manageable | ⭐⭐⭐<br/>Incremental improvements |
@@ -1180,6 +1252,9 @@ graph TB
 | **Edge-First** | ⭐⭐⭐⭐⭐<br/>Ultra-low local | ⭐⭐⭐<br/>Limited by edges | ⭐⭐<br/>High edge costs | ⭐⭐⭐⭐<br/>Good isolation | ⭐⭐⭐⭐<br/>More complex ops | ⭐⭐⭐<br/>Better for 5G era |
 | **Blockchain** | ⭐⭐<br/>High overhead | ⭐⭐<br/>Consensus limits | ⭐⭐⭐⭐<br/>Community funded | ⭐⭐⭐⭐⭐<br/>Decentralized | ⭐⭐<br/>Novel challenges | ⭐⭐⭐⭐⭐<br/>Paradigm shift |
 | **AI-Optimized** | ⭐⭐⭐⭐<br/>Smart caching | ⭐⭐⭐⭐<br/>Auto-scaling | ⭐⭐⭐⭐<br/>Efficient encoding | ⭐⭐⭐⭐<br/>Self-healing | ⭐<br/>ML complexity | ⭐⭐⭐⭐⭐<br/>Future-ready |
+
+</div>
+
 
 ### Decision Framework
 
@@ -1209,6 +1284,8 @@ graph TD
 
 ### Risk Assessment Matrix
 
+<div class="responsive-table" markdown>
+
 | Risk Factor | Current | P2P | Edge | Blockchain | AI |
 |------------|---------|-----|------|------------|-----|
 | **Technical Risk** | 🟢 Low | 🟡 Medium | 🟡 Medium | 🔴 High | 🟡 Medium |
@@ -1216,6 +1293,9 @@ graph TD
 | **Security Risk** | 🟢 Low | 🔴 High | 🟢 Low | 🟡 Medium | 🟡 Medium |
 | **Regulatory Risk** | 🟢 Low | 🟡 Medium | 🟢 Low | 🔴 High | 🟡 Medium |
 | **Scalability Risk** | 🟢 Low | 🟡 Medium | 🔴 High | 🔴 High | 🟢 Low |
+
+</div>
+
 
 ## Production Metrics & Monitoring
 
@@ -1294,12 +1374,17 @@ graph TB
 
 ## Failure Scenarios
 
+<div class="responsive-table" markdown>
+
 | Failure Type | Impact | Recovery | Time |
 |--------------|---------|----------|------|
 | **CDN Outage** | Regional degradation | Auto-failover to backup | <30s |
 | **Transcoding Farm** | Upload delays | Spin up spot instances | <5min |
 | **Database Shard** | Metadata unavailable | Promote replica | <60s |
 | **Regional Outage** | Complete failure | DNS redirect + backups | <2min |
+
+</div>
+
 
 ## Key Design Insights
 

@@ -132,12 +132,17 @@ graph TB
 
 ### Space-Time Trade-offs Table
 
+<div class="responsive-table" markdown>
+
 | Parameter | Symbol | Description | Typical Values |
 |-----------|---------|-------------|----------------|
 | **Bit array size** | m | Total bits in filter | 10K - 10M bits |
 | **Hash functions** | k | Number of hash functions | 3 - 10 |
 | **Elements** | n | Expected number of elements | Varies |
 | **False positive rate** | p | Probability of false positive | 0.01 - 0.001 |
+
+</div>
+
 
 ### Optimal Parameters Calculator
 
@@ -162,6 +167,8 @@ graph LR
 ### False Positive Rate Visualization
 
 !!! note "False Positive Rate by Filter Saturation"
+<div class="responsive-table" markdown>
+
     | Fill Rate | k=3 | k=5 | k=7 | k=10 |
     |-----------|-----|-----|-----|------|
     | **10%** | 0.008 | 0.009 | 0.012 | 0.020 |
@@ -169,6 +176,9 @@ graph LR
     | **50%** | 0.146 | 0.092 | 0.061 | 0.031 |
     | **75%** | 0.316 | 0.154 | 0.074 | 0.021 |
     | **90%** | 0.507 | 0.204 | 0.080 | 0.018 |
+
+</div>
+
     *Lower is better. Notice how more hash functions help when filter is fuller.*
 
 ## Real-World Applications
@@ -213,6 +223,8 @@ graph LR
 
 ### Application Comparison Table
 
+<div class="responsive-table" markdown>
+
 | Use Case | Items | FP Rate | Space Saved | Query Speedup |
 |----------|-------|---------|-------------|---------------|
 | **Web Crawler** | 1B URLs | 1% | 99.9% | 100x |
@@ -220,6 +232,9 @@ graph LR
 | **Database SSTable** | 10M keys | 1% | 98% | 10x |
 | **CDN Cache** | 100M objects | 0.1% | 99.5% | 20x |
 | **Malware Detection** | 50M hashes | 0.01% | 99.9% | 200x |
+
+</div>
+
 
 ## Visual Decision Framework
 
@@ -313,6 +328,8 @@ graph TB
 
 ### Comparison of Bloom Filter Types
 
+<div class="responsive-table" markdown>
+
 | Variant | Features | Space Overhead | Use Case |
 |---------|----------|----------------|----------|
 | **Standard Bloom** | Basic operations | 1x | General purpose |
@@ -321,6 +338,9 @@ graph TB
 | **Partitioned Bloom** | Cache-friendly | 1x | High performance |
 | **Compressed Bloom** | Space optimized | 0.7x | Storage systems |
 | **Spectral Bloom** | Frequency queries | 4-16x | Analytics |
+
+</div>
+
 
 ### Visual Comparison: Standard vs Counting Bloom
 
@@ -366,11 +386,16 @@ graph TB
 ### 2. SIMD Acceleration
 
 !!! info "Parallel Bit Checking with SIMD"
+<div class="responsive-table" markdown>
+
     | Operation | Scalar | SIMD-128 | SIMD-256 | SIMD-512 |
     |-----------|--------|----------|----------|----------|
     | **Bits/cycle** | 1 | 128 | 256 | 512 |
     | **Speedup** | 1x | 8-16x | 16-32x | 32-64x |
     | **Use case** | Small filters | Medium | Large | Very large |
+
+</div>
+
 
 ## Common Pitfalls and Solutions
 
@@ -396,12 +421,17 @@ graph TD
 
 ### Best Practices Table
 
+<div class="responsive-table" markdown>
+
 | Scenario | Do | Don't | Why |
 |----------|-------|--------|-----|
 | **Hash Selection** | Use independent hash families | Use simple modulo | Reduces correlation |
 | **Size Planning** | Oversize by 20-50% | Exact sizing | Maintains low FP rate |
 | **Monitoring** | Track actual FP rate | Assume theoretical | Real-world differs |
 | **Updates** | Rebuild periodically | Let it saturate | Maintains performance |
+
+</div>
+
 
 ## Integration Patterns
 
@@ -507,6 +537,8 @@ Include all structures
 
 ### Deployment Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Factor | Low Impact | Medium Impact | High Impact |
 |--------|------------|---------------|-------------|
 | **Dataset Size** | <1M items | 1M-100M items | >100M items |
@@ -514,6 +546,9 @@ Include all structures
 | **Space Budget** | Generous | Moderate | Tight |
 | **Query Rate** | <1K/sec | 1K-100K/sec | >100K/sec |
 | **Recommendation** | Maybe overkill | Good fit | Essential |
+
+</div>
+
 
 ### Visual Health Check
 
@@ -574,6 +609,8 @@ graph LR
 ### Visual Size Comparison
 
 !!! note "Space Savings Visualization"
+<div class="responsive-table" markdown>
+
     | Data Structure | 1M URLs (avg 50 chars) | Space Used | Savings |
     |----------------|------------------------|------------|---------|
     | **HashSet** | 50MB + overhead | ~60MB | 0% |
@@ -581,6 +618,9 @@ graph LR
     | **Bloom (1% FP)** | Formula-based | 1.2MB | 98% |
     | **Bloom (0.1% FP)** | Formula-based | 1.8MB | 97% |
     | **Bloom (0.01% FP)** | Formula-based | 2.4MB | 96% |
+
+</div>
+
     ```mermaid
     graph LR
     subgraph "Visual Space Comparison"

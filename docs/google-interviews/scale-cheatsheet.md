@@ -4,6 +4,8 @@
 
 ### Google Services Scale
 
+<div class="responsive-table" markdown>
+
 | Service | Users | Daily Volume | Peak QPS | Storage |
 |---------|-------|--------------|----------|---------|
 | **Search** | 8.5B searches/day | 500B pages indexed | 100K | 100+ PB index |
@@ -14,6 +16,9 @@
 | **Drive** | 2B users | 50M files created/day | 500K | 15 EB total |
 | **Android** | 3B devices | 250M app installs/day | 3M | - |
 | **Chrome** | 3.2B users | 100B searches/month | - | - |
+
+</div>
+
 
 ### 💾 Storage Hierarchy
 
@@ -39,6 +44,8 @@ graph TD
 
 ### Latency Numbers
 
+<div class="responsive-table" markdown>
+
 | Operation | Latency | Notes |
 |-----------|---------|-------|
 | L1 cache reference | 1 ns | |
@@ -54,7 +61,12 @@ graph TD
 | California to Netherlands | 150 ms | Speed of light limit |
 | Tape archive retrieval | 10-60 min | Cold storage |
 
+</div>
+
+
 ### Network Capacity
+
+<div class="responsive-table" markdown>
 
 | Type | Bandwidth | Latency | Use Case |
 |------|-----------|---------|----------|
@@ -65,6 +77,9 @@ graph TD
 | Satellite | 50-500 Mbps | 600 ms | Remote areas |
 | 5G mobile | 1-10 Gbps | 5-10 ms | Mobile users |
 | Home broadband | 100-1000 Mbps | 10-50 ms | End users |
+
+</div>
+
 
 ## Capacity Planning Quick Math
 
@@ -102,6 +117,8 @@ Peak bandwidth = Average × 3
 
 ### Rule of Thumb Estimates
 
+<div class="responsive-table" markdown>
+
 | Metric | Typical Value | Google Scale |
 |--------|---------------|--------------|
 | Read/Write ratio | 10:1 | 100:1 |
@@ -111,9 +128,14 @@ Peak bandwidth = Average × 3
 | Server utilization | 50-70% | 80-90% |
 | Datacenter PUE | 1.5-2.0 | 1.1 |
 
+</div>
+
+
 ## System Design Targets
 
 ### Availability Tiers
+
+<div class="responsive-table" markdown>
 
 | Availability | Downtime/year | Downtime/month | Use Case |
 |--------------|---------------|----------------|-----------|
@@ -123,7 +145,12 @@ Peak bandwidth = Average × 3
 | 99.99% | 52.56 minutes | 4.32 minutes | High availability |
 | 99.999% | 5.26 minutes | 25.9 seconds | Mission critical |
 
+</div>
+
+
 ### Response Time Goals
+
+<div class="responsive-table" markdown>
 
 | Percentile | Target | User Experience |
 |------------|--------|-----------------|
@@ -132,6 +159,9 @@ Peak bandwidth = Average × 3
 | p95 | <500ms | Noticeable |
 | p99 | <1s | Annoying |
 | p99.9 | <2s | Abandonment risk |
+
+</div>
+
 
 ## Google-Specific Architectures
 
@@ -157,6 +187,8 @@ graph TD
 
 ### Data Storage Choices
 
+<div class="responsive-table" markdown>
+
 | Data Type | Storage System | Why |
 |-----------|---------------|-----|
 | User profiles | Spanner | Global consistency |
@@ -165,6 +197,9 @@ graph TD
 | Cache | Memcache/Redis | Low latency |
 | Search index | Custom SSTable | Optimized format |
 | Analytics | Dremel/BigQuery | Columnar storage |
+
+</div>
+
 
 ### Geographic Distribution
 

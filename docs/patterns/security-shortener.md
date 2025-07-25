@@ -96,6 +96,8 @@ graph TB
 
 ## Security Check Pipeline
 
+<div class="responsive-table" markdown>
+
 | Stage | Check Type | Action | Performance Impact |
 |-------|-----------|--------|-------------------|
 | **1. Pre-creation** | Format validation | Reject invalid | Minimal |
@@ -103,6 +105,9 @@ graph TB
 | **3. Real-time** | Live site analysis | Scan & classify | Medium |
 | **4. Post-creation** | Continuous monitoring | Update status | Async/batched |
 | **5. Click-time** | Fresh check | Warn if changed | Low (cached) |
+
+</div>
+
 
 ## Common Attack Patterns
 

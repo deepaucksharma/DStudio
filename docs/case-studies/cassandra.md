@@ -75,10 +75,15 @@ graph TB
 
 **Availability Comparison:**
 
+<div class="responsive-table" markdown>
+
 | Architecture | SPOF | Availability | Recovery Time |
 |-------------|------|-------------|---------------|
 | Master-Slave | Yes | 99.9% | Minutes to hours |
 | Cassandra Ring | No | 99.99%+ | Immediate |
+
+</div>
+
 
 ### Law 4: Multidimensional Optimization - CAP Theorem Trade-offs
 
@@ -281,11 +286,16 @@ graph TB
 
 **Compaction Strategies:**
 
+<div class="responsive-table" markdown>
+
 | Strategy | Use Case | Write Amplification | Read Amplification |
 |----------|----------|-------------------|------------------|
 | **Size Tiered** | Write-heavy | Low | High |
 | **Leveled** | Read-heavy | High | Low |
 | **Time Window** | Time series | Medium | Medium |
+
+</div>
+
 
 ## Part 3: Consistency and Replication
 
@@ -412,6 +422,8 @@ graph LR
 
 **Netflix Scale Example:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Value | Notes |
 |--------|-------|-------|
 | **Nodes** | 2,500+ | Across multiple regions |
@@ -419,6 +431,9 @@ graph LR
 | **Writes** | 1.3M/sec | Peak traffic |
 | **Reads** | 4.5M/sec | Peak traffic |
 | **Availability** | 99.99% | With region failures |
+
+</div>
+
 
 ### Data Modeling Best Practices
 
@@ -487,12 +502,17 @@ CREATE TABLE users_by_email_domain (
 
 **Data Modeling Anti-Patterns:**
 
+<div class="responsive-table" markdown>
+
 | Anti-Pattern | Problem | Solution |
 |-------------|---------|----------|
 | **Large Partitions** | Hot spots, slow reads | Better partition key design |
 | **High Cardinality** | Too many small partitions | Composite partition keys |
 | **Unbounded Growth** | Partitions grow forever | Time-based bucketing |
 | **Secondary Indexes** | Poor performance | Denormalized tables |
+
+</div>
+
 
 ## Part 5: Real-World Production Challenges
 
@@ -574,11 +594,16 @@ CREATE TABLE messages (
 
 **Performance Impact:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Before Bucketing | After Bucketing | Improvement |
 |--------|-----------------|-----------------|-------------|
 | Write latency p99 | 500ms | 15ms | 97% |
 | Read latency p99 | 200ms | 8ms | 96% |
 | Hot partition warnings | Daily | None | 100% |
+
+</div>
+
 
 ## Part 6: Operational Excellence
 

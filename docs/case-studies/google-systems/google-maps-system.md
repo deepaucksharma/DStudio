@@ -1022,6 +1022,8 @@ class MultiLevelMapCache:
 
 ### Architecture Decisions
 
+<div class="responsive-table" markdown>
+
 | Decision | Choice | Alternative | Trade-off |
 |----------|--------|-------------|-----------|
 | **Map Data** | Vector tiles + Raster | Pure raster tiles | Flexibility vs Simplicity |
@@ -1029,6 +1031,9 @@ class MultiLevelMapCache:
 | **Traffic** | Crowdsourced | Fixed sensors | Coverage vs Accuracy |
 | **Storage** | Distributed + CDN | Centralized | Performance vs Consistency |
 | **Offline** | Pre-packaged regions | On-demand download | Size vs Flexibility |
+
+</div>
+
 
 ### Alternative Architectures
 

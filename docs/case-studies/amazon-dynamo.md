@@ -12,6 +12,8 @@ last_updated: 2025-07-25
 # Amazon DynamoDB: Scale and Architecture Deep Dive
 
 !!! abstract "Quick Facts"
+<div class="responsive-table" markdown>
+
     | Metric | Value |
     |--------|-------|
     | **Scale** | 100+ million users per service |
@@ -19,6 +21,9 @@ last_updated: 2025-07-25
     | **Data Volume** | Exabytes across platform |
     | **Availability** | 99.999% SLA |
     | **Team Size** | 200+ engineers |
+
+</div>
+
 
 ## Executive Summary
 
@@ -229,12 +234,17 @@ graph LR
 
 ### Resource Utilization
 
+<div class="responsive-table" markdown>
+
 | Resource | Usage | Efficiency |
 |----------|-------|------------|
 | CPU | 60-80% | High |
 | Memory | 85% | Optimal for caching |
 | Network | 40% | Good headroom for spikes |
 | Storage | Auto-expanding | Infinite scalability |
+
+</div>
+
 
 ## Operational Excellence
 

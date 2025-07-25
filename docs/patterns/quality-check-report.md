@@ -41,12 +41,17 @@ This session focused on converting code-heavy pattern documentation to visual, a
 - **Clear decision frameworks** for pattern selection
 
 ### Content Transformation Metrics
+<div class="responsive-table" markdown>
+
 | Metric | Before | After | Improvement |
 |--------|--------|-------|-------------|
 | Visual Elements | Limited | 25+ tables | **10x increase** |
 | Decision Frameworks | Code-focused | Visual matrices | **100% coverage** |
 | Learning Accessibility | Technical only | Multi-level | **3 learning paths** |
 | Implementation Guidance | Code samples | Checklists & flows | **Structured approach** |
+
+</div>
+
 
 ### Consistency Achievements
 - All enhanced patterns follow the 3-level template

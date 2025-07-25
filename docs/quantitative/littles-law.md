@@ -21,11 +21,16 @@ last_updated: 2025-07-20
 <h2 style="text-align: center; color: #5448C8;">L = λ × W</h2>
 </div>
 
+<div class="responsive-table" markdown>
+
 | Variable | Description | Example |
 |----------|-------------|------|
 | **L** | Average number of items in the system | 10 customers in coffee shop |
 | **λ** (lambda) | Average arrival rate | 20 customers/hour |
 | **W** | Average time in system | 0.5 hours (30 minutes) |
+
+</div>
+
 
 <div class="key-insight">
 💡 <strong>Universal Truth</strong>: This relationship ALWAYS holds for any stable system - no exceptions!
@@ -47,11 +52,16 @@ last_updated: 2025-07-20
 ### 1. Thread Pool Sizing
 
 !!! note "🧵 Thread Pool Calculator"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Unit |
     |-----------|-------|------|
     | Request rate (λ) | 1,000 | req/s |
     | Processing time (W) | 200 | ms |
     | Target | No queueing | - |
+
+</div>
+
     <div class="calculation-result">
     <strong>Required threads = λ × W = 1,000 × 0.2 = 200 threads</strong>
 
@@ -63,11 +73,16 @@ last_updated: 2025-07-20
 ### 2. Connection Pool Sizing
 
 !!! note "🔌 Connection Pool Calculator"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Unit |
     |-----------|-------|------|
     | Query rate (λ) | 500 | queries/s |
     | Query duration (W) | 50 | ms |
     | Safety margin | 20% | - |
+
+</div>
+
     <div class="calculation-result">
     <strong>Base connections = 500 × 0.05 = 25</strong>
     <strong>With safety margin = 25 × 1.2 = 30 connections</strong>
@@ -80,11 +95,16 @@ last_updated: 2025-07-20
 ### 3. Queue Depth Estimation
 
 !!! danger "⚠️ Queue Growth Calculator"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Unit |
     |-----------|-------|------|
     | Message arrival rate | 1,000 | msg/s |
     | Processing rate | 800 | msg/s |
     | Observation period | 60 | seconds |
+
+</div>
+
     <div class="calculation-result">
     <strong>Net accumulation = 1,000 - 800 = 200 msg/s</strong>
     <strong>Queue growth = 200 × 60 = 12,000 messages</strong>
@@ -97,11 +117,16 @@ last_updated: 2025-07-20
 ### 4. Memory Requirements
 
 !!! info "💾 Memory Sizing Calculator"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Unit |
     |-----------|-------|------|
     | Request rate (λ) | 100 | req/s |
     | Request lifetime (W) | 5 | seconds |
     | Memory per request | 10 | MB |
+
+</div>
+
     <div class="calculation-result">
     <strong>Concurrent requests (L) = 100 × 5 = 500</strong>
     <strong>Total memory = 500 × 10MB = 5,000MB = 5GB</strong>
@@ -124,6 +149,8 @@ last_updated: 2025-07-20
 
 ### Netflix Video Encoding Pipeline
 !!! info "🎬 Netflix's Real Implementation"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Calculation |
     |-----------|-------|-------------|
     | Upload rate (λ) | 100 videos/hour | - |
@@ -132,6 +159,9 @@ last_updated: 2025-07-20
     | Videos per server | 4 | - |
     | **Minimum servers** | **50** | = 200 ÷ 4 |
     | **Actual deployment** | **300+ servers** | 6x for peaks & redundancy |
+
+</div>
+
     <div class="insight-banner" style="margin-top: 10px; background: #E8F5E9; padding: 10px; border-left: 4px solid #4CAF50;">
     💡 <strong>Key Insight</strong>: Netflix provisions 6x minimum capacity for reliability and traffic spikes
 
@@ -163,6 +193,8 @@ last_updated: 2025-07-20
 
 ### Uber's Driver Matching
 !!! info "🚗 Uber's Peak Hour Challenge"
+<div class="responsive-table" markdown>
+
     | Metric | Manhattan Peak | Calculation |
     |--------|----------------|-------------|
     | Ride requests (λ) | 1,000/minute | - |
@@ -170,6 +202,9 @@ last_updated: 2025-07-20
     | **Concurrent matches (L)** | **50** | = 1,000 × 0.05 |
     | Safety margin | 20% | Industry standard |
     | **DB connections needed** | **60** | = 50 × 1.2 |
+
+</div>
+
     <div class="performance-meter" style="margin-top: 10px;">
     <div style="background: linear-gradient(to right, #FF5722 0%, #FF5722 83%, #E0E0E0 83%); padding: 10px; text-align: center; color: white;">
     Connection Pool: 50/60 (83% utilization at peak)
@@ -180,11 +215,16 @@ last_updated: 2025-07-20
 
 ### Microservice Capacity
 !!! note "📦 Service Capacity Calculator"
+<div class="responsive-table" markdown>
+
     | Constraint | Value | Impact |
     |------------|-------|--------|
     | CPU cores | 8 | Parallelism limit |
     | CPU time per request | 100ms | Processing constraint |
     | Target utilization | 70% | Safety margin |
+
+</div>
+
     <div class="calculation-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
     <strong>Step 1:</strong> Requests per core = 1000ms ÷ 100ms = 10
     <strong>Step 2:</strong> Total capacity = 8 cores × 10 = 80
@@ -196,6 +236,8 @@ last_updated: 2025-07-20
 <div class="law-box">
 <h4>🔗 Connection Pool Sizing</h4>
 
+<div class="responsive-table" markdown>
+
 | Component | Value | Calculation |
 |-----------|-------|-------------|
 | Application servers | 20 | - |
@@ -206,6 +248,9 @@ last_updated: 2025-07-20
 | **Base connections (L)** | **90** | = 3,000 × 0.03 |
 | Safety factor | 50% | Best practice |
 | **Final pool size** | **135** | = 90 × 1.5 |
+
+</div>
+
 
 <div class="warning-note" style="margin-top: 10px; background: #FFF3E0; padding: 10px; border-left: 4px solid #FF9800;">
 ⚠️ <strong>Note</strong>: Monitor connection wait times - if >5ms, increase pool size
@@ -273,12 +318,17 @@ last_updated: 2025-07-20
 
 ### Capacity Planning
 !!! info "📈 Growth Planning Calculator"
+<div class="responsive-table" markdown>
+
     | Scenario | Current | Future | Required Action |
     |----------|---------|---------|----------------|
     | Traffic growth | 1x | 2x | Double arrival rate |
     | Response time target | Same | Same | Maintain W |
     | Current queue (L) | 100 | - | - |
     | **Future queue needed** | - | **200** | = 100 × 2 |
+
+</div>
+
     <div class="planning-result" style="background: #E8F5E9; padding: 15px; margin-top: 10px; border-radius: 5px;">
     🎯 <strong>Capacity Plan:</strong>
     • Double server instances
@@ -328,12 +378,17 @@ Decompose into subsystems, apply to each
 <span style="background: #9C27B0; color: white; padding: 5px 10px; border-radius: 3px;">Replication</span>
 </div>
 
+<div class="responsive-table" markdown>
+
 | Stage | Queue (L) | Latency (W) | Throughput Capacity |
 |-------|-----------|-------------|--------------------|
 | Edge Buffer | 1M objects | 100ms | 10M objects/s |
 | Storage Write | 500K objects | 200ms | 2.5M objects/s |
 | Replication | 2M objects | 500ms | 4M objects/s |
 | **Total Pipeline** | - | **800ms** | **2.5M objects/s** |
+
+</div>
+
 
 <div class="insight-note" style="background: #F3E5F5; padding: 10px; margin-top: 10px; border-left: 4px solid #9C27B0;">
 🔍 <strong>Bottleneck</strong>: Storage write stage limits overall throughput to 2.5M objects/s
@@ -345,11 +400,16 @@ Decompose into subsystems, apply to each
     <div style="text-align: center; margin: 15px 0;">
     <strong>Pipeline: A → B → C</strong>
 
+<div class="responsive-table" markdown>
+
 | Stage | Queue Formula | Total Impact |
 |-------|---------------|---------------|
 | Stage A | L₁ = λ × W₁ | First bottleneck |
 | Stage B | L₂ = λ × W₂ | Middle processing |
 | Stage C | L₃ = λ × W₃ | Final stage |
+
+</div>
+
 
 <div class="formula-highlight" style="background: #E3F2FD; padding: 15px; margin-top: 10px; text-align: center; border-radius: 5px;">
 <strong>Total System Queue:</strong><br>
@@ -359,10 +419,15 @@ Decompose into subsystems, apply to each
 
 ### Variable Arrival Rates
 !!! note "📈 Traffic Pattern Planning"
+<div class="responsive-table" markdown>
+
     | Time Period | Arrival Rate (λ) | Queue Size (L) | Resource Strategy |
     |-------------|------------------|----------------|-------------------|
     | Peak Hours | 1,000 req/s | 1,000 × W | Full capacity |
     | Off Hours | 100 req/s | 100 × W | Scale down 90% |
+
+</div>
+
     <div class="scaling-visualization" style="margin-top: 15px;">
     <div style="background: #FF5722; width: 100%; padding: 5px; color: white; text-align: center;">Peak: 100% Resources
 <div style="background: #4CAF50; width: 10%; padding: 5px; color: white; text-align: center; margin-top: 5px;">Off: 10%</div>

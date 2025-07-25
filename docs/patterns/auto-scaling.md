@@ -59,12 +59,17 @@ class SimpleAutoScaler:
 
 ## Level 2: Foundation
 
+<div class="responsive-table" markdown>
+
 | Strategy | Trigger | Use Case | Response Time |
 |----------|---------|----------|---------------|
 | **Reactive** | Current metrics | Predictable load | Minutes |
 | **Proactive** | Predicted metrics | Known patterns | Preemptive |
 | **Scheduled** | Time-based | Business hours | Exact timing |
 | **Event-driven** | External events | Marketing campaigns | Immediate |
+
+</div>
+
 
 ### Metric-Based Auto-scaling
 
@@ -335,6 +340,8 @@ def optimal_control_scaling(predicted_load: np.array, constraints: dict) -> np.a
 
 ## Quick Reference
 
+<div class="responsive-table" markdown>
+
 | Workload Type | Strategy | Key Metrics |
 |---------------|----------|-------------|
 | Web API | Target tracking | CPU, request rate |
@@ -342,6 +349,9 @@ def optimal_control_scaling(predicted_load: np.array, constraints: dict) -> np.a
 | Real-time | Predictive | Historical patterns |
 | Bursty | Step scaling | Rapid response |
 | Cost-sensitive | Spot + on-demand | Price, availability |
+
+</div>
+
 
 ### Implementation Checklist
 

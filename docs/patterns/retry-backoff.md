@@ -65,6 +65,8 @@ graph LR
 
 ### Retry Strategies
 
+<div class="responsive-table" markdown>
+
 | Strategy | Pattern | Best For |
 |----------|---------|----------|
 | **Fixed** | 1s, 1s, 1s, 1s | Simple errors |
@@ -72,6 +74,9 @@ graph LR
 | **Exponential** | 1s, 2s, 4s, 8s | Unknown recovery |
 | **Decorrelated** | Random(base, prev×3) | High concurrency |
 | **Adaptive** | ML-based | Dynamic systems |
+
+</div>
+
 
 ### Timing Patterns
 
@@ -815,12 +820,17 @@ flowchart TD
 ```
 
 **Budget Configuration**:
+<div class="responsive-table" markdown>
+
 | Service Type | Budget % | Window | Reasoning |
 |--------------|----------|--------|------------|
 | **User-facing API** | 10% | 1 min | Quick recovery needed |
 | **Background Jobs** | 20% | 5 min | Can tolerate more retries |
 | **Critical Path** | 5% | 30s | Minimize overhead |
 | **Batch Processing** | 30% | 10 min | Resilience priority |
+
+</div>
+
 
 ### Circuit Breaker Integration
 
@@ -1771,6 +1781,8 @@ graph TD
 
 ### Configuration Cheat Sheet
 
+<div class="responsive-table" markdown>
+
 | Use Case | Strategy | Initial Delay | Max Attempts | Jitter | Circuit Breaker |
 |----------|----------|---------------|--------------|--------|------------------|
 | **Payment Processing** | Exponential | 0.5s | 3 | Full | Yes |
@@ -1779,6 +1791,9 @@ graph TD
 | **Microservice Call** | Adaptive | 0.2s | 4 | Full | Yes |
 | **Background Job** | Exponential | 2s | 10 | Equal | No |
 | **Real-time Data** | None/Hedge | 0.05s | 1-2 | N/A | No |
+
+</div>
+
 
 ### Common Error Patterns
 
@@ -1835,6 +1850,8 @@ non_retryable:
 
 ### Key Takeaways by Level
 
+<div class="responsive-table" markdown>
+
 | Level | Core Concept | When You're Ready |
 |-------|--------------|-------------------|
 | **Level 1** | Retries are like a professional waiter - wait appropriately between checks | Building any network-connected app |
@@ -1842,6 +1859,9 @@ non_retryable:
 | **Level 3** | Advanced patterns like hedging and adaptive retry improve resilience | Scaling to millions of requests |
 | **Level 4** | Real companies save millions with sophisticated retry strategies | Building mission-critical systems |
 | **Level 5** | ML and quantum-inspired approaches represent the future | Pushing retry boundaries |
+
+</div>
+
 
 ### Economic Impact Summary
 

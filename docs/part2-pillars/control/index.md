@@ -455,6 +455,8 @@ graph LR
 
 **2. Logs: The Event Stream**
 
+<div class="responsive-table" markdown>
+
 | Log Level | Purpose | Example | Action Required |
 |-----------|---------|---------|-----------------|
 | DEBUG | Development info | "Cache miss for key: user_123" | None |
@@ -462,6 +464,9 @@ graph LR
 | WARN | Potential issues | "Connection pool 80% full" | Monitor |
 | ERROR | Failures needing attention | "Database connection failed" | Investigate |
 | FATAL | System-critical failures | "Cannot bind to port 8080" | Immediate |
+
+</div>
+
 
 **3. Traces: The Request Journey**
 
@@ -628,6 +633,8 @@ graph TD
 
 #### Decision Matrix: Control Strategy Selection
 
+<div class="responsive-table" markdown>
+
 | Factor | Circuit Breaker | Rate Limiter | Auto-scaler | Load Shedding | Bulkhead |
 |--------|----------------|--------------|-------------|---------------|----------|
 | **Response Time** | Milliseconds | Microseconds | Minutes | Milliseconds | Microseconds |
@@ -636,6 +643,9 @@ graph TD
 | **State Required** | Minimal | Counter | Metrics | Priority queue | Pool tracking |
 | **Recovery** | Automatic | Immediate | Gradual | Immediate | Automatic |
 | **Best For** | External deps | API protection | Variable load | Graceful degradation | Isolation |
+
+</div>
+
 
 #### Control Loop Design Patterns
 
@@ -827,6 +837,8 @@ graph TB
 
 #### Alert Severity Framework
 
+<div class="responsive-table" markdown>
+
 | Severity | Response Time | Example | Action | Notification |
 |----------|--------------|---------|--------|--------------|
 | **P0 - Critical** | Immediate | Complete outage | Page on-call | Phone, SMS, Slack |
@@ -834,6 +846,9 @@ graph TB
 | **P2 - Medium** | 1 hour | Single component fail | Notify team | Slack, Email |
 | **P3 - Low** | Next business day | Non-critical issue | Queue for review | Email |
 | **P4 - Info** | When convenient | Optimization opportunity | Dashboard only | None |
+
+</div>
+
 
 #### Alert Lifecycle Management
 
@@ -1372,15 +1387,22 @@ flowchart LR
 
 Experiment with PID parameters:
 
+<div class="responsive-table" markdown>
+
 | Parameter | Too Low | Just Right | Too High |
 |-----------|---------|------------|----------|
 | Kp (Proportional) | Slow response | Quick, stable | Overshoot |
 | Ki (Integral) | Steady-state error | No drift | Oscillation |
 | Kd (Derivative) | No damping | Smooth | Nervous/jittery |
 
+</div>
+
+
 ### Exercise 3: Design a Deployment Strategy 🌳
 
 Match deployment strategy to scenario:
+
+<div class="responsive-table" markdown>
 
 | Scenario | Best Strategy | Why |
 |----------|--------------|-----|
@@ -1388,6 +1410,9 @@ Match deployment strategy to scenario:
 | Large user base | Canary | Gradual risk |
 | Microservices mesh | Rolling | Maintain capacity |
 | Experimental feature | Feature Flag | User control |
+
+</div>
+
 
 ### Exercise 4: Chaos Engineering Plan 🌲
 
@@ -1482,6 +1507,8 @@ graph TB
 
 ### Common Control Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | When to Use | Example |
 |---------|-------------|---------|
 | **Circuit Breaker** | Prevent cascade failures | Database timeouts |
@@ -1492,6 +1519,9 @@ graph TB
 | **Timeout** | Bound wait time | HTTP calls |
 | **Deadlines** | End-to-end time limit | Request processing |
 | **Compensation** | Undo on failure | Saga pattern |
+
+</div>
+
 
 ---
 

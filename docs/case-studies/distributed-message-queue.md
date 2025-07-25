@@ -571,12 +571,17 @@ class ZeroCopyTransfer:
 
 ### Throughput Benchmarks
 
+<div class="responsive-table" markdown>
+
 | Configuration | Messages/sec | Latency (p99) | CPU Usage |
 |--------------|--------------|---------------|-----------|
 | Single broker, no replication | 800K | 2ms | 40% |
 | 3 brokers, replication factor 3 | 500K | 5ms | 60% |
 | 5 brokers, RF=3, compression | 700K | 4ms | 70% |
 | 10 brokers, RF=3, batching | 1.2M | 10ms | 65% |
+
+</div>
+
 
 ### Storage Efficiency
 
@@ -707,6 +712,8 @@ kafka-reassign-partitions.sh \
 
 ### Comprehensive Design Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Design Decision | Law 1<br/>🚀 Latency | Law 2<br/>💾 Capacity | Law 3<br/>🔥 Failure | Law 4<br/>🔀 Concurrency | Law 5<br/>🤝 Coordination | Law 6<br/>👁️ Observability | Law 7<br/>👤 Human | Law 8<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Log-Structured Storage** | ✅ Sequential writes | ✅ Efficient storage | ✅ Crash recovery | ✅ Append-only | ⚪ | ✅ Offset tracking | ⚪ | ✅ Disk efficiency |
@@ -717,6 +724,9 @@ kafka-reassign-partitions.sh \
 | **Consumer Groups** | ⚪ Coordination overhead | ✅ Work distribution | ✅ Automatic rebalance | ✅ Parallel consumption | ✅ Group coordination | ✅ Lag monitoring | ✅ Simple scaling | ✅ Resource sharing |
 | **Exactly-Once** | ⚪ Transaction overhead | ⚪ | ✅ No duplicates/loss | ✅ Idempotent ops | ✅ Transaction protocol | ✅ Transaction metrics | ✅ Correctness | ⚪ |
 | **Tiered Storage** | ⚪ Tier latency | ✅ Infinite retention | ✅ Cost-effective backup | ⚪ | ✅ Tier migration | ✅ Storage metrics | ✅ Long retention | ✅ 80% cost savings |
+
+</div>
+
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
 
@@ -970,6 +980,8 @@ sequenceDiagram
 
 ### Consistency Models by Use Case
 
+<div class="responsive-table" markdown>
+
 | Use Case | Consistency Model | Implementation | Trade-offs |
 |----------|------------------|----------------|------------|
 | **Financial Transactions** | Exactly-Once + Total Order | Idempotent producer + Transactions | Higher latency, Lower throughput |
@@ -978,6 +990,9 @@ sequenceDiagram
 | **Event Sourcing** | Exactly-Once + Causal Order | Transactional outbox | Complex implementation |
 | **IoT Telemetry** | Best Effort | UDP-like semantics | High throughput |
 | **CDC (Change Data Capture)** | Exactly-Once + Order | Log-based replication | Requires source support |
+
+</div>
+
 
 ### Kafka's Consistency Architecture
 
@@ -1174,6 +1189,8 @@ graph TB
 
 ### Message Queue Consistency Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | Description | Use Case | Example |
 |---------|-------------|----------|---------|
 | **Idempotent Producer** | Automatic retry with dedup | Exactly-once produce | Kafka producer ID |
@@ -1183,6 +1200,9 @@ graph TB
 | **Sticky Partitioning** | Maintain consumer-partition affinity | Stateful processing | Kafka sticky assignor |
 | **Controlled Shutdown** | Graceful leader migration | Zero downtime | Broker shutdown |
 | **Read Replicas** | Scale read throughput | Analytics workloads | Follower fetching |
+
+</div>
+
 
 ### Best Practices for Queue Consistency
 
@@ -1243,6 +1263,8 @@ graph LR
 
 ## Trade-offs and Decisions
 
+<div class="responsive-table" markdown>
+
 | Decision | Trade-off | Why This Choice |
 |----------|-----------|-----------------|
 | Append-only log | Can't modify messages | Maximizes write throughput |
@@ -1250,6 +1272,9 @@ graph LR
 | Pull-based consumers | More complex clients | Better flow control |
 | Persistent storage | Higher latency | Durability guarantee |
 | Fixed partition count | Rebalancing overhead | Predictable performance |
+
+</div>
+
 
 ## Key Design Insights
 

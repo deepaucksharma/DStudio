@@ -15,7 +15,6 @@ edit_uri: edit/main/docs/
 theme:
   name: material
   language: en
-  custom_dir: docs/overrides
   
   features:
     # Navigation
@@ -299,17 +298,88 @@ watch:
   - docs
   - mkdocs.yml
 
-# Navigation - Comprehensive Structure
+# Navigation - Optimized 6-Tab Structure with Proper Depth
 nav:
   - Home: index.md
+  
   - Learn:
     - Welcome: introduction/index.md
     - Getting Started: introduction/getting-started.md
+    - Philosophy: introduction/philosophy.md
+    - Learning Paths:
+      - Overview: learning-paths/index.md
+      - New Graduate: learning-paths/new-graduate.md
+      - Senior Engineer: learning-paths/senior-engineer.md
+      - Engineering Manager: learning-paths/manager.md
+      - Solution Architect: learning-paths/architect.md
+      - By Topic:
+        - Consistency: learning-paths/consistency.md
+        - Performance: learning-paths/performance.md
+        - Cost: learning-paths/cost.md
+        - Reliability: learning-paths/reliability.md
+    - Foundations:
+      - The 7 Laws: part1-axioms/index.md
+      - The 5 Pillars: part2-pillars/index.md
+  
   - Patterns:
-    - Pattern Library: patterns/index.md
-    - Circuit Breaker: patterns/circuit-breaker.md
-    - CQRS: patterns/cqrs.md
+    - Overview: patterns/index.md
+    - Pattern Tools:
+      - Pattern Selector: patterns/pattern-selector.md
+      - Pattern Comparison: patterns/pattern-comparison.md
+      - Pattern Quiz: patterns/pattern-quiz.md
+    - Core Patterns:
+      - Circuit Breaker: patterns/circuit-breaker.md
+      - Retry & Backoff: patterns/retry-backoff.md
+      - CQRS: patterns/cqrs.md
+      - Event Sourcing: patterns/event-sourcing.md
+      - Saga: patterns/saga.md
+      - Service Mesh: patterns/service-mesh.md
+    - Browse All Patterns: patterns/index.md#pattern-categories
+  
+  - Quantitative:
+    - Overview: quantitative/index.md
+    - Essential Tools:
+      - Latency Ladder: quantitative/latency-ladder.md
+      - Little's Law: quantitative/littles-law.md
+      - CAP Theorem: quantitative/cap-theorem.md
+      - Consistency Models: quantitative/consistency-models.md
+    - Calculators:
+      - All Calculators: tools/index.md
+      - Latency Calculator: tools/latency-calculator.md
+      - Capacity Calculator: tools/capacity-calculator.md
+    - Human Factors:
+      - Overview: human-factors/index.md
+      - SRE Practices: human-factors/sre-practices.md
+      - Chaos Engineering: human-factors/chaos-engineering.md
+  
   - Case Studies:
-    - All Case Studies: case-studies/index.md
+    - Overview: case-studies/index.md
+    - Featured Systems:
+      - Chat System: case-studies/chat-system.md
+      - URL Shortener: case-studies/url-shortener.md
+      - Key-Value Store: case-studies/key-value-store.md
+    - Tech Giants:
+      - Amazon DynamoDB: case-studies/amazon-dynamo.md
+      - Apache Cassandra: case-studies/cassandra.md
+      - Netflix Streaming: case-studies/netflix-streaming.md
+    - Browse All Cases: case-studies/index.md#all-case-studies
+  
+  - Interviews:
+    - Overview: google-interviews/index.md
+    - Preparation:
+      - Preparation Guide: google-interviews/preparation-guide.md
+      - Visual Roadmap: google-interviews/preparation-roadmap.md
+      - Common Mistakes: google-interviews/common-mistakes.md
+    - Practice Problems:
+      - System Design Basics: google-interviews/system-design-basics.md
+      - Advanced Topics: google-interviews/advanced-techniques.md
+  
   - Reference:
-    - All Resources: reference/index.md
+    - Overview: reference/index.md
+    - Quick Reference:
+      - Glossary: reference/glossary.md
+      - Cheat Sheets: reference/cheat-sheets.md
+      - Law Mapping Guide: reference/law-mapping-guide.md
+    - Resources:
+      - Security Patterns: reference/security.md
+      - Recipe Cards: reference/recipe-cards.md

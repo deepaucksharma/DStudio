@@ -474,6 +474,8 @@ graph TB
 
 ## CRDT Comparison Table
 
+<div class="responsive-table" markdown>
+
 | CRDT Type | Operations | Use Case | Memory Overhead | Convergence Speed |
 |-----------|------------|----------|-----------------|------------------|
 | **G-Counter** | increment only | Page views, likes | Low (O(nodes)) | Fast |
@@ -484,6 +486,9 @@ graph TB
 | **LWW-Register** | set | Last value wins | Low | Fast |
 | **MV-Register** | set | Preserve conflicts | Medium | Fast |
 | **RGA** | insert, delete | Text editing | High | Medium |
+
+</div>
+
 
 ## Network Partition Scenarios
 
@@ -598,11 +603,16 @@ graph LR
 
 ### Join Semilattice Requirements
 
+<div class="responsive-table" markdown>
+
 | Property | Definition | Example (Set Union) |
 |----------|------------|--------------------|
 | **Commutativity** | `a ⊔ b = b ⊔ a` | `{1,2} ∪ {3} = {3} ∪ {1,2}` |
 | **Associativity** | `(a ⊔ b) ⊔ c = a ⊔ (b ⊔ c)` | `({1} ∪ {2}) ∪ {3} = {1} ∪ ({2} ∪ {3})` |
 | **Idempotence** | `a ⊔ a = a` | `{1,2} ∪ {1,2} = {1,2}` |
+
+</div>
+
 
 ## Real-World Applications
 
@@ -752,6 +762,8 @@ class TTLMap:
 
 ### Space and Time Complexity
 
+<div class="responsive-table" markdown>
+
 | CRDT Type | Space Complexity | Update Time | Merge Time | Query Time |
 |-----------|------------------|-------------|------------|------------|
 | **G-Counter** | O(n) nodes | O(1) | O(n) | O(n) |
@@ -759,6 +771,9 @@ class TTLMap:
 | **OR-Set** | O(m) elements × unique IDs | O(1) | O(m) | O(1) |
 | **LWW-Register** | O(1) | O(1) | O(1) | O(1) |
 | **RGA** | O(m) characters | O(m) | O(m) | O(1) |
+
+</div>
+
 
 ### Bandwidth Usage Patterns
 
@@ -886,6 +901,8 @@ class HybridCounter:
 
 ### CRDT vs Other Consistency Models
 
+<div class="responsive-table" markdown>
+
 | Aspect | CRDTs | Consensus (Raft/Paxos) | Last-Write-Wins | Vector Clocks |
 |--------|-------|------------------------|-----------------|---------------|
 | **Availability** | Always available | Requires majority | Always available | Always available |
@@ -895,6 +912,9 @@ class HybridCounter:
 | **Latency** | Low (local ops) | High (coordination) | Low | Low |
 | **Complexity** | Medium | High | Low | Medium |
 | **Memory Overhead** | Can be high | Low | Low | Medium |
+
+</div>
+
 
 ### When CRDTs Are Not Suitable
 

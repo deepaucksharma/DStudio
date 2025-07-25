@@ -179,6 +179,8 @@ if consistency_slo_met < target:
 
 Understanding how consistency tuning relates to our fundamental laws helps make better decisions:
 
+<div class="responsive-table" markdown>
+
 | Law | Impact on Consistency Tuning | Key Considerations |
 |-----|------------------------------|-------------------|
 | **Law 2: Asynchronous Reality ⏳** | Higher consistency = higher latency | Balance consistency needs with latency SLOs. QUORUM adds network round trips. |
@@ -189,6 +191,9 @@ Understanding how consistency tuning relates to our fundamental laws helps make 
 | **Law 3: Emergence 🌪️** | Consistency levels affect operation ordering | Weaker consistency may see operations out of order. |
 | **Law 5: Epistemology 🧠** | Nodes have incomplete knowledge | Consistency levels determine how much agreement before proceeding. |
 | **Law 7: Economics 💰** | Scaling impacts consistency performance | More nodes = higher latency for QUORUM/ALL operations. |
+
+</div>
+
 
 ## Consistency Decision Matrix
 
@@ -218,6 +223,8 @@ graph TD
 
 ## Trade-off Analysis Framework
 
+<div class="responsive-table" markdown>
+
 | Consistency Level | Latency Impact | Availability | Consistency Guarantee | Cost | Use Case |
 |-------------------|----------------|--------------|----------------------|------|----------|
 | **ANY** | Lowest (5ms) | Highest (99.99%) | None - may not be durable | $ | Metrics, logs |
@@ -226,6 +233,9 @@ graph TD
 | **LOCAL_QUORUM** | Medium (25ms) | High (99.5%) | Majority in local DC | $$ | Regional operations |
 | **QUORUM** | High (50ms) | Medium (99%) | Majority across all DCs | $$$ | Standard transactions |
 | **ALL** | Highest (100ms+) | Lowest (95%) | All replicas agree | $$$$ | Critical operations |
+
+</div>
+
 
 ## Monitoring Consistency
 
@@ -277,6 +287,8 @@ graph TD
 
 ### Operation Classification Matrix
 
+<div class="responsive-table" markdown>
+
 | Operation Category | Example Operations | Default Level | Degraded Level | Business Impact of Inconsistency |
 |-------------------|-------------------|---------------|----------------|----------------------------------|
 | **Financial** | Payment processing, Balance updates | ALL | QUORUM | Revenue loss, compliance issues |
@@ -285,6 +297,9 @@ graph TD
 | **Shopping Cart** | Add/Remove items | LOCAL_QUORUM | ONE | Mild frustration, recoverable |
 | **Analytics** | Page views, Click tracking | ONE | ANY | Acceptable data loss (<1%) |
 | **System Metrics** | Performance data, Logs | ANY | ANY | No user impact |
+
+</div>
+
 
 ### Dynamic Consistency Strategy
 

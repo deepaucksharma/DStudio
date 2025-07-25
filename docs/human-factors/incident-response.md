@@ -55,12 +55,17 @@ flowchart TD
     style F1 fill:#66bb6a
 ```
 
+<div class="responsive-table" markdown>
+
 | Level | Definition | Response Time | Example |
 |-------|------------|---------------|---------|
 | **SEV-1** | Critical business impact | < 15 minutes | Complete outage, data loss |
 | **SEV-2** | Major functionality impaired | < 30 minutes | Core features down |
 | **SEV-3** | Minor functionality impaired | < 2 hours | Non-critical features affected |
 | **SEV-4** | Minimal impact | < 24 hours | Cosmetic issues |
+
+</div>
+
 
 ## Incident Response Lifecycle (Cognitive Load Aware)
 
@@ -144,6 +149,8 @@ flowchart TD
 
 **Response Checklist by Phase:**
 
+<div class="responsive-table" markdown>
+
 | Phase | Task | Target Time | Owner |
 |-------|------|-------------|-------|
 | **Detection** | Acknowledge alert | < 5 minutes | On-call |
@@ -154,6 +161,9 @@ flowchart TD
 | **Resolution** | Deploy fix | ASAP | Dev Team |
 | **Verification** | Confirm fixed | +15 minutes | QA/Ops |
 | **Documentation** | Timeline complete | +2 hours | Scribe |
+
+</div>
+
 
 ### Visual Incident Flow Diagram
 
@@ -226,6 +236,8 @@ flowchart LR
     style D fill:#c8e6c9
 ```
 
+<div class="responsive-table" markdown>
+
 | Template | When to Use | Key Elements | Tone |
 |----------|-------------|--------------|------|  
 | **Initial** | First 30 min | Impact, investigating, next update | Acknowledge concern |
@@ -233,8 +245,13 @@ flowchart LR
 | **Resolution** | When fixed | Duration, cause, prevention | Apologetic, forward-looking |
 | **RCA** | Within 48hr | Deep dive, lessons, improvements | Technical, honest |
 
+</div>
+
+
 #### Update Communication
 **Status Update Framework:**
+
+<div class="responsive-table" markdown>
 
 | Status | Meaning | Customer Message | Internal Actions |
 |--------|---------|-----------------|------------------|
@@ -242,6 +259,9 @@ flowchart LR
 | **Identified** | Cause found | "We've identified the problem" | Working on fix |
 | **Monitoring** | Fix deployed | "A fix has been implemented" | Watching metrics |
 | **Resolved** | Confirmed fixed | "The issue has been resolved" | Start postmortem |
+
+</div>
+
 
 #### Resolution Communication
 **Resolution Communication Guide:**
@@ -284,6 +304,8 @@ flowchart TD
 
 **Automation Benefits:**
 
+<div class="responsive-table" markdown>
+
 | Task | Manual Time | Automated Time | Time Saved |
 |------|-------------|----------------|------------|
 | Create incident | 5 minutes | 5 seconds | 98% |
@@ -291,6 +313,9 @@ flowchart TD
 | Initial comms | 15 minutes | 1 minute | 93% |
 | Status page | 5 minutes | Instant | 100% |
 | **Total** | **35 minutes** | **< 2 minutes** | **94%** |
+
+</div>
+
 
 ## On-Call Best Practices
 
@@ -353,12 +378,17 @@ flowchart TD
 
 **Escalation Matrix:**
 
+<div class="responsive-table" markdown>
+
 | Time | Level | Who Gets Paged | Expected Action |
 |------|-------|----------------|------------------|
 | 0-5 min | L1 | Primary on-call | Acknowledge & respond |
 | 5-10 min | L2 | Secondary + Lead | Assist or take over |
 | 10-15 min | L3 | Director + VP | Resource allocation |
 | 15+ min | L4 | C-Suite | Business decisions |
+
+</div>
+
 
 ## Runbook Structure
 
@@ -440,6 +470,8 @@ kubectl autoscale deployment/service-name --cpu-percent=50 --min=5 --max=20
 
 How incident response connects to fundamental distributed systems laws:
 
+<div class="responsive-table" markdown>
+
 | Law | Impact on Incident Response | Strategic Considerations |
 |-----|----------------------------|-------------------------|
 | **Law 2: Asynchronous Reality ⏱️** | Detection and response time critical | Minimize alert latency, optimize communication channels, pre-position resources |
@@ -450,6 +482,9 @@ How incident response connects to fundamental distributed systems laws:
 | **Law 6: Human-API 🤯** | Stress reduces capacity by 80% | Simple runbooks, clear roles, practiced procedures, cognitive offload tools |
 | **Law 5: Epistemology 🤝** | Coordination failures extend incidents | Clear ownership, defined handoffs, single communication channel |
 | **Law 7: Economics 💰** | Scale triggers new incident patterns | Plan for growth-related failures, update runbooks as systems evolve |
+
+</div>
+
 
 ## Incident Response Decision Tree
 
@@ -483,6 +518,8 @@ graph TD
 
 ### Severity Assessment Matrix
 
+<div class="responsive-table" markdown>
+
 | Criteria ↓ / Level → | SEV-1 (Critical) | SEV-2 (Major) | SEV-3 (Minor) | SEV-4 (Low) |
 |---------------------|------------------|---------------|---------------|-------------|
 | **Revenue Impact** | >$10k/minute | $1k-10k/minute | <$1k/minute | None |
@@ -491,6 +528,9 @@ graph TD
 | **Security** | Active breach | Vulnerability exposed | Potential issue | None |
 | **Reputation** | Media attention | Social media noise | Customer complaints | Internal only |
 | **Recovery Time** | >4 hours | 1-4 hours | <1 hour | <30 minutes |
+
+</div>
+
 
 ### Response Requirements by Severity
 
@@ -547,6 +587,8 @@ flowchart LR
 
 **Incident Metrics Dashboard:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Definition | Target | Current | Trend |
 |--------|------------|--------|---------|-------|
 | **MTTD** | Detection time | < 5 min | 3.2 min | ↓ 15% |
@@ -555,9 +597,14 @@ flowchart LR
 | **MTTF** | Between failures | > 720 hr | 892 hr | ↑ 18% |
 | **Incidents/Month** | Total count | < 10 | 7 | ↓ 30% |
 
+</div>
+
+
 ## Communication Strategy Matrix
 
 ### Stakeholder Communication Plan
+
+<div class="responsive-table" markdown>
 
 | Stakeholder | SEV-1 | SEV-2 | SEV-3 | SEV-4 |
 |-------------|-------|-------|-------|-------|
@@ -566,6 +613,9 @@ flowchart LR
 | **Engineering** | All hands page | Team page | Slack notify | Ticket only |
 | **Leadership** | CEO + VP alert | Director alert | Manager FYI | Weekly report |
 | **Sales** | Account manager alert | If customer facing | No action | No action |
+
+</div>
+
 
 ### Incident Timeline Tracking
 
@@ -590,6 +640,8 @@ flowchart LR
 
 ## Role Responsibility RACI Matrix
 
+<div class="responsive-table" markdown>
+
 | Activity | Incident Commander | Tech Lead | Comms Lead | Scribe | On-call |
 |----------|-------------------|-----------|------------|---------|----------|
 | **Declare Incident** | A | C | I | I | R |
@@ -600,6 +652,9 @@ flowchart LR
 | **Status Updates** | R | C | A | R | I |
 | **Document Timeline** | I | C | C | A | C |
 | **Call Postmortem** | A | R | I | R | C |
+
+</div>
+
 
 *R = Responsible, A = Accountable, C = Consulted, I = Informed*
 

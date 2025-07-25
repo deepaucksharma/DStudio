@@ -778,6 +778,8 @@ graph TB
 
 **Retry Configuration:**
 
+<div class="responsive-table" markdown>
+
 | Attempt | Delay | Total Time | Action |
 |---------|-------|------------|--------|
 | 1 | 0s | 0s | Immediate send |
@@ -786,6 +788,9 @@ graph TB
 | 4 | 8s | 14s | Third retry |
 | 5 | 16s | 30s | To DLQ |
 | DLQ | 60s | - | Background retry |
+
+</div>
+
 
 **Dead Letter Queue Processing:**
 
@@ -1007,6 +1012,8 @@ sequenceDiagram
 
 **Worker Pool Architecture:**
 
+<div class="responsive-table" markdown>
+
 | Component | Configuration | Purpose |
 |-----------|--------------|---------|
 | **Channel Workers** | | |
@@ -1020,6 +1027,9 @@ sequenceDiagram
 | Thread Pool | 20 workers | Database queries, API calls |
 | **Rate Limiters** | | |
 | Token Bucket | Per-channel limits | Prevent provider throttling |
+
+</div>
+
 
 **Concurrency Control Patterns:**
 
@@ -1173,11 +1183,16 @@ graph TD
 
 **Delivery Strategy Patterns:**
 
+<div class="responsive-table" markdown>
+
 | Strategy | Behavior | Use Case |
 |----------|----------|----------|
 | **Parallel** | Send to all channels simultaneously | Time-critical notifications |
 | **Cascade** | Send with delays between channels | Gradual escalation |
 | **Fallback** | Only send to next if previous fails | Cost optimization |
+
+</div>
+
 
 **Delivery Plan Execution:**
 
@@ -1320,6 +1335,8 @@ sequenceDiagram
 
 **Metrics Dashboard Layout:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Type | Labels | Purpose |
 |--------|------|--------|---------|
 | **notifications_sent_total** | Counter | channel, priority, status | Track delivery volume |
@@ -1329,6 +1346,9 @@ sequenceDiagram
 | **queue_depth** | Gauge | priority, channel | Backlog monitoring |
 | **click_rate** | Counter | channel, template_id | Engagement tracking |
 | **open_rate** | Counter | channel, template_id | Email effectiveness |
+
+</div>
+
 
 **Analytics Data Flow:**
 
@@ -1538,6 +1558,8 @@ sequenceDiagram
 ```
 **API Endpoint Structure:**
 
+<div class="responsive-table" markdown>
+
 | Endpoint | Method | Purpose | Auth Required |
 |----------|--------|---------|---------------|
 | **User APIs** | | | |
@@ -1553,6 +1575,9 @@ sequenceDiagram
 | `/api/v1/analytics/overview` | GET | Get analytics overview | Admin |
 | `/api/v1/segments` | POST | Create user segment | Admin |
 | `/api/v1/ab-tests` | POST | Create A/B test | Admin |
+
+</div>
+
 
 **Preference Update Flow:**
 
@@ -1681,6 +1706,8 @@ graph TB
 
 **Channel Cost Structure:**
 
+<div class="responsive-table" markdown>
+
 | Channel | Base Cost | Volume Tiers | Off-Peak Discount |
 |---------|-----------|--------------|-------------------|
 | **Push** | $0.001 | 1M: $0.001<br/>10M: $0.0008<br/>100M: $0.0005 | N/A |
@@ -1688,6 +1715,9 @@ graph TB
 | **SMS** | $0.01 | 10K: $0.01<br/>100K: $0.008<br/>1M: $0.006 | 15% |
 | **In-App** | $0.00001 | Infrastructure only | N/A |
 | **Webhook** | $0.00005 | Bandwidth cost | N/A |
+
+</div>
+
 
 **Cost-Based Channel Selection:**
 
@@ -1835,6 +1865,8 @@ graph LR
 
 ### Comprehensive Law Mapping
 
+<div class="responsive-table" markdown>
+
 | Design Decision | Latency | Capacity | Failure | Concurrency | Coordination | Observability | Human Interface | Economics |
 |-----------------|---------|----------|---------|-------------|--------------|---------------|-----------------|-----------|
 | **Multi-level Priority Queues** | Critical < 1s, High < 5s, Medium < 30s, Low < 5m | Separate queue sizes prevent blocking | Overflow handling to prevent loss | Parallel queue processing | Priority-based coordination | Queue depth metrics | Priority preferences | Cost-based routing |
@@ -1847,6 +1879,9 @@ graph LR
 | **Delivery Tracking** | Async tracking | 10B events/day | At-least-once delivery | Event streaming | Delivery confirmation | End-to-end tracking | Delivery status | Analytics insights |
 | **Rate Limiting** | Immediate rejection | Per-user/channel limits | Graceful degradation | Token bucket algorithm | Distributed rate limits | Rate limit metrics | Limit notifications | Prevent abuse costs |
 | **Circuit Breakers** | Fast failure detection | Prevent cascading failures | Auto-recovery | Per-provider isolation | State synchronization | Circuit state monitoring | Provider status alerts | Cost protection |
+
+</div>
+
 
 ### Architecture Alternatives
 
@@ -2110,6 +2145,8 @@ graph TB
 
 ### Trade-off Analysis
 
+<div class="responsive-table" markdown>
+
 | Architecture | Latency | Throughput | Reliability | Complexity | Cost | Flexibility |
 |--------------|---------|------------|-------------|------------|------|-------------|
 | **Monolithic Queue** | Medium (5-10s) | Limited (100K/s) | Single point of failure | Low | Low ($5K/mo) | Poor |
@@ -2117,6 +2154,9 @@ graph TB
 | **Event Streaming** | Very Low (<1s) | Very High (1M/s) | Event replay capability | Very High | High ($30K/mo) | Good |
 | **Serverless** | Variable (1-30s) | Auto-scaling | Managed reliability | Medium | Usage-based ($10-50K) | Good |
 | **Edge-First** | Ultra Low (<500ms) | Region-limited | Regional failover | Very High | Very High ($50K/mo) | Excellent |
+
+</div>
+
 
 ### Architecture Selection Criteria
 
@@ -2331,6 +2371,8 @@ graph TB
 
 ### Key Design Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **Architecture** | Monolithic | Microservices | **Microservices** - Independent scaling per channel, fault isolation |
@@ -2338,6 +2380,9 @@ graph TB
 | **Delivery Guarantee** | At-most-once | At-least-once | **At-least-once** - Better to duplicate than miss critical notifications |
 | **Storage** | SQL | NoSQL | **Hybrid** - SQL for preferences/config, NoSQL for history/analytics |
 | **Real-time** | Polling | WebSocket/SSE | **WebSocket** - True real-time for in-app, efficient connection reuse |
+
+</div>
+
 
 ### Alternative Architectures
 

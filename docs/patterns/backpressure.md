@@ -70,6 +70,8 @@ Like a restaurant that stops taking orders when the kitchen is backed up - bette
 
 ### Core Strategies
 
+<div class="responsive-table" markdown>
+
 | Strategy | Mechanism | Use Case | Complexity |
 |----------|-----------|----------|------------||
 | **Blocking** | Producer waits when full | Simple flows | Low |
@@ -77,6 +79,9 @@ Like a restaurant that stops taking orders when the kitchen is backed up - bette
 | **Buffering** | Temporary storage | Burst handling | Medium |
 | **Credit-Based** | Explicit capacity signals | Precise control | High |
 | **Adaptive** | Dynamic rate adjustment | Variable load | High |
+
+</div>
+
 
 ### Flow Control Models
 
@@ -111,12 +116,17 @@ graph LR
 
 ### Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Pros | Cons |
 |----------|------|------||
 | Unbounded Queues | Simple, absorbs bursts | OOM risk, unpredictable latency |
 | Bounded Queues | Memory safe, predictable | Can block or drop |
 | Dynamic Buffers | Flexible capacity | Complex management |
 | Rate Limiting | Predictable load | May underutilize |
+
+</div>
+
 
 ---
 
@@ -1002,6 +1012,8 @@ subscriber.request(10)  # Request 10 items
 
 ### Performance Guidelines
 
+<div class="responsive-table" markdown>
+
 | Strategy | CPU Overhead | Memory Usage | Latency Impact | Throughput |
 |----------|--------------|--------------|----------------|------------|
 | Unbounded | None | High/Unsafe | Variable | Maximum |
@@ -1009,6 +1021,9 @@ subscriber.request(10)  # Request 10 items
 | Dropping | Minimal | Controlled | Stable | Maintained |
 | Credit-Based | Medium | Controlled | Predictable | Optimized |
 | Adaptive | High | Controlled | Stable | Dynamic |
+
+</div>
+
 
 ---
 

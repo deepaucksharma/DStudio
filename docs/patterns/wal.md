@@ -465,12 +465,17 @@ After crash:
 
 ### 3. Performance Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Aspect | Without WAL | With WAL |
 |--------|-------------|----------|
 | Write Latency | Random I/O | Sequential I/O |
 | Durability | Per-page fsync | Group commit |
 | Recovery Time | Full scan | From checkpoint |
 | Write Amplification | 1x | 2x+ |
+
+</div>
+
 
 ## WAL Design Patterns
 

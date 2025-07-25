@@ -797,6 +797,8 @@ async def benchmark_frontier():
 
 ## Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Scalability | Performance | Memory Usage | Complexity |
 |----------|-------------|-------------|--------------|------------|
 | In-Memory | Medium | Very High | High | Low |
@@ -804,6 +806,9 @@ async def benchmark_frontier():
 | Freshness-Aware | High | Medium | Medium | Medium |
 | Robots-Aware | High | Medium | Medium | Medium |
 | Batch Processing | Very High | Very High | Medium | Medium |
+
+</div>
+
 
 ## Frontier Architecture Patterns
 

@@ -60,11 +60,16 @@ This calculation is dangerously wrong because it assumes independence. In realit
 
 ### Original Table
 ```markdown
+<div class="responsive-table" markdown>
+
 | State | Behavior | When to Transition |
 |-------|----------|--------------------|
 | CLOSED | Let requests through | After X failures → OPEN |
 | OPEN | Reject immediately | After timeout → HALF-OPEN |
 | HALF-OPEN | Test with few requests | Success → CLOSED, Failure → OPEN |
+
+</div>
+
 ```
 
 ### Enhanced with Cards and Admonitions
@@ -158,12 +163,17 @@ This calculation is dangerously wrong because it assumes independence. In realit
         <details>
         <summary>Temperature Cascade Timeline</summary>
         
+<div class="responsive-table" markdown>
+
         | Time | Temperature | Action |
         |------|-------------|--------|
         | 00:00 | 68°F | Normal operation |
         | 00:15 | 75°F | Warning alerts |
         | 00:30 | 85°F | Throttle CPUs |
         | 00:45 | 95°F | Emergency shutdown |
+
+</div>
+
         
         </details>
     
@@ -248,10 +258,15 @@ def test_correlated_failure():
 
 ### Original Table
 ```markdown
+<div class="responsive-table" markdown>
+
 | Question | Yes → Use Circuit Breaker | No → Alternative |
 |----------|---------------------------|------------------|
 | Calling external services? | ✅ Essential | ⚠️ Consider for internal |
 | Risk of cascade failures? | ✅ High priority | ⚠️ Simple retry may suffice |
+
+</div>
+
 ```
 
 ### Enhanced with Admonitions and Annotations
@@ -273,6 +288,8 @@ def test_correlated_failure():
     
     ??? tip "Quick Reference Guide"
         
+<div class="responsive-table" markdown>
+
         | Scenario | Circuit Breaker? | Alternative | Reasoning |
         |----------|-----------------|-------------|-----------|
         | External API calls | ✅ **Required** | None | Protect against provider outages |
@@ -280,6 +297,9 @@ def test_correlated_failure():
         | Internal microservices | ✅ **If >1000 RPS**(1) | Simple retry | High traffic needs protection |
         | Cache lookups | ❌ **Not needed** | Timeout only | Already fast-failing |
         | Message queue | ✅ **For consumers**(2) | Dead letter queue | Prevent poison messages |
+
+</div>
+
         { .annotate }
         
         1. High traffic increases cascade risk exponentially

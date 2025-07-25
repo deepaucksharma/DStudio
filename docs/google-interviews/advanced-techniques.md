@@ -121,6 +121,8 @@ YouTube Video Streaming - First Principles:
 
 ### The Clarification Matrix
 
+<div class="responsive-table" markdown>
+
 | Dimension | Questions to Ask | Why It Matters |
 |-----------|------------------|----------------|
 | **Users** | B2C or B2B? Global? | Determines scale & features |
@@ -128,6 +130,9 @@ YouTube Video Streaming - First Principles:
 | **Features** | MVP or full? Priority? | Affects complexity |
 | **Constraints** | Latency? Cost? Team? | Shapes trade-offs |
 | **Success** | Metrics? SLA? | Defines optimization |
+
+</div>
+
 
 ### Smart Assumptions
 

@@ -748,12 +748,17 @@ graph TB
 ```
 
 **Decision Matrix**:
+<div class="responsive-table" markdown>
+
 | Use Case | Latency Target | Accuracy Target | Solution |
 |----------|---------------|-----------------|----------|
 | Search Suggestions | <50ms | 80% | Prefix cache + popular queries |
 | Search Results | <200ms | 95% | Tiered ranking (fast first, refine later) |
 | Ad Targeting | <100ms | 90% | Pre-computed segments + real-time features |
 | Analytics | <5s | 99.9% | Exact computation with sampling fallback |
+
+</div>
+
 
 ### 3. Storage vs Compute
 
@@ -938,6 +943,8 @@ graph LR
 
 ### Pattern Selection Guidelines
 
+<div class="responsive-table" markdown>
+
 | Pattern | When to Use | When to Avoid |
 |---------|------------|---------------|
 | Sharding | Data > single machine capacity | Strong consistency needed across shards |
@@ -946,6 +953,9 @@ graph LR
 | Progressive Enhancement | Web applications | Backend services |
 | Canary Deployment | All production changes | Emergency hotfixes |
 | Feature Flags | All new features | Infrastructure changes |
+
+</div>
+
 
 ### Anti-Pattern Recognition
 

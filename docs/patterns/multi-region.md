@@ -72,6 +72,8 @@ Like a global retail chain - stores in every region stock local preferences whil
 
 ### Core Architecture Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | Description | Use Case | Complexity |
 |---------|-------------|----------|------------||
 | **Active-Passive** | Primary region + standby | DR focus | Low |
@@ -79,6 +81,9 @@ Like a global retail chain - stores in every region stock local preferences whil
 | **Pilot Light** | Minimal standby infrastructure | Cost-sensitive | Medium |
 | **Read Replicas** | Read in all, write in one | Read-heavy | Medium |
 | **Follow-the-Sun** | Active region follows daylight | Batch processing | Medium |
+
+</div>
+
 
 ### Data Replication Strategies
 
@@ -112,12 +117,17 @@ graph LR
 
 ### Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Cost |
 |--------|---------|------|
 | Performance | Low global latency | Complex deployment |
 | Availability | Survive region failures | Higher infrastructure cost |
 | Compliance | Meet local regulations | Data segregation complexity |
 | Scalability | Regional load isolation | Operational overhead |
+
+</div>
+
 
 ---
 
@@ -962,6 +972,8 @@ failover test --dry-run
 
 ### Latency Expectations
 
+<div class="responsive-table" markdown>
+
 | Distance | Theoretical Min | Typical | Degraded |
 |----------|----------------|---------|----------|
 | Same Region | 1ms | 5-10ms | 50ms |
@@ -969,6 +981,9 @@ failover test --dry-run
 | Cross-Atlantic | 60ms | 80-100ms | 300ms |
 | Cross-Pacific | 90ms | 120-150ms | 500ms |
 | Opposite Side | 133ms | 200-250ms | 1000ms |
+
+</div>
+
 
 ---
 

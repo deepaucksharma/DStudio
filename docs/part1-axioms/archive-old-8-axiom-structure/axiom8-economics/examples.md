@@ -211,6 +211,8 @@ class QueryQuotaManager:
 
 #### Lessons Learned
 
+<div class="responsive-table" markdown>
+
 | Failure Point | Solution | Implementation |
 |--------------|----------|----------------|
 | No retry limit | Max retry count | `max_retries=3` |
@@ -219,6 +221,9 @@ class QueryQuotaManager:
 | No budget limits | Hourly/daily budgets | Cost tracker |
 | No alerts | Real-time alerts | CloudWatch/Datadog |
 | No circuit breaker | Auto-disable expensive ops | Circuit breaker pattern |
+
+</div>
+
 
 ---
 
@@ -1244,6 +1249,8 @@ class SpotInstanceArchitecture:
 
 ### Cost Optimization Checklist
 
+<div class="responsive-table" markdown>
+
 | Area | Quick Wins | Medium Term | Long Term |
 |------|-----------|-------------|------------|
 | **Compute** | Right-size instances | Reserved instances | Serverless migration |
@@ -1251,6 +1258,9 @@ class SpotInstanceArchitecture:
 | **Database** | Indexes, query opt | Read replicas | NoSQL migration |
 | **Network** | Compress data | CDN implementation | Edge computing |
 | **Development** | Remove tech debt | Automation | Platform engineering |
+
+</div>
+
 
 ---
 

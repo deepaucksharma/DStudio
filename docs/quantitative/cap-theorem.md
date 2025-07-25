@@ -22,11 +22,16 @@ last_updated: 2025-01-23
 <h2 style="text-align: center; color: #5448C8;">Choose at most 2 of 3:</h2>
 </div>
 
+<div class="responsive-table" markdown>
+
 | Property | Description | Example |
 |----------|-------------|---------|
 | **C**onsistency | All nodes see the same data simultaneously | Bank balance is same everywhere |
 | **A**vailability | System remains operational | Service always responds |
 | **P**artition tolerance | System continues despite network failures | Works during network splits |
+
+</div>
+
 
 <div class="key-insight">
 💡 <strong>Brewer's Theorem (2000)</strong>: In a distributed system, when a network partition occurs, you must choose between consistency and availability.
@@ -70,11 +75,16 @@ last_updated: 2025-01-23
 ### CP Systems (Consistency + Partition Tolerance)
 
 !!! info "🔒 CP System Characteristics"
+<div class="responsive-table" markdown>
+
     | System | Consistency Model | Availability Trade-off |
     |--------|------------------|------------------------|
     | **Zookeeper** | Sequential consistency | Minority partition unavailable |
     | **HBase** | Strong consistency | Region unavailable during split |
     | **MongoDB (default)** | Linearizable reads | Primary election = downtime |
+
+</div>
+
     <div class="calculation-result">
     <strong>Availability Impact = (Partition Duration) × (Affected Partition %)</strong>
     Example: 30s partition × 40% minority = 12s unavailability for 40% of requests
@@ -111,11 +121,16 @@ last_updated: 2025-01-23
 ### AP Systems (Availability + Partition Tolerance)
 
 !!! info "🌐 AP System Characteristics"
+<div class="responsive-table" markdown>
+
     | System | Consistency Model | Convergence Time |
     |--------|------------------|------------------|
     | **Cassandra** | Eventual consistency | ~100ms typical |
     | **DynamoDB** | Eventual consistency | <1s globally |
     | **CouchDB** | Eventual consistency | Depends on replication |
+
+</div>
+
     <div class="calculation-result">
     <strong>Inconsistency Window = Network Delay + Convergence Time</strong>
     Example: 50ms network + 100ms convergence = 150ms inconsistency
@@ -152,11 +167,16 @@ last_updated: 2025-01-23
 ### CA Systems (Consistency + Availability)
 
 !!! danger "⚠️ CA Systems: The Myth"
+<div class="responsive-table" markdown>
+
     | Property | Single Node | Distributed | Reality |
     |----------|-------------|-------------|---------|
     | Consistency | ✓ Trivial | ✗ Network delays | Can't ignore P |
     | Availability | ✓ No coordination | ✗ Node failures | P happens anyway |
     | Partition tolerance | N/A | Required | Can't opt out |
+
+</div>
+
     <div class="warning-banner" style="margin-top: 10px; background: #FFE0B2; padding: 10px; border-left: 4px solid #FF6B6B;">
     ⚡ <strong>Key Insight</strong>: CA only exists in single-node systems. In distributed systems, partitions are inevitable!
 </div>
@@ -166,12 +186,17 @@ last_updated: 2025-01-23
 ### Consistency Cost Calculator
 
 !!! note "💰 Strong Consistency Overhead"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Unit |
     |-----------|-------|------|
     | Write nodes (W) | 3 | nodes |
     | Total nodes (N) | 5 | nodes |
     | Network RTT | 10 | ms |
     | Consensus rounds | 2 | - |
+
+</div>
+
     <div class="calculation-result">
     <strong>Write latency = Consensus rounds × max(RTT to W nodes)</strong>
     <strong>= 2 × 10ms = 20ms minimum</strong>
@@ -216,12 +241,17 @@ P(available) = P(3 up) + P(4 up) + P(5 up)<br>
     <strong>IF</strong> Partition (P) <strong>THEN</strong> Availability (A) <strong>OR</strong> Consistency (C)
     <strong>ELSE</strong> Latency (L) <strong>OR</strong> Consistency (C)
 
+<div class="responsive-table" markdown>
+
 | System | Partition | Else | Trade-off |
 |--------|-----------|------|-----------|
 | **MongoDB** | PC | EC | Consistency preferred |
 | **Cassandra** | PA | EL | Performance preferred |
 | **DynamoDB** | PA | EL | Low latency preferred |
 | **Spanner** | PC | EC | Global consistency |
+
+</div>
+
 </div>
 
 ## Real-World CAP Decisions
@@ -230,12 +260,17 @@ P(available) = P(3 up) + P(4 up) + P(5 up)<br>
 
 !!! note "🏦 Financial Transaction System"
     **Requirements Analysis**:
+<div class="responsive-table" markdown>
+
     | Operation | CAP Choice | Reasoning |
     |-----------|------------|-----------|
     | Balance check | AP | Stale data acceptable |
     | Withdrawal | CP | Must prevent overdraft |
     | Deposit | CP | Must be durable |
     | Transaction history | AP | Eventually consistent OK |
+
+</div>
+
     <div class="implementation-note" style="margin-top: 10px; background: #E3F2FD; padding: 10px; border-left: 4px solid #2196F3;">
     💡 <strong>Pattern</strong>: Use CP for writes, AP for reads with consistency levels
 </div>
@@ -243,12 +278,17 @@ P(available) = P(3 up) + P(4 up) + P(5 up)<br>
 ### E-commerce Platform
 
 !!! info "🛒 Shopping Cart Architecture"
+<div class="responsive-table" markdown>
+
     | Component | CAP Choice | SLA Impact |
     |-----------|------------|------------|
     | Product catalog | AP | 99.99% availability |
     | Shopping cart | AP | Merge on conflicts |
     | Inventory | CP | Prevent overselling |
     | Payment | CP | Exactly-once guarantee |
+
+</div>
+
     <div class="metric-display" style="margin-top: 15px; display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
     <div style="background: #4CAF50; color: white; padding: 10px; text-align: center;">
     <strong>AP Components</strong>
@@ -269,11 +309,16 @@ Latency: <200ms
 <div class="law-box">
 <h4>🔢 Partition Frequency Estimation</h4>
 
+<div class="responsive-table" markdown>
+
 | Factor | Value | Impact |
 |--------|-------|--------|
 | Network links | 100 | More links = higher P(partition) |
 | Link MTBF | 10,000 hours | Individual reliability |
 | Topology | Mesh | Redundancy factor |
+
+</div>
+
 
 <div class="calculation-steps" style="background: #F5F5F5; padding: 15px; margin: 10px 0; border-radius: 5px;">
 <strong>Single link failure rate</strong> = 1/10,000 = 0.01% per hour<br>
@@ -286,12 +331,17 @@ Latency: <200ms
 ### Consistency Window Calculator
 
 !!! note "⏱️ Eventual Consistency Timing"
+<div class="responsive-table" markdown>
+
     | Parameter | Value | Description |
     |-----------|-------|-------------|
     | Replication factor | 3 | Copies of data |
     | Network latency | 50ms | Between regions |
     | Processing time | 10ms | Per update |
     | Anti-entropy interval | 60s | Background sync |
+
+</div>
+
     <div class="timeline-visualization" style="margin-top: 15px;">
     <svg viewBox="0 0 600 200" style="width: 100%; max-width: 600px;">
     <!-- Timeline -->
@@ -319,12 +369,17 @@ Latency: <200ms
 ### Multi-Region Deployments
 
 !!! info "🌍 Geographic CAP Challenges"
+<div class="responsive-table" markdown>
+
     | Regions | RTT | Partition Risk | Common Choice |
     |---------|-----|----------------|---------------|
     | US East-West | 60ms | Low | CP feasible |
     | US-Europe | 100ms | Medium | AP common |
     | US-Asia | 150ms | High | AP required |
     | Global (5 regions) | 200ms+ | Very High | AP + local CP |
+
+</div>
+
     <div class="insight-box" style="margin-top: 10px; background: #F3E5F5; padding: 10px; border-left: 4px solid #9C27B0;">
     🔍 <strong>Pattern</strong>: Use CP within region, AP across regions with conflict resolution
 </div>
@@ -333,12 +388,17 @@ Latency: <200ms
 
 !!! note "🎛️ Cassandra's Approach"
     **Consistency Levels**:
+<div class="responsive-table" markdown>
+
     | Level | Write Nodes | Read Nodes | Guarantee |
     |-------|------------|------------|-----------|
     | ONE | 1 | 1 | Lowest latency |
     | QUORUM | ⌈(N+1)/2⌉ | ⌈(N+1)/2⌉ | Strong consistency |
     | ALL | N | N | Highest consistency |
     | LOCAL_QUORUM | ⌈(RF+1)/2⌉ | ⌈(RF+1)/2⌉ | DC consistency |
+
+</div>
+
     <div class="formula-note" style="margin-top: 10px;">
     <strong>Consistency guarantee</strong>: R + W > N
     Example: N=3, W=2, R=2 → 2+2 > 3 ✓ Strong consistency

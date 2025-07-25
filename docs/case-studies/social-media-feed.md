@@ -76,11 +76,16 @@ graph LR
 
 **Storage Requirements Analysis:**
 
+<div class="responsive-table" markdown>
+
 | Approach | Storage per User | Total Storage | Response Time | Compute Cost |
 |----------|-----------------|---------------|---------------|--------------|
 | Full Pre-compute | 50MB | 150PB | 50ms | Low |
 | Hybrid (Top 100) | 5MB | 15PB | 100ms | Medium |
 | Pure On-demand | 1KB | 3TB | 500ms | High |
+
+</div>
+
 
 ## Part 2: Core Feed Generation Strategies
 
@@ -925,6 +930,8 @@ graph TB
 
 **Production Metrics (Instagram-scale system):**
 
+<div class="responsive-table" markdown>
+
 | Metric | Target | Achieved | Optimization |
 |--------|--------|----------|-------------|
 | Feed Generation Latency | <200ms | 150ms p99 | Multi-level caching |
@@ -932,6 +939,9 @@ graph TB
 | Cache Hit Rate | >95% | 98.5% | Predictive prefetching |
 | Storage Efficiency | <100PB | 85PB | Content compression |
 | ML Inference Latency | <50ms | 35ms p99 | Model optimization |
+
+</div>
+
 
 ### Capacity Planning Model
 

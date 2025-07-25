@@ -117,10 +117,15 @@ def distributed_system():
     return "scalable"
 ```
 
+<div class="responsive-table" markdown>
+
 | Metric | Value |
 |--------|-------|
 | Latency | 10ms |
 | Throughput | 1M RPS |
+
+</div>
+
 
 </div>
 
@@ -198,12 +203,17 @@ def distributed_system():
 ### Basic Responsive Table
 
 ```markdown
+<div class="responsive-table" markdown>
+
 | Pattern | Mobile | Tablet | Desktop | Ultra-wide |
 |---------|--------|--------|---------|------------|
 | Columns | 1 | 2-3 | 3-4 | 5-6 |
 | Font | 14px | 16px | 16px | 18px |
 | Padding | 8px | 12px | 16px | 20px |
 | Images | Hidden | Small | Medium | Large |
+
+</div>
+
 ```
 
 ### Scrollable Table Wrapper
@@ -211,9 +221,14 @@ def distributed_system():
 ```html
 <div class="table-wrapper" markdown>
 
+<div class="responsive-table" markdown>
+
 | Very | Wide | Table | With | Many | Columns | That | Scrolls | Horizontally |
 |------|------|-------|------|------|---------|------|---------|--------------|
 | Data | Data | Data | Data | Data | Data | Data | Data | Data |
+
+</div>
+
 
 </div>
 ```
@@ -278,12 +293,17 @@ markdown_extensions:
 
 <div class="grid" markdown>
 
+<div class="responsive-table" markdown>
+
 | | **Option A** | **Option B** | **Option C** |
 |---|:---:|:---:|:---:|
 | **Performance** | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | ⭐⭐⭐⭐ |
 | **Scalability** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
 | **Cost** | $$$ | $ | $$ |
 | **Complexity** | High | Low | Medium |
+
+</div>
+
 
 </div>
 
@@ -440,11 +460,16 @@ hide:
   
   **Current Metrics:**
   
+<div class="responsive-table" markdown>
+
   | Metric | Value | Trend |
   |--------|-------|-------|
   | Latency | 12ms | ↓ 5% |
   | RPS | 1.2M | ↑ 10% |
   | Errors | 0.01% | → 0% |
+
+</div>
+
 
 - :material-database:{ .lg } **Database**
   

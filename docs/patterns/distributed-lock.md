@@ -99,6 +99,8 @@ stateDiagram-v2
 
 ### Redis Lock Commands
 
+<div class="responsive-table" markdown>
+
 | Operation | Redis Command | Purpose |
 |-----------|---------------|----------|  
 | **Acquire** | `SET lock:name uuid NX PX 5000` | Atomic set-if-not-exists with expiry |
@@ -106,11 +108,16 @@ stateDiagram-v2
 | **Extend** | `EXPIRE lock:name 5` | Extend TTL if still owner |
 | **Check** | `GET lock:name` | Check current owner |
 
+</div>
+
+
 ---
 
 ## Level 2: Foundation
 
 ### Distributed Lock Properties
+
+<div class="responsive-table" markdown>
 
 | Property | Description | Why It Matters |
 |----------|-------------|----------------|
@@ -118,6 +125,9 @@ stateDiagram-v2
 | **Deadlock Free** | Locks eventually expire | Prevents system freeze |
 | **Fault Tolerant** | Survives node failures | Distributed reliability |
 | **Non-Byzantine** | Assumes non-malicious nodes | Simplifies design |
+
+</div>
+
 
 ### Lock Implementation Strategies
 
@@ -271,12 +281,17 @@ graph TB
 
 ### Lock Safety Guarantees
 
+<div class="responsive-table" markdown>
+
 | Property | Without Fencing | With Fencing | Implementation |
 |----------|-----------------|--------------|----------------|
 | **Mutual Exclusion** | ✓ (mostly) | ✓ | One holder at a time |
 | **Deadlock Free** | ✓ | ✓ | TTL expiration |
 | **Fault Tolerant** | ✗ | ✓ | Survives delays |
 | **Protection from Delays** | ✗ | ✓ | Monotonic tokens |
+
+</div>
+
 
 ---
 
@@ -589,6 +604,8 @@ graph TB
 
 ### etcd Lock Operations
 
+<div class="responsive-table" markdown>
+
 | Operation | etcd Command | Description |
 |-----------|--------------|-------------|  
 | **Create Lock** | `PUT /locks/name/uuid --lease=id` | Create with lease |
@@ -596,6 +613,9 @@ graph TB
 | **Watch Previous** | `WATCH /locks/name/prev_uuid` | Wait for turn |
 | **Release** | `DELETE /locks/name/uuid` | Explicit release |
 | **Auto-Release** | Lease expires | Automatic on TTL |
+
+</div>
+
 ### Real-World Case Study: Uber's Distributed Lock
 
 ```mermaid
@@ -708,6 +728,8 @@ graph TB
 
 ### Lock Debugging Checklist
 
+<div class="responsive-table" markdown>
+
 | ✅ Check | Description | Command/Tool |
 |----------|-------------|-------------|
 | **Lock holder** | Who currently holds the lock? | `GET lock:name` |
@@ -717,6 +739,9 @@ graph TB
 | **Clock sync** | NTP synchronization | `ntpq -p` |
 | **Process state** | GC pauses, CPU | `jstat` / `top` |
 | **Deadlock graph** | Circular dependencies | Custom tooling |
+
+</div>
+
 ---
 
 ## Level 5: Mastery
@@ -812,6 +837,8 @@ graph TB
 
 ### Lock Algorithm Comparison
 
+<div class="responsive-table" markdown>
+
 | Algorithm | Safety | Liveness | Performance | Complexity |
 |-----------|--------|----------|-------------|------------|
 | **Simple TTL** | ✗ (process pauses) | ✓✓✓ | ✓✓✓ | ✓✓✓ |
@@ -819,6 +846,9 @@ graph TB
 | **ZooKeeper** | ✓✓ | ✓✓ | ✓ | ✓ |
 | **Chubby/etcd** | ✓✓✓ | ✓✓ | ✓ | ✓ |
 | **Optimal + Fencing** | ✓✓✓ | ✓ | ✗ | ✗ |
+
+</div>
+
 
 ### Future Directions
 
@@ -877,6 +907,8 @@ graph LR
 
 ### Lock Safety Spectrum
 
+<div class="responsive-table" markdown>
+
 | Safety Level | Implementation | Use Cases | Trade-offs |
 |--------------|----------------|-----------|------------|
 | **Level 1** | Redis SET NX | Cache locks, rate limiting | Fast but unsafe with pauses |
@@ -885,9 +917,14 @@ graph LR
 | **Level 4** | etcd with fencing | Critical sections | Safe but slower |
 | **Level 5** | Byzantine consensus | Financial systems | Maximum safety, high cost |
 
+</div>
+
+
 ## Quick Reference
 
 ### Lock Selection Guide
+
+<div class="responsive-table" markdown>
 
 | Use Case | Recommended Solution | Why |
 |----------|---------------------|-----|
@@ -896,6 +933,9 @@ graph LR
 | Distributed cron | Redis with Redlock | Good enough for most cases |
 | Critical sections | Chubby/etcd | Strong consistency |
 | Cache invalidation | Eventually consistent | Locks often overkill |
+
+</div>
+
 
 ### Implementation Checklist
 

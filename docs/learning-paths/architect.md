@@ -169,25 +169,40 @@ Study complete architectures:
 #### Week 11: Technology Selection
 
 === "Compute Platforms"
+<div class="responsive-table" markdown>
+
     | Platform | Use Case | Pros | Cons |
     |----------|----------|------|------|
     | Kubernetes | Container orchestration | Flexibility | Complexity |
     | Serverless | Event-driven | No ops | Vendor lock-in |
     | VMs | Legacy apps | Control | Management overhead |
 
+</div>
+
+
 === "Data Platforms"
+<div class="responsive-table" markdown>
+
     | Type | Products | Use Case | Trade-offs |
     |------|----------|----------|------------|
     | RDBMS | PostgreSQL, MySQL | ACID transactions | Scale limits |
     | NoSQL | Cassandra, MongoDB | Scale, flexibility | Consistency |
     | NewSQL | Spanner, CockroachDB | Scale + ACID | Cost, complexity |
 
+</div>
+
+
 === "Messaging Platforms"
+<div class="responsive-table" markdown>
+
     | Platform | Throughput | Latency | Durability |
     |----------|------------|---------|------------|
     | Kafka | Very High | Medium | Excellent |
     | RabbitMQ | High | Low | Good |
     | AWS SQS | Medium | Medium | Excellent |
+
+</div>
+
 
 #### Week 12: Cost Optimization
 
@@ -268,6 +283,8 @@ Study complete architectures:
 
 ### Evaluation Frameworks
 
+<div class="responsive-table" markdown>
+
 | Criteria | Weight | Option A | Option B | Option C |
 |----------|--------|----------|----------|----------|
 | Scalability | 30% | 9/10 | 7/10 | 5/10 |
@@ -275,6 +292,9 @@ Study complete architectures:
 | Complexity | 20% | 4/10 | 6/10 | 8/10 |
 | Time to Market | 15% | 6/10 | 8/10 | 9/10 |
 | Risk | 10% | 8/10 | 7/10 | 5/10 |
+
+</div>
+
 
 ## 🏆 Architectural Excellence
 

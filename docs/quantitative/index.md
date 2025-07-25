@@ -122,6 +122,8 @@ graph LR
 
 ## Key Equations You'll Actually Use
 
+<div class="responsive-table" markdown>
+
 | Concept | Formula | What It Tells You | Real Example |
 |---------|---------|------------------|---------------|
 | **Little's Law** | L = λW | Items in system = arrival rate × wait time | 1000 users = 100/s × 10s |
@@ -130,6 +132,9 @@ graph LR
 | **Amdahl's Law** | S = 1/(s + p/n) | Parallel speedup limit | 10% serial = max 10x speedup |
 | **Availability** | A = MTBF/(MTBF+MTTR) | Uptime percentage | 99.9% = 43 min/month down |
 | **Cost per Request** | $/req = (Fixed + Variable)/QPS | Economics of scale | Drops 10x at 100x volume |
+
+</div>
+
 
 ## Your 3-Step Process
 
@@ -160,6 +165,8 @@ graph TD
 
 ## Quick Decision Guide
 
+<div class="responsive-table" markdown>
+
 | If You're Wondering... | Use This Tool | Quick Answer |
 |------------------------|---------------|---------------|
 | "How many servers do I need?" | Little's Law | Servers = QPS × ResponseTime |
@@ -169,9 +176,14 @@ graph TD
 | "Is caching worth it?" | Cache Economics | If hit rate > 1 - (cache_cost/db_cost) |
 | "When will I run out of capacity?" | Capacity Planning | Draw the curve, find intersection |
 
+</div>
+
+
 ## Start Here: The 20% That Gives 80% Value
 
 ### Must-Know Numbers (Memorize These)
+
+<div class="responsive-table" markdown>
 
 | Operation | Latency | Relative | Real Impact |
 |-----------|---------|----------|-------------|
@@ -181,6 +193,9 @@ graph TD
 | Network (same DC) | 500 μs | 500,000x | Batch operations |
 | Network (cross-region) | 50 ms | 50,000,000x | Geo-replicate |
 | Disk seek | 10 ms | 10,000,000x | Use SSDs |
+
+</div>
+
 
 ### Three Rules That Prevent 90% of Problems
 

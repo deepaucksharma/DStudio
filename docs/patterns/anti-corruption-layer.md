@@ -68,6 +68,8 @@ graph TB
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | Company | ACL Implementation | Purpose | Impact |
 |---------|-------------------|---------|---------|
 | **Amazon** | Order Service ACL | Isolate from legacy fulfillment | Clean microservices |
@@ -75,6 +77,9 @@ graph TB
 | **Spotify** | Music Rights ACL | Shield from label systems | Flexible licensing |
 | **Uber** | Payment Provider ACL | Abstract payment complexity | Provider independence |
 | **Airbnb** | Property System ACL | Isolate from partner feeds | Consistent data model |
+
+</div>
+
 
 ### Common ACL Scenarios
 
@@ -150,6 +155,8 @@ graph TB
 
 ### ACL Pattern Components
 
+<div class="responsive-table" markdown>
+
 | Component | Purpose | Responsibility | Example |
 |-----------|---------|----------------|---------|
 | **Translator** | Model conversion | Map between domain and external models | Customer ↔ LegacyUser |
@@ -157,6 +164,9 @@ graph TB
 | **Adapter** | Protocol handling | Handle communication details | REST ↔ SOAP |
 | **Facade** | Simple interface | Hide complexity from domain | Single method for multi-step process |
 | **Repository** | Data access | Abstract storage details | Domain-specific queries |
+
+</div>
+
 
 ### Translation Strategies
 
@@ -273,6 +283,8 @@ graph TB
 
 ### Common Translation Challenges
 
+<div class="responsive-table" markdown>
+
 | Challenge | Problem | ACL Solution |
 |-----------|---------|--------------|
 | **Impedance Mismatch** | Different data models | Multi-step translation |
@@ -280,6 +292,9 @@ graph TB
 | **Format Differences** | Date, currency formats | Format converters |
 | **Validation Rules** | Different business rules | Rule adaptation layer |
 | **Versioning** | External API changes | Version-specific translators |
+
+</div>
+
 
 ---
 
@@ -456,6 +471,8 @@ graph LR
 
 ### Performance Optimization Strategies
 
+<div class="responsive-table" markdown>
+
 | Strategy | Description | Use Case | Trade-off |
 |----------|-------------|----------|-----------|
 | **Caching** | Cache translations | Stable mappings | Memory usage |
@@ -464,9 +481,14 @@ graph LR
 | **Pre-computation** | Pre-translate common cases | Predictable patterns | Storage |
 | **Streaming** | Stream-based translation | Large datasets | Complexity |
 
+</div>
+
+
 ### Error Handling in ACL
 
 #### Error Translation Matrix
+
+<div class="responsive-table" markdown>
 
 | External Error | Domain Exception | Recovery Strategy |
 |----------------|------------------|-------------------|
@@ -475,6 +497,9 @@ graph LR
 | **Business Rule Violation** | DomainRuleException | Return validation error |
 | **Authentication Failed** | UnauthorizedException | Refresh credentials |
 | **Rate Limited** | ThrottledException | Queue and retry |
+
+</div>
+
 
 #### Failure Isolation
 
@@ -528,6 +553,8 @@ External Contract Tests:
 
 #### 2. Translation Testing Matrix
 
+<div class="responsive-table" markdown>
+
 | Test Type | What to Test | Example |
 |-----------|--------------|---------|
 | **Unit Tests** | Individual translators | Field mapping logic |
@@ -535,6 +562,9 @@ External Contract Tests:
 | **Property Tests** | Translation properties | Roundtrip consistency |
 | **Contract Tests** | External system contracts | API compatibility |
 | **Performance Tests** | Translation overhead | Latency impact |
+
+</div>
+
 
 ---
 
@@ -589,12 +619,17 @@ graph TB
 
 Amazon uses ACL for warehouse system integration:
 
+<div class="responsive-table" markdown>
+
 | Metric | Before ACL | After ACL |
 |--------|------------|-----------|
 | **Integration Time** | 6-9 months | 2-3 weeks |
 | **Error Rate** | 2-5% | < 0.01% |
 | **Change Impact** | System-wide | Isolated to ACL |
 | **Testing Coverage** | 60% | 99% |
+
+</div>
+
 
 ### Advanced Implementation Patterns
 
@@ -684,12 +719,17 @@ Phase 3: Complete Migration
 
 #### Translation Performance Metrics
 
+<div class="responsive-table" markdown>
+
 | Operation | Without Optimization | With Optimization | Technique |
 |-----------|---------------------|-------------------|-----------|
 | **Simple Mapping** | 5ms | 0.5ms | Compiled mappers |
 | **Complex Translation** | 50ms | 10ms | Caching + batching |
 | **Bulk Operations** | 5000ms | 500ms | Parallel processing |
 | **Validation** | 20ms | 2ms | Schema pre-validation |
+
+</div>
+
 
 #### Memory-Efficient Translation
 
@@ -801,6 +841,8 @@ Optimization_Target = min(Total_Latency) while maintaining correctness
 
 ### Design Patterns in ACL
 
+<div class="responsive-table" markdown>
+
 | Pattern | Purpose | When to Use |
 |---------|---------|-------------|
 | **Translator** | Model conversion | Different representations |
@@ -809,6 +851,9 @@ Optimization_Target = min(Total_Latency) while maintaining correctness
 | **Repository** | Data access abstraction | Storage isolation |
 | **Factory** | Object creation | Complex initialization |
 | **Strategy** | Algorithm selection | Multiple translation approaches |
+
+</div>
+
 
 ### Future Directions
 
@@ -881,6 +926,8 @@ graph TB
 
 ### ACL vs Related Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | Focus | Scope | Complexity |
 |---------|-------|-------|------------|
 | **ACL** | Domain protection | Strategic | High |
@@ -888,6 +935,9 @@ graph TB
 | **Facade** | Simplification | Tactical | Low |
 | **Translator** | Data conversion | Tactical | Medium |
 | **Gateway** | Routing | Infrastructure | High |
+
+</div>
+
 
 ---
 

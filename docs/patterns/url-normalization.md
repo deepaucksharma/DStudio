@@ -636,6 +636,8 @@ asyncio.run(test_async())
 
 ## Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Accuracy | Performance | Memory Usage | Complexity |
 |----------|----------|-------------|--------------|------------|
 | Basic RFC | Good | Very High | Low | Low |
@@ -643,6 +645,9 @@ asyncio.run(test_async())
 | Content-based | Excellent | Low | High | Very High |
 | Cached | Good | Very High | Medium | Medium |
 | Async/Batch | Good | Very High | Low | Medium |
+
+</div>
+
 
 ## Common Normalization Rules
 

@@ -76,12 +76,17 @@ graph TB
 
 **Local Rate Limiter Configuration:**
 
+<div class="responsive-table" markdown>
+
 | Parameter | Value | Purpose |
 |-----------|-------|---------|  
 | Bloom Filter Size | 1M entries | First-time detection |
 | False Positive Rate | 1% | Space vs accuracy |
 | Local Threshold | 80% of limit | Reduce distributed calls |
 | Sync Interval | 100ms | Balance accuracy vs load |
+
+</div>
+
 
 #### 💾 Law 2 (Capacity): Finite Resources
 ```text
@@ -137,12 +142,17 @@ graph TB
 
 **Resource Allocation:**
 
+<div class="responsive-table" markdown>
+
 | Resource | Request | Limit | Purpose |
 |----------|---------|-------|---------|  
 | CPU | 2 cores | 4 cores | Handle 100K req/s |
 | Memory | 512Mi | 1Gi | Cache + state |
 | Replicas | 100 | - | 10M total req/s |
 | Storage | 10Gi | - | Persistent state |
+
+</div>
+
 
 #### Law 3 (Failure): Byzantine Failures
 ```text
@@ -187,12 +197,17 @@ stateDiagram-v2
 
 **Resilience Configuration:**
 
+<div class="responsive-table" markdown>
+
 | Component | Setting | Purpose |
 |-----------|---------|---------|  
 | Circuit Breaker Threshold | 5 failures | Prevent cascading failure |
 | Recovery Timeout | 60 seconds | Allow system recovery |
 | Fallback Strategy | Fail open | Prioritize availability |
 | Local Limits | Conservative | Prevent abuse during outage |
+
+</div>
+
 
 #### 🔀 Law 4 (Concurrency): Race Conditions
 ```text
@@ -239,12 +254,17 @@ graph LR
 
 **Lua Script Operations:**
 
+<div class="responsive-table" markdown>
+
 | Step | Redis Command | Purpose | Time Complexity |
 |------|---------------|---------|------------------|
 | 1 | ZREMRANGEBYSCORE | Remove expired entries | O(log N + M) |
 | 2 | ZCARD | Count current entries | O(1) |
 | 3 | ZADD | Add new entry | O(log N) |
 | 4 | EXPIRE | Set TTL on key | O(1) |
+
+</div>
+
 
 **Atomicity Guarantee:** All operations execute atomically in Redis, preventing race conditions.
 
@@ -295,12 +315,17 @@ graph TB
 
 **Gossip Configuration:**
 
+<div class="responsive-table" markdown>
+
 | Parameter | Value | Purpose |
 |-----------|-------|---------|  
 | Gossip Interval | 500ms | State propagation speed |
 | Fanout | 3 nodes | Redundancy vs bandwidth |
 | Seed Nodes | 3 | Bootstrap discovery |
 | CRDT Type | G-Counter | Conflict-free counting |
+
+</div>
+
 
 #### 👁 Law 6 (Observability): Monitoring
 ```text
@@ -353,12 +378,17 @@ graph TB
 
 **Key Metrics:**
 
+<div class="responsive-table" markdown>
+
 | Metric | Type | Labels | Alert Threshold |
 |--------|------|--------|------------------|
 | rate_limiter.checks | Counter | result, strategy | - |
 | rate_limiter.latency | Histogram | strategy | p99 > 5ms |
 | rate_limiter.denials | Counter | reason, endpoint | rate > 10% |
 | rate_limiter.fallbacks | Counter | reason | rate > 1% |
+
+</div>
+
 
 #### 👤 Law 7 (Human Interface): Operations
 ```text
@@ -407,6 +437,8 @@ sequenceDiagram
 
 **API Endpoints:**
 
+<div class="responsive-table" markdown>
+
 | Endpoint | Method | Purpose |
 |----------|--------|---------|  
 | /api/v1/rate-limits | GET | List current limits |
@@ -414,6 +446,9 @@ sequenceDiagram
 | /api/v1/rate-limits/{id} | DELETE | Remove limit rule |
 | /api/v1/metrics | GET | Current metrics |
 | /api/v1/debug/{key} | GET | Debug specific key |
+
+</div>
+
 
 #### Law 8 (Economics): Cost Optimization
 ```text
@@ -461,12 +496,17 @@ graph TB
 
 **Cost Breakdown:**
 
+<div class="responsive-table" markdown>
+
 | Component | Base Cost | Optimization | Savings |
 |-----------|-----------|--------------|---------|  
 | Redis calls | $500/mo | Local cache (80%) | $400/mo |
 | Compute | $2000/mo | Auto-scale (40%) | $800/mo |
 | Network | $300/mo | Bloom filter (50%) | $150/mo |
 | **Total** | **$2800/mo** | **Combined** | **$1350/mo** |
+
+</div>
+
 
 ### 🏛 Pillar Mapping
 
@@ -573,6 +613,8 @@ graph TB
 
 ### Key Design Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **Counting Strategy** | Exact counting with distributed lock | Approximate with local caches | **B** - Chose approximate for <1ms latency. Accept 5% accuracy loss for 100x performance gain |
@@ -580,6 +622,9 @@ graph TB
 | **Consistency Model** | Strong consistency | Eventual consistency | **B** - Eventual consistency allows local decisions. Rate limiting tolerates temporary inaccuracy |
 | **Failure Mode** | Fail closed (deny) | Fail open (allow) | **B** - Availability over strict enforcement. Better to allow some excess than block legitimate traffic |
 | **Window Type** | Fixed windows | Sliding windows | **B** - Sliding windows prevent thundering herd at window boundaries despite higher complexity |
+
+</div>
+
 
 ### Alternative Architectures
 
@@ -693,6 +738,8 @@ Cost per billion requests: $0.34
 
 ## Law Mapping Matrix
 
+<div class="responsive-table" markdown>
+
 | Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
 |----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
 | **Local Caching** | <0.01ms | -80% Redis | Works offline | Lock-free | - | Hit metrics | Fast API | -80% cost |
@@ -702,6 +749,9 @@ Cost per billion requests: $0.34
 | **Gossip Protocol** | - | Scalable | Partition OK | Async | Eventually consistent | Convergence | - | Low bandwidth |
 | **Bloom Filters** | O(1) | 1MB/1M items | - | Lock-free | - | FP rate | - | Memory efficient |
 | **Fallback** | No block | - | Graceful | - | Mode switch | Metrics | Available | SLA compliant |
+
+</div>
+
 
 ### Law Implementation Priority
 
@@ -900,6 +950,8 @@ graph TB
 
 ### Architecture Comparison Matrix
 
+<div class="responsive-table" markdown>
+
 | Architecture | Latency | Accuracy | Scalability | Fault Tolerance | Complexity | Use Case |
 |-------------|---------|----------|-------------|-----------------|------------|----------|
 | **Centralized Redis** | ⭐⭐⭐<br/>0.5-2ms | ⭐⭐⭐⭐⭐<br/>100% accurate | ⭐⭐⭐<br/>Vertical limits | ⭐⭐<br/>SPOF risk | ⭐⭐⭐⭐⭐<br/>Very simple | Small-medium scale |
@@ -907,6 +959,9 @@ graph TB
 | **Hierarchical** | ⭐⭐⭐⭐<br/>0.1-1ms | ⭐⭐⭐⭐<br/>~98% accurate | ⭐⭐⭐⭐<br/>Good scaling | ⭐⭐⭐⭐<br/>Regional isolation | ⭐⭐⭐<br/>Moderate | Global systems, geo-distributed |
 | **Token Bucket** | ⭐⭐⭐⭐⭐<br/><0.05ms | ⭐⭐⭐⭐⭐<br/>100% accurate | ⭐⭐⭐<br/>Pre-allocation limits | ⭐⭐⭐<br/>Token exhaustion | ⭐⭐⭐<br/>Moderate | Strict limits, predictable load |
 | **ML-Adaptive** | ⭐⭐⭐⭐<br/>0.1-0.5ms | ⭐⭐⭐⭐<br/>Adaptive accuracy | ⭐⭐⭐⭐⭐<br/>Auto-scaling | ⭐⭐⭐⭐<br/>Self-healing | ⭐<br/>Very complex | Dynamic workloads, anti-abuse |
+
+</div>
+
 
 ### Decision Framework
 
@@ -938,6 +993,8 @@ graph TD
 
 ### Risk Assessment Matrix
 
+<div class="responsive-table" markdown>
+
 | Risk Factor | Centralized | Distributed | Hierarchical | Token | ML-Adaptive |
 |------------|------------|-------------|--------------|-------|-------------|
 | **Latency Risk** | 🟡 Medium | 🟢 Low | 🟢 Low | 🟢 Low | 🟢 Low |
@@ -945,6 +1002,9 @@ graph TD
 | **Scalability Risk** | 🔴 High | 🟢 Low | 🟢 Low | 🟡 Medium | 🟢 Low |
 | **Operational Risk** | 🟢 Low | 🟡 Medium | 🟡 Medium | 🟢 Low | 🔴 High |
 | **Cost Risk** | 🟢 Low | 🟡 Medium | 🟡 Medium | 🟢 Low | 🔴 High |
+
+</div>
+
 
 ## Implementation Best Practices
 
@@ -977,6 +1037,8 @@ graph TD
 
 ### Pattern Selection Guide
 
+<div class="responsive-table" markdown>
+
 | If You Need... | Use This Pattern | Because... |
 |----------------|------------------|------------|
 | Sub-millisecond latency | Local caching + async sync | Eliminates network calls |
@@ -985,6 +1047,9 @@ graph TD
 | Burst handling | Token bucket | Natural burst allowance |
 | Dynamic limits | ML-adaptive system | Learns traffic patterns |
 | Simple implementation | Redis + Lua scripts | Battle-tested approach |
+
+</div>
+
 
 ### 📚 References
 

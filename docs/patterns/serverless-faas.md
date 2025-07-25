@@ -57,6 +57,8 @@ Scale: Manual                             Scale: 0 → 1000000 automatically
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | Company | Use Case | Impact |
 |---------|----------|---------|
 | **Netflix** | Video encoding | 0 → 1000s encoders in seconds |
@@ -64,6 +66,9 @@ Scale: Manual                             Scale: 0 → 1000000 automatically
 | **Coca-Cola** | Vending machine payments | Pay only when someone buys |
 | **FINRA** | 500 billion validations/day | 50% cost savings |
 | **The Seattle Times** | Image resizing | From $1500/month to $15/month |
+
+</div>
+
 
 ### Basic Implementation
 
@@ -1596,6 +1601,8 @@ class ServerlessROI:
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Factor | Use Serverless | Use Containers/VMs |
 |--------|----------------|-------------------|
 | **Traffic Pattern** | Variable/Spiky | Consistent/Predictable |
@@ -1604,6 +1611,9 @@ class ServerlessROI:
 | **Cost Priority** | Pay per use | Predictable costs |
 | **Ops Resources** | Limited | Available |
 | **State Requirements** | Stateless | Stateful |
+
+</div>
+
 
 ### Serverless Event Sources
 

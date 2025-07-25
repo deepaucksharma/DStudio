@@ -1002,6 +1002,8 @@ graph TB
 
 ### Design Decisions
 
+<div class="responsive-table" markdown>
+
 | Decision | Choice | Alternative | Trade-off |
 |----------|--------|-------------|-----------|
 | **Storage** | Separate metadata/body | Store together | Query performance vs Storage efficiency |
@@ -1009,6 +1011,9 @@ graph TB
 | **Spam** | ML + Rules hybrid | Pure ML | Accuracy vs Explainability |
 | **Delivery** | Push to inbox | Pull model | Real-time vs Complexity |
 | **Sharding** | User-based | Time-based only | Even distribution vs Query patterns |
+
+</div>
+
 
 ### Alternative Architectures
 

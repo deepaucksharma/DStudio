@@ -659,6 +659,8 @@ class WriteThroughMonitoring:
 
 ### Write-Through vs Other Caching Patterns
 
+<div class="responsive-table" markdown>
+
 | Aspect | Write-Through | Cache-Aside | Write-Behind | Read-Through |
 |--------|--------------|-------------|--------------|--------------|
 | **Consistency** | Strong | Eventual | Eventual | Strong |
@@ -667,6 +669,9 @@ class WriteThroughMonitoring:
 | **Complexity** | Medium | Medium | High | Low |
 | **Data Loss Risk** | None | None | Possible | None |
 | **Use Case** | Financial data | General purpose | Analytics | Reference data |
+
+</div>
+
 
 ### Decision Framework
 

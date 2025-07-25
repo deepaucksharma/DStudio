@@ -86,6 +86,8 @@ graph TB
 
 ## Privacy Techniques Comparison
 
+<div class="responsive-table" markdown>
+
 | Technique | Privacy Level | Utility Loss | Computation | Use Case |
 |-----------|--------------|--------------|-------------|----------|
 | **Truncation** | Low | Low | O(1) | Coarse analytics |
@@ -93,6 +95,9 @@ graph TB
 | **K-Anonymity** | High | Medium | O(n) | Group queries |
 | **Differential Privacy** | Very High | High | O(n) | Statistical analysis |
 | **Secure Multiparty** | Maximum | Very High | O(n²) | Collaborative compute |
+
+</div>
+
 
 ## Location Privacy Dimensions
 

@@ -54,12 +54,17 @@ class StripeArchitecture:
 
 ### Trade-off Decisions
 
+<div class="responsive-table" markdown>
+
 | Component | Consistency | Availability | Latency | Cost Impact |
 |-----------|------------|--------------|---------|-------------|
 | Payment Auth | Linearizable | 99.99% | 200ms p99 | High (3x replication) |
 | Webhooks | At-least-once | 99.999% | Async | Medium (retry infrastructure) |
 | Analytics | Eventual | 99.9% | Hours | Low (batch processing) |
 | Fraud Scoring | Bounded (5min) | 99.95% | 50ms p99 | Medium (caching layer) |
+
+</div>
+
 
 ### Key Insight
 > "Different parts of the same system can exist at different points in the trade-off space"
@@ -311,6 +316,8 @@ class CloudflareAnycastRouter:
 
 ### Regional Trade-off Differences
 
+<div class="responsive-table" markdown>
+
 | Region | Primary Optimization | Secondary | Constraint |
 |--------|---------------------|-----------|------------|
 | North America | Latency | Cost | None |
@@ -318,6 +325,9 @@ class CloudflareAnycastRouter:
 | Asia Pacific | Cost | Latency | Bandwidth expensive |
 | Latin America | Availability | Cost | Limited infrastructure |
 | Middle East | Compliance | Security | Content filtering |
+
+</div>
+
 
 ## Case Study 5: Kubernetes Scheduler
 

@@ -74,6 +74,8 @@ graph TD
 
 ## Google Systems Coverage Matrix
 
+<div class="responsive-table" markdown>
+
 | System | Difficulty | Prep Time | Key Focus Areas | Resources |
 |--------|------------|-----------|-----------------|-----------|
 | **Search** | ⭐⭐⭐⭐⭐ | 8-10 hrs | PageRank, Indexing, Query Processing | [Guide](/google-search) |
@@ -86,6 +88,9 @@ graph TD
 | **Play Store** | ⭐⭐⭐ | 4-6 hrs | App Distribution, Updates, Analytics | [Guide](patterns/application/marketplace-systems.md) |
 | **Cloud Platform** | ⭐⭐⭐⭐ | 6-8 hrs | Multi-tenancy, Resource Management | [Guide](patterns/infrastructure/cloud-infrastructure.md) |
 | **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](patterns/infrastructure/mobile-platforms.md) |
+
+</div>
+
 
 ### Difficulty Levels
 - = Mid-level (L4-L5)
@@ -151,6 +156,8 @@ graph TD
 
 ### Common Evaluation Criteria
 
+<div class="responsive-table" markdown>
+
 | Criteria | Weight | What They Look For |
 |----------|--------|-------------------|
 | **Problem Understanding** | 20% | Clarifying questions, identifying constraints |
@@ -158,6 +165,9 @@ graph TD
 | **Technical Depth** | 25% | Knowledge of systems, technologies |
 | **Scale & Performance** | 15% | Handling growth, optimization strategies |
 | **Practical Experience** | 15% | Real-world insights, operational awareness |
+
+</div>
+
 
 ### Quick Wins for Interviews
 
@@ -204,15 +214,22 @@ graph TD
 ### 2-Week Crash Course (40 hours)
 **For:** Experienced engineers with solid distributed systems knowledge
 
+<div class="responsive-table" markdown>
+
 | Week | Focus | Hours | Key Activities |
 |------|-------|-------|----------------|
 | **1** | Foundations | 20 | • Review core patterns<br>• Study 5 Google systems<br>• Practice 5 problems |
 | **2** | Practice | 20 | • Mock interviews<br>• Deep dive 3 systems<br>• Refine approach |
 
+</div>
+
+
 [Detailed Plan →](study-plans.md#crash-course)
 
 ### 📖 6-Week Comprehensive (120 hours)
 **For:** Engineers wanting thorough preparation
+
+<div class="responsive-table" markdown>
 
 | Week | Focus | Hours | Key Activities |
 |------|-------|-------|----------------|
@@ -220,16 +237,24 @@ graph TD
 | **3-4** | Systems Study | 40 | • Deep dive 15 systems<br>• Build mental models |
 | **5-6** | Practice | 40 | • 15+ mock problems<br>• Refine communication |
 
+</div>
+
+
 [Detailed Plan →](study-plans.md#comprehensive)
 
 ### 🎓 12-Week Mastery Path (240 hours)
 **For:** Career changers or those targeting Staff+ roles
+
+<div class="responsive-table" markdown>
 
 | Phase | Weeks | Focus | Outcome |
 |-------|-------|-------|---------|
 | **Foundation** | 1-4 | Theory & Patterns | Deep understanding of distributed systems |
 | **Application** | 5-8 | Google Systems | Expertise in 20+ systems |
 | **Mastery** | 9-12 | Practice & Polish | Interview readiness at Staff level |
+
+</div>
+
 
 [Detailed Plan →](study-plans.md#mastery)
 
@@ -267,6 +292,8 @@ graph TD
 
 Track your progress with these benchmarks:
 
+<div class="responsive-table" markdown>
+
 | Milestone | Target | Indicator |
 |-----------|--------|-----------|
 | **Pattern Mastery** | 80% | Can explain and apply patterns without reference |
@@ -275,8 +302,10 @@ Track your progress with these benchmarks:
 | **Communication** | Clear | Structured, visual, comprehensive responses |
 | **Trade-off Analysis** | 5+ | Options considered per major decision |
 
+</div>
+
+
 ---
 
 !!! tip "Pro Tip"
     The key to Google interviews isn't memorizing solutions—it's understanding the principles behind Google's approach to building planetary-scale systems. Focus on the "why" behind each design decision.
-

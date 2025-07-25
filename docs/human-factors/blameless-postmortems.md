@@ -164,10 +164,15 @@ Why? → Performance testing not prioritized
 - Better testing coverage
 
 ## Action Items
+<div class="responsive-table" markdown>
+
 | Action | Owner | Due Date | Status |
 |--------|-------|----------|---------|
 | Add memory monitoring | SRE Team | 2024-02-01 | In Progress |
 | Update testing suite | Dev Team | 2024-02-15 | Not Started |
+
+</div>
+
 
 ## Lessons Learned
 [Key takeaways for the organization]
@@ -245,6 +250,8 @@ class PostmortemAutomation:
 
 Understanding how blameless postmortems relate to our fundamental laws:
 
+<div class="responsive-table" markdown>
+
 | Law | Impact on Postmortems | Key Insights |
 |-----|----------------------|--------------|
 | **Law 2: Asynchronous Reality ⏱️** | Incident detection and response time | Faster detection through better monitoring reduces incident duration |
@@ -256,9 +263,14 @@ Understanding how blameless postmortems relate to our fundamental laws:
 | **Law 5: Epistemology 🤝** | Coordination failures during response | Poor handoffs and unclear ownership extend incident duration |
 | **Law 7: Economics 💰** | Cost of incidents and prevention | Balance incident prevention cost against business impact |
 
+</div>
+
+
 ## Postmortem Effectiveness Matrix
 
 Evaluate your postmortem process maturity:
+
+<div class="responsive-table" markdown>
 
 | Aspect | Level 1: Reactive | Level 2: Systematic | Level 3: Learning | Level 4: Predictive |
 |--------|-------------------|---------------------|-------------------|---------------------|
@@ -268,6 +280,9 @@ Evaluate your postmortem process maturity:
 | **Sharing** | Team only | Department | Company-wide | Industry sharing |
 | **Metrics** | Incident count | MTTR | Learning velocity | Prevention rate |
 | **Culture** | Blame-oriented | Process-oriented | Learning-oriented | Innovation-oriented |
+
+</div>
+
 
 ## Decision Framework: When to Conduct a Postmortem
 
@@ -308,6 +323,8 @@ graph TD
 
 ### Factor Categories Table
 
+<div class="responsive-table" markdown>
+
 | Category | Common Factors | Prevention Strategies |
 |----------|---------------|----------------------|
 | **Technical** | Code bugs, Config errors, Resource limits | Testing, Validation, Monitoring |
@@ -315,6 +332,9 @@ graph TD
 | **Communication** | Handoff failures, Unclear alerts, Missing docs | Templates, Runbooks, Clear ownership |
 | **Human** | Fatigue, Cognitive overload, Assumptions | Rotation limits, Clear procedures, Pairing |
 | **External** | Vendor issues, Traffic spikes, Dependencies | SLAs, Capacity planning, Fallbacks |
+
+</div>
+
 
 ## Cultural Transformation
 
@@ -345,11 +365,16 @@ Track the effectiveness of your postmortem process:
 
 ## Action Item Prioritization Matrix
 
+<div class="responsive-table" markdown>
+
 | Impact ↓ / Effort → | Low Effort | Medium Effort | High Effort |
 |---------------------|------------|---------------|-------------|
 | **High Impact** | 🟢 Do First<br>• Add alerts<br>• Update runbook<br>• Quick fixes | 🟡 Do Next<br>• Improve testing<br>• Add automation<br>• Training | 🟠 Plan<br>• Architecture changes<br>• Major refactors<br>• New systems |
 | **Medium Impact** | 🟢 Quick Wins<br>• Documentation<br>• Small tools<br>• Config changes | 🟡 Consider<br>• Process updates<br>• Tool upgrades<br>• Monitoring | 🔴 Defer<br>• Nice-to-haves<br>• Major overhauls |
 | **Low Impact** | 🟡 If Time<br>• Cleanup<br>• Minor updates | 🔴 Skip<br>• Low value work | 🔴 Skip<br>• Not worth it |
+
+</div>
+
 
 ## Real-World Examples
 

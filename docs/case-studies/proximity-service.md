@@ -147,6 +147,8 @@ graph LR
 
 **Latency Optimization Strategies:**
 
+<div class="responsive-table" markdown>
+
 | Component | Typical Latency | Optimization | Improved Latency |
 |-----------|----------------|--------------|------------------|
 | GPS Acquisition | 30-3000ms | Last known location cache | 0ms (cached) |
@@ -154,6 +156,9 @@ graph LR
 | Spatial Query | 100-500ms | Geohash indexing | 10-50ms |
 | Result Ranking | 50-100ms | Pre-computed scores | 10-20ms |
 | Network RTT | 20-100ms | Edge servers | 5-20ms |
+
+</div>
+
 
 **Query Path**: User → Edge (5-10ms) → Regional (20-30ms) → Global (100ms+)
 
@@ -176,6 +181,8 @@ graph TB
 
 **Capacity Planning Model:**
 
+<div class="responsive-table" markdown>
+
 | Data Type | Size per POI | 100M POIs | Growth Rate |
 |-----------|--------------|-----------|-------------|
 | Basic Metadata | 1 KB | 100 GB | +20% YoY |
@@ -183,6 +190,9 @@ graph TB
 | Images | 1 MB | 100 TB | +50% YoY |
 | Reviews/Ratings | 100 KB | 10 TB | +40% YoY |
 | Spatial Indices | 100 B | 10 GB | +20% YoY |
+
+</div>
+
 
 **Spatial Indexing Structures:**
 
@@ -226,6 +236,8 @@ graph TB
 
 **Failure Recovery Strategies:**
 
+<div class="responsive-table" markdown>
+
 | Failure Type | Detection Time | Recovery Strategy | Data Loss |
 |--------------|---------------|-------------------|-----------|
 | GPS Signal Lost | Immediate | Cell tower triangulation | None (degraded accuracy) |
@@ -233,6 +245,9 @@ graph TB
 | Data Corruption | Minutes | Rebuild from WAL | Minimal |
 | Region Outage | < 30s | Cross-region failover | None |
 | Split Brain | < 60s | Quorum resolution | Possible conflicts |
+
+</div>
+
 
 ### Law 3: Emergence - Parallel Spatial Queries
 Millions of concurrent queries require parallelization.
@@ -254,6 +269,8 @@ graph TB
 
 **Concurrency Patterns:**
 
+<div class="responsive-table" markdown>
+
 | Pattern | Use Case | Throughput Impact |
 |---------|----------|-------------------|
 | Spatial Sharding | Distribute by geography | 10x improvement |
@@ -261,6 +278,9 @@ graph TB
 | Caching Layer | Repeated queries | 100x for hits |
 | Batch Processing | Bulk geocoding | 20x efficiency |
 | Async Updates | Location updates | 10x write throughput |
+
+</div>
+
 
 ### Law 4: Trade-offs - Global Consistency
 
@@ -290,6 +310,8 @@ graph TB
 
 **Consistency Models by Use Case:**
 
+<div class="responsive-table" markdown>
+
 | Use Case | Consistency Model | Max Staleness | Conflict Resolution |
 |----------|------------------|---------------|-------------------|
 | Restaurant Locations | Eventually Consistent | 5 minutes | Last Write Wins |
@@ -297,6 +319,9 @@ graph TB
 | Store Hours | Eventually Consistent | 1 hour | Manual Merge |
 | Emergency Services | Strong Consistency | 0 seconds | Primary Region |
 | User Location History | Causal Consistency | 1 minute | Vector Clocks |
+
+</div>
+
 
 ### Law 5: Epistemology - Location Service Monitoring
 
@@ -320,6 +345,8 @@ graph LR
 
 **Key Metrics:**
 
+<div class="responsive-table" markdown>
+
 | Metric Category | Examples | Alert Thresholds |
 |----------------|----------|------------------|
 | Query Performance | Latency p50/p95/p99 | p99 > 200ms |
@@ -327,6 +354,9 @@ graph LR
 | Availability | Uptime, Failed queries | < 99.9% |
 | Data Quality | Missing POIs, Outdated info | Staleness > 7 days |
 | Capacity | Index size, Query volume | > 80% capacity |
+
+</div>
+
 
 ### Law 6: Human-API - Intuitive Location UX
 
@@ -350,6 +380,8 @@ graph TB
 
 **UX Optimization Strategies:**
 
+<div class="responsive-table" markdown>
+
 | Feature | Implementation | User Benefit |
 |---------|---------------|--------------|
 | Auto-complete | Prefix matching + ML | Faster input |
@@ -357,6 +389,9 @@ graph TB
 | Smart Defaults | "Near me" = current location | Less input needed |
 | Visual Feedback | Loading indicators, animations | Perceived speed |
 | Offline Mode | Cached nearby data | Works everywhere |
+
+</div>
+
 
 ### Law 7: Economics - Balancing Cost and Coverage
 
@@ -385,6 +420,8 @@ graph TB
 
 **Cost Optimization Strategies:**
 
+<div class="responsive-table" markdown>
+
 | Strategy | Implementation | Cost Savings |
 |----------|---------------|--------------|
 | Data Compression | Geohash clustering | 60% storage |
@@ -393,11 +430,16 @@ graph TB
 | Selective Loading | On-demand regions | 50% memory |
 | CDN Distribution | Edge caching | 60% bandwidth |
 
+</div>
+
+
 ## Part 2: Comprehensive Law Analysis Matrix
 
 Understanding how each design decision maps to fundamental laws helps reveal the true trade-offs in building proximity services.
 
 ### Law Mapping for Core Design Decisions
+
+<div class="responsive-table" markdown>
 
 | Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
@@ -406,6 +448,9 @@ Understanding how each design decision maps to fundamental laws helps reveal the
 | **Read Replicas** | ✅ Distributed reads<br/>Lower latency | ⚠️ Storage multiplication<br/>Sync overhead | ✅ High availability<br/>Automatic failover | ✅ Read scaling<br/>No write conflicts | ⚠️ Replication lag<br/>Consistency challenges | ✅ Lag monitoring<br/>Health checks | ✅ Always available<br/>No downtime | ⚠️ Linear cost increase<br/>More instances |
 | **Spatial Sharding** | ✅ Local queries fast<br/>Data locality | ✅ Even distribution<br/>Predictable growth | ✅ Independent failures<br/>Blast radius limited | ✅ Parallel queries<br/>No contention | ⚠️ Cross-shard queries<br/>Complex boundaries | ✅ Per-shard metrics<br/>Clear ownership | ✅ Regional results<br/>Intuitive model | ✅ Efficient scaling<br/>Pay per region |
 | **ML Prefetching** | ✅ Predictive caching<br/>0ms for hits | ⚠️ Speculative storage<br/>Wasted predictions | ✅ Fallback to direct<br/>Non-critical path | ✅ Async training<br/>No query blocking | ✅ Model consistency<br/>Version control | ⚠️ Complex metrics<br/>Prediction accuracy | ✅ Feels instant<br/>Anticipates needs | ⚠️ Training costs<br/>GPU requirements |
+
+</div>
+
 
 ### Detailed Law Impact Analysis
 
@@ -430,12 +475,17 @@ graph TB
 
 ### Architecture Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Architecture Choice | Primary Law Driver | Secondary Impacts | Trade-off Analysis |
 |-------------------|-------------------|------------------|-------------------|
 | **Geohash vs R-tree** | Latency (simple lookups) | Capacity (storage efficiency) | Geohash wins for point queries but loses for complex polygons |
 | **Sync vs Async Updates** | Concurrency (write throughput) | Consistency (data freshness) | Async enables scale but adds complexity |
 | **Regional vs Global Index** | Latency (query locality) | Coordination (consistency) | Regional faster but cross-region queries suffer |
 | **Hot vs Cold Tiering** | Economics (storage cost) | Latency (access time) | 80% cost savings worth 10x latency for cold data |
+
+</div>
+
 
 ```mermaid
 graph LR
@@ -1042,6 +1092,8 @@ class SpatialAnalytics:
 
 ### Comprehensive Design Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Design Decision | Law 2<br/>⏳ Async Reality | Law 4<br/>⚖️ Optimization | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Chaos | Law 4<br/>⚖️ Optimization | Law 5<br/>🧠 Knowledge | Law 6<br/>🤯 Cognitive | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **H3 Hexagonal Grid** | ✅ O(1) lookups | ✅ Fixed-size cells | ✅ Redundant indices | ✅ Parallel queries | ✅ No overlap | ✅ Clear boundaries | ✅ Intuitive regions | ✅ Efficient coverage |
@@ -1052,6 +1104,9 @@ class SpatialAnalytics:
 | **ML Ranking** | ⚪ Inference time | ✅ Model caching | ✅ Fallback scoring | ✅ Batch inference | ⚪ | ✅ Relevance metrics | ✅ Personalization | ✅ Business value |
 | **Spatial Sharding** | ✅ Localized queries | ✅ Geographic split | ✅ Shard isolation | ✅ Parallel shards | ✅ Shard boundaries | ✅ Shard balance | ⚪ | ✅ Linear scaling |
 | **Hybrid Indices** | ✅ Optimal per query | ✅ Space efficiency | ✅ Multiple options | ✅ Index parallelism | ✅ Index selection | ✅ Query patterns | ✅ Best performance | ✅ Resource optimization |
+
+</div>
+
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
 
@@ -1447,6 +1502,8 @@ graph TB
 
 **Geohash Implementation Details:**
 
+<div class="responsive-table" markdown>
+
 | Geohash Length | Cell Size | Use Case |
 |---------------|-----------|----------|
 | 1 | 5,000km × 5,000km | Continent |
@@ -1454,6 +1511,9 @@ graph TB
 | 5 | 4.9km × 4.9km | Neighborhood |
 | 7 | 153m × 153m | City block |
 | 9 | 4.8m × 4.8m | Building precision |
+
+</div>
+
 
 ### Alternative Architecture 1: Quadtree-Based System
 
@@ -1476,12 +1536,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Adaptability | Handles density variation well | Complex tree management |
 | Query Speed | O(log n) average | Worst case unbalanced |
 | Updates | Efficient insertion | Rebalancing overhead |
 | Memory | Efficient for sparse data | Pointer overhead |
+
+</div>
+
 
 ### Alternative Architecture 2: R-tree Based System
 
@@ -1502,12 +1567,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Range Queries | Extremely efficient | Complex insertions |
 | Spatial Objects | Handles polygons | Higher memory usage |
 | Overlap | Minimizes overlap | Periodic reorganization |
 | Disk-based | Efficient I/O | Cache management |
+
+</div>
+
 
 ### Alternative Architecture 3: Grid-Based System
 
@@ -1530,12 +1600,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Simplicity | Very simple | Fixed granularity |
 | Performance | O(1) cell lookup | Boundary queries |
 | Memory | Predictable | Wasted space |
 | Implementation | Easy to shard | Edge cases |
+
+</div>
+
 
 ### Alternative Architecture 4: Hybrid ML-Enhanced System
 
@@ -1560,12 +1635,17 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Relevance | Highly personalized | Training complexity |
 | Cache Hit Rate | 90%+ for popular | Cold start problem |
 | User Satisfaction | Better results | Privacy concerns |
 | Adaptability | Learns patterns | Model drift |
+
+</div>
+
 
 ### Recommended Architecture: Multi-Index Hybrid System
 
@@ -1624,6 +1704,8 @@ graph TB
 
 **Trade-offs:**
 
+<div class="responsive-table" markdown>
+
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Multi-resolution | Natural zoom levels | Complex indexing |
@@ -1631,9 +1713,14 @@ graph TB
 | Storage | Efficient for sparse areas | Redundant in dense areas |
 | Updates | Hierarchical propagation | Consistency complexity |
 
+</div>
+
+
 ## Part 4: Comprehensive Trade-off Comparison
 
 ### Performance Comparison Matrix
+
+<div class="responsive-table" markdown>
 
 | Architecture | Point Query | Range Query | Update Speed | Memory Usage | Complexity |
 |--------------|-------------|-------------|--------------|--------------|------------|
@@ -1643,6 +1730,9 @@ graph TB
 | **Grid** | O(1) ✅✅✅ | O(m) ✅ | O(1) ✅✅✅ | High ✅ | Simple ✅✅✅ |
 | **ML-Enhanced** | O(1)* ✅✅✅ | O(1)* ✅✅✅ | O(n) ✅ | Very High ❌ | Very Complex ❌ |
 | **Hierarchical** | O(h) ✅✅ | O(h + k) ✅✅ | O(h) ✅✅ | Medium ✅✅ | Complex ✅ |
+
+</div>
+
 
 *With cache hit, otherwise fallback to base method
 
@@ -1673,12 +1763,17 @@ graph TD
 
 ### Cost-Benefit Analysis by Scale
 
+<div class="responsive-table" markdown>
+
 | User Scale | Best Architecture | Monthly Cost | Justification |
 |------------|------------------|--------------|---------------|
 | < 1M queries/month | Simple Grid | ~$500 | Simplicity trumps optimization |
 | 1M-100M queries/month | Geohash | ~$5,000 | Good balance of features |
 | 100M-1B queries/month | Quadtree/R-tree | ~$50,000 | Need efficient range queries |
 | > 1B queries/month | Hybrid Multi-Index | ~$500,000 | Every optimization matters |
+
+</div>
+
 
 ### Implementation Complexity vs Performance Gains
 
@@ -1695,6 +1790,8 @@ graph LR
 
 ### Failure Mode Analysis
 
+<div class="responsive-table" markdown>
+
 | Architecture | Single Node Failure | Region Failure | Split Brain | Data Corruption | Recovery Time |
 |--------------|-------------------|----------------|-------------|-----------------|---------------|
 | **Geohash** | Lose shard data | Lose region | Simple resolution | Re-index shard | < 5 minutes |
@@ -1702,6 +1799,9 @@ graph LR
 | **R-tree** | Lose node + children | Very complex | MBR conflicts | Full rebuild | < 2 hours |
 | **Grid** | Lose cell data | Lose region | No issue | Re-populate cell | < 1 minute |
 | **ML-Enhanced** | Fallback to base | Model unavailable | Version conflicts | Retrain model | < 24 hours |
+
+</div>
+
 
 ### Real-World Architecture Evolution Path
 
@@ -1722,6 +1822,8 @@ graph TB
 
 ### Decision Matrix for Architecture Selection
 
+<div class="responsive-table" markdown>
+
 | Factor | Weight | Geohash | Quadtree | R-tree | Grid | ML-Enhanced | Hybrid |
 |--------|--------|---------|----------|---------|------|-------------|--------|
 | Implementation Speed | 25% | 5/5 | 3/5 | 2/5 | 5/5 | 1/5 | 2/5 |
@@ -1731,6 +1833,9 @@ graph TB
 | Cost Efficiency | 10% | 5/5 | 4/5 | 3/5 | 4/5 | 2/5 | 3/5 |
 | Flexibility | 10% | 3/5 | 4/5 | 5/5 | 2/5 | 5/5 | 5/5 |
 | **Total Score** | 100% | **4.4** | **3.7** | **3.5** | **3.7** | **2.8** | **3.7** |
+
+</div>
+
 
 ### Implementation Considerations
 

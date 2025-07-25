@@ -66,11 +66,16 @@ sequenceDiagram
    ```
 
 3. **Causality Verification Table**
+<div class="responsive-table" markdown>
+
    | Event | Node | Logical Time | Caused By |
    |-------|------|--------------|-----------|
    | Local | N1   | 1           | None      |
    | Send  | N1   | 2           | Event@1   |
    | Recv  | N2   | 3           | Event@2   |
+
+</div>
+
 
 ### Validation Criteria
 
@@ -159,11 +164,16 @@ stateDiagram-v2
 ### Design Deliverables
 
 1. **State Transition Table**
+<div class="responsive-table" markdown>
+
    | Current State | Event | Next State | Action |
    |--------------|-------|------------|---------|
    | Follower | Timeout | Candidate | Start election |
    | Candidate | Majority votes | Leader | Send coordinator |
    | Leader | Higher node found | Follower | Step down |
+
+</div>
+
 
 2. **Message Sequence Chart**
    - Election initiation
@@ -172,11 +182,16 @@ stateDiagram-v2
    - Heartbeat maintenance
 
 3. **Fault Tolerance Matrix**
+<div class="responsive-table" markdown>
+
    | Nodes | Max Failures | Consensus Required |
    |-------|--------------|-------------------|
    | 3 | 1 | 2 nodes |
    | 5 | 2 | 3 nodes |
    | 7 | 3 | 4 nodes |
+
+</div>
+
 
 ### Validation Criteria
 
@@ -253,12 +268,17 @@ sequenceDiagram
    ```
 
 2. **Failure Scenarios Matrix**
+<div class="responsive-table" markdown>
+
    | Failure Point | Coordinator Action | Participant Action |
    |--------------|-------------------|-------------------|
    | Before PREPARE | Abort transaction | No action needed |
    | During voting | Timeout → Abort | Vote NO on timeout |
    | After PREPARED | Must complete | Wait for decision |
    | During COMMIT | Retry until success | Apply when received |
+
+</div>
+
 
 3. **Message Log Visualization**
    ```
@@ -372,12 +392,17 @@ graph TB
    - Decision: Take majority value
 
 3. **Fault Tolerance Table**
+<div class="responsive-table" markdown>
+
    | Total Nodes | Max Byzantine | Honest Majority |
    |------------|---------------|-----------------|
    | 4 | 1 | 3 nodes |
    | 7 | 2 | 5 nodes |
    | 10 | 3 | 7 nodes |
    | 3f+1 | f | 2f+1 nodes |
+
+</div>
+
 
 ### Design Deliverables
 
@@ -567,12 +592,17 @@ stateDiagram-v2
    ```
 
 3. **Consistency Guarantees Table**
+<div class="responsive-table" markdown>
+
    | Property | Mechanism | Visual Indicator |
    |----------|-----------|------------------|
    | Election Safety | One vote per term | Vote tracking |
    | Log Matching | prevLogIndex/Term check | Entry comparison |
    | Leader Completeness | Only elect nodes with all committed entries | Log length check |
    | State Machine Safety | Apply entries in order | Commit index |
+
+</div>
+
 
 ### Validation Criteria
 
@@ -689,11 +719,16 @@ sequenceDiagram
 ### Design Deliverables
 
 1. **Snapshot Consistency Properties**
+<div class="responsive-table" markdown>
+
    | Property | Description | Visual Check |
    |----------|-------------|--------------|
    | Causality | No event after cut caused event before | Arrow directions |
    | Completeness | All process states included | Node coverage |
    | Channel closure | All in-transit messages captured | Edge states |
+
+</div>
+
 
 2. **Algorithm Flowchart**
    ```mermaid
@@ -851,12 +886,17 @@ graph TB
 ### Design Deliverables
 
 1. **Failure Mode Analysis**
+<div class="responsive-table" markdown>
+
    | Failure Type | Detection Method | Recovery Action |
    |-------------|------------------|-----------------|
    | Crash | Timeout | Exclude from quorum |
    | Network partition | Split detection | Majority side continues |
    | Byzantine | Behavior analysis | Byzantine protocols |
    | Slow node | Performance monitoring | Adaptive timeouts |
+
+</div>
+
 
 2. **Consensus Properties Under Failures**
    ```mermaid

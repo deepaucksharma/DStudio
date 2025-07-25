@@ -26,12 +26,17 @@ last_updated: 2025-07-20
 
 ### Rotation Models
 
+<div class="responsive-table" markdown>
+
 | Model | Description | Pros | Cons |
 |-------|-------------|------|------|
 | **Follow the Sun** | Geographically distributed | No night shifts | Requires global team |
 | **Weekly Primary/Secondary** | Two engineers per week | Backup available | Two people impacted |
 | **Daily Rotation** | Different person each day | Minimal impact | More handoffs |
 | **Team-based** | Entire team shares | Shared knowledge | Can impact whole team |
+
+</div>
+
 
 ### Optimal Rotation Size
 
@@ -252,6 +257,8 @@ class BurnoutPrevention:
 
 Understanding how on-call culture relates to distributed systems laws:
 
+<div class="responsive-table" markdown>
+
 | Law | Impact on On-Call Culture | Strategic Implications |
 |-----|---------------------------|----------------------|
 | **Law 2: Asynchronous Reality ⏳** | Alert latency affects response time | Optimize alerting paths, minimize notification delays, pre-warm systems |
@@ -262,6 +269,9 @@ Understanding how on-call culture relates to distributed systems laws:
 | **Law 3: Emergence 🌪️** | Alert storms need prioritization | Define clear severity levels, prevent duplicate alerts, order matters |
 | **Law 5: Epistemology 🧠** | On-call requires system knowledge | Invest in training, maintain runbooks, share tribal knowledge |
 | **Law 7: Economics 💰** | Team/system growth impacts on-call | Plan rotation scaling, update procedures as systems grow |
+
+</div>
+
 
 ## On-Call Health Assessment Framework
 
@@ -302,6 +312,8 @@ radar:
 
 ### Decision Matrix: Rotation Model Selection
 
+<div class="responsive-table" markdown>
+
 | Factor ↓ / Model → | Follow-the-Sun | Weekly Primary/Secondary | Daily Rotation | Team-based |
 |-------------------|----------------|------------------------|----------------|------------|
 | **Team Size Needed** | Large (>12) | Medium (6-10) | Small (5-7) | Any size |
@@ -309,6 +321,9 @@ radar:
 | **Coverage Quality** | Excellent | Good | Fair | Variable |
 | **Individual Impact** | Minimal | Moderate | Minimal | Shared |
 | **Best For** | Global teams | Standard teams | Light on-call | Small teams |
+
+</div>
+
 
 ## Alert Quality Scoring System
 
@@ -372,6 +387,8 @@ class OnCallSurvey:
 
 ### Burnout Risk Assessment
 
+<div class="responsive-table" markdown>
+
 | Risk Factor | Low Risk | Medium Risk | High Risk | Critical |
 |-------------|----------|-------------|-----------|----------|
 | **Incidents/Week** | < 2 | 2-5 | 5-10 | > 10 |
@@ -380,6 +397,9 @@ class OnCallSurvey:
 | **Team Size** | > 8 | 6-8 | 4-6 | < 4 |
 | **Alert Quality** | > 90% | 70-90% | 50-70% | < 50% |
 | **Automation Level** | > 80% | 60-80% | 40-60% | < 40% |
+
+</div>
+
 
 ### Intervention Strategies by Risk Level
 
@@ -399,6 +419,8 @@ graph LR
 
 ## Cost-Benefit Analysis of On-Call Improvements
 
+<div class="responsive-table" markdown>
+
 | Investment | Cost | Benefit | ROI Timeline | Priority |
 |------------|------|---------|--------------|----------|
 | **Auto-remediation** | $$$ | Reduce incidents 50% | 3 months | High |
@@ -406,6 +428,9 @@ graph LR
 | **Runbook Automation** | $$ | Reduce MTTR 30% | 2 months | Medium |
 | **Follow-the-Sun** | $$$$ | Eliminate night pages | 6 months | Low |
 | **Alert Tuning** | $ | Reduce noise 60% | 2 weeks | Critical |
+
+</div>
+
 
 ## Best Practices
 

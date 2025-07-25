@@ -38,6 +38,8 @@ last_updated: 2025-07-20
 ## Traditional vs First Principles Learning
 
 !!! tip "Impact Comparison"
+<div class="responsive-table" markdown>
+
     | Aspect | Traditional | First Principles | Impact |
     |--------|-------------|------------------|--------|
     | **Starting Point** | Popular tools | Physics constraints | 10x faster learning new tech |
@@ -46,9 +48,14 @@ last_updated: 2025-07-20
     | **Career Growth** | Tool expert → obsolete | Principle expert → architect | 2-3x salary growth |
     | **Innovation** | Follow patterns | Create patterns | Build next Google |
 
+</div>
+
+
 ## Learning Methods Effectiveness
 
 !!! note "Retention Rates by Method"
+<div class="responsive-table" markdown>
+
     | Learning Method | Retention Rate | Time to Mastery | Example |
     |-----------------|----------------|-----------------|---------|
     | **Read about it** | 10% | Never | "Redis is a cache" |
@@ -56,6 +63,9 @@ last_updated: 2025-07-20
     | **Practice with guidance** | 75% | 6 months | Build with Redis |
     | **Teach others** | 90% | 3 months | Explain to colleague |
     | **Derive from principles** | 95% | 1 month | Invent Redis from constraints |
+
+</div>
+
 
     **Key insight**: Active derivation beats passive consumption by 9x.
 
@@ -115,12 +125,17 @@ last_updated: 2025-07-20
 ## Learning Journey Stages
 
 !!! tip "Expertise Development"
+<div class="responsive-table" markdown>
+
     | Stage | Years | Capability | Mental Model |
     |-------|-------|------------|-------------|
     | **Novice** | 0-1 | Follow laws as rules | Single law application |
     | **Competent** | 1-3 | Map problems to laws | Pattern recognition |
     | **Proficient** | 3-5 | See law interactions | System thinking |
     | **Expert** | 5+ | Predict from constraints | First principles |
+
+</div>
+
 
 ### Metacognition: Learning How to Learn
 
@@ -147,12 +162,17 @@ graph LR
     style D fill:#ffe1f5
 ```
 
+<div class="responsive-table" markdown>
+
 | Pass | Time | Activity | Outcome |
 |------|------|----------|------|
 | **1: Survey** | 5 min | Skim headings, diagrams | Mental map |
 | **2: Question** | 15 min | Read actively, ask "why?" | Key insights |
 | **3: Implement** | 30 min | Code examples, exercises | Practical skills |
 | **4: Teach** | Variable | Explain to colleague | Validated understanding |
+
+</div>
+
 
 </div>
 
@@ -225,12 +245,17 @@ graph LR
     style Fix fill:#198754,color:#fff
 ```
 
+<div class="responsive-table" markdown>
+
 | Step | Question | Action |
 |------|----------|--------|  
 | 1 | Which law is violated? | Map symptoms to laws |
 | 2 | What does model predict? | Apply law's mental model |
 | 3 | Where does reality diverge? | Find the gap |
 | 4 | What assumption was wrong? | Update understanding |
+
+</div>
+
 
 </div>
 
@@ -362,6 +387,8 @@ Keep a notebook where you:
         style F5 fill:#dcfce7
     ```
 
+<div class="responsive-table" markdown>
+
 | Aspect | Traditional Approach | First-Principles Approach | Why It Matters |
 |--------|---------------------|--------------------------|----------------|
 | **Starting Point** | Popular technologies (Kafka, Redis) | Laws of physics (speed of light) | Technologies become obsolete; physics doesn't |
@@ -371,6 +398,9 @@ Keep a notebook where you:
 | **Architecture Decisions** | "Industry best practices" | Quantified trade-offs | Decisions fit your constraints |
 | **Knowledge Depth** | Surface-level how | Deep understanding of why | Can innovate, not just implement |
 | **Career Longevity** | Skills obsolete in 3-5 years | Skills compound over decades | Future-proof expertise |
+
+</div>
+
 
 ### Example: Learning Message Queues
 

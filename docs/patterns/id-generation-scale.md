@@ -569,6 +569,8 @@ class TimeBucketedID:
 
 ## Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Approach | Uniqueness | Ordering | Size | Performance | Complexity |
 |----------|------------|----------|------|-------------|------------|
 | Snowflake | Guaranteed | Time-ordered | 64-bit | Very High | Medium |
@@ -576,6 +578,9 @@ class TimeBucketedID:
 | ULID | Guaranteed | Lexicographic | 128-bit | Medium | Low |
 | UUID4 | Very High | Random | 128-bit | High | Very Low |
 | FlakeID | Guaranteed | Time-ordered | 128-bit | Very High | High |
+
+</div>
+
 
 ## Failure Modes
 

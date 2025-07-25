@@ -94,6 +94,8 @@ flowchart LR
 
 ### Sharding Strategies Comparison
 
+<div class="responsive-table" markdown>
+
 | Strategy | How it Works | Pros | Cons | Use When |
 |----------|-------------|------|------|----------|
 | **Range-Based** | Partition by value range | Simple, ordered queries | Hotspots possible | Time-series data |
@@ -101,6 +103,9 @@ flowchart LR
 | **Geographic** | Partition by location | Data locality | Complex queries | Global apps |
 | **Directory-Based** | Lookup table for mapping | Flexible | Additional hop | Dynamic sharding |
 | **Composite** | Multiple shard keys | Fine-grained control | Complex routing | Multi-tenant |
+
+</div>
+
 
 ### Sharding Strategy Visualizations
 
@@ -183,6 +188,8 @@ graph TB
 
 ### Sharding Strategy Comparison
 
+<div class="responsive-table" markdown>
+
 | Strategy | Distribution | Query Complexity | Rebalancing | Best For |
 |----------|--------------|------------------|-------------|----------|
 | **Range** | Can be uneven | Simple range queries | Hard | Sequential IDs |
@@ -190,6 +197,9 @@ graph TB
 | **Geographic** | By location | Region-aware | Natural | Global apps |
 | **Composite** | Multi-dimensional | Complex | Flexible | Multi-tenant |
 | **Directory** | Flexible | Extra lookup | Easy | Dynamic data |
+
+</div>
+
 
 ### Cross-Shard Query Patterns
 
@@ -223,6 +233,8 @@ sequenceDiagram
 
 ### Cross-Shard Query Types
 
+<div class="responsive-table" markdown>
+
 | Query Type | Pattern | Performance Impact | Example |
 |------------|---------|-------------------|----------|
 | **Scatter-Gather** | Query all shards | O(n) shards | Global search |
@@ -230,6 +242,9 @@ sequenceDiagram
 | **Fan-out Aggregation** | Parallel aggregates | Network bound | SUM, COUNT |
 | **Sorted Merge** | Order across shards | Memory intensive | Top-K queries |
 | **Two-Phase Query** | Locate then fetch | 2x latency | Secondary index |
+
+</div>
+
 
 ```mermaid
 graph TB
@@ -995,6 +1010,8 @@ class AdvancedShardingAlgorithms:
 
 ### Sharding Strategy Selection
 
+<div class="responsive-table" markdown>
+
 | If you have... | Use this strategy | Key considerations |
 |----------------|-------------------|-------------------|
 | Numeric IDs | Range sharding | Watch for hotspots |
@@ -1003,6 +1020,9 @@ class AdvancedShardingAlgorithms:
 | Time-series | Time-based sharding | Easy archival |
 | Multi-tenant | Tenant sharding | Isolation guaranteed |
 | Complex queries | Directory sharding | Additional hop |
+
+</div>
+
 
 ### Implementation Checklist
 

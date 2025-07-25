@@ -10,6 +10,8 @@
 
 ## Amazon vs Other Tech Companies
 
+<div class="responsive-table" markdown>
+
 | Aspect | Amazon | Google/Meta | Microsoft |
 |--------|---------|-------------|------------|
 | **Primary Focus** | Customer + Operations | Technical Innovation | Enterprise Integration |
@@ -18,6 +20,9 @@
 | **Design Approach** | Working backwards | Technology first | Platform thinking |
 | **Key Metrics** | Cost, latency, availability | Innovation, scale | Compatibility, security |
 | **Failure Handling** | Mechanisms > intentions | Redundancy | Graceful degradation |
+
+</div>
+
 
 ## Leadership Principles → System Design Matrix
 

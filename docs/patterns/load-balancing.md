@@ -61,6 +61,8 @@ graph TB
 
 ### Algorithm Selection
 
+<div class="responsive-table" markdown>
+
 | Requirement | Algorithm | Reason |
 |-------------|-----------|--------|
 | Session Affinity | IP Hash | Consistent routing |
@@ -69,11 +71,16 @@ graph TB
 | Low Latency | Least Response Time | Performance optimized |
 | Dynamic Load | Least Connections | Real-time awareness |
 
+</div>
+
+
 ---
 
 ## Level 2: Foundation
 
 ### Load Balancing Algorithms
+
+<div class="responsive-table" markdown>
 
 | Algorithm | Description | Pros | Cons |
 |-----------|-------------|------|------|
@@ -83,6 +90,9 @@ graph TB
 | **Least Response Time** | Route to fastest | Performance optimized | Requires latency monitoring |
 | **IP Hash** | Consistent routing | Session affinity | Uneven distribution possible |
 | **Random** | Random selection | Simple, no state | No optimization |
+
+</div>
+
 
 ### Implementing Advanced Algorithms
 
@@ -192,12 +202,17 @@ class Layer7LoadBalancer:
 
 ### Consistent Hashing
 
+<div class="responsive-table" markdown>
+
 | Concept | Description | Benefit |
 |---------|-------------|----------|
 | **Hash Ring** | Servers placed on circular hash space | Distributed mapping |
 | **Virtual Nodes** | Multiple points per server | Better distribution |
 | **Key Mapping** | Hash(key) → nearest server clockwise | O(log n) lookup |
 | **Server Addition** | Only K/N keys move (K=keys, N=servers) | Minimal disruption |
+
+</div>
+
 
 ### Consistent Hashing Implementation
 
@@ -460,6 +475,8 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 
 ### Load Balancing Algorithm Selection
 
+<div class="responsive-table" markdown>
+
 | Scenario | Best Algorithm | Why |
 |----------|---------------|-----|
 | Stateless API | Least Connections | Actual load awareness |
@@ -467,6 +484,9 @@ def power_law_aware_balancing(request_sizes: list, servers: list) -> dict:
 | Varied server capacity | Weighted Round Robin | Proportional distribution |
 | Global service | Geographic | Minimize latency |
 | Microservices | Service Mesh | Advanced routing rules |
+
+</div>
+
 
 ### Implementation Checklist
 

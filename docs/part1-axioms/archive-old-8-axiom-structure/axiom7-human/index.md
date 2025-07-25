@@ -161,6 +161,8 @@ Result: Efficient, safe cooking
 
 ### The Human Limitations Chart
 
+<div class="responsive-table" markdown>
+
 | Human Aspect | Limitation | System Design Implication |
 |--------------|------------|---------------------------|
 | **Reading Speed** | 200-300 words/min | Don't flood with text |
@@ -169,6 +171,9 @@ Result: Efficient, safe cooking
 | **Attention Span** | 20 minutes focused | Automate routine tasks |
 | **Error Rate** | 1% normally, 10% under stress | Add confirmations |
 | **Work Hours** | 8 hours/day | Build for handoffs |
+
+</div>
+
 
 ---
 
@@ -225,11 +230,16 @@ The Typo That Broke the Internet:
 
 ### Cognitive Load Theory
 
+<div class="responsive-table" markdown>
+
 | Load Type | Definition | Example | Management Strategy |
 |-----------|------------|---------|--------------------|
 | **Intrinsic** | Essential complexity | Understanding distributed consensus | Good documentation, training |
 | **Extraneous** | Unnecessary complexity | Confusing UI, poor naming | Simplify, standardize |
 | **Germane** | Learning-helpful complexity | Well-designed tutorials | Encourage, but time-box |
+
+</div>
+
 
 **Team Cognitive Capacity Formula**:
 ```
@@ -273,12 +283,17 @@ Level 3 - Deep Dive (Click latency):
 
 #### Context-Aware Displays
 
+<div class="responsive-table" markdown>
+
 | Audience | Primary Metrics | Update Frequency | Detail Level |
 |----------|----------------|------------------|-------------|
 | **On-Call SRE** | Alerts, errors, latency | Real-time | Deep technical |
 | **Team Lead** | SLO status, trends | 5 minutes | Service health |
 | **Manager** | Availability, incidents | Hourly | Business impact |
 | **Executive** | Revenue impact, SLA | Daily | Strategic KPIs |
+
+</div>
+
 
 ### Confirmation Patterns
 
@@ -304,6 +319,8 @@ graph TD
 
 #### Risk-Based Confirmation Examples
 
+<div class="responsive-table" markdown>
+
 | Action | Risk | Confirmation Required |
 |--------|------|----------------------|
 | Read metrics | Low | None |
@@ -311,6 +328,9 @@ graph TD
 | Delete database | Critical | Type "DELETE-PROD-DB" + peer approval |
 | Modify traffic routing | High | Show affected users + confirm |
 | Emergency shutdown | Critical | Two-person rule + audit log |
+
+</div>
+
 
 ### Automation Decision Matrix
 
@@ -344,6 +364,8 @@ Automation Priorities:
 
 ### Toil Score Calculation
 
+<div class="responsive-table" markdown>
+
 | Factor | Weight | Score (1-5) | Weighted |
 |--------|--------|-------------|----------|
 | Frequency | 30% | How often performed | F × 0.3 |
@@ -352,6 +374,9 @@ Automation Priorities:
 | Error proneness | 15% | Human error rate | E × 0.15 |
 | Business impact | 10% | If it goes wrong | B × 0.1 |
 | **Total Toil Score** | | | **Sum** |
+
+</div>
+
 
 **Priority**: Automate tasks with score > 3.5 first
 
@@ -464,6 +489,8 @@ NASA Mission Control Principles:
 
 **Applied to Modern Systems**:
 
+<div class="responsive-table" markdown>
+
 | NASA Principle | DevOps Application |
 |----------------|-------------------|
 | Role-based displays | SRE vs Dev vs Manager dashboards |
@@ -471,6 +498,9 @@ NASA Mission Control Principles:
 | Closed-loop comms | Deployment approval workflows |
 | Standard phraseology | Consistent alert naming/format |
 | Failure indication | Circuit breakers and fallbacks |
+
+</div>
+
 
 ### Advanced UI Patterns
 
@@ -535,12 +565,17 @@ Context-Aware Help:
 
 #### 3. Smart Defaults and Automation
 
+<div class="responsive-table" markdown>
+
 | Operation | Manual Process | Smart Default | Full Automation |
 |-----------|---------------|---------------|------------------|
 | Scaling | Pick instance count | Suggest based on load | Auto-scale with limits |
 | Alerts | Set all thresholds | Pre-tuned thresholds | Anomaly detection |
 | Deployments | Pick time/strategy | Suggest quiet period | Progressive rollout |
 | Backups | Remember to run | Scheduled with reminders | Continuous + verified |
+
+</div>
+
 
 ### Toil Measurement and Elimination
 
@@ -625,6 +660,8 @@ AI-Assisted Operations (2025+):
 
 #### Human-AI Collaboration Model
 
+<div class="responsive-table" markdown>
+
 | Task Type | Human Role | AI Role | Why This Split |
 |-----------|------------|---------|----------------|
 | Pattern Recognition | Validate findings | Detect anomalies | AI better at scale |
@@ -632,6 +669,9 @@ AI-Assisted Operations (2025+):
 | Investigation | Direct focus | Gather evidence | AI faster at search |
 | Communication | Empathy, context | Draft updates | Human nuance needed |
 | Learning | Apply wisdom | Find correlations | Both needed |
+
+</div>
+
 
 ### The Human-Centric Design Principles
 
@@ -810,12 +850,17 @@ $ delete-database production
 
 #### Exercise 2: Toil Analysis 🌿
 
+<div class="responsive-table" markdown>
+
 | Task | Frequency | Duration | Error Rate | Automation Potential | Priority Score |
 |------|-----------|----------|------------|---------------------|----------------|
 | Certificate renewal | Monthly | 30 min | 5% | High | 4.2 |
 | Log rotation | Daily | 5 min | 1% | High | 3.8 |
 | Deployment | Weekly | 60 min | 10% | Medium | 3.5 |
 | Capacity planning | Quarterly | 4 hours | 2% | Low | 1.2 |
+
+</div>
+
 
 #### Exercise 3: Progressive Disclosure UI 🌳
 

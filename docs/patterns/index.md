@@ -51,6 +51,8 @@ graph TD
 
 ## Pattern Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Problem | Symptoms | Pattern Solution | Complexity | Cost Impact | Time to Implement |
 |---------|----------|------------------|------------|-------------|-------------------|
 | **High Latency** | p99 > 100ms | → Caching → CDN → Edge | Low → High | $$ → $$$$ | Days → Months |
@@ -60,7 +62,12 @@ graph TD
 | **Complex Workflows** | Distributed transactions | → Saga → Choreography | High | $ | Weeks → Months |
 | **No Visibility** | Can't debug production | → Observability → Service Mesh | Medium → High | $$ → $$$ | Weeks → Months |
 
+</div>
+
+
 ## Pattern Effectiveness Matrix
+
+<div class="responsive-table" markdown>
 
 | Pattern | Problem Solved | Success Rate | Overhead | Team Size | Learning Curve |
 |---------|---------------|--------------|----------|-----------|----------------|
@@ -71,7 +78,12 @@ graph TD
 | **Service Mesh** | Observability | 90% | High | 5-10 | Hard |
 | **Sharding** | Data Scale | 80% | High | 4-8 | Hard |
 
+</div>
+
+
 ## Pattern Selection by Constraints
+
+<div class="responsive-table" markdown>
 
 | If You Have... | Avoid These | Use These Instead | Why |
 |----------------|-------------|-------------------|-----|
@@ -80,6 +92,9 @@ graph TD
 | < 100 req/s | Microservices | Monolith | Premature optimization |
 | Strict consistency | Eventual consistency patterns | 2PC, Distributed locks | Data integrity |
 | < 1GB data | Sharding, NoSQL | PostgreSQL | Unnecessary complexity |
+
+</div>
+
 
 ## Pattern Maturity & Adoption
 
@@ -119,6 +134,8 @@ graph LR
 
 ## Quick Pattern Finder
 
+<div class="responsive-table" markdown>
+
 | Your Situation | Recommended Pattern Stack | Expected Results |
 |----------------|--------------------------|------------------|
 | **Startup MVP** | Monolith + Cache + CDN | 50ms latency, 99.9% uptime |
@@ -126,6 +143,9 @@ graph LR
 | **Scale-up Phase** | + CQRS + Circuit Breaker + Auto-scaling | 100K concurrent users |
 | **Enterprise Scale** | + Service Mesh + Multi-region + Event Sourcing | 1M+ concurrent users |
 | **Unicorn Scale** | + Edge Computing + Cell-Based + Chaos Engineering | 100M+ concurrent users |
+
+</div>
+
 
 ## Pattern Categories
 
@@ -180,6 +200,8 @@ graph LR
 
 ### Pattern Catalog
 
+<div class="responsive-table" markdown>
+
 | Pattern | Category | Problem Solved | When to Use | Complexity | Link |
 |---------|----------|----------------|-------------|------------|------|
 | **Queues & Streaming** | 🏗️ Core | Coupling, backpressure | Async processing, > 1K msg/s | 🟡 Medium | [📬](queues-streaming.md) |
@@ -203,6 +225,9 @@ graph LR
 | **Observability** | ⚙️ Operational | Visibility | Production systems | 🟡 Medium | [👁️](observability.md) |
 | **Auto-scaling** | ⚙️ Operational | Variable load | Cloud deployments | 🟡 Medium | [📈](auto-scaling.md) |
 | **Load Balancing** | ⚙️ Operational | Request distribution | > 1 server | 🟢 Low | [⚖️](load-balancing.md) |
+
+</div>
+
 
 ### Pattern Combinations That Work
 
@@ -244,6 +269,8 @@ graph LR
 
 ## 🏢 Real-World Pattern Impact
 
+<div class="responsive-table" markdown>
+
 | Company | Pattern | Scale | Result | Key Metric |
 |---------|---------|-------|--------|------------|
 | **Netflix** | Circuit Breaker | 100B req/day | Prevented cascades | 99.99% uptime |
@@ -252,6 +279,9 @@ graph LR
 | **Lyft** | Service Mesh | 100M req/sec | Observability | < 1ms overhead |
 | **Uber** | Geo-sharding | 20M rides/day | Regional scale | 5x capacity |
 | **Stripe** | Idempotency | $640B/year | Payment safety | 100% accuracy |
+
+</div>
+
 
 ## 📚 Learning Paths
 
@@ -285,6 +315,8 @@ graph TD
 
 ## ⚠ Anti-Patterns to Avoid
 
+<div class="responsive-table" markdown>
+
 | Anti-Pattern | Red Flag | Cost | Fix |
 |--------------|-----------|------|-----|
 | **Cargo Cult** | "Netflix does it" | 10x complexity | Start simple |
@@ -293,7 +325,12 @@ graph TD
 | **Resume-Driven** | K8s for 3 services | $10K/month | Right-size |
 | **Infinite Scale** | No capacity plan | $100K surprise | Model growth |
 
+</div>
+
+
 ## Pattern Success Metrics
+
+<div class="responsive-table" markdown>
 
 | Pattern | Metric | 🟢 Good | 🟡 Great | 🔴 Elite |
 |---------|--------|---------|----------|----------|
@@ -303,7 +340,12 @@ graph TD
 | **Auto-scaling** | Response during spike | < 2x | < 1.5x | < 1.1x |
 | **CQRS** | Read/write ratio | 10:1 | 100:1 | 1000:1 |
 
+</div>
+
+
 ## Implementation Checklist
+
+<div class="responsive-table" markdown>
 
 | Step | Question | Action | Common Mistake |
 |------|----------|--------|----------------|
@@ -313,9 +355,14 @@ graph TD
 | 4️⃣ | Total cost? | Include ops | Ignoring human cost |
 | 5️⃣ | Rollback? | Test it | No escape route |
 
+</div>
+
+
 ## 🔗 Navigation
 
 ### Pattern Resources
+<div class="responsive-table" markdown>
+
 | Resource | Purpose | Time |
 |----------|---------|------|
 | [📊 Pattern Comparison](pattern-comparison.md) | Side-by-side analysis | 15 min |
@@ -323,7 +370,12 @@ graph TD
 | [🔗 Pattern Combinations](pattern-combinations.md) | Synergies guide | 20 min |
 | [🧠 Pattern Quiz](pattern-quiz.md) | Test your knowledge | 10 min |
 
+</div>
+
+
 ### Patterns by Problem Domain
+<div class="responsive-table" markdown>
+
 | Domain | Key Patterns | Start With |
 |--------|--------------|------------|
 | **🔴 Reliability** | Circuit Breaker, Bulkhead, Retry | [Circuit Breaker](circuit-breaker.md) |
@@ -331,6 +383,9 @@ graph TD
 | **📈 Scalability** | Sharding, Load Balancing, Auto-scaling | [Load Balancing](load-balancing.md) |
 | **💾 Data** | CQRS, Event Sourcing, CDC | [CQRS](cqrs.md) |
 | **🤝 Coordination** | Saga, Leader Election, Distributed Lock | [Saga](saga.md) |
+
+</div>
+
 
 ### Case Studies
 - [Netflix](case-studies/netflix-chaos) → Circuit Breaker, Chaos Engineering

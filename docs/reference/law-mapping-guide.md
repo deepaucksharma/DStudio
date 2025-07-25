@@ -13,6 +13,8 @@ This guide helps users familiar with the original 8-law framework navigate to th
 
 ## Quick Reference Mapping
 
+<div class="responsive-table" markdown>
+
 | Old Law (8-Law Framework) | New Law (7-Law Framework) | Key Changes |
 |-------------------------------|---------------------------|-------------|
 | **1. Latency** 🏃‍♂️<br/>*Speed of light limits* | **2. Law of Asynchronous Reality** ⏳<br/>*Information travels at finite speed* | Expanded beyond just latency to include temporal uncertainty, information theory limits, and partial ordering |
@@ -23,6 +25,9 @@ This guide helps users familiar with the original 8-law framework navigate to th
 | **6. Limited Observability** 👁️<br/>*Can't see everything* | **5. Law of Distributed Knowledge** 🧠<br/>*Truth is local, certainty expensive* | Reframed as epistemology - what can be known in distributed systems |
 | **7. Human Interface** 👤<br/>*Humans interact with systems* | **6. Law of Cognitive Load** 🤯<br/>*Complexity must fit human limits* | Deeper focus on mental models and cognitive constraints |
 | **8. Economic Reality** 💰<br/>*Systems have costs* | **7. Law of Economic Reality** 💰<br/>*Every decision is financial* | Enhanced with TCO, opportunity cost, and FinOps principles |
+
+</div>
+
 
 ## Detailed Mapping and Evolution
 

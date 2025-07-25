@@ -157,6 +157,8 @@ graph TD
 
 ### Comparison Examples Table
 
+<div class="responsive-table" markdown>
+
 | Vector 1 | Vector 2 | Relationship | Explanation |
 |----------|----------|--------------|-------------|
 | [1,2,0] | [1,3,0] | V1 → V2 | V2 has all of V1's events + more |
@@ -164,6 +166,9 @@ graph TD
 | [1,2,3] | [1,2,3] | Equal | Same exact state |
 | [0,0,1] | [1,1,0] | Concurrent | Independent branches |
 | [3,2,1] | [4,3,2] | V1 → V2 | V2 supersedes V1 |
+
+</div>
+
 
 ## Real-World Scenarios
 
@@ -216,6 +221,8 @@ flowchart LR
 
 ### Growth Characteristics Table
 
+<div class="responsive-table" markdown>
+
 | System Size | Vector Size | Memory/Message | Update Cost | Compare Cost |
 |-------------|-------------|----------------|-------------|--------------|
 | 3 nodes | 3 × 8 bytes | 24 bytes | O(1) | O(3) |
@@ -223,6 +230,9 @@ flowchart LR
 | 100 nodes | 100 × 8 bytes | 800 bytes | O(1) | O(100) |
 | 1000 nodes | 1000 × 8 bytes | 8 KB | O(1) | O(1000) |
 | 10K nodes | 10K × 8 bytes | 80 KB | O(1) | O(10K) |
+
+</div>
+
 
 ### Visual Scaling Challenge
 
@@ -315,12 +325,17 @@ graph TD
 ### 2. Byzantine Behavior
 
 !!! info "Vector Clock Security Considerations"
+<div class="responsive-table" markdown>
+
     | Attack Type | Impact | Mitigation |
     |-------------|---------|------------|
     | **Clock manipulation** | False causality | Signed vectors |
     | **Vector inflation** | DoS via size | Size limits |
     | **Node impersonation** | Wrong ordering | Authentication |
     | **Rollback attack** | Old state replay | Monotonic checks |
+
+</div>
+
 
 ## Implementation Patterns
 
@@ -363,6 +378,8 @@ graph TD
 
 ### When to Use Different Clock Types
 
+<div class="responsive-table" markdown>
+
 | Clock Type | Use Case | Pros | Cons |
 |------------|----------|------|------|
 | **Physical Clock** | Log timestamps | Simple, intuitive | Clock skew issues |
@@ -370,6 +387,9 @@ graph TD
 | **Vector Clock** | Causality tracking | Full causality | O(n) space |
 | **Hybrid Clock** | Best of both | Physical + logical | More complex |
 | **Interval Tree Clock** | Dynamic systems | Handles join/leave | Implementation complexity |
+
+</div>
+
 
 ## Advanced Vector Clock Patterns
 
@@ -663,12 +683,17 @@ graph LR
 ### Memory Overhead Visualization
 
 !!! info "Vector Clock Memory Usage"
+<div class="responsive-table" markdown>
+
     | Nodes | Per Clock | 1M Objects | Network Overhead |
     |-------|-----------|------------|------------------|
     | 10 | 80 bytes | 80 MB | 1.6% |
     | 100 | 800 bytes | 800 MB | 16% |
     | 1,000 | 8 KB | 8 GB | 160% |
     | 10,000 | 80 KB | 80 GB | 1600% |
+
+</div>
+
     ```mermaid
     graph TD
     subgraph "Memory Growth"
@@ -700,6 +725,8 @@ graph LR
 
 ### Implementation Checklist
 
+<div class="responsive-table" markdown>
+
 | ✓ | Task | Why Important |
 |---|------|---------------|
 | ☐ | Choose appropriate storage (array vs map) | Performance impact |
@@ -708,6 +735,9 @@ graph LR
 | ☐ | Plan for node additions/removals | System evolution |
 | ☐ | Consider compression strategies | Network efficiency |
 | ☐ | Document conflict resolution | Application logic |
+
+</div>
+
 
 ## Visual Algorithm Comparison
 

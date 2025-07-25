@@ -79,6 +79,8 @@ Disadvantages:                  Disadvantages:
 
 ### Types of Failover
 
+<div class="responsive-table" markdown>
+
 | Type | Primary State | Backup State | Failover Time | Cost | Use Case |
 |------|--------------|-------------|---------------|------|----------|
 | **Active-Passive** | Running | Standby | 30s-5min | Low | Database servers |
@@ -86,6 +88,9 @@ Disadvantages:                  Disadvantages:
 | **Pilot Light** | Running | Minimal | 10-30min | Medium | Disaster recovery |
 | **Warm Standby** | Running | Ready | 5-30s | Medium | E-commerce sites |
 | **Multi-Zone** | Running | Running | <1s | High | Cloud applications |
+
+</div>
+
 
 ### Failover Components
 
@@ -1073,6 +1078,8 @@ for key, value in roi_analysis.items():
 
 ### Failover Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Scenario | Recommended Type | Typical RTO | Typical RPO | Cost |
 |----------|------------------|-------------|-------------|------|
 | **Database** | Active-Passive | 5-30 min | < 1 min | Medium |
@@ -1080,6 +1087,9 @@ for key, value in roi_analysis.items():
 | **API Gateway** | Multi-Active | < 1 sec | 0 | High |
 | **File Storage** | Pilot Light | 30-60 min | < 15 min | Low |
 | **Analytics** | Warm Standby | 10-30 min | < 5 min | Medium |
+
+</div>
+
 
 ### Implementation Checklist
 

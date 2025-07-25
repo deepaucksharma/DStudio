@@ -24,6 +24,8 @@ last_updated: 2025-07-25
 **How can we optimize both complex business operations and high-performance queries when they have fundamentally different requirements?**
 
 !!! tip "When to Use This Pattern"
+<div class="responsive-table" markdown>
+
     | Scenario | Use CQRS | Alternative |
     |----------|----------|-------------|
     | Read/write ratio > 10:1 | ✅ Yes | Consider read replicas |
@@ -34,6 +36,9 @@ last_updated: 2025-07-25
     | Simple CRUD operations | ❌ No | Traditional CRUD |
     | Small teams (< 3 developers) | ❌ No | Monolithic architecture |
     | Low traffic (< 1K requests/day) | ❌ No | Simple database |
+
+</div>
+
 
 ## Solution Architecture
 
@@ -254,7 +259,6 @@ graph TB
 - [Greg Young's CQRS Documents](https://cqrs.files.wordpress.com/2010/11/cqrs_documents.pdf) - Original CQRS papers
 - [Martin Fowler's CQRS Article](https://martinfowler.com/bliki/CQRS.html) - Clear introduction
 - [Microsoft CQRS Journey](https://docs.microsoft.com/en-us/previous-versions/msp-n-p/jj554200(v=pandp.10)) - Detailed implementation guide
-
 
 
 

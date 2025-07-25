@@ -1334,6 +1334,8 @@ class NeuralAutocomplete:
 
 ### Comprehensive Design Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Design Decision | Law 2<br/>⏳ Async Reality | Law 4<br/>⚖️ Optimization | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Chaos | Law 4<br/>⚖️ Optimization | Law 5<br/>🧠 Knowledge | Law 6<br/>🤯 Cognitive | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|----------|----------|
 | **In-Memory Trie** | ✅ <10ms lookup | ✅ Compact structure | ✅ Replicated copies | ✅ Lock-free reads | ⚪ | ✅ Memory metrics | ✅ Instant response | ✅ RAM vs disk trade-off |
@@ -1344,6 +1346,9 @@ class NeuralAutocomplete:
 | **ML Ranking** | ⚪ Inference time | ✅ Model caching | ✅ Fallback ranking | ✅ Batch inference | ✅ A/B testing | ✅ Ranking quality | ✅ Personalization | ✅ Better CTR = revenue |
 | **Real-time Updates** | ✅ Fresh suggestions | ✅ Incremental updates | ✅ Eventually consistent | ✅ Stream processing | ✅ Event ordering | ✅ Lag monitoring | ✅ Current trends | ⚪ |
 | **Client-side Caching** | ✅ Zero latency | ✅ Reduce requests | ✅ Offline capable | ⚪ | ✅ Cache invalidation | ✅ Client metrics | ✅ Instant feel | ✅ Bandwidth savings |
+
+</div>
+
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
 

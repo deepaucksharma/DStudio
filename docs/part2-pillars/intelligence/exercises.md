@@ -105,6 +105,8 @@ graph TD
 !!! quote
     **Core Data Structures**
 
+<div class="responsive-table" markdown>
+
     | Component | Structure | Purpose | Size Limit |
     |-----------|-----------|---------|------------|
     | **Weights** | `{backend: weight}` | Selection probabilities | Dynamic |
@@ -113,7 +115,12 @@ graph TD
     | **Errors** | `deque[0\|1]` | Success/failure tracking | Rolling window |
     | **Timestamps** | `deque[time]` | Time-based filtering | Rolling window |
 
+</div>
+
+
     **Configuration Parameters**
+
+<div class="responsive-table" markdown>
 
     | Parameter | Default | Range | Impact |
     |-----------|---------|-------|---------|
@@ -121,6 +128,9 @@ graph TD
     | **Exploration Rate (ε)** | 0.1 | 0.05-0.2 | Random selection frequency |
     | **History Window** | 1000 | 100-5000 | Memory vs accuracy |
     | **Recent Data Window** | 5 min | 1-15 min | Adaptation speed |
+
+</div>
+
 
 #### 3. Performance Scoring Visualization
 
@@ -237,11 +247,16 @@ graph TD
 !!! danger
     **Simulated Backend Profiles**
 
+<div class="responsive-table" markdown>
+
     | Backend | Base Latency | Error Rate | Variance | Expected Behavior |
     |---------|--------------|------------|----------|-------------------|
     | Backend1 | 50ms | 1% | ±10ms | Fast & Reliable → High Weight |
     | Backend2 | 100ms | 5% | ±30ms | Medium Performance → Medium Weight |
     | Backend3 | 200ms | 10% | ±50ms | Slow & Unreliable → Low Weight |
+
+</div>
+
 
     **Learning Progression**
 
@@ -426,12 +441,17 @@ graph LR
 
 #### 2. Statistical Model Comparison
 
+<div class="responsive-table" markdown>
+
 | Model Type | Purpose | Training Data | Update Frequency | Contamination Rate | Use Case |
 |------------|---------|---------------|------------------|--------------------|----------|
 | **Global Model** | Baseline anomaly detection | All 1000 points in window | Every 100 points | 5% | General anomalies across all time periods |
 | **Hourly Models** | Hour-specific patterns | Points from same hour (min 20) | Every 100 points | 10% | Business hours vs. off-hours patterns |
 | **Daily Models** | Day-of-week patterns | Points from same weekday (min 20) | Every 100 points | 10% | Weekday vs. weekend behavior |
 | **Ensemble** | Combined scoring | Max score from all models | Real-time | Dynamic percentile | Robust detection across patterns |
+
+</div>
+
 
 **Model Parameters:**
 - **Isolation Forest**: 100 estimators (global), 50 (time-specific)
@@ -790,6 +810,8 @@ stateDiagram-v2
 
 ### Configuration Parameters
 
+<div class="responsive-table" markdown>
+
 | Parameter | Default Value | Description |
 |-----------|---------------|-------------|
 | `min_instances` | 1 | Minimum number of instances |
@@ -800,6 +822,9 @@ stateDiagram-v2
 | `history_size` | 10,080 | One week of minute-level data |
 | `prediction_horizon` | 30 min | How far ahead to predict |
 | `confidence_decay` | e^(-t/30) | Confidence decay over time |
+
+</div>
+
 
 ### Model Training Process
 
@@ -915,6 +940,8 @@ graph LR
 
 ### Key Learning Components
 
+<div class="responsive-table" markdown>
+
 | Component | Purpose | Update Frequency |
 |-----------|---------|------------------|
 | **Pattern Model** | Captures daily/weekly cycles | Every 60 data points |
@@ -922,6 +949,9 @@ graph LR
 | **ML Model** | Random Forest for complex patterns | Every 60 data points |
 | **Confidence Calculator** | Weights predictions by reliability | Per prediction |
 | **Ensemble Combiner** | Merges multiple predictions | Per prediction |
+
+</div>
+
 
 ### Performance Metrics Tracking
 

@@ -11,6 +11,8 @@
 
 <div class="responsive-table">
 
+<div class="responsive-table" markdown>
+
 | Section | Purpose | Time to Review |
 |---------|---------|----------------|
 | [Response Frameworks](#response-frameworks-comparison) | Compare STAR, CAR, SOAR methods | 2 min |
@@ -22,11 +24,19 @@
 
 </div>
 
+
+</div>
+
 ## Response Frameworks Comparison
 
 !!! note
+<div class="responsive-table" markdown>
+
     | Framework | Structure | Best For | Example Opening |
     |-----------|-----------|----------|-----------------|
+
+</div>
+
 
     | **STAR** | Situation → Task → Action → Result | General behavioral questions | "At Company X, we faced..." |
     | **CAR** | Context → Action → Result | Quick responses | "When our system crashed..." |
@@ -78,15 +88,22 @@ graph TD
 ### Story Inventory Template
 
 !!! tip "Story Inventory Template"
+<div class="responsive-table" markdown>
+
     | Story Title | Situation Type | Leadership Principles | Impact Metrics | Talking Time |
     |-------------|----------------|----------------------|----------------|--------------|
     | **Example: Microservices Migration** | Technical Leadership | Ownership, Think Big, Deliver Results | 50% latency reduction, $2M saved | 2-3 min |
     | **Your Story 1** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
     | **Your Story 2** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
 
+</div>
+
+
 ### Leadership Principles Mapping
 
 !!! note
+<div class="responsive-table" markdown>
+
     | Principle | Key Behaviors | Story Elements | Red Flags to Avoid |
     |-----------|---------------|----------------|-------------------|
     | **Customer Obsession** | Start with customer need | Customer metrics, feedback loops | Technical solutions without customer context |
@@ -103,6 +120,9 @@ graph TD
     | **Dive Deep** | Technical depth | Root cause analysis, details | Surface-level understanding |
     | **Have Backbone** | Respectful disagreement | Standing for principles | Being disagreeable |
     | **Deliver Results** | Output focus | Business metrics, deadlines | Activity without results |
+
+</div>
+
 
 ## Technical Challenge Framework
 
@@ -144,6 +164,8 @@ graph LR
 ### Technical Story Elements
 
 !!! tip "Story Structure Guidelines"
+<div class="responsive-table" markdown>
+
     | Element | Purpose | Example Details | Time Allocation |
     |---------|---------|-----------------|-----------------|
     | **Context** | Set the scene | Scale, technology stack, team size | 15 seconds |
@@ -153,11 +175,16 @@ graph LR
     | **Impact** | Prove value | Metrics improvement, cost savings | 20 seconds |
     | **Lessons** | Show growth | What you'd do differently | 20 seconds |
 
+</div>
+
+
 ## Conflict Resolution Patterns
 
 ### Conflict Navigation Matrix
 
 !!! note
+<div class="responsive-table" markdown>
+
     | Conflict Type | Approach | Key Actions | Example Phrase |
     |---------------|----------|-------------|----------------|
     | **Technical Disagreement** | Data-driven | Present evidence, prototype, benchmark | "Let's test both approaches..." |
@@ -165,6 +192,9 @@ graph LR
     | **Process Conflict** | Collaboration | Find common ground, compromise | "I understand your concerns..." |
     | **Timeline Pressure** | Negotiation | Scope adjustment, phased delivery | "We could deliver X first..." |
     | **Design Philosophy** | Experimentation | A/B test, gradual rollout | "Why don't we pilot this..." |
+
+</div>
+
 
 ### Conflict Story Flow
 
@@ -194,6 +224,8 @@ stateDiagram-v2
 ### Pre-Interview Checklist
 
 !!! tip "Pre-Interview Checklist"
+<div class="responsive-table" markdown>
+
     | | Task | Details |
     |---|------|---------|
     | | **10 Stories Prepared** | 2 leadership, 2 failure, 2 conflict, 2 innovation, 2 technical |
@@ -201,6 +233,9 @@ stateDiagram-v2
     | | **Metrics Memorized** | Specific numbers for each story |
     | | **Questions Ready** | 5 thoughtful questions about role/team |
     | | **Company Research** | Recent news, products, engineering blog |
+
+</div>
+
 
 ### Story Selection Matrix
 
@@ -233,6 +268,8 @@ graph TD
 ### Time Management Guide
 
 !!! note
+<div class="responsive-table" markdown>
+
     | Story Part | Time Budget | Warning Signs | Recovery Strategy |
     |------------|-------------|---------------|-------------------|
     | **Context** | 15-20 sec | Too much background | Jump to problem |
@@ -241,9 +278,14 @@ graph TD
     | **Results** | 20-30 sec | No metrics | Estimate impact |
     | **Total** | 2-3 min | Over 3 minutes | Wrap up immediately |
 
+</div>
+
+
 ### Answer Quality Indicators
 
 !!! tip "Answer Quality Indicators"
+<div class="responsive-table" markdown>
+
     | Strong Answer | Weak Answer |
     |------------------|----------------|
     | Specific metrics (50% improvement) | Vague outcomes ("it was better") |
@@ -251,6 +293,9 @@ graph TD
     | Business impact ($2M saved) | Only technical details |
     | Learned & applied lessons | No growth shown |
     | Multiple stakeholders mentioned | Solo hero story |
+
+</div>
+
 
 ## Common Behavioral Questions Map
 
@@ -289,6 +334,8 @@ mindmap
 ### Response Strategy by Question Type
 
 !!! note
+<div class="responsive-table" markdown>
+
     | Question Pattern | Strategy | Example Opening | Key Elements |
     |------------------|----------|-----------------|--------------|
     | "Tell me about a time..." | STAR method | "Last year at [Company]..." | Specific situation |
@@ -297,11 +344,16 @@ mindmap
     | "Describe a situation..." | Context-heavy STAR | "To understand the challenge..." | Rich context |
     | "Give an example..." | Quick CAR | "When we faced X, I did Y..." | Direct and brief |
 
+</div>
+
+
 ## Distributed Systems Behavioral Scenarios
 
 ### System-Specific Story Templates
 
 !!! tip "Distributed Systems Scenarios"
+<div class="responsive-table" markdown>
+
     | Scenario | Technical Elements | Business Context | Metrics to Include |
     |----------|-------------------|------------------|-------------------|
     | **Scale Challenge** | Sharding, caching, CDN | User growth, seasonality | Latency, throughput, cost |
@@ -310,9 +362,14 @@ mindmap
     | **Security Incident** | Encryption, access control, audit | Compliance, trust, risk | Time to detect/resolve |
     | **Data Consistency** | CAP theorem, consensus, sync | Business rules, accuracy needs | Lag, conflicts, correctness |
 
+</div>
+
+
 ### Anti-Pattern Avoidance Guide
 
 !!! danger "Common Mistakes to Avoid"
+<div class="responsive-table" markdown>
+
     | Avoid | Instead Use | Why It Matters |
     |----------|----------------|----------------|
     | Blaming others | "The challenge was..." | Shows professionalism |
@@ -320,6 +377,9 @@ mindmap
     | Perfect hero story | Include struggles/learning | Shows authenticity |
     | Theoretical answers | Specific examples | Proves experience |
     | Long rambling stories | Structured 2-min stories | Respects time |
+
+</div>
+
 
 ## Link to Cognitive Load Principles
 

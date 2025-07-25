@@ -1276,6 +1276,8 @@ sequenceDiagram
 
 #### Latency Breakdown by Protocol
 
+<div class="responsive-table" markdown>
+
 | Phase | 2PC | 3PC | Saga (Orchestrated) | Saga (Choreographed) |
 |-------|-----|-----|---------------------|---------------------|
 | **Phase 1** | Prepare request + response<br>(2 × network RTT) | Can-commit request + response<br>(2 × network RTT) | Execute T1<br>(1 × service latency) | Event publish<br>(1 × message latency) |
@@ -1283,6 +1285,9 @@ sequenceDiagram
 | **Phase 3** | - | Do-commit request + response<br>(2 × network RTT) | Execute T3..Tn<br>(n × service latency) | Event cascade<br>(n × message latency) |
 | **Total** | 4 × network RTT | 6 × network RTT | Sum of service latencies | Sum of message latencies |
 | **Parallelism** | Yes (prepare phase) | Yes (all phases) | No (sequential) | Possible (depends on flow) |
+
+</div>
+
 
 #### Consistency vs Performance Trade-offs
 
@@ -1339,6 +1344,8 @@ graph TD
 
 #### Detailed Comparison Matrix
 
+<div class="responsive-table" markdown>
+
 | Criteria | 2PC | 3PC | Orchestrated Saga | Choreographed Saga | Optimistic Locking | MVCC |
 |----------|-----|-----|-------------------|-------------------|-------------------|------|
 | **Consistency Model** | Strong | Strong | Eventual | Eventual | Snapshot | Snapshot |
@@ -1351,6 +1358,9 @@ graph TD
 | **Resource Locking** | Yes | Yes | No | No | No | No |
 | **Deadlock Risk** | High | High | None | None | None | None |
 | **Use Case Fit** | Banking | Critical Systems | E-commerce | Microservices | Read-heavy | Databases |
+
+</div>
+
 
 *Non-blocking only if majority of participants are available
 
@@ -1387,6 +1397,8 @@ graph TD
 
 #### Common Failure Scenarios and Solutions
 
+<div class="responsive-table" markdown>
+
 | Failure Scenario | Impact | 2PC Solution | 3PC Solution | Saga Solution |
 |-----------------|---------|--------------|--------------|---------------|
 | **Coordinator crashes before prepare** | No impact | Participants timeout and abort | Same as 2PC | Not applicable |
@@ -1395,6 +1407,9 @@ graph TD
 | **Network partition during commit** | Split brain risk | Some nodes committed, others blocked | Majority can proceed | Eventually consistent |
 | **Cascading failures** | System-wide impact | Manual intervention | Partial automation | Self-healing via compensation |
 | **Byzantine failures** | Data corruption | Not handled | Not handled | Depends on implementation |
+
+</div>
+
 
 ### Performance Optimization Strategies
 

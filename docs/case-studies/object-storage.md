@@ -857,6 +857,8 @@ watch -n 60 's3-admin rebalance status --cluster $CLUSTER_ID'
 
 ## Trade-offs and Decisions
 
+<div class="responsive-table" markdown>
+
 | Decision | Trade-off | Why This Choice |
 |----------|-----------|-----------------|
 | Erasure coding 10+4 | Complexity vs efficiency | 40% overhead with high durability |
@@ -864,6 +866,9 @@ watch -n 60 's3-admin rebalance status --cluster $CLUSTER_ID'
 | 5TB object limit | Simplicity vs flexibility | Covers 99.99% of use cases |
 | Zone-redundant by default | Cost vs durability | Most users want high durability |
 | Synchronous metadata updates | Latency vs consistency | Consistency critical for S3 API |
+
+</div>
+
 
 ## References
 

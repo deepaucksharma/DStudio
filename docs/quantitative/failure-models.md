@@ -119,6 +119,8 @@ where n = number of hops
 Operations complete but take longer than specified time bounds.
 
 <h4>Impact Analysis</h4>
+<div class="responsive-table" markdown>
+
 | Delay | Impact | Example |
 |-------|---------|----------|
 | 10ms | Negligible | Cache miss |
@@ -126,6 +128,9 @@ Operations complete but take longer than specified time bounds.
 | 1s | User impact | Page timeout |
 | 10s | Cascade risk | Lock timeout |
 | 60s | System failure | Watchdog trigger |
+
+</div>
+
 
 <h4>Modeling Latency</h4>
 ```python

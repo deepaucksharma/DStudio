@@ -56,12 +56,17 @@ Without Idempotency:              With Idempotency:
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | System | Without Idempotency | With Idempotency |
 |--------|---------------------|-------------------|
 | **Bank Transfer** | Send $500 twice = $1000 gone | Same transfer ID = $500 once |
 | **Food Delivery** | Order pizza twice = 2 pizzas | Same order ID = 1 pizza |
 | **Email Send** | "Send newsletter" twice = spam | Same send ID = 1 email |
 | **API Call** | Create user twice = duplicate | Same request ID = 1 user |
+
+</div>
+
 
 ### Basic Implementation
 
@@ -157,6 +162,8 @@ sequenceDiagram
 
 ### Idempotency Strategies
 
+<div class="responsive-table" markdown>
+
 | Strategy | Description | Use Case | Pros | Cons |
 |----------|-------------|----------|------|------|
 | **Client-Generated ID** | Client provides unique ID | API requests | Full control | Client complexity |
@@ -164,6 +171,9 @@ sequenceDiagram
 | **Timestamp + ID** | Time-based uniqueness | Event processing | Natural ordering | Clock sync issues |
 | **Database Sequence** | Server-generated ID | Internal processing | Guaranteed unique | Extra round trip |
 | **UUID** | Universally unique ID | Distributed systems | No coordination | Not deterministic |
+
+</div>
+
 
 ### Key Components
 
@@ -1274,6 +1284,8 @@ class IdempotencyEconomics:
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Question | Yes → Use Idempotency | No → Maybe Skip |
 |----------|----------------------|-----------------|
 | Using at-least-once delivery? | ✅ Essential for correctness | ⚠️ At-most-once is lossy |
@@ -1281,6 +1293,9 @@ class IdempotencyEconomics:
 | External API calls? | ✅ Avoid duplicate actions | ⚠️ May cause issues |
 | Distributed publishers? | ✅ Handle retry storms | ⚠️ Accept duplicates |
 | High retry rates? | ✅ Reduce processing load | ⚠️ Waste resources |
+
+</div>
+
 
 ### Implementation Checklist
 

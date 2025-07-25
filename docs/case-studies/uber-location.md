@@ -12,6 +12,8 @@ last_updated: 2025-07-25
 # Uber's Real-Time Location System: Scale and Architecture Deep Dive
 
 !!! abstract "Quick Facts"
+<div class="responsive-table" markdown>
+
     | Metric | Value |
     |--------|-------|
     | **Scale** | 15+ million active drivers |
@@ -19,6 +21,9 @@ last_updated: 2025-07-25
     | **Data Volume** | Petabytes of location data |
     | **Availability** | 99.99% uptime globally |
     | **Team Size** | 300+ engineers in maps/location |
+
+</div>
+
 
 ## Executive Summary
 
@@ -236,12 +241,17 @@ graph LR
 
 ### Resource Utilization
 
+<div class="responsive-table" markdown>
+
 | Resource | Usage | Efficiency |
 |----------|-------|------------|
 | Mobile Data | 1-2 MB/hour | Optimized via compression |
 | Server CPU | 70-80% | High during peak hours |
 | Memory | 60-70% | Efficient geospatial indices |
 | Network | Variable | Edge caching reduces backbone load |
+
+</div>
+
 
 ## Operational Excellence
 

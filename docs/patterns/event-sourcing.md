@@ -24,6 +24,8 @@ last_updated: 2025-07-25
 **How can we maintain a complete, auditable history of all changes while still providing the current state of our system?**
 
 !!! tip "When to Use This Pattern"
+<div class="responsive-table" markdown>
+
     | Scenario | Use Event Sourcing | Alternative |
     |----------|-------------------|-------------|
     | Audit trail required | ✅ Yes | Simple logging |
@@ -36,6 +38,9 @@ last_updated: 2025-07-25
     | Storage cost constraints | ❌ No | Compressed logging |
     | Real-time aggregations | ❌ No | Materialized views |
     | Small development team | ❌ No | Simpler architecture |
+
+</div>
+
 
 ## Solution Architecture
 
@@ -175,12 +180,17 @@ graph TB
 
 #### Key Implementation Considerations
 
+<div class="responsive-table" markdown>
+
 | Component | Purpose | Key Features |
 |-----------|---------|--------------|
 | **Event Store** | Persistent event storage | - Optimistic concurrency control<br/>- Event ordering guarantees<br/>- Efficient range queries |
 | **Snapshot Store** | Performance optimization | - Periodic state snapshots<br/>- Configurable frequency<br/>- Compression support |
 | **Projection Manager** | Read model updates | - Parallel processing<br/>- Checkpoint management<br/>- Error recovery |
 | **Temporal Queries** | Historical state access | - Point-in-time queries<br/>- Time range analysis<br/>- Audit trail support |
+
+</div>
+
 
 ### State Management
 
@@ -247,12 +257,17 @@ graph LR
 
 ##### Version Evolution Patterns
 
+<div class="responsive-table" markdown>
+
 | Strategy | When to Use | Pros | Cons |
 |----------|-------------|------|------|
 | **Weak Schema** | Adding optional fields | Simple, backward compatible | Limited changes |
 | **Upcasting** | Structural changes | No data migration | Runtime overhead |
 | **Multi-Version** | Breaking changes | Full compatibility | Complex handlers |
 | **Copy-Transform** | Major refactoring | Clean result | Downtime, risky |
+
+</div>
+
 
 ```python
 # Example: Simple event upgrader
@@ -293,12 +308,17 @@ graph TB
 
 ##### Pattern Detection Examples
 
+<div class="responsive-table" markdown>
+
 | Pattern | Detection Logic | Action |
 |---------|----------------|--------|
 | **Fraud** | >5 orders in 10 minutes | Flag account, notify security |
 | **Anomaly** | 10x normal volume | Scale resources, investigate |
 | **Business Rule** | Order > credit limit | Block transaction, notify |
 | **System Health** | Error rate > 5% | Page on-call, rollback |
+
+</div>
+
 
 ```python
 # Example: Simple fraud detection

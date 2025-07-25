@@ -51,12 +51,17 @@ graph TB
 
 #### Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Decision | Alternative | Why This Won |
 |----------|-------------|---------------|
 | Autonomous squads | Central ops team | Faster iteration |
 | Event streaming | Sync REST | Decoupling at scale |
 | Service mesh | Hard-coded URLs | Dynamic discovery |
 | Independent deploys | Coordinated releases | Team autonomy |
+
+</div>
+
 
 #### Results Dashboard
 
@@ -114,6 +119,8 @@ flowchart LR
 
 #### Why H3 Beats Traditional Approaches
 
+<div class="responsive-table" markdown>
+
 | Approach | Problem | H3 Solution |
 |----------|---------|-------------|
 | Lat/Long boxes | Uneven density | Uniform hexagons |
@@ -121,7 +128,12 @@ flowchart LR
 | Fixed grids | Can't adapt | 16 resolution levels |
 | Geohash | Rectangle distortion | Equal-area hexagons |
 
+</div>
+
+
 #### Performance Metrics
+
+<div class="responsive-table" markdown>
 
 | Metric | Value | Why It Matters |
 |--------|-------|----------------|
@@ -129,6 +141,9 @@ flowchart LR
 | Match rate | 99.99% | Revenue reliability |
 | Cities covered | 10,000+ | Global scale |
 | Daily rides | 15M+ | Peak load handling |
+
+</div>
+
 
 ### 3. Discord's Message Distribution
 
@@ -560,11 +575,16 @@ gantt
     Total ~0.5s :crit, 0, 0.5s
 ```
 
+<div class="responsive-table" markdown>
+
 | Approach | Time | Concurrency | Resource Usage |
 |----------|------|-------------|----------------|
 | **Synchronous** | ~50s | 1 (sequential) | Low CPU, Low Memory |
 | **Threaded** | ~5s | 10 (thread pool) | Medium CPU, Medium Memory |
 | **Async** | ~0.5s | 100 (event loop) | Low CPU, Low Memory |
+
+</div>
+
 
 ## Key Takeaways
 

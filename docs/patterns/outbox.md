@@ -60,12 +60,17 @@ Later: Background worker sends all pending tasks
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | System | Without Outbox | With Outbox |
 |--------|----------------|-------------|
 | **E-commerce** | Order saved, payment notification lost | Both happen or neither |
 | **Banking** | Transfer done, audit event missing | Complete audit trail |
 | **Uber** | Ride assigned, driver not notified | Guaranteed notifications |
 | **Netflix** | Show watched, recommendations not updated | Consistent experience |
+
+</div>
+
 
 ### Outbox Pattern Flow
 
@@ -289,6 +294,8 @@ graph TB
 
 ### Outbox Table Partitioning Benefits
 
+<div class="responsive-table" markdown>
+
 | Feature | Benefit | Implementation |
 |---------|---------|----------------|
 | **Time-based Partitions** | Fast cleanup | Monthly partitions, DROP old |
@@ -296,6 +303,9 @@ graph TB
 | **Query Performance** | Partition pruning | Date-based queries |
 | **Maintenance** | Online operations | Per-partition vacuum |
 | **Archival** | Easy backup | Detach & archive |
+
+</div>
+
 
 ---
 
@@ -1136,6 +1146,8 @@ class OutboxEconomics:
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Question | Yes → Use Outbox | No → Consider Alternatives |
 |----------|------------------|---------------------------|
 | Need guaranteed event delivery? | ✅ Outbox ensures delivery | ⚠️ Maybe accept event loss |
@@ -1143,6 +1155,9 @@ class OutboxEconomics:
 | Multiple downstream systems? | ✅ Outbox decouples publishing | ⚠️ Direct integration might work |
 | Need audit trail? | ✅ Complete event history | ⚠️ Logs might suffice |
 | Can tolerate async publishing? | ✅ Outbox adds small delay | ⚠️ Consider sync publishing |
+
+</div>
+
 
 ### Implementation Checklist
 

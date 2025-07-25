@@ -165,6 +165,8 @@ flowchart TD
 
 ### CAP Trade-off Calculator
 
+<div class="responsive-table" markdown>
+
 | System Characteristic | CP Choice | AP Choice | Your Priority (1-10) |
 |----------------------|-----------|-----------|---------------------|
 | **Data Consistency** | ✅ Strong | ❌ Eventual | ___ |
@@ -175,6 +177,9 @@ flowchart TD
 | **Data Loss Risk** | ✅ None | 🟡 Possible | ___ |
 | **Conflict Resolution** | ✅ Automatic | 🔴 Manual | ___ |
 | **Use Cases** | Financial, Inventory | Social, Analytics | |
+
+</div>
+
 
 **Score Calculation:**
 - CP Score = (Consistency × 10) + (Data Loss × 8) - (Availability × 5)
@@ -282,6 +287,8 @@ sequenceDiagram
 #### 1. Tunable Consistency
 Many systems allow you to tune consistency per operation:
 
+<div class="responsive-table" markdown>
+
 | Operation | Consistency Level | Availability | Use Case |
 |-----------|------------------|--------------|----------|
 | Write ONE | Lowest | Highest | Logging, metrics |
@@ -290,6 +297,9 @@ Many systems allow you to tune consistency per operation:
 | Read ONE | Lowest | Highest | Cache warming |
 | Read QUORUM | Medium | Medium | User queries |
 | Read ALL | Highest | Lowest | Financial data |
+
+</div>
+
 
 #### 2. Hybrid Approaches
 
@@ -435,6 +445,8 @@ graph TB
 
 ### Common Patterns by Industry
 
+<div class="responsive-table" markdown>
+
 | Industry | Typical Choice | Reasoning | Example Systems |
 |----------|---------------|-----------|-----------------|
 | **Banking** | CP | Zero tolerance for inconsistency | Core banking, Payments |
@@ -443,6 +455,9 @@ graph TB
 | **Gaming** | AP | Low latency critical | Leaderboards, Stats |
 | **Healthcare** | CP | Patient safety critical | Medical records |
 | **Analytics** | AP | Eventual accuracy acceptable | Metrics, Dashboards |
+
+</div>
+
 
 ---
 

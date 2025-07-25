@@ -81,12 +81,17 @@ sequenceDiagram
 
 ### Key Concepts Illustrated:
 
+<div class="responsive-table" markdown>
+
 | Problem | Description | Real-World Impact |
 |---------|-------------|-------------------|
 | **Stale Cache** | ATMs see outdated balance | Double-spending attacks |
 | **Race Condition** | Concurrent operations conflict | Data corruption (see [Law 2: Law of Asynchronous Reality](/part1-axioms/law2-asynchrony/)) |
 | **Lost Update** | One update overwrites another | Missing transactions |
 | **Version Mismatch** | Cache version != source version | Inconsistent state |
+
+</div>
+
 
 ### The State Distribution Zoo 🦁
 
@@ -206,6 +211,8 @@ graph TB
 
 ### Split-Brain Impact Analysis
 
+<div class="responsive-table" markdown>
+
 | Metric | Value | Impact |
 |--------|-------|--------|
 | **Network Partition** | 43 seconds | Brief connectivity loss triggered cascade |
@@ -215,6 +222,9 @@ graph TB
 | **Pages Builds Queued** | 80,000 | GitHub Pages builds backlogged |
 | **Recovery Time** | 24h 11m | Extended outage to ensure data integrity |
 | **Data Loss** | None | All database writes eventually reconciled |
+
+</div>
+
 
 ### Root Cause Breakdown
 
@@ -305,6 +315,8 @@ graph TB
 
 #### Consistency and State Distribution Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | State Distribution | Consistency | Use Case |
 |---------|-------------------|-------------|----------|
 | **Single Master** | All writes to one node | Strong | MySQL primary |
@@ -313,6 +325,9 @@ graph TB
 | **Replicated State Machine** | All nodes execute same ops | Strong | etcd/Raft |
 | **CRDT** | Merge concurrent updates | Strong eventual | Redis CRDT (see CRDT section below) |
 | **Event Sourced** | State from event log | Eventual | Kafka + CQRS |
+
+</div>
+
 
 #### Consistency Under State Mutations
 
@@ -382,12 +397,17 @@ graph TB
 
 ### Practical State Consistency Patterns
 
+<div class="responsive-table" markdown>
+
 | Pattern | Trigger | Action | Example | Trade-off |
 |---------|---------|--------|---------|------------|
 | **Read Repair** | On read, detect inconsistency | Fix inconsistent replicas | Cassandra read repair | Increased read latency |
 | **Write-Through Cache** | On write | Update cache and database | Redis + PostgreSQL | Cache always consistent |
 | **Anti-Entropy** | Periodic background process | Compare and sync replicas | Dynamo anti-entropy | Background bandwidth |
 | **Quorum R/W** | R + W > N | Read/write from majority | 3 replicas, R=2, W=2 | Lower availability |
+
+</div>
+
 
 ```mermaid
 graph LR
@@ -457,11 +477,16 @@ graph LR
 
 ### Chain Replication Properties
 
+<div class="responsive-table" markdown>
+
 | Operation | Target Node | Consistency | Latency | Fault Tolerance |
 |-----------|-------------|-------------|---------|------------------|
 | **Write** | HEAD | Strong after ACK | High (full chain) | Handles f failures with f+1 nodes |
 | **Read** | TAIL | Always strong | Low (single hop) | Available if TAIL alive |
 | **Update Propagation** | HEAD → TAIL | Sequential | O(n) nodes | In-order delivery guaranteed |
+
+</div>
+
 
 ### Chain States and Transitions
 
@@ -534,12 +559,17 @@ graph TB
 
 ### Sharding Strategy Trade-offs
 
+<div class="responsive-table" markdown>
+
 | Strategy | Distribution | Range Queries | Node Changes | Use Case |
 |----------|-------------|---------------|--------------|----------|
 | **Range** | Can be skewed | Excellent | Expensive resharding | Time-series data |
 | **Hash** | Even distribution | Poor (scatter-gather) | Expensive resharding | Key-value stores |
 | **Consistent Hash** | Even distribution | Poor | Minimal data movement | Distributed caches |
 | **Geographic** | Location-based | Good for geo queries | Regional scaling | CDNs, compliance |
+
+</div>
+
 
 ### Vector Clocks: Tracking Causality
 
@@ -581,12 +611,17 @@ sequenceDiagram
 
 ### Vector Clock Operations
 
+<div class="responsive-table" markdown>
+
 | Operation | Vector Clock A | Vector Clock B | Result | Interpretation |
 |-----------|---------------|----------------|---------|----------------|
 | **A happens-before B** | [2,1,0] | [2,2,1] | A→B | A definitely happened first |
 | **B happens-before A** | [2,2,1] | [2,1,0] | B→A | B definitely happened first |
 | **Concurrent** | [2,0,1] | [1,1,0] | A\|\|B | No causal relationship |
 | **Equal** | [2,1,1] | [2,1,1] | A=B | Same logical time |
+
+</div>
+
 
 ### Distributed Document Editing with Vector Clocks
 
@@ -638,6 +673,8 @@ graph TB
 
 ### CRDT Properties and Guarantees
 
+<div class="responsive-table" markdown>
+
 | CRDT Type | Operations | Merge Rule | Use Case | Consistency |
 |-----------|-----------|------------|----------|-------------|
 | **G-Counter** | increment() | max(counts) | View counts | Strong eventual |
@@ -645,6 +682,9 @@ graph TB
 | **LWW-Register** | set(value) | Latest timestamp | Config values | Eventual |
 | **MV-Register** | set(value) | Keep all concurrent | Collaborative edit | Causal |
 | **OR-Set** | add(), remove() | Union - tombstones | Shopping cart | Strong eventual |
+
+</div>
+
 
 ### G-Counter Merge Example
 
@@ -740,11 +780,16 @@ graph TB
 
 ### DynamoDB Consistency Options
 
+<div class="responsive-table" markdown>
+
 | Level | Write (W) | Read (R) | Latency | Availability | Consistency |
 |-------|-----------|----------|---------|--------------|-------------|
 | **ONE** | 1 | 1 | Lowest | Highest | Eventual |
 | **QUORUM** | 2 | 2 | Medium | Medium | Strong (W+R>N) |
 | **ALL** | 3 | 3 | Highest | Lowest | Strongest |
+
+</div>
+
 
 ### DynamoDB Conflict Resolution Flow
 
@@ -860,12 +905,17 @@ graph TB
 
 ### TrueTime Guarantees
 
+<div class="responsive-table" markdown>
+
 | Property | Guarantee | Implementation | Impact |
 |----------|-----------|----------------|--------|
 | **Time Uncertainty** | ±7ms max | GPS + atomic clocks | Bounded wait time |
 | **External Consistency** | Real-time ordering | Commit wait | ~7-14ms latency |
 | **Global Timestamps** | Monotonic across DCs | TrueTime intervals | True global ordering |
 | **Snapshot Reads** | Consistent at any TS | MVCC storage | No read locks |
+
+</div>
+
 
 ### Spanner Transaction Timeline
 
@@ -980,12 +1030,17 @@ graph TB
 
 ### TAO Query Patterns
 
+<div class="responsive-table" markdown>
+
 | Query Type | Example | Cache Strategy | Performance |
 |------------|---------|----------------|-------------|
 | **assoc_get** | "Who likes this photo?" | Cache full list | O(1) cache hit |
 | **assoc_count** | "How many friends?" | Cache count separately | O(1) always |
 | **assoc_range** | "Next 20 posts" | Cache sorted list | O(n) sort + slice |
 | **assoc_time_range** | "Posts from last hour" | Time-indexed cache | O(n) filter |
+
+</div>
+
 
 ### TAO Write Path
 
@@ -1151,12 +1206,17 @@ graph LR
 
 ### Production CRDT Patterns
 
+<div class="responsive-table" markdown>
+
 | System | CRDT Type | Use Case | Scale | Consistency |
 |--------|-----------|----------|-------|-------------|
 | **Redis CRDT** | G-Counter, OR-Set | Geo-distributed cache | Global | Strong eventual |
 | **Riak DT** | Maps, Sets, Counters | Shopping carts | Large clusters | Convergent |
 | **SoundCloud Roshi** | LWW-element-set | Timeline storage | Massive | Eventually consistent |
 | **League of Legends** | Custom CRDTs | Game state | 27M daily | Low latency |
+
+</div>
+
 
 ### Anti-Entropy Synchronization
 
@@ -1272,6 +1332,8 @@ stateDiagram-v2
 
 ### Saga vs Traditional Transactions
 
+<div class="responsive-table" markdown>
+
 | Aspect | Traditional 2PC | Saga Pattern |
 |--------|----------------|---------------|
 | **Duration** | Short-lived (ms) | Long-running (min-hours) |
@@ -1279,6 +1341,9 @@ stateDiagram-v2
 | **Failure** | Rollback | Compensation |
 | **Consistency** | ACID | Eventually consistent |
 | **Use Case** | Database transactions | Microservice workflows |
+
+</div>
+
 
 ### Event Sourcing Transaction Model
 
@@ -1458,6 +1523,8 @@ sequenceDiagram
 
 ### Migration Risk Mitigation
 
+<div class="responsive-table" markdown>
+
 | Risk | Mitigation | Rollback Strategy |
 |------|------------|-------------------|
 | **Data Loss** | Change log + checksums | Replay from log |
@@ -1465,6 +1532,9 @@ sequenceDiagram
 | **Performance** | Gradual traffic shift | Reduce new DB % |
 | **Availability** | No downtime design | Route to old DB |
 | **Corruption** | Sample validation | Stop migration |
+
+</div>
+
 
 ### Progressive Read Migration
 

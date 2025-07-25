@@ -68,6 +68,8 @@ Problems:                              ✓ Language agnostic
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | Company | Sidecar Implementation | Purpose |
 |---------|----------------------|----------|
 | **Lyft** | Envoy proxy sidecar | Service mesh, load balancing |
@@ -75,6 +77,9 @@ Problems:                              ✓ Language agnostic
 | **Microsoft** | Dapr sidecar | State management, pub/sub |
 | **Google** | Istio sidecar | Traffic management, security |
 | **Uber** | Jaeger agent sidecar | Distributed tracing |
+
+</div>
+
 
 ### Basic Implementation
 
@@ -2296,6 +2301,8 @@ class WASMSidecar:
 
 ### Sidecar Selection Matrix
 
+<div class="responsive-table" markdown>
+
 | Use Case | Recommended Sidecar | Key Features |
 |----------|-------------------|--------------|
 | **Service Mesh** | Envoy/Istio | mTLS, load balancing, observability |
@@ -2304,6 +2311,9 @@ class WASMSidecar:
 | **Observability** | Jaeger/Fluentd | Tracing, logging |
 | **Security** | OPA (Open Policy Agent) | Policy enforcement |
 | **Configuration** | Consul Template | Dynamic config |
+
+</div>
+
 
 ### Sidecar Patterns Comparison
 

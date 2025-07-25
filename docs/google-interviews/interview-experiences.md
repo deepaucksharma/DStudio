@@ -252,6 +252,8 @@ Views Table               |
 
 ### The 45-Minute Breakdown
 
+<div class="responsive-table" markdown>
+
 | Time | Phase | Warning Signs | Recovery Actions |
 |------|-------|--------------|------------------|
 | 0-5 min | Clarify | Still asking basic questions at 7 min | Summarize and move on |
@@ -260,6 +262,9 @@ Views Table               |
 | 25-35 min | Scale | Haven't discussed data flow | Quickly cover critical path |
 | 35-40 min | Optimize | No mention of bottlenecks | Ask "What would break first?" |
 | 40-45 min | Wrap up | Still adding new features | Summarize what you've built |
+
+</div>
+
 
 ### Pacing Indicators
 

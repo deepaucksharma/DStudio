@@ -33,6 +33,8 @@ last_updated: 2025-07-20
 `Availability = MTBF / (MTBF + MTTR)`
 
 **SLA Targets**:
+<div class="responsive-table" markdown>
+
 | Availability | Downtime/Year | Downtime/Month | Use Case |
 |--------------|---------------|----------------|----------|
 | 90% | 36.53 days | 73 hours | Internal tools |
@@ -40,6 +42,9 @@ last_updated: 2025-07-20
 | 99.9% | 8.77 hours | 43.8 minutes | Production services |
 | 99.99% | 52.6 minutes | 4.38 minutes | Critical services |
 | 99.999% | 5.26 minutes | 26.3 seconds | Mission critical |
+
+</div>
+
 
 **Parallel**: `A_total = 1 - (1 - A₁)(1 - A₂)...(1 - Aₙ)`
 **Series**: `A_total = A₁ × A₂ × ... × Aₙ`
@@ -201,4 +206,3 @@ graph TD
 **Load**: Baseline (1x), Peak (2-3x), Spike (10x), Soak (extended), Failure (with outages)
 
 ---
-

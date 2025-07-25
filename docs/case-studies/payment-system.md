@@ -1013,6 +1013,8 @@ sequenceDiagram
 
 **Payment Orchestration Flow**
 
+<div class="responsive-table" markdown>
+
 | Stage | Component | Purpose | Timeout |
 |-------|-----------|---------|----------|
 | Idempotency Check | Cache | Prevent duplicate charges | 50ms |
@@ -1021,6 +1023,9 @@ sequenceDiagram
 | 3DS Authentication | Provider | Strong authentication | 30s |
 | Authorization | Provider | Reserve funds | 5s |
 | Ledger Update | Database | Record transaction | 100ms |
+
+</div>
+
 
 ### 4.2 Distributed Ledger System
 
@@ -1105,6 +1110,8 @@ class DistributedPaymentConsistency:
 
 ### 7.2 Consistency Trade-offs in Payment Systems
 
+<div class="responsive-table" markdown>
+
 | Operation | Consistency Model | Rationale |
 |-----------|------------------|-----------|
 | **Payment Authorization** | Strong Consistency | Must prevent double-spending |
@@ -1115,6 +1122,9 @@ class DistributedPaymentConsistency:
 | **Fee Structure Updates** | Strong Consistency | Must be consistent across all nodes |
 | **Fraud Scoring** | Bounded Staleness | Recent data is sufficient |
 | **Notification Delivery** | At-Least-Once | Better to over-notify than miss |
+
+</div>
+
 
 ## Lessons Learned
 
@@ -1145,6 +1155,8 @@ class DistributedPaymentConsistency:
 
 ## Trade-offs and Decisions
 
+<div class="responsive-table" markdown>
+
 | Decision | Trade-off | Why This Choice |
 |----------|-----------|-----------------|
 | Event sourcing | Complexity vs auditability | Perfect audit trail required |
@@ -1152,6 +1164,9 @@ class DistributedPaymentConsistency:
 | Multi-provider routing | Complexity vs reliability | Minimize payment failures |
 | Real-time fraud scoring | Latency vs security | Fraud prevention critical |
 | Sharded database | Complexity vs scale | Must handle high TPS |
+
+</div>
+
 
 ## 9. Real-World Patterns and Lessons
 

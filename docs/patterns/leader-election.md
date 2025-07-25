@@ -37,12 +37,17 @@ Chaos: Conflicts                      Order: Coordinated decisions
 
 ### Real-World Examples
 
+<div class="responsive-table" markdown>
+
 | System | Leader Responsibility | Benefit |
 |--------|---------------------|----------|
 | **Database Cluster** | Write coordination | Consistent updates |
 | **Job Scheduler** | Task assignment | No duplicate work |
 | **Service Registry** | Config updates | Synchronized state |
 | **Shard Manager** | Data rebalancing | Optimal placement |
+
+</div>
+
 
 ### Basic Implementation
 
@@ -207,11 +212,16 @@ gantt
 
 #### Timing Parameters
 
+<div class="responsive-table" markdown>
+
 | Parameter | Typical Range | Purpose |
 |-----------|---------------|----------|
 | **Election Timeout** | 150-300ms | Trigger election (randomized) |
 | **Heartbeat Interval** | 50-150ms | Maintain leadership |
 | **RPC Timeout** | 10-50ms | Network calls |
+
+</div>
+
 
 ### Raft Algorithm Implementation
 
@@ -1291,12 +1301,17 @@ graph TB
 
 #### Paxos vs Raft
 
+<div class="responsive-table" markdown>
+
 | Aspect | Paxos | Raft |
 |--------|-------|------|
 | **Complexity** | High - multiple roles | Simple - leader-based |
 | **Understandability** | Difficult | Designed for clarity |
 | **Leader concept** | Optional | Central to algorithm |
 | **Use cases** | General consensus | Leader election + logs |
+
+</div>
+
 
 ### Advanced Optimizations
 
@@ -1364,11 +1379,16 @@ graph TB
 
 ### Benefits of Hierarchical Election
 
+<div class="responsive-table" markdown>
+
 | Level | Latency | Scope | Failure Impact |
 |-------|---------|-------|----------------|
 | **Local** | <1ms | Datacenter | Minimal |
 | **Regional** | <50ms | Continent | Regional failover |
 | **Global** | <200ms | Worldwide | Full re-election |
+
+</div>
+
 
 #### Witness Nodes
 
@@ -1410,6 +1430,8 @@ graph LR
 
 ### Witness Node Properties
 
+<div class="responsive-table" markdown>
+
 | Property | Value | Purpose |
 |----------|-------|---------|  
 | **Storage** | None | Only participates in voting |
@@ -1417,13 +1439,21 @@ graph LR
 | **Network** | Low bandwidth | Only election traffic |
 | **Cost** | ~5% of data node | Economical quorum |
 
+</div>
+
+
 ### Economic Impact
+
+<div class="responsive-table" markdown>
 
 | Cost Without Leader | Cost With Leader | Savings |
 |-------------------|------------------|----------|
 | Conflict resolution: $500K/year | Implementation: $10K | $490K |
 | Data inconsistency: $1M/year | Election downtime: $50K/year | $950K |
 | **Total**: $1.5M/year | **Total**: $60K + $50K/year | **$1.44M/year** |
+
+</div>
+
 
 **ROI**: 2-week implementation pays back in < 1 month
 
@@ -1439,6 +1469,8 @@ graph LR
 
 ### Law Relationships
 
+<div class="responsive-table" markdown>
+
 | Axiom | How Leader Election Addresses It |
 |-------|----------------------------------|
 | **Latency** | Leader decisions avoid coordination delay |
@@ -1450,7 +1482,12 @@ graph LR
 | **Human Interface** | Simple mental model of single decider |
 | **Economics** | Reduces coordination overhead costs |
 
+</div>
+
+
 ### Trade-off Analysis
+
+<div class="responsive-table" markdown>
 
 | Aspect | Gains | Losses |
 |--------|-------|--------|
@@ -1458,6 +1495,9 @@ graph LR
 | **Performance** | No coordination overhead | Leader bottleneck |
 | **Availability** | Automatic failover | Election downtime |
 | **Complexity** | Centralized decisions | Election protocol complexity |
+
+</div>
+
 
 ### Common Pitfalls
 
@@ -1487,6 +1527,8 @@ graph LR
 
 ### Configuration Guidelines
 
+<div class="responsive-table" markdown>
+
 | Parameter | Description | Typical Range | Default |
 |-----------|-------------|---------------|---------|
 | **Election Timeout** | Time before starting election | 150-300ms | 200ms |
@@ -1494,7 +1536,12 @@ graph LR
 | **Majority Size** | Nodes needed to win | (n/2)+1 | - |
 | **Term Duration** | Minimum leader tenure | 5-60s | 30s |
 
+</div>
+
+
 ### Monitoring & Metrics
+
+<div class="responsive-table" markdown>
 
 | Metric | What It Tells You | Alert Threshold |
 |--------|-------------------|-----------------|
@@ -1502,6 +1549,9 @@ graph LR
 | **Leader Changes** | Failover rate | > 5/hour |
 | **Election Duration** | Convergence time | > 5 seconds |
 | **Split Brain Events** | Protocol violations | Any occurrence |
+
+</div>
+
 
 ### Integration Patterns
 
@@ -1662,6 +1712,8 @@ graph TB
 
 ### Decision Framework
 
+<div class="responsive-table" markdown>
+
 | Question | Yes → Use Leader Election | No → Alternative |
 |----------|--------------------------|------------------|
 | Need single coordinator? | ✅ Essential pattern | ⚠️ Use distributed approach |
@@ -1669,6 +1721,9 @@ graph TB
 | Resource allocation? | ✅ Leader assigns resources | ⚠️ Use work stealing |
 | Configuration management? | ✅ Leader pushes updates | ⚠️ Use gossip protocol |
 | Ordering guarantees? | ✅ Leader sequences operations | ⚠️ Use vector clocks |
+
+</div>
+
 
 ### Implementation Checklist
 

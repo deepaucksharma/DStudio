@@ -245,6 +245,8 @@ change_failure_rate:
 
 ### Decision Matrices
 
+<div class="responsive-table" markdown>
+
 | Factor | Option A | Option B | Option C |
 |--------|----------|----------|----------|
 | Cost | $10K/mo | $15K/mo | $8K/mo |
@@ -252,6 +254,9 @@ change_failure_rate:
 | Complexity | Medium | High | Low |
 | Team Skills | ✅ | ⚠️ | ✅ |
 | Time to Market | 3 months | 6 months | 1 month |
+
+</div>
+
 
 ## 🎓 Leadership Development
 

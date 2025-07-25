@@ -1752,12 +1752,17 @@ class StorageHealthMonitor:
 
 ### Decision Matrix
 
+<div class="responsive-table" markdown>
+
 | Storage Type | Consistency | Availability | Scalability | Use Case |
 |--------------|------------|--------------|-------------|----------|
 | Replicated | Strong | Medium | Limited | Small datasets, strong consistency |
 | Sharded | Variable | High | High | Large datasets, horizontal scaling |
 | Erasure Coded | Eventual | High | High | Cold storage, cost efficiency |
 | Distributed FS | Variable | High | High | File storage, big data |
+
+</div>
+
 
 ### Best Practices
 

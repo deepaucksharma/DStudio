@@ -210,6 +210,8 @@ graph LR
 
 ### The True Cost Stack
 
+<div class="responsive-table" markdown>
+
 | Layer | Visible Costs | Hidden Costs | Typical % of Total |
 |-------|--------------|--------------|--------------------|
 | **Infrastructure** | Compute, storage, network | Overprovisioning, idle resources | 30-40% |
@@ -217,6 +219,9 @@ graph LR
 | **Operations** | Monitoring, logging | Alert fatigue, on-call | 15-25% |
 | **Development** | Engineer salaries | Context switching, complexity | 30-50% |
 | **Opportunity** | Time to market | Technical debt, lock-in | ??? |
+
+</div>
+
 
 ### Failure Vignette: The Serverless Trap
 
@@ -337,11 +342,16 @@ graph TD
     style V3 fill:#51cf66
 ```
 
+<div class="responsive-table" markdown>
+
 | Stage | Focus | Metrics | Tools | Savings |
 |-------|-------|---------|-------|----------|
 | **Crawl** | Visibility | Total spend | Spreadsheets | 5-10% |
 | **Walk** | Optimization | Cost per unit | Cloud tools | 20-30% |
 | **Run** | Innovation | Unit economics | FinOps platform | 30-50% |
+
+</div>
+
 
 ### Build vs Buy Decision Framework
 
@@ -378,6 +388,8 @@ Decision Matrix:
 
 #### Cost Comparison Calculator
 
+<div class="responsive-table" markdown>
+
 | Factor | Build | Buy (SaaS) | Buy (Managed) |
 |--------|-------|------------|---------------|
 | **Initial Cost** | $500K-2M | $0 | $0 |
@@ -386,6 +398,9 @@ Decision Matrix:
 | **Customization** | Unlimited | Limited | Moderate |
 | **Maintenance** | Your team | Vendor | Shared |
 | **5-Year TCO** | $3-5M | $0.6-3M | $0.3-1.2M |
+
+</div>
+
 
 ### Cost Architecture Patterns
 
@@ -506,6 +521,8 @@ def calculate_multi_region_costs(traffic_patterns):
 
 ### The Hidden Cost Catalog
 
+<div class="responsive-table" markdown>
+
 | Hidden Cost | Example | Typical Impact | Detection | Prevention |
 |-------------|---------|----------------|-----------|------------|
 | **Data Transfer** | Cross-AZ traffic | $0.01/GB | VPC Flow Logs | Service mesh in same AZ |
@@ -518,6 +535,9 @@ def calculate_multi_region_costs(traffic_patterns):
 | **CloudWatch** | Detailed monitoring | $3.50 per instance | CW billing | Use basic monitoring |
 | **Lambda Storage** | Container images | $0.10/GB/month | Lambda console | Optimize image size |
 | **Log Storage** | CloudWatch Logs | $0.03/GB | Log Insights | Compress, lifecycle |
+
+</div>
+
 
 ---
 
@@ -568,6 +588,8 @@ Netflix Economics (2023 Data):
 
 #### Netflix's Architecture Decisions by Cost
 
+<div class="responsive-table" markdown>
+
 | Decision | Alternative | Cost Impact | Why |
 |----------|-------------|-------------|-----|
 | **Build CDN** | Use Akamai | Save $600M/yr | Scale justifies investment |
@@ -575,6 +597,9 @@ Netflix Economics (2023 Data):
 | **Microservices** | Monolith | +20% complexity | Enables innovation |
 | **Regional POPs** | Central only | +$100M infrastructure | -50% bandwidth cost |
 | **Open source** | Commercial | Save $50M licenses | Control destiny |
+
+</div>
+
 
 ### Advanced Cost Optimization Tactics
 
@@ -824,6 +849,8 @@ Fundamental Economic Laws:
 
 #### The Cost of Distributed System Properties
 
+<div class="responsive-table" markdown>
+
 | Property | Cost Formula | Example | Optimization |
 |----------|--------------|---------|-------------|
 | **Consistency** | O(N²) messages | Paxos, Raft | Relax to eventual |
@@ -832,6 +859,9 @@ Fundamental Economic Laws:
 | **Scalability** | O(N log N) if sharded | DynamoDB | Consistent hashing |
 | **Durability** | O(R) where R=replicas | 3x storage | Erasure coding |
 | **Low Latency** | O(1/Distance) | Edge compute | Caching layers |
+
+</div>
+
 
 ### Financial Instruments for Infrastructure
 
@@ -1078,12 +1108,17 @@ Red Flags:
 
 #### Exercise 1: Calculate Your Unit Economics 🌱
 
+<div class="responsive-table" markdown>
+
 | Metric | Formula | Your Value |
 |--------|---------|------------|
 | Cost per request | Monthly cost / Total requests | $______ |
 | Cost per user | Monthly cost / Active users | $______ |
 | Infrastructure margin | (Revenue - Infra cost) / Revenue | ______% |
 | Efficiency ratio | Revenue / Infrastructure cost | ____:1 |
+
+</div>
+
 
 #### Exercise 2: Hidden Cost Hunt 🌿
 
@@ -1104,6 +1139,8 @@ aws ec2 describe-snapshots --owner-ids self --query "Snapshots[?StartTime<'2023-
 
 #### Exercise 3: Build vs Buy Analysis 🌳
 
+<div class="responsive-table" markdown>
+
 | Factor | Build | Buy | Winner |
 |--------|-------|-----|--------|
 | Initial cost | $_____ | $_____ | _____ |
@@ -1112,6 +1149,9 @@ aws ec2 describe-snapshots --owner-ids self --query "Snapshots[?StartTime<'2023-
 | Customization | ___/10 | ___/10 | _____ |
 | Maintenance burden | ___/10 | ___/10 | _____ |
 | **Total Score** | | | _____ |
+
+</div>
+
 
 #### Exercise 4: Design Cost-Optimized Architecture 🌲
 

@@ -197,12 +197,17 @@
     !!! example "DynamoDB Gray Failure"
         During a 2015 incident, DynamoDB nodes experienced:
         
+<div class="responsive-table" markdown>
+
         | Metric | Normal | During Failure |
         |--------|--------|----------------|
         | Health Check | ✅ Pass | ✅ Pass |
         | P50 Latency | 10ms | 15ms |
         | P99 Latency | 50ms | **30,000ms** |
         | CPU Usage | 40% | 45% |
+
+</div>
+
         
         The service appeared healthy but was unusable for customers.
 

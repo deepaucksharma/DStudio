@@ -503,6 +503,8 @@ No Coordination                                          Full Coordination
 
 ### Cost Breakdown by Coordination Level
 
+<div class="responsive-table" markdown>
+
 | Coordination Level | Use Cases | Latency | Cost/Op | Complexity |
 |-------------------|-----------|---------|---------|------------|
 | **None (CRDTs)** | Collaborative editing, Counters | 1ms | ~$0 | Medium |
@@ -510,6 +512,9 @@ No Coordination                                          Full Coordination
 | **Causal** | Chat messages, Notifications | 10-50ms | $0.01 | Medium |
 | **Sequential** | Inventory, Queues | 50-200ms | $0.10 | High |
 | **Linearizable** | Banking, Billing | 200ms-2s | $1.00 | Very High |
+
+</div>
+
 
 ### Real Implementation Costs
 
@@ -994,6 +999,8 @@ graph TB
 
 ### When to Use Each Coordination Level
 
+<div class="responsive-table" markdown>
+
 | If You Need... | Use This... | Example | Cost Factor |
 |----------------|-------------|---------|-------------|
 | **Convergence** | CRDTs | Like counts | 1x |
@@ -1001,6 +1008,9 @@ graph TB
 | **Causality** | Vector clocks | Chat messages | 5x |
 | **Order** | Consensus | Inventory | 20x |
 | **Linearizability** | Distributed transactions | Banking | 100x |
+
+</div>
+
 
 ### Design Principles
 
@@ -1120,12 +1130,17 @@ class NetflixViewingHistory:
 
 #### Netflix's Coordination Savings
 
+<div class="responsive-table" markdown>
+
 | System Component | Traditional Approach | Netflix Approach | Savings |
 |-----------------|---------------------|------------------|----------|
 | Video Serving | Global CDN coordination | Edge autonomy | 99% |
 | User Profiles | Consistent replication | Eventual consistency | 95% |
 | Recommendations | Real-time aggregation | Precomputed + stale OK | 90% |
 | Viewing History | Synchronous writes | Async propagation | 99% |
+
+</div>
+
 
 **Annual infrastructure savings**: $180M+
 
@@ -1315,6 +1330,8 @@ class UberCoordinationMetrics:
 
 ### Pattern Comparison Matrix
 
+<div class="responsive-table" markdown>
+
 | Pattern | Coordination Cost | Use When | Real Example |
 |---------|------------------|----------|---------------|
 | **No Coordination** | $0.0001/op | Conflicts impossible | CDN cache updates |
@@ -1323,6 +1340,9 @@ class UberCoordinationMetrics:
 | **Snapshot Isolation** | $0.05/op | Read consistency | Google Spanner |
 | **Serializable** | $0.50/op | Full ACID | Traditional RDBMS |
 | **Byzantine Consensus** | $5+/op | Trust issues | Blockchain |
+
+</div>
+
 
 ### Implementation Complexity vs Cost
 
