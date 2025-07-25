@@ -124,7 +124,7 @@ sequenceDiagram
     participant A2 as Acceptor 2
     participant A3 as Acceptor 3
     
-    rect rgb(240, 240, 240)
+    rect rgba(240, 240, 240, 0.1)
         Note over P,A3: Phase 1: Prepare
         P->>A1: Prepare(n=42)
         P->>A2: Prepare(n=42)
@@ -138,7 +138,7 @@ sequenceDiagram
         Note over P: Must use value "X" from n=10
     end
     
-    rect rgb(230, 250, 240)
+    rect rgba(230, 250, 240, 0.1)
         Note over P,A3: Phase 2: Accept
         P->>A1: Accept(n=42, v="X")
         P->>A2: Accept(n=42, v="X")
@@ -684,14 +684,14 @@ sequenceDiagram
     participant B2 as Backup 2
     participant B3 as Backup 3
     
-    rect rgb(255, 245, 245)
+    rect rgba(255, 245, 245, 0.1)
         Note over C,B3: PBFT: 3f+1 nodes tolerate f Byzantine faults
         Note over C,B3: Here: 4 nodes, tolerates 1 fault
     end
     
     C->>P: Request(operation)
     
-    rect rgb(240, 240, 255)
+    rect rgba(240, 240, 255, 0.1)
         Note over P,B3: Phase 1: Pre-prepare
         P->>P: Assign sequence number
         P->>B1: Pre-prepare(v,n,d,m)
@@ -699,7 +699,7 @@ sequenceDiagram
         P->>B3: Pre-prepare(v,n,d,m)
     end
     
-    rect rgb(240, 255, 240)
+    rect rgba(240, 255, 240, 0.1)
         Note over P,B3: Phase 2: Prepare
         B1->>P: Prepare(v,n,d,i)
         B1->>B2: Prepare(v,n,d,i)
@@ -716,7 +716,7 @@ sequenceDiagram
         Note over P,B3: Wait for 2f prepares
     end
     
-    rect rgb(255, 255, 240)
+    rect rgba(255, 255, 240, 0.1)
         Note over P,B3: Phase 3: Commit
         P->>B1: Commit(v,n,d,i)
         P->>B2: Commit(v,n,d,i)
@@ -1074,7 +1074,7 @@ sequenceDiagram
     
     Client->>Coord: Begin Transaction
     
-    rect rgb(240, 240, 255)
+    rect rgba(240, 240, 255, 0.1)
         Note over Coord,PG2: Read Phase
         Coord->>PG1: Read at timestamp
         Coord->>PG2: Read at timestamp
@@ -1082,7 +1082,7 @@ sequenceDiagram
         PG2-->>Coord: Data + read timestamp
     end
     
-    rect rgb(240, 255, 240)
+    rect rgba(240, 255, 240, 0.1)
         Note over Coord,PG2: Commit Phase
         Coord->>TT: now()
         TT-->>Coord: [earliest, latest]
@@ -1184,7 +1184,7 @@ sequenceDiagram
     participant F1 as Follower 1
     participant F2 as Follower 2
     
-    rect rgb(240, 255, 240)
+    rect rgba(240, 255, 240, 0.1)
         Note over Client,F2: Fast Read Path (with lease)
         Client->>Gateway: SELECT * FROM users WHERE id=123
         Gateway->>Gateway: Lookup range for key
@@ -1195,7 +1195,7 @@ sequenceDiagram
         Gateway-->>Client: Result
     end
     
-    rect rgb(240, 240, 255)
+    rect rgba(240, 240, 255, 0.1)
         Note over Client,F2: Write Path (consensus required)
         Client->>Gateway: UPDATE users SET name='Alice' WHERE id=123
         Gateway->>LH: Write request

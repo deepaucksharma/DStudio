@@ -9,6 +9,10 @@ status: complete
 last_updated: 2025-07-20
 ---
 
+# Pillar 3: Distribution of Truth
+
+[Home](/) > [The 5 Pillars](/part2-pillars/) > Pillar 3: Truth > Overview
+
 ## Level 1: Intuition (Start Here) 🌱
 
 ### The Library Card Catalog Metaphor
@@ -980,14 +984,14 @@ sequenceDiagram
     participant EU as EU-WEST  
     participant AS as ASIA-PAC
     
-    rect rgb(200, 230, 201)
+    rect rgba(200, 230, 201, 0.1)
         Note over C,AS: Local Consistency
         C->>US: Write(key, value)
         US->>US: Local commit
         US-->>C: Success (1ms)
     end
     
-    rect rgb(187, 222, 251)
+    rect rgba(187, 222, 251, 0.1)
         Note over C,AS: Regional Consistency
         C->>US: Write(key, value)
         US->>US: Sync replicate in region
@@ -996,7 +1000,7 @@ sequenceDiagram
         US--)AS: Async replicate
     end
     
-    rect rgb(255, 205, 210)
+    rect rgba(255, 205, 210, 0.1)
         Note over C,AS: Global Consistency
         C->>US: Write(key, value)
         US->>EU: Prepare (2PC)
@@ -1285,7 +1289,7 @@ sequenceDiagram
     C->>S: Begin transaction
     S->>S: Execute reads/writes
     
-    rect rgb(255, 235, 238)
+    rect rgba(255, 235, 238, 0.1)
         Note over S,TT: Commit Phase
         S->>TT: now()
         TT-->>S: [earliest: T-ε, latest: T+ε] where ε = 1-4ms
@@ -1608,3 +1612,11 @@ flowchart TD
 - [Blockchain Consensus](/case-studies/blockchain) - Bitcoin and Ethereum
 - [Google Spanner](/case-studies/google-spanner) - Global consistency at scale
 - [Apache Kafka](/case-studies/kafka) - Distributed log consensus
+
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Pillar 2: State](/part2-pillars/state/) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-right: Pillar 4: Control](/part2-pillars/control/)
+</div>

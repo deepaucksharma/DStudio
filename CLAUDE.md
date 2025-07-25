@@ -23,6 +23,9 @@ mkdocs gh-deploy
 
 # Clean build artifacts
 rm -rf site/
+
+# Validate navigation structure
+python3 scripts/check-navigation.py
 ```
 
 ## Architecture & Key Files
@@ -31,12 +34,6 @@ rm -rf site/
 - `mkdocs.yml` - Main configuration defining site structure, theme, plugins, and navigation
 - `requirements.txt` - Python dependencies for MkDocs and plugins
 - `.github/workflows/deploy.yml` - GitHub Actions workflow for automatic deployment to GitHub Pages
-- `automation/` - Scripts for site maintenance and content validation
-  - `fix_broken_links.py` - Script to fix common broken links
-  - `validate_links.py` - Script to check for broken links
-  - `generate_site_tree.py` - Script to generate site structure
-  - And many more utility scripts
-- `artifacts/` - Generated reports and analysis files
 - `docs/` - All documentation content organized hierarchically:
   - `introduction/` - Getting started guides and learning paths
   - `part1-axioms/` - 7 fundamental laws (Correlated Failure, Asynchronous Reality, Emergent Chaos, etc.)
@@ -45,7 +42,7 @@ rm -rf site/
   - `quantitative/` - Mathematical toolkit (Little's Law, Queueing Theory, Scaling Laws, etc.)
   - `human-factors/` - Operational excellence (SRE, Chaos Engineering, Observability, etc.)
   - `reference/` - Glossary, cheat sheets, recipe cards, security considerations
-  - `stylesheets/extra.css` - Extensive custom styling
+  - `stylesheets/extra.css` - Extensive custom styling (should be avoided unless really required)
 
 ### Content Philosophy
 The documentation follows a unique pedagogical approach:
@@ -67,7 +64,6 @@ The site uses custom-styled components defined in `extra.css`:
 ### Design System
 - Primary color: Indigo (#5448C8)
 - Accent color: Cyan (#00BCD4)
-- Typography: Inter for body, JetBrains Mono for code
 - 8px grid system for spacing
 - Responsive design with mobile considerations
 - Dark mode support with slate color scheme
@@ -195,3 +191,17 @@ Key planned enhancements:
 3. **End-to-End Case Study**: Ride-sharing app applying all concepts
 4. **Granular Navigation**: Break up monolithic pages into smaller sections
 5. **Learning Reinforcement**: Quizzes, flashcards, capstone project
+
+## Important Notes
+
+### Lint and Testing
+Currently, there are no automated linting or testing commands for the documentation. When modifying content:
+- Manually verify Markdown syntax is correct
+- Check that Mermaid diagrams render properly using `mkdocs serve`
+- Validate navigation changes with `python3 scripts/check-navigation.py`
+
+### Project Statistics
+- **800+ Visual Diagrams**: Created using Mermaid for maximum clarity
+- **330+ Cross-References**: Extensive interlinking between concepts
+- **100+ Files**: Enhanced with visual-first approach
+- **40+ Case Studies**: Real-world production failure stories

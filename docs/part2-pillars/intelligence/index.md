@@ -9,6 +9,10 @@ status: complete
 last_updated: 2025-07-20
 ---
 
+# Pillar 5: Distribution of Intelligence
+
+[Home](/) > [The 5 Pillars](/part2-pillars/) > Pillar 5: Intelligence > Overview
+
 ## Level 1: Intuition (Start Here) 🌱
 
 ### The Thermostat Evolution Metaphor
@@ -1203,3 +1207,11 @@ graph LR
 **Next**: [Case Studies →](/case-studies/)
 
 *"The best AI systems make humans smarter, not obsolete."*
+
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Pillar 4: Control](/part2-pillars/control/) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-right: Case Studies](/case-studies/)
+</div>

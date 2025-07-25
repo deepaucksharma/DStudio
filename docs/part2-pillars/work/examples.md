@@ -12,6 +12,8 @@ last_updated: 2025-07-20
 
 # Work Distribution Examples
 
+[Home](/) > [The 5 Pillars](/part2-pillars/) > [Pillar 1: Work](/part2-pillars/work/) > Examples
+
 ## Real-World Case Studies
 
 ### 1. Spotify's Microservices Journey
@@ -585,3 +587,11 @@ gantt
 6. **Events > RPC for decoupling** - But add complexity
 
 Remember: The best work distribution strategy depends on your specific constraints. Measure, don't guess.
+
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Pillar 1: Work](/part2-pillars/work/) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-right: Work Exercises](/part2-pillars/work/exercises/)
+</div>

@@ -12,6 +12,8 @@ last_updated: 2025-07-20
 
 # Part II: Foundational Pillars
 
+[Home](/) > The 5 Pillars > Overview
+
 **5 patterns that solve 95% of distributed systems problems.**
 
 !!! success "The Big Idea"
@@ -366,3 +368,11 @@ graph LR
 ¹⁰ [Basiri, A., et al. (2016). Chaos Engineering: Building confidence in system behavior through experiments](https://netflixtechblog.com/tagged/chaos-engineering)
 
 *Estimated figures based on publicly available information and company-published data about system scale and performance.
+
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: The 7 Laws](/part1-axioms/) | 
+[:material-arrow-up: Home](/) | 
+[:material-arrow-right: Pillar 1: Work](/part2-pillars/work/)
+</div>

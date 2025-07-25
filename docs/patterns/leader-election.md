@@ -310,7 +310,7 @@ sequenceDiagram
     participant P1 as Peer 1
     participant P2 as Peer 2
     
-    rect rgb(240, 240, 255)
+    rect rgba(240, 240, 255, 0.1)
         Note over F: Election Timeout
         F->>C: Become Candidate
         C->>C: term++, vote for self
@@ -327,7 +327,7 @@ sequenceDiagram
         C->>L: Become Leader
     end
     
-    rect rgb(240, 255, 240)
+    rect rgba(240, 255, 240, 0.1)
         Note over L: Leader Operations
         loop Every 50ms
             L->>P1: Heartbeat
@@ -337,7 +337,7 @@ sequenceDiagram
         end
     end
     
-    rect rgb(255, 240, 240)
+    rect rgba(255, 240, 240, 0.1)
         Note over L: Discover higher term
         P1->>L: Response(term=5)
         Note over L: My term=3, their term=5
@@ -836,7 +836,7 @@ sequenceDiagram
     
     Note over A,E: No majority! New election needed
     
-    rect rgb(255, 240, 240)
+    rect rgba(255, 240, 240, 0.1)
         Note over A,E: Randomized timeouts prevent repeat
         Note over A: Timeout = 172ms
         Note over B: Timeout = 251ms
@@ -906,7 +906,7 @@ sequenceDiagram
     
     Note over I: Network issue, missed heartbeats
     
-    rect rgb(255, 250, 240)
+    rect rgba(255, 250, 240, 0.1)
         Note over I,F2: Pre-Vote Phase (no term increment)
         I->>L: PreVote Request (hypothetical term 5)
         I->>F1: PreVote Request (hypothetical term 5)
@@ -970,7 +970,7 @@ sequenceDiagram
     
     Note over L: Decide to transfer leadership
     
-    rect rgb(240, 250, 255)
+    rect rgba(240, 250, 255, 0.1)
         Note over L,T: Phase 1: Preparation
         L->>L: Stop accepting new writes
         C->>L: Write request
@@ -982,7 +982,7 @@ sequenceDiagram
         Note over L,T: Target is now up-to-date
     end
     
-    rect rgb(240, 255, 240)
+    rect rgba(240, 255, 240, 0.1)
         Note over L,T: Phase 2: Transfer
         L->>T: TimeoutNow RPC
         T->>T: Immediately timeout

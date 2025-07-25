@@ -10,14 +10,26 @@ search:
 
 # The Compendium of Distributed Systems
 
-!!! tip ""
-
- **Learn Distributed Systems from First Principles**
- 
- Master the fundamental laws of physics and mathematics that govern all distributed systems.
- No buzzwords, just timeless principles.
- 
- [Start Your Journey :fontawesome-solid-rocket:](introduction/getting-started/){ .md-button .md-button--primary }
+!!! abstract "Learn Distributed Systems from First Principles"
+    
+    Master the fundamental laws of physics and mathematics that govern all distributed systems.
+    No buzzwords, just timeless principles.
+    
+    <div class="grid cards" markdown>
+    
+    - :material-rocket-launch:{ .lg } __Quick Start__
+    
+        ---
+        
+        [:octicons-arrow-right-24: Start Your Journey](introduction/getting-started/){ .md-button .md-button--primary }
+    
+    - :material-clock-fast:{ .lg } __5 Min Overview__
+    
+        ---
+        
+        [:octicons-video-24: Watch Introduction](introduction/#video-overview){ .md-button }
+    
+    </div>
 
 <div class="grid cards" markdown>
 
@@ -87,13 +99,45 @@ search:
 
 ## Choose Your Learning Path
 
-!!! tip "Find Your Starting Point"
-| Your Background | Recommended Path | Time Investment |
- |-----------------|------------------|-----------------|
- | New Graduate | [Foundations First](introduction/getting-started/#path-1-foundation-builder-new-graduates) | 12 weeks |
- | Mid-Level Engineer | [Practical Patterns](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers) | 8 weeks |
- | Senior Engineer | [Advanced Topics](introduction/getting-started/#path-3-system-designer-senior-engineers) | 6 weeks |
- | Engineering Manager | [Strategic Overview](introduction/getting-started/#path-4-technical-leader-managersarchitects) | 4 weeks |
+=== ":material-school: New Graduate"
+
+    !!! success "Foundation Builder Path"
+        
+        **Duration:** 12 weeks | **Focus:** Laws → Patterns → Implementation
+        
+        Build deep understanding from physics up. Perfect for those with time to invest in fundamentals.
+        
+        [:octicons-arrow-right-24: Start Foundation Path](introduction/getting-started/#path-1-foundation-builder-new-graduates){ .md-button }
+
+=== ":material-code-tags: Mid-Level"
+
+    !!! info "Practical Problem Solver Path"
+        
+        **Duration:** 8 weeks | **Focus:** Patterns → Laws → Advanced Topics
+        
+        Apply patterns immediately while building theoretical foundation.
+        
+        [:octicons-arrow-right-24: Start Practical Path](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers){ .md-button }
+
+=== ":material-account-star: Senior"
+
+    !!! tip "System Designer Path"
+        
+        **Duration:** 6 weeks | **Focus:** Advanced Patterns → Trade-offs → Architecture
+        
+        Master complex patterns and architectural decision-making.
+        
+        [:octicons-arrow-right-24: Start Advanced Path](introduction/getting-started/#path-3-system-designer-senior-engineers){ .md-button }
+
+=== ":material-account-group: Manager"
+
+    !!! example "Technical Leader Path"
+        
+        **Duration:** 4 weeks | **Focus:** Strategy → Economics → Team Building
+        
+        Strategic overview for technical decision makers.
+        
+        [:octicons-arrow-right-24: Start Leadership Path](introduction/getting-started/#path-4-technical-leader-managersarchitects){ .md-button }
 
 
 ## Why This Approach?
@@ -154,10 +198,25 @@ search:
 
 ## Latest Updates
 
-!!! success "Recent Updates"
- - :material-new-box:{ .middle } **New**: Interactive consistency calculator
- - :material-update:{ .middle } **Updated**: Google system design interview guide 
- - :material-plus-circle:{ .middle } **Added**: 5 new case studies from 2024 outages
+!!! tip "Latest Updates"
+    
+    === "New Features"
+        
+        - :material-new-box: **Interactive Consistency Calculator** - Calculate CAP trade-offs visually
+        - :material-chart-line: **Performance Visualizer** - See scaling laws in action
+        - :material-calculator: **Capacity Planner** - Right-size your distributed system
+    
+    === "Updated Content"
+        
+        - :material-refresh: **Google Interview Guide** - Updated with 2025 questions
+        - :material-file-document-edit: **Kubernetes Patterns** - Added service mesh examples
+        - :material-bug-check: **Debugging Guide** - New distributed tracing section
+    
+    === "Case Studies"
+        
+        - :material-alert-circle: **AWS S3 Outage (2024)** - Cascading failure analysis
+        - :material-server-network-off: **Meta WhatsApp Incident** - Split-brain recovery
+        - :material-database-alert: **Cloudflare Memory Leak** - Performance degradation patterns
 
 ## Ready to Begin?
 

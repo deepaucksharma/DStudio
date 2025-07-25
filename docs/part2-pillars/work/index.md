@@ -9,6 +9,10 @@ status: complete
 last_updated: 2025-07-20
 ---
 
+# Pillar 1: Distribution of Work
+
+[Home](/) > [The 5 Pillars](/part2-pillars/) > Pillar 1: Work > Overview
+
 ## Intuition: The Restaurant Kitchen Problem (5 min read)
 
 Imagine a busy restaurant kitchen during dinner rush. Orders flood in: steaks, salads, desserts. One chef trying to cook everything would create a massive bottleneck. Instead, they organize:
@@ -1816,3 +1820,11 @@ flowchart TB
 - [Netflix: Chaos Engineering](/case-studies/netflix-chaos) - Resilient work distribution
 - [Google: MapReduce](/case-studies/mapreduce) - Planet-scale processing
 - [Apache Spark](/case-studies/apache-spark) - In-memory distributed computing
+
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-right: Pillar 2: State](/part2-pillars/state/)
+</div>

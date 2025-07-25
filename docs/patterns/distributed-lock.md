@@ -207,7 +207,7 @@ sequenceDiagram
     
     Client->>Leader: Acquire lock "resource-X"
     
-    rect rgb(240, 240, 255)
+    rect rgba(240, 240, 255, 0.1)
         Note over Leader,Follower2: Consensus Protocol
         Leader->>Leader: Create proposal
         Leader->>Follower1: Replicate: LOCK(resource-X, client-1)
@@ -226,7 +226,7 @@ sequenceDiagram
     
     Client->>Leader: Release lock "resource-X"
     
-    rect rgb(240, 255, 240)
+    rect rgba(240, 255, 240, 0.1)
         Note over Leader,Follower2: Consensus for release
         Leader->>Follower1: Replicate: UNLOCK(resource-X)
         Leader->>Follower2: Replicate: UNLOCK(resource-X)
@@ -321,7 +321,7 @@ sequenceDiagram
     Note over Client: Acquired on 4/5 nodes
     Note over Client: Validity = TTL - (T1-T0) - drift
     
-    rect rgb(255, 240, 240)
+    rect rgba(255, 240, 240, 0.1)
         Note over Client,Redis5: DANGER ZONE
         Note over Client: GC pause / clock jump
         Note over Redis1,Redis5: Locks expire!

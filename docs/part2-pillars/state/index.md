@@ -60,6 +60,8 @@ nav:
 
 # Pillar 2: Distribution of State
 
+[Home](/) > [The 5 Pillars](/part2-pillars/) > Pillar 2: State > Overview
+
 <span class="path-icon">🗂️</span>
 <span class="path-name">Core Pillar</span>
 <span class="path-progress">2/5</span>
@@ -1746,3 +1748,11 @@ Progress: 2 of 5 pillars completed
 - [Cassandra](/case-studies/cassandra) - Wide-column distributed store
 - [Redis Cluster](/case-studies/redis) - In-memory distributed state
 - [MongoDB](/case-studies/mongodb) - Document database sharding
+
+---
+
+<div class="page-nav" markdown>
+[:material-arrow-left: Pillar 1: Work](/part2-pillars/work/) | 
+[:material-arrow-up: The 5 Pillars](/part2-pillars/) | 
+[:material-arrow-right: Pillar 3: Truth](/part2-pillars/truth/)
+</div>
