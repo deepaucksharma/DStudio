@@ -111,9 +111,18 @@
    2. TYPOGRAPHY
    ========================================== */
 
+/* Set explicit base font size on html to ensure 1rem = 16px */
+html {
+  font-size: 16px !important;
+}
+
+body {
+  font-size: 16px !important;
+}
+
 /* Base Typography */
 .md-typeset {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-base) !important;
   line-height: var(--line-height-normal);
   color: var(--md-typeset-color);
 }
