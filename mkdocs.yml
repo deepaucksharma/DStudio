@@ -1,6 +1,10 @@
 site_name: The Compendium of Distributed Systems
 site_url: https://deepaucksharma.github.io/DStudio/
 site_description: Learn distributed systems from first principles through physics and mathematics
+site_author: Deepak Sharma
+
+# Copyright
+copyright: Copyright &copy; 2025 Deepak Sharma
 
 # Repository
 repo_name: deepaucksharma/DStudio
@@ -10,6 +14,8 @@ edit_uri: edit/main/docs/
 # Theme Configuration
 theme:
   name: material
+  language: en
+  custom_dir: docs/overrides
   
   features:
     # Navigation
@@ -85,6 +91,10 @@ plugins:
       separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
       lang:
         - en
+      pipeline:
+        - stemmer
+        - stopWordFilter
+        - trimmer
   - macros:
       module_name: docs/macros
       include_dir: docs/templates
@@ -196,12 +206,18 @@ markdown_extensions:
 # Extra CSS
 extra_css:
   - stylesheets/layout.css
+  - stylesheets/custom.css
 
-# Extra JavaScript  
+# Extra JavaScript - Optimized Loading
 extra_javascript:
+  # MathJax Configuration First
   - javascripts/mathjax-config.js
-  - https://polyfill.io/v3/polyfill.min.js?features=es6
-  - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+  
+  # MathJax Library - Use specific version for stability
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+  
+  # Custom Scripts
+  - javascripts/custom.js
 
 # Extra Configuration
 extra:
@@ -245,8 +261,45 @@ extra:
     tex:
       inlineMath: [['$', '$'], ['\\(', '\\)']]
       displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  
+  # Consent for GDPR
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    cookies:
+      analytics:
+        name: Google Analytics
+        checked: true
+    actions:
+      - accept
+      - reject
+      - manage
 
-# Simplified Navigation for Testing
+# Validation
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: info
+  links:
+    not_found: ignore
+    absolute_links: ignore
+    unrecognized_links: info
+
+# Build Configuration
+use_directory_urls: true
+strict: false
+
+# Watch - Development
+watch:
+  - docs
+  - mkdocs.yml
+
+# Navigation - Comprehensive Structure
 nav:
   - Home: index.md
   - Learn:

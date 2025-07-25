@@ -1,182 +1,225 @@
-// Custom JavaScript for DStudio Documentation
+/* Custom JavaScript for The Compendium of Distributed Systems */
+/* Performance-optimized and following best practices */
 
-// Enhanced copy code functionality
-document.addEventListener('DOMContentLoaded', function() {
-    // Add line numbers toggle for code blocks
-    const codeBlocks = document.querySelectorAll('pre code');
-    codeBlocks.forEach(block => {
-        const pre = block.parentElement;
-        if (pre.classList.contains('highlight')) {
-            const toggleBtn = document.createElement('button');
-            toggleBtn.className = 'line-numbers-toggle';
-            toggleBtn.textContent = 'Toggle Line Numbers';
-            toggleBtn.onclick = () => {
-                pre.classList.toggle('no-line-numbers');
-            };
-            pre.insertBefore(toggleBtn, pre.firstChild);
-        }
-    });
+(function() {
+  'use strict';
 
-    // Enhanced search with keyboard shortcuts
+  // === Performance Monitoring ===
+  
+  // Log performance metrics
+  window.addEventListener('load', function() {
+    if ('performance' in window) {
+      const perfData = window.performance.timing;
+      const pageLoadTime = perfData.loadEventEnd - perfData.navigationStart;
+      const connectTime = perfData.responseEnd - perfData.requestStart;
+      const renderTime = perfData.domComplete - perfData.domLoading;
+      
+      console.log('Performance Metrics:', {
+        'Page Load Time': pageLoadTime + 'ms',
+        'Connect Time': connectTime + 'ms',
+        'Render Time': renderTime + 'ms'
+      });
+    }
+  });
+
+  // === Reading Progress Indicator ===
+  
+  function createProgressBar() {
+    const progress = document.createElement('div');
+    progress.className = 'reading-progress';
+    document.body.appendChild(progress);
+    
+    function updateProgress() {
+      const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = (winScroll / height);
+      progress.style.transform = `scaleX(${scrolled})`;
+    }
+    
+    // Throttle scroll events for performance
+    let ticking = false;
+    function requestTick() {
+      if (!ticking) {
+        window.requestAnimationFrame(updateProgress);
+        ticking = true;
+        setTimeout(() => ticking = false, 100);
+      }
+    }
+    
+    window.addEventListener('scroll', requestTick);
+  }
+
+  // === Enhanced Search Experience ===
+  
+  function enhanceSearch() {
+    const searchInput = document.querySelector('.md-search__input');
+    if (!searchInput) return;
+    
+    // Add search shortcuts
     document.addEventListener('keydown', function(e) {
-        // Ctrl/Cmd + K for search
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
-            e.preventDefault();
-            const searchInput = document.querySelector('.md-search__input');
-            if (searchInput) {
-                searchInput.focus();
-            }
-        }
+      // Cmd/Ctrl + K to focus search
+      if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+        e.preventDefault();
+        searchInput.focus();
+      }
+      // Escape to close search
+      if (e.key === 'Escape' && document.activeElement === searchInput) {
+        searchInput.blur();
+      }
+    });
+  }
+
+  // === Copy Code Enhancement ===
+  
+  function enhanceCodeBlocks() {
+    // Add filename display to code blocks with title
+    document.querySelectorAll('pre > code').forEach(block => {
+      const pre = block.parentElement;
+      const title = pre.getAttribute('title');
+      
+      if (title) {
+        const filename = document.createElement('span');
+        filename.className = 'filename';
+        filename.textContent = title;
+        pre.appendChild(filename);
+      }
+    });
+    
+    // Enhance copy button feedback
+    document.addEventListener('click', function(e) {
+      if (e.target.matches('.md-clipboard')) {
+        const button = e.target;
+        const originalTitle = button.getAttribute('title');
         
-        // Escape to close search
-        if (e.key === 'Escape') {
-            const searchInput = document.querySelector('.md-search__input');
-            if (searchInput && document.activeElement === searchInput) {
-                searchInput.blur();
-            }
+        button.setAttribute('title', 'Copied!');
+        button.classList.add('copied');
+        
+        setTimeout(() => {
+          button.setAttribute('title', originalTitle);
+          button.classList.remove('copied');
+        }, 2000);
+      }
+    });
+  }
+
+  // === Table of Contents Enhancement ===
+  
+  function enhanceTOC() {
+    const toc = document.querySelector('.md-sidebar--secondary');
+    if (!toc) return;
+    
+    const headings = document.querySelectorAll('h2, h3, h4');
+    const tocLinks = toc.querySelectorAll('a');
+    
+    // Highlight current section on scroll
+    function highlightTOC() {
+      let current = '';
+      
+      headings.forEach(heading => {
+        const rect = heading.getBoundingClientRect();
+        if (rect.top <= 100) {
+          current = heading.id;
         }
-    });
-
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-
-    // Add progress indicator for long pages
-    const createProgressIndicator = () => {
-        const progress = document.createElement('div');
-        progress.className = 'reading-progress';
-        progress.innerHTML = '<div class="reading-progress-bar"></div>';
-        document.body.appendChild(progress);
-
-        const updateProgress = () => {
-            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
-            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
-            const scrolled = (winScroll / height) * 100;
-            document.querySelector('.reading-progress-bar').style.width = scrolled + '%';
-        };
-
-        window.addEventListener('scroll', updateProgress);
-        updateProgress();
-    };
-
-    // Only add progress indicator for pages with substantial content
-    if (document.querySelector('.md-content__inner').scrollHeight > window.innerHeight * 2) {
-        createProgressIndicator();
+      });
+      
+      tocLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
     }
-
-    // Enhanced table functionality
-    const tables = document.querySelectorAll('table');
-    tables.forEach(table => {
-        // Make tables responsive
-        const wrapper = document.createElement('div');
-        wrapper.className = 'table-responsive';
-        table.parentNode.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
-
-        // Add search functionality to large tables
-        if (table.rows.length > 10) {
-            const searchBox = document.createElement('input');
-            searchBox.type = 'text';
-            searchBox.className = 'table-search';
-            searchBox.placeholder = 'Search table...';
-            
-            searchBox.addEventListener('input', function() {
-                const filter = this.value.toLowerCase();
-                const rows = table.getElementsByTagName('tr');
-                
-                for (let i = 1; i < rows.length; i++) {
-                    const cells = rows[i].getElementsByTagName('td');
-                    let found = false;
-                    
-                    for (let j = 0; j < cells.length; j++) {
-                        if (cells[j].textContent.toLowerCase().includes(filter)) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    
-                    rows[i].style.display = found ? '' : 'none';
-                }
-            });
-            
-            wrapper.insertBefore(searchBox, table);
-        }
+    
+    // Throttle scroll events
+    let tocTicking = false;
+    window.addEventListener('scroll', () => {
+      if (!tocTicking) {
+        window.requestAnimationFrame(highlightTOC);
+        tocTicking = true;
+        setTimeout(() => tocTicking = false, 100);
+      }
     });
+  }
 
-    // Add expandable sections for deeply nested navigation
-    const nestedNavItems = document.querySelectorAll('.md-nav__item--nested');
-    nestedNavItems.forEach(item => {
-        const toggle = item.querySelector('.md-nav__toggle');
-        if (toggle) {
-            // Save expansion state
-            const navPath = item.querySelector('.md-nav__link').getAttribute('href');
-            const isExpanded = localStorage.getItem(`nav-expanded-${navPath}`);
-            
-            if (isExpanded === 'true') {
-                toggle.checked = true;
-            }
-            
-            toggle.addEventListener('change', function() {
-                localStorage.setItem(`nav-expanded-${navPath}`, this.checked);
-            });
-        }
-    });
-
-    // Enhanced print functionality
-    window.addEventListener('beforeprint', function() {
-        // Expand all collapsible sections
-        document.querySelectorAll('details').forEach(details => {
-            details.setAttribute('open', '');
+  // === Lazy Loading for Images ===
+  
+  function setupLazyLoading() {
+    if ('IntersectionObserver' in window) {
+      const images = document.querySelectorAll('img[loading="lazy"]');
+      const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            img.src = img.dataset.src || img.src;
+            img.classList.add('loaded');
+            observer.unobserve(img);
+          }
         });
-        
-        // Show all tabbed content
-        document.querySelectorAll('.tabbed-content').forEach(tabbed => {
-            tabbed.classList.add('print-all-tabs');
-        });
-    });
-
-    window.addEventListener('afterprint', function() {
-        // Restore original state
-        document.querySelectorAll('details[open]').forEach(details => {
-            if (!details.hasAttribute('data-was-open')) {
-                details.removeAttribute('open');
-            }
-        });
-        
-        document.querySelectorAll('.tabbed-content').forEach(tabbed => {
-            tabbed.classList.remove('print-all-tabs');
-        });
-    });
-});
-
-// Mermaid theme synchronization
-document$.subscribe(() => {
-    const mermaidElements = document.querySelectorAll('.mermaid');
-    if (mermaidElements.length > 0 && typeof mermaid !== 'undefined') {
-        const isDark = document.body.getAttribute('data-md-color-scheme') === 'slate';
-        mermaid.initialize({
-            theme: isDark ? 'dark' : 'default',
-            themeVariables: {
-                primaryColor: '#5448C8',
-                primaryTextColor: isDark ? '#ffffff' : '#000000',
-                primaryBorderColor: '#5448C8',
-                lineColor: '#6366f1',
-                sectionBkgColor: isDark ? '#1e293b' : '#f8fafc',
-                altSectionBkgColor: isDark ? '#334155' : '#f1f5f9',
-                gridColor: isDark ? '#475569' : '#e2e8f0',
-                secondaryColor: '#00BCD4',
-                tertiaryColor: isDark ? '#475569' : '#f3f4f6'
-            }
-        });
+      });
+      
+      images.forEach(img => imageObserver.observe(img));
     }
-});
+  }
+
+  // === External Link Enhancement ===
+  
+  function enhanceExternalLinks() {
+    document.querySelectorAll('a[href^="http"]').forEach(link => {
+      if (!link.href.includes(window.location.hostname)) {
+        link.setAttribute('target', '_blank');
+        link.setAttribute('rel', 'noopener noreferrer');
+        link.classList.add('external-link');
+      }
+    });
+  }
+
+  // === Keyboard Navigation ===
+  
+  function setupKeyboardNav() {
+    document.addEventListener('keydown', function(e) {
+      // Navigate between pages with arrow keys
+      if (e.altKey) {
+        if (e.key === 'ArrowLeft') {
+          const prevLink = document.querySelector('.md-footer__link--prev');
+          if (prevLink) prevLink.click();
+        } else if (e.key === 'ArrowRight') {
+          const nextLink = document.querySelector('.md-footer__link--next');
+          if (nextLink) nextLink.click();
+        }
+      }
+    });
+  }
+
+  // === Initialize Everything ===
+  
+  function initialize() {
+    createProgressBar();
+    enhanceSearch();
+    enhanceCodeBlocks();
+    enhanceTOC();
+    setupLazyLoading();
+    enhanceExternalLinks();
+    setupKeyboardNav();
+    
+    // Add loaded class for CSS animations
+    document.body.classList.add('loaded');
+  }
+
+  // Wait for DOM to be ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initialize);
+  } else {
+    initialize();
+  }
+
+  // === Service Worker for Offline Support ===
+  
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('/sw.js').catch(() => {
+        // Service worker registration failed, which is fine
+      });
+    });
+  }
+
+})();
