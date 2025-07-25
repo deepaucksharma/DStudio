@@ -1,0 +1,63 @@
+/* ============================================
+   HIDE ON THIS PAGE (TOC) SIDEBAR
+   ============================================ */
+
+/* Hide the right sidebar (TOC) completely */
+.md-sidebar--secondary {
+  display: none !important;
+}
+
+/* Adjust content to use full width when TOC is hidden */
+@media screen and (min-width: 60em) {
+  .md-content {
+    /* Let content expand to use the space */
+    margin-right: 0 !important;
+  }
+  
+  .md-content__inner {
+    /* Full width content */
+    max-width: 100%;
+    margin: 0 1.2rem;
+  }
+}
+
+/* Ensure left navigation has proper indentation */
+.md-nav__item--nested > .md-nav > .md-nav__list {
+  /* Add indentation for nested items */
+  padding-left: 0.6rem;
+}
+
+.md-nav__item {
+  /* Ensure consistent spacing */
+  margin: 0;
+}
+
+.md-nav__link {
+  /* Improve readability with proper padding */
+  padding: 0.2rem 0.6rem;
+}
+
+/* Visual hierarchy for navigation levels */
+.md-nav--primary .md-nav__item--nested > .md-nav__link {
+  font-weight: 600;
+}
+
+.md-nav--primary .md-nav__item--nested .md-nav__item--nested > .md-nav__link {
+  font-weight: 500;
+  font-size: 0.9rem;
+}
+
+.md-nav--primary .md-nav__item--nested .md-nav__item--nested .md-nav__link {
+  font-size: 0.85rem;
+  color: var(--md-default-fg-color--light);
+}
+
+/* Better visual separation for navigation sections */
+.md-nav--primary > .md-nav__list > .md-nav__item {
+  margin-bottom: 0.2rem;
+}
+
+.md-nav--primary > .md-nav__list > .md-nav__item:not(:last-child) {
+  border-bottom: 1px solid var(--md-default-fg-color--lightest);
+  padding-bottom: 0.2rem;
+}

@@ -102,65 +102,18 @@
     });
   }
 
-  // === Table of Contents Enhancement ===
-  
-  function enhanceTOC() {
-    const toc = document.querySelector('.md-sidebar--secondary');
-    if (!toc) return;
-    
-    const headings = document.querySelectorAll('h2, h3, h4');
-    const tocLinks = toc.querySelectorAll('a');
-    
-    // Highlight current section on scroll
-    function highlightTOC() {
-      let current = '';
-      
-      headings.forEach(heading => {
-        const rect = heading.getBoundingClientRect();
-        if (rect.top <= 100) {
-          current = heading.id;
-        }
-      });
-      
-      tocLinks.forEach(link => {
-        link.classList.remove('active');
-        if (link.getAttribute('href') === `#${current}`) {
-          link.classList.add('active');
-        }
-      });
-    }
-    
-    // Throttle scroll events
-    let tocTicking = false;
-    window.addEventListener('scroll', () => {
-      if (!tocTicking) {
-        window.requestAnimationFrame(highlightTOC);
-        tocTicking = true;
-        setTimeout(() => tocTicking = false, 100);
-      }
-    });
-  }
+  // === Table of Contents Enhancement - REMOVED ===
+  // TOC functionality has been removed as per requirements
 
-  // === Fix TOC for Instant Navigation ===
+  // === Fix Navigation for Instant Loading ===
   
-  function fixInstantNavigationTOC() {
+  function fixInstantNavigation() {
     // Listen for navigation changes
     if (window.location$ && window.location$.subscribe) {
       window.location$.subscribe(() => {
         // Small delay to ensure DOM is updated
         setTimeout(() => {
-          // Re-initialize TOC enhancement
-          enhanceTOC();
-          
-          // Force Material theme to update TOC
-          const tocElement = document.querySelector('[data-md-component="toc"]');
-          if (tocElement) {
-            // Trigger re-render of TOC component
-            const event = new CustomEvent('DOMContentLoaded');
-            document.dispatchEvent(event);
-          }
-          
-          // Update active TOC items
+          // Update active navigation items in left sidebar
           const activeNavItem = document.querySelector('.md-nav__item--active');
           if (activeNavItem) {
             activeNavItem.scrollIntoView({ block: 'center' });
@@ -225,8 +178,8 @@
     createProgressBar();
     enhanceSearch();
     enhanceCodeBlocks();
-    enhanceTOC();
-    fixInstantNavigationTOC();
+    // TOC functions removed - using left navigation only
+    fixInstantNavigation();
     setupLazyLoading();
     enhanceExternalLinks();
     setupKeyboardNav();

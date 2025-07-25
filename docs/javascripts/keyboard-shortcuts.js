@@ -27,7 +27,7 @@
     't': () => toggleTheme(),
     'f': () => toggleFullscreen(),
     'shift+s': () => toggleSidebar(),
-    'shift+t': () => toggleTOC(),
+    // 'shift+t': () => toggleTOC(), // Removed - no TOC
     
     // Content Actions
     'e': () => editPage(),
@@ -229,9 +229,7 @@
     document.body.classList.toggle('hide-sidebar');
   }
 
-  function toggleTOC() {
-    document.body.classList.toggle('hide-toc');
-  }
+  // TOC toggle removed - no longer needed
 
   // Content action functions
   function editPage() {
@@ -470,9 +468,6 @@
       display: none;
     }
     
-    body.hide-toc .md-sidebar--secondary {
-      display: none;
-    }
   `;
   document.head.appendChild(style);
 

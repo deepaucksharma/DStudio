@@ -32,9 +32,9 @@ theme:
     - navigation.top          # Back to top button
     - navigation.footer       # Previous/Next navigation
     
-    # Table of Contents
-    - toc.follow
-    - toc.integrate
+    # Table of Contents - Removed to disable right sidebar
+    # - toc.follow
+    # - toc.integrate
     
     # Search
     - search.suggest
@@ -143,7 +143,7 @@ markdown_extensions:
   - toc:
       permalink: true
       permalink_title: Anchor link to this section
-      toc_depth: 4
+      toc_depth: 0  # Set to 0 to disable TOC generation
   
   # PyMdownx Extensions - Content Enhancement
   - pymdownx.arithmatex:
@@ -221,6 +221,7 @@ extra_css:
   - stylesheets/themes.css
   - stylesheets/responsive-table.css  # Table responsiveness only
   - stylesheets/content-limits.css  # Minimal content overflow prevention
+  - stylesheets/hide-toc.css  # Hide right sidebar TOC
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -545,13 +546,6 @@ nav:
     
     - Browse All: case-studies/index.md#all-case-studies
   
-  - Tools:
-    - Overview: tools/index.md
-    - Calculators:
-      - Consistency Calculator: tools/consistency-calculator.md
-      - Latency Calculator: tools/latency-calculator.md
-      - Capacity Calculator: tools/capacity-calculator.md
-  
   - Interviews:
     - Overview: google-interviews/index.md
     - Preparation:
@@ -578,6 +572,11 @@ nav:
       - Recipe Cards: reference/recipe-cards.md
       - Law Mapping Guide: reference/law-mapping-guide.md
       - Keyboard Shortcuts: reference/keyboard-shortcuts.md
+    - Tools & Calculators:
+      - Overview: tools/index.md
+      - Consistency Calculator: tools/consistency-calculator.md
+      - Latency Calculator: tools/latency-calculator.md
+      - Capacity Calculator: tools/capacity-calculator.md
     - Security:
       - Security Patterns: reference/security.md
     - Contributing: reference/contributing.md

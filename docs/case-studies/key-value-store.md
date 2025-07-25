@@ -1397,7 +1397,7 @@ Total             $1150/mo     $1.15M/mo    Before optimization
 **Prerequisite Understanding:**
 - [Law 5: Epistemology ](/part1-axioms/law5-epistemology/) - Consensus and distributed coordination
 - [Law 1: Failure ](/part1-axioms/law1-failure/) - Failure modes and recovery strategies
-- [Consistent Hashing Pattern](/case-studies/consistent-hashing) - Data distribution technique
+- [Consistent Hashing Pattern](consistent-hashing.md) - Data distribution technique
 - [CAP Theorem](../../quantitative/cap-theorem.md) - Fundamental trade-offs
 
 **Advanced Topics:**

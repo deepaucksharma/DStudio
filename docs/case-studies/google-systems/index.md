@@ -29,31 +29,31 @@ last_updated: 2025-07-23
 
 ## 📚 Core Google System Design Problems
 
-### 1. [ Design Google Search](/case-studies/google-systems/google-search)
+### 1. [Design Google Search](google-search.md)
 Build a web-scale search engine handling 100B+ pages with sub-100ms latency.
 - **Key challenges**: Web crawling, indexing, PageRank, query processing
 - **Scale**: 8.5B searches/day, 100B+ pages, <100ms latency
 - **Core concepts**: Inverted index, distributed crawling, ranking algorithms
 
-### 2. [ Design YouTube](google-youtube.md)
+### 2. [Design YouTube](google-youtube.md)
 Create a video platform serving billions of hours daily with minimal buffering.
 - **Key challenges**: Video storage, transcoding, CDN, recommendations
 - **Scale**: 500hrs/min uploads, 1B+ hours watched/day
 - **Core concepts**: Adaptive streaming, distributed transcoding, ML recommendations
 
-### 3. [🗺 Design Google Maps](google-maps-system.md)
+### 3. [Design Google Maps](google-maps-system.md)
 Build a mapping service with real-time traffic and routing for 1B+ users.
 - **Key challenges**: Map data, routing algorithms, real-time traffic
 - **Scale**: 1B+ users, 220+ countries, millions of routes/sec
 - **Core concepts**: Spatial indexing, graph algorithms, real-time processing
 
-### 4. [📧 Design Gmail](google-gmail.md)
+### 4. [Design Gmail](google-gmail.md)
 Create an email service for 1.5B users with spam filtering and search.
 - **Key challenges**: Storage scale, spam detection, search, reliability
 - **Scale**: 1.5B users, 300B+ emails/day, 99.9% uptime
 - **Core concepts**: Distributed storage, ML spam detection, full-text search
 
-### 5. [📄 Design Google Docs](google-docs.md)
+### 5. [Design Google Docs](google-docs.md)
 Build a real-time collaborative document editor with conflict resolution.
 - **Key challenges**: Real-time sync, conflict resolution, versioning
 - **Scale**: Millions of concurrent edits, sub-second latency
@@ -156,7 +156,7 @@ Google interviewers typically evaluate candidates on:
 ## 📚 Additional Resources
 
 ### Related Concepts
-- [The 7 Laws](/axioms/) - Fundamental principles
+- [The 7 Laws](/part1-axioms/) - Fundamental principles
 - [Pattern Library](/patterns/) - Reusable solutions
 - [Quantitative Tools](/quantitative/) - Capacity planning
 

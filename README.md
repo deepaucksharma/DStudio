@@ -76,12 +76,28 @@ mkdocs build
 mkdocs gh-deploy
 ```
 
+### Project Structure
+
+```
+.
+├── docs/                 # Documentation content
+├── project-docs/         # Project documentation and reports
+├── scripts/              # Maintenance and conversion scripts
+├── archive/              # Archived configurations
+├── automation/           # Build and deployment scripts
+├── artifacts/            # Generated artifacts
+├── mkdocs.yml           # MkDocs configuration
+├── requirements.txt     # Python dependencies
+├── CLAUDE.md            # AI assistant instructions
+└── README.md            # This file
+```
+
 ### Key Files
 
-- `mkdocs.yml` - Site configuration and navigation
-- `docs/stylesheets/extra.css` - Custom styling (784 lines)
-- `CLAUDE.md` - AI assistant instructions
+- `mkdocs.yml` - Site configuration with Material theme
 - `requirements.txt` - Python dependencies
+- `CLAUDE.md` - AI assistant instructions
+- `PROJECT_DOCUMENTATION.md` - Consolidated project docs
 
 ## 🎯 Learning Paths
 
@@ -117,11 +133,14 @@ Key principles:
 - Follow established visual patterns
 - Add cross-references where relevant
 
-## 📚 Reports
+## 📚 Documentation
 
-- [PROJECT_COMPLETION_REPORT.md](PROJECT_COMPLETION_REPORT.md) - Project summary
-- [VISUAL_CONVERSION_FINAL_REPORT.md](VISUAL_CONVERSION_FINAL_REPORT.md) - Technical details
-- [VISUAL_CONVERSION_SUMMARY.md](VISUAL_CONVERSION_SUMMARY.md) - Conversion overview
+All project documentation has been organized in the `project-docs/` directory:
+- Implementation reports and summaries
+- Optimization guides and plans
+- Consistency reports and checklists
+
+See [PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md) for details.
 
 ## 🌐 Deployment
 

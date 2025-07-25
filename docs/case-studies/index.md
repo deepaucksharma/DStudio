@@ -18,7 +18,7 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 
 ## Featured: Google System Design Interview Guide
 
-### [ Google System Design Problems](google-systems/index.md)
+### [Google System Design Problems](google-systems/index.md)
 **NEW!** Comprehensive guides for the most commonly asked Google system design interview questions, with detailed solutions focusing on scale, performance, and real-world trade-offs.
 
 #### Core Problems Covered:

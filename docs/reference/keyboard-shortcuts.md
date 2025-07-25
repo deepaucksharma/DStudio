@@ -52,7 +52,6 @@ Master these keyboard shortcuts to navigate the documentation efficiently and en
 | ++t++ | Toggle theme | Switch between light/dark/auto theme |
 | ++f++ | Toggle fullscreen | Enter/exit fullscreen mode |
 | ++shift+s++ | Toggle sidebar | Show/hide navigation sidebar |
-| ++shift+t++ | Toggle TOC | Show/hide table of contents |
 
 ## :material-code-tags: Code Interaction
 
