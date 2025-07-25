@@ -102,28 +102,25 @@ graph TD
 
 #### 2. Data Structure Components
 
-<div class="truth-box">
+!!! quote
+    **Core Data Structures**
 
-**Core Data Structures**
+    | Component | Structure | Purpose | Size Limit |
+    |-----------|-----------|---------|------------|
+    | **Weights** | `{backend: weight}` | Selection probabilities | Dynamic |
+    | **History** | Per-backend deques | Performance tracking | 1000 entries |
+    | **Latencies** | `deque[float]` | Response time history | Rolling window |
+    | **Errors** | `deque[0\|1]` | Success/failure tracking | Rolling window |
+    | **Timestamps** | `deque[time]` | Time-based filtering | Rolling window |
 
-| Component | Structure | Purpose | Size Limit |
-|-----------|-----------|---------|------------|
-| **Weights** | `{backend: weight}` | Selection probabilities | Dynamic |
-| **History** | Per-backend deques | Performance tracking | 1000 entries |
-| **Latencies** | `deque[float]` | Response time history | Rolling window |
-| **Errors** | `deque[0\|1]` | Success/failure tracking | Rolling window |
-| **Timestamps** | `deque[time]` | Time-based filtering | Rolling window |
+    **Configuration Parameters**
 
-**Configuration Parameters**
-
-| Parameter | Default | Range | Impact |
-|-----------|---------|-------|---------|
-| **Learning Rate (α)** | 0.1 | 0.01-0.5 | Weight update speed |
-| **Exploration Rate (ε)** | 0.1 | 0.05-0.2 | Random selection frequency |
-| **History Window** | 1000 | 100-5000 | Memory vs accuracy |
-| **Recent Data Window** | 5 min | 1-15 min | Adaptation speed |
-
-</div>
+    | Parameter | Default | Range | Impact |
+    |-----------|---------|-------|---------|
+    | **Learning Rate (α)** | 0.1 | 0.01-0.5 | Weight update speed |
+    | **Exploration Rate (ε)** | 0.1 | 0.05-0.2 | Random selection frequency |
+    | **History Window** | 1000 | 100-5000 | Memory vs accuracy |
+    | **Recent Data Window** | 5 min | 1-15 min | Adaptation speed |
 
 #### 3. Performance Scoring Visualization
 
@@ -171,33 +168,30 @@ Score = 0.5 × (1 - ErrorRate) + 0.3 × LatencyScore + 0.2 × VariancePenalty
 
 #### 4. Weight Update Process (Exponential Moving Average)
 
-<div class="decision-box">
+!!! tip
+    **EMA Update Visualization**
 
-**EMA Update Visualization**
+    ```text
+    Time →
+    ─────────────────────────────────────────────────────►
 
-```text
-Time →
-─────────────────────────────────────────────────────►
+    Old Weight: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                             ↓
+                        (1 - α) × old
+                             ↓
+    New Weight: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+                             ↑
+                        α × score
+                             ↑
+    Performance Score: ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
 
-Old Weight: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                         ↓
-                    (1 - α) × old
-                         ↓
-New Weight: ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-                         ↑
-                    α × score
-                         ↑
-Performance Score: ▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬▬
+    Formula: weight_new = (1 - α) × weight_old + α × score
+    ```
 
-Formula: weight_new = (1 - α) × weight_old + α × score
-```
-
-**Update Rules:**
-- Minimum weight: 0.001 (prevent zero division)
-- Normalization: Every 100 requests
-- Learning rate α: Controls adaptation speed
-
-</div>
+    **Update Rules:**
+    - Minimum weight: 0.001 (prevent zero division)
+    - Normalization: Every 100 requests
+    - Learning rate α: Controls adaptation speed
 
 #### 5. Latency Prediction Model
 
@@ -240,29 +234,26 @@ graph TD
 
 #### 6. Testing Strategy Visualization
 
-<div class="failure-vignette">
+!!! danger
+    **Simulated Backend Profiles**
 
-**Simulated Backend Profiles**
+    | Backend | Base Latency | Error Rate | Variance | Expected Behavior |
+    |---------|--------------|------------|----------|-------------------|
+    | Backend1 | 50ms | 1% | ±10ms | Fast & Reliable → High Weight |
+    | Backend2 | 100ms | 5% | ±30ms | Medium Performance → Medium Weight |
+    | Backend3 | 200ms | 10% | ±50ms | Slow & Unreliable → Low Weight |
 
-| Backend | Base Latency | Error Rate | Variance | Expected Behavior |
-|---------|--------------|------------|----------|-------------------|
-| Backend1 | 50ms | 1% | ±10ms | Fast & Reliable → High Weight |
-| Backend2 | 100ms | 5% | ±30ms | Medium Performance → Medium Weight |
-| Backend3 | 200ms | 10% | ±50ms | Slow & Unreliable → Low Weight |
+    **Learning Progression**
 
-**Learning Progression**
+    ```text
+    Requests:     0 ────────► 100 ────────► 500 ────────► 1000
 
-```text
-Requests:     0 ────────► 100 ────────► 500 ────────► 1000
-              
-Backend1:    0.33 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━► 0.65
-Backend2:    0.33 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━► 0.30
-Backend3:    0.33 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━► 0.05
-              
-              Equal Start          Learning            Converged
-```
+    Backend1:    0.33 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━► 0.65
+    Backend2:    0.33 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━► 0.30
+    Backend3:    0.33 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━► 0.05
 
-</div>
+                  Equal Start          Learning            Converged
+    ```
 
 #### 7. Complete System Flow
 

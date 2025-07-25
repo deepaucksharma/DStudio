@@ -59,15 +59,12 @@ sequenceDiagram
 
 ### Key Characteristics
 
-<div class="decision-box">
-
-**Cache-Aside Pattern**
-- **Control**: Application manages all cache operations
-- **Flexibility**: Can implement custom caching logic
-- **Consistency**: Eventual consistency through invalidation
-- **Use Case**: When you need fine-grained cache control
-
-</div>
+!!! tip
+    **Cache-Aside Pattern**
+    - **Control**: Application manages all cache operations
+    - **Flexibility**: Can implement custom caching logic
+    - **Consistency**: Eventual consistency through invalidation
+    - **Use Case**: When you need fine-grained cache control
 
 ---
 
@@ -511,30 +508,27 @@ flowchart TD
 
 ## Best Practices
 
-<div class="truth-box">
+!!! quote
+    **Cache-Aside Golden Rules**
 
-**Cache-Aside Golden Rules**
+    1. **Always handle cache failures gracefully**
+       - Cache is optimization, not required for correctness
+       - Implement circuit breakers for cache operations
 
-1. **Always handle cache failures gracefully**
-   - Cache is optimization, not required for correctness
-   - Implement circuit breakers for cache operations
+    2. **Design for cache invalidation from day one**
+       - Use consistent key patterns
+       - Document all cache dependencies
+       - Implement bulk invalidation
 
-2. **Design for cache invalidation from day one**
-   - Use consistent key patterns
-   - Document all cache dependencies
-   - Implement bulk invalidation
+    3. **Monitor cache effectiveness**
+       - Track hit rates by key pattern
+       - Alert on sudden hit rate drops
+       - Monitor cache memory usage
 
-3. **Monitor cache effectiveness**
-   - Track hit rates by key pattern
-   - Alert on sudden hit rate drops
-   - Monitor cache memory usage
-
-4. **Security considerations**
-   - Never cache sensitive unencrypted data
-   - Include user context in cache keys
-   - Set appropriate TTLs for security tokens
-
-</div>
+    4. **Security considerations**
+       - Never cache sensitive unencrypted data
+       - Include user context in cache keys
+       - Set appropriate TTLs for security tokens
 
 ### Real-World Example: E-commerce Product Cache
 

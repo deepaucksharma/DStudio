@@ -83,7 +83,7 @@ flowchart TB
 
 ### Visual Representation of Operations
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>🔵 Adding Elements</h4>
 
@@ -275,7 +275,7 @@ graph TB
 
 ### Common Hash Function Choices
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>🚀 MurmurHash3</h4>
 
@@ -460,7 +460,7 @@ graph LR
 
 ### Key Metrics Dashboard
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>📊 Saturation Rate</h4>
 
@@ -671,7 +671,7 @@ graph LR
 
 ### Industry Applications Visualized
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>🌐 Web Crawling</h4>
 

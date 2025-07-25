@@ -58,16 +58,13 @@ sequenceDiagram
 
 ### Key Characteristics
 
-<div class="decision-box">
-
-**Write-Through Pattern**
-- **Consistency**: Strong consistency guaranteed
-- **Write Latency**: Higher (writes to both systems)
-- **Read Performance**: Fast (always cached after first write)
-- **Data Loss Risk**: Minimal
-- **Use Case**: When consistency matters more than write speed
-
-</div>
+!!! tip
+    **Write-Through Pattern**
+    - **Consistency**: Strong consistency guaranteed
+    - **Write Latency**: Higher (writes to both systems)
+    - **Read Performance**: Fast (always cached after first write)
+    - **Data Loss Risk**: Minimal
+    - **Use Case**: When consistency matters more than write speed
 
 ---
 
@@ -698,31 +695,28 @@ flowchart TD
 
 ## Best Practices
 
-<div class="truth-box">
+!!! quote
+    **Write-Through Golden Rules**
 
-**Write-Through Golden Rules**
+    1. **Database First, Cache Second**
+       - Always treat database as source of truth
+       - Cache write failures should not fail the operation
+       - Log cache failures for monitoring
 
-1. **Database First, Cache Second**
-   - Always treat database as source of truth
-   - Cache write failures should not fail the operation
-   - Log cache failures for monitoring
+    2. **Use Transactions Wisely**
+       - Keep transaction scope minimal
+       - Don't include cache operations in database transactions
+       - Implement compensating transactions for failures
 
-2. **Use Transactions Wisely**
-   - Keep transaction scope minimal
-   - Don't include cache operations in database transactions
-   - Implement compensating transactions for failures
+    3. **Monitor Consistency**
+       - Implement consistency checks
+       - Alert on cache/database divergence
+       - Regular reconciliation jobs
 
-3. **Monitor Consistency**
-   - Implement consistency checks
-   - Alert on cache/database divergence
-   - Regular reconciliation jobs
-
-4. **Plan for Cache Unavailability**
-   - Implement circuit breakers
-   - Graceful degradation to database-only mode
-   - Automatic cache resync when available
-
-</div>
+    4. **Plan for Cache Unavailability**
+       - Implement circuit breakers
+       - Graceful degradation to database-only mode
+       - Automatic cache resync when available
 
 ### Real-World Example: Financial Transaction System
 

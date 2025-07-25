@@ -11,18 +11,14 @@ last_updated: 2025-07-25
 
 # Amazon DynamoDB: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | 100+ million users per service |
-| **Throughput** | Trillions of requests/month |
-| **Data Volume** | Exabytes across platform |
-| **Availability** | 99.999% SLA |
-| **Team Size** | 200+ engineers |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | 100+ million users per service |
+    | **Throughput** | Trillions of requests/month |
+    | **Data Volume** | Exabytes across platform |
+    | **Availability** | 99.999% SLA |
+    | **Team Size** | 200+ engineers |
 
 ## Executive Summary
 
@@ -32,7 +28,7 @@ Amazon DynamoDB represents a fundamental shift in database design, prioritizing 
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">Handle massive traffic spikes during peak shopping events without downtime or performance degradation</p>
@@ -167,15 +163,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **Consistent Hashing**: Minimizes data movement during scaling, enables infinite horizontal scaling
-2. **Quorum System**: R+W>N guarantees consistency, allows tunable latency vs consistency trade-offs
-3. **Vector Clocks**: Tracks causality for conflict resolution, preserves data during network partitions
-4. **Merkle Trees**: Efficient anti-entropy for background synchronization and repair
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **Consistent Hashing**: Minimizes data movement during scaling, enables infinite horizontal scaling
+    2. **Quorum System**: R+W>N guarantees consistency, allows tunable latency vs consistency trade-offs
+    3. **Vector Clocks**: Tracks causality for conflict resolution, preserves data during network partitions
+    4. **Merkle Trees**: Efficient anti-entropy for background synchronization and repair
 
 ### Scaling Strategy
 
@@ -197,34 +189,30 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: September 2015 DynamoDB Outage</h3>
+!!! danger "Major Incident: September 2015 DynamoDB Outage"
+    **What Happened**: Metadata service overload caused cascading failures across multiple AWS regions, affecting DynamoDB operations for 5 hours.
 
-**What Happened**: Metadata service overload caused cascading failures across multiple AWS regions, affecting DynamoDB operations for 5 hours.
+    **Root Cause**: 
+    - Unexpected load spike on internal metadata service
+    - Insufficient circuit breakers between services  
+    - Cascading failure across service boundaries
 
-**Root Cause**: 
-- Unexpected load spike on internal metadata service
-- Insufficient circuit breakers between services  
-- Cascading failure across service boundaries
+    **Impact**: 
+    - 5 hours partial outage
+    - 25% of DynamoDB operations affected in US-East-1
+    - Multiple downstream services impacted
+    - Estimated millions in customer impact
 
-**Impact**: 
-- 5 hours partial outage
-- 25% of DynamoDB operations affected in US-East-1
-- Multiple downstream services impacted
-- Estimated millions in customer impact
-
-**Lessons Learned**:
-1. **Isolate blast radius**: Better service boundaries and circuit breakers implemented
-2. **Capacity planning**: More robust load testing for internal services
-3. **Graceful degradation**: Fallback mechanisms for metadata service failures
-
-</div>
+    **Lessons Learned**:
+    1. **Isolate blast radius**: Better service boundaries and circuit breakers implemented
+    2. **Capacity planning**: More robust load testing for internal services
+    3. **Graceful degradation**: Fallback mechanisms for metadata service failures
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">P50 Latency</h3>
     <div class="stat-number">5ms</div>
@@ -259,14 +247,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: Multiple times per day across regions
-**Rollout Strategy**: Blue-green deployments with automated rollback triggers
-**Rollback Time**: < 5 minutes automated rollback capability
-**Feature Flags**: Used for all major feature releases and capacity changes
-
-</div>
+!!! note
+    **Deployment Frequency**: Multiple times per day across regions
+    **Rollout Strategy**: Blue-green deployments with automated rollback triggers
+    **Rollback Time**: < 5 minutes automated rollback capability
+    **Feature Flags**: Used for all major feature releases and capacity changes
 
 ## Key Innovations
 
@@ -276,7 +261,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/circuit-breaker/" class="pattern-card">
     <h3 class="pattern-card__title">Circuit Breaker</h3>
     <p class="pattern-card__description">Prevents cascade failures in distributed request routing</p>
@@ -297,15 +282,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: Choose availability over consistency for shopping carts, session data, user preferences
-2. **When to avoid**: Don't use for financial transactions, inventory management, or other systems requiring strong consistency
-3. **Cost considerations**: Expect 2-3x storage cost due to replication, but save on operational overhead
-4. **Team requirements**: Need expertise in eventual consistency patterns and conflict resolution strategies
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: Choose availability over consistency for shopping carts, session data, user preferences
+    2. **When to avoid**: Don't use for financial transactions, inventory management, or other systems requiring strong consistency
+    3. **Cost considerations**: Expect 2-3x storage cost due to replication, but save on operational overhead
+    4. **Team requirements**: Need expertise in eventual consistency patterns and conflict resolution strategies
 
 ## Further Reading
 

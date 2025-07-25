@@ -24,17 +24,14 @@
 
 ## Response Frameworks Comparison
 
-<div class="content-box">
+!!! note
+    | Framework | Structure | Best For | Example Opening |
+    |-----------|-----------|----------|-----------------|
 
-| Framework | Structure | Best For | Example Opening |
-|-----------|-----------|----------|-----------------|
-
-| **STAR** | Situation → Task → Action → Result | General behavioral questions | "At Company X, we faced..." |
-| **CAR** | Context → Action → Result | Quick responses | "When our system crashed..." |
-| **SOAR** | Situation → Obstacle → Action → Result | Challenge-focused questions | "Despite budget constraints..." |
-| **PAID** | Problem → Action → Impact → Do differently | Learning/growth questions | "The database failure taught me..." |
-
-</div>
+    | **STAR** | Situation → Task → Action → Result | General behavioral questions | "At Company X, we faced..." |
+    | **CAR** | Context → Action → Result | Quick responses | "When our system crashed..." |
+    | **SOAR** | Situation → Obstacle → Action → Result | Challenge-focused questions | "Despite budget constraints..." |
+    | **PAID** | Problem → Action → Impact → Do differently | Learning/growth questions | "The database failure taught me..." |
 
 ## Question Type Decision Tree
 
@@ -80,39 +77,32 @@ graph TD
 
 ### Story Inventory Template
 
-<div class="decision-box">
-<h3>Story Inventory Template</h3>
-
-| Story Title | Situation Type | Leadership Principles | Impact Metrics | Talking Time |
-|-------------|----------------|----------------------|----------------|--------------|
-| **Example: Microservices Migration** | Technical Leadership | Ownership, Think Big, Deliver Results | 50% latency reduction, $2M saved | 2-3 min |
-| **Your Story 1** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
-| **Your Story 2** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
-
-</div>
+!!! tip "Story Inventory Template"
+    | Story Title | Situation Type | Leadership Principles | Impact Metrics | Talking Time |
+    |-------------|----------------|----------------------|----------------|--------------|
+    | **Example: Microservices Migration** | Technical Leadership | Ownership, Think Big, Deliver Results | 50% latency reduction, $2M saved | 2-3 min |
+    | **Your Story 1** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
+    | **Your Story 2** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
 
 ### Leadership Principles Mapping
 
-<div class="content-box">
-
-| Principle | Key Behaviors | Story Elements | Red Flags to Avoid |
-|-----------|---------------|----------------|-------------------|
-| **Customer Obsession** | Start with customer need | Customer metrics, feedback loops | Technical solutions without customer context |
-| **Ownership** | Long-term thinking | Cross-team impact, future planning | "Not my problem" attitude |
-| **Invent & Simplify** | Challenge status quo | Novel solutions, complexity reduction | Over-engineering |
-| **Are Right, A Lot** | Data-driven decisions | Metrics, A/B tests, analysis | Opinions without data |
-| **Learn & Be Curious** | Continuous improvement | New technologies, skill growth | Stagnation stories |
-| **Hire & Develop** | Team growth focus | Mentoring, knowledge sharing | Individual hero stories |
-| **Highest Standards** | Quality obsession | SLAs, code reviews, testing | Accepting mediocrity |
-| **Think Big** | Scale thinking | 10x growth planning | Small incremental thinking |
-| **Bias for Action** | Speed with safety | MVPs, quick iterations | Analysis paralysis |
-| **Frugality** | Resource efficiency | Cost optimization, ROI | Wasteful solutions |
-| **Earn Trust** | Transparency | Open communication, admitting mistakes | Blame, excuses |
-| **Dive Deep** | Technical depth | Root cause analysis, details | Surface-level understanding |
-| **Have Backbone** | Respectful disagreement | Standing for principles | Being disagreeable |
-| **Deliver Results** | Output focus | Business metrics, deadlines | Activity without results |
-
-</div>
+!!! note
+    | Principle | Key Behaviors | Story Elements | Red Flags to Avoid |
+    |-----------|---------------|----------------|-------------------|
+    | **Customer Obsession** | Start with customer need | Customer metrics, feedback loops | Technical solutions without customer context |
+    | **Ownership** | Long-term thinking | Cross-team impact, future planning | "Not my problem" attitude |
+    | **Invent & Simplify** | Challenge status quo | Novel solutions, complexity reduction | Over-engineering |
+    | **Are Right, A Lot** | Data-driven decisions | Metrics, A/B tests, analysis | Opinions without data |
+    | **Learn & Be Curious** | Continuous improvement | New technologies, skill growth | Stagnation stories |
+    | **Hire & Develop** | Team growth focus | Mentoring, knowledge sharing | Individual hero stories |
+    | **Highest Standards** | Quality obsession | SLAs, code reviews, testing | Accepting mediocrity |
+    | **Think Big** | Scale thinking | 10x growth planning | Small incremental thinking |
+    | **Bias for Action** | Speed with safety | MVPs, quick iterations | Analysis paralysis |
+    | **Frugality** | Resource efficiency | Cost optimization, ROI | Wasteful solutions |
+    | **Earn Trust** | Transparency | Open communication, admitting mistakes | Blame, excuses |
+    | **Dive Deep** | Technical depth | Root cause analysis, details | Surface-level understanding |
+    | **Have Backbone** | Respectful disagreement | Standing for principles | Being disagreeable |
+    | **Deliver Results** | Output focus | Business metrics, deadlines | Activity without results |
 
 ## Technical Challenge Framework
 
@@ -153,35 +143,28 @@ graph LR
 
 ### Technical Story Elements
 
-<div class="decision-box">
-<h3>Story Structure Guidelines</h3>
-
-| Element | Purpose | Example Details | Time Allocation |
-|---------|---------|-----------------|-----------------|
-| **Context** | Set the scene | Scale, technology stack, team size | 15 seconds |
-| **Problem** | Define challenge | Specific metrics, user impact | 20 seconds |
-| **Analysis** | Show expertise | Tools used, hypotheses tested | 30 seconds |
-| **Solution** | Demonstrate skills | Technical approach, trade-offs | 45 seconds |
-| **Impact** | Prove value | Metrics improvement, cost savings | 20 seconds |
-| **Lessons** | Show growth | What you'd do differently | 20 seconds |
-
-</div>
+!!! tip "Story Structure Guidelines"
+    | Element | Purpose | Example Details | Time Allocation |
+    |---------|---------|-----------------|-----------------|
+    | **Context** | Set the scene | Scale, technology stack, team size | 15 seconds |
+    | **Problem** | Define challenge | Specific metrics, user impact | 20 seconds |
+    | **Analysis** | Show expertise | Tools used, hypotheses tested | 30 seconds |
+    | **Solution** | Demonstrate skills | Technical approach, trade-offs | 45 seconds |
+    | **Impact** | Prove value | Metrics improvement, cost savings | 20 seconds |
+    | **Lessons** | Show growth | What you'd do differently | 20 seconds |
 
 ## Conflict Resolution Patterns
 
 ### Conflict Navigation Matrix
 
-<div class="content-box">
-
-| Conflict Type | Approach | Key Actions | Example Phrase |
-|---------------|----------|-------------|----------------|
-| **Technical Disagreement** | Data-driven | Present evidence, prototype, benchmark | "Let's test both approaches..." |
-| **Resource Contention** | Prioritization | Business impact analysis | "Based on customer impact..." |
-| **Process Conflict** | Collaboration | Find common ground, compromise | "I understand your concerns..." |
-| **Timeline Pressure** | Negotiation | Scope adjustment, phased delivery | "We could deliver X first..." |
-| **Design Philosophy** | Experimentation | A/B test, gradual rollout | "Why don't we pilot this..." |
-
-</div>
+!!! note
+    | Conflict Type | Approach | Key Actions | Example Phrase |
+    |---------------|----------|-------------|----------------|
+    | **Technical Disagreement** | Data-driven | Present evidence, prototype, benchmark | "Let's test both approaches..." |
+    | **Resource Contention** | Prioritization | Business impact analysis | "Based on customer impact..." |
+    | **Process Conflict** | Collaboration | Find common ground, compromise | "I understand your concerns..." |
+    | **Timeline Pressure** | Negotiation | Scope adjustment, phased delivery | "We could deliver X first..." |
+    | **Design Philosophy** | Experimentation | A/B test, gradual rollout | "Why don't we pilot this..." |
 
 ### Conflict Story Flow
 
@@ -210,18 +193,14 @@ stateDiagram-v2
 
 ### Pre-Interview Checklist
 
-<div class="decision-box">
-<h3>Pre-Interview Checklist</h3>
-
-| | Task | Details |
-|---|------|---------|
-| | **10 Stories Prepared** | 2 leadership, 2 failure, 2 conflict, 2 innovation, 2 technical |
-| | **STAR Format Practice** | Each story under 2 minutes |
-| | **Metrics Memorized** | Specific numbers for each story |
-| | **Questions Ready** | 5 thoughtful questions about role/team |
-| | **Company Research** | Recent news, products, engineering blog |
-
-</div>
+!!! tip "Pre-Interview Checklist"
+    | | Task | Details |
+    |---|------|---------|
+    | | **10 Stories Prepared** | 2 leadership, 2 failure, 2 conflict, 2 innovation, 2 technical |
+    | | **STAR Format Practice** | Each story under 2 minutes |
+    | | **Metrics Memorized** | Specific numbers for each story |
+    | | **Questions Ready** | 5 thoughtful questions about role/team |
+    | | **Company Research** | Recent news, products, engineering blog |
 
 ### Story Selection Matrix
 
@@ -253,32 +232,25 @@ graph TD
 
 ### Time Management Guide
 
-<div class="content-box">
-
-| Story Part | Time Budget | Warning Signs | Recovery Strategy |
-|------------|-------------|---------------|-------------------|
-| **Context** | 15-20 sec | Too much background | Jump to problem |
-| **Problem** | 20-30 sec | Vague description | Add specific metric |
-| **Actions** | 60-90 sec | Too many details | Focus on 3 key actions |
-| **Results** | 20-30 sec | No metrics | Estimate impact |
-| **Total** | 2-3 min | Over 3 minutes | Wrap up immediately |
-
-</div>
+!!! note
+    | Story Part | Time Budget | Warning Signs | Recovery Strategy |
+    |------------|-------------|---------------|-------------------|
+    | **Context** | 15-20 sec | Too much background | Jump to problem |
+    | **Problem** | 20-30 sec | Vague description | Add specific metric |
+    | **Actions** | 60-90 sec | Too many details | Focus on 3 key actions |
+    | **Results** | 20-30 sec | No metrics | Estimate impact |
+    | **Total** | 2-3 min | Over 3 minutes | Wrap up immediately |
 
 ### Answer Quality Indicators
 
-<div class="decision-box">
-<h3>Answer Quality Indicators</h3>
-
-| Strong Answer | Weak Answer |
-|------------------|----------------|
-| Specific metrics (50% improvement) | Vague outcomes ("it was better") |
-| Personal actions ("I designed...") | Team actions only ("we did...") |
-| Business impact ($2M saved) | Only technical details |
-| Learned & applied lessons | No growth shown |
-| Multiple stakeholders mentioned | Solo hero story |
-
-</div>
+!!! tip "Answer Quality Indicators"
+    | Strong Answer | Weak Answer |
+    |------------------|----------------|
+    | Specific metrics (50% improvement) | Vague outcomes ("it was better") |
+    | Personal actions ("I designed...") | Team actions only ("we did...") |
+    | Business impact ($2M saved) | Only technical details |
+    | Learned & applied lessons | No growth shown |
+    | Multiple stakeholders mentioned | Solo hero story |
 
 ## Common Behavioral Questions Map
 
@@ -316,49 +288,38 @@ mindmap
 
 ### Response Strategy by Question Type
 
-<div class="content-box">
-
-| Question Pattern | Strategy | Example Opening | Key Elements |
-|------------------|----------|-----------------|--------------|
-| "Tell me about a time..." | STAR method | "Last year at [Company]..." | Specific situation |
-| "How do you handle..." | Process + Example | "My approach is... For instance..." | Framework + proof |
-| "What's your greatest..." | Growth narrative | "Earlier in my career... Now I..." | Evolution shown |
-| "Describe a situation..." | Context-heavy STAR | "To understand the challenge..." | Rich context |
-| "Give an example..." | Quick CAR | "When we faced X, I did Y..." | Direct and brief |
-
-</div>
+!!! note
+    | Question Pattern | Strategy | Example Opening | Key Elements |
+    |------------------|----------|-----------------|--------------|
+    | "Tell me about a time..." | STAR method | "Last year at [Company]..." | Specific situation |
+    | "How do you handle..." | Process + Example | "My approach is... For instance..." | Framework + proof |
+    | "What's your greatest..." | Growth narrative | "Earlier in my career... Now I..." | Evolution shown |
+    | "Describe a situation..." | Context-heavy STAR | "To understand the challenge..." | Rich context |
+    | "Give an example..." | Quick CAR | "When we faced X, I did Y..." | Direct and brief |
 
 ## Distributed Systems Behavioral Scenarios
 
 ### System-Specific Story Templates
 
-<div class="decision-box">
-<h3>Distributed Systems Scenarios</h3>
-
-| Scenario | Technical Elements | Business Context | Metrics to Include |
-|----------|-------------------|------------------|-------------------|
-| **Scale Challenge** | Sharding, caching, CDN | User growth, seasonality | Latency, throughput, cost |
-| **Reliability Issue** | Failover, redundancy, chaos testing | SLA requirements, customer impact | Uptime, MTTR, error rate |
-| **Performance Problem** | Profiling, optimization, architecture | User experience, competition | P50/P99, response time |
-| **Security Incident** | Encryption, access control, audit | Compliance, trust, risk | Time to detect/resolve |
-| **Data Consistency** | CAP theorem, consensus, sync | Business rules, accuracy needs | Lag, conflicts, correctness |
-
-</div>
+!!! tip "Distributed Systems Scenarios"
+    | Scenario | Technical Elements | Business Context | Metrics to Include |
+    |----------|-------------------|------------------|-------------------|
+    | **Scale Challenge** | Sharding, caching, CDN | User growth, seasonality | Latency, throughput, cost |
+    | **Reliability Issue** | Failover, redundancy, chaos testing | SLA requirements, customer impact | Uptime, MTTR, error rate |
+    | **Performance Problem** | Profiling, optimization, architecture | User experience, competition | P50/P99, response time |
+    | **Security Incident** | Encryption, access control, audit | Compliance, trust, risk | Time to detect/resolve |
+    | **Data Consistency** | CAP theorem, consensus, sync | Business rules, accuracy needs | Lag, conflicts, correctness |
 
 ### Anti-Pattern Avoidance Guide
 
-<div class="failure-vignette">
-<h3>Common Mistakes to Avoid</h3>
-
-| Avoid | Instead Use | Why It Matters |
-|----------|----------------|----------------|
-| Blaming others | "The challenge was..." | Shows professionalism |
-| Technical jargon only | Business impact + technical | Demonstrates perspective |
-| Perfect hero story | Include struggles/learning | Shows authenticity |
-| Theoretical answers | Specific examples | Proves experience |
-| Long rambling stories | Structured 2-min stories | Respects time |
-
-</div>
+!!! danger "Common Mistakes to Avoid"
+    | Avoid | Instead Use | Why It Matters |
+    |----------|----------------|----------------|
+    | Blaming others | "The challenge was..." | Shows professionalism |
+    | Technical jargon only | Business impact + technical | Demonstrates perspective |
+    | Perfect hero story | Include struggles/learning | Shows authenticity |
+    | Theoretical answers | Specific examples | Proves experience |
+    | Long rambling stories | Structured 2-min stories | Respects time |
 
 ## Link to Cognitive Load Principles
 

@@ -4,10 +4,8 @@
 
 Amazon's Leadership Principles (LPs) aren't just corporate values—they're the decision-making framework that drives every architectural choice at Amazon. In system design interviews, demonstrating how these principles guide your technical decisions is as important as the technical solution itself.
 
-<div class="decision-box">
-<h3>Key Insight</h3>
-Amazon evaluates system design through the lens of Leadership Principles. Your technical choices must align with these principles to succeed in interviews and at Amazon.
-</div>
+!!! tip "Key Insight"
+    Amazon evaluates system design through the lens of Leadership Principles. Your technical choices must align with these principles to succeed in interviews and at Amazon.
 
 ## The 16 Leadership Principles Applied to System Design
 
@@ -720,10 +718,8 @@ graph TD
 
 ### Example: Applying LPs to Design Amazon Prime Video
 
-<div class="decision-box">
-<h3>Design Challenge: Amazon Prime Video Streaming Service</h3>
-Let's see how each Leadership Principle guides our design decisions.
-</div>
+!!! tip "Design Challenge: Amazon Prime Video Streaming Service"
+    Let's see how each Leadership Principle guides our design decisions.
 
 **1. Customer Obsession**
 ```yaml
@@ -870,26 +866,23 @@ class VideoStreamingPipeline:
 
 ## Leadership Principles Cheat Sheet for System Design
 
-<div class="truth-box">
-<h3>Quick Reference</h3>
-
-1. **Start every design with customer needs** (Customer Obsession)
-2. **Design for 5-10 year evolution** (Ownership)  
-3. **Challenge complexity, embrace simplicity** (Invent and Simplify)
-4. **Support decisions with data** (Are Right, A Lot)
-5. **Understand emerging technologies** (Learn and Be Curious)
-6. **Build systems others can operate** (Hire and Develop the Best)
-7. **Never compromise on security/reliability** (Highest Standards)
-8. **Design for 10x-100x scale** (Think Big)
-9. **Ship MVP, then iterate** (Bias for Action)
-10. **Optimize costs at every layer** (Frugality)
-11. **Build transparent, monitorable systems** (Earn Trust)
-12. **Know your bottlenecks deeply** (Dive Deep)
-13. **Defend your design with conviction** (Have Backbone)
-14. **Focus on business metrics** (Deliver Results)
-15. **Reduce operational burden** (Earth's Best Employer)
-16. **Consider environmental impact** (Broad Responsibility)
-</div>
+!!! quote "Quick Reference"
+    1. **Start every design with customer needs** (Customer Obsession)
+    2. **Design for 5-10 year evolution** (Ownership)  
+    3. **Challenge complexity, embrace simplicity** (Invent and Simplify)
+    4. **Support decisions with data** (Are Right, A Lot)
+    5. **Understand emerging technologies** (Learn and Be Curious)
+    6. **Build systems others can operate** (Hire and Develop the Best)
+    7. **Never compromise on security/reliability** (Highest Standards)
+    8. **Design for 10x-100x scale** (Think Big)
+    9. **Ship MVP, then iterate** (Bias for Action)
+    10. **Optimize costs at every layer** (Frugality)
+    11. **Build transparent, monitorable systems** (Earn Trust)
+    12. **Know your bottlenecks deeply** (Dive Deep)
+    13. **Defend your design with conviction** (Have Backbone)
+    14. **Focus on business metrics** (Deliver Results)
+    15. **Reduce operational burden** (Earth's Best Employer)
+    16. **Consider environmental impact** (Broad Responsibility)
 
 ## Practice Scenarios
 

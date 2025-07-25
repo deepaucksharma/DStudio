@@ -11,18 +11,14 @@ last_updated: 2025-07-25
 
 # Netflix Streaming: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | 260+ million subscribers |
-| **Throughput** | 15% of global internet traffic |
-| **Data Volume** | 100+ petabytes of content |
-| **Availability** | 99.99% uptime globally |
-| **Team Size** | 2000+ engineers |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | 260+ million subscribers |
+    | **Throughput** | 15% of global internet traffic |
+    | **Data Volume** | 100+ petabytes of content |
+    | **Availability** | 99.99% uptime globally |
+    | **Team Size** | 2000+ engineers |
 
 ## Executive Summary
 
@@ -32,7 +28,7 @@ Netflix transformed from a DVD-by-mail service to the world's largest streaming 
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">Stream high-quality video content to millions of concurrent users globally with minimal buffering</p>
@@ -168,15 +164,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **Microservices Architecture**: 700+ independent services with clear ownership boundaries
-2. **Event-Driven Design**: Kafka-based event streaming for loose coupling and scalability  
-3. **Polyglot Persistence**: Multiple databases optimized for specific use cases (Cassandra, DynamoDB, MySQL)
-4. **Content Delivery Network**: Open Connect CDN with 15,000+ servers in ISP locations globally
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **Microservices Architecture**: 700+ independent services with clear ownership boundaries
+    2. **Event-Driven Design**: Kafka-based event streaming for loose coupling and scalability  
+    3. **Polyglot Persistence**: Multiple databases optimized for specific use cases (Cassandra, DynamoDB, MySQL)
+    4. **Content Delivery Network**: Open Connect CDN with 15,000+ servers in ISP locations globally
 
 ### Scaling Strategy
 
@@ -198,34 +190,30 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: Christmas Eve 2012 AWS Outage</h3>
+!!! danger "Major Incident: Christmas Eve 2012 AWS Outage"
+    **What Happened**: AWS ELB service outage in US-East-1 took down Netflix streaming for several hours on Christmas Eve, affecting millions of users during peak viewing time.
 
-**What Happened**: AWS ELB service outage in US-East-1 took down Netflix streaming for several hours on Christmas Eve, affecting millions of users during peak viewing time.
+    **Root Cause**: 
+    - Single point of failure in AWS Elastic Load Balancer service
+    - Netflix's dependency on single-region architecture at the time
+    - Insufficient circuit breakers between critical services
 
-**Root Cause**: 
-- Single point of failure in AWS Elastic Load Balancer service
-- Netflix's dependency on single-region architecture at the time
-- Insufficient circuit breakers between critical services
+    **Impact**: 
+    - 6+ hours of streaming outages
+    - Millions of users affected during holiday peak
+    - Significant revenue loss and customer dissatisfaction
+    - Public relations impact during high-visibility period
 
-**Impact**: 
-- 6+ hours of streaming outages
-- Millions of users affected during holiday peak
-- Significant revenue loss and customer dissatisfaction
-- Public relations impact during high-visibility period
-
-**Lessons Learned**:
-1. **Embrace failure**: Led to development of chaos engineering practices and Chaos Monkey
-2. **Multi-region architecture**: Accelerated move to active-active multi-region deployment
-3. **Circuit breaker patterns**: Implemented comprehensive failure isolation mechanisms
-
-</div>
+    **Lessons Learned**:
+    1. **Embrace failure**: Led to development of chaos engineering practices and Chaos Monkey
+    2. **Multi-region architecture**: Accelerated move to active-active multi-region deployment
+    3. **Circuit breaker patterns**: Implemented comprehensive failure isolation mechanisms
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Video Startup</h3>
     <div class="stat-number">2.5s</div>
@@ -260,14 +248,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: 4000+ deployments per day across all services
-**Rollout Strategy**: Canary deployments with automated rollback based on key metrics
-**Rollback Time**: < 10 minutes for critical services with automated rollback triggers
-**Feature Flags**: Extensive use for A/B testing and gradual feature rollouts
-
-</div>
+!!! note
+    **Deployment Frequency**: 4000+ deployments per day across all services
+    **Rollout Strategy**: Canary deployments with automated rollback based on key metrics
+    **Rollback Time**: < 10 minutes for critical services with automated rollback triggers
+    **Feature Flags**: Extensive use for A/B testing and gradual feature rollouts
 
 ## Key Innovations
 
@@ -277,7 +262,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/circuit-breaker/" class="pattern-card">
     <h3 class="pattern-card__title">Circuit Breaker</h3>
     <p class="pattern-card__description">Prevents cascade failures in microservices architecture</p>
@@ -298,15 +283,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: Microservices work well for large teams with clear service boundaries and independent deployment needs
-2. **When to avoid**: Don't start with microservices - begin with monolith and split when team size and complexity demand it
-3. **Cost considerations**: Expect 2-3x operational overhead but gain in development velocity and system resilience
-4. **Team requirements**: Need DevOps expertise, monitoring infrastructure, and culture that embraces failure
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: Microservices work well for large teams with clear service boundaries and independent deployment needs
+    2. **When to avoid**: Don't start with microservices - begin with monolith and split when team size and complexity demand it
+    3. **Cost considerations**: Expect 2-3x operational overhead but gain in development velocity and system resilience
+    4. **Team requirements**: Need DevOps expertise, monitoring infrastructure, and culture that embraces failure
 
 ## Further Reading
 

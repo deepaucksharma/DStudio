@@ -15,16 +15,12 @@
 
 ## Problem Statement
 
-<div class="content-box decision-box">
-<h3>When to Use This Pattern</h3>
-
-| Scenario | Use This Pattern | Alternative |
-|----------|-----------------|-------------|
-| High throughput needed | ✅ Yes | Consider X instead |
-| Strong consistency required | ❌ No | Use Pattern Y |
-| Distributed teams | ✅ Yes | - |
-
-</div>
+!!! tip "When to Use This Pattern"
+    | Scenario | Use This Pattern | Alternative |
+    |----------|-----------------|-------------|
+    | High throughput needed | ✅ Yes | Consider X instead |
+    | Strong consistency required | ❌ No | Use Pattern Y |
+    | Distributed teams | ✅ Yes | - |
 
 ## Solution Architecture
 
@@ -65,7 +61,7 @@ graph TD
 
 ### Key Metrics
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <div class="card__title">Latency</div>
     <div class="card__description">P99: < 100ms</div>
@@ -82,25 +78,17 @@ graph TD
 
 ## Real-World Examples
 
-<div class="content-box axiom-box">
-<h3>Production Implementation</h3>
-
-- **Company A**: Used for their messaging system
-- **Company B**: Core part of their data pipeline
-- **Company C**: Handles 1B requests/day
-
-</div>
+!!! abstract "Production Implementation"
+    - **Company A**: Used for their messaging system
+    - **Company B**: Core part of their data pipeline
+    - **Company C**: Handles 1B requests/day
 
 ## Common Pitfalls
 
-<div class="content-box failure-vignette">
-<h3>What Can Go Wrong</h3>
-
-1. **Pitfall 1**: Description and mitigation
-2. **Pitfall 2**: Description and mitigation
-3. **Pitfall 3**: Description and mitigation
-
-</div>
+!!! danger "What Can Go Wrong"
+    1. **Pitfall 1**: Description and mitigation
+    2. **Pitfall 2**: Description and mitigation
+    3. **Pitfall 3**: Description and mitigation
 
 ## Related Patterns
 

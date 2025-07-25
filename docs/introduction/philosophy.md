@@ -12,17 +12,14 @@ last_updated: 2025-07-20
 
 # The Philosophy: Learning from First Principles
 
-<div class="truth-box">
-<h3>The Feynman Principle</h3>
+!!! quote "The Feynman Principle"
+    "If you can't explain it simply, you don't understand it well enough." — Richard Feynman
 
-"If you can't explain it simply, you don't understand it well enough." — Richard Feynman
-
-**Our approach**: Start with physics constraints, derive solutions. Not memorize tools.
-</div>
+    **Our approach**: Start with physics constraints, derive solutions. Not memorize tools.
 
 ## Why First Principles Matter
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Traditional Learning</h3>
     <p class="card__description">
@@ -40,34 +37,27 @@ last_updated: 2025-07-20
 
 ## Traditional vs First Principles Learning
 
-<div class="decision-box">
-<h3>Impact Comparison</h3>
-
-| Aspect | Traditional | First Principles | Impact |
-|--------|-------------|------------------|--------|
-| **Starting Point** | Popular tools | Physics constraints | 10x faster learning new tech |
-| **Problem Solving** | Copy solutions | Derive from constraints | Can solve novel problems |
-| **Debugging** | Trial and error | Systematic analysis | 5x faster resolution |
-| **Career Growth** | Tool expert → obsolete | Principle expert → architect | 2-3x salary growth |
-| **Innovation** | Follow patterns | Create patterns | Build next Google |
-
-</div>
+!!! tip "Impact Comparison"
+    | Aspect | Traditional | First Principles | Impact |
+    |--------|-------------|------------------|--------|
+    | **Starting Point** | Popular tools | Physics constraints | 10x faster learning new tech |
+    | **Problem Solving** | Copy solutions | Derive from constraints | Can solve novel problems |
+    | **Debugging** | Trial and error | Systematic analysis | 5x faster resolution |
+    | **Career Growth** | Tool expert → obsolete | Principle expert → architect | 2-3x salary growth |
+    | **Innovation** | Follow patterns | Create patterns | Build next Google |
 
 ## Learning Methods Effectiveness
 
-<div class="content-box">
-<h3>Retention Rates by Method</h3>
+!!! note "Retention Rates by Method"
+    | Learning Method | Retention Rate | Time to Mastery | Example |
+    |-----------------|----------------|-----------------|---------|
+    | **Read about it** | 10% | Never | "Redis is a cache" |
+    | **See demonstration** | 30% | 2 years | Watch Redis tutorial |
+    | **Practice with guidance** | 75% | 6 months | Build with Redis |
+    | **Teach others** | 90% | 3 months | Explain to colleague |
+    | **Derive from principles** | 95% | 1 month | Invent Redis from constraints |
 
-| Learning Method | Retention Rate | Time to Mastery | Example |
-|-----------------|----------------|-----------------|---------|
-| **Read about it** | 10% | Never | "Redis is a cache" |
-| **See demonstration** | 30% | 2 years | Watch Redis tutorial |
-| **Practice with guidance** | 75% | 6 months | Build with Redis |
-| **Teach others** | 90% | 3 months | Explain to colleague |
-| **Derive from principles** | 95% | 1 month | Invent Redis from constraints |
-
-**Key insight**: Active derivation beats passive consumption by 9x.
-</div>
+    **Key insight**: Active derivation beats passive consumption by 9x.
 
 ## Deriving Solutions from Constraints
 
@@ -101,18 +91,17 @@ last_updated: 2025-07-20
 
 ### Example 3: Why Consensus Algorithms Exist
 
-<div class="content-box">
-<h4>From Laws to Protocols</h4>
+!!! note
+    <h4>From Laws to Protocols</h4>
 
-**Traditional**: "Consensus ensures distributed systems agree on state."
+    **Traditional**: "Consensus ensures distributed systems agree on state."
 
-**First Principles**:
-1. Law 2 (No global clock) + Law 1 (Nodes fail/lie) + Law 5 (No single truth) 
-2. → Need protocols for agreement despite failures
-3. → Must trade safety vs liveness  
-4. **Result**: Consensus algorithms (Raft/Paxos) emerge
-5. **Explains**: FLP impossibility, different protocols for different scenarios
-</div>
+    **First Principles**:
+    1. Law 2 (No global clock) + Law 1 (Nodes fail/lie) + Law 5 (No single truth) 
+    2. → Need protocols for agreement despite failures
+    3. → Must trade safety vs liveness  
+    4. **Result**: Consensus algorithms (Raft/Paxos) emerge
+    5. **Explains**: FLP impossibility, different protocols for different scenarios
 
 ## Real-World Impact
 
@@ -146,17 +135,13 @@ last_updated: 2025-07-20
 
 ## Learning Journey Stages
 
-<div class="decision-box">
-<h3>Expertise Development</h3>
-
-| Stage | Years | Capability | Mental Model |
-|-------|-------|------------|-------------|
-| **Novice** | 0-1 | Follow laws as rules | Single law application |
-| **Competent** | 1-3 | Map problems to laws | Pattern recognition |
-| **Proficient** | 3-5 | See law interactions | System thinking |
-| **Expert** | 5+ | Predict from constraints | First principles |
-
-</div>
+!!! tip "Expertise Development"
+    | Stage | Years | Capability | Mental Model |
+    |-------|-------|------------|-------------|
+    | **Novice** | 0-1 | Follow laws as rules | Single law application |
+    | **Competent** | 1-3 | Map problems to laws | Pattern recognition |
+    | **Proficient** | 3-5 | See law interactions | System thinking |
+    | **Expert** | 5+ | Predict from constraints | First principles |
 
 ### Metacognition: Learning How to Learn
 
@@ -321,38 +306,35 @@ This mirrors our approach exactly - start with physics, derive patterns, learn f
 
 ### Active Reading Strategies
 
-<div class="decision-box">
+!!! tip
+    #### 🦭 How to Read This Compendium
 
-#### 🦭 How to Read This Compendium
+    ```mermaid
+    graph TD
+        Start["Starting a Section"] --> Predict["1. Predict Before Reading"]
+        Predict --> P1["Given this law...<br/>what patterns emerge?"]
+        Predict --> P2["What happens if<br/>we violate it?"]
 
-```mermaid
-graph TD
-    Start["Starting a Section"] --> Predict["1. Predict Before Reading"]
-    Predict --> P1["Given this law...<br/>what patterns emerge?"]
-    Predict --> P2["What happens if<br/>we violate it?"]
-    
-    P1 --> Connect["2. Connect While Reading"]
-    P2 --> Connect
-    
-    Connect --> C1["Where have I<br/>seen this?"]
-    Connect --> C2["How does this relate<br/>to my systems?"]
-    
-    C1 --> Challenge["3. Challenge After Reading"]
-    C2 --> Challenge
-    
-    Challenge --> Ch1["What if the<br/>law changed?"]
-    Challenge --> Ch2["What edge cases<br/>aren't covered?"]
-    
-    Ch1 --> Apply["4. Apply & Test"]
-    Ch2 --> Apply
-    
-    Apply --> Result["Deep Understanding"]
-    
-    style Start fill:#5448C8,color:#fff
-    style Result fill:#10b981,color:#fff
-```
+        P1 --> Connect["2. Connect While Reading"]
+        P2 --> Connect
 
-</div>
+        Connect --> C1["Where have I<br/>seen this?"]
+        Connect --> C2["How does this relate<br/>to my systems?"]
+
+        C1 --> Challenge["3. Challenge After Reading"]
+        C2 --> Challenge
+
+        Challenge --> Ch1["What if the<br/>law changed?"]
+        Challenge --> Ch2["What edge cases<br/>aren't covered?"]
+
+        Ch1 --> Apply["4. Apply & Test"]
+        Ch2 --> Apply
+
+        Apply --> Result["Deep Understanding"]
+
+        style Start fill:#5448C8,color:#fff
+        style Result fill:#10b981,color:#fff
+    ```
 
 ### The Feynman Notebook Method
 
@@ -378,31 +360,28 @@ Keep a notebook where you:
 
 ### Learning Approach Comparison
 
-<div class="decision-box">
+!!! tip
+    #### Traditional vs First-Principles Learning
 
-#### Traditional vs First-Principles Learning
+    ```mermaid
+    graph TD
+        subgraph "Traditional Path 📉"
+            T1["Learn Kafka"] --> T2["Learn Redis"]
+            T2 --> T3["Learn K8s"]
+            T3 --> T4["New Tech?<br/>Start Over"]
+            T4 --> T5["Skills obsolete<br/>in 3-5 years"]
+        end
 
-```mermaid
-graph TD
-    subgraph "Traditional Path 📉"
-        T1["Learn Kafka"] --> T2["Learn Redis"]
-        T2 --> T3["Learn K8s"]
-        T3 --> T4["New Tech?<br/>Start Over"]
-        T4 --> T5["Skills obsolete<br/>in 3-5 years"]
-    end
-    
-    subgraph "First-Principles Path 📈"
-        F1["Learn Physics<br/>Constraints"] --> F2["Derive Patterns"]
-        F2 --> F3["Apply to Any Tech"]
-        F3 --> F4["New Tech?<br/>Map to Laws"]
-        F4 --> F5["Skills compound<br/>over decades"]
-    end
-    
-    style T5 fill:#fee2e2
-    style F5 fill:#dcfce7
-```
+        subgraph "First-Principles Path 📈"
+            F1["Learn Physics<br/>Constraints"] --> F2["Derive Patterns"]
+            F2 --> F3["Apply to Any Tech"]
+            F3 --> F4["New Tech?<br/>Map to Laws"]
+            F4 --> F5["Skills compound<br/>over decades"]
+        end
 
-</div>
+        style T5 fill:#fee2e2
+        style F5 fill:#dcfce7
+    ```
 
 | Aspect | Traditional Approach | First-Principles Approach | Why It Matters |
 |--------|---------------------|--------------------------|----------------|

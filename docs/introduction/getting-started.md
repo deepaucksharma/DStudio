@@ -17,18 +17,15 @@ last_updated: 2025-07-23
   <p>A revolutionary approach to learning distributed systems that starts with the laws of physics rather than specific technologies.</p>
 </div>
 
-<div class="truth-box">
-<h3>Why This Compendium is Different</h3>
-
-- **Physics-First**: We derive patterns from fundamental constraints like the speed of light
-- **Technology-Agnostic**: Principles that apply to any distributed system
-- **Battle-Tested**: Real production failures illustrate every concept
-- **Multiple Paths**: Tailored learning for different roles and experience levels
-</div>
+!!! quote "Why This Compendium is Different"
+    - **Physics-First**: We derive patterns from fundamental constraints like the speed of light
+    - **Technology-Agnostic**: Principles that apply to any distributed system
+    - **Battle-Tested**: Real production failures illustrate every concept
+    - **Multiple Paths**: Tailored learning for different roles and experience levels
 
 ## Our Approach vs Traditional Learning
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Traditional Approach</h3>
     <p class="card__description">
@@ -57,42 +54,30 @@ graph TD
 
 ## Prerequisites
 
-<div class="decision-box">
-<h3>Essential Prerequisites</h3>
+!!! tip "Essential Prerequisites"
+    | Skill | What You Need | Example |
+    |-------|---------------|---------|
+    | **Programming** | Basic coding in any language | Functions, loops, data structures |
+    | **Networking** | HTTP fundamentals | Client-server, requests, responses |
+    | **Databases** | Basic SQL knowledge | SELECT, INSERT, transactions |
 
-| Skill | What You Need | Example |
-|-------|---------------|---------|
-| **Programming** | Basic coding in any language | Functions, loops, data structures |
-| **Networking** | HTTP fundamentals | Client-server, requests, responses |
-| **Databases** | Basic SQL knowledge | SELECT, INSERT, transactions |
-
-</div>
-
-<div class="content-box">
-<h3>Helpful but Optional</h3>
-
-| Topic | Why It Helps | When You'll Use It |
-|-------|--------------|-------------------|
-| **OS Concepts** | Understanding processes, threads | Concurrency patterns |
-| **Algorithms** | Complexity analysis | Performance optimization |
-| **Probability** | Failure modeling | Availability calculations |
-| **Linear Algebra** | Vector clocks, consensus | Advanced topics |
-
-</div>
+!!! note "Helpful but Optional"
+    | Topic | Why It Helps | When You'll Use It |
+    |-------|--------------|-------------------|
+    | **OS Concepts** | Understanding processes, threads | Concurrency patterns |
+    | **Algorithms** | Complexity analysis | Performance optimization |
+    | **Probability** | Failure modeling | Availability calculations |
+    | **Linear Algebra** | Vector clocks, consensus | Advanced topics |
 
 ## Choose Your Learning Path
 
-<div class="decision-box">
-<h3>Quick Path Selector</h3>
-
-| Your Profile | Recommended Path | Duration | Focus |
-|-------------|------------------|----------|-------|
-| **New Graduate** | Foundation Builder | 6-8 weeks | Laws → Patterns → Tools |
-| **Mid-Level Engineer** | Problem Solver | 4-6 weeks | Patterns → Laws → Cases |
-| **Senior Engineer** | System Designer | 2-4 weeks | Advanced Patterns → Trade-offs |
-| **Technical Leader** | Strategic Overview | 2-3 weeks | Economics → Teams → Culture |
-
-</div>
+!!! tip "Quick Path Selector"
+    | Your Profile | Recommended Path | Duration | Focus |
+    |-------------|------------------|----------|-------|
+    | **New Graduate** | Foundation Builder | 6-8 weeks | Laws → Patterns → Tools |
+    | **Mid-Level Engineer** | Problem Solver | 4-6 weeks | Patterns → Laws → Cases |
+    | **Senior Engineer** | System Designer | 2-4 weeks | Advanced Patterns → Trade-offs |
+    | **Technical Leader** | Strategic Overview | 2-3 weeks | Economics → Teams → Culture |
 
 ## Learning Path Details
 
@@ -136,7 +121,7 @@ graph TD
 
 ## What You'll Find in This Compendium
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">The 7 Fundamental Laws</h3>
     <p class="card__description">
@@ -168,42 +153,30 @@ graph TD
 
 ## Study Tips
 
-<div class="decision-box">
-<h3>Active Learning Strategies</h3>
+!!! tip "Active Learning Strategies"
+    | Strategy | What to Do | Why It Works |
+    |----------|------------|--------------|
+    | **Predict** | Before reading, guess what patterns emerge | Activates prior knowledge |
+    | **Connect** | Map concepts to your experience | Creates lasting memories |
+    | **Teach** | Explain concepts to others | Tests understanding |
+    | **Build** | Implement patterns yourself | Develops practical skills |
 
-| Strategy | What to Do | Why It Works |
-|----------|------------|--------------|
-| **Predict** | Before reading, guess what patterns emerge | Activates prior knowledge |
-| **Connect** | Map concepts to your experience | Creates lasting memories |
-| **Teach** | Explain concepts to others | Tests understanding |
-| **Build** | Implement patterns yourself | Develops practical skills |
-
-</div>
-
-<div class="content-box">
-<h3>Build Your Portfolio</h3>
-
-- **Document insights** as you learn
-- **Implement patterns** in code
-- **Break things intentionally** to see failures
-- **Share knowledge** with your team
-
-</div>
+!!! note "Build Your Portfolio"
+    - **Document insights** as you learn
+    - **Implement patterns** in code
+    - **Break things intentionally** to see failures
+    - **Share knowledge** with your team
 
 ## Quick Navigation
 
-<div class="decision-box">
-<h3>Start Based on Your Immediate Need</h3>
-
-| If You Need | Go To | Why |
-|-------------|-------|-----|
-| **Solve Problem Now** | [Pattern Catalog](../patterns/) | Find proven solutions |
-| **Deep Understanding** | [Law 1 - Failure](../part1-axioms/law1-failure/) | Build from fundamentals |
-| **Design System** | [Pattern Selector](../patterns/pattern-selector/) | Make informed choices |
-| **Capacity Planning** | [Calculators](../quantitative/) | Quantify decisions |
-| **Learn from Failures** | [Case Studies](../case-studies/) | Avoid known pitfalls |
-
-</div>
+!!! tip "Start Based on Your Immediate Need"
+    | If You Need | Go To | Why |
+    |-------------|-------|-----|
+    | **Solve Problem Now** | [Pattern Catalog](../patterns/) | Find proven solutions |
+    | **Deep Understanding** | [Law 1 - Failure](../part1-axioms/law1-failure/) | Build from fundamentals |
+    | **Design System** | [Pattern Selector](../patterns/pattern-selector/) | Make informed choices |
+    | **Capacity Planning** | [Calculators](../quantitative/) | Quantify decisions |
+    | **Learn from Failures** | [Case Studies](../case-studies/) | Avoid known pitfalls |
 
 ### Reading Order Options
 
@@ -215,29 +188,21 @@ graph TD
 
 ## Common Learning Pitfalls
 
-<div class="failure-vignette">
-<h3>Avoid These Mistakes</h3>
-
-| Don't Do This | Do This Instead |
-|---------------|-----------------|
-| Skip fundamentals | Review laws deeply, find new insights |
-| Just memorize patterns | Understand why, derive from principles |
-| Ignore failure stories | Study failures, learn from others |
-| Work in isolation | Collaborate, share, and discuss |
-
-</div>
+!!! danger "Avoid These Mistakes"
+    | Don't Do This | Do This Instead |
+    |---------------|-----------------|
+    | Skip fundamentals | Review laws deeply, find new insights |
+    | Just memorize patterns | Understand why, derive from principles |
+    | Ignore failure stories | Study failures, learn from others |
+    | Work in isolation | Collaborate, share, and discuss |
 
 ## Ready to Start?
 
-<div class="decision-box">
-<h3>Your Quick Start Checklist</h3>
-
-1. **Check Prerequisites**: Do you have basic programming, networking, and database knowledge?
-2. **Choose Your Path**: Pick the learning path that matches your experience level
-3. **Set Schedule**: Block 5-15 hours per week for focused study
-4. **Begin**: Start with [Law 1: Correlated Failure](../part1-axioms/law1-failure/)
-
-</div>
+!!! tip "Your Quick Start Checklist"
+    1. **Check Prerequisites**: Do you have basic programming, networking, and database knowledge?
+    2. **Choose Your Path**: Pick the learning path that matches your experience level
+    3. **Set Schedule**: Block 5-15 hours per week for focused study
+    4. **Begin**: Start with [Law 1: Correlated Failure](../part1-axioms/law1-failure/)
 
 ---
 

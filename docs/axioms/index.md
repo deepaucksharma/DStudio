@@ -31,7 +31,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
 
 <div class="laws-structure">
   <h3>Physical Laws (1-3)</h3>
-  <div class="laws-grid">
+  <div class="grid">
     <a href="../part1-axioms/law1-failure/index.md" class="law-card law-1">
       <div class="law-number">1</div>
       <div class="law-content">
@@ -76,7 +76,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
   </div>
 
   <h3>Trade-offs (4-5)</h3>
-  <div class="laws-grid">
+  <div class="grid">
     <a href="../part1-axioms/law4-tradeoffs/index.md" class="law-card law-4">
       <div class="law-number">4</div>
       <div class="law-content">
@@ -107,7 +107,7 @@ These aren't simple observations or rules of thumb. They are fundamental laws th
   </div>
 
   <h3>Human Interface (6-7)</h3>
-  <div class="laws-grid">
+  <div class="grid">
     <a href="../part1-axioms/law6-human-api/index.md" class="law-card law-6">
       <div class="law-number">6</div>
       <div class="law-content">
@@ -188,7 +188,7 @@ graph TD
 
 ## Key Insights
 
-<div class="insights-grid">
+<div class="grid">
   <div class="insight-box">
     <h4>🔄 Laws Compound</h4>
     <p>Failure + Asynchrony = Uncertainty. Emergence + Knowledge = Unpredictability. Real complexity comes from interactions.</p>
@@ -220,184 +220,3 @@ graph TD
   </div>
 </div>
 
-<style>
-.laws-hero {
-  text-align: center;
-  padding: 2rem;
-  background: linear-gradient(135deg, #5448C8 0%, #764ba2 100%);
-  color: white;
-  border-radius: 12px;
-  margin-bottom: 2rem;
-}
-
-.hero-quote {
-  font-size: 1.3rem;
-  font-style: italic;
-  margin: 0;
-  opacity: 0.95;
-}
-
-.laws-structure h3 {
-  margin: 2rem 0 1rem 0;
-  color: #5448C8;
-  border-bottom: 2px solid #e0e0e0;
-  padding-bottom: 0.5rem;
-}
-
-.laws-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-  gap: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.law-card {
-  display: flex;
-  gap: 1rem;
-  padding: 1.5rem;
-  background: white;
-  border: 2px solid #e0e0e0;
-  border-radius: 12px;
-  text-decoration: none;
-  color: inherit;
-  transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-.law-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, var(--law-color) 0%, var(--law-color-light) 100%);
-}
-
-.law-1 { --law-color: #e74c3c; --law-color-light: #ec7063; }
-.law-2 { --law-color: #3498db; --law-color-light: #5dade2; }
-.law-3 { --law-color: #9b59b6; --law-color-light: #bb8fce; }
-.law-4 { --law-color: #f39c12; --law-color-light: #f8c471; }
-.law-5 { --law-color: #1abc9c; --law-color-light: #48c9b0; }
-.law-6 { --law-color: #e67e22; --law-color-light: #eb984e; }
-.law-7 { --law-color: #27ae60; --law-color-light: #52be80; }
-
-.law-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
-  border-color: var(--law-color);
-}
-
-.law-number {
-  font-size: 3rem;
-  font-weight: 700;
-  color: var(--law-color);
-  opacity: 0.3;
-  line-height: 1;
-}
-
-.law-content h3 {
-  margin: 0 0 0.5rem 0;
-  font-size: 1.2rem;
-  color: #333;
-}
-
-.law-principle {
-  font-style: italic;
-  color: #666;
-  margin: 0.25rem 0;
-  font-size: 0.95rem;
-}
-
-.law-impact {
-  font-weight: 600;
-  color: var(--law-color);
-  margin: 0.5rem 0;
-  font-size: 0.9rem;
-}
-
-.law-examples {
-  display: flex;
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  margin-top: 0.5rem;
-}
-
-.law-examples span {
-  font-size: 0.8rem;
-  color: #666;
-  background: #f5f5f5;
-  padding: 0.2rem 0.5rem;
-  border-radius: 4px;
-}
-
-.insights-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  margin: 2rem 0;
-}
-
-.insight-box {
-  padding: 1.5rem;
-  background: #fff3e0;
-  border-radius: 8px;
-  border-left: 4px solid #FF9800;
-}
-
-.insight-box h4 {
-  margin: 0 0 0.5rem 0;
-  color: #E65100;
-}
-
-.insight-box p {
-  margin: 0;
-  color: #666;
-}
-
-.next-steps {
-  text-align: center;
-  margin: 3rem 0;
-  padding: 2rem;
-  background: #f5f5f5;
-  border-radius: 12px;
-}
-
-.primary-cta {
-  display: inline-block;
-  background: #5448C8;
-  color: white;
-  padding: 1rem 2rem;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 1.1rem;
-  transition: all 0.3s ease;
-}
-
-.primary-cta:hover {
-  background: #4338A8;
-  transform: translateY(-2px);
-}
-
-.alternative-paths {
-  margin-top: 2rem;
-}
-
-.alternative-paths p {
-  margin: 1rem 0 0.5rem 0;
-  color: #666;
-}
-
-.alternative-paths a {
-  display: inline-block;
-  margin: 0.5rem;
-  color: #5448C8;
-  text-decoration: none;
-}
-
-.alternative-paths a:hover {
-  text-decoration: underline;
-}
-</style>

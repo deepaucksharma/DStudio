@@ -31,21 +31,17 @@ last_updated: 2025-07-25
 
 **How can we optimize both complex business operations and high-performance queries when they have fundamentally different requirements?**
 
-<div class="content-box decision-box">
-<h3>When to Use This Pattern</h3>
-
-| Scenario | Use CQRS | Alternative |
-|----------|----------|-------------|
-| Read/write ratio > 10:1 | ✅ Yes | Consider read replicas |
-| Complex domain logic | ✅ Yes | Traditional layered architecture |
-| Different scaling needs | ✅ Yes | Vertical scaling |
-| Multiple query views needed | ✅ Yes | Database views |
-| Audit trail required | ✅ Yes | Simple logging |
-| Simple CRUD operations | ❌ No | Traditional CRUD |
-| Small teams (< 3 developers) | ❌ No | Monolithic architecture |
-| Low traffic (< 1K requests/day) | ❌ No | Simple database |
-
-</div>
+!!! tip "When to Use This Pattern"
+    | Scenario | Use CQRS | Alternative |
+    |----------|----------|-------------|
+    | Read/write ratio > 10:1 | ✅ Yes | Consider read replicas |
+    | Complex domain logic | ✅ Yes | Traditional layered architecture |
+    | Different scaling needs | ✅ Yes | Vertical scaling |
+    | Multiple query views needed | ✅ Yes | Database views |
+    | Audit trail required | ✅ Yes | Simple logging |
+    | Simple CRUD operations | ❌ No | Traditional CRUD |
+    | Small teams (< 3 developers) | ❌ No | Monolithic architecture |
+    | Low traffic (< 1K requests/day) | ❌ No | Simple database |
 
 ## Solution Architecture
 
@@ -121,7 +117,7 @@ graph TB
 
 ### Key Metrics
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <div class="card__title">Write Latency</div>
     <div class="card__description">P99: < 200ms</div>
@@ -142,28 +138,20 @@ graph TB
 
 ## Real-World Examples
 
-<div class="content-box axiom-box">
-<h3>Production Implementation</h3>
-
-- **LinkedIn**: Used CQRS for their feed system, handling 1B+ reads/day with < 50ms P99 latency
-- **Netflix**: Implemented CQRS for their viewing history, enabling personalized recommendations at scale
-- **Uber**: Applied CQRS to their trip data, supporting real-time analytics while maintaining transactional integrity
-- **Amazon**: Uses CQRS for product catalog, serving millions of queries while processing inventory updates
-
-</div>
+!!! abstract "Production Implementation"
+    - **LinkedIn**: Used CQRS for their feed system, handling 1B+ reads/day with < 50ms P99 latency
+    - **Netflix**: Implemented CQRS for their viewing history, enabling personalized recommendations at scale
+    - **Uber**: Applied CQRS to their trip data, supporting real-time analytics while maintaining transactional integrity
+    - **Amazon**: Uses CQRS for product catalog, serving millions of queries while processing inventory updates
 
 ## Common Pitfalls
 
-<div class="content-box failure-vignette">
-<h3>What Can Go Wrong</h3>
-
-1. **Synchronous Projections**: Updating read models in write transaction eliminates performance benefits. Use asynchronous event processing instead.
-2. **Missing Event Versioning**: Schema changes break event replay. Implement event versioning from day one.
-3. **Over-Engineering**: Applying CQRS to simple CRUD operations adds unnecessary complexity. Start with traditional architecture for simple domains.
-4. **Ignoring Consistency Requirements**: Some operations need immediate consistency. Use consistency tokens or polling for critical reads.
-5. **Poor Error Handling**: Failed projections create data inconsistencies. Implement dead letter queues and replay mechanisms.
-
-</div>
+!!! danger "What Can Go Wrong"
+    1. **Synchronous Projections**: Updating read models in write transaction eliminates performance benefits. Use asynchronous event processing instead.
+    2. **Missing Event Versioning**: Schema changes break event replay. Implement event versioning from day one.
+    3. **Over-Engineering**: Applying CQRS to simple CRUD operations adds unnecessary complexity. Start with traditional architecture for simple domains.
+    4. **Ignoring Consistency Requirements**: Some operations need immediate consistency. Use consistency tokens or polling for critical reads.
+    5. **Poor Error Handling**: Failed projections create data inconsistencies. Implement dead letter queues and replay mechanisms.
 
 ## Related Patterns
 

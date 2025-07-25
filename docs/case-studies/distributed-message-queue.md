@@ -1253,30 +1253,20 @@ graph LR
 
 ## Key Design Insights
 
-<div class="truth-box">
-<h3>1. 📊 Log is the Core Abstraction</h3>
-The append-only log unifies storage, messaging, and stream processing into a single primitive.
-</div>
+!!! quote "1. 📊 Log is the Core Abstraction"
+    The append-only log unifies storage, messaging, and stream processing into a single primitive.
 
-<div class="truth-box">
-<h3>2. 🔄 Replication Must Be Async</h3>
-Synchronous replication would kill throughput. ISR provides the right balance.
-</div>
+!!! quote "2. 🔄 Replication Must Be Async"
+    Synchronous replication would kill throughput. ISR provides the right balance.
 
-<div class="truth-box">
-<h3>3. 🎯 Partitioning Enables Scale</h3>
-Without partitions, you can't scale beyond a single machine's capacity.
-</div>
+!!! quote "3. 🎯 Partitioning Enables Scale"
+    Without partitions, you can't scale beyond a single machine's capacity.
 
-<div class="truth-box">
-<h3>4. ⚡ Zero-Copy is Critical</h3>
-Moving data through user space would limit throughput to ~100MB/s.
-</div>
+!!! quote "4. ⚡ Zero-Copy is Critical"
+    Moving data through user space would limit throughput to ~100MB/s.
 
-<div class="truth-box">
-<h3>5. 💾 Tiered Storage Changes Economics</h3>
-Separating hot and cold storage enables infinite retention at reasonable cost.
-</div>
+!!! quote "5. 💾 Tiered Storage Changes Economics"
+    Separating hot and cold storage enables infinite retention at reasonable cost.
 
 ## 🔗 Related Concepts & Deep Dives
 

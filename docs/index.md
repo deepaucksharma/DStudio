@@ -38,7 +38,7 @@ hide:
 
 ## Start Here
 
-<div class="feature-grid">
+<div class="grid" markdown>
   <a href="introduction/getting-started/" class="feature-card">
     <h3 class="feature-card__title">Getting Started</h3>
     <p class="feature-card__description">
@@ -70,21 +70,17 @@ hide:
 
 ## Choose Your Learning Path
 
-<div class="content-box decision-box">
-<h3>Find Your Starting Point</h3>
-
-| Your Background | Recommended Path | Time Investment |
-|-----------------|------------------|-----------------|
-| New Graduate | [Foundations First](introduction/getting-started/#path-1-foundation-builder-new-graduates) | 12 weeks |
-| Mid-Level Engineer | [Practical Patterns](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers) | 8 weeks |
-| Senior Engineer | [Advanced Topics](introduction/getting-started/#path-3-system-designer-senior-engineers) | 6 weeks |
-| Engineering Manager | [Strategic Overview](introduction/getting-started/#path-4-technical-leader-managersarchitects) | 4 weeks |
-
-</div>
+!!! tip "Find Your Starting Point"
+    | Your Background | Recommended Path | Time Investment |
+    |-----------------|------------------|-----------------|
+    | New Graduate | [Foundations First](introduction/getting-started/#path-1-foundation-builder-new-graduates) | 12 weeks |
+    | Mid-Level Engineer | [Practical Patterns](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers) | 8 weeks |
+    | Senior Engineer | [Advanced Topics](introduction/getting-started/#path-3-system-designer-senior-engineers) | 6 weeks |
+    | Engineering Manager | [Strategic Overview](introduction/getting-started/#path-4-technical-leader-managersarchitects) | 4 weeks |
 
 ## Why This Approach?
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Physics-Based</h3>
     <p class="card__description">
@@ -128,13 +124,10 @@ hide:
 
 ## Latest Updates
 
-<div class="content-box">
-
-- **New**: Interactive consistency calculator
-- **Updated**: Google system design interview guide
-- **Added**: 5 new case studies from 2024 outages
-
-</div>
+!!! note
+    - **New**: Interactive consistency calculator
+    - **Updated**: Google system design interview guide
+    - **Added**: 5 new case studies from 2024 outages
 
 ## Ready to Begin?
 

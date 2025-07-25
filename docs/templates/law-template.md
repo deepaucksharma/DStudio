@@ -9,16 +9,12 @@
 
 ## Quick Reference
 
-<div class="content-box axiom-box">
-<h3>The Law in Brief</h3>
+!!! abstract "The Law in Brief"
+    **Definition**: Clear, concise statement of the law.
 
-**Definition**: Clear, concise statement of the law.
+    **Formula**: `Mathematical representation if applicable`
 
-**Formula**: `Mathematical representation if applicable`
-
-**Implication**: What this means for system design.
-
-</div>
+    **Implication**: What this means for system design.
 
 ## Physical Foundation
 
@@ -39,16 +35,13 @@ graph LR
 
 ### Mathematical Proof
 
-<div class="content-box">
+!!! note
+    Given:
+    - Variable X = ...
+    - Constraint Y = ...
 
-Given:
-- Variable X = ...
-- Constraint Y = ...
-
-Therefore:
-- Result Z = ...
-
-</div>
+    Therefore:
+    - Result Z = ...
 
 ## System Implications
 
@@ -78,7 +71,7 @@ Therefore:
 
 ### Design Patterns That Address This Law
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/pattern-1/" class="pattern-card">
     <h3 class="pattern-card__title">Pattern 1</h3>
     <p class="pattern-card__description">How it addresses this law</p>
@@ -91,19 +84,15 @@ Therefore:
 
 ## Failure Scenarios
 
-<div class="content-box failure-vignette">
-<h3>When This Law is Violated</h3>
+!!! danger "When This Law is Violated"
+    **Scenario**: Company X ignored this law in 2020...
 
-**Scenario**: Company X ignored this law in 2020...
+    **Result**: 
+    - 6 hours of downtime
+    - $2M in losses
+    - Complete system redesign
 
-**Result**: 
-- 6 hours of downtime
-- $2M in losses
-- Complete system redesign
-
-**Lesson**: Always account for this fundamental constraint.
-
-</div>
+    **Lesson**: Always account for this fundamental constraint.
 
 ## Practical Examples
 
@@ -134,7 +123,7 @@ graph TD
 
 ### Scaling Limits
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <div class="card__title">Linear Scaling</div>
     <div class="card__description">Up to 100 nodes</div>
@@ -151,14 +140,10 @@ graph TD
 
 ## Key Takeaways
 
-<div class="content-box truth-box">
-<h3>Remember</h3>
-
-1. **Point 1**: Most important implication
-2. **Point 2**: Common misconception to avoid
-3. **Point 3**: Practical rule of thumb
-
-</div>
+!!! quote "Remember"
+    1. **Point 1**: Most important implication
+    2. **Point 2**: Common misconception to avoid
+    3. **Point 3**: Practical rule of thumb
 
 ## Related Concepts
 

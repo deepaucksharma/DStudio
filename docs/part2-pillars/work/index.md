@@ -821,43 +821,41 @@ Little's Law provides fundamental insights (see also [Quantitative Analysis: Que
 </table>
 </div>
 
-<div class="warning-box">
-<strong>Queue Saturation Effects:</strong>
-<div style="margin: 10px 0;">
-<table class="saturation-effects responsive-table">
-<tr>
-<td><strong>Utilization</strong></td>
-<td><strong>Wait Time</strong></td>
-<td><strong>Behavior</strong></td>
-</tr>
-<tr>
-<td>50%</td>
-<td>1x service time</td>
-<td>Responsive system</td>
-</tr>
-<tr>
-<td>75%</td>
-<td>3x service time</td>
-<td>Noticeable delays</td>
-</tr>
-<tr>
-<td>90%</td>
-<td>9x service time</td>
-<td>Severe queueing</td>
-</tr>
-<tr>
-<td>95%</td>
-<td>19x service time</td>
-<td>Near collapse</td>
-</tr>
-<tr>
-<td>99%</td>
-<td>99x service time</td>
-<td>System breakdown</td>
-</tr>
-</table>
-</div>
-</div>
+!!! warning "Queue Saturation Effects:"
+    <div style="margin: 10px 0;">
+    <table class="saturation-effects responsive-table">
+    <tr>
+    <td><strong>Utilization</strong></td>
+    <td><strong>Wait Time</strong></td>
+    <td><strong>Behavior</strong></td>
+    </tr>
+    <tr>
+    <td>50%</td>
+    <td>1x service time</td>
+    <td>Responsive system</td>
+    </tr>
+    <tr>
+    <td>75%</td>
+    <td>3x service time</td>
+    <td>Noticeable delays</td>
+    </tr>
+    <tr>
+    <td>90%</td>
+    <td>9x service time</td>
+    <td>Severe queueing</td>
+    </tr>
+    <tr>
+    <td>95%</td>
+    <td>19x service time</td>
+    <td>Near collapse</td>
+    </tr>
+    <tr>
+    <td>99%</td>
+    <td>99x service time</td>
+    <td>System breakdown</td>
+    </tr>
+    </table>
+    </div>
 ## Advanced Work Distribution Algorithms
 
 #### Consistent Hashing with Virtual Nodes

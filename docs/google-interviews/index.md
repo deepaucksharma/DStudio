@@ -124,56 +124,46 @@ graph TD
 
 ### Core Design Principles
 
-<div class="decision-box">
-<h3>1. Start Simple, Scale Incrementally</h3>
-<ul>
-<li>Begin with MVP (Minimum Viable Product)</li>
-<li>Add complexity only when justified by requirements</li>
-<li>Document trade-offs at each scaling step</li>
-</ul>
-</div>
+!!! tip "1. Start Simple, Scale Incrementally"
+    <ul>
+    <li>Begin with MVP (Minimum Viable Product)</li>
+    <li>Add complexity only when justified by requirements</li>
+    <li>Document trade-offs at each scaling step</li>
+    </ul>
 
-<div class="decision-box">
-<h3>2. Use Proven Patterns</h3>
-<ul>
-<li>Leverage existing Google infrastructure (Bigtable, Spanner, etc.)</li>
-<li>Apply well-tested distributed systems patterns</li>
-<li>Avoid reinventing the wheel</li>
-</ul>
-</div>
+!!! tip "2. Use Proven Patterns"
+    <ul>
+    <li>Leverage existing Google infrastructure (Bigtable, Spanner, etc.)</li>
+    <li>Apply well-tested distributed systems patterns</li>
+    <li>Avoid reinventing the wheel</li>
+    </ul>
 
-<div class="decision-box">
-<h3>3. Design for Failure</h3>
-<ul>
-<li>Assume everything will fail</li>
-<li>Build redundancy at every layer</li>
-<li>Plan for graceful degradation</li>
-</ul>
-</div>
+!!! tip "3. Design for Failure"
+    <ul>
+    <li>Assume everything will fail</li>
+    <li>Build redundancy at every layer</li>
+    <li>Plan for graceful degradation</li>
+    </ul>
 
-<div class="decision-box">
-<h3>4. Optimize for the Common Case</h3>
-<ul>
-<li>Make the typical path fast</li>
-<li>Handle edge cases separately</li>
-<li>Use caching aggressively</li>
-</ul>
-</div>
+!!! tip "4. Optimize for the Common Case"
+    <ul>
+    <li>Make the typical path fast</li>
+    <li>Handle edge cases separately</li>
+    <li>Use caching aggressively</li>
+    </ul>
 
 ## Scale Requirements at Google
 
-<div class="failure-vignette">
-<h3>🌍 Typical Google Scale</h3>
-<p><strong>When designing for Google, assume:</strong></p>
-<ul>
-<li><strong>Users</strong>: 1-2 billion globally</li>
-<li><strong>Requests</strong>: 100K-1M requests/second</li>
-<li><strong>Data</strong>: Petabytes to Exabytes</li>
-<li><strong>Latency</strong>: &lt;100ms p99</li>
-<li><strong>Availability</strong>: 99.99%+ (4 nines)</li>
-<li><strong>Geo-distribution</strong>: 20+ regions worldwide</li>
-</ul>
-</div>
+!!! danger "🌍 Typical Google Scale"
+    <p><strong>When designing for Google, assume:</strong></p>
+    <ul>
+    <li><strong>Users</strong>: 1-2 billion globally</li>
+    <li><strong>Requests</strong>: 100K-1M requests/second</li>
+    <li><strong>Data</strong>: Petabytes to Exabytes</li>
+    <li><strong>Latency</strong>: &lt;100ms p99</li>
+    <li><strong>Availability</strong>: 99.99%+ (4 nines)</li>
+    <li><strong>Geo-distribution</strong>: 20+ regions worldwide</li>
+    </ul>
 
 ## 🗺 Visual Preparation Roadmap
 
@@ -366,7 +356,7 @@ graph LR
 
 ### Most Frequently Asked Systems
 
-<div class="pattern-grid">
+<div class="grid" markdown>
 
 <div class="pattern-card">
 <div class="pattern-icon">📹</div>
@@ -502,40 +492,38 @@ graph LR
 
 ### What Google Interviewers Look For
 
-<div class="truth-box">
-<h3>Core Evaluation Dimensions</h3>
-<table class="responsive-table">
-  <thead>
-    <tr>
-<th>Dimension</th>
-<th>What They Assess</th>
-<th>How to Excel</th>
-</tr>
-  </thead>
-  <tbody>
-    <tr>
-<td data-label="Dimension"><strong>Problem Solving</strong></td>
-<td data-label="What They Assess">- Requirement gathering<br>- Trade-off analysis<br>- Iterative refinement</td>
-<td data-label="How to Excel">- Ask clarifying questions<br>- State assumptions clearly<br>- Consider multiple approaches</td>
-</tr>
-    <tr>
-<td data-label="Dimension"><strong>Technical Depth</strong></td>
-<td data-label="What They Assess">- System components<br>- Data flow<br>- Technology choices</td>
-<td data-label="How to Excel">- Know common patterns<br>- Understand Google tech<br>- Justify decisions</td>
-</tr>
-    <tr>
-<td data-label="Dimension"><strong>Scale Awareness</strong></td>
-<td data-label="What They Assess">- Capacity planning<br>- Performance optimization<br>- Cost considerations</td>
-<td data-label="How to Excel">- Do back-of-envelope math<br>- Identify bottlenecks<br>- Propose optimizations</td>
-</tr>
-    <tr>
-<td data-label="Dimension"><strong>Communication</strong></td>
-<td data-label="What They Assess">- Clarity of explanation<br>- Diagram quality<br>- Thought process</td>
-<td data-label="How to Excel">- Think out loud<br>- Draw clear diagrams<br>- Summarize decisions</td>
-</tr>
-  </tbody>
-</table>
-</div>
+!!! quote "Core Evaluation Dimensions"
+    <table class="responsive-table">
+      <thead>
+        <tr>
+    <th>Dimension</th>
+    <th>What They Assess</th>
+    <th>How to Excel</th>
+    </tr>
+      </thead>
+      <tbody>
+        <tr>
+    <td data-label="Dimension"><strong>Problem Solving</strong></td>
+    <td data-label="What They Assess">- Requirement gathering<br>- Trade-off analysis<br>- Iterative refinement</td>
+    <td data-label="How to Excel">- Ask clarifying questions<br>- State assumptions clearly<br>- Consider multiple approaches</td>
+    </tr>
+        <tr>
+    <td data-label="Dimension"><strong>Technical Depth</strong></td>
+    <td data-label="What They Assess">- System components<br>- Data flow<br>- Technology choices</td>
+    <td data-label="How to Excel">- Know common patterns<br>- Understand Google tech<br>- Justify decisions</td>
+    </tr>
+        <tr>
+    <td data-label="Dimension"><strong>Scale Awareness</strong></td>
+    <td data-label="What They Assess">- Capacity planning<br>- Performance optimization<br>- Cost considerations</td>
+    <td data-label="How to Excel">- Do back-of-envelope math<br>- Identify bottlenecks<br>- Propose optimizations</td>
+    </tr>
+        <tr>
+    <td data-label="Dimension"><strong>Communication</strong></td>
+    <td data-label="What They Assess">- Clarity of explanation<br>- Diagram quality<br>- Thought process</td>
+    <td data-label="How to Excel">- Think out loud<br>- Draw clear diagrams<br>- Summarize decisions</td>
+    </tr>
+      </tbody>
+    </table>
 
 ### Scoring Rubric (1-4 Scale)
 
@@ -649,34 +637,30 @@ flowchart TD
 
 ## Pro Tips
 
-<div class="decision-box">
-<h3>✅ Do's</h3>
-<ul>
-<li>Start with a simple, working design</li>
-<li>Use Google technologies when appropriate</li>
-<li>Draw clear, labeled diagrams</li>
-<li>Justify every design decision</li>
-<li>Consider cost implications</li>
-<li>Think about monitoring & debugging</li>
-</ul>
-</div>
+!!! tip "✅ Do's"
+    <ul>
+    <li>Start with a simple, working design</li>
+    <li>Use Google technologies when appropriate</li>
+    <li>Draw clear, labeled diagrams</li>
+    <li>Justify every design decision</li>
+    <li>Consider cost implications</li>
+    <li>Think about monitoring & debugging</li>
+    </ul>
 
-<div class="failure-vignette">
-<h3>❌ Don'ts</h3>
-<ul>
-<li>Don't over-engineer from the start</li>
-<li>Don't ignore latency requirements</li>
-<li>Don't forget about failure modes</li>
-<li>Don't skip capacity planning</li>
-<li>Don't use technologies you can't explain</li>
-<li>Don't forget about data consistency</li>
-</ul>
-</div>
+!!! danger "❌ Don'ts"
+    <ul>
+    <li>Don't over-engineer from the start</li>
+    <li>Don't ignore latency requirements</li>
+    <li>Don't forget about failure modes</li>
+    <li>Don't skip capacity planning</li>
+    <li>Don't use technologies you can't explain</li>
+    <li>Don't forget about data consistency</li>
+    </ul>
 
 ## 📚 Complete Interview Resources
 
 ### 🎓 Preparation Materials
-<div class="pattern-grid">
+<div class="grid" markdown>
 
 <a href="preparation-guide.md" class="pattern-card">
 <div class="pattern-icon">📖</div>
@@ -711,7 +695,7 @@ flowchart TD
 </div>
 
 ### 🚶 Example Walkthroughs
-<div class="pattern-grid">
+<div class="grid" markdown>
 
 <a href="youtube-walkthrough.md" class="pattern-card">
 <div class="pattern-icon">🎥</div>
@@ -734,7 +718,7 @@ flowchart TD
 </div>
 
 ### Quick References
-<div class="pattern-grid">
+<div class="grid" markdown>
 
 <a href="scale-cheatsheet.md" class="pattern-card">
 <div class="pattern-icon">📊</div>
@@ -757,7 +741,7 @@ flowchart TD
 </div>
 
 ### 🔗 Related Resources
-<div class="pattern-grid">
+<div class="grid" markdown>
 
 <a href="../patterns/index.md" class="pattern-card">
 <div class="pattern-icon">🏗️</div>
@@ -781,21 +765,19 @@ flowchart TD
 
 ## Quick Reference Card
 
-<div class="truth-box">
-<h3>Interview Day Checklist</h3>
-<ul>
-<li>☐ Clarify requirements (functional & non-functional)</li>
-<li>☐ Define success metrics (QPS, latency, availability)</li>
-<li>☐ Estimate scale (users, data, requests)</li>
-<li>☐ Draw high-level architecture</li>
-<li>☐ Design data model & API</li>
-<li>☐ Address scalability concerns</li>
-<li>☐ Discuss failure scenarios</li>
-<li>☐ Consider monitoring & alerting</li>
-<li>☐ Optimize for performance & cost</li>
-<li>☐ Summarize trade-offs made</li>
-</ul>
-</div>
+!!! quote "Interview Day Checklist"
+    <ul>
+    <li>☐ Clarify requirements (functional & non-functional)</li>
+    <li>☐ Define success metrics (QPS, latency, availability)</li>
+    <li>☐ Estimate scale (users, data, requests)</li>
+    <li>☐ Draw high-level architecture</li>
+    <li>☐ Design data model & API</li>
+    <li>☐ Address scalability concerns</li>
+    <li>☐ Discuss failure scenarios</li>
+    <li>☐ Consider monitoring & alerting</li>
+    <li>☐ Optimize for performance & cost</li>
+    <li>☐ Summarize trade-offs made</li>
+    </ul>
 
 ---
 

@@ -31,23 +31,19 @@ last_updated: 2025-07-25
 
 **How can we maintain a complete, auditable history of all changes while still providing the current state of our system?**
 
-<div class="content-box decision-box">
-<h3>When to Use This Pattern</h3>
-
-| Scenario | Use Event Sourcing | Alternative |
-|----------|-------------------|-------------|
-| Audit trail required | ✅ Yes | Simple logging |
-| Complex domain with many state changes | ✅ Yes | Traditional CRUD |
-| Time-travel debugging needed | ✅ Yes | Snapshot backups |
-| Compliance regulations | ✅ Yes | Audit tables |
-| Event-driven architecture | ✅ Yes | Message queues |
-| High-frequency writes | ✅ Yes | Write-optimized DB |
-| Simple CRUD operations | ❌ No | Traditional database |
-| Storage cost constraints | ❌ No | Compressed logging |
-| Real-time aggregations | ❌ No | Materialized views |
-| Small development team | ❌ No | Simpler architecture |
-
-</div>
+!!! tip "When to Use This Pattern"
+    | Scenario | Use Event Sourcing | Alternative |
+    |----------|-------------------|-------------|
+    | Audit trail required | ✅ Yes | Simple logging |
+    | Complex domain with many state changes | ✅ Yes | Traditional CRUD |
+    | Time-travel debugging needed | ✅ Yes | Snapshot backups |
+    | Compliance regulations | ✅ Yes | Audit tables |
+    | Event-driven architecture | ✅ Yes | Message queues |
+    | High-frequency writes | ✅ Yes | Write-optimized DB |
+    | Simple CRUD operations | ❌ No | Traditional database |
+    | Storage cost constraints | ❌ No | Compressed logging |
+    | Real-time aggregations | ❌ No | Materialized views |
+    | Small development team | ❌ No | Simpler architecture |
 
 ## Solution Architecture
 
@@ -128,7 +124,7 @@ graph TB
 
 ### Key Metrics
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <div class="card__title">Event Write Latency</div>
     <div class="card__description">P99: < 100ms</div>
@@ -149,28 +145,20 @@ graph TB
 
 ## Real-World Examples
 
-<div class="content-box axiom-box">
-<h3>Production Implementation</h3>
-
-- **Walmart**: Uses Event Sourcing for inventory tracking across 4,700+ stores, processing 1M+ events/sec with complete audit trail
-- **Capital One**: Implemented Event Sourcing for financial transactions, enabling real-time fraud detection and regulatory compliance
-- **Klarna**: Applied Event Sourcing to payment processing, supporting time-travel debugging for transaction disputes
-- **ING Bank**: Uses Event Sourcing for account management, providing complete transaction history for regulatory reporting
-
-</div>
+!!! abstract "Production Implementation"
+    - **Walmart**: Uses Event Sourcing for inventory tracking across 4,700+ stores, processing 1M+ events/sec with complete audit trail
+    - **Capital One**: Implemented Event Sourcing for financial transactions, enabling real-time fraud detection and regulatory compliance
+    - **Klarna**: Applied Event Sourcing to payment processing, supporting time-travel debugging for transaction disputes
+    - **ING Bank**: Uses Event Sourcing for account management, providing complete transaction history for regulatory reporting
 
 ## Common Pitfalls
 
-<div class="content-box failure-vignette">
-<h3>What Can Go Wrong</h3>
-
-1. **Mutable Events**: Modifying historical events breaks replay and destroys audit trail. Events must be immutable - use compensating events for corrections.
-2. **Missing Event Versioning**: Schema changes without versioning break deserialization of old events. Implement event versioning and upcasting from the start.
-3. **Unbounded Growth**: Event stores grow indefinitely without archival strategy. Implement snapshots and event archival policies.
-4. **Complex Queries**: Direct queries against event store are inefficient. Use projections for read models and complex queries.
-5. **Snapshot Corruption**: Corrupted snapshots require full event replay. Validate snapshots and maintain multiple checkpoint strategies.
-
-</div>
+!!! danger "What Can Go Wrong"
+    1. **Mutable Events**: Modifying historical events breaks replay and destroys audit trail. Events must be immutable - use compensating events for corrections.
+    2. **Missing Event Versioning**: Schema changes without versioning break deserialization of old events. Implement event versioning and upcasting from the start.
+    3. **Unbounded Growth**: Event stores grow indefinitely without archival strategy. Implement snapshots and event archival policies.
+    4. **Complex Queries**: Direct queries against event store are inefficient. Use projections for read models and complex queries.
+    5. **Snapshot Corruption**: Corrupted snapshots require full event replay. Validate snapshots and maintain multiple checkpoint strategies.
 
 ## Related Patterns
 

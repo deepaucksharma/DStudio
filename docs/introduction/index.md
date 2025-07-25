@@ -5,17 +5,14 @@ description: "A physics-first approach to understanding distributed systems"
 
 # About This Compendium
 
-<div class="truth-box">
-<h3>Our Philosophy</h3>
+!!! quote "Our Philosophy"
+    This compendium teaches distributed systems from first principles—starting with physics and mathematics rather than specific technologies.
 
-This compendium teaches distributed systems from first principles—starting with physics and mathematics rather than specific technologies.
-
-**Why?** Technologies change. Physics doesn't.
-</div>
+    **Why?** Technologies change. Physics doesn't.
 
 ## What You'll Learn
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">7 Fundamental Laws</h3>
     <p class="card__description">
@@ -47,7 +44,7 @@ This compendium teaches distributed systems from first principles—starting wit
 
 ## Who This Is For
 
-<div class="feature-grid">
+<div class="grid" markdown>
   <div class="feature-card">
     <h3 class="feature-card__title">Engineers</h3>
     <p class="feature-card__description">
@@ -79,17 +76,13 @@ This compendium teaches distributed systems from first principles—starting wit
 
 ## How to Use This Resource
 
-<div class="decision-box">
-<h3>Choose Your Approach</h3>
-
-| If You Want | Start Here | Why |
-|-------------|------------|-----|
-| **Deep Understanding** | [7 Laws](../part1-axioms/) | Build from fundamental constraints |
-| **Solve Immediate Problems** | [Patterns](../patterns/) | Find proven solutions |
-| **Capacity Planning** | [Quantitative Tools](../quantitative/) | Mathematical analysis |
-| **Learn from Failures** | [Case Studies](../case-studies/) | Real-world examples |
-
-</div>
+!!! tip "Choose Your Approach"
+    | If You Want | Start Here | Why |
+    |-------------|------------|-----|
+    | **Deep Understanding** | [7 Laws](../part1-axioms/) | Build from fundamental constraints |
+    | **Solve Immediate Problems** | [Patterns](../patterns/) | Find proven solutions |
+    | **Capacity Planning** | [Quantitative Tools](../quantitative/) | Mathematical analysis |
+    | **Learn from Failures** | [Case Studies](../case-studies/) | Real-world examples |
 
 ---
 

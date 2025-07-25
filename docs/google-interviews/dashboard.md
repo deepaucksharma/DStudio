@@ -100,7 +100,7 @@ graph TD
 
 ### Most Important Patterns to Know
 
-<div class="pattern-grid">
+<div class="grid" markdown>
 <div class="pattern-card">
 <h4>🏗️ Infrastructure</h4>
 <ul>
@@ -258,97 +258,6 @@ Track your progress with these benchmarks:
 
 ---
 
-<div class="tip-box">
-<h3>💡 Pro Tip</h3>
-<p>The key to Google interviews isn't memorizing solutions—it's understanding the principles behind Google's approach to building planetary-scale systems. Focus on the "why" behind each design decision.</p>
-</div>
+!!! tip "Pro Tip"
+    The key to Google interviews isn't memorizing solutions—it's understanding the principles behind Google's approach to building planetary-scale systems. Focus on the "why" behind each design decision.
 
-<style>
-.dashboard-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.stat-box {
-    background: linear-gradient(135deg, #4285f4 0%, #1a73e8 100%);
-    color: white;
-    padding: 2rem;
-    border-radius: 12px;
-    text-align: center;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.stat-box h3 {
-    font-size: 2.5rem;
-    margin: 0;
-}
-
-.stat-box p {
-    margin: 0.5rem 0 0 0;
-    opacity: 0.9;
-}
-
-.pattern-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
-    margin: 1.5rem 0;
-}
-
-.pattern-card {
-    background: #f8f9fa;
-    border: 1px solid #e0e0e0;
-    border-radius: 8px;
-    padding: 1.5rem;
-}
-
-.pattern-card h4 {
-    margin-top: 0;
-    color: #1a73e8;
-}
-
-.pattern-card ul {
-    margin: 0;
-    padding-left: 1.5rem;
-}
-
-.action-cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    gap: 1.5rem;
-    margin: 2rem 0;
-}
-
-.action-card {
-    background: white;
-    border: 2px solid #e0e0e0;
-    border-radius: 12px;
-    padding: 1.5rem;
-    transition: all 0.3s ease;
-}
-
-.action-card:hover {
-    border-color: #4285f4;
-    box-shadow: 0 4px 12px rgba(66, 133, 244, 0.1);
-}
-
-.action-card h3 {
-    margin-top: 0;
-    color: #1a73e8;
-}
-
-.tip-box {
-    background: linear-gradient(135deg, #f8f9fa 0%, #e8f0fe 100%);
-    border-left: 4px solid #4285f4;
-    border-radius: 8px;
-    padding: 1.5rem;
-    margin: 2rem 0;
-}
-
-.tip-box h3 {
-    margin-top: 0;
-    color: #1a73e8;
-}
-</style>

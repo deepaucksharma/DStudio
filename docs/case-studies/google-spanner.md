@@ -11,18 +11,14 @@ last_updated: 2025-07-25
 
 # Google Spanner: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | Billions of users globally |
-| **Throughput** | Millions of transactions/second |
-| **Data Volume** | Exabytes across datacenters |
-| **Availability** | 99.999% uptime SLA |
-| **Team Size** | 500+ engineers |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | Billions of users globally |
+    | **Throughput** | Millions of transactions/second |
+    | **Data Volume** | Exabytes across datacenters |
+    | **Availability** | 99.999% uptime SLA |
+    | **Team Size** | 500+ engineers |
 
 ## Executive Summary
 
@@ -32,7 +28,7 @@ Google Spanner revolutionized distributed database design by achieving something
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">Provide globally consistent database for AdWords billing system requiring ACID guarantees at planetary scale</p>
@@ -175,15 +171,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **TrueTime API**: GPS and atomic clock synchronization providing global time ordering
-2. **Multi-Version Concurrency Control**: Timestamp-based MVCC for lock-free reads
-3. **Hierarchical Partitioning**: Directory-based sharding with automatic rebalancing
-4. **Paxos for Consensus**: Multi-region Paxos groups for strong consistency guarantees
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **TrueTime API**: GPS and atomic clock synchronization providing global time ordering
+    2. **Multi-Version Concurrency Control**: Timestamp-based MVCC for lock-free reads
+    3. **Hierarchical Partitioning**: Directory-based sharding with automatic rebalancing
+    4. **Paxos for Consensus**: Multi-region Paxos groups for strong consistency guarantees
 
 ### Scaling Strategy
 
@@ -205,34 +197,30 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: 2011 Datacenter Network Partition</h3>
+!!! danger "Major Incident: 2011 Datacenter Network Partition"
+    **What Happened**: Network partition isolated a major Google datacenter, testing Spanner's consensus mechanisms under extreme conditions during early deployment.
 
-**What Happened**: Network partition isolated a major Google datacenter, testing Spanner's consensus mechanisms under extreme conditions during early deployment.
+    **Root Cause**: 
+    - Fiber optic cable cuts isolating entire datacenter
+    - Majority of Paxos groups lost quorum simultaneously
+    - Clock skew issues during partition recovery
 
-**Root Cause**: 
-- Fiber optic cable cuts isolating entire datacenter
-- Majority of Paxos groups lost quorum simultaneously
-- Clock skew issues during partition recovery
+    **Impact**: 
+    - 4 hours of reduced availability for affected services
+    - Some transactions blocked waiting for consensus
+    - AdWords billing temporarily unavailable in affected regions
+    - Demonstrated resilience but revealed edge cases in recovery
 
-**Impact**: 
-- 4 hours of reduced availability for affected services
-- Some transactions blocked waiting for consensus
-- AdWords billing temporarily unavailable in affected regions
-- Demonstrated resilience but revealed edge cases in recovery
-
-**Lessons Learned**:
-1. **Quorum placement**: Better geographic distribution of Paxos group replicas
-2. **Clock synchronization**: Enhanced TrueTime uncertainty handling during partitions
-3. **Graceful degradation**: Improved read-only operation during consensus failures
-
-</div>
+    **Lessons Learned**:
+    1. **Quorum placement**: Better geographic distribution of Paxos group replicas
+    2. **Clock synchronization**: Enhanced TrueTime uncertainty handling during partitions
+    3. **Graceful degradation**: Improved read-only operation during consensus failures
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Read Latency</h3>
     <div class="stat-number">5-10ms</div>
@@ -267,14 +255,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: Weekly rolling updates across global zones
-**Rollout Strategy**: Gradual zone-by-zone deployment with automated rollback
-**Rollback Time**: < 30 minutes with consistent state preservation
-**Schema Changes**: Online schema migrations with backward compatibility
-
-</div>
+!!! note
+    **Deployment Frequency**: Weekly rolling updates across global zones
+    **Rollout Strategy**: Gradual zone-by-zone deployment with automated rollback
+    **Rollback Time**: < 30 minutes with consistent state preservation
+    **Schema Changes**: Online schema migrations with backward compatibility
 
 ## Key Innovations
 
@@ -284,7 +269,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/consensus/" class="pattern-card">
     <h3 class="pattern-card__title">Multi-Paxos</h3>
     <p class="pattern-card__description">Consensus across global replicas with leader election</p>
@@ -305,15 +290,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: Use for systems requiring global ACID transactions with strong consistency (financial, billing systems)
-2. **When to avoid**: Don't use for systems that can tolerate eventual consistency or don't need global distribution
-3. **Cost considerations**: Expect 5-10x infrastructure cost compared to eventually consistent systems
-4. **Team requirements**: Need deep expertise in distributed systems, consensus algorithms, and time synchronization
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: Use for systems requiring global ACID transactions with strong consistency (financial, billing systems)
+    2. **When to avoid**: Don't use for systems that can tolerate eventual consistency or don't need global distribution
+    3. **Cost considerations**: Expect 5-10x infrastructure cost compared to eventually consistent systems
+    4. **Team requirements**: Need deep expertise in distributed systems, consensus algorithms, and time synchronization
 
 ## Further Reading
 

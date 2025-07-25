@@ -74,7 +74,7 @@ flowchart LR
 
 ### Core Operations Visualized
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>📝 Local Event</h4>
 
@@ -402,7 +402,7 @@ graph LR
 
 ### 2. Causal Context Compression
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>🗜️ Delta Encoding</h4>
 
@@ -464,7 +464,7 @@ graph TD
 
 ### Monitoring Dashboard
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>📊 Vector Size</h4>
 
@@ -545,7 +545,7 @@ graph TD
 
 ### Real Implementation Patterns
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>📝 Key-Value Store</h4>
 

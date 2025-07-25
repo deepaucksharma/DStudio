@@ -1,17 +1,13 @@
 # System Name: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | X million users |
-| **Throughput** | Y requests/second |
-| **Data Volume** | Z petabytes |
-| **Availability** | 99.XX% |
-| **Team Size** | N engineers |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | X million users |
+    | **Throughput** | Y requests/second |
+    | **Data Volume** | Z petabytes |
+    | **Availability** | 99.XX% |
+    | **Team Size** | N engineers |
 
 ## Executive Summary
 
@@ -21,7 +17,7 @@ Brief overview of the system, its purpose, and key architectural decisions. Focu
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">What business problem does this solve?</p>
@@ -97,15 +93,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **Sharding Strategy**: How data is partitioned
-2. **Replication Model**: Master-slave vs multi-master
-3. **Consistency Guarantees**: Strong vs eventual
-4. **Caching Layers**: What's cached and where
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **Sharding Strategy**: How data is partitioned
+    2. **Replication Model**: Master-slave vs multi-master
+    3. **Consistency Guarantees**: Strong vs eventual
+    4. **Caching Layers**: What's cached and where
 
 ### Scaling Strategy
 
@@ -120,30 +112,26 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: Date</h3>
+!!! danger "Major Incident: Date"
+    **What Happened**: Description of the failure
 
-**What Happened**: Description of the failure
+    **Root Cause**: Technical explanation
 
-**Root Cause**: Technical explanation
+    **Impact**: 
+    - X hours downtime
+    - Y% of users affected
+    - $Z in losses
 
-**Impact**: 
-- X hours downtime
-- Y% of users affected
-- $Z in losses
-
-**Lessons Learned**:
-1. Lesson 1
-2. Lesson 2
-3. Lesson 3
-
-</div>
+    **Lessons Learned**:
+    1. Lesson 1
+    2. Lesson 2
+    3. Lesson 3
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">P50 Latency</h3>
     <div class="stat-number">XXms</div>
@@ -178,14 +166,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: X times/day
-**Rollout Strategy**: Canary → 1% → 10% → 50% → 100%
-**Rollback Time**: < Y minutes
-**Feature Flags**: Used for all major changes
-
-</div>
+!!! note
+    **Deployment Frequency**: X times/day
+    **Rollout Strategy**: Canary → 1% → 10% → 50% → 100%
+    **Rollback Time**: < Y minutes
+    **Feature Flags**: Used for all major changes
 
 ## Key Innovations
 
@@ -195,7 +180,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/circuit-breaker/" class="pattern-card">
     <h3 class="pattern-card__title">Circuit Breaker</h3>
     <p class="pattern-card__description">Prevents cascade failures</p>
@@ -212,15 +197,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: These patterns work well when...
-2. **When to avoid**: Don't use this approach if...
-3. **Cost considerations**: Expect to invest in...
-4. **Team requirements**: You'll need expertise in...
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: These patterns work well when...
+    2. **When to avoid**: Don't use this approach if...
+    3. **Cost considerations**: Expect to invest in...
+    4. **Team requirements**: You'll need expertise in...
 
 ## Further Reading
 

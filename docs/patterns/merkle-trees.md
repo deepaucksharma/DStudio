@@ -88,7 +88,7 @@ flowchart TB
 
 ### Visual Hash Propagation
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>🔄 Change Detection</h4>
 
@@ -281,7 +281,7 @@ graph TB
 
 ### Visual Tree Construction Strategies
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>🌳 Binary Merkle Tree</h4>
 
@@ -454,7 +454,7 @@ graph TD
 
 ### Optimization Strategies
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>⚡ Caching Strategies</h4>
 
@@ -539,7 +539,7 @@ graph TB
 
 ### Monitoring and Metrics
 
-<div class="grid cards">
+<div class="grid">
 <div class="card">
 <h4>📊 Tree Statistics</h4>
 

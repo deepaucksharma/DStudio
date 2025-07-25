@@ -28,7 +28,7 @@ This guide explains the minimal design system implemented to fix UI/UX issues wh
 Use for organizing related content in a grid:
 
 ```markdown
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Title</h3>
     <p class="card__description">Description</p>

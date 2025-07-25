@@ -11,18 +11,14 @@ last_updated: 2025-07-25
 
 # Redis Architecture: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | 1M+ operations/second |
-| **Throughput** | 100k concurrent connections |
-| **Data Volume** | TB-scale datasets |
-| **Availability** | 99.9% with replication |
-| **Team Size** | 50+ core contributors |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | 1M+ operations/second |
+    | **Throughput** | 100k concurrent connections |
+    | **Data Volume** | TB-scale datasets |
+    | **Availability** | 99.9% with replication |
+    | **Team Size** | 50+ core contributors |
 
 ## Executive Summary
 
@@ -32,7 +28,7 @@ Redis achieves extraordinary performance through radical architectural simplicit
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">Provide ultra-low latency data structure operations for caching and real-time applications</p>
@@ -167,15 +163,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **Single-Threaded Event Loop**: Eliminates locking overhead, provides predictable performance
-2. **Custom Data Structures**: Optimized memory layouts for strings, lists, sets, hashes, sorted sets
-3. **Memory-First Design**: All data stored in RAM with optional persistence to disk
-4. **Consistent Hashing**: Redis Cluster uses hash slots for automatic sharding
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **Single-Threaded Event Loop**: Eliminates locking overhead, provides predictable performance
+    2. **Custom Data Structures**: Optimized memory layouts for strings, lists, sets, hashes, sorted sets
+    3. **Memory-First Design**: All data stored in RAM with optional persistence to disk
+    4. **Consistent Hashing**: Redis Cluster uses hash slots for automatic sharding
 
 ### Scaling Strategy
 
@@ -197,34 +189,30 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: Instagram Redis Memory Exhaustion 2015</h3>
+!!! danger "Major Incident: Instagram Redis Memory Exhaustion 2015"
+    **What Happened**: Redis instances ran out of memory during a traffic spike, causing widespread cache misses and database overload.
 
-**What Happened**: Redis instances ran out of memory during a traffic spike, causing widespread cache misses and database overload.
+    **Root Cause**: 
+    - Exponential growth in user activity without corresponding memory scaling
+    - No automated eviction policies configured
+    - Insufficient monitoring of memory usage patterns
 
-**Root Cause**: 
-- Exponential growth in user activity without corresponding memory scaling
-- No automated eviction policies configured
-- Insufficient monitoring of memory usage patterns
+    **Impact**: 
+    - 2 hours of degraded performance
+    - 300% increase in database load
+    - Multiple service timeouts and user experience issues
+    - Cache hit rate dropped from 95% to 30%
 
-**Impact**: 
-- 2 hours of degraded performance
-- 300% increase in database load
-- Multiple service timeouts and user experience issues
-- Cache hit rate dropped from 95% to 30%
-
-**Lessons Learned**:
-1. **Memory management**: Implement LRU eviction policies and memory monitoring
-2. **Capacity planning**: Proactive scaling based on usage trends
-3. **Circuit breakers**: Protect downstream databases from cache miss storms
-
-</div>
+    **Lessons Learned**:
+    1. **Memory management**: Implement LRU eviction policies and memory monitoring
+    2. **Capacity planning**: Proactive scaling based on usage trends
+    3. **Circuit breakers**: Protect downstream databases from cache miss storms
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">GET Operation</h3>
     <div class="stat-number">0.1ms</div>
@@ -259,14 +247,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: Rolling updates with replica promotion
-**Rollout Strategy**: Blue-green deployment with traffic shifting
-**Rollback Time**: < 2 minutes with automated failover
-**Configuration Management**: Redis configuration files with hot reloading
-
-</div>
+!!! note
+    **Deployment Frequency**: Rolling updates with replica promotion
+    **Rollout Strategy**: Blue-green deployment with traffic shifting
+    **Rollback Time**: < 2 minutes with automated failover
+    **Configuration Management**: Redis configuration files with hot reloading
 
 ## Key Innovations
 
@@ -276,7 +261,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/caching/" class="pattern-card">
     <h3 class="pattern-card__title">Caching</h3>
     <p class="pattern-card__description">In-memory data storage for fast access patterns</p>
@@ -297,15 +282,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: Use for caching, session storage, real-time analytics, and pub-sub messaging
-2. **When to avoid**: Don't use as primary database for complex queries or when strong consistency is required
-3. **Cost considerations**: Memory is expensive but performance gains justify cost for hot data
-4. **Team requirements**: Need expertise in memory management, Redis operations, and caching strategies
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: Use for caching, session storage, real-time analytics, and pub-sub messaging
+    2. **When to avoid**: Don't use as primary database for complex queries or when strong consistency is required
+    3. **Cost considerations**: Memory is expensive but performance gains justify cost for hot data
+    4. **Team requirements**: Need expertise in memory management, Redis operations, and caching strategies
 
 ## Further Reading
 

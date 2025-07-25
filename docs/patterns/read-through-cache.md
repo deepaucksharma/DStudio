@@ -58,16 +58,13 @@ sequenceDiagram
 
 ### Key Characteristics
 
-<div class="decision-box">
-
-**Read-Through Pattern**
-- **Transparency**: Application doesn't manage cache loading
-- **Simplicity**: Single point of data access
-- **Consistency**: Loader ensures consistent data format
-- **Automatic**: Cache population happens transparently
-- **Use Case**: Reference data, configuration, catalogs
-
-</div>
+!!! tip
+    **Read-Through Pattern**
+    - **Transparency**: Application doesn't manage cache loading
+    - **Simplicity**: Single point of data access
+    - **Consistency**: Loader ensures consistent data format
+    - **Automatic**: Cache population happens transparently
+    - **Use Case**: Reference data, configuration, catalogs
 
 ---
 
@@ -778,31 +775,28 @@ flowchart TD
 
 ## Best Practices
 
-<div class="truth-box">
+!!! quote
+    **Read-Through Golden Rules**
 
-**Read-Through Golden Rules**
+    1. **Design Loaders Carefully**
+       - Keep loaders stateless and reusable
+       - Implement efficient batch loading
+       - Handle partial failures gracefully
 
-1. **Design Loaders Carefully**
-   - Keep loaders stateless and reusable
-   - Implement efficient batch loading
-   - Handle partial failures gracefully
+    2. **Set Appropriate TTLs**
+       - Consider data volatility
+       - Use different TTLs for different namespaces
+       - Implement TTL hierarchies
 
-2. **Set Appropriate TTLs**
-   - Consider data volatility
-   - Use different TTLs for different namespaces
-   - Implement TTL hierarchies
+    3. **Monitor Loader Health**
+       - Track loader latencies
+       - Alert on high error rates
+       - Monitor cache effectiveness
 
-3. **Monitor Loader Health**
-   - Track loader latencies
-   - Alert on high error rates
-   - Monitor cache effectiveness
-
-4. **Plan for Failures**
-   - Implement timeouts on loaders
-   - Use circuit breakers for external services
-   - Provide fallback mechanisms
-
-</div>
+    4. **Plan for Failures**
+       - Implement timeouts on loaders
+       - Use circuit breakers for external services
+       - Provide fallback mechanisms
 
 ### Real-World Example: Configuration Service
 

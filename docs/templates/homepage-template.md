@@ -30,7 +30,7 @@
 
 ## Start Here
 
-<div class="feature-grid">
+<div class="grid" markdown>
   <a href="introduction/getting-started/" class="feature-card">
     <div class="feature-card__icon">🚀</div>
     <h3 class="feature-card__title">Getting Started</h3>
@@ -66,21 +66,17 @@
 
 ## Choose Your Learning Path
 
-<div class="content-box decision-box">
-<h3>Find Your Starting Point</h3>
-
-| Your Background | Recommended Path | Time Investment |
-|-----------------|------------------|-----------------|
-| New Graduate | [Foundations First](/learning-paths/new-graduate/) | 12 weeks |
-| Mid-Level Engineer | [Practical Patterns](/learning-paths/mid-level/) | 8 weeks |
-| Senior Engineer | [Advanced Topics](/learning-paths/senior/) | 6 weeks |
-| Engineering Manager | [Strategic Overview](/learning-paths/manager/) | 4 weeks |
-
-</div>
+!!! tip "Find Your Starting Point"
+    | Your Background | Recommended Path | Time Investment |
+    |-----------------|------------------|-----------------|
+    | New Graduate | [Foundations First](/learning-paths/new-graduate/) | 12 weeks |
+    | Mid-Level Engineer | [Practical Patterns](/learning-paths/mid-level/) | 8 weeks |
+    | Senior Engineer | [Advanced Topics](/learning-paths/senior/) | 6 weeks |
+    | Engineering Manager | [Strategic Overview](/learning-paths/manager/) | 4 weeks |
 
 ## Why This Approach?
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Physics-Based</h3>
     <p class="card__description">
@@ -124,13 +120,10 @@
 
 ## Latest Updates
 
-<div class="content-box">
-
-- **New**: Interactive consistency calculator
-- **Updated**: Google system design interview guide
-- **Added**: 5 new case studies from 2024 outages
-
-</div>
+!!! note
+    - **New**: Interactive consistency calculator
+    - **Updated**: Google system design interview guide
+    - **Added**: 5 new case studies from 2024 outages
 
 ## Ready to Begin?
 

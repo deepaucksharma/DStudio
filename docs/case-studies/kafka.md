@@ -12,18 +12,14 @@ last_updated: 2025-07-25
 
 # Apache Kafka: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | Trillions of events/day |
-| **Throughput** | 250 MB/s per broker |
-| **Data Volume** | Petabytes in production |
-| **Availability** | 99.95% typical uptime |
-| **Team Size** | 100+ contributors at LinkedIn |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | Trillions of events/day |
+    | **Throughput** | 250 MB/s per broker |
+    | **Data Volume** | Petabytes in production |
+    | **Availability** | 99.95% typical uptime |
+    | **Team Size** | 100+ contributors at LinkedIn |
 
 ## Executive Summary
 
@@ -33,7 +29,7 @@ Apache Kafka transformed distributed data movement by treating data as an immuta
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">Replace point-to-point integrations with unified event streaming platform</p>
@@ -164,15 +160,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **Append-Only Log**: Immutable message storage providing total ordering within partitions
-2. **Pull-Based Consumers**: Consumer-controlled backpressure and batching
-3. **OS Page Cache**: Leverages operating system for caching instead of application-level cache
-4. **Leader-Follower Replication**: ISR protocol ensures data durability with minimal latency impact
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **Append-Only Log**: Immutable message storage providing total ordering within partitions
+    2. **Pull-Based Consumers**: Consumer-controlled backpressure and batching
+    3. **OS Page Cache**: Leverages operating system for caching instead of application-level cache
+    4. **Leader-Follower Replication**: ISR protocol ensures data durability with minimal latency impact
 
 ### Scaling Strategy
 
@@ -194,34 +186,30 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: LinkedIn Kafka Outage 2013</h3>
+!!! danger "Major Incident: LinkedIn Kafka Outage 2013"
+    **What Happened**: ZooKeeper split-brain scenario caused multiple brokers to claim leadership for the same partitions, leading to data inconsistency and consumer confusion.
 
-**What Happened**: ZooKeeper split-brain scenario caused multiple brokers to claim leadership for the same partitions, leading to data inconsistency and consumer confusion.
+    **Root Cause**: 
+    - Network partition isolated ZooKeeper ensemble
+    - Insufficient monitoring of ZooKeeper health
+    - Aggressive session timeouts caused premature failovers
 
-**Root Cause**: 
-- Network partition isolated ZooKeeper ensemble
-- Insufficient monitoring of ZooKeeper health
-- Aggressive session timeouts caused premature failovers
+    **Impact**: 
+    - 3 hours of intermittent data loss
+    - Consumer lag spikes across all applications
+    - Duplicate message delivery to downstream systems
+    - Multiple engineering teams affected
 
-**Impact**: 
-- 3 hours of intermittent data loss
-- Consumer lag spikes across all applications
-- Duplicate message delivery to downstream systems
-- Multiple engineering teams affected
-
-**Lessons Learned**:
-1. **ZooKeeper is critical**: Implement comprehensive ZooKeeper monitoring and alerting
-2. **Split-brain detection**: Add fencing mechanisms to prevent multiple leaders
-3. **Graceful degradation**: Implement circuit breakers for downstream dependencies
-
-</div>
+    **Lessons Learned**:
+    1. **ZooKeeper is critical**: Implement comprehensive ZooKeeper monitoring and alerting
+    2. **Split-brain detection**: Add fencing mechanisms to prevent multiple leaders
+    3. **Graceful degradation**: Implement circuit breakers for downstream dependencies
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">P50 Latency</h3>
     <div class="stat-number">2ms</div>
@@ -256,14 +244,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: Weekly rolling updates across broker fleet
-**Rollout Strategy**: Rolling deployment with leadership migration
-**Rollback Time**: < 15 minutes with automated broker restart
-**Schema Evolution**: Backward compatible schema changes with Confluent Schema Registry
-
-</div>
+!!! note
+    **Deployment Frequency**: Weekly rolling updates across broker fleet
+    **Rollout Strategy**: Rolling deployment with leadership migration
+    **Rollback Time**: < 15 minutes with automated broker restart
+    **Schema Evolution**: Backward compatible schema changes with Confluent Schema Registry
 
 ## Key Innovations
 
@@ -273,7 +258,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/leader-follower/" class="pattern-card">
     <h3 class="pattern-card__title">Leader-Follower</h3>
     <p class="pattern-card__description">ISR protocol for partition replication and failover</p>
@@ -294,15 +279,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: Use for event streaming, log aggregation, and decoupling systems with high-throughput requirements
-2. **When to avoid**: Don't use for request-response patterns, small message volumes, or when strong global ordering is required
-3. **Cost considerations**: Expect 3x storage overhead due to replication, but gain operational simplicity and durability
-4. **Team requirements**: Need expertise in JVM tuning, ZooKeeper operations, and stream processing concepts
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: Use for event streaming, log aggregation, and decoupling systems with high-throughput requirements
+    2. **When to avoid**: Don't use for request-response patterns, small message volumes, or when strong global ordering is required
+    3. **Cost considerations**: Expect 3x storage overhead due to replication, but gain operational simplicity and durability
+    4. **Team requirements**: Need expertise in JVM tuning, ZooKeeper operations, and stream processing concepts
 
 ## Further Reading
 

@@ -281,27 +281,24 @@ graph TD
 
 ## Decision Framework
 
-<div class="decision-box">
-<h3>🎯 Capacity Decision Framework</h3>
+!!! tip "🎯 Capacity Decision Framework"
+    **When to Scale Up:**
+    - Sustained utilization > 70% for 15+ minutes
+    - Response time degradation > 20%
+    - Queue depth growing unbounded
+    - Error rate increasing
 
-**When to Scale Up:**
-- Sustained utilization > 70% for 15+ minutes
-- Response time degradation > 20%
-- Queue depth growing unbounded
-- Error rate increasing
+    **When to Scale Out:**
+    - Single resource maxed (CPU, memory, network)
+    - Need geographic distribution
+    - Require fault isolation
+    - Cost-effective at scale
 
-**When to Scale Out:**
-- Single resource maxed (CPU, memory, network)
-- Need geographic distribution
-- Require fault isolation
-- Cost-effective at scale
-
-**When to Optimize:**
-- Scaling costs exceed business value
-- Hit fundamental limits (speed of light)
-- Complexity overwhelming team
-- Diminishing returns from hardware
-</div>
+    **When to Optimize:**
+    - Scaling costs exceed business value
+    - Hit fundamental limits (speed of light)
+    - Complexity overwhelming team
+    - Diminishing returns from hardware
 
 ## Capacity Arithmetic
 
@@ -373,18 +370,15 @@ iotop # Watch disk
 
 ## Counter-Intuitive Truth
 
-<div class="truth-box">
-<h3>💭 The 70% Rule</h3>
+!!! quote "💭 The 70% Rule"
+    Systems behave predictably up to ~70% utilization, then chaos emerges:
 
-Systems behave predictably up to ~70% utilization, then chaos emerges:
+    - **0-50%**: Linear performance, predictable behavior
+    - **50-70%**: Slight degradation, manageable variance
+    - **70-85%**: Non-linear degradation, queuing effects dominate
+    - **85-100%**: Catastrophic failure, thrashing, deadlocks
 
-- **0-50%**: Linear performance, predictable behavior
-- **50-70%**: Slight degradation, manageable variance
-- **70-85%**: Non-linear degradation, queuing effects dominate
-- **85-100%**: Catastrophic failure, thrashing, deadlocks
-
-**Why?** Queuing theory shows wait time approaches infinity as utilization approaches 100%.
-</div>
+    **Why?** Queuing theory shows wait time approaches infinity as utilization approaches 100%.
 
 ## Worked Example: Video Streaming
 
@@ -558,62 +552,59 @@ class AdaptiveBackpressureQueue(BackpressureQueue):
 
 ### Common Anti-Patterns (And How to Fix Them)
 
-<div class="failure-vignette">
-<h3>🚫 Anti-Pattern Gallery</h3>
+!!! danger "🚫 Anti-Pattern Gallery"
+    **1. The Infinite Thread Pool**
+    ```java
+    // DON'T: Unbounded thread creation
+    for (Request req : requests) {
+        new Thread(() -> process(req)).start();  // 💥 OOM
+    }
 
-**1. The Infinite Thread Pool**
-```java
-// DON'T: Unbounded thread creation
-for (Request req : requests) {
-    new Thread(() -> process(req)).start();  // 💥 OOM
-}
+    // DO: Bounded thread pool
+    ExecutorService executor = Executors.newFixedThreadPool(100);
+    for (Request req : requests) {
+        executor.submit(() -> process(req));
+    }
+    ```
 
-// DO: Bounded thread pool
-ExecutorService executor = Executors.newFixedThreadPool(100);
-for (Request req : requests) {
-    executor.submit(() -> process(req));
-}
-```
-
-**2. The Connection Leak**
-```python
-# DON'T: Forget to close connections
-def query_db(sql):
-    conn = db.connect()  # Leaks on exception
-    return conn.execute(sql)
-
-# DO: Always cleanup
-def query_db(sql):
-    with db.connect() as conn:  # Auto-closes
+    **2. The Connection Leak**
+    ```python
+    # DON'T: Forget to close connections
+    def query_db(sql):
+        conn = db.connect()  # Leaks on exception
         return conn.execute(sql)
-```
 
-**3. The Retry Storm**
-```javascript
-// DON'T: Immediate retry
-async function callAPI() {
-    while (true) {
-        try {
-            return await fetch('/api');
-        } catch (e) {
-            // Hammers the server! 💥
+    # DO: Always cleanup
+    def query_db(sql):
+        with db.connect() as conn:  # Auto-closes
+            return conn.execute(sql)
+    ```
+
+    **3. The Retry Storm**
+    ```javascript
+    // DON'T: Immediate retry
+    async function callAPI() {
+        while (true) {
+            try {
+                return await fetch('/api');
+            } catch (e) {
+                // Hammers the server! 💥
+            }
         }
     }
-}
 
-// DO: Exponential backoff
-async function callAPI() {
-    for (let i = 0; i < 5; i++) {
-        try {
-            return await fetch('/api');
-        } catch (e) {
-            await sleep(Math.pow(2, i) * 1000);
+    // DO: Exponential backoff
+    async function callAPI() {
+        for (let i = 0; i < 5; i++) {
+            try {
+                return await fetch('/api');
+            } catch (e) {
+                await sleep(Math.pow(2, i) * 1000);
+            }
         }
+        throw new Error('API unavailable');
     }
-    throw new Error('API unavailable');
-}
-```
-</div>
+    ```
 
 ## Level 4: Expert (Production Patterns) 🌲
 
@@ -1168,45 +1159,42 @@ class CapacityOptimizationPatterns:
 
 ## Quick Reference Card
 
-<div class="decision-box">
-<h3>📋 Capacity Management Cheat Sheet</h3>
+!!! tip "📋 Capacity Management Cheat Sheet"
+    **Key Metrics to Monitor:**
+    ```yaml
+    # System Metrics
+    - CPU: utilization, saturation, errors
+    - Memory: used, available, swap usage
+    - Disk: IOPS, throughput, latency
+    - Network: bandwidth, packet loss, errors
 
-**Key Metrics to Monitor:**
-```yaml
-# System Metrics
-- CPU: utilization, saturation, errors
-- Memory: used, available, swap usage
-- Disk: IOPS, throughput, latency
-- Network: bandwidth, packet loss, errors
+    # Application Metrics
+    - Request rate (QPS)
+    - Response time (P50, P95, P99)
+    - Error rate
+    - Queue depth
+    - Connection pool usage
+    ```
 
-# Application Metrics
-- Request rate (QPS)
-- Response time (P50, P95, P99)
-- Error rate
-- Queue depth
-- Connection pool usage
-```
+    **Capacity Planning Formula:**
+    ```text
+    Required Capacity = 
+        Current Load × 
+        Growth Factor × 
+        Peak Factor × 
+        Safety Margin
+    ```
 
-**Capacity Planning Formula:**
-```text
-Required Capacity = 
-    Current Load × 
-    Growth Factor × 
-    Peak Factor × 
-    Safety Margin
-```
+    **Quick Actions When Near Capacity:**
+    1. **Immediate**: Enable rate limiting
+    2. **Quick**: Scale horizontally (add nodes)
+    3. **Medium**: Optimize hot paths
+    4. **Long**: Re-architect bottlenecks
 
-**Quick Actions When Near Capacity:**
-1. **Immediate**: Enable rate limiting
-2. **Quick**: Scale horizontally (add nodes)
-3. **Medium**: Optimize hot paths
-4. **Long**: Re-architect bottlenecks
-
-**Remember:**
-- Monitor at 50%, alert at 70%, panic at 85%
-- Capacity problems are easier to prevent than fix
-- The last 20% of capacity costs 80% of performance
-</div>
+    **Remember:**
+    - Monitor at 50%, alert at 70%, panic at 85%
+    - Capacity problems are easier to prevent than fix
+    - The last 20% of capacity costs 80% of performance
 
 ---
 

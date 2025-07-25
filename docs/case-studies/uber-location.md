@@ -11,18 +11,14 @@ last_updated: 2025-07-25
 
 # Uber's Real-Time Location System: Scale and Architecture Deep Dive
 
-<div class="content-box axiom-box">
-<h3>Quick Facts</h3>
-
-| Metric | Value |
-|--------|-------|
-| **Scale** | 15+ million active drivers |
-| **Throughput** | 100M+ location updates/day |
-| **Data Volume** | Petabytes of location data |
-| **Availability** | 99.99% uptime globally |
-| **Team Size** | 300+ engineers in maps/location |
-
-</div>
+!!! abstract "Quick Facts"
+    | Metric | Value |
+    |--------|-------|
+    | **Scale** | 15+ million active drivers |
+    | **Throughput** | 100M+ location updates/day |
+    | **Data Volume** | Petabytes of location data |
+    | **Availability** | 99.99% uptime globally |
+    | **Team Size** | 300+ engineers in maps/location |
 
 ## Executive Summary
 
@@ -32,7 +28,7 @@ Uber's real-time location system evolved from simple database polling to a sophi
 
 ### Business Context
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Problem Space</h3>
     <p class="card__description">Track millions of moving vehicles globally with sub-second location updates for optimal driver-rider matching</p>
@@ -173,15 +169,11 @@ graph TB
 
 ### Data Architecture
 
-<div class="content-box decision-box">
-<h3>Key Design Decisions</h3>
-
-1. **H3 Geospatial Indexing**: Hexagonal grid system for efficient location queries and spatial analysis
-2. **Multi-layered Caching**: Hot data in Redis, warm data in Cassandra, cold data in S3
-3. **Adaptive Location Updates**: Dynamic update frequency based on movement patterns and context
-4. **Event-Driven Processing**: Kafka-based streaming for real-time location pipeline
-
-</div>
+!!! tip "Key Design Decisions"
+    1. **H3 Geospatial Indexing**: Hexagonal grid system for efficient location queries and spatial analysis
+    2. **Multi-layered Caching**: Hot data in Redis, warm data in Cassandra, cold data in S3
+    3. **Adaptive Location Updates**: Dynamic update frequency based on movement patterns and context
+    4. **Event-Driven Processing**: Kafka-based streaming for real-time location pipeline
 
 ### Scaling Strategy
 
@@ -203,35 +195,31 @@ graph LR
 
 ## Failure Scenarios & Lessons
 
-<div class="content-box failure-vignette">
-<h3>Major Incident: New Year's Eve 2016 Location Overload</h3>
+!!! danger "Major Incident: New Year's Eve 2016 Location Overload"
+    **What Happened**: Massive surge in ride requests during New Year's celebrations overwhelmed location tracking systems, causing driver locations to appear stale or incorrect.
 
-**What Happened**: Massive surge in ride requests during New Year's celebrations overwhelmed location tracking systems, causing driver locations to appear stale or incorrect.
+    **Root Cause**: 
+    - 10x normal traffic spike during peak celebration hours
+    - Location update queues backed up due to insufficient capacity
+    - Cache invalidation storms from rapid location changes
+    - Network congestion in dense urban areas
 
-**Root Cause**: 
-- 10x normal traffic spike during peak celebration hours
-- Location update queues backed up due to insufficient capacity
-- Cache invalidation storms from rapid location changes
-- Network congestion in dense urban areas
+    **Impact**: 
+    - 3 hours of degraded location accuracy
+    - 30% increase in wait times due to poor driver matching
+    - Customer complaints about "phantom" nearby drivers
+    - Revenue loss during peak demand period
 
-**Impact**: 
-- 3 hours of degraded location accuracy
-- 30% increase in wait times due to poor driver matching
-- Customer complaints about "phantom" nearby drivers
-- Revenue loss during peak demand period
-
-**Lessons Learned**:
-1. **Predictive scaling**: Implement automated scaling based on event calendars and historical patterns
-2. **Queue management**: Add backpressure and priority queuing for location updates
-3. **Graceful degradation**: Fall back to last-known-good locations when real-time fails
-
-</div>
+    **Lessons Learned**:
+    1. **Predictive scaling**: Implement automated scaling based on event calendars and historical patterns
+    2. **Queue management**: Add backpressure and priority queuing for location updates
+    3. **Graceful degradation**: Fall back to last-known-good locations when real-time fails
 
 ## Performance Characteristics
 
 ### Latency Breakdown
 
-<div class="card-grid">
+<div class="grid" markdown>
   <div class="card">
     <h3 class="card__title">Location Update</h3>
     <div class="stat-number">200ms</div>
@@ -266,14 +254,11 @@ graph LR
 
 ### Deployment Strategy
 
-<div class="content-box">
-
-**Deployment Frequency**: Multiple times per day with canary releases
-**Rollout Strategy**: Geographic rollout starting with low-traffic regions
-**Rollback Time**: < 5 minutes with automated traffic shifting
-**Feature Flags**: Extensive use for location algorithm experiments and A/B testing
-
-</div>
+!!! note
+    **Deployment Frequency**: Multiple times per day with canary releases
+    **Rollout Strategy**: Geographic rollout starting with low-traffic regions
+    **Rollback Time**: < 5 minutes with automated traffic shifting
+    **Feature Flags**: Extensive use for location algorithm experiments and A/B testing
 
 ## Key Innovations
 
@@ -283,7 +268,7 @@ graph LR
 
 ## Applicable Patterns
 
-<div class="pattern-grid">
+<div class="grid" markdown>
   <a href="../../patterns/geospatial-indexing/" class="pattern-card">
     <h3 class="pattern-card__title">Geospatial Indexing</h3>
     <p class="pattern-card__description">H3 hexagonal grid for efficient location queries</p>
@@ -304,15 +289,11 @@ graph LR
 
 ## Takeaways for Your System
 
-<div class="content-box truth-box">
-<h3>Key Lessons</h3>
-
-1. **When to apply**: Use for any application requiring real-time location tracking, geospatial queries, or location-based services
-2. **When to avoid**: Don't use this complexity for applications with simple location needs or low update frequencies
-3. **Cost considerations**: Expect significant infrastructure costs for real-time geospatial processing at scale
-4. **Team requirements**: Need expertise in geospatial algorithms, mobile optimization, and stream processing
-
-</div>
+!!! quote "Key Lessons"
+    1. **When to apply**: Use for any application requiring real-time location tracking, geospatial queries, or location-based services
+    2. **When to avoid**: Don't use this complexity for applications with simple location needs or low update frequencies
+    3. **Cost considerations**: Expect significant infrastructure costs for real-time geospatial processing at scale
+    4. **Team requirements**: Need expertise in geospatial algorithms, mobile optimization, and stream processing
 
 ## Cross-References to Fundamental Laws
 

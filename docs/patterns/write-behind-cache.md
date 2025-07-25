@@ -60,16 +60,13 @@ sequenceDiagram
 
 ### Key Characteristics
 
-<div class="decision-box">
-
-**Write-Behind Pattern**
-- **Write Performance**: Ultra-fast (cache-only writes)
-- **Consistency**: Eventual consistency
-- **Durability Risk**: Possible data loss on cache failure
-- **Complexity**: High (queue management, failure handling)
-- **Use Case**: Analytics, metrics, non-critical updates
-
-</div>
+!!! tip
+    **Write-Behind Pattern**
+    - **Write Performance**: Ultra-fast (cache-only writes)
+    - **Consistency**: Eventual consistency
+    - **Durability Risk**: Possible data loss on cache failure
+    - **Complexity**: High (queue management, failure handling)
+    - **Use Case**: Analytics, metrics, non-critical updates
 
 ---
 
@@ -805,31 +802,28 @@ flowchart TD
 
 ## Best Practices
 
-<div class="truth-box">
+!!! quote
+    **Write-Behind Golden Rules**
 
-**Write-Behind Golden Rules**
+    1. **Always Plan for Data Loss**
+       - Implement WAL or persistent queues
+       - Regular checkpoints and backups
+       - Monitor pending write volumes
 
-1. **Always Plan for Data Loss**
-   - Implement WAL or persistent queues
-   - Regular checkpoints and backups
-   - Monitor pending write volumes
+    2. **Size Your Queues Appropriately**
+       - Calculate based on write rate and processing speed
+       - Implement overflow strategies
+       - Monitor queue metrics continuously
 
-2. **Size Your Queues Appropriately**
-   - Calculate based on write rate and processing speed
-   - Implement overflow strategies
-   - Monitor queue metrics continuously
+    3. **Handle Failures Gracefully**
+       - Implement retry logic with exponential backoff
+       - Use dead letter queues for failed writes
+       - Alert on high failure rates
 
-3. **Handle Failures Gracefully**
-   - Implement retry logic with exponential backoff
-   - Use dead letter queues for failed writes
-   - Alert on high failure rates
-
-4. **Consider Read Consistency**
-   - Document eventual consistency behavior
-   - Implement read-after-write checks where needed
-   - Provide consistency level options
-
-</div>
+    4. **Consider Read Consistency**
+       - Document eventual consistency behavior
+       - Implement read-after-write checks where needed
+       - Provide consistency level options
 
 ### Real-World Example: Metrics Collection System
 
