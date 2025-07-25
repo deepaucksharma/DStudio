@@ -123,13 +123,7 @@ markdown_extensions:
 
 # Extra CSS
 extra_css:
-  - stylesheets/design-system.css
-  - stylesheets/overrides.css
-  - stylesheets/colors.css
-  - stylesheets/modular.css
-  - stylesheets/laws.css
-  - stylesheets/extra.css
-  - stylesheets/pattern-explorer.css
+  - stylesheets/unified-system.css
 
 # Extra JavaScript
 extra_javascript:
