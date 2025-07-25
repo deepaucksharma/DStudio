@@ -66,9 +66,9 @@ flowchart TD
 
 ### 💾 Data Management Patterns
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div>
 
-<div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 16px; background: #eff6ff;">
+<div>
 <h4>Caching Strategies</h4>
 <p><strong>When:</strong> Repeated reads, expensive queries</p>
 <p><strong>Options:</strong></p>
@@ -81,7 +81,7 @@ flowchart TD
 <a href="caching-strategies.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 16px; background: #eff6ff;">
+<div>
 <h4>Database Selection</h4>
 <p><strong>When:</strong> Different data models needed</p>
 <p><strong>Options:</strong></p>
@@ -94,7 +94,7 @@ flowchart TD
 <a href="polyglot-persistence.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #3b82f6; border-radius: 8px; padding: 16px; background: #eff6ff;">
+<div>
 <h4>Event Sourcing</h4>
 <p><strong>When:</strong> Audit trail, time travel needed</p>
 <p><strong>Pros:</strong> Complete history, replay capability</p>
@@ -107,9 +107,9 @@ flowchart TD
 
 ### Reliability Patterns
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div>
 
-<div style="border: 2px solid #ef4444; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>Circuit Breaker</h4>
 <p><strong>When:</strong> Calling external services</p>
 <p><strong>Prevents:</strong> Cascade failures</p>
@@ -123,7 +123,7 @@ flowchart TD
 <a href="circuit-breaker.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #ef4444; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>Retry & Backoff</h4>
 <p><strong>When:</strong> Transient failures possible</p>
 <p><strong>Strategies:</strong></p>
@@ -136,7 +136,7 @@ flowchart TD
 <a href="retry-backoff.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #ef4444; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>Bulkhead</h4>
 <p><strong>When:</strong> Isolate failures</p>
 <p><strong>Types:</strong></p>
@@ -153,9 +153,9 @@ flowchart TD
 
 ### 📬 Communication Patterns
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div>
 
-<div style="border: 2px solid #10b981; border-radius: 8px; padding: 16px; background: #f0fdf4;">
+<div>
 <h4>Event-Driven</h4>
 <p><strong>When:</strong> Loose coupling needed</p>
 <p><strong>Benefits:</strong> Scalable, decoupled</p>
@@ -165,7 +165,7 @@ flowchart TD
 <a href="event-driven.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #10b981; border-radius: 8px; padding: 16px; background: #f0fdf4;">
+<div>
 <h4>API Gateway</h4>
 <p><strong>When:</strong> Multiple backend services</p>
 <p><strong>Features:</strong></p>
@@ -178,7 +178,7 @@ flowchart TD
 <a href="api-gateway.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #10b981; border-radius: 8px; padding: 16px; background: #f0fdf4;">
+<div>
 <h4>Service Mesh</h4>
 <p><strong>When:</strong> Complex service topology</p>
 <p><strong>Provides:</strong> Traffic mgmt, security, observability</p>
@@ -191,9 +191,9 @@ flowchart TD
 
 ### 🤝 Coordination Patterns
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div>
 
-<div style="border: 2px solid #f59e0b; border-radius: 8px; padding: 16px; background: #fffbeb;">
+<div>
 <h4>Consensus</h4>
 <p><strong>When:</strong> Distributed agreement needed</p>
 <p><strong>Algorithms:</strong></p>
@@ -206,7 +206,7 @@ flowchart TD
 <a href="consensus.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #f59e0b; border-radius: 8px; padding: 16px; background: #fffbeb;">
+<div>
 <h4>Distributed Locks</h4>
 <p><strong>When:</strong> Mutual exclusion needed</p>
 <p><strong>Implementations:</strong></p>
@@ -219,7 +219,7 @@ flowchart TD
 <a href="distributed-lock.md">→ Full Guide</a>
 </div>
 
-<div style="border: 2px solid #f59e0b; border-radius: 8px; padding: 16px; background: #fffbeb;">
+<div>
 <h4>Saga Pattern</h4>
 <p><strong>When:</strong> Distributed transactions</p>
 <p><strong>Types:</strong></p>
@@ -239,8 +239,6 @@ flowchart TD
 
 ### Performance vs Complexity Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Pattern | Performance | Complexity | Use When |
 |---------|------------|------------|----------|
 | **Monolithic DB** | ⭐⭐⭐ | ⭐ | Starting out |
@@ -249,12 +247,8 @@ flowchart TD
 | **CQRS** | ⭐⭐⭐⭐ | ⭐⭐⭐ | Complex domains |
 | **Event Sourcing** | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Audit requirements |
 
-</div>
-
 
 ### Consistency vs Availability Trade-offs
-
-<div class="responsive-table" markdown>
 
 | Pattern | Consistency | Availability | Use When |
 |---------|------------|--------------|----------|
@@ -262,8 +256,6 @@ flowchart TD
 | **Saga** | ⭐⭐⭐ | ⭐⭐⭐⭐ | Microservices |
 | **Event Sourcing** | ⭐⭐ | ⭐⭐⭐⭐⭐ | Event-driven |
 | **Consensus** | ⭐⭐⭐⭐ | ⭐⭐⭐ | Critical state |
-
-</div>
 
 
 ---
@@ -331,8 +323,6 @@ flowchart TD
 
 ### Effort Estimation Matrix
 
-<div class="responsive-table" markdown>
-
 | Pattern | Dev Time | Test Complexity | Ops Burden | Total Effort |
 |---------|----------|-----------------|------------|--------------|
 | **Cache-Aside** | 1 day | Low | Low | ⭐ |
@@ -340,8 +330,6 @@ flowchart TD
 | **API Gateway** | 1 week | Medium | Medium | ⭐⭐⭐ |
 | **Event Sourcing** | 2 weeks | High | High | ⭐⭐⭐⭐ |
 | **Service Mesh** | 1 month | High | Very High | ⭐⭐⭐⭐⭐ |
-
-</div>
 
 
 ### Learning Curve Comparison
@@ -428,30 +416,30 @@ graph TD
 
 ## 🎴 Anti-Pattern Warning Cards
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px;">
+<div>
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>❌ Distributed Monolith</h4>
 <p><strong>What:</strong> Microservices that can't deploy independently</p>
 <p><strong>Why Bad:</strong> Complexity without benefits</p>
 <p><strong>Fix:</strong> True service boundaries, async communication</p>
 </div>
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>❌ Chatty Services</h4>
 <p><strong>What:</strong> Services making 100s of calls per request</p>
 <p><strong>Why Bad:</strong> Latency multiplication</p>
 <p><strong>Fix:</strong> BFF pattern, query optimization</p>
 </div>
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>❌ Shared Database</h4>
 <p><strong>What:</strong> Multiple services sharing one DB</p>
 <p><strong>Why Bad:</strong> Coupling, scaling issues</p>
 <p><strong>Fix:</strong> Database per service, event streaming</p>
 </div>
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; background: #fef2f2;">
+<div>
 <h4>❌ Synchronous Everything</h4>
 <p><strong>What:</strong> All communication is request/response</p>
 <p><strong>Why Bad:</strong> Cascading failures</p>

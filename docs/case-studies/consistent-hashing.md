@@ -771,8 +771,6 @@ graph TB
 
 ### Key Design Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **Hash Function** | MD5 (128-bit) | SHA-256 (256-bit) | **A** - MD5 sufficient for distribution, not security. Faster computation, smaller ring space |
@@ -781,8 +779,6 @@ graph TB
 | **Replication Strategy** | Successor list | Preference list | **A** - Successor list simpler, natural with ring topology. Fast failover |
 | **Token Assignment** | Random | Equally spaced | **A** - Random prevents patterns, better distribution with virtual nodes |
 | **Client Awareness** | Smart clients | Proxy/router | **A** - Smart clients reduce latency, distribute load, cache topology |
-
-</div>
 
 
 ### Alternative Architectures
@@ -964,8 +960,6 @@ Nodes   Simple Ring   Virtual(150)   Jump Hash   Maglev
 
 ### Comprehensive Design Decision Mapping
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Law 1<br/>🚀 Latency | Law 2<br/>💾 Capacity | Law 3<br/>🔥 Failure | Law 4<br/>🔀 Concurrency | Law 5<br/>🤝 Coordination | Law 6<br/>👁️ Observability | Law 7<br/>👤 Human | Law 8<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Hash Ring** | ✅ O(log n) lookup | ✅ Even distribution | ✅ Minimal data movement | ⚪ | ✅ Deterministic routing | ✅ Ring visualization | ✅ Simple concept | ✅ Efficient scaling |
@@ -976,8 +970,6 @@ Nodes   Simple Ring   Virtual(150)   Jump Hash   Maglev
 | **Client-side Routing** | ✅ No proxy hop | ✅ Distributed load | ✅ No SPOF | ✅ Parallel requests | ✅ Topology caching | ✅ Client metrics | ✅ Direct access | ✅ Reduced infrastructure |
 | **Successor Lists** | ✅ Fast failover | ⚪ | ✅ Quick recovery | ⚪ | ✅ Backup nodes ready | ✅ Failover tracking | ✅ Predictable behavior | ⚪ |
 | **Weight-based Allocation** | ⚪ | ✅ Heterogeneous support | ✅ Prevents overload | ⚪ | ✅ Capacity planning | ✅ Load per node type | ✅ Resource awareness | ✅ Optimal utilization |
-
-</div>
 
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
@@ -1169,8 +1161,6 @@ graph TB
 
 ### Algorithm Comparison Matrix
 
-<div class="responsive-table" markdown>
-
 | Algorithm | Lookup Time | Memory | Balance Quality | Flexibility | Use Case |
 |-----------|-------------|---------|-----------------|-------------|----------|
 | **Classic Ring + Virtual Nodes** | ⭐⭐⭐⭐<br/>O(log n) | ⭐⭐⭐<br/>O(n×v) | ⭐⭐⭐⭐<br/>Good with 150 vnodes | ⭐⭐⭐⭐⭐<br/>Weights, arbitrary changes | General purpose, proven |
@@ -1179,8 +1169,6 @@ graph TB
 | **Maglev** | ⭐⭐⭐⭐⭐<br/>O(1) | ⭐⭐⭐⭐<br/>Fixed 65K table | ⭐⭐⭐⭐<br/>Very good | ⭐⭐⭐<br/>Moderate | Load balancers, CDN |
 | **Multi-Probe** | ⭐⭐⭐⭐<br/>O(k) probes | ⭐⭐⭐⭐<br/>O(n) | ⭐⭐⭐⭐⭐<br/>Load-aware | ⭐⭐⭐<br/>Moderate | Hot spot mitigation |
 | **Hierarchical** | ⭐⭐⭐<br/>O(log n × levels) | ⭐⭐<br/>Multiple rings | ⭐⭐⭐⭐<br/>Locality-aware | ⭐⭐⭐⭐<br/>Flexible per level | Geo-distributed systems |
-
-</div>
 
 
 ### Decision Framework
@@ -1209,8 +1197,6 @@ graph TD
 
 ### Implementation Complexity
 
-<div class="responsive-table" markdown>
-
 | Aspect | Classic Ring | Jump | Rendezvous | Maglev | Multi-Probe |
 |--------|--------------|------|------------|---------|-------------|
 | **Implementation** | 🟡 Medium | 🟢 Simple | 🟢 Simple | 🟡 Medium | 🟡 Medium |
@@ -1218,8 +1204,6 @@ graph TD
 | **Testing** | 🟢 Well understood | 🟢 Deterministic | 🟢 Easy | 🟡 Table generation | 🟡 Load scenarios |
 | **Operations** | 🟢 Mature tools | 🟡 Limited tools | 🟡 Basic | 🟡 Specialized | 🔴 Complex tuning |
 | **Documentation** | 🟢 Extensive | 🟢 Good | 🟡 Moderate | 🟡 Moderate | 🔴 Limited |
-
-</div>
 
 
 ## Key Design Insights
@@ -1296,8 +1280,6 @@ class ConsistentHashRing:
 
 ### Monitoring Setup
 
-<div class="responsive-table" markdown>
-
 | Metric | Description | Alert Threshold |
 |--------|-------------|-----------------|
 | Load Standard Deviation | Distribution quality | > 20% of mean |
@@ -1305,8 +1287,6 @@ class ConsistentHashRing:
 | Topology Change Rate | Stability indicator | > 1 per hour |
 | Node Weight Drift | Actual vs configured | > 30% difference |
 | Replication Lag | Consistency measure | > 5 seconds |
-
-</div>
 
 
 ### 🎓 Key Lessons

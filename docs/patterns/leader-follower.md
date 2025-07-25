@@ -15,54 +15,51 @@ last_updated: 2025-01-23
 
 # Leader-Follower Pattern
 
-<div class="pattern-header">
-  <div class="pattern-type">Coordination Pattern</div>
-  <div class="pattern-summary">Designate one node as leader to coordinate all writes, ensuring consistency while followers serve reads for scalability.</div>
+<div class="pattern-type">Coordination Pattern
+ Designate one node as leader to coordinate all writes, ensuring consistency while followers serve reads for scalability.
 </div>
 
 ## Problem Context
 
-<div class="problem-box">
-<h3>🎯 The Challenge</h3>
+!!! warning "🎯 The Challenge"
 
-In distributed systems, when multiple nodes can accept writes:
-- **Conflicts arise** from concurrent updates
-- **Ordering is ambiguous** without coordination
-- **Split-brain scenarios** cause data divergence
-- **Consistency is hard** to maintain
+ In distributed systems, when multiple nodes can accept writes:
+ - **Conflicts arise** from concurrent updates
+ - **Ordering is ambiguous** without coordination
+ - **Split-brain scenarios** cause data divergence
+ - **Consistency is hard** to maintain
 
-The leader-follower pattern solves this by establishing a single source of truth.
-</div>
+ The leader-follower pattern solves this by establishing a single source of truth.
 
 ## Solution Architecture
 
 ```mermaid
 graph TB
-    subgraph "Write Path"
-        Client1[Client 1] -->|Write| Leader[Leader Node]
-        Client2[Client 2] -->|Write| Leader
-        Client3[Client 3] -->|Write| Leader
-    end
-    
-    subgraph "Replication"
-        Leader -->|Replicate| F1[Follower 1]
-        Leader -->|Replicate| F2[Follower 2]
-        Leader -->|Replicate| F3[Follower 3]
-    end
-    
-    subgraph "Read Path"
-        Client4[Client 4] -->|Read| F1
-        Client5[Client 5] -->|Read| F2
-        Client6[Client 6] -->|Read| F3
-    end
-    
-    classDef leader fill:#5448C8,stroke:#333,stroke-width:3px,color:#fff
-    classDef follower fill:#00BCD4,stroke:#333,stroke-width:2px,color:#fff
-    classDef client fill:#FFF3E0,stroke:#333,stroke-width:2px
-    
-    class Leader leader
-    class F1,F2,F3 follower
-    class Client1,Client2,Client3,Client4,Client5,Client6 client
+ subgraph "Write Path"
+ Client1[Client 1] -->|Write| Leader[Leader Node]
+ Client2[Client 2] -->|Write| Leader
+ Client3[Client 3] -->|Write| Leader
+ end
+ 
+ subgraph "Replication"
+ Leader -->|Replicate| F1[Follower 1]
+ Leader -->|Replicate| F2[Follower 2]
+ Leader -->|Replicate| F3[Follower 3]
+ end
+ 
+ subgraph "Read Path"
+ Client4[Client 4] -->|Read| F1
+ Client5[Client 5] -->|Read| F2
+ Client6[Client 6] -->|Read| F3
+ end
+ 
+ classDef leader fill:#5448C8,stroke:#333,stroke-width:3px,color:#fff
+ classDef follower fill:#00BCD4,stroke:#333,stroke-width:2px,color:#fff
+ classDef client fill:#FFF3E0,stroke:#333,stroke-width:2px
+ 
+ class Leader leader
+ class F1,F2,F3 follower
+ class Client1,Client2,Client3,Client4,Client5,Client6 client
 ```
 
 ## How It Works
@@ -71,63 +68,62 @@ graph TB
 
 ```mermaid
 stateDiagram-v2
-    [*] --> Follower: Start
-    Follower --> Candidate: Election timeout
-    Candidate --> Leader: Receive majority votes
-    Candidate --> Follower: Lose election
-    Leader --> Follower: Discover higher term
-    Follower --> Follower: Receive heartbeat
-    Leader --> Leader: Send heartbeats
-    
-    note right of Candidate
-        Request votes from
-        other nodes
-    end note
-    
-    note right of Leader
-        Periodically send
-        heartbeats to maintain
-        leadership
-    end note
+ [*] --> Follower: Start
+ Follower --> Candidate: Election timeout
+ Candidate --> Leader: Receive majority votes
+ Candidate --> Follower: Lose election
+ Leader --> Follower: Discover higher term
+ Follower --> Follower: Receive heartbeat
+ Leader --> Leader: Send heartbeats
+ 
+ note right of Candidate
+ Request votes from
+ other nodes
+ end note
+ 
+ note right of Leader
+ Periodically send
+ heartbeats to maintain
+ leadership
+ end note
 ```
 
 ### 2. Write Operation Flow
 
 ```mermaid
 sequenceDiagram
-    participant C as Client
-    participant L as Leader
-    participant F1 as Follower 1
-    participant F2 as Follower 2
-    participant F3 as Follower 3
-    
-    C->>L: Write Request
-    L->>L: Append to log
-    
-    par Replication
-        L->>F1: Replicate entry
-        and
-        L->>F2: Replicate entry
-        and
-        L->>F3: Replicate entry
-    end
-    
-    F1-->>L: Ack
-    F2-->>L: Ack
-    F3-->>L: Ack
-    
-    Note over L: Majority achieved
-    L->>L: Commit entry
-    L-->>C: Success
-    
-    L->>F1: Commit notification
-    L->>F2: Commit notification
-    L->>F3: Commit notification
+ participant C as Client
+ participant L as Leader
+ participant F1 as Follower 1
+ participant F2 as Follower 2
+ participant F3 as Follower 3
+ 
+ C->>L: Write Request
+ L->>L: Append to log
+ 
+ par Replication
+ L->>F1: Replicate entry
+ and
+ L->>F2: Replicate entry
+ and
+ L->>F3: Replicate entry
+ end
+ 
+ F1-->>L: Ack
+ F2-->>L: Ack
+ F3-->>L: Ack
+ 
+ Note over L: Majority achieved
+ L->>L: Commit entry
+ L-->>C: Success
+ 
+ L->>F1: Commit notification
+ L->>F2: Commit notification
+ L->>F3: Commit notification
 ```
 
 ### 3. Read Strategies
 
-<div class="strategy-comparison">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -164,7 +160,6 @@ sequenceDiagram
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Implementation Patterns
 
@@ -172,57 +167,57 @@ sequenceDiagram
 
 ```python
 class SynchronousLeader:
-    def write(self, key, value):
+ def write(self, key, value):
 # Write to leader's log
-        self.log.append((key, value))
-        
+ self.log.append((key, value))
+ 
 # Replicate to all followers
-        acks = 0
-        for follower in self.followers:
-            if follower.replicate(key, value):
-                acks += 1
-        
+ acks = 0
+ for follower in self.followers:
+ if follower.replicate(key, value):
+ acks += 1
+ 
 # Wait for majority
-        if acks >= len(self.followers) // 2:
-            self.commit(key, value)
-            return True
-        else:
-            self.rollback(key)
-            return False
+ if acks >= len(self.followers) // 2:
+ self.commit(key, value)
+ return True
+ else:
+ self.rollback(key)
+ return False
 ```
 
 ### Pattern 2: Asynchronous Replication
 
 ```python
 class AsynchronousLeader:
-    def write(self, key, value):
+ def write(self, key, value):
 # Write locally first
-        self.commit(key, value)
-        
+ self.commit(key, value)
+ 
 # Replicate in background
-        for follower in self.followers:
-            self.replication_queue.put({
-                'follower': follower,
-                'operation': (key, value)
-            })
-        
-        return True  # Immediate success
+ for follower in self.followers:
+ self.replication_queue.put({
+ 'follower': follower,
+ 'operation': (key, value)
+ })
+ 
+ return True # Immediate success
 ```
 
 ### Pattern 3: Chain Replication
 
 ```mermaid
 graph LR
-    Client -->|Write| Head[Head<br/>Leader]
-    Head -->|Replicate| M1[Middle 1]
-    M1 -->|Replicate| M2[Middle 2]
-    M2 -->|Replicate| Tail[Tail]
-    Tail -->|Ack| Client
-    
-    Client2[Read Client] -->|Read| Tail
-    
-    style Head fill:#5448C8,color:#fff
-    style Tail fill:#4CAF50,color:#fff
+ Client -->|Write| Head[Head<br/>Leader]
+ Head -->|Replicate| M1[Middle 1]
+ M1 -->|Replicate| M2[Middle 2]
+ M2 -->|Replicate| Tail[Tail]
+ Tail -->|Ack| Client
+ 
+ Client2[Read Client] -->|Read| Tail
+ 
+ style Head fill:#5448C8,color:#fff
+ style Tail fill:#4CAF50,color:#fff
 ```
 
 ## Failure Handling
@@ -231,42 +226,42 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph "Heartbeat Mechanism"
-        Leader[Leader] -->|Heartbeat| F1[Follower 1]
-        Leader -->|Heartbeat| F2[Follower 2]
-        Leader -->|Timeout!| F3[Follower 3]
-        
-        F3 -->|Start Election| Election[New Leader Election]
-    end
-    
-    style F3 fill:#ff6b6b
-    style Election fill:#ffd700
+ subgraph "Heartbeat Mechanism"
+ Leader[Leader] -->|Heartbeat| F1[Follower 1]
+ Leader -->|Heartbeat| F2[Follower 2]
+ Leader -->|Timeout!| F3[Follower 3]
+ 
+ F3 -->|Start Election| Election[New Leader Election]
+ end
+ 
+ style F3 fill:#ff6b6b
+ style Election fill:#ffd700
 ```
 
 ### Split Brain Prevention
 
 !!! note "🧠 Preventing Split Brain"
-    **Problem**: Network partition creates two leaders
-    **Solutions**:
-    1. **Quorum-based decisions**: Require majority for any operation
-    2. **Fencing tokens**: Monotonically increasing leader epochs
-    3. **External arbitrator**: ZooKeeper or etcd for coordination
-    4. **Lease-based leadership**: Time-bound leader terms
-    ```mermaid
-    graph TB
-    subgraph "Partition A"
-    L1[Old Leader
-    3 nodes]
-    end
-    subgraph "Partition B"
-    L2[New Leader
-    2 nodes]
-    end
-    L1 -->|Has Majority| Active[Remains Active]
-    L2 -->|No Majority| Inactive[Steps Down]
-    style L1 fill:#4CAF50,color:#fff
-    style L2 fill:#ff6b6b,color:#fff
-    ```
+ **Problem**: Network partition creates two leaders
+ **Solutions**:
+ 1. **Quorum-based decisions**: Require majority for any operation
+ 2. **Fencing tokens**: Monotonically increasing leader epochs
+ 3. **External arbitrator**: ZooKeeper or etcd for coordination
+ 4. **Lease-based leadership**: Time-bound leader terms
+ ```mermaid
+ graph TB
+ subgraph "Partition A"
+ L1[Old Leader
+ 3 nodes]
+ end
+ subgraph "Partition B"
+ L2[New Leader
+ 2 nodes]
+ end
+ L1 -->|Has Majority| Active[Remains Active]
+ L2 -->|No Majority| Inactive[Steps Down]
+ style L1 fill:#4CAF50,color:#fff
+ style L2 fill:#ff6b6b,color:#fff
+ ```
 
 ## Performance Considerations
 
@@ -274,21 +269,21 @@ graph TB
 
 ```mermaid
 graph LR
-    subgraph "Bottlenecks"
-        WB[Write Bottleneck<br/>Single Leader]
-        RB[Replication Lag<br/>Network Delay]
-        FB[Failover Time<br/>Detection + Election]
-    end
-    
-    subgraph "Mitigations"
-        Shard[Sharding<br/>Multiple Leaders]
-        Async[Async Replication<br/>Trade Consistency]
-        Fast[Fast Elections<br/>Pre-voting]
-    end
-    
-    WB --> Shard
-    RB --> Async
-    FB --> Fast
+ subgraph "Bottlenecks"
+ WB[Write Bottleneck<br/>Single Leader]
+ RB[Replication Lag<br/>Network Delay]
+ FB[Failover Time<br/>Detection + Election]
+ end
+ 
+ subgraph "Mitigations"
+ Shard[Sharding<br/>Multiple Leaders]
+ Async[Async Replication<br/>Trade Consistency]
+ Fast[Fast Elections<br/>Pre-voting]
+ end
+ 
+ WB --> Shard
+ RB --> Async
+ FB --> Fast
 ```
 
 ### Optimization Strategies
@@ -302,51 +297,44 @@ graph LR
 
 ### 1. Database Systems
 
-<div class="example-card">
 <h4>MySQL/PostgreSQL Replication</h4>
 
 ```mermaid
 graph TB
-    Master[(Master DB)] -->|Binary Log| Slave1[(Slave 1)]
-    Master -->|Binary Log| Slave2[(Slave 2)]
-    
-    App[Application] -->|Writes| Master
-    App -->|Reads| LB[Load Balancer]
-    LB --> Slave1
-    LB --> Slave2
+ Master[(Master DB)] -->|Binary Log| Slave1[(Slave 1)]
+ Master -->|Binary Log| Slave2[(Slave 2)]
+ 
+ App[Application] -->|Writes| Master
+ App -->|Reads| LB[Load Balancer]
+ LB --> Slave1
+ LB --> Slave2
 ```
 
 - Single master for writes
 - Multiple slaves for read scaling
 - Binary log for replication
 - Configurable consistency levels
-</div>
 
 ### 2. Consensus Systems
 
-<div class="example-card">
 <h4>Raft Consensus</h4>
 
 - Leaders elected by majority vote
 - All changes go through leader
 - Log replication ensures consistency
 - Automatic failover on leader failure
-</div>
 
 ### 3. Distributed Coordination
 
-<div class="example-card">
 <h4>Apache Kafka</h4>
 
 - Partition leaders handle all writes
 - In-sync replicas (ISR) for durability
 - Controller manages leader election
 - Consumers can read from followers
-</div>
 
 ## Trade-offs Analysis
 
-<div class="trade-off-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -378,7 +366,6 @@ graph TB
 </tr>
 </tbody>
 </table>
-</div>
 
 ## When to Use
 

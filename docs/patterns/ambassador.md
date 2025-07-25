@@ -74,8 +74,6 @@ graph TB
 
 ### Real-World Examples
 
-<div class="responsive-table" markdown>
-
 | Company | Ambassador Implementation | Purpose | Impact |
 |---------|--------------------------|---------|---------|
 | **Netflix** | Zuul API Gateway | Protocol translation, routing | 100B+ requests/day |
@@ -83,8 +81,6 @@ graph TB
 | **PayPal** | Legacy adapter services | SOAP to REST translation | 90% faster integration |
 | **Stripe** | API compatibility layer | Version bridging | Zero downtime upgrades |
 | **Salesforce** | Integration services | Multi-protocol support | 1000+ integrations |
-
-</div>
 
 
 ### Common Ambassador Scenarios
@@ -152,8 +148,6 @@ graph TB
 
 ### Ambassador Pattern Types
 
-<div class="responsive-table" markdown>
-
 | Type | Purpose | Use Case | Complexity |
 |------|---------|----------|------------|
 | **Protocol Ambassador** | Translate between protocols | REST ↔ SOAP | Medium |
@@ -161,8 +155,6 @@ graph TB
 | **Resilience Ambassador** | Add reliability patterns | Retry, circuit breaking | Medium |
 | **Optimization Ambassador** | Optimize communication | Batching, caching | High |
 | **Security Ambassador** | Add security layers | Encryption, validation | High |
-
-</div>
 
 
 ### Decision Framework
@@ -187,8 +179,6 @@ graph TD
 
 ### Protocol Translation Matrix
 
-<div class="responsive-table" markdown>
-
 | From/To | REST | SOAP | GraphQL | gRPC | Binary |
 |---------|------|------|---------|------|--------|
 | **REST** | ✓ | Ambassador | Ambassador | Ambassador | Ambassador |
@@ -196,8 +186,6 @@ graph TD
 | **GraphQL** | Ambassador | Ambassador | ✓ | Ambassador | Ambassador |
 | **gRPC** | Ambassador | Ambassador | Ambassador | ✓ | Ambassador |
 | **Binary** | Ambassador | Ambassador | Ambassador | Ambassador | ✓ |
-
-</div>
 
 
 ### Implementation Strategies
@@ -299,8 +287,6 @@ sequenceDiagram
 
 ### Performance Considerations
 
-<div class="responsive-table" markdown>
-
 | Aspect | Without Ambassador | With Ambassador | Optimization Strategy |
 |--------|-------------------|-----------------|----------------------|
 | **Latency** | Direct call | +5-10ms | Connection pooling, caching |
@@ -308,8 +294,6 @@ sequenceDiagram
 | **Memory** | App only | +50-200MB | Efficient buffering |
 | **CPU** | Protocol in app | Dedicated | Horizontal scaling |
 | **Complexity** | High in app | Isolated | Single responsibility |
-
-</div>
 
 
 ---
@@ -386,8 +370,6 @@ graph LR
 
 #### SOAP ↔ REST Translation Table
 
-<div class="responsive-table" markdown>
-
 | SOAP Element | REST Equivalent | Translation Strategy |
 |--------------|-----------------|---------------------|
 | **Envelope** | HTTP Headers | Extract/Generate |
@@ -396,8 +378,6 @@ graph LR
 | **Fault** | Error Response | Status codes + body |
 | **Namespace** | URL Path | Namespace → Resource |
 | **Operation** | HTTP Method | Action → CRUD |
-
-</div>
 
 
 #### Translation Example Flow
@@ -513,8 +493,6 @@ stateDiagram-v2
 
 #### Fallback Strategies
 
-<div class="responsive-table" markdown>
-
 | Strategy | Use Case | Example |
 |----------|----------|---------|
 | **Cache** | Read operations | Return last known good value |
@@ -522,8 +500,6 @@ stateDiagram-v2
 | **Degrade** | Feature toggle | Disable non-essential features |
 | **Queue** | Write operations | Store and retry later |
 | **Redirect** | Service migration | Route to alternative service |
-
-</div>
 
 
 ### Security Considerations
@@ -566,8 +542,6 @@ graph TB
 
 #### Key Metrics to Track
 
-<div class="responsive-table" markdown>
-
 | Metric | Purpose | Alert Threshold |
 |--------|---------|-----------------|
 | **Translation Latency** | Protocol conversion time | > 10ms |
@@ -576,8 +550,6 @@ graph TB
 | **Cache Hit Rate** | Performance optimization | < 60% |
 | **Circuit Breaker Trips** | System health | > 5/hour |
 | **Request Queue Size** | Backpressure indicator | > 1000 |
-
-</div>
 
 
 #### Distributed Tracing
@@ -656,16 +628,12 @@ graph TB
 
 PayPal uses ambassador pattern for modernization:
 
-<div class="responsive-table" markdown>
-
 | Metric | Before Ambassador | After Ambassador |
 |--------|-------------------|------------------|
 | **Integration Time** | 6-12 months | 2-4 weeks |
 | **Error Rate** | 5-10% | < 0.1% |
 | **Development Speed** | Slow (SOAP complexity) | Fast (REST simplicity) |
 | **Maintenance Cost** | High | 70% reduction |
-
-</div>
 
 
 ### Advanced Implementation Patterns
@@ -692,16 +660,12 @@ graph TB
 
 **Adaptive Strategies:**
 
-<div class="responsive-table" markdown>
-
 | Condition | Adaptation | Benefit |
 |-----------|------------|---------|
 | **High Latency** | Increase cache TTL | Reduce backend calls |
 | **Error Spike** | Aggressive circuit breaking | Protect backend |
 | **Low Traffic** | Reduce connection pool | Save resources |
 | **Peak Hours** | Enable request batching | Improve throughput |
-
-</div>
 
 
 #### 2. Multi-Region Ambassador
@@ -750,22 +714,16 @@ sequenceDiagram
 
 #### Intelligent Caching Strategy
 
-<div class="responsive-table" markdown>
-
 | Cache Level | What to Cache | TTL | Invalidation |
 |-------------|---------------|-----|--------------|
 | **L1: Memory** | Hot data | 1-5 min | Time-based |
 | **L2: Redis** | Warm data | 5-60 min | Event-based |
 | **L3: CDN** | Static translations | 1-24 hours | Version-based |
 
-</div>
-
 
 ### Error Handling Strategies
 
 #### Error Translation Matrix
-
-<div class="responsive-table" markdown>
 
 | Legacy Error | HTTP Status | Client Message | Retry Strategy |
 |--------------|-------------|----------------|----------------|
@@ -774,8 +732,6 @@ sequenceDiagram
 | **Auth Failed** | 401 | "Invalid credentials" | No retry |
 | **Rate Limited** | 429 | "Too many requests" | Retry after header |
 | **Not Found** | 404 | "Resource not found" | No retry |
-
-</div>
 
 
 ### Security Best Practices
@@ -880,16 +836,12 @@ Subject to: Error_Rate < 0.1%
 
 #### Capacity Planning
 
-<div class="responsive-table" markdown>
-
 | Metric | Formula | Example |
 |--------|---------|---------|
 | **Requests/sec** | Client_RPS * Translation_Factor | 1000 * 1.2 = 1200 |
 | **CPU Cores** | RPS / (1000 / Latency_ms) | 1200 / (1000/5) = 6 |
 | **Memory** | Connections * Buffer_Size + Cache_Size | 1000 * 10KB + 1GB |
 | **Network** | RPS * (Request_Size + Response_Size) | 1200 * 5KB = 6MB/s |
-
-</div>
 
 
 ### Future Directions

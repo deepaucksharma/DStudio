@@ -932,8 +932,6 @@ class HybridFeedArchitecture:
 
 ### Design Decision Impact
 
-<div class="responsive-table" markdown>
-
 | Decision | Primary Benefits | Key Trade-offs |
 |----------|-----------------|----------------|
 | **Push Model** | Pre-computed feeds, instant updates | O(n) fanout cost, storage overhead |
@@ -942,8 +940,6 @@ class HybridFeedArchitecture:
 | **Edge Caching** | <50ms serving globally | Cache invalidation complexity |
 | **ML Ranking** | Personalization, engagement boost | Inference overhead, cold start |
 | **Timeline Merging** | Diverse content sources | Merge complexity at scale |
-
-</div>
 
 
 ### Law Implementation Priority
@@ -1144,8 +1140,6 @@ graph TB
 
 ### Architecture Comparison
 
-<div class="responsive-table" markdown>
-
 | Architecture | Strengths | Weaknesses | Best For |
 |-------------|-----------|------------|----------|
 | **Pure Push** | Pre-computed (fast reads), O(1) serving | O(n²) fanout, storage explosion | Small-scale, balanced networks |
@@ -1153,8 +1147,6 @@ graph TB
 | **Hybrid** | Balanced performance/cost | Most complex to implement | Large-scale production systems |
 | **Event-Driven** | Stream processing, audit trail | Eventual consistency | Event-sourced architectures |
 | **Edge-First** | Local compute, minimal latency | Edge resource limits | Global, latency-critical |
-
-</div>
 
 
 ### Decision Framework
@@ -1183,8 +1175,6 @@ graph TD
 
 ### Risk Assessment Matrix
 
-<div class="responsive-table" markdown>
-
 | Risk Factor | Pure Push | Pure Pull | Hybrid | Event-Driven | Edge-First |
 |------------|-----------|-----------|---------|--------------|------------|
 | **Celebrity Storm** | 🔴 High | 🟢 Low | 🟢 Low | 🟡 Medium | 🟡 Medium |
@@ -1192,8 +1182,6 @@ graph TD
 | **Latency Spikes** | 🟢 Low | 🔴 High | 🟢 Low | 🟡 Medium | 🟢 Low |
 | **Consistency Issues** | 🟢 Low | 🟡 Medium | 🟡 Medium | 🔴 High | 🔴 High |
 | **Operational Complexity** | 🟢 Low | 🟡 Medium | 🔴 High | 🟡 Medium | 🔴 High |
-
-</div>
 
 
 ## Key Design Insights
@@ -1208,8 +1196,6 @@ graph TD
 
 ### Pattern Selection Guide
 
-<div class="responsive-table" markdown>
-
 | User Type | Pattern | Rationale |
 |-----------|---------|-----------|
 | Normal Users (<1K followers) | Push | Low fanout cost, instant updates |
@@ -1217,8 +1203,6 @@ graph TD
 | Celebrities (>100K) | Pull | Avoid fanout explosion |
 | Inactive Users | Lazy Pull | Don't waste push resources |
 | New Users | ML Cold Start | Use demographic cohorts |
-
-</div>
 
 
 ### Optimization Strategies

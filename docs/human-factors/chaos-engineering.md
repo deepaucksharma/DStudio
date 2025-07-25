@@ -157,16 +157,12 @@ flowchart TD
 
 **Resource Exhaustion Test Matrix:**
 
-<div class="responsive-table" markdown>
-
 | Resource | Test Method | Expected Behavior | Common Failures |
 |----------|------------|------------------|------------------|
 | **Disk** | Fill to 90% | Log rotation, cleanup | App crashes, no alerts |
 | **Memory** | Allocate arrays | OOM killer, restart | Hung process |
 | **CPU** | Spin loops | Throttling, queueing | Timeouts |
 | **Network** | Bandwidth limit | Backpressure | Connection drops |
-
-</div>
 
 
 **Tests**: Degradation handling, alert effectiveness
@@ -197,16 +193,12 @@ flowchart LR
 
 **Latency Test Scenarios:**
 
-<div class="responsive-table" markdown>
-
 | Delay | Percentage | Tests | Expected Outcome |
 |-------|------------|-------|------------------|
 | 100ms | 50% | Normal variance | No impact |
 | 1s | 10% | Timeout handling | Some retries |
 | 5s | 5% | Circuit breakers | Breaker opens |
 | 30s | 1% | Dead detection | Failover triggered |
-
-</div>
 
 
 **Tests**: Timeout handling, circuit breakers
@@ -238,16 +230,12 @@ flowchart TD
 **3. Data Corruption**
 **Data Corruption Test Scenarios:**
 
-<div class="responsive-table" markdown>
-
 | Corruption Type | Example | Tests | Detection Method |
 |----------------|---------|-------|------------------|
 | **Numeric Drift** | amount * 1.1 | Validation logic | Checksum/bounds |
 | **Missing Fields** | Remove required field | Schema validation | Contract testing |
 | **Type Changes** | String → Number | Parsing robustness | Type checking |
 | **Encoding Issues** | UTF-8 → ASCII | Character handling | Encoding validation |
-
-</div>
 
 
 ```mermaid
@@ -298,15 +286,11 @@ flowchart TD
 
 **Rate Limiting Test Matrix:**
 
-<div class="responsive-table" markdown>
-
 | Limit | Window | Test Scenario | Expected Behavior |
 |-------|--------|--------------|-------------------|
 | 10/min | Fixed | Burst of 20 | 10 pass, 10 fail, retry after window |
 | 100/hr | Sliding | Sustained load | Smooth throttling |
 | 1000/day | Token | Spike traffic | Burst allowed, then throttle |
-
-</div>
 
 
 **Tests**: Backoff behavior, queue management
@@ -316,8 +300,6 @@ flowchart TD
 ### Pre-GameDay Checklist
 
 **Pre-GameDay Checklist Status:**
-
-<div class="responsive-table" markdown>
 
 | Item | Owner | Status | Notes |
 |------|-------|--------|-------|
@@ -331,8 +313,6 @@ flowchart TD
 | Rollback tested | Dev Team | ✅ | <30s recovery |
 | Stakeholders informed | PM | ✅ | Email sent |
 | Runbooks updated | SRE | ✅ | Latest version |
-
-</div>
 
 
 ### GameDay Roles (Law 6: Human-API Distribution)
@@ -434,8 +414,6 @@ flowchart LR
 
 **Chaos Engineering Value Metrics:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Before Chaos | After Chaos | Improvement |
 |--------|--------------|-------------|-------------|
 | **Outages/Year** | 12 | 7 | 42% reduction |
@@ -443,8 +421,6 @@ flowchart LR
 | **Confidence Score** | 6/10 | 9/10 | 50% increase |
 | **Unknown Failures** | 8 found in prod | 2 found in prod | 75% caught early |
 | **Team Readiness** | Ad-hoc response | Practiced response | Measurable improvement |
-
-</div>
 
 
 ## Best Practices (Law 6: Human-API Aware)

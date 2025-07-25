@@ -1036,8 +1036,6 @@ class PerformanceOptimizer:
 
 ### Architecture Decisions
 
-<div class="responsive-table" markdown>
-
 | Decision | Choice | Alternative | Trade-off |
 |----------|--------|-------------|-----------|
 | **Conflict Resolution** | Operational Transform | CRDTs | Proven vs Simpler |
@@ -1045,8 +1043,6 @@ class PerformanceOptimizer:
 | **Real-time** | WebSocket | Long polling | Latency vs Complexity |
 | **Sharding** | Document-based | User-based | Collaboration vs Distribution |
 | **History** | Full operation log | Periodic snapshots | Granularity vs Storage |
-
-</div>
 
 
 ### Alternative Architectures

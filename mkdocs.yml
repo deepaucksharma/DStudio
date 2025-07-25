@@ -206,6 +206,7 @@ markdown_extensions:
 extra_css:
   - stylesheets/layout.css
   - stylesheets/custom.css
+  - stylesheets/navigation.css
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -217,6 +218,7 @@ extra_javascript:
   
   # Custom Scripts
   - javascripts/custom.js
+  - javascripts/navigation.js
 
 # Extra Configuration
 extra:
@@ -298,7 +300,7 @@ watch:
   - docs
   - mkdocs.yml
 
-# Navigation - Optimized 6-Tab Structure with Proper Depth
+# Navigation - Complete Site Structure
 nav:
   - Home: index.md
   
@@ -306,20 +308,80 @@ nav:
     - Welcome: introduction/index.md
     - Getting Started: introduction/getting-started.md
     - Philosophy: introduction/philosophy.md
+    
     - Learning Paths:
       - Overview: learning-paths/index.md
-      - New Graduate: learning-paths/new-graduate.md
-      - Senior Engineer: learning-paths/senior-engineer.md
-      - Engineering Manager: learning-paths/manager.md
-      - Solution Architect: learning-paths/architect.md
-      - By Topic:
-        - Consistency: learning-paths/consistency.md
-        - Performance: learning-paths/performance.md
-        - Cost: learning-paths/cost.md
-        - Reliability: learning-paths/reliability.md
-    - Foundations:
-      - The 7 Laws: part1-axioms/index.md
-      - The 5 Pillars: part2-pillars/index.md
+      - Role-Based Paths:
+        - New Graduate: learning-paths/new-graduate.md
+        - Senior Engineer: learning-paths/senior-engineer.md
+        - Engineering Manager: learning-paths/manager.md
+        - Solution Architect: learning-paths/architect.md
+      - Topic-Based Paths:
+        - Consistency & Coordination: learning-paths/consistency.md
+        - Performance & Scale: learning-paths/performance.md
+        - Cost Optimization: learning-paths/cost.md
+        - Reliability & Resilience: learning-paths/reliability.md
+    
+    - The 7 Laws:
+      - Overview: part1-axioms/index.md
+      - Law 1 - Correlated Failure:
+        - Concept: part1-axioms/law1-failure/index.md
+        - Examples: part1-axioms/law1-failure/examples.md
+        - Exercises: part1-axioms/law1-failure/exercises.md
+      - Law 2 - Asynchronous Reality:
+        - Concept: part1-axioms/law2-asynchrony/index.md
+        - Examples: part1-axioms/law2-asynchrony/examples.md
+        - Exercises: part1-axioms/law2-asynchrony/exercises.md
+      - Law 3 - Emergent Chaos:
+        - Concept: part1-axioms/law3-emergence/index.md
+        - Examples: part1-axioms/law3-emergence/examples.md
+        - Exercises: part1-axioms/law3-emergence/exercises.md
+      - Law 4 - Multidimensional Optimization:
+        - Concept: part1-axioms/law4-tradeoffs/index.md
+        - Examples: part1-axioms/law4-tradeoffs/examples.md
+        - Exercises: part1-axioms/law4-tradeoffs/exercises.md
+      - Law 5 - Distributed Knowledge:
+        - Concept: part1-axioms/law5-epistemology/index.md
+        - Examples: part1-axioms/law5-epistemology/examples.md
+        - Exercises: part1-axioms/law5-epistemology/exercises.md
+      - Law 6 - Cognitive Load:
+        - Concept: part1-axioms/law6-human-api/index.md
+        - Examples: part1-axioms/law6-human-api/examples.md
+        - Exercises: part1-axioms/law6-human-api/exercises.md
+      - Law 7 - Economic Reality:
+        - Concept: part1-axioms/law7-economics/index.md
+        - Examples: part1-axioms/law7-economics/examples.md
+        - Exercises: part1-axioms/law7-economics/exercises.md
+      - Quiz: part1-axioms/quiz.md
+      - Synthesis: part1-axioms/synthesis.md
+    
+    - The 5 Pillars:
+      - Overview: part2-pillars/index.md
+      - Pillar 1 - Work Distribution:
+        - Concept: part2-pillars/work/index.md
+        - Examples: part2-pillars/work/examples.md
+        - Exercises: part2-pillars/work/exercises.md
+      - Pillar 2 - State Distribution:
+        - Concept: part2-pillars/state/index.md
+        - Examples: part2-pillars/state/examples.md
+        - Exercises: part2-pillars/state/exercises.md
+      - Pillar 3 - Truth Distribution:
+        - Concept: part2-pillars/truth/index.md
+        - Examples: part2-pillars/truth/examples.md
+        - Exercises: part2-pillars/truth/exercises.md
+      - Pillar 4 - Control Distribution:
+        - Concept: part2-pillars/control/index.md
+        - Examples: part2-pillars/control/examples.md
+        - Exercises: part2-pillars/control/exercises.md
+      - Pillar 5 - Intelligence Distribution:
+        - Concept: part2-pillars/intelligence/index.md
+        - Examples: part2-pillars/intelligence/examples.md
+        - Exercises: part2-pillars/intelligence/exercises.md
+      - Decision Framework:
+        - Decision Tree: part2-pillars/decision-tree.md
+        - Pattern Matrix: part2-pillars/pattern-matrix.md
+        - Trade-off Analysis: part2-pillars/tradeoff-calculus.md
+      - Checkpoint: part2-pillars/pillar-checkpoint.md
   
   - Patterns:
     - Overview: patterns/index.md
@@ -327,59 +389,189 @@ nav:
       - Pattern Selector: patterns/pattern-selector.md
       - Pattern Comparison: patterns/pattern-comparison.md
       - Pattern Quiz: patterns/pattern-quiz.md
-    - Core Patterns:
+      - Pattern Relationships: patterns/pattern-relationships.md
+    
+    - Communication Patterns:
+      - API Gateway: patterns/api-gateway.md
+      - Service Mesh: patterns/service-mesh.md
+      - Event-Driven: patterns/event-driven.md
+      - Event Sourcing: patterns/event-sourcing.md
+      - CQRS: patterns/cqrs.md
+      - Saga: patterns/saga.md
+      - Choreography: patterns/choreography.md
+      - WebSocket: patterns/websocket.md
+      - GraphQL Federation: patterns/graphql-federation.md
+    
+    - Resilience Patterns:
       - Circuit Breaker: patterns/circuit-breaker.md
       - Retry & Backoff: patterns/retry-backoff.md
-      - CQRS: patterns/cqrs.md
-      - Event Sourcing: patterns/event-sourcing.md
-      - Saga: patterns/saga.md
-      - Service Mesh: patterns/service-mesh.md
-    - Browse All Patterns: patterns/index.md#pattern-categories
+      - Bulkhead: patterns/bulkhead.md
+      - Timeout: patterns/timeout.md
+      - Health Check: patterns/health-check.md
+      - Failover: patterns/failover.md
+      - Load Shedding: patterns/load-shedding.md
+      - Backpressure: patterns/backpressure.md
+      - Graceful Degradation: patterns/graceful-degradation.md
+    
+    - Data Patterns:
+      - Sharding: patterns/sharding.md
+      - CRDT: patterns/crdt.md
+      - Event Streaming: patterns/event-streaming.md
+      - CDC: patterns/cdc.md
+      - Outbox: patterns/outbox.md
+      - Two-Phase Commit: patterns/two-phase-commit.md
+      - Distributed Lock: patterns/distributed-lock.md
+      - Leader Election: patterns/leader-election.md
+      - Vector Clocks: patterns/vector-clocks.md
+      - Logical Clocks: patterns/logical-clocks.md
+    
+    - Storage Patterns:
+      - LSM Tree: patterns/lsm-tree.md
+      - WAL: patterns/wal.md
+      - Merkle Trees: patterns/merkle-trees.md
+      - Bloom Filter: patterns/bloom-filter.md
+      - Distributed Storage: patterns/distributed-storage.md
+      - Polyglot Persistence: patterns/polyglot-persistence.md
+    
+    - Scaling Patterns:
+      - Auto-Scaling: patterns/auto-scaling.md
+      - Load Balancing: patterns/load-balancing.md
+      - Caching Strategies: patterns/caching-strategies.md
+      - Edge Computing: patterns/edge-computing.md
+      - Multi-Region: patterns/multi-region.md
+      - Cell-Based: patterns/cell-based.md
+      - Shared Nothing: patterns/shared-nothing.md
+    
+    - Security Patterns:
+      - E2E Encryption: patterns/e2e-encryption.md
+      - Key Management: patterns/key-management.md
+      - Consent Management: patterns/consent-management.md
+      - Valet Key: patterns/valet-key.md
+    
+    - Browse All: patterns/index.md#all-patterns
   
   - Quantitative:
     - Overview: quantitative/index.md
-    - Essential Tools:
-      - Latency Ladder: quantitative/latency-ladder.md
-      - Little's Law: quantitative/littles-law.md
+    
+    - Fundamental Laws:
       - CAP Theorem: quantitative/cap-theorem.md
+      - Little's Law: quantitative/littles-law.md
+      - Amdahl's Law: quantitative/amdahl-gustafson.md
+      - Universal Scalability: quantitative/universal-scalability.md
+    
+    - Performance:
+      - Latency Ladder: quantitative/latency-ladder.md
+      - Queueing Models: quantitative/queueing-models.md
+      - Performance Modeling: quantitative/performance-modeling.md
+      - Network Theory: quantitative/network-theory.md
+    
+    - Reliability:
+      - Availability Math: quantitative/availability-math.md
+      - Failure Models: quantitative/failure-models.md
+      - Reliability Theory: quantitative/reliability-theory.md
+      - MTBF & MTTR: quantitative/mtbf-mttr.md
+    
+    - Consistency:
       - Consistency Models: quantitative/consistency-models.md
-    - Calculators:
-      - All Calculators: tools/index.md
-      - Latency Calculator: tools/latency-calculator.md
-      - Capacity Calculator: tools/capacity-calculator.md
-    - Human Factors:
-      - Overview: human-factors/index.md
-      - SRE Practices: human-factors/sre-practices.md
-      - Chaos Engineering: human-factors/chaos-engineering.md
+      - Coordination Costs: quantitative/coordination-costs.md
+    
+    - Economics:
+      - Storage Economics: quantitative/storage-economics.md
+      - Cache Economics: quantitative/cache-economics.md
+    
+    - Advanced Topics:
+      - Probabilistic Structures: quantitative/probabilistic-structures.md
+      - Graph Theory: quantitative/graph-theory.md
+      - Stochastic Processes: quantitative/stochastic-processes.md
+    
+    - Problem Sets: quantitative/problem-set.md
   
   - Case Studies:
     - Overview: case-studies/index.md
-    - Featured Systems:
-      - Chat System: case-studies/chat-system.md
+    
+    - System Design Classics:
       - URL Shortener: case-studies/url-shortener.md
+      - Chat System: case-studies/chat-system.md
+      - News Feed: case-studies/news-feed.md
       - Key-Value Store: case-studies/key-value-store.md
-    - Tech Giants:
+      - Web Crawler: case-studies/web-crawler.md
+      - Rate Limiter: case-studies/rate-limiter.md
+      - Gaming Leaderboard: case-studies/gaming-leaderboard-enhanced.md
+    
+    - Databases:
+      - Cassandra: case-studies/cassandra.md
+      - MongoDB: case-studies/mongodb.md
+      - Elasticsearch: case-studies/elasticsearch.md
+      - etcd: case-studies/etcd.md
       - Amazon DynamoDB: case-studies/amazon-dynamo.md
-      - Apache Cassandra: case-studies/cassandra.md
+    
+    - Infrastructure:
+      - Object Storage (S3): case-studies/s3-object-storage-enhanced.md
+      - Apache Spark: case-studies/apache-spark.md
       - Netflix Streaming: case-studies/netflix-streaming.md
-    - Browse All Cases: case-studies/index.md#all-case-studies
+      - Uber Systems: case-studies/uber-systems.md
+      - ZooKeeper: case-studies/zookeeper.md
+    
+    - Social Systems:
+      - Social Graph: case-studies/social-graph.md
+      - Social Media Feed: case-studies/social-media-feed.md
+      - Nearby Friends: case-studies/nearby-friends.md
+    
+    - Monitoring & Observability:
+      - Prometheus/Datadog: case-studies/prometheus-datadog-enhanced.md
+      - Metrics Monitoring: case-studies/metrics-monitoring.md
+    
+    - Google Systems:
+      - Overview: case-studies/google-systems/index.md
+      - Search: case-studies/google-systems/google-search.md
+      - Maps: case-studies/google-systems/google-maps-system.md
+      - YouTube: case-studies/google-systems/google-youtube.md
+      - Gmail: case-studies/google-systems/google-gmail.md
+      - Docs: case-studies/google-systems/google-docs.md
+      - Drive: case-studies/google-drive.md
+    
+    - Location Services:
+      - Apple Maps: case-studies/apple-maps.md
+      - HERE Maps: case-studies/here-maps.md
+      - Find My Device: case-studies/find-my-device.md
+    
+    - Security:
+      - HashiCorp Vault: case-studies/vault.md
+    
+    - Browse All: case-studies/index.md#all-case-studies
+  
+  - Tools:
+    - Overview: tools/index.md
+    - Calculators:
+      - Consistency Calculator: tools/consistency-calculator.md
+      - Latency Calculator: tools/latency-calculator.md
+      - Capacity Calculator: tools/capacity-calculator.md
   
   - Interviews:
     - Overview: google-interviews/index.md
     - Preparation:
-      - Preparation Guide: google-interviews/preparation-guide.md
+      - Getting Started: google-interviews/preparation-guide.md
       - Visual Roadmap: google-interviews/preparation-roadmap.md
       - Common Mistakes: google-interviews/common-mistakes.md
-    - Practice Problems:
+    - Practice:
       - System Design Basics: google-interviews/system-design-basics.md
-      - Advanced Topics: google-interviews/advanced-techniques.md
+      - Advanced Techniques: google-interviews/advanced-techniques.md
+      - Interview Problems: google-interviews/interview-problems.md
+      - Dashboard: google-interviews/dashboard.md
+  
+  - Human Factors:
+    - Overview: human-factors/index.md
+    - SRE Practices: human-factors/sre-practices.md
+    - Chaos Engineering: human-factors/chaos-engineering.md
+    - Observability: human-factors/observability.md
   
   - Reference:
     - Overview: reference/index.md
     - Quick Reference:
       - Glossary: reference/glossary.md
       - Cheat Sheets: reference/cheat-sheets.md
-      - Law Mapping Guide: reference/law-mapping-guide.md
-    - Resources:
-      - Security Patterns: reference/security.md
       - Recipe Cards: reference/recipe-cards.md
+      - Law Mapping Guide: reference/law-mapping-guide.md
+    - Security:
+      - Security Patterns: reference/security.md
+    - Contributing: reference/contributing.md

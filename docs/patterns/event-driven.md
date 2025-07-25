@@ -55,16 +55,12 @@ Chain of dependencies                 Independent reactions
 
 ### Real-World Examples
 
-<div class="responsive-table" markdown>
-
 | System | Events | Scale |
 |--------|--------|-------|
 | **Netflix** | Video started, paused, completed | 150B events/day |
 | **Uber** | Trip requested, driver assigned, trip completed | 50M trips/day |
 | **LinkedIn** | Post created, connection made, message sent | 1B+ events/day |
 | **Spotify** | Song played, playlist created, artist followed | 100M+ users |
-
-</div>
 
 
 ### Event Flow Visualization
@@ -102,8 +98,6 @@ sequenceDiagram
 
 ### Event-Driven Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | Description | Use Case |
 |---------|-------------|----------|
 | **Event Notification** | Simple "something happened" | User logged in |
@@ -111,8 +105,6 @@ sequenceDiagram
 | **Event Sourcing** | Events as source of truth | Audit trail, replay |
 | **CQRS** | Separate read/write models | High-performance queries |
 | **Saga** | Distributed transactions | Multi-service workflows |
-
-</div>
 
 
 ### Basic Implementation
@@ -241,8 +233,6 @@ graph TD
 
 #### Event Design Principles
 
-<div class="responsive-table" markdown>
-
 | Principle | Description | Example |
 |-----------|-------------|---------|
 | **Immutability** | Events represent facts, never change | OrderPlaced can't be modified |
@@ -250,8 +240,6 @@ graph TD
 | **Time-Ordered** | Clear temporal sequence | Use timestamps/versions |
 | **Business-Focused** | Model domain concepts | OrderShipped not RecordUpdated |
 | **Versioned** | Support schema evolution | Include version in metadata |
-
-</div>
 
 
 ### Event Store Architecture
@@ -1430,8 +1418,6 @@ class EventDrivenEconomics:
 
 ### Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Question | Yes → Event-Driven | No → Alternative |
 |----------|-------------------|------------------|
 | Multiple services need same data? | ✅ Publish events | ⚠️ Direct API calls |
@@ -1439,8 +1425,6 @@ class EventDrivenEconomics:
 | Async processing acceptable? | ✅ Event queues | ⚠️ Synchronous APIs |
 | Need audit trail? | ✅ Event sourcing | ⚠️ Traditional logging |
 | Complex workflows? | ✅ Event-driven saga | ⚠️ Orchestration service |
-
-</div>
 
 
 ### Implementation Checklist

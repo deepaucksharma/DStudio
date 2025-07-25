@@ -50,8 +50,6 @@ graph LR
 
 **Latency Targets and Strategies:**
 
-<div class="responsive-table" markdown>
-
 | Operation | Target Latency | Strategy |
 |-----------|---------------|----------|
 | File Open | < 100ms | Aggressive prefetching |
@@ -59,8 +57,6 @@ graph LR
 | Search | < 200ms | Distributed index |
 | Download Start | < 1s | Progressive transfer |
 | Collaboration Cursor | < 100ms | WebSocket + OT |
-
-</div>
 
 
 **Prefetching Intelligence:**
@@ -97,8 +93,6 @@ graph TB
 
 **Capacity Metrics:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Scale | Growth Rate |
 |--------|-------|-------------|
 | Total Storage | 10+ Exabytes | +40% YoY |
@@ -106,8 +100,6 @@ graph TB
 | Daily Uploads | 1B+ files | +25% YoY |
 | Concurrent Edits | 10M+ | +50% YoY |
 | File Versions | 1T+ versions | +60% YoY |
-
-</div>
 
 
 **Storage Optimization Techniques:**
@@ -123,16 +115,12 @@ graph LR
     end
 ```
 
-<div class="responsive-table" markdown>
-
 | Technique | Space Savings | Use Case |
 |-----------|--------------|----------|
 | Block Deduplication | 30-40% | Common files |
 | Compression | 20-30% | Text/documents |
 | Delta Encoding | 90%+ | Version storage |
 | Smart Tiering | 60% cost | Inactive data |
-
-</div>
 
 
 ### Law 1: Failure - Data Durability and Availability
@@ -157,16 +145,12 @@ graph TB
 
 **Failure Scenarios and Recovery:**
 
-<div class="responsive-table" markdown>
-
 | Failure Type | MTBF | Recovery Strategy | RPO | RTO |
 |--------------|------|-------------------|-----|-----|
 | Disk Failure | 3 years | Immediate rebuild | 0 | < 1 min |
 | Server Failure | 5 years | Redirect traffic | 0 | < 10s |
 | Rack Failure | 10 years | Cross-rack replication | 0 | < 30s |
 | DC Failure | 100 years | Geo-replication | < 1 min | < 5 min |
-
-</div>
 
 
 **Durability Calculation:**
@@ -194,16 +178,12 @@ graph TB
 
 **Collaboration Patterns:**
 
-<div class="responsive-table" markdown>
-
 | Pattern | Use Case | Consistency Model |
 |---------|----------|------------------|
 | Real-time Editing | Google Docs | Operational Transform |
 | File Locking | Video editing | Pessimistic locking |
 | Version Branching | Source code | Git-like branching |
 | Conflict Resolution | Offline edits | Three-way merge |
-
-</div>
 
 
 **Conflict Resolution Matrix:**
@@ -237,8 +217,6 @@ graph TB
 
 **Consistency Requirements by Operation:**
 
-<div class="responsive-table" markdown>
-
 | Operation | Consistency Level | Latency Trade-off |
 |-----------|------------------|-------------------|
 | File Create | Strong | Higher latency OK |
@@ -246,8 +224,6 @@ graph TB
 | Permission Change | Strong | Security critical |
 | Search Index | Eventual | Can lag minutes |
 | View Count | Eventual | Can lag hours |
-
-</div>
 
 
 **Sync Protocol State Machine:**
@@ -289,8 +265,6 @@ graph TB
 
 **Key Metrics Dashboard:**
 
-<div class="responsive-table" markdown>
-
 | Metric Category | Examples | Alert Threshold |
 |----------------|----------|-----------------|
 | Availability | Uptime, Error rate | > 99.9% |
@@ -298,8 +272,6 @@ graph TB
 | Capacity | Storage usage, Quota limits | > 80% full |
 | Security | Auth failures, Suspicious access | Anomaly based |
 | Business | Active users, Storage growth | Trend deviation |
-
-</div>
 
 
 ### Law 6: Human-API - Seamless User Experience
@@ -320,8 +292,6 @@ graph LR
 
 **UX Optimization Strategies:**
 
-<div class="responsive-table" markdown>
-
 | Feature | Technical Implementation | User Perception |
 |---------|-------------------------|-----------------|
 | Instant Save | Local write + async sync | "Always saved" |
@@ -329,8 +299,6 @@ graph LR
 | Quick Search | Local index + prefetch | "Instant results" |
 | Smart Sync | ML-based prediction | "Right files ready" |
 | Version History | Efficient delta storage | "Time travel" |
-
-</div>
 
 
 **Collaboration UX Patterns:**
@@ -364,8 +332,6 @@ graph TB
 
 **Cost Optimization Strategies:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Impact | Implementation |
 |----------|--------|----------------|
 | Deduplication | -40% storage | Content-based chunking |
@@ -374,12 +340,8 @@ graph TB
 | Regional Caching | -50% bandwidth | Edge locations |
 | Quota Incentives | -20% growth | Encourage cleanup |
 
-</div>
-
 
 **Storage Economics:**
-
-<div class="responsive-table" markdown>
 
 | Tier | Cost/User/Month | Revenue/User/Month | Margin |
 |------|-----------------|-------------------|---------|
@@ -388,16 +350,12 @@ graph TB
 | 2TB | $2.00 | $9.99 | 80% |
 | Enterprise | $5.00 | $25.00 | 80% |
 
-</div>
-
 
 ## Part 2: Comprehensive Law Analysis Matrix
 
 Understanding how each design decision in Google Drive maps to fundamental laws reveals the intricate balance required for cloud storage at scale.
 
 ### Law Mapping for Core Design Decisions
-
-<div class="responsive-table" markdown>
 
 | Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
@@ -406,8 +364,6 @@ Understanding how each design decision in Google Drive maps to fundamental laws 
 | **Local Sync Cache** | ✅ Instant access<br/>0ms for cached | ⚠️ Duplicate storage<br/>Client disk usage | ✅ Offline capability<br/>Local recovery | ✅ Optimistic updates<br/>Background sync | ⚠️ Conflict potential<br/>Version divergence | ✅ Sync status<br/>Clear indicators | ✅ Works offline<br/>Feels like local | ✅ Reduced bandwidth<br/>Better experience |
 | **Operational Transform** | ✅ Real-time collab<br/>< 100ms updates | ⚠️ Transform overhead<br/>Complex state | ✅ Graceful degradation<br/>Eventual consistency | ✅ Lock-free editing<br/>Unlimited users | ✅ Causal ordering<br/>Convergence guaranteed | ⚠️ Complex debugging<br/>Transform chains | ✅ Live collaboration<br/>See others' cursors | ⚠️ Server compute<br/>Transform processing |
 | **Tiered Storage** | ⚠️ Cold tier slow<br/>Minutes to retrieve | ✅ 60% cost savings<br/>Efficient use | ✅ Multiple copies<br/>Tier-appropriate | ✅ Async migration<br/>No user impact | ✅ Policy-based<br/>Automated movement | ✅ Access patterns<br/>Clear analytics | ⚠️ Retrieval delays<br/>Set expectations | ✅ Major savings<br/>Sustainable model |
-
-</div>
 
 
 ### Detailed Law Interaction Analysis
@@ -437,8 +393,6 @@ graph TB
 
 ### Architecture Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Architecture Choice | Primary Law Driver | Secondary Impacts | Trade-off Analysis |
 |-------------------|-------------------|------------------|-------------------|
 | **Block vs File Dedup** | Capacity (storage efficiency) | Latency (chunking overhead) | Block dedup wins despite complexity |
@@ -446,12 +400,8 @@ graph TB
 | **Client vs Server Processing** | Latency (responsiveness) | Economics (compute location) | Hybrid approach optimal |
 | **Replication vs Erasure Coding** | Failure (durability) | Capacity (storage cost) | EC for cold, replication for hot |
 
-</div>
-
 
 ### Law Priority by Use Case
-
-<div class="responsive-table" markdown>
 
 | Use Case | Top 3 Laws | Architecture Implications |
 |----------|--------------|-------------------------|
@@ -459,8 +409,6 @@ graph TB
 | **Team Collaboration** | Latency > Concurrency > Human Interface | Real-time sync, OT, rich presence indicators |
 | **Enterprise Storage** | Failure > Observability > Economics | High redundancy, audit trails, tiered pricing |
 | **Media Streaming** | Latency > Capacity > Economics | CDN integration, progressive download, smart caching |
-
-</div>
 
 
 ## Part 3: Architecture Alternatives - Exploring the Design Space
@@ -526,16 +474,12 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Deduplication | Perfect (100%) | Hash computation cost |
 | Integrity | Built-in verification | No in-place updates |
 | Scaling | Linear with nodes | Complex garbage collection |
 | Security | Encryption complexity | Key management |
-
-</div>
 
 
 ### Alternative Architecture 2: Peer-to-Peer Hybrid
@@ -557,16 +501,12 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Bandwidth | -70% for popular files | Complex coordination |
 | Availability | Improves with popularity | Poor for rare files |
 | Privacy | Concerns with P2P | Need encryption |
 | Control | Less infrastructure | Harder to manage |
-
-</div>
 
 
 ### Alternative Architecture 3: Edge-First Architecture
@@ -587,16 +527,12 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Latency | Ultra-low (< 10ms) | Many edge locations |
 | Resilience | Survives core outages | Complex consistency |
 | Cost | Reduced backbone traffic | Higher edge costs |
 | Features | Local AI/ML possible | Resource constraints |
-
-</div>
 
 
 ### Alternative Architecture 4: Blockchain-Based
@@ -619,16 +555,12 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Trust | Zero trust needed | Performance issues |
 | Audit | Complete history | Storage overhead |
 | Control | User ownership | No central features |
 | Cost | Potentially lower | Blockchain fees |
-
-</div>
 
 
 ### Recommended Architecture: Intelligent Hybrid System
@@ -700,16 +632,12 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Audit Trail | Complete history | Storage overhead |
 | Versioning | Natural versioning | Complex queries |
 | Consistency | Strong ordering | Processing latency |
 | Recovery | Perfect replay | Replay time |
-
-</div>
 
 
 ### Alternative Architecture 6: Federated Storage Network
@@ -730,8 +658,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Vendor Lock-in | None | Complex integration |
@@ -739,14 +665,10 @@ graph TB
 | Compliance | Data sovereignty | Policy complexity |
 | Reliability | No single point | Consistency across providers |
 
-</div>
-
 
 ## Part 4: Comprehensive Trade-off Comparison
 
 ### Performance Comparison Matrix
-
-<div class="responsive-table" markdown>
 
 | Architecture | Upload Speed | Download Speed | Sync Latency | Storage Efficiency | Collaboration Support |
 |--------------|--------------|----------------|--------------|-------------------|---------------------|
@@ -757,8 +679,6 @@ graph TB
 | **Blockchain** | ❌ Slow | ✅ OK | ❌ Very Slow | ✅✅ Good | ❌ Poor |
 | **Event-Sourced** | ✅✅ Good | ✅✅ Good | ✅✅ Good | ✅ OK | ✅✅✅ Excellent |
 | **Federated** | ✅✅ Good | ✅✅ Good | ✅ OK | ✅✅ Good | ✅✅ Good |
-
-</div>
 
 
 *For popular files only
@@ -788,8 +708,6 @@ graph TD
 
 ### Cost Analysis by Architecture and Scale
 
-<div class="responsive-table" markdown>
-
 | Architecture | 1TB Storage | 100TB Storage | 10PB Storage | Bandwidth Cost | Operational Cost |
 |--------------|-------------|---------------|--------------|----------------|------------------|
 | **Multi-Region** | $20/month | $1,500/month | $100K/month | $0.08/GB | High (team) |
@@ -800,12 +718,8 @@ graph TD
 | **Event-Sourced** | $30/month | $2,500/month | $180K/month | $0.08/GB | High |
 | **Federated** | $18/month | $1,200/month | $80K/month | $0.06/GB | Medium |
 
-</div>
-
 
 ### Feature Support Matrix
-
-<div class="responsive-table" markdown>
 
 | Feature | Multi-Region | CAS | P2P | Edge | Blockchain | Event | Federated |
 |---------|--------------|-----|-----|------|------------|-------|-----------|
@@ -817,12 +731,8 @@ graph TD
 | Permissions | ✅ | ⚠️ | ❌ | ✅ | ✅ | ✅ | ✅ |
 | Audit Trail | ⚠️ | ✅ | ❌ | ⚠️ | ✅ | ✅ | ⚠️ |
 
-</div>
-
 
 ### Failure Resilience Analysis
-
-<div class="responsive-table" markdown>
 
 | Architecture | Data Loss Risk | Availability | Recovery Time | Disaster Recovery | Geo-Redundancy |
 |--------------|----------------|--------------|---------------|-------------------|----------------|
@@ -833,8 +743,6 @@ graph TD
 | **Blockchain** | Zero | 99% | Days | Perfect | Natural |
 | **Event** | Near Zero | 99.9% | < 10 min | Excellent | Configurable |
 | **Federated** | Low | 99.95% | < 5 min | Good | Provider-dependent |
-
-</div>
 
 
 ### Implementation Complexity Timeline
@@ -876,8 +784,6 @@ gantt
 
 ### Decision Matrix for Architecture Selection
 
-<div class="responsive-table" markdown>
-
 | Factor | Weight | Multi-Region | CAS | P2P | Edge | Blockchain | Event | Federated |
 |--------|--------|--------------|-----|-----|------|------------|-------|-----------|
 | Performance | 20% | 5/5 | 3/5 | 3/5 | 5/5 | 1/5 | 4/5 | 4/5 |
@@ -888,8 +794,6 @@ gantt
 | Complexity | 10% | 3/5 | 3/5 | 2/5 | 2/5 | 1/5 | 3/5 | 3/5 |
 | Compliance | 10% | 4/5 | 3/5 | 1/5 | 4/5 | 5/5 | 5/5 | 5/5 |
 | **Total Score** | 100% | **4.3** | **3.4** | **2.9** | **3.9** | **2.1** | **4.1** | **4.0** |
-
-</div>
 
 
 ### Migration Path Analysis
@@ -1598,8 +1502,6 @@ class StorageLifecycleManager:
 
 ### Comprehensive Design Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Law 2<br/>⏳ Asynchronous Reality | Law 4<br/>⚖️ Trade-offs | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Emergence | Law 4<br/>⚖️ Trade-offs | Law 5<br/>🧠 Epistemology | Law 6<br/>🤯 Human-API | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------||
 | **Content-Addressed Storage** | ⚪ | ✅ Deduplication | ✅ Immutable data | ✅ Parallel access | ✅ Simple sync | ✅ Hash verification | ⚪ | ✅ 30% storage saved |
@@ -1610,8 +1512,6 @@ class StorageLifecycleManager:
 | **Predictive Caching** | ✅ Pre-cached files | ✅ Smart storage use | ⚪ | ⚪ | ⚪ | ✅ ML metrics | ✅ Faster access | ✅ Cache efficiency |
 | **Metadata Sharding** | ✅ Fast queries | ✅ Horizontal scale | ✅ Shard isolation | ✅ Parallel queries | ✅ Consistent hashing | ✅ Shard metrics | ⚪ | ⚪ |
 | **Client-side Encryption** | ⚪ Slight overhead | ⚪ | ✅ Zero-knowledge | ⚪ | ✅ Key management | ⚪ | ✅ Privacy control | ✅ Compliance |
-
-</div>
 
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact

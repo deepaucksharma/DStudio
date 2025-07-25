@@ -1,31 +1,29 @@
 # Google System Design Interview Problems
 
-<div class="law-box">
-<h4>How to Use This Guide</h4>
+!!! abstract "How to Use This Guide"
 
-Each problem includes:
-- Problem statement as given in interviews
-- Clarifying questions to ask
-- Scale calculations
-- Design approach
-- Google-specific considerations
-- Common follow-ups
+ Each problem includes:
+ - Problem statement as given in interviews
+ - Clarifying questions to ask
+ - Scale calculations
+ - Design approach
+ - Google-specific considerations
+ - Common follow-ups
 
-Practice these with a timer and whiteboard!
-</div>
+ Practice these with a timer and whiteboard!
 
 ## Classic Google Problems
 
 ### 1. Design Google Search
 
 !!! note "Problem Statement"
-    "Design a web search engine like Google Search that can index billions of web pages and serve search results with sub-second latency."
-    **Key Requirements:**
-    - Web crawling and indexing
-    - Query processing and ranking
-    - Spell correction and suggestions
-    - Personalized results
-    - Real-time updates for news/trending
+ "Design a web search engine like Google Search that can index billions of web pages and serve search results with sub-second latency."
+ **Key Requirements:**
+ - Web crawling and indexing
+ - Query processing and ranking
+ - Spell correction and suggestions
+ - Personalized results
+ - Real-time updates for news/trending
 
 **Clarifying Questions:**
 - Scale: How many web pages? (Billions)
@@ -47,28 +45,28 @@ Peak QPS: 140K QPS
 **High-Level Design:**
 ```mermaid
 graph TB
-    subgraph "Crawling & Indexing"
-        C[Crawler] --> PS[Page Store]
-        PS --> I[Indexer]
-        I --> IS[Index Shards]
-    end
-    
-    subgraph "Query Processing"
-        U[User] --> QP[Query Processor]
-        QP --> SC[Spell Check]
-        QP --> QE[Query Expansion]
-        QE --> S[Searcher]
-        S --> IS
-        S --> R[Ranker]
-        R --> U
-    end
-    
-    subgraph "Supporting Systems"
-        PC[PageRank Computer]
-        FC[Fresh Content System]
-        PS --> PC
-        FC --> IS
-    end
+ subgraph "Crawling & Indexing"
+ C[Crawler] --> PS[Page Store]
+ PS --> I[Indexer]
+ I --> IS[Index Shards]
+ end
+ 
+ subgraph "Query Processing"
+ U[User] --> QP[Query Processor]
+ QP --> SC[Spell Check]
+ QP --> QE[Query Expansion]
+ QE --> S[Searcher]
+ S --> IS
+ S --> R[Ranker]
+ R --> U
+ end
+ 
+ subgraph "Supporting Systems"
+ PC[PageRank Computer]
+ FC[Fresh Content System]
+ PS --> PC
+ FC --> IS
+ end
 ```
 
 **Google-Specific Considerations:**
@@ -81,14 +79,14 @@ graph TB
 ### 2. Design YouTube
 
 !!! note "Problem Statement"
-    "Design a video sharing platform like YouTube that supports uploading, storing, and streaming videos to billions of users worldwide."
-    **Key Requirements:**
-    - Video upload and processing
-    - Multiple quality transcoding
-    - Global video delivery
-    - View counting and analytics
-    - Comments and interactions
-    - Recommendation system
+ "Design a video sharing platform like YouTube that supports uploading, storing, and streaming videos to billions of users worldwide."
+ **Key Requirements:**
+ - Video upload and processing
+ - Multiple quality transcoding
+ - Global video delivery
+ - View counting and analytics
+ - Comments and interactions
+ - Recommendation system
 
 **Scale Estimation:**
 ```
@@ -109,27 +107,27 @@ Bandwidth calculation:
 **Architecture Design:**
 ```mermaid
 graph TB
-    subgraph "Upload Pipeline"
-        U[User] --> UL[Upload Service]
-        UL --> Q[Queue]
-        Q --> T[Transcoder]
-        T --> VS[Video Storage]
-        T --> CDN
-    end
-    
-    subgraph "Streaming"
-        V[Viewer] --> LB[Load Balancer]
-        LB --> AS[API Server]
-        AS --> CDN[CDN/Edge Servers]
-        AS --> VS
-    end
-    
-    subgraph "Supporting Services"
-        AS --> MD[Metadata DB]
-        AS --> AN[Analytics]
-        AS --> REC[Recommendation]
-        AS --> CM[Comments]
-    end
+ subgraph "Upload Pipeline"
+ U[User] --> UL[Upload Service]
+ UL --> Q[Queue]
+ Q --> T[Transcoder]
+ T --> VS[Video Storage]
+ T --> CDN
+ end
+ 
+ subgraph "Streaming"
+ V[Viewer] --> LB[Load Balancer]
+ LB --> AS[API Server]
+ AS --> CDN[CDN/Edge Servers]
+ AS --> VS
+ end
+ 
+ subgraph "Supporting Services"
+ AS --> MD[Metadata DB]
+ AS --> AN[Analytics]
+ AS --> REC[Recommendation]
+ AS --> CM[Comments]
+ end
 ```
 
 **Deep Dive Areas:**
@@ -142,14 +140,14 @@ graph TB
 ### 3. Design Google Drive
 
 !!! note "Problem Statement"
-    "Design a cloud storage service like Google Drive that allows users to store, sync, and share files across multiple devices."
-    **Key Requirements:**
-    - File upload/download
-    - Automatic sync across devices
-    - File sharing and permissions
-    - Version history
-    - Real-time collaboration
-    - Mobile and desktop clients
+ "Design a cloud storage service like Google Drive that allows users to store, sync, and share files across multiple devices."
+ **Key Requirements:**
+ - File upload/download
+ - Automatic sync across devices
+ - File sharing and permissions
+ - Version history
+ - Real-time collaboration
+ - Mobile and desktop clients
 
 **Key Design Decisions:**
 
@@ -157,35 +155,35 @@ graph TB
 ```python
 # Fixed-size chunking (4MB chunks)
 def chunk_file(file_path, chunk_size=4*1024*1024):
-    chunks = []
-    with open(file_path, 'rb') as f:
-        while True:
-            chunk = f.read(chunk_size)
-            if not chunk:
-                break
-            chunk_hash = sha256(chunk).hexdigest()
-            chunks.append({
-                'hash': chunk_hash,
-                'size': len(chunk),
-                'offset': f.tell() - len(chunk)
-            })
-    return chunks
+ chunks = []
+ with open(file_path, 'rb') as f:
+ while True:
+ chunk = f.read(chunk_size)
+ if not chunk:
+ break
+ chunk_hash = sha256(chunk).hexdigest()
+ chunks.append({
+ 'hash': chunk_hash,
+ 'size': len(chunk),
+ 'offset': f.tell() - len(chunk)
+ })
+ return chunks
 ```
 
 2. **Sync Protocol:**
 ```mermaid
 sequenceDiagram
-    participant Client
-    participant Server
-    participant Storage
-    
-    Client->>Server: Get file metadata
-    Server->>Client: Return metadata + versions
-    Client->>Client: Compute local changes
-    Client->>Server: Upload new chunks
-    Server->>Storage: Store chunks
-    Server->>Client: Update metadata
-    Client->>Client: Update local state
+ participant Client
+ participant Server
+ participant Storage
+ 
+ Client->>Server: Get file metadata
+ Server->>Client: Return metadata + versions
+ Client->>Client: Compute local changes
+ Client->>Server: Upload new chunks
+ Server->>Storage: Store chunks
+ Server->>Client: Update metadata
+ Client->>Client: Update local state
 ```
 
 3. **Conflict Resolution:**
@@ -196,14 +194,14 @@ sequenceDiagram
 ### 4. Design Google Maps
 
 !!! note "Problem Statement"
-    "Design a mapping service like Google Maps that provides directions, real-time traffic, and location search for billions of users."
-    **Key Requirements:**
-    - Map rendering at multiple zoom levels
-    - Route calculation
-    - Real-time traffic updates
-    - Location search and geocoding
-    - Offline maps
-    - Turn-by-turn navigation
+ "Design a mapping service like Google Maps that provides directions, real-time traffic, and location search for billions of users."
+ **Key Requirements:**
+ - Map rendering at multiple zoom levels
+ - Route calculation
+ - Real-time traffic updates
+ - Location search and geocoding
+ - Offline maps
+ - Turn-by-turn navigation
 
 **Core Components:**
 
@@ -224,17 +222,17 @@ Storage calculation:
 2. **Routing Algorithm:**
 ```mermaid
 graph TB
-    subgraph "Preprocessing"
-        OSM[OpenStreetMap Data] --> CH[Contraction Hierarchies]
-        CH --> PG[Preprocessed Graph]
-    end
-    
-    subgraph "Query Time"
-        Q[Query: A to B] --> BP[Bidirectional Search]
-        BP --> PG
-        BP --> R[Route]
-        RT[Real-time Traffic] --> BP
-    end
+ subgraph "Preprocessing"
+ OSM[OpenStreetMap Data] --> CH[Contraction Hierarchies]
+ CH --> PG[Preprocessed Graph]
+ end
+ 
+ subgraph "Query Time"
+ Q[Query: A to B] --> BP[Bidirectional Search]
+ BP --> PG
+ BP --> R[Route]
+ RT[Real-time Traffic] --> BP
+ end
 ```
 
 3. **Traffic System:**
@@ -246,38 +244,38 @@ graph TB
 ### 5. Design Gmail
 
 !!! note "Problem Statement"
-    "Design an email service like Gmail that handles billions of emails daily with features like search, spam filtering, and high availability."
-    **Key Requirements:**
-    - Send/receive emails (SMTP/IMAP)
-    - Spam and virus detection
-    - Full-text search
-    - Labels and filters
-    - Attachments up to 25MB
-    - 99.9% availability
+ "Design an email service like Gmail that handles billions of emails daily with features like search, spam filtering, and high availability."
+ **Key Requirements:**
+ - Send/receive emails (SMTP/IMAP)
+ - Spam and virus detection
+ - Full-text search
+ - Labels and filters
+ - Attachments up to 25MB
+ - 99.9% availability
 
 **Email Flow Architecture:**
 ```mermaid
 graph LR
-    subgraph "Incoming"
-        E[External Email] --> MX[MX Records]
-        MX --> SMTP[SMTP Server]
-        SMTP --> SF[Spam Filter]
-        SF --> VS[Virus Scanner]
-        VS --> MS[Message Store]
-    end
-    
-    subgraph "Storage"
-        MS --> B[Bigtable]
-        MS --> GFS[Colossus/GFS]
-        B --> IDX[Search Index]
-    end
-    
-    subgraph "Access"
-        U[User] --> FE[Frontend]
-        FE --> API[API Server]
-        API --> B
-        API --> IDX
-    end
+ subgraph "Incoming"
+ E[External Email] --> MX[MX Records]
+ MX --> SMTP[SMTP Server]
+ SMTP --> SF[Spam Filter]
+ SF --> VS[Virus Scanner]
+ VS --> MS[Message Store]
+ end
+ 
+ subgraph "Storage"
+ MS --> B[Bigtable]
+ MS --> GFS[Colossus/GFS]
+ B --> IDX[Search Index]
+ end
+ 
+ subgraph "Access"
+ U[User] --> FE[Frontend]
+ FE --> API[API Server]
+ API --> B
+ API --> IDX
+ end
 ```
 
 **Key Design Points:**
@@ -292,33 +290,33 @@ graph LR
 ### 6. Design Google Ads Platform
 
 !!! note "Problem Statement"
-    "Design an advertising platform that serves billions of ads daily, handles real-time bidding, and provides analytics to advertisers."
-    **Components:**
-    - Ad serving system (<100ms latency)
-    - Real-time bidding (RTB)
-    - Click tracking and attribution
-    - Budget pacing
-    - Fraud detection
-    - Advertiser dashboard
+ "Design an advertising platform that serves billions of ads daily, handles real-time bidding, and provides analytics to advertisers."
+ **Components:**
+ - Ad serving system (<100ms latency)
+ - Real-time bidding (RTB)
+ - Click tracking and attribution
+ - Budget pacing
+ - Fraud detection
+ - Advertiser dashboard
 
 **RTB Flow:**
 ```mermaid
 sequenceDiagram
-    participant User
-    participant Publisher
-    participant AdExchange
-    participant Bidders
-    participant AdServer
-    
-    User->>Publisher: Page request
-    Publisher->>AdExchange: Ad request + context
-    AdExchange->>Bidders: Bid request (parallel)
-    Bidders->>AdExchange: Bids (<50ms)
-    AdExchange->>AdExchange: Auction
-    AdExchange->>AdServer: Winning ad
-    AdServer->>Publisher: Ad creative
-    Publisher->>User: Page + Ad
-    User->>AdServer: Click (maybe)
+ participant User
+ participant Publisher
+ participant AdExchange
+ participant Bidders
+ participant AdServer
+ 
+ User->>Publisher: Page request
+ Publisher->>AdExchange: Ad request + context
+ AdExchange->>Bidders: Bid request (parallel)
+ Bidders->>AdExchange: Bids (<50ms)
+ AdExchange->>AdExchange: Auction
+ AdExchange->>AdServer: Winning ad
+ AdServer->>Publisher: Ad creative
+ Publisher->>User: Page + Ad
+ User->>AdServer: Click (maybe)
 ```
 
 **Scale Challenges:**
@@ -330,40 +328,40 @@ sequenceDiagram
 ### 7. Design Google Photos
 
 !!! note "Problem Statement"
-    "Design a photo storage service that provides unlimited storage, automatic backup, AI-powered search, and sharing capabilities."
-    **Key Features:**
-    - Automatic backup from devices
-    - Compression without visible quality loss
-    - Face recognition and grouping
-    - Object/scene recognition
-    - Location-based organization
-    - Shared albums
+ "Design a photo storage service that provides unlimited storage, automatic backup, AI-powered search, and sharing capabilities."
+ **Key Features:**
+ - Automatic backup from devices
+ - Compression without visible quality loss
+ - Face recognition and grouping
+ - Object/scene recognition
+ - Location-based organization
+ - Shared albums
 
 **ML Pipeline Architecture:**
 ```mermaid
 graph TB
-    subgraph "Upload & Processing"
-        P[Photo] --> U[Upload Service]
-        U --> C[Compressor]
-        C --> S[Storage]
-        U --> Q[ML Queue]
-    end
-    
-    subgraph "ML Processing"
-        Q --> F[Face Detection]
-        Q --> O[Object Detection]
-        Q --> S[Scene Classification]
-        F --> FG[Face Grouping]
-        O --> I[Index]
-        S --> I
-        FG --> I
-    end
-    
-    subgraph "Search"
-        Query[User Query] --> NLP[Query Understanding]
-        NLP --> I
-        I --> R[Results]
-    end
+ subgraph "Upload & Processing"
+ P[Photo] --> U[Upload Service]
+ U --> C[Compressor]
+ C --> S[Storage]
+ U --> Q[ML Queue]
+ end
+ 
+ subgraph "ML Processing"
+ Q --> F[Face Detection]
+ Q --> O[Object Detection]
+ Q --> S[Scene Classification]
+ F --> FG[Face Grouping]
+ O --> I[Index]
+ S --> I
+ FG --> I
+ end
+ 
+ subgraph "Search"
+ Query[User Query] --> NLP[Query Understanding]
+ NLP --> I
+ I --> R[Results]
+ end
 ```
 
 **Technical Challenges:**
@@ -376,37 +374,37 @@ graph TB
 ### 8. Design Android Play Store
 
 !!! note "Problem Statement"
-    "Design an app store that serves billions of Android devices, handles app uploads, updates, and provides personalized recommendations."
-    **Requirements:**
-    - App upload and review process
-    - Binary distribution to 3B+ devices
-    - Incremental updates
-    - Recommendation system
-    - Reviews and ratings
-    - Developer console
+ "Design an app store that serves billions of Android devices, handles app uploads, updates, and provides personalized recommendations."
+ **Requirements:**
+ - App upload and review process
+ - Binary distribution to 3B+ devices
+ - Incremental updates
+ - Recommendation system
+ - Reviews and ratings
+ - Developer console
 
 **Update Distribution System:**
 ```mermaid
 graph TB
-    subgraph "Developer Side"
-        D[Developer] --> DC[Dev Console]
-        DC --> AS[App Signing]
-        AS --> CDN[Global CDN]
-    end
-    
-    subgraph "Distribution"
-        CDN --> PS[Play Services]
-        PS --> DD[Delta Generator]
-        DD --> P[Patches]
-        P --> Device[User Device]
-    end
-    
-    subgraph "Intelligence"
-        Device --> T[Telemetry]
-        T --> ML[ML Pipeline]
-        ML --> REC[Recommendations]
-        ML --> AS[Abuse Detection]
-    end
+ subgraph "Developer Side"
+ D[Developer] --> DC[Dev Console]
+ DC --> AS[App Signing]
+ AS --> CDN[Global CDN]
+ end
+ 
+ subgraph "Distribution"
+ CDN --> PS[Play Services]
+ PS --> DD[Delta Generator]
+ DD --> P[Patches]
+ P --> Device[User Device]
+ end
+ 
+ subgraph "Intelligence"
+ Device --> T[Telemetry]
+ T --> ML[ML Pipeline]
+ ML --> REC[Recommendations]
+ ML --> AS[Abuse Detection]
+ end
 ```
 
 **Key Optimizations:**
@@ -418,22 +416,22 @@ graph TB
 ## Interview Tips for Each Problem
 
 !!! info "Pattern Recognition"
-    **Storage-Heavy Systems** (Drive, Photos):
-    - Focus on chunking and deduplication
-    - Discuss consistency vs availability trade-offs
-    - Consider sync protocols
-    **Latency-Critical Systems** (Search, Maps):
-    - Emphasize caching at every level
-    - Discuss precomputation strategies
-    - Consider edge serving
-    **ML-Integrated Systems** (YouTube, Photos):
-    - Separate online/offline pipelines
-    - Discuss feature storage
-    - Consider privacy implications
-    **Real-time Systems** (Ads, Maps Traffic):
-    - Focus on stream processing
-    - Discuss approximation algorithms
-    - Consider exactly-once semantics
+ **Storage-Heavy Systems** (Drive, Photos):
+ - Focus on chunking and deduplication
+ - Discuss consistency vs availability trade-offs
+ - Consider sync protocols
+ **Latency-Critical Systems** (Search, Maps):
+ - Emphasize caching at every level
+ - Discuss precomputation strategies
+ - Consider edge serving
+ **ML-Integrated Systems** (YouTube, Photos):
+ - Separate online/offline pipelines
+ - Discuss feature storage
+ - Consider privacy implications
+ **Real-time Systems** (Ads, Maps Traffic):
+ - Focus on stream processing
+ - Discuss approximation algorithms
+ - Consider exactly-once semantics
 
 ## Common Follow-up Deep Dives
 
@@ -460,17 +458,17 @@ graph TB
 **Debugging Approach:**
 ```mermaid
 graph TD
-    A[User Reports Slowness] --> B{Reproduce?}
-    B -->|Yes| C[Measure E2E Latency]
-    B -->|No| D[Check Metrics/Logs]
-    C --> E[Trace Request]
-    E --> F[Identify Bottleneck]
-    F --> G[Database?]
-    F --> H[Network?]
-    F --> I[Application?]
-    G --> J[Query Analysis]
-    H --> K[Packet Capture]
-    I --> L[Profiling]
+ A[User Reports Slowness] --> B{Reproduce?}
+ B -->|Yes| C[Measure E2E Latency]
+ B -->|No| D[Check Metrics/Logs]
+ C --> E[Trace Request]
+ E --> F[Identify Bottleneck]
+ F --> G[Database?]
+ F --> H[Network?]
+ F --> I[Application?]
+ G --> J[Query Analysis]
+ H --> K[Packet Capture]
+ I --> L[Profiling]
 ```
 
 ### 4. "How do you handle 10x growth?"
@@ -484,36 +482,34 @@ graph TD
 
 ## Practice Exercises
 
-<div class="law-box">
-<h4>Self-Assessment Questions</h4>
+!!! abstract "Self-Assessment Questions"
 
-After each practice session, ask yourself:
+ After each practice session, ask yourself:
 
-1. **Requirements Gathering**
-   - Did I ask about scale from the start?
-   - Did I clarify functional vs non-functional requirements?
-   - Did I identify what's out of scope?
+ 1. **Requirements Gathering**
+ - Did I ask about scale from the start?
+ - Did I clarify functional vs non-functional requirements?
+ - Did I identify what's out of scope?
 
-2. **Estimation**
-   - Were my calculations reasonable?
-   - Did I identify the main bottlenecks?
-   - Did I consider peak vs average load?
+ 2. **Estimation**
+ - Were my calculations reasonable?
+ - Did I identify the main bottlenecks?
+ - Did I consider peak vs average load?
 
-3. **Design**
-   - Did I start simple and evolve?
-   - Did I draw clear diagrams?
-   - Did I consider failures at each level?
+ 3. **Design**
+ - Did I start simple and evolve?
+ - Did I draw clear diagrams?
+ - Did I consider failures at each level?
 
-4. **Communication**
-   - Did I think out loud?
-   - Did I handle hints well?
-   - Did I manage time effectively?
+ 4. **Communication**
+ - Did I think out loud?
+ - Did I handle hints well?
+ - Did I manage time effectively?
 
-5. **Google-Specific**
-   - Did I think at Google scale?
-   - Did I consider operational aspects?
-   - Did I propose innovative solutions?
-</div>
+ 5. **Google-Specific**
+ - Did I think at Google scale?
+ - Did I consider operational aspects?
+ - Did I propose innovative solutions?
 
 ## Next Steps
 

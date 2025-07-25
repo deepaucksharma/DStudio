@@ -205,15 +205,11 @@ The Information Limit:
 
 ### The Three Pillars Explained
 
-<div class="responsive-table" markdown>
-
 | Pillar | Purpose | Strengths | Weaknesses | Cost |
 |--------|---------|-----------|------------|------|
 | **Logs** | Record events | Detail, context | Volume, unstructured | High |
 | **Metrics** | Track numbers | Aggregated, efficient | No context | Low |
 | **Traces** | Show flow | Request path, timing | Sampling needed | Medium |
-
-</div>
 
 
 #### 1. Logs: The Detailed Record
@@ -334,8 +330,6 @@ Lesson: "Flying blind" is not an option at scale
 
 ### The Cost-Value Matrix
 
-<div class="responsive-table" markdown>
-
 | Observability Level | Cost/Month | Value | When to Use |
 |-------------------|------------|--------|------------|
 | **None** | $0 | Hope & Prayer | Never |
@@ -343,8 +337,6 @@ Lesson: "Flying blind" is not an option at scale
 | **Logs + Metrics** | $1K | Can monitor health | Small apps |
 | **Full Pillars** | $10K | Can trace issues | Production |
 | **Advanced** | $100K+ | Can predict issues | Scale |
-
-</div>
 
 
 ---
@@ -451,8 +443,6 @@ Resource Saturation Indicators:
 
 ### Observability Patterns by System Type
 
-<div class="responsive-table" markdown>
-
 | System Type | Key Metrics | Critical Logs | Trace Focus |
 |------------|-------------|---------------|-------------|
 | **Web API** | Latency, 4xx/5xx rates | Access logs, errors | Request flow |
@@ -461,8 +451,6 @@ Resource Saturation Indicators:
 | **Cache** | Hit rate, evictions | Cache misses | Access patterns |
 | **Batch Job** | Duration, success rate | Job status, failures | Stage timing |
 | **Stream** | Lag, throughput | Checkpoints, errors | Event flow |
-
-</div>
 
 
 ### The Sampling Strategy
@@ -770,16 +758,12 @@ class ChaosObserver:
 
 #### Cost Breakdown (Typical 1000 req/s Service)
 
-<div class="responsive-table" markdown>
-
 | Component | Volume | Storage | Cost/Month | % of Total |
 |-----------|--------|---------|------------|------------|
 | **Metrics** | 1M series | 30 days | $2,000 | 20% |
 | **Logs** | 1TB/day | 7 days | $5,000 | 50% |
 | **Traces** | 10% sampling | 3 days | $3,000 | 30% |
 | **Total** | - | - | $10,000 | 100% |
-
-</div>
 
 
 #### Cost Optimization Strategies
@@ -1449,8 +1433,6 @@ The Fix:
 
 ## Observability Maturity Model
 
-<div class="responsive-table" markdown>
-
 | Level | Characteristics | Tools | Cost | MTTR |
 |-------|----------------|-------|------|------|
 | **0: Blind** | SSH to servers, grep logs | None | $0 | Hours |
@@ -1459,8 +1441,6 @@ The Fix:
 | **3: Proactive** | Full triad, SLOs, runbooks | APM | $20K | 15 min |
 | **4: Intelligent** | ML anomaly detection, prediction | AIOps | $50K | 5 min |
 | **5: Autonomous** | Self-healing, prevention | Custom | $100K+ | 0 min |
-
-</div>
 
 
 ## Key Observability Principles
@@ -1492,16 +1472,12 @@ The Fix:
 
 ## Observability Tool Comparison
 
-<div class="responsive-table" markdown>
-
 | Category | Open Source | Commercial | Key Differences |
 |----------|-------------|------------|------------------|
 | **Metrics** | Prometheus + Grafana | Datadog, New Relic | Cost, ease of use |
 | **Logs** | ELK Stack, Loki | Splunk, Sumo Logic | Scale, features |
 | **Traces** | Jaeger, Zipkin | Lightstep, Honeycomb | Analysis depth |
 | **All-in-One** | Elastic APM | AppDynamics, Dynatrace | Integration, AI |
-
-</div>
 
 
 ### When to Use What

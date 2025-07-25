@@ -65,17 +65,154 @@ graph LR
 
 ### Retry Strategies
 
-<div class="responsive-table" markdown>
+=== "Fixed Interval"
 
-| Strategy | Pattern | Best For |
-|----------|---------|----------|
-| **Fixed** | 1s, 1s, 1s, 1s | Simple errors |
-| **Linear** | 1s, 2s, 3s, 4s | Gradual recovery |
-| **Exponential** | 1s, 2s, 4s, 8s | Unknown recovery |
-| **Decorrelated** | Random(base, prev×3) | High concurrency |
-| **Adaptive** | ML-based | Dynamic systems |
+    ```python
+    # Fixed interval retry - simple but can overwhelm
+    def fixed_retry(attempt: int, base_delay: float = 1.0) -> float:
+        return base_delay  # Always wait the same amount
+    
+    # Example: 1s, 1s, 1s, 1s
+    for attempt in range(1, 5):
+        delay = fixed_retry(attempt)
+        print(f"Attempt {attempt}: wait {delay}s")
+    ```
+    
+    **When to Use**:
+    - Predictable, short-duration outages
+    - Low concurrency scenarios
+    - Simple retry requirements
+    
+    **Avoid When**:
+    - High traffic services (causes retry storms)
+    - Unknown failure duration
+    - Multiple clients retrying simultaneously
 
-</div>
+=== "Linear Backoff"
+
+    ```python
+    # Linear backoff - gradual increase
+    def linear_retry(attempt: int, base_delay: float = 1.0) -> float:
+        return base_delay * attempt
+    
+    # Example: 1s, 2s, 3s, 4s
+    for attempt in range(1, 5):
+        delay = linear_retry(attempt)
+        print(f"Attempt {attempt}: wait {delay}s")
+    ```
+    
+    **When to Use**:
+    - Gradual service recovery expected
+    - Medium concurrency environments
+    - Resource-constrained targets
+    
+    **Avoid When**:
+    - Very high concurrency
+    - Exponential failure growth
+    - Need for rapid recovery
+
+=== "Exponential Backoff"
+
+    ```python
+    # Exponential backoff - industry standard
+    def exponential_retry(attempt: int, base_delay: float = 1.0, 
+                         base: float = 2.0, max_delay: float = 60.0) -> float:
+        delay = min(base_delay * (base ** (attempt - 1)), max_delay)
+        return delay
+    
+    # Example: 1s, 2s, 4s, 8s, 16s... (capped at 60s)
+    for attempt in range(1, 8):
+        delay = exponential_retry(attempt)
+        print(f"Attempt {attempt}: wait {delay}s")
+    ```
+    
+    **When to Use**:
+    - Unknown recovery time
+    - External API calls
+    - Default choice for most scenarios
+    
+    **Avoid When**:
+    - Need predictable retry intervals
+    - Very short outages expected
+    - Real-time systems with strict deadlines
+
+=== "Decorrelated Jitter"
+
+    ```python
+    # AWS-recommended decorrelated jitter
+    import random
+    
+    def decorrelated_retry(attempt: int, previous_delay: float = 0, 
+                          base_delay: float = 1.0, max_delay: float = 60.0) -> float:
+        if attempt == 1:
+            return base_delay
+        
+        # Random between base and 3x previous delay
+        temp = random.uniform(base_delay, previous_delay * 3)
+        return min(temp, max_delay)
+    
+    # Example: 1s, 0.5-3s, 0.5-9s, 0.5-27s (varies)
+    delay = 0
+    for attempt in range(1, 5):
+        delay = decorrelated_retry(attempt, delay)
+        print(f"Attempt {attempt}: wait {delay:.1f}s")
+    ```
+    
+    **When to Use**:
+    - Very high concurrency (1000s of clients)
+    - AWS services
+    - Avoiding thundering herd
+    
+    **Why It Works**:
+    - Spreads retry load naturally
+    - Self-balancing under load
+    - Proven at scale
+
+=== "Adaptive Retry"
+
+    ```python
+    # ML-based adaptive retry
+    class AdaptiveRetry:
+        def __init__(self):
+            self.success_history = []
+            self.base_delay = 1.0
+            
+        def calculate_delay(self, attempt: int, recent_success_rate: float,
+                           system_load: float) -> float:
+            # Adjust based on success rate
+            if recent_success_rate < 0.3:
+                multiplier = 3.0  # Back off aggressively
+            elif recent_success_rate < 0.7:
+                multiplier = 1.5  # Moderate backoff
+            else:
+                multiplier = 0.8  # Speed up retries
+            
+            # Adjust for system load
+            load_factor = 1 + system_load  # 1.0 - 2.0
+            
+            delay = self.base_delay * (2 ** (attempt - 1)) * multiplier * load_factor
+            return min(delay, 120.0)  # Cap at 2 minutes
+    
+    # Example usage
+    retry = AdaptiveRetry()
+    for attempt in range(1, 5):
+        # Simulate varying conditions
+        success_rate = 0.4 if attempt < 3 else 0.8
+        load = 0.7 if attempt < 3 else 0.3
+        
+        delay = retry.calculate_delay(attempt, success_rate, load)
+        print(f"Attempt {attempt}: wait {delay:.1f}s (SR: {success_rate}, Load: {load})")
+    ```
+    
+    **When to Use**:
+    - Dynamic systems with varying load
+    - Learning from retry patterns
+    - Optimizing retry efficiency
+    
+    **Implementation Tips**:
+    - Track success rates over time windows
+    - Monitor system metrics
+    - Use circuit breakers for protection
 
 
 ### Timing Patterns
@@ -820,16 +957,12 @@ flowchart TD
 ```
 
 **Budget Configuration**:
-<div class="responsive-table" markdown>
-
 | Service Type | Budget % | Window | Reasoning |
 |--------------|----------|--------|------------|
 | **User-facing API** | 10% | 1 min | Quick recovery needed |
 | **Background Jobs** | 20% | 5 min | Can tolerate more retries |
 | **Critical Path** | 5% | 30s | Minimize overhead |
 | **Batch Processing** | 30% | 10 min | Resilience priority |
-
-</div>
 
 
 ### Circuit Breaker Integration
@@ -1781,8 +1914,6 @@ graph TD
 
 ### Configuration Cheat Sheet
 
-<div class="responsive-table" markdown>
-
 | Use Case | Strategy | Initial Delay | Max Attempts | Jitter | Circuit Breaker |
 |----------|----------|---------------|--------------|--------|------------------|
 | **Payment Processing** | Exponential | 0.5s | 3 | Full | Yes |
@@ -1791,8 +1922,6 @@ graph TD
 | **Microservice Call** | Adaptive | 0.2s | 4 | Full | Yes |
 | **Background Job** | Exponential | 2s | 10 | Equal | No |
 | **Real-time Data** | None/Hedge | 0.05s | 1-2 | N/A | No |
-
-</div>
 
 
 ### Common Error Patterns
@@ -1850,8 +1979,6 @@ non_retryable:
 
 ### Key Takeaways by Level
 
-<div class="responsive-table" markdown>
-
 | Level | Core Concept | When You're Ready |
 |-------|--------------|-------------------|
 | **Level 1** | Retries are like a professional waiter - wait appropriately between checks | Building any network-connected app |
@@ -1859,8 +1986,6 @@ non_retryable:
 | **Level 3** | Advanced patterns like hedging and adaptive retry improve resilience | Scaling to millions of requests |
 | **Level 4** | Real companies save millions with sophisticated retry strategies | Building mission-critical systems |
 | **Level 5** | ML and quantum-inspired approaches represent the future | Pushing retry boundaries |
-
-</div>
 
 
 ### Economic Impact Summary

@@ -1,0 +1,568 @@
+site_name: The Compendium of Distributed Systems
+site_url: https://deepaucksharma.github.io/DStudio/
+site_description: Learn distributed systems from first principles through physics and mathematics
+site_author: Deepak Sharma
+
+# Copyright
+copyright: Copyright &copy; 2025 Deepak Sharma
+
+# Repository
+repo_name: deepaucksharma/DStudio
+repo_url: https://github.com/deepaucksharma/DStudio
+edit_uri: edit/main/docs/
+
+# Theme Configuration
+theme:
+  name: material
+  language: en
+  
+  features:
+    # Navigation
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.tracking
+    - navigation.tabs
+    - navigation.tabs.sticky
+    - navigation.sections
+    - navigation.expand
+    - navigation.path
+    - navigation.prune
+    - navigation.indexes
+    - navigation.top
+    - navigation.footer
+    
+    # Table of Contents
+    - toc.follow
+    - toc.integrate
+    
+    # Search
+    - search.suggest
+    - search.highlight
+    - search.share
+    
+    # Content
+    - content.code.copy
+    - content.code.annotate
+    - content.code.select
+    - content.action.edit
+    - content.action.view
+    - content.tooltips
+    - content.tabs.link
+    
+    # Header
+    - header.autohide
+    
+    # Announcement bar
+    - announce.dismiss
+    
+  palette:
+    - media: "(prefers-color-scheme)"
+      toggle:
+        icon: material/brightness-auto
+        name: Switch to light mode
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: indigo
+      accent: cyan
+      toggle:
+        icon: material/weather-night
+        name: Switch to auto
+        
+  font:
+    text: Inter
+    code: JetBrains Mono
+    
+  icon:
+    logo: material/book-open-variant
+    repo: fontawesome/brands/github
+    admonition:
+      prerequisite: material/book-education
+
+# Plugins
+plugins:
+  - search:
+      separator: '[\s\u200b\-_,:!=\[\]()"`/]+|\.(?!\d)|&[lg]t;|(?!\b)(?=[A-Z][a-z])'
+      lang:
+        - en
+      pipeline:
+        - stemmer
+        - stopWordFilter
+        - trimmer
+  - tags:
+      tags_file: tags.md
+  - macros:
+      module_name: docs/macros
+      include_dir: docs/templates
+      on_error_fail: false
+      on_undefined: strict
+  - mermaid2:
+      arguments:
+        theme: |
+          ^(JSON.parse(window.localStorage.getItem("data-md-color-scheme")) === "slate") ? "dark" : "default"
+        themeVariables:
+          primaryColor: "#5448C8"
+          primaryTextColor: "#ffffff"
+          primaryBorderColor: "#5448C8"
+          lineColor: "#6366f1"
+          sectionBkgColor: "#f8fafc"
+          altSectionBkgColor: "#f1f5f9"
+          gridColor: "#e2e8f0"
+          secondaryColor: "#00BCD4"
+          tertiaryColor: "#f3f4f6"
+  - markdown-exec
+
+# Markdown Extensions
+markdown_extensions:
+  # Python Markdown Core
+  - abbr
+  - admonition
+  - attr_list
+  - def_list
+  - footnotes
+  - md_in_html
+  - meta
+  - tables
+  - toc:
+      permalink: true
+      permalink_title: Anchor link to this section
+      toc_depth: 4
+  
+  # PyMdownx Extensions
+  - pymdownx.arithmatex:
+      generic: true
+  - pymdownx.betterem:
+      smart_enable: all
+  - pymdownx.caret
+  - pymdownx.critic:
+      mode: view
+  - pymdownx.details
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+  - pymdownx.highlight:
+      anchor_linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+      use_pygments: true
+      guess_lang: false
+      linenums_style: pymdownx-inline
+  - pymdownx.inlinehilite:
+      style_plain_text: true
+  - pymdownx.keys
+  - pymdownx.magiclink:
+      repo_url_shorthand: true
+      user: deepaucksharma
+      repo: DStudio
+      normalize_issue_symbols: true
+  - pymdownx.mark
+  - pymdownx.smartsymbols
+  - pymdownx.snippets:
+      check_paths: true
+      base_path: [docs]
+      url_download: true
+      url_max_size: 33554432
+      url_timeout: 10.0
+  - pymdownx.superfences:
+      preserve_tabs: true
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+        - name: math
+          class: arithmatex
+          format: !!python/name:pymdownx.arithmatex.fence_mathjax_format
+  - pymdownx.tabbed:
+      alternate_style: true
+      combine_header_slug: true
+      slugify: !!python/object/apply:pymdownx.slugs.slugify
+        kwds:
+          case: lower
+  - pymdownx.tasklist:
+      custom_checkbox: true
+      clickable_checkbox: true
+  - pymdownx.tilde
+  - nl2br
+
+# Extra CSS
+extra_css:
+  - stylesheets/layout.css
+
+# Extra JavaScript
+extra_javascript:
+  - javascripts/mathjax-config.js
+  - https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.js
+
+# Extra Configuration
+extra:
+  generator: false
+  social:
+    - icon: fontawesome/brands/github
+      link: https://github.com/deepaucksharma
+    - icon: fontawesome/brands/twitter
+      link: https://twitter.com/deepaucksharma
+    - icon: fontawesome/brands/linkedin
+      link: https://linkedin.com/in/deepaucksharma
+  
+  analytics:
+    provider: google
+    property: !ENV [GOOGLE_ANALYTICS_KEY, '']
+    feedback:
+      title: Was this page helpful?
+      ratings:
+        - icon: material/emoticon-happy-outline
+          name: This page was helpful
+          data: 1
+          note: Thanks for your feedback!
+        - icon: material/emoticon-sad-outline
+          name: This page could be improved
+          data: 0
+          note: Thanks! Let us know how we can improve.
+  
+  consent:
+    title: Cookie consent
+    description: >- 
+      We use cookies to recognize your repeated visits and preferences, as well
+      as to measure the effectiveness of our documentation and whether users
+      find what they're searching for. With your consent, you're helping us to
+      make our documentation better.
+    cookies:
+      analytics:
+        name: Google Analytics
+        checked: true
+    actions:
+      - accept
+      - reject
+      - manage
+
+# Validation
+validation:
+  nav:
+    omitted_files: info
+    not_found: warn
+    absolute_links: info
+  links:
+    not_found: ignore
+    absolute_links: ignore
+    unrecognized_links: info
+
+# Build Configuration
+use_directory_urls: true
+strict: false
+
+# Watch - Development
+watch:
+  - docs
+  - mkdocs.yml
+
+# Navigation - Complete Hierarchy
+nav:
+  - Home: index.md
+  
+  - Learn:
+    - Welcome: introduction/index.md
+    - Getting Started: introduction/getting-started.md
+    - Philosophy: introduction/philosophy.md
+    - Learning Paths:
+      - Overview: learning-paths/index.md
+      - Role-Based:
+        - New Graduate: learning-paths/new-graduate.md
+        - Senior Engineer: learning-paths/senior-engineer.md
+        - Engineering Manager: learning-paths/manager.md
+        - Solution Architect: learning-paths/architect.md
+      - Topic-Based:
+        - Consistency & Coordination: learning-paths/consistency.md
+        - Performance & Scale: learning-paths/performance.md
+        - Cost Optimization: learning-paths/cost.md
+        - Reliability & Resilience: learning-paths/reliability.md
+    
+    - The 7 Laws:
+      - Overview: part1-axioms/index.md
+      - Law 1 - Correlated Failure:
+        - Concept: part1-axioms/law1-failure/index.md
+        - Examples: part1-axioms/law1-failure/examples.md
+        - Exercises: part1-axioms/law1-failure/exercises.md
+      - Law 2 - Asynchronous Reality:
+        - Concept: part1-axioms/law2-asynchrony/index.md
+        - Examples: part1-axioms/law2-asynchrony/examples.md
+        - Exercises: part1-axioms/law2-asynchrony/exercises.md
+      - Law 3 - Emergent Chaos:
+        - Concept: part1-axioms/law3-emergence/index.md
+        - Examples: part1-axioms/law3-emergence/examples.md
+        - Exercises: part1-axioms/law3-emergence/exercises.md
+      - Law 4 - Multidimensional Optimization:
+        - Concept: part1-axioms/law4-tradeoffs/index.md
+        - Examples: part1-axioms/law4-tradeoffs/examples.md
+        - Exercises: part1-axioms/law4-tradeoffs/exercises.md
+      - Law 5 - Distributed Knowledge:
+        - Concept: part1-axioms/law5-epistemology/index.md
+        - Examples: part1-axioms/law5-epistemology/examples.md
+        - Exercises: part1-axioms/law5-epistemology/exercises.md
+      - Law 6 - Cognitive Load:
+        - Concept: part1-axioms/law6-human-api/index.md
+        - Examples: part1-axioms/law6-human-api/examples.md
+        - Exercises: part1-axioms/law6-human-api/exercises.md
+      - Law 7 - Economic Reality:
+        - Concept: part1-axioms/law7-economics/index.md
+        - Examples: part1-axioms/law7-economics/examples.md
+        - Exercises: part1-axioms/law7-economics/exercises.md
+      - Quiz: part1-axioms/quiz.md
+      - Synthesis: part1-axioms/synthesis.md
+    
+    - The 5 Pillars:
+      - Overview: part2-pillars/index.md
+      - Work Distribution:
+        - Concept: part2-pillars/work/index.md
+        - Examples: part2-pillars/work/examples.md
+        - Exercises: part2-pillars/work/exercises.md
+      - State Distribution:
+        - Concept: part2-pillars/state/index.md
+        - Examples: part2-pillars/state/examples.md
+        - Exercises: part2-pillars/state/exercises.md
+      - Truth Distribution:
+        - Concept: part2-pillars/truth/index.md
+        - Examples: part2-pillars/truth/examples.md
+        - Exercises: part2-pillars/truth/exercises.md
+      - Control Distribution:
+        - Concept: part2-pillars/control/index.md
+        - Examples: part2-pillars/control/examples.md
+        - Exercises: part2-pillars/control/exercises.md
+      - Intelligence Distribution:
+        - Concept: part2-pillars/intelligence/index.md
+        - Examples: part2-pillars/intelligence/examples.md
+        - Exercises: part2-pillars/intelligence/exercises.md
+      - Decision Tree: part2-pillars/decision-tree.md
+      - Pattern Matrix: part2-pillars/pattern-matrix.md
+      - Pillar Checkpoint: part2-pillars/pillar-checkpoint.md
+  
+  - Patterns:
+    - Overview: patterns/index.md
+    - Pattern Tools:
+      - Pattern Selector: patterns/pattern-selector.md
+      - Pattern Comparison: patterns/pattern-comparison.md
+      - Pattern Quiz: patterns/pattern-quiz.md
+      - Pattern Relationships: patterns/pattern-relationships.md
+    
+    - Communication Patterns:
+      - API Gateway: patterns/api-gateway.md
+      - Service Mesh: patterns/service-mesh.md
+      - Event-Driven: patterns/event-driven.md
+      - Event Sourcing: patterns/event-sourcing.md
+      - CQRS: patterns/cqrs.md
+      - Saga: patterns/saga.md
+      - Choreography: patterns/choreography.md
+      - WebSocket: patterns/websocket.md
+      - GraphQL Federation: patterns/graphql-federation.md
+    
+    - Resilience Patterns:
+      - Circuit Breaker: patterns/circuit-breaker.md
+      - Retry & Backoff: patterns/retry-backoff.md
+      - Bulkhead: patterns/bulkhead.md
+      - Timeout: patterns/timeout.md
+      - Health Check: patterns/health-check.md
+      - Failover: patterns/failover.md
+      - Load Shedding: patterns/load-shedding.md
+      - Backpressure: patterns/backpressure.md
+      - Graceful Degradation: patterns/graceful-degradation.md
+    
+    - Data Patterns:
+      - Sharding: patterns/sharding.md
+      - CRDT: patterns/crdt.md
+      - Event Streaming: patterns/event-streaming.md
+      - CDC: patterns/cdc.md
+      - Outbox: patterns/outbox.md
+      - Two-Phase Commit: patterns/two-phase-commit.md
+      - Distributed Lock: patterns/distributed-lock.md
+      - Leader Election: patterns/leader-election.md
+      - Vector Clocks: patterns/vector-clocks.md
+      - Logical Clocks: patterns/logical-clocks.md
+    
+    - Storage Patterns:
+      - LSM Tree: patterns/lsm-tree.md
+      - WAL: patterns/wal.md
+      - Merkle Trees: patterns/merkle-trees.md
+      - Bloom Filter: patterns/bloom-filter.md
+      - Distributed Storage: patterns/distributed-storage.md
+      - Object Storage: patterns/object-storage.md
+      - Polyglot Persistence: patterns/polyglot-persistence.md
+    
+    - Scaling Patterns:
+      - Auto-Scaling: patterns/auto-scaling.md
+      - Load Balancing: patterns/load-balancing.md
+      - Caching Strategies: patterns/caching-strategies.md
+      - CDN: patterns/cdn.md
+      - Edge Computing: patterns/edge-computing.md
+      - Multi-Region: patterns/multi-region.md
+      - Cell-Based: patterns/cell-based.md
+      - Shared Nothing: patterns/shared-nothing.md
+    
+    - Security Patterns:
+      - E2E Encryption: patterns/e2e-encryption.md
+      - Key Management: patterns/key-management.md
+      - Consent Management: patterns/consent-management.md
+      - Valet Key: patterns/valet-key.md
+    
+    - All Patterns: patterns/index.md#all-patterns
+  
+  - Quantitative:
+    - Overview: quantitative/index.md
+    
+    - Fundamental Laws:
+      - CAP Theorem: quantitative/cap-theorem.md
+      - Little's Law: quantitative/littles-law.md
+      - Amdahl's Law: quantitative/amdahl-gustafson.md
+      - Universal Scalability: quantitative/universal-scalability.md
+    
+    - Performance:
+      - Latency Ladder: quantitative/latency-ladder.md
+      - Queueing Models: quantitative/queueing-models.md
+      - Performance Modeling: quantitative/performance-modeling.md
+      - Network Theory: quantitative/network-theory.md
+    
+    - Reliability:
+      - Availability Math: quantitative/availability-math.md
+      - Failure Models: quantitative/failure-models.md
+      - Reliability Theory: quantitative/reliability-theory.md
+      - MTBF & MTTR: quantitative/mtbf-mttr.md
+    
+    - Consistency:
+      - Consistency Models: quantitative/consistency-models.md
+      - Coordination Costs: quantitative/coordination-costs.md
+      - Consensus Complexity: quantitative/consensus-complexity.md
+    
+    - Economics:
+      - Storage Economics: quantitative/storage-economics.md
+      - Cache Economics: quantitative/cache-economics.md
+      - Cost Models: quantitative/cost-models.md
+    
+    - Advanced Topics:
+      - Probabilistic Structures: quantitative/probabilistic-structures.md
+      - Graph Theory: quantitative/graph-theory.md
+      - Stochastic Processes: quantitative/stochastic-processes.md
+      - Information Theory: quantitative/information-theory.md
+    
+    - Problem Sets: quantitative/problem-set.md
+  
+  - Case Studies:
+    - Overview: case-studies/index.md
+    
+    - System Design Classics:
+      - URL Shortener: case-studies/url-shortener.md
+      - Chat System: case-studies/chat-system.md
+      - News Feed: case-studies/news-feed.md
+      - Key-Value Store: case-studies/key-value-store.md
+      - Web Crawler: case-studies/web-crawler.md
+      - Rate Limiter: case-studies/rate-limiter.md
+    
+    - Databases:
+      - Cassandra: case-studies/cassandra.md
+      - MongoDB: case-studies/mongodb.md
+      - Elasticsearch: case-studies/elasticsearch.md
+      - etcd: case-studies/etcd.md
+      - Amazon DynamoDB: case-studies/amazon-dynamo.md
+    
+    - Infrastructure:
+      - Object Storage (S3): case-studies/s3-object-storage-enhanced.md
+      - Apache Spark: case-studies/apache-spark.md
+      - Netflix Streaming: case-studies/netflix-streaming.md
+      - Uber Systems: case-studies/uber-systems.md
+    
+    - Social Systems:
+      - Social Graph: case-studies/social-graph.md
+      - Social Media Feed: case-studies/social-media-feed.md
+      - Nearby Friends: case-studies/nearby-friends.md
+    
+    - Monitoring & Metrics:
+      - Prometheus/Datadog: case-studies/prometheus-datadog-enhanced.md
+      - Metrics Monitoring: case-studies/metrics-monitoring.md
+    
+    - Google Systems:
+      - Overview: case-studies/google-systems/index.md
+      - Search: case-studies/google-systems/google-search.md
+      - Maps: case-studies/google-systems/google-maps-system.md
+      - YouTube: case-studies/google-systems/google-youtube.md
+      - Gmail: case-studies/google-systems/google-gmail.md
+      - Docs: case-studies/google-systems/google-docs.md
+    
+    - Location Services:
+      - Apple Maps: case-studies/apple-maps.md
+      - HERE Maps: case-studies/here-maps.md
+      - Find My Device: case-studies/find-my-device.md
+    
+    - Gaming:
+      - Gaming Leaderboard: case-studies/gaming-leaderboard-enhanced.md
+    
+    - Security:
+      - HashiCorp Vault: case-studies/vault.md
+    
+    - Coordination:
+      - ZooKeeper: case-studies/zookeeper.md
+    
+    - All Case Studies: case-studies/index.md#all-case-studies
+  
+  - Tools:
+    - Overview: tools/index.md
+    - Calculators:
+      - Consistency Calculator: tools/consistency-calculator.md
+      - Latency Calculator: tools/latency-calculator.md
+      - Capacity Calculator: tools/capacity-calculator.md
+      - Availability Calculator: tools/availability-calculator.md
+      - Cost Calculator: tools/cost-calculator.md
+    - Simulators:
+      - CAP Simulator: tools/cap-simulator.md
+      - Queue Simulator: tools/queue-simulator.md
+      - Load Balancer Simulator: tools/lb-simulator.md
+  
+  - Interviews:
+    - Overview: google-interviews/index.md
+    - Preparation:
+      - Getting Started: google-interviews/preparation-guide.md
+      - Visual Roadmap: google-interviews/preparation-roadmap.md
+      - Study Plan: google-interviews/study-plan.md
+      - Common Mistakes: google-interviews/common-mistakes.md
+    - Practice:
+      - System Design Basics: google-interviews/system-design-basics.md
+      - Advanced Techniques: google-interviews/advanced-techniques.md
+      - Mock Interviews: google-interviews/mock-interviews.md
+      - Interview Problems: google-interviews/interview-problems.md
+      - Dashboard: google-interviews/dashboard.md
+    - Resources:
+      - Cheat Sheets: google-interviews/cheat-sheets.md
+      - Template: google-interviews/template.md
+  
+  - Human Factors:
+    - Overview: human-factors/index.md
+    - SRE Practices: human-factors/sre-practices.md
+    - Chaos Engineering: human-factors/chaos-engineering.md
+    - Observability: human-factors/observability.md
+    - Incident Response: human-factors/incident-response.md
+    - Post-Mortems: human-factors/post-mortems.md
+    - On-Call: human-factors/on-call.md
+    - Team Topologies: human-factors/team-topologies.md
+  
+  - Reference:
+    - Overview: reference/index.md
+    - Quick Reference:
+      - Glossary: reference/glossary.md
+      - Cheat Sheets: reference/cheat-sheets.md
+      - Recipe Cards: reference/recipe-cards.md
+      - Law Mapping Guide: reference/law-mapping-guide.md
+    - Architecture:
+      - Security Patterns: reference/security.md
+      - Best Practices: reference/best-practices.md
+      - Anti-Patterns: reference/anti-patterns.md
+    - Resources:
+      - Books: reference/books.md
+      - Papers: reference/papers.md
+      - Courses: reference/courses.md
+      - Communities: reference/communities.md
+    - Contributing: reference/contributing.md
+  
+  - Tags: tags.md

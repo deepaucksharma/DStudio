@@ -94,17 +94,308 @@ flowchart LR
 
 ### Sharding Strategies Comparison
 
-<div class="responsive-table" markdown>
+=== "Range-Based Sharding"
 
-| Strategy | How it Works | Pros | Cons | Use When |
-|----------|-------------|------|------|----------|
-| **Range-Based** | Partition by value range | Simple, ordered queries | Hotspots possible | Time-series data |
-| **Hash-Based** | Hash function distribution | Even distribution | No range queries | User data |
-| **Geographic** | Partition by location | Data locality | Complex queries | Global apps |
-| **Directory-Based** | Lookup table for mapping | Flexible | Additional hop | Dynamic sharding |
-| **Composite** | Multiple shard keys | Fine-grained control | Complex routing | Multi-tenant |
+    ```python
+    # Range-based sharding implementation
+    class RangeShardRouter:
+        def __init__(self):
+            self.ranges = [
+                (0, 999, 'shard_0'),
+                (1000, 1999, 'shard_1'),
+                (2000, 2999, 'shard_2'),
+                (3000, 3999, 'shard_3')
+            ]
+        
+        def get_shard(self, key: int) -> str:
+            for start, end, shard in self.ranges:
+                if start <= key <= end:
+                    return shard
+            raise ValueError(f"No shard found for key: {key}")
+    
+    # Example usage
+    router = RangeShardRouter()
+    print(router.get_shard(1500))  # Returns: shard_1
+    ```
+    
+    **Pros**:
+    - Simple to implement and understand
+    - Supports efficient range queries
+    - Natural ordering preserved
+    - Easy to query sequential data
+    
+    **Cons**:
+    - Can create hotspots (uneven distribution)
+    - Difficult to rebalance
+    - Sequential IDs cluster on same shard
+    - May need manual range adjustments
+    
+    **Best For**:
+    - Time-series data (date ranges)
+    - Sequential IDs with predictable growth
+    - Applications needing range scans
+    - Log data with timestamps
 
-</div>
+=== "Hash-Based Sharding"
+
+    ```python
+    # Hash-based sharding implementation
+    import hashlib
+    
+    class HashShardRouter:
+        def __init__(self, shard_count: int = 4):
+            self.shard_count = shard_count
+            self.shards = [f'shard_{i}' for i in range(shard_count)]
+        
+        def get_shard(self, key: str) -> str:
+            # Use consistent hashing for even distribution
+            hash_value = hashlib.md5(key.encode()).hexdigest()
+            shard_index = int(hash_value, 16) % self.shard_count
+            return self.shards[shard_index]
+        
+        def consistent_hash(self, key: str, virtual_nodes: int = 150) -> str:
+            # More advanced: consistent hashing with virtual nodes
+            ring = {}
+            for i in range(self.shard_count):
+                for vn in range(virtual_nodes):
+                    vnode_key = f"{self.shards[i]}:{vn}"
+                    hash_val = int(hashlib.md5(vnode_key.encode()).hexdigest(), 16)
+                    ring[hash_val] = self.shards[i]
+            
+            key_hash = int(hashlib.md5(key.encode()).hexdigest(), 16)
+            for node_hash in sorted(ring.keys()):
+                if key_hash <= node_hash:
+                    return ring[node_hash]
+            return ring[sorted(ring.keys())[0]]
+    
+    # Example usage
+    router = HashShardRouter(4)
+    print(router.get_shard("user123"))  # Evenly distributed
+    ```
+    
+    **Pros**:
+    - Even data distribution
+    - No hotspots from sequential keys
+    - Predictable performance
+    - Works well with random keys
+    
+    **Cons**:
+    - No efficient range queries
+    - Related data scattered across shards
+    - Resharding requires rehashing
+    - Lost data locality
+    
+    **Best For**:
+    - User data with UUID/random IDs
+    - Session storage
+    - Cache systems
+    - High-write workloads
+
+=== "Geographic Sharding"
+
+    ```python
+    # Geographic sharding implementation
+    class GeoShardRouter:
+        def __init__(self):
+            self.region_map = {
+                'US': ['us-east-1', 'us-west-2'],
+                'EU': ['eu-west-1', 'eu-central-1'],
+                'ASIA': ['ap-south-1', 'ap-northeast-1'],
+                'DEFAULT': ['global-1']
+            }
+            self.ip_ranges = {
+                '1.0.0.0/8': 'ASIA',
+                '2.0.0.0/8': 'EU',
+                '3.0.0.0/8': 'US',
+            }
+        
+        def get_shard_by_location(self, user_ip: str, user_region: str = None) -> str:
+            # Prefer explicit region
+            if user_region and user_region in self.region_map:
+                shards = self.region_map[user_region]
+                return self.select_least_loaded(shards)
+            
+            # Fall back to IP geolocation
+            region = self.get_region_from_ip(user_ip)
+            shards = self.region_map.get(region, self.region_map['DEFAULT'])
+            return self.select_least_loaded(shards)
+        
+        def get_region_from_ip(self, ip: str) -> str:
+            # Simplified IP to region mapping
+            for ip_range, region in self.ip_ranges.items():
+                if self.ip_in_range(ip, ip_range):
+                    return region
+            return 'DEFAULT'
+    
+    # Example usage
+    router = GeoShardRouter()
+    print(router.get_shard_by_location('3.14.15.92'))  # US shard
+    ```
+    
+    **Pros**:
+    - Data locality (lower latency)
+    - Compliance with data residency laws
+    - Natural disaster isolation
+    - Follows user distribution
+    
+    **Cons**:
+    - Complex cross-region queries
+    - Uneven distribution by region
+    - Requires geo-detection
+    - Higher operational complexity
+    
+    **Best For**:
+    - Global applications
+    - Content delivery networks
+    - Compliance-heavy industries
+    - Region-specific services
+
+=== "Directory-Based Sharding"
+
+    ```python
+    # Directory-based sharding implementation
+    class DirectoryShardRouter:
+        def __init__(self):
+            # Metadata store tracks key-to-shard mappings
+            self.directory = {}  # In production: distributed KV store
+            self.shard_stats = {}  # Track shard utilization
+            
+        def assign_shard(self, key: str) -> str:
+            # Check if already assigned
+            if key in self.directory:
+                return self.directory[key]
+            
+            # Find least loaded shard
+            shard = self.find_optimal_shard()
+            self.directory[key] = shard
+            self.update_stats(shard, 'add')
+            return shard
+        
+        def get_shard(self, key: str) -> str:
+            if key not in self.directory:
+                return self.assign_shard(key)
+            return self.directory[key]
+        
+        def migrate_key(self, key: str, target_shard: str):
+            # Support for dynamic resharding
+            old_shard = self.directory.get(key)
+            if old_shard:
+                self.update_stats(old_shard, 'remove')
+            
+            self.directory[key] = target_shard
+            self.update_stats(target_shard, 'add')
+        
+        def find_optimal_shard(self) -> str:
+            # Return shard with lowest utilization
+            return min(self.shard_stats.items(), 
+                      key=lambda x: x[1]['count'])[0]
+    
+    # Example usage
+    router = DirectoryShardRouter()
+    router.assign_shard("user:123")  # Dynamically assigned
+    ```
+    
+    **Pros**:
+    - Maximum flexibility
+    - Easy resharding
+    - Can optimize placement
+    - Supports any key type
+    
+    **Cons**:
+    - Additional lookup overhead
+    - Directory becomes bottleneck
+    - Requires consistent metadata store
+    - More complex architecture
+    
+    **Best For**:
+    - Dynamic workloads
+    - Tenant-based sharding
+    - Uneven data sizes
+    - Systems needing rebalancing
+
+=== "Composite Sharding"
+
+    ```python
+    # Composite sharding (multi-dimensional)
+    class CompositeShardRouter:
+        def __init__(self):
+            self.dimensions = {
+                'tenant': 4,      # 4 tenant shards
+                'time': 12,       # 12 monthly shards
+                'type': 3         # 3 data type shards
+            }
+            self.total_shards = 4 * 12 * 3  # 144 shards
+        
+        def get_shard(self, tenant_id: str, timestamp: int, 
+                     data_type: str) -> str:
+            # Hash tenant for distribution
+            tenant_shard = hash(tenant_id) % self.dimensions['tenant']
+            
+            # Extract month from timestamp
+            from datetime import datetime
+            dt = datetime.fromtimestamp(timestamp)
+            time_shard = dt.month - 1  # 0-11
+            
+            # Map data type to shard
+            type_map = {'user': 0, 'order': 1, 'product': 2}
+            type_shard = type_map.get(data_type, 0)
+            
+            # Combine dimensions into single shard ID
+            shard_id = (tenant_shard * 12 * 3 + 
+                       time_shard * 3 + 
+                       type_shard)
+            
+            return f'shard_{shard_id}'
+        
+        def get_shards_for_query(self, tenant_id: str = None,
+                                time_range: tuple = None,
+                                data_types: list = None) -> list:
+            # Return all shards that might contain matching data
+            shards = []
+            
+            tenant_shards = [hash(tenant_id) % self.dimensions['tenant']] if tenant_id else range(4)
+            time_shards = self.get_time_shards(time_range) if time_range else range(12)
+            type_shards = [self.get_type_shard(dt) for dt in data_types] if data_types else range(3)
+            
+            for t in tenant_shards:
+                for tm in time_shards:
+                    for tp in type_shards:
+                        shard_id = t * 12 * 3 + tm * 3 + tp
+                        shards.append(f'shard_{shard_id}')
+            
+            return shards
+    
+    # Example usage
+    router = CompositeShardRouter()
+    shard = router.get_shard('tenant123', 1634567890, 'order')
+    print(f"Data goes to: {shard}")
+    
+    # Query across multiple dimensions
+    query_shards = router.get_shards_for_query(
+        tenant_id='tenant123',
+        time_range=(1633017600, 1635695999),  # Oct 2021
+        data_types=['order', 'user']
+    )
+    print(f"Query spans {len(query_shards)} shards")
+    ```
+    
+    **Pros**:
+    - Fine-grained data distribution
+    - Efficient multi-dimensional queries
+    - Natural partitioning boundaries
+    - Supports complex access patterns
+    
+    **Cons**:
+    - Complex routing logic
+    - Many shards to manage
+    - Difficult to rebalance
+    - Query complexity increases
+    
+    **Best For**:
+    - Multi-tenant SaaS applications
+    - Time-series with multiple dimensions
+    - Analytics workloads
+    - Systems with clear partitioning axes
 
 
 ### Sharding Strategy Visualizations
@@ -188,8 +479,6 @@ graph TB
 
 ### Sharding Strategy Comparison
 
-<div class="responsive-table" markdown>
-
 | Strategy | Distribution | Query Complexity | Rebalancing | Best For |
 |----------|--------------|------------------|-------------|----------|
 | **Range** | Can be uneven | Simple range queries | Hard | Sequential IDs |
@@ -197,8 +486,6 @@ graph TB
 | **Geographic** | By location | Region-aware | Natural | Global apps |
 | **Composite** | Multi-dimensional | Complex | Flexible | Multi-tenant |
 | **Directory** | Flexible | Extra lookup | Easy | Dynamic data |
-
-</div>
 
 
 ### Cross-Shard Query Patterns
@@ -233,8 +520,6 @@ sequenceDiagram
 
 ### Cross-Shard Query Types
 
-<div class="responsive-table" markdown>
-
 | Query Type | Pattern | Performance Impact | Example |
 |------------|---------|-------------------|----------|
 | **Scatter-Gather** | Query all shards | O(n) shards | Global search |
@@ -242,8 +527,6 @@ sequenceDiagram
 | **Fan-out Aggregation** | Parallel aggregates | Network bound | SUM, COUNT |
 | **Sorted Merge** | Order across shards | Memory intensive | Top-K queries |
 | **Two-Phase Query** | Locate then fetch | 2x latency | Secondary index |
-
-</div>
 
 
 ```mermaid
@@ -1010,8 +1293,6 @@ class AdvancedShardingAlgorithms:
 
 ### Sharding Strategy Selection
 
-<div class="responsive-table" markdown>
-
 | If you have... | Use this strategy | Key considerations |
 |----------------|-------------------|-------------------|
 | Numeric IDs | Range sharding | Watch for hotspots |
@@ -1020,8 +1301,6 @@ class AdvancedShardingAlgorithms:
 | Time-series | Time-based sharding | Easy archival |
 | Multi-tenant | Tenant sharding | Isolation guaranteed |
 | Complex queries | Directory sharding | Additional hop |
-
-</div>
 
 
 ### Implementation Checklist

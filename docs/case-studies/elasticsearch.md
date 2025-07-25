@@ -16,11 +16,11 @@ last_updated: 2025-07-23
 **The Challenge**: Build a search engine that can index billions of documents and return relevant results in milliseconds while scaling horizontally across hundreds of nodes.
 
 !!! info "Case Study Overview"
-    **System**: Distributed search and analytics engine based on Apache Lucene  
-    **Scale**: Petabytes of data, thousands of nodes, millions of queries/second  
-    **Challenges**: Real-time indexing, relevance scoring, cluster coordination, data distribution  
-    **Key Patterns**: Inverted indexes, sharding, replication, master-eligible nodes, segment merging  
-    **Sources**: Elastic Documentation¹, Netflix Engineering², Uber Engineering³, GitHub Blog⁴
+ **System**: Distributed search and analytics engine based on Apache Lucene 
+ **Scale**: Petabytes of data, thousands of nodes, millions of queries/second 
+ **Challenges**: Real-time indexing, relevance scoring, cluster coordination, data distribution 
+ **Key Patterns**: Inverted indexes, sharding, replication, master-eligible nodes, segment merging 
+ **Sources**: Elastic Documentation¹, Netflix Engineering², Uber Engineering³, GitHub Blog⁴
 
 ## Introduction
 
@@ -32,39 +32,35 @@ From powering GitHub's code search across 200+ million repositories to enabling 
 
 ### Law 4: Multidimensional Optimization - Search Quality vs Speed
 
-<div class="law-box">
-<h4>⚖️ Multidimensional Optimization in Action</h4>
-<p><strong>Search involves fundamental trade-offs</strong> - You can optimize for search speed, relevance quality, or resource usage, but optimizing all three simultaneously requires careful architectural choices.</p>
-</div>
+!!! abstract "⚖️ Multidimensional Optimization in Action"
+ <p><strong>Search involves fundamental trade-offs</strong> - You can optimize for search speed, relevance quality, or resource usage, but optimizing all three simultaneously requires careful architectural choices.</p>
 
 ```mermaid
 graph TB
-    subgraph "Search Trade-off Triangle"
-        SPEED[Search Speed<br/>< 10ms response]
-        QUALITY[Relevance Quality<br/>Accurate scoring]
-        RESOURCE[Resource Usage<br/>CPU, Memory, Disk]
-        
-        SPEED -.->|"Caching hurts<br/>relevance"| QUALITY
-        QUALITY -.->|"Complex scoring<br/>uses CPU"| RESOURCE
-        RESOURCE -.->|"Less hardware<br/>slower searches"| SPEED
-    end
-    
-    subgraph "Elasticsearch Solutions"
-        SHARD[Horizontal Sharding<br/>Parallel processing]
-        CACHE[Query Result Cache<br/>Popular queries]
-        SEGMENT[Segment Architecture<br/>Immutable indexes]
-        SCORE[Optimized Scoring<br/>TF-IDF, BM25]
-    end
-    
-    SPEED --> SHARD
-    QUALITY --> SCORE
-    RESOURCE --> SEGMENT
-    SPEED --> CACHE
+ subgraph "Search Trade-off Triangle"
+ SPEED[Search Speed<br/>< 10ms response]
+ QUALITY[Relevance Quality<br/>Accurate scoring]
+ RESOURCE[Resource Usage<br/>CPU, Memory, Disk]
+ 
+ SPEED -.->|"Caching hurts<br/>relevance"| QUALITY
+ QUALITY -.->|"Complex scoring<br/>uses CPU"| RESOURCE
+ RESOURCE -.->|"Less hardware<br/>slower searches"| SPEED
+ end
+ 
+ subgraph "Elasticsearch Solutions"
+ SHARD[Horizontal Sharding<br/>Parallel processing]
+ CACHE[Query Result Cache<br/>Popular queries]
+ SEGMENT[Segment Architecture<br/>Immutable indexes]
+ SCORE[Optimized Scoring<br/>TF-IDF, BM25]
+ end
+ 
+ SPEED --> SHARD
+ QUALITY --> SCORE
+ RESOURCE --> SEGMENT
+ SPEED --> CACHE
 ```
 
 **Performance vs Quality Comparison:**
-
-<div class="responsive-table" markdown>
 
 | Approach | Search Speed | Relevance Quality | Resource Usage | Use Case |
 |----------|-------------|------------------|----------------|----------|
@@ -73,15 +69,11 @@ graph TB
 | **Elasticsearch** | O(log n) lookup | ML-enhanced scoring | High memory | Full-text search |
 | **Vector search** | ANN lookup | Semantic similarity | GPU intensive | AI applications |
 
-</div>
-
 
 ### Law 2: Asynchronous Reality - Real-time Indexing
 
-<div class="law-box">
-<h4>⏱️ Asynchronous Reality in Action</h4>
-<p><strong>Search indexes lag behind reality</strong> - Documents become searchable with near-real-time latency, not instantly. Elasticsearch optimizes this gap to under 1 second.</p>
-</div>
+!!! abstract "⏱️ Asynchronous Reality in Action"
+ <p><strong>Search indexes lag behind reality</strong> - Documents become searchable with near-real-time latency, not instantly. Elasticsearch optimizes this gap to under 1 second.</p>
 
 ## Part 2: Core Architecture Components
 
@@ -89,37 +81,35 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "Elasticsearch Cluster"
-        subgraph "Master-Eligible Nodes"
-            M1[Master Node 1<br/>Cluster coordination]
-            M2[Master Node 2<br/>Standby master]
-            M3[Master Node 3<br/>Standby master]
-        end
-        
-        subgraph "Data Nodes"
-            D1[Data Node 1<br/>Shards 0,3,6]
-            D2[Data Node 2<br/>Shards 1,4,7]
-            D3[Data Node 3<br/>Shards 2,5,8]
-        end
-        
-        subgraph "Coordinating Nodes"
-            C1[Client Node 1<br/>Query routing]
-            C2[Client Node 2<br/>Load balancing]
-        end
-        
-        M1 -.->|Cluster state| D1
-        M1 -.->|Cluster state| D2
-        M1 -.->|Cluster state| D3
-        
-        C1 -->|Route queries| D1
-        C1 -->|Route queries| D2
-        C2 -->|Route queries| D3
-    end
+ subgraph "Elasticsearch Cluster"
+ subgraph "Master-Eligible Nodes"
+ M1[Master Node 1<br/>Cluster coordination]
+ M2[Master Node 2<br/>Standby master]
+ M3[Master Node 3<br/>Standby master]
+ end
+ 
+ subgraph "Data Nodes"
+ D1[Data Node 1<br/>Shards 0,3,6]
+ D2[Data Node 2<br/>Shards 1,4,7]
+ D3[Data Node 3<br/>Shards 2,5,8]
+ end
+ 
+ subgraph "Coordinating Nodes"
+ C1[Client Node 1<br/>Query routing]
+ C2[Client Node 2<br/>Load balancing]
+ end
+ 
+ M1 -.->|Cluster state| D1
+ M1 -.->|Cluster state| D2
+ M1 -.->|Cluster state| D3
+ 
+ C1 -->|Route queries| D1
+ C1 -->|Route queries| D2
+ C2 -->|Route queries| D3
+ end
 ```
 
 **Node Responsibility Matrix:**
-
-<div class="responsive-table" markdown>
 
 | Node Type | Primary Role | CPU Usage | Memory Usage | Disk Usage |
 |-----------|-------------|-----------|-------------|------------|
@@ -129,37 +119,35 @@ graph TB
 | **Ingest** | Document processing | High | Medium | Low |
 | **ML** | Machine learning | Very High | High | Medium |
 
-</div>
-
 
 ### Document Indexing Pipeline
 
 ```mermaid
 sequenceDiagram
-    participant Client as Client
-    participant Coord as Coordinating Node
-    participant Primary as Primary Shard
-    participant Replica as Replica Shard
-    participant Lucene as Lucene Index
+ participant Client as Client
+ participant Coord as Coordinating Node
+ participant Primary as Primary Shard
+ participant Replica as Replica Shard
+ participant Lucene as Lucene Index
 
-    Client->>Coord: POST /index/_doc/123
-    Coord->>Coord: Route by document ID hash
-    Coord->>Primary: Index document
-    
-    Primary->>Primary: Parse JSON
-    Primary->>Primary: Apply mappings
-    Primary->>Primary: Analyze text fields
-    Primary->>Lucene: Add to in-memory buffer
-    
-    Primary->>Replica: Replicate document
-    Replica->>Lucene: Add to buffer
-    Replica-->>Primary: Replication complete
-    Primary-->>Coord: Index complete
-    Coord-->>Client: 201 Created
-    
-    Note over Lucene: Background refresh (1s)<br/>Makes docs searchable
-    
-    Note over Lucene: Background merge<br/>Optimizes segments
+ Client->>Coord: POST /index/_doc/123
+ Coord->>Coord: Route by document ID hash
+ Coord->>Primary: Index document
+ 
+ Primary->>Primary: Parse JSON
+ Primary->>Primary: Apply mappings
+ Primary->>Primary: Analyze text fields
+ Primary->>Lucene: Add to in-memory buffer
+ 
+ Primary->>Replica: Replicate document
+ Replica->>Lucene: Add to buffer
+ Replica-->>Primary: Replication complete
+ Primary-->>Coord: Index complete
+ Coord-->>Client: 201 Created
+ 
+ Note over Lucene: Background refresh (1s)<br/>Makes docs searchable
+ 
+ Note over Lucene: Background merge<br/>Optimizes segments
 ```
 
 **Indexing Performance Factors:**
@@ -167,33 +155,33 @@ sequenceDiagram
 ```python
 # Elasticsearch indexing configuration
 index_settings = {
-    "settings": {
-        "number_of_shards": 5,           # Parallel indexing
-        "number_of_replicas": 1,         # Fault tolerance
-        "refresh_interval": "1s",        # Real-time trade-off
-        "index.translog.flush_threshold_size": "1gb",  # Durability
-        "index.merge.policy.max_merged_segment": "5gb", # Optimization
-    },
-    "mappings": {
-        "properties": {
-            "title": {
-                "type": "text",
-                "analyzer": "standard",   # Text processing
-                "fields": {
-                    "keyword": {           # Exact matching
-                        "type": "keyword"
-                    }
-                }
-            },
-            "publish_date": {
-                "type": "date",
-                "format": "date_optional_time"
-            },
-            "tags": {
-                "type": "keyword"         # Aggregations
-            }
-        }
-    }
+ "settings": {
+ "number_of_shards": 5, # Parallel indexing
+ "number_of_replicas": 1, # Fault tolerance
+ "refresh_interval": "1s", # Real-time trade-off
+ "index.translog.flush_threshold_size": "1gb", # Durability
+ "index.merge.policy.max_merged_segment": "5gb", # Optimization
+ },
+ "mappings": {
+ "properties": {
+ "title": {
+ "type": "text",
+ "analyzer": "standard", # Text processing
+ "fields": {
+ "keyword": { # Exact matching
+ "type": "keyword"
+ }
+ }
+ },
+ "publish_date": {
+ "type": "date",
+ "format": "date_optional_time"
+ },
+ "tags": {
+ "type": "keyword" # Aggregations
+ }
+ }
+ }
 }
 ```
 
@@ -201,146 +189,146 @@ index_settings = {
 
 ```mermaid
 graph LR
-    subgraph "Document Processing"
-        DOC1["Doc 1:<br/>'The quick brown fox'"]
-        DOC2["Doc 2:<br/>'Brown dogs are quick'"]
-        DOC3["Doc 3:<br/>'Fox and dog play'"]
-    end
-    
-    subgraph "Text Analysis"
-        TOKENIZE[Tokenization<br/>Split words]
-        LOWER[Lowercase<br/>Normalization]
-        STEM[Stemming<br/>Root forms]
-        FILTER[Stop words<br/>Remove 'the', 'and']
-    end
-    
-    subgraph "Inverted Index"
-        BROWN["brown: [1, 2]"]
-        QUICK["quick: [1, 2]"]
-        FOX["fox: [1, 3]"]
-        DOG["dog: [2, 3]"]
-        PLAY["play: [3]"]
-    end
-    
-    DOC1 --> TOKENIZE
-    DOC2 --> TOKENIZE
-    DOC3 --> TOKENIZE
-    
-    TOKENIZE --> LOWER
-    LOWER --> STEM
-    STEM --> FILTER
-    
-    FILTER --> BROWN
-    FILTER --> QUICK
-    FILTER --> FOX
-    FILTER --> DOG
-    FILTER --> PLAY
+ subgraph "Document Processing"
+ DOC1["Doc 1:<br/>'The quick brown fox'"]
+ DOC2["Doc 2:<br/>'Brown dogs are quick'"]
+ DOC3["Doc 3:<br/>'Fox and dog play'"]
+ end
+ 
+ subgraph "Text Analysis"
+ TOKENIZE[Tokenization<br/>Split words]
+ LOWER[Lowercase<br/>Normalization]
+ STEM[Stemming<br/>Root forms]
+ FILTER[Stop words<br/>Remove 'the', 'and']
+ end
+ 
+ subgraph "Inverted Index"
+ BROWN["brown: [1, 2]"]
+ QUICK["quick: [1, 2]"]
+ FOX["fox: [1, 3]"]
+ DOG["dog: [2, 3]"]
+ PLAY["play: [3]"]
+ end
+ 
+ DOC1 --> TOKENIZE
+ DOC2 --> TOKENIZE
+ DOC3 --> TOKENIZE
+ 
+ TOKENIZE --> LOWER
+ LOWER --> STEM
+ STEM --> FILTER
+ 
+ FILTER --> BROWN
+ FILTER --> QUICK
+ FILTER --> FOX
+ FILTER --> DOG
+ FILTER --> PLAY
 ```
 
 **Index Structure Implementation:**
 
 ```python
 class InvertedIndex:
-    def __init__(self):
-        self.term_dictionary = {}    # term -> posting list
-        self.document_store = {}     # doc_id -> document
-        self.field_norms = {}       # doc_id -> field length norms
-        
-    def add_document(self, doc_id, fields):
-        """Add document to index."""
-        self.document_store[doc_id] = fields
-        
-        for field_name, field_value in fields.items():
-            tokens = self.analyze_text(field_value)
-            
+ def __init__(self):
+ self.term_dictionary = {} # term -> posting list
+ self.document_store = {} # doc_id -> document
+ self.field_norms = {} # doc_id -> field length norms
+ 
+ def add_document(self, doc_id, fields):
+ """Add document to index."""
+ self.document_store[doc_id] = fields
+ 
+ for field_name, field_value in fields.items():
+ tokens = self.analyze_text(field_value)
+ 
 # Calculate field norm (document length normalization)
-            self.field_norms[doc_id] = math.sqrt(len(tokens))
-            
+ self.field_norms[doc_id] = math.sqrt(len(tokens))
+ 
 # Build posting lists
-            for position, token in enumerate(tokens):
-                if token not in self.term_dictionary:
-                    self.term_dictionary[token] = PostingList()
-                    
-                self.term_dictionary[token].add_occurrence(
-                    doc_id, field_name, position
-                )
-    
-    def search(self, query_terms):
-        """Boolean search with TF-IDF scoring."""
-        candidate_docs = set()
-        
+ for position, token in enumerate(tokens):
+ if token not in self.term_dictionary:
+ self.term_dictionary[token] = PostingList()
+ 
+ self.term_dictionary[token].add_occurrence(
+ doc_id, field_name, position
+ )
+ 
+ def search(self, query_terms):
+ """Boolean search with TF-IDF scoring."""
+ candidate_docs = set()
+ 
 # Find documents containing any query term
-        for term in query_terms:
-            if term in self.term_dictionary:
-                posting_list = self.term_dictionary[term]
-                candidate_docs.update(posting_list.doc_ids)
-        
+ for term in query_terms:
+ if term in self.term_dictionary:
+ posting_list = self.term_dictionary[term]
+ candidate_docs.update(posting_list.doc_ids)
+ 
 # Score and rank documents
-        scored_docs = []
-        for doc_id in candidate_docs:
-            score = self.calculate_tfidf_score(doc_id, query_terms)
-            scored_docs.append((doc_id, score))
-            
-        return sorted(scored_docs, key=lambda x: x[1], reverse=True)
+ scored_docs = []
+ for doc_id in candidate_docs:
+ score = self.calculate_tfidf_score(doc_id, query_terms)
+ scored_docs.append((doc_id, score))
+ 
+ return sorted(scored_docs, key=lambda x: x[1], reverse=True)
 ```
 
 ### Sharding and Distribution
 
 ```mermaid
 graph TB
-    subgraph "Index Sharding Strategy"
-        INDEX["Index: logs-2025.01.23<br/>10M documents"]
-        
-        subgraph "Shard Distribution"
-            S0["Shard 0<br/>Docs: 0-1.9M<br/>Node: es-data-1"]
-            S1["Shard 1<br/>Docs: 2M-3.9M<br/>Node: es-data-2"]
-            S2["Shard 2<br/>Docs: 4M-5.9M<br/>Node: es-data-3"]
-            S3["Shard 3<br/>Docs: 6M-7.9M<br/>Node: es-data-4"]
-            S4["Shard 4<br/>Docs: 8M-10M<br/>Node: es-data-5"]
-        end
-        
-        subgraph "Replica Distribution"
-            R0["Replica 0<br/>Node: es-data-2"]
-            R1["Replica 1<br/>Node: es-data-3"]
-            R2["Replica 2<br/>Node: es-data-4"]
-            R3["Replica 3<br/>Node: es-data-5"]
-            R4["Replica 4<br/>Node: es-data-1"]
-        end
-        
-        INDEX --> S0
-        INDEX --> S1
-        INDEX --> S2
-        INDEX --> S3
-        INDEX --> S4
-        
-        S0 -.->|Replicate| R0
-        S1 -.->|Replicate| R1
-        S2 -.->|Replicate| R2
-        S3 -.->|Replicate| R3
-        S4 -.->|Replicate| R4
-    end
+ subgraph "Index Sharding Strategy"
+ INDEX["Index: logs-2025.01.23<br/>10M documents"]
+ 
+ subgraph "Shard Distribution"
+ S0["Shard 0<br/>Docs: 0-1.9M<br/>Node: es-data-1"]
+ S1["Shard 1<br/>Docs: 2M-3.9M<br/>Node: es-data-2"]
+ S2["Shard 2<br/>Docs: 4M-5.9M<br/>Node: es-data-3"]
+ S3["Shard 3<br/>Docs: 6M-7.9M<br/>Node: es-data-4"]
+ S4["Shard 4<br/>Docs: 8M-10M<br/>Node: es-data-5"]
+ end
+ 
+ subgraph "Replica Distribution"
+ R0["Replica 0<br/>Node: es-data-2"]
+ R1["Replica 1<br/>Node: es-data-3"]
+ R2["Replica 2<br/>Node: es-data-4"]
+ R3["Replica 3<br/>Node: es-data-5"]
+ R4["Replica 4<br/>Node: es-data-1"]
+ end
+ 
+ INDEX --> S0
+ INDEX --> S1
+ INDEX --> S2
+ INDEX --> S3
+ INDEX --> S4
+ 
+ S0 -.->|Replicate| R0
+ S1 -.->|Replicate| R1
+ S2 -.->|Replicate| R2
+ S3 -.->|Replicate| R3
+ S4 -.->|Replicate| R4
+ end
 ```
 
 **Document Routing Algorithm:**
 
 ```python
 def route_document(doc_id, number_of_shards):
-    """Determine which shard should store a document."""
+ """Determine which shard should store a document."""
 # Elasticsearch uses murmur3 hash
-    hash_value = murmur3_hash(doc_id)
-    shard_id = hash_value % number_of_shards
-    return shard_id
+ hash_value = murmur3_hash(doc_id)
+ shard_id = hash_value % number_of_shards
+ return shard_id
 
 def route_search_query(index_name, query):
-    """Route search query to appropriate shards."""
-    if 'routing' in query:
+ """Route search query to appropriate shards."""
+ if 'routing' in query:
 # Custom routing - go to specific shard
-        routing_value = query['routing']
-        target_shard = route_document(routing_value, get_shard_count(index_name))
-        return [target_shard]
-    else:
+ routing_value = query['routing']
+ target_shard = route_document(routing_value, get_shard_count(index_name))
+ return [target_shard]
+ else:
 # No routing - query all shards
-        return list(range(get_shard_count(index_name)))
+ return list(range(get_shard_count(index_name)))
 ```
 
 ## Part 3: Search and Scoring Algorithms
@@ -348,80 +336,80 @@ def route_search_query(index_name, query):
 ### Query Execution Pipeline
 
 !!! note "🎯 Design Decision: Two-Phase Search"
-    <strong>Problem</strong>: How to rank millions of documents efficiently?
-    <strong>Solution</strong>: Query phase finds top candidates, fetch phase retrieves full documents
+ <strong>Problem</strong>: How to rank millions of documents efficiently?
+ <strong>Solution</strong>: Query phase finds top candidates, fetch phase retrieves full documents
 
 ```mermaid
 sequenceDiagram
-    participant Client as Client
-    participant Coord as Coordinating Node
-    participant Shard1 as Shard 1
-    participant Shard2 as Shard 2
-    participant Shard3 as Shard 3
+ participant Client as Client
+ participant Coord as Coordinating Node
+ participant Shard1 as Shard 1
+ participant Shard2 as Shard 2
+ participant Shard3 as Shard 3
 
-    Note over Client,Shard3: Query Phase - Find top candidates
-    
-    Client->>Coord: GET /logs/_search?size=10
-    
-    par Query all shards
-        Coord->>Shard1: Execute query
-        Shard1->>Shard1: Score documents
-        Shard1-->>Coord: Top 10 doc IDs + scores
-    and
-        Coord->>Shard2: Execute query  
-        Shard2->>Shard2: Score documents
-        Shard2-->>Coord: Top 10 doc IDs + scores
-    and
-        Coord->>Shard3: Execute query
-        Shard3->>Shard3: Score documents
-        Shard3-->>Coord: Top 10 doc IDs + scores
-    end
-    
-    Coord->>Coord: Global sort of 30 results
-    Coord->>Coord: Select global top 10
-    
-    Note over Client,Shard3: Fetch Phase - Get full documents
-    
-    par Fetch documents
-        Coord->>Shard1: Get doc 123 (if needed)
-        Shard1-->>Coord: Full document
-    and
-        Coord->>Shard2: Get doc 456 (if needed)
-        Shard2-->>Coord: Full document
-    end
-    
-    Coord-->>Client: Search results with full docs
+ Note over Client,Shard3: Query Phase - Find top candidates
+ 
+ Client->>Coord: GET /logs/_search?size=10
+ 
+ par Query all shards
+ Coord->>Shard1: Execute query
+ Shard1->>Shard1: Score documents
+ Shard1-->>Coord: Top 10 doc IDs + scores
+ and
+ Coord->>Shard2: Execute query 
+ Shard2->>Shard2: Score documents
+ Shard2-->>Coord: Top 10 doc IDs + scores
+ and
+ Coord->>Shard3: Execute query
+ Shard3->>Shard3: Score documents
+ Shard3-->>Coord: Top 10 doc IDs + scores
+ end
+ 
+ Coord->>Coord: Global sort of 30 results
+ Coord->>Coord: Select global top 10
+ 
+ Note over Client,Shard3: Fetch Phase - Get full documents
+ 
+ par Fetch documents
+ Coord->>Shard1: Get doc 123 (if needed)
+ Shard1-->>Coord: Full document
+ and
+ Coord->>Shard2: Get doc 456 (if needed)
+ Shard2-->>Coord: Full document
+ end
+ 
+ Coord-->>Client: Search results with full docs
 ```
 
 ### Relevance Scoring (BM25)
 
 ```mermaid
 graph TB
-    subgraph "BM25 Scoring Components"
-        TF[Term Frequency<br/>How often term appears<br/>in document]
-        IDF[Inverse Document Frequency<br/>How rare the term is<br/>across collection]
-        DL[Document Length<br/>Normalize by doc size]
-        
-        BM25["BM25 Score<br/>TF × IDF × DL_norm"]
-        
-        TF --> BM25
-        IDF --> BM25
-        DL --> BM25
-    end
-    
-    subgraph "Scoring Example"
-        Q["Query: 'elasticsearch tutorial'"]
-        D1["Doc 1: 'Elasticsearch Tutorial'<br/>Short doc (100 words)"]
-        D2["Doc 2: 'Database systems...'<br/>Long doc (5000 words)<br/>mentions 'elasticsearch' once"]
-        
-        S1["Score 1: High<br/>TF=high, IDF=medium, DL=small"]
-        S2["Score 2: Low<br/>TF=low, IDF=medium, DL=large"]
-        
-        Q --> D1
-        Q --> D2
-        D1 --> S1
-        D2 --> S2
-    end
+ subgraph "BM25 Scoring Components"
+ TF[Term Frequency<br/>How often term appears<br/>in document]
+ IDF[Inverse Document Frequency<br/>How rare the term is<br/>across collection]
+ DL[Document Length<br/>Normalize by doc size]
+ 
+ BM25["BM25 Score<br/>TF × IDF × DL_norm"]
+ 
+ TF --> BM25
+ IDF --> BM25
+ DL --> BM25
+ end
+ 
+ subgraph "Scoring Example"
+ Q["Query: 'elasticsearch tutorial'"]
+ D1["Doc 1: 'Elasticsearch Tutorial'<br/>Short doc (100 words)"]
+ D2["Doc 2: 'Database systems...'<br/>Long doc (5000 words)<br/>mentions 'elasticsearch' once"]
+ 
+ S1["Score 1: High<br/>TF=high, IDF=medium, DL=small"]
+ S2["Score 2: Low<br/>TF=low, IDF=medium, DL=large"]
+ 
+ Q --> D1
+ Q --> D2
+ D1 --> S1
+ D2 --> S2
+ end
 ```
 
 **BM25 Implementation:**
@@ -430,150 +418,150 @@ graph TB
 import math
 
 def bm25_score(term, document, corpus, k1=1.2, b=0.75):
-    """Calculate BM25 score for a term in a document."""
-    
+ """Calculate BM25 score for a term in a document."""
+ 
 # Term frequency in document
-    tf = document.count(term)
-    
+ tf = document.count(term)
+ 
 # Document frequency (how many docs contain the term)
-    df = sum(1 for doc in corpus if term in doc)
-    
+ df = sum(1 for doc in corpus if term in doc)
+ 
 # Inverse document frequency
-    idf = math.log((len(corpus) - df + 0.5) / (df + 0.5))
-    
+ idf = math.log((len(corpus) - df + 0.5) / (df + 0.5))
+ 
 # Document length normalization
-    doc_length = len(document)
-    avg_doc_length = sum(len(doc) for doc in corpus) / len(corpus)
-    
+ doc_length = len(document)
+ avg_doc_length = sum(len(doc) for doc in corpus) / len(corpus)
+ 
 # BM25 formula
-    numerator = tf * (k1 + 1)
-    denominator = tf + k1 * (1 - b + b * (doc_length / avg_doc_length))
-    
-    return idf * (numerator / denominator)
+ numerator = tf * (k1 + 1)
+ denominator = tf + k1 * (1 - b + b * (doc_length / avg_doc_length))
+ 
+ return idf * (numerator / denominator)
 
 def search_query(query_terms, corpus):
-    """Score all documents for a multi-term query."""
-    doc_scores = {}
-    
-    for doc_id, document in enumerate(corpus):
-        total_score = 0
-        
-        for term in query_terms:
-            if term in document:
-                term_score = bm25_score(term, document, corpus)
-                total_score += term_score
-                
-        if total_score > 0:
-            doc_scores[doc_id] = total_score
-    
+ """Score all documents for a multi-term query."""
+ doc_scores = {}
+ 
+ for doc_id, document in enumerate(corpus):
+ total_score = 0
+ 
+ for term in query_terms:
+ if term in document:
+ term_score = bm25_score(term, document, corpus)
+ total_score += term_score
+ 
+ if total_score > 0:
+ doc_scores[doc_id] = total_score
+ 
 # Sort by score descending
-    return sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
+ return sorted(doc_scores.items(), key=lambda x: x[1], reverse=True)
 ```
 
 ### Advanced Query Types
 
 ```mermaid
 graph LR
-    subgraph "Query Type Hierarchy"
-        LEAF[Leaf Queries]
-        COMPOUND[Compound Queries]
-        
-        subgraph "Leaf Query Types"
-            MATCH["match<br/>Full-text search"]
-            TERM["term<br/>Exact match"]
-            RANGE["range<br/>Numeric/date ranges"]
-            FUZZY["fuzzy<br/>Edit distance"]
-        end
-        
-        subgraph "Compound Query Types"
-            BOOL["bool<br/>must, should, must_not"]
-            BOOSTING["boosting<br/>Positive/negative"]
-            CONSTANT["constant_score<br/>Fixed score"]
-            FUNCTION["function_score<br/>Custom scoring"]
-        end
-        
-        LEAF --> MATCH
-        LEAF --> TERM
-        LEAF --> RANGE
-        LEAF --> FUZZY
-        
-        COMPOUND --> BOOL
-        COMPOUND --> BOOSTING
-        COMPOUND --> CONSTANT
-        COMPOUND --> FUNCTION
-    end
+ subgraph "Query Type Hierarchy"
+ LEAF[Leaf Queries]
+ COMPOUND[Compound Queries]
+ 
+ subgraph "Leaf Query Types"
+ MATCH["match<br/>Full-text search"]
+ TERM["term<br/>Exact match"]
+ RANGE["range<br/>Numeric/date ranges"]
+ FUZZY["fuzzy<br/>Edit distance"]
+ end
+ 
+ subgraph "Compound Query Types"
+ BOOL["bool<br/>must, should, must_not"]
+ BOOSTING["boosting<br/>Positive/negative"]
+ CONSTANT["constant_score<br/>Fixed score"]
+ FUNCTION["function_score<br/>Custom scoring"]
+ end
+ 
+ LEAF --> MATCH
+ LEAF --> TERM
+ LEAF --> RANGE
+ LEAF --> FUZZY
+ 
+ COMPOUND --> BOOL
+ COMPOUND --> BOOSTING
+ COMPOUND --> CONSTANT
+ COMPOUND --> FUNCTION
+ end
 ```
 
 **Complex Query Example:**
 
 ```json
 {
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "match": {
-            "title": {
-              "query": "elasticsearch tutorial",
-              "boost": 2.0
-            }
-          }
-        }
-      ],
-      "should": [
-        {
-          "match": {
-            "tags": "beginner"
-          }
-        },
-        {
-          "range": {
-            "publish_date": {
-              "gte": "2024-01-01",
-              "boost": 1.5
-            }
-          }
-        }
-      ],
-      "must_not": [
-        {
-          "term": {
-            "status": "draft"
-          }
-        }
-      ],
-      "filter": [
-        {
-          "term": {
-            "category": "technology"
-          }
-        }
-      ]
-    }
-  },
-  "highlight": {
-    "fields": {
-      "title": {},
-      "content": {
-        "fragment_size": 150,
-        "number_of_fragments": 3
-      }
-    }
-  },
-  "aggregations": {
-    "popular_tags": {
-      "terms": {
-        "field": "tags",
-        "size": 10
-      }
-    },
-    "publish_date_histogram": {
-      "date_histogram": {
-        "field": "publish_date",
-        "calendar_interval": "month"
-      }
-    }
-  }
+ "query": {
+ "bool": {
+ "must": [
+ {
+ "match": {
+ "title": {
+ "query": "elasticsearch tutorial",
+ "boost": 2.0
+ }
+ }
+ }
+ ],
+ "should": [
+ {
+ "match": {
+ "tags": "beginner"
+ }
+ },
+ {
+ "range": {
+ "publish_date": {
+ "gte": "2024-01-01",
+ "boost": 1.5
+ }
+ }
+ }
+ ],
+ "must_not": [
+ {
+ "term": {
+ "status": "draft"
+ }
+ }
+ ],
+ "filter": [
+ {
+ "term": {
+ "category": "technology"
+ }
+ }
+ ]
+ }
+ },
+ "highlight": {
+ "fields": {
+ "title": {},
+ "content": {
+ "fragment_size": 150,
+ "number_of_fragments": 3
+ }
+ }
+ },
+ "aggregations": {
+ "popular_tags": {
+ "terms": {
+ "field": "tags",
+ "size": 10
+ }
+ },
+ "publish_date_histogram": {
+ "date_histogram": {
+ "field": "publish_date",
+ "calendar_interval": "month"
+ }
+ }
+ }
 }
 ```
 
@@ -582,116 +570,116 @@ graph LR
 ### Aggregation Framework
 
 !!! info "💡 Insight: Analytics at Search Speed"
-    Elasticsearch can calculate complex analytics (histograms, percentiles, geospatial stats) in milliseconds by leveraging the same inverted index structures used for search.
+ Elasticsearch can calculate complex analytics (histograms, percentiles, geospatial stats) in milliseconds by leveraging the same inverted index structures used for search.
 
 ```mermaid
 graph TB
-    subgraph "Aggregation Pipeline"
-        DATA["Raw Documents<br/>100M log entries"]
-        
-        subgraph "Bucket Aggregations"
-            TERMS["Terms Agg<br/>Group by status code"]
-            DATE["Date Histogram<br/>Group by hour"]
-            RANGE["Range Agg<br/>Response time buckets"]
-        end
-        
-        subgraph "Metric Aggregations"
-            AVG["Average<br/>Response time"]
-            PERC["Percentiles<br/>95th, 99th"]
-            CARD["Cardinality<br/>Unique IPs"]
-        end
-        
-        subgraph "Pipeline Aggregations"
-            DERIV["Derivative<br/>Rate of change"]
-            MAVG["Moving Average<br/>Smoothing"]
-            BUCKET["Bucket Sort<br/>Top buckets"]
-        end
-        
-        DATA --> TERMS
-        DATA --> DATE
-        DATA --> RANGE
-        
-        TERMS --> AVG
-        DATE --> PERC
-        RANGE --> CARD
-        
-        AVG --> DERIV
-        PERC --> MAVG
-        CARD --> BUCKET
-    end
+ subgraph "Aggregation Pipeline"
+ DATA["Raw Documents<br/>100M log entries"]
+ 
+ subgraph "Bucket Aggregations"
+ TERMS["Terms Agg<br/>Group by status code"]
+ DATE["Date Histogram<br/>Group by hour"]
+ RANGE["Range Agg<br/>Response time buckets"]
+ end
+ 
+ subgraph "Metric Aggregations"
+ AVG["Average<br/>Response time"]
+ PERC["Percentiles<br/>95th, 99th"]
+ CARD["Cardinality<br/>Unique IPs"]
+ end
+ 
+ subgraph "Pipeline Aggregations"
+ DERIV["Derivative<br/>Rate of change"]
+ MAVG["Moving Average<br/>Smoothing"]
+ BUCKET["Bucket Sort<br/>Top buckets"]
+ end
+ 
+ DATA --> TERMS
+ DATA --> DATE
+ DATA --> RANGE
+ 
+ TERMS --> AVG
+ DATE --> PERC
+ RANGE --> CARD
+ 
+ AVG --> DERIV
+ PERC --> MAVG
+ CARD --> BUCKET
+ end
 ```
 
 **Real-World Analytics Example:**
 
 ```json
 {
-  "aggs": {
-    "time_buckets": {
-      "date_histogram": {
-        "field": "@timestamp",
-        "fixed_interval": "1h"
-      },
-      "aggs": {
-        "status_codes": {
-          "terms": {
-            "field": "response_code"
-          },
-          "aggs": {
-            "avg_response_time": {
-              "avg": {
-                "field": "response_time_ms"
-              }
-            },
-            "error_rate": {
-              "bucket_script": {
-                "buckets_path": {
-                  "total": "_count",
-                  "errors": "error_count"
-                },
-                "script": "params.errors / params.total * 100"
-              }
-            }
-          }
-        },
-        "unique_users": {
-          "cardinality": {
-            "field": "user_id",
-            "precision_threshold": 10000
-          }
-        },
-        "response_time_percentiles": {
-          "percentiles": {
-            "field": "response_time_ms",
-            "percents": [50, 95, 99, 99.9]
-          }
-        }
-      }
-    },
-    "error_trend": {
-      "date_histogram": {
-        "field": "@timestamp",
-        "fixed_interval": "15m"
-      },
-      "aggs": {
-        "error_rate": {
-          "filter": {
-            "range": {
-              "response_code": {
-                "gte": 400
-              }
-            }
-          }
-        },
-        "error_rate_smooth": {
-          "moving_avg": {
-            "buckets_path": "error_rate>_count",
-            "window": 4,
-            "model": "linear"
-          }
-        }
-      }
-    }
-  }
+ "aggs": {
+ "time_buckets": {
+ "date_histogram": {
+ "field": "@timestamp",
+ "fixed_interval": "1h"
+ },
+ "aggs": {
+ "status_codes": {
+ "terms": {
+ "field": "response_code"
+ },
+ "aggs": {
+ "avg_response_time": {
+ "avg": {
+ "field": "response_time_ms"
+ }
+ },
+ "error_rate": {
+ "bucket_script": {
+ "buckets_path": {
+ "total": "_count",
+ "errors": "error_count"
+ },
+ "script": "params.errors / params.total * 100"
+ }
+ }
+ }
+ },
+ "unique_users": {
+ "cardinality": {
+ "field": "user_id",
+ "precision_threshold": 10000
+ }
+ },
+ "response_time_percentiles": {
+ "percentiles": {
+ "field": "response_time_ms",
+ "percents": [50, 95, 99, 99.9]
+ }
+ }
+ }
+ },
+ "error_trend": {
+ "date_histogram": {
+ "field": "@timestamp",
+ "fixed_interval": "15m"
+ },
+ "aggs": {
+ "error_rate": {
+ "filter": {
+ "range": {
+ "response_code": {
+ "gte": 400
+ }
+ }
+ }
+ },
+ "error_rate_smooth": {
+ "moving_avg": {
+ "buckets_path": "error_rate>_count",
+ "window": 4,
+ "model": "linear"
+ }
+ }
+ }
+ }
+ }
 }
 ```
 
@@ -700,97 +688,95 @@ graph TB
 ### Netflix's Elasticsearch Journey
 
 !!! danger "💥 Case Study: The Logging Data Explosion"
-    <strong>Problem</strong>: Netflix's log volume grew from 1TB/day to 700TB/day
-    <strong>Challenge</strong>: Query performance degraded as cluster grew to 3000+ nodes
-    <strong>Solution</strong>: Hot-warm-cold architecture with automated data lifecycle
+ <strong>Problem</strong>: Netflix's log volume grew from 1TB/day to 700TB/day
+ <strong>Challenge</strong>: Query performance degraded as cluster grew to 3000+ nodes
+ <strong>Solution</strong>: Hot-warm-cold architecture with automated data lifecycle
 
 ```mermaid
 graph TB
-    subgraph "Netflix Data Lifecycle Architecture"
-        subgraph "Hot Tier (0-7 days)"
-            HOT1["Hot Node 1<br/>SSD, 32GB RAM<br/>Active indexing"]
-            HOT2["Hot Node 2<br/>SSD, 32GB RAM<br/>Active searching"]
-            HOT3["Hot Node 3<br/>SSD, 32GB RAM<br/>High CPU"]
-        end
-        
-        subgraph "Warm Tier (7-90 days)"
-            WARM1["Warm Node 1<br/>SSD, 16GB RAM<br/>Read-only"]
-            WARM2["Warm Node 2<br/>SSD, 16GB RAM<br/>Compressed"]
-        end
-        
-        subgraph "Cold Tier (90+ days)"
-            COLD1["Cold Node 1<br/>HDD, 8GB RAM<br/>Searchable snapshots"]
-            COLD2["Cold Node 2<br/>HDD, 8GB RAM<br/>S3 backed"]
-        end
-        
-        HOT1 -->|Age: 7 days| WARM1
-        HOT2 -->|Age: 7 days| WARM2
-        WARM1 -->|Age: 90 days| COLD1
-        WARM2 -->|Age: 90 days| COLD2
-    end
+ subgraph "Netflix Data Lifecycle Architecture"
+ subgraph "Hot Tier (0-7 days)"
+ HOT1["Hot Node 1<br/>SSD, 32GB RAM<br/>Active indexing"]
+ HOT2["Hot Node 2<br/>SSD, 32GB RAM<br/>Active searching"]
+ HOT3["Hot Node 3<br/>SSD, 32GB RAM<br/>High CPU"]
+ end
+ 
+ subgraph "Warm Tier (7-90 days)"
+ WARM1["Warm Node 1<br/>SSD, 16GB RAM<br/>Read-only"]
+ WARM2["Warm Node 2<br/>SSD, 16GB RAM<br/>Compressed"]
+ end
+ 
+ subgraph "Cold Tier (90+ days)"
+ COLD1["Cold Node 1<br/>HDD, 8GB RAM<br/>Searchable snapshots"]
+ COLD2["Cold Node 2<br/>HDD, 8GB RAM<br/>S3 backed"]
+ end
+ 
+ HOT1 -->|Age: 7 days| WARM1
+ HOT2 -->|Age: 7 days| WARM2
+ WARM1 -->|Age: 90 days| COLD1
+ WARM2 -->|Age: 90 days| COLD2
+ end
 ```
 
 **Data Lifecycle Management Policy:**
 
 ```json
 {
-  "policy": {
-    "phases": {
-      "hot": {
-        "actions": {
-          "rollover": {
-            "max_primary_shard_size": "50GB",
-            "max_age": "7d"
-          },
-          "set_priority": {
-            "priority": 100
-          }
-        }
-      },
-      "warm": {
-        "min_age": "7d",
-        "actions": {
-          "allocate": {
-            "number_of_replicas": 0,
-            "include": {
-              "data_tier": "warm"
-            }
-          },
-          "forcemerge": {
-            "max_num_segments": 1
-          },
-          "shrink": {
-            "number_of_shards": 1
-          }
-        }
-      },
-      "cold": {
-        "min_age": "90d",
-        "actions": {
-          "allocate": {
-            "include": {
-              "data_tier": "cold"
-            }
-          },
-          "searchable_snapshot": {
-            "snapshot_repository": "s3-repository"
-          }
-        }
-      },
-      "delete": {
-        "min_age": "365d",
-        "actions": {
-          "delete": {}
-        }
-      }
-    }
-  }
+ "policy": {
+ "phases": {
+ "hot": {
+ "actions": {
+ "rollover": {
+ "max_primary_shard_size": "50GB",
+ "max_age": "7d"
+ },
+ "set_priority": {
+ "priority": 100
+ }
+ }
+ },
+ "warm": {
+ "min_age": "7d",
+ "actions": {
+ "allocate": {
+ "number_of_replicas": 0,
+ "include": {
+ "data_tier": "warm"
+ }
+ },
+ "forcemerge": {
+ "max_num_segments": 1
+ },
+ "shrink": {
+ "number_of_shards": 1
+ }
+ }
+ },
+ "cold": {
+ "min_age": "90d",
+ "actions": {
+ "allocate": {
+ "include": {
+ "data_tier": "cold"
+ }
+ },
+ "searchable_snapshot": {
+ "snapshot_repository": "s3-repository"
+ }
+ }
+ },
+ "delete": {
+ "min_age": "365d",
+ "actions": {
+ "delete": {}
+ }
+ }
+ }
+ }
 }
 ```
 
 **Performance Impact:**
-
-<div class="responsive-table" markdown>
 
 | Metric | Before ILM | After ILM | Improvement |
 |--------|-----------|-----------|-------------|
@@ -799,71 +785,69 @@ graph TB
 | Query latency (old) | 200ms p95 | 500ms p95 | Acceptable trade-off |
 | Cluster stability | Weekly issues | Monthly issues | 4x improvement |
 
-</div>
-
 
 ### GitHub's Code Search Scale
 
 !!! info "💡 Insight: Search at Code Scale"
-    GitHub indexes 200+ million repositories with 28+ billion files, demonstrating how Elasticsearch can handle massive text corpora with specialized optimizations.
+ GitHub indexes 200+ million repositories with 28+ billion files, demonstrating how Elasticsearch can handle massive text corpora with specialized optimizations.
 
 **Code Search Optimizations:**
 
 ```json
 {
-  "settings": {
-    "analysis": {
-      "analyzer": {
-        "code_analyzer": {
-          "type": "custom",
-          "tokenizer": "code_tokenizer",
-          "filter": [
-            "lowercase",
-            "code_ngram_filter"
-          ]
-        }
-      },
-      "tokenizer": {
-        "code_tokenizer": {
-          "type": "pattern",
-          "pattern": "[\\W&&[^\\.]]+",
-          "flags": "CASE_INSENSITIVE"
-        }
-      },
-      "filter": {
-        "code_ngram_filter": {
-          "type": "edge_ngram",
-          "min_gram": 2,
-          "max_gram": 20
-        }
-      }
-    },
-    "index": {
-      "codec": "best_compression",
-      "refresh_interval": "30s",
-      "number_of_shards": 20,
-      "number_of_replicas": 1
-    }
-  },
-  "mappings": {
-    "properties": {
-      "content": {
-        "type": "text",
-        "analyzer": "code_analyzer",
-        "index_options": "positions"
-      },
-      "language": {
-        "type": "keyword"
-      },
-      "path": {
-        "type": "text",
-        "analyzer": "path_hierarchy"
-      },
-      "repository": {
-        "type": "keyword"
-      }
-    }
-  }
+ "settings": {
+ "analysis": {
+ "analyzer": {
+ "code_analyzer": {
+ "type": "custom",
+ "tokenizer": "code_tokenizer",
+ "filter": [
+ "lowercase",
+ "code_ngram_filter"
+ ]
+ }
+ },
+ "tokenizer": {
+ "code_tokenizer": {
+ "type": "pattern",
+ "pattern": "[\\W&&[^\\.]]+",
+ "flags": "CASE_INSENSITIVE"
+ }
+ },
+ "filter": {
+ "code_ngram_filter": {
+ "type": "edge_ngram",
+ "min_gram": 2,
+ "max_gram": 20
+ }
+ }
+ },
+ "index": {
+ "codec": "best_compression",
+ "refresh_interval": "30s",
+ "number_of_shards": 20,
+ "number_of_replicas": 1
+ }
+ },
+ "mappings": {
+ "properties": {
+ "content": {
+ "type": "text",
+ "analyzer": "code_analyzer",
+ "index_options": "positions"
+ },
+ "language": {
+ "type": "keyword"
+ },
+ "path": {
+ "type": "text",
+ "analyzer": "path_hierarchy"
+ },
+ "repository": {
+ "type": "keyword"
+ }
+ }
+ }
 }
 ```
 
@@ -873,25 +857,25 @@ graph TB
 
 ```mermaid
 graph TB
-    subgraph "Elasticsearch Monitoring Stack"
-        subgraph "Cluster Health"
-            STATUS["Cluster Status<br/>Green/Yellow/Red"]
-            NODES["Node Count<br/>Data/Master/Client"]
-            SHARDS["Shard Health<br/>Unassigned/Relocating"]
-        end
-        
-        subgraph "Performance Metrics"
-            QUERY["Query Performance<br/>Latency/Throughput"]
-            INDEX["Index Performance<br/>Indexing rate/latency"]
-            RESOURCE["Resource Usage<br/>CPU/Memory/Disk"]
-        end
-        
-        subgraph "Operational Metrics"
-            GC["JVM GC<br/>Pause time/frequency"]
-            CIRCUIT["Circuit Breakers<br/>Triggered/Reset"]
-            QUEUE["Thread Pools<br/>Queue size/rejected"]
-        end
-    end
+ subgraph "Elasticsearch Monitoring Stack"
+ subgraph "Cluster Health"
+ STATUS["Cluster Status<br/>Green/Yellow/Red"]
+ NODES["Node Count<br/>Data/Master/Client"]
+ SHARDS["Shard Health<br/>Unassigned/Relocating"]
+ end
+ 
+ subgraph "Performance Metrics"
+ QUERY["Query Performance<br/>Latency/Throughput"]
+ INDEX["Index Performance<br/>Indexing rate/latency"]
+ RESOURCE["Resource Usage<br/>CPU/Memory/Disk"]
+ end
+ 
+ subgraph "Operational Metrics"
+ GC["JVM GC<br/>Pause time/frequency"]
+ CIRCUIT["Circuit Breakers<br/>Triggered/Reset"]
+ QUEUE["Thread Pools<br/>Queue size/rejected"]
+ end
+ end
 ```
 
 **Critical Monitoring Queries:**
@@ -945,55 +929,55 @@ from elasticsearch import Elasticsearch
 from elasticsearch.helpers import bulk
 
 def optimize_bulk_indexing(es_client, documents):
-    """Optimize bulk indexing performance."""
-    
+ """Optimize bulk indexing performance."""
+ 
 # Prepare bulk actions
-    actions = []
-    for doc in documents:
-        action = {
-            '_index': 'logs-2025.01.23',
-            '_source': doc,
-            '_routing': doc.get('user_id'),  # Custom routing
-        }
-        actions.append(action)
-    
+ actions = []
+ for doc in documents:
+ action = {
+ '_index': 'logs-2025.01.23',
+ '_source': doc,
+ '_routing': doc.get('user_id'), # Custom routing
+ }
+ actions.append(action)
+ 
 # Bulk index with optimizations
-    bulk(
-        es_client,
-        actions,
-        chunk_size=1000,        # Batch size
-        request_timeout=60,     # Timeout
-        max_retries=3,         # Retry failed docs
-        initial_backoff=2,     # Exponential backoff
-        max_backoff=600,       # Max retry delay
-    )
+ bulk(
+ es_client,
+ actions,
+ chunk_size=1000, # Batch size
+ request_timeout=60, # Timeout
+ max_retries=3, # Retry failed docs
+ initial_backoff=2, # Exponential backoff
+ max_backoff=600, # Max retry delay
+ )
 
 # Index template for time-based data
 index_template = {
-    "index_patterns": ["logs-*"],
-    "template": {
-        "settings": {
-            "number_of_shards": 1,
-            "number_of_replicas": 1,
-            "refresh_interval": "30s",      # Reduce refresh frequency
-            "index.translog.durability": "async",  # Async translog
-            "index.codec": "best_compression",     # Compress segments
-            "index.merge.policy.max_merged_segment": "2gb"
-        },
-        "mappings": {
-            "dynamic_templates": [
-                {
-                    "strings_as_keywords": {
-                        "match_mapping_type": "string",
-                        "mapping": {
-                            "type": "keyword",
-                            "ignore_above": 256
-                        }
-                    }
-                }
-            ]
-        }
-    }
+ "index_patterns": ["logs-*"],
+ "template": {
+ "settings": {
+ "number_of_shards": 1,
+ "number_of_replicas": 1,
+ "refresh_interval": "30s", # Reduce refresh frequency
+ "index.translog.durability": "async", # Async translog
+ "index.codec": "best_compression", # Compress segments
+ "index.merge.policy.max_merged_segment": "2gb"
+ },
+ "mappings": {
+ "dynamic_templates": [
+ {
+ "strings_as_keywords": {
+ "match_mapping_type": "string",
+ "mapping": {
+ "type": "keyword",
+ "ignore_above": 256
+ }
+ }
+ }
+ ]
+ }
+ }
 }
 ```
 
@@ -1003,43 +987,43 @@ index_template = {
 
 ```json
 {
-  "roles": {
-    "logs_reader": {
-      "cluster": [],
-      "indices": [
-        {
-          "names": ["logs-*"],
-          "privileges": ["read"],
-          "field_security": {
-            "except": ["sensitive_field"]
-          },
-          "query": {
-            "term": {
-              "department": "{{username}}"
-            }
-          }
-        }
-      ]
-    },
-    "logs_writer": {
-      "cluster": ["monitor"],
-      "indices": [
-        {
-          "names": ["logs-*"],
-          "privileges": ["create_index", "write", "read"]
-        }
-      ]
-    },
-    "admin": {
-      "cluster": ["all"],
-      "indices": [
-        {
-          "names": ["*"],
-          "privileges": ["all"]
-        }
-      ]
-    }
-  }
+ "roles": {
+ "logs_reader": {
+ "cluster": [],
+ "indices": [
+ {
+ "names": ["logs-*"],
+ "privileges": ["read"],
+ "field_security": {
+ "except": ["sensitive_field"]
+ },
+ "query": {
+ "term": {
+ "department": "{{username}}"
+ }
+ }
+ }
+ ]
+ },
+ "logs_writer": {
+ "cluster": ["monitor"],
+ "indices": [
+ {
+ "names": ["logs-*"],
+ "privileges": ["create_index", "write", "read"]
+ }
+ ]
+ },
+ "admin": {
+ "cluster": ["all"],
+ "indices": [
+ {
+ "names": ["*"],
+ "privileges": ["all"]
+ }
+ ]
+ }
+ }
 }
 ```
 
@@ -1059,17 +1043,17 @@ xpack.security.http.ssl.keystore.path: elastic-certificates.p12
 
 # Authentication providers
 xpack.security.authc.realms:
-  native:
-    native1:
-      order: 0
-  ldap:
-    ldap1:
-      order: 1
-      url: "ldaps://ldap.company.com:636"
-      bind_dn: "cn=elasticsearch,ou=services,dc=company,dc=com"
-      user_search:
-        base_dn: "ou=users,dc=company,dc=com"
-        filter: "(cn={0})"
+ native:
+ native1:
+ order: 0
+ ldap:
+ ldap1:
+ order: 1
+ url: "ldaps://ldap.company.com:636"
+ bind_dn: "cn=elasticsearch,ou=services,dc=company,dc=com"
+ user_search:
+ base_dn: "ou=users,dc=company,dc=com"
+ filter: "(cn={0})"
 ```
 
 ## Part 7: Key Takeaways and Design Principles
@@ -1077,12 +1061,12 @@ xpack.security.authc.realms:
 ### Elasticsearch Design Philosophy
 
 !!! note "🎯 Core Design Principles"
-    <ol>
-    <li><strong>Search-first architecture</strong>: Optimize for read-heavy workloads with complex queries</li>
-    <li><strong>Distributed by default</strong>: Scale horizontally without application changes</li>
-    <li><strong>Near real-time</strong>: Balance consistency with performance (1-second refresh)</li>
-    <li><strong>Schema flexibility</strong>: Dynamic mapping with optional strict schemas</li>
-    </ol>
+ <ol>
+ <li><strong>Search-first architecture</strong>: Optimize for read-heavy workloads with complex queries</li>
+ <li><strong>Distributed by default</strong>: Scale horizontally without application changes</li>
+ <li><strong>Near real-time</strong>: Balance consistency with performance (1-second refresh)</li>
+ <li><strong>Schema flexibility</strong>: Dynamic mapping with optional strict schemas</li>
+ </ol>
 
 ### When to Choose Elasticsearch
 
@@ -1103,28 +1087,28 @@ xpack.security.authc.realms:
 ### Performance Optimization Checklist
 
 1. **Index Design**
-   - Choose appropriate shard count (start with 1 shard per 20-50GB)
-   - Use time-based indices for log data
-   - Optimize mapping for your queries
-   - Enable compression for storage efficiency
+ - Choose appropriate shard count (start with 1 shard per 20-50GB)
+ - Use time-based indices for log data
+ - Optimize mapping for your queries
+ - Enable compression for storage efficiency
 
 2. **Query Optimization**
-   - Use filters instead of queries when possible
-   - Implement caching for repeated queries
-   - Avoid deep pagination (use scroll API)
-   - Profile slow queries
+ - Use filters instead of queries when possible
+ - Implement caching for repeated queries
+ - Avoid deep pagination (use scroll API)
+ - Profile slow queries
 
 3. **Hardware Configuration**
-   - Heap size: 50% of RAM, max 32GB
-   - Use SSDs for hot data
-   - Separate master and data node roles
-   - Fast network for cross-cluster communication
+ - Heap size: 50% of RAM, max 32GB
+ - Use SSDs for hot data
+ - Separate master and data node roles
+ - Fast network for cross-cluster communication
 
 4. **Operational Excellence**
-   - Implement data lifecycle management
-   - Monitor cluster health continuously
-   - Plan for disaster recovery
-   - Secure with authentication and encryption
+ - Implement data lifecycle management
+ - Monitor cluster health continuously
+ - Plan for disaster recovery
+ - Secure with authentication and encryption
 
 ## Conclusion
 

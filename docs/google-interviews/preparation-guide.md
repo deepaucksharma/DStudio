@@ -4,37 +4,36 @@
 
 ```mermaid
 flowchart TD
-    Start[Start Here] --> Experience{Years of Experience?}
-    
-    Experience -->|0-3 years| Junior[Junior Track]
-    Experience -->|3-6 years| Mid[Mid-Level Track]
-    Experience -->|6+ years| Senior[Senior Track]
-    
-    Junior --> JTime{Available Time?}
-    Mid --> MTime{Available Time?}
-    Senior --> STime{Available Time?}
-    
-    JTime -->|< 4 weeks| JExpress[Junior Express Plan]
-    JTime -->|4-8 weeks| JStandard[Junior Standard Plan]
-    JTime -->|> 8 weeks| JDeep[Junior Deep Plan]
-    
-    MTime -->|< 4 weeks| MExpress[Mid Express Plan]
-    MTime -->|4-8 weeks| MStandard[Mid Standard Plan]
-    MTime -->|> 8 weeks| MDeep[Mid Deep Plan]
-    
-    STime -->|< 4 weeks| SExpress[Senior Express Plan]
-    STime -->|4-8 weeks| SStandard[Senior Standard Plan]
-    STime -->|> 8 weeks| SDeep[Senior Deep Plan]
-    
-    style Start fill:#4285F4
-    style JExpress fill:#EA4335
-    style JStandard fill:#FBBC04
-    style JDeep fill:#34A853
+ Start[Start Here] --> Experience{Years of Experience?}
+ 
+ Experience -->|0-3 years| Junior[Junior Track]
+ Experience -->|3-6 years| Mid[Mid-Level Track]
+ Experience -->|6+ years| Senior[Senior Track]
+ 
+ Junior --> JTime{Available Time?}
+ Mid --> MTime{Available Time?}
+ Senior --> STime{Available Time?}
+ 
+ JTime -->|< 4 weeks| JExpress[Junior Express Plan]
+ JTime -->|4-8 weeks| JStandard[Junior Standard Plan]
+ JTime -->|> 8 weeks| JDeep[Junior Deep Plan]
+ 
+ MTime -->|< 4 weeks| MExpress[Mid Express Plan]
+ MTime -->|4-8 weeks| MStandard[Mid Standard Plan]
+ MTime -->|> 8 weeks| MDeep[Mid Deep Plan]
+ 
+ STime -->|< 4 weeks| SExpress[Senior Express Plan]
+ STime -->|4-8 weeks| SStandard[Senior Standard Plan]
+ STime -->|> 8 weeks| SDeep[Senior Deep Plan]
+ 
+ style Start fill:#4285F4
+ style JExpress fill:#EA4335
+ style JStandard fill:#FBBC04
+ style JDeep fill:#34A853
 ```
 
 ## Preparation Intensity Calculator
 
-<div class="prep-calculator">
 <h3>Calculate Your Study Hours</h3>
 <table class="responsive-table">
 <thead>
@@ -88,7 +87,6 @@ flowchart TD
 </tbody>
 </table>
 <button onclick="calculatePrep()">Calculate</button>
-</div>
 
 ## 📚 8-Week Preparation Plan
 
@@ -96,52 +94,50 @@ flowchart TD
 
 ```mermaid
 gantt
-    title 8-Week Google Interview Preparation
-    dateFormat  YYYY-MM-DD
-    axisFormat  Week %U
-    
-    section Foundations
-    Distributed Systems Basics    :done, f1, 2024-01-01, 7d
-    7 Laws & 5 Pillars           :done, f2, after f1, 7d
-    
-    section Google Tech
-    Core Papers Study            :active, g1, after f2, 7d
-    Infrastructure Deep Dive     :active, g2, after g1, 7d
-    
-    section Patterns
-    Essential Patterns           :p1, after g1, 7d
-    Advanced Patterns           :p2, after p1, 7d
-    
-    section Practice
-    Basic Systems               :pr1, after f2, 14d
-    Complex Systems             :pr2, after pr1, 21d
-    Google-specific             :pr3, after pr2, 14d
-    
-    section Mock Interviews
-    Self Assessment             :m1, after pr2, 7d
-    Peer Practice              :m2, after m1, 7d
-    Final Polish               :m3, after m2, 7d
-    
-    section Daily Tasks
-    Read Papers                 :crit, d1, 2024-01-01, 56d
-    Practice Problems           :crit, d2, after f2, 42d
-    Review & Reflect           :crit, d3, 2024-01-01, 56d
+ title 8-Week Google Interview Preparation
+ dateFormat YYYY-MM-DD
+ axisFormat Week %U
+ 
+ section Foundations
+ Distributed Systems Basics :done, f1, 2024-01-01, 7d
+ 7 Laws & 5 Pillars :done, f2, after f1, 7d
+ 
+ section Google Tech
+ Core Papers Study :active, g1, after f2, 7d
+ Infrastructure Deep Dive :active, g2, after g1, 7d
+ 
+ section Patterns
+ Essential Patterns :p1, after g1, 7d
+ Advanced Patterns :p2, after p1, 7d
+ 
+ section Practice
+ Basic Systems :pr1, after f2, 14d
+ Complex Systems :pr2, after pr1, 21d
+ Google-specific :pr3, after pr2, 14d
+ 
+ section Mock Interviews
+ Self Assessment :m1, after pr2, 7d
+ Peer Practice :m2, after m1, 7d
+ Final Polish :m3, after m2, 7d
+ 
+ section Daily Tasks
+ Read Papers :crit, d1, 2024-01-01, 56d
+ Practice Problems :crit, d2, after f2, 42d
+ Review & Reflect :crit, d3, 2024-01-01, 56d
 ```
 
 ### Week 1-2: Foundations Dashboard
 
-<div class="week-dashboard">
 <div class="week-metrics">
-<div class="metric"><span class="metric-value">40</span><span class="metric-label">Hours Total</span></div>
-<div class="metric"><span class="metric-value">5</span><span class="metric-label">Core Topics</span></div>
-<div class="metric"><span class="metric-value">3</span><span class="metric-label">Practice Problems</span></div>
-<div class="metric"><span class="metric-value">2</span><span class="metric-label">Mock Interviews</span></div>
+<div class="metric"><span class="metric-value">40</span><span class="metric-label">Hours Total</span>
+<span class="metric-value">5</span><span class="metric-label">Core Topics</span>
+<span class="metric-value">3</span><span class="metric-label">Practice Problems</span>
+<span class="metric-value">2</span><span class="metric-label">Mock Interviews</span>
 </div>
 </div>
 
 **🎯 Goal**: Master distributed systems fundamentals
 
-<div class="study-grid">
 <div class="study-card">
 <h4>📖 Study Topics</h4>
 <ul>
@@ -151,24 +147,18 @@ gantt
 <li>✅ Sharding and partitioning</li>
 <li>✅ Load balancing algorithms</li>
 </ul>
-</div>
-<div class="study-card">
 <h4>📚 Resources</h4>
 <ul>
 <li><a href="/axioms/">The 7 Laws</a> - Read all axioms</li>
 <li><a href="/pillars/">The 5 Pillars</a> - Understand core pillars</li>
 <li>"Designing Data-Intensive Applications" - Ch 1-6</li>
 </ul>
-</div>
-<div class="study-card">
 <h4>💻 Practice</h4>
 <ul>
 <li>Design a distributed key-value store</li>
 <li>Design a URL shortener</li>
 <li>Review <a href="../../case-studies/consistent-hashing.md">Consistent Hashing</a></li>
 </ul>
-</div>
-<div class="study-card">
 <h4>🏁 Milestones</h4>
 <ul>
 <li>Explain CAP theorem trade-offs</li>
@@ -176,16 +166,14 @@ gantt
 <li>Calculate capacity needs</li>
 </ul>
 </div>
-</div>
 
 ### Week 3-4: Google Technologies Dashboard
 
-<div class="week-dashboard">
 <div class="week-metrics">
-<div class="metric"><span class="metric-value">35</span><span class="metric-label">Hours Total</span></div>
-<div class="metric"><span class="metric-value">5</span><span class="metric-label">Papers to Read</span></div>
-<div class="metric"><span class="metric-value">3</span><span class="metric-label">Systems to Design</span></div>
-<div class="metric"><span class="metric-value">10+</span><span class="metric-label">Technologies</span></div>
+<div class="metric"><span class="metric-value">35</span><span class="metric-label">Hours Total</span>
+<span class="metric-value">5</span><span class="metric-label">Papers to Read</span>
+<span class="metric-value">3</span><span class="metric-label">Systems to Design</span>
+<span class="metric-value">10+</span><span class="metric-label">Technologies</span>
 </div>
 </div>
 
@@ -263,7 +251,6 @@ gantt
 
 ## 📖 Reading Priority Matrix
 
-<div class="reading-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -326,28 +313,27 @@ gantt
 </tr>
 </tbody>
 </table>
-</div>
 
 ### 📚 Paper Reading Schedule
 
 ```mermaid
 graph LR
-    Week1[Week 1] --> MapReduce[MapReduce<br/>2 hrs]
-    Week1 --> GFS[GFS<br/>2 hrs]
-    
-    Week2[Week 2] --> Bigtable[Bigtable<br/>3 hrs]
-    Week2 --> Review1[Review & Practice<br/>3 hrs]
-    
-    Week3[Week 3] --> Spanner[Spanner<br/>4 hrs]
-    Week3 --> Borg[Borg<br/>3 hrs]
-    
-    Week4[Week 4] --> Dapper[Dapper<br/>2 hrs]
-    Week4 --> Monarch[Monarch<br/>2 hrs]
-    Week4 --> Review2[Integration<br/>2 hrs]
-    
-    style MapReduce fill:#EA4335
-    style Bigtable fill:#EA4335
-    style Spanner fill:#EA4335
+ Week1[Week 1] --> MapReduce[MapReduce<br/>2 hrs]
+ Week1 --> GFS[GFS<br/>2 hrs]
+ 
+ Week2[Week 2] --> Bigtable[Bigtable<br/>3 hrs]
+ Week2 --> Review1[Review & Practice<br/>3 hrs]
+ 
+ Week3[Week 3] --> Spanner[Spanner<br/>4 hrs]
+ Week3 --> Borg[Borg<br/>3 hrs]
+ 
+ Week4[Week 4] --> Dapper[Dapper<br/>2 hrs]
+ Week4 --> Monarch[Monarch<br/>2 hrs]
+ Week4 --> Review2[Integration<br/>2 hrs]
+ 
+ style MapReduce fill:#EA4335
+ style Bigtable fill:#EA4335
+ style Spanner fill:#EA4335
 ```
 
 ## 📖 Essential Reading List
@@ -375,41 +361,40 @@ graph LR
 
 ```mermaid
 graph TD
-    subgraph "Beginner (Week 1-2)"
-        B1[URL Shortener] --> B2[Pastebin]
-        B2 --> B3[Key-Value Store]
-        B3 --> B4[Rate Limiter]
-    end
-    
-    subgraph "Intermediate (Week 3-5)"
-        I1[Chat System] --> I2[News Feed]
-        I2 --> I3[Video Streaming]
-        I3 --> I4[File Storage]
-    end
-    
-    subgraph "Advanced (Week 6-7)"
-        A1[Search Engine] --> A2[Maps System]
-        A2 --> A3[Video Platform]
-        A3 --> A4[Ad System]
-    end
-    
-    subgraph "Google-Specific (Week 8)"
-        G1[Gmail] --> G2[Google Docs]
-        G2 --> G3[YouTube]
-        G3 --> G4[Google Search]
-    end
-    
-    B4 --> I1
-    I4 --> A1
-    A4 --> G1
-    
-    style B1 fill:#34A853
-    style G4 fill:#EA4335
+ subgraph "Beginner (Week 1-2)"
+ B1[URL Shortener] --> B2[Pastebin]
+ B2 --> B3[Key-Value Store]
+ B3 --> B4[Rate Limiter]
+ end
+ 
+ subgraph "Intermediate (Week 3-5)"
+ I1[Chat System] --> I2[News Feed]
+ I2 --> I3[Video Streaming]
+ I3 --> I4[File Storage]
+ end
+ 
+ subgraph "Advanced (Week 6-7)"
+ A1[Search Engine] --> A2[Maps System]
+ A2 --> A3[Video Platform]
+ A3 --> A4[Ad System]
+ end
+ 
+ subgraph "Google-Specific (Week 8)"
+ G1[Gmail] --> G2[Google Docs]
+ G2 --> G3[YouTube]
+ G3 --> G4[Google Search]
+ end
+ 
+ B4 --> I1
+ I4 --> A1
+ A4 --> G1
+ 
+ style B1 fill:#34A853
+ style G4 fill:#EA4335
 ```
 
 ## Difficulty & Time Matrix
 
-<div class="problem-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -451,7 +436,6 @@ graph TD
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Practice Problem Sets
 
@@ -483,54 +467,54 @@ graph TD
 
 ```mermaid
 graph TD
-    Start[New Requirement] --> Functional{Functional or<br/>Non-Functional?}
-    
-    Functional --> Feature[New Feature]
-    Functional --> Data[Data Requirement]
-    
-    Feature --> Simple{Simple or Complex?}
-    Simple --> AddAPI[Add to API]
-    Complex --> Microservice[New Microservice]
-    
-    Data --> Storage{Storage Type?}
-    Storage --> SQL[Use Spanner]
-    Storage --> NoSQL[Use Bigtable]
-    Storage --> Object[Use GCS]
-    
-    NonFunctional --> Performance{Performance<br/>Requirement?}
-    NonFunctional --> Scale{Scale<br/>Requirement?}
-    NonFunctional --> Reliability{Reliability<br/>Requirement?}
-    
-    Performance --> Cache[Add Caching]
-    Performance --> CDN[Add CDN]
-    Performance --> Optimize[Optimize Code]
-    
-    Scale --> Shard[Shard Data]
-    Scale --> LoadBalance[Add Load Balancer]
-    Scale --> AutoScale[Auto-scaling]
-    
-    Reliability --> Replicate[Replication]
-    Reliability --> Backup[Backup Strategy]
-    Reliability --> FailOver[Failover Plan]
+ Start[New Requirement] --> Functional{Functional or<br/>Non-Functional?}
+ 
+ Functional --> Feature[New Feature]
+ Functional --> Data[Data Requirement]
+ 
+ Feature --> Simple{Simple or Complex?}
+ Simple --> AddAPI[Add to API]
+ Complex --> Microservice[New Microservice]
+ 
+ Data --> Storage{Storage Type?}
+ Storage --> SQL[Use Spanner]
+ Storage --> NoSQL[Use Bigtable]
+ Storage --> Object[Use GCS]
+ 
+ NonFunctional --> Performance{Performance<br/>Requirement?}
+ NonFunctional --> Scale{Scale<br/>Requirement?}
+ NonFunctional --> Reliability{Reliability<br/>Requirement?}
+ 
+ Performance --> Cache[Add Caching]
+ Performance --> CDN[Add CDN]
+ Performance --> Optimize[Optimize Code]
+ 
+ Scale --> Shard[Shard Data]
+ Scale --> LoadBalance[Add Load Balancer]
+ Scale --> AutoScale[Auto-scaling]
+ 
+ Reliability --> Replicate[Replication]
+ Reliability --> Backup[Backup Strategy]
+ Reliability --> FailOver[Failover Plan]
 ```
 
 ### The Google Mindset
 ```mermaid
 graph TD
-    Problem[Problem Statement]
-    
-    Problem --> Scale{Think Scale}
-    Scale --> Billions[Billions of Users]
-    Scale --> Exabytes[Exabytes of Data]
-    Scale --> Millions[Millions QPS]
-    
-    Billions --> Simple[Keep It Simple]
-    Exabytes --> Efficient[Be Efficient]
-    Millions --> Reliable[Build Reliable]
-    
-    Simple --> Solution[Elegant Solution]
-    Efficient --> Solution
-    Reliable --> Solution
+ Problem[Problem Statement]
+ 
+ Problem --> Scale{Think Scale}
+ Scale --> Billions[Billions of Users]
+ Scale --> Exabytes[Exabytes of Data]
+ Scale --> Millions[Millions QPS]
+ 
+ Billions --> Simple[Keep It Simple]
+ Exabytes --> Efficient[Be Efficient]
+ Millions --> Reliable[Build Reliable]
+ 
+ Simple --> Solution[Elegant Solution]
+ Efficient --> Solution
+ Reliable --> Solution
 ```
 
 ### Decision Framework
@@ -542,7 +526,6 @@ graph TD
 
 ## 🏋 Optimized Daily Practice Schedule
 
-<div class="practice-schedule">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -579,21 +562,20 @@ graph TD
 </tr>
 </tbody>
 </table>
-</div>
 
 ### Weekly Practice Targets
 
 ```mermaid
 graph LR
-    Monday[Monday<br/>URL Shortener] --> Tuesday[Tuesday<br/>Chat System]
-    Tuesday --> Wednesday[Wednesday<br/>Review & Fix]
-    Wednesday --> Thursday[Thursday<br/>Video Platform]
-    Thursday --> Friday[Friday<br/>Complex System]
-    Friday --> Weekend[Weekend<br/>Mock Interview]
-    
-    style Monday fill:#4285F4
-    style Wednesday fill:#34A853
-    style Weekend fill:#EA4335
+ Monday[Monday<br/>URL Shortener] --> Tuesday[Tuesday<br/>Chat System]
+ Tuesday --> Wednesday[Wednesday<br/>Review & Fix]
+ Wednesday --> Thursday[Thursday<br/>Video Platform]
+ Thursday --> Friday[Friday<br/>Complex System]
+ Friday --> Weekend[Weekend<br/>Mock Interview]
+ 
+ style Monday fill:#4285F4
+ style Wednesday fill:#34A853
+ style Weekend fill:#EA4335
 ```
 
 ### Morning (30 min)
@@ -613,58 +595,49 @@ graph LR
 
 ## Interactive Progress Tracker
 
-<div class="progress-tracker">
 <h3>Your Preparation Progress</h3>
 <div class="progress-section">
 <h4>Foundations (Weeks 1-2)</h4>
 <div class="progress-bar">
-<div class="progress-fill" style="width: 0%" id="foundations-progress"></div>
+<div class="progress-fill" id="foundations-progress">
 </div>
-<div class="checklist">
 <label><input type="checkbox" onchange="updateProgress('foundations')"> Read all 7 Laws</label>
 <label><input type="checkbox" onchange="updateProgress('foundations')"> Understand 5 Pillars</label>
 <label><input type="checkbox" onchange="updateProgress('foundations')"> Complete 3 basic designs</label>
 <label><input type="checkbox" onchange="updateProgress('foundations')"> Review CAP theorem deeply</label>
 </div>
-</div>
 
-<div class="progress-section">
-<h4>Google Tech (Weeks 3-4)</h4>
+!!! info
+ <h4>Google Tech (Weeks 3-4)</h4>
 <div class="progress-bar">
-<div class="progress-fill" style="width: 0%" id="google-progress"></div>
+<div class="progress-fill" id="google-progress">
 </div>
-<div class="checklist">
 <label><input type="checkbox" onchange="updateProgress('google')"> Read MapReduce paper</label>
 <label><input type="checkbox" onchange="updateProgress('google')"> Read Bigtable paper</label>
 <label><input type="checkbox" onchange="updateProgress('google')"> Read Spanner paper</label>
 <label><input type="checkbox" onchange="updateProgress('google')"> Design one Google service</label>
 </div>
-</div>
 
-<div class="progress-section">
-<h4>Practice (Weeks 5-6)</h4>
+!!! info
+ <h4>Practice (Weeks 5-6)</h4>
 <div class="progress-bar">
-<div class="progress-fill" style="width: 0%" id="practice-progress"></div>
+<div class="progress-fill" id="practice-progress">
 </div>
-<div class="checklist">
 <label><input type="checkbox" onchange="updateProgress('practice')"> Master 10 design patterns</label>
 <label><input type="checkbox" onchange="updateProgress('practice')"> Complete 5 system designs</label>
 <label><input type="checkbox" onchange="updateProgress('practice')"> Practice scaling exercises</label>
 <label><input type="checkbox" onchange="updateProgress('practice')"> Review all walkthroughs</label>
 </div>
-</div>
 
-<div class="progress-section">
-<h4>Mock Interviews (Weeks 7-8)</h4>
+!!! info
+ <h4>Mock Interviews (Weeks 7-8)</h4>
 <div class="progress-bar">
-<div class="progress-fill" style="width: 0%" id="mock-progress"></div>
+<div class="progress-fill" id="mock-progress">
 </div>
-<div class="checklist">
 <label><input type="checkbox" onchange="updateProgress('mock')"> 7 mock interviews completed</label>
 <label><input type="checkbox" onchange="updateProgress('mock')"> Consistent 45-min completion</label>
 <label><input type="checkbox" onchange="updateProgress('mock')"> Comfortable with ambiguity</label>
 <label><input type="checkbox" onchange="updateProgress('mock')"> Can handle any topic</label>
-</div>
 </div>
 </div>
 
@@ -696,7 +669,6 @@ graph LR
 
 ### 🕰 Time Management Matrix
 
-<div class="time-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -752,7 +724,6 @@ graph LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ### Before the Interview
 - Review scale numbers
@@ -794,7 +765,6 @@ graph LR
 
 ## Final Success Checklist
 
-<div class="final-checklist">
 <h3>Pre-Interview Readiness Assessment</h3>
 <div class="checklist-grid">
 <div class="checklist-section">
@@ -804,31 +774,27 @@ graph LR
 <label><input type="checkbox"> Understand consistency levels</label>
 <label><input type="checkbox"> Master caching patterns</label>
 <label><input type="checkbox"> Know Google technologies</label>
-</div>
-<div class="checklist-section">
-<h4>Design Skills</h4>
+!!! info
+ <h4>Design Skills</h4>
 <label><input type="checkbox"> Can design in 45 minutes</label>
 <label><input type="checkbox"> Draw clear diagrams</label>
 <label><input type="checkbox"> Make trade-offs explicit</label>
 <label><input type="checkbox"> Handle ambiguity well</label>
 <label><input type="checkbox"> Think at Google scale</label>
-</div>
-<div class="checklist-section">
-<h4>Communication</h4>
+!!! info
+ <h4>Communication</h4>
 <label><input type="checkbox"> Think out loud</label>
 <label><input type="checkbox"> Ask clarifying questions</label>
 <label><input type="checkbox"> Summarize decisions</label>
 <label><input type="checkbox"> Handle feedback well</label>
 <label><input type="checkbox"> Stay organized</label>
-</div>
-<div class="checklist-section">
-<h4>Mindset</h4>
+!!! info
+ <h4>Mindset</h4>
 <label><input type="checkbox"> Confident but humble</label>
 <label><input type="checkbox"> Eager to learn</label>
 <label><input type="checkbox"> Customer focused</label>
 <label><input type="checkbox"> Quality obsessed</label>
 <label><input type="checkbox"> Team player</label>
-</div>
 </div>
 <button onclick="assessReadiness()">Assess My Readiness</button>
 <div id="readiness-result"></div>
@@ -838,43 +804,43 @@ Remember: Google values engineers who can design simple, scalable, and reliable 
 
 <script>
 function calculatePrep() {
-    const role = parseInt(document.getElementById('role').value);
-    const sdExp = parseInt(document.getElementById('sd-exp').value);
-    const level = parseInt(document.getElementById('level').value);
-    
-    document.getElementById('role-hours').textContent = role;
-    document.getElementById('sd-hours').textContent = sdExp;
-    document.getElementById('level-hours').textContent = level;
-    document.getElementById('total-hours').innerHTML = `<strong>${role + sdExp + level}</strong>`;
+ const role = parseInt(document.getElementById('role').value);
+ const sdExp = parseInt(document.getElementById('sd-exp').value);
+ const level = parseInt(document.getElementById('level').value);
+ 
+ document.getElementById('role-hours').textContent = role;
+ document.getElementById('sd-hours').textContent = sdExp;
+ document.getElementById('level-hours').textContent = level;
+ document.getElementById('total-hours').innerHTML = `<strong>${role + sdExp + level}</strong>`;
 }
 
 function updateProgress(section) {
-    const checkboxes = document.querySelectorAll(`#${section}-progress`).closest('.progress-section').querySelectorAll('input[type="checkbox"]');
-    const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
-    const total = checkboxes.length;
-    const percentage = (checked / total) * 100;
-    
-    document.getElementById(`${section}-progress`).style.width = percentage + '%';
+ const checkboxes = document.querySelectorAll(`#${section}-progress`).closest('.progress-section').querySelectorAll('input[type="checkbox"]');
+ const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+ const total = checkboxes.length;
+ const percentage = (checked / total) * 100;
+ 
+ document.getElementById(`${section}-progress`).style.width = percentage + '%';
 }
 
 function assessReadiness() {
-    const checkboxes = document.querySelectorAll('.final-checklist input[type="checkbox"]');
-    const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
-    const total = checkboxes.length;
-    const percentage = (checked / total) * 100;
-    
-    let message = `<h4>Readiness Score: ${percentage.toFixed(0)}%</h4>`;
-    
-    if (percentage < 50) {
-        message += '<p class="warning">Need significant preparation. Focus on fundamentals.</p>';
-    } else if (percentage < 75) {
-        message += '<p class="caution">Good progress! Keep practicing and filling gaps.</p>';
-    } else if (percentage < 90) {
-        message += '<p class="good">Almost ready! Polish your skills with mock interviews.</p>';
-    } else {
-        message += '<p class="excellent">Excellent preparation! You\'re ready to succeed!</p>';
-    }
-    
-    document.getElementById('readiness-result').innerHTML = message;
+ const checkboxes = document.querySelectorAll('.final-checklist input[type="checkbox"]');
+ const checked = Array.from(checkboxes).filter(cb => cb.checked).length;
+ const total = checkboxes.length;
+ const percentage = (checked / total) * 100;
+ 
+ let message = `<h4>Readiness Score: ${percentage.toFixed(0)}%</h4>`;
+ 
+ if (percentage < 50) {
+ message += '<p class="warning">Need significant preparation. Focus on fundamentals.</p>';
+ } else if (percentage < 75) {
+ message += '<p class="caution">Good progress! Keep practicing and filling gaps.</p>';
+ } else if (percentage < 90) {
+ message += '<p class="good">Almost ready! Polish your skills with mock interviews.</p>';
+ } else {
+ message += '<p class="excellent">Excellent preparation! You\'re ready to succeed!</p>';
+ }
+ 
+ document.getElementById('readiness-result').innerHTML = message;
 }
 </script>

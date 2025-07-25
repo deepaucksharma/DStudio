@@ -117,8 +117,6 @@ async def main():
 
 ### Timeout Types
 
-<div class="responsive-table" markdown>
-
 | Type | Purpose | Typical Value |
 |------|---------|---------------|
 | **Connection** | TCP handshake | 1-5s |
@@ -127,12 +125,8 @@ async def main():
 | **Total** | End-to-end | 30-60s |
 | **Idle** | Keep-alive | 60-300s |
 
-</div>
-
 
 ### Timeout Strategy Comparison
-
-<div class="responsive-table" markdown>
 
 | Strategy | Description | Use Case | Example |
 |----------|-------------|----------|---------|
@@ -141,8 +135,6 @@ async def main():
 | **Adaptive Timeout** | Adjusts based on performance | Dynamic systems | P99 latency × 1.5 |
 | **Cascading Timeout** | Child respects parent timeout | Microservices | Remaining budget |
 | **Hedged Timeout** | Backup request if slow | Critical paths | Primary: 2s, Hedge: 0.5s |
-
-</div>
 
 
 ### Timeout Hierarchy
@@ -1164,8 +1156,6 @@ class TimeoutChaosExperiments:
 
 ### Decision Framework
 
-<div class="responsive-table" markdown>
-
 | If your system has... | Use this timeout strategy | Typical values |
 |----------------------|--------------------------|----------------|
 | User-facing APIs | Aggressive timeouts | 1-5 seconds |
@@ -1174,8 +1164,6 @@ class TimeoutChaosExperiments:
 | Microservices | Cascading timeouts | Hierarchical |
 | Variable load | Adaptive timeouts | Dynamic |
 | Critical paths | Multi-level timeouts | Failover ready |
-
-</div>
 
 
 ### Implementation Checklist

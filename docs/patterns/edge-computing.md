@@ -59,8 +59,6 @@ Latency: 200ms → 50ms → 10ms → 1ms → 0ms
 
 ### Real-World Examples
 
-<div class="responsive-table" markdown>
-
 | Scenario | Without Edge | With Edge | Impact |
 |----------|--------------|-----------|---------|
 | **Self-driving car** | 100ms cloud round-trip | 1ms local decision | 8.8ft vs 0.088ft blind spot at 60mph |
@@ -68,8 +66,6 @@ Latency: 200ms → 50ms → 10ms → 1ms → 0ms
 | **Factory sensor** | Send all data to cloud | Process anomalies locally | $1000/month → $10/month data costs |
 | **AR glasses** | Cloud rendering | Edge rendering | 20ms → 5ms latency (no nausea) |
 | **Smart city traffic** | Central control | Intersection decisions | 30% traffic flow improvement |
-
-</div>
 
 
 ### Basic Implementation
@@ -1446,8 +1442,6 @@ class EdgeEconomics:
 
 ### Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Factor | Use Edge Computing | Use Cloud Computing |
 |--------|-------------------|---------------------|
 | **Latency** | <10ms required | >100ms acceptable |
@@ -1456,8 +1450,6 @@ class EdgeEconomics:
 | **Privacy** | Local processing required | Cloud processing OK |
 | **Reliability** | Must work offline | Always connected |
 | **Computing** | Simple inference | Complex training |
-
-</div>
 
 
 ### Edge-to-Cloud Data Pipeline

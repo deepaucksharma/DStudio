@@ -12,7 +12,7 @@ last_updated: 2025-07-25
 # Consistency & Coordination Learning Path
 
 !!! abstract "Master Distributed Agreement"
-    This focused path covers everything you need to know about consistency in distributed systems - from theoretical foundations to practical implementations. Perfect for engineers working on distributed databases, coordination services, or transactional systems.
+ This focused path covers everything you need to know about consistency in distributed systems - from theoretical foundations to practical implementations. Perfect for engineers working on distributed databases, coordination services, or transactional systems.
 
 ## 🎯 Learning Objectives
 
@@ -36,55 +36,55 @@ By completing this path, you will:
 ### Phase 1: Theoretical Foundations (1 week)
 
 !!! info "Build Strong Foundations"
-    Start with the theory that underpins all consistency mechanisms.
+ Start with the theory that underpins all consistency mechanisms.
 
 <div class="grid cards" markdown>
 
 - **Core Concepts**
-  
-  Essential theory:
-  
-  - [CAP Theorem](/quantitative/cap-theorem/) - Fundamental trade-offs
-  - [Consistency Models](/quantitative/consistency-models/) - From strong to eventual
-  - [PACELC Theorem](/quantitative/pacelc/) - Extended CAP analysis
+ 
+ Essential theory:
+ 
+ - [CAP Theorem](/quantitative/cap-theorem/) - Fundamental trade-offs
+ - [Consistency Models](/quantitative/consistency-models/) - From strong to eventual
+ - [PACELC Theorem](/quantitative/pacelc/) - Extended CAP analysis
 
 - **Distributed Time**
-  
-  Understanding ordering:
-  
-  - [Logical Clocks](/patterns/logical-clocks/) - Lamport timestamps
-  - [Vector Clocks](/patterns/vector-clocks/) - Causality tracking
-  - [Hybrid Logical Clocks](/patterns/hlc/) - Best of both worlds
+ 
+ Understanding ordering:
+ 
+ - [Logical Clocks](/patterns/logical-clocks/) - Lamport timestamps
+ - [Vector Clocks](/patterns/vector-clocks/) - Causality tracking
+ - [Hybrid Logical Clocks](/patterns/hlc/) - Best of both worlds
 
 </div>
 
 ### Phase 2: Consensus Algorithms (2 weeks)
 
 !!! warning "The Heart of Coordination"
-    Master the algorithms that enable distributed agreement.
+ Master the algorithms that enable distributed agreement.
 
 #### Week 2: Classical Consensus
 
 === "Raft"
-    Understandable consensus algorithm:
-    - Leader election mechanism
-    - Log replication protocol
-    - Safety properties
-    - **Project**: Implement Raft in your language
+ Understandable consensus algorithm:
+ - Leader election mechanism
+ - Log replication protocol
+ - Safety properties
+ - **Project**: Implement Raft in your language
 
 === "Paxos"
-    The original consensus algorithm:
-    - Basic Paxos protocol
-    - Multi-Paxos optimization
-    - Practical considerations
-    - **Project**: Build a Paxos-based lock service
+ The original consensus algorithm:
+ - Basic Paxos protocol
+ - Multi-Paxos optimization
+ - Practical considerations
+ - **Project**: Build a Paxos-based lock service
 
 === "Byzantine Consensus"
-    Tolerating malicious failures:
-    - PBFT algorithm
-    - Blockchain consensus
-    - BFT-SMaRT
-    - **Project**: Simple blockchain implementation
+ Tolerating malicious failures:
+ - PBFT algorithm
+ - Blockchain consensus
+ - BFT-SMaRT
+ - **Project**: Simple blockchain implementation
 
 #### Week 3: Coordination Patterns
 
@@ -96,30 +96,30 @@ By completing this path, you will:
 ### Phase 3: Consistency in Practice (2 weeks)
 
 !!! success "Real-World Applications"
-    Apply consistency concepts to production systems.
+ Apply consistency concepts to production systems.
 
 #### Week 4: Data Consistency
 
 === "Strong Consistency"
-    When you need guarantees:
-    - Linearizability implementation
-    - Serializable transactions
-    - External consistency (Spanner)
-    - **Case Study**: [Google Spanner](/case-studies/google-spanner/)
+ When you need guarantees:
+ - Linearizability implementation
+ - Serializable transactions
+ - External consistency (Spanner)
+ - **Case Study**: [Google Spanner](/case-studies/google-spanner/)
 
 === "Tunable Consistency"
-    Flexible guarantees:
-    - Read/write quorums
-    - Consistency levels (Cassandra)
-    - Session guarantees
-    - **Case Study**: [Amazon DynamoDB](/case-studies/amazon-dynamo/)
+ Flexible guarantees:
+ - Read/write quorums
+ - Consistency levels (Cassandra)
+ - Session guarantees
+ - **Case Study**: [Amazon DynamoDB](/case-studies/amazon-dynamo/)
 
 === "Eventual Consistency"
-    Convergence over time:
-    - Anti-entropy protocols
-    - Gossip dissemination
-    - Conflict resolution
-    - **Case Study**: [Amazon S3](/case-studies/s3-object-storage-enhanced/)
+ Convergence over time:
+ - Anti-entropy protocols
+ - Gossip dissemination
+ - Conflict resolution
+ - **Case Study**: [Amazon S3](/case-studies/s3-object-storage-enhanced/)
 
 #### Week 5: Advanced Patterns
 
@@ -131,35 +131,35 @@ By completing this path, you will:
 ### Phase 4: Production Challenges (1 week)
 
 !!! danger "Real-World Complications"
-    Handle the complexities of consistency in production.
+ Handle the complexities of consistency in production.
 
 #### Week 6: Common Issues & Solutions
 
 <div class="grid cards" markdown>
 
 - **Split-Brain Scenarios**
-  - [Split-Brain Pattern](/patterns/split-brain/)
-  - Quorum strategies
-  - Fencing tokens
-  - STONITH approaches
+ - [Split-Brain Pattern](/patterns/split-brain/)
+ - Quorum strategies
+ - Fencing tokens
+ - STONITH approaches
 
 - **Clock Synchronization**
-  - [Clock Sync Pattern](/patterns/clock-sync/)
-  - NTP configuration
-  - Clock skew handling
-  - Time-based ordering
+ - [Clock Sync Pattern](/patterns/clock-sync/)
+ - NTP configuration
+ - Clock skew handling
+ - Time-based ordering
 
 - **Network Partitions**
-  - Partition detection
-  - Healing strategies
-  - Client behavior
-  - Consistency during partitions
+ - Partition detection
+ - Healing strategies
+ - Client behavior
+ - Consistency during partitions
 
 - **Performance Impact**
-  - Consistency overhead
-  - Latency implications
-  - Throughput trade-offs
-  - Optimization techniques
+ - Consistency overhead
+ - Latency implications
+ - Throughput trade-offs
+ - Optimization techniques
 
 </div>
 
@@ -218,8 +218,6 @@ By completing this path, you will:
 
 ### Choosing Consistency Levels
 
-<div class="responsive-table" markdown>
-
 | Use Case | Consistency Level | Rationale |
 |----------|------------------|-----------|
 | Financial transactions | Strong | ACID requirements |
@@ -228,25 +226,23 @@ By completing this path, you will:
 | Analytics data | Weak | Approximations acceptable |
 | Session data | Session | User-specific guarantees |
 
-</div>
-
 
 ### Pattern Selection Guide
 
 ```mermaid
 graph TD
-    Start[Consistency Need?] --> Strong[Strong Required?]
-    Strong -->|Yes| TXN[Transactions?]
-    Strong -->|No| Eventual[Eventual OK?]
-    
-    TXN -->|Yes| 2PC[Two-Phase Commit]
-    TXN -->|No| Consensus[Use Consensus]
-    
-    Eventual -->|Yes| CRDT[Conflicts?]
-    Eventual -->|No| Tunable[Use Tunable]
-    
-    CRDT -->|Yes| UseCRDT[Use CRDTs]
-    CRDT -->|No| Gossip[Use Gossip]
+ Start[Consistency Need?] --> Strong[Strong Required?]
+ Strong -->|Yes| TXN[Transactions?]
+ Strong -->|No| Eventual[Eventual OK?]
+ 
+ TXN -->|Yes| 2PC[Two-Phase Commit]
+ TXN -->|No| Consensus[Use Consensus]
+ 
+ Eventual -->|Yes| CRDT[Conflicts?]
+ Eventual -->|No| Tunable[Use Tunable]
+ 
+ CRDT -->|Yes| UseCRDT[Use CRDTs]
+ CRDT -->|No| Gossip[Use Gossip]
 ```
 
 ## 🔍 Debugging Consistency Issues
@@ -284,11 +280,11 @@ graph TD
 ## 💡 Expert Tips
 
 !!! tip "Consistency Best Practices"
-    1. **Start Simple**: Use strong consistency, optimize later
-    2. **Measure Impact**: Quantify consistency overhead
-    3. **Design for Partition**: Plan behavior during splits
-    4. **Test Thoroughly**: Use chaos engineering
-    5. **Monitor Violations**: Track consistency metrics
+ 1. **Start Simple**: Use strong consistency, optimize later
+ 2. **Measure Impact**: Quantify consistency overhead
+ 3. **Design for Partition**: Plan behavior during splits
+ 4. **Test Thoroughly**: Use chaos engineering
+ 5. **Monitor Violations**: Track consistency metrics
 
 ## ⏱️ Time Investment
 
@@ -302,15 +298,15 @@ graph TD
 <div class="grid cards" markdown>
 
 - :material-arrow-left:{ .lg .middle } **Previous**
-  
-  ---
-  
-  [Learning Paths Overview](/learning-paths/)
+ 
+ ---
+ 
+ [Learning Paths Overview](/learning-paths/)
 
 - :material-arrow-right:{ .lg .middle } **Next**
-  
-  ---
-  
-  [Performance & Scale Path](/learning-paths/performance/)
+ 
+ ---
+ 
+ [Performance & Scale Path](/learning-paths/performance/)
 
 </div>

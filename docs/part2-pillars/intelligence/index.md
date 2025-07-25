@@ -101,8 +101,6 @@ graph TD
 
 ### The Learning Hierarchy
 
-<div class="responsive-table" markdown>
-
 | Learning Type | How It Works | Example | When to Use |
 |--------------|--------------|---------|-------------|
 | **Supervised** 📚 | Learn from labeled examples | Email spam detection | Known categories |
@@ -110,8 +108,6 @@ graph TD
 | **Reinforcement** 🎮 | Learn from rewards/penalties | Game playing, routing | Sequential decisions |
 | **Transfer** 🔄 | Apply knowledge across domains | Pre-trained models | Limited data |
 | **Federated** 🔐 | Learn without centralizing data | Mobile keyboards | Privacy critical |
-
-</div>
 
 
 ### Learning System Comparison
@@ -209,8 +205,6 @@ graph TD
 
 ### Building Blocks of Intelligence
 
-<div class="responsive-table" markdown>
-
 | Component | Purpose | Example Implementation |
 |-----------|---------|----------------------|
 | **Data Pipeline** | Collect and prepare data | Kafka → Spark → S3 |
@@ -219,8 +213,6 @@ graph TD
 | **Serving Layer** | Deploy models to production | TensorFlow Serving, Seldon |
 | **Monitoring** | Track model performance | Evidently AI, Arize |
 | **Experimentation** | A/B test and measure impact | Optimizely, LaunchDarkly |
-
-</div>
 
 
 ### Concept Map: Distribution of Intelligence
@@ -291,16 +283,12 @@ This concept map shows how distributed intelligence encompasses learning paradig
 
 The fundamental problem in learning systems: Should you exploit what you know works, or explore to find something better?
 
-<div class="responsive-table" markdown>
-
 | Strategy | Description | When to Use | Trade-offs |
 |----------|-------------|-------------|------------|
 | **ε-greedy** | Random exploration ε% of time | Simple problems | Can waste time on bad options |
 | **Upper Confidence Bound** | Optimistic about uncertainty | Need confidence intervals | Complex to compute |
 | **Thompson Sampling** | Sample from probability distribution | Bayesian approach | Most theoretically sound |
 | **Contextual Bandits** | Consider context (user, time) | Personalization | Requires more data |
-
-</div>
 
 
 ### Real Example: Netflix Adaptive Streaming
@@ -360,8 +348,6 @@ graph LR
 
 ### Online Learning Systems
 
-<div class="responsive-table" markdown>
-
 | Aspect | Batch Learning | Online Learning |
 |--------|----------------|-----------------|
 | **Data** | All at once | Stream continuously |
@@ -369,8 +355,6 @@ graph LR
 | **Memory** | High (store all data) | Low (discard after use) |
 | **Concept Drift** | Requires manual retraining | Adapts automatically |
 | **Use Cases** | Stable patterns | Dynamic environments |
-
-</div>
 
 
 ### Recommendation Systems Architecture
@@ -402,8 +386,6 @@ graph LR
 
 ### Anomaly Detection Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | How It Works | Pros | Cons |
 |---------|--------------|------|------|
 | **Statistical** | Z-score, percentiles | Simple, fast | Assumes distribution |
@@ -411,8 +393,6 @@ graph LR
 | **Autoencoders** | Reconstruction error | Handles complex data | Needs normal data |
 | **One-Class SVM** | Learn normal boundary | Robust | Hard to tune |
 | **Ensemble** | Combine multiple methods | Most accurate | Complex, slow |
-
-</div>
 
 
 ### Production Example: DDoS Detection
@@ -505,8 +485,6 @@ graph TD
 
 ### A/B Testing at Scale
 
-<div class="responsive-table" markdown>
-
 | Challenge | Solution | Example |
 |-----------|----------|---------|
 | **Multiple Tests** | Statistical correction | Bonferroni, FDR |
@@ -514,8 +492,6 @@ graph TD
 | **Network Effects** | Cluster randomization | By geographic region |
 | **Novelty Effects** | Longer experiments | 2+ weeks minimum |
 | **Sample Size** | Power analysis | Calculate before starting |
-
-</div>
 
 
 ### Example: Feature Rollout Decision
@@ -673,8 +649,6 @@ graph TD
 
 ### ML Readiness Checklist
 
-<div class="responsive-table" markdown>
-
 | Requirement | Red Flags | Green Flags |
 |-------------|-----------|-------------|
 | **Problem Definition** | "Use AI for everything" | Clear success metrics |
@@ -682,8 +656,6 @@ graph TD
 | **Infrastructure** | No monitoring | MLOps pipeline ready |
 | **Team Skills** | No ML experience | ML + Domain experts |
 | **Business Buy-in** | "Just try something" | Clear ROI expectations |
-
-</div>
 
 
 ### Advanced Pattern: Federated Learning
@@ -751,8 +723,6 @@ graph TD
 
 ### Production Anti-Patterns
 
-<div class="responsive-table" markdown>
-
 | Anti-Pattern | Why It Fails | Better Approach |
 |--------------|--------------|-----------------|
 | **ML for ML's Sake** | No business value | Start with metrics |
@@ -760,8 +730,6 @@ graph TD
 | **Black Box Everything** | Can't debug/explain | Interpretability first |
 | **Perfect Accuracy** | Overfitting, slow | Good enough + fast |
 | **Forget Feedback Loops** | Models affect reality | Test for loops |
-
-</div>
 
 
 ### Real Example: Amazon's Predictive Scaling
@@ -1063,8 +1031,6 @@ flowchart TD
 
 Design a production anomaly detector:
 
-<div class="responsive-table" markdown>
-
 | Step | Implementation | Considerations |
 |------|----------------|----------------|
 | **Feature Engineering** | Time series decomposition | Seasonality, trend |
@@ -1072,14 +1038,10 @@ Design a production anomaly detector:
 | **Threshold Setting** | Dynamic percentiles | Avoid alert fatigue |
 | **Feedback Loop** | User labels anomalies | Improve over time |
 
-</div>
-
 
 ### Exercise 3: Design ML Architecture 🌳
 
 Match ML patterns to use cases:
-
-<div class="responsive-table" markdown>
 
 | Use Case | Pattern | Why |
 |----------|---------|-----|
@@ -1087,8 +1049,6 @@ Match ML patterns to use cases:
 | Recommendations | Collaborative filtering + content | Cold start problem |
 | Demand Forecasting | Time series + external signals | Multiple factors |
 | Chatbot | Fine-tuned LLM + RAG | Context + knowledge |
-
-</div>
 
 
 ### Exercise 4: Implement Online Learning 🌲
@@ -1145,16 +1105,12 @@ graph TD
 
 Design comprehensive ML monitoring:
 
-<div class="responsive-table" markdown>
-
 | Metric Type | Examples | Alert Threshold |
 |-------------|----------|-----------------|
 | **Data Quality** | Missing values, distribution shift | >5% change |
 | **Model Performance** | Accuracy, precision, recall | <95% of baseline |
 | **Business Impact** | Revenue, engagement, satisfaction | Depends on SLA |
 | **System Health** | Latency, errors, throughput | P99 > 100ms |
-
-</div>
 
 
 ## Quick Reference Card
@@ -1200,8 +1156,6 @@ graph TD
 
 ### ML Pipeline Components
 
-<div class="responsive-table" markdown>
-
 | Stage | Tools | Best Practices |
 |-------|-------|----------------|
 | **Data Collection** | Kafka, Kinesis, Pub/Sub | Schema validation, versioning |
@@ -1209,8 +1163,6 @@ graph TD
 | **Training** | TensorFlow, PyTorch, XGBoost | Experiment tracking, reproducibility |
 | **Serving** | TF Serving, Seldon, SageMaker | A/B testing, gradual rollout |
 | **Monitoring** | Prometheus, Datadog, Arize | Data + model + business metrics |
-
-</div>
 
 
 ### Common ML Metrics

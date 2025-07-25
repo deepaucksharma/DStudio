@@ -100,8 +100,6 @@ graph TB
 
 ## Pattern Relationship Matrix
 
-<div class="responsive-table" markdown>
-
 | Primary Pattern | Commonly Combined With | Why They Work Together | Complexity |
 |----------------|------------------------|------------------------|------------|
 | **Microservices** | API Gateway, Service Mesh, Saga | Gateway handles routing, Mesh handles communication, Saga handles transactions | High |
@@ -112,8 +110,6 @@ graph TB
 | **Service Mesh** | Observability, Circuit Breaker, Load Balancing | Infrastructure-level service management | High |
 | **Saga** | Event Sourcing, Distributed Lock | Distributed transaction management | High |
 | **CQRS** | Event Sourcing, Caching, Read Replicas | Optimized read/write separation | Medium |
-
-</div>
 
 
 ---
@@ -302,8 +298,6 @@ graph TB
 
 ### Critical Dependencies
 
-<div class="responsive-table" markdown>
-
 | Pattern | Must Have | Should Have | Nice to Have |
 |---------|-----------|-------------|--------------|
 | **Service Mesh** | Service Discovery, Load Balancing | Circuit Breaker, Observability | Distributed Tracing |
@@ -313,12 +307,8 @@ graph TB
 | **Sharding** | Shard Key Strategy | Consistent Hashing | Rebalancing |
 | **API Gateway** | Routing | Rate Limiting | Caching |
 
-</div>
-
 
 ### Anti-Dependencies (Don't Combine)
-
-<div class="responsive-table" markdown>
 
 | Pattern A | Pattern B | Why They Conflict |
 |-----------|-----------|-------------------|
@@ -326,8 +316,6 @@ graph TB
 | Synchronous Saga | Fire-and-Forget | Incompatible guarantees |
 | Shared Database | Microservices | Violates bounded contexts |
 | 2PC | High Availability | Blocking protocol |
-
-</div>
 
 
 ---
@@ -411,8 +399,6 @@ graph TD
 
 ## Pattern Search by Problem
 
-<div class="responsive-table" markdown>
-
 | If You Have... | Consider These Patterns |
 |----------------|------------------------|
 | **Slow reads** | Caching → CDN → Read Replicas → CQRS |
@@ -423,8 +409,6 @@ graph TD
 | **Service communication** | Service Discovery → API Gateway → Service Mesh |
 | **Global users** | CDN → Geo-Replication → Edge Computing |
 | **Cost issues** | Auto-scaling → Serverless → FinOps |
-
-</div>
 
 
 ---

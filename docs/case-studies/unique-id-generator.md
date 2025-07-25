@@ -90,8 +90,6 @@ graph TB
 
 **Key Design Decisions:**
 
-<div class="responsive-table" markdown>
-
 | Component | Design Choice | Rationale |
 |-----------|--------------|------------|
 | ID Size | 64-bit | Fits in standard integer types, efficient storage |
@@ -100,8 +98,6 @@ graph TB
 | Sequence | 12 bits | 4096 IDs per millisecond per machine |
 | Pre-allocation | 1000 IDs batch | Reduces lock contention, improves throughput |
 | Epoch | Custom (2020-01-01) | Maximizes ID lifespan for modern systems |
-
-</div>
 
 
 **Performance Characteristics:**
@@ -166,16 +162,12 @@ graph TB
 
 **Capacity Analysis Table:**
 
-<div class="responsive-table" markdown>
-
 | ID Scheme | Total IDs | IDs/Second | Lifespan | Use Case |
 |-----------|-----------|------------|----------|----------|
 | 64-bit Snowflake | 2^63 | 4M/machine | 69 years | General purpose |
 | 128-bit Extended | 2^127 | 65B/machine | 5B years | Future-proof |
 | Sharded (1K shards) | 2^63 × 1K | 4B total | 69 years | Massive scale |
 | UUID v4 | 2^122 | Unlimited | Unlimited | No coordination |
-
-</div>
 
 
 **Capacity Planning Calculator:**
@@ -242,16 +234,12 @@ stateDiagram-v2
 
 **Clock Safety Mechanisms:**
 
-<div class="responsive-table" markdown>
-
 | Issue | Detection | Response | Recovery |
 |-------|-----------|----------|----------|
 | Clock Regression | timestamp < last_timestamp | Wait (small) or Offset (large) | Automatic |
 | Clock Skew | abs(time - wall_clock) > 5s | Gradual adjustment (10% rate) | Automatic |
 | NTP Drift | NTP offset > 100ms | Alert + metric | Manual review |
 | State Loss | Missing checkpoint file | Use defaults if > 24h old | Start fresh |
-
-</div>
 
 
 **Persistence Strategy:**
@@ -319,16 +307,12 @@ graph TB
 
 **Concurrency Performance Comparison:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Throughput | Latency | CPU Efficiency | Complexity |
 |----------|------------|---------|----------------|------------|
 | Single Lock | 1M IDs/s | 1μs | Low (contention) | Simple |
 | Lock-Free | 10M IDs/s | 0.1μs | High | Medium |
 | Thread Pool | 50M IDs/s | 0.5μs | Very High | Complex |
 | CPU Affinity | 100M IDs/s | 0.1μs | Maximum | Complex |
-
-</div>
 
 
 **Batch Generation Flow:**
@@ -411,8 +395,6 @@ graph TB
 
 **Coordination Strategies Comparison:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Consistency | Availability | Partition Tolerance | Complexity |
 |----------|-------------|--------------|-------------------|------------|
 | Static Config | Strong | High | High | Very Low |
@@ -420,8 +402,6 @@ graph TB
 | Database Lease | Strong | Low | Low | Medium |
 | Gossip Protocol | Eventual | High | High | High |
 | Kubernetes | Strong | High | Medium | Low |
-
-</div>
 
 
 **Node ID Assignment Flow:**
@@ -514,8 +494,6 @@ graph TB
 
 **Key Observability Metrics:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Type | Purpose | Alert Threshold |
 |--------|------|---------|----------------|
 | generation_rate | Gauge | Current IDs/sec | < 1000 or > 10M |
@@ -524,8 +502,6 @@ graph TB
 | sequence_overflows | Counter | Capacity issues | > 100/min |
 | collision_detected | Counter | Uniqueness failures | > 0 |
 | id_space_used | Gauge | Capacity planning | > 80% |
-
-</div>
 
 
 **Pattern Detection Examples:**
@@ -614,8 +590,6 @@ graph TB
 
 **Common Operations Guide:**
 
-<div class="responsive-table" markdown>
-
 | Task | Code Example | Notes |
 |------|--------------|-------|
 | Generate ID | `id = gen.generate()` | Thread-safe, ~1μs |
@@ -623,8 +597,6 @@ graph TB
 | Debug ID | `info = gen.inspect(id)` | Shows all components |
 | Test Setup | `test_gen = gen.create_test_generator()` | Deterministic for tests |
 | Validate Config | `errors = gen.validate_config(cfg)` | Pre-deployment check |
-
-</div>
 
 
 **ID Inspector Output Example:**
@@ -645,16 +617,12 @@ graph LR
 
 **Migration Planning Matrix:**
 
-<div class="responsive-table" markdown>
-
 | From → To | Complexity | Downtime | Risk | Duration |
 |-----------|------------|----------|------|----------|
 | UUID → Snowflake | High | Zero | Low | 2-4 weeks |
 | Sequential → Snowflake | Medium | Zero | Low | 1-2 weeks |
 | Snowflake → UUID | Low | Zero | Low | 1 week |
 | Database → Snowflake | High | Minutes | Medium | 2-3 weeks |
-
-</div>
 
 
 **Migration Steps Visualization:**
@@ -721,8 +689,6 @@ graph TB
 
 **Total Cost of Ownership Calculator:**
 
-<div class="responsive-table" markdown>
-
 | Parameter | Value | Monthly Cost | Optimization |
 |-----------|-------|--------------|-------------|
 | QPS | 1M | - | - |
@@ -731,8 +697,6 @@ graph TB
 | Storage | 1 year retention | $360 | Compress or archive |
 | Development | Custom (200h) | $1,667 | Use standard Snowflake |
 | **Total** | - | **$4,819** | **Potential: $500** |
-
-</div>
 
 
 **Cost Optimization Decision Tree:**
@@ -780,8 +744,6 @@ sequenceDiagram
 
 ### Law Mapping Summary
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Key Impact | Trade-offs |
 |-----------------|------------|------------|
 | **Snowflake Algorithm** | <1μs generation, no network calls, 2^63 IDs | Clock dependent, needs NTP sync |
@@ -789,8 +751,6 @@ sequenceDiagram
 | **Client-side Generation** | Zero network latency, infinite scale | Harder to track all generators |
 | **Static Node IDs** | No lookup overhead, simple config | Manual updates for new nodes |
 | **Pre-allocation** | Higher throughput, batch efficiency | Range coordination complexity |
-
-</div>
 
 
 ### 🏛 Pillar Mapping
@@ -1003,8 +963,6 @@ graph LR
 
 ### Architecture Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Architecture | Uniqueness | Ordering | Latency | Scalability | Complexity | Clock Dependency | Failure Handling |
 |--------------|------------|----------|---------|-------------|------------|------------------|------------------|
 | **Ticket Server** | Perfect | None | 10-100ms | Limited | Simple | None | SPOF risk |
@@ -1012,8 +970,6 @@ graph LR
 | **Database Sequence** | Perfect | Sequential | 1-10ms | Poor | Simple | None | DB failure |
 | **Hybrid Sharded** | Per shard | Partial | 1-5ms | Good | Complex | Optional | Shard-level |
 | **Lamport Timestamp** | With node ID | Causal | <1μs | Excellent | Medium | None | Resilient |
-
-</div>
 
 
 ### Performance Comparison
@@ -1145,8 +1101,6 @@ graph TB
 
 ### Key Design Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **Bit Size** | 64-bit IDs | 128-bit IDs | **64-bit** - Sufficient for most use cases, better performance, fits in standard integers |
@@ -1155,8 +1109,6 @@ graph TB
 | **Clock Source** | System time | Monotonic clock | **Monotonic + system time** - Monotonic for ordering, system for human readability |
 | **Generation** | Server-side service | Client-side library | **Client-side** - Eliminates network latency, scales infinitely |
 | **Algorithm** | Snowflake | UUID v4 | **Snowflake** - Time ordering useful, smaller than UUID, deterministic debugging |
-
-</div>
 
 
 ### Alternative Architectures

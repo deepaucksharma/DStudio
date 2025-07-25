@@ -165,8 +165,6 @@ flowchart TD
 
 ### CAP Trade-off Calculator
 
-<div class="responsive-table" markdown>
-
 | System Characteristic | CP Choice | AP Choice | Your Priority (1-10) |
 |----------------------|-----------|-----------|---------------------|
 | **Data Consistency** | ✅ Strong | ❌ Eventual | ___ |
@@ -177,8 +175,6 @@ flowchart TD
 | **Data Loss Risk** | ✅ None | 🟡 Possible | ___ |
 | **Conflict Resolution** | ✅ Automatic | 🔴 Manual | ___ |
 | **Use Cases** | Financial, Inventory | Social, Analytics | |
-
-</div>
 
 
 **Score Calculation:**
@@ -287,8 +283,6 @@ sequenceDiagram
 #### 1. Tunable Consistency
 Many systems allow you to tune consistency per operation:
 
-<div class="responsive-table" markdown>
-
 | Operation | Consistency Level | Availability | Use Case |
 |-----------|------------------|--------------|----------|
 | Write ONE | Lowest | Highest | Logging, metrics |
@@ -297,8 +291,6 @@ Many systems allow you to tune consistency per operation:
 | Read ONE | Lowest | Highest | Cache warming |
 | Read QUORUM | Medium | Medium | User queries |
 | Read ALL | Highest | Lowest | Financial data |
-
-</div>
 
 
 #### 2. Hybrid Approaches
@@ -405,7 +397,7 @@ graph TB
 
 ### CAP Choice Cheat Sheet
 
-<div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
+<div>
 
 **Choose CP When:**
 - Data correctness is critical (banking, inventory)
@@ -429,7 +421,7 @@ graph TB
 
 ### Implementation Checklist
 
-<div style="border: 2px solid #059669; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0fdf4;">
+<div>
 
 **Before Choosing Your CAP Strategy:**
 - [ ] Identify critical data that needs strong consistency
@@ -445,8 +437,6 @@ graph TB
 
 ### Common Patterns by Industry
 
-<div class="responsive-table" markdown>
-
 | Industry | Typical Choice | Reasoning | Example Systems |
 |----------|---------------|-----------|-----------------|
 | **Banking** | CP | Zero tolerance for inconsistency | Core banking, Payments |
@@ -455,8 +445,6 @@ graph TB
 | **Gaming** | AP | Low latency critical | Leaderboards, Stats |
 | **Healthcare** | CP | Patient safety critical | Medical records |
 | **Analytics** | AP | Eventual accuracy acceptable | Metrics, Dashboards |
-
-</div>
 
 
 ---

@@ -122,16 +122,12 @@ graph TD
 
 #### Probabilistic Finality
 
-<div class="responsive-table" markdown>
-
 | Confirmations | Reversal Probability | Time | Use Case |
 |---------------|---------------------|------|----------|
 | 1 | ~3% | 10 min | Coffee purchase |
 | 3 | ~0.1% | 30 min | Online shopping |  
 | 6 | ~0.00001% | 60 min | Large transfers |
 | 100 | Practically 0 | 17 hours | Exchange deposits |
-
-</div>
 
 
 ### 3. Kafka: Log-Based Truth
@@ -409,16 +405,12 @@ sequenceDiagram
     Gateway-->>Client: Success
 ```
 
-<div class="responsive-table" markdown>
-
 | Scenario | Behavior | Recovery |
 |----------|----------|----------|
 | Leader Failure | New election triggered | Follower with most recent log becomes leader |
 | Network Partition | Minority partition unavailable | Automatic recovery when partition heals |
 | Slow Follower | Leader maintains log buffer | Follower catches up from log |
 | Split Brain Prevention | Only majority can elect leader | Ensures single leader per term |
-
-</div>
 
 
 ## Consensus Algorithm Implementations
@@ -480,16 +472,12 @@ stateDiagram-v2
     }
 ```
 
-<div class="responsive-table" markdown>
-
 | Phase | Message | Acceptor Action | Required for Progress |
 |-------|---------|-----------------|----------------------|
 | 1a | Prepare(n) | Promise if n > highest promised | - |
 | 1b | Promise(n, v) | Return any accepted value | Majority promises |
 | 2a | Accept(n, v) | Accept if n >= promised | - |
 | 2b | Accepted(n) | Confirm acceptance | Majority accepts |
-
-</div>
 
 
 ### 2. Byzantine Fault Tolerant Consensus
@@ -575,16 +563,12 @@ graph TB
     end
 ```
 
-<div class="responsive-table" markdown>
-
 | Phase | Messages Required | Purpose | Byzantine Tolerance |
 |-------|------------------|---------|--------------------|
 | Pre-prepare | 1 (from primary) | Order assignment | Primary can be Byzantine |
 | Prepare | 2f | Agreement on order | Tolerates f Byzantine |
 | Commit | 2f + 1 | Agreement on execution | Ensures total order |
 | Reply | f + 1 | Client confidence | At least 1 correct reply |
-
-</div>
 
 
 ### 3. Blockchain Consensus Variants
@@ -648,16 +632,12 @@ sequenceDiagram
     end
 ```
 
-<div class="responsive-table" markdown>
-
 | Slashing Condition | Penalty | Description | Protection |
 |-------------------|---------|-------------|------------|
 | Double Voting | 1-5% of stake | Voting for two blocks at same height | Store last vote |
 | Surround Voting | 1-3% of stake | Conflicting attestations | Track vote history |
 | Inactivity Leak | Gradual | Offline during finality crisis | Stay online |
 | Proposer Equivocation | 2-5% of stake | Proposing multiple blocks | One block per slot |
-
-</div>
 
 
 ## Truth Maintenance Systems
@@ -735,16 +715,12 @@ graph TB
     end
 ```
 
-<div class="responsive-table" markdown>
-
 | Scenario | Vector State | Relationship | Action Required |
 |----------|--------------|--------------|----------------|
 | Sequential Updates | {A:2} → {A:3} | Descends from | Replace old value |
 | Concurrent Updates | {A:2,B:1} vs {A:1,B:2} | Concurrent | Keep both values |
 | Synchronized | {A:2,B:2} = {A:2,B:2} | Equal | Same value |
 | Partial Knowledge | {A:2} vs {A:2,B:1} | Ancestor | Update to newer |
-
-</div>
 
 
 ## Key Takeaways

@@ -2,7 +2,6 @@
 
 ## Company Comparison Matrix
 
-<div class="company-comparison">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -63,44 +62,42 @@
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Role-Level Expectations
 
 ```mermaid
 graph TD
-    subgraph "Entry Level (L3/L4)"
-        E1[Basic Patterns]
-        E2[Simple Systems]
-        E3[Good Communication]
-        E1 --> EEx[Examples: URL Shortener, Chat App]
-    end
-    
-    subgraph "Senior (L5)"
-        S1[Complex Systems]
-        S2[Trade-off Analysis]
-        S3[Scale Awareness]
-        S1 --> SEx[Examples: YouTube, E-commerce]
-    end
-    
-    subgraph "Staff+ (L6+)"
-        St1[Platform Design]
-        St2[Cross-cutting Concerns]
-        St3[Business Impact]
-        St1 --> StEx[Examples: Infrastructure, ML Platform]
-    end
-    
-    subgraph "Principal (L7+)"
-        P1[Industry Innovation]
-        P2[Organization Impact]
-        P3[Technical Vision]
-        P1 --> PEx[Examples: New Paradigms, Research]
-    end
+ subgraph "Entry Level (L3/L4)"
+ E1[Basic Patterns]
+ E2[Simple Systems]
+ E3[Good Communication]
+ E1 --> EEx[Examples: URL Shortener, Chat App]
+ end
+ 
+ subgraph "Senior (L5)"
+ S1[Complex Systems]
+ S2[Trade-off Analysis]
+ S3[Scale Awareness]
+ S1 --> SEx[Examples: YouTube, E-commerce]
+ end
+ 
+ subgraph "Staff+ (L6+)"
+ St1[Platform Design]
+ St2[Cross-cutting Concerns]
+ St3[Business Impact]
+ St1 --> StEx[Examples: Infrastructure, ML Platform]
+ end
+ 
+ subgraph "Principal (L7+)"
+ P1[Industry Innovation]
+ P2[Organization Impact]
+ P3[Technical Vision]
+ P1 --> PEx[Examples: New Paradigms, Research]
+ end
 ```
 
 ## 🕐 Time Allocation by Company
 
-<div class="time-allocation">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -156,85 +153,83 @@ graph TD
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Preparation Strategy Selector
 
 ```mermaid
 flowchart TD
-    Start[Choose Your Target] --> Company{Which Company?}
-    
-    Company -->|Google| G_Level{Your Level?}
-    Company -->|Amazon| A_Level{Your Level?}
-    Company -->|Meta| M_Level{Your Level?}
-    Company -->|Microsoft| MS_Level{Your Level?}
-    
-    G_Level -->|Junior| G_Junior[Focus: Fundamentals + Scale]
-    G_Level -->|Senior| G_Senior[Focus: Complex Systems + Papers]
-    G_Level -->|Staff+| G_Staff[Focus: Innovation + Platform]
-    
-    A_Level -->|Junior| A_Junior[Focus: LPs + Basic Design]
-    A_Level -->|Senior| A_Senior[Focus: LPs + AWS + Scale]
-    A_Level -->|Staff+| A_Staff[Focus: Business + Architecture]
-    
-    M_Level -->|Junior| M_Junior[Focus: Product Sense + Speed]
-    M_Level -->|Senior| M_Senior[Focus: Impact + Data]
-    M_Level -->|Staff+| M_Staff[Focus: Vision + Platform]
-    
-    MS_Level -->|Junior| MS_Junior[Focus: Fundamentals + Cloud]
-    MS_Level -->|Senior| MS_Senior[Focus: Azure + Enterprise]
-    MS_Level -->|Staff+| MS_Staff[Focus: Platform + Integration]
+ Start[Choose Your Target] --> Company{Which Company?}
+ 
+ Company -->|Google| G_Level{Your Level?}
+ Company -->|Amazon| A_Level{Your Level?}
+ Company -->|Meta| M_Level{Your Level?}
+ Company -->|Microsoft| MS_Level{Your Level?}
+ 
+ G_Level -->|Junior| G_Junior[Focus: Fundamentals + Scale]
+ G_Level -->|Senior| G_Senior[Focus: Complex Systems + Papers]
+ G_Level -->|Staff+| G_Staff[Focus: Innovation + Platform]
+ 
+ A_Level -->|Junior| A_Junior[Focus: LPs + Basic Design]
+ A_Level -->|Senior| A_Senior[Focus: LPs + AWS + Scale]
+ A_Level -->|Staff+| A_Staff[Focus: Business + Architecture]
+ 
+ M_Level -->|Junior| M_Junior[Focus: Product Sense + Speed]
+ M_Level -->|Senior| M_Senior[Focus: Impact + Data]
+ M_Level -->|Staff+| M_Staff[Focus: Vision + Platform]
+ 
+ MS_Level -->|Junior| MS_Junior[Focus: Fundamentals + Cloud]
+ MS_Level -->|Senior| MS_Senior[Focus: Azure + Enterprise]
+ MS_Level -->|Staff+| MS_Staff[Focus: Platform + Integration]
 ```
 
 ## Difficulty Progression by Topic
 
 ```mermaid
 graph LR
-    subgraph "Beginner Topics"
-        B1[URL Shortener]
-        B2[Pastebin]
-        B3[Key-Value Store]
-    end
-    
-    subgraph "Intermediate Topics"
-        I1[Chat System]
-        I2[Social Feed]
-        I3[Video Streaming]
-    end
-    
-    subgraph "Advanced Topics"
-        A1[Search Engine]
-        A2[E-commerce Platform]
-        A3[Global Database]
-    end
-    
-    subgraph "Expert Topics"
-        E1[ML Platform]
-        E2[Global CDN]
-        E3[Distributed OS]
-    end
-    
-    B1 --> I1
-    B2 --> I2
-    B3 --> I3
-    I1 --> A1
-    I2 --> A2
-    I3 --> A3
-    A1 --> E1
-    A2 --> E2
-    A3 --> E3
-    
-    style B1 fill:#90EE90
-    style B2 fill:#90EE90
-    style B3 fill:#90EE90
-    style E1 fill:#FFB6C1
-    style E2 fill:#FFB6C1
-    style E3 fill:#FFB6C1
+ subgraph "Beginner Topics"
+ B1[URL Shortener]
+ B2[Pastebin]
+ B3[Key-Value Store]
+ end
+ 
+ subgraph "Intermediate Topics"
+ I1[Chat System]
+ I2[Social Feed]
+ I3[Video Streaming]
+ end
+ 
+ subgraph "Advanced Topics"
+ A1[Search Engine]
+ A2[E-commerce Platform]
+ A3[Global Database]
+ end
+ 
+ subgraph "Expert Topics"
+ E1[ML Platform]
+ E2[Global CDN]
+ E3[Distributed OS]
+ end
+ 
+ B1 --> I1
+ B2 --> I2
+ B3 --> I3
+ I1 --> A1
+ I2 --> A2
+ I3 --> A3
+ A1 --> E1
+ A2 --> E2
+ A3 --> E3
+ 
+ style B1 fill:#90EE90
+ style B2 fill:#90EE90
+ style B3 fill:#90EE90
+ style E1 fill:#FFB6C1
+ style E2 fill:#FFB6C1
+ style E3 fill:#FFB6C1
 ```
 
 ## 🛠 Skill Requirements Matrix
 
-<div class="skill-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -276,11 +271,9 @@ graph LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Success Metrics by Company
 
-<div class="metrics-comparison">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -317,11 +310,9 @@ graph LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ## 🎓 Study Plan Optimizer
 
-<div class="study-optimizer">
 <h3>Personalized Study Plan Generator</h3>
 <div class="optimizer-inputs">
 <label>Target Company:
@@ -343,7 +334,6 @@ graph LR
 <input type="number" id="weeks" min="2" max="12" value="6">
 </label>
 <button onclick="generatePlan()">Generate Custom Plan</button>
-</div>
 <div id="custom-plan" class="plan-output"></div>
 </div>
 
@@ -351,31 +341,30 @@ graph LR
 
 ```mermaid
 graph TD
-    Success[Interview Success] --> Technical[Technical Excellence]
-    Success --> Communication[Clear Communication]
-    Success --> Culture[Culture Fit]
-    
-    Technical --> Fundamentals[Strong Fundamentals]
-    Technical --> Scale[Scale Thinking]
-    Technical --> Innovation[Innovation]
-    
-    Communication --> Clarity[Clear Explanation]
-    Communication --> Diagrams[Visual Communication]
-    Communication --> Questions[Good Questions]
-    
-    Culture --> Values[Company Values]
-    Culture --> Style[Work Style]
-    Culture --> Growth[Growth Mindset]
-    
-    style Success fill:#FFD700
-    style Technical fill:#87CEEB
-    style Communication fill:#98FB98
-    style Culture fill:#DDA0DD
+ Success[Interview Success] --> Technical[Technical Excellence]
+ Success --> Communication[Clear Communication]
+ Success --> Culture[Culture Fit]
+ 
+ Technical --> Fundamentals[Strong Fundamentals]
+ Technical --> Scale[Scale Thinking]
+ Technical --> Innovation[Innovation]
+ 
+ Communication --> Clarity[Clear Explanation]
+ Communication --> Diagrams[Visual Communication]
+ Communication --> Questions[Good Questions]
+ 
+ Culture --> Values[Company Values]
+ Culture --> Style[Work Style]
+ Culture --> Growth[Growth Mindset]
+ 
+ style Success fill:#FFD700
+ style Technical fill:#87CEEB
+ style Communication fill:#98FB98
+ style Culture fill:#DDA0DD
 ```
 
 ## Quick Reference Cards
 
-<div class="reference-grid">
 <div class="ref-card">
 <h4>🎯 Google</h4>
 <ul>
@@ -385,8 +374,6 @@ graph TD
 <li>Performance matters</li>
 <li>Reliability is key</li>
 </ul>
-</div>
-<div class="ref-card">
 <h4>📦 Amazon</h4>
 <ul>
 <li>Customer first</li>
@@ -395,8 +382,6 @@ graph TD
 <li>Think long-term</li>
 <li>Dive deep</li>
 </ul>
-</div>
-<div class="ref-card">
 <h4>👥 Meta</h4>
 <ul>
 <li>Move fast</li>
@@ -405,8 +390,6 @@ graph TD
 <li>Bold ideas</li>
 <li>User obsessed</li>
 </ul>
-</div>
-<div class="ref-card">
 <h4>🏢 Microsoft</h4>
 <ul>
 <li>Platform thinking</li>
@@ -416,109 +399,108 @@ graph TD
 <li>Cloud first</li>
 </ul>
 </div>
-</div>
 
 <script>
 function generatePlan() {
-    const company = document.getElementById('target-company').value;
-    const level = document.getElementById('current-level').value;
-    const weeks = parseInt(document.getElementById('weeks').value);
-    
-    const plans = {
-        google: {
-            junior: {
-                focus: ['Distributed Systems Basics', 'Google Papers', 'Scale Thinking'],
-                systems: ['URL Shortener', 'Chat App', 'Video Platform'],
-                special: 'Focus on simplicity and scale'
-            },
-            senior: {
-                focus: ['Complex Systems', 'Performance Optimization', 'Google Infrastructure'],
-                systems: ['YouTube', 'Google Search', 'Maps'],
-                special: 'Deep dive into Google technologies'
-            },
-            staff: {
-                focus: ['Platform Design', 'Innovation', 'Cross-cutting Concerns'],
-                systems: ['ML Platform', 'Global Infrastructure', 'Next-gen Systems'],
-                special: 'Think about industry-changing solutions'
-            }
-        },
-        amazon: {
-            junior: {
-                focus: ['Leadership Principles', 'Basic AWS', 'System Design Basics'],
-                systems: ['E-commerce', 'Simple Storage', 'Basic Queue'],
-                special: 'Master STAR method for behavioral questions'
-            },
-            senior: {
-                focus: ['Advanced AWS', 'Operational Excellence', 'Cost Optimization'],
-                systems: ['DynamoDB', 'S3', 'Order System'],
-                special: 'Balance technical depth with leadership'
-            },
-            staff: {
-                focus: ['Business Strategy', 'Platform Architecture', 'Innovation'],
-                systems: ['AWS Services', 'Global Logistics', 'New Products'],
-                special: 'Think like a business owner'
-            }
-        },
-        meta: {
-            junior: {
-                focus: ['Product Thinking', 'Fast Iteration', 'Data Analysis'],
-                systems: ['Social Feed', 'Messenger', 'Stories'],
-                special: 'Show product sense and user empathy'
-            },
-            senior: {
-                focus: ['Scale & Performance', 'ML Integration', 'Growth'],
-                systems: ['Instagram', 'WhatsApp', 'Ads Platform'],
-                special: 'Focus on impact and metrics'
-            },
-            staff: {
-                focus: ['Platform Strategy', 'Innovation', 'Vision'],
-                systems: ['Metaverse', 'AI Platform', 'Next Social'],
-                special: 'Think about the future of social'
-            }
-        },
-        microsoft: {
-            junior: {
-                focus: ['Cloud Basics', 'Collaboration Tools', 'APIs'],
-                systems: ['Teams Feature', 'Simple Azure Service', 'API Design'],
-                special: 'Understand cloud and collaboration'
-            },
-            senior: {
-                focus: ['Azure Services', 'Enterprise Design', 'Integration'],
-                systems: ['Teams', 'Office 365', 'Azure Service'],
-                special: 'Think enterprise and developers'
-            },
-            staff: {
-                focus: ['Platform Architecture', 'Ecosystem', 'Innovation'],
-                systems: ['Azure Platform', 'Developer Tools', 'AI Services'],
-                special: 'Platform and ecosystem thinking'
-            }
-        }
-    };
-    
-    const plan = plans[company][level];
-    const hoursPerWeek = weeks < 4 ? 15 : weeks < 8 ? 10 : 8;
-    
-    let output = `<h4>Your ${weeks}-Week Plan for ${company.charAt(0).toUpperCase() + company.slice(1)}</h4>`;
-    output += '<div class="plan-details">';
-    output += '<h5>Focus Areas:</h5><ul>';
-    plan.focus.forEach(f => output += `<li>${f}</li>`);
-    output += '</ul>';
-    
-    output += '<h5>Practice Systems:</h5><ul>';
-    plan.systems.forEach(s => output += `<li>${s}</li>`);
-    output += '</ul>';
-    
-    output += `<h5>Special Focus:</h5><p>${plan.special}</p>`;
-    output += `<h5>Recommended Study Time:</h5><p>${hoursPerWeek} hours/week</p>`;
-    
-    output += '<h5>Week-by-Week:</h5><ul>';
-    if (weeks >= 2) output += '<li>Week 1-2: Fundamentals & Company Culture</li>';
-    if (weeks >= 4) output += '<li>Week 3-4: Core Technologies & Patterns</li>';
-    if (weeks >= 6) output += '<li>Week 5-6: Practice & Deep Dives</li>';
-    if (weeks >= 8) output += '<li>Week 7-8: Mock Interviews & Polish</li>';
-    output += '</ul></div>';
-    
-    document.getElementById('custom-plan').innerHTML = output;
+ const company = document.getElementById('target-company').value;
+ const level = document.getElementById('current-level').value;
+ const weeks = parseInt(document.getElementById('weeks').value);
+ 
+ const plans = {
+ google: {
+ junior: {
+ focus: ['Distributed Systems Basics', 'Google Papers', 'Scale Thinking'],
+ systems: ['URL Shortener', 'Chat App', 'Video Platform'],
+ special: 'Focus on simplicity and scale'
+ },
+ senior: {
+ focus: ['Complex Systems', 'Performance Optimization', 'Google Infrastructure'],
+ systems: ['YouTube', 'Google Search', 'Maps'],
+ special: 'Deep dive into Google technologies'
+ },
+ staff: {
+ focus: ['Platform Design', 'Innovation', 'Cross-cutting Concerns'],
+ systems: ['ML Platform', 'Global Infrastructure', 'Next-gen Systems'],
+ special: 'Think about industry-changing solutions'
+ }
+ },
+ amazon: {
+ junior: {
+ focus: ['Leadership Principles', 'Basic AWS', 'System Design Basics'],
+ systems: ['E-commerce', 'Simple Storage', 'Basic Queue'],
+ special: 'Master STAR method for behavioral questions'
+ },
+ senior: {
+ focus: ['Advanced AWS', 'Operational Excellence', 'Cost Optimization'],
+ systems: ['DynamoDB', 'S3', 'Order System'],
+ special: 'Balance technical depth with leadership'
+ },
+ staff: {
+ focus: ['Business Strategy', 'Platform Architecture', 'Innovation'],
+ systems: ['AWS Services', 'Global Logistics', 'New Products'],
+ special: 'Think like a business owner'
+ }
+ },
+ meta: {
+ junior: {
+ focus: ['Product Thinking', 'Fast Iteration', 'Data Analysis'],
+ systems: ['Social Feed', 'Messenger', 'Stories'],
+ special: 'Show product sense and user empathy'
+ },
+ senior: {
+ focus: ['Scale & Performance', 'ML Integration', 'Growth'],
+ systems: ['Instagram', 'WhatsApp', 'Ads Platform'],
+ special: 'Focus on impact and metrics'
+ },
+ staff: {
+ focus: ['Platform Strategy', 'Innovation', 'Vision'],
+ systems: ['Metaverse', 'AI Platform', 'Next Social'],
+ special: 'Think about the future of social'
+ }
+ },
+ microsoft: {
+ junior: {
+ focus: ['Cloud Basics', 'Collaboration Tools', 'APIs'],
+ systems: ['Teams Feature', 'Simple Azure Service', 'API Design'],
+ special: 'Understand cloud and collaboration'
+ },
+ senior: {
+ focus: ['Azure Services', 'Enterprise Design', 'Integration'],
+ systems: ['Teams', 'Office 365', 'Azure Service'],
+ special: 'Think enterprise and developers'
+ },
+ staff: {
+ focus: ['Platform Architecture', 'Ecosystem', 'Innovation'],
+ systems: ['Azure Platform', 'Developer Tools', 'AI Services'],
+ special: 'Platform and ecosystem thinking'
+ }
+ }
+ };
+ 
+ const plan = plans[company][level];
+ const hoursPerWeek = weeks < 4 ? 15 : weeks < 8 ? 10 : 8;
+ 
+ let output = `<h4>Your ${weeks}-Week Plan for ${company.charAt(0).toUpperCase() + company.slice(1)}</h4>`;
+ output += '';
+ output += '<h5>Focus Areas:</h5><ul>';
+ plan.focus.forEach(f => output += `<li>${f}</li>`);
+ output += '</ul>';
+ 
+ output += '<h5>Practice Systems:</h5><ul>';
+ plan.systems.forEach(s => output += `<li>${s}</li>`);
+ output += '</ul>';
+ 
+ output += `<h5>Special Focus:</h5><p>${plan.special}</p>`;
+ output += `<h5>Recommended Study Time:</h5><p>${hoursPerWeek} hours/week</p>`;
+ 
+ output += '<h5>Week-by-Week:</h5><ul>';
+ if (weeks >= 2) output += '<li>Week 1-2: Fundamentals & Company Culture</li>';
+ if (weeks >= 4) output += '<li>Week 3-4: Core Technologies & Patterns</li>';
+ if (weeks >= 6) output += '<li>Week 5-6: Practice & Deep Dives</li>';
+ if (weeks >= 8) output += '<li>Week 7-8: Mock Interviews & Polish</li>';
+ output += '</ul>';
+ 
+ document.getElementById('custom-plan').innerHTML = output;
 }
 </script>
 

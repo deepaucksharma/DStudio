@@ -20,16 +20,12 @@ Computational geometry provides essential algorithms for spatial data processing
 
 ### Complexity Bounds
 
-<div class="responsive-table" markdown>
-
 | Operation | Naive | Optimized |
 |-----------|-------|-----------|
 | Point location | O(n) | O(log n) |
 | Range query | O(n) | O(k + log n) |
 | Nearest neighbor | O(n) | O(log n) |
 | Convex hull | O(n²) | O(n log n) |
-
-</div>
 
 
 ## Geometric Algorithms

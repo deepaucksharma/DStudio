@@ -114,8 +114,6 @@ graph TB
 
 ### Cache Patterns Comparison
 
-<div class="responsive-table" markdown>
-
 | Pattern | Write Complexity | Read Performance | Consistency | Use Case |
 |---------|-----------------|------------------|-------------|----------|
 | **Cache-Aside** | Simple | Fast after warm | Eventual | Read-heavy |
@@ -123,8 +121,6 @@ graph TB
 | **Write-Behind** | Complex | Always fast | Eventual | Write-heavy |
 | **Refresh-Ahead** | Complex | Ultra-fast | Strong | Predictable |
 | **Read-Through** | Medium | Fast after warm | Strong | Transparent |
-
-</div>
 
 
 ### Caching Strategy Flows
@@ -211,8 +207,6 @@ graph TB
 
 ### Cache Key Design Patterns
 
-<div class="responsive-table" markdown>
-
 | Key Pattern | Example | Use Case | Benefits |
 |-------------|---------|----------|----------|
 | **Hierarchical** | `user:123:profile` | Nested data | Easy invalidation |
@@ -220,8 +214,6 @@ graph TB
 | **Hash-based** | `hash:a1b2c3d4` | Complex queries | Consistent keys |
 | **Tagged** | `post:789:tags:news,tech` | Group operations | Bulk invalidation |
 | **Time-based** | `stats:2024-01:daily` | Time-series data | Auto-expiration |
-
-</div>
 
 
 ```mermaid
@@ -289,16 +281,12 @@ graph TB
 
 ### Multi-Level Cache Characteristics
 
-<div class="responsive-table" markdown>
-
 | Level | Type | Size | Latency | Use Case |
 |-------|------|------|---------|----------|
 | **L1** | Process Memory | 100MB | <1µs | Hot data, frequent access |
 | **L2** | Redis/Memcached | 1-10GB | ~1ms | Shared across processes |
 | **L3** | CDN | Unlimited | ~10ms | Global distribution |
 | **Origin** | Database | - | ~100ms | Source of truth |
-
-</div>
 
 
 #### 2. Distributed Cache Coordination
@@ -398,8 +386,6 @@ graph TB
 
 ### Cache Warming Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | Detection Method | Warming Strategy | Example |
 |---------|-----------------|------------------|----------|
 | **Time-based** | Access logs analysis | Cron schedule | News site: warm at 7 AM |
@@ -407,8 +393,6 @@ graph TB
 | **Predictive** | Machine learning | Probability-based | User likely to view X next |
 | **Geographic** | Location patterns | Regional pre-load | Content for timezone |
 | **Event-driven** | External triggers | Hook-based | Sale starts: warm catalog |
-
-</div>
 
 
 ---
@@ -849,8 +833,6 @@ class MLPoweredCacheManager:
 
 ### Cache Strategy Selection
 
-<div class="responsive-table" markdown>
-
 | If you need... | Use this strategy | Key considerations |
 |----------------|-------------------|-------------------|
 | Simple read optimization | Cache-Aside | Handle cache misses |
@@ -859,8 +841,6 @@ class MLPoweredCacheManager:
 | Ultra-low latency | Refresh-Ahead | Complex implementation |
 | Geographic distribution | Multi-tier + CDN | Cache coherence |
 | Cost optimization | Adaptive TTL | Monitoring required |
-
-</div>
 
 
 ## Interactive Decision Support Tools
@@ -898,8 +878,6 @@ flowchart TD
 
 ### Cache ROI Calculator
 
-<div class="responsive-table" markdown>
-
 | Parameter | Your Value | Formula | Result |
 |-----------|------------|---------|--------|
 | **Current State** | | | |
@@ -920,12 +898,8 @@ flowchart TD
 | **Monthly Net Savings** | | DB Savings - Cache Cost | $___ |
 | **ROI Period** | | Implementation Cost / Monthly Savings | ___ months |
 
-</div>
-
 
 ### Cache Invalidation Strategy Selector
-
-<div class="responsive-table" markdown>
 
 | Invalidation Pattern | When to Use | Pros | Cons | Implementation Complexity |
 |---------------------|-------------|------|------|--------------------------|
@@ -934,8 +908,6 @@ flowchart TD
 | **Write-Through** | • Strong consistency<br>• Simple invalidation | No stale data | Write performance | ⭐⭐ Low-Medium |
 | **Tagged Invalidation** | • Related data groups<br>• Bulk operations | Efficient bulk ops | Tag management | ⭐⭐⭐ Medium |
 | **Versioned Keys** | • Schema changes<br>• A/B testing | Clean transitions | Key proliferation | ⭐⭐ Low-Medium |
-
-</div>
 
 
 ### Cache Performance Estimator
@@ -1015,7 +987,7 @@ graph LR
 
 ### Cache Pattern Selection Cheat Sheet
 
-<div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
+<div>
 
 **CACHE-ASIDE** ✅
 - Read-heavy workloads (>90% reads)
@@ -1045,7 +1017,7 @@ graph LR
 
 ### Common Pitfalls Checklist
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fef2f2;">
+<div>
 
 **Before Going to Production:**
 - **Stampede Protection**: Implement distributed locks or probabilistic expiry
@@ -1059,11 +1031,9 @@ graph LR
 
 ### 📏 Monitoring Metrics Guide
 
-<div style="border: 2px solid #059669; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0fdf4;">
+<div>
 
 **Essential Metrics to Track:**
-
-<div class="responsive-table" markdown>
 
 | Metric | Good Range | Alert Threshold | Action |
 |--------|------------|----------------|---------|
@@ -1072,8 +1042,6 @@ graph LR
 | Eviction Rate | <5% | >10% | Increase cache size |
 | Error Rate | <0.1% | >1% | Check connectivity |
 | Memory Usage | 60-80% | >90% | Scale or optimize |
-
-</div>
 
 
 **Dashboard Query Examples:**

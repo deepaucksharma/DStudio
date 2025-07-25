@@ -4,29 +4,29 @@
 
 <div class="grid cards" markdown>
 
--   :material-library-books:{ .lg .middle } **30+**
+- :material-library-books:{ .lg .middle } **30+**
 
-    ---
+ ---
 
-    Total Resources
+ Total Resources
 
--   :material-google:{ .lg .middle } **25**
+- :material-google:{ .lg .middle } **25**
 
-    ---
+ ---
 
-    Google Systems
+ Google Systems
 
--   :material-clock:{ .lg .middle } **120 hrs**
+- :material-clock:{ .lg .middle } **120 hrs**
 
-    ---
+ ---
 
-    Total Study Time
+ Total Study Time
 
--   :material-chart-line:{ .lg .middle } **85%**
+- :material-chart-line:{ .lg .middle } **85%**
 
-    ---
+ ---
 
-    Success Rate*
+ Success Rate*
 
 </div>
 
@@ -36,33 +36,33 @@
 
 ```mermaid
 graph TD
-    A[Google Interview Hub] --> B[📚 Study Guide]
-    A --> C[🧩 Patterns]
-    A --> D[💻 Practice]
-    A --> E[📝 Templates]
-    
-    B --> B1[Design Thinking]
-    B --> B2[Technical Deep Dives]
-    B --> B3[Trade-offs Analysis]
-    
-    C --> C1[Infrastructure]
-    C --> C2[Application]
-    C --> C3[Data Systems]
-    C --> C4[Operational]
-    
-    D --> D1[Mock Problems]
-    D --> D2[Evaluation Tools]
-    D --> D3[Common Pitfalls]
-    
-    E --> E1[Design Docs]
-    E --> E2[Checklists]
-    E --> E3[Quick Refs]
-    
-    style A fill:#4285f4,stroke:#1a73e8,color:#fff
-    style B fill:#34a853,stroke:#188038,color:#fff
-    style C fill:#fbbc04,stroke:#f9ab00,color:#000
-    style D fill:#ea4335,stroke:#d33b27,color:#fff
-    style E fill:#673ab7,stroke:#5e35b1,color:#fff
+ A[Google Interview Hub] --> B[📚 Study Guide]
+ A --> C[🧩 Patterns]
+ A --> D[💻 Practice]
+ A --> E[📝 Templates]
+ 
+ B --> B1[Design Thinking]
+ B --> B2[Technical Deep Dives]
+ B --> B3[Trade-offs Analysis]
+ 
+ C --> C1[Infrastructure]
+ C --> C2[Application]
+ C --> C3[Data Systems]
+ C --> C4[Operational]
+ 
+ D --> D1[Mock Problems]
+ D --> D2[Evaluation Tools]
+ D --> D3[Common Pitfalls]
+ 
+ E --> E1[Design Docs]
+ E --> E2[Checklists]
+ E --> E3[Quick Refs]
+ 
+ style A fill:#4285f4,stroke:#1a73e8,color:#fff
+ style B fill:#34a853,stroke:#188038,color:#fff
+ style C fill:#fbbc04,stroke:#f9ab00,color:#000
+ style D fill:#ea4335,stroke:#d33b27,color:#fff
+ style E fill:#673ab7,stroke:#5e35b1,color:#fff
 ```
 
 ### Quick Links
@@ -73,8 +73,6 @@ graph TD
 - [Common Pitfalls](/common-mistakes) - Mistakes to avoid
 
 ## Google Systems Coverage Matrix
-
-<div class="responsive-table" markdown>
 
 | System | Difficulty | Prep Time | Key Focus Areas | Resources |
 |--------|------------|-----------|-----------------|-----------|
@@ -88,8 +86,6 @@ graph TD
 | **Play Store** | ⭐⭐⭐ | 4-6 hrs | App Distribution, Updates, Analytics | [Guide](patterns/application/marketplace-systems.md) |
 | **Cloud Platform** | ⭐⭐⭐⭐ | 6-8 hrs | Multi-tenancy, Resource Management | [Guide](patterns/infrastructure/cloud-infrastructure.md) |
 | **Android** | ⭐⭐⭐⭐ | 6-8 hrs | OS Updates, App Framework, Play Services | [Guide](patterns/infrastructure/mobile-platforms.md) |
-
-</div>
 
 
 ### Difficulty Levels
@@ -116,47 +112,45 @@ graph TD
 
 <div class="grid cards" markdown>
 
--   :material-server:{ .lg .middle } **Infrastructure**
+- :material-server:{ .lg .middle } **Infrastructure**
 
-    ---
+ ---
 
-    - Sharding & Partitioning
-    - Load Balancing (L4/L7)
-    - Service Mesh
-    - Multi-Region Architecture
+ - Sharding & Partitioning
+ - Load Balancing (L4/L7)
+ - Service Mesh
+ - Multi-Region Architecture
 
--   :material-database:{ .lg .middle } **Data**
+- :material-database:{ .lg .middle } **Data**
 
-    ---
+ ---
 
-    - Lambda Architecture
-    - Event Sourcing
-    - CQRS
-    - Data Lakes
+ - Lambda Architecture
+ - Event Sourcing
+ - CQRS
+ - Data Lakes
 
--   :material-robot:{ .lg .middle } **ML/AI**
+- :material-robot:{ .lg .middle } **ML/AI**
 
-    ---
+ ---
 
-    - Feature Stores
-    - Model Serving
-    - A/B Testing
-    - Feedback Loops
+ - Feature Stores
+ - Model Serving
+ - A/B Testing
+ - Feedback Loops
 
--   :material-cog:{ .lg .middle } **Operational**
+- :material-cog:{ .lg .middle } **Operational**
 
-    ---
+ ---
 
-    - SRE Practices
-    - Observability Stack
-    - Chaos Engineering
-    - Progressive Rollouts
+ - SRE Practices
+ - Observability Stack
+ - Chaos Engineering
+ - Progressive Rollouts
 
 </div>
 
 ### Common Evaluation Criteria
-
-<div class="responsive-table" markdown>
 
 | Criteria | Weight | What They Look For |
 |----------|--------|-------------------|
@@ -165,8 +159,6 @@ graph TD
 | **Technical Depth** | 25% | Knowledge of systems, technologies |
 | **Scale & Performance** | 15% | Handling growth, optimization strategies |
 | **Practical Experience** | 15% | Real-world insights, operational awareness |
-
-</div>
 
 
 ### Quick Wins for Interviews
@@ -214,14 +206,10 @@ graph TD
 ### 2-Week Crash Course (40 hours)
 **For:** Experienced engineers with solid distributed systems knowledge
 
-<div class="responsive-table" markdown>
-
 | Week | Focus | Hours | Key Activities |
 |------|-------|-------|----------------|
 | **1** | Foundations | 20 | • Review core patterns<br>• Study 5 Google systems<br>• Practice 5 problems |
 | **2** | Practice | 20 | • Mock interviews<br>• Deep dive 3 systems<br>• Refine approach |
-
-</div>
 
 
 [Detailed Plan →](study-plans.md#crash-course)
@@ -229,15 +217,11 @@ graph TD
 ### 📖 6-Week Comprehensive (120 hours)
 **For:** Engineers wanting thorough preparation
 
-<div class="responsive-table" markdown>
-
 | Week | Focus | Hours | Key Activities |
 |------|-------|-------|----------------|
 | **1-2** | Fundamentals | 40 | • Master all patterns<br>• Understand Google philosophy |
 | **3-4** | Systems Study | 40 | • Deep dive 15 systems<br>• Build mental models |
 | **5-6** | Practice | 40 | • 15+ mock problems<br>• Refine communication |
-
-</div>
 
 
 [Detailed Plan →](study-plans.md#comprehensive)
@@ -245,15 +229,11 @@ graph TD
 ### 🎓 12-Week Mastery Path (240 hours)
 **For:** Career changers or those targeting Staff+ roles
 
-<div class="responsive-table" markdown>
-
 | Phase | Weeks | Focus | Outcome |
 |-------|-------|-------|---------|
 | **Foundation** | 1-4 | Theory & Patterns | Deep understanding of distributed systems |
 | **Application** | 5-8 | Google Systems | Expertise in 20+ systems |
 | **Mastery** | 9-12 | Practice & Polish | Interview readiness at Staff level |
-
-</div>
 
 
 [Detailed Plan →](study-plans.md#mastery)
@@ -262,37 +242,35 @@ graph TD
 
 <div class="grid cards" markdown>
 
--   :material-hand-wave:{ .lg .middle } **New to Google Interviews?**
+- :material-hand-wave:{ .lg .middle } **New to Google Interviews?**
 
-    ---
+ ---
 
-    Start with the [Complete Study Guide](study-guide.md) for a structured approach
+ Start with the [Complete Study Guide](study-guide.md) for a structured approach
 
--   :material-clock-fast:{ .lg .middle } **Short on Time?**
+- :material-clock-fast:{ .lg .middle } **Short on Time?**
 
-    ---
+ ---
 
-    Jump to [Quick Reference](quick-reference.md) and [Cheat Sheets](cheat-sheets.md)
+ Jump to [Quick Reference](quick-reference.md) and [Cheat Sheets](cheat-sheets.md)
 
--   :material-dumbbell:{ .lg .middle } **Ready to Practice?**
+- :material-dumbbell:{ .lg .middle } **Ready to Practice?**
 
-    ---
+ ---
 
-    Try our [Mock Problems](practice-problems.md) with solutions
+ Try our [Mock Problems](practice-problems.md) with solutions
 
--   :material-school:{ .lg .middle } **Want Mastery?**
+- :material-school:{ .lg .middle } **Want Mastery?**
 
-    ---
+ ---
 
-    Follow the [12-Week Path](study-plans.md#mastery) for comprehensive preparation
+ Follow the [12-Week Path](study-plans.md#mastery) for comprehensive preparation
 
 </div>
 
 ## Success Metrics
 
 Track your progress with these benchmarks:
-
-<div class="responsive-table" markdown>
 
 | Milestone | Target | Indicator |
 |-----------|--------|-----------|
@@ -302,10 +280,8 @@ Track your progress with these benchmarks:
 | **Communication** | Clear | Structured, visual, comprehensive responses |
 | **Trade-off Analysis** | 5+ | Options considered per major decision |
 
-</div>
-
 
 ---
 
 !!! tip "Pro Tip"
-    The key to Google interviews isn't memorizing solutions—it's understanding the principles behind Google's approach to building planetary-scale systems. Focus on the "why" behind each design decision.
+ The key to Google interviews isn't memorizing solutions—it's understanding the principles behind Google's approach to building planetary-scale systems. Focus on the "why" behind each design decision.

@@ -158,8 +158,6 @@ d) Cognitive Load
 
 ## Quiz Results Interpretation
 
-<div class="responsive-table" markdown>
-
 | Score | Level | What It Means |
 |-------|-------|---------------|
 | 0-3 | Beginner | Review laws fundamentals |
@@ -167,14 +165,10 @@ d) Cognitive Load
 | 7-9 | Advanced | Ready for complex scenarios |
 | 10+ | Expert | Teach others! |
 
-</div>
-
 
 ## Law Mastery Assessment
 
 Rate your understanding of each law:
-
-<div class="responsive-table" markdown>
 
 | Law | Concept | Math/Formulas | Real Applications | Trade-offs |
 |-------|---------|---------------|-------------------|------------|
@@ -186,16 +180,12 @@ Rate your understanding of each law:
 | 6. Cognitive Load 🤯 | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
 | 7. Economic Reality 💰 | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ | ⬜⬜⬜⬜⬜ |
 
-</div>
-
 
 Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Confident
 
 ## Common Misconceptions
 
 ### ❌ Myth vs ✅ Reality
-
-<div class="responsive-table" markdown>
 
 | Myth | Reality | Law |
 |------|---------|-------|
@@ -204,8 +194,6 @@ Fill in boxes to track progress: ⬜ = Not started, 🟦 = Learning, 🟩 = Conf
 | "100% uptime is possible" | Failures are inevitable and correlated | Law 1: Correlated Failure |
 | "Strong consistency is always best" | It has latency and availability costs | Law 4: Multidimensional Optimization |
 | "More monitoring is always better" | Observer effect has cognitive and economic costs | Laws 6 & 7 |
-
-</div>
 
 
 ## Study Resources by Learning Style

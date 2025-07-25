@@ -40,8 +40,6 @@ Alice → WhatsApp Server → Bob           Alice → [Encrypted] → Bob
 
 ### Real-World Implementations
 
-<div class="responsive-table" markdown>
-
 | Company | Product | Users | Implementation |
 |---------|---------|-------|----------------|
 | **WhatsApp** | Messaging | 2B+ | Signal Protocol |
@@ -49,8 +47,6 @@ Alice → WhatsApp Server → Bob           Alice → [Encrypted] → Bob
 | **ProtonMail** | Email | 70M+ | PGP-based E2E |
 | **Zoom** | Video calls | 300M+ | E2E meetings option |
 | **Apple** | iMessage | 1.3B+ | Apple's E2E protocol |
-
-</div>
 
 
 ### Visual Comparison
@@ -529,8 +525,6 @@ class E2EGroupChat:
 
 ### Security Properties
 
-<div class="responsive-table" markdown>
-
 | Property | Description | Implementation |
 |----------|-------------|----------------|
 | **Confidentiality** | Only intended recipients can read | Public key encryption |
@@ -539,8 +533,6 @@ class E2EGroupChat:
 | **Authentication** | Verify sender identity | Digital signatures |
 | **Integrity** | Detect message tampering | HMAC/authenticated encryption |
 | **Deniability** | Plausible deniability of messages | No long-term signatures |
-
-</div>
 
 
 ---
@@ -1901,8 +1893,6 @@ class E2EImpactAnalysis:
 
 ### E2E Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Factor | Use E2E | Use Standard Encryption |
 |--------|---------|------------------------|
 | **Data Sensitivity** | High (PII, medical, financial) | Low (public content) |
@@ -1911,8 +1901,6 @@ class E2EImpactAnalysis:
 | **Performance Needs** | Can tolerate overhead | Minimal latency |
 | **Features Required** | Privacy > Features | Full features |
 | **User Base** | Privacy-conscious | General public |
-
-</div>
 
 
 ### Implementation Checklist

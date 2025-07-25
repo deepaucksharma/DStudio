@@ -16,38 +16,37 @@ last_updated: 2025-07-20
 
 ```mermaid
 graph LR
-    Problem["System Problem"] --> Measure["Measure It"]
-    Measure --> Model["Model It"]
-    Model --> Math["Apply Math"]
-    Math --> Predict["Predict Limits"]
-    Predict --> Design["Design Solution"]
-    
-    style Problem fill:#dc2626,color:#fff
-    style Design fill:#16a34a,color:#fff
+ Problem["System Problem"] --> Measure["Measure It"]
+ Measure --> Model["Model It"]
+ Model --> Math["Apply Math"]
+ Math --> Predict["Predict Limits"]
+ Predict --> Design["Design Solution"]
+ 
+ style Problem fill:#dc2626,color:#fff
+ style Design fill:#16a34a,color:#fff
 ```
 
 ## Chapters
 
-<div class="quantitative-sections">
-
-<div class="quant-category">
+!!! info
+ <div class="quant-category">
 <h3>⏱️ Latency & Performance</h3>
 <div class="quant-grid">
 
 <a href="latency-ladder.md" class="quant-card">
-<div class="quant-icon">🪜</div>
+<div class="quant-icon">🪜
 <h4>Latency Ladder 2025</h4>
 <p>Know your physics: every operation has a cost</p>
 </a>
 
 <a href="littles-law.md" class="quant-card">
-<div class="quant-icon">📐</div>
+📐
 <h4>Little's Law Deep-Dive</h4>
 <p>The most important equation in systems thinking</p>
 </a>
 
 <a href="queueing-models.md" class="quant-card">
-<div class="quant-icon">📊</div>
+📊
 <h4>Queueing Theory</h4>
 <p>When will your system hit the wall?</p>
 </a>
@@ -55,18 +54,17 @@ graph LR
 </div>
 </div>
 
-<div class="quant-category">
 <h3>📈 Scaling Laws</h3>
 <div class="quant-grid">
 
 <a href="amdahl-gustafson.md" class="quant-card">
-<div class="quant-icon">🔀</div>
+<div class="quant-icon">🔀
 <h4>Amdahl & Gustafson Laws</h4>
 <p>The limits of parallelization</p>
 </a>
 
 <a href="universal-scalability.md" class="quant-card">
-<div class="quant-icon">🌐</div>
+🌐
 <h4>Universal Scalability Law</h4>
 <p>Why systems don't scale linearly</p>
 </a>
@@ -74,30 +72,29 @@ graph LR
 </div>
 </div>
 
-<div class="quant-category">
 <h3>💰 Economics & Planning</h3>
 <div class="quant-grid">
 
 <a href="coordination-costs.md" class="quant-card">
-<div class="quant-icon">🤝</div>
+<div class="quant-icon">🤝
 <h4>Coordination Costs</h4>
 <p>The hidden tax of distributed systems</p>
 </a>
 
 <a href="cache-economics.md" class="quant-card">
-<div class="quant-icon">💾</div>
+💾
 <h4>Cache Economics</h4>
 <p>When caching saves money</p>
 </a>
 
 <a href="availability-math.md" class="quant-card">
-<div class="quant-icon">✅</div>
+✅
 <h4>Availability Math</h4>
 <p>Building reliable systems from unreliable parts</p>
 </a>
 
 <a href="capacity-planning.md" class="quant-card">
-<div class="quant-icon">📊</div>
+📊
 <h4>Capacity Planning</h4>
 <p>Right-sizing for the future</p>
 </a>
@@ -105,12 +102,11 @@ graph LR
 </div>
 </div>
 
-<div class="quant-category">
 <h3>🎯 Practice</h3>
 <div class="quant-grid">
 
 <a href="problem-set.md" class="quant-card">
-<div class="quant-icon">📝</div>
+<div class="quant-icon">📝
 <h4>Numerical Problem Set</h4>
 <p>Practice problems with real-world parameters</p>
 </a>
@@ -122,8 +118,6 @@ graph LR
 
 ## Key Equations You'll Actually Use
 
-<div class="responsive-table" markdown>
-
 | Concept | Formula | What It Tells You | Real Example |
 |---------|---------|------------------|---------------|
 | **Little's Law** | L = λW | Items in system = arrival rate × wait time | 1000 users = 100/s × 10s |
@@ -133,39 +127,35 @@ graph LR
 | **Availability** | A = MTBF/(MTBF+MTTR) | Uptime percentage | 99.9% = 43 min/month down |
 | **Cost per Request** | $/req = (Fixed + Variable)/QPS | Economics of scale | Drops 10x at 100x volume |
 
-</div>
-
 
 ## Your 3-Step Process
 
 ```mermaid
 graph TD
-    subgraph "1. Design Phase"
-        D1["Define SLA<br/>(99.9%, <100ms)"] --> D2["Apply Little's Law<br/>(size queues)"]
-        D2 --> D3["Check scaling limits<br/>(Amdahl/USL)"]
-        D3 --> D4["Validate cost<br/>($X per request)"]
-    end
-    
-    subgraph "2. Debug Phase"
-        B1["Measure reality<br/>(p99 = 250ms)"] --> B2["Compare to model<br/>(expected 100ms)"]
-        B2 --> B3["Find bottleneck<br/>(DB at 95%)"]
-        B3 --> B4["Quantify fix<br/>(shard = 50ms)"]
-    end
-    
-    subgraph "3. Capacity Phase"
-        C1["Current baseline<br/>(1K QPS)"] --> C2["Growth projection<br/>(10K in 6mo)"]
-        C2 --> C3["Model limits<br/>(breaks at 8K)"]
-        C3 --> C4["Plan upgrade<br/>(+3 servers)"]
-    end
-    
-    style D1 fill:#e1f5fe
-    style B1 fill:#fee2e2
-    style C1 fill:#dcfce7
+ subgraph "1. Design Phase"
+ D1["Define SLA<br/>(99.9%, <100ms)"] --> D2["Apply Little's Law<br/>(size queues)"]
+ D2 --> D3["Check scaling limits<br/>(Amdahl/USL)"]
+ D3 --> D4["Validate cost<br/>($X per request)"]
+ end
+ 
+ subgraph "2. Debug Phase"
+ B1["Measure reality<br/>(p99 = 250ms)"] --> B2["Compare to model<br/>(expected 100ms)"]
+ B2 --> B3["Find bottleneck<br/>(DB at 95%)"]
+ B3 --> B4["Quantify fix<br/>(shard = 50ms)"]
+ end
+ 
+ subgraph "3. Capacity Phase"
+ C1["Current baseline<br/>(1K QPS)"] --> C2["Growth projection<br/>(10K in 6mo)"]
+ C2 --> C3["Model limits<br/>(breaks at 8K)"]
+ C3 --> C4["Plan upgrade<br/>(+3 servers)"]
+ end
+ 
+ style D1 fill:#e1f5fe
+ style B1 fill:#fee2e2
+ style C1 fill:#dcfce7
 ```
 
 ## Quick Decision Guide
-
-<div class="responsive-table" markdown>
 
 | If You're Wondering... | Use This Tool | Quick Answer |
 |------------------------|---------------|---------------|
@@ -176,14 +166,10 @@ graph TD
 | "Is caching worth it?" | Cache Economics | If hit rate > 1 - (cache_cost/db_cost) |
 | "When will I run out of capacity?" | Capacity Planning | Draw the curve, find intersection |
 
-</div>
-
 
 ## Start Here: The 20% That Gives 80% Value
 
 ### Must-Know Numbers (Memorize These)
-
-<div class="responsive-table" markdown>
 
 | Operation | Latency | Relative | Real Impact |
 |-----------|---------|----------|-------------|
@@ -193,8 +179,6 @@ graph TD
 | Network (same DC) | 500 μs | 500,000x | Batch operations |
 | Network (cross-region) | 50 ms | 50,000,000x | Geo-replicate |
 | Disk seek | 10 ms | 10,000,000x | Use SSDs |
-
-</div>
 
 
 ### Three Rules That Prevent 90% of Problems
@@ -207,12 +191,12 @@ graph TD
 
 ```mermaid
 graph LR
-    Read["Read Latency Ladder<br/>5 min"] --> Learn["Learn Little's Law<br/>5 min"]
-    Learn --> Apply["Size one system<br/>5 min"]
-    Apply --> Win["You're dangerous!"]
-    
-    style Read fill:#e1f5fe
-    style Win fill:#16a34a,color:#fff
+ Read["Read Latency Ladder<br/>5 min"] --> Learn["Learn Little's Law<br/>5 min"]
+ Learn --> Apply["Size one system<br/>5 min"]
+ Apply --> Win["You're dangerous!"]
+ 
+ style Read fill:#e1f5fe
+ style Win fill:#16a34a,color:#fff
 ```
 
 ## Next Steps

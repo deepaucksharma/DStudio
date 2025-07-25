@@ -83,16 +83,12 @@ graph TB
 - **Rural challenges**: Sparse network coverage
 
 ### 3. Battery Efficiency
-<div class="responsive-table" markdown>
-
 | Component | Power Strategy | Impact |
 |-----------|---------------|---------|
 | BLE Advertising | Duty cycling | <1% daily battery |
 | Scanning | Opportunistic | Piggyback on other BLE |
 | Reporting | Batched uploads | Reduce radio usage |
 | Encryption | Hardware acceleration | Minimal CPU impact |
-
-</div>
 
 
 ### 4. Anti-Stalking Measures

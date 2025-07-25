@@ -207,8 +207,6 @@ sequenceDiagram
 
 ### Comprehensive Law Mapping Table
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
 | **Feature Store** | Pre-computed features <10ms | Distributed storage scales | Replicated for availability | Lock-free reads | Eventually consistent updates | Feature freshness metrics | Centralized feature catalog | Reusable features reduce compute |
@@ -220,8 +218,6 @@ sequenceDiagram
 | **Contextual Bandits** | Fast exploration decisions | Scales with user base | Fails safe to exploitation | Per-user state | No global coordination | Exploration metrics | Discover new content | Balances revenue/discovery |
 | **Microservices** | Service-level optimization | Independent scaling | Fault isolation | Service autonomy | API contracts only | Distributed tracing | Clean API boundaries | Per-service cost tracking |
 | **A/B Testing Platform** | Minimal overhead | Scales to millions | Experiment isolation | Parallel experiments | Statistical significance | Experiment dashboards | Data-driven decisions | ROI measurement |
-
-</div>
 
 
 ### Detailed Law Application
@@ -503,8 +499,6 @@ graph TB
 
 ### Comprehensive Comparison Matrix
 
-<div class="responsive-table" markdown>
-
 | Aspect | Pure CF | Content-Based | Deep Learning | Graph-Based | Spotify Hybrid |
 |--------|---------|---------------|---------------|-------------|----------------|
 | **Cold Start Problem** | ❌ Severe | ✅ None | ⚠️ Moderate | ⚠️ Moderate | ✅ Handled |
@@ -516,12 +510,8 @@ graph TB
 | **Development Complexity** | ✅ Simple | ✅ Simple | ❌ Complex | ❌ Complex | ❌ Very complex |
 | **Personalization Depth** | ⚠️ Behavioral only | ❌ Content only | ✅ Learned features | ✅ Rich relations | ✅ All signals |
 
-</div>
-
 
 ### Decision Factors by Use Case
-
-<div class="responsive-table" markdown>
 
 | Use Case | Best Architecture | Rationale |
 |----------|-------------------|-----------|
@@ -534,12 +524,8 @@ graph TB
 | **Live Radio** | Contextual Bandits | Real-time adaptation |
 | **Music Discovery** | Graph + DL | Exploration focus |
 
-</div>
-
 
 ### Cost-Benefit Analysis
-
-<div class="responsive-table" markdown>
 
 | Architecture | Initial Cost | Operational Cost | Recommendation Quality | Time to Market |
 |--------------|--------------|------------------|----------------------|----------------|
@@ -548,8 +534,6 @@ graph TB
 | Deep Learning | 💵💵💵💵 | 💵💵💵💵 | ⭐⭐⭐⭐⭐ | 6+ months |
 | Graph-Based | 💵💵💵 | 💵💵💵 | ⭐⭐⭐⭐ | 4 months |
 | Spotify Hybrid | 💵💵💵💵💵 | 💵💵💵 | ⭐⭐⭐⭐⭐ | 12+ months |
-
-</div>
 
 
 ## Production Metrics

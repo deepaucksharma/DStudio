@@ -47,8 +47,6 @@ Real System:
 
 ## Rate Limiting Algorithms
 
-<div class="responsive-table" markdown>
-
 | Algorithm | Memory | Accuracy | Burst | Best For |
 |-----------|--------|----------|-------|----------|
 | **Fixed Window** | O(1) | Low | Poor | Simple APIs |
@@ -56,8 +54,6 @@ Real System:
 | **Sliding Window** | O(1) | High | Good | Most apps |
 | **Token Bucket** | O(1) | Medium | Configurable | Bursty traffic |
 | **Leaky Bucket** | O(1) | Medium | None | Steady streams |
-
-</div>
 
 
 ## Algorithm Examples
@@ -2268,8 +2264,6 @@ cost_based:
 
 ## Performance Impact Analysis
 
-<div class="responsive-table" markdown>
-
 | Implementation | Latency Added | Memory per Key | CPU Impact | Accuracy |
 |----------------|---------------|----------------|------------|----------|
 | Fixed Window | <0.1ms | 16 bytes | Minimal | 60-70% |
@@ -2278,16 +2272,12 @@ cost_based:
 | Token Bucket | <0.3ms | 24 bytes | Low | 90-95% |
 | ML-Enhanced | <5ms | ~2KB | High | 95-99% |
 
-</div>
-
 
 ---
 
 ## Summary
 
 ## Key Takeaways by Level
-
-<div class="responsive-table" markdown>
 
 | Level | Core Concept | When You're Ready |
 |-------|--------------|-------------------|
@@ -2296,8 +2286,6 @@ cost_based:
 | **Level 3** | Distributed rate limiting requires careful state management | Scaling beyond single server |
 | **Level 4** | Real companies save millions with sophisticated rate limiting | Building production systems |
 | **Level 5** | AI and quantum computing will revolutionize rate limiting | Pushing the boundaries |
-
-</div>
 
 
 ## Economic Impact Calculator

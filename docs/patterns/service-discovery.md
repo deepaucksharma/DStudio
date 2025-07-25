@@ -65,16 +65,12 @@ class SimpleServiceRegistry:
 
 ## Level 2: Foundation
 
-<div class="responsive-table" markdown>
-
 | Pattern | Description | Trade-offs |
 |---------|-------------|------------|
 | **Client-Side** | Clients query registry | Complex clients, simple infra |
 | **Server-Side** | Load balancer queries | Simple clients, complex infra |
 | **DNS-Based** | DNS as registry | Limited metadata, caching |
 | **Gossip-Based** | P2P discovery | Eventually consistent |
-
-</div>
 
 
 ### Architecture Patterns
@@ -429,8 +425,6 @@ def bloom_filter_discovery(services: dict) -> dict:
 
 ### Discovery Method Selection
 
-<div class="responsive-table" markdown>
-
 | Scenario | Recommended | Rationale |
 |----------|-------------|------------|
 | Kubernetes | K8s DNS/API | Native integration |
@@ -438,8 +432,6 @@ def bloom_filter_discovery(services: dict) -> dict:
 | Small scale | Eureka | Simple setup |
 | Large scale | Custom + cache | Performance |
 | Global | Federation | Locality aware |
-
-</div>
 
 
 ### Multi-Region Architecture

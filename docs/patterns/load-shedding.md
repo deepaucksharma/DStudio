@@ -116,8 +116,6 @@ class SimpleLoadShedder:
 
 ### Load Shedding Strategies
 
-<div class="responsive-table" markdown>
-
 | Strategy | Description | Use Case |
 |----------|-------------|----------|
 | **Random** | Drop random percentage | Simple, fair distribution |
@@ -125,8 +123,6 @@ class SimpleLoadShedder:
 | **Cost-based** | Drop expensive operations | Resource optimization |
 | **User-based** | Drop by user tier | SaaS with tiers |
 | **Age-based** | Drop oldest requests | Real-time systems |
-
-</div>
 
 
 ### Load Shedding State Machine
@@ -162,8 +158,6 @@ stateDiagram-v2
 
 ### Priority-Based Shedding Strategy
 
-<div class="responsive-table" markdown>
-
 | Load Level | Critical | High | Normal | Low | Strategy |
 |------------|----------|------|--------|-----|----------|
 | 0-50% | 100% | 100% | 100% | 100% | Accept all |
@@ -171,8 +165,6 @@ stateDiagram-v2
 | 70-85% | 100% | 90% | 50% | 10% | Active shedding |
 | 85-95% | 100% | 50% | 10% | 0% | Essential only |
 | >95% | 80% | 10% | 0% | 0% | Emergency mode |
-
-</div>
 
 
 ### Implementing Priority-Based Load Shedding
@@ -734,8 +726,6 @@ class OptimalLoadShedder:
 
 ### Load Shedding Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | System Load | Strategy | Action |
 |-------------|----------|--------|
 | < 50% | Normal operation | Accept all |
@@ -743,8 +733,6 @@ class OptimalLoadShedder:
 | 70-85% | Active shedding | Drop by priority/cost |
 | 85-95% | Aggressive | Essential traffic only |
 | > 95% | Emergency | Survival mode |
-
-</div>
 
 
 ### Implementation Checklist

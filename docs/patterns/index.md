@@ -16,42 +16,40 @@ last_updated: 2025-07-25
 
 ```mermaid
 graph TD
-    Start["System Problem"] --> Scale{Scale?}
-    
-    Scale -->|"< 1K RPS"| Small[Small Scale]
-    Scale -->|"1K-100K RPS"| Medium[Medium Scale]
-    Scale -->|"> 100K RPS"| Large[Large Scale]
-    
-    Small --> S1{Issue Type?}
-    S1 -->|Performance| SP["Caching<br/>CDN"]
-    S1 -->|Reliability| SR["Health Check<br/>Timeout"]
-    S1 -->|Data| SD["Read-Through Cache<br/>Write-Through Cache"]
-    
-    Medium --> M1{Issue Type?}
-    M1 -->|Performance| MP["Sharding<br/>Load Balancing<br/>Auto-scaling"]
-    M1 -->|Reliability| MR["Circuit Breaker<br/>Bulkhead<br/>Rate Limiting"]
-    M1 -->|Data| MD["CQRS<br/>Event Sourcing<br/>CDC"]
-    
-    Large --> L1{Issue Type?}
-    L1 -->|Performance| LP["Edge Computing<br/>Geo-Replication<br/>Service Mesh"]
-    L1 -->|Reliability| LR["Chaos Engineering<br/>Multi-Region<br/>Cell-Based"]
-    L1 -->|Data| LD["Event Streaming<br/>Data Mesh<br/>Federated GraphQL"]
-    
-    style Start fill:#5448C8,color:#fff
-    style SP fill:#e1f5fe
-    style SR fill:#fee2e2
-    style SD fill:#fff3e0
-    style MP fill:#e1f5fe
-    style MR fill:#fee2e2
-    style MD fill:#fff3e0
-    style LP fill:#e1f5fe
-    style LR fill:#fee2e2
-    style LD fill:#fff3e0
+ Start["System Problem"] --> Scale{Scale?}
+ 
+ Scale -->|"< 1K RPS"| Small[Small Scale]
+ Scale -->|"1K-100K RPS"| Medium[Medium Scale]
+ Scale -->|"> 100K RPS"| Large[Large Scale]
+ 
+ Small --> S1{Issue Type?}
+ S1 -->|Performance| SP["Caching<br/>CDN"]
+ S1 -->|Reliability| SR["Health Check<br/>Timeout"]
+ S1 -->|Data| SD["Read-Through Cache<br/>Write-Through Cache"]
+ 
+ Medium --> M1{Issue Type?}
+ M1 -->|Performance| MP["Sharding<br/>Load Balancing<br/>Auto-scaling"]
+ M1 -->|Reliability| MR["Circuit Breaker<br/>Bulkhead<br/>Rate Limiting"]
+ M1 -->|Data| MD["CQRS<br/>Event Sourcing<br/>CDC"]
+ 
+ Large --> L1{Issue Type?}
+ L1 -->|Performance| LP["Edge Computing<br/>Geo-Replication<br/>Service Mesh"]
+ L1 -->|Reliability| LR["Chaos Engineering<br/>Multi-Region<br/>Cell-Based"]
+ L1 -->|Data| LD["Event Streaming<br/>Data Mesh<br/>Federated GraphQL"]
+ 
+ style Start fill:#5448C8,color:#fff
+ style SP fill:#e1f5fe
+ style SR fill:#fee2e2
+ style SD fill:#fff3e0
+ style MP fill:#e1f5fe
+ style MR fill:#fee2e2
+ style MD fill:#fff3e0
+ style LP fill:#e1f5fe
+ style LR fill:#fee2e2
+ style LD fill:#fff3e0
 ```
 
 ## Pattern Decision Matrix
-
-<div class="responsive-table" markdown>
 
 | Problem | Symptoms | Pattern Solution | Complexity | Cost Impact | Time to Implement |
 |---------|----------|------------------|------------|-------------|-------------------|
@@ -62,12 +60,8 @@ graph TD
 | **Complex Workflows** | Distributed transactions | → Saga → Choreography | High | $ | Weeks → Months |
 | **No Visibility** | Can't debug production | → Observability → Service Mesh | Medium → High | $$ → $$$ | Weeks → Months |
 
-</div>
-
 
 ## Pattern Effectiveness Matrix
-
-<div class="responsive-table" markdown>
 
 | Pattern | Problem Solved | Success Rate | Overhead | Team Size | Learning Curve |
 |---------|---------------|--------------|----------|-----------|----------------|
@@ -78,12 +72,8 @@ graph TD
 | **Service Mesh** | Observability | 90% | High | 5-10 | Hard |
 | **Sharding** | Data Scale | 80% | High | 4-8 | Hard |
 
-</div>
-
 
 ## Pattern Selection by Constraints
-
-<div class="responsive-table" markdown>
 
 | If You Have... | Avoid These | Use These Instead | Why |
 |----------------|-------------|-------------------|-----|
@@ -93,48 +83,44 @@ graph TD
 | Strict consistency | Eventual consistency patterns | 2PC, Distributed locks | Data integrity |
 | < 1GB data | Sharding, NoSQL | PostgreSQL | Unnecessary complexity |
 
-</div>
-
 
 ## Pattern Maturity & Adoption
 
 ```mermaid
 graph LR
-    subgraph "Emerging"
-        E1[Data Mesh]
-        E2[Cell-Based]
-        E3[eBPF Observability]
-    end
-    
-    subgraph "Growing"
-        G1[Service Mesh]
-        G2[Event Streaming]
-        G3[GraphQL Federation]
-    end
-    
-    subgraph "Mature"
-        M1[Load Balancing]
-        M2[Caching]
-        M3[Circuit Breaker]
-    end
-    
-    subgraph "Essential"
-        ES1[Timeout]
-        ES2[Health Check]
-        ES3[Retry]
-    end
-    
-    E1 --> G1 --> M1 --> ES1
-    
-    style E1 fill:#fef3c7
-    style G1 fill:#dbeafe
-    style M1 fill:#d1fae5
-    style ES1 fill:#e0e7ff
+ subgraph "Emerging"
+ E1[Data Mesh]
+ E2[Cell-Based]
+ E3[eBPF Observability]
+ end
+ 
+ subgraph "Growing"
+ G1[Service Mesh]
+ G2[Event Streaming]
+ G3[GraphQL Federation]
+ end
+ 
+ subgraph "Mature"
+ M1[Load Balancing]
+ M2[Caching]
+ M3[Circuit Breaker]
+ end
+ 
+ subgraph "Essential"
+ ES1[Timeout]
+ ES2[Health Check]
+ ES3[Retry]
+ end
+ 
+ E1 --> G1 --> M1 --> ES1
+ 
+ style E1 fill:#fef3c7
+ style G1 fill:#dbeafe
+ style M1 fill:#d1fae5
+ style ES1 fill:#e0e7ff
 ```
 
 ## Quick Pattern Finder
-
-<div class="responsive-table" markdown>
 
 | Your Situation | Recommended Pattern Stack | Expected Results |
 |----------------|--------------------------|------------------|
@@ -144,63 +130,59 @@ graph LR
 | **Enterprise Scale** | + Service Mesh + Multi-region + Event Sourcing | 1M+ concurrent users |
 | **Unicorn Scale** | + Edge Computing + Cell-Based + Chaos Engineering | 100M+ concurrent users |
 
-</div>
-
 
 ## Pattern Categories
 
 <div class="grid cards" markdown>
 
--   :material-city:{ .lg .middle } **Core Patterns**
+- :material-city:{ .lg .middle } **Core Patterns**
 
-    ---
+ ---
 
-    **Complexity**: Medium-High  
-    **Prerequisites**: Basic distributed systems  
-    **Start with**: Queues & Streaming  
-    **ROI Timeline**: 2-4 weeks
+ **Complexity**: Medium-High 
+ **Prerequisites**: Basic distributed systems 
+ **Start with**: Queues & Streaming 
+ **ROI Timeline**: 2-4 weeks
 
--   :material-shield-check:{ .lg .middle } **Resilience Patterns**
+- :material-shield-check:{ .lg .middle } **Resilience Patterns**
 
-    ---
+ ---
 
-    **Complexity**: Low-Medium  
-    **Prerequisites**: Production experience  
-    **Start with**: Circuit Breaker  
-    **ROI Timeline**: 1-2 weeks
+ **Complexity**: Low-Medium 
+ **Prerequisites**: Production experience 
+ **Start with**: Circuit Breaker 
+ **ROI Timeline**: 1-2 weeks
 
--   :material-database:{ .lg .middle } **Data Patterns**
+- :material-database:{ .lg .middle } **Data Patterns**
 
-    ---
+ ---
 
-    **Complexity**: High  
-    **Prerequisites**: Database fundamentals  
-    **Start with**: Caching Strategies  
-    **ROI Timeline**: 3-6 weeks
+ **Complexity**: High 
+ **Prerequisites**: Database fundamentals 
+ **Start with**: Caching Strategies 
+ **ROI Timeline**: 3-6 weeks
 
--   :material-handshake:{ .lg .middle } **Coordination Patterns**
+- :material-handshake:{ .lg .middle } **Coordination Patterns**
 
-    ---
+ ---
 
-    **Complexity**: High  
-    **Prerequisites**: Consensus algorithms  
-    **Start with**: Leader Election  
-    **ROI Timeline**: 4-8 weeks
+ **Complexity**: High 
+ **Prerequisites**: Consensus algorithms 
+ **Start with**: Leader Election 
+ **ROI Timeline**: 4-8 weeks
 
--   :material-cog:{ .lg .middle } **Operational Patterns**
+- :material-cog:{ .lg .middle } **Operational Patterns**
 
-    ---
+ ---
 
-    **Complexity**: Medium  
-    **Prerequisites**: DevOps basics  
-    **Start with**: Observability  
-    **ROI Timeline**: 2-3 weeks
+ **Complexity**: Medium 
+ **Prerequisites**: DevOps basics 
+ **Start with**: Observability 
+ **ROI Timeline**: 2-3 weeks
 
 </div>
 
 ### Pattern Catalog
-
-<div class="responsive-table" markdown>
 
 | Pattern | Category | Problem Solved | When to Use | Complexity | Link |
 |---------|----------|----------------|-------------|------------|------|
@@ -226,50 +208,46 @@ graph LR
 | **Auto-scaling** | ⚙️ Operational | Variable load | Cloud deployments | 🟡 Medium | [📈](auto-scaling.md) |
 | **Load Balancing** | ⚙️ Operational | Request distribution | > 1 server | 🟢 Low | [⚖️](load-balancing.md) |
 
-</div>
-
 
 ### Pattern Combinations That Work
 
 ```mermaid
 graph LR
-    subgraph "Starter Pack"
-        S1[Load Balancer]
-        S2[Health Check]
-        S3[Timeout]
-        S1 --> S2 --> S3
-    end
-    
-    subgraph "Reliability Pack"
-        R1[Circuit Breaker]
-        R2[Retry + Backoff]
-        R3[Bulkhead]
-        R1 --> R2 --> R3
-    end
-    
-    subgraph "Data Pack"
-        D1[CQRS]
-        D2[Event Sourcing]
-        D3[Saga]
-        D1 --> D2 --> D3
-    end
-    
-    subgraph "Scale Pack"
-        SC1[Sharding]
-        SC2[Caching]
-        SC3[CDN]
-        SC1 --> SC2 --> SC3
-    end
-    
-    style S1 fill:#e0f2fe
-    style R1 fill:#fee2e2
-    style D1 fill:#fef3c7
-    style SC1 fill:#dcfce7
+ subgraph "Starter Pack"
+ S1[Load Balancer]
+ S2[Health Check]
+ S3[Timeout]
+ S1 --> S2 --> S3
+ end
+ 
+ subgraph "Reliability Pack"
+ R1[Circuit Breaker]
+ R2[Retry + Backoff]
+ R3[Bulkhead]
+ R1 --> R2 --> R3
+ end
+ 
+ subgraph "Data Pack"
+ D1[CQRS]
+ D2[Event Sourcing]
+ D3[Saga]
+ D1 --> D2 --> D3
+ end
+ 
+ subgraph "Scale Pack"
+ SC1[Sharding]
+ SC2[Caching]
+ SC3[CDN]
+ SC1 --> SC2 --> SC3
+ end
+ 
+ style S1 fill:#e0f2fe
+ style R1 fill:#fee2e2
+ style D1 fill:#fef3c7
+ style SC1 fill:#dcfce7
 ```
 
 ## 🏢 Real-World Pattern Impact
-
-<div class="responsive-table" markdown>
 
 | Company | Pattern | Scale | Result | Key Metric |
 |---------|---------|-------|--------|------------|
@@ -280,42 +258,38 @@ graph LR
 | **Uber** | Geo-sharding | 20M rides/day | Regional scale | 5x capacity |
 | **Stripe** | Idempotency | $640B/year | Payment safety | 100% accuracy |
 
-</div>
-
 
 ## 📚 Learning Paths
 
 ```mermaid
 graph TD
-    subgraph "🌱 Beginner (0-2 years)"
-        B1[Timeout] --> B2[Retry]
-        B2 --> B3[Caching]
-        B3 --> B4[Load Balancing]
-    end
-    
-    subgraph "🌳 Intermediate (2-5 years)"
-        I1[CQRS] --> I2[Event Sourcing]
-        I2 --> I3[Saga]
-        I3 --> I4[Service Mesh]
-    end
-    
-    subgraph "🌲 Advanced (5+ years)"
-        A1[Sharding] --> A2[Geo-Replication]
-        A2 --> A3[Edge Computing]
-        A3 --> A4[Cell-Based]
-    end
-    
-    B4 --> I1
-    I4 --> A1
-    
-    style B1 fill:#e0f2fe
-    style I1 fill:#fef3c7
-    style A1 fill:#fee2e2
+ subgraph "🌱 Beginner (0-2 years)"
+ B1[Timeout] --> B2[Retry]
+ B2 --> B3[Caching]
+ B3 --> B4[Load Balancing]
+ end
+ 
+ subgraph "🌳 Intermediate (2-5 years)"
+ I1[CQRS] --> I2[Event Sourcing]
+ I2 --> I3[Saga]
+ I3 --> I4[Service Mesh]
+ end
+ 
+ subgraph "🌲 Advanced (5+ years)"
+ A1[Sharding] --> A2[Geo-Replication]
+ A2 --> A3[Edge Computing]
+ A3 --> A4[Cell-Based]
+ end
+ 
+ B4 --> I1
+ I4 --> A1
+ 
+ style B1 fill:#e0f2fe
+ style I1 fill:#fef3c7
+ style A1 fill:#fee2e2
 ```
 
 ## ⚠ Anti-Patterns to Avoid
-
-<div class="responsive-table" markdown>
 
 | Anti-Pattern | Red Flag | Cost | Fix |
 |--------------|-----------|------|-----|
@@ -325,12 +299,8 @@ graph TD
 | **Resume-Driven** | K8s for 3 services | $10K/month | Right-size |
 | **Infinite Scale** | No capacity plan | $100K surprise | Model growth |
 
-</div>
-
 
 ## Pattern Success Metrics
-
-<div class="responsive-table" markdown>
 
 | Pattern | Metric | 🟢 Good | 🟡 Great | 🔴 Elite |
 |---------|--------|---------|----------|----------|
@@ -340,12 +310,8 @@ graph TD
 | **Auto-scaling** | Response during spike | < 2x | < 1.5x | < 1.1x |
 | **CQRS** | Read/write ratio | 10:1 | 100:1 | 1000:1 |
 
-</div>
-
 
 ## Implementation Checklist
-
-<div class="responsive-table" markdown>
 
 | Step | Question | Action | Common Mistake |
 |------|----------|--------|----------------|
@@ -355,14 +321,10 @@ graph TD
 | 4️⃣ | Total cost? | Include ops | Ignoring human cost |
 | 5️⃣ | Rollback? | Test it | No escape route |
 
-</div>
-
 
 ## 🔗 Navigation
 
 ### Pattern Resources
-<div class="responsive-table" markdown>
-
 | Resource | Purpose | Time |
 |----------|---------|------|
 | [📊 Pattern Comparison](pattern-comparison.md) | Side-by-side analysis | 15 min |
@@ -370,12 +332,8 @@ graph TD
 | [🔗 Pattern Combinations](pattern-combinations.md) | Synergies guide | 20 min |
 | [🧠 Pattern Quiz](pattern-quiz.md) | Test your knowledge | 10 min |
 
-</div>
-
 
 ### Patterns by Problem Domain
-<div class="responsive-table" markdown>
-
 | Domain | Key Patterns | Start With |
 |--------|--------------|------------|
 | **🔴 Reliability** | Circuit Breaker, Bulkhead, Retry | [Circuit Breaker](circuit-breaker.md) |
@@ -383,8 +341,6 @@ graph TD
 | **📈 Scalability** | Sharding, Load Balancing, Auto-scaling | [Load Balancing](load-balancing.md) |
 | **💾 Data** | CQRS, Event Sourcing, CDC | [CQRS](cqrs.md) |
 | **🤝 Coordination** | Saga, Leader Election, Distributed Lock | [Saga](saga.md) |
-
-</div>
 
 
 ### Case Studies

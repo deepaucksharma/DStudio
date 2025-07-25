@@ -949,8 +949,6 @@ graph TB
 
 ### 7.2 Consistency Models for Different Operations
 
-<div class="responsive-table" markdown>
-
 | Operation | Consistency Model | Implementation | Trade-offs |
 |-----------|------------------|----------------|------------|
 | **Room Search** | Eventual Consistency | Cached inventory with TTL | Fast search, may show stale availability |
@@ -960,8 +958,6 @@ graph TB
 | **Review Submission** | Eventual Consistency | Async processing | Can tolerate delays |
 | **Price Updates** | Causal Consistency | Vector clocks for ordering | Ensures price changes are ordered |
 | **Loyalty Points** | Read-After-Write | Session stickiness | Users see their own updates |
-
-</div>
 
 
 ### 7.3 Distributed Locking for Room Inventory
@@ -1102,8 +1098,6 @@ graph TB
 
 ### 7.8 Best Practices for Hotel Reservation Consistency
 
-<div class="responsive-table" markdown>
-
 | Practice | Description | Impact |
 |----------|-------------|--------|
 | **Pessimistic Locking** | Lock rooms during booking flow | Prevents double-booking but increases latency |
@@ -1113,8 +1107,6 @@ graph TB
 | **Saga Orchestration** | Coordinate multi-step bookings | Maintains consistency across services |
 | **Event Sourcing** | Log all inventory changes | Audit trail and recovery |
 | **CRDT for Reviews** | Conflict-free review aggregation | Eventually consistent ratings |
-
-</div>
 
 
 ### 7.9 Handling Network Partitions
@@ -1206,8 +1198,6 @@ graph TD
 
 ## Trade-offs and Decisions
 
-<div class="responsive-table" markdown>
-
 | Decision | Trade-off | Why This Choice |
 |----------|-----------|-----------------|
 | Distributed locking | Complexity vs consistency | Prevent overbooking critical |
@@ -1215,8 +1205,6 @@ graph TD
 | Multi-region deployment | Cost vs latency | Global customer base |
 | Async channel sync | Consistency vs availability | Can't let one channel block others |
 | ML-based pricing | Complexity vs revenue | 15-20% revenue increase |
-
-</div>
 
 
 ## 9. Real-World Patterns and Lessons

@@ -1,44 +1,40 @@
 # Interactive Tools & Calculators
 
-<div class="tools-showcase">
 <div class="tools-intro">
 <h2>🛠️ Distributed Systems Calculators</h2>
 <p>Interactive tools to help you make data-driven decisions for your distributed systems. Based on the mathematical principles from our <a href="../quantitative/index.md">Quantitative Toolkit</a>.</p>
-</div>
 
-<div class="tool-category">
 <h3>📊 Performance & Capacity</h3>
 <div class="tools-grid">
 
 <a href="latency-calculator.md" class="tool-card">
-<div class="tool-icon">⏱️</div>
-<div class="tool-name">Latency Calculator</div>
-<div class="tool-desc">Calculate end-to-end latency, network delays, and response times using Little's Law and queueing theory.</div>
+<div class="tool-icon">⏱️
+Latency Calculator
+Calculate end-to-end latency, network delays, and response times using Little's Law and queueing theory.
 </a>
 
 <a href="capacity-calculator.md" class="tool-card">
-<div class="tool-icon">📈</div>
-<div class="tool-name">Capacity Planning Calculator</div>
-<div class="tool-desc">Plan resource allocation, predict scaling needs, and optimize throughput based on workload patterns.</div>
+📈
+Capacity Planning Calculator
+Plan resource allocation, predict scaling needs, and optimize throughput based on workload patterns.
 </a>
 
 <a href="throughput-calculator.md" class="tool-card">
-<div class="tool-icon">🚀</div>
-<div class="tool-name">Throughput Optimizer</div>
-<div class="tool-desc">Find optimal batch sizes, concurrency levels, and pipeline configurations for maximum throughput.</div>
+🚀
+Throughput Optimizer
+Find optimal batch sizes, concurrency levels, and pipeline configurations for maximum throughput.
 </a>
 
 </div>
 </div>
 
-<div class="tool-category">
 <h3>🛡️ Reliability & Availability</h3>
 <div class="tools-grid">
 
 <a href="availability-calculator.md" class="tool-card">
-<div class="tool-icon">✅</div>
-<div class="tool-name">Availability Calculator</div>
-<div class="tool-desc">Calculate system availability, MTBF, MTTR, and the impact of redundancy on uptime.</div>
+<div class="tool-icon">✅
+Availability Calculator
+Calculate system availability, MTBF, MTTR, and the impact of redundancy on uptime.
 </a>
 
 <!-- Coming Soon: Failure Probability Estimator -->
@@ -48,14 +44,13 @@
 </div>
 </div>
 
-<div class="tool-category">
 <h3>💰 Cost & Economics</h3>
 <div class="tools-grid">
 
 <a href="cost-optimizer.md" class="tool-card">
-<div class="tool-icon">💵</div>
-<div class="tool-name">Cost Optimization Calculator</div>
-<div class="tool-desc">Compare on-premise vs cloud costs, calculate TCO, and find optimal resource allocation.</div>
+<div class="tool-icon">💵
+Cost Optimization Calculator
+Compare on-premise vs cloud costs, calculate TCO, and find optimal resource allocation.
 </a>
 
 <!-- Coming Soon: Architecture ROI Calculator -->
@@ -65,14 +60,13 @@
 </div>
 </div>
 
-<div class="tool-category">
 <h3>🎯 Decision Support</h3>
 <div class="tools-grid">
 
 <a href="consistency-calculator.md" class="tool-card">
-<div class="tool-icon">🔄</div>
-<div class="tool-name">Consistency Calculator</div>
-<div class="tool-desc">Explore CAP theorem trade-offs, calculate consistency guarantees, and compare consistency models.</div>
+<div class="tool-icon">🔄
+Consistency Calculator
+Explore CAP theorem trade-offs, calculate consistency guarantees, and compare consistency models.
 </a>
 
 <!-- Coming Soon: Partition Strategy Simulator -->
@@ -102,11 +96,11 @@ Each calculator is based on solid mathematical foundations:
 5. **Make informed decisions** - Use results to guide architecture choices
 
 !!! tip "Pro Tip"
-    Combine multiple calculators for comprehensive analysis. For example:
-    
-    1. Use the **Latency Calculator** to understand response times
-    2. Feed results into the **Capacity Calculator** for resource planning
-    3. Use both in the **Cost Optimizer** for budget analysis
+ Combine multiple calculators for comprehensive analysis. For example:
+ 
+ 1. Use the **Latency Calculator** to understand response times
+ 2. Feed results into the **Capacity Calculator** for resource planning
+ 3. Use both in the **Cost Optimizer** for budget analysis
 
 ## Coming Soon
 

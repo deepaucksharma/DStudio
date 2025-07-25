@@ -251,16 +251,12 @@ Imbalance factor = max_load / average_load
 
 ### Choosing Hash Sizes
 
-<div class="responsive-table" markdown>
-
 | Use Case | Recommended Bits | Collision Threshold |
 |----------|------------------|-------------------|
 | Session IDs | 128 | 10^19 sessions |
 | Request IDs | 64 | 5 billion requests |
 | Cache keys | 32-64 | Depends on size |
 | Crypto hashes | 256+ | Cryptographic security |
-
-</div>
 
 
 ### Safety Margins

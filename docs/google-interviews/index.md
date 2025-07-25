@@ -1,52 +1,49 @@
 # Google System Design Interview Guide
 
-<div class="google-interview-hero">
 <h1>🚀 Master Google System Design Interviews</h1>
 <p>Comprehensive guide to Google's unique approach to system design interviews</p>
-</div>
 
 ## Quick Decision Guide
 
 ```mermaid
 graph TD
-    Start["Starting Your Prep Journey"] --> Level{What's Your Level?}
-    
-    Level -->|New Grad| NG[Focus on Fundamentals]
-    Level -->|Mid-Level| ML[Balance Theory & Practice]
-    Level -->|Senior+| SR[Deep Dive & Leadership]
-    
-    NG --> Time1{Time Available?}
-    ML --> Time2{Time Available?}
-    SR --> Time3{Time Available?}
-    
-    Time1 -->|< 4 weeks| Express1[Express Track]
-    Time1 -->|4-8 weeks| Standard1[Standard Track]
-    Time1 -->|> 8 weeks| Deep1[Deep Track]
-    
-    Time2 -->|< 4 weeks| Express2[Express Track]
-    Time2 -->|4-8 weeks| Standard2[Standard Track]
-    Time2 -->|> 8 weeks| Deep2[Deep Track]
-    
-    Time3 -->|< 4 weeks| Express3[Express Track]
-    Time3 -->|4-8 weeks| Standard3[Standard Track]
-    Time3 -->|> 8 weeks| Deep3[Deep Track]
-    
-    Express1 --> Plan1["✅ Core Systems Only<br/>✅ 3 Mock Interviews<br/>✅ Cheat Sheets"]
-    Standard1 --> Plan2["✅ All Fundamentals<br/>✅ 5 System Designs<br/>✅ 5 Mock Interviews"]
-    Deep1 --> Plan3["✅ Read Papers<br/>✅ 10+ Designs<br/>✅ Daily Practice"]
-    
-    Express2 --> Plan4["✅ Pattern Review<br/>✅ 5 Mock Interviews<br/>✅ Scale Focus"]
-    Standard2 --> Plan5["✅ Google Tech Deep Dive<br/>✅ 8 System Designs<br/>✅ Weekly Mocks"]
-    Deep2 --> Plan6["✅ Master All Patterns<br/>✅ 15+ Designs<br/>✅ Teach Others"]
-    
-    Express3 --> Plan7["✅ Leadership Scenarios<br/>✅ Complex Systems<br/>✅ Cost Optimization"]
-    Standard3 --> Plan8["✅ Architecture Patterns<br/>✅ Trade-off Analysis<br/>✅ Operational Excellence"]
-    Deep3 --> Plan9["✅ Research Papers<br/>✅ Novel Solutions<br/>✅ Mentor Others"]
+ Start["Starting Your Prep Journey"] --> Level{What's Your Level?}
+ 
+ Level -->|New Grad| NG[Focus on Fundamentals]
+ Level -->|Mid-Level| ML[Balance Theory & Practice]
+ Level -->|Senior+| SR[Deep Dive & Leadership]
+ 
+ NG --> Time1{Time Available?}
+ ML --> Time2{Time Available?}
+ SR --> Time3{Time Available?}
+ 
+ Time1 -->|< 4 weeks| Express1[Express Track]
+ Time1 -->|4-8 weeks| Standard1[Standard Track]
+ Time1 -->|> 8 weeks| Deep1[Deep Track]
+ 
+ Time2 -->|< 4 weeks| Express2[Express Track]
+ Time2 -->|4-8 weeks| Standard2[Standard Track]
+ Time2 -->|> 8 weeks| Deep2[Deep Track]
+ 
+ Time3 -->|< 4 weeks| Express3[Express Track]
+ Time3 -->|4-8 weeks| Standard3[Standard Track]
+ Time3 -->|> 8 weeks| Deep3[Deep Track]
+ 
+ Express1 --> Plan1["✅ Core Systems Only<br/>✅ 3 Mock Interviews<br/>✅ Cheat Sheets"]
+ Standard1 --> Plan2["✅ All Fundamentals<br/>✅ 5 System Designs<br/>✅ 5 Mock Interviews"]
+ Deep1 --> Plan3["✅ Read Papers<br/>✅ 10+ Designs<br/>✅ Daily Practice"]
+ 
+ Express2 --> Plan4["✅ Pattern Review<br/>✅ 5 Mock Interviews<br/>✅ Scale Focus"]
+ Standard2 --> Plan5["✅ Google Tech Deep Dive<br/>✅ 8 System Designs<br/>✅ Weekly Mocks"]
+ Deep2 --> Plan6["✅ Master All Patterns<br/>✅ 15+ Designs<br/>✅ Teach Others"]
+ 
+ Express3 --> Plan7["✅ Leadership Scenarios<br/>✅ Complex Systems<br/>✅ Cost Optimization"]
+ Standard3 --> Plan8["✅ Architecture Patterns<br/>✅ Trade-off Analysis<br/>✅ Operational Excellence"]
+ Deep3 --> Plan9["✅ Research Papers<br/>✅ Novel Solutions<br/>✅ Mentor Others"]
 ```
 
 ## Interview Types Comparison
 
-<div class="comparison-table">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -88,118 +85,111 @@ graph TD
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Success Metrics Dashboard
 
-<div class="metrics-dashboard">
 <div class="metric-card">
 <h4>Scale Requirements</h4>
-<div class="metric-value">1B+ Users</div>
-<div class="metric-detail">Global reach expected</div>
+<div class="metric-value">1B+ Users
+Global reach expected
 </div>
-<div class="metric-card">
-<h4>Latency Target</h4>
-<div class="metric-value"><100ms</div>
-<div class="metric-detail">P99 for user-facing</div>
+!!! card "Latency Target"
+ <div class="metric-value"><100ms
+P99 for user-facing
 </div>
-<div class="metric-card">
-<h4>Availability</h4>
-<div class="metric-value">99.99%</div>
-<div class="metric-detail">4 nines minimum</div>
+!!! card "Availability"
+ <div class="metric-value">99.99%
+4 nines minimum
 </div>
-<div class="metric-card">
-<h4>Design Time</h4>
-<div class="metric-value">45 min</div>
-<div class="metric-detail">Complete solution</div>
+!!! card "Design Time"
+ <div class="metric-value">45 min
+Complete solution
 </div>
 </div>
 
-<div class="law-box">
-<h3>🎯 Key Insight</h3>
-<p>Google values candidates who can think at planetary scale while keeping designs simple and maintainable. The best solutions often leverage Google's existing infrastructure patterns.</p>
-</div>
+!!! abstract "🎯 Key Insight"
+ <p>Google values candidates who can think at planetary scale while keeping designs simple and maintainable. The best solutions often leverage Google's existing infrastructure patterns.</p>
 
 ## Google's Infrastructure Philosophy
 
 ### Core Design Principles
 
 !!! tip "1. Start Simple, Scale Incrementally"
-    <ul>
-    <li>Begin with MVP (Minimum Viable Product)</li>
-    <li>Add complexity only when justified by requirements</li>
-    <li>Document trade-offs at each scaling step</li>
-    </ul>
+ <ul>
+ <li>Begin with MVP (Minimum Viable Product)</li>
+ <li>Add complexity only when justified by requirements</li>
+ <li>Document trade-offs at each scaling step</li>
+ </ul>
 
 !!! tip "2. Use Proven Patterns"
-    <ul>
-    <li>Leverage existing Google infrastructure (Bigtable, Spanner, etc.)</li>
-    <li>Apply well-tested distributed systems patterns</li>
-    <li>Avoid reinventing the wheel</li>
-    </ul>
+ <ul>
+ <li>Leverage existing Google infrastructure (Bigtable, Spanner, etc.)</li>
+ <li>Apply well-tested distributed systems patterns</li>
+ <li>Avoid reinventing the wheel</li>
+ </ul>
 
 !!! tip "3. Design for Failure"
-    <ul>
-    <li>Assume everything will fail</li>
-    <li>Build redundancy at every layer</li>
-    <li>Plan for graceful degradation</li>
-    </ul>
+ <ul>
+ <li>Assume everything will fail</li>
+ <li>Build redundancy at every layer</li>
+ <li>Plan for graceful degradation</li>
+ </ul>
 
 !!! tip "4. Optimize for the Common Case"
-    <ul>
-    <li>Make the typical path fast</li>
-    <li>Handle edge cases separately</li>
-    <li>Use caching aggressively</li>
-    </ul>
+ <ul>
+ <li>Make the typical path fast</li>
+ <li>Handle edge cases separately</li>
+ <li>Use caching aggressively</li>
+ </ul>
 
 ## Scale Requirements at Google
 
 !!! danger "🌍 Typical Google Scale"
-    <p><strong>When designing for Google, assume:</strong></p>
-    <ul>
-    <li><strong>Users</strong>: 1-2 billion globally</li>
-    <li><strong>Requests</strong>: 100K-1M requests/second</li>
-    <li><strong>Data</strong>: Petabytes to Exabytes</li>
-    <li><strong>Latency</strong>: &lt;100ms p99</li>
-    <li><strong>Availability</strong>: 99.99%+ (4 nines)</li>
-    <li><strong>Geo-distribution</strong>: 20+ regions worldwide</li>
-    </ul>
+ <p><strong>When designing for Google, assume:</strong></p>
+ <ul>
+ <li><strong>Users</strong>: 1-2 billion globally</li>
+ <li><strong>Requests</strong>: 100K-1M requests/second</li>
+ <li><strong>Data</strong>: Petabytes to Exabytes</li>
+ <li><strong>Latency</strong>: &lt;100ms p99</li>
+ <li><strong>Availability</strong>: 99.99%+ (4 nines)</li>
+ <li><strong>Geo-distribution</strong>: 20+ regions worldwide</li>
+ </ul>
 
 ## 🗺 Visual Preparation Roadmap
 
 ```mermaid
 gantt
-    title Google Interview Prep Timeline
-    dateFormat  YYYY-MM-DD
-    section Foundation
-    Distributed Systems Basics    :a1, 2024-01-01, 7d
-    7 Laws & 5 Pillars           :a2, after a1, 7d
-    Basic Patterns               :a3, after a2, 5d
-    
-    section Google Tech
-    Read Core Papers             :b1, after a2, 5d
-    Study Infrastructure         :b2, after b1, 7d
-    Practice with Tools          :b3, after b2, 5d
-    
-    section System Design
-    Simple Systems               :c1, after a3, 5d
-    Medium Complexity            :c2, after c1, 7d
-    Google-Scale Systems         :c3, after c2, 10d
-    
-    section Mock Practice
-    Self Assessment              :d1, after c2, 2d
-    Peer Mocks                   :d2, after d1, 5d
-    Expert Mocks                 :d3, after d2, 5d
-    
-    section Final Prep
-    Review & Polish              :e1, after d3, 3d
-    Mental Preparation           :e2, after e1, 2d
+ title Google Interview Prep Timeline
+ dateFormat YYYY-MM-DD
+ section Foundation
+ Distributed Systems Basics :a1, 2024-01-01, 7d
+ 7 Laws & 5 Pillars :a2, after a1, 7d
+ Basic Patterns :a3, after a2, 5d
+ 
+ section Google Tech
+ Read Core Papers :b1, after a2, 5d
+ Study Infrastructure :b2, after b1, 7d
+ Practice with Tools :b3, after b2, 5d
+ 
+ section System Design
+ Simple Systems :c1, after a3, 5d
+ Medium Complexity :c2, after c1, 7d
+ Google-Scale Systems :c3, after c2, 10d
+ 
+ section Mock Practice
+ Self Assessment :d1, after c2, 2d
+ Peer Mocks :d2, after d1, 5d
+ Expert Mocks :d3, after d2, 5d
+ 
+ section Final Prep
+ Review & Polish :e1, after d3, 3d
+ Mental Preparation :e2, after e1, 2d
 ```
 
 ## 🧮 Time Allocation Calculator
 
-<div class="calculator-box">
-<h3>Personalized Study Plan Calculator</h3>
+!!! info
+ <h3>Personalized Study Plan Calculator</h3>
 <div class="calculator-inputs">
 <label>Current Level:
 <select id="level">
@@ -215,7 +205,6 @@ gantt
 <input type="date" id="target-date">
 </label>
 <button onclick="calculatePlan()">Generate Plan</button>
-</div>
 <div id="plan-results" class="plan-output"></div>
 </div>
 
@@ -223,7 +212,6 @@ gantt
 
 ### Technology Selection Matrix
 
-<div class="tech-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -293,7 +281,6 @@ gantt
 </tr>
 </tbody>
 </table>
-</div>
 
 ### Storage Systems
 
@@ -305,8 +292,6 @@ gantt
 
 ### Processing & Compute
 
-<div class="responsive-table" markdown>
-
 | Technology | Use Case | Key Features |
 |------------|----------|--------------|
 | **MapReduce** | Batch processing | - Parallel processing<br>- Fault tolerant<br>- Simple programming model |
@@ -314,12 +299,8 @@ gantt
 | **Borg** | Container orchestration | - Cluster management<br>- Resource efficiency<br>- Basis for Kubernetes |
 | **Cloud Functions** | Serverless | - Event-driven<br>- Auto-scaling<br>- Pay per execution |
 
-</div>
-
 
 ### Networking & Communication
-
-<div class="responsive-table" markdown>
 
 | Technology | Use Case | Key Features |
 |------------|----------|--------------|
@@ -327,39 +308,37 @@ gantt
 | **Andromeda** | SDN | - Virtual networking<br>- Global load balancing<br>- DDoS protection |
 | **Maglev** | Load balancing | - Consistent hashing<br>- Connection draining<br>- Health checking |
 
-</div>
-
 
 ## Interview Focus Areas by Role
 
 ```mermaid
 graph LR
-    subgraph "L3/L4 (Junior)"
-        A[Basic Patterns]
-        B[Simple Systems]
-        C[Code Quality]
-        A --> D[URL Shortener]
-        B --> E[Chat App]
-        C --> F[KV Store]
-    end
-    
-    subgraph "L5 (Senior)"
-        G[Complex Systems]
-        H[Scale Challenges]
-        I[Trade-offs]
-        G --> J[YouTube]
-        H --> K[Gmail]
-        I --> L[Maps]
-    end
-    
-    subgraph "L6+ (Staff+)"
-        M[Platform Design]
-        N[Cross-cutting]
-        O[Innovation]
-        M --> P[Infrastructure]
-        N --> Q[ML Platform]
-        O --> R[Next-gen]
-    end
+ subgraph "L3/L4 (Junior)"
+ A[Basic Patterns]
+ B[Simple Systems]
+ C[Code Quality]
+ A --> D[URL Shortener]
+ B --> E[Chat App]
+ C --> F[KV Store]
+ end
+ 
+ subgraph "L5 (Senior)"
+ G[Complex Systems]
+ H[Scale Challenges]
+ I[Trade-offs]
+ G --> J[YouTube]
+ H --> K[Gmail]
+ I --> L[Maps]
+ end
+ 
+ subgraph "L6+ (Staff+)"
+ M[Platform Design]
+ N[Cross-cutting]
+ O[Innovation]
+ M --> P[Infrastructure]
+ N --> Q[ML Platform]
+ O --> R[Next-gen]
+ end
 ```
 
 ## Common Interview Topics
@@ -374,44 +353,44 @@ graph LR
 <p>CDN, adaptive bitrate, recommendation engine</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">🗺️</div>
+!!! card
+ <div class="pattern-icon">🗺️
 <h4>Maps & Navigation</h4>
 <p>Geospatial indexing, route calculation, real-time traffic</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">📧</div>
+!!! card
+ <div class="pattern-icon">📧
 <h4>Email Service (Gmail)</h4>
 <p>Spam detection, search, massive storage</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">🔍</div>
+!!! card
+ <div class="pattern-icon">🔍
 <h4>Search Engine</h4>
 <p>Web crawling, indexing, ranking, instant results</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">📝</div>
+!!! card
+ <div class="pattern-icon">📝
 <h4>Collaborative Docs</h4>
 <p>Real-time sync, conflict resolution, offline support</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">💬</div>
+!!! card
+ <div class="pattern-icon">💬
 <h4>Chat/Messaging</h4>
 <p>Real-time delivery, end-to-end encryption, presence</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">☁️</div>
+!!! card
+ <div class="pattern-icon">☁️
 <h4>Cloud Storage (Drive)</h4>
 <p>File sync, sharing, versioning, deduplication</p>
 </div>
 
-<div class="pattern-card">
-<div class="pattern-icon">📱</div>
+!!! card
+ <div class="pattern-icon">📱
 <h4>App Store (Play Store)</h4>
 <p>App distribution, updates, ratings, recommendations</p>
 </div>
@@ -421,33 +400,32 @@ graph LR
 ### Key Design Patterns to Master
 
 1. **Sharding & Partitioning**
-   - Consistent hashing
-   - Range-based sharding
-   - Geographic partitioning
+ - Consistent hashing
+ - Range-based sharding
+ - Geographic partitioning
 
 2. **Caching Strategies**
-   - Multi-level caching
-   - Cache warming
-   - Cache invalidation
+ - Multi-level caching
+ - Cache warming
+ - Cache invalidation
 
 3. **Data Consistency**
-   - Eventual consistency
-   - Strong consistency
-   - Tunable consistency
+ - Eventual consistency
+ - Strong consistency
+ - Tunable consistency
 
 4. **Load Balancing**
-   - Round robin
-   - Least connections
-   - Geographic routing
+ - Round robin
+ - Least connections
+ - Geographic routing
 
 5. **Service Mesh**
-   - Service discovery
-   - Circuit breaking
-   - Request routing
+ - Service discovery
+ - Circuit breaking
+ - Request routing
 
 ## Detailed Scoring Rubric
 
-<div class="scoring-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -496,44 +474,43 @@ graph LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Evaluation Criteria
 
 ### What Google Interviewers Look For
 
 !!! quote "Core Evaluation Dimensions"
-    <table class="responsive-table">
-      <thead>
-        <tr>
-    <th>Dimension</th>
-    <th>What They Assess</th>
-    <th>How to Excel</th>
-    </tr>
-      </thead>
-      <tbody>
-        <tr>
-    <td data-label="Dimension"><strong>Problem Solving</strong></td>
-    <td data-label="What They Assess">- Requirement gathering<br>- Trade-off analysis<br>- Iterative refinement</td>
-    <td data-label="How to Excel">- Ask clarifying questions<br>- State assumptions clearly<br>- Consider multiple approaches</td>
-    </tr>
-        <tr>
-    <td data-label="Dimension"><strong>Technical Depth</strong></td>
-    <td data-label="What They Assess">- System components<br>- Data flow<br>- Technology choices</td>
-    <td data-label="How to Excel">- Know common patterns<br>- Understand Google tech<br>- Justify decisions</td>
-    </tr>
-        <tr>
-    <td data-label="Dimension"><strong>Scale Awareness</strong></td>
-    <td data-label="What They Assess">- Capacity planning<br>- Performance optimization<br>- Cost considerations</td>
-    <td data-label="How to Excel">- Do back-of-envelope math<br>- Identify bottlenecks<br>- Propose optimizations</td>
-    </tr>
-        <tr>
-    <td data-label="Dimension"><strong>Communication</strong></td>
-    <td data-label="What They Assess">- Clarity of explanation<br>- Diagram quality<br>- Thought process</td>
-    <td data-label="How to Excel">- Think out loud<br>- Draw clear diagrams<br>- Summarize decisions</td>
-    </tr>
-      </tbody>
-    </table>
+ <table class="responsive-table">
+ <thead>
+ <tr>
+ <th>Dimension</th>
+ <th>What They Assess</th>
+ <th>How to Excel</th>
+ </tr>
+ </thead>
+ <tbody>
+ <tr>
+ <td data-label="Dimension"><strong>Problem Solving</strong></td>
+ <td data-label="What They Assess">- Requirement gathering<br>- Trade-off analysis<br>- Iterative refinement</td>
+ <td data-label="How to Excel">- Ask clarifying questions<br>- State assumptions clearly<br>- Consider multiple approaches</td>
+ </tr>
+ <tr>
+ <td data-label="Dimension"><strong>Technical Depth</strong></td>
+ <td data-label="What They Assess">- System components<br>- Data flow<br>- Technology choices</td>
+ <td data-label="How to Excel">- Know common patterns<br>- Understand Google tech<br>- Justify decisions</td>
+ </tr>
+ <tr>
+ <td data-label="Dimension"><strong>Scale Awareness</strong></td>
+ <td data-label="What They Assess">- Capacity planning<br>- Performance optimization<br>- Cost considerations</td>
+ <td data-label="How to Excel">- Do back-of-envelope math<br>- Identify bottlenecks<br>- Propose optimizations</td>
+ </tr>
+ <tr>
+ <td data-label="Dimension"><strong>Communication</strong></td>
+ <td data-label="What They Assess">- Clarity of explanation<br>- Diagram quality<br>- Thought process</td>
+ <td data-label="How to Excel">- Think out loud<br>- Draw clear diagrams<br>- Summarize decisions</td>
+ </tr>
+ </tbody>
+ </table>
 
 ### Scoring Rubric (1-4 Scale)
 
@@ -544,16 +521,14 @@ graph LR
 
 ## 📚 Must-Read Google Papers
 
-<div class="law-box">
-<h3>📖 Essential Reading List</h3>
-<ol>
-<li><strong>MapReduce (2004)</strong> - Simplified data processing on large clusters</li>
-<li><strong>Bigtable (2006)</strong> - Distributed storage system for structured data</li>
-<li><strong>Spanner (2012)</strong> - Globally distributed database with external consistency</li>
-<li><strong>Dapper (2010)</strong> - Large-scale distributed systems tracing</li>
-<li><strong>Borg (2015)</strong> - Large-scale cluster management (Kubernetes predecessor)</li>
-</ol>
-</div>
+!!! abstract "📖 Essential Reading List"
+ <ol>
+ <li><strong>MapReduce (2004)</strong> - Simplified data processing on large clusters</li>
+ <li><strong>Bigtable (2006)</strong> - Distributed storage system for structured data</li>
+ <li><strong>Spanner (2012)</strong> - Globally distributed database with external consistency</li>
+ <li><strong>Dapper (2010)</strong> - Large-scale distributed systems tracing</li>
+ <li><strong>Borg (2015)</strong> - Large-scale cluster management (Kubernetes predecessor)</li>
+ </ol>
 
 ## 🗺 Interview Process & Timeline
 
@@ -561,15 +536,13 @@ graph LR
 
 ```mermaid
 graph LR
-    A[Phone Screen<br/>45 min] --> B[Technical Phone<br/>45 min]
-    B --> C[Onsite Loop<br/>5 x 45 min]
-    C --> D[Hiring Committee<br/>1-2 weeks]
-    D --> E[Offer/Decision]
+ A[Phone Screen<br/>45 min] --> B[Technical Phone<br/>45 min]
+ B --> C[Onsite Loop<br/>5 x 45 min]
+ C --> D[Hiring Committee<br/>1-2 weeks]
+ D --> E[Offer/Decision]
 ```
 
 ### System Design Round Format (45 minutes)
-
-<div class="responsive-table" markdown>
 
 | Time | Phase | Focus |
 |------|-------|-------|
@@ -580,13 +553,11 @@ graph LR
 | 35-40 min | **Scale & Optimize** | Discuss bottlenecks, propose improvements |
 | 40-45 min | **Wrap Up** | Summarize, answer questions |
 
-</div>
-
 
 ## 🛠 Interactive Design Checklist
 
-<div class="checklist-container">
-<h3>Pre-Interview Checklist</h3>
+!!! info
+ <h3>Pre-Interview Checklist</h3>
 <div class="checklist-section">
 <h4>Technical Preparation</h4>
 <label><input type="checkbox"> Reviewed 7 Laws and 5 Pillars</label>
@@ -594,83 +565,80 @@ graph LR
 <label><input type="checkbox"> Practiced 10+ system designs</label>
 <label><input type="checkbox"> Memorized latency numbers</label>
 <label><input type="checkbox"> Understood CAP theorem deeply</label>
-</div>
-<div class="checklist-section">
-<h4>Practice & Skills</h4>
+!!! info
+ <h4>Practice & Skills</h4>
 <label><input type="checkbox"> Can draw clear architecture diagrams</label>
 <label><input type="checkbox"> Comfortable with back-of-envelope math</label>
 <label><input type="checkbox"> Practiced time management (45 min)</label>
 <label><input type="checkbox"> Done 5+ mock interviews</label>
 <label><input type="checkbox"> Received and incorporated feedback</label>
-</div>
-<div class="checklist-section">
-<h4>Interview Day</h4>
+!!! info
+ <h4>Interview Day</h4>
 <label><input type="checkbox"> Good night's sleep</label>
 <label><input type="checkbox"> Quiet environment setup</label>
 <label><input type="checkbox"> Drawing tools ready</label>
 <label><input type="checkbox"> Water bottle nearby</label>
 <label><input type="checkbox"> Positive mindset</label>
 </div>
-</div>
 
 ## Design Process Flowchart
 
 ```mermaid
 flowchart TD
-    Start([Interview Starts]) --> Clarify[Clarify Requirements]
-    Clarify --> FR[Functional Requirements]
-    Clarify --> NFR[Non-Functional Requirements]
-    
-    FR --> API[Design API]
-    NFR --> Scale[Estimate Scale]
-    
-    API --> HLD[High-Level Design]
-    Scale --> HLD
-    
-    HLD --> Components[Identify Components]
-    Components --> Draw[Draw Architecture]
-    
-    Draw --> DeepDive{Deep Dive Area?}
-    DeepDive -->|Data| DataModel[Data Model & Storage]
-    DeepDive -->|Scale| Scaling[Scaling Strategy]
-    DeepDive -->|Performance| Perf[Performance Optimization]
-    
-    DataModel --> Optimize[Optimizations]
-    Scaling --> Optimize
-    Perf --> Optimize
-    
-    Optimize --> EdgeCases[Handle Edge Cases]
-    EdgeCases --> Monitor[Monitoring & Alerts]
-    Monitor --> Summary[Summarize Design]
-    Summary --> QA[Q&A]
-    QA --> End([Interview Ends])
-    
-    style Start fill:#90EE90
-    style End fill:#FFB6C1
-    style DeepDive fill:#87CEEB
+ Start([Interview Starts]) --> Clarify[Clarify Requirements]
+ Clarify --> FR[Functional Requirements]
+ Clarify --> NFR[Non-Functional Requirements]
+ 
+ FR --> API[Design API]
+ NFR --> Scale[Estimate Scale]
+ 
+ API --> HLD[High-Level Design]
+ Scale --> HLD
+ 
+ HLD --> Components[Identify Components]
+ Components --> Draw[Draw Architecture]
+ 
+ Draw --> DeepDive{Deep Dive Area?}
+ DeepDive -->|Data| DataModel[Data Model & Storage]
+ DeepDive -->|Scale| Scaling[Scaling Strategy]
+ DeepDive -->|Performance| Perf[Performance Optimization]
+ 
+ DataModel --> Optimize[Optimizations]
+ Scaling --> Optimize
+ Perf --> Optimize
+ 
+ Optimize --> EdgeCases[Handle Edge Cases]
+ EdgeCases --> Monitor[Monitoring & Alerts]
+ Monitor --> Summary[Summarize Design]
+ Summary --> QA[Q&A]
+ QA --> End([Interview Ends])
+ 
+ style Start fill:#90EE90
+ style End fill:#FFB6C1
+ style DeepDive fill:#87CEEB
 ```
 
 ## Pro Tips
 
 !!! tip "✅ Do's"
-    <ul>
-    <li>Start with a simple, working design</li>
-    <li>Use Google technologies when appropriate</li>
-    <li>Draw clear, labeled diagrams</li>
-    <li>Justify every design decision</li>
-    <li>Consider cost implications</li>
-    <li>Think about monitoring & debugging</li>
-    </ul>
+ <ul>
+ <li>Start with a simple, working design</li>
+ <li>Use Google technologies when appropriate</li>
+ <li>Draw clear, labeled diagrams</li>
+ <li>Justify every design decision</li>
+ <li>Consider cost implications</li>
+ <li>Think about monitoring & debugging</li>
+ </ul>
 
 !!! danger "❌ Don'ts"
-    <ul>
-    <li>Don't over-engineer from the start</li>
-    <li>Don't ignore latency requirements</li>
-    <li>Don't forget about failure modes</li>
-    <li>Don't skip capacity planning</li>
-    <li>Don't use technologies you can't explain</li>
-    <li>Don't forget about data consistency</li>
-    </ul>
+ <ul>
+ <li>Don't over-engineer from the start</li>
+ <li>Don't ignore latency requirements</li>
+ <li>Don't forget about failure modes</li>
+ <li>Don't skip capacity planning</li>
+ <li>Don't use technologies you can't explain</li>
+ <li>Don't forget about data consistency</li>
+ </ul>
 
 ## 📚 Complete Interview Resources
 
@@ -684,25 +652,25 @@ flowchart TD
 </a>
 
 <a href="common-mistakes.md" class="pattern-card">
-<div class="pattern-icon">❌</div>
+❌
 <h4>Common Mistakes</h4>
 <p>Learn what to avoid in interviews</p>
 </a>
 
 <a href="interview-experiences.md" class="pattern-card">
-<div class="pattern-icon">💬</div>
+💬
 <h4>Interview Experiences & Tips</h4>
 <p>Real scenarios, communication strategies, and proven techniques</p>
 </a>
 
 <a href="mock-questions.md" class="pattern-card">
-<div class="pattern-icon">💯</div>
+💯
 <h4>Mock Questions</h4>
 <p>20+ Google-specific practice problems</p>
 </a>
 
 <a href="evaluation-rubric.md" class="pattern-card">
-<div class="pattern-icon">📊</div>
+📊
 <h4>Evaluation Rubric</h4>
 <p>Comprehensive scoring guide and self-assessment</p>
 </a>
@@ -719,13 +687,13 @@ flowchart TD
 </a>
 
 <a href="maps-walkthrough.md" class="pattern-card">
-<div class="pattern-icon">🗺️</div>
+🗺️
 <h4>Design Google Maps</h4>
 <p>Geographic systems at planetary scale</p>
 </a>
 
 <a href="gmail-walkthrough.md" class="pattern-card">
-<div class="pattern-icon">📧</div>
+📧
 <h4>Design Gmail</h4>
 <p>Email system for billions of users</p>
 </a>
@@ -742,13 +710,13 @@ flowchart TD
 </a>
 
 <a href="tech-mapping.md" class="pattern-card">
-<div class="pattern-icon">🔧</div>
+🔧
 <h4>Technology Mapping</h4>
 <p>When to use what technology</p>
 </a>
 
 <a href="time-management.md" class="pattern-card">
-<div class="pattern-icon">⏰</div>
+⏰
 <h4>Time Management</h4>
 <p>Optimize your 45 minutes</p>
 </a>
@@ -765,13 +733,13 @@ flowchart TD
 </a>
 
 <a href="../case-studies/index.md" class="pattern-card">
-<div class="pattern-icon">📚</div>
+📚
 <h4>Case Studies</h4>
 <p>Learn from real system designs</p>
 </a>
 
 <a href="../quantitative/index.md" class="pattern-card">
-<div class="pattern-icon">🧮</div>
+🧮
 <h4>Quantitative Tools</h4>
 <p>Master capacity planning math</p>
 </a>
@@ -781,24 +749,23 @@ flowchart TD
 ## Quick Reference Card
 
 !!! quote "Interview Day Checklist"
-    <ul>
-    <li>☐ Clarify requirements (functional & non-functional)</li>
-    <li>☐ Define success metrics (QPS, latency, availability)</li>
-    <li>☐ Estimate scale (users, data, requests)</li>
-    <li>☐ Draw high-level architecture</li>
-    <li>☐ Design data model & API</li>
-    <li>☐ Address scalability concerns</li>
-    <li>☐ Discuss failure scenarios</li>
-    <li>☐ Consider monitoring & alerting</li>
-    <li>☐ Optimize for performance & cost</li>
-    <li>☐ Summarize trade-offs made</li>
-    </ul>
+ <ul>
+ <li>☐ Clarify requirements (functional & non-functional)</li>
+ <li>☐ Define success metrics (QPS, latency, availability)</li>
+ <li>☐ Estimate scale (users, data, requests)</li>
+ <li>☐ Draw high-level architecture</li>
+ <li>☐ Design data model & API</li>
+ <li>☐ Address scalability concerns</li>
+ <li>☐ Discuss failure scenarios</li>
+ <li>☐ Consider monitoring & alerting</li>
+ <li>☐ Optimize for performance & cost</li>
+ <li>☐ Summarize trade-offs made</li>
+ </ul>
 
 ---
 
 ## Performance Tracking Tool
 
-<div class="performance-tracker">
 <h3>Track Your Interview Performance</h3>
 <table class="responsive-table">
 <thead>
@@ -835,18 +802,17 @@ flowchart TD
 </tbody>
 </table>
 <button onclick="analyzeProgress()">Analyze Progress</button>
-<div id="progress-analysis"></div>
+<div id="progress-analysis">
 </div>
 
-<div class="navigation-grid">
 <a href="../index.md" class="nav-card">
-<div class="nav-icon">🏠</div>
+<div class="nav-icon">🏠
 <h4>Home</h4>
 <p>Back to main page</p>
 </a>
 
 <a href="preparation-guide.md" class="nav-card">
-<div class="nav-icon">📖</div>
+📖
 <h4>Start Preparing</h4>
 <p>Structured study guide</p>
 </a>
@@ -854,39 +820,39 @@ flowchart TD
 
 <script>
 function calculatePlan() {
-    const level = document.getElementById('level').value;
-    const hours = parseInt(document.getElementById('hours').value);
-    const targetDate = new Date(document.getElementById('target-date').value);
-    const today = new Date();
-    const weeks = Math.floor((targetDate - today) / (7 * 24 * 60 * 60 * 1000));
-    
-    let plan = '<h4>Your Personalized Study Plan</h4>';
-    
-    if (weeks < 4) {
-        plan += '<p class="warning">⚠️ Limited time! Focus on essentials only.</p>';
-    }
-    
-    const totalHours = weeks * hours;
-    const distribution = {
-        fundamentals: level === 'junior' ? 0.4 : 0.2,
-        patterns: 0.3,
-        practice: level === 'senior' ? 0.4 : 0.3,
-        mocks: 0.1
-    };
-    
-    plan += '<ul>';
-    plan += `<li>Fundamentals: ${Math.round(totalHours * distribution.fundamentals)} hours</li>`;
-    plan += `<li>Design Patterns: ${Math.round(totalHours * distribution.patterns)} hours</li>`;
-    plan += `<li>Practice Problems: ${Math.round(totalHours * distribution.practice)} hours</li>`;
-    plan += `<li>Mock Interviews: ${Math.round(totalHours * distribution.mocks)} hours</li>`;
-    plan += '</ul>';
-    
-    document.getElementById('plan-results').innerHTML = plan;
+ const level = document.getElementById('level').value;
+ const hours = parseInt(document.getElementById('hours').value);
+ const targetDate = new Date(document.getElementById('target-date').value);
+ const today = new Date();
+ const weeks = Math.floor((targetDate - today) / (7 * 24 * 60 * 60 * 1000));
+ 
+ let plan = '<h4>Your Personalized Study Plan</h4>';
+ 
+ if (weeks < 4) {
+ plan += '<p class="warning">⚠️ Limited time! Focus on essentials only.</p>';
+ }
+ 
+ const totalHours = weeks * hours;
+ const distribution = {
+ fundamentals: level === 'junior' ? 0.4 : 0.2,
+ patterns: 0.3,
+ practice: level === 'senior' ? 0.4 : 0.3,
+ mocks: 0.1
+ };
+ 
+ plan += '<ul>';
+ plan += `<li>Fundamentals: ${Math.round(totalHours * distribution.fundamentals)} hours</li>`;
+ plan += `<li>Design Patterns: ${Math.round(totalHours * distribution.patterns)} hours</li>`;
+ plan += `<li>Practice Problems: ${Math.round(totalHours * distribution.practice)} hours</li>`;
+ plan += `<li>Mock Interviews: ${Math.round(totalHours * distribution.mocks)} hours</li>`;
+ plan += '</ul>';
+ 
+ document.getElementById('plan-results').innerHTML = plan;
 }
 
 function analyzeProgress() {
-    // Simple progress analysis
-    const analysis = document.getElementById('progress-analysis');
-    analysis.innerHTML = '<h4>Progress Analysis</h4><p>Track at least 5 designs to see trends!</p>';
+ // Simple progress analysis
+ const analysis = document.getElementById('progress-analysis');
+ analysis.innerHTML = '<h4>Progress Analysis</h4><p>Track at least 5 designs to see trends!</p>';
 }
 </script>

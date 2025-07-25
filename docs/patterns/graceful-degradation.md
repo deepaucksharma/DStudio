@@ -108,8 +108,6 @@ class RecommendationService:
 
 ### Degradation Strategies
 
-<div class="responsive-table" markdown>
-
 | Strategy | Description | Example |
 |----------|-------------|---------|
 | **Feature Removal** | Disable non-critical features | Turn off recommendations |
@@ -117,8 +115,6 @@ class RecommendationService:
 | **Functionality Limiting** | Reduce scope | Show only recent data |
 | **Static Fallback** | Pre-computed results | Cached homepage |
 | **Read-Only Mode** | Disable writes | Browse but can't purchase |
-
-</div>
 
 
 ### Degradation State Transitions
@@ -153,8 +149,6 @@ stateDiagram-v2
 
 ### Feature Availability Matrix
 
-<div class="responsive-table" markdown>
-
 | Feature | Normal | Minor | Moderate | Severe | Emergency |
 |---------|--------|-------|----------|--------|----------|
 | Search | ✓ Full | ✓ Full | ✓ Full | ✓ Basic | ✗ |
@@ -165,8 +159,6 @@ stateDiagram-v2
 | Analytics | ✓ | ✗ | ✗ | ✗ | ✗ |
 | Images | High | Medium | Low | Text only | None |
 | Cache TTL | 60s | 5m | 1h | 24h | ∞ |
-
-</div>
 
 
 ### Implementing Service Degradation Levels
@@ -871,8 +863,6 @@ class AdaptiveDegradation:
 
 ### Degradation Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | System Load | User Impact | Degradation Strategy |
 |-------------|-------------|---------------------|
 | < 70% | None | Full functionality |
@@ -880,8 +870,6 @@ class AdaptiveDegradation:
 | 80-90% | Noticeable | Cache aggressively, disable real-time |
 | 90-95% | Significant | Core features only |
 | > 95% | Survival | Read-only mode |
-
-</div>
 
 
 ### Implementation Checklist

@@ -1,0 +1,69 @@
+# Global metadata for documentation pages
+# This file provides default values that can be overridden in individual pages
+
+# Default search boost values by section
+search_boost:
+  home: 3.0
+  axioms: 1.5
+  pillars: 1.5
+  patterns: 1.2
+  case_studies: 1.0
+  quantitative: 1.2
+  tools: 1.0
+  learning_paths: 1.5
+  reference: 0.8
+
+# Section metadata
+sections:
+  part1-axioms:
+    title: "The 7 Fundamental Laws"
+    icon: material/scale-balance
+    tags:
+      - fundamental
+      - laws
+      - physics
+      
+  part2-pillars:
+    title: "The 5 Core Pillars"
+    icon: material/pillar
+    tags:
+      - pillars
+      - architecture
+      - design
+      
+  patterns:
+    title: "Design Patterns"
+    icon: material/puzzle
+    tags:
+      - patterns
+      - solutions
+      - architecture
+      
+  case-studies:
+    title: "Case Studies"
+    icon: material/briefcase
+    tags:
+      - real-world
+      - examples
+      - implementation
+      
+  quantitative:
+    title: "Quantitative Analysis"
+    icon: material/calculator
+    tags:
+      - math
+      - theory
+      - analysis
+      
+  learning-paths:
+    title: "Learning Paths"
+    icon: material/map
+    tags:
+      - education
+      - paths
+      - guides
+
+# Navigation templates
+breadcrumbs:
+  default: "[Home](/) > {section} > {page}"
+  nested: "[Home](/) > {section} > {subsection} > {page}"

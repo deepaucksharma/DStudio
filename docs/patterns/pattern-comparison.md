@@ -33,8 +33,6 @@ last_updated: 2025-07-21
 
 ### Pattern Selection by Problem Domain
 
-<div class="responsive-table" markdown>
-
 | Problem | Primary Pattern | Supporting Patterns | Why This Combination |
 |---------|----------------|---------------------|---------------------|
 | **High read/write ratio** | CQRS | Event Sourcing, Caching | Separate read/write paths optimize for different access patterns |
@@ -48,8 +46,6 @@ last_updated: 2025-07-21
 | **API management** | GraphQL Federation | Rate Limiting, Caching | Unified API with performance controls |
 | **Event-driven architecture** | Event Sourcing | Outbox, CDC | Complete event history with reliable delivery |
 
-</div>
-
 
 ---
 
@@ -59,58 +55,42 @@ last_updated: 2025-07-21
 
 === "Legend"
 
-<div class="responsive-table" markdown>
-
-    | Symbol | Meaning | Description |
+| Symbol | Meaning | Description |
     |--------|---------|-------------|
     | ✅ | Excellent combination | Patterns complement each other perfectly |
     | 🟡 | Good combination | Works well with some configuration |
     | ⚠️ | Possible but complex | Requires careful implementation |
     | ❌ | Not recommended | Patterns conflict or add unnecessary complexity |
 
-</div>
-
 
 === "Core Patterns"
 
-<div class="responsive-table" markdown>
-
-    | Pattern | CQRS | Event Sourcing | Saga | Service Mesh |
+| Pattern | CQRS | Event Sourcing | Saga | Service Mesh |
     |---------|------|----------------|------|--------------|
     | **CQRS** | - | ✅ | 🟡 | 🟡 |
     | **Event Sourcing** | ✅ | - | ✅ | 🟡 |
     | **Saga** | 🟡 | ✅ | - | 🟡 |
     | **Service Mesh** | 🟡 | 🟡 | 🟡 | - |
 
-</div>
-
 
 === "Data Patterns"
 
-<div class="responsive-table" markdown>
-
-    | Pattern | Caching | Sharding | Geo-Replication | CDC |
+| Pattern | Caching | Sharding | Geo-Replication | CDC |
     |---------|---------|----------|-----------------|-----|
     | **Caching** | - | ✅ | 🟡 | ⚠️ |
     | **Sharding** | ✅ | - | ⚠️ | 🟡 |
     | **Geo-Replication** | 🟡 | ⚠️ | - | 🟡 |
     | **CDC** | ⚠️ | 🟡 | 🟡 | - |
 
-</div>
-
 
 === "Resilience Patterns"
 
-<div class="responsive-table" markdown>
-
-    | Pattern | Circuit Breaker | Retry | Bulkhead | Rate Limiting |
+| Pattern | Circuit Breaker | Retry | Bulkhead | Rate Limiting |
     |---------|----------------|-------|----------|---------------|
     | **Circuit Breaker** | - | ✅ | ✅ | 🟡 |
     | **Retry** | ✅ | - | 🟡 | ✅ |
     | **Bulkhead** | ✅ | 🟡 | - | 🟡 |
     | **Rate Limiting** | 🟡 | ✅ | 🟡 | - |
-
-</div>
 
 
 ### Synergy Explanations
@@ -169,44 +149,32 @@ Caching → Rate Limiting → Timeout → Retry & Backoff → Circuit Breaker �
 
 === "Strong Consistency"
 
-<div class="responsive-table" markdown>
-
-    | Pattern | Consistency | Availability | Use When |
+| Pattern | Consistency | Availability | Use When |
     |---------|-------------|--------------|----------|
     | Leader Election | ⭐⭐⭐⭐⭐ | ⭐⭐ | Need single source of truth |
     | Two-Phase Commit | ⭐⭐⭐⭐⭐ | ⭐ | ACID transactions required |
     | Distributed Lock | ⭐⭐⭐⭐⭐ | ⭐⭐ | Mutual exclusion needed |
     | Consensus (Raft/Paxos) | ⭐⭐⭐⭐⭐ | ⭐⭐⭐ | Distributed agreement |
 
-</div>
-
 
 === "Balanced Trade-offs"
 
-<div class="responsive-table" markdown>
-
-    | Pattern | Consistency | Availability | Use When |
+| Pattern | Consistency | Availability | Use When |
     |---------|-------------|--------------|----------|
     | Tunable Consistency | ⭐⭐⭐ to ⭐⭐⭐⭐⭐ | ⭐⭐⭐ to ⭐⭐⭐⭐⭐ | Different operations need different guarantees |
     | Saga | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ | Long-running transactions |
     | Event Sourcing + CQRS | ⭐⭐⭐ | ⭐⭐⭐⭐ | Complex domain with audit needs |
     | Outbox Pattern | ⭐⭐⭐⭐ | ⭐⭐⭐ | Reliable message delivery |
 
-</div>
-
 
 === "High Availability"
 
-<div class="responsive-table" markdown>
-
-    | Pattern | Consistency | Availability | Use When |
+| Pattern | Consistency | Availability | Use When |
     |---------|-------------|--------------|----------|
     | Event Sourcing | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Can replay events |
     | CQRS | ⭐⭐⭐ | ⭐⭐⭐⭐⭐ | Read replicas everywhere |
     | Geo-Replication | ⭐⭐ | ⭐⭐⭐⭐⭐ | Global availability |
     | Circuit Breaker | ⭐⭐ | ⭐⭐⭐⭐⭐ | Fail fast, recover quickly |
-
-</div>
 
 
 ---
@@ -251,8 +219,6 @@ graph TD
 
 ### Pattern Implementation & Operational Costs
 
-<div class="responsive-table" markdown>
-
 | Pattern | Dev Effort | Infra Cost | Hidden Costs | ROI |
 |---------|-----------|------------|--------------|-----|
 | **Low Cost** ||||
@@ -268,16 +234,12 @@ graph TD
 | Service Mesh | Very High | High | Operational complexity | 6 months |
 | Geo-Replication | Extreme | Very High | Network costs | 12 months |
 
-</div>
-
 
 ---
 
 ## Pattern Capability Matrix
 
 ### What Each Pattern Provides
-
-<div class="responsive-table" markdown>
 
 | Capability | Pattern(s) | Strength | Limitation |
 |------------|-----------|----------|------------|
@@ -297,8 +259,6 @@ graph TD
 | Strong consistency | Leader Election | ⭐⭐⭐⭐⭐ | Availability |
 | Eventual consistency | Event Sourcing, CQRS | ⭐⭐⭐ | Complexity |
 | Tunable consistency | Tunable Consistency | ⭐⭐⭐⭐ | Configuration |
-
-</div>
 
 
 ---
@@ -353,8 +313,6 @@ graph BT
 
 ### Evolution Path for Organizations
 
-<div class="responsive-table" markdown>
-
 | Stage | Patterns to Adopt | Key Capabilities | Next Steps |
 |-------|-------------------|------------------|------------|
 | **1. Foundation** | Timeout, Retry, Rate Limiting | Basic resilience | Add monitoring |
@@ -363,8 +321,6 @@ graph BT
 | **4. Distribution** | Event Sourcing, Saga, Outbox | Async operations | Global scale |
 | **5. Global Scale** | Geo-Replication, Edge, CDN | Worldwide presence | Service mesh |
 | **6. Platform** | Service Mesh, Serverless | Self-service | AI/ML optimization |
-
-</div>
 
 
 ---
@@ -434,8 +390,6 @@ Trading Apps → API Gateway (Rate Limiting + Auth)
 
 ### Pattern Selection Cheat Sheet
 
-<div class="responsive-table" markdown>
-
 | If You Need... | Consider These Patterns | Avoid These |
 |----------------|------------------------|-------------|
 | **High read throughput** | CQRS, Caching, CDN | Synchronous writes |
@@ -445,8 +399,6 @@ Trading Apps → API Gateway (Rate Limiting + Auth)
 | **Strong consistency** | Leader Election, Sync replication | Eventually consistent |
 | **Resilience** | Circuit Breaker, Bulkhead, Retry | Single points of failure |
 | **Flexibility** | Event-driven, Microservices | Tight coupling |
-
-</div>
 
 
 ---

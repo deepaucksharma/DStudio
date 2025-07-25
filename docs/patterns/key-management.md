@@ -55,8 +55,6 @@ Problems to Solve:
 
 ### Real-World Implementations
 
-<div class="responsive-table" markdown>
-
 | Company | System | Scale | Key Management Approach |
 |---------|--------|-------|------------------------|
 | **AWS** | KMS | Trillions of API calls | Hardware Security Modules (HSMs) |
@@ -64,8 +62,6 @@ Problems to Solve:
 | **Netflix** | Confidant | 100K+ secrets | Automated rotation |
 | **HashiCorp** | Vault | Enterprise | Dynamic secrets |
 | **Cloudflare** | Keyless SSL | 10M+ domains | Remote key operations |
-
-</div>
 
 
 ### Visual Overview
@@ -2327,8 +2323,6 @@ class KeyManagementEconomics:
 
 ### Key Management Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Factor | HSM | Cloud KMS | Software KMS | Hybrid |
 |--------|-----|-----------|--------------|--------|
 | **Security Level** | Highest (FIPS 140-2 L3/L4) | High | Medium | High |
@@ -2337,8 +2331,6 @@ class KeyManagementEconomics:
 | **Performance** | Excellent | Good | Variable | Good |
 | **Compliance** | All standards | Most standards | Basic | Most standards |
 | **Complexity** | High | Medium | Low | High |
-
-</div>
 
 
 ### Key Lifecycle Checklist

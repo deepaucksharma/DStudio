@@ -107,16 +107,12 @@ sequenceDiagram
 
 ### Consensus Properties
 
-<div class="responsive-table" markdown>
-
 | Property | Description | Why It Matters |
 |----------|-------------|----------------|
 | **Agreement** | All nodes decide same value | Consistency |
 | **Validity** | Decided value was proposed | No arbitrary decisions |
 | **Termination** | Eventually decides | Progress guarantee |
 | **Integrity** | Decide at most once | No flip-flopping |
-
-</div>
 
 
 ### Implementing Basic Paxos
@@ -193,16 +189,12 @@ stateDiagram-v2
 
 ### Paxos Safety Properties
 
-<div class="responsive-table" markdown>
-
 | Property | Description | How Paxos Ensures |
 |----------|-------------|-------------------|
 | **Single Value** | Only one value chosen | Majority quorum overlap |
 | **Stability** | Chosen value never changes | Monotonic proposal numbers |
 | **Validity** | Chosen value was proposed | Phase 2 uses Phase 1 results |
 | **Agreement** | All learn same value | Quorum intersection |
-
-</div>
 
 
 ### Multi-Paxos for Log Replication
@@ -304,8 +296,6 @@ flowchart TD
 
 ### Consensus Trade-off Calculator
 
-<div class="responsive-table" markdown>
-
 | Factor | Raft | Multi-Paxos | PBFT | Your Priority (1-10) |
 |--------|------|-------------|------|---------------------|
 | **Understandability** | ✅ Simple | 🟡 Complex | 🔴 Very Complex | ___ |
@@ -315,8 +305,6 @@ flowchart TD
 | **Latency (stable)** | ✅ 1 RTT | ✅ 1 RTT | 🟡 2 RTT | ___ |
 | **Partition Handling** | ✅ Good | ✅ Good | 🟡 Complex | ___ |
 | **Implementation** | ✅ Many | 🟡 Some | 🔴 Few | ___ |
-
-</div>
 
 
 **Decision Score:**
@@ -353,8 +341,6 @@ graph TD
 
 ### Consensus Performance Estimator
 
-<div class="responsive-table" markdown>
-
 | Parameter | Value | Impact |
 |-----------|-------|--------|
 | **Cluster Size** | | |
@@ -366,8 +352,6 @@ graph TD
 | **Failure Tolerance** | | |
 | Nodes Can Fail (f) | ___ | Need n = 2f + 1 nodes |
 | Byzantine Failures | Yes/No | Need n = 3f + 1 nodes |
-
-</div>
 
 
 **Performance Formulas:**
@@ -387,37 +371,127 @@ PBFT:
 
 #### Consensus Algorithm Cheat Sheet
 
-<div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
+=== "Raft"
 
-**RAFT** ✅
-- Best for: New implementations
-- Pros: Simple, well-documented
-- Cons: No Byzantine tolerance
-- Use when: Trusted environment
+    **Best for**: New implementations in trusted environments
+    
+    ```mermaid
+    graph LR
+        A[Client] --> L[Leader]
+        L --> F1[Follower 1]
+        L --> F2[Follower 2]
+        L --> F3[Follower 3]
+        
+        style L fill:#10b981,stroke:#059669,stroke-width:3px
+    ```
+    
+    **Characteristics**:
+    - ✅ Simple to understand and implement
+    - ✅ Strong leader model
+    - ✅ Well-documented with visualizations
+    - ✅ Many production implementations
+    - ❌ No Byzantine fault tolerance
+    - ❌ Leader bottleneck at scale
+    
+    **When to Use**:
+    - Building new distributed systems
+    - Trusted network environment
+    - Need clear mental model
+    - Want extensive tooling support
 
-**MULTI-PAXOS** ✅
-- Best for: Proven systems
-- Pros: Battle-tested, flexible
-- Cons: Complex to implement
-- Use when: Need customization
+=== "Multi-Paxos"
 
-**PBFT** ✅
-- Best for: Untrusted networks
-- Pros: Byzantine fault tolerant
-- Cons: High message overhead
-- Use when: Security critical
+    **Best for**: Proven systems requiring customization
+    
+    ```mermaid
+    graph LR
+        C[Client] --> P[Proposer/Leader]
+        P --> A1[Acceptor 1]
+        P --> A2[Acceptor 2]
+        P --> A3[Acceptor 3]
+        
+        style P fill:#f59e0b,stroke:#d97706,stroke-width:3px
+    ```
+    
+    **Characteristics**:
+    - ✅ Battle-tested in production
+    - ✅ Flexible for customization
+    - ✅ Can optimize for specific use cases
+    - ✅ Handles complex failure scenarios
+    - ❌ Complex to implement correctly
+    - ❌ Harder to understand than Raft
+    
+    **When to Use**:
+    - Need proven algorithm
+    - Require specific optimizations
+    - Have experienced team
+    - Complex deployment scenarios
 
-**VIEWSTAMPED REPLICATION** ✅
-- Best for: Academic study
-- Pros: Original ideas
-- Cons: Less tooling
-- Use when: Research focus
+=== "PBFT"
 
-</div>
+    **Best for**: Byzantine fault tolerance in untrusted networks
+    
+    ```mermaid
+    graph TB
+        C[Client] --> P[Primary]
+        P --> B1[Backup 1]
+        P --> B2[Backup 2]
+        P --> B3[Backup 3]
+        
+        B1 -.->|Cross-check| B2
+        B2 -.->|Cross-check| B3
+        B3 -.->|Cross-check| B1
+        
+        style P fill:#ef4444,stroke:#dc2626,stroke-width:3px
+    ```
+    
+    **Characteristics**:
+    - ✅ Tolerates Byzantine faults
+    - ✅ Works in adversarial environment
+    - ✅ Provides strong consistency
+    - ✅ Well-studied algorithm
+    - ❌ O(n²) message complexity
+    - ❌ Higher latency (3-phase)
+    - ❌ Complex implementation
+    
+    **When to Use**:
+    - Untrusted network environment
+    - Blockchain/cryptocurrency systems
+    - Critical financial systems
+    - Need Byzantine fault tolerance
+
+=== "Viewstamped Replication"
+
+    **Best for**: Academic study and research
+    
+    ```mermaid
+    graph LR
+        C[Client] --> PM[Primary]
+        PM --> B1[Backup 1]
+        PM --> B2[Backup 2]
+        PM --> B3[Backup 3]
+        
+        style PM fill:#8b5cf6,stroke:#7c3aed,stroke-width:3px
+    ```
+    
+    **Characteristics**:
+    - ✅ Historical significance
+    - ✅ Elegant design
+    - ✅ Influenced later algorithms
+    - ✅ Good for learning
+    - ❌ Limited production use
+    - ❌ Less tooling available
+    - ❌ Fewer implementations
+    
+    **When to Use**:
+    - Academic research
+    - Understanding consensus history
+    - Comparing algorithm designs
+    - Teaching distributed systems
 
 #### Implementation Checklist
 
-<div style="border: 2px solid #059669; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0fdf4;">
+<div>
 
 **Before Implementing Consensus:**
 - [ ] Determined failure model (crash vs Byzantine)
@@ -434,7 +508,7 @@ PBFT:
 
 #### Common Pitfalls
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fef2f2;">
+<div>
 
 **⚠️ Avoid These Mistakes:**
 1. **Split Brain** - Multiple leaders due to partition
@@ -564,16 +638,12 @@ graph TB
 
 ### Raft Timing Parameters
 
-<div class="responsive-table" markdown>
-
 | Parameter | Typical Value | Purpose |
 |-----------|---------------|---------|
 | **Heartbeat Interval** | 50-150ms | Maintain leadership |
 | **Election Timeout** | 150-300ms | Trigger new election |
 | **Random Range** | ±150ms | Prevent split votes |
 | **RPC Timeout** | 10-50ms | Network communication |
-
-</div>
 
 
 ```mermaid
@@ -674,8 +744,6 @@ sequenceDiagram
 
 ### Byzantine Fault Tolerance Comparison
 
-<div class="responsive-table" markdown>
-
 | Aspect | Crash Fault Tolerance | Byzantine Fault Tolerance |
 |--------|----------------------|---------------------------|
 | **Fault Model** | Nodes crash/stop | Nodes can lie/act maliciously |
@@ -683,8 +751,6 @@ sequenceDiagram
 | **Communication Rounds** | 2 (typically) | 3 (minimum) |
 | **Message Complexity** | O(n) | O(n²) |
 | **Use Cases** | Internal systems | Open/untrusted networks |
-
-</div>
 
 
 ```mermaid
@@ -794,16 +860,12 @@ graph LR
 
 ### Consensus Debugging Guide
 
-<div class="responsive-table" markdown>
-
 | Symptom | Possible Causes | Debugging Steps |
 |---------|----------------|----------------|
 | **No leader elected** | Network partition<br/>All nodes down<br/>Configuration error | Check connectivity<br/>Verify quorum size<br/>Review logs |
 | **Frequent elections** | Unstable network<br/>Leader overloaded<br/>Short timeouts | Monitor latency<br/>Check CPU/memory<br/>Increase timeouts |
 | **Split brain** | Network partition<br/>Clock skew<br/>Bug in implementation | Verify quorum overlap<br/>Check NTP sync<br/>Review vote counting |
 | **Performance degradation** | Large proposals<br/>Disk bottleneck<br/>Network congestion | Profile message size<br/>Monitor disk I/O<br/>Check bandwidth |
-
-</div>
 
 
 ---
@@ -897,8 +959,6 @@ sequenceDiagram
 
 ### etcd Performance Characteristics
 
-<div class="responsive-table" markdown>
-
 | Metric | Value | Description |
 |--------|-------|-------------|
 | **Write Throughput** | 10k writes/sec | Sequential writes |
@@ -906,8 +966,6 @@ sequenceDiagram
 | **Latency (5-node)** | 5-20ms | Cross-region |
 | **Snapshot Size** | 8GB max | Recommended limit |
 | **Client Connections** | 10k+ | Per node |
-
-</div>
 
 
 ### Consensus Monitoring Dashboard
@@ -1052,16 +1110,12 @@ sequenceDiagram
 
 ### TrueTime Guarantees
 
-<div class="responsive-table" markdown>
-
 | Property | Guarantee | Implementation |
 |----------|-----------|----------------|
 | **Clock Uncertainty** | ±7ms (worst case) | GPS + atomic clocks |
 | **External Consistency** | Serializable globally | Wait for uncertainty |
 | **Timestamp Ordering** | Total order | TrueTime intervals |
 | **Causality** | Preserved | Commit wait |
-
-</div>
 
 ### Real-World Case Study: CockroachDB Consensus
 
@@ -1167,8 +1221,6 @@ sequenceDiagram
 
 ### CockroachDB Key Features
 
-<div class="responsive-table" markdown>
-
 | Feature | Implementation | Benefit |
 |---------|----------------|----------|  
 | **Multi-Raft** | One Raft group per range | Fine-grained replication |
@@ -1176,8 +1228,6 @@ sequenceDiagram
 | **Lease Holder** | Read without consensus | Low latency reads |
 | **HLC Timestamps** | Hybrid logical clocks | Causality tracking |
 | **Parallel Commits** | Write intents + async resolve | Higher throughput |
-
-</div>
 
 ---
 
@@ -1229,16 +1279,12 @@ graph TB
 
 ### Consensus Theoretical Bounds
 
-<div class="responsive-table" markdown>
-
 | Property | Lower Bound | Achieved By | Conditions |
 |----------|-------------|-------------|------------|
 | **Message Rounds** | 2 | Fast Paxos | No conflicts |
 | **Messages** | O(n) | Raft (leader) | Stable leader |
 | **Fault Tolerance** | n > 2f | Paxos/Raft | Crash faults |
 | **Byzantine Tolerance** | n > 3f | PBFT | Byzantine faults |
-
-</div>
 
 
 ```mermaid
@@ -1373,8 +1419,6 @@ gantt
 
 ### Consensus Cost Analysis
 
-<div class="responsive-table" markdown>
-
 | Scale | Protocol | Nodes | Message Complexity | Latency | Cost/Month |
 |-------|----------|-------|-------------------|---------|------------|
 | **Small** | Raft | 3 | O(n) | 5-10ms | ~$300 |
@@ -1382,14 +1426,10 @@ gantt
 | **Large** | Hierarchical | 9 | O(log n) | 20-50ms | ~$3,000 |
 | **Global** | Spanner-like | 15+ | O(n²) | 50-200ms | ~$10,000+ |
 
-</div>
-
 
 ## Quick Reference
 
 ### Consensus Algorithm Selection
-
-<div class="responsive-table" markdown>
 
 | Scenario | Algorithm | Why |
 |----------|-----------|-----|
@@ -1398,8 +1438,6 @@ gantt
 | Geo-distributed | Multi-Paxos | Flexible, proven |
 | High throughput | EPaxos | Optimal latency |
 | Blockchain | PoS/PoW | Permissionless |
-
-</div>
 
 
 ### Implementation Checklist

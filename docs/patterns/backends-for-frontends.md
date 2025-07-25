@@ -57,8 +57,6 @@ Traditional Single API:                     BFF Architecture:
 
 ### Real-World Examples
 
-<div class="responsive-table" markdown>
-
 | Company | BFF Implementation | Impact |
 |---------|-------------------|---------|
 | **Netflix** | Separate BFFs for 1000+ device types | 50% reduction in client code |
@@ -66,8 +64,6 @@ Traditional Single API:                     BFF Architecture:
 | **Spotify** | BFFs for iOS, Android, Web, TV | Device-specific optimizations |
 | **Airbnb** | GraphQL BFF layer | 10x developer productivity |
 | **LinkedIn** | Pemberton BFF framework | 50% API response time reduction |
-
-</div>
 
 
 ### Basic Implementation
@@ -1822,8 +1818,6 @@ class EdgeNativeBFF:
 
 ### BFF Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | Factor | Use BFF | Use Direct API |
 |--------|---------|----------------|
 | **Client Diversity** | Multiple client types | Single client type |
@@ -1831,8 +1825,6 @@ class EdgeNativeBFF:
 | **Team Structure** | Separate client teams | Single team |
 | **Performance Needs** | Client-specific optimization | Generic performance |
 | **Development Speed** | Fast client iteration | Stable requirements |
-
-</div>
 
 
 ### BFF Architecture Patterns

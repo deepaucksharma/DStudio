@@ -103,16 +103,12 @@ sequenceDiagram
 
 #### Quorum Math: The Secret Sauce
 
-<div class="responsive-table" markdown>
-
 | Formula | What It Means | Example (N=3) | Result |
 |---------|---------------|---------------|--------|
 | W + R > N | Strong consistency | W=2, R=2 > 3 | ✅ Always see latest |
 | W + R ≤ N | Eventual consistency | W=1, R=1 ≤ 3 | 🔄 May see old data |
 | W = N | All replicas must write | W=3 | ⚠️ No write availability if any node fails |
 | R = 1 | Fastest reads | R=1 | ⚡ Sub-ms latency |
-
-</div>
 
 
 #### Production Impact
@@ -168,20 +164,14 @@ graph TB
 
 #### How Spanner "Breaks" CAP
 
-<div class="responsive-table" markdown>
-
 | CAP Element | Traditional DB | Spanner Approach |
 |-------------|----------------|------------------|
 | **C**onsistency | Sacrifice for availability | Keep via global timestamps |
 | **A**vailability | Sacrifice for consistency | Keep via multi-region replicas |
 | **P**artition tolerance | Always required | Handle via bounded wait times |
 
-</div>
-
 
 #### Real-World Usage
-
-<div class="responsive-table" markdown>
 
 | Metric | Value | Impact |
 |--------|-------|--------|
@@ -189,8 +179,6 @@ graph TB
 | Global availability | 99.999% | 5 minutes downtime/year |
 | Query volume | Billions QPS | Planetary scale |
 | Read latency | <10ms global | Real-time applications |
-
-</div>
 
 
 ### 3. Redis Cluster: Sharding with Availability
@@ -257,8 +245,6 @@ stateDiagram-v2
 
 ### Redis Cluster Slot Migration Process
 
-<div class="responsive-table" markdown>
-
 | Phase | Source Node | Target Node | Client Behavior |
 |-------|-------------|-------------|----------------|
 | 1. Pre-migration | Owns slot | - | Routes to source |
@@ -266,19 +252,13 @@ stateDiagram-v2
 | 3. Key transfer | Transfers keys in batches | Receives keys | Handles both nodes |
 | 4. Post-migration | - | Owns slot | Routes to target |
 
-</div>
-
 
 ### Redirect Types
-
-<div class="responsive-table" markdown>
 
 | Type | Meaning | Client Action | Persistence |
 |------|---------|---------------|-------------|
 | MOVED | Slot permanently moved | Update slot mapping | Permanent |
 | ASK | Key might be migrating | One-time redirect | Temporary |
-
-</div>
 
 
 **Resharding Process**:
@@ -307,16 +287,12 @@ flowchart TD
 
 ### Slot Distribution Example (3 nodes → 4 nodes)
 
-<div class="responsive-table" markdown>
-
 | Node | Before (3 nodes) | After (4 nodes) | Slots to Move |
 |------|------------------|-----------------|---------------|
 | A | 0-5461 (5462 slots) | 0-4095 (4096 slots) | Give: 1366 |
 | B | 5462-10922 (5461 slots) | 4096-8191 (4096 slots) | Give: 1365 |
 | C | 10923-16383 (5461 slots) | 8192-12287 (4096 slots) | Give: 1365 |
 | D | - | 12288-16383 (4096 slots) | Receive: 4096 |
-
-</div>
 
 
 ### 3. Cassandra: Tunable Consistency
@@ -326,8 +302,6 @@ flowchart TD
 **Consistency Levels**:
 
 ### Cassandra Consistency Levels
-
-<div class="responsive-table" markdown>
 
 | Level | Write Requirement | Read Requirement | Use Case |
 |-------|------------------|------------------|----------|
@@ -340,8 +314,6 @@ flowchart TD
 | LOCAL_QUORUM | Majority in local DC | Majority in local DC | Multi-DC strong consistency |
 | EACH_QUORUM | Majority in each DC | N/A | Global strong writes |
 | LOCAL_ONE | 1 in local DC | 1 in local DC | DC-aware performance |
-
-</div>
 
 
 ```mermaid
@@ -394,16 +366,12 @@ sequenceDiagram
 
 ### Consistency Arithmetic
 
-<div class="responsive-table" markdown>
-
 | Scenario | Formula | Result |
 |----------|---------|--------|  
 | Strong Consistency | W + R > RF | Always see latest write |
 | Eventual Consistency | W + R ≤ RF | May see stale data |
 | Read Heavy | W = 1, R = RF | Fast writes, consistent reads |
 | Write Heavy | W = RF, R = 1 | Consistent writes, fast reads |
-
-</div>
 
 
 ### 4. Elasticsearch: Distributed Search State
@@ -454,8 +422,6 @@ graph TB
 
 ### Elasticsearch State Components
 
-<div class="responsive-table" markdown>
-
 | Component | Purpose | Durability | Performance Impact |
 |-----------|---------|------------|-------------------|
 | Transaction Log | Durability, crash recovery | Fsync to disk | Write latency |
@@ -463,19 +429,13 @@ graph TB
 | Lucene Segments | Immutable search structures | Persistent | Read performance |
 | Segment Merging | Optimize search performance | Background process | I/O intensive |
 
-</div>
-
 
 ### Refresh vs Flush
-
-<div class="responsive-table" markdown>
 
 | Operation | What it does | Frequency | Impact |
 |-----------|--------------|-----------|--------|  
 | Refresh | Buffer → Searchable segment | Every 1s (default) | Makes docs searchable |
 | Flush | Commit point + clear translog | Every 30min or 512MB | Ensures durability |
-
-</div>
 
 
 ### 5. Apache Kafka: Distributed Log State
@@ -511,8 +471,6 @@ stateDiagram-v2
 
 ### Kafka Partition Key Concepts
 
-<div class="responsive-table" markdown>
-
 | Concept | Description | Purpose |
 |---------|-------------|---------|  
 | Log Start Offset (LSO) | First available message offset | Log retention boundary |
@@ -520,8 +478,6 @@ stateDiagram-v2
 | High Water Mark (HWM) | Min replicated offset across ISR | Consumer read boundary |
 | In-Sync Replicas (ISR) | Replicas caught up with leader | Durability guarantee |
 | Leader Epoch | Generation number of leader | Prevent split-brain |
-
-</div>
 
 
 ### Kafka Replication Protocol
@@ -595,8 +551,6 @@ flowchart TD
 
 ### WAL Design Decisions
 
-<div class="responsive-table" markdown>
-
 | Aspect | Options | Trade-offs |
 |--------|---------|------------|  
 | Sync Policy | Every write | Durability vs Performance |
@@ -606,8 +560,6 @@ flowchart TD
 | | Large (e.g., 1GB) | Fewer files, slower recovery |
 | Compression | None | Fast writes, more space |
 | | Snappy/LZ4 | Space efficient, CPU cost |
-
-</div>
 
 
 ### 2. Conflict-Free Replicated Data Types (CRDTs)
@@ -642,8 +594,6 @@ graph TB
 
 ### CRDT Comparison
 
-<div class="responsive-table" markdown>
-
 | CRDT Type | Operations | Merge Rule | Use Case |
 |-----------|------------|------------|----------|
 | G-Counter | increment() | max(a,b) per node | Page views, likes |
@@ -651,8 +601,6 @@ graph TB
 | LWW-Register | set(value) | Latest timestamp wins | User preferences |
 | OR-Set | add(), remove() | Union tags - tombstones | Shopping cart |
 | 2P-Set | add(), remove() | Union both sets | Membership |
-
-</div>
 
 
 ### G-Counter Example
@@ -761,16 +709,12 @@ stateDiagram-v2
 
 ### MVCC Visibility Rules
 
-<div class="responsive-table" markdown>
-
 | Scenario | Version Created | Version Deleted | Visible to TX? |
 |----------|----------------|-----------------|----------------|
 | Normal read | Before TX | After TX or NULL | ✓ Yes |
 | Too new | After TX | Any | ✗ No |
 | Already deleted | Before TX | Before TX | ✗ No |
 | Own write | By TX | Any | ✓ Yes |
-
-</div>
 
 
 ### Concurrent Transaction Example
@@ -808,16 +752,12 @@ sequenceDiagram
 
 ### MVCC Storage Overhead
 
-<div class="responsive-table" markdown>
-
 | Aspect | Impact | Mitigation |
 |--------|--------|------------|  
 | Multiple versions | Space overhead | Vacuum old versions |
 | Version chains | Lookup overhead | Index on latest |
 | Long transactions | Prevent cleanup | Transaction timeout |
 | Read tracking | Memory overhead | Bloom filters |
-
-</div>
 
 
 ## Key Takeaways

@@ -81,8 +81,6 @@ Where:
 
 **Quick Reference Table**:
 
-<div class="responsive-table" markdown>
-
 | Route | Distance | Theoretical Min | Typical Reality | Why the Difference |
 |-------|----------|----------------|-----------------|-------------------|
 | Same rack | 2m | 0.01 μs | 0.5 μs | Switch processing |
@@ -91,8 +89,6 @@ Where:
 | Cross-US | 4,000km | 20 ms | 40-60 ms | Non-direct path |
 | US→Europe | 6,000km | 30 ms | 80-120 ms | Submarine cables |
 | Worldwide | 20,000km | 100 ms | 200-300 ms | Multiple ISPs |
-
-</div>
 
 
 ### Edge Cases and Clarifications
@@ -324,8 +320,6 @@ If latency didn't matter, why spend $300M on a cable to save 5ms?
 
 Based on real-world measurements²¹:
 
-<div class="responsive-table" markdown>
-
 | Operation | Latency | Scaled to Human Time* |
 |-----------|---------|----------------------|
 | L1 cache hit | 0.5 ns | 0.5 seconds |
@@ -335,8 +329,6 @@ Based on real-world measurements²¹:
 | HDD seek | 10 ms | 3.8 months |
 | CA→Netherlands | 150 ms | 4.8 years |
 | Internet round trip | 500 ms | 15.8 years |
-
-</div>
 
 
 *If 1 ns = 1 second
@@ -402,8 +394,6 @@ graph TB
 
 Different latency tolerances drive different architectures:
 
-<div class="responsive-table" markdown>
-
 | Latency Budget | Suitable Architecture | Example Systems |
 |----------------|---------------------|---------------|
 | <1ms | Same rack/machine | CPU caches, RAM |
@@ -411,8 +401,6 @@ Different latency tolerances drive different architectures:
 | 10-50ms | Same region | Multi-AZ deployments |
 | 50-100ms | Same continent | CDN edges |
 | 100ms+ | Global | Eventual consistency |
-
-</div>
 
 
 ### Visual: Global Latency Map
@@ -439,8 +427,6 @@ graph TB
 
 ### Quantitative Examples: Real Routes
 
-<div class="responsive-table" markdown>
-
 | Route | Distance | Theoretical Min | Typical RTT | Google's Data² |
 |-------|----------|----------------|-------------|---------------|
 | NYC → Boston | 306 km | 1.5 ms | 4-6 ms | 5 ms |
@@ -448,8 +434,6 @@ graph TB
 | NYC → London | 5,570 km | 27.9 ms | 70-90 ms | 76 ms |
 | NYC → Tokyo | 10,850 km | 54.3 ms | 160-200 ms | 188 ms |
 | NYC → Sydney | 15,990 km | 80.0 ms | 250-300 ms | 278 ms |
-
-</div>
 
 
 ¹ [Latency Numbers Every Programmer Should Know](https://colin-scott.github.io/personal/volatile/latency.html)

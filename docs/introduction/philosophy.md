@@ -13,153 +13,140 @@ last_updated: 2025-07-20
 # The Philosophy: Learning from First Principles
 
 !!! quote "The Feynman Principle"
-    "If you can't explain it simply, you don't understand it well enough." — Richard Feynman
+ "If you can't explain it simply, you don't understand it well enough." — Richard Feynman
 
-    **Our approach**: Start with physics constraints, derive solutions. Not memorize tools.
+ **Our approach**: Start with physics constraints, derive solutions. Not memorize tools.
 
 ## Why First Principles Matter
 
 <div class="grid" markdown>
-  <div class="card">
-    <h3 class="card__title">Traditional Learning</h3>
-    <p class="card__description">
-      Learn tools (Redis, Kafka). Problem: Skills obsolete in 3-5 years.
-    </p>
-  </div>
-  
-  <div class="card">
-    <h3 class="card__title">First Principles Learning</h3>
-    <p class="card__description">
-      Learn physics constraints. Benefit: Skills compound over decades.
-    </p>
-  </div>
+ <div class="card">
+ <h3 class="card__title">Traditional Learning</h3>
+ <p class="card__description">
+ Learn tools (Redis, Kafka). Problem: Skills obsolete in 3-5 years.
+ </p>
+ </div>
+ 
+ <div class="card">
+ <h3 class="card__title">First Principles Learning</h3>
+ <p class="card__description">
+ Learn physics constraints. Benefit: Skills compound over decades.
+ </p>
+ </div>
 </div>
 
 ## Traditional vs First Principles Learning
 
 !!! tip "Impact Comparison"
-<div class="responsive-table" markdown>
-
-    | Aspect | Traditional | First Principles | Impact |
-    |--------|-------------|------------------|--------|
-    | **Starting Point** | Popular tools | Physics constraints | 10x faster learning new tech |
-    | **Problem Solving** | Copy solutions | Derive from constraints | Can solve novel problems |
-    | **Debugging** | Trial and error | Systematic analysis | 5x faster resolution |
-    | **Career Growth** | Tool expert → obsolete | Principle expert → architect | 2-3x salary growth |
-    | **Innovation** | Follow patterns | Create patterns | Build next Google |
-
-</div>
+| Aspect | Traditional | First Principles | Impact |
+ |--------|-------------|------------------|--------|
+ | **Starting Point** | Popular tools | Physics constraints | 10x faster learning new tech |
+ | **Problem Solving** | Copy solutions | Derive from constraints | Can solve novel problems |
+ | **Debugging** | Trial and error | Systematic analysis | 5x faster resolution |
+ | **Career Growth** | Tool expert → obsolete | Principle expert → architect | 2-3x salary growth |
+ | **Innovation** | Follow patterns | Create patterns | Build next Google |
 
 
 ## Learning Methods Effectiveness
 
 !!! note "Retention Rates by Method"
-<div class="responsive-table" markdown>
-
-    | Learning Method | Retention Rate | Time to Mastery | Example |
-    |-----------------|----------------|-----------------|---------|
-    | **Read about it** | 10% | Never | "Redis is a cache" |
-    | **See demonstration** | 30% | 2 years | Watch Redis tutorial |
-    | **Practice with guidance** | 75% | 6 months | Build with Redis |
-    | **Teach others** | 90% | 3 months | Explain to colleague |
-    | **Derive from principles** | 95% | 1 month | Invent Redis from constraints |
-
-</div>
+| Learning Method | Retention Rate | Time to Mastery | Example |
+ |-----------------|----------------|-----------------|---------|
+ | **Read about it** | 10% | Never | "Redis is a cache" |
+ | **See demonstration** | 30% | 2 years | Watch Redis tutorial |
+ | **Practice with guidance** | 75% | 6 months | Build with Redis |
+ | **Teach others** | 90% | 3 months | Explain to colleague |
+ | **Derive from principles** | 95% | 1 month | Invent Redis from constraints |
 
 
-    **Key insight**: Active derivation beats passive consumption by 9x.
+ **Key insight**: Active derivation beats passive consumption by 9x.
 
 ## Deriving Solutions from Constraints
 
 ### Example 1: Why Caching Exists
 
 !!! note "Traditional vs First Principles"
-    **Traditional**: "Caching improves performance by storing data closer to users."
-    **First Principles**:
-    1. Law 1 (Failure) + Law 4 (Trade-offs) → Need redundancy with balanced constraints
-    2. Trade reliability for consistency → Store copies closer to usage
-    3. **Result**: Caching emerges as optimization strategy
-    4. **Consequences**: Cache invalidation, hierarchies, coherence protocols
+ **Traditional**: "Caching improves performance by storing data closer to users."
+ **First Principles**:
+ 1. Law 1 (Failure) + Law 4 (Trade-offs) → Need redundancy with balanced constraints
+ 2. Trade reliability for consistency → Store copies closer to usage
+ 3. **Result**: Caching emerges as optimization strategy
+ 4. **Consequences**: Cache invalidation, hierarchies, coherence protocols
 
 ### Example 2: Why Microservices Exist
 
 !!! info "Derivation from Laws"
-    **Traditional**: "Microservices enable teams to work independently."
-    **First Principles**:
-    1. Law 6 (Cognitive Load) + Law 3 (Chaos) + Law 1 (Failure) → Decompose along team boundaries
-    2. Accept network overhead for human comprehension
-    3. **Result**: Microservices as cognitive trade-off
-    4. **Implications**: Conway's Law, service = team boundary, not everything needs microservices
+ **Traditional**: "Microservices enable teams to work independently."
+ **First Principles**:
+ 1. Law 6 (Cognitive Load) + Law 3 (Chaos) + Law 1 (Failure) → Decompose along team boundaries
+ 2. Accept network overhead for human comprehension
+ 3. **Result**: Microservices as cognitive trade-off
+ 4. **Implications**: Conway's Law, service = team boundary, not everything needs microservices
 
 ### Example 3: Why Consensus Algorithms Exist
 
 !!! note
-    <h4>From Laws to Protocols</h4>
+ <h4>From Laws to Protocols</h4>
 
-    **Traditional**: "Consensus ensures distributed systems agree on state."
+ **Traditional**: "Consensus ensures distributed systems agree on state."
 
-    **First Principles**:
-    1. Law 2 (No global clock) + Law 1 (Nodes fail/lie) + Law 5 (No single truth) 
-    2. → Need protocols for agreement despite failures
-    3. → Must trade safety vs liveness  
-    4. **Result**: Consensus algorithms (Raft/Paxos) emerge
-    5. **Explains**: FLP impossibility, different protocols for different scenarios
+ **First Principles**:
+ 1. Law 2 (No global clock) + Law 1 (Nodes fail/lie) + Law 5 (No single truth) 
+ 2. → Need protocols for agreement despite failures
+ 3. → Must trade safety vs liveness 
+ 4. **Result**: Consensus algorithms (Raft/Paxos) emerge
+ 5. **Explains**: FLP impossibility, different protocols for different scenarios
 
 ## Real-World Impact
 
 ### Case Study: NASA Apollo 11 
 !!! danger "First Principles Under Pressure"
-    **Challenge**: Land on moon with 1960s technology, no existing patterns.
-    **Constraints**: 72KB memory, CPU limits, cannot fail during landing.
-    **First Principles Solution**: Priority scheduling + restart capability for non-critical tasks.
-    **Result**: During landing, computer overloaded with radar data but successfully shed non-critical tasks and landed safely. Traditional approaches would have crashed.
+ **Challenge**: Land on moon with 1960s technology, no existing patterns.
+ **Constraints**: 72KB memory, CPU limits, cannot fail during landing.
+ **First Principles Solution**: Priority scheduling + restart capability for non-critical tasks.
+ **Result**: During landing, computer overloaded with radar data but successfully shed non-critical tasks and landed safely. Traditional approaches would have crashed.
 
 ### Case Study: Amazon DynamoDB
 !!! info "From CAP Theorem to NoSQL Revolution"
-    **Challenge**: Amazon's massive scaling problems in 2004.
-    **First Principles**: CAP theorem says can't have consistency + availability + partition tolerance.
-    **Business Constraint**: Shopping cart must always be available.
-    **Solution**: Choose availability over consistency, use eventual consistency with vector clocks.
-    **Result**: Created DynamoDB and spawned the entire NoSQL movement.
+ **Challenge**: Amazon's massive scaling problems in 2004.
+ **First Principles**: CAP theorem says can't have consistency + availability + partition tolerance.
+ **Business Constraint**: Shopping cart must always be available.
+ **Solution**: Choose availability over consistency, use eventual consistency with vector clocks.
+ **Result**: Created DynamoDB and spawned the entire NoSQL movement.
 
 ## Learning Journey Stages
 
 !!! tip "Expertise Development"
-<div class="responsive-table" markdown>
-
-    | Stage | Years | Capability | Mental Model |
-    |-------|-------|------------|-------------|
-    | **Novice** | 0-1 | Follow laws as rules | Single law application |
-    | **Competent** | 1-3 | Map problems to laws | Pattern recognition |
-    | **Proficient** | 3-5 | See law interactions | System thinking |
-    | **Expert** | 5+ | Predict from constraints | First principles |
-
-</div>
+| Stage | Years | Capability | Mental Model |
+ |-------|-------|------------|-------------|
+ | **Novice** | 0-1 | Follow laws as rules | Single law application |
+ | **Competent** | 1-3 | Map problems to laws | Pattern recognition |
+ | **Proficient** | 3-5 | See law interactions | System thinking |
+ | **Expert** | 5+ | Predict from constraints | First principles |
 
 
 ### Metacognition: Learning How to Learn
 
 We explicitly teach learning strategies based on research¹³:
 
-<div class="pattern-box">
-
-#### 📚 The Three-Pass Method
+!!! info
+ #### 📚 The Three-Pass Method
 
 ```mermaid
 graph LR
-    A["🔍 Pass 1: Survey<br/>Skim for structure"] --> B["❓ Pass 2: Question<br/>Predict consequences"]
-    B --> C["🛠️ Pass 3: Implement<br/>Work exercises"]
-    C --> D["👥 Pass 4: Teach<br/>Explain to others"]
-    
-    A -.-> A1["5 min<br/>Get overview"]
-    B -.-> B1["15 min<br/>Active reading"]
-    C -.-> C1["30 min<br/>Hands-on work"]
-    D -.-> D1["Test understanding"]
-    
-    style A fill:#e1f5e1
-    style B fill:#fff3cd
-    style C fill:#cfe2ff
-    style D fill:#ffe1f5
+ A["🔍 Pass 1: Survey<br/>Skim for structure"] --> B["❓ Pass 2: Question<br/>Predict consequences"]
+ B --> C["🛠️ Pass 3: Implement<br/>Work exercises"]
+ C --> D["👥 Pass 4: Teach<br/>Explain to others"]
+ 
+ A -.-> A1["5 min<br/>Get overview"]
+ B -.-> B1["15 min<br/>Active reading"]
+ C -.-> C1["30 min<br/>Hands-on work"]
+ D -.-> D1["Test understanding"]
+ 
+ style A fill:#e1f5e1
+ style B fill:#fff3cd
+ style C fill:#cfe2ff
+ style D fill:#ffe1f5
 ```
 
 <div class="responsive-table" markdown>
@@ -171,13 +158,11 @@ graph LR
 | **3: Implement** | 30 min | Code examples, exercises | Practical skills |
 | **4: Teach** | Variable | Explain to colleague | Validated understanding |
 
-</div>
-
 
 </div>
 
 !!! note "Research Foundation"
-    This method combines SQ3R (Survey, Question, Read, Recite, Review) with Feynman Technique, proven effective in technical learning¹⁴.
+ This method combines SQ3R (Survey, Question, Read, Recite, Review) with Feynman Technique, proven effective in technical learning¹⁴.
 
 ### Transfer Learning
 
@@ -190,71 +175,64 @@ By focusing on principles, knowledge transfers across:
 
 ### Building Accurate Mental Models
 
-<div class="insight-box">
+!!! info "How Laws Create Mental Models"
 
-#### How Laws Create Mental Models
+ ```mermaid
+ graph TB
+ subgraph "Individual Laws"
+ L1["Law 1: Failure"] --> M1["Mental Model:<br/>Failures cascade"]
+ M1 --> P1["Prediction:<br/>Need isolation"]
 
-```mermaid
-graph TB
-    subgraph "Individual Laws"
-        L1["Law 1: Failure"] --> M1["Mental Model:<br/>Failures cascade"]
-        M1 --> P1["Prediction:<br/>Need isolation"]
-        
-        L5["Law 5: Epistemology"] --> M5["Mental Model:<br/>No single truth"]
-        M5 --> P5["Prediction:<br/>Need consensus"]
-    end
-    
-    subgraph "Combined Understanding"
-        P1 --> Insight["Key Insight:<br/>Isolated systems must handle<br/>knowledge gaps during failures"]
-        P5 --> Insight
-    end
-    
-    subgraph "Application"
-        Insight --> A1["Design:<br/>Bulkheads"]
-        Insight --> A2["Pattern:<br/>Event Sourcing"]
-        Insight --> A3["Protocol:<br/>Gossip"]
-    end
-    
-    style L1 fill:#fee2e2
-    style L5 fill:#e0e7ff
-    style Insight fill:#5448C8,color:#fff
-```
+ L5["Law 5: Epistemology"] --> M5["Mental Model:<br/>No single truth"]
+ M5 --> P5["Prediction:<br/>Need consensus"]
+ end
 
-</div>
+ subgraph "Combined Understanding"
+ P1 --> Insight["Key Insight:<br/>Isolated systems must handle<br/>knowledge gaps during failures"]
+ P5 --> Insight
+ end
+
+ subgraph "Application"
+ Insight --> A1["Design:<br/>Bulkheads"]
+ Insight --> A2["Pattern:<br/>Event Sourcing"]
+ Insight --> A3["Protocol:<br/>Gossip"]
+ end
+
+ style L1 fill:#fee2e2
+ style L5 fill:#e0e7ff
+ style Insight fill:#5448C8,color:#fff
+ ```
 
 ### Debugging with Mental Models
 
-<div class="pattern-box">
-
-#### Systematic Debugging Process
+!!! info
+ #### Systematic Debugging Process
 
 ```mermaid
 graph LR
-    Problem["System<br/>Misbehaving"] --> Q1["Which law<br/>violated?"]
-    
-    Q1 --> Identify["Identify Law"]
-    Identify --> Model["Mental Model<br/>Prediction"]
-    
-    Model --> Compare["Compare with<br/>Reality"]
-    Compare --> Diverge["Where does<br/>it diverge?"]
-    
-    Diverge --> Assumption["Wrong<br/>Assumption?"]
-    Assumption --> Fix["Fix & Learn"]
-    
-    style Problem fill:#dc3545,color:#fff
-    style Fix fill:#198754,color:#fff
+ Problem["System<br/>Misbehaving"] --> Q1["Which law<br/>violated?"]
+ 
+ Q1 --> Identify["Identify Law"]
+ Identify --> Model["Mental Model<br/>Prediction"]
+ 
+ Model --> Compare["Compare with<br/>Reality"]
+ Compare --> Diverge["Where does<br/>it diverge?"]
+ 
+ Diverge --> Assumption["Wrong<br/>Assumption?"]
+ Assumption --> Fix["Fix & Learn"]
+ 
+ style Problem fill:#dc3545,color:#fff
+ style Fix fill:#198754,color:#fff
 ```
 
 <div class="responsive-table" markdown>
 
 | Step | Question | Action |
-|------|----------|--------|  
+|------|----------|--------| 
 | 1 | Which law is violated? | Map symptoms to laws |
 | 2 | What does model predict? | Apply law's mental model |
 | 3 | Where does reality diverge? | Find the gap |
 | 4 | What assumption was wrong? | Update understanding |
-
-</div>
 
 
 </div>
@@ -266,11 +244,11 @@ graph LR
 Our approach isn't just philosophical preference - it's grounded in decades of cognitive science and educational research:
 
 !!! info "Research Foundation"
-    **The Expertise Reversal Effect** (Sweller, 2003)¹⁵: Experts learn differently than novices. While beginners need worked examples, experts benefit more from deriving solutions. Our multi-path approach accommodates both.
+ **The Expertise Reversal Effect** (Sweller, 2003)¹⁵: Experts learn differently than novices. While beginners need worked examples, experts benefit more from deriving solutions. Our multi-path approach accommodates both.
 
-    **Deliberate Practice Theory** (Ericsson, 1993)¹⁶: Mastery comes from practicing at the edge of current ability with immediate feedback. Our exercises progressively challenge readers while providing failure stories as feedback.
+ **Deliberate Practice Theory** (Ericsson, 1993)¹⁶: Mastery comes from practicing at the edge of current ability with immediate feedback. Our exercises progressively challenge readers while providing failure stories as feedback.
 
-    **Transfer Learning** (Thorndike & Woodworth, 1901)¹⁷: Knowledge transfers best when underlying principles are understood. By teaching physics-based constraints, skills transfer across any distributed system.
+ **Transfer Learning** (Thorndike & Woodworth, 1901)¹⁷: Knowledge transfers best when underlying principles are understood. By teaching physics-based constraints, skills transfer across any distributed system.
 
 ### For Individual Engineers
 
@@ -298,47 +276,47 @@ Our approach isn't just philosophical preference - it's grounded in decades of c
 ### How Google SREs Think in First Principles
 
 !!! quote "From Google's SRE Book"
-    "Hope is not a strategy. Engineering solutions based on fundamental constraints and mathematical analysis is."¹⁸
+ "Hope is not a strategy. Engineering solutions based on fundamental constraints and mathematical analysis is."¹⁸
 
-    Google's Site Reliability Engineers are trained to:
-    1. **Quantify everything** - If you can't measure it, you can't improve it
-    2. **Derive from fundamentals** - Ask "why" five times to reach root causes
-    3. **Embrace failure** - Every outage is a learning opportunity
-    4. **Think in trade-offs** - There's no perfect solution, only informed choices
+ Google's Site Reliability Engineers are trained to:
+ 1. **Quantify everything** - If you can't measure it, you can't improve it
+ 2. **Derive from fundamentals** - Ask "why" five times to reach root causes
+ 3. **Embrace failure** - Every outage is a learning opportunity
+ 4. **Think in trade-offs** - There's no perfect solution, only informed choices
 
 This mirrors our approach exactly - start with physics, derive patterns, learn from failures, quantify decisions.
 
 ### Active Reading Strategies
 
 !!! tip
-    #### 🦭 How to Read This Compendium
+ #### 🦭 How to Read This Compendium
 
-    ```mermaid
-    graph TD
-        Start["Starting a Section"] --> Predict["1. Predict Before Reading"]
-        Predict --> P1["Given this law...<br/>what patterns emerge?"]
-        Predict --> P2["What happens if<br/>we violate it?"]
+ ```mermaid
+ graph TD
+ Start["Starting a Section"] --> Predict["1. Predict Before Reading"]
+ Predict --> P1["Given this law...<br/>what patterns emerge?"]
+ Predict --> P2["What happens if<br/>we violate it?"]
 
-        P1 --> Connect["2. Connect While Reading"]
-        P2 --> Connect
+ P1 --> Connect["2. Connect While Reading"]
+ P2 --> Connect
 
-        Connect --> C1["Where have I<br/>seen this?"]
-        Connect --> C2["How does this relate<br/>to my systems?"]
+ Connect --> C1["Where have I<br/>seen this?"]
+ Connect --> C2["How does this relate<br/>to my systems?"]
 
-        C1 --> Challenge["3. Challenge After Reading"]
-        C2 --> Challenge
+ C1 --> Challenge["3. Challenge After Reading"]
+ C2 --> Challenge
 
-        Challenge --> Ch1["What if the<br/>law changed?"]
-        Challenge --> Ch2["What edge cases<br/>aren't covered?"]
+ Challenge --> Ch1["What if the<br/>law changed?"]
+ Challenge --> Ch2["What edge cases<br/>aren't covered?"]
 
-        Ch1 --> Apply["4. Apply & Test"]
-        Ch2 --> Apply
+ Ch1 --> Apply["4. Apply & Test"]
+ Ch2 --> Apply
 
-        Apply --> Result["Deep Understanding"]
+ Apply --> Result["Deep Understanding"]
 
-        style Start fill:#5448C8,color:#fff
-        style Result fill:#10b981,color:#fff
-    ```
+ style Start fill:#5448C8,color:#fff
+ style Result fill:#10b981,color:#fff
+ ```
 
 ### The Feynman Notebook Method
 
@@ -351,43 +329,41 @@ Keep a notebook where you:
 ### Building Your Own Understanding
 
 !!! exercise "Test Your Understanding"
-    For each new concept, ask:
+ For each new concept, ask:
 
-    1. **What** is the fundamental constraint?
-    2. **Why** does this constraint exist?
-    3. **How** does it manifest in real systems?
-    4. **When** does it matter most?
-    5. **Where** have I seen this before?
-    6. **Who** needs to understand this on my team?
+ 1. **What** is the fundamental constraint?
+ 2. **Why** does this constraint exist?
+ 3. **How** does it manifest in real systems?
+ 4. **When** does it matter most?
+ 5. **Where** have I seen this before?
+ 6. **Who** needs to understand this on my team?
 
 ## Detailed Comparison: Traditional vs First-Principles
 
 ### Learning Approach Comparison
 
 !!! tip
-    #### Traditional vs First-Principles Learning
+ #### Traditional vs First-Principles Learning
 
-    ```mermaid
-    graph TD
-        subgraph "Traditional Path 📉"
-            T1["Learn Kafka"] --> T2["Learn Redis"]
-            T2 --> T3["Learn K8s"]
-            T3 --> T4["New Tech?<br/>Start Over"]
-            T4 --> T5["Skills obsolete<br/>in 3-5 years"]
-        end
+ ```mermaid
+ graph TD
+ subgraph "Traditional Path 📉"
+ T1["Learn Kafka"] --> T2["Learn Redis"]
+ T2 --> T3["Learn K8s"]
+ T3 --> T4["New Tech?<br/>Start Over"]
+ T4 --> T5["Skills obsolete<br/>in 3-5 years"]
+ end
 
-        subgraph "First-Principles Path 📈"
-            F1["Learn Physics<br/>Constraints"] --> F2["Derive Patterns"]
-            F2 --> F3["Apply to Any Tech"]
-            F3 --> F4["New Tech?<br/>Map to Laws"]
-            F4 --> F5["Skills compound<br/>over decades"]
-        end
+ subgraph "First-Principles Path 📈"
+ F1["Learn Physics<br/>Constraints"] --> F2["Derive Patterns"]
+ F2 --> F3["Apply to Any Tech"]
+ F3 --> F4["New Tech?<br/>Map to Laws"]
+ F4 --> F5["Skills compound<br/>over decades"]
+ end
 
-        style T5 fill:#fee2e2
-        style F5 fill:#dcfce7
-    ```
-
-<div class="responsive-table" markdown>
+ style T5 fill:#fee2e2
+ style F5 fill:#dcfce7
+ ```
 
 | Aspect | Traditional Approach | First-Principles Approach | Why It Matters |
 |--------|---------------------|--------------------------|----------------|
@@ -398,8 +374,6 @@ Keep a notebook where you:
 | **Architecture Decisions** | "Industry best practices" | Quantified trade-offs | Decisions fit your constraints |
 | **Knowledge Depth** | Surface-level how | Deep understanding of why | Can innovate, not just implement |
 | **Career Longevity** | Skills obsolete in 3-5 years | Skills compound over decades | Future-proof expertise |
-
-</div>
 
 
 ### Example: Learning Message Queues
@@ -423,28 +397,28 @@ Keep a notebook where you:
 ### Real-World Impact
 
 !!! success "Case Study: Engineer Growth"
-    **Traditional Engineer After 5 Years:**
-    - Expert in 3-4 specific technologies
-    - Struggles with new paradigms
-    - Debates solutions based on experience
-    - Limited to learned patterns
+ **Traditional Engineer After 5 Years:**
+ - Expert in 3-4 specific technologies
+ - Struggles with new paradigms
+ - Debates solutions based on experience
+ - Limited to learned patterns
 
-    **First-Principles Engineer After 5 Years:**
-    - Understands any distributed system quickly
-    - Derives solutions for novel problems
-    - Debates with quantified trade-offs
-    - Creates new patterns when needed
+ **First-Principles Engineer After 5 Years:**
+ - Understands any distributed system quickly
+ - Derives solutions for novel problems
+ - Debates with quantified trade-offs
+ - Creates new patterns when needed
 
 ### Industry Validation
 
 !!! example "How Top Companies Apply First Principles"
-    **Amazon's Working Backwards**: Start with customer constraints (latency, cost) and derive architecture¹⁹
+ **Amazon's Working Backwards**: Start with customer constraints (latency, cost) and derive architecture¹⁹
 
-    **SpaceX's Physics-Based Design**: "The best part is no part. The best process is no process. The best requirement is no requirement." - Reasoning from physics up²⁰
+ **SpaceX's Physics-Based Design**: "The best part is no part. The best process is no process. The best requirement is no requirement." - Reasoning from physics up²⁰
 
-    **Netflix's Chaos Engineering**: Don't assume reliability - derive it from testing failure modes²¹
+ **Netflix's Chaos Engineering**: Don't assume reliability - derive it from testing failure modes²¹
 
-    **Cloudflare's Speed of Light Blog Series**: Teaches networking from physical constraints²²
+ **Cloudflare's Speed of Light Blog Series**: Teaches networking from physical constraints²²
 
 ## The Learning Never Stops
 

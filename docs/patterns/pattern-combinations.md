@@ -127,8 +127,6 @@ graph TB
 
 ### Pattern Dependency Matrix
 
-<div class="responsive-table" markdown>
-
 | Pattern | Requires | Works Well With | Conflicts With |
 |---------|----------|-----------------|----------------|
 | **CQRS** | Event Store or Separate DBs | Event Sourcing, CDC, Saga | Synchronous Projections |
@@ -138,8 +136,6 @@ graph TB
 | **Circuit Breaker** | Monitoring, Metrics | Retry, Timeout, Bulkhead | Unbounded Retries |
 | **Sharding** | Consistent Hashing | CQRS, Caching | Cross-Shard Joins |
 | **Edge Computing** | CDN, Geographic Distribution | Geo-Replication, Caching | Centralized Processing |
-
-</div>
 
 
 ---
@@ -463,8 +459,6 @@ graph TB
 
 ### E-Commerce Platform
 
-<div class="responsive-table" markdown>
-
 | Component | Pattern | Purpose |
 |-----------|---------|----------|
 | Catalog | CQRS | Read-heavy optimization |
@@ -475,12 +469,8 @@ graph TB
 | Products | Caching | Performance |
 | Payments | Circuit Breaker | Resilience |
 
-</div>
-
 
 ### Financial Trading System
-
-<div class="responsive-table" markdown>
 
 | Component | Pattern | Purpose |
 |-----------|---------|----------|
@@ -491,12 +481,8 @@ graph TB
 | Market Data | Circuit Breaker | Feed resilience |
 | Order Processing | Idempotent Receiver | Exactly-once |
 
-</div>
-
 
 ### IoT Platform
-
-<div class="responsive-table" markdown>
 
 | Component | Pattern | Purpose |
 |-----------|---------|----------|
@@ -506,8 +492,6 @@ graph TB
 | Device Control | Rate Limiting | Prevent overload |
 | Commands | Circuit Breaker | Handle failures |
 | Sync | CDC | Data propagation |
-
-</div>
 
 
 ---
@@ -588,16 +572,12 @@ async def call_service(self):
 
 ### The Data Consistency Hierarchy
 
-<div class="responsive-table" markdown>
-
 | Data Type | Consistency Pattern | Supporting Pattern |
 |-----------|--------------------|-----------------|
 | Financial | Strong consistency | Event sourcing |
 | User profiles | Session consistency | Caching |
 | Analytics | Eventual consistency | CDC |
 | Counters | CRDTs | Eventual consistency |
-
-</div>
 
 
 ---
@@ -614,8 +594,6 @@ async def call_service(self):
 
 ### Pattern Addition Timeline
 
-<div class="responsive-table" markdown>
-
 | Users | Add Patterns | Why |
 |-------|-------------|-----|
 | 10K | Caching, CDN | Reduce load |
@@ -623,8 +601,6 @@ async def call_service(self):
 | 1M | CQRS, Sharding | Scale R/W |
 | 10M | Service Mesh, Event Sourcing | Manage complexity |
 | 100M | Edge Computing, Geo-replication | Global scale |
-
-</div>
 
 
 ---
@@ -830,8 +806,6 @@ graph TB
 
 ### Pattern Integration Points
 
-<div class="responsive-table" markdown>
-
 | Layer | Primary Patterns | Integration Patterns | Key Considerations |
 |-------|-----------------|---------------------|--------------------|
 | **Client** | BFF, Client Library | Retry, Circuit Breaker | User experience, Network reliability |
@@ -840,8 +814,6 @@ graph TB
 | **Data Write** | Event Sourcing, CQRS | Saga, Outbox | Consistency, Audit trail |
 | **Data Read** | Materialized Views, Cache | CDC, Projections | Performance, Staleness |
 | **Infrastructure** | Service Discovery, Config | Monitoring, Logging | Observability, Management |
-
-</div>
 
 
 ---
@@ -889,8 +861,6 @@ graph LR
 
 ### Migration Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Current State | Pain Points | Next Pattern | Implementation Effort |
 |--------------|-------------|--------------|----------------------|
 | **Monolith** | Slow deployments | Modular Monolith | Low ⭐⭐ |
@@ -900,8 +870,6 @@ graph LR
 | **Microservices** | Complex workflows | Saga Pattern | High ⭐⭐⭐⭐ |
 | **Services + Events** | Network complexity | Service Mesh | High ⭐⭐⭐⭐ |
 | **Service Mesh** | Global latency | Edge Computing | Very High ⭐⭐⭐⭐⭐ |
-
-</div>
 
 
 ---
@@ -939,16 +907,12 @@ graph TB
 
 ### Anti-Pattern Remediation Guide
 
-<div class="responsive-table" markdown>
-
 | Anti-Pattern | Symptoms | Solution Patterns | Migration Steps |
 |--------------|----------|------------------|----------------|
 | **Distributed Monolith** | Cascading failures, Synchronized deployments | Event-Driven, Saga, Async messaging | 1. Identify boundaries<br>2. Add message queue<br>3. Convert sync to async<br>4. Implement saga |
 | **Chatty Services** | High latency, Network congestion | BFF, GraphQL, CQRS | 1. Analyze call patterns<br>2. Create aggregation layer<br>3. Implement caching<br>4. Batch requests |
 | **Shared Database** | Schema conflicts, Coupling | Database per service, Event Sourcing, CDC | 1. Identify ownership<br>2. Split by subdomain<br>3. Implement CDC<br>4. Eventual consistency |
 | **Synchronous Event Processing** | Poor performance, Tight coupling | Async messaging, Event streaming | 1. Add message broker<br>2. Make handlers async<br>3. Implement backpressure<br>4. Add monitoring |
-
-</div>
 
 
 ---

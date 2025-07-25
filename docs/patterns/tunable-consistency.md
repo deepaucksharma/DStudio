@@ -39,8 +39,6 @@ Consistency levels are like restaurant service tiers:
 
 ### Real-World Examples
 
-<div class="responsive-table" markdown>
-
 | Operation | Consistency Need | Why? |
 |-----------|-----------------|------|
 | **Password Change** | Strong | Security critical |
@@ -49,8 +47,6 @@ Consistency levels are like restaurant service tiers:
 | **Bank Balance** | Linearizable | Legal requirement |
 | **Friend List** | Read-Your-Write | Avoid confusion |
 | **Analytics** | Bounded Staleness | Fresh enough data |
-
-</div>
 
 
 ### Basic Implementation
@@ -161,8 +157,6 @@ graph LR
 
 ### Consistency Models Explained
 
-<div class="responsive-table" markdown>
-
 | Model | Guarantee | Use Case | Trade-off |
 |-------|-----------|----------|-----------|
 | **Linearizable** | Global real-time ordering | Financial transactions | Highest latency |
@@ -172,8 +166,6 @@ graph LR
 | **Monotonic Read** | No time travel backwards | News feeds | Version tracking |
 | **Bounded Staleness** | Maximum lag guarantee | Metrics | Tunable freshness |
 | **Eventual** | Will converge eventually | Counters | Lowest latency |
-
-</div>
 
 
 ### Implementation Patterns
@@ -223,8 +215,6 @@ flowchart LR
 
 ### Consistency Configuration Matrix
 
-<div class="responsive-table" markdown>
-
 | Data Type | Operation | Consistency | Max Staleness | Rationale |
 |-----------|-----------|-------------|---------------|-----------|  
 | **Financial** | All | Linearizable | 0ms | Regulatory compliance |
@@ -234,8 +224,6 @@ flowchart LR
 | **Social Stats** | All | Eventual | - | Scale over precision |
 | **Inventory** | Write | Strong | 0ms | Prevent oversell |
 | **Recommendations** | Read | Eventual | - | Performance critical |
-
-</div>
 
 
 ### Quorum Configuration
@@ -1152,8 +1140,6 @@ class ConsistencyEconomics:
 
 ### Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Data Type | Recommended Consistency | Rationale |
 |-----------|------------------------|-----------|
 | Financial transactions | Strong/Linearizable | Regulatory compliance |
@@ -1162,8 +1148,6 @@ class ConsistencyEconomics:
 | Analytics/Metrics | Bounded Staleness | Fresh enough |
 | Audit logs | Sequential | Ordering matters |
 | Configuration | Strong | Consistency critical |
-
-</div>
 
 
 ### Implementation Checklist

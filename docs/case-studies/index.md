@@ -23,7 +23,7 @@ Learn how the 7 fundamental laws and 5 pillars apply to real-world systems throu
 
 #### Core Problems Covered:
 - **[Design Google Search](google-systems/google-search.md)**: 100B+ pages, <100ms latency, PageRank
-- **[Design YouTube](google-systems/google-youtube.md)**: 500hrs/min uploads, adaptive streaming, recommendations  
+- **[Design YouTube](google-systems/google-youtube.md)**: 500hrs/min uploads, adaptive streaming, recommendations 
 - **[Design Google Maps](google-systems/google-maps-system.md)**: Real-time traffic, routing algorithms, offline maps
 - **[Design Gmail](google-systems/google-gmail.md)**: 300B emails/day, spam filtering, search
 - **[Design Google Docs](google-systems/google-docs.md)**: Real-time collaboration, conflict resolution, OT
@@ -36,45 +36,45 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 <div class="grid cards" markdown>
 
--   [:material-map-marker:{ .lg .middle } **Uber Location System**](uber-location.md)
+- [:material-map-marker:{ .lg .middle } **Uber Location System**](uber-location.md)
 
-    ---
+ ---
 
-    **Scale**: 40M concurrent users  
-    **Challenge**: Sub-100ms global location updates  
-    
-    **Key Insights**: H3 hexagonal grid system, edge computing, eventual consistency trade-offs  
-    
-    **Laws**: [Asynchronous Reality](/part1-axioms/law2-asynchrony/) • [Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) • [State Distribution](/part2-pillars/state/)
+ **Scale**: 40M concurrent users 
+ **Challenge**: Sub-100ms global location updates 
+ 
+ **Key Insights**: H3 hexagonal grid system, edge computing, eventual consistency trade-offs 
+ 
+ **Laws**: [Asynchronous Reality](/part1-axioms/law2-asynchrony/) • [Multidimensional Optimization](/part1-axioms/law4-tradeoffs/) • [State Distribution](/part2-pillars/state/)
 
--   [:material-database-outline:{ .lg .middle } **Amazon DynamoDB**](amazon-dynamo.md)
+- [:material-database-outline:{ .lg .middle } **Amazon DynamoDB**](amazon-dynamo.md)
 
-    ---
+ ---
 
-    **Scale**: 105M requests/second  
-    **Challenge**: 99.999% availability globally  
-    
-    **Key Insights**: Masterless architecture, vector clocks, consistent hashing, anti-entropy  
-    
-    **Laws**: [Correlated Failure](/part1-axioms/law1-failure/) • [Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)
+ **Scale**: 105M requests/second 
+ **Challenge**: 99.999% availability globally 
+ 
+ **Key Insights**: Masterless architecture, vector clocks, consistent hashing, anti-entropy 
+ 
+ **Laws**: [Correlated Failure](/part1-axioms/law1-failure/) • [Multidimensional Optimization](/part1-axioms/law4-tradeoffs/)
 
--   [:material-music:{ .lg .middle } **Spotify Recommendations**](spotify-recommendations.md)
+- [:material-music:{ .lg .middle } **Spotify Recommendations**](spotify-recommendations.md)
 
-    ---
+ ---
 
-    **Scale**: 5B recommendations/day  
-    **Challenge**: Personalization at scale  
-    
-    **Key Insights**: ML pipeline, collaborative filtering, cold start problem solutions  
-    
-    **Laws**: [Intelligence Distribution](/part2-pillars/intelligence/) • [Economic Reality](/part1-axioms/law7-economics/)
+ **Scale**: 5B recommendations/day 
+ **Challenge**: Personalization at scale 
+ 
+ **Key Insights**: ML pipeline, collaborative filtering, cold start problem solutions 
+ 
+ **Laws**: [Intelligence Distribution](/part2-pillars/intelligence/) • [Economic Reality](/part1-axioms/law7-economics/)
 
 </div>
 
 ### [PayPal: Distributed Payment Processing](paypal-payments.md)
-**Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale  
-**Key Insights**: Distributed sagas, idempotency, compensating transactions  
-**Laws in Focus**: [Truth Distribution](/part2-pillars/truth/), [Control Distribution](/part2-pillars/control/), [Economic Reality 💰](/part1-axioms/law7-economics/)  
+**Scale**: $1.36T/year | **Challenge**: Zero transaction loss with global scale 
+**Key Insights**: Distributed sagas, idempotency, compensating transactions 
+**Laws in Focus**: [Truth Distribution](/part2-pillars/truth/), [Control Distribution](/part2-pillars/control/), [Economic Reality 💰](/part1-axioms/law7-economics/) 
 **Related Patterns**: [Saga Pattern](/patterns/saga) | Idempotent Receiver (Coming Soon) | [Event Sourcing](/patterns/event-sourcing)
 
 ---
@@ -83,8 +83,6 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 ### Architecture Evolution Patterns
 
-<div class="responsive-table" markdown>
-
 | Stage | Characteristics | Common Solutions |
 |-------|----------------|------------------|
 | **Startup** | Single server, <1K users | Monolith, RDBMS |
@@ -92,12 +90,8 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **Scale** | 1M+ users | Microservices, NoSQL |
 | **Hyperscale** | 100M+ users | Cell architecture, edge computing |
 
-</div>
-
 
 ### Trade-off Decisions
-
-<div class="responsive-table" markdown>
 
 | System | Chose | Over | Because |
 |--------|-------|------|---------|
@@ -106,8 +100,6 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **PayPal** | Consistency | Speed | Money must be accurate |
 | **Fortnite** | Client prediction | Server authority | Player experience |
 | **SpaceX** | Triple redundancy | Cost savings | Human lives at stake |
-
-</div>
 
 
 ### Key Success Factors
@@ -148,8 +140,6 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 
 ### By Primary Law Focus
 
-<div class="responsive-table" markdown>
-
 | Case Study | Primary Laws | Key Innovation |
 |------------|---------------|----------------|
 | **Uber** | Asynchronous Reality ⏳, Multidimensional Optimization ⚖️ | H3 hexagonal grid |
@@ -159,12 +149,8 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **Fortnite** | Asynchronous Reality ⏳, Emergent Chaos 🌪️ | Client prediction |
 | **SpaceX** | Correlated Failure ⛓️, Cognitive Load 🤯 | Formal verification |
 
-</div>
-
 
 ### By Scale Metrics
-
-<div class="responsive-table" markdown>
 
 | System | Peak Load | Data Volume | Availability |
 |--------|-----------|-------------|--------------|
@@ -174,8 +160,6 @@ Each guide includes problem clarification, capacity estimation, API design, deta
 | **PayPal** | $1.36T/year | 100TB | 99.999% |
 | **Fortnite** | 12.3M concurrent | 50TB/day | 99.9% |
 | **SpaceX** | 10K metrics/sec | 1TB/mission | 100% |
-
-</div>
 
 
 ---

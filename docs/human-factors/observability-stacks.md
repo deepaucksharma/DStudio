@@ -163,16 +163,12 @@ flowchart LR
 
 **Key Metrics to Track:**
 
-<div class="responsive-table" markdown>
-
 | Metric Type | Name | Labels | Purpose |
 |------------|------|--------|------|
 | **Histogram** | request_duration | method, route, status | Latency distribution |
 | **Counter** | requests_total | method, route, status | Request rate |
 | **Gauge** | concurrent_requests | service | Current load |
 | **Summary** | response_size | endpoint | Payload analysis |
-
-</div>
 
 
 **Structured Logging Best Practices:**
@@ -204,8 +200,6 @@ flowchart TD
 
 **Essential Log Fields:**
 
-<div class="responsive-table" markdown>
-
 | Field | Type | Purpose | Example |
 |-------|------|---------|------|
 | timestamp | ISO8601 | When it happened | 2024-03-15T10:23:45Z |
@@ -215,8 +209,6 @@ flowchart TD
 | user_id | string | Who affected | user_12345 |
 | duration | number | Performance | 145.23 (ms) |
 | error | object | Error details | {"type": "timeout"} |
-
-</div>
 
 
 ```mermaid
@@ -246,16 +238,12 @@ flowchart TD
 
 **Trace Attribute Standards:**
 
-<div class="responsive-table" markdown>
-
 | Category | Attributes | Example |
 |----------|-----------|------|
 | **HTTP** | http.method, http.status_code, http.url | GET, 200, /api/v1/users |
 | **Database** | db.system, db.statement, db.operation | postgresql, SELECT * FROM..., SELECT |
 | **Messaging** | messaging.system, messaging.operation | kafka, publish |
 | **Custom** | business.amount, business.user_tier | 99.99, premium |
-
-</div>
 
 
 ### 2. Optimize Collection
@@ -283,8 +271,6 @@ flowchart LR
 
 **Optimization Configuration Guide:**
 
-<div class="responsive-table" markdown>
-
 | Processor | Purpose | Config | Impact |
 |-----------|---------|--------|--------|
 | **Batch** | Reduce network calls | size: 1000, timeout: 10s | 90% fewer requests |
@@ -292,8 +278,6 @@ flowchart LR
 | **Sampling** | Control volume | ratio: 0.1 | 90% data reduction |
 | **Resource** | Add metadata | host.name, service.name | Context |
 | **Filter** | Remove noise | drop health checks | Relevant data only |
-
-</div>
 
 
 ### 3. Design Dashboards
@@ -337,16 +321,12 @@ flowchart TD
 
 **Correlation ID Best Practices:**
 
-<div class="responsive-table" markdown>
-
 | Practice | Do | Don't | Why |
 |----------|----|----|-----|
 | **Generation** | Use UUID v4 | Sequential IDs | Avoid collisions |
 | **Propagation** | HTTP headers | Query params | Security |
 | **Storage** | Logs & traces | Metrics labels | Cardinality |
 | **Format** | Standard header | Custom per service | Consistency |
-
-</div>
 
 
 ### 2. Service Dependency Mapping
@@ -413,16 +393,12 @@ flowchart TD
 
 **Cost Reduction Checklist:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Implementation | Savings | Impact |
 |----------|---------------|---------|--------|
 | Limit cardinality | Remove high-cardinality labels | 60-80% | None |
 | Pre-aggregate | Recording rules for common queries | 20-30% | Faster queries |
 | Downsample | Reduce resolution over time | 70-85% | Lose precision |
 | Drop metrics | Remove unused metrics | 10-30% | None |
-
-</div>
 
 
 **Example savings:**
@@ -461,16 +437,12 @@ flowchart LR
 
 **Log Optimization Matrix:**
 
-<div class="responsive-table" markdown>
-
 | Log Level | Sample Rate | Retention | Index Fields | Use Case |
 |-----------|------------|-----------|--------------|----------|
 | ERROR | 100% | 90 days | All fields | Debugging |
 | WARN | 100% | 30 days | Most fields | Monitoring |
 | INFO | 10% | 7 days | Key fields | Analytics |
 | DEBUG | 0% (dev only) | 1 day | Minimal | Development |
-
-</div>
 
 
 **Example savings:**
@@ -516,16 +488,12 @@ flowchart TD
 
 **Sampling Strategy Comparison:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Keep Rate | Pros | Cons | Best For |
 |----------|-----------|------|------|-------|
 | Head-based | Fixed % | Simple, predictable cost | Might miss errors | High volume |
 | Tail-based | Dynamic | Keeps interesting traces | Higher complexity | Quality over quantity |
 | Adaptive | Variable | Adjusts to load | Complex to implement | Variable traffic |
 | Always-on | 100% errors + sample | Catches all issues | Storage cost | Production systems |
-
-</div>
 
 
 **Example savings:**
@@ -564,8 +532,6 @@ flowchart TD
 
 **Investigation Checklist:**
 
-<div class="responsive-table" markdown>
-
 | Step | Tool | What to Look For | Time |
 |------|------|-----------------|------|  
 | 1. Metrics | Grafana | Error rate, latency spike | 30s |
@@ -573,8 +539,6 @@ flowchart TD
 | 3. Traces | Jaeger | Slow spans, failures | 2min |
 | 4. Infrastructure | Prometheus | CPU, memory, disk | 1min |
 | 5. Dependencies | Service map | Upstream/downstream | 1min |
-
-</div>
 
 
 ## Observability Maturity (Laws 5 & 6 Progression)

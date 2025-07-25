@@ -4,54 +4,53 @@
 
 ```mermaid
 graph TB
-    subgraph "1. Requirements [5 min]"
-        R1[Functional Requirements]
-        R2[Non-Functional Requirements]
-        R3[Scale Estimates]
-        R1 --> API[API Design]
-        R2 --> Constraints[Constraints]
-        R3 --> Numbers[Back-of-envelope]
-    end
-    
-    subgraph "2. High Level [15 min]"
-        Client[Clients]
-        LB[Load Balancer]
-        API_GW[API Gateway]
-        Services[Microservices]
-        Cache[Cache Layer]
-        DB[Database]
-        Queue[Message Queue]
-        
-        Client --> LB
-        LB --> API_GW
-        API_GW --> Services
-        Services --> Cache
-        Services --> DB
-        Services --> Queue
-    end
-    
-    subgraph "3. Deep Dive [15 min]"
-        Data[Data Model]
-        Algo[Key Algorithms]
-        Bottle[Bottlenecks]
-        Data --> Schema[Schema Design]
-        Algo --> Logic[Core Logic]
-        Bottle --> Solution[Solutions]
-    end
-    
-    subgraph "4. Scale & Optimize [10 min]"
-        Scale[Scaling Strategy]
-        Monitor[Monitoring]
-        Cost[Cost Analysis]
-        Scale --> Horizontal[Horizontal Scale]
-        Monitor --> Metrics[Key Metrics]
-        Cost --> Optimize[Optimizations]
-    end
+ subgraph "1. Requirements [5 min]"
+ R1[Functional Requirements]
+ R2[Non-Functional Requirements]
+ R3[Scale Estimates]
+ R1 --> API[API Design]
+ R2 --> Constraints[Constraints]
+ R3 --> Numbers[Back-of-envelope]
+ end
+ 
+ subgraph "2. High Level [15 min]"
+ Client[Clients]
+ LB[Load Balancer]
+ API_GW[API Gateway]
+ Services[Microservices]
+ Cache[Cache Layer]
+ DB[Database]
+ Queue[Message Queue]
+ 
+ Client --> LB
+ LB --> API_GW
+ API_GW --> Services
+ Services --> Cache
+ Services --> DB
+ Services --> Queue
+ end
+ 
+ subgraph "3. Deep Dive [15 min]"
+ Data[Data Model]
+ Algo[Key Algorithms]
+ Bottle[Bottlenecks]
+ Data --> Schema[Schema Design]
+ Algo --> Logic[Core Logic]
+ Bottle --> Solution[Solutions]
+ end
+ 
+ subgraph "4. Scale & Optimize [10 min]"
+ Scale[Scaling Strategy]
+ Monitor[Monitoring]
+ Cost[Cost Analysis]
+ Scale --> Horizontal[Horizontal Scale]
+ Monitor --> Metrics[Key Metrics]
+ Cost --> Optimize[Optimizations]
+ end
 ```
 
 ## Quick Reference: Scale Numbers
 
-<div class="scale-reference">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -107,30 +106,29 @@ graph TB
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Latency Numbers Every Engineer Should Know
 
 ```mermaid
 gantt
-    title Latency Comparison (log scale)
-    dateFormat X
-    axisFormat %s
-    
-    section Cache
-    L1 Cache Reference    :0, 1
-    L2 Cache Reference    :0, 10
-    
-    section Memory
-    Main Memory Reference :0, 100
-    
-    section Storage
-    SSD Random Read       :0, 16000
-    HDD Seek              :0, 10000000
-    
-    section Network
-    Same DC Round Trip    :0, 500000
-    Cross-Coast RT        :0, 150000000
+ title Latency Comparison (log scale)
+ dateFormat X
+ axisFormat %s
+ 
+ section Cache
+ L1 Cache Reference :0, 1
+ L2 Cache Reference :0, 10
+ 
+ section Memory
+ Main Memory Reference :0, 100
+ 
+ section Storage
+ SSD Random Read :0, 16000
+ HDD Seek :0, 10000000
+ 
+ section Network
+ Same DC Round Trip :0, 500000
+ Cross-Coast RT :0, 150000000
 ```
 
 ### Quick Latency Reference
@@ -148,53 +146,46 @@ gantt
 <div class="pattern-visual">
 <h3>1. Basic Web App</h3>
 <pre>
-┌─────────┐     ┌──────────┐     ┌────────┐
-│ Browser ├────►│ Web Server├────►│   DB   │
-└─────────┘     └──────────┘     └────────┘
+┌─────────┐ ┌──────────┐ ┌────────┐
+│ Browser ├────►│ Web Server├────►│ DB │
+└─────────┘ └──────────┘ └────────┘
 </pre>
 </div>
 
-<div class="pattern-visual">
 <h3>2. With Load Balancer</h3>
 <pre>
-┌─────────┐     ┌────┐     ┌──────────┐
+┌─────────┐ ┌────┐ ┌──────────┐
 │ Browser ├────►│ LB ├────►│ Server 1 │
-└─────────┘     └─┬──┘     └──────────┘
-                  │        ┌──────────┐
-                  └───────►│ Server 2 │
-                           └──────────┘
+└─────────┘ └─┬──┘ └──────────┘
+ │ ┌──────────┐
+ └───────►│ Server 2 │
+ └──────────┘
 </pre>
-</div>
 
-<div class="pattern-visual">
 <h3>3. With Cache</h3>
 <pre>
-┌─────────┐     ┌──────────┐     ┌───────┐
-│ Browser ├────►│   Server  ├────►│ Cache │
-└─────────┘     └──────────┘     └───┬───┘
-                                      │
-                                  ┌───▼───┐
-                                  │   DB  │
-                                  └───────┘
+┌─────────┐ ┌──────────┐ ┌───────┐
+│ Browser ├────►│ Server ├────►│ Cache │
+└─────────┘ └──────────┘ └───┬───┘
+ │
+ ┌───▼───┐
+ │ DB │
+ └───────┘
 </pre>
-</div>
 
-<div class="pattern-visual">
 <h3>4. Microservices</h3>
 <pre>
-┌─────────┐     ┌──────────┐     ┌─────────┐
-│   API   ├────►│ Service A├────►│  DB A   │
-│ Gateway │     └──────────┘     └─────────┘
-└────┬────┘     ┌──────────┐     ┌─────────┐
-     └─────────►│ Service B├────►│  DB B   │
-                └──────────┘     └─────────┘
+┌─────────┐ ┌──────────┐ ┌─────────┐
+│ API ├────►│ Service A├────►│ DB A │
+│ Gateway │ └──────────┘ └─────────┘
+└────┬────┘ ┌──────────┐ ┌─────────┐
+ └─────────►│ Service B├────►│ DB B │
+ └──────────┘ └─────────┘
 </pre>
-</div>
 </div>
 
 ## Capacity Planning Formulas
 
-<div class="formula-cards">
 <div class="formula-card">
 <h4>🔢 QPS Calculation</h4>
 <pre>
@@ -205,9 +196,7 @@ Total daily requests = 2B
 QPS = 2B / 86400 = ~23K QPS
 Peak QPS = 23K × 3 = ~70K QPS
 </pre>
-</div>
 
-<div class="formula-card">
 <h4>💾 Storage Calculation</h4>
 <pre>
 Users = 100M
@@ -217,9 +206,7 @@ Total = 100M × 10 MB = 1 PB
 With replication (3x) = 3 PB
 With backups (+50%) = 4.5 PB
 </pre>
-</div>
 
-<div class="formula-card">
 <h4>🖥️ Server Calculation</h4>
 <pre>
 Peak QPS = 70K
@@ -229,9 +216,7 @@ Servers needed = 70
 With redundancy (2x) = 140
 Round up = 150 servers
 </pre>
-</div>
 
-<div class="formula-card">
 <h4>💰 Bandwidth Calculation</h4>
 <pre>
 QPS = 70K
@@ -242,35 +227,33 @@ Bandwidth = 70K × 11 KB
 = 770 MB/s = 6.2 Gbps
 </pre>
 </div>
-</div>
 
 ## Database Decision Tree
 
 ```mermaid
 flowchart TD
-    Start[Choose Database] --> Structure{Structured Data?}
-    
-    Structure -->|Yes| ACID{Need ACID?}
-    Structure -->|No| NoSQL[NoSQL Options]
-    
-    ACID -->|Yes| Scale{Scale Requirements?}
-    ACID -->|No| Eventually[Eventually Consistent OK]
-    
-    Scale -->|Single Region| Traditional[PostgreSQL/MySQL]
-    Scale -->|Global| NewSQL[Spanner/CockroachDB]
-    
-    NoSQL --> Type{Data Type?}
-    Type -->|Key-Value| KV[Redis/DynamoDB]
-    Type -->|Document| Doc[MongoDB/Firestore]
-    Type -->|Wide Column| Wide[Cassandra/Bigtable]
-    Type -->|Graph| Graph[Neo4j/Neptune]
-    
-    Eventually --> Dynamo[DynamoDB/Cassandra]
+ Start[Choose Database] --> Structure{Structured Data?}
+ 
+ Structure -->|Yes| ACID{Need ACID?}
+ Structure -->|No| NoSQL[NoSQL Options]
+ 
+ ACID -->|Yes| Scale{Scale Requirements?}
+ ACID -->|No| Eventually[Eventually Consistent OK]
+ 
+ Scale -->|Single Region| Traditional[PostgreSQL/MySQL]
+ Scale -->|Global| NewSQL[Spanner/CockroachDB]
+ 
+ NoSQL --> Type{Data Type?}
+ Type -->|Key-Value| KV[Redis/DynamoDB]
+ Type -->|Document| Doc[MongoDB/Firestore]
+ Type -->|Wide Column| Wide[Cassandra/Bigtable]
+ Type -->|Graph| Graph[Neo4j/Neptune]
+ 
+ Eventually --> Dynamo[DynamoDB/Cassandra]
 ```
 
 ## Caching Strategy Selector
 
-<div class="caching-strategies">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -307,144 +290,132 @@ flowchart TD
 </tr>
 </tbody>
 </table>
-</div>
 
 ## API Design Patterns
 
-<div class="api-patterns">
 <div class="api-card">
 <h4>RESTful API</h4>
 <pre>
-GET    /users/{id}
-POST   /users
-PUT    /users/{id}
+GET /users/{id}
+POST /users
+PUT /users/{id}
 DELETE /users/{id}
 
-GET    /users/{id}/posts
-POST   /users/{id}/posts
+GET /users/{id}/posts
+POST /users/{id}/posts
 </pre>
-</div>
 
-<div class="api-card">
 <h4>GraphQL</h4>
 <pre>
 query {
-  user(id: "123") {
-    name
-    email
-    posts {
-      title
-      content
-    }
-  }
+ user(id: "123") {
+ name
+ email
+ posts {
+ title
+ content
+ }
+ }
 }
 </pre>
-</div>
 
-<div class="api-card">
 <h4>gRPC</h4>
 <pre>
 service UserService {
-  rpc GetUser(GetUserRequest) 
-      returns (User);
-  rpc ListUsers(ListUsersRequest) 
-      returns (stream User);
+ rpc GetUser(GetUserRequest) 
+ returns (User);
+ rpc ListUsers(ListUsersRequest) 
+ returns (stream User);
 }
 </pre>
-</div>
 </div>
 
 ## 🚦 Load Balancing Algorithms
 
 ```mermaid
 graph LR
-    subgraph "Round Robin"
-        LB1[Load Balancer] --> S1[Server 1]
-        LB1 --> S2[Server 2]
-        LB1 --> S3[Server 3]
-    end
-    
-    subgraph "Least Connections"
-        LB2[Load Balancer] --> S4[Server: 10 conn]
-        LB2 --> S5[Server: 5 conn ✓]
-        LB2 --> S6[Server: 15 conn]
-    end
-    
-    subgraph "Consistent Hashing"
-        LB3[Load Balancer] --> Ring[Hash Ring]
-        Ring --> S7[Server A: 0-120°]
-        Ring --> S8[Server B: 120-240°]
-        Ring --> S9[Server C: 240-360°]
-    end
+ subgraph "Round Robin"
+ LB1[Load Balancer] --> S1[Server 1]
+ LB1 --> S2[Server 2]
+ LB1 --> S3[Server 3]
+ end
+ 
+ subgraph "Least Connections"
+ LB2[Load Balancer] --> S4[Server: 10 conn]
+ LB2 --> S5[Server: 5 conn ✓]
+ LB2 --> S6[Server: 15 conn]
+ end
+ 
+ subgraph "Consistent Hashing"
+ LB3[Load Balancer] --> Ring[Hash Ring]
+ Ring --> S7[Server A: 0-120°]
+ Ring --> S8[Server B: 120-240°]
+ Ring --> S9[Server C: 240-360°]
+ end
 ```
 
 ## Mobile App Architecture
 
-<div class="mobile-arch">
 <h3>Offline-First Architecture</h3>
 <pre>
 ┌─────────────────────────────────────┐
-│          Mobile App                 │
+│ Mobile App │
 ├─────────────────────────────────────┤
-│  ┌─────────┐      ┌──────────────┐ │
-│  │   UI    │◄────►│ Local SQLite │ │
-│  └─────────┘      └──────────────┘ │
-│       ▲                    ▲        │
-│       │                    │        │
-│  ┌────▼──────┐      ┌─────▼──────┐ │
-│  │ View Model│      │ Sync Engine │ │
-│  └───────────┘      └─────────────┘ │
+│ ┌─────────┐ ┌──────────────┐ │
+│ │ UI │◄────►│ Local SQLite │ │
+│ └─────────┘ └──────────────┘ │
+│ ▲ ▲ │
+│ │ │ │
+│ ┌────▼──────┐ ┌─────▼──────┐ │
+│ │ View Model│ │ Sync Engine │ │
+│ └───────────┘ └─────────────┘ │
 └───────────────────────────┬─────────┘
-                            │
-                     ┌──────▼──────┐
-                     │   Backend   │
-                     │     API     │
-                     └─────────────┘
+ │
+ ┌──────▼──────┐
+ │ Backend │
+ │ API │
+ └─────────────┘
 </pre>
-</div>
 
 ## Interview Time Management
 
-<div class="time-management">
-<svg viewBox="0 0 400 400" style="max-width: 400px;">
-  <!-- Clock face -->
-  <circle cx="200" cy="200" r="180" fill="#f0f0f0" stroke="#333" stroke-width="4"/>
-  
-  <!-- Time segments -->
-  <path d="M 200,200 L 200,20 A 180,180 0 0,1 290,60 z" fill="#FF6B6B" opacity="0.7"/>
-  <path d="M 200,200 L 290,60 A 180,180 0 0,1 350,200 z" fill="#4ECDC4" opacity="0.7"/>
-  <path d="M 200,200 L 350,200 A 180,180 0 0,1 290,340 z" fill="#FFE66D" opacity="0.7"/>
-  <path d="M 200,200 L 290,340 A 180,180 0 0,1 200,380 z" fill="#95E1D3" opacity="0.7"/>
-  <path d="M 200,200 L 200,380 A 180,180 0 0,1 110,340 z" fill="#A8E6CF" opacity="0.7"/>
-  <path d="M 200,200 L 110,340 A 180,180 0 0,1 200,20 z" fill="#C7CEEA" opacity="0.7"/>
-  
-  <!-- Labels -->
-  <text x="200" y="100" text-anchor="middle" font-size="14" font-weight="bold">Requirements</text>
-  <text x="200" y="115" text-anchor="middle" font-size="12">5 min</text>
-  
-  <text x="320" y="130" text-anchor="middle" font-size="14" font-weight="bold">Estimation</text>
-  <text x="320" y="145" text-anchor="middle" font-size="12">5 min</text>
-  
-  <text x="320" y="270" text-anchor="middle" font-size="14" font-weight="bold">High Level</text>
-  <text x="320" y="285" text-anchor="middle" font-size="12">15 min</text>
-  
-  <text x="200" y="320" text-anchor="middle" font-size="14" font-weight="bold">Deep Dive</text>
-  <text x="200" y="335" text-anchor="middle" font-size="12">10 min</text>
-  
-  <text x="80" y="270" text-anchor="middle" font-size="14" font-weight="bold">Scale</text>
-  <text x="80" y="285" text-anchor="middle" font-size="12">5 min</text>
-  
-  <text x="80" y="130" text-anchor="middle" font-size="14" font-weight="bold">Wrap Up</text>
-  <text x="80" y="145" text-anchor="middle" font-size="12">5 min</text>
-  
-  <!-- Center -->
-  <circle cx="200" cy="200" r="10" fill="#333"/>
+<svg viewBox="0 0 400 400">
+ <!-- Clock face -->
+ <circle cx="200" cy="200" r="180" fill="#f0f0f0" stroke="#333" stroke-width="4"/>
+ 
+ <!-- Time segments -->
+ <path d="M 200,200 L 200,20 A 180,180 0 0,1 290,60 z" fill="#FF6B6B" opacity="0.7"/>
+ <path d="M 200,200 L 290,60 A 180,180 0 0,1 350,200 z" fill="#4ECDC4" opacity="0.7"/>
+ <path d="M 200,200 L 350,200 A 180,180 0 0,1 290,340 z" fill="#FFE66D" opacity="0.7"/>
+ <path d="M 200,200 L 290,340 A 180,180 0 0,1 200,380 z" fill="#95E1D3" opacity="0.7"/>
+ <path d="M 200,200 L 200,380 A 180,180 0 0,1 110,340 z" fill="#A8E6CF" opacity="0.7"/>
+ <path d="M 200,200 L 110,340 A 180,180 0 0,1 200,20 z" fill="#C7CEEA" opacity="0.7"/>
+ 
+ <!-- Labels -->
+ <text x="200" y="100" text-anchor="middle" font-size="14" font-weight="bold">Requirements</text>
+ <text x="200" y="115" text-anchor="middle" font-size="12">5 min</text>
+ 
+ <text x="320" y="130" text-anchor="middle" font-size="14" font-weight="bold">Estimation</text>
+ <text x="320" y="145" text-anchor="middle" font-size="12">5 min</text>
+ 
+ <text x="320" y="270" text-anchor="middle" font-size="14" font-weight="bold">High Level</text>
+ <text x="320" y="285" text-anchor="middle" font-size="12">15 min</text>
+ 
+ <text x="200" y="320" text-anchor="middle" font-size="14" font-weight="bold">Deep Dive</text>
+ <text x="200" y="335" text-anchor="middle" font-size="12">10 min</text>
+ 
+ <text x="80" y="270" text-anchor="middle" font-size="14" font-weight="bold">Scale</text>
+ <text x="80" y="285" text-anchor="middle" font-size="12">5 min</text>
+ 
+ <text x="80" y="130" text-anchor="middle" font-size="14" font-weight="bold">Wrap Up</text>
+ <text x="80" y="145" text-anchor="middle" font-size="12">5 min</text>
+ 
+ <!-- Center -->
+ <circle cx="200" cy="200" r="10" fill="#333"/>
 </svg>
-</div>
 
 ## Common Bottlenecks & Solutions
 
-<div class="bottleneck-solutions">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -481,11 +452,9 @@ graph LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ## Monitoring & Metrics Cheat Sheet
 
-<div class="metrics-grid">
 <div class="metric-category">
 <h4>🟢 Golden Signals</h4>
 <ul>
@@ -494,9 +463,7 @@ graph LR
 <li><strong>Errors</strong>: Error rate %</li>
 <li><strong>Saturation</strong>: Resource usage</li>
 </ul>
-</div>
 
-<div class="metric-category">
 <h4>🔵 SLI Examples</h4>
 <ul>
 <li>P99 latency < 100ms</li>
@@ -504,9 +471,7 @@ graph LR
 <li>Error rate < 0.1%</li>
 <li>Throughput > 10K QPS</li>
 </ul>
-</div>
 
-<div class="metric-category">
 <h4>🟡 Key Metrics</h4>
 <ul>
 <li>CPU utilization</li>
@@ -516,9 +481,7 @@ graph LR
 <li>Queue depth</li>
 <li>Cache hit rate</li>
 </ul>
-</div>
 
-<div class="metric-category">
 <h4>🔴 Alert Thresholds</h4>
 <ul>
 <li>CPU > 80% for 5 min</li>
@@ -527,6 +490,5 @@ graph LR
 <li>Queue depth > 1000</li>
 <li>P99 latency > 1s</li>
 </ul>
-</div>
 </div>
 

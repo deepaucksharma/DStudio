@@ -233,8 +233,6 @@ sequenceDiagram
 
 **Frontier Data Structure:**
 
-<div class="responsive-table" markdown>
-
 | Component | Implementation | Capacity | Purpose |
 |-----------|---------------|----------|---------|
 | **Bloom Filter** | Bit array | 10B URLs | Fast duplicate check |
@@ -243,8 +241,6 @@ sequenceDiagram
 | **RocksDB URLs** | LSM tree | 100B URLs | Persistent storage |
 | **RocksDB Seen** | LSM tree | 10B entries | Deduplication |
 | **RocksDB Meta** | LSM tree | 10B entries | URL metadata |
-
-</div>
 
 
 **Politeness Enforcement:**
@@ -399,16 +395,12 @@ graph LR
 
 **Deduplication Strategies Comparison:**
 
-<div class="responsive-table" markdown>
-
 | Method | Detection Type | Speed | Accuracy | Storage |
 |--------|---------------|--------|----------|---------|
 | **Exact Hash** | Identical content | O(1) | 100% | 32 bytes/URL |
 | **SimHash** | Near-duplicates | O(log n) | 95%+ | 8 bytes/URL |
 | **Shingles** | Text similarity | O(n) | Variable | ~1KB/doc |
 | **MinHash** | Set similarity | O(k) | 90%+ | 128 bytes/URL |
-
-</div>
 
 
 #### Law 3 (Failure): Robust Crawling
@@ -517,8 +509,6 @@ stateDiagram-v2
 
 **Spider Trap Detection Patterns:**
 
-<div class="responsive-table" markdown>
-
 | Pattern Type | Detection Method | Example |
 |-------------|-----------------|---------|
 | **Deep URLs** | Path depth > 10 | `/a/b/c/d/e/f/g/h/i/j/k` |
@@ -527,8 +517,6 @@ stateDiagram-v2
 | **Known Patterns** | Regex matching | `/test/test/test/` |
 | **Similar URLs** | Pattern frequency | 500+ URLs with same structure |
 | **Infinite Loops** | Redirect chains | A→B→C→A |
-
-</div>
 
 
 **Retry Strategy:**
@@ -665,8 +653,6 @@ sequenceDiagram
 
 **Concurrency Control Mechanisms:**
 
-<div class="responsive-table" markdown>
-
 | Component | Strategy | Purpose |
 |-----------|----------|---------|
 | **URL Queue** | Async Queue | Work distribution |
@@ -674,8 +660,6 @@ sequenceDiagram
 | **Process Pool** | CPU workers | Parallel extraction |
 | **Memory Mapping** | Zero-copy buffers | Efficient data sharing |
 | **Batch Processing** | Bulk operations | Reduce I/O overhead |
-
-</div>
 
 
 **Domain-Based Politeness:**
@@ -963,8 +947,6 @@ graph TB
 
 **Distributed Crawler Communication:**
 
-<div class="responsive-table" markdown>
-
 | Component | Purpose | Implementation |
 |-----------|---------|----------------|
 | **Node Registry** | Track active crawlers | Ephemeral ZK nodes |
@@ -973,8 +955,6 @@ graph TB
 | **Checkpointing** | Failure recovery | Periodic ZK writes |
 | **Leader Election** | Central coordination | Sequential ZK nodes |
 | **Health Monitoring** | Detect failures | ZK watches |
-
-</div>
 
                 if self.zk.exists(prev_path, watch=True):
                     time.sleep(1)
@@ -1066,8 +1046,6 @@ sequenceDiagram
 
 **Key Metrics Dashboard:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Type | Description | Alert Threshold |
 |--------|------|-------------|-----------------|
 | **Crawl Rate** | Counter | URLs/second | < 10 URLs/min |
@@ -1077,8 +1055,6 @@ sequenceDiagram
 | **Page Size P50** | Histogram | Median size | - |
 | **Links/Page** | Histogram | Extracted links | - |
 | **Robots Violations** | Counter | Disallowed URLs | > 0 |
-
-</div>
 
 
 **Grafana Dashboard Panels:**
@@ -1220,8 +1196,6 @@ graph TB
 
 **Management API Endpoints:**
 
-<div class="responsive-table" markdown>
-
 | Endpoint | Method | Purpose |
 |----------|--------|---------|
 | `/api/v1/status` | GET | Crawler status and stats |
@@ -1232,8 +1206,6 @@ graph TB
 | `/api/v1/config` | POST | Update configuration |
 | `/api/v1/export` | GET | Export crawled data |
 | `/api/v1/debug/{url}` | GET | Debug URL crawling |
-
-</div>
 
 
 **Control Flow:**
@@ -1468,8 +1440,6 @@ sequenceDiagram
 
 **Cost Breakdown Structure:**
 
-<div class="responsive-table" markdown>
-
 | Component | Cost | Optimization |
 |-----------|------|--------------|
 | **Bandwidth** | $0.05/GB | Compression (70% savings) |
@@ -1477,8 +1447,6 @@ sequenceDiagram
 | **Compute** | $0.10/hour | Spot instances (70% savings) |
 | **DNS** | $0.40/million | Caching (95% reduction) |
 | **IP Rotation** | $0.001/request | Smart rotation (50% reduction) |
-
-</div>
 
 
 **Value-Based URL Selection:**
@@ -1594,8 +1562,6 @@ graph TB
 
 ### Comprehensive Law Mapping
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Axiom 1<br>(Latency) | Axiom 2<br>(Capacity) | Axiom 3<br>(Failure) | Axiom 4<br>(Concurrency) | Axiom 5<br>(Coordination) | Axiom 6<br>(Observability) | Axiom 7<br>(Human Interface) | Axiom 8<br>(Economics) |
 |-----------------|---------------------|---------------------|---------------------|------------------------|------------------------|--------------------------|---------------------------|------------------------|
 | **Async I/O Everywhere** | ✅ Non-blocking ops<br>Max throughput | ✅ Handle 1000s<br>connections | ✅ Timeout handling<br>graceful failures | ✅ True parallelism<br>event loops | ➖ Local decision<br>no coordination | 📊 Connection metrics<br>per domain | ✅ Intuitive async<br>programming model | ✅ Max hardware<br>utilization |
@@ -1608,8 +1574,6 @@ graph TB
 | **Distributed Workers** | ⚖️ Network coordination<br>overhead | ✅ Linear scaling<br>with nodes | ✅ Node failures<br>don't stop crawl | ✅ Massive parallelism<br>across nodes | 🔄 Work distribution<br>via coordinator | 📊 Worker health<br>and throughput | ⚠️ Complex deployment<br>and debugging | ✅ Use spot instances<br>for cost savings |
 | **Checkpointing** | ⚖️ Periodic I/O<br>for snapshots | ✅ Incremental saves<br>bounded size | ✅ Recovery point<br>for restarts | ⚠️ Checkpoint consistency<br>across workers | 🔄 Checkpoint coordination<br>via ZK | 📊 Checkpoint lag<br>recovery time | ✅ Restart capability<br>operational tool | ✅ Prevents recrawl<br>saves resources |
 | **Smart Scheduling** | ⚖️ ML inference<br>overhead | ✅ Prioritizes valuable<br>content | ✅ Adapts to site<br>reliability | ✅ Parallel scoring<br>and scheduling | 🔄 Global priority<br>agreement | 📊 Scheduling efficiency<br>metrics | ⚠️ Complex tuning<br>parameters | ✅ Crawls high-value<br>pages first |
-
-</div>
 
 
 ### 🏛 Pillar Mapping
@@ -1862,8 +1826,6 @@ graph TB
 
 ### Trade-off Analysis
 
-<div class="responsive-table" markdown>
-
 | Architecture | Scale | Complexity | Cost | JS Support | Latency | Fault Tolerance | Ops Overhead |
 |--------------|-------|------------|------|------------|---------|-----------------|---------------|
 | **Focused Vertical** | Low | Simple | Low | None | Low | Limited | Minimal |
@@ -1871,8 +1833,6 @@ graph TB
 | **Browser-Based** | Medium | High | High | Full | High | Medium | High |
 | **Stream Processing** | High | Very High | High | None | Low | Excellent | Very High |
 | **Edge-Distributed** | High | High | High | Partial | Very Low | High | High |
-
-</div>
 
 
 ### Performance & Scale Comparison
@@ -1991,8 +1951,6 @@ graph TB
 
 ### Key Design Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **URL Storage** | In-memory | Persistent DB | **Hybrid** - Hot URLs in memory, cold in RocksDB for scale |
@@ -2000,8 +1958,6 @@ graph TB
 | **Politeness** | Global queue | Per-domain queues | **Per-domain** - Ensures politeness without blocking other domains |
 | **Content Storage** | Store everything | Store selectively | **Selective** - Store based on quality score to manage costs |
 | **Architecture** | Monolithic | Distributed | **Distributed** - Required for web-scale crawling |
-
-</div>
 
 
 ### Alternative Architectures

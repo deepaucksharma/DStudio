@@ -73,15 +73,11 @@ stateDiagram-v2
 
 ### Simple State Machine
 
-<div class="responsive-table" markdown>
-
 | State | Behavior | When to Transition |
 |-------|----------|--------------------|
 | **CLOSED** | Let requests through | After X failures → OPEN |
 | **OPEN** | Reject immediately | After timeout → HALF-OPEN |
 | **HALF-OPEN** | Test with few requests | Success → CLOSED, Failure → OPEN |
-
-</div>
 
 
 !!! example "Real-World Impact: Netflix's Hystrix"
@@ -96,16 +92,12 @@ stateDiagram-v2
 #### Failure Detection
 Track failure metrics to determine service health:
 
-<div class="responsive-table" markdown>
-
 | Metric Type | Example | Threshold | Industry Example |
 |-------------|---------|-----------|------------------|
 | **Error Rate** | 5 failures in 10 requests | 50% | Twitter: 1% error rate trips circuit⁵ |
 | **Timeout Rate** | 3 timeouts in 5 requests | 60% | Amazon: 99.9th percentile latency trigger⁶ |
 | **Response Time** | Average > 5 seconds | 5s | Uber: P99 > 500ms opens circuit⁷ |
 | **Exception Count** | 10 consecutive errors | 10 | Stripe: 5 consecutive 5xx errors⁸ |
-
-</div>
 
 
 #### State Transitions
@@ -130,16 +122,12 @@ graph LR
 
 #### Configuration Parameters
 
-<div class="responsive-table" markdown>
-
 | Parameter | Purpose | Typical Value | Real-World Example |
 |-----------|---------|---------------|-------------------|
 | **Failure Threshold** | Errors before opening | 5-10 failures | Netflix: 20 failures in 10 seconds⁹ |
 | **Recovery Timeout** | Time before testing | 30-60 seconds | LinkedIn: 30 seconds¹⁰ |
 | **Success Threshold** | Successes to close | 2-5 successes | Airbnb: 3 consecutive successes¹¹ |
 | **Test Request Ratio** | % requests in half-open | 10-25% | Spotify: 10% test traffic¹² |
-
-</div>
 
 
 ### Implementation Flow
@@ -231,15 +219,11 @@ Failure Rate: Calculate across all buckets
 #### 3. Adaptive Circuit Breaker
 Adjusts thresholds based on system load:
 
-<div class="responsive-table" markdown>
-
 | Load Level | Error Threshold | Recovery Time |
 |------------|----------------|---------------|
 | Low (<100 RPS) | 50% | 60s |
 | Medium (100-1000 RPS) | 20% | 30s |
 | High (>1000 RPS) | 5% | 10s |
-
-</div>
 
 
 **Used by**: Twitter's Finagle¹⁶ (dynamic thresholds based on request rate)
@@ -269,16 +253,12 @@ graph TB
 
 #### 2. Fallback Strategies
 
-<div class="responsive-table" markdown>
-
 | Strategy | Use Case | Example |
 |----------|----------|---------|
 | **Default Value** | Non-critical data | Netflix: Show generic thumbnails¹⁸ |
 | **Cache** | Read-heavy operations | Twitter: Serve stale tweets¹⁹ |
 | **Queue** | Write operations | Uber: Queue ride requests²⁰ |
 | **Degraded Service** | Partial functionality | Spotify: Offline playlists²¹ |
-
-</div>
 
 
 #### 3. Monitoring and Alerting
@@ -300,16 +280,12 @@ Key Metrics to Track:
 
 ### Common Pitfalls and Solutions
 
-<div class="responsive-table" markdown>
-
 | Pitfall | Consequence | Solution | Case Study |
 |---------|-------------|----------|------------|
 | **Thundering Herd** | All instances test simultaneously | Jittered recovery timeout | Facebook: Random jitter prevents synchronized recovery²³ |
 | **Too Sensitive** | Opens on minor blips | Require volume threshold | Google: Minimum 100 requests before evaluating²⁴ |
 | **Too Slow to Open** | Cascading failures | Lower thresholds under load | Netflix: Adaptive thresholds based on system health²⁵ |
 | **No Fallback** | Complete feature loss | Implement degraded mode | Amazon: Read from cache when DynamoDB circuits open²⁶ |
-
-</div>
 
 
 ---
@@ -320,17 +296,201 @@ Key Metrics to Track:
 
 #### 1. Language-Specific Libraries
 
-<div class="responsive-table" markdown>
+=== "Java (Hystrix)"
 
-| Language | Library | Features | Adoption |
-|----------|---------|----------|----------|
-| **Java** | Hystrix | Full featured, metrics | Netflix, Airbnb |
-| **Go** | sony/gobreaker | Lightweight, simple | Uber, Grab |
-| **Python** | py-breaker | Decorators, async | Instagram, Pinterest |
-| **JavaScript** | opossum | Promise-based | PayPal, Walmart |
-| **.NET** | Polly | Policy-based | Microsoft, Stack Overflow |
+    ```java
+    // Netflix Hystrix implementation
+    public class PaymentCommand extends HystrixCommand<PaymentResult> {
+        private final PaymentService paymentService;
+        private final PaymentRequest request;
+        
+        public PaymentCommand(PaymentService service, PaymentRequest request) {
+            super(HystrixCommandGroupKey.Factory.asKey("PaymentGroup"));
+            this.paymentService = service;
+            this.request = request;
+        }
+        
+        @Override
+        protected PaymentResult run() throws Exception {
+            return paymentService.processPayment(request);
+        }
+        
+        @Override
+        protected PaymentResult getFallback() {
+            return PaymentResult.createFallback("Payment service unavailable");
+        }
+    }
+    
+    // Usage
+    PaymentCommand command = new PaymentCommand(paymentService, request);
+    PaymentResult result = command.execute();
+    ```
+    
+    **Features**: Full metrics, thread pool isolation, dashboard
+    **Used by**: Netflix, Airbnb, Alibaba
 
-</div>
+=== "Go (gobreaker)"
+
+    ```go
+    // Sony gobreaker implementation
+    import "github.com/sony/gobreaker"
+    
+    var cb *gobreaker.CircuitBreaker
+    
+    func init() {
+        var st gobreaker.Settings
+        st.Name = "PaymentService"
+        st.MaxRequests = 3
+        st.Interval = time.Minute
+        st.Timeout = 30 * time.Second
+        st.ReadyToTrip = func(counts gobreaker.Counts) bool {
+            failureRatio := float64(counts.TotalFailures) / float64(counts.Requests)
+            return counts.Requests >= 3 && failureRatio >= 0.6
+        }
+        
+        cb = gobreaker.NewCircuitBreaker(st)
+    }
+    
+    func CallPaymentService(ctx context.Context, req *PaymentRequest) (*PaymentResult, error) {
+        result, err := cb.Execute(func() (interface{}, error) {
+            return paymentService.ProcessPayment(ctx, req)
+        })
+        
+        if err != nil {
+            return nil, err
+        }
+        return result.(*PaymentResult), nil
+    }
+    ```
+    
+    **Features**: Lightweight, configurable, simple API
+    **Used by**: Uber, Grab, Tokopedia
+
+=== "Python (py-breaker)"
+
+    ```python
+    # py-breaker implementation
+    import pybreaker
+    
+    # Configure circuit breaker
+    payment_breaker = pybreaker.CircuitBreaker(
+        fail_max=5,
+        reset_timeout=60,
+        exclude=[ValueError]  # Don't trip on validation errors
+    )
+    
+    @payment_breaker
+    def process_payment(payment_request):
+        """Process payment with circuit breaker protection"""
+        response = payment_service.charge(
+            amount=payment_request.amount,
+            card_token=payment_request.token
+        )
+        return response
+    
+    # Usage with fallback
+    try:
+        result = process_payment(request)
+    except pybreaker.CircuitBreakerError:
+        # Circuit is open, use fallback
+        result = PaymentResult(
+            status="pending",
+            message="Payment queued for retry"
+        )
+    ```
+    
+    **Features**: Decorators, async support, listeners
+    **Used by**: Instagram, Pinterest, Spotify
+
+=== "JavaScript (Opossum)"
+
+    ```javascript
+    // Opossum implementation
+    const CircuitBreaker = require('opossum');
+    
+    const options = {
+      timeout: 3000,
+      errorThresholdPercentage: 50,
+      resetTimeout: 30000
+    };
+    
+    const breaker = new CircuitBreaker(paymentService.processPayment, options);
+    
+    // Fallback function
+    breaker.fallback(() => {
+      return {
+        status: 'fallback',
+        message: 'Payment service temporarily unavailable'
+      };
+    });
+    
+    // Event handlers
+    breaker.on('open', () => console.log('Circuit breaker opened'));
+    breaker.on('halfOpen', () => console.log('Circuit breaker half-open'));
+    breaker.on('close', () => console.log('Circuit breaker closed'));
+    
+    // Usage
+    async function handlePayment(request) {
+      try {
+        const result = await breaker.fire(request);
+        return result;
+      } catch (error) {
+        console.error('Payment failed:', error);
+        throw error;
+      }
+    }
+    ```
+    
+    **Features**: Promise-based, event emitters, metrics
+    **Used by**: PayPal, Walmart, eBay
+
+=== ".NET (Polly)"
+
+    ```csharp
+    // Polly implementation
+    using Polly;
+    using Polly.CircuitBreaker;
+    
+    var circuitBreakerPolicy = Policy
+        .HandleResult<HttpResponseMessage>(r => !r.IsSuccessStatusCode)
+        .CircuitBreakerAsync(
+            handledEventsAllowedBeforeBreaking: 3,
+            durationOfBreak: TimeSpan.FromSeconds(30),
+            onBreak: (result, timespan) => {
+                _logger.LogWarning($"Circuit breaker opened for {timespan}");
+            },
+            onReset: () => {
+                _logger.LogInformation("Circuit breaker reset");
+            },
+            onHalfOpen: () => {
+                _logger.LogInformation("Circuit breaker half-open");
+            }
+        );
+    
+    // Usage with HttpClient
+    public async Task<PaymentResult> ProcessPaymentAsync(PaymentRequest request)
+    {
+        try
+        {
+            var response = await circuitBreakerPolicy.ExecuteAsync(
+                async () => await _httpClient.PostAsJsonAsync("/payments", request)
+            );
+            
+            return await response.Content.ReadFromJsonAsync<PaymentResult>();
+        }
+        catch (BrokenCircuitException)
+        {
+            // Return fallback
+            return new PaymentResult { 
+                Status = PaymentStatus.Queued,
+                Message = "Payment service unavailable" 
+            };
+        }
+    }
+    ```
+    
+    **Features**: Policy-based, async, retry combination
+    **Used by**: Microsoft, Stack Overflow, Booking.com
 
 
 #### 2. Service Mesh Integration
@@ -393,9 +553,58 @@ Test Scenarios:
 
 #### Netflix Hystrix Architecture
 
-- **Protection Layers**: Circuit Breaker → Thread Pool Isolation → Fallback Method
-- **Flow**: Request → Check Circuit → If closed: Try service → Success/Failure
-- **Fallback**: Circuit open or service failure → Return cached/default response
+=== "Architecture Overview"
+
+    ```mermaid
+    graph TB
+        subgraph "Hystrix Protection Layers"
+            R[Request] --> CB[Circuit Breaker]
+            CB -->|Closed| TP[Thread Pool Isolation]
+            CB -->|Open| FB[Fallback]
+            TP --> S[Service Call]
+            S -->|Success| RS[Return Success]
+            S -->|Failure| FB
+            FB --> RF[Return Fallback]
+        end
+        
+        style CB fill:#4db6ac
+        style TP fill:#42a5f5
+        style FB fill:#ffa726
+    ```
+
+=== "Configuration Example"
+
+    ```java
+    // Hystrix command configuration
+    HystrixCommand.Setter
+        .withGroupKey(HystrixCommandGroupKey.Factory.asKey("OrderService"))
+        .andCommandKey(HystrixCommandKey.Factory.asKey("GetOrder"))
+        .andThreadPoolKey(HystrixThreadPoolKey.Factory.asKey("OrderThreadPool"))
+        .andCommandPropertiesDefaults(
+            HystrixCommandProperties.Setter()
+                .withCircuitBreakerRequestVolumeThreshold(20)
+                .withCircuitBreakerErrorThresholdPercentage(50)
+                .withCircuitBreakerSleepWindowInMilliseconds(5000)
+                .withExecutionTimeoutInMilliseconds(1000)
+                .withFallbackIsolationSemaphoreMaxConcurrentRequests(10)
+        )
+        .andThreadPoolPropertiesDefaults(
+            HystrixThreadPoolProperties.Setter()
+                .withCoreSize(10)
+                .withMaxQueueSize(100)
+        );
+    ```
+
+=== "Metrics Dashboard"
+
+    Netflix Hystrix provides real-time metrics:
+    
+    - **Request Rate**: Current requests/second
+    - **Error Percentage**: Failed requests ratio
+    - **Circuit Status**: Open/Closed/Half-Open
+    - **Thread Pool Usage**: Active threads
+    - **Latency Percentiles**: P50, P90, P99
+    - **Fallback Rate**: Fallback executions/minute
 
 #### Multi-Level Circuit Breakers
 
@@ -470,16 +679,101 @@ graph LR
 
 **Solution Comparison**:
 
-<div class="responsive-table" markdown>
+=== "Redis Store"
 
-| Approach | Architecture | Pros | Cons |
-|----------|-------------|------|------|
-| **Redis Store** | ![Redis](https://img.shields.io/badge/Central-Store-red) | Fast (< 1ms), Consistent view | SPOF, Requires Redis cluster |
-| **Consensus** | ![Raft](https://img.shields.io/badge/Raft-Consensus-blue) | Highly available, No SPOF | Complex, Higher latency (10-50ms) |
-| **Gossip Protocol** | ![P2P](https://img.shields.io/badge/P2P-Gossip-green) | Decentralized, Fault tolerant | Eventually consistent, Convergence delay |
-| **Load Balancer** | ![LB](https://img.shields.io/badge/LB-Managed-orange) | Centralized control, Simple | Vendor lock-in, Limited flexibility |
+    ```python
+    # Centralized state in Redis
+    class RedisCircuitBreaker:
+        def __init__(self, service_name, redis_client):
+            self.service_name = service_name
+            self.redis = redis_client
+            self.key = f"circuit_breaker:{service_name}"
+            
+        def is_open(self):
+            state = self.redis.get(self.key)
+            return state == b"OPEN"
+            
+        def open_circuit(self, duration=30):
+            self.redis.setex(self.key, duration, "OPEN")
+            self.redis.publish(f"cb:{self.service_name}", "OPENED")
+    ```
+    
+    **Pros**: Fast (< 1ms), Consistent view across instances
+    **Cons**: SPOF, Requires Redis cluster for HA
+    **Use Case**: Microservices with existing Redis infrastructure
 
-</div>
+=== "Consensus (Raft)"
+
+    ```go
+    // Raft-based consensus for circuit breaker state
+    type RaftCircuitBreaker struct {
+        node     *raft.Node
+        state    CircuitState
+        peers    []string
+    }
+    
+    func (r *RaftCircuitBreaker) UpdateState(newState CircuitState) error {
+        // Propose state change to Raft cluster
+        data, _ := json.Marshal(newState)
+        return r.node.Propose(context.Background(), data)
+    }
+    
+    func (r *RaftCircuitBreaker) applyState(data []byte) {
+        var state CircuitState
+        json.Unmarshal(data, &state)
+        r.state = state
+    }
+    ```
+    
+    **Pros**: Highly available, No single point of failure
+    **Cons**: Complex implementation, Higher latency (10-50ms)
+    **Use Case**: Critical systems requiring strong consistency
+
+=== "Gossip Protocol"
+
+    ```python
+    # Gossip-based eventual consistency
+    class GossipCircuitBreaker:
+        def __init__(self, node_id, peers):
+            self.node_id = node_id
+            self.peers = peers
+            self.states = {node_id: CircuitState.CLOSED}
+            self.versions = {node_id: 0}
+            
+        def update_state(self, new_state):
+            self.states[self.node_id] = new_state
+            self.versions[self.node_id] += 1
+            self._gossip_state()
+            
+        def _gossip_state(self):
+            # Randomly select peers to share state
+            selected_peers = random.sample(self.peers, k=3)
+            for peer in selected_peers:
+                self._send_state_to_peer(peer, self.states, self.versions)
+    ```
+    
+    **Pros**: Decentralized, Fault tolerant, Scales well
+    **Cons**: Eventually consistent, Convergence delay
+    **Use Case**: Large-scale distributed systems
+
+=== "Load Balancer Managed"
+
+    ```yaml
+    # HAProxy configuration for circuit breaking
+    backend payment_service
+        option httpchk GET /health
+        
+        # Circuit breaker configuration
+        server payment1 10.0.0.1:8080 check fall 3 rise 2
+        server payment2 10.0.0.2:8080 check fall 3 rise 2
+        
+        # Mark server down after 3 failures
+        # Mark server up after 2 successes
+    ```
+    
+    **Pros**: Centralized control, Simple configuration
+    **Cons**: Vendor lock-in, Limited customization
+    **Use Case**: Traditional load balancer deployments
 
 
 ### Advanced Failure Cases
@@ -723,8 +1017,6 @@ Continuous Validation:
 
 #### Cost-Benefit Matrix
 
-<div class="responsive-table" markdown>
-
 | Impact | Without Circuit Breaker | With Circuit Breaker |
 |--------|------------------------|---------------------|
 | **Availability** | 99.9% (8.76h/year down) | 99.99% (52m/year down) |
@@ -734,37 +1026,27 @@ Continuous Validation:
 | **Operational Cost** | $2M/year downtime | $200K/year downtime |
 | **ROI** | - | 3,600% first year |
 
-</div>
-
 
 #### Circuit Breaker Metrics Dashboard
 
 !!! tip "🎯 Production Monitoring Dashboard"
     **Circuit Breaker Health Status**
     
-<div class="responsive-table" markdown>
-
-    | Service | State | Success Rate | Status |
+| Service | State | Success Rate | Status |
     |---------|-------|--------------|--------|
     | Service A | 🟢 CLOSED | 99.9% | Healthy, normal operation |
     | Service B | 🟡 HALF-OPEN | Testing | Testing recovery with limited traffic |
     | Service C | 🔴 OPEN | 0% | Failed, recovering in 45s |
 
-</div>
-
     
     **Performance Impact Metrics**
     
-<div class="responsive-table" markdown>
-
-    | Metric | Value | Trend |
+| Metric | Value | Trend |
     |--------|-------|-------|
     | Prevented Cascade Failures | 23 this week | ↓ 15% |
     | Average Recovery Time | 2.3 minutes | ↓ 0.5 min |
     | Fallback Success Rate | 96.7% | ↑ 2.1% |
     | Circuit Trip Events | 45 this week | ↓ 8% |
-
-</div>
 
 
 ### Future Directions
@@ -854,8 +1136,6 @@ Clear runbooks for when circuits open:
 
 ### Decision Framework
 
-<div class="responsive-table" markdown>
-
 | Question | Yes → Use Circuit Breaker | No → Alternative |
 |----------|---------------------------|------------------|
 | Calling external services? | ✅ Essential | ⚠️ Consider for internal services |
@@ -863,8 +1143,6 @@ Clear runbooks for when circuits open:
 | Can implement fallbacks? | ✅ Maximum benefit | ⚠️ Still valuable for fast failure |
 | Service has SLA? | ✅ Protect your SLA | ⚠️ Monitor and alert instead |
 | High traffic volume? | ✅ Prevents resource exhaustion | ⚠️ Simple timeout may work |
-
-</div>
 
 
 ### Implementation Checklist
@@ -894,8 +1172,6 @@ Clear runbooks for when circuits open:
 
 ### Common Pitfalls
 
-<div class="responsive-table" markdown>
-
 | Pitfall | Impact | Solution |
 |---------|--------|---------|
 | **Threshold too low** | False positives | Start with 10-20 failures |
@@ -903,8 +1179,6 @@ Clear runbooks for when circuits open:
 | **No fallback strategy** | Poor user experience | Always implement fallbacks |
 | **Ignoring partial failures** | Delayed problem detection | Monitor latency percentiles |
 | **Shared circuit breaker** | Resource contention | Use per-service instances |
-
-</div>
 
 
 ---
@@ -919,8 +1193,6 @@ Clear runbooks for when circuits open:
 
 ## Quick Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | Use Case | Circuit Breaker Type | Key Configuration |
 |----------|---------------------|-------------------|
 | **Microservice calls** | Basic count-based | 5 failures, 30s timeout |
@@ -928,8 +1200,6 @@ Clear runbooks for when circuits open:
 | **External APIs** | Sliding window | 10-request window, 40% threshold |
 | **Critical payments** | Distributed with fallback | Redis state, cached responses |
 | **Real-time systems** | Adaptive ML-powered | Dynamic thresholds, 5s timeout |
-
-</div>
 
 
 ## Implementation Templates

@@ -92,15 +92,11 @@ graph TB
 
 **Durability Options:**
 
-<div class="responsive-table" markdown>
-
 | Mode | Behavior | Latency | Use Case |
 |------|----------|---------|----------|
 | async | Fire-and-forget | <1ms | High throughput |
 | sync | Wait for local disk | ~10ms | Important data |
 | quorum | Wait for replication | ~50ms | Critical data |
-
-</div>
 
 
 #### 💾 Law 2 (Capacity): Storage Engine Design
@@ -160,8 +156,6 @@ graph TB
 
 **LSM-Tree Configuration:**
 
-<div class="responsive-table" markdown>
-
 | Level | Size | Files | Purpose | Compaction Trigger |
 |-------|------|-------|---------|--------------------|
 | Memtable | 256MB | 1 | Active writes | Size threshold |
@@ -171,20 +165,14 @@ graph TB
 | L3 | 256GB | 1000 | Bulk storage | Size ratio |
 | L4 | 2.56TB | 10000 | Cold data | Size ratio |
 
-</div>
-
 
 **Performance Trade-offs:**
-
-<div class="responsive-table" markdown>
 
 | Metric | Value | Impact |
 |--------|-------|--------|
 | Write Amplification | ~10x | CPU/IO cost for compaction |
 | Read Amplification | ~5x | May read multiple levels |
 | Space Amplification | ~1.1x | Temporary during compaction |
-
-</div>
 
 
 **Compaction Strategies:**
@@ -263,16 +251,12 @@ graph TB
 
 **Replication Configuration:**
 
-<div class="responsive-table" markdown>
-
 | Parameter | Value | Purpose |
 |-----------|-------|---------|  
 | Replication Factor (N) | 3 | Data copies |
 | Write Quorum (W) | 2 | Durability guarantee |
 | Read Quorum (R) | 2 | Consistency guarantee |
 | Hinted Handoff TTL | 7 days | Temporary failure recovery |
-
-</div>
 
 
 **Write Flow with Quorum:**
@@ -337,16 +321,12 @@ graph TB
 
 **Failure Handling Matrix:**
 
-<div class="responsive-table" markdown>
-
 | Failure Type | Detection Method | Recovery Action | Data Impact |
 |--------------|------------------|-----------------|-------------|
 | Node Crash | Heartbeat timeout | Hinted handoff | No loss |
 | Network Partition | Gossip divergence | Continue with quorum | Temporary inconsistency |
 | Disk Failure | I/O errors | Re-replicate from peers | No loss if replicas exist |
 | Data Corruption | Checksum mismatch | Restore from replica | Self-healing |
-
-</div>
 
 
 #### 🔀 Law 4 (Concurrency): Conflict Resolution
@@ -434,8 +414,6 @@ sequenceDiagram
 
 **Concurrency Control Comparison:**
 
-<div class="responsive-table" markdown>
-
 | Feature | MVCC | Pessimistic Locking | Optimistic Locking |
 |---------|------|--------------------|--------------------|  
 | Read Blocking | Never | Yes (by writes) | Never |
@@ -443,8 +421,6 @@ sequenceDiagram
 | Deadlock Risk | No | Yes | No |
 | Memory Usage | High (versions) | Low | Medium |
 | Best For | Read-heavy | Write-heavy | Low contention |
-
-</div>
 
 
 **Garbage Collection Strategy:**
@@ -548,8 +524,6 @@ stateDiagram-v2
 
 **Consensus Properties:**
 
-<div class="responsive-table" markdown>
-
 | Property | Guarantee | Implementation |
 |----------|-----------|----------------|
 | Election Safety | One leader per term | Majority vote required |
@@ -557,8 +531,6 @@ stateDiagram-v2
 | Log Matching | Same log = same entries | Check prev entry match |
 | Leader Completeness | Committed = in future leaders | Only vote if up-to-date |
 | State Machine Safety | Same order = same state | Apply in log order |
-
-</div>
 
 
 **Log Replication Flow:**
@@ -599,16 +571,12 @@ sequenceDiagram
 
 **Configuration Management:**
 
-<div class="responsive-table" markdown>
-
 | Parameter | Default | Purpose |
 |-----------|---------|---------|  
 | Election Timeout | 150-300ms | Randomized to prevent split votes |
 | Heartbeat Interval | 50ms | Prevent elections |
 | Max Log Size | 1GB | Trigger snapshot |
 | Snapshot Threshold | 10K entries | Compact log |
-
-</div>
 
 
 #### 👁 Law 6 (Observability): Metrics & Debugging
@@ -662,8 +630,6 @@ graph TB
 
 **Key Metrics Dashboard:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Description | Alert Threshold |
 |--------|-------------|------------------|
 | **ops.get.rate** | GET requests/sec | > 100K/sec |
@@ -674,8 +640,6 @@ graph TB
 | **compaction.rate** | Compactions/hour | > 100/hour |
 | **replication.lag** | Max replica lag | > 1000 entries |
 | **hot_keys.count** | Number of hot keys | > 100 |
-
-</div>
 
 
 **Hot Key Detection:**
@@ -727,16 +691,12 @@ sequenceDiagram
 
 **Performance Analysis Tools:**
 
-<div class="responsive-table" markdown>
-
 | Tool | Purpose | Usage |
 |------|---------|-------|  
 | Trace Viewer | Request flow analysis | Debug slow queries |
 | Flame Graphs | CPU profiling | Find hot code paths |
 | Heap Profiler | Memory analysis | Detect memory leaks |
 | Query Analyzer | Access patterns | Optimize schema |
-
-</div>
 
 
 #### 👤 Law 7 (Human Interface): Operations & Management
@@ -819,8 +779,6 @@ sequenceDiagram
 
 **Operations Dashboard:**
 
-<div class="responsive-table" markdown>
-
 | Panel | Metrics | Actions |
 |-------|---------|---------|  
 | **Cluster Health** | Node status, Load distribution | Add/remove nodes |
@@ -828,12 +786,8 @@ sequenceDiagram
 | **Storage** | Disk usage, Compaction | Trigger compaction |
 | **Replication** | Lag, Consistency | Force sync |
 
-</div>
-
 
 **Common Operational Tasks:**
-
-<div class="responsive-table" markdown>
 
 | Task | Command/API | Frequency |
 |------|-------------|-----------|  
@@ -843,8 +797,6 @@ sequenceDiagram
 | Create backup | `POST /backup` | Daily |
 | Debug slow key | `GET /debug/key/{key}` | On demand |
 | Upgrade version | `kvctl rolling-upgrade` | Monthly |
-
-</div>
 
 
 **Monitoring & Alerts:**
@@ -927,16 +879,12 @@ graph TB
 
 **Storage Tier Configuration:**
 
-<div class="responsive-table" markdown>
-
 | Tier | Cost/GB/Month | Latency | Capacity | Use Case |
 |------|---------------|---------|----------|----------|
 | Memory | $0.50 | 0.1ms | 100GB | Hot working set |
 | SSD | $0.10 | 1ms | 10TB | Active data |
 | HDD | $0.03 | 10ms | 100TB | Warm archive |
 | S3 | $0.023 | 100ms | ∞ | Cold archive |
-
-</div>
 
 
 **Compression Decision Matrix:**
@@ -966,8 +914,6 @@ graph LR
 
 **Cost Breakdown Example (1PB Scale):**
 
-<div class="responsive-table" markdown>
-
 | Component | Usage | Unit Cost | Monthly Cost |
 |-----------|-------|-----------|---------------|
 | **Storage** | | | |
@@ -982,8 +928,6 @@ graph LR
 | - Egress | 50TB | $0.05/GB | $2,500 |
 | - Inter-AZ | 100TB | $0.01/GB | $1,000 |
 | **Total** | | | **$50,920** |
-
-</div>
 
 
 **Cost Optimization Strategies:**
@@ -1039,8 +983,6 @@ sequenceDiagram
 
 ### Comprehensive Law Mapping
 
-<div class="responsive-table" markdown>
-
 | Design Decision | A1: Latency | A2: Capacity | A3: Failure | A4: Concurrency | A5: Coordination | A6: Observability | A7: Human | A8: Economics |
 |-----------------|-------------|--------------|-------------|-----------------|------------------|-------------------|-----------|---------------|
 | **Multi-level Cache** | Sub-ms Memory→Redis→Disk | Limited memory, eviction | Cache warming on failover | Cache coherence issues | Invalidation coordination | Hit rate metrics | Cache tuning | Memory cost vs latency |
@@ -1053,8 +995,6 @@ sequenceDiagram
 | **WAL + Snapshots** | Sequential writes | Bounded log | Durability | Append-only | Local snapshots | Recovery time | Snapshot frequency | Durability vs perf |
 | **Anti-entropy** | Background process | Merkle trees | Repairs divergence | Non-blocking | Gossip protocol | Detection rate | Repair frequency | Automated healing |
 | **Hot Key Detection** | May throttle | Count-min sketch | Persistent | Lock-free counting | Gossip hot keys | Real-time dashboard | Manual sharding | Prevents cascades |
-
-</div>
 
 
 ### 🏛 Pillar Mapping
@@ -1250,8 +1190,6 @@ graph LR
 
 ### Trade-off Analysis Matrix
 
-<div class="responsive-table" markdown>
-
 | Architecture | Consistency | Availability | Partition Tolerance | Latency | Throughput | Complexity | Cost |
 |--------------|-------------|--------------|-------------------|---------|------------|------------|------|
 | **Master-Slave** | Strong | Medium (manual failover) | Low (split-brain) | Low | Medium (master bottleneck) | Low | Low |
@@ -1259,8 +1197,6 @@ graph LR
 | **Raft Clusters** | Strong | High (auto-failover) | Medium (majority) | Medium | Low (serialized) | Medium | Medium |
 | **Hierarchical Cache** | Eventual | High (stale OK) | High (isolated) | Very Low | Very High | High | High |
 | **HTAP** | Strong TX/Eventual analytics | High (separated) | High (independent) | Low TX/High analytics | High (specialized) | Very High | Very High |
-
-</div>
 
 
 ### Detailed Comparison Metrics
@@ -1355,8 +1291,6 @@ graph TB
 
 ### Key Design Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Decision | Option A | Option B | Choice & Rationale |
 |----------|----------|----------|-------------------|
 | **Consistency** | Strong (Raft/Paxos) | Eventual (Gossip) | **Context-dependent** - Strong for config/finance, Eventual for scale |
@@ -1365,8 +1299,6 @@ graph TB
 | **Partitioning** | Range | Hash | **Hash** - Better distribution, consistent hashing |
 | **Caching** | Write-through | Write-back | **Write-back + WAL** - Performance with durability |
 | **Transactions** | Pessimistic | Optimistic (MVCC) | **MVCC** - Better concurrency, no read locks |
-
-</div>
 
 
 ### Alternative Architectures

@@ -897,8 +897,6 @@ class PartitionTolerantChatSystem:
 
 ### 8.1 When to Use Each Consistency Model
 
-<div class="responsive-table" markdown>
-
 | Consistency Model | Use Case | Trade-offs |
 |------------------|----------|------------|
 | **Strong Consistency** | Group creation, Payment messages | Higher latency, Lower availability |
@@ -906,8 +904,6 @@ class PartitionTolerantChatSystem:
 | **Eventual Consistency** | Message delivery, Read receipts | Best performance, Potential temporary inconsistencies |
 | **Read-Your-Writes** | User's own messages | Additional tracking overhead |
 | **Monotonic Reads** | Message history pagination | Requires session stickiness |
-
-</div>
 
 
 ### 8.2 Practical Implementation Guidelines

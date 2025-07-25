@@ -49,8 +49,6 @@ graph LR
 
 #### What Happened
 
-<div class="responsive-table" markdown>
-
 | Time | Event | Latency Impact |
 |------|-------|----------------|
 | **T+0ms** | User clicks "Buy Now" | Checkout begins |
@@ -59,8 +57,6 @@ graph LR
 | **T+300ms** | Query Tokyo pricing | Another 140ms RTT |
 | **T+450ms** | Calculate shipping | Depends on inventory location |
 | **T+610ms** | Return to user | **Total: 610ms** |
-
-</div>
 
 
 #### The Problem Cascade
@@ -132,8 +128,6 @@ graph TB
 
 #### The Million-Dollar Millisecond
 
-<div class="responsive-table" markdown>
-
 | Technology | One-way Latency | Cost to Build | Advantage Window |
 |------------|----------------|---------------|------------------|
 | **Standard Fiber** | 6.65ms | $1M | Baseline |
@@ -141,8 +135,6 @@ graph TB
 | **Microwave** | 4.25ms | $30M | 2.3ms = $1.2M/day |
 | **Millimeter Wave** | 4.05ms | $50M | 200μs = $100K/day |
 | **Theoretical Limit** | 3.79ms | ∞ | Physics says no |
-
-</div>
 
 
 #### Real Trading Impact
@@ -299,16 +291,12 @@ graph TB
     end
 ```
 
-<div class="responsive-table" markdown>
-
 | Metric | Without Edge | With Edge | Improvement |
 |--------|-------------|-----------|-------------|
 | P50 Latency | 200ms | 20ms | 90% |
 | P99 Latency | 250ms | 40ms | 84% |
 | Central Load | 100% | 20% | 80% reduction |
 | Cost | $X | $3X | 3x increase |
-
-</div>
 
 
 ### Pattern 2: Predictive Prefetching
@@ -671,8 +659,6 @@ sum by (component) (
 
 ### Design Principles
 
-<div class="responsive-table" markdown>
-
 | Principle | Implementation | Example |
 |-----------|----------------|---------||
 | **Cache aggressively** | Store data close to users | CDN for static assets |
@@ -680,8 +666,6 @@ sum by (component) (
 | **Design for async** | Don't block on remote calls | Message queues |
 | **Batch operations** | Amortize round trips | GraphQL vs REST |
 | **Predict and prefetch** | Get data before needed | Video buffering |
-
-</div>
 
 
 ---

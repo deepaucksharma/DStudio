@@ -16,37 +16,36 @@ last_updated: 2025-01-23
 
 **Space-efficient probabilistic set membership testing**
 
-<div class="law-box">
-A Bloom filter trades perfect accuracy for massive space savings - it can tell you "definitely not in set" with 100% certainty, but "probably in set" with measurable uncertainty.
-</div>
+!!! abstract
+ A Bloom filter trades perfect accuracy for massive space savings - it can tell you "definitely not in set" with 100% certainty, but "probably in set" with measurable uncertainty.
 
 ## Visual Overview
 
 ```mermaid
 graph LR
-    subgraph "Bloom Filter Structure"
-        BA[Bit Array<br/>0 1 0 1 1 0 1 0 0 1]
-        H1[Hash 1]
-        H2[Hash 2]
-        H3[Hash 3]
-    end
-    
-    subgraph "Operations"
-        Add[Add Element]
-        Check[Check Element]
-    end
-    
-    Add --> H1
-    Add --> H2
-    Add --> H3
-    
-    Check --> H1
-    Check --> H2
-    Check --> H3
-    
-    H1 --> BA
-    H2 --> BA
-    H3 --> BA
+ subgraph "Bloom Filter Structure"
+ BA[Bit Array<br/>0 1 0 1 1 0 1 0 0 1]
+ H1[Hash 1]
+ H2[Hash 2]
+ H3[Hash 3]
+ end
+ 
+ subgraph "Operations"
+ Add[Add Element]
+ Check[Check Element]
+ end
+ 
+ Add --> H1
+ Add --> H2
+ Add --> H3
+ 
+ Check --> H1
+ Check --> H2
+ Check --> H3
+ 
+ H1 --> BA
+ H2 --> BA
+ H3 --> BA
 ```
 
 ## How Bloom Filters Work
@@ -55,30 +54,30 @@ graph LR
 
 ```mermaid
 flowchart TB
-    subgraph "1. Initial State"
-        B1[0 0 0 0 0 0 0 0 0 0]
-    end
-    
-    subgraph "2. Add 'apple'"
-        A1[apple] --> H1A[h1: 2]
-        A1 --> H2A[h2: 5]
-        A1 --> H3A[h3: 7]
-        B2[0 0 1 0 0 1 0 1 0 0]
-    end
-    
-    subgraph "3. Add 'banana'"
-        A2[banana] --> H1B[h1: 1]
-        A2 --> H2B[h2: 5]
-        A2 --> H3B[h3: 9]
-        B3[0 1 1 0 0 1 0 1 0 1]
-    end
-    
-    subgraph "4. Check 'cherry'"
-        A3[cherry] --> H1C[h1: 2 ✓]
-        A3 --> H2C[h2: 5 ✓]
-        A3 --> H3C[h3: 8 ✗]
-        Result[Not in set!]
-    end
+ subgraph "1. Initial State"
+ B1[0 0 0 0 0 0 0 0 0 0]
+ end
+ 
+ subgraph "2. Add 'apple'"
+ A1[apple] --> H1A[h1: 2]
+ A1 --> H2A[h2: 5]
+ A1 --> H3A[h3: 7]
+ B2[0 0 1 0 0 1 0 1 0 0]
+ end
+ 
+ subgraph "3. Add 'banana'"
+ A2[banana] --> H1B[h1: 1]
+ A2 --> H2B[h2: 5]
+ A2 --> H3B[h3: 9]
+ B3[0 1 1 0 0 1 0 1 0 1]
+ end
+ 
+ subgraph "4. Check 'cherry'"
+ A3[cherry] --> H1C[h1: 2 ✓]
+ A3 --> H2C[h2: 5 ✓]
+ A3 --> H3C[h3: 8 ✗]
+ Result[Not in set!]
+ end
 ```
 
 ### Visual Representation of Operations
@@ -89,13 +88,13 @@ flowchart TB
 
 ```mermaid
 graph TB
-    E[Element] --> H[Hash Functions]
-    H --> P1[Position 1]
-    H --> P2[Position 2]
-    H --> P3[Position 3]
-    P1 --> S1[Set bit to 1]
-    P2 --> S2[Set bit to 1]
-    P3 --> S3[Set bit to 1]
+ E[Element] --> H[Hash Functions]
+ H --> P1[Position 1]
+ H --> P2[Position 2]
+ H --> P3[Position 3]
+ P1 --> S1[Set bit to 1]
+ P2 --> S2[Set bit to 1]
+ P3 --> S3[Set bit to 1]
 ```
 
 **Process:**
@@ -110,15 +109,15 @@ graph TB
 
 ```mermaid
 graph TB
-    E[Element] --> H[Hash Functions]
-    H --> C1[Check bit 1]
-    H --> C2[Check bit 2]
-    H --> C3[Check bit 3]
-    C1 --> R{All bits = 1?}
-    C2 --> R
-    C3 --> R
-    R -->|Yes| M[Maybe in set]
-    R -->|No| N[Definitely not in set]
+ E[Element] --> H[Hash Functions]
+ H --> C1[Check bit 1]
+ H --> C2[Check bit 2]
+ H --> C3[Check bit 3]
+ C1 --> R{All bits = 1?}
+ C2 --> R
+ C3 --> R
+ R -->|Yes| M[Maybe in set]
+ R -->|No| N[Definitely not in set]
 ```
 
 **Logic:**
@@ -132,8 +131,6 @@ graph TB
 
 ### Space-Time Trade-offs Table
 
-<div class="responsive-table" markdown>
-
 | Parameter | Symbol | Description | Typical Values |
 |-----------|---------|-------------|----------------|
 | **Bit array size** | m | Total bits in filter | 10K - 10M bits |
@@ -141,45 +138,39 @@ graph TB
 | **Elements** | n | Expected number of elements | Varies |
 | **False positive rate** | p | Probability of false positive | 0.01 - 0.001 |
 
-</div>
-
 
 ### Optimal Parameters Calculator
 
 ```mermaid
 graph LR
-    subgraph "Given Parameters"
-        N[n = elements]
-        P[p = target FP rate]
-    end
-    
-    subgraph "Calculate Optimal"
-        M[m = -n*ln(p)/(ln(2)²)]
-        K[k = (m/n)*ln(2)]
-    end
-    
-    N --> M
-    P --> M
-    M --> K
-    N --> K
+ subgraph "Given Parameters"
+ N[n = elements]
+ P[p = target FP rate]
+ end
+ 
+ subgraph "Calculate Optimal"
+ M[m = -n*ln(p)/(ln(2)²)]
+ K[k = (m/n)*ln(2)]
+ end
+ 
+ N --> M
+ P --> M
+ M --> K
+ N --> K
 ```
 
 ### False Positive Rate Visualization
 
 !!! note "False Positive Rate by Filter Saturation"
-<div class="responsive-table" markdown>
+| Fill Rate | k=3 | k=5 | k=7 | k=10 |
+ |-----------|-----|-----|-----|------|
+ | **10%** | 0.008 | 0.009 | 0.012 | 0.020 |
+ | **25%** | 0.046 | 0.041 | 0.042 | 0.051 |
+ | **50%** | 0.146 | 0.092 | 0.061 | 0.031 |
+ | **75%** | 0.316 | 0.154 | 0.074 | 0.021 |
+ | **90%** | 0.507 | 0.204 | 0.080 | 0.018 |
 
-    | Fill Rate | k=3 | k=5 | k=7 | k=10 |
-    |-----------|-----|-----|-----|------|
-    | **10%** | 0.008 | 0.009 | 0.012 | 0.020 |
-    | **25%** | 0.046 | 0.041 | 0.042 | 0.051 |
-    | **50%** | 0.146 | 0.092 | 0.061 | 0.031 |
-    | **75%** | 0.316 | 0.154 | 0.074 | 0.021 |
-    | **90%** | 0.507 | 0.204 | 0.080 | 0.018 |
-
-</div>
-
-    *Lower is better. Notice how more hash functions help when filter is fuller.*
+ *Lower is better. Notice how more hash functions help when filter is fuller.*
 
 ## Real-World Applications
 
@@ -187,43 +178,41 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph "Without Bloom Filter"
-        Q1[Query] --> D1[Disk Read 1]
-        Q1 --> D2[Disk Read 2]
-        Q1 --> D3[Disk Read 3]
-        D1 --> NF1[Not Found]
-        D2 --> NF2[Not Found]
-        D3 --> F[Found!]
-    end
-    
-    subgraph "With Bloom Filter"
-        Q2[Query] --> BF[Bloom Filter<br/>In Memory]
-        BF -->|Not in set| Skip[Skip disk reads]
-        BF -->|Maybe in set| D4[Disk Read]
-        D4 --> R[Result]
-    end
+ subgraph "Without Bloom Filter"
+ Q1[Query] --> D1[Disk Read 1]
+ Q1 --> D2[Disk Read 2]
+ Q1 --> D3[Disk Read 3]
+ D1 --> NF1[Not Found]
+ D2 --> NF2[Not Found]
+ D3 --> F[Found!]
+ end
+ 
+ subgraph "With Bloom Filter"
+ Q2[Query] --> BF[Bloom Filter<br/>In Memory]
+ BF -->|Not in set| Skip[Skip disk reads]
+ BF -->|Maybe in set| D4[Disk Read]
+ D4 --> R[Result]
+ end
 ```
 
 ### 2. Distributed Cache Architecture
 
 ```mermaid
 graph LR
-    subgraph "Cache Layer"
-        C1[Cache 1<br/>+ Bloom Filter]
-        C2[Cache 2<br/>+ Bloom Filter]
-        C3[Cache 3<br/>+ Bloom Filter]
-    end
-    
-    subgraph "Process"
-        Req[Request] --> Check{Check all<br/>Bloom filters}
-        Check -->|None positive| DB[Database]
-        Check -->|Some positive| Query[Query those caches]
-    end
+ subgraph "Cache Layer"
+ C1[Cache 1<br/>+ Bloom Filter]
+ C2[Cache 2<br/>+ Bloom Filter]
+ C3[Cache 3<br/>+ Bloom Filter]
+ end
+ 
+ subgraph "Process"
+ Req[Request] --> Check{Check all<br/>Bloom filters}
+ Check -->|None positive| DB[Database]
+ Check -->|Some positive| Query[Query those caches]
+ end
 ```
 
 ### Application Comparison Table
-
-<div class="responsive-table" markdown>
 
 | Use Case | Items | FP Rate | Space Saved | Query Speedup |
 |----------|-------|---------|-------------|---------------|
@@ -233,30 +222,28 @@ graph LR
 | **CDN Cache** | 100M objects | 0.1% | 99.5% | 20x |
 | **Malware Detection** | 50M hashes | 0.01% | 99.9% | 200x |
 
-</div>
-
 
 ## Visual Decision Framework
 
 ```mermaid
 graph TD
-    Start[Need set membership test?]
-    Start --> Size{Dataset size?}
-    
-    Size -->|Small<br/><100K| Hash[Use HashSet]
-    Size -->|Large<br/>>100K| FP{Can tolerate<br/>false positives?}
-    
-    FP -->|No| Exact[Use exact<br/>data structure]
-    FP -->|Yes| Space{Space<br/>constrained?}
-    
-    Space -->|No| Maybe[Consider<br/>alternatives]
-    Space -->|Yes| Delete{Need<br/>deletions?}
-    
-    Delete -->|Yes| Count[Use Counting<br/>Bloom Filter]
-    Delete -->|No| Bloom[Use Standard<br/>Bloom Filter]
-    
-    style Bloom fill:#90EE90
-    style Count fill:#87CEEB
+ Start[Need set membership test?]
+ Start --> Size{Dataset size?}
+ 
+ Size -->|Small<br/><100K| Hash[Use HashSet]
+ Size -->|Large<br/>>100K| FP{Can tolerate<br/>false positives?}
+ 
+ FP -->|No| Exact[Use exact<br/>data structure]
+ FP -->|Yes| Space{Space<br/>constrained?}
+ 
+ Space -->|No| Maybe[Consider<br/>alternatives]
+ Space -->|Yes| Delete{Need<br/>deletions?}
+ 
+ Delete -->|Yes| Count[Use Counting<br/>Bloom Filter]
+ Delete -->|No| Bloom[Use Standard<br/>Bloom Filter]
+ 
+ style Bloom fill:#90EE90
+ style Count fill:#87CEEB
 ```
 
 ## Implementation Patterns
@@ -265,23 +252,23 @@ graph TD
 
 ```mermaid
 graph TB
-    subgraph "Good Hash Distribution"
-        GH[Input] --> GH1[h1: Uniform]
-        GH --> GH2[h2: Independent]
-        GH --> GH3[h3: Fast]
-        GH1 --> GB[Even bit distribution]
-        GH2 --> GB
-        GH3 --> GB
-    end
-    
-    subgraph "Poor Hash Distribution"
-        BH[Input] --> BH1[h1: Clustered]
-        BH --> BH2[h2: Correlated]
-        BH --> BH3[h3: Slow]
-        BH1 --> BB[Uneven bit distribution]
-        BH2 --> BB
-        BH3 --> BB
-    end
+ subgraph "Good Hash Distribution"
+ GH[Input] --> GH1[h1: Uniform]
+ GH --> GH2[h2: Independent]
+ GH --> GH3[h3: Fast]
+ GH1 --> GB[Even bit distribution]
+ GH2 --> GB
+ GH3 --> GB
+ end
+ 
+ subgraph "Poor Hash Distribution"
+ BH[Input] --> BH1[h1: Clustered]
+ BH --> BH2[h2: Correlated]
+ BH --> BH3[h3: Slow]
+ BH1 --> BB[Uneven bit distribution]
+ BH2 --> BB
+ BH3 --> BB
+ end
 ```
 
 ### Common Hash Function Choices
@@ -328,8 +315,6 @@ graph TB
 
 ### Comparison of Bloom Filter Types
 
-<div class="responsive-table" markdown>
-
 | Variant | Features | Space Overhead | Use Case |
 |---------|----------|----------------|----------|
 | **Standard Bloom** | Basic operations | 1x | General purpose |
@@ -339,26 +324,24 @@ graph TB
 | **Compressed Bloom** | Space optimized | 0.7x | Storage systems |
 | **Spectral Bloom** | Frequency queries | 4-16x | Analytics |
 
-</div>
-
 
 ### Visual Comparison: Standard vs Counting Bloom
 
 ```mermaid
 graph LR
-    subgraph "Standard Bloom Filter"
-        SB[Bit Array: 0 1 0 1 1 0]
-        SA[Add] --> SB
-        SC[Check] --> SB
-        SD[Delete ❌] -.-> SB
-    end
-    
-    subgraph "Counting Bloom Filter"
-        CB[Counter Array: 0 2 0 1 3 0]
-        CA[Add: +1] --> CB
-        CC[Check: >0] --> CB
-        CD[Delete: -1] --> CB
-    end
+ subgraph "Standard Bloom Filter"
+ SB[Bit Array: 0 1 0 1 1 0]
+ SA[Add] --> SB
+ SC[Check] --> SB
+ SD[Delete ❌] -.-> SB
+ end
+ 
+ subgraph "Counting Bloom Filter"
+ CB[Counter Array: 0 2 0 1 3 0]
+ CA[Add: +1] --> CB
+ CC[Check: >0] --> CB
+ CD[Delete: -1] --> CB
+ end
 ```
 
 ## Performance Optimization Strategies
@@ -367,34 +350,30 @@ graph LR
 
 ```mermaid
 graph TB
-    subgraph "Unoptimized"
-        U1[Random access]
-        U2[Cache misses]
-        U3[Poor locality]
-    end
-    
-    subgraph "Optimized"
-        O1[Block layout]
-        O2[Sequential access]
-        O3[Cache friendly]
-    end
-    
-    U1 --> P1[Slow]
-    O1 --> P2[Fast]
+ subgraph "Unoptimized"
+ U1[Random access]
+ U2[Cache misses]
+ U3[Poor locality]
+ end
+ 
+ subgraph "Optimized"
+ O1[Block layout]
+ O2[Sequential access]
+ O3[Cache friendly]
+ end
+ 
+ U1 --> P1[Slow]
+ O1 --> P2[Fast]
 ```
 
 ### 2. SIMD Acceleration
 
 !!! info "Parallel Bit Checking with SIMD"
-<div class="responsive-table" markdown>
-
-    | Operation | Scalar | SIMD-128 | SIMD-256 | SIMD-512 |
-    |-----------|--------|----------|----------|----------|
-    | **Bits/cycle** | 1 | 128 | 256 | 512 |
-    | **Speedup** | 1x | 8-16x | 16-32x | 32-64x |
-    | **Use case** | Small filters | Medium | Large | Very large |
-
-</div>
+| Operation | Scalar | SIMD-128 | SIMD-256 | SIMD-512 |
+ |-----------|--------|----------|----------|----------|
+ | **Bits/cycle** | 1 | 128 | 256 | 512 |
+ | **Speedup** | 1x | 8-16x | 16-32x | 32-64x |
+ | **Use case** | Small filters | Medium | Large | Very large |
 
 
 ## Common Pitfalls and Solutions
@@ -403,25 +382,23 @@ graph TB
 
 ```mermaid
 graph TD
-    subgraph "Anti-pattern 1: Oversized Filter"
-        A1[10K elements] --> B1[10MB filter]
-        B1 --> C1[Wasted space]
-    end
-    
-    subgraph "Anti-pattern 2: Too Many Hashes"
-        A2[k = 20] --> B2[Slow operations]
-        B2 --> C2[No benefit]
-    end
-    
-    subgraph "Anti-pattern 3: Poor Hash Choice"
-        A3[Correlated hashes] --> B3[High collisions]
-        B3 --> C3[High FP rate]
-    end
+ subgraph "Anti-pattern 1: Oversized Filter"
+ A1[10K elements] --> B1[10MB filter]
+ B1 --> C1[Wasted space]
+ end
+ 
+ subgraph "Anti-pattern 2: Too Many Hashes"
+ A2[k = 20] --> B2[Slow operations]
+ B2 --> C2[No benefit]
+ end
+ 
+ subgraph "Anti-pattern 3: Poor Hash Choice"
+ A3[Correlated hashes] --> B3[High collisions]
+ B3 --> C3[High FP rate]
+ end
 ```
 
 ### Best Practices Table
-
-<div class="responsive-table" markdown>
 
 | Scenario | Do | Don't | Why |
 |----------|-------|--------|-----|
@@ -430,8 +407,6 @@ graph TD
 | **Monitoring** | Track actual FP rate | Assume theoretical | Real-world differs |
 | **Updates** | Rebuild periodically | Let it saturate | Maintains performance |
 
-</div>
-
 
 ## Integration Patterns
 
@@ -439,44 +414,44 @@ graph TD
 
 ```mermaid
 graph TB
-    subgraph "Multi-Level Filter"
-        L1[L1: Bloom Filter<br/>1% FP rate]
-        L2[L2: Cuckoo Filter<br/>0.01% FP rate]
-        L3[L3: Exact Check<br/>0% FP rate]
-    end
-    
-    Query --> L1
-    L1 -->|Maybe| L2
-    L2 -->|Maybe| L3
-    L3 --> Result
-    
-    L1 -->|No| Reject1[Quick reject]
-    L2 -->|No| Reject2[Reject]
+ subgraph "Multi-Level Filter"
+ L1[L1: Bloom Filter<br/>1% FP rate]
+ L2[L2: Cuckoo Filter<br/>0.01% FP rate]
+ L3[L3: Exact Check<br/>0% FP rate]
+ end
+ 
+ Query --> L1
+ L1 -->|Maybe| L2
+ L2 -->|Maybe| L3
+ L3 --> Result
+ 
+ L1 -->|No| Reject1[Quick reject]
+ L2 -->|No| Reject2[Reject]
 ```
 
 ### 2. Distributed Bloom Filter
 
 ```mermaid
 graph LR
-    subgraph "Sharded Bloom Filters"
-        N1[Node 1<br/>Filter 1]
-        N2[Node 2<br/>Filter 2]
-        N3[Node 3<br/>Filter 3]
-    end
-    
-    subgraph "Coordinator"
-        C[Hash Router]
-        M[Merger]
-    end
-    
-    Query --> C
-    C --> N1
-    C --> N2
-    C --> N3
-    N1 --> M
-    N2 --> M
-    N3 --> M
-    M --> Response
+ subgraph "Sharded Bloom Filters"
+ N1[Node 1<br/>Filter 1]
+ N2[Node 2<br/>Filter 2]
+ N3[Node 3<br/>Filter 3]
+ end
+ 
+ subgraph "Coordinator"
+ C[Hash Router]
+ M[Merger]
+ end
+ 
+ Query --> C
+ C --> N1
+ C --> N2
+ C --> N3
+ N1 --> M
+ N2 --> M
+ N3 --> M
+ M --> Response
 ```
 
 ## Monitoring and Observability
@@ -537,8 +512,6 @@ Include all structures
 
 ### Deployment Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | Factor | Low Impact | Medium Impact | High Impact |
 |--------|------------|---------------|-------------|
 | **Dataset Size** | <1M items | 1M-100M items | >100M items |
@@ -547,37 +520,35 @@ Include all structures
 | **Query Rate** | <1K/sec | 1K-100K/sec | >100K/sec |
 | **Recommendation** | Maybe overkill | Good fit | Essential |
 
-</div>
-
 
 ### Visual Health Check
 
 ```mermaid
 graph LR
-    subgraph "Health Indicators"
-        S[Saturation] --> ST{< 50%?}
-        FP[FP Rate] --> FPT{< Target?}
-        L[Latency] --> LT{< SLA?}
-        M[Memory] --> MT{< Budget?}
-    end
-    
-    ST -->|Yes| G1[✓]
-    ST -->|No| R1[Rebuild]
-    FPT -->|Yes| G2[✓]
-    FPT -->|No| R2[Resize]
-    LT -->|Yes| G3[✓]
-    LT -->|No| R3[Optimize]
-    MT -->|Yes| G4[✓]
-    MT -->|No| R4[Compress]
-    
-    style G1 fill:#90EE90
-    style G2 fill:#90EE90
-    style G3 fill:#90EE90
-    style G4 fill:#90EE90
-    style R1 fill:#FFB6C1
-    style R2 fill:#FFB6C1
-    style R3 fill:#FFB6C1
-    style R4 fill:#FFB6C1
+ subgraph "Health Indicators"
+ S[Saturation] --> ST{< 50%?}
+ FP[FP Rate] --> FPT{< Target?}
+ L[Latency] --> LT{< SLA?}
+ M[Memory] --> MT{< Budget?}
+ end
+ 
+ ST -->|Yes| G1[✓]
+ ST -->|No| R1[Rebuild]
+ FPT -->|Yes| G2[✓]
+ FPT -->|No| R2[Resize]
+ LT -->|Yes| G3[✓]
+ LT -->|No| R3[Optimize]
+ MT -->|Yes| G4[✓]
+ MT -->|No| R4[Compress]
+ 
+ style G1 fill:#90EE90
+ style G2 fill:#90EE90
+ style G3 fill:#90EE90
+ style G4 fill:#90EE90
+ style R1 fill:#FFB6C1
+ style R2 fill:#FFB6C1
+ style R3 fill:#FFB6C1
+ style R4 fill:#FFB6C1
 ```
 
 ## Visual Bloom Filter Calculator
@@ -586,54 +557,50 @@ graph LR
 
 ```mermaid
 graph LR
-    subgraph "Input Parameters"
-        N[n = 1,000,000<br/>Expected items]
-        P[p = 0.01<br/>Target FP rate]
-    end
-    
-    subgraph "Calculated Values"
-        M[m = 9,585,059 bits<br/>~1.2 MB]
-        K[k = 7<br/>Hash functions]
-        Actual[Actual FP = 0.0101]
-    end
-    
-    N --> Calculate{Formula}
-    P --> Calculate
-    Calculate --> M
-    Calculate --> K
-    Calculate --> Actual
-    
-    style Calculate fill:#5448C8,color:#fff
+ subgraph "Input Parameters"
+ N[n = 1,000,000<br/>Expected items]
+ P[p = 0.01<br/>Target FP rate]
+ end
+ 
+ subgraph "Calculated Values"
+ M[m = 9,585,059 bits<br/>~1.2 MB]
+ K[k = 7<br/>Hash functions]
+ Actual[Actual FP = 0.0101]
+ end
+ 
+ N --> Calculate{Formula}
+ P --> Calculate
+ Calculate --> M
+ Calculate --> K
+ Calculate --> Actual
+ 
+ style Calculate fill:#5448C8,color:#fff
 ```
 
 ### Visual Size Comparison
 
 !!! note "Space Savings Visualization"
-<div class="responsive-table" markdown>
+| Data Structure | 1M URLs (avg 50 chars) | Space Used | Savings |
+ |----------------|------------------------|------------|---------|
+ | **HashSet** | 50MB + overhead | ~60MB | 0% |
+ | **Sorted Array** | 50MB | 50MB | 17% |
+ | **Bloom (1% FP)** | Formula-based | 1.2MB | 98% |
+ | **Bloom (0.1% FP)** | Formula-based | 1.8MB | 97% |
+ | **Bloom (0.01% FP)** | Formula-based | 2.4MB | 96% |
 
-    | Data Structure | 1M URLs (avg 50 chars) | Space Used | Savings |
-    |----------------|------------------------|------------|---------|
-    | **HashSet** | 50MB + overhead | ~60MB | 0% |
-    | **Sorted Array** | 50MB | 50MB | 17% |
-    | **Bloom (1% FP)** | Formula-based | 1.2MB | 98% |
-    | **Bloom (0.1% FP)** | Formula-based | 1.8MB | 97% |
-    | **Bloom (0.01% FP)** | Formula-based | 2.4MB | 96% |
-
-</div>
-
-    ```mermaid
-    graph LR
-    subgraph "Visual Space Comparison"
-    HS[HashSet
-    ############ 60MB]
-    BF1[Bloom 1%
-    # 1.2MB]
-    BF2[Bloom 0.1%
-    ## 1.8MB]
-    BF3[Bloom 0.01%
-    ### 2.4MB]
-    end
-    ```
+ ```mermaid
+ graph LR
+ subgraph "Visual Space Comparison"
+ HS[HashSet
+ ############ 60MB]
+ BF1[Bloom 1%
+ # 1.2MB]
+ BF2[Bloom 0.1%
+ ## 1.8MB]
+ BF3[Bloom 0.01%
+ ### 2.4MB]
+ end
+ ```
 
 ## Mathematical Foundation Visualized
 
@@ -641,64 +608,62 @@ graph LR
 
 ```mermaid
 graph TD
-    subgraph "False Positive Probability"
-        Form[p ≈ (1 - e^(-kn/m))^k]
-        Optimal[k_optimal = (m/n) × ln(2)]
-        BitSet[Bits set ≈ m × (1 - e^(-kn/m))]
-    end
-    
-    subgraph "Visual Probability Curve"
-        Low[Low k: High FP]
-        Opt[Optimal k: Minimum FP]
-        High[High k: High FP]
-    end
-    
-    Form --> Opt
-    Low --> Opt
-    Opt --> High
-    
-    style Opt fill:#4CAF50,color:#fff
+ subgraph "False Positive Probability"
+ Form[p ≈ (1 - e^(-kn/m))^k]
+ Optimal[k_optimal = (m/n) × ln(2)]
+ BitSet[Bits set ≈ m × (1 - e^(-kn/m))]
+ end
+ 
+ subgraph "Visual Probability Curve"
+ Low[Low k: High FP]
+ Opt[Optimal k: Minimum FP]
+ High[High k: High FP]
+ end
+ 
+ Form --> Opt
+ Low --> Opt
+ Opt --> High
+ 
+ style Opt fill:#4CAF50,color:#fff
 ```
 
 ### Saturation Visualization Over Time
 
 ```mermaid
 graph LR
-    subgraph "Filter Saturation Progress"
-        T0[0% Full<br/>▱▱▱▱▱▱▱▱▱▱]
-        T1[25% Full<br/>██▱▱▱▱▱▱▱▱]
-        T2[50% Full<br/>█████▱▱▱▱▱]
-        T3[75% Full<br/>███████▱▱▱]
-        T4[90% Full<br/>█████████▱]
-    end
-    
-    T0 -->|Add items| T1
-    T1 -->|Add more| T2
-    T2 -->|Add more| T3
-    T3 -->|Add more| T4
-    
-    style T0 fill:#90EE90
-    style T2 fill:#FFA500
-    style T4 fill:#FF6B6B
+ subgraph "Filter Saturation Progress"
+ T0[0% Full<br/>▱▱▱▱▱▱▱▱▱▱]
+ T1[25% Full<br/>██▱▱▱▱▱▱▱▱]
+ T2[50% Full<br/>█████▱▱▱▱▱]
+ T3[75% Full<br/>███████▱▱▱]
+ T4[90% Full<br/>█████████▱]
+ end
+ 
+ T0 -->|Add items| T1
+ T1 -->|Add more| T2
+ T2 -->|Add more| T3
+ T3 -->|Add more| T4
+ 
+ style T0 fill:#90EE90
+ style T2 fill:#FFA500
+ style T4 fill:#FF6B6B
 ```
 
 ## Summary
 
-<div class="law-box">
-<h3>🎯 When to Use Bloom Filters</h3>
+!!! abstract "🎯 When to Use Bloom Filters"
 
-**Perfect for:**
-- Avoiding expensive lookups (disk, network)
-- Large datasets with space constraints
-- Applications tolerant of false positives
-- Read-heavy workloads
+ **Perfect for:**
+ - Avoiding expensive lookups (disk, network)
+ - Large datasets with space constraints
+ - Applications tolerant of false positives
+ - Read-heavy workloads
 
-**Not suitable for:**
-- Need exact membership guarantees
-- Frequent deletions required
-- Small datasets (<10K items)
-- Cannot handle any false positives
-</div>
+ **Not suitable for:**
+ - Need exact membership guarantees
+ - Frequent deletions required
+ - Small datasets (<10K items)
+ - Cannot handle any false positives
 
 ## Visual Use Case Gallery
 
@@ -710,19 +675,19 @@ graph LR
 
 ```mermaid
 graph TD
-    URL[New URL]
-    BF{Bloom Filter<br/>Check}
-    Crawl[Crawl Page]
-    Skip[Skip - Already seen]
-    Add[Add to filter]
-    
-    URL --> BF
-    BF -->|Not in filter| Crawl
-    BF -->|Maybe in filter| Skip
-    Crawl --> Add
-    
-    style Skip fill:#FFB6C1
-    style Crawl fill:#90EE90
+ URL[New URL]
+ BF{Bloom Filter<br/>Check}
+ Crawl[Crawl Page]
+ Skip[Skip - Already seen]
+ Add[Add to filter]
+ 
+ URL --> BF
+ BF -->|Not in filter| Crawl
+ BF -->|Maybe in filter| Skip
+ Crawl --> Add
+ 
+ style Skip fill:#FFB6C1
+ style Crawl fill:#90EE90
 ```
 
 **Google:** 100B+ URLs tracked
@@ -733,18 +698,18 @@ graph TD
 
 ```mermaid
 graph TD
-    Query[SELECT * WHERE key=X]
-    SST1[SSTable 1<br/>+ Bloom]
-    SST2[SSTable 2<br/>+ Bloom]
-    SST3[SSTable 3<br/>+ Bloom]
-    
-    Query --> SST1
-    Query --> SST2
-    Query --> SST3
-    
-    SST1 -->|Not here| Skip1[✗]
-    SST2 -->|Maybe here| Read[Read file]
-    SST3 -->|Not here| Skip3[✗]
+ Query[SELECT * WHERE key=X]
+ SST1[SSTable 1<br/>+ Bloom]
+ SST2[SSTable 2<br/>+ Bloom]
+ SST3[SSTable 3<br/>+ Bloom]
+ 
+ Query --> SST1
+ Query --> SST2
+ Query --> SST3
+ 
+ SST1 -->|Not here| Skip1[✗]
+ SST2 -->|Maybe here| Read[Read file]
+ SST3 -->|Not here| Skip3[✗]
 ```
 
 **Cassandra:** Skip 99% of SSTables
@@ -755,18 +720,18 @@ graph TD
 
 ```mermaid
 graph LR
-    Hash[File Hash]
-    MalwareDB{Malware<br/>Bloom Filter}
-    Block[Block]
-    Allow[Allow]
-    DeepScan[Deep Scan]
-    
-    Hash --> MalwareDB
-    MalwareDB -->|Not malware| Allow
-    MalwareDB -->|Maybe malware| DeepScan
-    
-    style Allow fill:#90EE90
-    style Block fill:#FF6B6B
+ Hash[File Hash]
+ MalwareDB{Malware<br/>Bloom Filter}
+ Block[Block]
+ Allow[Allow]
+ DeepScan[Deep Scan]
+ 
+ Hash --> MalwareDB
+ MalwareDB -->|Not malware| Allow
+ MalwareDB -->|Maybe malware| DeepScan
+ 
+ style Allow fill:#90EE90
+ style Block fill:#FF6B6B
 ```
 
 **Chrome:** Safe browsing checks
@@ -777,17 +742,17 @@ graph LR
 
 ```mermaid
 graph TD
-    Email[Incoming Email]
-    Spam{Spam Filter<br/>Bloom}
-    Inbox[Inbox]
-    SpamFolder[Spam Folder]
-    
-    Email --> Spam
-    Spam -->|Not spam| Inbox
-    Spam -->|Maybe spam| SpamFolder
-    
-    style Inbox fill:#90EE90
-    style SpamFolder fill:#FFA500
+ Email[Incoming Email]
+ Spam{Spam Filter<br/>Bloom}
+ Inbox[Inbox]
+ SpamFolder[Spam Folder]
+ 
+ Email --> Spam
+ Spam -->|Not spam| Inbox
+ Spam -->|Maybe spam| SpamFolder
+ 
+ style Inbox fill:#90EE90
+ style SpamFolder fill:#FFA500
 ```
 
 **Gmail:** Billions of spam signatures

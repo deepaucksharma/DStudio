@@ -49,15 +49,11 @@ E - Evaluation: How do we measure success?
 
 ### Decision Matrix Template
 
-<div class="responsive-table" markdown>
-
 | Option | Pros | Cons | When to Use |
 |--------|------|------|-------------|
 | **Option A** | ✓ Fast<br>✓ Simple | ✗ Expensive<br>✗ Less flexible | Early stage, need speed |
 | **Option B** | ✓ Scalable<br>✓ Cost-effective | ✗ Complex<br>✗ Slower | Mature system, cost matters |
 | **Option C** | ✓ Flexible<br>✓ Reliable | ✗ High latency<br>✗ Operational overhead | Mission-critical, need reliability |
-
-</div>
 
 
 ## Common System Design Trade-offs
@@ -85,15 +81,11 @@ class ConsistencyTradeoff:
 
 **Real-World Examples:**
 
-<div class="responsive-table" markdown>
-
 | System | Choice | Why |
 |--------|--------|-----|
 | **Google Spanner** | Strong Consistency | Financial data, global transactions |
 | **YouTube Comments** | Eventual Consistency | UX more important than immediate consistency |
 | **Gmail** | Session Consistency | Balance between UX and data accuracy |
-
-</div>
 
 
 ### 2. Latency vs Throughput

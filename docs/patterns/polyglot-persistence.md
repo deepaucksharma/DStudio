@@ -77,8 +77,6 @@ graph TB
 
 ### Database Categories and Use Cases
 
-<div class="responsive-table" markdown>
-
 | Database Type | Best For | Not Good For | Examples |
 |--------------|----------|--------------|-----------|
 | **Relational (SQL)** | ACID transactions, Complex queries | Unstructured data, Massive scale | PostgreSQL, MySQL |
@@ -88,8 +86,6 @@ graph TB
 | **Graph** | Relationships, Networks | Bulk analytics | Neo4j, Neptune |
 | **Search** | Full-text search, Faceted search | Primary storage | Elasticsearch, Solr |
 | **Time-Series** | Metrics, IoT data | General purpose | InfluxDB, TimescaleDB |
-
-</div>
 
 
 ### Common Polyglot Architectures
@@ -158,8 +154,6 @@ flowchart TD
 
 ### Database Selection Calculator
 
-<div class="responsive-table" markdown>
-
 | Factor | Your Requirements | Best Fit Score |
 |--------|------------------|----------------|
 | **Data Model** | | |
@@ -181,8 +175,6 @@ flowchart TD
 | **Performance** | | |
 | Sub-millisecond reads | ___ (0-10) | Cache: +3, KV Store: +2 |
 | High write throughput | ___ (0-10) | Column-Family: +3, Time-Series: +2 |
-
-</div>
 
 
 ### Migration Strategy Selector
@@ -213,8 +205,6 @@ graph TD
 
 ### Cost Comparison Matrix
 
-<div class="responsive-table" markdown>
-
 | Database Type | Storage Cost | Compute Cost | Operational Complexity | Total TCO |
 |--------------|--------------|--------------|----------------------|-----------|
 | **Single RDBMS** | $$ | $$$ | Low | $$ |
@@ -222,8 +212,6 @@ graph TD
 | **Key-Value** | $ | $ | Low | $ |
 | **Graph Database** | $$$ | $$$ | High | $$$$ |
 | **Polyglot Mix** | $$ | $$ | High | $$$ |
-
-</div>
 
 
 **Cost Formulas:**
@@ -238,7 +226,7 @@ Where N = number of different databases
 
 #### Database Selection Cheat Sheet
 
-<div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
+<div>
 
 **RELATIONAL (PostgreSQL, MySQL)** ✅
 - ACID transactions critical
@@ -274,7 +262,7 @@ Where N = number of different databases
 
 #### Implementation Patterns
 
-<div style="border: 2px solid #059669; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f0fdf4;">
+<div>
 
 **Common Polyglot Patterns:**
 
@@ -299,7 +287,7 @@ Where N = number of different databases
 
 #### Anti-Patterns to Avoid
 
-<div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fef2f2;">
+<div>
 
 **⚠️ Common Mistakes:**
 
@@ -878,8 +866,6 @@ Based on access patterns, automatically move data to optimal stores:
 
 ### Common Pitfalls to Avoid
 
-<div class="responsive-table" markdown>
-
 | Pitfall | Impact | Solution |
 |---------|--------|----------|
 | **Too Many Databases** | Operational nightmare | Start with 2-3, add as needed |
@@ -887,8 +873,6 @@ Based on access patterns, automatically move data to optimal stores:
 | **Complex Joins** | Performance issues | Denormalize or use CQRS |
 | **Ignored Backups** | Data loss risk | Automate backups for all stores |
 | **Missing Monitoring** | Blind to issues | Monitor each database separately |
-
-</div>
 
 
 ---

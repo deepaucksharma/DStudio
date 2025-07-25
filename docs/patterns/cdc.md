@@ -99,16 +99,12 @@ sequenceDiagram
 
 ### CDC Implementation Strategies
 
-<div class="responsive-table" markdown>
-
 | Strategy | How it Works | Pros | Cons | Use When |
 |----------|-------------|------|------|----------|
 | **Log-Based** | Read transaction log | No app changes, low overhead | Complex setup, DB-specific | Production systems |
 | **Trigger-Based** | Database triggers | Simple to implement | Performance impact, maintenance | Small scale |
 | **Query-Based** | Poll with timestamps | Works everywhere | Misses deletes, high latency | Legacy systems |
 | **Application-Based** | Emit from app code | Full control | Requires discipline, dual writes | Greenfield projects |
-
-</div>
 
 
 ### CDC Implementation Comparison
@@ -222,8 +218,6 @@ graph TB
 
 ### CDC Processing Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | Description | Use Case | Considerations |
 |---------|-------------|----------|----------------|
 | **Fan-out** | One event → Multiple handlers | Update multiple systems | Parallel processing |
@@ -231,8 +225,6 @@ graph TB
 | **Transformation** | Modify event format | System integration | Schema mapping |
 | **Aggregation** | Combine multiple events | Analytics, summaries | State management |
 | **Deduplication** | Remove duplicate events | Exactly-once processing | Event ID tracking |
-
-</div>
 
 
 ---
@@ -839,8 +831,6 @@ class CDCOptimizer:
 
 ### CDC Strategy Selection
 
-<div class="responsive-table" markdown>
-
 | If you need... | Use this approach | Key considerations |
 |----------------|-------------------|-------------------|
 | Real-time sync | Log-based CDC | Complex setup, best performance |
@@ -849,8 +839,6 @@ class CDCOptimizer:
 | Full control | Application CDC | Requires discipline |
 | Guaranteed delivery | Outbox pattern | Additional complexity |
 | Multi-region | Federated CDC | Network latency |
-
-</div>
 
 
 ### Implementation Checklist

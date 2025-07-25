@@ -360,8 +360,6 @@ class PaymentFailureHandler:
 
 ### Comprehensive Law Mapping
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |-----------------|------------------|-------------------|------------------|----------------------|----------------------|------------------------|--------------------------|-------------------|
 | **SAGA Pattern** | Async steps reduce blocking | Each step scales independently | Compensations handle failures | Parallel saga execution | Local coordination only | Full transaction tracing | Clear transaction states | No 2PC lock overhead |
@@ -373,8 +371,6 @@ class PaymentFailureHandler:
 | **Circuit Breakers** | Fast fail reduces wait | Prevents overload | Graceful degradation | Thread pool isolation | No thundering herd | Breaker state tracking | Clear error messages | Prevents cascade costs |
 | **Polyglot Persistence** | Optimized per data type | Storage scales by type | Independent failure domains | No global locks | Eventually consistent views | Per-store metrics | Appropriate APIs | Right tool for job |
 | **Stateless Services** | No session affinity needed | Horizontal scaling | Any instance can serve | No shared state | External state stores | Service health checks | Simple deployment model | Auto-scaling efficiency |
-
-</div>
 
 
 **Key Law Applications:**
@@ -571,8 +567,6 @@ graph TB
 
 ### Comprehensive Comparison Matrix
 
-<div class="responsive-table" markdown>
-
 | Aspect | 2PC | Sync Microservices | Actor-Based | Blockchain | PayPal SAGA |
 |--------|-----|-------------------|-------------|------------|-------------|
 | **Consistency** | ✅ Strong | ✅ Strong | ⚠️ Eventual | ✅ Immutable | ⚠️ Eventual with compensations |
@@ -584,12 +578,8 @@ graph TB
 | **Development Complexity** | ⚠️ Moderate | ✅ Simple | ❌ Actor model | ❌ Smart contracts | ❌ Compensation logic |
 | **Operational Cost** | ✅ Predictable | ✅ Predictable | ⚠️ Memory intensive | ❌ High compute | ⚠️ Event storage |
 
-</div>
-
 
 ### Decision Matrix for Payment Scenarios
-
-<div class="responsive-table" markdown>
 
 | Scenario | Best Architecture | Key Requirements | Why This Choice |
 |----------|------------------|------------------|-----------------|
@@ -602,12 +592,8 @@ graph TB
 | **In-App Purchases** | Actor-Based | Fast, contextual | User session affinity |
 | **Escrow Services** | Blockchain | Trust, transparency | Smart contract guarantees |
 
-</div>
-
 
 ### Cost-Performance Analysis
-
-<div class="responsive-table" markdown>
 
 | Architecture | Setup Cost | Operating Cost | Transaction Cost | Performance | Reliability |
 |--------------|------------|----------------|------------------|-------------|-------------|
@@ -616,8 +602,6 @@ graph TB
 | Actor-Based | 💵💵💵 | 💵💵💵 | $0.02 | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
 | Blockchain | 💵💵💵💵 | 💵💵💵💵 | $0.50+ | ⭐ | ⭐⭐⭐⭐⭐ |
 | PayPal SAGA | 💵💵💵 | 💵💵 | $0.01 | ⭐⭐⭐⭐ | ⭐⭐⭐⭐ |
-
-</div>
 
 
 ## Key Design Decisions

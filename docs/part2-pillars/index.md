@@ -20,8 +20,6 @@ last_updated: 2025-07-20
 
 ## Quick Reference: The 5 Pillars
 
-<div class="responsive-table" markdown>
-
 | Pillar | Problem It Solves | Key Pattern | Real Example |
 |--------|-------------------|-------------|---------------|
 | **Work** 💪 | "Too much for one machine" | Load balancing | Google processes 100B+ searches/day* |
@@ -29,8 +27,6 @@ last_updated: 2025-07-20
 | **Truth** 🤝 | "Who's right?" | Consensus algorithms | Visa: 150M transactions/day* |
 | **Control** 🎮 | "How do I manage this mess?" | Orchestration | Kubernetes: 5.6M developers* |
 | **Intelligence** 🧠 | "Can it fix itself?" | Self-healing | Netflix: 1000+ auto-recoveries/day* |
-
-</div>
 
 
 ## From Laws to Pillars: The Mapping
@@ -70,8 +66,6 @@ graph LR
 
 ## Decision Matrix: Which Pillar Do You Need?
 
-<div class="responsive-table" markdown>
-
 | Your Problem | Primary Pillar | Secondary Pillar | Pattern to Start With |
 |--------------|----------------|------------------|----------------------|
 | "System too slow" | Work | State | Load Balancer → Caching |
@@ -81,8 +75,6 @@ graph LR
 | "Can't debug failures" | Control | Intelligence | Observability → Chaos Testing |
 | "Too many false alarms" | Intelligence | Control | ML Anomaly Detection → SLOs |
 | "Costs out of control" | Intelligence | Work | Auto-scaling → Spot Instances |
-
-</div>
 
 
 ## Visual Decision Tree: Pattern Selection
@@ -119,8 +111,6 @@ graph TD
 
 ## Pillar Interactions: When to Combine
 
-<div class="responsive-table" markdown>
-
 | Combination | Use Case | Example Pattern | Real-World Example |
 |-------------|----------|-----------------|--------------------|
 | Work + State | High-throughput processing | Stateless workers + shared cache | Redis + Lambda |
@@ -128,8 +118,6 @@ graph TD
 | State + Truth | Strong consistency | Multi-Paxos | Google Spanner |
 | Control + Work | Auto-scaling | Reactive scaling | Kubernetes HPA |
 | Intelligence + All | Self-healing systems | Chaos engineering | Netflix Simian Army |
-
-</div>
 
 
 !!! tip "Pro Tip"
@@ -167,8 +155,6 @@ Use this checklist for any distributed system:
 
 ## Pattern Comparison: When to Use What
 
-<div class="responsive-table" markdown>
-
 | Pattern | Use When | Don't Use When | Complexity | Cost |
 |---------|----------|----------------|------------|------|
 | **Load Balancer** | Traffic > 1000 req/s | < 100 req/s | Low | $ |
@@ -178,8 +164,6 @@ Use this checklist for any distributed system:
 | **Event Sourcing** | Need audit trail | Simple CRUD | High | $$$ |
 | **Service Mesh** | > 10 microservices | Monolith/few services | High | $$$ |
 | **Chaos Engineering** | > $1M/hour downtime cost | Non-critical system | Medium | $$ |
-
-</div>
 
 
 ## Deep Dive: The Five Pillars
@@ -213,15 +197,11 @@ Steady? → Load balancer
 **Laws**: [Failure](/part1-axioms/law1-failure/), [Chaos](/part1-axioms/law3-emergence/)
 
 **CAP Trade-offs**:
-<div class="responsive-table" markdown>
-
 | Choose 2 | Sacrifice | Example |
 |----------|-----------|----------|
 | CP | Availability | Banking |
 | AP | Consistency | Social media |
 | CA | Partition tolerance | Single datacenter |
-
-</div>
 
 
 **Example**: Netflix Cassandra - 200M users, chose AP over C³
@@ -236,16 +216,12 @@ Steady? → Load balancer
 **Laws**: [Asynchrony](/part1-axioms/law2-asynchrony/), [Knowledge](/part1-axioms/law5-epistemology/)
 
 **Consensus Comparison**:
-<div class="responsive-table" markdown>
-
 | Algorithm | Fault Tolerance | Complexity | Use Case |
 |-----------|----------------|------------|----------|
 | 2PC | None | Low | Same datacenter |
 | Raft | n/2 - 1 | Medium | Config/metadata |
 | Paxos | n/2 - 1 | High | Core infrastructure |
 | PBFT | n/3 - 1 | Very High | Blockchain |
-
-</div>
 
 
 **Example**: Google Spanner - TrueTime for global consistency⁷
@@ -260,14 +236,10 @@ Steady? → Load balancer
 **Laws**: [Knowledge](/part1-axioms/law5-epistemology/), [Human API](/part1-axioms/law6-human-api/)
 
 **Orchestration vs Choreography**:
-<div class="responsive-table" markdown>
-
 | Approach | Control | Flexibility | Debugging | Example |
 |----------|---------|-------------|-----------|----------|
 | Orchestration | Central | Low | Easy | Kubernetes |
 | Choreography | Distributed | High | Hard | Event-driven |
-
-</div>
 
 
 **Example**: Kubernetes manages 5.6M developers' apps⁸
@@ -282,8 +254,6 @@ Steady? → Load balancer
 **Laws**: [All 7 Laws](/part1-axioms/) combined
 
 **Intelligence Maturity Levels**:
-<div class="responsive-table" markdown>
-
 | Level | Capability | Example |
 |-------|------------|----------|
 | 1 | Alerts | "CPU > 80%" |
@@ -291,8 +261,6 @@ Steady? → Load balancer
 | 3 | Predictive | Scale before spike |
 | 4 | Self-healing | Fix without humans |
 | 5 | Self-optimizing | Improve over time |
-
-</div>
 
 
 **Example**: Netflix Chaos Monkey - breaks prod to build resilience¹⁰
@@ -324,8 +292,6 @@ graph LR
 
 ## Real-World Tech Stack Mapping
 
-<div class="responsive-table" markdown>
-
 | Layer | AWS | Google Cloud | Azure | Open Source |
 |-------|-----|--------------|-------|-------------|
 | 💪 Work | Lambda, ECS | Cloud Run, GKE | Functions, AKS | Kubernetes |
@@ -333,8 +299,6 @@ graph LR
 | 🤝 Truth | DynamoDB Transactions | Spanner | CosmosDB | etcd, Consul |
 | 🎮 Control | CloudWatch, Systems Manager | Stackdriver, Anthos | Monitor, Arc | Prometheus |
 | 🧠 Intelligence | SageMaker | Vertex AI | ML Studio | Kubeflow |
-
-</div>
 
 
 ## Your Learning Path

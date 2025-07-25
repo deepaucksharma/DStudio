@@ -103,8 +103,6 @@ graph LR
 
 ### Resource Calculation Table
 
-<div class="responsive-table" markdown>
-
 | Component | Calculation | Result |
 |-----------|-------------|---------|
 | Daily Videos | 10,000 videos | - |
@@ -116,8 +114,6 @@ graph LR
 | Instance Type | c5.4xlarge (16 vCPUs) | - |
 | Instance Count | 1,000 ÷ 16 | 63 instances |
 | Monthly Cost | 63 × $0.68/hr × 730hr | ~$31,000 |
-
-</div>
 
 
 ### Failure Handling Strategy
@@ -137,16 +133,12 @@ stateDiagram-v2
 
 ### Work Distribution Strategy
 
-<div class="responsive-table" markdown>
-
 | Strategy | Approach | Benefits |
 |----------|----------|----------|
 | Chunking | Split videos into 60-second segments | Parallel processing, faster completion |
 | Priority Queues | Separate queues for standard/premium | SLA guarantees for premium users |
 | Consistent Hashing | Hash(video_id + task) → Worker | Even distribution, sticky assignment |
 | Idempotency | Task ID = hash(video_id + task_type) | Safe retries, no duplicate work |
-
-</div>
 
 
 </details>
@@ -233,16 +225,12 @@ graph LR
 
 ### Deduplication Architecture
 
-<div class="responsive-table" markdown>
-
 | Component | Purpose | Implementation |
 |-----------|---------|----------------|
 | Bloom Filter | Fast membership test | 100M capacity, 0.1% false positive |
 | URL Normalization | Canonical form | Remove fragments, lowercase domain |
 | Content Hash | Near-duplicate detection | SimHash algorithm |
 | Seen URLs Cache | Recent history | Redis with 7-day TTL |
-
-</div>
 
 
 ### Politeness Strategy
@@ -263,16 +251,12 @@ stateDiagram-v2
 
 ### Frontier Management
 
-<div class="responsive-table" markdown>
-
 | Queue Type | Priority | Use Case |
 |------------|----------|----------|
 | High Priority | 1 | New domains, important pages |
 | Medium Priority | 2 | Regular crawl, refresh |
 | Low Priority | 3 | Deep pages, low value |
 | Retry Queue | 4 | Failed attempts with backoff |
-
-</div>
 
 
 ### Resource Calculation
@@ -312,8 +296,6 @@ graph LR
 
 ### Failure Handling Matrix
 
-<div class="responsive-table" markdown>
-
 | Failure Type | Detection | Response | Retry Strategy |
 |--------------|-----------|----------|----------------|
 | Network Timeout | 30s limit | Mark failed | Exponential backoff: 1m, 5m, 30m |
@@ -321,8 +303,6 @@ graph LR
 | 5xx Errors | HTTP status | Temporary failure | Linear backoff: 5m intervals |
 | Rate Limited | 429 status | Back off domain | Double delay, max 60s |
 | Parse Error | Exception | Log & continue | Retry with different parser |
-
-</div>
 
 
 </details>
@@ -390,8 +370,6 @@ graph TB
 
 ### Strategy Comparison Matrix
 
-<div class="responsive-table" markdown>
-
 | Strategy | Distribution | State Required | Pros | Cons | Use Case |
 |----------|--------------|----------------|------|------|----------|
 | Round Robin | Equal | Counter | Simple, fair | Ignores server load | Homogeneous servers |
@@ -399,8 +377,6 @@ graph TB
 | Weighted RR | Proportional | Counter + weights | Handles different capacities | Static weights | Known server capacities |
 | Consistent Hash | Key-based | Hash ring | Minimal redistribution | Can be uneven | Stateful services |
 | Least Response Time | Performance-based | Response metrics | Optimizes latency | Complex tracking | Latency-sensitive |
-
-</div>
 
 
 ### Round Robin Visualization
@@ -433,15 +409,11 @@ graph TB
 
 ### Weighted Round Robin Distribution
 
-<div class="responsive-table" markdown>
-
 | Server | Weight | Slots in Rotation | Percentage |
 |--------|--------|-------------------|------------|
 | Server 1 | 5 | [1,2,3,4,5] | 50% |
 | Server 2 | 3 | [6,7,8] | 30% |
 | Server 3 | 2 | [9,10] | 20% |
-
-</div>
 
 
 ### Consistent Hashing Ring
@@ -490,16 +462,12 @@ stateDiagram-v2
 
 ### Failure Handling Strategy
 
-<div class="responsive-table" markdown>
-
 | Event | Detection | Action | Recovery |
 |-------|-----------|--------|----------|
 | Server Down | Health check timeout | Remove from pool | Periodic retry |
 | High Latency | Response > 2× average | Reduce weight | Gradual increase |
 | Connection Refused | TCP error | Mark as down | Exponential backoff |
 | Partial Failure | Error rate > 10% | Circuit breaker | Probe with test traffic |
-
-</div>
 
 
 ### Virtual Nodes Distribution
@@ -614,8 +582,6 @@ graph LR
 
 ### Optimization Strategies
 
-<div class="responsive-table" markdown>
-
 | Optimization | Description | Benefit |
 |--------------|-------------|---------|
 | Combiners | Local aggregation at mappers | Reduces shuffle data |
@@ -623,8 +589,6 @@ graph LR
 | Speculative Execution | Duplicate slow tasks | Handles stragglers |
 | Data Locality | Process data where stored | Reduces data movement |
 | In-Memory Shuffle | Keep intermediate data in RAM | Faster than disk |
-
-</div>
 
 
 ### Combiner Optimization
@@ -662,16 +626,12 @@ stateDiagram-v2
 
 ### Resource Allocation
 
-<div class="responsive-table" markdown>
-
 | Phase | CPU Usage | Memory Usage | Network I/O | Disk I/O |
 |-------|-----------|--------------|-------------|----------|
 | Map | High | Medium | Low | Medium |
 | Shuffle | Low | High | Very High | High |
 | Sort | Medium | High | Low | High |
 | Reduce | High | Medium | Low | Medium |
-
-</div>
 
 
 ### Partitioning Strategy
@@ -711,16 +671,12 @@ graph TB
 
 ### Data Skew Handling
 
-<div class="responsive-table" markdown>
-
 | Problem | Detection | Solution |
 |---------|-----------|----------|
 | Hot Keys | One reducer takes longer | Dynamic repartitioning |
 | Large Values | Memory overflow | Stream processing |
 | Uneven Input | Some mappers idle | Dynamic splitting |
 | Slow Nodes | Progress monitoring | Speculative execution |
-
-</div>
 
 
 ### MapReduce vs Stream Processing
@@ -821,16 +777,12 @@ stateDiagram-v2
 
 ### Priority Queue Structure
 
-<div class="responsive-table" markdown>
-
 | Priority | Use Case | SLA | Example Tasks |
 |----------|----------|-----|---------------|
 | Critical (0) | User-facing, blocking | < 1s | Payment processing |
 | High (1-3) | User-facing, async | < 10s | Email sending |
 | Medium (4-6) | Background, important | < 1m | Report generation |
 | Low (7-9) | Background, batch | < 1h | Analytics, cleanup |
-
-</div>
 
 
 ### Dependency Management
@@ -893,16 +845,12 @@ graph LR
 
 ### Worker Assignment Strategy
 
-<div class="responsive-table" markdown>
-
 | Strategy | Description | Use Case |
 |----------|-------------|----------|
 | Capability-based | Match task requirements to worker skills | Specialized tasks |
 | Load-based | Assign to least loaded worker | General tasks |
 | Affinity-based | Prefer workers with cached data | Stateful tasks |
 | Geographic | Assign to nearest worker | Latency-sensitive |
-
-</div>
 
 
 ### Queue Monitoring Dashboard
@@ -933,16 +881,12 @@ graph TB
 
 ### Dead Letter Queue Analysis
 
-<div class="responsive-table" markdown>
-
 | Pattern | Cause | Action |
 |---------|-------|--------|
 | Poison Message | Malformed data | Fix validation |
 | Dependency Loop | Circular deps | Detect cycles |
 | Resource Exhaustion | OOM/Timeout | Increase limits |
 | External Failure | API down | Circuit breaker |
-
-</div>
 
 
 ### Scaling Strategy
@@ -1017,16 +961,12 @@ graph TB
 
 ### Count Distinct Strategies
 
-<div class="responsive-table" markdown>
-
 | Algorithm | Accuracy | Memory | Use Case |
 |-----------|----------|---------|----------|
 | Exact HashSet | 100% | O(n) | Small cardinality |
 | HyperLogLog | ~2% error | O(log log n) | Large cardinality |
 | Bloom Filter | No false negatives | O(m) bits | Membership test |
 | Count-Min Sketch | Overestimates | O(ε⁻¹ log δ⁻¹) | Frequency estimation |
-
-</div>
 
 
 ### HyperLogLog Visualization
@@ -1085,16 +1025,12 @@ graph LR
 
 ### Data Skew Handling
 
-<div class="responsive-table" markdown>
-
 | Problem | Detection | Solution |
 |---------|-----------|----------|
 | Hot Keys | Monitor key distribution | Two-stage aggregation |
 | Large Groups | Track group sizes | Sample and split |
 | Uneven Partitions | Measure partition sizes | Dynamic rebalancing |
 | Memory Pressure | Monitor heap usage | Spill to disk |
-
-</div>
 
 
 ### Two-Stage Aggregation for Skew
@@ -1136,16 +1072,12 @@ graph TB
 
 ### Memory vs Accuracy Trade-offs
 
-<div class="responsive-table" markdown>
-
 | Data Structure | Memory | Error Rate | Query Time |
 |----------------|---------|------------|------------|
 | Exact | O(n) | 0% | O(1) |
 | HyperLogLog | 1.5KB | 2% | O(1) |
 | T-Digest | O(compression) | 1% | O(log n) |
 | Count-Min | O(1/ε × log 1/δ) | ε (one-sided) | O(d) |
-
-</div>
 
 
 ### Streaming Aggregation Pipeline
@@ -1184,8 +1116,6 @@ graph TB
 
 ### Performance Optimization Matrix
 
-<div class="responsive-table" markdown>
-
 | Technique | CPU Impact | Memory Impact | Network Impact | Accuracy |
 |-----------|------------|---------------|----------------|----------|
 | Pre-aggregation | Low | Medium | Very Low | 100% |
@@ -1193,8 +1123,6 @@ graph TB
 | Sketching | Low | Very Low | Low | 95-98% |
 | Compression | Medium | Low | Medium | 100% |
 | Partitioning | Low | Medium | High | 100% |
-
-</div>
 
 
 </details>

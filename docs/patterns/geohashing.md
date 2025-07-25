@@ -49,8 +49,6 @@ graph TD
 
 ### Precision and Coverage
 
-<div class="responsive-table" markdown>
-
 | Geohash Length | Cell Size | Example Use Case |
 |----------------|-----------|------------------|
 | 1 | ~5,000km × 5,000km | Continent-level |
@@ -62,8 +60,6 @@ graph TD
 | 7 | ~153m × 153m | Buildings |
 | 8 | ~38m × 19m | Houses |
 | 9 | ~4.8m × 4.8m | Trees |
-
-</div>
 
 
 ## Implementation
@@ -391,8 +387,6 @@ cache_levels:
 
 ## Comparison with Alternatives
 
-<div class="responsive-table" markdown>
-
 | Feature | Geohash | H3 (Uber) | S2 (Google) | QuadTree |
 |---------|---------|-----------|-------------|----------|
 | Cell Shape | Rectangle | Hexagon | Square | Square |
@@ -401,8 +395,6 @@ cache_levels:
 | Edge Behavior | Discontinuous | Continuous | Continuous | Depends |
 | Implementation | Simple | Complex | Complex | Moderate |
 | Use Case | General purpose | Transportation | Global mapping | Spatial games |
-
-</div>
 
 
 ## Best Practices

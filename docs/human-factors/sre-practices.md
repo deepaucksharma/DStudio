@@ -112,8 +112,6 @@ flowchart TD
 
 **Budget Policy Decision Table:**
 
-<div class="responsive-table" markdown>
-
 | Budget Remaining | Action Required | Team Response |
 |-----------------|-----------------|---------------|
 | < 0% | No feature launches | All hands on reliability |
@@ -121,8 +119,6 @@ flowchart TD
 | 25-50% | Normal deployments with caution | Enhanced monitoring |
 | 50-100% | Normal operations | Innovation allowed |
 | > 10% single incident | Major incident | Mandatory postmortem |
-
-</div>
 
 
 **Budget Policies:**
@@ -176,15 +172,11 @@ flowchart TB
 
 **SLI Quality Comparison Table:**
 
-<div class="responsive-table" markdown>
-
 | SLI Type | Example | Pros | Cons | Use When |
 |----------|---------|------|------|----------|
 | **Average** | avg(latency) | Simple to calculate | Hides outliers, misleading | Never for user-facing metrics |
 | **Percentile** | p95, p99 latency | Shows tail latency | Still technical metric | API performance tracking |
 | **User-Centric** | Successful page loads | Reflects actual user experience | More complex to measure | Customer-facing services |
-
-</div>
 
 
 ```mermaid
@@ -227,17 +219,13 @@ Data pipeline: 99.99% (4.4 min/month)
 ```
 
 !!! warning "The Hidden Cost of Each Nine"
-<div class="responsive-table" markdown>
-
-    | Availability | Downtime/Year | Downtime/Month | Typical Use Case | Annual Cost* |
+| Availability | Downtime/Year | Downtime/Month | Typical Use Case | Annual Cost* |
     |--------------|---------------|----------------|------------------|-------------|
     | 99% | 3.65 days | 7.3 hours | Dev/Test | $10K |
     | 99.9% | 8.77 hours | 43.8 minutes | Basic web apps | $100K |
     | 99.95% | 4.38 hours | 21.9 minutes | E-commerce | $500K |
     | 99.99% | 52.6 minutes | 4.38 minutes | Financial services | $2M |
     | 99.999% | 5.26 minutes | 26.3 seconds | Healthcare/Trading | $10M+ |
-
-</div>
 
 
     *Rough infrastructure + engineering cost for typical 1000 req/s service
@@ -283,8 +271,6 @@ flowchart LR
 
 **Toil Analysis Dashboard:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Target | Current | Status |
 |--------|--------|---------|--------|
 | Total Toil % | < 50% | Variable | Monitor |
@@ -292,8 +278,6 @@ flowchart LR
 | Cert Renewals | 0 | Track | Automate |
 | Log Analysis | < 10% | Track | Tool needed |
 | Incident Response | < 20% | Track | Improve docs |
-
-</div>
 
 
 ### Automation Examples
@@ -343,16 +327,12 @@ flowchart TD
 
 **Automation Benefits:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Manual Process | Automated | Improvement |
 |--------|---------------|-----------|-------------|
 | Time per renewal | 2 hours | 0 minutes | 100% reduction |
 | Human errors | ~5% rate | 0% | Zero mistakes |
 | Expired certs | 1-2 per year | 0 | No outages |
 | Engineer interrupts | 52/year | 0 | Better focus |
-
-</div>
 
 
 ## On-Call Excellence
@@ -396,8 +376,6 @@ flowchart TB
 
 **On-Call Handoff Checklist:**
 
-<div class="responsive-table" markdown>
-
 | Category | Items to Cover | Status |
 |----------|---------------|--------|
 | **Active Issues** | • Severity level<br/>• Current status<br/>• Next actions<br/>• Relevant runbooks | ☐ |
@@ -406,15 +384,11 @@ flowchart TB
 | **Watch Areas** | • Trending metrics<br/>• Customer feedback<br/>• Resource usage | ☐ |
 | **Knowledge Transfer** | • Updated runbooks<br/>• New alerts<br/>• Lessons learned | ☐ |
 
-</div>
-
 
 ### Alert Quality (Respecting Cognitive Load)
 
 **Good Alert (Law 6 Compliant):**
 **Good Alert Configuration:**
-
-<div class="responsive-table" markdown>
 
 | Component | Value | Purpose |
 |-----------|-------|------|
@@ -425,8 +399,6 @@ flowchart TB
 | **Impact** | "Users experiencing failures" | Business impact clear |
 | **Dashboard** | Direct link | Quick investigation |
 | **Runbook** | Direct link | Immediate action steps |
-
-</div>
 
 
 ```mermaid
@@ -451,8 +423,6 @@ graph LR
 **Bad Alert:**
 **Bad Alert Example:**
 
-<div class="responsive-table" markdown>
-
 | Problem | Impact | Fix |
 |---------|--------|-----|
 | No duration requirement | Fires on brief spikes | Add `for: 5m` |
@@ -460,8 +430,6 @@ graph LR
 | No severity | Unclear urgency | Add severity label |
 | No runbook | Don't know what to do | Link to runbook |
 | Arbitrary threshold | May not indicate problem | Base on historical data |
-
-</div>
 
 
 ## Postmortem Culture
@@ -485,8 +453,6 @@ timeline
 
 **Postmortem Analysis:**
 
-<div class="responsive-table" markdown>
-
 | Section | Details |
 |---------|------|
 | **Impact** | • 15,000 failed transactions<br/>• 47 minutes downtime<br/>• ~$150,000 revenue impact |
@@ -495,12 +461,8 @@ timeline
 | **Detection** | Automated monitoring (3 min to alert) |
 | **Resolution** | Rollback to previous version |
 
-</div>
-
 
 **Action Items with Owners:**
-
-<div class="responsive-table" markdown>
 
 | Priority | Action | Owner | Due Date | Status |
 |----------|--------|-------|----------|--------|
@@ -508,8 +470,6 @@ timeline
 | P0 | Align staging with prod configs | DevOps | 2 weeks | ⏳ |
 | P1 | Extend canary to 30 minutes | Release Eng | 1 week | ⏳ |
 | P1 | Add memory-based auto-rollback | SRE Team | 3 weeks | ⏳ |
-
-</div>
 
 
 ### Postmortem Metrics (Cognitive Load Indicators)
@@ -527,8 +487,6 @@ Track improvement over time:
 
 **Change Risk Assessment Matrix:**
 
-<div class="responsive-table" markdown>
-
 | Risk Factor | Low Risk (+0) | Medium Risk (+1-2) | High Risk (+3) |
 |-------------|---------------|-------------------|----------------|
 | **Code Size** | < 100 lines | 100-1000 lines | > 1000 lines |
@@ -537,12 +495,8 @@ Track improvement over time:
 | **Dependencies** | No updates | Minor updates | Major updates |
 | **Timing** | Off-peak weekday | Peak weekday | Friday/Weekend |
 
-</div>
-
 
 **Risk Mitigation Credits:**
-
-<div class="responsive-table" markdown>
 
 | Mitigation | Risk Reduction | Benefit |
 |------------|---------------|-------|
@@ -550,8 +504,6 @@ Track improvement over time:
 | Canary Plan | -1 point | Gradual rollout |
 | Automated Tests | -1 point | Confidence in changes |
 | Rollback Plan | -1 point | Quick recovery |
-
-</div>
 
 
 ```mermaid
@@ -605,8 +557,6 @@ flowchart TD
 
 **Rollout Timing Guidelines:**
 
-<div class="responsive-table" markdown>
-
 | Stage | Traffic % | Duration | Success Criteria |
 |-------|-----------|----------|------------------|
 | Dev | 0% | Immediate | All tests pass |
@@ -615,8 +565,6 @@ flowchart TD
 | Phase 1 | 10% | 2 hours | SLOs maintained |
 | Phase 2 | 50% | 4 hours | No customer complaints |
 | Full | 100% | Ongoing | Continuous monitoring |
-
-</div>
 
 
 ## Capacity Planning
@@ -639,16 +587,12 @@ flowchart LR
 
 **Capacity Forecast Table:**
 
-<div class="responsive-table" markdown>
-
 | Timeframe | Average Load | Peak Load | Provision With Safety | Action Required |
 |-----------|-------------|-----------|---------------------|----------------|
 | **Current** | 1,000 req/s | 3,000 req/s | 4,200 req/s | Baseline |
 | **3 Months** | 1,520 req/s | 4,560 req/s | 6,384 req/s | Plan scaling |
 | **6 Months** | 2,313 req/s | 6,939 req/s | 9,715 req/s | Budget approval |
 | **12 Months** | 5,350 req/s | 16,050 req/s | 22,470 req/s | Major expansion |
-
-</div>
 
 
 **Capacity Planning Decision Points:**
@@ -676,16 +620,12 @@ Monitor trends before they become problems:
 
 **Leading Indicators Dashboard:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Query Focus | Alert Threshold | Action |
 |--------|-------------|----------------|--------|
 | **Traffic Growth** | Week-over-week % | > 20% sustained | Scale planning |
 | **Error Rate Trend** | 7-day moving avg | Increasing 3 days | Investigation |
 | **Latency Creep** | P99 weekly change | > 10% increase | Performance review |
 | **Resource Usage** | CPU/Memory trend | > 80% for 1 hour | Capacity add |
-
-</div>
 
 
 ```mermaid

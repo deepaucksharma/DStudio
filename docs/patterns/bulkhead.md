@@ -46,8 +46,6 @@ With Bulkheads (Isolated Pools):
 
 ## Bulkhead Strategies
 
-<div class="responsive-table" markdown>
-
 | Type | Isolates | Overhead | Best For |
 |------|----------|----------|----------|
 | **Thread Pool** | CPU/Threads | Medium | Compute tasks |
@@ -55,8 +53,6 @@ With Bulkheads (Isolated Pools):
 | **Connection Pool** | Network | Low | Database/APIs |
 | **Process** | Everything | High | Critical isolation |
 | **Container** | Everything | Medium | Microservices |
-
-</div>
 
 
 ## Isolation Examples
@@ -818,8 +814,6 @@ graph TB
 ```
 
 **Container Isolation Benefits**:
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit |
 |--------|----------|
 | **CPU** | Hard limits prevent resource hogging |
@@ -827,8 +821,6 @@ graph TB
 | **Network** | Separate network namespaces |
 | **Storage** | Isolated file systems |
 | **Scaling** | Independent horizontal scaling |
-
-</div>
 
 
 ## Real-World Implementation Patterns
@@ -1663,8 +1655,6 @@ graph TD
 
 ## Configuration Cheat Sheet
 
-<div class="responsive-table" markdown>
-
 | Service Type | Bulkhead Type | Size Formula | Queue Size |
 |-------------|---------------|--------------|------------|
 | **User-facing API** | Thread Pool | 2 × cores × expected_rps / avg_response_time | 50-100 |
@@ -1672,8 +1662,6 @@ graph TD
 | **Database Queries** | Connection Pool | concurrent_users / avg_query_time | 10-20 |
 | **Microservices** | Container/Cell | Services × redundancy_factor | N/A |
 | **External APIs** | Semaphore | Rate limit / 2 | 0-10 |
-
-</div>
 
 
 ## Common Bulkhead Sizes
@@ -1740,8 +1728,6 @@ bulkhead_configs:
 
 ## Key Takeaways by Level
 
-<div class="responsive-table" markdown>
-
 | Level | Core Concept | When You're Ready |
 |-------|--------------|-------------------|
 | **Level 1** | Bulkheads are like ship compartments - isolate failures | Building any multi-component system |
@@ -1749,8 +1735,6 @@ bulkhead_configs:
 | **Level 3** | Adaptive sizing and hierarchical isolation | Scaling beyond single service |
 | **Level 4** | Cell architecture eliminates shared fate | Building planet-scale systems |
 | **Level 5** | Mathematical optimization and autonomous management | Pushing isolation boundaries |
-
-</div>
 
 
 ## Economic Impact Summary
@@ -1936,16 +1920,12 @@ await db_bulkheads.execute('analytics',
 
 ## Benefits vs Costs
 
-<div class="responsive-table" markdown>
-
 | Benefit | Cost | Mitigation |
 |---------|------|------------|
 | **Improved Reliability** | Implementation complexity | Use proven libraries/frameworks |
 | **Better Performance** | Resource overhead | Monitor and tune parameters |
 | **Faster Recovery** | Operational complexity | Invest in monitoring and training |
 | **Clearer Debugging** | Additional logging | Use structured logging |
-
-</div>
 
 
 ## Performance Impact

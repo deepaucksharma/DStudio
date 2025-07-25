@@ -688,8 +688,6 @@ graph TB
 
 ### Consistency Models Under Failure
 
-<div class="responsive-table" markdown>
-
 | Model | Behavior During Failure | Use Case | Example |
 |-------|------------------------|----------|----------|
 | **Strong Consistency** | Refuse writes to minority partition | Financial ledgers | Bank accounts |
@@ -697,8 +695,6 @@ graph TB
 | **Weak Consistency** | No guarantees | Caching | CDN content |
 | **Causal Consistency** | Preserve causality only | Chat apps | WhatsApp |
 | **Session Consistency** | Consistency within session | Shopping carts | Amazon |
-
-</div>
 
 
 ### Split-Brain Scenarios
@@ -862,8 +858,6 @@ graph TB
 
 ### Practical Failure-Consistency Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | Description | Consistency Impact | Use Case |
 |---------|-------------|-------------------|----------||
 | **Sloppy Quorum** | Accept writes on any N nodes | Improves availability, eventual consistency | Dynamo |
@@ -871,8 +865,6 @@ graph TB
 | **Chain Replication** | Linear replication chain | Strong consistency, ordered updates | CORFU |
 | **Primary-Backup** | All writes through primary | Simple consistency model | MySQL |
 | **Multi-Paxos** | Consensus on every operation | Linearizable | Spanner |
-
-</div>
 
 
 ### Consistency SLAs During Failures

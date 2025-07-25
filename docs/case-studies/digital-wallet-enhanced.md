@@ -1796,8 +1796,6 @@ graph TB
 
 ### 8.2 Consistency Models by Operation Type
 
-<div class="responsive-table" markdown>
-
 | Operation | Consistency Level | Implementation | Justification |
 |-----------|------------------|----------------|---------------|
 | **Balance Check** | Read-Your-Writes | Session affinity to primary | Users must see their latest transactions |
@@ -1808,8 +1806,6 @@ graph TB
 | **Rewards/Cashback** | Eventual Consistency | Async processing | Can be delayed |
 | **KYC Updates** | Strong Consistency | Consensus protocol | Regulatory requirement |
 | **Social Feed** | Eventual Consistency | Best effort delivery | Non-critical feature |
-
-</div>
 
 
 ### 8.3 Distributed Transaction Architecture
@@ -2025,8 +2021,6 @@ graph TB
 
 ### 8.10 Best Practices for Wallet Consistency
 
-<div class="responsive-table" markdown>
-
 | Practice | Description | Benefits | Trade-offs |
 |----------|-------------|----------|------------|
 | **Idempotent Operations** | Use unique transaction IDs | Prevents duplicate processing | Requires ID tracking |
@@ -2037,8 +2031,6 @@ graph TB
 | **Event Sourcing** | Store all state changes | Complete audit trail | Complex queries |
 | **Distributed Snapshots** | Periodic consistent state | Fast recovery | Storage cost |
 | **Circuit Breakers** | Fail fast on errors | System stability | Temporary unavailability |
-
-</div>
 
 
 ### 8.11 Handling Split-Brain Scenarios

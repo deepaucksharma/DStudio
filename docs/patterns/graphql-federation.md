@@ -1054,8 +1054,6 @@ schema = gateway.composed_schema
 
 ### Federation vs Traditional Architectures
 
-<div class="responsive-table" markdown>
-
 | Aspect | REST APIs | GraphQL Monolith | GraphQL Federation |
 |--------|-----------|------------------|-----------------|
 | **Network Calls** | Multiple per view | Single | Single |
@@ -1065,8 +1063,6 @@ schema = gateway.composed_schema
 | **Client Complexity** | High | Low | Low |
 | **Backend Complexity** | Medium | Low | Medium |
 | **Performance** | Over/under-fetching | Optimal | Optimal |
-
-</div>
 
 
 ### Performance Tips

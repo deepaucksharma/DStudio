@@ -128,8 +128,6 @@ graph LR
 
 **Latency Budget Breakdown:**
 
-<div class="responsive-table" markdown>
-
 | Component | Target Latency | Optimization Strategy |
 |-----------|---------------|----------------------|
 | Location Acquisition | 1-5 seconds | Fused location providers |
@@ -138,8 +136,6 @@ graph LR
 | Friend Matching | 10-30ms | Geohash indexing |
 | Notification Delivery | 50-200ms | Push notification services |
 | End-to-End | < 2 seconds | Parallel processing |
-
-</div>
 
 
 **Battery vs Latency Trade-offs:**
@@ -176,8 +172,6 @@ graph TB
 
 **Capacity Planning:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Scale | Impact |
 |--------|-------|--------|
 | Active Users | 500M | Base load |
@@ -186,8 +180,6 @@ graph TB
 | Total Updates/Day | 144B | System throughput |
 | Storage per Update | 100 bytes | 14.4TB/day |
 | Query Load | 1M QPS | Read amplification |
-
-</div>
 
 
 **Data Reduction Strategies:**
@@ -224,8 +216,6 @@ graph TB
 
 **Failure Scenarios and Privacy:**
 
-<div class="responsive-table" markdown>
-
 | Failure Type | Privacy Impact | Mitigation |
 |--------------|---------------|------------|
 | Permission Service Down | Could expose location | Fail closed - hide all |
@@ -233,8 +223,6 @@ graph TB
 | Location Service Error | Stale locations shown | Clear TTL, show uncertainty |
 | Notification Failure | Friends unaware of presence | Retry with backoff |
 | Regional Outage | Friends appear offline | Graceful degradation |
-
-</div>
 
 
 ### Law 3: Emergence - Millions Moving Simultaneously
@@ -263,8 +251,6 @@ graph TB
 
 **Concurrency Patterns:**
 
-<div class="responsive-table" markdown>
-
 | Pattern | Use Case | Throughput |
 |---------|----------|------------|
 | User Sharding | Partition by user ID | 1M updates/sec |
@@ -272,8 +258,6 @@ graph TB
 | Batch Processing | Aggregate updates | 5x throughput |
 | Read Replicas | Scale friend queries | 10M reads/sec |
 | Write-Through Cache | Recent locations | 90% cache hit |
-
-</div>
 
 
 ### Law 4: Trade-offs - Global Friend Graph Consistency
@@ -302,8 +286,6 @@ graph TB
 
 **Consistency Requirements:**
 
-<div class="responsive-table" markdown>
-
 | Data Type | Consistency Model | Sync Latency | Rationale |
 |-----------|------------------|--------------|-----------|
 | Friend Relationships | Strong | Immediate | Privacy critical |
@@ -311,8 +293,6 @@ graph TB
 | Current Location | Eventual | < 5 seconds | Performance trade-off |
 | Location History | Eventual | < 1 minute | Not real-time critical |
 | Presence Status | Causal | < 10 seconds | User experience |
-
-</div>
 
 
 ### Law 5: Epistemology - Privacy-Aware Monitoring
@@ -335,8 +315,6 @@ graph LR
 
 **Key Metrics (Privacy-Safe):**
 
-<div class="responsive-table" markdown>
-
 | Metric Category | Examples | Privacy Considerations |
 |----------------|----------|----------------------|
 | System Health | Update latency, Error rates | No user identifiers |
@@ -344,8 +322,6 @@ graph LR
 | Privacy Controls | Permission changes/day | Anonymous counts |
 | Battery Impact | Update frequency distribution | Device-type aggregated |
 | Friend Graph | Average friend count | Statistical only |
-
-</div>
 
 
 ### Law 6: Human-API - Privacy and Control
@@ -368,8 +344,6 @@ graph TB
 
 **Privacy Feature Matrix:**
 
-<div class="responsive-table" markdown>
-
 | Feature | Implementation | User Benefit |
 |---------|---------------|--------------|
 | Ghost Mode | Hide from everyone | Complete privacy |
@@ -378,8 +352,6 @@ graph TB
 | Time Limits | Auto-expire sharing | Temporary sharing |
 | Geofencing | Hide in certain areas | Location-based privacy |
 | Activity-based | Hide when stationary | Context awareness |
-
-</div>
 
 
 ### Law 7: Economics - Balancing Features and Costs
@@ -404,8 +376,6 @@ graph TB
 
 **Cost Optimization Strategies:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Implementation | Savings |
 |----------|---------------|---------|
 | Update Batching | Combine nearby updates | 60% network |
@@ -414,14 +384,10 @@ graph TB
 | Edge Computing | Process locally | 50% compute |
 | Adaptive Frequency | Movement-based updates | 80% battery/data |
 
-</div>
-
 
 ## Part 2: Comprehensive Law Analysis Matrix
 
 ### Law Mapping for Core Design Decisions
-
-<div class="responsive-table" markdown>
 
 | Design Decision | Law 2: Asynchronous Reality ⏳ | Law 4: Trade-offs ⚖️ | Law 1: Failure ⛓️ | Law 3: Emergence 🌪️ | Law 4: Trade-offs ⚖️ | Law 5: Epistemology 🧠 | Law 6: Human-API 🤯 | Law 7: Economics 💰 |
 |----------------|------------------|-------------------|------------------|---------------------|---------------------|---------------------|------------------------|-------------------|
@@ -430,8 +396,6 @@ graph TB
 | **Privacy Zones** | ⚠️ Extra checks<br/>Small overhead | ⚠️ More metadata<br/>Zone definitions | ✅ Fail-safe design<br/>Default hidden | ✅ Zone checks parallel<br/>No blocking | ✅ Consistent rules<br/>Global policies | ⚠️ Complex tracking<br/>Zone violations | ✅ User control<br/>Clear boundaries | ✅ Reduces updates<br/>In private zones |
 | **Adaptive Updates** | ✅ Optimize frequency<br/>Based on movement | ✅ Reduce volume<br/>80% fewer updates | ✅ Fallback rates<br/>Never lose user | ✅ Independent logic<br/>Per-user rates | ⚠️ Rate sync issues<br/>Clock skew | ✅ Movement patterns<br/>Clear analytics | ✅ Battery saving<br/>User happiness | ✅ Major savings<br/>Compute and network |
 | **Friend Graph Cache** | ✅ Instant lookup<br/>Memory speed | ⚠️ Memory usage<br/>Redundant storage | ✅ Stale but safe<br/>Old permissions OK | ✅ Read scaling<br/>No graph locks | ⚠️ Cache coherency<br/>Update propagation | ✅ Hit rates<br/>Cache effectiveness | ✅ Fast friend list<br/>Smooth UX | ✅ Reduce DB load<br/>90% fewer queries |
-
-</div>
 
 
 ### Law Interaction Complexity
@@ -611,8 +575,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Privacy | No central storage | Trust between peers |
@@ -620,8 +582,6 @@ graph TB
 | Scale | Infinite | Connection management |
 | Battery | Worse (always on) | Constant networking |
 | Reliability | Poor | Peer churn |
-
-</div>
 
 
 ### Alternative Architecture 2: Edge-Based Processing
@@ -642,8 +602,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Latency | Ultra-low locally | Edge deployment |
@@ -651,8 +609,6 @@ graph TB
 | Scale | Distributed load | Many edge nodes |
 | Cost | Reduced central load | Edge infrastructure |
 | Complexity | High | Coordination |
-
-</div>
 
 
 ### Alternative Architecture 3: Blockchain-Based
@@ -672,8 +628,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Privacy | Cryptographic guarantees | Key management |
@@ -681,8 +635,6 @@ graph TB
 | Audit | Complete trail | Storage costs |
 | Latency | Poor | Block time |
 | Scale | Limited | Transaction fees |
-
-</div>
 
 
 ### Alternative Architecture 4: Federated System
@@ -705,8 +657,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Privacy | User choice | Varying policies |
@@ -714,8 +664,6 @@ graph TB
 | Scale | Distributed | Interoperability |
 | Innovation | Multiple approaches | Lowest common denominator |
 | Cost | Shared | Business model |
-
-</div>
 
 
 ### Recommended Architecture: Hybrid Privacy-First System
@@ -757,8 +705,6 @@ graph TB
 
 ### Architecture Comparison Matrix
 
-<div class="responsive-table" markdown>
-
 | Architecture | Privacy | Latency | Scale | Battery | Cost | Complexity |
 |--------------|---------|---------|-------|---------|------|------------|
 | **Pub/Sub + Spatial** | ✅✅✅ Good controls | ✅✅✅✅ < 2 sec | ✅✅✅✅✅ Billions | ✅✅✅ Adaptive | $$$ | Medium |
@@ -768,12 +714,8 @@ graph TB
 | **Federated** | ✅✅✅ Variable | ✅✅✅ Good | ✅✅✅✅ Good | ✅✅✅ Standard | $$ | Medium |
 | **Hybrid** | ✅✅✅✅✅ Best in class | ✅✅✅✅ < 1 sec | ✅✅✅✅✅ Billions | ✅✅✅✅✅ Optimized | $$$ | High |
 
-</div>
-
 
 ### Privacy Feature Comparison
-
-<div class="responsive-table" markdown>
 
 | Feature | Current | P2P | Edge | Blockchain | Federated | Hybrid |
 |---------|---------|-----|------|------------|-----------|--------|
@@ -783,8 +725,6 @@ graph TB
 | Time Limits | ✅ | ❌ | ✅ | ✅ | ⚠️ | ✅ |
 | Privacy Zones | ✅ | ❌ | ✅ | ⚠️ | ❌ | ✅ |
 | Audit Trail | ⚠️ | ❌ | ⚠️ | ✅ | ⚠️ | ✅ |
-
-</div>
 
 
 ### Performance Analysis
@@ -807,16 +747,12 @@ graph LR
 
 ### Cost Analysis by Scale
 
-<div class="responsive-table" markdown>
-
 | Users | Current | P2P | Edge | Blockchain | Federated | Hybrid |
 |-------|---------|-----|------|------------|-----------|--------|
 | 1M | $50K/mo | $10K/mo | $200K/mo | $500K/mo | $30K/mo | $100K/mo |
 | 10M | $300K/mo | $50K/mo | $1M/mo | N/A | $200K/mo | $400K/mo |
 | 100M | $2M/mo | N/A | $8M/mo | N/A | $1.5M/mo | $2.5M/mo |
 | 1B | $15M/mo | N/A | $50M/mo | N/A | $10M/mo | $12M/mo |
-
-</div>
 
 
 ### Decision Framework
@@ -1439,8 +1375,6 @@ class ProximityDetectionFunction(CoProcessFunction):
 
 ### Comprehensive Design Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Law 2<br/>⏳ Async Reality | Law 4<br/>⚖️ Optimization | Law 1<br/>⛓️ Failure | Law 3<br/>🌪️ Chaos | Law 4<br/>⚖️ Optimization | Law 5<br/>🧠 Knowledge | Law 6<br/>🤯 Cognitive | Law 7<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------|
 | **Location Fuzzing** | ⚪ Minimal overhead | ⚪ | ✅ Privacy protection | ⚪ | ✅ Consistent fuzzing | ✅ Privacy metrics | ✅ User trust | ✅ Compliance |
@@ -1451,8 +1385,6 @@ class ProximityDetectionFunction(CoProcessFunction):
 | **ML Relevance** | ⚪ Inference time | ✅ Model caching | ✅ Rule fallback | ✅ Batch scoring | ⚪ | ✅ Relevance metrics | ✅ Smart notifications | ✅ Engagement |
 | **Edge Caching** | ✅ Regional latency | ✅ Distributed cache | ✅ Cache failover | ✅ Regional isolation | ✅ Cache sync | ✅ Hit rates | ✅ Fast responses | ✅ Bandwidth savings |
 | **Battery Optimization** | ✅ Fewer updates | ✅ Reduced data | ✅ Fallback modes | ⚪ | ✅ Strategy sync | ✅ Battery tracking | ✅ All-day usage | ✅ User retention |
-
-</div>
 
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact
@@ -1797,8 +1729,6 @@ class PrivacyDashboard:
 
 ### Battery Optimization Strategies
 
-<div class="responsive-table" markdown>
-
 | Strategy | Implementation | Battery Savings |
 |----------|---------------|-----------------|
 | Movement Detection | Accelerometer-based | 50% GPS reduction |
@@ -1806,8 +1736,6 @@ class PrivacyDashboard:
 | Batching | Combine updates | 30% network savings |
 | Geofencing | WiFi/Cell triggers | 80% in stationary |
 | Background Limits | OS integration | 40% overall |
-
-</div>
 
 
 ### Scaling Strategies

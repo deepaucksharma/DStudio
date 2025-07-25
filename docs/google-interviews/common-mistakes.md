@@ -2,74 +2,67 @@
 
 ## Mistake Severity Dashboard
 
-<div class="severity-dashboard">
 <div class="severity-card critical">
 <h3>🔴 Critical Mistakes</h3>
 <p class="severity-count">5 mistakes</p>
 <p>Interview killers - avoid at all costs</p>
-</div>
-<div class="severity-card major">
 <h3>🟡 Major Mistakes</h3>
 <p class="severity-count">8 mistakes</p>
 <p>Significantly hurt your chances</p>
-</div>
-<div class="severity-card minor">
 <h3>🟢 Minor Mistakes</h3>
 <p class="severity-count">10 mistakes</p>
 <p>Room for improvement</p>
-</div>
 </div>
 
 ## Mistake Impact Matrix
 
 ```mermaid
 graph TD
-    subgraph "Critical Impact"
-        C1[Not Thinking at Scale]
-        C2[No Failure Handling]
-        C3[Ignoring Requirements]
-        C4[Poor Communication]
-        C5[Time Mismanagement]
-    end
-    
-    subgraph "Major Impact"
-        M1[Over-Engineering]
-        M2[Weak API Design]
-        M3[Missing Monitoring]
-        M4[Ignoring Costs]
-        M5[No Consistency Plan]
-    end
-    
-    subgraph "Minor Impact"
-        Mi1[Suboptimal Choices]
-        Mi2[Missing Edge Cases]
-        Mi3[Limited Options]
-    end
-    
-    C1 --> Reject[High Rejection Risk]
-    C2 --> Reject
-    C3 --> Reject
-    
-    M1 --> Maybe[Borderline Decision]
-    M2 --> Maybe
-    
-    Mi1 --> Pass[Still Might Pass]
-    Mi2 --> Pass
-    
-    style C1 fill:#FF6B6B
-    style C2 fill:#FF6B6B
-    style C3 fill:#FF6B6B
-    style M1 fill:#FFE66D
-    style M2 fill:#FFE66D
-    style Mi1 fill:#95E1D3
-    style Mi2 fill:#95E1D3
+ subgraph "Critical Impact"
+ C1[Not Thinking at Scale]
+ C2[No Failure Handling]
+ C3[Ignoring Requirements]
+ C4[Poor Communication]
+ C5[Time Mismanagement]
+ end
+ 
+ subgraph "Major Impact"
+ M1[Over-Engineering]
+ M2[Weak API Design]
+ M3[Missing Monitoring]
+ M4[Ignoring Costs]
+ M5[No Consistency Plan]
+ end
+ 
+ subgraph "Minor Impact"
+ Mi1[Suboptimal Choices]
+ Mi2[Missing Edge Cases]
+ Mi3[Limited Options]
+ end
+ 
+ C1 --> Reject[High Rejection Risk]
+ C2 --> Reject
+ C3 --> Reject
+ 
+ M1 --> Maybe[Borderline Decision]
+ M2 --> Maybe
+ 
+ Mi1 --> Pass[Still Might Pass]
+ Mi2 --> Pass
+ 
+ style C1 fill:#FF6B6B
+ style C2 fill:#FF6B6B
+ style C3 fill:#FF6B6B
+ style M1 fill:#FFE66D
+ style M2 fill:#FFE66D
+ style Mi1 fill:#95E1D3
+ style Mi2 fill:#95E1D3
 ```
 
 ## Critical Mistakes (Interview Killers)
 
 ### 1. Not Thinking at Google Scale
 
-<div class="mistake-comparison">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -96,26 +89,25 @@ graph TD
 </tr>
 </tbody>
 </table>
-</div>
 
 #### Scale Comparison Visual
 
 ```mermaid
 graph LR
-    subgraph "Your Design"
-        A1[1 Server] --> A2[100 Users]
-        A2 --> A3[1 GB Data]
-    end
-    
-    subgraph "Google Scale"
-        B1[100K Servers] --> B2[2B Users]
-        B2 --> B3[Exabytes Data]
-    end
-    
-    A3 -."10,000,000x".-> B3
-    
-    style A1 fill:#FFB6C1
-    style B1 fill:#90EE90
+ subgraph "Your Design"
+ A1[1 Server] --> A2[100 Users]
+ A2 --> A3[1 GB Data]
+ end
+ 
+ subgraph "Google Scale"
+ B1[100K Servers] --> B2[2B Users]
+ B2 --> B3[Exabytes Data]
+ end
+ 
+ A3 -."10,000,000x".-> B3
+ 
+ style A1 fill:#FFB6C1
+ style B1 fill:#90EE90
 ```
 
 **Mistake**: Designing for thousands of users instead of billions
@@ -132,47 +124,39 @@ graph LR
 
 ### 2. Poor Time Management
 
-<div class="time-breakdown">
-<svg viewBox="0 0 400 200" style="width: 100%; max-width: 600px;">
-  <!-- Wrong time allocation -->
-  <text x="10" y="30" font-weight="bold">❌ Wrong:</text>
-  <rect x="10" y="40" width="300" height="30" fill="#FF6B6B" opacity="0.7"/>
-  <rect x="310" y="40" width="60" height="30" fill="#FFE66D" opacity="0.7"/>
-  <rect x="370" y="40" width="20" height="30" fill="#95E1D3" opacity="0.7"/>
-  <text x="160" y="60" text-anchor="middle" fill="white">Requirements (30 min)</text>
-  <text x="340" y="60" text-anchor="middle">Design (10m)</text>
-  
-  <!-- Correct time allocation -->
-  <text x="10" y="120" font-weight="bold">✅ Right:</text>
-  <rect x="10" y="130" width="40" height="30" fill="#FF6B6B" opacity="0.7"/>
-  <rect x="50" y="130" width="40" height="30" fill="#FFE66D" opacity="0.7"/>
-  <rect x="90" y="130" width="180" height="30" fill="#4ECDC4" opacity="0.7"/>
-  <rect x="270" y="130" width="80" height="30" fill="#95E1D3" opacity="0.7"/>
-  <rect x="350" y="130" width="40" height="30" fill="#A8E6CF" opacity="0.7"/>
-  
-  <text x="30" y="150" text-anchor="middle">Req</text>
-  <text x="70" y="150" text-anchor="middle">Est</text>
-  <text x="180" y="150" text-anchor="middle" fill="white">High Level Design</text>
-  <text x="310" y="150" text-anchor="middle">Deep Dive</text>
-  <text x="370" y="150" text-anchor="middle">Q&A</text>
+<svg viewBox="0 0 400 200">
+ <!-- Wrong time allocation -->
+ <text x="10" y="30" font-weight="bold">❌ Wrong:</text>
+ <rect x="10" y="40" width="300" height="30" fill="#FF6B6B" opacity="0.7"/>
+ <rect x="310" y="40" width="60" height="30" fill="#FFE66D" opacity="0.7"/>
+ <rect x="370" y="40" width="20" height="30" fill="#95E1D3" opacity="0.7"/>
+ <text x="160" y="60" text-anchor="middle" fill="white">Requirements (30 min)</text>
+ <text x="340" y="60" text-anchor="middle">Design (10m)</text>
+ 
+ <!-- Correct time allocation -->
+ <text x="10" y="120" font-weight="bold">✅ Right:</text>
+ <rect x="10" y="130" width="40" height="30" fill="#FF6B6B" opacity="0.7"/>
+ <rect x="50" y="130" width="40" height="30" fill="#FFE66D" opacity="0.7"/>
+ <rect x="90" y="130" width="180" height="30" fill="#4ECDC4" opacity="0.7"/>
+ <rect x="270" y="130" width="80" height="30" fill="#95E1D3" opacity="0.7"/>
+ <rect x="350" y="130" width="40" height="30" fill="#A8E6CF" opacity="0.7"/>
+ 
+ <text x="30" y="150" text-anchor="middle">Req</text>
+ <text x="70" y="150" text-anchor="middle">Est</text>
+ <text x="180" y="150" text-anchor="middle" fill="white">High Level Design</text>
+ <text x="310" y="150" text-anchor="middle">Deep Dive</text>
+ <text x="370" y="150" text-anchor="middle">Q&A</text>
 </svg>
-</div>
 
 #### Time Management Rules
 
-<div class="time-rules">
 <div class="rule-card">
 <h4>5-Minute Rule</h4>
 <p>If stuck on requirements > 5 min, make assumptions and move on</p>
-</div>
-<div class="rule-card">
 <h4>25-Minute Checkpoint</h4>
 <p>Must have complete high-level design by 25 min mark</p>
-</div>
-<div class="rule-card">
 <h4>35-Minute Warning</h4>
 <p>Start wrapping up, leave time for questions</p>
-</div>
 </div>
 
 ### 3. Ignoring Failure Scenarios
@@ -181,40 +165,39 @@ graph LR
 
 ```mermaid
 flowchart TD
-    System[Your System] --> Components{What Can Fail?}
-    
-    Components --> Network[Network]
-    Components --> Server[Servers]
-    Components --> Database[Database]
-    Components --> Cache[Cache]
-    Components --> External[External APIs]
-    
-    Network --> N1[Packet Loss]
-    Network --> N2[High Latency]
-    Network --> N3[Partition]
-    
-    Server --> S1[Crash]
-    Server --> S2[Overload]
-    Server --> S3[Memory Leak]
-    
-    Database --> D1[Connection Pool Exhausted]
-    Database --> D2[Replication Lag]
-    Database --> D3[Deadlock]
-    
-    Cache --> C1[Cache Miss Storm]
-    Cache --> C2[Stale Data]
-    Cache --> C3[Eviction]
-    
-    External --> E1[Rate Limited]
-    External --> E2[Timeout]
-    External --> E3[Wrong Data]
-    
-    style Network fill:#FF6B6B
-    style Server fill:#FF6B6B
-    style Database fill:#FF6B6B
+ System[Your System] --> Components{What Can Fail?}
+ 
+ Components --> Network[Network]
+ Components --> Server[Servers]
+ Components --> Database[Database]
+ Components --> Cache[Cache]
+ Components --> External[External APIs]
+ 
+ Network --> N1[Packet Loss]
+ Network --> N2[High Latency]
+ Network --> N3[Partition]
+ 
+ Server --> S1[Crash]
+ Server --> S2[Overload]
+ Server --> S3[Memory Leak]
+ 
+ Database --> D1[Connection Pool Exhausted]
+ Database --> D2[Replication Lag]
+ Database --> D3[Deadlock]
+ 
+ Cache --> C1[Cache Miss Storm]
+ Cache --> C2[Stale Data]
+ Cache --> C3[Eviction]
+ 
+ External --> E1[Rate Limited]
+ External --> E2[Timeout]
+ External --> E3[Wrong Data]
+ 
+ style Network fill:#FF6B6B
+ style Server fill:#FF6B6B
+ style Database fill:#FF6B6B
 ```
 
-<div class="failure-examples">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -227,21 +210,20 @@ flowchart TD
 <tr>
 <td data-label="Component"><strong>API Call</strong></td>
 <td data-label="❌ No Failure Handling"><code>result = service.call()</code></td>
-<td data-label="✅ With Failure Handling"><code>result = retry_with_backoff(<br/>  service.call,<br/>  max_retries=3,<br/>  timeout=1s<br/>)</code></td>
+<td data-label="✅ With Failure Handling"><code>result = retry_with_backoff(<br/> service.call,<br/> max_retries=3,<br/> timeout=1s<br/>)</code></td>
 </tr>
 <tr>
 <td data-label="Component"><strong>Database</strong></td>
 <td data-label="❌ No Failure Handling"><code>db.query(sql)</code></td>
-<td data-label="✅ With Failure Handling"><code>with circuit_breaker:<br/>  try:<br/>    db.query(sql, timeout=100ms)<br/>  except:<br/>    return cached_result</code></td>
+<td data-label="✅ With Failure Handling"><code>with circuit_breaker:<br/> try:<br/> db.query(sql, timeout=100ms)<br/> except:<br/> return cached_result</code></td>
 </tr>
 <tr>
 <td data-label="Component"><strong>Cache</strong></td>
 <td data-label="❌ No Failure Handling"><code>cache.get(key)</code></td>
-<td data-label="✅ With Failure Handling"><code>try:<br/>  return cache.get(key)<br/>except CacheMiss:<br/>  return fetch_with_lock(key)</code></td>
+<td data-label="✅ With Failure Handling"><code>try:<br/> return cache.get(key)<br/>except CacheMiss:<br/> return fetch_with_lock(key)</code></td>
 </tr>
 </tbody>
 </table>
-</div>
 
 **Mistake**: Assuming everything works perfectly
 ```
@@ -261,28 +243,27 @@ flowchart TD
 
 ```mermaid
 flowchart LR
-    Start[Design X] --> Functional[Functional Requirements]
-    Start --> NonFunc[Non-Functional Requirements]
-    Start --> Constraints[Constraints]
-    
-    Functional --> F1[What features?]
-    Functional --> F2[User types?]
-    Functional --> F3[Use cases?]
-    
-    NonFunc --> N1[Scale?]
-    NonFunc --> N2[Performance?]
-    NonFunc --> N3[Availability?]
-    
-    Constraints --> C1[Budget?]
-    Constraints --> C2[Timeline?]
-    Constraints --> C3[Team size?]
-    
-    F1 --> Design[Start Design]
-    N1 --> Design
-    C1 --> Design
+ Start[Design X] --> Functional[Functional Requirements]
+ Start --> NonFunc[Non-Functional Requirements]
+ Start --> Constraints[Constraints]
+ 
+ Functional --> F1[What features?]
+ Functional --> F2[User types?]
+ Functional --> F3[Use cases?]
+ 
+ NonFunc --> N1[Scale?]
+ NonFunc --> N2[Performance?]
+ NonFunc --> N3[Availability?]
+ 
+ Constraints --> C1[Budget?]
+ Constraints --> C2[Timeline?]
+ Constraints --> C3[Team size?]
+ 
+ F1 --> Design[Start Design]
+ N1 --> Design
+ C1 --> Design
 ```
 
-<div class="question-templates">
 <div class="question-category">
 <h4>🎯 Scale Questions</h4>
 <ul>
@@ -291,8 +272,6 @@ flowchart LR
 <li>"How much data will we store?"</li>
 <li>"What's the expected growth rate?"</li>
 </ul>
-</div>
-<div class="question-category">
 <h4>⚡ Performance Questions</h4>
 <ul>
 <li>"What's the acceptable latency?"</li>
@@ -300,8 +279,6 @@ flowchart LR
 <li>"What's more important: latency or throughput?"</li>
 <li>"Any specific SLA requirements?"</li>
 </ul>
-</div>
-<div class="question-category">
 <h4>🔧 Feature Questions</h4>
 <ul>
 <li>"Should we support [specific feature]?"</li>
@@ -310,49 +287,36 @@ flowchart LR
 <li>"Any regulatory requirements?"</li>
 </ul>
 </div>
-</div>
 
 ### 5. Missing the Big Picture 🖼
 
 #### System Completeness Checklist
 
-<div class="completeness-grid">
 <div class="component-check">
 <h4>✅ Client Layer</h4>
 <label><input type="checkbox"> Web clients</label>
 <label><input type="checkbox"> Mobile apps</label>
 <label><input type="checkbox"> API clients</label>
-</div>
-<div class="component-check">
 <h4>✅ Gateway Layer</h4>
 <label><input type="checkbox"> Load balancer</label>
 <label><input type="checkbox"> API gateway</label>
 <label><input type="checkbox"> Rate limiting</label>
-</div>
-<div class="component-check">
 <h4>✅ Service Layer</h4>
 <label><input type="checkbox"> Business logic</label>
 <label><input type="checkbox"> Service mesh</label>
 <label><input type="checkbox"> Circuit breakers</label>
-</div>
-<div class="component-check">
 <h4>✅ Data Layer</h4>
 <label><input type="checkbox"> Primary database</label>
 <label><input type="checkbox"> Cache layer</label>
 <label><input type="checkbox"> Search index</label>
-</div>
-<div class="component-check">
 <h4>✅ Infrastructure</h4>
 <label><input type="checkbox"> Monitoring</label>
 <label><input type="checkbox"> Logging</label>
 <label><input type="checkbox"> Alerting</label>
-</div>
-<div class="component-check">
 <h4>✅ External</h4>
 <label><input type="checkbox"> CDN</label>
 <label><input type="checkbox"> Third-party APIs</label>
 <label><input type="checkbox"> Payment systems</label>
-</div>
 </div>
 
 **Mistake**: Getting lost in implementation details
@@ -373,7 +337,6 @@ flowchart LR
 
 #### Consistency Decision Matrix
 
-<div class="consistency-matrix">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -416,23 +379,22 @@ flowchart LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ```mermaid
 graph TD
-    Question["Data Consistency Need?"] --> Critical{"Is it money/legal?"}
-    Critical -->|Yes| Strong[Strong Consistency]
-    Critical -->|No| UserFacing{"User-facing data?"}
-    
-    UserFacing -->|Yes| Important{"Must be real-time?"}
-    UserFacing -->|No| Weak[Weak Consistency]
-    
-    Important -->|Yes| Bounded["Bounded Staleness<br/>(~1-5 seconds)"]
-    Important -->|No| Eventual["Eventual Consistency<br/>(seconds to minutes)"]
-    
-    style Strong fill:#FF6B6B
-    style Eventual fill:#FFE66D
-    style Weak fill:#95E1D3
+ Question["Data Consistency Need?"] --> Critical{"Is it money/legal?"}
+ Critical -->|Yes| Strong[Strong Consistency]
+ Critical -->|No| UserFacing{"User-facing data?"}
+ 
+ UserFacing -->|Yes| Important{"Must be real-time?"}
+ UserFacing -->|No| Weak[Weak Consistency]
+ 
+ Important -->|Yes| Bounded["Bounded Staleness<br/>(~1-5 seconds)"]
+ Important -->|No| Eventual["Eventual Consistency<br/>(seconds to minutes)"]
+ 
+ style Strong fill:#FF6B6B
+ style Eventual fill:#FFE66D
+ style Weak fill:#95E1D3
 ```
 
 **Mistake**: Hand-waving consistency requirements
@@ -451,7 +413,6 @@ graph TD
 
 #### Cost Breakdown Calculator
 
-<div class="cost-calculator">
 <h4>Monthly Cost Estimation for 1B Users</h4>
 <table class="responsive-table">
 <thead>
@@ -515,33 +476,32 @@ graph TD
 </tr>
 </tbody>
 </table>
-</div>
 
 #### Cost Optimization Strategies
 
 ```mermaid
 graph LR
-    Cost[High Costs] --> Optimize{Optimization Strategy}
-    
-    Optimize --> Storage[Storage Tiers]
-    Storage --> Hot[Hot: SSD]
-    Storage --> Warm[Warm: HDD]
-    Storage --> Cold[Cold: Glacier]
-    
-    Optimize --> Compute[Compute]
-    Compute --> Spot[Spot Instances]
-    Compute --> Reserved[Reserved Instances]
-    Compute --> AutoScale[Auto-scaling]
-    
-    Optimize --> Network[Network]
-    Network --> CDN[CDN Caching]
-    Network --> Compress[Compression]
-    Network --> Regional[Regional Serving]
-    
-    style Cost fill:#FF6B6B
-    style Hot fill:#FFE66D
-    style Warm fill:#95E1D3
-    style Cold fill:#C7CEEA
+ Cost[High Costs] --> Optimize{Optimization Strategy}
+ 
+ Optimize --> Storage[Storage Tiers]
+ Storage --> Hot[Hot: SSD]
+ Storage --> Warm[Warm: HDD]
+ Storage --> Cold[Cold: Glacier]
+ 
+ Optimize --> Compute[Compute]
+ Compute --> Spot[Spot Instances]
+ Compute --> Reserved[Reserved Instances]
+ Compute --> AutoScale[Auto-scaling]
+ 
+ Optimize --> Network[Network]
+ Network --> CDN[CDN Caching]
+ Network --> Compress[Compression]
+ Network --> Regional[Regional Serving]
+ 
+ style Cost fill:#FF6B6B
+ style Hot fill:#FFE66D
+ style Warm fill:#95E1D3
+ style Cold fill:#C7CEEA
 ```
 
 **Mistake**: Proposing expensive solutions without justification
@@ -562,33 +522,32 @@ graph LR
 
 ```mermaid
 graph LR
-    subgraph "Phase 1: MVP"
-        M1[Monolith]
-        M2[Single DB]
-        M3[Simple Cache]
-    end
-    
-    subgraph "Phase 2: Growth"
-        G1[Service Split]
-        G2[Read Replicas]
-        G3[CDN Added]
-    end
-    
-    subgraph "Phase 3: Scale"
-        S1[Microservices]
-        S2[Sharded DB]
-        S3[Multi-Region]
-    end
-    
-    M1 -->|10K users| G1
-    G1 -->|1M users| S1
-    
-    style M1 fill:#90EE90
-    style G1 fill:#FFE66D
-    style S1 fill:#FF6B6B
+ subgraph "Phase 1: MVP"
+ M1[Monolith]
+ M2[Single DB]
+ M3[Simple Cache]
+ end
+ 
+ subgraph "Phase 2: Growth"
+ G1[Service Split]
+ G2[Read Replicas]
+ G3[CDN Added]
+ end
+ 
+ subgraph "Phase 3: Scale"
+ S1[Microservices]
+ S2[Sharded DB]
+ S3[Multi-Region]
+ end
+ 
+ M1 -->|10K users| G1
+ G1 -->|1M users| S1
+ 
+ style M1 fill:#90EE90
+ style G1 fill:#FFE66D
+ style S1 fill:#FF6B6B
 ```
 
-<div class="evolution-table">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -630,93 +589,89 @@ graph LR
 </tr>
 </tbody>
 </table>
-</div>
 
 ### 9. Weak API Design 🔌
 
 #### API Design Checklist
 
-<div class="api-checklist">
 <div class="api-section">
 <h4>RESTful Design</h4>
 <pre>
 ✅ Good:
-GET    /api/v1/users?limit=20&offset=40
-POST   /api/v1/users
-GET    /api/v1/users/{id}
-PUT    /api/v1/users/{id}
+GET /api/v1/users?limit=20&offset=40
+POST /api/v1/users
+GET /api/v1/users/{id}
+PUT /api/v1/users/{id}
 DELETE /api/v1/users/{id}
 
 ❌ Bad:
-GET    /getUsers
-POST   /createNewUser
-GET    /user_info
-POST   /updateUserInfo
-GET    /deleteUser?id=123
+GET /getUsers
+POST /createNewUser
+GET /user_info
+POST /updateUserInfo
+GET /deleteUser?id=123
 </pre>
-</div>
-<div class="api-section">
-<h4>Response Format</h4>
+!!! info
+ <h4>Response Format</h4>
 <pre>
 ✅ Good:
 {
-  "data": {
-    "users": [...],
-    "total": 1000,
-    "page": 3,
-    "pageSize": 20
-  },
-  "meta": {
-    "requestId": "uuid",
-    "timestamp": "2024-01-01T00:00:00Z"
-  },
-  "errors": []
+ "data": {
+ "users": [...],
+ "total": 1000,
+ "page": 3,
+ "pageSize": 20
+ },
+ "meta": {
+ "requestId": "uuid",
+ "timestamp": "2024-01-01T00:00:00Z"
+ },
+ "errors": []
 }
 
 ❌ Bad:
 {
-  "users": [...],
-  "more": true
+ "users": [...],
+ "more": true
 }
 </pre>
-</div>
 </div>
 
 #### API Design Decision Tree
 
 ```mermaid
 flowchart TD
-    API[Design API] --> Type{API Type?}
-    
-    Type -->|Simple CRUD| REST[RESTful API]
-    Type -->|Complex Queries| GraphQL[GraphQL]
-    Type -->|High Performance| gRPC[gRPC]
-    Type -->|Real-time| WebSocket[WebSocket]
-    
-    REST --> Versioning[Add Versioning]
-    GraphQL --> Schema[Define Schema]
-    gRPC --> Proto[Write Proto Files]
-    WebSocket --> Events[Define Events]
-    
-    Versioning --> Auth[Authentication]
-    Schema --> Auth
-    Proto --> Auth
-    Events --> Auth
-    
-    Auth --> RateLimit[Rate Limiting]
-    RateLimit --> Monitoring[API Monitoring]
+ API[Design API] --> Type{API Type?}
+ 
+ Type -->|Simple CRUD| REST[RESTful API]
+ Type -->|Complex Queries| GraphQL[GraphQL]
+ Type -->|High Performance| gRPC[gRPC]
+ Type -->|Real-time| WebSocket[WebSocket]
+ 
+ REST --> Versioning[Add Versioning]
+ GraphQL --> Schema[Define Schema]
+ gRPC --> Proto[Write Proto Files]
+ WebSocket --> Events[Define Events]
+ 
+ Versioning --> Auth[Authentication]
+ Schema --> Auth
+ Proto --> Auth
+ Events --> Auth
+ 
+ Auth --> RateLimit[Rate Limiting]
+ RateLimit --> Monitoring[API Monitoring]
 ```
 
 **Mistake**: Vague or incomplete API definitions
 ```
 ❌ Wrong: "The API returns search results"
 ✅ Right: 
-    GET /search?q=term&limit=20&offset=0
-    Response: {
-      results: [...],
-      total: 1000,
-      next_page_token: "..."
-    }
+ GET /search?q=term&limit=20&offset=0
+ Response: {
+ results: [...],
+ total: 1000,
+ next_page_token: "..."
+ }
 ```
 
 **How to Avoid**:
@@ -731,38 +686,37 @@ flowchart TD
 
 ```mermaid
 graph TB
-    subgraph "Metrics Collection"
-        App[Application] --> Metrics[Metrics Agent]
-        Metrics --> TimeSeries[(Time Series DB)]
-    end
-    
-    subgraph "Logging Pipeline"
-        App --> Logs[Log Agent]
-        Logs --> LogStore[(Log Storage)]
-    end
-    
-    subgraph "Tracing System"
-        App --> Traces[Trace Agent]
-        Traces --> TraceStore[(Trace Storage)]
-    end
-    
-    subgraph "Visualization"
-        TimeSeries --> Dashboard[Dashboards]
-        LogStore --> Dashboard
-        TraceStore --> Dashboard
-    end
-    
-    subgraph "Alerting"
-        TimeSeries --> Alert[Alert Manager]
-        Alert --> PagerDuty[PagerDuty]
-        Alert --> Slack[Slack]
-        Alert --> Email[Email]
-    end
+ subgraph "Metrics Collection"
+ App[Application] --> Metrics[Metrics Agent]
+ Metrics --> TimeSeries[(Time Series DB)]
+ end
+ 
+ subgraph "Logging Pipeline"
+ App --> Logs[Log Agent]
+ Logs --> LogStore[(Log Storage)]
+ end
+ 
+ subgraph "Tracing System"
+ App --> Traces[Trace Agent]
+ Traces --> TraceStore[(Trace Storage)]
+ end
+ 
+ subgraph "Visualization"
+ TimeSeries --> Dashboard[Dashboards]
+ LogStore --> Dashboard
+ TraceStore --> Dashboard
+ end
+ 
+ subgraph "Alerting"
+ TimeSeries --> Alert[Alert Manager]
+ Alert --> PagerDuty[PagerDuty]
+ Alert --> Slack[Slack]
+ Alert --> Email[Email]
+ end
 ```
 
 #### Key Metrics by Component
 
-<div class="metrics-grid">
 <div class="metric-box">
 <h4>🌐 API Gateway</h4>
 <ul>
@@ -771,52 +725,46 @@ graph TB
 <li>Error rate</li>
 <li>Active connections</li>
 </ul>
-</div>
-<div class="metric-box">
-<h4>💾 Database</h4>
+!!! info
+ <h4>💾 Database</h4>
 <ul>
 <li>Query latency</li>
 <li>Connection pool usage</li>
 <li>Lock wait time</li>
 <li>Replication lag</li>
 </ul>
-</div>
-<div class="metric-box">
-<h4>🚀 Application</h4>
+!!! info
+ <h4>🚀 Application</h4>
 <ul>
 <li>Response time</li>
 <li>Throughput</li>
 <li>Error rate</li>
 <li>CPU/Memory usage</li>
 </ul>
-</div>
-<div class="metric-box">
-<h4>📦 Cache</h4>
+!!! info
+ <h4>📦 Cache</h4>
 <ul>
 <li>Hit rate</li>
 <li>Eviction rate</li>
 <li>Memory usage</li>
 <li>Get/Set latency</li>
 </ul>
-</div>
-<div class="metric-box">
-<h4>🔄 Queue</h4>
+!!! info
+ <h4>🔄 Queue</h4>
 <ul>
 <li>Queue depth</li>
 <li>Processing rate</li>
 <li>Message age</li>
 <li>DLQ count</li>
 </ul>
-</div>
-<div class="metric-box">
-<h4>💰 Business</h4>
+!!! info
+ <h4>💰 Business</h4>
 <ul>
 <li>User signups</li>
 <li>Transaction volume</li>
 <li>Revenue metrics</li>
 <li>Feature adoption</li>
 </ul>
-</div>
 </div>
 
 **Mistake**: Adding monitoring as an afterthought
@@ -838,27 +786,19 @@ graph TB
 
 #### Communication Anti-Patterns
 
-<div class="communication-grid">
 <div class="comm-mistake">
 <h4>❌ Silent Thinking</h4>
 <p><strong>Wrong:</strong> *thinks for 2 minutes silently*</p>
 <p><strong>Right:</strong> "I'm considering two approaches: A would give us better performance but B would be simpler to implement..."</p>
-</div>
-<div class="comm-mistake">
 <h4>❌ Defensive Behavior</h4>
 <p><strong>Wrong:</strong> "No, that won't work because..."</p>
 <p><strong>Right:</strong> "That's an interesting point. Let me think about how we could incorporate that..."</p>
-</div>
-<div class="comm-mistake">
 <h4>❌ Unclear Diagrams</h4>
 <p><strong>Wrong:</strong> Unlabeled boxes and lines</p>
 <p><strong>Right:</strong> Clear labels, data flow arrows, component names</p>
-</div>
-<div class="comm-mistake">
 <h4>❌ Jargon Overload</h4>
 <p><strong>Wrong:</strong> "We'll use CQRS with ES and DDD..."</p>
 <p><strong>Right:</strong> "We'll separate reads and writes using CQRS pattern, which means..."</p>
-</div>
 </div>
 
 ### Not Thinking Out Loud
@@ -880,7 +820,6 @@ graph TB
 
 ### Self-Assessment Checklist
 
-<div class="knowledge-assessment">
 <div class="knowledge-section">
 <h4>🎯 Distributed Systems Fundamentals</h4>
 <label><input type="checkbox"> CAP Theorem - Can explain trade-offs</label>
@@ -890,11 +829,10 @@ graph TB
 <label><input type="checkbox"> Replication - Know sync vs async</label>
 <div class="skill-level">
 <span>Skill Level:</span>
-<span class="level-bar"><span class="level-fill" style="width: 0%"></span></span>
+<span class="level-bar"><span class="level-fill"></span></span>
 </div>
-</div>
-<div class="knowledge-section">
-<h4>🔧 Google Technologies</h4>
+!!! info
+ <h4>🔧 Google Technologies</h4>
 <label><input type="checkbox"> Bigtable - Understand architecture</label>
 <label><input type="checkbox"> Spanner - Know TrueTime concept</label>
 <label><input type="checkbox"> MapReduce - Can explain workflow</label>
@@ -902,11 +840,10 @@ graph TB
 <label><input type="checkbox"> Borg - Know container orchestration</label>
 <div class="skill-level">
 <span>Skill Level:</span>
-<span class="level-bar"><span class="level-fill" style="width: 0%"></span></span>
+<span class="level-bar"><span class="level-fill"></span></span>
 </div>
-</div>
-<div class="knowledge-section">
-<h4>⚡ Performance & Scale</h4>
+!!! info
+ <h4>⚡ Performance & Scale</h4>
 <label><input type="checkbox"> Caching - Know 4+ strategies</label>
 <label><input type="checkbox"> Load Balancing - Understand algorithms</label>
 <label><input type="checkbox"> Queueing - Can apply Little's Law</label>
@@ -914,32 +851,31 @@ graph TB
 <label><input type="checkbox"> Optimization - Can reduce latency</label>
 <div class="skill-level">
 <span>Skill Level:</span>
-<span class="level-bar"><span class="level-fill" style="width: 0%"></span></span>
-</div>
+<span class="level-bar"><span class="level-fill"></span></span>
 </div>
 </div>
 
 ### Common Gaps to Address
 
 1. **Distributed Systems Fundamentals**
-   - CAP theorem
-   - Consensus protocols
-   - Consistency models
+ - CAP theorem
+ - Consensus protocols
+ - Consistency models
 
 2. **Google Technologies**
-   - Bigtable vs Spanner
-   - MapReduce basics
-   - GFS/Colossus concepts
+ - Bigtable vs Spanner
+ - MapReduce basics
+ - GFS/Colossus concepts
 
 3. **Scaling Patterns**
-   - Sharding strategies
-   - Caching layers
-   - Load balancing
+ - Sharding strategies
+ - Caching layers
+ - Load balancing
 
 4. **System Design Patterns**
-   - Event sourcing
-   - CQRS
-   - Saga pattern
+ - Event sourcing
+ - CQRS
+ - Saga pattern
 
 ## Communication Mistakes
 
@@ -963,7 +899,6 @@ graph TB
 
 ### Common Mistakes by System Type
 
-<div class="system-mistakes">
 <table class="responsive-table">
 <thead>
 <tr>
@@ -1006,7 +941,6 @@ graph TB
 </tr>
 </tbody>
 </table>
-</div>
 
 ### For Search Systems
 - Forgetting about ranking
@@ -1034,23 +968,22 @@ graph TB
 
 ```mermaid
 gantt
-    title Daily 2-Hour Practice Schedule
-    dateFormat HH:mm
-    axisFormat %H:%M
-    
-    section Morning
-    Review Mistakes      :done, 07:00, 15m
-    Read System Design   :active, 07:15, 30m
-    
-    section Evening  
-    Design Practice      :18:00, 45m
-    Self Review          :18:45, 15m
-    Note Improvements    :19:00, 15m
+ title Daily 2-Hour Practice Schedule
+ dateFormat HH:mm
+ axisFormat %H:%M
+ 
+ section Morning
+ Review Mistakes :done, 07:00, 15m
+ Read System Design :active, 07:15, 30m
+ 
+ section Evening 
+ Design Practice :18:00, 45m
+ Self Review :18:45, 15m
+ Note Improvements :19:00, 15m
 ```
 
 ### Mock Interview Evaluation Form
 
-<div class="evaluation-form">
 <h4>Post-Interview Self Assessment</h4>
 <table class="responsive-table">
 <thead>
@@ -1111,7 +1044,6 @@ gantt
 <h5>Top 3 Things to Improve:</h5>
 <textarea rows="4" placeholder="1. &#10;2. &#10;3. "></textarea>
 </div>
-</div>
 
 ### Mock Interview Checklist
 - [ ] Clarified all requirements
@@ -1136,50 +1068,44 @@ gantt
 
 ```mermaid
 flowchart TD
-    Mistake[Realized a Mistake] --> Type{What Type?}
-    
-    Type -->|Technical Error| Tech[Technical Recovery]
-    Type -->|Time Management| Time[Time Recovery]
-    Type -->|Communication| Comm[Communication Recovery]
-    
-    Tech --> T1["1. Acknowledge: 'I realize I should consider...'"] 
-    Tech --> T2["2. Correct: Make the fix"]
-    Tech --> T3["3. Explain: Show understanding"]
-    
-    Time --> Ti1["1. Check time remaining"]
-    Time --> Ti2["2. Prioritize remaining items"]
-    Time --> Ti3["3. Speed up without panicking"]
-    
-    Comm --> C1["1. Clarify: 'Let me explain better...'"] 
-    Comm --> C2["2. Draw: Use diagrams"]
-    Comm --> C3["3. Confirm: 'Does this make sense?'"]
-    
-    T3 --> Continue[Continue Forward]
-    Ti3 --> Continue
-    C3 --> Continue
-    
-    style Mistake fill:#FF6B6B
-    style Continue fill:#90EE90
+ Mistake[Realized a Mistake] --> Type{What Type?}
+ 
+ Type -->|Technical Error| Tech[Technical Recovery]
+ Type -->|Time Management| Time[Time Recovery]
+ Type -->|Communication| Comm[Communication Recovery]
+ 
+ Tech --> T1["1. Acknowledge: 'I realize I should consider...'"] 
+ Tech --> T2["2. Correct: Make the fix"]
+ Tech --> T3["3. Explain: Show understanding"]
+ 
+ Time --> Ti1["1. Check time remaining"]
+ Time --> Ti2["2. Prioritize remaining items"]
+ Time --> Ti3["3. Speed up without panicking"]
+ 
+ Comm --> C1["1. Clarify: 'Let me explain better...'"] 
+ Comm --> C2["2. Draw: Use diagrams"]
+ Comm --> C3["3. Confirm: 'Does this make sense?'"]
+ 
+ T3 --> Continue[Continue Forward]
+ Ti3 --> Continue
+ C3 --> Continue
+ 
+ style Mistake fill:#FF6B6B
+ style Continue fill:#90EE90
 ```
 
 ### Recovery Phrases That Work
 
-<div class="recovery-phrases">
 <div class="phrase-card">
 <h4>When You're Stuck</h4>
 <p>"I'm considering a few approaches here. Let me think out loud..."</p>
 <p>"The challenge I'm facing is X. The options I see are..."</p>
-</div>
-<div class="phrase-card">
 <h4>When You Made an Error</h4>
 <p>"Actually, I realize that approach has issue X. Let me revise..."</p>
 <p>"Good point. That would indeed cause Y. Here's a better approach..."</p>
-</div>
-<div class="phrase-card">
 <h4>When Running Out of Time</h4>
 <p>"Given time constraints, I'll focus on the most critical part..."</p>
 <p>"Let me quickly cover X and Y, then we can dive deeper if time permits"</p>
-</div>
 </div>
 
 ### When You Realize a Mistake
@@ -1198,33 +1124,26 @@ flowchart TD
 
 ### Pre-Interview Preparation
 
-<div class="prevention-checklist">
 <div class="checklist-column">
 <h4>✅ One Week Before</h4>
 <label><input type="checkbox"> Reviewed common mistakes list</label>
 <label><input type="checkbox"> Practiced 10+ systems at scale</label>
 <label><input type="checkbox"> Timed myself consistently</label>
 <label><input type="checkbox"> Got feedback from mock interviews</label>
-</div>
-<div class="checklist-column">
 <h4>✅ One Day Before</h4>
 <label><input type="checkbox"> Reviewed Google scale numbers</label>
 <label><input type="checkbox"> Practiced failure scenarios</label>
 <label><input type="checkbox"> Prepared clarifying questions</label>
 <label><input type="checkbox"> Set up quiet environment</label>
-</div>
-<div class="checklist-column">
 <h4>✅ Interview Day</h4>
 <label><input type="checkbox"> Have water ready</label>
 <label><input type="checkbox"> Timer visible</label>
 <label><input type="checkbox"> Drawing tools ready</label>
 <label><input type="checkbox"> Positive mindset</label>
 </div>
-</div>
 
 ## Remember: The Goal
 
-<div class="final-reminder">
 <p>Google values:</p>
 <ul>
 <li>🎯 <strong>Clear thinking</strong> over perfect solutions</li>
@@ -1233,7 +1152,6 @@ flowchart TD
 <li>🔄 <strong>Iterative improvement</strong> over getting it right first time</li>
 </ul>
 <p><strong>Focus on demonstrating these qualities while avoiding common pitfalls!</strong></p>
-</div>
 
 [Return to Google Interview Guide](./index.md)
 

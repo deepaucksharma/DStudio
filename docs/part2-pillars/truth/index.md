@@ -373,8 +373,6 @@ sequenceDiagram
 
 #### Vector Clock Operations
 
-<div class="responsive-table" markdown>
-
 | Operation | Algorithm | Result |
 |-----------|-----------|--------|
 | **Initialize** | `clock = [0, 0, ..., 0]` | All components zero |
@@ -383,8 +381,6 @@ sequenceDiagram
 | **Receive Message** | `clock[i] = max(clock[i], other[i])`<br/>`clock[my_id] += 1` | Merge clocks & increment |
 | **Happens-Before** | `all(a[i] <= b[i]) AND any(a[i] < b[i])` | Check causal ordering |
 | **Concurrent** | `NOT (a → b) AND NOT (b → a)` | No causal relationship |
-
-</div>
 
 
 #### Causality Detection Example
@@ -474,8 +470,6 @@ sequenceDiagram
 
 #### CRDT Properties
 
-<div class="responsive-table" markdown>
-
 | CRDT Type | Operations | Merge Rule | Use Case |
 |-----------|------------|------------|----------|
 | **GCounter** | increment() | max(a[i], b[i]) | View counts, likes |
@@ -484,8 +478,6 @@ sequenceDiagram
 | **ORSet** | add(), remove() | union with tombstones | Shopping carts |
 | **LWWRegister** | set(value, timestamp) | keep highest timestamp | User preferences |
 | **MVRegister** | set(value) | keep all concurrent | Collaborative editing |
-
-</div>
 
 
 ### The Gossip Pattern
@@ -534,8 +526,6 @@ graph TB
 
 #### Gossip Protocol Characteristics
 
-<div class="responsive-table" markdown>
-
 | Property | Value | Description |
 |----------|-------|-------------|
 | **Convergence Time** | O(log N) rounds | Exponential spread pattern |
@@ -543,8 +533,6 @@ graph TB
 | **Fault Tolerance** | High | Handles node failures gracefully |
 | **Consistency** | Eventual | All nodes converge to same state |
 | **Network Usage** | Constant per node | Fanout limits bandwidth |
-
-</div>
 
 
 #### Anti-Entropy Process
@@ -720,8 +708,6 @@ graph TB
 
 ### Truth Propagation Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | Truth Guarantee | Latency | Use Case |
 |---------|----------------|---------|-----------||
 | **Synchronous Replication** | Immediate truth | High (RTT x replicas) | Financial data |
@@ -729,8 +715,6 @@ graph TB
 | **Quorum Replication** | Probabilistic truth | Medium (majority RTT) | User data |
 | **Chain Replication** | Ordered truth | Variable (chain length) | Logs |
 | **Gossip Protocol** | Convergent truth | Logarithmic | Membership |
-
-</div>
 
 
 ### Truth Under Partition
@@ -797,8 +781,6 @@ graph TB
 
 #### Verification Technique Details
 
-<div class="responsive-table" markdown>
-
 | Technique | How It Works | Use Case | Overhead |
 |-----------|--------------|----------|----------|
 | **Merkle Trees** | Hash tree of data blocks | Large dataset sync | O(log n) proofs |
@@ -806,8 +788,6 @@ graph TB
 | **Checksums** | CRC32/SHA256 of data | Corruption detection | O(1) space |
 | **Epochs** | Monotonic version numbers | Leader changes | O(1) space |
 | **Fencing** | Incremental tokens + check | Prevent split-brain | O(1) + storage |
-
-</div>
 
 
 ### Truth Economics
@@ -983,16 +963,12 @@ graph TB
 
 #### Consistency Levels and Latency
 
-<div class="responsive-table" markdown>
-
 | Consistency Level | Write Path | Latency | Failure Handling |
 |-------------------|------------|---------|------------------|
 | **Local** | Local DC only | ~1ms | No cross-DC coordination |
 | **Regional** | Sync within region<br/>Async to others | ~10ms | Regional quorum |
 | **Global Strong** | 2PC across regions | ~200ms | Requires all regions |
 | **Global Eventual** | Async to all regions | ~1ms | Converges eventually |
-
-</div>
 
 
 #### Multi-Region Write Flow
@@ -1067,8 +1043,6 @@ graph TB
 
 #### Consensus Usage Guidelines
 
-<div class="responsive-table" markdown>
-
 | Use Consensus For | Don't Use Consensus For | Alternative |
 |-------------------|------------------------|-------------|
 | Configuration changes | Read-heavy workloads | Local caches + TTL |
@@ -1076,8 +1050,6 @@ graph TB
 | Distributed locks | Analytics data | Async replication |
 | Transaction ordering | Metrics/logging | Best-effort delivery |
 | Critical metadata | Session data | Sticky sessions |
-
-</div>
 
 
 **Common Production Mistakes**:
@@ -1134,16 +1106,12 @@ graph TB
 
 #### Quantum Consensus Properties
 
-<div class="responsive-table" markdown>
-
 | Property | Classical | Quantum | Benefit |
 |----------|-----------|---------|--------|
 | **Byzantine Tolerance** | 3f+1 nodes | 2f+1 nodes | 33% fewer nodes needed |
 | **Random Number Generation** | Biasable | Provably random | True randomness |
 | **Authentication** | Computational | Information-theoretic | Unconditionally secure |
 | **State Exploration** | Sequential | Superposition | Parallel exploration |
-
-</div>
 
 
 ### Blockchain Evolution: Consensus at Scale
@@ -1188,16 +1156,12 @@ graph TB
 
 #### Consensus Mechanism Comparison
 
-<div class="responsive-table" markdown>
-
 | Mechanism | Energy Usage | Throughput | Finality | Security Model |
 |-----------|--------------|------------|----------|----------------|
 | **Proof of Work** | Very High | ~7 TPS | Probabilistic | Hash power |
 | **Proof of Stake** | Low | ~100 TPS | Deterministic | Economic stake |
 | **Sharded PoS** | Low | ~100k TPS | Deterministic | Stake + committees |
 | **PBFT-based** | Low | ~1k TPS | Immediate | Known validators |
-
-</div>
 
 
 ### The Philosophy of Distributed Truth
@@ -1231,16 +1195,12 @@ mindmap
 
 #### The Four Natures of Distributed Truth
 
-<div class="responsive-table" markdown>
-
 | Nature | Principle | Example | Implication |
 |--------|-----------|---------|-------------|
 | **Consensus-Based** | Truth = Majority agreement | Bitcoin's longest chain | Reality is voted on |
 | **Time-Dependent** | Truth emerges gradually | CRDT convergence | Patience required |
 | **Probabilistic** | Truth has confidence levels | Block confirmations | Certainty is gradient |
 | **Economic** | Truth costs resources | Spanner's GPS clocks | Pay for guarantees |
-
-</div>
 
 
 **The Paradoxes of Distributed Truth**:
@@ -1306,15 +1266,11 @@ graph TB
 
 #### TrueTime API
 
-<div class="responsive-table" markdown>
-
 | Method | Returns | Purpose | Guarantee |
 |--------|---------|---------|-----------||
 | `now()` | `[earliest, latest]` | Get current time interval | True time within bounds |
 | `after(t)` | `bool` | Check if `t` has passed | True if `t < now().earliest` |
 | `before(t)` | `bool` | Check if `t` is future | True if `t > now().latest` |
-
-</div>
 
 
 #### Spanner's Commit Protocol
@@ -1433,8 +1389,6 @@ classDiagram
 
 **Vector Clock Operations:**
 
-<div class="responsive-table" markdown>
-
 | Operation | Algorithm |
 |-----------|----------|
 | Initialize | `clock = [0, 0, ..., 0]` |
@@ -1442,8 +1396,6 @@ classDiagram
 | Send | `tick(); return clock.copy()` |
 | Receive | `clock[i] = max(clock[i], other[i]); tick()` |
 | Happens-before | `all(a[i] <= b[i]) AND any(a[i] < b[i])` |
-
-</div>
 
 
 ### Exercise 3: Two-Phase Commit Protocol 🌳
@@ -1486,14 +1438,10 @@ sequenceDiagram
 
 **Implementation Structure:**
 
-<div class="responsive-table" markdown>
-
 | Phase | Actions | Failure Handling |
 |-------|---------|------------------|
 | **Phase 1: Prepare** | Request votes from all participants | If any vote NO → Abort all |
 | **Phase 2: Commit** | Send commit to all participants | All must commit (no backing out) |
-
-</div>
 
 
 **Key Points:**
@@ -1522,8 +1470,6 @@ stateDiagram-v2
 
 **Leader Election Algorithm:**
 
-<div class="responsive-table" markdown>
-
 | Step | Action | Condition |
 |------|--------|----------|
 | 1 | Start as Follower | Initial state |
@@ -1533,8 +1479,6 @@ stateDiagram-v2
 | 5 | Count votes | Need majority (n/2 + 1) |
 | 6 | Become Leader | If majority achieved |
 | 7 | Send heartbeats | Maintain leadership |
-
-</div>
 
 
 **Key Properties:**
@@ -1576,16 +1520,12 @@ graph LR
 
 **GCounter Operations:**
 
-<div class="responsive-table" markdown>
-
 | Operation | Code | Description |
 |-----------|------|-------------|
 | **Initialize** | `counts = [0, 0, 0]` | Each node tracks all nodes |
 | **Increment** | `counts[my_id] += amount` | Only update own position |
 | **Value** | `value = sum(counts)` | Sum all positions |
 | **Merge** | `merged[i] = max(a[i], b[i])` | Take maximum at each position |
-
-</div>
 
 
 **Why it works:**

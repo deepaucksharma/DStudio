@@ -91,8 +91,6 @@ graph TD
 
 ### Common Architectural Patterns
 
-<div class="responsive-table" markdown>
-
 | Pattern | Google Search | YouTube | Maps | Gmail | Docs |
 |---------|--------------|---------|------|-------|------|
 | Sharding | ✅ Index shards | ✅ Video shards | ✅ Geo shards | ✅ User shards | ✅ Doc shards |
@@ -101,12 +99,8 @@ graph TD
 | Async Processing | ✅ Crawl queue | ✅ Transcode queue | ✅ Route calc | ✅ Spam check | ✅ Sync queue |
 | ML/AI | ✅ Ranking | ✅ Recommendations | ✅ Traffic predict | ✅ Spam detect | ✅ Smart compose |
 
-</div>
-
 
 ### Scale Comparison
-
-<div class="responsive-table" markdown>
 
 | System | Users | Data Size | QPS | Latency Target |
 |--------|-------|-----------|-----|----------------|
@@ -115,8 +109,6 @@ graph TD
 | Maps | 1B+ | 100PB+ | 1M+ | <500ms |
 | Gmail | 1.5B+ | Exabytes | 1M+ | <200ms |
 | Docs | 1B+ | 100PB+ | 100K+ | <100ms |
-
-</div>
 
 
 ## Evaluation Criteria

@@ -42,8 +42,6 @@ graph LR
 
 **Latency Targets by Operation:**
 
-<div class="responsive-table" markdown>
-
 | Operation | Target | Optimization Strategy |
 |-----------|--------|---------------------|
 | Map Pan/Zoom | < 16ms | Pre-loaded tiles, GPU rendering |
@@ -52,8 +50,6 @@ graph LR
 | Traffic Update | < 1 sec | Delta updates, compression |
 | Turn-by-turn | < 100ms | Edge computation |
 | Offline Maps | 0ms | Local storage |
-
-</div>
 
 
 **Tile Loading Strategy:**
@@ -89,8 +85,6 @@ graph TB
 
 **Data Types and Scale:**
 
-<div class="responsive-table" markdown>
-
 | Data Type | Size | Update Frequency |
 |-----------|------|------------------|
 | Base Map Tiles | 50 PB | Monthly |
@@ -99,8 +93,6 @@ graph TB
 | Business Data | 5 TB | Daily |
 | Traffic Data | 1 TB/day | Real-time |
 | User Contributions | 100 GB/day | Continuous |
-
-</div>
 
 
 **Storage Optimization:**
@@ -136,8 +128,6 @@ graph TB
 
 **Failure Scenarios and Mitigations:**
 
-<div class="responsive-table" markdown>
-
 | Failure | Impact | Mitigation |
 |---------|--------|-----------|
 | GPS Signal Lost | No position | WiFi/Cell positioning |
@@ -145,8 +135,6 @@ graph TB
 | Route Server Down | No routes | Client-side routing |
 | Traffic API Failed | Stale traffic | Historical estimates |
 | Tile Server Failed | Missing maps | Vector tile fallback |
-
-</div>
 
 
 ### Law 4: Concurrency - Millions Navigating Simultaneously
@@ -176,8 +164,6 @@ graph TB
 
 **Concurrency Patterns:**
 
-<div class="responsive-table" markdown>
-
 | Component | Pattern | Scale |
 |-----------|---------|-------|
 | Route Calculation | Request-level parallelism | 1M QPS |
@@ -185,8 +171,6 @@ graph TB
 | Traffic Processing | Stream aggregation | 100K updates/sec |
 | Search | Distributed index sharding | 500K QPS |
 | User Location | Batched updates | 1M updates/sec |
-
-</div>
 
 
 ### Law 5: Coordination - Global Map Consistency
@@ -214,8 +198,6 @@ graph TB
 
 **Consistency Requirements:**
 
-<div class="responsive-table" markdown>
-
 | Data Type | Consistency Model | Update Latency |
 |-----------|------------------|----------------|
 | Base Map | Eventually Consistent | 24 hours |
@@ -223,8 +205,6 @@ graph TB
 | Traffic Data | Near Real-time | 30 seconds |
 | User Location | Best Effort | 5 seconds |
 | Route Cache | Read-after-write | Immediate |
-
-</div>
 
 
 ### Law 6: Observability - Understanding the World
@@ -248,8 +228,6 @@ graph LR
 
 **Key Metrics:**
 
-<div class="responsive-table" markdown>
-
 | Category | Metrics | Alert Thresholds |
 |----------|---------|------------------|
 | Performance | Tile latency, Route calculation time | p99 > 500ms |
@@ -257,8 +235,6 @@ graph LR
 | Availability | API uptime, Tile availability | < 99.9% |
 | Usage | QPS, Active navigations | Anomaly detection |
 | Quality | Map freshness, Report rate | > 7 days old |
-
-</div>
 
 
 ### Law 7: Human Interface - Intuitive Navigation
@@ -283,8 +259,6 @@ graph TB
 
 **UX Optimizations:**
 
-<div class="responsive-table" markdown>
-
 | Feature | Implementation | User Benefit |
 |---------|---------------|--------------|
 | Voice Navigation | TTS with timing | Hands-free |
@@ -293,8 +267,6 @@ graph TB
 | Live View AR | Camera + GPS | Intuitive walking |
 | Offline Maps | Local storage | Works anywhere |
 | Multi-stop | Optimization algorithm | Efficient trips |
-
-</div>
 
 
 ### Law 7: Economics - Balancing Free and Profitable
@@ -319,8 +291,6 @@ graph TB
 
 **Cost Optimization Strategies:**
 
-<div class="responsive-table" markdown>
-
 | Strategy | Implementation | Savings |
 |----------|---------------|---------|
 | Tile Caching | Multi-level CDN | 70% bandwidth |
@@ -328,8 +298,6 @@ graph TB
 | Differential Updates | Delta patches | 95% update size |
 | Compute Offloading | Client-side routing | 60% server cost |
 | Data Compression | Custom algorithms | 80% storage |
-
-</div>
 
 
 ## Part 2: Comprehensive Architecture Analysis
@@ -396,8 +364,6 @@ graph TB
 
 **Routing Optimizations:**
 
-<div class="responsive-table" markdown>
-
 | Technique | Use Case | Performance Gain |
 |-----------|----------|------------------|
 | Contraction Hierarchies | Long routes | 1000x speedup |
@@ -405,8 +371,6 @@ graph TB
 | Precomputed Paths | Common routes | Instant |
 | Multi-level Dijkstra | Flexible routing | 100x speedup |
 | Time-dependent | Traffic awareness | Real-time |
-
-</div>
 
 
 ### Alternative Architecture 1: Decentralized P2P Maps
@@ -427,8 +391,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Cost | Minimal infrastructure | Incentive design |
@@ -436,8 +398,6 @@ graph TB
 | Privacy | Local control | No global view |
 | Updates | Instant local | Slow propagation |
 | Reliability | Dependent on peers | Availability issues |
-
-</div>
 
 
 ### Alternative Architecture 2: Satellite-First System
@@ -459,8 +419,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Coverage | Global, uniform | Weather dependent |
@@ -468,8 +426,6 @@ graph TB
 | Accuracy | Ground truth | No street names |
 | Cost | No ground survey | Satellite costs |
 | Detail | Consistent quality | Limited resolution |
-
-</div>
 
 
 ### Alternative Architecture 3: Crowdsourced (OpenStreetMap Model)
@@ -491,8 +447,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Cost | Community funded | Volunteer dependent |
@@ -500,8 +454,6 @@ graph TB
 | Coverage | Local knowledge | Sparse areas |
 | Licensing | Open data | Commercial limits |
 | Quality | Passionate mappers | Variable quality |
-
-</div>
 
 
 ### Alternative Architecture 4: Blockchain-Based Maps
@@ -526,8 +478,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Trust | Cryptographic proof | Slow consensus |
@@ -535,8 +485,6 @@ graph TB
 | History | Immutable trail | Storage bloat |
 | Governance | Decentralized | Coordination hard |
 | Updates | Transparent | High latency |
-
-</div>
 
 
 ### Alternative Architecture 5: Edge-Computed Maps
@@ -560,8 +508,6 @@ graph TB
 
 **Trade-offs:**
 
-<div class="responsive-table" markdown>
-
 | Aspect | Benefit | Challenge |
 |--------|---------|-----------|
 | Latency | Ultra-low (<5ms) | Edge deployment |
@@ -569,8 +515,6 @@ graph TB
 | Bandwidth | Reduced backhaul | Edge capacity |
 | Reliability | Local operation | Coordination complex |
 | Cost | Lower cloud costs | Edge infrastructure |
-
-</div>
 
 
 ### Recommended Hybrid Architecture
@@ -630,8 +574,6 @@ graph LR
 
 **Tile Optimization Techniques:**
 
-<div class="responsive-table" markdown>
-
 | Technique | Implementation | Benefit |
 |-----------|---------------|---------|
 | Pyramid Levels | Pre-render zoom 0-15 | Fast base access |
@@ -639,8 +581,6 @@ graph LR
 | Differential Updates | Only send changes | 95% bandwidth save |
 | Predictive Caching | ML-based prefetch | 90% cache hit |
 | WebP Format | Modern compression | 30% smaller |
-
-</div>
 
 
 ### 2. Routing Algorithm Selection
@@ -678,16 +618,12 @@ graph TB
 
 **Traffic Processing Scale:**
 
-<div class="responsive-table" markdown>
-
 | Metric | Value | Processing Time |
 |--------|-------|-----------------|
 | GPS Updates | 100M/min | < 30 sec |
 | Road Segments | 50M | Real-time |
 | Speed Calculations | 1B/hour | Streaming |
 | Predictions | 10M routes/min | < 100ms |
-
-</div>
 
 
 ### 4. Search Architecture
@@ -712,16 +648,12 @@ graph TB
 
 ### Growth Projections
 
-<div class="responsive-table" markdown>
-
 | Metric | Current | 2025 | 2030 |
 |--------|---------|------|------|
 | Users | 1B | 2B | 3B |
 | Daily Routes | 1B | 5B | 20B |
 | Map Data | 100PB | 500PB | 2EB |
 | Traffic Updates | 100M/min | 1B/min | 10B/min |
-
-</div>
 
 
 ### Scaling Strategies
@@ -736,16 +668,12 @@ graph TB
 
 ### Cost Breakdown
 
-<div class="responsive-table" markdown>
-
 | Component | Monthly Cost | % of Total |
 |-----------|-------------|------------|
 | Storage | $5M | 20% |
 | Compute | $10M | 40% |
 | Bandwidth | $7M | 28% |
 | Operations | $3M | 12% |
-
-</div>
 
 
 ### Optimization Opportunities
@@ -1678,8 +1606,6 @@ class Geocoder:
 
 ### Comprehensive Design Decision Matrix
 
-<div class="responsive-table" markdown>
-
 | Design Decision | Law 1<br/>🚀 Latency | Law 2<br/>💾 Capacity | Law 3<br/>🔥 Failure | Law 4<br/>🔀 Concurrency | Law 5<br/>🤝 Coordination | Law 6<br/>👁️ Observability | Law 7<br/>👤 Human | Law 8<br/>💰 Economics |
 |----------------|----------|----------|---------|-------------|--------------|---------------|-------|-----------||
 | **Vector Tiles** | ✅ Client rendering | ✅ 70% smaller | ✅ Offline capable | ✅ GPU parallel | ⚪ | ✅ Render metrics | ✅ Smooth zoom | ✅ Bandwidth savings |
@@ -1690,8 +1616,6 @@ class Geocoder:
 | **Offline Maps** | ✅ No network needed | ✅ Compressed regions | ✅ Works offline | ⚪ | ✅ Sync protocol | ✅ Usage tracking | ✅ Travel friendly | ✅ User retention |
 | **Street View** | ⚪ Large downloads | ✅ Progressive loading | ✅ Degraded quality | ✅ Tile streaming | ⚪ | ✅ Coverage stats | ✅ Immersive | ✅ Differentiator |
 | **AR Navigation** | ✅ Real-time tracking | ✅ Efficient models | ✅ Fallback to 2D | ✅ GPU + CPU | ✅ Sensor fusion | ✅ Accuracy metrics | ✅ Intuitive | ✅ Future-proof |
-
-</div>
 
 
 **Legend**: ✅ Primary impact | ⚪ Secondary/No impact

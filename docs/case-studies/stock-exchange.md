@@ -1099,8 +1099,6 @@ sequenceDiagram
 
 ### 8.3 Consistency Models by Market Function
 
-<div class="responsive-table" markdown>
-
 | Function | Consistency Model | Implementation | Latency Impact |
 |----------|------------------|----------------|----------------|
 | **Order Entry** | Linearizable | Total order broadcast | +5-10 μs |
@@ -1111,12 +1109,8 @@ sequenceDiagram
 | **Settlement** | Eventual Consistency | End-of-day reconciliation | Hours |
 | **Audit Trail** | Immutable Append | Write-once storage | Async |
 
-</div>
-
 
 ### 8.4 Best Practices for Exchange Consistency
-
-<div class="responsive-table" markdown>
 
 | Practice | Description | Benefit | Implementation |
 |----------|-------------|---------|----------------|
@@ -1128,8 +1122,6 @@ sequenceDiagram
 | **Checkpoint & Replay** | Periodic state snapshots | Fast recovery | Every 1M messages |
 | **A/B State Verification** | Compare primary/backup state | Detect divergence | Continuous checksums |
 | **Write-Ahead Logging** | Log before state change | Durability | NVMe/Optane storage |
-
-</div>
 
 
 ## Lessons Learned
@@ -1167,8 +1159,6 @@ sequenceDiagram
 
 ## Trade-offs and Decisions
 
-<div class="responsive-table" markdown>
-
 | Decision | Trade-off | Why This Choice |
 |----------|-----------|-----------------|
 | FPGA for critical path | Complexity vs speed | Nanosecond latency requirements |
@@ -1176,8 +1166,6 @@ sequenceDiagram
 | Speed bumps | Liquidity vs fairness | Prevent predatory trading |
 | Multiple matching engines | Complexity vs throughput | Scale to 10M+ orders/sec |
 | Synchronous audit logging | Latency vs compliance | Regulatory requirement |
-
-</div>
 
 
 ## 9. Real-World Patterns and Lessons

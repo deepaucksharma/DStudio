@@ -45,8 +45,6 @@ This report summarizes the comprehensive audit and improvement project for the d
 - Organization: 14 well-defined categories
 
 ### Quality Metrics Distribution
-<div class="responsive-table" markdown>
-
 | Metric | Count | Percentage |
 |--------|-------|------------|
 | Has Implementation Guide | 49 | 41.2% |
@@ -57,8 +55,6 @@ This report summarizes the comprehensive audit and improvement project for the d
 | References Laws/Axioms | 15 | 12.6% |
 | References Pillars | 2 | 1.7% |
 | Has Related Patterns | 54 | 45.4% |
-
-</div>
 
 
 ## Category Performance

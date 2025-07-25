@@ -43,19 +43,18 @@ Our patterns emphasize visual learning through:
 We use custom-styled boxes to highlight different types of information:
 
 ```html
-<div class="pattern-box">
-  <h4>🎯 Pattern Essence</h4>
-  <p>Core concept explained visually</p>
-</div>
+!!! info
+ <h4>🎯 Pattern Essence</h4>
+ <p>Core concept explained visually</p>
 
 !!! note "💡 When to Use"
-    Decision criteria and use cases
+ Decision criteria and use cases
 
 !!! danger "💥 Failure Story"
-    Real-world failure scenarios
+ Real-world failure scenarios
 
 !!! info "🔍 Key Insight"
-    Fundamental truth about the pattern
+ Fundamental truth about the pattern
 ```
 
 ### 2. Mermaid Diagrams
@@ -64,8 +63,8 @@ Every pattern should include at least one Mermaid diagram:
 
 ```mermaid
 graph TD
-    A[Component A] -->|Message| B[Component B]
-    B -->|Response| A
+ A[Component A] -->|Message| B[Component B]
+ B -->|Response| A
 ```
 
 ### 3. Implementation Guides
@@ -106,31 +105,31 @@ A pattern is considered high-quality when it includes:
 ### Adding a New Pattern
 
 1. **Start with the Template**
-   ```bash
-   cp PATTERN_TEMPLATE.md new-pattern-name.md
-   ```
+ ```bash
+ cp PATTERN_TEMPLATE.md new-pattern-name.md
+ ```
 
 2. **Follow the Structure**
-   - Pattern name and category
-   - Visual introduction with diagram
-   - Core concepts with visual boxes
-   - Implementation guide
-   - Real-world examples
-   - Performance considerations
-   - Failure scenarios
-   - Related patterns
+ - Pattern name and category
+ - Visual introduction with diagram
+ - Core concepts with visual boxes
+ - Implementation guide
+ - Real-world examples
+ - Performance considerations
+ - Failure scenarios
+ - Related patterns
 
 3. **Visual Requirements**
-   - At least one Mermaid diagram
-   - Use visual boxes for key concepts
-   - Include comparison tables where relevant
-   - Add metrics and benchmarks
+ - At least one Mermaid diagram
+ - Use visual boxes for key concepts
+ - Include comparison tables where relevant
+ - Add metrics and benchmarks
 
 4. **Code Examples**
-   - Provide examples in at least 2 languages
-   - Include configuration snippets
-   - Show both correct and incorrect usage
-   - Add performance measurements
+ - Provide examples in at least 2 languages
+ - Include configuration snippets
+ - Show both correct and incorrect usage
+ - Add performance measurements
 
 ### Improving Existing Patterns
 
@@ -172,21 +171,21 @@ Each pattern should explicitly connect to:
 ### High-Priority Improvements
 
 1. **Complete Incomplete Patterns** (36 remaining)
-   - Focus on specialized categories (URL Shortener, Web Crawling, Deduplication)
-   
+ - Focus on specialized categories (URL Shortener, Web Crawling, Deduplication)
+ 
 2. **Add Visual Elements** (104 patterns need visuals)
-   - Start with high-traffic patterns
-   - Use the visual box templates above
+ - Start with high-traffic patterns
+ - Use the visual box templates above
 
 3. **Enhance with Diagrams** (61 patterns need diagrams)
-   - Create sequence diagrams for communication patterns
-   - Add state diagrams for coordination patterns
-   - Include architecture diagrams for system patterns
+ - Create sequence diagrams for communication patterns
+ - Add state diagrams for coordination patterns
+ - Include architecture diagrams for system patterns
 
 4. **Add Real-World Context**
-   - Failure stories from major outages
-   - Performance benchmarks from production
-   - Case studies from well-known systems
+ - Failure stories from major outages
+ - Performance benchmarks from production
+ - Case studies from well-known systems
 
 ### Tools and Resources
 

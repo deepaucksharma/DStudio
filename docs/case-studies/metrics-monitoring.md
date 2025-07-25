@@ -155,14 +155,10 @@ Series Identifier = hash(metric_name + sorted(labels))
 
 **Pull vs Push**:
 
-<div class="responsive-table" markdown>
-
 | Approach | Pros | Cons |
 |----------|------|------|
 | Pull (Prometheus) | Service discovery, up/down detection, controlled load | Firewall complexity, scaling challenges |
 | Push (Datadog) | Works across networks, simpler scaling | No automatic up/down, potential overload |
-
-</div>
 
 
 **Hybrid Solution**:
@@ -452,16 +448,12 @@ Time-based Partitioning:
 ```
 
 **Query Execution Stats**:
-<div class="responsive-table" markdown>
-
 | Query Type | Data Points | Response Time | Memory Used |
 |------------|-------------|---------------|-------------|
 | Instant query | 10K | 50ms | 100MB |
 | 1-hour range | 1M | 200ms | 500MB |
 | 1-day aggregation | 100M | 1.2s | 2GB |
 | 30-day histogram | 1B | 5s | 8GB |
-
-</div>
 
 
 ## Operational Considerations
@@ -586,8 +578,6 @@ Response:
 
 ## Trade-offs and Decisions
 
-<div class="responsive-table" markdown>
-
 | Decision | Trade-off | Why This Choice |
 |----------|-----------|-----------------|
 | Pull-based collection | Complexity vs control | Better service discovery and health detection |
@@ -595,8 +585,6 @@ Response:
 | 30-day retention | Cost vs history | Most queries are for recent data |
 | Eventual consistency | Accuracy vs availability | Monitoring can tolerate small delays |
 | Fixed schema | Flexibility vs performance | Optimized storage and queries |
-
-</div>
 
 
 ## References
