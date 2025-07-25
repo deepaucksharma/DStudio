@@ -5,40 +5,92 @@ description: "A physics-first approach to understanding distributed systems"
 
 # About This Compendium
 
-## Our Philosophy
+<div class="truth-box">
+<h3>Our Philosophy</h3>
 
 This compendium teaches distributed systems from first principles—starting with physics and mathematics rather than specific technologies.
 
 **Why?** Technologies change. Physics doesn't.
+</div>
 
 ## What You'll Learn
 
-- **7 Fundamental Laws** - Advanced framework from physics, mathematics, and complexity theory
-  - Law 1: Failure ⛓️
-  - Law 2: Asynchronous Reality ⏳
-  - Law 3: Emergence 🌪️
-  - Law 4: Trade-offs ⚖️
-  - Law 5: Epistemology 🧠
-  - Law 6: Human-API 🤯
-  - Law 7: Economics 💰
-- **5 Foundational Pillars** - How laws combine to create architectural challenges  
-- **Battle-tested Patterns** - Solutions derived from first principles, not fashion
-- **Quantitative Tools** - Make decisions with math, not opinions
+<div class="card-grid">
+  <div class="card">
+    <h3 class="card__title">7 Fundamental Laws</h3>
+    <p class="card__description">
+      Advanced framework from physics, mathematics, and complexity theory that governs all distributed systems.
+    </p>
+  </div>
+  
+  <div class="card">
+    <h3 class="card__title">5 Core Pillars</h3>
+    <p class="card__description">
+      How the fundamental laws combine to create architectural challenges and solution patterns.
+    </p>
+  </div>
+  
+  <div class="card">
+    <h3 class="card__title">Battle-tested Patterns</h3>
+    <p class="card__description">
+      Solutions derived from first principles, not fashion - patterns that work across any technology.
+    </p>
+  </div>
+  
+  <div class="card">
+    <h3 class="card__title">Quantitative Tools</h3>
+    <p class="card__description">
+      Mathematical frameworks and calculators to make decisions with data, not opinions.
+    </p>
+  </div>
+</div>
 
 ## Who This Is For
 
-- **Engineers** building distributed systems
-- **Architects** designing at scale
-- **Leaders** making technical decisions
-- **Students** learning fundamentals
+<div class="feature-grid">
+  <div class="feature-card">
+    <h3 class="feature-card__title">Engineers</h3>
+    <p class="feature-card__description">
+      Building distributed systems and need deep understanding of fundamental constraints.
+    </p>
+  </div>
+  
+  <div class="feature-card">
+    <h3 class="feature-card__title">Architects</h3>
+    <p class="feature-card__description">
+      Designing systems at scale and making informed trade-off decisions.
+    </p>
+  </div>
+  
+  <div class="feature-card">
+    <h3 class="feature-card__title">Technical Leaders</h3>
+    <p class="feature-card__description">
+      Making strategic technology decisions and building high-performing teams.
+    </p>
+  </div>
+  
+  <div class="feature-card">
+    <h3 class="feature-card__title">Students</h3>
+    <p class="feature-card__description">
+      Learning distributed systems fundamentals that will serve them throughout their career.
+    </p>
+  </div>
+</div>
 
 ## How to Use This Resource
 
-1. **Start with Laws** if you want deep understanding
-2. **Jump to Patterns** if you have immediate problems
-3. **Use Tools** for capacity planning and calculations
-4. **Study Case Studies** to learn from real failures
+<div class="decision-box">
+<h3>Choose Your Approach</h3>
+
+| If You Want | Start Here | Why |
+|-------------|------------|-----|
+| **Deep Understanding** | [7 Laws](../part1-axioms/) | Build from fundamental constraints |
+| **Solve Immediate Problems** | [Patterns](../patterns/) | Find proven solutions |
+| **Capacity Planning** | [Quantitative Tools](../quantitative/) | Mathematical analysis |
+| **Learn from Failures** | [Case Studies](../case-studies/) | Real-world examples |
+
+</div>
 
 ---
 
-Ready to begin? [Explore the 7 Laws →](/part1-axioms/)
+Ready to begin? [Start Your Journey →](getting-started.md)

@@ -12,30 +12,37 @@ last_updated: 2025-07-23
 
 # Getting Started with Distributed Systems
 
-## Welcome to Your Journey
+<div class="hero-section">
+  <h2>Welcome to Your Journey</h2>
+  <p>A revolutionary approach to learning distributed systems that starts with the laws of physics rather than specific technologies.</p>
+</div>
 
-Welcome to **The Compendium of Distributed Systems** - a revolutionary approach to learning distributed systems that starts with the laws of physics rather than specific technologies. Whether you're a new graduate, an experienced engineer, or a technical leader, this guide will help you navigate your learning journey.
+<div class="truth-box">
+<h3>Why This Compendium is Different</h3>
 
-!!! tip "Why This Compendium is Different"
-    - **Physics-First**: We derive patterns from fundamental constraints like the speed of light
-    - **Technology-Agnostic**: Principles that apply to any distributed system
-    - **Battle-Tested**: Real production failures illustrate every concept
-    - **Multiple Paths**: Tailored learning for different roles and experience levels
+- **Physics-First**: We derive patterns from fundamental constraints like the speed of light
+- **Technology-Agnostic**: Principles that apply to any distributed system
+- **Battle-Tested**: Real production failures illustrate every concept
+- **Multiple Paths**: Tailored learning for different roles and experience levels
+</div>
 
-## Understanding Our Unique Approach
+## Our Approach vs Traditional Learning
 
-### The Problem with Traditional Learning
-
-Most distributed systems education starts with tools and technologies:
-- "Here's how to use Kafka"
-- "This is how Redis works"
-- "Deploy this on Kubernetes"
-
-**The problem?** Technologies change. What you learn today may be obsolete in 5 years.
-
-### Our Physics-First Philosophy
-
-We start with immutable laws of physics and derive everything else:
+<div class="card-grid">
+  <div class="card">
+    <h3 class="card__title">Traditional Approach</h3>
+    <p class="card__description">
+      Start with tools (Kafka, Redis, Kubernetes). Problem: Technologies become obsolete in 3-5 years.
+    </p>
+  </div>
+  
+  <div class="card">
+    <h3 class="card__title">Our Physics-First Philosophy</h3>
+    <p class="card__description">
+      Start with immutable laws of physics and derive solutions. Benefit: Understanding that transcends technology.
+    </p>
+  </div>
+</div>
 
 ```mermaid
 graph TD
@@ -48,39 +55,21 @@ graph TD
     style C fill:#5448C8,color:#fff
 ```
 
-**The benefit?** Understanding that transcends any specific technology.
-
-## Prerequisites and Background
+## Prerequisites
 
 <div class="decision-box">
+<h3>Essential Prerequisites</h3>
 
-### ✅ Essential Prerequisites
+| Skill | What You Need | Example |
+|-------|---------------|---------|
+| **Programming** | Basic coding in any language | Functions, loops, data structures |
+| **Networking** | HTTP fundamentals | Client-server, requests, responses |
+| **Databases** | Basic SQL knowledge | SELECT, INSERT, transactions |
 
-```mermaid
-graph LR
-    subgraph "Must Have"
-        P1["💻 Programming<br/>Any language"] 
-        P2["🌐 Networking<br/>HTTP basics"]
-        P3["🗜️ Database<br/>Basic SQL"]
-    end
-    
-    subgraph "Your Skills"
-        P1 --> S1["Functions<br/>Data structures<br/>Loops"]
-        P2 --> S2["Client-server<br/>Requests<br/>Responses"]
-        P3 --> S3["SELECT/INSERT<br/>Transactions<br/>ACID basics"]
-    end
-    
-    S1 --> Ready["Ready to Start! 🚀"]
-    S2 --> Ready
-    S3 --> Ready
-    
-    style P1 fill:#10b981,color:#fff
-    style P2 fill:#3b82f6,color:#fff
-    style P3 fill:#8b5cf6,color:#fff
-    style Ready fill:#5448C8,color:#fff
-```
+</div>
 
-### 📚 Helpful but Not Required
+<div class="content-box">
+<h3>Helpful but Optional</h3>
 
 | Topic | Why It Helps | When You'll Use It |
 |-------|--------------|-------------------|
@@ -90,9 +79,6 @@ graph LR
 | **Linear Algebra** | Vector clocks, consensus | Advanced topics |
 
 </div>
-
-!!! note "Don't Have All Prerequisites?"
-    Don't worry! Each section clearly marks its prerequisites. You can learn missing concepts as you go.
 
 ## Choosing Your Learning Path
 

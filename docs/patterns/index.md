@@ -12,7 +12,7 @@ last_updated: 2025-07-25
 
 # Part III: Modern Architectural Patterns
 
-## 🎯 Pattern Navigator
+## Pattern Navigator
 
 ```mermaid
 graph TD
@@ -49,7 +49,7 @@ graph TD
     style LD fill:#fff3e0
 ```
 
-## 📊 Pattern Decision Matrix
+## Pattern Decision Matrix
 
 | Problem | Symptoms | Pattern Solution | Complexity | Cost Impact | Time to Implement |
 |---------|----------|------------------|------------|-------------|-------------------|
@@ -60,7 +60,7 @@ graph TD
 | **Complex Workflows** | Distributed transactions | → Saga → Choreography | High | $ | Weeks → Months |
 | **No Visibility** | Can't debug production | → Observability → Service Mesh | Medium → High | $$ → $$$ | Weeks → Months |
 
-## 🏆 Pattern Effectiveness Matrix
+## Pattern Effectiveness Matrix
 
 | Pattern | Problem Solved | Success Rate | Overhead | Team Size | Learning Curve |
 |---------|---------------|--------------|----------|-----------|----------------|
@@ -71,7 +71,7 @@ graph TD
 | **Service Mesh** | Observability | 90% | High | 5-10 | 🔴 Hard |
 | **Sharding** | Data Scale | 80% | High | 4-8 | 🔴 Hard |
 
-## 🔍 Pattern Selection by Constraints
+## Pattern Selection by Constraints
 
 | If You Have... | Avoid These | Use These Instead | Why |
 |----------------|-------------|-------------------|-----|
@@ -81,7 +81,7 @@ graph TD
 | Strict consistency | Eventual consistency patterns | 2PC, Distributed locks | Data integrity |
 | < 1GB data | Sharding, NoSQL | PostgreSQL | Unnecessary complexity |
 
-## 📈 Pattern Maturity & Adoption
+## Pattern Maturity & Adoption
 
 ```mermaid
 graph LR

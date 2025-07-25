@@ -8,119 +8,136 @@ hide:
 
 # The Compendium of Distributed Systems
 
-<div class="hero-section" style="text-align: center; margin: 2em 0;">
-    <h2 style="font-size: 2em; color: #5448C8;">Learn Distributed Systems from First Principles</h2>
-    <p style="font-size: 1.2em; color: #666; max-width: 800px; margin: 1em auto;">
-        A comprehensive guide that derives distributed systems patterns from fundamental physics and mathematics, 
-        not vendor documentation.
+<div class="hero-section">
+  <h1 class="hero-title">Learn Distributed Systems from First Principles</h1>
+  <p class="hero-subtitle">
+    Master the fundamental laws of physics and mathematics that govern all distributed systems.
+    No buzzwords, just timeless principles.
+  </p>
+  <a href="introduction/getting-started/" class="hero-cta">Start Your Journey</a>
+</div>
+
+<div class="quick-stats">
+  <div class="stat-item">
+    <div class="stat-number">7</div>
+    <div class="stat-label">Fundamental Laws</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">5</div>
+    <div class="stat-label">Core Pillars</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">50+</div>
+    <div class="stat-label">Design Patterns</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-number">20+</div>
+    <div class="stat-label">Case Studies</div>
+  </div>
+</div>
+
+## Start Here
+
+<div class="feature-grid">
+  <a href="introduction/getting-started/" class="feature-card">
+    <h3 class="feature-card__title">Getting Started</h3>
+    <p class="feature-card__description">
+      New to distributed systems? Start with our guided learning paths tailored to your experience level.
     </p>
+  </a>
+  
+  <a href="part1-axioms/" class="feature-card">
+    <h3 class="feature-card__title">The 7 Laws</h3>
+    <p class="feature-card__description">
+      Discover the fundamental laws derived from physics that govern all distributed systems.
+    </p>
+  </a>
+  
+  <a href="part2-pillars/" class="feature-card">
+    <h3 class="feature-card__title">The 5 Pillars</h3>
+    <p class="feature-card__description">
+      Learn how to organize solutions around fundamental distributed concepts.
+    </p>
+  </a>
+  
+  <a href="patterns/" class="feature-card">
+    <h3 class="feature-card__title">Design Patterns</h3>
+    <p class="feature-card__description">
+      Explore battle-tested patterns for building resilient, scalable distributed systems.
+    </p>
+  </a>
 </div>
 
-<div class="grid cards" markdown>
+## Choose Your Learning Path
 
--   :material-lightbulb-on:{ .lg .middle } __Start Your Journey__
+<div class="content-box decision-box">
+<h3>Find Your Starting Point</h3>
 
-    ---
-
-    Begin with our comprehensive introduction and choose your learning path
-
-    [:octicons-arrow-right-24: Getting Started](introduction/getting-started.md)
-
--   :material-book-open-page-variant:{ .lg .middle } __The 7 Fundamental Laws__
-
-    ---
-
-    Discover the irreducible constraints that shape all distributed systems
-
-    [:octicons-arrow-right-24: Explore the Laws](part1-axioms/index.md)
-
--   :material-pillar:{ .lg .middle } __The 5 Foundational Pillars__
-
-    ---
-
-    Learn how to organize solutions around fundamental distributed concepts
-
-    [:octicons-arrow-right-24: Study the Pillars](pillars/index.md)
-
--   :material-puzzle:{ .lg .middle } __Modern Patterns__
-
-    ---
-
-    Battle-tested architectural patterns derived from the laws and pillars
-
-    [:octicons-arrow-right-24: Browse Patterns](../../patterns/index.md)
-
--   :material-calculator:{ .lg .middle } __Quantitative Toolkit__
-
-    ---
-
-    Mathematical tools for modeling and analyzing distributed systems
-
-    [:octicons-arrow-right-24: Access Tools](quantitative/index.md)
-
--   :material-briefcase:{ .lg .middle } __Case Studies__
-
-    ---
-
-    Real-world systems analyzed through the lens of laws and pillars
-
-    [:octicons-arrow-right-24: Read Case Studies](case-studies/index.md)
+| Your Background | Recommended Path | Time Investment |
+|-----------------|------------------|-----------------|
+| New Graduate | [Foundations First](introduction/getting-started/#path-1-foundation-builder-new-graduates) | 12 weeks |
+| Mid-Level Engineer | [Practical Patterns](introduction/getting-started/#path-2-practical-problem-solver-mid-level-engineers) | 8 weeks |
+| Senior Engineer | [Advanced Topics](introduction/getting-started/#path-3-system-designer-senior-engineers) | 6 weeks |
+| Engineering Manager | [Strategic Overview](introduction/getting-started/#path-4-technical-leader-managersarchitects) | 4 weeks |
 
 </div>
 
-## 🎯 Quick Navigation
+## Why This Approach?
 
-### By Experience Level
-- **[New Graduate Path](learning-paths/index.md#new-graduate-path)** - Start from fundamentals
-- **[Mid-Level Engineer Path](learning-paths/index.md#mid-level-path)** - Fill knowledge gaps
-- **[Senior Engineer Path](learning-paths/index.md#senior-path)** - Master advanced concepts
-- **[Technical Leader Path](learning-paths/index.md#leader-path)** - Strategic system design
-
-### By Immediate Need
-- **[Debugging a distributed system?](patterns/observability.md)** → Observability patterns
-- **[System keeps failing?](patterns/circuit-breaker.md)** → Resilience patterns
-- **[Need to scale?](patterns/sharding.md)** → Scaling patterns
-- **[Consistency issues?](/quantitative/consistency-models)** → Consistency patterns
-
-## 📚 What Makes This Different?
-
-<div class="law-box">
-<h3>🔬 Physics-First Approach</h3>
-
-We derive distributed systems principles from fundamental constraints:
-
-- **Speed of light** → Network latency is unavoidable
-- **Thermodynamics** → Failure is inevitable
-- **Information theory** → Perfect knowledge is impossible
-- **Economics** → Resources are always limited
-
-This approach provides deep understanding that transcends specific technologies.
+<div class="card-grid">
+  <div class="card">
+    <h3 class="card__title">Physics-Based</h3>
+    <p class="card__description">
+      Every concept derives from fundamental constraints like the speed of light and thermodynamics.
+    </p>
+  </div>
+  
+  <div class="card">
+    <h3 class="card__title">Timeless Principles</h3>
+    <p class="card__description">
+      Learn principles that remain true regardless of technology trends or vendor solutions.
+    </p>
+  </div>
+  
+  <div class="card">
+    <h3 class="card__title">Practical Application</h3>
+    <p class="card__description">
+      Each concept includes real-world case studies, failure scenarios, and implementation guidance.
+    </p>
+  </div>
 </div>
 
-## 🚀 Start Learning
+## What You'll Learn
 
-<div class="grid cards" markdown>
+### Foundations
+- The 7 fundamental laws that govern all distributed systems
+- The 5 pillars of distributed system design
+- How physics constrains what's possible
 
--   __Foundation First__
+### Practical Skills
+- Choosing the right consistency model
+- Designing for failure and partition tolerance
+- Scaling systems from 1 to 1 billion users
+- Debugging complex distributed failures
 
-    Begin with the [7 Fundamental Laws](part1-axioms/index.md) to understand the constraints
+### Advanced Topics
+- Consensus algorithms and their trade-offs
+- Global-scale system design
+- Edge computing architectures
+- Quantum-resistant distributed systems
 
--   __Build Understanding__
+## Latest Updates
 
-    Study the [5 Pillars](part2-pillars/index.md) to organize your thinking
+<div class="content-box">
 
--   __Apply Knowledge__
-
-    Explore [Patterns](../../patterns/index.md) and [Case Studies](case-studies/index.md)
-
--   __Go Deeper__
-
-    Use the [Quantitative Toolkit](quantitative/index.md) for rigorous analysis
+- **New**: Interactive consistency calculator
+- **Updated**: Google system design interview guide
+- **Added**: 5 new case studies from 2024 outages
 
 </div>
 
----
+## Ready to Begin?
 
-<p style="text-align: center; color: #666; margin-top: 3em;">
-    <em>"The best way to understand distributed systems is to understand why they must be the way they are."</em>
-</p>
+<div class="text-center mt-4">
+  <a href="introduction/getting-started/" class="btn-primary">Start Learning</a>
+</div>
