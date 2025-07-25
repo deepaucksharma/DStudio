@@ -5,11 +5,12 @@ type: pattern
 category: distributed-data
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: [hashing, cryptography-basics]
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [hashing, cryptography-basics, tree-data-structures]
+when_to_use: Blockchain systems, distributed file systems, data synchronization, tamper detection, efficient data comparison, certificate transparency, P2P networks
+when_not_to_use: Small datasets, frequently changing data, when cryptographic overhead not justified, simple checksums sufficient
 status: complete
 last_updated: 2025-01-23
+tags: [cryptography, data-integrity, verification, blockchain, synchronization, hash-trees]
 ---
 # Merkle Trees Pattern
 

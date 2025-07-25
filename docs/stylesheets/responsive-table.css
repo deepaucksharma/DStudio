@@ -1,0 +1,33 @@
+/* ============================================
+   RESPONSIVE TABLES ONLY
+   ============================================ */
+
+/* Responsive table wrapper */
+.md-typeset .responsive-table {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1rem 0;
+}
+
+.md-typeset .responsive-table table {
+  min-width: 100%;
+  border-collapse: collapse;
+}
+
+/* Mobile adjustments */
+@media screen and (max-width: 59.9375em) {
+  .md-typeset .responsive-table {
+    margin: 0.5rem -0.8rem;
+    padding: 0 0.8rem;
+  }
+  
+  .md-typeset .responsive-table table {
+    font-size: 0.875rem;
+  }
+  
+  .md-typeset .responsive-table th,
+  .md-typeset .responsive-table td {
+    padding: 0.5rem;
+  }
+}

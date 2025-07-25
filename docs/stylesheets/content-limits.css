@@ -1,0 +1,29 @@
+/* ============================================
+   MINIMAL CONTENT LIMITS
+   Only prevent content from extending under TOC
+   ============================================ */
+
+/* Ensure content doesn't overflow */
+.md-typeset {
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Scrollable elements */
+.md-typeset pre,
+.md-typeset .highlight,
+.md-typeset .responsive-table {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+/* Ensure images scale */
+.md-typeset img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevent wide tables from breaking layout */
+.md-typeset table {
+  max-width: 100%;
+}

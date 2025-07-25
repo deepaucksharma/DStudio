@@ -5,11 +5,12 @@ type: pattern
 category: distributed-data
 difficulty: advanced
 reading_time: 45 min
-prerequisites: []
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [distributed-systems, consistency-models, network-latency, conflict-resolution]
+when_to_use: Global applications, disaster recovery requirements, data sovereignty compliance, reducing user latency, multi-region availability, follow-the-sun operations
+when_not_to_use: Single-region applications, strong consistency requirements, limited bandwidth, cost-sensitive deployments, simple backup needs
 status: complete
 last_updated: 2025-07-21
+tags: [multi-region, disaster-recovery, global-scale, data-replication, availability]
 ---
 
 # Geo-Replication Patterns

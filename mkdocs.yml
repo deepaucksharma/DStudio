@@ -217,11 +217,10 @@ markdown_extensions:
 
 # Extra CSS
 extra_css:
-  - stylesheets/layout.css
-  - stylesheets/content-boundaries.css  # Ensures content respects TOC
   - stylesheets/custom.css
-  - stylesheets/navigation.css
   - stylesheets/themes.css
+  - stylesheets/responsive-table.css  # Table responsiveness only
+  - stylesheets/content-limits.css  # Minimal content overflow prevention
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:
@@ -259,17 +258,6 @@ extra:
   analytics:
     provider: google
     property: !ENV [GOOGLE_ANALYTICS_KEY, '']
-    feedback:
-      title: Was this page helpful?
-      ratings:
-        - icon: material/emoticon-happy-outline
-          name: This page was helpful
-          data: 1
-          note: Thanks for your feedback!
-        - icon: material/emoticon-sad-outline
-          name: This page could be improved
-          data: 0
-          note: Thanks! Let us know how we can improve.
     
   # MathJax configuration
   mathjax:

@@ -1,15 +1,16 @@
 ---
 title: Vector Clocks Pattern
-description: Track causality and ordering in distributed systems
+description: Track causality and ordering of events across distributed nodes to detect concurrent updates
 type: pattern
 category: distributed-data
 difficulty: advanced
 reading_time: 35 min
-prerequisites: [logical-clocks, eventual-consistency]
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [logical-clocks, eventual-consistency, distributed-systems, causality]
+when_to_use: Conflict detection in distributed databases, version control systems, collaborative editing, distributed debugging, eventual consistency systems, multi-master replication
+when_not_to_use: Single-master systems, when timestamp ordering sufficient, systems with many nodes (vector size grows), strong consistency systems
 status: complete
 last_updated: 2025-01-23
+tags: [causality-tracking, conflict-detection, logical-time, distributed-ordering, version-vectors]
 ---
 
 # Vector Clocks Pattern
