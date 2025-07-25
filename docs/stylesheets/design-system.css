@@ -17,15 +17,15 @@
   --space-2xl: 3rem;      /* 48px */
   --space-3xl: 4rem;      /* 64px */
   
-  /* Typography Scale */
-  --font-size-xs: 0.75rem;    /* 12px */
-  --font-size-sm: 0.875rem;   /* 14px */
-  --font-size-base: 1rem;     /* 16px */
-  --font-size-lg: 1.125rem;   /* 18px */
-  --font-size-xl: 1.25rem;    /* 20px */
-  --font-size-2xl: 1.5rem;    /* 24px */
-  --font-size-3xl: 2rem;      /* 32px */
-  --font-size-4xl: 2.5rem;    /* 40px */
+  /* Typography Scale - Reduced for better readability */
+  --font-size-xs: 0.6875rem;  /* 11px */
+  --font-size-sm: 0.75rem;    /* 12px */
+  --font-size-base: 0.875rem; /* 14px */
+  --font-size-lg: 1rem;       /* 16px */
+  --font-size-xl: 1.125rem;   /* 18px */
+  --font-size-2xl: 1.25rem;   /* 20px */
+  --font-size-3xl: 1.75rem;   /* 28px */
+  --font-size-4xl: 2.25rem;   /* 36px */
   
   /* Line Heights */
   --line-height-tight: 1.25;
@@ -111,13 +111,13 @@
    2. TYPOGRAPHY
    ========================================== */
 
-/* Set explicit base font size on html to ensure 1rem = 16px */
+/* Set explicit base font size - reduced for better readability */
 html {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 
 body {
-  font-size: 16px !important;
+  font-size: 14px !important;
 }
 
 /* Base Typography */
@@ -432,10 +432,10 @@ body {
 /* Mobile Typography */
 @media screen and (max-width: 768px) {
   :root {
-    --font-size-base: 0.875rem;
-    --font-size-4xl: 2rem;
-    --font-size-3xl: 1.5rem;
-    --font-size-2xl: 1.25rem;
+    --font-size-base: 0.8125rem; /* 13px */
+    --font-size-4xl: 2rem;       /* 32px */
+    --font-size-3xl: 1.5rem;     /* 24px */
+    --font-size-2xl: 1.125rem;   /* 18px */
   }
   
   /* Stack cards on mobile */
