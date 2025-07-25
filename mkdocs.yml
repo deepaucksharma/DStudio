@@ -32,9 +32,6 @@ theme:
     - navigation.top          # Back to top button
     - navigation.footer       # Previous/Next navigation
     
-    # Table of Contents - Removed to disable right sidebar
-    # - toc.follow
-    # - toc.integrate
     
     # Search
     - search.suggest
@@ -140,10 +137,6 @@ markdown_extensions:
   - md_in_html
   - meta
   - tables
-  - toc:
-      permalink: true
-      permalink_title: Anchor link to this section
-      toc_depth: 0  # Set to 0 to disable TOC generation
   
   # PyMdownx Extensions - Content Enhancement
   - pymdownx.arithmatex:
@@ -221,7 +214,7 @@ extra_css:
   - stylesheets/themes.css
   - stylesheets/responsive-table.css  # Table responsiveness only
   - stylesheets/content-limits.css  # Minimal content overflow prevention
-  - stylesheets/hide-toc.css  # Hide right sidebar TOC
+  - stylesheets/hide-toc.css  # Hide right sidebar and enhance navigation
 
 # Extra JavaScript - Optimized Loading
 extra_javascript:

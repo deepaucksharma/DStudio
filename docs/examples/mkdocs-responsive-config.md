@@ -82,9 +82,8 @@ theme:
  - navigation.indexes # Section index pages
  - navigation.top # Back to top button
  
- # Table of Contents
- - toc.follow # Follow scroll
- - toc.integrate # Integrate with navigation
+ # Navigation features
+ - navigation.expand # Expand sections
  
  # Search
  - search.suggest # Search suggestions
@@ -235,9 +234,7 @@ extra_javascript:
  width: 300px;
  }
  
- .md-sidebar--secondary {
- width: 240px;
- }
+ /* Right sidebar removed - using left navigation only */
 }
 
 /* === CONTENT WIDTH OPTIMIZATION === */

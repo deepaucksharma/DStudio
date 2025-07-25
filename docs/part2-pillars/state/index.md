@@ -7,12 +7,75 @@ reading_time: 45 min
 prerequisites: []
 status: complete
 last_updated: 2025-07-20
+
+nav:
+  learning_path: "all"
+  
+  sequence:
+    current: 2
+    total: 5
+    collection: "pillars"
+  
+  prerequisites:
+    - title: "Law 1: Correlated Failure"
+      path: "/part1-axioms/law1-failure/"
+    - title: "Law 4: Multidimensional Optimization"
+      path: "/part1-axioms/law4-tradeoffs/"
+    - title: "CAP Theorem"
+      path: "/quantitative/cap-theorem/"
+  
+  related:
+    - title: "Pillar 1: Distribution of Work"
+      path: "/part2-pillars/work/"
+      type: "pillar"
+    - title: "Consistency Models"
+      path: "/quantitative/consistency-models/"
+      type: "theory"
+    - title: "Cassandra Architecture"
+      path: "/case-studies/cassandra/"
+      type: "case-study"
+    - title: "Two-Phase Commit"
+      path: "/patterns/two-phase-commit/"
+      type: "pattern"
+  
+  next_steps:
+    - title: "Basic State Replication"
+      path: "/tutorials/state-replication-basics/"
+      level: "beginner"
+    - title: "Implementing Consistent Hashing"
+      path: "/tutorials/consistent-hashing/"
+      level: "intermediate"
+    - title: "Building a Distributed Database"
+      path: "/tutorials/distributed-db/"
+      level: "advanced"
+  
+  tags:
+    - pillar
+    - state
+    - consistency
+    - availability
+    - partition-tolerance
 ---
 
 
 # Pillar 2: Distribution of State
 
+<span class="path-icon">🗂️</span>
+<span class="path-name">Core Pillar</span>
+<span class="path-progress">2/5</span>
+<div class="mini-progress">
+</div>
+
 **Learning Objective**: Master the art of splitting data without splitting reliability.
+
+!!! info
+    <h4>📚 Before You Begin</h4>
+    <p>Make sure you understand these concepts:</p>
+    <ul>
+    <li><a href="/part1-axioms/law1-failure/">Law 1: Correlated Failure</a> - Why we need replication</li>
+    <li><a href="/part1-axioms/law4-tradeoffs/">Law 4: Multidimensional Optimization</a> - Resource constraints</li>
+    <li><a href="/quantitative/cap-theorem/">CAP Theorem</a> - Fundamental trade-offs</li>
+    </ul>
 
 ---
 
@@ -37,6 +100,34 @@ That's distributed state in a nutshell! This challenge arises from [Law 4: Law o
 ---
 
 ## Questions This Pillar Answers
+
+<div class="grid cards" markdown>
+
+- **How do I split data across nodes?**
+  - Sharding strategies
+  - Partitioning schemes
+  - Consistent hashing
+  - Range vs hash partitioning
+
+- **How do I keep replicas consistent?**
+  - Replication protocols
+  - Consensus algorithms
+  - Conflict resolution
+  - Read/write quorums
+
+- **What happens during failures?**
+  - Failover mechanisms
+  - Split-brain scenarios
+  - Data recovery
+  - Consistency guarantees
+
+- **How do I handle transactions?**
+  - Distributed transactions
+  - Two-phase commit
+  - Saga patterns
+  - Event sourcing
+
+</div>
 
 ---
 
@@ -1557,9 +1648,74 @@ graph TD
 
 ## Quick Reference: State Patterns
 
+| Pattern | When to Use | Trade-off |
+|---------|-------------|-----------|
+| **Master-Slave** | Read-heavy workloads | Write bottleneck |
+| **Multi-Master** | Geographic distribution | Complex conflicts |
+| **Sharding** | Large datasets | Cross-shard queries |
+| **Event Sourcing** | Audit requirements | Storage overhead |
+| **CRDTs** | Offline-first apps | Limited data types |
+
 ---
 
-**Next**: [Pillar 3: Consensus →](/part2-pillars/truth/)
+## Real-World Case Studies
+
+<div class="grid cards" markdown>
+
+- **Cassandra Architecture**
+    
+    How Cassandra achieves linear scalability with tunable consistency
+    
+    [Read Case Study →](/case-studies/cassandra/)
+
+- **Elasticsearch Distributed State**
+    
+    Managing distributed search indices with automatic sharding
+    
+    [Read Case Study →](/case-studies/elasticsearch/)
+
+- **Facebook Social Graph**
+    
+    TAO's approach to globally distributed graph data
+    
+    [Read Case Study →](/case-studies/social-graph/)
+
+</div>
+
+## Next Steps
+
+<div class="step-card level-beginner">
+<span class="level-badge">Beginner</span>
+<h4><a href="/tutorials/state-replication-basics/">State Replication Basics</a></h4>
+<p>Build a simple replicated key-value store with eventual consistency.</p>
+
+<span class="level-badge">Intermediate</span>
+<h4><a href="/tutorials/consistent-hashing/">Implementing Consistent Hashing</a></h4>
+<p>Create a distributed hash table with dynamic node addition/removal.</p>
+
+<span class="level-badge">Advanced</span>
+<h4><a href="/tutorials/distributed-db/">Building a Distributed Database</a></h4>
+<p>Implement a mini distributed database with transactions and sharding.</p>
+</div>
+
+## Key Takeaways
+
+!!! success "Remember"
+    1. **State distribution is about trade-offs** - You can't have perfect consistency, availability, and partition tolerance
+    2. **Choose the right consistency model** - Not everything needs strong consistency
+    3. **Plan for failures from day one** - Networks partition, nodes crash, disks fail
+    4. **Monitor everything** - You can't fix what you can't measure
+    5. **Test under realistic conditions** - Including failures and network delays
+
+---
+
+<div class="progress-bar">
+<div class="progress-fill" style="width: 40%;">
+</div>
+Progress: 2 of 5 pillars completed
+</div>
+
+**Next**: [Pillar 3: Truth →](/part2-pillars/truth/)
 
 *"State is the hardest problem in distributed systems. Everything else is just moving bytes around."*
 

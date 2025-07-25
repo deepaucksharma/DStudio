@@ -102,8 +102,8 @@
     });
   }
 
-  // === Table of Contents Enhancement - REMOVED ===
-  // TOC functionality has been removed as per requirements
+  // === Navigation Enhancement ===
+  // All navigation now consolidated in left sidebar
 
   // === Fix Navigation for Instant Loading ===
   

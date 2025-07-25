@@ -1,15 +1,15 @@
 ---
 title: Layout Test - Content Boundaries
-description: Test page to verify content stays within boundaries and doesn't extend under TOC
+description: Test page to verify content layout and responsive behavior
 ---
 
 # Layout Test: Content Boundaries
 
-This page tests that all content is properly left-aligned and respects the "On This Page" (Table of Contents) sidebar on the right.
+This page tests that all content is properly formatted and responsive across different screen sizes.
 
 ## Text Content
 
-This is a regular paragraph that should be left-aligned and not extend under the table of contents on the right side. The content should have proper boundaries and stay within the main content area.
+This is a regular paragraph that should be left-aligned with proper boundaries and stay within the main content area.
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
 
@@ -21,7 +21,7 @@ def test_content_boundaries():
     """
     This function has a very long line that would normally extend beyond the content area but should be scrollable instead
     """
-    very_long_variable_name_that_would_normally_cause_horizontal_scrolling = "This is a test of the content boundary system to ensure code blocks don't extend under the TOC"
+    very_long_variable_name_that_would_normally_cause_horizontal_scrolling = "This is a test of the content boundary system to ensure code blocks remain within proper boundaries"
     return very_long_variable_name_that_would_normally_cause_horizontal_scrolling
 ```
 
@@ -31,7 +31,7 @@ def test_content_boundaries():
 
 | Column 1 | Column 2 | Column 3 | Column 4 | Column 5 | Column 6 | Column 7 | Column 8 |
 |----------|----------|----------|----------|----------|----------|----------|----------|
-| This is a very wide table | That should be scrollable | Within its container | And not extend | Under the TOC | On the right side | Of the page | Test content |
+| This is a very wide table | That should be scrollable | Within its container | And properly formatted | For all screen sizes | With responsive behavior | On any device | Test content |
 | More data | More data | More data | More data | More data | More data | More data | More data |
 
 </div>
@@ -50,7 +50,7 @@ def test_content_boundaries():
 
     ---
 
-    The grid should not extend under the table of contents.
+    The grid should maintain proper responsive behavior across devices.
 
 - :material-account-group:{ .lg .middle } **Card 3**
 
@@ -63,7 +63,7 @@ def test_content_boundaries():
 ## Admonition
 
 !!! info "Information Box"
-    This admonition should be left-aligned and stay within the content boundaries, not extending under the TOC.
+    This admonition should be properly formatted and stay within the content boundaries.
 
 ## Mermaid Diagram
 
@@ -97,7 +97,7 @@ graph LR
 
 ## Blockquote
 
-> This is a blockquote that should be properly left-aligned and stay within the content boundaries. It should not extend under the table of contents on the right side of the page.
+> This is a blockquote that should be properly left-aligned and stay within the content boundaries.
 
 ## Image (Placeholder)
 
@@ -132,9 +132,9 @@ graph LR
 
 ## Nested Content
 
-### Deep Section for TOC Testing
+### Deep Section for Navigation Testing
 
-This section creates more items in the table of contents.
+This section creates nested navigation items.
 
 #### Subsection 1
 
@@ -146,12 +146,12 @@ More content here.
 
 #### Subsection 3
 
-Even more content to ensure the TOC has enough items.
+Even more content to test navigation hierarchy.
 
 ### Another Section
 
-Final section to test scrolling in the TOC.
+Final section to test navigation depth.
 
 ---
 
-**Result**: All content above should be left-aligned and contained within the main content area, never extending under the "On This Page" sidebar on the right.
+**Result**: All content above should be properly formatted and responsive across all device sizes.
