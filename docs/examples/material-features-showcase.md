@@ -174,13 +174,6 @@ Every page now includes action buttons:
 - **Print** - Optimized print layout
 - **Share** - Native sharing where supported
 
-## 🌐 Social Cards
-
-When sharing links on social media:
-- Auto-generated Open Graph images
-- Custom branding with site colors
-- Page title and description
-- Professional appearance
 
 ## ⚡ Performance Optimizations
 
@@ -275,7 +268,6 @@ Pages show last updated information using git history:
     - ✅ Progressive disclosure with `???` admonitions
     - ✅ Comprehensive keyboard shortcuts
     - ✅ Enhanced search with tags
-    - ✅ Social cards configuration
     - ✅ Instant loading, back to top, content actions
     - ✅ Section-specific color schemes
     - ✅ Extended grid system usage

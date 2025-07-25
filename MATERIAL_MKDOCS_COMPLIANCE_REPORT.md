@@ -72,7 +72,7 @@ The Compendium of Distributed Systems documentation site has been successfully o
 | Tabs | ✅ | Sticky navigation tabs |
 | Code copying | ✅ | Copy buttons on code blocks |
 | Annotations | ✅ | Code annotations supported |
-| Social cards | ✅ | Auto-generated |
+| Social links | ✅ | GitHub, Twitter, LinkedIn |
 | Git info | ✅ | Revision dates shown |
 | Minification | ✅ | HTML/CSS/JS minified |
 
@@ -85,7 +85,7 @@ The Compendium of Distributed Systems documentation site has been successfully o
 ### ✅ Build Performance (9/10)
 - **Build time**: ~2 minutes (acceptable for site size)
 - **Minification**: Active for all assets
-- **Image optimization**: Social cards generated
+- **Image optimization**: Lazy loading enabled
 - **CSS optimization**: Unused styles removed
 
 ### ✅ Runtime Performance (10/10)

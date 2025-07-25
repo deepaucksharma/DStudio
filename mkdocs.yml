@@ -115,9 +115,6 @@ plugins:
           tertiaryColor: "#f3f4f6"
   - tags
   - markdown-exec
-  - social:
-      cards: true
-      cards_dir: assets/images/social
   - git-revision-date-localized:
       enable_creation_date: true
       type: iso_datetime

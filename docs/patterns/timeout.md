@@ -1,15 +1,16 @@
 ---
 title: Timeout Pattern
-description: Protection against indefinite waits and resource exhaustion in distributed systems
+description: Prevent indefinite waits and resource exhaustion by setting time limits on operations
 type: pattern
 category: resilience
 difficulty: beginner
 reading_time: 30 min
-prerequisites: []
-when_to_use: When dealing with resilience challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [network-programming, distributed-systems, error-handling]
+when_to_use: Network calls, database queries, API requests, distributed transactions, service-to-service communication, preventing resource leaks, cascading failure prevention
+when_not_to_use: CPU-bound operations, local function calls, operations with unpredictable duration, when retries make timeouts worse, batch processing with checkpoints
 status: complete
 last_updated: 2025-07-21
+tags: [fault-tolerance, resource-management, resilience, network-reliability, failure-handling]
 ---
 
 # Timeout Pattern

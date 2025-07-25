@@ -1,15 +1,16 @@
 ---
-title: Anti Entropy
-description: This topic is under development
+title: Anti-Entropy Pattern
+description: Repair divergent data across distributed nodes through systematic comparison and synchronization
 type: pattern
 category: distributed-data
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: []
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [distributed-systems, eventual-consistency, merkle-trees, gossip-protocols]
+when_to_use: Eventually consistent systems, multi-master replication, distributed databases, file synchronization, blockchain networks, healing after network partitions
+when_not_to_use: Strongly consistent systems, real-time synchronization needs, small datasets, high network costs, when immediate consistency is required
 status: stub
 last_updated: 2025-01-23
+tags: [consistency-repair, data-synchronization, eventual-consistency, gossip-protocol, distributed-healing]
 ---
 
 

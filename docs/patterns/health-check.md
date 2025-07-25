@@ -1,15 +1,16 @@
 ---
 title: Health Check Pattern
-description: Pattern for distributed systems coordination and reliability
+description: Monitor and verify service health status to enable automated recovery and intelligent load balancing
 type: pattern
 category: resilience
 difficulty: advanced
 reading_time: 25 min
-prerequisites: []
-when_to_use: When dealing with resilience challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [monitoring, service-discovery, load-balancing, distributed-systems]
+when_to_use: Microservices architectures, load balancer configurations, container orchestration, service mesh deployments, auto-healing systems, dependency monitoring, SLA compliance
+when_not_to_use: Single-instance applications, development environments, systems without automated recovery, when health check overhead exceeds benefits
 status: complete
 last_updated: 2025-07-20
+tags: [observability, reliability, service-health, monitoring, fault-detection, self-healing]
 ---
 
 # Health Check Pattern

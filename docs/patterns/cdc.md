@@ -5,11 +5,12 @@ type: pattern
 category: distributed-data
 difficulty: intermediate
 reading_time: 30 min
-prerequisites: []
-when_to_use: When dealing with distributed-data challenges
-when_not_to_use: When simpler solutions suffice
+prerequisites: [database-internals, event-streaming, message-queues, data-replication]
+when_to_use: Real-time data synchronization, event sourcing, cache invalidation, data warehousing ETL, audit logging, microservices data sharing, CQRS implementations
+when_not_to_use: Simple batch processing sufficient, no real-time requirements, small data volumes, when source database doesn't support CDC, high-frequency updates causing storms
 status: complete
 last_updated: 2025-07-21
+tags: [event-streaming, data-synchronization, real-time-processing, database-replication, etl]
 ---
 
 # Change Data Capture (CDC)
