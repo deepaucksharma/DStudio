@@ -1405,12 +1405,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ No central server
-- ✅ True privacy
-- ✅ No infrastructure cost
-- ❌ Unreliable connectivity
-- ❌ Battery drain
-- ❌ No offline support
+- No central server
+- True privacy
+- No infrastructure cost
+- Unreliable connectivity
+- Battery drain
+- No offline support
 
 ### Alternative 2: Blockchain-Based System
 
@@ -1429,12 +1429,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Decentralized
-- ✅ Immutable consent
-- ✅ No central authority
-- ❌ High latency (minutes)
-- ❌ Transaction costs
-- ❌ Poor UX
+- Decentralized
+- Immutable consent
+- No central authority
+- High latency (minutes)
+- Transaction costs
+- Poor UX
 
 ### Alternative 3: Federated Architecture
 
@@ -1469,12 +1469,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Provider choice
-- ✅ Interoperability
-- ✅ Distributed trust
-- ❌ Complex protocol
-- ❌ Inconsistent features
-- ❌ Cross-provider latency
+- Provider choice
+- Interoperability
+- Distributed trust
+- Complex protocol
+- Inconsistent features
+- Cross-provider latency
 
 ### Alternative 4: Carrier-Based System
 
@@ -1504,12 +1504,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ No GPS needed
-- ✅ Always available
-- ✅ Carrier accuracy
-- ❌ Privacy concerns
-- ❌ Carrier dependency
-- ❌ Limited features
+- No GPS needed
+- Always available
+- Carrier accuracy
+- Privacy concerns
+- Carrier dependency
+- Limited features
 
 ## Performance & Privacy Metrics
 

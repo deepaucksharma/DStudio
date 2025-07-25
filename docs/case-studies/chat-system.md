@@ -1410,13 +1410,13 @@ class P2PChatArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ True end-to-end encryption
-- ✅ No central point of failure
-- ✅ Minimal infrastructure costs
-- ❌ NAT traversal complexity
-- ❌ No message history without DHT
-- ❌ Poor mobile battery life
-- ❌ Difficult group chats (O(N²) connections)
+- True end-to-end encryption
+- No central point of failure
+- Minimal infrastructure costs
+- NAT traversal complexity
+- No message history without DHT
+- Poor mobile battery life
+- Difficult group chats (O(N²) connections)
 
 ### Alternative Architecture 2: Centralized Server
 
@@ -1505,12 +1505,12 @@ class CentralizedChatArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ Simple to implement and reason about
-- ✅ Consistent data model
-- ✅ Easy to add features
-- ❌ Single point of failure (mitigated by HA)
-- ❌ Scaling limitations
-- ❌ All traffic through central servers
+- Simple to implement and reason about
+- Consistent data model
+- Easy to add features
+- Single point of failure (mitigated by HA)
+- Scaling limitations
+- All traffic through central servers
 
 ### Alternative Architecture 3: Federated (Matrix Protocol)
 
@@ -1605,12 +1605,12 @@ class FederatedChatArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ No vendor lock-in
-- ✅ Privacy preserving (data stays on chosen server)
-- ✅ Interoperability between organizations
-- ❌ Complex state resolution
-- ❌ Higher latency for federation
-- ❌ Storage duplication across servers
+- No vendor lock-in
+- Privacy preserving (data stays on chosen server)
+- Interoperability between organizations
+- Complex state resolution
+- Higher latency for federation
+- Storage duplication across servers
 
 ### Alternative Architecture 4: Blockchain-Based
 
@@ -1737,14 +1737,14 @@ class BlockchainChatArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ Immutable message history
-- ✅ No central authority
-- ✅ Cryptographic guarantees
-- ✅ Censorship resistant
-- ❌ High latency (block time)
-- ❌ Transaction fees per message
-- ❌ Poor scalability
-- ❌ Complex key management
+- Immutable message history
+- No central authority
+- Cryptographic guarantees
+- Censorship resistant
+- High latency (block time)
+- Transaction fees per message
+- Poor scalability
+- Complex key management
 
 ### Alternative Architecture 5: Event Sourcing + CQRS
 
@@ -1867,13 +1867,13 @@ class ProjectionManager:
 ```
 
 **Trade-offs**:
-- ✅ Complete audit trail
-- ✅ Time travel debugging
-- ✅ Flexible read models
-- ✅ Natural event streaming
-- ❌ Eventually consistent reads
-- ❌ Complex implementation
-- ❌ Storage overhead
+- Complete audit trail
+- Time travel debugging
+- Flexible read models
+- Natural event streaming
+- Eventually consistent reads
+- Complex implementation
+- Storage overhead
 
 ## Comparative Trade-off Analysis
 

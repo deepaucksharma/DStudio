@@ -468,26 +468,26 @@ def store_attachment(file_data, user_id):
 
 **Email Delivery:**
 - **Option 1**: Synchronous delivery
-  - ✅ Immediate delivery confirmation
-  - ❌ Higher latency, blocking sender
+  - Immediate delivery confirmation
+  - Higher latency, blocking sender
   - Use for: Internal corporate email
 
 - **Option 2**: Asynchronous delivery
-  - ✅ Fast response, better UX
-  - ❌ Potential delivery failures after acceptance
+  - Fast response, better UX
+  - Potential delivery failures after acceptance
   - Use for: Consumer email (Gmail choice)
 
 ### Storage Cost vs Performance
 
 **Email Storage:**
 - **Option 1**: All emails in fast storage
-  - ✅ Consistent low latency
-  - ❌ Very expensive at scale
+  - Consistent low latency
+  - Very expensive at scale
   - Use for: Recent emails (<30 days)
 
 - **Option 2**: Tiered storage
-  - ✅ 80% cost reduction
-  - ❌ Higher latency for old emails
+  - 80% cost reduction
+  - Higher latency for old emails
   - Use for: Emails >30 days old
 
 ## Common Follow-ups

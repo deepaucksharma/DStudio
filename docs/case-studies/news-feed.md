@@ -757,11 +757,11 @@ class PurePushArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ Fast reads (pre-computed)
-- ✅ Simple implementation
-- ❌ Expensive for celebrities (millions of writes)
-- ❌ High storage cost (duplicate data)
-- ❌ Slow writes for popular users
+- Fast reads (pre-computed)
+- Simple implementation
+- Expensive for celebrities (millions of writes)
+- High storage cost (duplicate data)
+- Slow writes for popular users
 
 **Use case**: Small-scale social networks with balanced follower distributions.
 
@@ -786,11 +786,11 @@ class PurePullArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ Minimal storage
-- ✅ Always fresh
-- ❌ Slow reads (compute on demand)
-- ❌ Doesn't scale with following count
-- ❌ Complex caching strategy needed
+- Minimal storage
+- Always fresh
+- Slow reads (compute on demand)
+- Doesn't scale with following count
+- Complex caching strategy needed
 
 **Use case**: Real-time systems with low follower counts.
 
@@ -819,11 +819,11 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Highly personalized
-- ✅ Optimizes for engagement
-- ❌ Complex infrastructure
-- ❌ Requires significant training data
-- ❌ Can create filter bubbles
+- Highly personalized
+- Optimizes for engagement
+- Complex infrastructure
+- Requires significant training data
+- Can create filter bubbles
 
 ### Alternative Architecture 4: Event-Sourced Architecture
 
@@ -848,11 +848,11 @@ class EventSourcedFeed:
 ```
 
 **Trade-offs**:
-- ✅ Complete audit trail
-- ✅ Time travel capability
-- ✅ Flexible projections
-- ❌ High storage requirements
-- ❌ Complex event ordering
+- Complete audit trail
+- Time travel capability
+- Flexible projections
+- High storage requirements
+- Complex event ordering
 
 ### Recommended Hybrid Architecture
 

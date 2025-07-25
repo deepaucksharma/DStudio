@@ -392,18 +392,18 @@ You: "Perfect! I look forward to the next steps. Have a great rest
 ## Red Flags to Avoid
 
 ### Communication Anti-Patterns
-- ❌ "This is easy, I've done it before"
-- ❌ "That's not how we did it at [previous company]"
-- ❌ Arguing about the problem constraints
-- ❌ Ignoring interviewer hints
-- ❌ Over-explaining trivial details
+- "This is easy, I've done it before"
+- "That's not how we did it at [previous company]"
+- Arguing about the problem constraints
+- Ignoring interviewer hints
+- Over-explaining trivial details
 
 ### Technical Anti-Patterns
-- ❌ Jumping to implementation without design
-- ❌ Ignoring non-functional requirements
-- ❌ Over-engineering the solution
-- ❌ Hand-waving critical details
-- ❌ Not considering failure scenarios
+- Jumping to implementation without design
+- Ignoring non-functional requirements
+- Over-engineering the solution
+- Hand-waving critical details
+- Not considering failure scenarios
 
 ## Final Success Checklist
 

@@ -743,12 +743,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Rich routing (topic, fanout, headers)
-- ✅ Message acknowledgment
-- ✅ Priority queues
-- ❌ Limited scalability
-- ❌ Not built for streaming
-- ❌ Complex clustering
+- Rich routing (topic, fanout, headers)
+- Message acknowledgment
+- Priority queues
+- Limited scalability
+- Not built for streaming
+- Complex clustering
 
 ### Alternative 2: In-Memory Pub/Sub (Redis Style)
 
@@ -770,12 +770,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Ultra-low latency
-- ✅ Simple pub/sub
-- ✅ No disk I/O
-- ❌ No persistence
-- ❌ Messages lost on crash
-- ❌ Limited by memory
+- Ultra-low latency
+- Simple pub/sub
+- No disk I/O
+- No persistence
+- Messages lost on crash
+- Limited by memory
 
 ### Alternative 3: Cloud-Native (AWS SQS/SNS Style)
 
@@ -807,12 +807,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Fully managed
-- ✅ Infinite scale
-- ✅ Pay per use
-- ❌ Vendor lock-in
-- ❌ Limited features
-- ❌ Higher latency
+- Fully managed
+- Infinite scale
+- Pay per use
+- Vendor lock-in
+- Limited features
+- Higher latency
 
 ### Alternative 4: Event Store (EventStore/Axon Style)
 
@@ -836,12 +836,12 @@ graph TB
 ```
 
 **Trade-offs**:
-- ✅ Event sourcing native
-- ✅ Time travel
-- ✅ Complex projections
-- ❌ Learning curve
-- ❌ Storage overhead
-- ❌ Complex operations
+- Event sourcing native
+- Time travel
+- Complex projections
+- Learning curve
+- Storage overhead
+- Complex operations
 
 ## Performance & Monitoring
 
@@ -1291,7 +1291,7 @@ Separating hot and cold storage enables infinite retention at reasonable cost.
 
 ### Related Patterns
 - 📨 **[Event-Driven Architecture](/patterns/event-driven)** - Kafka as event backbone
-- 📚 **[Event Sourcing](/patterns/event-sourcing)** - Log as source of truth
+- **[Event Sourcing](/patterns/event-sourcing)** - Log as source of truth
 - **[Saga Pattern](/patterns/saga)** - Distributed transactions over messaging
 - **[CQRS](/patterns/cqrs)** - Separate read/write paths with Kafka
 

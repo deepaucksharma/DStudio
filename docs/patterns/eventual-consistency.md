@@ -1370,25 +1370,25 @@ Where:
 - User sees their own updates immediately
 - Track session writes with version/timestamp
 - Route reads to up-to-date replicas
-- ❌ Complexity: Medium
+- Complexity: Medium
 
 **MONOTONIC READS** ✅
 - Never see older data after seeing newer
 - Track last read version per session
 - Ensure replica selection consistency
-- ❌ Complexity: Low-Medium
+- Complexity: Low-Medium
 
 **MONOTONIC WRITES** ✅
 - Writes applied in session order
 - Buffer writes if dependencies not met
 - Use logical timestamps
-- ❌ Complexity: Medium-High
+- Complexity: Medium-High
 
 **CAUSAL CONSISTENCY** ✅
 - Respects happened-before relationships
 - Requires vector clocks or similar
 - Most complex to implement
-- ❌ Complexity: High
+- Complexity: High
 
 </div>
 

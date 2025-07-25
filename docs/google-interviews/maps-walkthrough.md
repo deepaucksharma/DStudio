@@ -391,13 +391,13 @@ sequenceDiagram
 **Route Calculation:**
 
 Option 1: Exact shortest path
-- ✅ Optimal routes
-- ❌ 10-100x slower
+- Optimal routes
+- 10-100x slower
 - Use for: Short distances (<50km)
 
 Option 2: Contraction hierarchies
-- ✅ <100ms response time
-- ❌ ~2% suboptimal
+- <100ms response time
+- ~2% suboptimal
 - Use for: Long distances, real-time nav
 
 ### Storage vs Compute
@@ -405,13 +405,13 @@ Option 2: Contraction hierarchies
 **Map Tiles:**
 
 Option 1: Pre-render all zoom levels
-- ✅ Fast serving, predictable latency
-- ❌ 400TB storage needed
+- Fast serving, predictable latency
+- 400TB storage needed
 - Use for: Zoom 0-16 (most common)
 
 Option 2: Dynamic rendering
-- ✅ Minimal storage
-- ❌ High CPU cost, variable latency
+- Minimal storage
+- High CPU cost, variable latency
 - Use for: Zoom 17-21 (street level)
 
 ### Consistency vs Availability
@@ -419,13 +419,13 @@ Option 2: Dynamic rendering
 **Traffic Updates:**
 
 Option 1: Strong consistency
-- ✅ All users see same traffic
-- ❌ Higher latency, lower throughput
+- All users see same traffic
+- Higher latency, lower throughput
 - Use for: Incident reports
 
 Option 2: Eventual consistency
-- ✅ High throughput, low latency
-- ❌ Temporary inconsistencies
+- High throughput, low latency
+- Temporary inconsistencies
 - Use for: Speed updates
 
 ## Follow-up Questions

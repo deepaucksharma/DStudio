@@ -398,22 +398,22 @@ graph TB
 <div style="border: 2px solid #5448C8; border-radius: 8px; padding: 16px; margin: 16px 0; background: #f8f9fa;">
 
 **Choose CP When:**
-- ✅ Data correctness is critical (banking, inventory)
-- ✅ Can tolerate temporary unavailability
-- ✅ Strong consistency requirements
-- ✅ Transactions must be ACID
+- Data correctness is critical (banking, inventory)
+- Can tolerate temporary unavailability
+- Strong consistency requirements
+- Transactions must be ACID
 
 **Choose AP When:**
-- ✅ System must always respond
-- ✅ Can handle eventual consistency
-- ✅ User experience prioritized
-- ✅ Read-heavy workloads
+- System must always respond
+- Can handle eventual consistency
+- User experience prioritized
+- Read-heavy workloads
 
 **Choose CA When:**
-- ✅ Single datacenter deployment
-- ✅ No network partitions expected
-- ✅ Traditional monolithic architecture
-- ⚠ Not truly distributed!
+- Single datacenter deployment
+- No network partitions expected
+- Traditional monolithic architecture
+- Not truly distributed!
 
 </div>
 

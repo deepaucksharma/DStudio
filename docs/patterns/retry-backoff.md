@@ -1014,7 +1014,7 @@ graph TD
 
 **Impact**:
 - **Single service failure** took down entire Netflix
-- 💸 **$1M+ per hour** in lost revenue during outages
+- **$1M+ per hour** in lost revenue during outages
 - 😤 **Customer complaints** flooded social media
 - 📉 **Stock price impact** from reliability concerns
 

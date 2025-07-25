@@ -198,6 +198,18 @@ body {
   width: 100% !important;
 }
 
+/* Target the correct Material containers for full-width layout */
+.md-main__inner {
+  max-width: initial !important;
+  width: initial !important;
+}
+
+/* Also target grid layouts */
+.md-grid, .md-main__inner.md-grid {
+  max-width: initial !important;
+  width: initial !important;
+}
+
 /* ==========================================
    3. TYPOGRAPHY SYSTEM
    ========================================== */

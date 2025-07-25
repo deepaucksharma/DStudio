@@ -1215,11 +1215,11 @@ class BloomFilterArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ Memory efficient
-- ✅ Fast negative lookups
-- ❌ Still needs database query
-- ❌ False positives possible
-- ❌ Bloom filter updates complex
+- Memory efficient
+- Fast negative lookups
+- Still needs database query
+- False positives possible
+- Bloom filter updates complex
 
 **Use case**: Systems with huge vocabularies but sparse query distribution.
 
@@ -1243,11 +1243,11 @@ graph LR
 ```
 
 **Trade-offs**:
-- ✅ Extremely memory efficient
-- ✅ Fast traversal
-- ✅ Supports fuzzy matching
-- ❌ Complex to build/update
-- ❌ Limited to string operations
+- Extremely memory efficient
+- Fast traversal
+- Supports fuzzy matching
+- Complex to build/update
+- Limited to string operations
 
 **Use case**: Static or slowly changing vocabularies with memory constraints.
 
@@ -1289,11 +1289,11 @@ class ElasticsearchArchitecture:
 ```
 
 **Trade-offs**:
-- ✅ Built-in functionality
-- ✅ Handles updates well
-- ✅ Rich query features
-- ❌ Higher latency (~20-50ms)
-- ❌ More complex operations
+- Built-in functionality
+- Handles updates well
+- Rich query features
+- Higher latency (~20-50ms)
+- More complex operations
 
 **Use case**: Systems already using Elasticsearch, moderate latency requirements.
 
@@ -1323,12 +1323,12 @@ class NeuralAutocomplete:
 ```
 
 **Trade-offs**:
-- ✅ Generates novel suggestions
-- ✅ Understands context
-- ✅ Handles typos naturally
-- ❌ High latency (100ms+)
-- ❌ Expensive compute
-- ❌ May generate inappropriate content
+- Generates novel suggestions
+- Understands context
+- Handles typos naturally
+- High latency (100ms+)
+- Expensive compute
+- May generate inappropriate content
 
 ## Law Mapping & Design Decisions
 

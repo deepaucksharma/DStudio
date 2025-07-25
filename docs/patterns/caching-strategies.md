@@ -986,25 +986,25 @@ graph LR
 - Read-heavy workloads (>90% reads)
 - Can tolerate cache misses
 - Simple implementation needed
-- ❌ Avoid for: Write-heavy apps, strong consistency
+- Avoid for: Write-heavy apps, strong consistency
 
 **WRITE-THROUGH** ✅
 - Balanced read/write
 - Need strong consistency
 - Can tolerate write latency
-- ❌ Avoid for: High-throughput writes
+- Avoid for: High-throughput writes
 
 **WRITE-BEHIND** ✅
 - Write-heavy workloads
 - Can tolerate eventual consistency
 - Need write performance
-- ❌ Avoid for: Financial data, zero data loss
+- Avoid for: Financial data, zero data loss
 
 **REFRESH-AHEAD** ✅
 - Predictable access patterns
 - Need ultra-low latency
 - Have spare compute capacity
-- ❌ Avoid for: Random access, simple apps
+- Avoid for: Random access, simple apps
 
 </div>
 
@@ -1013,12 +1013,12 @@ graph LR
 <div style="border: 2px solid #dc2626; border-radius: 8px; padding: 16px; margin: 16px 0; background: #fef2f2;">
 
 **Before Going to Production:**
-- ⚠ **Stampede Protection**: Implement distributed locks or probabilistic expiry
-- ⚠ **Key Design**: Use versioned keys for schema changes
-- ⚠ **Monitoring**: Track hit rate, latency, evictions
-- ⚠ **Failure Testing**: Test cache unavailability scenarios
-- ⚠ **Cost Tracking**: Monitor cache size and transfer costs
-- ⚠ **Documentation**: Document TTL decisions and invalidation logic
+- **Stampede Protection**: Implement distributed locks or probabilistic expiry
+- **Key Design**: Use versioned keys for schema changes
+- **Monitoring**: Track hit rate, latency, evictions
+- **Failure Testing**: Test cache unavailability scenarios
+- **Cost Tracking**: Monitor cache size and transfer costs
+- **Documentation**: Document TTL decisions and invalidation logic
 
 </div>
 

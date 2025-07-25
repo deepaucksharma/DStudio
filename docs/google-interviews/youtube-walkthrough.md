@@ -323,13 +323,13 @@ CREATE TABLE video_analytics (
 **Scenario**: View count updates
 
 **Option 1**: Strong consistency (Spanner)
-- ✅ Accurate counts globally
-- ❌ Higher latency, lower throughput
+- Accurate counts globally
+- Higher latency, lower throughput
 - **Decision**: Use for creator analytics
 
 **Option 2**: Eventual consistency (Bigtable + aggregation)
-- ✅ High throughput, low latency
-- ❌ Temporary inconsistencies
+- High throughput, low latency
+- Temporary inconsistencies
 - **Decision**: Use for public view counts
 
 ### Storage vs Compute
@@ -337,13 +337,13 @@ CREATE TABLE video_analytics (
 **Scenario**: Video encoding strategy
 
 **Option 1**: Pre-encode all qualities
-- ✅ Fast playback start
-- ❌ 5x storage cost
+- Fast playback start
+- 5x storage cost
 - **Decision**: Use for popular videos (>1000 views)
 
 **Option 2**: On-demand encoding
-- ✅ Minimal storage
-- ❌ Slower first playback
+- Minimal storage
+- Slower first playback
 - **Decision**: Use for long-tail content
 
 ## Common Follow-up Questions

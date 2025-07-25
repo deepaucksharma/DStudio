@@ -53,9 +53,9 @@ gantt
 ```
 
 **Red flags:**
-- ❌ Jumping into design without clarifying
-- ❌ Assuming requirements
-- ❌ Skipping capacity planning
+- Jumping into design without clarifying
+- Assuming requirements
+- Skipping capacity planning
 
 ### Phase 2: High-Level Design (8-25 minutes)
 

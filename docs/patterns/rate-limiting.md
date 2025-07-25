@@ -1131,7 +1131,7 @@ graph TD
 **Impact**:
 - **23% of API capacity** consumed by abusive clients
 - 😤 **P99 latency increased 5x** during attacks
-- 💸 **$2.3M annual cost** from abuse traffic
+- **$2.3M annual cost** from abuse traffic
 - 📉 **Developer satisfaction dropped 15%**
 
 #### The Solution Architecture

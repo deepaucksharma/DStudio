@@ -1,6 +1,15 @@
 # Behavioral Interview Guide for Distributed Systems Engineers
 
+<div class="hero-section">
+  <h2 class="hero-title">Master Your Behavioral Interview</h2>
+  <p class="hero-subtitle">
+    Structured frameworks and proven strategies for distributed systems engineers to excel in behavioral interviews.
+  </p>
+</div>
+
 ## Quick Navigation Matrix
+
+<div class="responsive-table">
 
 | Section | Purpose | Time to Review |
 |---------|---------|----------------|
@@ -11,14 +20,21 @@
 | [Conflict Resolution](#conflict-resolution-patterns) | Handle disagreement scenarios | 3 min |
 | [Quick Reference Cards](#quick-reference-cards) | Interview cheat sheets | 1 min |
 
+</div>
+
 ## Response Frameworks Comparison
+
+<div class="content-box">
 
 | Framework | Structure | Best For | Example Opening |
 |-----------|-----------|----------|-----------------|
+
 | **STAR** | Situation → Task → Action → Result | General behavioral questions | "At Company X, we faced..." |
 | **CAR** | Context → Action → Result | Quick responses | "When our system crashed..." |
 | **SOAR** | Situation → Obstacle → Action → Result | Challenge-focused questions | "Despite budget constraints..." |
 | **PAID** | Problem → Action → Impact → Do differently | Learning/growth questions | "The database failure taught me..." |
+
+</div>
 
 ## Question Type Decision Tree
 
@@ -64,13 +80,20 @@ graph TD
 
 ### Story Inventory Template
 
+<div class="decision-box">
+<h3>Story Inventory Template</h3>
+
 | Story Title | Situation Type | Leadership Principles | Impact Metrics | Talking Time |
 |-------------|----------------|----------------------|----------------|--------------|
 | **Example: Microservices Migration** | Technical Leadership | Ownership, Think Big, Deliver Results | 50% latency reduction, $2M saved | 2-3 min |
 | **Your Story 1** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
 | **Your Story 2** | _Fill in_ | _Select 2-3_ | _Quantify_ | _Target 2 min_ |
 
+</div>
+
 ### Leadership Principles Mapping
+
+<div class="content-box">
 
 | Principle | Key Behaviors | Story Elements | Red Flags to Avoid |
 |-----------|---------------|----------------|-------------------|
@@ -88,6 +111,8 @@ graph TD
 | **Dive Deep** | Technical depth | Root cause analysis, details | Surface-level understanding |
 | **Have Backbone** | Respectful disagreement | Standing for principles | Being disagreeable |
 | **Deliver Results** | Output focus | Business metrics, deadlines | Activity without results |
+
+</div>
 
 ## Technical Challenge Framework
 
@@ -128,6 +153,9 @@ graph LR
 
 ### Technical Story Elements
 
+<div class="decision-box">
+<h3>Story Structure Guidelines</h3>
+
 | Element | Purpose | Example Details | Time Allocation |
 |---------|---------|-----------------|-----------------|
 | **Context** | Set the scene | Scale, technology stack, team size | 15 seconds |
@@ -137,9 +165,13 @@ graph LR
 | **Impact** | Prove value | Metrics improvement, cost savings | 20 seconds |
 | **Lessons** | Show growth | What you'd do differently | 20 seconds |
 
+</div>
+
 ## Conflict Resolution Patterns
 
 ### Conflict Navigation Matrix
+
+<div class="content-box">
 
 | Conflict Type | Approach | Key Actions | Example Phrase |
 |---------------|----------|-------------|----------------|
@@ -148,6 +180,8 @@ graph LR
 | **Process Conflict** | Collaboration | Find common ground, compromise | "I understand your concerns..." |
 | **Timeline Pressure** | Negotiation | Scope adjustment, phased delivery | "We could deliver X first..." |
 | **Design Philosophy** | Experimentation | A/B test, gradual rollout | "Why don't we pilot this..." |
+
+</div>
 
 ### Conflict Story Flow
 
@@ -176,13 +210,18 @@ stateDiagram-v2
 
 ### Pre-Interview Checklist
 
-| ✓ | Task | Details |
+<div class="decision-box">
+<h3>Pre-Interview Checklist</h3>
+
+| | Task | Details |
 |---|------|---------|
-| ☐ | **10 Stories Prepared** | 2 leadership, 2 failure, 2 conflict, 2 innovation, 2 technical |
-| ☐ | **STAR Format Practice** | Each story under 2 minutes |
-| ☐ | **Metrics Memorized** | Specific numbers for each story |
-| ☐ | **Questions Ready** | 5 thoughtful questions about role/team |
-| ☐ | **Company Research** | Recent news, products, engineering blog |
+| | **10 Stories Prepared** | 2 leadership, 2 failure, 2 conflict, 2 innovation, 2 technical |
+| | **STAR Format Practice** | Each story under 2 minutes |
+| | **Metrics Memorized** | Specific numbers for each story |
+| | **Questions Ready** | 5 thoughtful questions about role/team |
+| | **Company Research** | Recent news, products, engineering blog |
+
+</div>
 
 ### Story Selection Matrix
 
@@ -214,6 +253,8 @@ graph TD
 
 ### Time Management Guide
 
+<div class="content-box">
+
 | Story Part | Time Budget | Warning Signs | Recovery Strategy |
 |------------|-------------|---------------|-------------------|
 | **Context** | 15-20 sec | Too much background | Jump to problem |
@@ -222,15 +263,22 @@ graph TD
 | **Results** | 20-30 sec | No metrics | Estimate impact |
 | **Total** | 2-3 min | Over 3 minutes | Wrap up immediately |
 
+</div>
+
 ### Answer Quality Indicators
 
-| ✅ Strong Answer | ❌ Weak Answer |
+<div class="decision-box">
+<h3>Answer Quality Indicators</h3>
+
+| Strong Answer | Weak Answer |
 |------------------|----------------|
 | Specific metrics (50% improvement) | Vague outcomes ("it was better") |
 | Personal actions ("I designed...") | Team actions only ("we did...") |
 | Business impact ($2M saved) | Only technical details |
 | Learned & applied lessons | No growth shown |
 | Multiple stakeholders mentioned | Solo hero story |
+
+</div>
 
 ## Common Behavioral Questions Map
 
@@ -268,6 +316,8 @@ mindmap
 
 ### Response Strategy by Question Type
 
+<div class="content-box">
+
 | Question Pattern | Strategy | Example Opening | Key Elements |
 |------------------|----------|-----------------|--------------|
 | "Tell me about a time..." | STAR method | "Last year at [Company]..." | Specific situation |
@@ -276,9 +326,14 @@ mindmap
 | "Describe a situation..." | Context-heavy STAR | "To understand the challenge..." | Rich context |
 | "Give an example..." | Quick CAR | "When we faced X, I did Y..." | Direct and brief |
 
+</div>
+
 ## Distributed Systems Behavioral Scenarios
 
 ### System-Specific Story Templates
+
+<div class="decision-box">
+<h3>Distributed Systems Scenarios</h3>
 
 | Scenario | Technical Elements | Business Context | Metrics to Include |
 |----------|-------------------|------------------|-------------------|
@@ -288,15 +343,22 @@ mindmap
 | **Security Incident** | Encryption, access control, audit | Compliance, trust, risk | Time to detect/resolve |
 | **Data Consistency** | CAP theorem, consensus, sync | Business rules, accuracy needs | Lag, conflicts, correctness |
 
+</div>
+
 ### Anti-Pattern Avoidance Guide
 
-| ❌ Avoid | ✅ Instead Use | Why It Matters |
+<div class="failure-vignette">
+<h3>Common Mistakes to Avoid</h3>
+
+| Avoid | Instead Use | Why It Matters |
 |----------|----------------|----------------|
 | Blaming others | "The challenge was..." | Shows professionalism |
 | Technical jargon only | Business impact + technical | Demonstrates perspective |
 | Perfect hero story | Include struggles/learning | Shows authenticity |
 | Theoretical answers | Specific examples | Proves experience |
 | Long rambling stories | Structured 2-min stories | Respects time |
+
+</div>
 
 ## Link to Cognitive Load Principles
 

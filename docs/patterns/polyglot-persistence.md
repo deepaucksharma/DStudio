@@ -229,31 +229,31 @@ Where N = number of different databases
 - ACID transactions critical
 - Complex queries with joins
 - Well-defined schema
-- ❌ Avoid: Massive scale, flexible schema
+- Avoid: Massive scale, flexible schema
 
 **DOCUMENT (MongoDB, DynamoDB)** ✅
 - Flexible, evolving schema
 - Nested data structures
 - Horizontal scaling needed
-- ❌ Avoid: Complex relationships, ACID
+- Avoid: Complex relationships, ACID
 
 **KEY-VALUE (Redis, Memcached)** ✅
 - Simple lookups by key
 - Caching layer
 - Session storage
-- ❌ Avoid: Complex queries, relationships
+- Avoid: Complex queries, relationships
 
 **GRAPH (Neo4j, Neptune)** ✅
 - Relationship-heavy data
 - Social networks
 - Recommendation engines
-- ❌ Avoid: Simple CRUD, bulk analytics
+- Avoid: Simple CRUD, bulk analytics
 
 **COLUMN-FAMILY (Cassandra, HBase)** ✅
 - Time-series data
 - Write-heavy workloads
 - Multi-datacenter
-- ❌ Avoid: ACID needs, complex queries
+- Avoid: ACID needs, complex queries
 
 </div>
 

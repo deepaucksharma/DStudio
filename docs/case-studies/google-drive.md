@@ -829,9 +829,9 @@ Web Browser → Web Server → File System → Database
 - No versioning support
 
 **Patterns Violated**: 
-- ❌ No Deduplication (Coming Soon)
-- ❌ No Delta Sync (Coming Soon)
-- ❌ No [Distributed Storage](/patterns/distributed-storage)
+- No Deduplication (Coming Soon)
+- No Delta Sync (Coming Soon)
+- No [Distributed Storage](/patterns/distributed-storage)
 
 ### Phase 2: Basic Sync Architecture (2008-2010)
 
